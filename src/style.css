@@ -45,10 +45,10 @@ body{
 .Item{
     display: flex;
     justify-content: flex-start;
+    transition: background-color 1s;
 }
 .Item_selected{
     background: #75aaf1;
-    transition: background-color 1s;
 }
 
 

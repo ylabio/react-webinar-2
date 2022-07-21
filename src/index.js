@@ -1,6 +1,8 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import App from './app.js';
-import {counter, render} from './utils.js';
 import Store from "./store.js";
+import {counter} from './utils.js';
 
 const store = new Store({
   items: [
@@ -16,8 +18,8 @@ const store = new Store({
 
 // Реакция на изменение store - повторный рендер приложения
 store.subscribe(() => {
-  render(document.body, App({store}))
+  ReactDOM.render(<App store={store}/>, document.body);
 });
 
 // Первый рендер (один раз)
-render(document.body, App({store}));
+ReactDOM.render(<App store={store}/>, document.body);

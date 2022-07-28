@@ -62,14 +62,16 @@ class Store {
   }
 
   /**
-   * Выделение записи по её коду
-   * @param code
+   * Выделение/отмена выделения записи по её коду
+   * @param code код записи
    */
   selectItem(code) {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
-        if (item.code === code){
+        if (item.code === code) {
+          item.selected = !item.selected;
+        } else if (item.selected) {
           item.selected = !item.selected;
         }
         return item;

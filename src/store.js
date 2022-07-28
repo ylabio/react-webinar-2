@@ -62,7 +62,7 @@ class Store {
   }
 
   /**
-   * Выделение записи по её коду
+   * Выделение записи по её коду с одновременным сбросом выделения других записей
    * @param code
    */
   selectItem(code) {
@@ -71,6 +71,8 @@ class Store {
       items: this.state.items.map(item => {
         if (item.code === code){
           item.selected = !item.selected;
+        } else {
+          item.selected = false;
         }
         return item;
       })

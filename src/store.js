@@ -79,11 +79,6 @@ class Store {
         } else {
           item.selected = '';
         }
-
-        // if (item.code === code) {
-        //   item.selected = !item.selected;
-        //   item.counter++;
-        // }
         return item;
       })
     });

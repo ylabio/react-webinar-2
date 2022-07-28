@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, decl} from './utils.js';
 import './style.css';
 
 /**
@@ -29,10 +29,18 @@ function App({store}) {
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title}</div>
+              {item.selectionCounter ? 
+                <div className='Item__counter'>
+                   | Выделялся {item.selectionCounter} {decl(item.selectionCounter, ["раз", "раза", "раз"])}
+                </div> 
+              : 
+                null
+              }
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
-                  Удалить
-                </button>
+                <button onClick={(e) => {
+                  e.stopPropagation(); // Запрещаем всплытие, чтобы при удалении элемента не срабатывал SelectItem
+                  store.deleteItem(item.code)
+                }}> Удалить </button>
               </div>
             </div>
           </div>

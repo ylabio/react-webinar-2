@@ -43,10 +43,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+  createItem({code, title = 'Новая запись', selected = false, selectionCounter = 0}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({code, title, selected, selectionCounter})
     });
   }
 
@@ -70,7 +70,13 @@ class Store {
       ...this.state,
       items: this.state.items.map(item => {
         if (item.code === code){
+          // увеличиваем счетчик если нажимаем на еще не выделенный элемент
+          !item.selected && item.selectionCounter++;
+          // выделяем или снимаем выделение элемента
           item.selected = !item.selected;
+        } else {
+          // снимаем выделение у остальных элементов
+          item.selected = false;
         }
         return item;
       })

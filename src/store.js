@@ -66,15 +66,36 @@ class Store {
    * @param code
    */
   selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          item.selected = !item.selected;
-        }
-        return item;
+    const selectedItems = this.state.items.filter((item) => item.selected)
+    console.log('Items:::', this.state.items);
+
+    if (selectedItems.length != 0) { // Элемент списка выбран
+      this.setState({
+        ...this.state,
+        items: this.state.items.map(item => {
+          if (selectedItems.includes(item) || item.code === code) {
+            item.selected = !item.selected
+            // Если selectedCount нет, то инициализируем
+            // Если есть, то проверяем выбирается ли он и увеличиваем счётчик 
+            item.selectedCount = item.selectedCount == null ? 1 : (!item.selected ? item.selectedCount : ++item.selectedCount) 
+          }
+          return item
+        })
       })
-    });
+    }
+     else {
+      this.setState({
+        ...this.state,
+        items: this.state.items.map(item => {
+          if (item.code === code){
+            console.log('Selected:::', !item.selected);
+            item.selected = !item.selected;
+            item.selectedCount = item.selectedCount == null ? 1 : ++item.selectedCount
+          }
+          return item;
+        })
+      });
+    }
   }
 }
 

@@ -52,8 +52,8 @@ body{
 }
 
 
-.Item__title{
-    width: 100%;
+.Item__title, .Item__selectionCounter{
+    width: 50%;
     padding: 20px 10px;
 }
 .Item__actions{

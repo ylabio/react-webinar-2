@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, setTextWithEnding} from './utils.js';
 import './style.css';
 
 /**
@@ -28,8 +28,19 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
-              <div className='Item__actions'>
+                <div className="Item__title title">
+                    <span className="title__text">{item.title}</span>
+                    <span className="title__numbers-click">
+                    {item.numbersClick
+                        ? ` | Выделялся ${item.numbersClick} ${setTextWithEnding(
+                            item.numbersClick,
+                            "раз",
+                            "раза",
+                            "раз"
+                        )} `
+                        : ""}
+                  </span>
+                </div>              <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить
                 </button>

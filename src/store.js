@@ -1,3 +1,5 @@
+import { countClicks } from "./utils";
+
 class Store {
 
   constructor(initState) {
@@ -62,18 +64,23 @@ class Store {
   }
 
   /**
-   * Выделение записи по её коду
-   * @param code
+   * Если элемент выбран, увеличивает количество кликов для этого элемента и выделяет элемент.
+   * @param code - Код элемента, на который нажали.
    */
   selectItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          item.selected = !item.selected;
+      items: this.state.items.map((item) => {
+        if (item.code === code) {
+          if (!item.selected) {
+            item.selected = true;
+            countClicks(item);
+          }
+          return item;
         }
-        return item;
-      })
+        const { selected, ...newItem } = item;
+        return newItem;
+      }),
     });
   }
 }

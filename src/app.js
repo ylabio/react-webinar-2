@@ -17,29 +17,33 @@ function App({store}) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className='Controls'>
-        <button onClick={() => {
-          const code = counter();
-          store.createItem({code, title: `Новая запись ${code}`})
-        }}> Добавить </button>
+        <button
+          onClick={() => {
+            const code = counter();
+            store.createItem({code, title: `Новая запись ${code}`});
+          }}>
+          {' '}
+          Добавить{' '}
+        </button>
       </div>
       <div className='App__center'>
-        <div className='List'>{items.map(item =>
-          <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
-              <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
-              {item.selectCount !== 0 && (
-                <div className='Item__title'>{`Выделялось ${item.selectCount} раз`}</div>
-              )}
+        <div className='List'>
+          {items.map((item) => (
+            <div key={item.code} className='List__item'>
+              <div
+                className={'Item' + (item.selected ? ' Item_selected' : '')}
+                onClick={() => store.selectItem(item.code)}>
+                <div className='Item__number'>{item.code}</div>
+                <div className='Item__title'>{item.title}</div>
+                {item.selectCount !== 0 && (
+                  <div className='Item__title'>{`Выделялось ${item.selectCount} раз`}</div>
+                )}
                 <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
-                  Удалить
-                </button>
+                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          ))}
         </div>
       </div>
     </div>

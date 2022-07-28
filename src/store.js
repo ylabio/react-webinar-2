@@ -70,7 +70,17 @@ class Store {
       ...this.state,
       items: this.state.items.map(item => {
         if (item.code === code){
+          let str;
+          item.click ? ++item.click : item.click = 1;
+          if (item.click % 10 > 1 && item.click % 10 < 5 && (item.click < 10 || item.click > 20)) {
+            str = 'раза'
+          } else {
+            str = 'раз'
+          }
+          item.message = item.click ? ` | Выделялось ${item.click} ${str}` : ''
           item.selected = !item.selected;
+        } else {
+          item.selected = false;
         }
         return item;
       })

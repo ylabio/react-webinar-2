@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {counter} from './utils.js';
 import './style.css';
 
@@ -26,7 +26,10 @@ function App({store}) {
         <div className='List'>{items.map(item =>
           <div key={item.code} className='List__item'>
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
+                 onClick={(e) => {
+                     store.selectItem(item.code)
+                     e.target.innerText = `${item.title}${item.message}`
+                 }}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title}</div>
               <div className='Item__actions'>

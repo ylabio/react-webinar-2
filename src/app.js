@@ -8,7 +8,7 @@ function AddBtn() {
   const handleClick = () => {
     dispatch({
       type: ADD_NEW_ITEM,
-      payload: `Новая запись ${state.counter}`
+      payload: `Новая запись ${state.counter + 1}`
     })
   }
   return (

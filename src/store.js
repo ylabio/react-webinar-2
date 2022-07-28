@@ -69,8 +69,12 @@ class Store {
       ...this.state,
       items: this.state.items.map((item) => {
         if (item.code === id) {
-          item.count++;
-          item.selected = true;
+          if (item.selected == true) {
+            item.selected = false;
+          } else {
+            item.selected = true;
+            item.count++;
+          }
         } else {
           item.selected = false;
         }
@@ -78,7 +82,6 @@ class Store {
       }),
     });
   }
-
 }
 
 export default Store;

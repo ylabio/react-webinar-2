@@ -23,12 +23,13 @@ function App({store}) {
         }}> Добавить </button>
       </div>
       <div className='App__center'>
-        <div className='List'>{items.map(item =>
+        <div className='List'>
+          { items.map(item =>
           <div key={item.code} className='List__item'>
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
+              <div className='Item__title'>{`${item.title} ${item.count > 0 ? ` || Выделялось ${item.count} раз` : ''}`}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

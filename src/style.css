@@ -53,8 +53,10 @@ body{
 
 
 .Item__title{
+    display: flex;
+    flex-direction: row;
     width: 100%;
-    padding: 20px 10px;
+    padding: 20px 10px 10px;
 }
 .Item__actions{
     padding: 20px  20px 20px 10px;
@@ -63,6 +65,10 @@ body{
 }
 .Item__number{
     padding: 20px 10px 20px 20px;
+}
+
+.Item__value{
+    padding-left: 4px;
 }
 
 

@@ -82,19 +82,6 @@ class Store {
       })
     });
   }
-    /**
-   * Обнуление записей при клике
-   *
-   */
-     resetItem() {
-      this.setState({
-        ...this.state,
-        items: this.state.items.map(item => {
-            item.selected = false;         
-            return item;
-        })
-      });
-    }
 }
 
 export default Store;

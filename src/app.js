@@ -1,45 +1,78 @@
-import React from 'react';
-import {counter} from './utils.js';
+import React, { useContext } from 'react';
 import './style.css';
+import Store, { Ctx } from './store.js';
+import { ADD_NEW_ITEM, CHANGE_ITEM, DELETE_ITEM } from './constants.js';
 
-/**
- * Приложение
- * @param store {Store} Состояние приложения
- * @return {React.ReactElement} Виртуальные элементы React
- */
-function App({store}) {
-  // Выбор состояния из store
-  const {items} = store.getState();
+function AddBtn() {
+  const { state, dispatch } = useContext(Ctx)
+  const handleClick = () => {
+    dispatch({
+      type: ADD_NEW_ITEM,
+      payload: `Новая запись ${state.counter}`
+    })
+  }
+  return (
+    <button onClick={handleClick}> 
+      Добавить 
+    </button>
+  )
+}
+
+function ItemList() {
+  const { state, dispatch } = useContext(Ctx)
+  const handleDelete = (code) => () => {
+    dispatch({
+      type: DELETE_ITEM,
+      payload: code
+    })
+  }
+
+  const handleClick = (code) => () => {
+    dispatch({
+      type: CHANGE_ITEM,
+      payload: code
+    })
+  }
 
   return (
-    <div className='App'>
-      <div className='App__head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='Controls'>
-        <button onClick={() => {
-          const code = counter();
-          store.createItem({code, title: `Новая запись ${code}`})
-        }}> Добавить </button>
-      </div>
-      <div className='App__center'>
-        <div className='List'>{items.map(item =>
-          <div key={item.code} className='List__item'>
+    <div className='List'>
+      {
+        state.items.map(item => 
+          <div key={item.code} className="List__item">
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
-              <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
-              <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
-                  Удалить
-                </button>
+                  onClick={handleClick(item.code)}>
+                <div className='Item__number'>{item.code}</div>
+                <div className='Item__title'>{`${item.title}${item.counted > 0 ? ` | Выделялся ${item.counted} раз` : ""}`}</div>
+                <div className='Item__actions'>
+                  <button onClick={handleDelete(item.code)}>
+                    Удалить
+                  </button>
+                </div>
               </div>
-            </div>
           </div>
-        )}
+        )
+      }
+    </div>
+  )
+}
+
+function App() {
+  // Выбор состояния из store
+
+  return (
+    <Store>
+      <div className='App'>
+        <div className='App__head'>
+          <h1>Приложение на чистом JS</h1>
+        </div>
+        <div className='Controls'>
+          <AddBtn />
+        </div>
+        <div className='App__center'>
+          <ItemList />
         </div>
       </div>
-    </div>
+    </Store>
   );
 }
 

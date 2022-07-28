@@ -1,81 +1,61 @@
-class Store {
+import React, { createContext, useReducer } from 'react';
+import * as ItemActions from "./constants"
 
-  constructor(initState) {
-    // Состояние приложения (данные)
-    this.state = initState;
-    // Слушатели изменений state
-    this.listners = [];
-  }
+const startArray = ['Название элемента', 'Некий объект','Заголовок', 'Короткое название', 'Запись', 'Пример выделенной записи', 'Седьмой']
 
-  /**
-   * Выбор state
-   * @return {Object}
-   */
-  getState() {
-    return this.state;
-  }
-
-  /**
-   * Установка state
-   * @param newState {Object}
-   */
-  setState(newState) {
-    this.state = newState;
-    // Оповещаем всех подписчиков об изменении стейта
-    for (const lister of this.listners) {
-      lister();
+const initialState = {
+  items: startArray.map((el, idx) => {
+    return {
+      code: idx + 1,
+      title: el,
+      counted: 0
     }
-  }
+  }),
+  counter: startArray.length + 1
+}
 
-  /**
-   * Подписка на изменение state
-   * @param callback {Function}
-   * @return {Function} Функция для отписки
-   */
-  subscribe(callback) {
-    this.listners.push(callback);
-    // Возвращаем функцию для удаления слушателя
-    return () => {
-      this.listners = this.listners.filter(item => item !== callback);
-    }
-  }
+export const Ctx = createContext(initialState)
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новая запись', selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, selected})
-    });
-  }
+const reducer = (state, action) => {
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
+  const {type, payload} = action
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          item.selected = !item.selected;
-        }
-        return item;
-      })
-    });
+  switch (type) {
+    case ItemActions.ADD_NEW_ITEM:
+      return {
+        ...state, 
+        counter: state.counter + 1,
+        items: [...state.items, { code: state.counter + 1, title: payload, counted: 0}]
+      }
+    case ItemActions.DELETE_ITEM:
+      return {
+        ...state,
+        items: state.items.filter(el => el.code !== payload)
+      }
+    case ItemActions.CHANGE_ITEM:
+      return {
+        ...state,
+        items: state.items.map(el => {
+          return {
+            code: el.code,
+            title: el.title, 
+            selected: el.code === payload,
+            counted: el.code === payload ? el.counted + 1 : el.counted
+          }
+        })
+      }
+    default:
+      return state
   }
+}
+
+const Store = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, initialState)
+  return (
+    <Ctx.Provider value={{state, dispatch}}>
+      { children }
+    </Ctx.Provider>
+  )
 }
 
 export default Store;

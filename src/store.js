@@ -71,7 +71,10 @@ class Store {
       items: this.state.items.map(item => {
         if (item.code === code){
           item.selected = !item.selected;
-        }
+          if (item.selected)
+            item.count? ++item.count: item.count = 1;  // если выделилось, то +1 к счетчику выделений
+        } else
+          item.selected = false; // убираем выделение для всех прочих элементов
         return item;
       })
     });

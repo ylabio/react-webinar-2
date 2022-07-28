@@ -8,8 +8,8 @@ import './style.css';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  // Выбор состояния из store
-  const {items} = store.getState();
+	// Выбор состояния из store
+	const {items, selectedItemCode} = store.getState();
 
   return (
     <div className='App'>
@@ -25,10 +25,11 @@ function App({store}) {
       <div className='App__center'>
         <div className='List'>{items.map(item =>
           <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
+            <div className={'Item' + (item.code === selectedItemCode ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title}</div>
+              <div>{item.count ? "Было выделено:" : null} {item.count}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

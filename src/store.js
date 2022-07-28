@@ -1,3 +1,5 @@
+// импортирую уже готовый счетчик для подсчета "выделений".
+import { counterSelected } from './utils';
 class Store {
 
   constructor(initState) {
@@ -43,10 +45,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+  createItem({ code, title = 'Новая запись', selected = false }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({ code, title, selected })
     });
   }
 
@@ -69,9 +71,17 @@ class Store {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
-        if (item.code === code){
+
+        if (item.code === code) {
           item.selected = !item.selected;
+          // добавления объекту поля numSelected для подсчета "выделений" + небольшое улучшение для точности
+          item.numSelected = item.selected ? counterSelected(item.numSelected) : item.numSelected;
         }
+        // дополняем конструкцию управления if конструкцией else для добавления объекту поля selected: false
+        else {
+          item.selected = false;
+        }
+
         return item;
       })
     });

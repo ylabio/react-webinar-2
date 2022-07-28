@@ -43,10 +43,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+   createItem({code, title = 'Новая запись', title_store = title, count = 0, selected = false}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({code, title, title_store, count, selected})
     });
   }
 
@@ -65,17 +65,36 @@ class Store {
    * Выделение записи по её коду
    * @param code
    */
-  selectItem(code) {
+   selectItem(code) {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
-        if (item.code === code){
-          item.selected = !item.selected;
+        if (item.code === code) {
+          item.selected = !item.selected; 
+          if (item.selected){
+            item.count = item.count + 1;
+            item.title = item.title_store + ' | Выделялся '+ item.count + ' раз';            
+          };   
+        } else {
+          item.selected = false;
         }
         return item;
       })
     });
   }
+    /**
+   * Обнуление записей при клике
+   *
+   */
+     resetItem() {
+      this.setState({
+        ...this.state,
+        items: this.state.items.map(item => {
+            item.selected = false;         
+            return item;
+        })
+      });
+    }
 }
 
 export default Store;

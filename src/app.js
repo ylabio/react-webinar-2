@@ -1,13 +1,16 @@
 import React, { useContext } from 'react';
 import './style.css';
 import Store, { Ctx } from './store.js';
-import { ADD_NEW_ITEM, CHANGE_ITEM, DELETE_ITEM } from './constants.js';
+import { ItemActions } from './constants.js';
 
+/**
+ * Кнопка добавления
+ */
 function AddBtn() {
   const { state, dispatch } = useContext(Ctx)
   const handleClick = () => {
     dispatch({
-      type: ADD_NEW_ITEM,
+      type: ItemActions.ADD_NEW_ITEM,
       payload: `Новая запись ${state.counter + 1}`
     })
   }
@@ -18,37 +21,18 @@ function AddBtn() {
   )
 }
 
+/**
+ * Список записей
+ */
 function ItemList() {
-  const { state, dispatch } = useContext(Ctx)
-  const handleDelete = (code) => () => {
-    dispatch({
-      type: DELETE_ITEM,
-      payload: code
-    })
-  }
-
-  const handleClick = (code) => () => {
-    dispatch({
-      type: CHANGE_ITEM,
-      payload: code
-    })
-  }
+  const { state } = useContext(Ctx)
 
   return (
     <div className='List'>
       {
         state.items.map(item => 
           <div key={item.code} className="List__item">
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                  onClick={handleClick(item.code)}>
-                <div className='Item__number'>{item.code}</div>
-                <div className='Item__title'>{`${item.title}${item.counted > 0 ? ` | Выделялся ${item.counted} раз` : ""}`}</div>
-                <div className='Item__actions'>
-                  <button onClick={handleDelete(item.code)}>
-                    Удалить
-                  </button>
-                </div>
-              </div>
+            <Item item={item} /> 
           </div>
         )
       }
@@ -56,10 +40,55 @@ function ItemList() {
   )
 }
 
-function App() {
-  // Выбор состояния из store
+/**
+ * Супер-крутая запись
+ * @param item Наша запись вида, который подсвечивает IDEшка 
+ */
+function Item({item: {
+  code,
+  title,
+  selected,
+  counted
+}}) {
+  const { dispatch } = useContext(Ctx)
+
+  const handleDelete = (code) => () => {
+    dispatch({
+      type: ItemActions.DELETE_ITEM,
+      payload: code
+    })
+  }
+
+  const handleClick = (code) => () => {
+    dispatch({
+      type: ItemActions.CHANGE_ITEM,
+      payload: code
+    })
+  }
 
   return (
+    <div 
+      className={'Item' + (selected ? ' Item_selected' : '')}
+      onClick={handleClick(code)}
+    >
+      <div className='Item__number'>{ code }</div>
+      <div className='Item__title'>{ `${title}${counted > 0 ? ` | Выделялся ${counted} раз` : ""}` }</div>
+      <div className='Item__actions'>
+        <button onClick={handleDelete(code)}>
+          Удалить
+        </button>
+      </div>
+    </div>
+  )
+}
+
+/**
+ * Наше супер-мега крутое приложение
+ * @returns Смысл жизни
+ */
+function App() {
+  return (
+    // Провайдер контекста, чтобы везде все было хорошо
     <Store>
       <div className='App'>
         <div className='App__head'>

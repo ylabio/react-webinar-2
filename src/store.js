@@ -1,8 +1,10 @@
 import React, { createContext, useReducer } from 'react';
-import * as ItemActions from "./constants"
+import { ItemActions } from "./constants"
 
+// Моковые данные
 const startArray = ['Название элемента', 'Некий объект','Заголовок', 'Короткое название', 'Запись', 'Пример выделенной записи', 'Седьмой']
 
+// Вид стейта
 const initialState = {
   items: startArray.map((el, idx) => {
     return {
@@ -16,8 +18,8 @@ const initialState = {
 
 export const Ctx = createContext(initialState)
 
+// IDE подсвечивает редюсер от этого диспатча как DispatcherWithoutAction :?
 const reducer = (state, action) => {
-
   const {type, payload} = action
 
   switch (type) {
@@ -40,7 +42,7 @@ const reducer = (state, action) => {
             code: el.code,
             title: el.title, 
             selected: el.code === payload,
-            counted: el.code === payload ? el.counted + 1 : el.counted
+            counted: el.code === payload ? el.counted + 1 : el.counted // Я не вспомнил, как написать красивее
           }
         })
       }
@@ -49,6 +51,7 @@ const reducer = (state, action) => {
   }
 }
 
+// Обёртка для приложения, чтобы иметь доступ к стейту из любой точки приложения при помощи хука useContext
 const Store = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   return (

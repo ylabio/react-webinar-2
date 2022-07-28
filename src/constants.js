@@ -1,3 +1,5 @@
-export const ADD_NEW_ITEM = "ADD_NEW";
-export const CHANGE_ITEM = "CHANGE";
-export const DELETE_ITEM = "DELETE_ITEM";
+export class ItemActions {
+  static ADD_NEW_ITEM = "ADD_NEW"; 
+  static CHANGE_ITEM = "CHANGE";
+  static DELETE_ITEM = "DELETE_ITEM";
+}

@@ -73,6 +73,9 @@ class Store {
         } else {
           item.selected = false;
         }
+        if (item.selected) {
+          item.numberOfSelections = item.numberOfSelections ? ++item.numberOfSelections : 1;
+        }
         return item;
       }),
     });

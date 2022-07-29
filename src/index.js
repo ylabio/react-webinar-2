@@ -1,25 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './app.js';
 import Store from "./store.js";
-import {counter} from './utils.js';
+import items from './data.js';
 
-const store = new Store({
-  items: [
-    {code: counter(), title: 'Название элемента'},
-    {code: counter(), title: 'Некий объект'},
-    {code: counter(), title: 'Заголовок'},
-    {code: counter(), title: 'Короткое название'},
-    {code: counter(), title: 'Запись'},
-    {code: counter(), title: 'Пример выделенной записи', selected: true},
-    {code: counter(), title: 'Седьмой'},
-  ]
-});
+const store = new Store({ items });
+
+const root = createRoot(document.getElementById('root'));
 
 // Реакция на изменение store - повторный рендер приложения
-store.subscribe(() => {
-  ReactDOM.render(<App store={store}/>, document.body);
-});
+store.subscribe(() => root.render(<App store={store} />));
 
 // Первый рендер (один раз)
-ReactDOM.render(<App store={store}/>, document.body);
+root.render(<App store={store} />);

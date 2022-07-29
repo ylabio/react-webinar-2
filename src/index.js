@@ -13,7 +13,8 @@ const store = new Store({
     {code: counter(), title: 'Запись'},
     {code: counter(), title: 'Что-то'},
     {code: counter(), title: 'Седьмой'},
-  ]
+  ],
+  lastPicked: null,
 });
 
 const root = ReactDOM.createRoot(document.body);

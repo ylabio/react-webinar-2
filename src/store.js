@@ -81,19 +81,12 @@ class Store {
             ...this.state,
             items: this.state.items.map((item) => {
                 if (item.code === code) {
-                    /*  Задание 2.
-                        Если запись не выделена, то увеличиваем счетчик выделений
-                    */
-                    item.selected ||
-                        (item.clicksCount
-                            ? item.clicksCount++
-                            : (item.clicksCount = 1));
                     item.selected = !item.selected;
+                    //  Задание 2. Если выделили запись, то увеличиваем счетчик выделений
+                    if (item.selected) item.clicksCount++;
                 } else {
-                    // Задание 1.
-                    // Сбрасываем выделения у всех
-                    // записей, кроме выбранной
-                    item.selected && (item.selected = !item.selected);
+                    // Задание 1. Сбрасываем выделения у всех записей, кроме выбранной
+                    item.selected = false;
                 }
                 return item;
             }),

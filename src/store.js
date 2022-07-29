@@ -74,7 +74,7 @@ class Store {
         } else if (item.selected) {
           item.selected = false;
         }
-        if (item.code === code && item.selected) {
+        if (item.code === code && !item.selected) {
           item.count += 1;
         }
 

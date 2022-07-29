@@ -10,6 +10,7 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
+  console.log(store)
 
   return (
     <div className='App'>

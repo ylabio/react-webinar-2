@@ -53,17 +53,20 @@ body{
 
 
 .Item__title{
-    width: 100%;
-    padding: 20px 10px;
+    width: fit-content;
+    padding: 20px 5px 0 10px;
 }
 .Item__actions{
     padding: 20px  20px 20px 10px;
     display: flex;
     justify-content: flex-end;
+    margin-left: auto;
 }
 .Item__number{
     padding: 20px 10px 20px 20px;
 }
-
+.Item__selectionCounter{
+    padding: 20px 0;
+}
 
 

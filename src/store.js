@@ -43,10 +43,10 @@ class Store {
   /**
    * Создание записи
    */
-   createItem({code, title = 'Новая запись', title_store = title, count = 0, selected = false}) {
+   createItem({code, title = 'Новая запись', count = null, selected = false}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, title_store, count, selected})
+      items: this.state.items.concat({code, title, count, selected})
     });
   }
 
@@ -72,8 +72,7 @@ class Store {
         if (item.code === code) {
           item.selected = !item.selected; 
           if (item.selected){
-            item.count = item.count + 1;
-            item.title = item.title_store + ' | Выделялся '+ item.count + ' раз';            
+            item.count = item.count + 1;           
           };   
         } else {
           item.selected = false;

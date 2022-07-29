@@ -23,9 +23,7 @@ function App({ store }) {
         }}> Добавить </button>
       </div>
       <div className='App__center'>
-
         <div className='List'>{items.map(item =>
-
           <div key={item.code} className='List__item'>
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
               onClick={() => store.selectItem(item.code)}>

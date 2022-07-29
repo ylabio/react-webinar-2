@@ -1,6 +1,7 @@
 import React from 'react';
 import {counter} from './utils.js';
 import './style.css';
+import plural from 'plural-ru'
 
 /**
  * Приложение
@@ -30,7 +31,7 @@ function App({store}) {
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>
                 {item.title}
-                {!item.selectedCounter || ` | Выделялось ${item.selectedCounter} раз(а)`
+                {!item.selectedCounter || ` | Выделялось ${plural(item.selectedCounter,'%d раз', '%d раза', '%d раз')}`
                 }
               </div>
               <div className='Item__actions'>

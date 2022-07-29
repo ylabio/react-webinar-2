@@ -45,10 +45,12 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({ code, title = 'Новая запись', selected = false }) {
+
+  // Добавил новый параметр numSelected по умолчанию значение 0
+  createItem({ code, title = 'Новая запись', selected = false, numSelected = 0 }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({ code, title, selected })
+      items: this.state.items.concat({ code, title, selected, numSelected })
     });
   }
 
@@ -75,7 +77,7 @@ class Store {
         if (item.code === code) {
           item.selected = !item.selected;
           // добавления объекту поля numSelected для подсчета "выделений" + небольшое улучшение для точности
-          item.numSelected = item.selected ? counterSelected(item.numSelected) : item.numSelected;
+          item.numSelected = item.selected ? ++item.numSelected : item.numSelected;
         }
         // дополняем конструкцию управления if конструкцией else для добавления объекту поля selected: false
         else {
@@ -86,6 +88,7 @@ class Store {
       })
     });
   }
+
 }
 
 export default Store;

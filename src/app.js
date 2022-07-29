@@ -38,8 +38,8 @@ function App({store}) {
                     <span>
                       {' '}
                       | Выделялся&nbsp;{item.wasChoosen}&nbsp;
-                      {regex1.test(item.wasChoosen.toString()) &&
-                      !regex2.test(item.wasChoosen.toString())
+                      {regex1.test(item.wasChoosen) &&
+                      !regex2.test(item.wasChoosen)
                         ? "раза"
                         : "раз"}
                     </span>

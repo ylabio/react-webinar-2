@@ -8,7 +8,6 @@ import './style.css';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({ store }) {
-  // Выбор состояния из store
   const { items } = store.getState();
 
   return (

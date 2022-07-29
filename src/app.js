@@ -31,9 +31,9 @@ function App({store}) {
               <div className='Item__title'>{item.title}</div>
               <div className="Item__selectionCounter">
                 {item.selectionCounter ? (
-                  (item.selectionCounter % 10 === 2 && item.selectionCounter !== 12) ||
-                  (item.selectionCounter % 10 === 3 && item.selectionCounter !== 13) ||
-                  (item.selectionCounter % 10 === 4 && item.selectionCounter !== 14)
+                  (item.selectionCounter % 10 === 2 && item.selectionCounter % 100 !== 12) ||
+                  (item.selectionCounter % 10 === 3 && item.selectionCounter % 100 !== 13) ||
+                  (item.selectionCounter % 10 === 4 && item.selectionCounter % 100 !== 14)
                     ? `| Выделялось ${item.selectionCounter} раза`
                     : `| Выделялось ${item.selectionCounter} раз`
                 ) : ''

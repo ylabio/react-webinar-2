@@ -34,7 +34,6 @@ function App({store}) {
                 className={"Item" + (item.selected ? " Item_selected" : "")}
                 onClick={() => {
                   store.selectItem(item.code);
-                  store.countItem(item.code);
                 }}
               >
                 <div className="Item__number">{item.code}</div>

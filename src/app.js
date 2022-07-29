@@ -2,6 +2,7 @@ import React from 'react';
 import {counter} from './utils.js';
 import './style.css';
 
+
 /**
  * Приложение
  * @param store {Store} Состояние приложения
@@ -30,8 +31,9 @@ function App({store}) {
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>
                   {item.title}
+                  {item.selected ? ` | Выделялось ${item.count} раз`:null}
               </div>
-                {item.selected ?<div>Выделялось {item.count} раз</div>:""}
+
                 <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

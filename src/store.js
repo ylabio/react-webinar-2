@@ -69,21 +69,26 @@ class Store {
    * Выделение записи по её коду
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map((item) => {
-        if (item.code === code) {
-          item.selected = !item.selected;
-          if (item.selected) {
-            item.clickCount += 1;
+  selectItem(code, e) {
+    const button = "Удалить";
+    if (e.target.innerText === button) {
+      return null;
+    } else {
+      this.setState({
+        ...this.state,
+        items: this.state.items.map((item) => {
+          if (item.code === code) {
+            item.selected = !item.selected;
+            if (item.selected) {
+              item.clickCount += 1;
+            }
+          } else {
+            item.selected = false;
           }
-        } else {
-          item.selected = false;
-        }
-        return item;
-      }),
-    });
+          return item;
+        }),
+      });
+    }
   }
 }
 

@@ -33,7 +33,7 @@ function App({ store }) {
             <div key={item.code} className="List__item">
               <div
                 className={"Item" + (item.selected ? " Item_selected" : "")}
-                onClick={() => store.selectItem(item.code)}
+                onClick={(e) => store.selectItem(item.code, e)}
               >
                 <div className="Item__number">{item.code}</div>
                 <div className="Item__title">

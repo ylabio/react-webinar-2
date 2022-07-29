@@ -79,7 +79,7 @@ class Store {
     });
   }
 
-  // Прибаыление счетчика выделений 
+  // Прибавление счетчика выделений 
 
   incremetSelectCounter(code) {
     this.setState({

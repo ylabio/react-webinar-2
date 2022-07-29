@@ -44,13 +44,13 @@ class Store {
    */
   createItem({
     code,
-    title = "Новая запись",
+    title = 'Новая запись',
     selected = false,
     selectCount = 0,
   }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({ code, title, selected, selectCount }),
+      items: this.state.items.concat({code, title, selected, selectCount}),
     });
   }
 

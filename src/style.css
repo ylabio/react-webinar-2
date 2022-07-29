@@ -54,13 +54,7 @@ body {
   width: 100%;
   padding: 20px 10px;
 }
-.Item__selectCounter {
-  width: 100%;
-  align-self: center;
-  align-content: flex-end;
-  text-align: end;
-  margin-right: 1em;
-}
+
 .Item__actions {
   padding: 20px 20px 20px 10px;
   display: flex;

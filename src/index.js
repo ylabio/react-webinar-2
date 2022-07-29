@@ -11,7 +11,7 @@ const store = new Store({
     {code: counter(), title: 'Заголовок'},
     {code: counter(), title: 'Короткое название'},
     {code: counter(), title: 'Запись'},
-    {code: counter(), title: 'Пример выделенной записи', selected: true},
+    {code: counter(), title: 'Пример выделенной записи', selected: {active: true, count: 0}},  //тз: "По умолчанию у всех ноль." поэтому здесь тоже count === 0
     {code: counter(), title: 'Седьмой'},
   ]
 });

@@ -11,6 +11,14 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+  const getTitle = (item) => {
+    if (item.selected && item.selected.count && item.selected.count > 0) {
+      return `${item.title} | ${item.selected.count}`
+    };
+
+    return item.title;
+  };
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -24,11 +32,11 @@ function App({store}) {
       </div>
       <div className='App__center'>
         <div className='List'>{items.map(item =>
-          <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
+            <div key={item.code} className='List__item'>
+            <div className={'Item' + (item.selected?.active ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
+              <div className='Item__title'>{getTitle(item)}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

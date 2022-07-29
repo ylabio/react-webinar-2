@@ -43,10 +43,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+  createItem({code, title = 'Новая запись', selected = false, selectionCount = 0}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({code, title, selected, selectionCount})
     });
   }
 
@@ -65,16 +65,17 @@ class Store {
    * Выделение записи по её коду
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          item.selected = !item.selected;
-        }
-        return item;
-      })
-    });
+  selectItem(code, evt) {
+    if (!evt.target.classList.contains('Item__deletion')) {
+      this.setState({
+        ...this.state,
+        items: this.state.items.map(item => {
+          item.selected = item.code === code ? !item.selected : false;
+          if (item.code === code && item.selected) item.selectionCount += 1;
+          return item;
+        })
+      });
+    }
   }
 }
 

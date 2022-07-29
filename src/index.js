@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './app.js';
+import App from './views/app.js';
 import Store from "./store.js";
-import {counter} from './utils.js';
+import {counter} from './utils';
 
 const store = new Store({
   items: [

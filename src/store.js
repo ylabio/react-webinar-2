@@ -67,35 +67,22 @@ class Store {
    */
   selectItem(code) {
     const selectedItems = this.state.items.filter((item) => item.selected)
-    console.log('Items:::', this.state.items);
-
-    if (selectedItems.length != 0) { // Элемент списка выбран
-      this.setState({
-        ...this.state,
-        items: this.state.items.map(item => {
-          if (selectedItems.includes(item) || item.code === code) {
-            item.selected = !item.selected
-            // Если selectedCount нет, то инициализируем
-            // Если есть, то проверяем выбирается ли он и увеличиваем счётчик 
-            item.selectedCount = item.selectedCount == null ? 1 : (!item.selected ? item.selectedCount : ++item.selectedCount) 
-          }
-          return item
-        })
+    this.setState({
+      ...this.state,
+      items: this.state.items.map(item => {
+        const ItemSelected = selectedItems.length != 0 && (selectedItems.includes(item) || item.code === code)
+        const ItemNotSelected = item.code === code && selectedItems.length == 0
+        if (ItemSelected) {
+          item.selected = !item.selected
+          item.selectedCount = item.selectedCount == null ? 1 : (!item.selected ? item.selectedCount : item.selectedCount + 1)
+        } 
+        if (ItemNotSelected) {
+          item.selected = !item.selected
+          item.selectedCount = item.selectedCount == null ? 1 : item.selectedCount + 1
+        }
+        return item
       })
-    }
-     else {
-      this.setState({
-        ...this.state,
-        items: this.state.items.map(item => {
-          if (item.code === code){
-            console.log('Selected:::', !item.selected);
-            item.selected = !item.selected;
-            item.selectedCount = item.selectedCount == null ? 1 : ++item.selectedCount
-          }
-          return item;
-        })
-      });
-    }
+    })
   }
 }
 

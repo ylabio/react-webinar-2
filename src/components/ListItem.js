@@ -1,6 +1,17 @@
 import React from 'react';
+import plural from 'plural-ru';
 
 function ListItem({item, store}) {
+  let numberOfSelectionsPlurar;
+  if (item.numberOfSelections) {
+    numberOfSelectionsPlurar = plural(
+      item.numberOfSelections,
+      'раз',
+      'раза',
+      'раз'
+    );
+  }
+
   return (
     <div key={item.code} className="List__item">
       <div
@@ -12,10 +23,7 @@ function ListItem({item, store}) {
           {item.title}{' '}
           {!!item.numberOfSelections && (
             <span className="Item__number-of-selections">
-              | Выделялся {item.numberOfSelections}
-              {item.numberOfSelections > 1 && item.numberOfSelections < 5
-                ? ' раза'
-                : ' раз'}
+              | Выделялся {item.numberOfSelections} {numberOfSelectionsPlurar}
             </span>
           )}
         </div>

@@ -17,7 +17,7 @@ function App({store}) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className='Controls'>
-        <button onClick={() => {
+        <button style={{cursor: 'pointer'}} onClick={() => {
           const code = counter();
           store.createItem({code, title: `Новая запись ${code}`})
         }}> Добавить </button>
@@ -28,9 +28,11 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
+              <div className='Item__title' style={{cursor: 'pointer'}} >{item.title}
+                {item.count !== 0 && ` выделялось ${item.count} раз`}
+              </div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button style={{cursor: 'pointer'}} onClick={() => store.deleteItem(item.code)}>
                   Удалить
                 </button>
               </div>

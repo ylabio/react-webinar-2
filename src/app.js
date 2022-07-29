@@ -11,6 +11,14 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+  const declOfNum = (count) => {
+    count = count % 100;
+    if (count >= 10 && count <= 19) return 'раз';
+    count = count % 10;
+    if (count >= 2 && count <= 4) return 'раза';
+    return 'раз';
+  }
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -29,7 +37,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{`${item.title} ${item.count > 0 ? ` || Выделялось ${item.count} раз` : ''}`}</div>
+              <div className='Item__title'>{`${item.title} ${item.count > 0 ? ` | Выделялось ${item.count} ${declOfNum(item.count)}` : ''}`}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

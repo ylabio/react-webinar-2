@@ -43,7 +43,9 @@ function App({ store }) {
                   (item.count % 10 === 3 && item.count % 100 !== 13) ||
                   (item.count % 10 === 4 && item.count % 100 !== 14)
                     ? " раза"
-                    : " раз"}
+                    : item.count !== 0
+                    ? " раз"
+                    : ""}
                 </div>
                 <div className="Item__actions">
                   <button onClick={() => store.deleteItem(item.code)}>

@@ -19,6 +19,8 @@ function App({store}) {
       <div className='Controls'>
         <button onClick={() => {
           const code = counter();
+          console.log(code)
+
           store.createItem({code, title: `Новая запись ${code}`})
         }}> Добавить </button>
       </div>

@@ -11,6 +11,18 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+  //формируем фразу
+  function counterText(itemCounter){
+    let text;
+    if(((itemCounter%10 >= 2) && (itemCounter%10 <= 4)) && ((itemCounter < 10) || (itemCounter > 20))) {
+      text = "|  Выделялось "+itemCounter+" раза";
+    }  
+    else {
+      text = "|  Выделялось "+itemCounter+" раз";
+    }  
+    return text;
+  }
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -29,7 +41,7 @@ function App({store}) {
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title}</div>
-              <div className='Item__counter'>{item.counter? ("|  Выделялся "+item.counter+" раз") : ""}</div>
+              <div className='Item__counter'>{item.counter? counterText(item.counter) : ""}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

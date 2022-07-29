@@ -43,10 +43,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+    createItem({ code, title = 'Новая запись', selected = false, selectedTimes = 0 }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+        items: this.state.items.concat({ code, title, selected, selectedTimes})
     });
   }
 
@@ -66,15 +66,27 @@ class Store {
    * @param code
    */
   selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          item.selected = !item.selected;
-        }
-        return item;
-      })
-    });
+      // save original state(selected property) of current item
+      const { selected: wasSelected } = this.state.items.find(item => item.code === code);
+      // reset the selected property of each item
+      const items = this.state.items.map(item => ({ ...item, selected: false, }));
+      // updated new stated(selected property) of current item
+      const selectedItem = items.find(item => item.code === code);
+      selectedItem.selected = !wasSelected;
+
+      if (selectedItem.selected) {
+
+          if (!selectedItem.hasOwnProperty('selectedTimes'))
+              selectedItem.selectedTimes = 0;
+
+          ++selectedItem.selectedTimes;
+          selectedItem.computedTitle = `${selectedItem.title} | Выделялся ${selectedItem.selectedTimes} раз`
+      }
+
+      this.setState({
+          ...this.state,
+          items,
+      });
   }
 }
 

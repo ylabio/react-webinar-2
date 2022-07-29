@@ -31,7 +31,7 @@ function App({store}) {
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>
                   {item.title}
-                  {item.selected ? ` | Выделялось ${item.count} раз`:null}
+                  {item.selected && item.count ? ` | Выделялось ${item.count} раз`:null}
               </div>
 
                 <div className='Item__actions'>

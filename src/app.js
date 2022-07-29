@@ -30,7 +30,7 @@ function App({store}) {
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>
                 {item.title}
-                {item.counterClikcs === undefined ? null: ` | Выделялся ${item.counterClikcs} раз`}
+                {item.counterClikcs ? ` | Выделялся ${item.counterClikcs} раз` : null}
               </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>

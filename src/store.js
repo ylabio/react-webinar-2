@@ -71,7 +71,7 @@ class Store {
       items: this.state.items.map(item => {
         if (item.code === code){
           item.selected = true
-          item.counterClikcs = item.counterClikcs === undefined ? 1 : item.counterClikcs + 1  
+          item.counterClikcs = typeof item.counterClikcs === 'undefined' ? 1 : item.counterClikcs + 1  
         } else {
           item.selected = false;
         }

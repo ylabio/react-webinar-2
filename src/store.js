@@ -42,11 +42,12 @@ class Store {
 
   /**
    * Создание записи
+	* Добавляем новый параметр
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+  createItem({code, title = 'Новая запись', selected = false, marked = 0}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({code, title, selected, marked})
     });
   }
 
@@ -71,7 +72,14 @@ class Store {
       items: this.state.items.map(item => {
         if (item.code === code){
           item.selected = !item.selected;
-        }
+			 // если не совпадает с кликнутым айди - отменяем выделение
+        	} else {
+				item.selected = false;
+		  	}
+			// если выделено - добавляем значение счётчика
+			if(item.selected) {
+				item.marked += 1;
+		 	}
         return item;
       })
     });

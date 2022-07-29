@@ -13,7 +13,7 @@ const initialState = {
       counted: 0
     }
   }),
-  counter: startArray.length + 1
+  counter: startArray.length
 }
 
 export const Ctx = createContext(initialState)
@@ -39,8 +39,7 @@ const reducer = (state, action) => {
         ...state,
         items: state.items.map(el => {
           return {
-            code: el.code,
-            title: el.title, 
+            ...el,
             selected: el.code === payload,
             counted: el.code === payload ? el.counted + 1 : el.counted // Я не вспомнил, как написать красивее
           }

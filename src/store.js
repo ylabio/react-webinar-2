@@ -69,11 +69,15 @@ class Store {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
-		item.selected = false;
         if (item.code === code){
+		  if (!item.selected) {
+		    item.totalCount++;
+		  }
+
           item.selected = !item.selected;
-		  item.totalCount++;
-        }
+        } else {
+		  item.selected = false;
+		}
         return item;
       })
     });

@@ -10,6 +10,7 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
+  const plural = require('plural-ru');
 
   return (
     <div className='App'>
@@ -28,7 +29,8 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
+              {!item.count && <div className='Item__title'>{item.title}</div>}
+              {!!item.count && <div className='Item__title'>{item.title} | Выделялось {item.count} {plural(item.count, 'раз', 'раза', 'раз')}</div>}
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

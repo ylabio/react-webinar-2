@@ -10,7 +10,7 @@ function ListItem({item, store}) {
         <div className="Item__number">{item.code}</div>
         <div className="Item__title">
           {item.title}{' '}
-          {item.numberOfSelections && (
+          {!!item.numberOfSelections && (
             <span className="Item__number-of-selections">
               | Выделялся {item.numberOfSelections}
               {item.numberOfSelections > 1 && item.numberOfSelections < 5

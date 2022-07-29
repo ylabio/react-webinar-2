@@ -78,7 +78,7 @@ class Store {
         }
         return item;
       }),
-      selectedItemCode: code,
+      selectedItemCode: this.state.selectedItemCode !== code ? code : null,
     });
   }
 }

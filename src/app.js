@@ -30,7 +30,10 @@ function App({ store }) {
         <button
           onClick={() => {
             const code = counter();
-            store.createItem({ code, title: `Новая запись ${code}` });
+            store.createItem({
+              code,
+              title: `Новая запись ${code}`,
+            });
           }}
         >
           {' '}
@@ -40,7 +43,8 @@ function App({ store }) {
       <div className="App__center">
         <div className="List">
           {items.map((item) => {
-            const [listCounter, setListCounter] = React.useState(0);
+            // const [listCounter, setListCounter] = React.useState(0);
+
             return (
               <div key={item.code} className="List__item">
                 <div
@@ -48,15 +52,19 @@ function App({ store }) {
                   onClick={(e) => {
                     disabler(e, item.code);
                     store.selectItem(item.code);
-                    item.selected
-                      ? setListCounter(listCounter + 1)
-                      : setListCounter(listCounter);
+                    if (item.selected) {
+                      item.counter = item.counter + 1;
+                      return item.counter;
+                    } else {
+                      return item.counter;
+                    }
+                    // item.selected ? item.counter + 1 : item.counter;
                   }}
                 >
                   <div className="Item__number">{item.code}</div>
                   <div className="Item__title">{item.title}</div>
                   <div className="Item__counter">
-                    {listCounter === 0 ? '' : `Выделялось ${listCounter} раз`}
+                    {item.counter == 0 ? '' : `Выделялось ${item.counter} раз`}
                   </div>
                   <div className="Item__actions">
                     <button onClick={() => store.deleteItem(item.code)}>

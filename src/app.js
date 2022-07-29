@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { counter } from "./utils.js";
 import "./style.css";
 
@@ -10,7 +10,6 @@ import "./style.css";
 function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
-  const [count, setCount] = useState(1);
 
   return (
     <div className="App">
@@ -21,7 +20,10 @@ function App({ store }) {
         <button
           onClick={() => {
             const code = counter();
-            store.createItem({ code, title: `Новая запись ${code}` });
+            store.createItem({
+              code,
+              title: `Новая запись ${code}`,
+            });
           }}
         >
           Добавить
@@ -34,11 +36,23 @@ function App({ store }) {
               <div
                 className={"Item" + (item.selected ? " Item_selected" : "")}
                 onClick={() => store.selectItem(item.code)}
-                // onClick={() => setCount(count + 1)}
               >
                 <div className="Item__number">{item.code}</div>
-                <div className="Item__title">{item.title}</div>
-                <div className="Item__clicker_count">| Выделялся {count}</div>
+                <div className="Item__title">
+                  {item.title}
+                  {item.setCounter !== 0 &&
+                    ` | Выделялся ${item.setCounter} 
+                  ${
+                    (item.setCounter % 10 === 2 ||
+                      item.setCounter % 10 === 3 ||
+                      item.setCounter % 10 === 4) &&
+                    item.setCounter !== 12 &&
+                    item.setCounter !== 13 &&
+                    item.setCounter !== 14
+                      ? "раза"
+                      : "раз"
+                  }`}
+                </div>
                 <div className="Item__actions">
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить

@@ -51,8 +51,8 @@ body {
 }
 
 .Item__title {
-  min-width: max-content;
-  padding: 20px 0px;
+  width: 100%;
+  padding: 20px 10px;
 }
 .Item__actions {
   padding: 20px 20px 20px 10px;
@@ -61,8 +61,4 @@ body {
 }
 .Item__number {
   padding: 20px 10px 20px 20px;
-}
-.Item__clicker_count {
-  width: 100%;
-  padding: 20px 5px;
 }

@@ -39,9 +39,9 @@ function App({ store }) {
                 <div className="Item__title">
                   {item.title}{" "}
                   {item.count === 0 ? "" : `| Выделялось ${item.count}`}
-                  {(item.count % 10 === 2 && item.count !== 12) ||
-                  (item.count % 10 === 3 && item.count !== 13) ||
-                  (item.count % 10 === 4 && item.count !== 14)
+                  {(item.count % 10 === 2 && item.count % 100 !== 12) ||
+                  (item.count % 10 === 3 && item.count % 100 !== 13) ||
+                  (item.count % 10 === 4 && item.count % 100 !== 14)
                     ? " раза"
                     : " раз"}
                 </div>

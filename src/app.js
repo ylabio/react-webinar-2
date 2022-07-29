@@ -20,7 +20,8 @@ function App({store}) {
         <button onClick={() => {
           const code = counter();
           store.createItem({code, title: `Новая запись ${code}`})
-        }}> Добавить </button>
+        }}> Добавить
+        </button>
       </div>
       <div className='App__center'>
         <div className='List'>{items.map(item =>
@@ -28,7 +29,8 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
+              <div
+                className='Item__title'>{item.title + (item?.selectionCount ? ` | Выделялся ${item.selectionCount} раз` : '')}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

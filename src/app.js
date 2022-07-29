@@ -36,13 +36,15 @@ function App({ store }) {
                 onClick={() => store.selectItem(item.code)}
               >
                 <div className="Item__number">{item.code}</div>
-                <div className="Item__title">{item.title}</div>
-                {item.count === 0 ? (
-                  ""
-                ) : (
-                  <div className="Item__title">Нажато {item.count} раз</div>
-                )}
-
+                <div className="Item__title">
+                  {item.title}{" "}
+                  {item.count === 0 ? "" : `| Выделялось ${item.count}`}
+                  {(item.count % 10 === 2 && item.count !== 12) ||
+                  (item.count % 10 === 3 && item.count !== 13) ||
+                  (item.count % 10 === 4 && item.count !== 14)
+                    ? " раза"
+                    : " раз"}
+                </div>
                 <div className="Item__actions">
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить

@@ -51,19 +51,29 @@ body{
     background: #75aaf1;
 }
 
-
 .Item__title{
-    width: 100%;
-    padding: 20px 10px;
+    width: auto;
+    padding: 20px 5px 20px 10px;
 }
+
 .Item__actions{
-    padding: 20px  20px 20px 10px;
+    padding: 20px 20px 20px 10px;
     display: flex;
-    justify-content: flex-end;
+    margin-left: auto;
 }
+
+.Item__times_selected{
+    padding: 20px 20px 20px 0px;
+    width: auto;
+    position: relative;
+}
+
+
+
 .Item__number{
     padding: 20px 10px 20px 20px;
 }
+
 
 
 

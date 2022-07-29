@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, selectCountCondition} from './utils.js';
 import './style.css';
 
 /**
@@ -10,14 +10,6 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
-
-  const selectCountCondition = (x) => 
-    {return x !== 0 && ` | Выделялся ${x} 
-      ${((x % 10 === 2 || x % 10 === 3 || x % 10 === 4) 
-      && x !== 12 && x !== 13 && x !== 14) 
-      ?'раза'
-      :'раз'}`
-    };
 
   return (
     <div className='App'>

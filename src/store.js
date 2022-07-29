@@ -1,3 +1,5 @@
+import {counter} from "./utils";
+
 class Store {
 
   constructor(initState) {
@@ -43,10 +45,12 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+
+  // Прокинул счетчик для новых списков
+  createItem({code, title = 'Новая запись', selected = false, count = 0}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({code, title, selected, count})
     });
   }
 
@@ -71,6 +75,11 @@ class Store {
       items: this.state.items.map(item => {
         if (item.code === code){
           item.selected = !item.selected;
+          // Если запись была уже выделена, то при снятии выделения счетчик count остается неизменным
+          item.selected ? item.count++ : item.count;
+        } else {
+          // Для всех остальных item секторы сбрасываем - устанавливаем в false
+          item.selected = false;
         }
         return item;
       })

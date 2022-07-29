@@ -29,7 +29,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}{item.counter?` | Выделялся ${item.counter} ${changeWordDeclension(item.counter, 'раз', 'раза', 'раз')}`:null}</div>
+              <div className='Item__title'>{item.title}{item.counter?` | Выделялось ${item.counter} ${changeWordDeclension(item.counter, 'раз', 'раза', 'раз')}`:null}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

@@ -6,14 +6,14 @@ import {counter} from './utils.js';
 
 const store = new Store({
   items: [
-    {code: counter(), title: 'Название элемента'},
-    {code: counter(), title: 'Некий объект'},
-    {code: counter(), title: 'Заголовок'},
-    {code: counter(), title: 'Короткое название'},
-    {code: counter(), title: 'Запись'},
-    {code: counter(), title: 'Пример выделенной записи', selected: true},
-    {code: counter(), title: 'Седьмой'},
-  ]
+    {code: counter(), title: 'Название элемента', counterClick: null},
+    {code: counter(), title: 'Некий объект', counterClick: null},
+    {code: counter(), title: 'Заголовок', counterClick: null },
+    {code: counter(), title: 'Короткое название', counterClick: null},
+    {code: counter(), title: 'Запись', counterClick: null},
+    {code: counter(), title: 'Пример выделенной записи', counterClick: 1, selected: true},
+    {code: counter(), title: 'Седьмой', counterClick: null},
+  ],
 });
 
 // Реакция на изменение store - повторный рендер приложения

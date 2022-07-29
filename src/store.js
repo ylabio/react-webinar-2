@@ -77,9 +77,6 @@ class Store {
         if (item.selected) {
           item.counter++
         }
-
-
-
         return item;
       })
     });

@@ -75,14 +75,16 @@ class Store {
       items: this.state.items.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+
+          if (item.selected) {
+            item.numberOfSelections = item.numberOfSelections
+              ? ++item.numberOfSelections
+              : 1;
+          }
         } else {
           item.selected = false;
         }
-        if (item.selected) {
-          item.numberOfSelections = item.numberOfSelections
-            ? ++item.numberOfSelections
-            : 1;
-        }
+
         return item;
       })
     });

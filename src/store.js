@@ -65,23 +65,27 @@ class Store {
    * Выделение записи по её коду
    * @param code
    */
-  selectItem(code) {
-      // save original state(selected property) of current item
-      const { selected: wasSelected } = this.state.items.find(item => item.code === code);
-      // reset the selected property of each item
-      const items = this.state.items.map(item => ({ ...item, selected: false, }));
-      // updated new stated(selected property) of current item
-      const selectedItem = items.find(item => item.code === code);
-      selectedItem.selected = !wasSelected;
+    selectItem(code) {
 
-      if (selectedItem.selected) {
+      const items = this.state.items.map(item => {
+          if (item.code === code) {
+              item.selected = !item.selected;
+      
+              if (item.selected) {
+      
+                  if (!item.hasOwnProperty('selectedTimes'))
+                      item.selectedTimes = 0;
+      
+                  ++item.selectedTimes;
+                  item.computedTitle = `${item.title} | Выделялся ${item.selectedTimes} раз`
+              }
+          }
+          else
+              item.selected = false;
+      
+          return item;
+      });
 
-          if (!selectedItem.hasOwnProperty('selectedTimes'))
-              selectedItem.selectedTimes = 0;
-
-          ++selectedItem.selectedTimes;
-          selectedItem.computedTitle = `${selectedItem.title} | Выделялся ${selectedItem.selectedTimes} раз`
-      }
 
       this.setState({
           ...this.state,

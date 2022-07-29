@@ -1,6 +1,7 @@
 import React from 'react';
 import {counter} from './utils.js';
 import './style.css';
+import declineWord from 'decline-word';
 
 /**
  * Приложение
@@ -22,8 +23,7 @@ function App({store}) {
             const code = counter();
             store.createItem({code, title: `Новая запись ${code}`});
           }}>
-          {' '}
-          Добавить{' '}
+          Добавить
         </button>
       </div>
       <div className='App__center'>
@@ -34,10 +34,18 @@ function App({store}) {
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
                 onClick={() => store.selectItem(item.code)}>
                 <div className='Item__number'>{item.code}</div>
-                <div className='Item__title'>{item.title}</div>
-                {item.selectCount !== 0 && (
-                  <div className='Item__title'>{`Выделялось ${item.selectCount} раз`}</div>
-                )}
+                <div className='Item__title'>
+                  {item.title}
+                  {item.selectCount !== 0 && (
+                    <span>{` | Выделялось ${item.selectCount} ${declineWord(
+                      item.selectCount,
+                      'раз',
+                      '',
+                      'а',
+                      ''
+                    )}`}</span>
+                  )}
+                </div>
                 <div className='Item__actions'>
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>

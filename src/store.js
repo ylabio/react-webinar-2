@@ -71,7 +71,7 @@ class Store {
       items: this.state.items.map(item => {
         if (item.code === code){
           // увеличиваем счетчик если нажимаем на еще не выделенный элемент
-          !item.selected && item.selectionCounter++;
+          if (!item.selected) item.selectionCounter++;
           // выделяем или снимаем выделение элемента
           item.selected = !item.selected;
         } else {

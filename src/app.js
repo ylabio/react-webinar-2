@@ -34,11 +34,8 @@ function App({store}) {
 export default App;
 
 const ListItem = ({ item, store }) => {
-
   const [count, setCount] = useState(0)
-
-  const countOfSelectText = count ? `| Выделился ${count} раз` : ''
-
+  
   const clickItemHandler = (e) => {
     store.selectItem(item.code)
 
@@ -49,11 +46,13 @@ const ListItem = ({ item, store }) => {
       setCount((prevState) => prevState += 1)
     }
   }
+
+  const countOfSelectText = count ? `| Выделился ${count} раз` : ''
  
   return (
     <div key={item.code} className='List__item'>
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={(e) => clickItemHandler(e)}>
+                 onClick={clickItemHandler}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title} {countOfSelectText}</div>
               <div className='Item__actions'>

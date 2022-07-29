@@ -5,6 +5,7 @@ class Store {
     this.state = initState;
     // Слушатели изменений state
     this.listners = [];
+    this.selectItemForDelete;
   }
 
   /**
@@ -43,10 +44,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+  createItem({ code, title = 'Новая запись', selected = false, count = 0 }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({ code, title, selected, count })
     });
   }
 
@@ -55,6 +56,8 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    this.selectItemForDelete = this.state.items.length;
+
     this.setState({
       ...this.state,
       items: this.state.items.filter(item => item.code !== code)
@@ -69,12 +72,19 @@ class Store {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
-        if (item.code === code){
+        if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) item.count++; // Счётчик выделений
         }
+
+        else this.selectItemForDelete == this.state.items.length + 1 ? null : item.selected = ''; // Запрещение снятия выделения при удалении item
+
         return item;
       })
+
     });
+
+    this.selectItemForDelete = this.state.items.length
   }
 }
 

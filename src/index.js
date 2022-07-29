@@ -15,7 +15,6 @@ const store = new Store({
       code: counter(),
       title: 'Пример выделенной записи',
       counter: 0,
-      selected: true,
     },
     { code: counter(), title: 'Седьмой', counter: 0 },
   ],

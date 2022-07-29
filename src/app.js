@@ -37,7 +37,10 @@ function App({ store }) {
               >
                 <div className="Item__number">{item.code}</div>
                 <div className="Item__title">
-                  {item.title} | {item.counter}
+                  {item.title}{' '}
+                  {item.counter > 0
+                    ? ' | Выделялось ' + item.counter + ' раз'
+                    : ''}
                 </div>
                 <div className="Item__actions">
                   <button onClick={() => store.deleteItem(item.code)}>

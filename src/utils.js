@@ -2,6 +2,12 @@
  * Генерирует уникальный код на основе счётчика
  * @returns {number|number}
  */
-export function counter(){
-  return counter.value ? ++counter.value : counter.value = 1;
+function counter() {
+  return counter.value ? ++counter.value : (counter.value = 1);
 }
+
+const getCountRemainder = (count) => {
+  return count % 10;
+};
+
+export { counter, getCountRemainder };

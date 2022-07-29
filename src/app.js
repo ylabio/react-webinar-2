@@ -1,6 +1,8 @@
 import React from "react";
+
 import { counter } from "./utils.js";
 import "./style.css";
+import { wordEndingHelper } from "./helpers.js";
 
 /**
  * Приложение
@@ -28,6 +30,12 @@ function App({ store }) {
     store.selectItem(item.code);
   };
 
+  const getItemSelectedCount = (selectedCount) => {
+    return selectedCount
+      ? `| Выделялся ${selectedCount} раз${wordEndingHelper(selectedCount)}`
+      : "";
+  };
+
   const listItems = items.map((item) => (
     <div key={item.code} className="List__item">
       <div
@@ -35,7 +43,9 @@ function App({ store }) {
         onClick={makeItemClickHandler(item, handleItemClick)}
       >
         <div className="Item__number">{item.code}</div>
-        <div className="Item__title">{item.title}</div>
+        <div className="Item__title">{`${item.title} ${getItemSelectedCount(
+          item.selectedCount
+        )}`}</div>
         <div className="Item__actions">
           <button onClick={makeItemClickHandler(item, handleDeleteButtonClick)}>
             Удалить

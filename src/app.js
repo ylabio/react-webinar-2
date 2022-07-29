@@ -26,7 +26,7 @@ function App({ store }) {
         <div className='List'>{items.map(item =>
           <div key={item.code} className='List__item'>
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-              onClick={() => store.selectItem(item.code)}>
+              onClick={(event) => store.selectItem(item.code, event)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title} {item.numSelected ? `| Выделялось ${item.numSelected} ${declensionWord(item.numSelected)}` : ""}</div>
               <div className='Item__actions'>

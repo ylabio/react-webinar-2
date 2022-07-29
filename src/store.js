@@ -69,7 +69,9 @@ class Store {
    * Выделение записи по её коду
    * @param code
    */
-  selectItem(code) {
+  selectItem(code, event) {
+    // Мой вариант решения проблемы с deleteItem
+    if (event.target.className === "") return;
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
@@ -83,7 +85,6 @@ class Store {
         else {
           item.selected = false;
         }
-
         return item;
       })
     });

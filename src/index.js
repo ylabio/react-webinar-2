@@ -16,10 +16,8 @@ const store = new Store({
   ]
 });
 
-// Реакция на изменение store - повторный рендер приложения
 store.subscribe(() => {
   ReactDOM.render(<App store={store} />, document.body);
 });
 
-// Первый рендер (один раз)
 ReactDOM.render(<App store={store} />, document.body);

@@ -45,6 +45,7 @@ body{
 .Item{
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     transition: background-color 1s;
 }
 .Item_selected{
@@ -53,8 +54,7 @@ body{
 
 
 .Item__title{
-    width: 100%;
-    padding: 20px 10px;
+    padding: 20px 0px 20px 10px;
 }
 .Item__actions{
     padding: 20px  20px 20px 10px;
@@ -63,6 +63,31 @@ body{
 }
 .Item__number{
     padding: 20px 10px 20px 20px;
+}
+
+.Item__clicks{
+    opacity: 0;
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 0 50%;
+    transition:all  1s ease 0s;
+    -webkit-transition:all  1s ease 0s;
+    -moz-transition:all  1s ease 0s;
+    -ms-transition:all  1s ease 0s;
+    -o-transition:all  1s ease 0s;
+}
+.Item__clicks.Clicked{
+    opacity: 1;
+    visibility: visible;
+    white-space: nowrap;
+    justify-content: flex-start;
+    padding: 20px 0px;
+}
+.Item__bar{
+margin-left: 10px;
+margin-right: 10px;
 }
 
 

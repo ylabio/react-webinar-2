@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {createRoot} from 'react-dom/client';
 import App from './app.js';
 import Store from './store.js';
 import {counter} from './utils.js';
@@ -22,9 +23,12 @@ const store = new Store({
 });
 
 // Реакция на изменение store - повторный рендер приложения
+const root = createRoot(document.body);
 store.subscribe(() => {
-  ReactDOM.render(<App store={store} />, document.body);
+  //   ReactDOM.render(<App store={store} />, document.body);
+  root.render(<App store={store} />);
 });
 
 // Первый рендер (один раз)
-ReactDOM.render(<App store={store} />, document.body);
+// ReactDOM.render(<App store={store} />, document.body);
+root.render(<App store={store} />);

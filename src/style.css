@@ -45,6 +45,7 @@ body{
 .Item{
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     transition: background-color 1s;
 }
 .Item_selected{
@@ -52,9 +53,24 @@ body{
 }
 
 
-.Item__title, .Item__selectionCounter{
-    width: 50%;
+.Item__title{
+    display: flex;
+    min-width: fit-content;
     padding: 20px 10px;
+}
+.Item__selectionCounter{
+    width: 100%;
+}
+.Item__selectionCounterIsContent{
+    padding: 20px 10px 20px 0;
+}
+.Item__selectionCounterIsContent:after{
+    content: "";
+    background: #000;
+    width: 1px;
+    height: 17px;
+    float: left;
+    margin-right: 10px;
 }
 .Item__actions{
     padding: 20px  20px 20px 10px;

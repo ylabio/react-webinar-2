@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, getDeclension} from './utils.js';
 import './style.css';
 
 /**
@@ -29,7 +29,9 @@ function App({store}) {
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title}</div>
-              <div className='Item__selectionCounter'>{item.selectionCounter ? `Выделялось ${item.selectionCounter} раз` : ''}</div>
+              <div className={'Item__selectionCounter' + (item.selectionCounter ? ' Item__selectionCounterIsContent' : '')}>
+                  {item.selectionCounter ? `Выделялось ${item.selectionCounter} ${getDeclension(item.selectionCounter)}` : ''}
+              </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

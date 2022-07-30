@@ -65,14 +65,14 @@ class Store {
    * @param code
    */
   countSelectedItem(code) {
+    const itemIndex = this.state.items.findIndex((item) => item.code === code);
+    const items = [...this.state.items];
+    const item = Object.assign({}, items[itemIndex]);
+    item.count = item.count ? +item.selected + item.count : +item.selected;
+    items[itemIndex] = item;
     this.setState({
       ...this.state,
-      items: this.state.items.map((item) => {
-        if (code === item.code) {
-          item.count = item.count ? +item.selected + item.count : +item.selected;
-        }
-        return item;
-      }),
+      items,
     });
   }
 

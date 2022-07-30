@@ -10,7 +10,7 @@ import "./style.css";
 function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
-  console.log(items);
+
   // Добавить элемент
   const addItem = () => {
     const code = counter();

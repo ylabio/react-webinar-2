@@ -43,7 +43,7 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', conut = 0, selected = false}) {
+  createItem({code, title = 'Новая запись', count = 0, selected = false}) {
     this.setState({
       ...this.state,
       items: this.state.items.concat({code, title, count, selected})

@@ -26,19 +26,19 @@ function App({store}) {
         <div className='List'>{items.map(item =>
           <div key={item.code} className='List__item'>
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={
-                  () => {
-                    store.selectItem(item.code);
-                    store.clearRestItems(item.code);
-                    store.increaseSelectionsCount(item.code);
-                  }}>
+              onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
-              {item.selectionsCount > 0 ?
-                <div className='Item__selections'>{`| Выделялся ${item.selectionsCount} раз`}</div> :
-                ''}
+              <div className='Item__title'>
+                {item.title}
+                {item.selectionsCount > 0 ?
+                  <span className='Item__selections'>{` | Выделялся ${item.selectionsCount} раз`}</span> :
+                  ''}
+              </div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={(evt) => {
+                  evt.stopPropagation();
+                  store.deleteItem(item.code);
+                }}>
                   Удалить
                 </button>
               </div>

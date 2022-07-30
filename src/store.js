@@ -71,38 +71,13 @@ class Store {
       items: this.state.items.map(item => {
         if (item.code === code){
           item.selected = !item.selected;
-        }
-        return item;
-      })
-    });
-  }
-
-  /**
-   * Очистка выделения всех записей, кроме выбранной по коду
-   * @param code
-   */
-   clearRestItems(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code !== code){
-          item.selected = false;
-        }
-        return item;
-      })
-    });
-  }
-
-  /**
-   * Увеличение счетчика совершенных выделений на 1 для записи по её коду
-   * @param code
-   */
-   increaseSelectionsCount(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code && item.selected){
-          item.selectionsCount += 1;
+          if (item.selected) {
+            item.selectionsCount += 1;
+          }
+        } else {
+          if (item.selected) {
+            item.selected = false;
+          }
         }
         return item;
       })

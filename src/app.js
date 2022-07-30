@@ -12,6 +12,11 @@ function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
 
+  const deleteItemHandler = (event, item) => {
+    event.stopPropagation();
+    store.deleteItem(item.code);
+  };
+
   return (
     <div className="App">
       <div className="App__head">
@@ -40,7 +45,7 @@ function App({ store }) {
                   {item.title + (item.selectionAmount ? ` | Выделялось ${item.selectionAmount} раз` : '')}
                 </div>
                 <div className="Item__actions">
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(event) => deleteItemHandler(event, item)}>
                     Удалить
                   </button>
                 </div>

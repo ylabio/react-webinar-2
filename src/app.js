@@ -11,6 +11,19 @@ function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
 
+  const itemText = (clickCount) => {
+    if (clickCount === 12 || clickCount === 13 || clickCount === 14) {
+      return clickCount !== 0 ? ` | Выделялся ${clickCount} раз` : null;
+    }
+    if (
+      clickCount % 10 === 2 ||
+      clickCount % 10 === 3 ||
+      clickCount % 10 === 4
+    ) {
+      return clickCount !== 0 ? ` | Выделялся ${clickCount} разa` : null;
+    }
+    return clickCount !== 0 ? ` | Выделялся ${clickCount} раз` : null;
+  };
   return (
     <div className="App">
       <div className="App__head">
@@ -23,8 +36,7 @@ function App({ store }) {
             store.createItem({ code, title: `Новая запись ${code}` });
           }}
         >
-          {" "}
-          Добавить{" "}
+          Добавить
         </button>
       </div>
       <div className="App__center">
@@ -37,10 +49,7 @@ function App({ store }) {
               >
                 <div className="Item__number">{item.code}</div>
                 <div className="Item__title">
-                  {item.title}{" "}
-                  {item.clickCount !== 0
-                    ? ` | Выделялся ${item.clickCount} раз`
-                    : null}
+                  {item.title} {itemText(item.clickCount)}
                 </div>
                 <div className="Item__actions">
                   <button onClick={() => store.deleteItem(item.code)}>

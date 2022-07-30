@@ -1,13 +1,11 @@
 import React from 'react';
 import {counter} from "../../utils";
+import './style.css';
 
-function Controls({store}){
+function Controls({onAdd}){
   return (
     <div className='Controls'>
-      <button onClick={() => {
-        const code = counter();
-        store.createItem({code, title: `Новая запись ${code}`})
-      }}> Добавить </button>
+      <button onClick={onAdd}> Добавить </button>
     </div>
   )
 }

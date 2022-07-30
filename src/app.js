@@ -1,7 +1,8 @@
 import React from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
-import './style.css';
+import Layout from "./components/layout";
+import {counter} from "./utils";
 
 /**
  * Приложение
@@ -10,16 +11,16 @@ import './style.css';
  */
 function App({store}) {
 
+  const onAdd = () => {
+    const code = counter();
+    store.createItem({code, title: `Новая запись ${code}`});
+  }
+
   return (
-    <div className='App'>
-      <div className='App__head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <Controls store={store}/>
-      <div className='App__center'>
-        <List store={store}/>
-      </div>
-    </div>
+    <Layout head={<h1>Приложение на чистом JS</h1>}>
+      <Controls onAdd={onAdd}/>
+      <List store={store}/>
+    </Layout>
   );
 }
 

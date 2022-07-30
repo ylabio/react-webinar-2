@@ -1,5 +1,6 @@
 import React from 'react';
-import item from "../item";
+import Item from "../item";
+import './style.css';
 
 function List({store, item}){
   // Выбор состояния из store
@@ -7,8 +8,8 @@ function List({store, item}){
 
   return (
     <div className='List'>{items.map(item =>
-      <div key={item.code} className='List__item'>
-        <item item={item} store={store}/>
+      <div key={item.code} className='List-item'>
+        <Item item={item} store={store}/>
       </div>
     )}
     </div>

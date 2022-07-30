@@ -47,7 +47,7 @@ function ItemComponent({ item, store }) {
   // Установить количество выделений
   const selectAndCountItem = () => {
     store.selectItem(item.code);
-    store.countSelectedItem(item);
+    store.countSelectedItem(item.code);
   };
 
   // Удалить элемент

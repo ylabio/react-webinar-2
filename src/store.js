@@ -61,11 +61,19 @@ class Store {
   }
 
   /**
-   * Фиксирование количества выделений
-   * @param item {object}
+   * Фиксирование количество выделений по ее коду
+   * @param code
    */
-  countSelectedItem(item) {
-    item.count = item.count ? item.count + +item.selected : +item.selected;
+  countSelectedItem(code) {
+    this.setState({
+      ...this.state,
+      items: this.state.items.map((item) => {
+        if (code === item.code) {
+          item.count = item.count ? +item.selected + item.count : +item.selected;
+        }
+        return item;
+      }),
+    });
   }
 
   /**

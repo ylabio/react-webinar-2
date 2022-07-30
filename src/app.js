@@ -42,7 +42,13 @@ function App({ store }) {
                   {item.title + showSelectedCounter(item.selectedCounter)}
                 </div>
                 <div className='Item__actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button
+                    onClick={(ev) => {
+                      ev.stopPropagation();
+                      store.deleteItem(item.code);
+                    }}>
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>

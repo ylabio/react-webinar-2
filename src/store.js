@@ -1,8 +1,10 @@
+import { counter } from "./utils";
+
 class Store {
 
   constructor(initState) {
     // Состояние приложения (данные)
-    this.state = initState;
+    this.state = initState 
     // Слушатели изменений state
     this.listners = [];
   }
@@ -43,10 +45,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+  createItem({code, title = 'Новая запись', selected = false, count = 0}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({code, title, selected, count})
     });
   }
 
@@ -72,10 +74,41 @@ class Store {
         if (item.code === code){
           item.selected = !item.selected;
         }
+        if(item.code !== code){
+          item.selected = false
+        }
+        if(item.count === 0 && item.code === code){
+          item.bool = !item.bool
+          item.count += 1
+        }
+        else if(item.code === code && !item.bool){
+          item.count += 1
+          item.bool = !item.bool
+        }
+        else if(item.code === code && item.bool){
+          item.bool = !item.bool
+        }
         return item;
       })
+      
     });
   }
+
+  lala2(code) {
+    this.setState({
+      ...this.state,
+      items: this.state.items.map(item => {
+        
+        if (item.code === code){
+          // item.count = item.count + 1
+        }
+        
+        return item;
+      })
+      
+    });
+  }
+
 }
 
 export default Store;

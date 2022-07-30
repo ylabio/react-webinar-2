@@ -78,31 +78,16 @@ class Store {
           item.selected = false
         }
         if(item.count === 0 && item.code === code){
-          item.bool = !item.bool
+          item.selectedElement = !item.selectedElement
           item.count += 1
         }
-        else if(item.code === code && !item.bool){
+        else if(item.code === code && !item.selectedElement){
           item.count += 1
-          item.bool = !item.bool
+          item.selectedElement = !item.selectedElement
         }
-        else if(item.code === code && item.bool){
-          item.bool = !item.bool
+        else if(item.code === code && item.selectedElement){
+          item.selectedElement = !item.selectedElement
         }
-        return item;
-      })
-      
-    });
-  }
-
-  lala2(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        
-        if (item.code === code){
-          // item.count = item.count + 1
-        }
-        
         return item;
       })
       

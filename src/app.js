@@ -10,6 +10,7 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
+  console.log(items)
 
   return (
     <div className='App'>
@@ -27,7 +28,6 @@ function App({store}) {
           <div key={item.code} className='List__item'>
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => {
-                  store.lala2(item.code)
                   store.selectItem(item.code)
                 }}>
               <div className='Item__number'>{item.code}</div>

@@ -70,16 +70,11 @@ class Store {
       ...this.state,
       items: this.state.items.map(item => {
         if (item.code === code){
-          if (!item.selected) {
-            item.count ? item.count +=1 : item.count = 1
+            !item.count? item.count =1 : item.selected? item.count += 0 : item.count +=1
             // добавил счетчик
             item.selected = !item.selected;
             this.state.items.filter((item) => item.code !== code).map((item) => (item.selected = false))
-            // убрал выделение 
-          } else {
-            item.selected = !item.selected;
-          }
-
+            // убрал выделение
         }
         return item;
       })

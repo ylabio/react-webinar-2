@@ -19,16 +19,22 @@ function App({store}) {
       <div className='Controls'>
         <button onClick={() => {
           const code = counter();
-          store.createItem({code, title: `Новая запись ${code}`})
+          const selectedCount = 0;
+          store.createItem({code, title: `Новая запись ${code}`, selectedCount})
         }}> Добавить </button>
       </div>
       <div className='App__center'>
         <div className='List'>{items.map(item =>
           <div key={item.code} className='List__item'>
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
+                 onClick={() => {store.selectItem(item.code)}}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
+              <div className='Item__text'>
+                <div className='Item__title'>{item.title}</div>
+                <div className={'Item__counter' + (!item.selectedCount ? '' : ' Item__counter_unable')}>
+                  Выделялось {item.selectedCount} {item.selectedCount >= 2 && item.selectedCount < 5 ? 'раза' : 'раз'}
+                </div>
+              </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

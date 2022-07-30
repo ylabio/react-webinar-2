@@ -47,12 +47,13 @@ body{
     justify-content: flex-start;
     transition: background-color 1s;
 }
+
 .Item_selected{
     background: #75aaf1;
 }
 
-
-.Item__title{
+.Item__text{
+    display: flex;
     width: 100%;
     padding: 20px 10px;
 }
@@ -65,5 +66,18 @@ body{
     padding: 20px 10px 20px 20px;
 }
 
+.Item__counter::before {
+    content: '|';
+    margin: 0 5px 0 0;
+}
+
+.Item__counter {
+    display: none;
+    margin: 0 0 0 5px;
+}
+
+.Item__counter_unable {
+    display: block;
+}
 
 

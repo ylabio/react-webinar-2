@@ -54,7 +54,7 @@ function App({ store }) {
                     )}
                   </div>
                 </div>
-                <div className="Item__actions">
+                <div onClick={(e) => e.stopPropagation()} className="Item__actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>
               </div>

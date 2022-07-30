@@ -3,12 +3,6 @@ class Store {
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
-    for (const item of this.state.items) {
-      if (item.selected) {
-        item.selectionCount = 1
-        break;
-      }
-    }
     // Слушатели изменений state
     this.listners = [];
   }
@@ -75,14 +69,12 @@ class Store {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
-        if (item.selected) {
-          item.selected = false;
+        if (item.code === code) {
+          item.selected = !item.selected;
+          if (item.selected) item.selectionCount = item.selectionCount ? ++item.selectionCount : 1;
           return item;
         }
-        if (item.code === code) {
-          item.selected = true;
-          item.selectionCount = item.selectionCount ? ++item.selectionCount : 1
-        }
+        if (item.selected) item.selected = false;
         return item;
       })
     });

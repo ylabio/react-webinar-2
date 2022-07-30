@@ -11,6 +11,12 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+  const onItemDelete = (e) => {
+    e.stopPropagation();
+    const id = e.currentTarget.getAttribute('data-id');
+    store.deleteItem(parseInt(id));
+  };
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -32,7 +38,7 @@ function App({store}) {
               <div
                 className='Item__title'>{item.title + (item?.selectionCount ? ` | Выделялся ${item.selectionCount} раз` : '')}</div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={onItemDelete} data-id={item.code}>
                   Удалить
                 </button>
               </div>

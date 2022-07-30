@@ -10,6 +10,13 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
+  var count = 0
+  var itemCountSelect = (item)=>{
+    if(item.selectCount>0){
+      return `- Объект выделялся ${item.selectCount} раз`
+    }
+  }
+  
 
   return (
     <div className='App'>
@@ -19,16 +26,18 @@ function App({store}) {
       <div className='Controls'>
         <button onClick={() => {
           const code = counter();
-          store.createItem({code, title: `Новая запись ${code}`})
+          store.createItem({code, title: `Новая запись ${code}`, selectCount: 0})
         }}> Добавить </button>
       </div>
       <div className='App__center'>
         <div className='List'>{items.map(item =>
           <div key={item.code} className='List__item'>
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
+                 onClick={() => {
+                  store.selectItem(item.code)}}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
+              <div className='Item__title'>{item.title} {itemCountSelect(item)}</div>
+              
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

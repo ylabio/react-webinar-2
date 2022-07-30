@@ -43,8 +43,6 @@ function App({ store }) {
       <div className="App__center">
         <div className="List">
           {items.map((item) => {
-            // const [listCounter, setListCounter] = React.useState(0);
-
             return (
               <div key={item.code} className="List__item">
                 <div
@@ -58,7 +56,6 @@ function App({ store }) {
                     } else {
                       return item.counter;
                     }
-                    // item.selected ? item.counter + 1 : item.counter;
                   }}
                 >
                   <div className="Item__number">{item.code}</div>

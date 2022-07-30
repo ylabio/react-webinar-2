@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html lang="ru">
+  <head>
+    <base href="/" />
+    <meta charset="UTF-8" />
     <title>Simple SPA</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="index.js" type="text/babel" data-type="module"></script>
-</body>
+    <link type="text/html" rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js" defer></script>
+    <script src="/index.js" data-type="module" defer></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>

@@ -61,6 +61,14 @@ class Store {
   }
 
   /**
+   * Фиксирование количества выделений
+   * @param item {object}
+   */
+  countSelectedItem(item) {
+    item.count = item.count ? item.count + +item.selected : +item.selected;
+  }
+
+  /**
    * Выделение записи по её коду
    * @param code
    */
@@ -70,6 +78,8 @@ class Store {
       items: this.state.items.map((item) => {
         if (item.code === code) {
           item.selected = !item.selected;
+        } else {
+          item.selected = false;
         }
         return item;
       }),

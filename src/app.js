@@ -1,7 +1,7 @@
 import React from 'react';
-import {counter} from './utils.js';
-import './style.css';
 import Controls from "./components/controls";
+import List from "./components/list";
+import './style.css';
 
 /**
  * Приложение
@@ -9,8 +9,6 @@ import Controls from "./components/controls";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  // Выбор состояния из store
-  const {items} = store.getState();
 
   return (
     <div className='App'>
@@ -19,12 +17,7 @@ function App({store}) {
       </div>
       <Controls store={store}/>
       <div className='App__center'>
-        <div className='List'>{items.map(item =>
-          <div key={item.code} className='List__item'>
-
-          </div>
-        )}
-        </div>
+        <List store={store}/>
       </div>
     </div>
   );

@@ -12,10 +12,14 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
-  const showTitle = ( {title, click, selected} ) => {
-    return (click || selected)
-      ? `${title} | Выделялось ${click || 1} ${pluralize((click || 1),'раз', 'раз', 'раза', 'раз')}`
-      : title
+  const showTitle = ( item ) => {
+    if (item.selected && !item.click) {
+      item.click = 1;
+    }
+
+    return item.click
+      ? `${item.title} | Выделялось ${item.click} ${pluralize(item.click,'раз', 'раз', 'раза', 'раз')}`
+      : item.title
   }
 
   return (
@@ -34,7 +38,7 @@ function App({store}) {
           <div key={item.code} className='List__item'>
             <div
               className={'Item' + (item.selected ? ' Item_selected' : '')}
-              onClick={(e) => {
+              onClick={() => {
                 store.selectItem(item.code)
               }}
             >

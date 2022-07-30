@@ -20,7 +20,9 @@ function App({store}) {
         <button onClick={() => {
           const code = counter();
           store.createItem({code, title: `Новая запись ${code}`})
-        }}> Добавить </button>
+        }}>
+          Добавить
+        </button>
       </div>
       <div className='App__center'>
         <div className='List'>{items.map(item =>

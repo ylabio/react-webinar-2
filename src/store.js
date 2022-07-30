@@ -71,6 +71,9 @@ class Store {
       items: this.state.items.map(item => {
         if (item.code === code){
           item.selected = !item.selected;
+
+          // Счетчик количества выделений записи по его коду
+          item.countSelected ? item.countSelected++ : item.countSelected = 1;
         } else {
           item.selected = false;
         }

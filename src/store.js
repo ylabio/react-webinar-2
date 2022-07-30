@@ -43,10 +43,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+  createItem({code, title = 'Новая запись', selected = false, count = 0}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({code, title, selected, count})
     });
   }
 
@@ -70,9 +70,11 @@ class Store {
       ...this.state,
       items: this.state.items.map(item => {
         if (item.code === code){
-            !item.count? item.count =1 : item.selected? item.count += 0 : item.count +=1
+            if (!item.selected) {
+              item.count +=1
+            }
             // добавил счетчик
-            item.selected = !item.selected;
+           item.selected = !item.selected;
             this.state.items.filter((item) => item.code !== code).map((item) => (item.selected = false))
             // убрал выделение
         }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { counter } from './utils.js'
 import './style.css'
 
@@ -10,7 +10,6 @@ import './style.css'
 function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState()
-  console.log(items)
 
   const onClick = (itemId) => {
     items.forEach((item) => {

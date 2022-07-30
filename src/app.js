@@ -12,7 +12,7 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
-  const showTitle = (title, click, selected) => {
+  const showTitle = ( {title, click, selected} ) => {
     return (click || selected)
       ? `${title} | Выделялось ${click || 1} ${pluralize((click || 1),'раз', 'раз', 'раза', 'раз')}`
       : title
@@ -41,7 +41,7 @@ function App({store}) {
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>
                 {
-                  showTitle(item.title, item.click, item.selected)
+                  showTitle(item)
                 }
               </div>
               <div className='Item__actions'>

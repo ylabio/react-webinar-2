@@ -10,7 +10,7 @@ import "./style.css";
 function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
-
+  console.log(items);
   // Добавить элемент
   const addItem = () => {
     const code = counter();
@@ -51,13 +51,14 @@ function ItemComponent({ item, store }) {
   };
 
   // Удалить элемент
-  const deleteItem = () => {
+  const deleteItem = (e) => {
+    e.stopPropagation();
     store.deleteItem(item.code);
   };
 
   return (
     <div className="List__item">
-      <div className={"Item" + (item.selected ? " Item_selected" : "")} onClick={selectAndCountItem}>
+      <div className={`Item ${item.selected && "Item_selected"}`} onClick={selectAndCountItem}>
         <div className="Item__number">{item.code}</div>
         <div className="Item__title">
           {item.title}

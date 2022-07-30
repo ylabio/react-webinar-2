@@ -1,3 +1,5 @@
+import { counterSelect } from './utils';
+
 class Store {
 
   constructor(initState) {
@@ -71,7 +73,7 @@ class Store {
       items: this.state.items.map(item => {
         if (item.code === code){
           item.selected = !item.selected;
-          item.click = item.click ? +item.selected + item.click : 1;
+          item.click = counterSelect(item.click, item.selected);
         } else {
           item.selected = false;
         }

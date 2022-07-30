@@ -5,3 +5,7 @@
 export function counter(){
   return counter.value ? ++counter.value : counter.value = 1;
 }
+
+export const counterSelect = (click, selected) => {
+  return click ? +selected + click : 1;
+}

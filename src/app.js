@@ -11,6 +11,10 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+  function counterCase(number){
+    return 1 < number % 10 && number % 10 < 5 && !(10 < number && number < 15)  ? 'раза' : 'раз'
+  }
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -28,9 +32,16 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
+              <div className='Item__title'>
+                {item.title}
+                {item.clicksCounter ? ` | Выделялся ${item.clicksCounter} ${counterCase(item.clicksCounter)}` : null}
+              </div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={evt => {
+                  store.deleteItem(item.code);
+                  evt.stopPropagation();
+                  return false;
+                  }}>
                   Удалить
                 </button>
               </div>

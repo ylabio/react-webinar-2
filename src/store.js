@@ -72,6 +72,12 @@ class Store {
         if (item.code === code){
           item.selected = !item.selected;
         }
+        if (item.code !== code){
+          item.selected = false;
+        }
+        if (item.code === code && item.selected){
+          item.countSelected ? ++item.countSelected : (item.countSelected = 1);
+        }
         return item;
       })
     });

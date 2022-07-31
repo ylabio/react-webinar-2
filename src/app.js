@@ -1,14 +1,10 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, checkTitleOutput} from './utils.js';
 import './style.css';
-
-//для правильного вывода на экран словосочетания "1 раз" - "2 раза"
-const regex1 = /[2-4]$/;
-const regex2 = /[1][2-4]$/;
 
 /**
  * Приложение
- * @param store {Store} Состояние приложения
+ * @param store {Store}  Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
@@ -38,10 +34,7 @@ function App({store}) {
                     <span>
                       {' '}
                       | Выделялся&nbsp;{item.wasChoosen}&nbsp;
-                      {regex1.test(item.wasChoosen) &&
-                      !regex2.test(item.wasChoosen)
-                        ? "раза"
-                        : "раз"}
+                      {(() => checkTitleOutput(item.wasChoosen))()}
                     </span>
                   ) : null}
                 </div>

@@ -32,7 +32,7 @@ function App({store}) {
               <div
                 className='Item__title'>
                 {item.title}
-                {item.countOfAllocate > 0 ? ` | Выдлился раз ${item.countOfAllocate}` : ''}
+                {item.countOfAllocate > 0 ? ` | Выдлился ${item.countOfAllocate} раз` : ''}
               </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>

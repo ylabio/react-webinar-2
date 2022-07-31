@@ -11,7 +11,7 @@ const store = new Store({
     {code: counter(), title: 'Заголовок', quantity: 0},
     {code: counter(), title: 'Короткое название', quantity: 0},
     {code: counter(), title: 'Запись', quantity: 0},
-    {code: counter(), title: 'Пример выделенной записи', selected: true, quantity: 0},
+    {code: counter(), title: 'Пример выделенной записи', selected: true, quantity: 1},
     {code: counter(), title: 'Седьмой', quantity: 0},
   ]
 });

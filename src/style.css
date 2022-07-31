@@ -51,10 +51,13 @@ body{
     background: #75aaf1;
 }
 
-
 .Item__title{
     width: 100%;
     padding: 20px 10px;
+    display: flex;
+}
+.item__clicked{
+    margin-left: 5px;
 }
 .Item__actions{
     padding: 20px  20px 20px 10px;
@@ -64,6 +67,5 @@ body{
 .Item__number{
     padding: 20px 10px 20px 20px;
 }
-
 
 

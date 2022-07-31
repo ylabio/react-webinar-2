@@ -11,6 +11,22 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+  function getNoun(number, one, two, five) {
+    number = Math.abs(number);
+    number %= 100;
+    if (number >= 5 && number <= 20) {
+        return five;
+    }
+    number %= 10;
+    if (number == 1) {
+        return one;
+    }
+    if (number >= 2 && number <= 4) {
+        return two;
+    }
+    return five;
+  }
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -28,9 +44,12 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title} {item.picksCount !== 0 ? <>| Выделялся  {item.picksCount} раз</> : <></>}</div>
+              <div className='Item__title'>{item.title} {item.picksCount !== 0 ? <>| Выделялся  {item.picksCount} {getNoun(item.picksCount, 'раз', 'раза', 'раз')}</> : <></>}</div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={(e) => {
+                  e.stopPropagation(); 
+                  store.deleteItem(item.code)
+                }}>
                   Удалить
                 </button>
               </div>

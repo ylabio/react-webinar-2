@@ -11,9 +11,10 @@ const store = new Store({
     {code: counter(), title: 'Заголовок', picksCount: 0},
     {code: counter(), title: 'Короткое название', picksCount: 0},
     {code: counter(), title: 'Запись', picksCount: 0},
-    {code: counter(), title: 'Пример выделенной записи', picksCount: 0, selected: true},
+    {code: counter(), title: 'Пример выделенной записи', picksCount: 1, selected: true},
     {code: counter(), title: 'Седьмой', picksCount: 0},
-  ]
+  ],
+  selectedItemId: 6,
 });
 
 // Реакция на изменение store - повторный рендер приложения

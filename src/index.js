@@ -6,13 +6,13 @@ import {counter} from './utils.js';
 
 const store = new Store({
   items: [
-    {code: counter(), title: 'Название элемента'},
-    {code: counter(), title: 'Некий объект'},
-    {code: counter(), title: 'Заголовок'},
-    {code: counter(), title: 'Короткое название'},
-    {code: counter(), title: 'Запись'},
-    {code: counter(), title: 'Пример выделенной записи', selected: true},
-    {code: counter(), title: 'Седьмой'},
+    {code: counter(), title: 'Название элемента',countSelected: 0, selected: false},
+    {code: counter(), title: 'Некий объект', countSelected: 0, selected: false},
+    {code: counter(), title: 'Заголовок', countSelected: 0, selected: false},
+    {code: counter(), title: 'Короткое название', countSelected: 0, selected: false},
+    {code: counter(), title: 'Запись', countSelected: 0, selected: false},
+    {code: counter(), title: 'Пример выделенной записи',countSelected: 1, selected: true},
+    {code: counter(), title: 'Седьмой', countSelected: 0, selected: false},
   ]
 });
 

@@ -4,16 +4,16 @@ import {cn as bem} from "@bem-react/classname";
 import Item from "../item";
 import './style.css';
 
-function List({items, onItemSelect, onItemDelete}) {
+function List(props) {
 
   console.log('List');
 
   const cn = bem('List');
 
   return (
-    <div className={cn()}>{items.map(item =>
+    <div className={cn()}>{props.items.map(item =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} onSelect={onItemSelect} onDelete={onItemDelete}/>
+        <Item item={item} onSelect={props.onItemSelect} onDelete={props.onItemDelete}/>
       </div>
     )}
     </div>

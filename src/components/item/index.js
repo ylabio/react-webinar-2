@@ -1,27 +1,42 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import plural from 'plural-ru';
-
 import './style.css';
 
-function Item({item, onSelect, onDelete}) {
-
+function Item(props) {
   console.log('Item');
-
   const cn = bem('Item');
 
+  // Счётчик выделений
+  const [count, setCount] = useState(0);
+
+  const callbacks = {
+
+    onClick: useCallback(() => {
+      props.onSelect(props.item.code);
+      if (!props.item.selected) {
+        setCount(count + 1);
+      }
+    }, [props.onSelect, props.item, setCount, count]),
+
+    onDelete: useCallback((e) => {
+      e.stopPropagation();
+      props.onDelete(props.item.code)
+    }, [props.onDelete,  props.item])
+  };
+
   return (
-    <div className={cn({'selected': item.selected})} onClick={() => onSelect(item.code)}>
+    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
       <div className={cn('number')}>
-        {item.code}
+        {props.item.code}
       </div>
       <div className={cn('title')}>
-        {item.title}
-        {item.count ? `| Выделялось ${item.count} ${plural(item.count, 'раз', 'раза', 'раз')}` : null}
+        {props.item.title}
+        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
       </div>
       <div className={cn('actions')}>
-        <button onClick={() => onDelete(item.code)}>
+        <button onClick={callbacks.onDelete}>
           Удалить
         </button>
       </div>

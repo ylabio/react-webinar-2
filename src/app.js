@@ -31,7 +31,7 @@ function App({store}) {
               <div className='Item__title'>
                 {item.title}
                 {item.selectionsCount > 0 ?
-                  <span className='Item__selections'>
+                  <span>
                     {` | Выделялся ${item.selectionsCount} ${getCountCase(item.selectionsCount)}`}
                   </span> :
                   ''}

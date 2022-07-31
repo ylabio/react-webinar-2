@@ -53,7 +53,7 @@ body{
 
 
 .Item__title{
-    width: 100%;
+    /* width: 100%; */
     padding: 20px 10px;
 }
 .Item__actions{
@@ -64,6 +64,8 @@ body{
 .Item__number{
     padding: 20px 10px 20px 20px;
 }
-
-
+.Item__counter{
+    margin-right: auto;
+    padding: 20px 10px;
+}
 

@@ -1,13 +1,24 @@
 import React from 'react';
-import {counter} from "../../utils";
+import propTypes from 'prop-types';
 import './style.css';
 
 function Controls({onAdd}){
+
+  console.log('Controls');
+
   return (
     <div className='Controls'>
-      <button onClick={onAdd}> Добавить </button>
+      <button onClick={onAdd}>Добавить</button>
     </div>
   )
 }
 
-export default Controls;
+Controls.propTypes = {
+  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+}
+
+Controls.defaultProps = {
+  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+}
+
+export default React.memo(Controls);

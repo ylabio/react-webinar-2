@@ -1,8 +1,11 @@
 import React from 'react';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
+import propTypes from "prop-types";
 
-function Layout({head, content, children}){
+function Layout({head, children}){
+
+  console.log('Layout');
 
   const cn = bem('Layout');
 
@@ -18,4 +21,12 @@ function Layout({head, content, children}){
   )
 }
 
-export default Layout;
+Layout.propTypes = {
+  head: propTypes.node,
+  children: propTypes.node,
+}
+
+Layout.defaultProps = {
+}
+
+export default React.memo(Layout);

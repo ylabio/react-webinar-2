@@ -71,6 +71,7 @@ class Store {
       items: this.state.items.map(item => {
         if (item.code === code){
           item.selected = !item.selected;
+          item.selected ? ++item.selectionValue : item.selectionValue
         } else {
           item.selected = false
         }
@@ -78,19 +79,6 @@ class Store {
       })
     });
   }
-
-  selectionCounter(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code) {
-          item.selected ? ++item.selectionValue : item.selectionValue
-        }
-        return item;
-      })
-    });
-  }
-
 }
 
 export default Store;

@@ -1,6 +1,8 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+import plural from 'plural-ru';
+
 import './style.css';
 
 function Item({item, onSelect, onDelete}) {
@@ -16,6 +18,7 @@ function Item({item, onSelect, onDelete}) {
       </div>
       <div className={cn('title')}>
         {item.title}
+        {item.count ? `| Выделялось ${item.count} ${plural(item.count, 'раз', 'раза', 'раз')}` : null}
       </div>
       <div className={cn('actions')}>
         <button onClick={() => onDelete(item.code)}>

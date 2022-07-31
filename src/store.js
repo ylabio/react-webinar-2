@@ -70,9 +70,13 @@ class Store {
       ...this.state,
       items: this.state.items.map(item => {
         if (item.code === code){
-          item.selected = !item.selected;
+          return {
+            ...item,
+            selected: !item.selected,
+            count: item.selected ? item.count : item.count + 1 || 1
+          }
         }
-        return item;
+        return item.selected ? {...item, selected: false} : item;
       })
     });
   }

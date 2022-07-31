@@ -21,6 +21,7 @@ class Store {
    */
   setState(newState) {
     this.state = newState;
+    console.log(this.state);
     // Оповещаем всех подписчиков об изменении стейта
     for (const lister of this.listners) {
       lister();
@@ -43,10 +44,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+  createItem({code, title = 'Новая запись', selected = false, focusedTimes = 0}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({code, title, selected, focusedTimes})
     });
   }
 

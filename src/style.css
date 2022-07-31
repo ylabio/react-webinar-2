@@ -51,11 +51,19 @@ body{
     background: #75aaf1;
 }
 
-
 .Item__title{
     width: 100%;
     padding: 20px 10px;
 }
+
+.Item__counter {
+    display: inline;
+}
+
+.Item__counter_hidden {
+    display: none;
+}
+
 .Item__actions{
     padding: 20px  20px 20px 10px;
     display: flex;

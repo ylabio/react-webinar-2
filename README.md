@@ -1,5 +1,5 @@
-# React Project "ToDo List"
-## _A simple To-Do list where you can add and delete new entriesr_
+# React Project "ToDo or Shopping List"
+## _A simple To-Do and Shopping list where you can add and delete new entriesr_
 
 ### Installation
 
@@ -19,5 +19,6 @@ npm start
 
 1. 31.07.2022
     1.При клике по одному из пунктов сбрасываются выделения с других пунктов.
+    
     2.Вывод количества совершенных выделений для каждого пункта сопровождается фразой “Выделялось N раз”. По умолчанию у всех ноль.
 

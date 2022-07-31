@@ -11,10 +11,15 @@ function App({store}) {
     // Выбор состояния из store
     const {items} = store.getState();
 
-    const onClickItem = (code) => {
-        store.selectItem(code)
-        store.activeItem(code)
-        store.addItemCount(code)
+    const countName = (count) => {
+        const countArray = count.toString().split('');
+        const preLastElement = countArray.at(-2) //Можно конверитировать в число, но я подумал легче сраавнимое значение перевести в строку
+        const lastElement = countArray.pop()
+        if (lastElement >= 2 && lastElement <= 4 && preLastElement !== '1') {
+            return `| Выделялся ${count} раза`
+        } else {
+            return `| Выделялся ${count} раз`
+        }
     }
 
     return (
@@ -33,12 +38,14 @@ function App({store}) {
                 <div className='List'>{items.map(item =>
                     <div key={item.code} className='List__item'>
                         <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                             onClick={() => onClickItem(item.code)}>
+                             onClick={() => store.selectItem(item.code)}>
                             <div className='Item__number'>{item.code}</div>
-                            <div
-                                className='Item__title'>{item.title} {item.count ? `| Выделялся ${item.count} раз` : ''}</div>
+                            <div className='Item__title'>{item.title} {item.count ? countName(item.count) : ''}</div>
                             <div className='Item__actions'>
-                                <button onClick={() => store.deleteItem(item.code)}>
+                                <button onClick={(event) => {
+                                    store.deleteItem(item.code)
+                                    event.stopPropagation();
+                                }}>
                                     Удалить
                                 </button>
                             </div>

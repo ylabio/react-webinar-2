@@ -73,29 +73,14 @@ class Store {
                     item.selected = !item.selected;
                 }
                 return item;
-            })
-        });
-    }
-
-    activeItem(code) {
-        this.setState({
-            ...this.state,
-            items: this.state.items.map(item => {
+            }).map(item => {
                 if (item.code !== code) {
                     item.selected = false
                 }
                 return item;
-            })
-        });
-    }
-
-    addItemCount(code) {
-        this.setState({
-            ...this.state,
-            items: this.state.items.map(item => {
+            }).map(item => {
                 if (item.code === code && item.selected === true) {
                     item.count = item.count ? item.count + 1 : 1
-                    console.log(item.count)
                 }
                 return item;
             })

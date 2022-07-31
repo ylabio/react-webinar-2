@@ -2,17 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app.js';
 import Store from "./store.js";
-import {counter} from './utils.js';
+import {counter, selectedCounter} from './utils.js';
 
 const store = new Store({
   items: [
-    {code: counter(), title: 'Название элемента'},
-    {code: counter(), title: 'Некий объект'},
-    {code: counter(), title: 'Заголовок'},
-    {code: counter(), title: 'Короткое название'},
-    {code: counter(), title: 'Запись'},
-    {code: counter(), title: 'Пример выделенной записи', selected: true},
-    {code: counter(), title: 'Седьмой'},
+    {code: counter(), title: 'Название элемента', timesSelected: 0},
+    {code: counter(), title: 'Некий объект', timesSelected: 0},
+    {code: counter(), title: 'Заголовок', timesSelected: 0},
+    {code: counter(), title: 'Короткое название', timesSelected: 0},
+    {code: counter(), title: 'Запись', timesSelected: 0},
+    {code: counter(), title: 'Пример выделенной записи', selected: true, timesSelected: 0},
+    {code: counter(), title: 'Седьмой', timesSelected: 0},
   ]
 });
 

@@ -4,15 +4,17 @@ import App from './app.js';
 import Store from "./store.js";
 import {counter} from './utils.js';
 
+const COUNTER_INITIAL_VALUE=0
+
 const store = new Store({
   items: [
-    {code: counter(), title: 'Название элемента'},
-    {code: counter(), title: 'Некий объект'},
-    {code: counter(), title: 'Заголовок'},
-    {code: counter(), title: 'Короткое название'},
-    {code: counter(), title: 'Запись'},
-    {code: counter(), title: 'Пример выделенной записи', selected: true},
-    {code: counter(), title: 'Седьмой'},
+    {code: counter(), title: 'Название элемента',counter:COUNTER_INITIAL_VALUE},
+    {code: counter(), title: 'Некий объект',counter:COUNTER_INITIAL_VALUE},
+    {code: counter(), title: 'Заголовок',counter:COUNTER_INITIAL_VALUE},
+    {code: counter(), title: 'Короткое название',counter:COUNTER_INITIAL_VALUE},
+    {code: counter(), title: 'Запись',counter:COUNTER_INITIAL_VALUE},
+    {code: counter(), title: 'Пример выделенной записи', selected: true,counter:COUNTER_INITIAL_VALUE+1},
+    {code: counter(), title: 'Седьмой',counter:COUNTER_INITIAL_VALUE},
   ]
 });
 

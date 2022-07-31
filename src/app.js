@@ -11,6 +11,7 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -26,10 +27,15 @@ function App({store}) {
         <div className='List'>{items.map(item =>
           <div key={item.code} className='List__item'>
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
+                onClick={() => {
+                  store.selectItem(item.code)
+                  store.addSelectValue(item.code)
+                }}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
-              {item > 0 && <div>Выделялось {item.value} раз</div> }
+              <div className='Item__title'>
+                {item.title}
+                {item.value > 0 && <span> | Выделялось {item.value} раз</span> }
+              </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

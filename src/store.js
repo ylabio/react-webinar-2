@@ -76,6 +76,20 @@ class Store {
       })
     });
   }
+
+  addSelectValue(code) {
+    this.setState({
+      ...this.state,
+      items: this.state.items.map((item, index) => {
+        if (item.code === code) {
+          item.selected && item.value++
+        }
+
+        return item
+      })
+
+    });
+  }
 }
 
 export default Store;

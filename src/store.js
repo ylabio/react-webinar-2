@@ -43,10 +43,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+  createItem({code, title = 'Новая запись', selected = false, selectedCounter = 0}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({code, title, selected, selectedCounter})
     });
   }
 
@@ -71,11 +71,27 @@ class Store {
       items: this.state.items.map(item => {
         if (item.code === code){
           item.selected = !item.selected;
+          if (item.selected === true) {
+            // this.selectCounter(code)
+            item.selectedCounter++
+          }
+        } else {
+          item.selected = false
         }
         return item;
       })
     });
   }
+
+// Можно сделать отдельный метод для этого, но для простоты чтения кода и для уменьшения строк в коде проще добавить if в if
+
+  // selectCounter(code) {
+  //   this.setState({...this.state, items: this.state.items.map(item => {
+  //     if (item.code === code) {
+  //       item.selectedCounter += 1
+  //     }
+  //   })})
+  // }
 }
 
 export default Store;

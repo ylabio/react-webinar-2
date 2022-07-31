@@ -5,7 +5,7 @@ class Store {
     this.state = initState;
     // Слушатели изменений state
     this.listners = [];
-    this.selectItemForDelete;
+    this.selectItemForDelete = this.state.items.length;
   }
 
   /**
@@ -56,8 +56,6 @@ class Store {
    * @param code
    */
   deleteItem(code) {
-    this.selectItemForDelete = this.state.items.length;
-
     this.setState({
       ...this.state,
       items: this.state.items.filter(item => item.code !== code)
@@ -76,7 +74,6 @@ class Store {
           item.selected = !item.selected;
           if (item.selected) item.count++; // Счётчик выделений
         }
-
         else this.selectItemForDelete == this.state.items.length + 1 ? null : item.selected = ''; // Запрещение снятия выделения при удалении item
 
         return item;

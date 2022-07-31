@@ -65,7 +65,7 @@ class Store {
    * @param code
    */
   selectItem(e, code) {
-    if (e.target.localName !== 'button') {
+    if (e.target.name !== 'delBtn') {
       this.setState({
         ...this.state,
         items: this.state.items.map((item) => {

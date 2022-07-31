@@ -47,7 +47,9 @@ function App({ store }) {
                     : ''}
                 </div>
                 <div className='Item__actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button name='delBtn' onClick={() => store.deleteItem(item.code)}>
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>

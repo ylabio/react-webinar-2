@@ -4,7 +4,7 @@ import './style.css';
 
 /**
  * Приложение
- * @param store {Store}  Состояние приложения
+ * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {

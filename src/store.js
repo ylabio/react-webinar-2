@@ -69,12 +69,7 @@ class Store {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
-        if (item.code === code) {
-          item.selected = !item.selected
-        } else {
-          item.selected = false
-        }
-        return item;
+        return item.code === code ? {...item, selected: !item.selected} : {...item, selected: false}
       })
     });
   }
@@ -84,7 +79,7 @@ class Store {
       ...this.state,
       items: this.state.items.map(item => {
         if (item.code === code) {
-          item.counter += 1
+          return {...item, counter: item.counter + 1}
         }
         return item;
       })

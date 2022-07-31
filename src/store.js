@@ -79,12 +79,10 @@ class Store {
                 else {
                     // Для всех остальных item селекторы сбрасываем - устанавливаем в false
                     item.selected = false;
-                  console.log(item.code)
                 }
                 return item;
             })
         });
-
     }
 }
 

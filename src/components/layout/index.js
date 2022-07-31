@@ -4,9 +4,7 @@ import './style.css';
 import propTypes from "prop-types";
 
 function Layout({head, children}){
-
   console.log('Layout');
-
   const cn = bem('Layout');
 
   return (

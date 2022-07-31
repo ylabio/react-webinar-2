@@ -3,7 +3,6 @@ import propTypes from 'prop-types';
 import './style.css';
 
 function Controls({onAdd}){
-
   console.log('Controls');
 
   return (

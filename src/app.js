@@ -10,7 +10,6 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-
   console.log('App');
 
   const callbacks = {

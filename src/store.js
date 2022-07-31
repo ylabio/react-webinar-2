@@ -64,8 +64,8 @@ class Store {
    * Выделение записи по её коду
    * @param code
    */
-  selectItem(code) {
-    if (this.state.items.some((obj) => obj.code === code)) {
+  selectItem(e, code) {
+    if (e.target.localName !== 'button') {
       this.setState({
         ...this.state,
         items: this.state.items.map((item) => {

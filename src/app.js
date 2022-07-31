@@ -1,5 +1,6 @@
 import React from 'react';
 import { counter } from './utils.js';
+import numeralize from 'numeralize-ru';
 import './style.css';
 
 /**
@@ -10,15 +11,6 @@ import './style.css';
 function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
-
-  // Склонение счетчика выделений
-  const declension = (number) => {
-    const titles = ['раз', 'раза', 'раз'];
-    const cases = [2, 0, 1, 1, 1, 2];
-    return titles[
-      number % 100 > 4 && number % 100 < 20 ? 2 : cases[number % 10 < 5 ? number % 10 : 5]
-    ];
-  };
 
   return (
     <div className='App'>
@@ -41,11 +33,18 @@ function App({ store }) {
             <div key={item.code} className='List__item'>
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}>
+                onClick={(e) => store.selectItem(e, item.code)}>
                 <div className='Item__number'>{item.code}</div>
                 <div className='Item__title'>
                   {item.title}{' '}
-                  {item.clicks > 0 ? `| Выделялся ${item.clicks} ${declension(item.clicks)}` : ''}
+                  {item.clicks > 0
+                    ? `| Выделялся ${item.clicks} ${numeralize.pluralize(
+                        item.clicks,
+                        'раз',
+                        'раза',
+                        'раз',
+                      )}`
+                    : ''}
                 </div>
                 <div className='Item__actions'>
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>

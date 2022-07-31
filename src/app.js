@@ -11,34 +11,22 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
-  const addItem = () => {
-    const code = counter();
-    store.createItem({code, title: `Новая запись ${code}`})
+  const selectionsCountMessage = (count) => {
+    const countEnd = count % 100;
+    const _countEnd = count % 10;
+    if(countEnd > 10 && countEnd < 20) {
+      return ` | Выделялось ${count} раз`
+    }
+    if(_countEnd > 1 && _countEnd < 5) {
+      return ` | Выделялось ${count} раза`
+    }
+    return ` | Выделялось ${count} раз`
   }
-
-  // Оработка клика 
-  const selectItemHandler = (code) => {
-    store.selectItem(code);
-    store.incremetSelectCounter(code);
+  
+  const deleteHandler = (e, code) => {
+    e.stopPropagation();
+    store.deleteItem(code);
   }
-
-  const itemsList = items.map(item => 
-    <div key={item.code} className='List__item'>
-      <div 
-        className={'Item' + (item.selected ? ' Item_selected' : '')}
-        onClick={() => selectItemHandler(item.code)}
-      >
-        <div className='Item__number'>{item.code}</div>
-        <div className='Item__title'>
-          {item.title}
-          {item.selectCount > 0 && ` | Выделялся ${item.selectCount} раз`}
-        </div>
-        <div className='Item__actions'>
-          <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
-        </div>
-      </div>
-    </div>
-  )
 
   return (
     <div className='App'>
@@ -46,11 +34,29 @@ function App({store}) {
         <h1>Приложение на чистом JS</h1>
       </div>
       <div className='Controls'>
-        <button onClick={addItem}>Добавить</button>
+        <button onClick={() => {
+          const code = counter();
+          store.createItem({code, title: `Новая запись ${code}`})
+        }}> Добавить </button>
       </div>
       <div className='App__center'>
-        <div className='List'>
-          {itemsList}
+        <div className='List'>{items.map(item =>
+          <div key={item.code} className='List__item'>
+            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
+                onClick={() => store.selectItem(item.code)}>
+              <div className='Item__number'>{item.code}</div>
+              <div className='Item__title'>
+                {item.title}
+                {item.selectionsCount > 0 && selectionsCountMessage(item.selectionsCount)}
+              </div>
+              <div className='Item__actions'>
+                <button onClick={e => deleteHandler(e, item.code)}>
+                  Удалить
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         </div>
       </div>
     </div>

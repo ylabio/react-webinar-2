@@ -4,7 +4,7 @@ class Store {
     // Состояние приложения (данные)
     this.state = initState;
     // Слушатели изменений state
-    this.listeners = [];
+    this.listners = [];
   }
 
   /**
@@ -22,7 +22,7 @@ class Store {
   setState(newState) {
     this.state = newState;
     // Оповещаем всех подписчиков об изменении стейта
-    for (const lister of this.listeners) {
+    for (const lister of this.listners) {
       lister();
     }
   }
@@ -33,20 +33,20 @@ class Store {
    * @return {Function} Функция для отписки
    */
   subscribe(callback) {
-    this.listeners.push(callback);
+    this.listners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
+      this.listners = this.listners.filter(item => item !== callback);
     }
   }
 
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false, selectCount = 0}) {
+  createItem({code, title = 'Новая запись', selectionsCount = 0, selected = false}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected, selectCount})
+      items: this.state.items.concat({code, selectionsCount, title, selected})
     });
   }
 
@@ -70,23 +70,12 @@ class Store {
       ...this.state,
       items: this.state.items.map(item => {
         if (item.code === code){
+          if(!item.selected) {
+            item.selectionsCount += 1;
+          }
           item.selected = !item.selected;
         } else {
           item.selected = false;
-        }
-        return item;
-      })
-    });
-  }
-
-  // Прибавление счетчика выделений 
-
-  incremetSelectCounter(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          item.selected && item.selectCount++;
         }
         return item;
       })

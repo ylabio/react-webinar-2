@@ -11,6 +11,10 @@ function App( { store } ) {
     // Выбор состояния из store
     const { items } = store.getState();
 
+    const selectedName = (number) => {
+        return (number % 10) > 1 && (number % 10) < 5 && number !== 12  &&  number!== 13  && number  !== 14 && number % 100 !== 12  &&  number % 100 !== 13  && number % 100 !== 14 ? 'разa' : 'раз'
+    }
+
     return (<div className='App'>
             <div className='App__head'>
                 <h1>Приложение на чистом JS</h1>
@@ -28,9 +32,9 @@ function App( { store } ) {
                         <div className={ 'Item' + (item.selected ? ' Item_selected' : '') }
                          onClick={ () => store.selectItem( item.code)}>
                             <div className='Item__number'>{ item.code }</div>
-                            <div className='Item__title'>{ item.title } | Выделялся {item.count === 0 ? '' : item.count} раз</div>
+                            <div className='Item__title'>{ item.title }  {item.count === 0 ? '' : `| Выделялся ${item.count } ${selectedName(item.count)}`} </div>
                             <div className='Item__actions'>
-                                <button onClick={ () => store.deleteItem( item.code ) }>
+                                <button onClick={ (e) => store.deleteItem( item.code, e ) }>
                                 Удалить
                                 </button>
                             </div>

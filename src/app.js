@@ -10,6 +10,15 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
+  // Фраза с количеством выделений
+  function makePhraseWithCountRepeats(count) {
+    const arr = String(count).split('');
+    if (arr[arr.length - 2] != 1 && arr[arr.length - 1] > 1 && arr[arr.length - 1] < 5) {
+      return ` | Выделялось ${count} раза`
+    } else {
+      return ` | Выделялось ${count} раз`
+    }
+  }
 
   return (
     <div className='App'>
@@ -31,7 +40,7 @@ function App({store}) {
               <div className='Item__title'>
                 {item.title}
                 <span className='Item__count-selected'>
-                  {item.countSelected ? ` | ${item.countSelected}` : ''}
+                  {item.countSelected ? makePhraseWithCountRepeats(item.countSelected) : ''}
                 </span>
               </div>
               <div className='Item__actions'>

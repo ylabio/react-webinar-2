@@ -1,3 +1,4 @@
+
 class Store {
 
   constructor(initState) {
@@ -69,12 +70,18 @@ class Store {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
+        
         if (item.code === code){
+           
           item.selected = !item.selected;
-          item.count = item.count + 1
+          if(item.selected) {
+            item.count = item.count + 1
+          } 
+          
         } else {
           item.selected = false
         }
+        
         return item;
       })
     });

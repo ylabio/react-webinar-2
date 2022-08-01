@@ -10,7 +10,7 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
-
+  
   return (
     <div className='App'>
       <div className='App__head'>
@@ -28,7 +28,16 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title} {item.count ?  `| Выделено ${item.count} раз`: null}</div>
+              <div className='Item__title'>{item.title}
+               {item.count 
+               ?  ` | Выделялось ${item.count} раз${
+                  item.count.toString().slice(-1) == 2 && item.count != 12 || 
+                  item.count.toString().slice(-1) == 3 && item.count != 13 || 
+                  item.count.toString().slice(-1) == 4 && item.count != 14
+               ? 'a' 
+               : ''}`
+               : null}
+               </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

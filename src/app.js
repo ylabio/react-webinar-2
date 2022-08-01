@@ -39,10 +39,14 @@ function App({ store }) {
                 <div className="Item__left-side">
                   <div className="Item__number">{item.code}</div>
                   <div className="Item__title">{item.title}</div>
+
                   {item.counter ? (
-                    <div className="Item__counter">
-                      | Выделялся {item.counter}{" "}
-                      {plural(item.counter, "раз", "раза", "раз")}
+                    <div className="Item__counter-wrapper">
+                      <div className="Item__div-line">|</div>
+                      <div className="Item__counter">
+                        Выделялось {item.counter}{" "}
+                        {plural(item.counter, "раз", "раза", "раз")}
+                      </div>
                     </div>
                   ) : (
                     ""

@@ -71,8 +71,16 @@ body {
 }
 .Item__counter {
   box-sizing: content-box;
-  padding: 20px 10px;
+  padding: 20px 20px 10px 0px;
 }
 .Item__left-side {
   display: flex;
+}
+.Item__counter-wrapper {
+  display: flex;
+}
+.Item__div-line {
+  display: inline;
+  padding-top: 20px;
+  padding-right: 10px;
 }

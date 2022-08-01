@@ -12,6 +12,11 @@ function ListItem({item, store}) {
     );
   }
 
+  const handleDeleteItem = event => {
+    event.stopPropagation();
+    store.deleteItem(item.code);
+  };
+
   return (
     <div key={item.code} className="List__item">
       <div
@@ -29,7 +34,7 @@ function ListItem({item, store}) {
         </div>
 
         <div className="Item__actions">
-          <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+          <button onClick={handleDeleteItem}>Удалить</button>
         </div>
       </div>
     </div>

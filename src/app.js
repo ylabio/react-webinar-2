@@ -29,8 +29,7 @@ function App({ store }) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
               onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title + ((item.selected
-                && item.clicksNumber > 0)
+              <div className='Item__title'>{item.title + ((item.clicksNumber > 0)
                 ? showNumberOfClicks(item.clicksNumber)
                 : '')}
               </div>

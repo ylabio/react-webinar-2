@@ -1,8 +1,8 @@
-import React from "react";
-import App from "./app.js";
+import React from 'react';
+import {createRoot} from 'react-dom/client';
+import App from './app.js';
 import Store from "./store.js";
 import { counter } from "./utils.js";
-import { createRoot } from "react-dom/client";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -18,6 +18,8 @@ const store = new Store({
     { code: counter(), title: "Седьмой" },
   ],
 });
+
+const root = createRoot(document.getElementById('root'));
 
 // Реакция на изменение store - повторный рендер приложения
 store.subscribe(() => {

@@ -11,6 +11,21 @@ function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
 
+  const declination = (num) => {
+    if (num > 11 && num < 15) return "раз";
+
+    if (num > 1 && num < 5) return "раза";
+    if (num > 21 && num < 25) return "раза";
+
+    if (String(num).length > 1) {
+      if (String(num).slice(-1) === "2") return "раза";
+      if (String(num).slice(-1) === "3") return "раза";
+      if (String(num).slice(-1) === "4") return "раза";
+    }
+
+    return "раз";
+  };
+
   return (
     <div className="App">
       <div className="App__head">
@@ -23,8 +38,7 @@ function App({ store }) {
             store.createItem({ code, title: `Новая запись ${code}` });
           }}
         >
-          {" "}
-          Добавить{" "}
+          Добавить
         </button>
       </div>
       <div className="App__center">
@@ -39,7 +53,9 @@ function App({ store }) {
                 <div className="Item__title">
                   {item.title}
                   {!!item.selectCounter &&
-                    `| Выделялось ${item.selectCounter} раз`}
+                    ` | Выделялось ${item.selectCounter} ${declination(
+                      item.selectCounter
+                    )}`}
                 </div>
                 <div className="Item__actions">
                   <button onClick={() => store.deleteItem(item.code)}>

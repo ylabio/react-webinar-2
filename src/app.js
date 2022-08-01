@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {counter} from './utils.js';
+import {counter, checkA} from './utils.js';
 import './style.css';
 
 /**
@@ -44,7 +44,7 @@ const ListItem = ({ item, store }) => {
     }
   }
 
-  const countOfSelectText = count ? `| Выделился ${count} раз` : ''
+  const countOfSelectText = count ? `| Выделился ${count} раз${checkA(count) ? "a" : ''}` : ''
  
   return (
     <div key={item.code} className='List__item'>

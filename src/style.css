@@ -45,7 +45,7 @@ body{
 .Item{
     display: flex;
     justify-content: flex-start;
-    transition: background-color 1s;
+    transition: background-color 0.4s;
 }
 .Item_selected{
     background: #75aaf1;
@@ -54,7 +54,7 @@ body{
 
 .Item__title{
     width: 100%;
-    padding: 20px 10px;
+    margin: 20px 10px;
 }
 .Item__actions{
     padding: 20px  20px 20px 10px;

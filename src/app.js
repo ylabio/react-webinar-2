@@ -38,7 +38,7 @@ function App({ store }) {
                 <div className="Item__number">{item.code}</div>
                 <div className="Item__title">
                   {item.title}
-                  {item.counter ? ` | Выделялось ${item.counter} раз` : ""}
+                  {item.counter ? ` | Выделялось ${item.counter} раз (а)` : ""}
                 </div>
                 <div className="Item__actions">
                   <button onClick={(e) => store.deleteItem(e, item.code)}>

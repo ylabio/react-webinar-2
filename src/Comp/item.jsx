@@ -1,5 +1,6 @@
 import React from 'react'
 import '../style.css';
+import plural from 'plural-ru'
 
 export const Item = (props) => {
   return (
@@ -10,11 +11,8 @@ export const Item = (props) => {
         <div className='Item__title'>{props.title}
           <span>
             {
-              props.counter > 0
-                ?
-                <span> | Выделялось {props.counter} раз(а)</span>
-                :
-                ''
+              props.counter > 0 && ` | Выделялось ${plural(props.counter,'%d раз', '%d раза', '%d раз')}`
+               
             }
           </span>
         </div>

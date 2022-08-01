@@ -26,6 +26,7 @@
     "css-loader": "^6.7.1",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.1",
+    "plural-ru": "^2.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "webpack": "^5.73.0",

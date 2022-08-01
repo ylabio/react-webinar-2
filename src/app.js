@@ -1,5 +1,5 @@
 import React from 'react';
-import { counter, showNumberOfClicks } from './utils.js';
+import { counter, pluralize } from './utils.js';
 import './style.css';
 
 
@@ -30,7 +30,7 @@ function App({ store }) {
               onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title + ((item.clicksNumber > 0)
-                ? showNumberOfClicks(item.clicksNumber)
+                ? ` | Выделено ${item.clicksNumber + ' ' + pluralize(item.clicksNumber, ['раз', 'раза'])}`
                 : '')}
               </div>
               <div className='Item__actions'>

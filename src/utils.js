@@ -5,13 +5,16 @@
 export function counter() {
   return counter.value ? ++counter.value : counter.value = 1;
 }
-//Склоняет от 0 до 21
-export function showNumberOfClicks(number) {
-  if ([0, 1, 5, 6, 7, 8, 9].find(val => val === number)) {
-    return ` | Выделено  ${number} раз`;
+
+export function pluralize(number, cases) {
+  let n = Math.abs(number) % 100;
+  let a = n % 10;
+
+  if (n >= 0 && n < 2 || n > 4 && n < 22) {
+    return cases[0];
   }
-  else if ([2, 3, 4].find(val => val === number)) {
-    return ` | Выделено  ${number} раза`;
+  if (n > 1 && n < 5 || a > 1 && a < 5) {
+    return cases[1];
   }
-  else return ` | Выделено  ${number} раз`;
+  return cases[0];
 }

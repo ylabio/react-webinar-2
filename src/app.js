@@ -44,9 +44,9 @@ function App({ store }) {
                       <div className="Count">
                         <div className="Count_line"></div>
                         <div className="Count_number">
-                          {(item.count % 10 == 2 && item.count !== 12) ||
-                          (item.count % 10 == 3 && item.count !== 13) ||
-                          (item.count % 10 == 4 && item.count !== 14)
+                          {(item.count % 10 == 2 && item.count % 100 !== 12) ||
+                          (item.count % 10 == 3 && item.count % 100 !== 13) ||
+                          (item.count % 10 == 4 && item.count % 100 !== 14) 
                             ? `Выделялось ${item.count} раза`
                             : `Выделялось ${item.count} раз`}
                         </div>

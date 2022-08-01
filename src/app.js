@@ -13,7 +13,8 @@ function App({store}) {
 
   const getTitle = (item) => {
     if (item.selected && item.selected.count && item.selected.count > 0) {
-      return `${item.title} | Выделялось ${item.selected.count} раз`
+      const count = item.selected.count;
+      return count < 5 && count > 1 ? `${item.title} | Выделялось ${count} раза` : `${item.title} | Выделялось ${count} раз`
     };
 
     return item.title;

@@ -55,6 +55,11 @@ body{
 .Item__title{
     width: 100%;
     padding: 20px 10px;
+    display: flex;
+}
+
+.Item__counter {
+    padding-left: 5px;
 }
 .Item__actions{
     padding: 20px  20px 20px 10px;

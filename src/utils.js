@@ -8,7 +8,8 @@ export function counter() {
 
 export const checkNumber = (number) => {
     const val = number % 100;
-    if (val >= 2 && val < 5) {
+    const lastNumbers = val % 10;
+    if ((lastNumbers >= 2 && lastNumbers < 5) && !(val >= 12 && val < 15)) {
         return 'раза';
     }
     return 'раз';

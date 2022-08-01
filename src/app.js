@@ -10,6 +10,13 @@ import "./style.css";
 function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
+  const countEnding = (number) => {
+    if (number >= 2 && number <= 4) {
+      return "раза";
+    } else {
+      return "раз";
+    }
+  };
 
   return (
     <div className="App">
@@ -41,17 +48,8 @@ function App({ store }) {
                 <div className="Item__title">
                   {item.title}
                   {item.setCounter !== 0 &&
-                    ` | Выделялся ${item.setCounter} 
-                  ${
-                    (item.setCounter % 10 === 2 ||
-                      item.setCounter % 10 === 3 ||
-                      item.setCounter % 10 === 4) &&
-                    item.setCounter !== 12 &&
-                    item.setCounter !== 13 &&
-                    item.setCounter !== 14
-                      ? "раза"
-                      : "раз"
-                  }`}
+                    ` | Выделялся ${item.setCounter}
+                  ${countEnding(item.setCounter)}`}
                 </div>
                 <div className="Item__actions">
                   <button onClick={() => store.deleteItem(item.code)}>

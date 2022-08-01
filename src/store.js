@@ -73,7 +73,7 @@ class Store {
          this.сounterClikcItem(item)
           item.selected = !item.selected;
         }
-        // снимаем выделения цветом с item которые не проходят в if
+        // снимаем выделения цветом с item которые не проходят в  if
         else {
           item.selected = false
         }

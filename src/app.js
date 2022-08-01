@@ -11,6 +11,16 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+	// создаем функцию по склонению числительных
+  function num_word(value, words){  
+	let variable = Math.abs(value) % 100; 
+	let num = value % 10;
+	if(variable > 10 && variable < 20) return words[0]; 
+	if(num > 1 && num < 5) return words[1];
+	if(num == 1) return words[0];
+	return words[0];
+}
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -30,7 +40,7 @@ function App({store}) {
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title}
 				  {item.marked > 0 && 
-						<span> | Было выделено {item.marked} раз</span>}
+						<span> | Выделялось {item.marked} {num_word(item.marked, ['раз', 'раза'])}</span>}
 				  </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>

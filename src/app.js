@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import { counter, counterText } from './utils.js';
 import './style.css';
 
 /**
@@ -10,18 +10,6 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
-
-  //формируем фразу
-  function counterText(itemCounter){
-    let text;
-    if(((itemCounter%10 >= 2) && (itemCounter%10 <= 4)) && ((itemCounter%100 < 10) || (itemCounter%100 > 20))) {
-      text = "|  Выделялось "+itemCounter+" раза";
-    }  
-    else {
-      text = "|  Выделялось "+itemCounter+" раз";
-    }  
-    return text;
-  }
 
   return (
     <div className='App'>

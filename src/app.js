@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter, checkTitleOutput} from './utils.js';
+import {counter, pluralizedOutput} from './utils.js';
 import './style.css';
 
 /**
@@ -34,7 +34,7 @@ function App({store}) {
                     <span>
                       {' '}
                       | Выделялся&nbsp;{item.wasChoosen}&nbsp;
-                      {(() => checkTitleOutput(item.wasChoosen))()}
+                      {pluralizedOutput(item.wasChoosen)}
                     </span>
                   ) : null}
                 </div>

@@ -80,7 +80,7 @@ class Store {
                 return item;
             }).map(item => {
                 if (item.code === code && item.selected === true) {
-                    item.count = item.count ? item.count + 1 : 1
+                    item.count = item.count ? ++item.count : 1
                 }
                 return item;
             })

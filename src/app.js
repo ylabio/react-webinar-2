@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, declOfNum} from './utils.js';
 import './style.css';
 
 /**
@@ -10,6 +10,11 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
+  const deleteHandler = (e, code) => {
+    e.preventDefault();
+    e.stopPropagation();
+    store.deleteItem(code);
+  }
 
   return (
     <div className='App'>
@@ -28,9 +33,9 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.count ? `${item.title} | Выделялось ${item.count} раз` : item.title}</div>
+              <div className='Item__title'>{item.count ? `${item.title} | Выделялось ${item.count} ${declOfNum(item.count)}` : item.title}</div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={(e) => deleteHandler(e, item.code)}>
                   Удалить
                 </button>
               </div>

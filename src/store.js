@@ -69,11 +69,12 @@ class Store {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
-			if (item.code === code && item.selected !== true){
-				this.state.items.forEach(item => item.selected = false);
+			if (item.code === code){
           item.selected = !item.selected;
-			 item.selectionsCount++;
-        }
+			 item.click = counterSelect(item);
+        }else {
+			item.selected = false;
+		  }
         return item;
       })
     });

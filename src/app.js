@@ -30,7 +30,7 @@ function App({store}) {
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title} {item.counter? counterText(item.counter) : ""}</div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={(e) => {store.deleteItem(item.code); e.stopPropagation();}}>
                   Удалить
                 </button>
               </div>

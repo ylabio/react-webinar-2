@@ -10,7 +10,10 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
-
+  let endWord=(item)=>{return( 
+    ['2','3','4'].includes(String(item.amountSelect).charAt(String(item.amountSelect).length-1))
+    &&!['12','13','14'].includes(String(item.amountSelect).slice(String(item.amountSelect).length-2))
+  )};
   return (
     <div className='App'>
       <div className='App__head'>
@@ -29,7 +32,7 @@ function App({store}) {
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title} 
-              {item.amountSelect?<span> | Выделялось {item.amountSelect} раз</span>:''}
+              {item.amountSelect?<span> | Выделялось {item.amountSelect} {endWord(item)?' раза':' раз'}</span>:''}
               </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>

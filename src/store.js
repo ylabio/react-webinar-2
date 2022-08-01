@@ -73,8 +73,10 @@ class Store {
         } else {
           item.selected = false;
         }
-
-        item.code === code && item.selected ? ++item.cntCall : "";
+      
+        if (item.code === code && item.selected) {
+           ++item.cntCall
+          }
 
         return item;
       })

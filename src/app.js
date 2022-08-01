@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, getAmountCase} from './utils.js';
 import './style.css';
 
 /**
@@ -31,12 +31,12 @@ function App({store}) {
               <div className='Item__title'>
                 {item.title}
                 {item.selectedAmount
-                  ? <span> | Выделялся {item.selectedAmount} раз</span>
+                  ? <span> | Выделялся {item.selectedAmount} {getAmountCase(item.selectedAmount)}</span>
                   : null
                 }
               </div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={(event) => store.deleteItem(item.code, event)}>
                   Удалить
                 </button>
               </div>

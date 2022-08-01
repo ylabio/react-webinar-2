@@ -70,11 +70,24 @@ class Store {
       ...this.state,
       items: this.state.items.map(item => {
         if (item.code === code){
+         this.сounterClikcItem(item)
           item.selected = !item.selected;
+        }
+        // снимаем выделения цветом с item которые не проходят в if
+        else {
+          item.selected = false
         }
         return item;
       })
     });
+  }
+  
+  сounterClikcItem(item) {
+
+    if (!item.selected) {
+      //инстанцирование совершенных выделений 
+      item.counter ? item.counter += 1 : item.counter = 1
+    }
   }
 }
 

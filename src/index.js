@@ -20,7 +20,6 @@ const root = createRoot(document.getElementById('root'));
 
 // Реакция на изменение store - повторный рендер приложения
 store.subscribe(() => {
-  console.log('# re-render');
   root.render(<App store={store}/>);
 });
 

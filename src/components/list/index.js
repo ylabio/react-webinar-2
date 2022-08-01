@@ -5,7 +5,6 @@ import Item from "../item";
 import './style.css';
 
 function List(props) {
-  console.log('List');
   const cn = bem('List');
 
   return (

@@ -5,7 +5,6 @@ import plural from 'plural-ru';
 import './style.css';
 
 function Item(props) {
-  console.log('Item');
   const cn = bem('Item');
 
   // Счётчик выделений

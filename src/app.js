@@ -10,7 +10,6 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  console.log('App');
 
   const callbacks = {
     onAdd: useCallback(() => {
@@ -28,8 +27,10 @@ function App({store}) {
   return (
     <Layout head={<h1>Приложение на чистом JS</h1>}>
       <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items} onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}/>
+      <List items={store.getState().items}
+            onItemSelect={callbacks.onSelectItems}
+            onItemDelete={callbacks.onDeleteItems}
+      />
     </Layout>
   );
 }

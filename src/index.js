@@ -6,7 +6,7 @@ import {counter} from './utils.js';
 
 const store = new Store({
   items: [
-    {code: counter(), title: 'Название элемента'},
+    {code: counter(), title: 'Название элемента', },
     {code: counter(), title: 'Некий объект'},
     {code: counter(), title: 'Заголовок'},
     {code: counter(), title: 'Короткое название'},

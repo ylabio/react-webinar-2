@@ -1,5 +1,5 @@
 import React from "react";
-import { counter } from "./utils.js";
+import { counter, pluralCheck } from "./utils.js";
 import "./style.css";
 
 /**
@@ -10,7 +10,7 @@ import "./style.css";
 function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
-
+  
   return (
     <div className="App">
       <div className="App__head">
@@ -40,7 +40,10 @@ function App({ store }) {
                   {item.title}
                   <div className="Item__counter">
                     {item.selectedCounter > 0 &&
-                      `| Выделялось ${item.selectedCounter} раз`}
+                      `| Выделялось ${item.selectedCounter} ${pluralCheck(
+                        item.selectedCounter,
+                        ["раз", "раза"]
+                      )}`}
                   </div>
                 </div>
 

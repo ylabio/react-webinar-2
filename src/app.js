@@ -1,5 +1,5 @@
 import React from 'react';
-import { counter } from './utils.js';
+import { countDeclination, counter } from './utils.js';
 import './style.css';
 
 /**
@@ -11,8 +11,8 @@ function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
 
-  function showSelectedCounter(counter) {
-    return counter ? ` | Выделялось ${counter} раз` : '';
+  function showSelectedCounter(count) {
+    return count ? ` | Выделялось ${count} ${countDeclination(count)}` : '';
   }
 
   return (

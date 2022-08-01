@@ -1,5 +1,5 @@
 import React from "react";
-import {counter} from "./utils.js";
+import {counter, getPlural} from "./utils.js";
 import "./style.css";
 
 /**
@@ -31,7 +31,9 @@ function App({store}) {
                             <div className='Item__number'>{item.code}</div>
 
                             <div className='Item__title'>
-                                {item.counted > 0 ? item.title + " | " + "Выделялось " + item.counted + " раз" : item.title}
+                                {item.counted > 0 ? item.title + " | " + "Выделялось " + item.counted +
+                                    (getPlural(item.counted, [' раз', ' раза', ' раз']))
+                                    : item.title}
                             </div>
 
                             <div className='Item__actions'>

@@ -1,5 +1,5 @@
-import React from 'react';
-import {counter} from './utils.js';
+import React, {useCallback, useMemo} from 'react';
+import {counter, formattingTextForNumber} from './utils.js';
 import './style.css';
 
 /**
@@ -10,6 +10,11 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
+
+  const deleteItemFunc = (code, event) => {
+    event.stopPropagation();
+    store.deleteItem(code);
+  }
 
   return (
     <div className='App'>
@@ -31,10 +36,12 @@ function App({store}) {
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>
               <span>{item.title}</span>
-              {item.count > 0 ? <span className='Item__count'>| Выделялся {item.count} раз</span> : null}
+              {item.count > 0 ? (
+                <span className='Item__count'>| Выделялся {formattingTextForNumber(item.count,'раз', 'раза')}</span> 
+              ): null}
               </div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={(event) => deleteItemFunc(item.code, event)}>
                   Удалить
                 </button>
               </div>

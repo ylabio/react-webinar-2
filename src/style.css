@@ -53,12 +53,8 @@ body{
 
 
 .Item__title{
+    width: 100%;
     padding: 20px 10px;
-}
-
-.Item__counter{
-    padding: 20px 10px;
-    flex-grow: 1;
 }
 
 .Item__actions{

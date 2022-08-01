@@ -69,16 +69,12 @@ class Store {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
+        if(item.code !== code & item.selected === true) {
+          item.selected = false;
+        }
         if (item.code === code ){
           item.selected = !item.selected;
           item.countSelected = item.selected === true ? item.countSelected += 1 : item.countSelected;
-          this.state.items.map((innerItem) => {
-            if (innerItem.code === code) {
-              return;
-            }
-            innerItem.selected = false;
-          });
-          return item;
         }
         return item;
       })

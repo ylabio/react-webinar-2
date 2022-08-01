@@ -12,8 +12,8 @@ const store = new Store({
     { code: counter(), title: 'Короткое название', selectCounter: 0 },
     { code: counter(), title: 'Запись', selectCounter: 0 },
     { code: counter(), title: 'Пример выделенной записи', selectCounter: 0 },
-    { code: counter(), title: 'Седьмой', selectCounter: 0 },
-  ],
+    { code: counter(), title: 'Седьмой', selectCounter: 0 }
+  ]
 })
 
 // Реакция на изменение store - повторный рендер приложения

@@ -1,15 +1,16 @@
-import React from 'react';
-import {counter} from './utils.js';
-import './style.css';
+import React from "react";
+import { counter } from "./utils.js";
+import "./style.css";
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+function App({ store }) {
   // Выбор состояния из store
-  const {items} = store.getState();
+  const { items } = store.getState();
+
   return (
     <div className="App">
       <div className="App__head">
@@ -38,8 +39,12 @@ function App({store}) {
               >
                 <div className="Item__number">{item.code}</div>
                 <div className="Item__title">
-                  {item.title} 
-                  {item.count ? ` | Выделялся ${item.count} раз` : ""}
+                  {item.title}
+                  {item.count
+                    ? ` | Выделялся ${item.count}   ${
+                        item.count > 1 && item.count < 5 ? "раза" : "раз"
+                      }`
+                    : ""}
                 </div>
                 <div className="Item__count"></div>
                 <div className="Item__actions">

@@ -11,6 +11,13 @@ function App({store}) {
     // Выбор состояния из store
     const {items} = store.getState();
 
+    // Множественная форма для отображения количества выделений записи
+    const pluralize = (n, forms) => {
+        return n % 10 >= 2 && n % 10 <= 4 && ![12, 13, 14].includes(n)
+            ? n + forms[0]
+            : n + forms[1];
+    }
+
     return (
         <div className='App'>
             <div className='App__head'>
@@ -30,8 +37,9 @@ function App({store}) {
                              onClick={() => store.selectItem(item.code)}>
                             <div className='Item__number'>{item.code}</div>
                             <div className='Item__title'>
-                                {`${item.title} ${item.clickCount && item.selected ?
-                                    `| Выделялось ${item.clickCount} раз(а)` : ''}`}
+                                {`${item.title} ${item.clickCount && item.selected
+                                    ? '| Выделялось ' + pluralize(item.clickCount, [' раза', ' раз'])
+                                    : ''}`}
                             </div>
                             <div className='Item__actions'>
                                 <button onClick={() => store.deleteItem(item.code)}>

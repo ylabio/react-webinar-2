@@ -31,6 +31,9 @@ body {
 
 /*Список*/
 .List {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 .List__item {
   border-bottom: 1px dashed #ccc;

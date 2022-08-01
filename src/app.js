@@ -26,11 +26,11 @@ function App({ store }) {
         <button onClick={addItem}>Добавить</button>
       </div>
       <div className="App__center">
-        <div className="List">
+        <ul className="List">
           {items.map((item) => (
             <ItemComponent key={item.code} item={item} store={store} />
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   );
@@ -57,7 +57,7 @@ function ItemComponent({ item, store }) {
   };
 
   return (
-    <div className="List__item">
+    <li className="List__item">
       <div className={`Item ${item.selected && "Item_selected"}`} onClick={selectAndCountItem}>
         <div className="Item__number">{item.code}</div>
         <div className="Item__title">
@@ -68,7 +68,7 @@ function ItemComponent({ item, store }) {
           <button onClick={deleteItem}>Удалить</button>
         </div>
       </div>
-    </div>
+    </li>
   );
 }
 

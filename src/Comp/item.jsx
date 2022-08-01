@@ -12,7 +12,7 @@ export const Item = (props) => {
             {
               props.counter > 0
                 ?
-                <span> | Выделялось {props.counter} раз</span>
+                <span> | Выделялось {props.counter} раз(а)</span>
                 :
                 ''
             }

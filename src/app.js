@@ -1,6 +1,7 @@
 import React from 'react';
-import {counter, getDeclension} from './utils.js';
+import {counter} from './utils.js';
 import './style.css';
+import getDeclension from 'plural-ru';
 
 /**
  * Приложение
@@ -30,7 +31,7 @@ function App({store}) {
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>
                 {`${item.title}${item.selectionCount ?
-                  ` | Выделялся ${item.selectionCount} ${getDeclension(item.selectionCount, ['раз', 'раза', 'раз'])}` :
+                  ` | Выделялся ${item.selectionCount} ${getDeclension(item.selectionCount, 'раз', 'раза', 'раз')}` :
                   ''}`}
               </div>
               <div className='Item__actions'>

@@ -1,6 +1,7 @@
 import React from 'react';
 import {counter} from './utils.js';
 import './style.css';
+import { useState } from 'react';
 
 /**
  * Приложение
@@ -10,6 +11,9 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
+
+  const [word,setWord]=useState('раз');
+  console.log(items);
 
   return (
     <div className='App'>
@@ -31,7 +35,7 @@ function App({store}) {
               <div className='Item__title'>{item.title}</div>
               <div className={'Item__clicks'+(item.clicks ? ' Clicked':'')}> 
                 <div className='Item__bar'>|</div> 
-                Выделялось {item.clicks} раз
+                Выделялось {item.clicks} {item.word}
               </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>

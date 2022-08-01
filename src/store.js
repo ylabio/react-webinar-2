@@ -78,6 +78,18 @@ class Store {
           item.selected = true;
           console.log('mi');
           item.clicks++;
+         const wordSetter=()=>{
+          let str=item.clicks.toString();
+          let strLetter=str[str.length-1];
+          if((strLetter==2||strLetter==3||strLetter==4)&&((str[str.length-2]===undefined)||(str[str.length-2]!=1))){
+            item.word='раза';
+          }
+          else{
+            item.word='раз';
+          }
+          }
+
+          wordSetter();
         }
         else if((item.code !== code)){
           item.selected=false;

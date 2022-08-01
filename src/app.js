@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter, getCountCase} from './utils.js';
+import {counter, getAmount} from './utils.js';
 import './style.css';
 
 /**
@@ -31,9 +31,7 @@ function App({store}) {
               <div className='Item__title'>
                 {item.title}
                 {item.selectionsCount > 0 ?
-                  <span>
-                    {` | Выделялся ${item.selectionsCount} ${getCountCase(item.selectionsCount)}`}
-                  </span> :
+                  <span>{` | Выделялся ${getAmount(item.selectionsCount)}`}</span> :
                   ''}
               </div>
               <div className='Item__actions'>

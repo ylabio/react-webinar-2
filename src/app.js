@@ -40,7 +40,7 @@ function App({store}) {
                 }
               </div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={(event) => {store.deleteItem(item.code); event.stopPropagation()}}>
                   Удалить
                 </button>
               </div>

@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React from 'react';
 import {counter, formattingTextForNumber} from './utils.js';
 import './style.css';
 

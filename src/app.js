@@ -12,9 +12,6 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
-  const [word,setWord]=useState('раз');
-  console.log(items);
-
   return (
     <div className='App'>
       <div className='App__head'>

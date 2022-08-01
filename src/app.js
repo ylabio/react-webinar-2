@@ -13,14 +13,6 @@ function App({ store }) {
 
   const activeListClass = 'Item_selected';
 
-  const disabler = (e, code) => {
-    items.forEach((item) => {
-      if (item.code !== code) {
-        item.selected = false;
-      }
-    });
-  };
-
   return (
     <div className="App">
       <div className="App__head">
@@ -30,7 +22,10 @@ function App({ store }) {
         <button
           onClick={() => {
             const code = counter();
-            store.createItem({ code, title: `Новая запись ${code}` });
+            store.createItem({
+              code,
+              title: `Новая запись ${code}`,
+            });
           }}
         >
           {' '}
@@ -40,23 +35,36 @@ function App({ store }) {
       <div className="App__center">
         <div className="List">
           {items.map((item) => {
-            const [listCounter, setListCounter] = React.useState(0);
+            const counterLastNumber = item.counter.toString().slice(-1);
+            const counterLastNumbers = item.counter.toString().slice(-2);
+
+            const counterText =
+              counterLastNumber > 1 &&
+              counterLastNumber < 5 &&
+              counterLastNumbers != 12 &&
+              counterLastNumbers != 13 &&
+              counterLastNumbers != 14
+                ? `Выделялось ${item.counter} раза`
+                : `Выделялось ${item.counter} раз`;
             return (
               <div key={item.code} className="List__item">
                 <div
                   className={item.selected ? `Item ${activeListClass}` : 'Item'}
-                  onClick={(e) => {
-                    disabler(e, item.code);
+                  onClick={() => {
                     store.selectItem(item.code);
-                    item.selected
-                      ? setListCounter(listCounter + 1)
-                      : setListCounter(listCounter);
+                    if (item.selected) {
+                      item.counter = item.counter + 1;
+                      return item.counter;
+                    } else {
+                      return item.counter;
+                    }
                   }}
                 >
                   <div className="Item__number">{item.code}</div>
-                  <div className="Item__title">{item.title}</div>
-                  <div className="Item__counter">
-                    {listCounter === 0 ? '' : `Выделялось ${listCounter} раз`}
+                  <div className="Item__title">
+                    {item.counter == 0
+                      ? `${item.title}`
+                      : `${item.title} | ${counterText}`}
                   </div>
                   <div className="Item__actions">
                     <button onClick={() => store.deleteItem(item.code)}>

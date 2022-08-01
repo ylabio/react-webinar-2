@@ -11,6 +11,19 @@ function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
 
+  /**
+   * Создает строку со склонением количества выделений
+   * @param {*} number - количество выделений
+   * @returns - строка
+   */
+  function getCountMessage(number) {
+    let n = number % 100; 
+    if (n > 10 && n < 20) {return `${number} раз`};
+    n %= 10;  
+    if (n > 1 && n < 5) {return `${number} раза`};
+    return `${number} раз`;
+  }
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -37,7 +50,7 @@ function App({ store }) {
               >
                 <div className='Item__number'>{item.code}</div>
                 <div className='Item__title'>{item.title}
-                  {!!item.marked && <span> | Отмечено {item.marked} раз</span>}
+                  {!!item.marked && <span> | Выделялось {getCountMessage(item.marked)}</span>}
                 </div>
                 <div className='Item__actions'>
                   <button onClick={() => store.deleteItem(item.code)}>

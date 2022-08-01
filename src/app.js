@@ -53,7 +53,12 @@ function App({ store }) {
                     `| выделялось ${item.counter} ${raz(item.counter)}`}
                 </div>
                 <div className="Item__actions">
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button
+                    onClick={(e) => {
+                      store.deleteItem(item.code);
+                      e.stopPropagation();
+                    }}
+                  >
                     Удалить
                   </button>
                 </div>

@@ -15,10 +15,11 @@ function App({ store }) {
     items.forEach((item) => {
       if (item.code !== itemId || item.selected) {
         item.selected = false
+      } else if (item.code === itemId && !item.selected) {
+        store.countItem(itemId)
       }
     })
     store.selectItem(itemId)
-    store.countItem(itemId)
   }
 
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, isPlural} from './utils.js';
 import './style.css';
 
 /**
@@ -31,7 +31,7 @@ function App({store}) {
               <div className='Item__title'>
                 {item.title}
                 {item.selectedCount > 0 &&
-                  <span> | Выделялось {item.selectedCount} раз</span>
+                  <span> | Выделялось {item.selectedCount} {isPlural(item.selectedCount) ? 'раза' : 'раз'}</span>
                 }
               </div>
               <div className='Item__actions'>

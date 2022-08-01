@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { counter } from './utils.js';
+import { counter, getNoun } from './utils.js';
 import './style.css';
 
 /**
@@ -42,7 +42,9 @@ function App({ store }) {
               >
                 <div className="Item__number">{item.code}</div>
                 <div className="Item__title">
-                  {item.title + (item.selectionAmount ? ` | Выделялось ${item.selectionAmount} раз` : '')}
+                  {item.title + (item.selectionAmount
+                    ? ` | Выделялось ${item.selectionAmount} ${getNoun(item.selectionAmount)}`
+                    : '')}
                 </div>
                 <div className="Item__actions">
                   <button onClick={(event) => deleteItemHandler(event, item)}>

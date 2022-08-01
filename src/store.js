@@ -5,8 +5,6 @@ class Store {
     this.state = initState;
     // Слушатели изменений state
     this.listners = [];
-    // Счётчик выделений
-    this.selectCounter = 0;
   }
 
   /**
@@ -45,10 +43,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+  createItem({code, title = 'Новая запись', selected = false, selectCounter = 0}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({code, title, selected, selectCounter})
     });
   }
 
@@ -73,7 +71,13 @@ class Store {
       items: this.state.items.map(item => {
         if (item.code === code){
           item.selected = !item.selected;
-          this.selectCounter += 1;
+          if (item.selected) {
+            if (!item.selectCounter) {
+            item.selectCounter = 1;
+          } else {
+            item.selectCounter += 1;
+          }
+          }
         }
         return item;
       })

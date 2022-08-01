@@ -1,7 +1,7 @@
 import React from "react";
 import { counter } from "./utils.js";
 import "./style.css";
-import ListItem from "./components/list-item.js";
+import ListItem from "./components/ListItem";
 
 /**
  * Приложение

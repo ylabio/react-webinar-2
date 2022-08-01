@@ -72,22 +72,28 @@ class Store {
       ...this.state,
       items: this.state.items.map(item => {
         if (item.code === code){
+          if (!item.selected) {item.count += 1} 
           item.selected = !item.selected;
+        } else {
+          item.selected = false;
         }
-        if(item.code !== code){
-          item.selected = false
-        }
-        if(item.count === 0 && item.code === code){
-          item.selectedElement = !item.selectedElement
-          item.count += 1
-        }
-        else if(item.code === code && !item.selectedElement){
-          item.count += 1
-          item.selectedElement = !item.selectedElement
-        }
-        else if(item.code === code && item.selectedElement){
-          item.selectedElement = !item.selectedElement
-        }
+
+        //до, было так 
+
+        // if(item.code !== code){
+        //   item.selected = false
+        // }
+        // if(item.count === 0 && item.code === code){
+        //   item.selectedElement = !item.selectedElement
+        //   item.count += 1
+        // }
+        // else if(item.code === code && !item.selectedElement){
+        //   item.count += 1
+        //   item.selectedElement = !item.selectedElement
+        // }
+        // else if(item.code === code && item.selectedElement){
+        //   item.selectedElement = !item.selectedElement
+        // }
         return item;
       })
       

@@ -1,6 +1,7 @@
 import React from 'react';
-import {counter, getDeclension} from './utils.js';
+import {counter} from './utils.js';
 import './style.css';
+import plural from 'plural-ru';
 
 /**
  * Приложение
@@ -26,14 +27,14 @@ function App({store}) {
         <div className='List'>{items.map(item =>
           <div key={item.code} className='List__item'>
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
+                 onClick={() =>  store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title}</div>
               <div className={'Item__selectionCounter' + (item.selectionCounter ? ' Item__selectionCounterIsContent' : '')}>
-                  {item.selectionCounter ? `Выделялось ${item.selectionCounter} ${getDeclension(item.selectionCounter)}` : ''}
+                  {item.selectionCounter ? `Выделялось ${item.selectionCounter} ${plural(item.selectionCounter, 'раз', 'раза', 'paз')}` : ''}
               </div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={e => { e.stopPropagation(); store.deleteItem(item.code) }}>
                   Удалить
                 </button>
               </div>

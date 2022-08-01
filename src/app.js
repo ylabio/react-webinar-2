@@ -11,6 +11,17 @@ function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
 
+  // склоняем окончание
+  const raz = (n) => {
+    if (n % 10 === 2 || n % 10 === 3 || n % 10 === 4) {
+      if (n === 12 || n === 13 || n === 14) {
+        return "раз";
+      }
+      return "раза";
+    }
+    return "раз";
+  };
+
   return (
     <div className="App">
       <div className="App__head">
@@ -39,13 +50,7 @@ function App({ store }) {
                 <div className="Item__title">
                   {item.title}{" "}
                   {item.counter &&
-                    `| выделялось ${item.counter} ${
-                      item.counter % 10 === 2 ||
-                      item.counter % 10 === 3 ||
-                      item.counter % 10 === 4
-                        ? "раза"
-                        : "раз"
-                    }`}
+                    `| выделялось ${item.counter} ${raz(item.counter)}`}
                 </div>
                 <div className="Item__actions">
                   <button onClick={() => store.deleteItem(item.code)}>

@@ -1,7 +1,4 @@
-import { countClicks } from "./utils";
-
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -38,17 +35,17 @@ class Store {
     this.listners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listners = this.listners.filter(item => item !== callback);
-    }
+      this.listners = this.listners.filter((item) => item !== callback);
+    };
   }
 
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+  createItem({ code, title = "Новая запись", selected = false }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({ code, title, selected }),
     });
   }
 
@@ -59,7 +56,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      items: this.state.items.filter((item) => item.code !== code),
     });
   }
 
@@ -74,7 +71,11 @@ class Store {
         if (item.code === code) {
           if (!item.selected) {
             item.selected = true;
-            countClicks(item);
+            item.countSelected
+              ? item.countSelected++
+              : (item.countSelected = 1);
+          } else {
+            item.selected = !item.selected;
           }
           return item;
         }

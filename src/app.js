@@ -1,5 +1,6 @@
 import React from 'react';
-import {counter, setTextWithEnding} from './utils.js';
+import {counter} from './utils.js';
+import plural from 'plural-ru';
 import './style.css';
 
 /**
@@ -10,6 +11,10 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
+  const clickHandler = (event, item) => {
+      event.stopPropagation();
+      store.deleteItem(item);
+  };
 
   return (
     <div className='App'>
@@ -29,22 +34,23 @@ function App({store}) {
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
                 <div className="Item__title title">
-                    <span className="title__text">{item.title}</span>
-                    <span className="title__numbers-click">
-                    {item.numbersClick
-                        ? ` | Выделялся ${item.numbersClick} ${setTextWithEnding(
-                            item.numbersClick,
-                            "раз",
-                            "раза",
-                            "раз"
-                        )} `
-                        : ""}
+                    <span className='title__text'>{item.title}</span>
+                    <span className='title__count-selected'>
+                    {item.countSelected
+                        ? ` | Выделялось ${item.countSelected} ${plural(
+                            item.countSelected,
+                            'раз',
+                            'раза',
+                            'раз'
+                        )}`
+                        : ''}
                   </span>
-                </div>              <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
-                  Удалить
+                </div>
+                <div className='Item__actions'>
+                <button onClick={(e) => clickHandler(e, item.code)}>
+                    Удалить
                 </button>
-              </div>
+                </div>
             </div>
           </div>
         )}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { counter } from './utils.js';
 import './style.css';
 import { render } from 'react-dom';
@@ -11,16 +11,6 @@ import { render } from 'react-dom';
 function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
-  const [count, setCount] = useState({});
-
-  // function handleClick(id, selected) {
-  //   console.log(count)
-  //   if (count[id] && selected) {
-  //     setCount(prev => ({ ...prev, [id]: count[id] + 1 }))
-  //   } else {
-  //     setCount(prev => ({ ...prev, [id]: count[id] ? count[id] : 1 }))
-  //   }
-  // }
   const chooseText = (count) => {
 
     count = count % 100;
@@ -47,7 +37,6 @@ function App({ store }) {
               onClick={() => {
                 store.selectItem(item.code)
               }}>
-
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title} {item.count > 0 && `| Выделялся ${item.count} ${chooseText(item.count)}`}</div>
               <div className='Item__actions'>

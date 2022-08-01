@@ -13,9 +13,9 @@ function App({store}) {
 
   const getTitle = (item) => {
     if (item.selected && item.selected.count && item.selected.count > 0) {
-      const count = item.selected.count;
+      let count = item.selected.count;
       const round = count % 10;
-      const exceptions = count > 10 && count < 15
+      const exceptions = count % 100 > 10 && count % 100 < 15;
       return exceptions || (round > 4 || round < 2) ? `${item.title} | Выделялось ${count} раз` : `${item.title} | Выделялось ${count} раза`
     };
 

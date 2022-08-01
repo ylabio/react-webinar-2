@@ -31,7 +31,10 @@ function App({store}) {
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title} {item.totalCount > 0 && ` | Выделялось ${item.totalCount} ${pluralize(item.totalCount, 'раз', 'раза', 'раз')}`}</div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={(e) => {
+                  e.stopPropagation();
+                  store.deleteItem(item.code);
+                }}>
                   Удалить
                 </button>
               </div>

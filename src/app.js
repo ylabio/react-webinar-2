@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {counter} from './utils.js';
+import {counter, getCorrectEnding} from './utils.js';
 import './style.css';
 
 /**
@@ -60,9 +60,7 @@ function App({store}) {
                 {' '}
                 {item.counter > 0 && lastPicked === item.code && (
                   <span>| Выделялся {item.counter} {
-                    item.counter >= 2 && item.counter < 5
-                    ? 'раза'
-                    : 'раз'
+                    getCorrectEnding(item.counter)
                   }</span>
                 )} 
               </div>
@@ -81,3 +79,4 @@ function App({store}) {
 }
 
 export default App;
+

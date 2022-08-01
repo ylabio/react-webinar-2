@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import { counter, getPlural } from './utils.js';
 import './style.css';
 
 /**
@@ -38,7 +38,7 @@ function App({ store }) {
 
             <p className='item__text'>{
               (item.timesSelected > 0)
-                ? `${item.title} | Выбрано ${item.timesSelected} раз`
+                ? `${item.title} | Выделялось ${getPlural(item.timesSelected)}`
                 : item.title
             }</p>
 

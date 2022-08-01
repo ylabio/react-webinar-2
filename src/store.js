@@ -73,7 +73,7 @@ class Store {
           item.selected = !item.selected;
           if (item.selected) item.timesSelected++;
         }
-        else if (item.selected === true) {
+        else if (item.selected) {
           item.selected = false;
         }
         return item;

@@ -56,6 +56,10 @@ body{
     width: 100%;
     padding: 20px 10px;
 }
+.Item__select_count {
+    width: 100%;
+    padding: 20px 10px;
+}
 .Item__actions{
     padding: 20px  20px 20px 10px;
     display: flex;

@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {convertWord, counter} from './utils.js';
 import './style.css';
 
 /**
@@ -30,7 +30,8 @@ function App({store}) {
                              onClick={() => store.selectItem(item.code)}>
                             <div className='Item__number'>{item.code}</div>
                             <div className='Item__title'>
-                                {item.title} {item.count && `| Выделялось ${item.count} раз`}
+                                {item.title}
+                                {item.count && ` | Выделялось ${item.count} ${convertWord(item.count, ['раз', 'раза', 'раз'])}`}
                             </div>
                             <div className='Item__actions'>
                                 <button onClick={(e) => store.deleteItem(e, item.code)}>

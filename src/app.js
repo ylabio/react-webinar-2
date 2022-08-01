@@ -30,7 +30,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title} {item.counter !== "0 раз" && <p className='Item__counter' >| Выделялся {item.counter} {plural(
+              <div className='Item__title'>{item.title} {item.counter > 0 && <p className='Item__counter' >| Выделялся {item.counter} {plural(
                   item.counter, 'раз', 'раза', 'раз'
                 )}</p>}</div>
               <div className='Item__actions'>

@@ -1,5 +1,5 @@
 import React from "react";
-import { counter } from "./utils.js";
+import { counter, declension } from "./utils.js";
 import "./style.css";
 
 /**
@@ -38,7 +38,11 @@ function App({ store }) {
                 <div className="Item__number">{item.code}</div>
                 <div className="Item__title">
                   {item.title}
-                  {item.counter ? ` | Выделялось ${item.counter} раз (а)` : ""}
+                  {item.counter
+                    ? ` | Выделялось ${item.counter} ${declension(
+                        item.counter
+                      )}`
+                    : ""}
                 </div>
                 <div className="Item__actions">
                   <button onClick={(e) => store.deleteItem(e, item.code)}>

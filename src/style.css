@@ -55,6 +55,9 @@ body {
   padding: 20px 10px;
   display: flex;
 }
+.Item__selections {
+  padding: 0 5px;
+}
 .Item__actions {
   padding: 20px 20px 20px 10px;
   display: flex;
@@ -62,7 +65,4 @@ body {
 }
 .Item__number {
   padding: 20px 10px 20px 20px;
-}
-.Item__selections {
-  padding: 0 10px;
 }

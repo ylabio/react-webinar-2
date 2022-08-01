@@ -1,5 +1,6 @@
 import React from "react";
 import { counter } from "./utils.js";
+import plural from "plural-ru";
 import "./style.css";
 
 /**
@@ -10,6 +11,10 @@ import "./style.css";
 function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
+  const deleteItemHandler = (e, item) => {
+    e.stopPropagation();
+    store.deleteItem(item);
+  };
 
   return (
     <div className="App">
@@ -37,16 +42,17 @@ function App({ store }) {
               >
                 <div className="Item__number">{item.code}</div>
                 <div className="Item__title">
-                  {item.title}{" "}
+                  <span>{item.title}</span>
                   {item.selections && (
-                    <div className="Item__selections">
-                      | Выделялся {item.selections} раз
-                    </div>
+                    <span className="Item__selections">
+                      {`| Выделялось ${item.selections}
+                      ${plural(item.selections, "раз", "раза", "раз")}`}
+                    </span>
                   )}
                 </div>
 
                 <div className="Item__actions">
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={(e) => deleteItemHandler(e, item.code)}>
                     Удалить
                   </button>
                 </div>

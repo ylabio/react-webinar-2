@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { counter } from './utils.js';
 import './style.css';
 
@@ -30,7 +30,11 @@ function App( { store } ) {
                              onClick={ () => store.selectItem(item.code) || store.selectQuantity(item.code) }>
                             <div className='Item__number'>{ item.code }</div>
                             <div
-                                className='Item__title'>{ item.title } { item.selectedCount ? `| Выделялось ${ item.selectedCount } раз` : '' }</div>
+                                className='Item__title'>{ item.title }
+                                { item.selectedCount
+                                    ? `| Выделялось ${ item.selectedCount } ${item.selectedCount > 1 && item.selectedCount < 5 ? 'раза' : 'раз'}`
+                                    : '' }
+                            </div>
                             <div className='Item__actions'>
                                 <button onClick={ () => store.deleteItem(item.code) }>
                                     Удалить

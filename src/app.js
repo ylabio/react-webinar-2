@@ -52,7 +52,9 @@ function Item({item: {
 }}) {
   const { dispatch } = useContext(Ctx)
 
-  const handleDelete = (code) => () => {
+  const handleDelete = (code) => (e) => {
+    e.stopPropagation()
+    
     dispatch({
       type: ItemActions.DELETE_ITEM,
       payload: code

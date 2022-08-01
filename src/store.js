@@ -7,10 +7,13 @@ const startArray = ['Название элемента', 'Некий объек�
 // Вид стейта
 const initialState = {
   items: startArray.map((el, idx) => {
+    let isActiveByDefault = el === 'Пример выделенной записи'
+    
     return {
       code: idx + 1,
+      selected: isActiveByDefault,
       title: el,
-      counted: 0
+      counted: +isActiveByDefault
     }
   }),
   counter: startArray.length

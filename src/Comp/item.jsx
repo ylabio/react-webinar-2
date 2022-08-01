@@ -3,6 +3,12 @@ import '../style.css';
 import plural from 'plural-ru'
 
 export const Item = (props) => {
+
+  const deleteItem = (e,code) => {
+    e.stopPropagation()
+    props.store.deleteItem(code)
+
+  }
   return (
     <div key={props.code} className='List__item'>
       <div type={'text'} className={'Item' + (props.selected ? ' Item_selected' : '')}
@@ -17,7 +23,7 @@ export const Item = (props) => {
           </span>
         </div>
         <div className='Item__actions'>
-          <button onClick={() => props.store.deleteItem(props.code)}>
+          <button onClick={(e) => deleteItem(e,props.code)}>
             Удалить
           </button>
         </div>

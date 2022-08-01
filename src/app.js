@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, pluralize} from './utils.js';
 import './style.css';
 
 /**
@@ -30,8 +30,8 @@ function App({store}) {
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title} {
                 item.highlighted 
-                ? ` | Выделялся ${item.highlighted} раз(а).`
-               : ''}
+                ? ` | Выделялся ${pluralize(item.highlighted, ['раз', 'раза', 'раз'])}.`
+                : ''}
               </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>

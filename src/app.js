@@ -1,5 +1,6 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, checkNumber} from './utils.js';
+
 import './style.css';
 
 /**
@@ -30,7 +31,7 @@ function App({store}) {
                              onClick={() => store.selectItem(item.code)}>
                             <div className='Item__number'>{item.code}</div>
                             <div className='Item__title'>
-                                {item.title} {item.clickCounter !== 0 ? ` | Выделялось ${item.clickCounter} раз` : ''}
+                                {item.title} {item.clickCounter !== 0 ? ` | Выделялось ${item.clickCounter} ${checkNumber(item.clickCounter)} ` : ''}
                             </div>
                             <div className='Item__actions'>
                                 <button onClick={() => store.deleteItem(item.code)}>

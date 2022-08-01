@@ -11,6 +11,15 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+  const words = ['раз', 'раза', 'раз']
+
+  // Функцию declOfNum честно взял из интернета =)
+
+  function declOfNum(number, words) {  
+    return words[(number % 100 > 4 && number % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][(number % 10 < 5) ? Math.abs(number) % 10 : 5]];
+  }
+
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -30,7 +39,7 @@ function App({store}) {
                   store.selectItem(item.code)
                 }}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title} {item.count === 0 ? '' : ` |выделялось ${item.count } раз`}
+              <div className='Item__title'>{item.title} {item.count === 0 ? '' : ` |выделялось ${item.count } ${declOfNum(item.count, words)}`}
               </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>

@@ -1,5 +1,4 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -37,16 +36,21 @@ class Store {
     // Возвращаем функцию для удаления слушателя
     return () => {
       this.listners = this.listners.filter(item => item !== callback);
-    }
+    };
   }
 
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false, clickCount }) {
+  createItem({
+    code,
+    title = 'Новая запись',
+    selected = false,
+    clickCount = 0,
+  }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected, clickCount})
+      items: this.state.items.concat({ code, title, selected, clickCount }),
     });
   }
 
@@ -57,7 +61,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      items: this.state.items.filter(item => item.code !== code),
     });
   }
 
@@ -69,14 +73,14 @@ class Store {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
-        if (item.code === code){
+        if (item.code === code) {
           item.selected = !item.selected;
           item.selected ? item.clickCount++ : null;
         } else {
           item.selected = false;
         }
         return item;
-      })
+      }),
     });
   }
 }

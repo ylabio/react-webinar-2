@@ -60,7 +60,7 @@ function App({store}) {
                 {' '}
                 {item.counter > 0 && lastPicked === item.code && (
                   <span>| Выделялся {item.counter} {
-                    getCorrectEnding(item.counter)
+                    getCorrectEnding(item.counter, 'раз', 'раза')
                   }</span>
                 )} 
               </div>

@@ -31,7 +31,7 @@ function App({ store }) {
               <div className='Item__title'>{item.title + (item.counterClick > 0 ? ` | Выделялось ${plural(item.counterClick, '%d раз', '%d раза', '%d раз')}` : '')}</div>
 
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClickCapture={() => store.deleteItem(item.code)}>
                   Удалить
                 </button>
               </div>

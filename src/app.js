@@ -26,11 +26,14 @@ function App({store}) {
         <div className='List'>{items.map((item) =>
           <div key={item.code} className='List__item'>
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
+                 onClick={() => 
+                  
+                 store.selectItem(item.code)
+                 }>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title} {item.statistic > 0 && `| Выделялось ${getPlural(item.statistic)}.`}</div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={(event) => {event.stopPropagation();store.deleteItem(item.code);}}>
                   Удалить
                 </button>
               </div>

@@ -13,8 +13,13 @@ function App({store}) {
   var count = 0
   var itemCountSelect = (item)=>{
     if(item.selectCount>0){
-      return `- Объект выделялся ${item.selectCount} раз`
+      return `| Выделялось ${item.selectCount} ${getLineEnd(item.selectCount)}`
     }
+  }
+  var getLineEnd = (selectCount) =>{
+    if ((selectCount < 10 || selectCount > 20) && selectCount % 10 >= 2 && selectCount % 10 <= 4)
+      return 'раза'
+    else return 'раз'
   }
   
 

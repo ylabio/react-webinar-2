@@ -11,6 +11,24 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+  const defineWordEnding = (num) => {  
+    let newNum; 
+    if (num >= 10) {
+      if (num % 100 >= 12 && num % 100 <= 21) {
+        newNum = num % 100;
+      } else {
+        newNum = num % 10;
+      }
+    } else {
+      newNum = num;
+    }
+    if (newNum === 0 || newNum === 1 || newNum > 4 && newNum < 10 || newNum > 4 && newNum < 22) {
+      return 'раз';
+    } else if (newNum > 1 && newNum < 5) {
+      return 'раза';
+    }
+  }  
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -28,7 +46,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
+              <div className='Item__title'>{`${item.title}${!item.selectionAmount ? '' : ` | Выделялось ${item.selectionAmount} ${defineWordEnding(item.selectionAmount)}`}`}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

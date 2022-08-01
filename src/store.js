@@ -69,9 +69,14 @@ class Store {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
-        if (item.code === code){
-          item.selected = !item.selected;
+        if (item.code === code) {
+          return {
+            ...item,
+            selected: !item.selected, //можно заменить на item.selected ? item.selected : !item.selected || true если повторное выделение не нужно
+            counter: item.selected ? item.counter : item.counter + 1 || 1
+          }
         }
+        item.selected = false;
         return item;
       })
     });

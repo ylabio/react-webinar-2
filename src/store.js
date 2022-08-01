@@ -68,29 +68,9 @@ class Store {
     this.setState({
       ...this.state,
       items: this.state.items.map((item) => {
-        let indexCode = -1;
-        for (let i = 0; i < this.state.items.length; i++) {
-          if (this.state.items[i].selected == true) {
-            indexCode = i + 1;
-          }
-        }
-        console.log('first', indexCode);
-        if (indexCode == -1) {
-          if (item.code === code) {
-            item.selected = !item.selected;
-          }
-        } else if (indexCode !== -1) {
-          item.selected = false;
-        }
-        return item;
-      }),
-    });
-  }
-  unselectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map((item) => {
         if (item.code === code) {
+          item.selected = !item.selected;
+        } else {
           item.selected = false;
         }
         return item;

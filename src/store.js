@@ -5,6 +5,8 @@ class Store {
     this.state = initState;
     // Слушатели изменений state
     this.listners = [];
+    // Счётчик выделений
+    this.selectCounter = 0;
   }
 
   /**
@@ -71,6 +73,7 @@ class Store {
       items: this.state.items.map(item => {
         if (item.code === code){
           item.selected = !item.selected;
+          this.selectCounter += 1;
         }
         return item;
       })

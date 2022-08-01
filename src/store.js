@@ -1,6 +1,6 @@
 class Store {
 
-  constructor(initState) {
+  constructor( initState ) {
     // Состояние приложения (данные)
     this.state = initState;
     // Слушатели изменений state
@@ -19,7 +19,7 @@ class Store {
    * Установка state
    * @param newState {Object}
    */
-  setState(newState) {
+  setState( newState ) {
     this.state = newState;
     // Оповещаем всех подписчиков об изменении стейта
     for (const lister of this.listners) {
@@ -32,7 +32,7 @@ class Store {
    * @param callback {Function}
    * @return {Function} Функция для отписки
    */
-  subscribe(callback) {
+  subscribe( callback ) {
     this.listners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
@@ -43,10 +43,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+  createItem( { code, title = 'Новая запись', selected = false } ) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({ code, title, selected })
     });
   }
 
@@ -54,7 +54,7 @@ class Store {
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem( code ) {
     this.setState({
       ...this.state,
       items: this.state.items.filter(item => item.code !== code)
@@ -65,17 +65,32 @@ class Store {
    * Выделение записи по её коду
    * @param code
    */
-  selectItem(code) {
+  selectItem( code ) {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
-        if (item.code === code){
+        if (item.code === code) {
           item.selected = !item.selected;
+        } else {
+          item.selected = false
         }
         return item;
       })
     });
   }
+
+  selectQuantity( code ) {
+    this.setState({
+      ...this.state,
+      items: this.state.items.map(item => {
+        if (item.code === code && item.selected) {
+          item.selectedCount++
+        }
+        return item
+      })
+    })
+  }
+
 }
 
 export default Store;

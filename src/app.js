@@ -32,7 +32,7 @@ function App({store}) {
                   store.selectItem(item.code)
                 }}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title} {item.count === 0 ? '' : ` |выделялось ${item.count } ${declOfNum(item.count, words)}`}
+              <div className='Item__title'>{item.title} {item.count === 0 ? '' : ` | Выделялось ${item.count } ${declOfNum(item.count, words)}`}
               </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>

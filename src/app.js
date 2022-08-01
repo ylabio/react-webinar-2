@@ -13,14 +13,22 @@ function App({ store }) {
   const { items } = store.getState();
   const [count, setCount] = useState({});
 
-  function handleClick(id, selected) {
-    if (count[id] && selected) {
-      setCount(prev => ({ ...prev, [id]: count[id] + 1 }))
-    } else {
-      setCount(prev => ({ ...prev, [id]: 1 }))
-    }
-  }
+  // function handleClick(id, selected) {
+  //   console.log(count)
+  //   if (count[id] && selected) {
+  //     setCount(prev => ({ ...prev, [id]: count[id] + 1 }))
+  //   } else {
+  //     setCount(prev => ({ ...prev, [id]: count[id] ? count[id] : 1 }))
+  //   }
+  // }
+  const chooseText = (count) => {
 
+    count = count % 100;
+    if (count >= 10 && count <= 19) return 'раз';
+    count = count % 10;
+    if (count >= 2 && count <= 4) return 'раза';
+    return 'раз';
+  }
   return (
     <div className='App'>
       <div className='App__head'>
@@ -34,15 +42,14 @@ function App({ store }) {
       </div>
       <div className='App__center'>
         <div className='List'>{items.map(item =>
-          <div key={item.code} onClick={() => handleClick(item.code, item.selected)} className='List__item'>
+          <div key={item.code} className='List__item'>
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
               onClick={() => {
                 store.selectItem(item.code)
-
               }}>
 
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}  {count[item.code] ? ' ! Выделялся ' + count[item.code] + ' раз' : ''}</div>
+              <div className='Item__title'>{item.title} {item.count > 0 && `| Выделялся ${item.count} ${chooseText(item.count)}`}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

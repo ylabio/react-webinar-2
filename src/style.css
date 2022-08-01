@@ -4,6 +4,7 @@ body{
     background: #535353;
     font-family: sans-serif;
 }
+
 /* Страница*/
 .App{
     max-width: 1024px;
@@ -13,10 +14,12 @@ body{
     box-sizing: border-box;
     box-shadow: 0 0 15px 5px #0000003b;
 }
+
 .App__head{
     height: 80px;
     background: #f5f5f5;
 }
+
 .App__head h1{
     margin: 0;
     padding: 20px 20px 10px;
@@ -33,6 +36,7 @@ body{
 .List{
 
 }
+
 .List__item{
     border-bottom: 1px dashed #ccc;
 }
@@ -47,20 +51,22 @@ body{
     justify-content: flex-start;
     transition: background-color 1s;
 }
+
 .Item_selected{
     background: #75aaf1;
 }
-
 
 .Item__title{
     width: 100%;
     padding: 20px 10px;
 }
+
 .Item__actions{
     padding: 20px  20px 20px 10px;
     display: flex;
     justify-content: flex-end;
 }
+
 .Item__number{
     padding: 20px 10px 20px 20px;
 }

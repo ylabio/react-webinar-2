@@ -10,11 +10,6 @@ import './style.css';
 function App( { store } ) {
     // Выбор состояния из store
     const { items } = store.getState();
-    const [ num, setNum ] = useState(0)
-    const handler = () => {
-        setNum(num + 1)
-        return num
-    }
 
     return (
         <div className='App'>

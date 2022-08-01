@@ -36,13 +36,10 @@ export default App;
 const ListItem = ({ item, store }) => {
   const [count, setCount] = useState(0)
   
-  const clickItemHandler = (e) => {
+  const clickItemHandler = () => {
     store.selectItem(item.code)
 
-    // получаю массив классов которые содержит текущий элемент
-    const classList = Object.values(e.currentTarget.classList);
-
-    if (!classList.includes('Item_selected')) {
+    if (item.selected) {
       setCount((prevState) => prevState += 1)
     }
   }

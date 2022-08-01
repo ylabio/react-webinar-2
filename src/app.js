@@ -12,6 +12,11 @@ function App({store}) {
     // Выбор состояния из store
     const {items} = store.getState();
 
+    const removeItem = (code, e) => {
+        e.stopPropagation();
+        store.deleteItem(code);
+    }
+
     return (
         <div className='App'>
             <div className='App__head'>
@@ -34,7 +39,7 @@ function App({store}) {
                                 {item.title} {item.clickCounter !== 0 ? ` | Выделялось ${item.clickCounter} ${checkNumber(item.clickCounter)} ` : ''}
                             </div>
                             <div className='Item__actions'>
-                                <button onClick={() => store.deleteItem(item.code)}>
+                                <button onClick={(e) => removeItem(item.code, e)}>
                                     Удалить
                                 </button>
                             </div>

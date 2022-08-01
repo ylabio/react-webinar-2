@@ -11,6 +11,22 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+  const checkCountWord = (number) => {
+    let n = Math.abs(number);
+    n %= 100;
+    if (n >= 5 && n <= 20) {
+      return 'раз';
+    }
+    n %= 10;
+    if (n === 1) {
+      return'раз';
+    }
+    if (n >= 2 && n <= 4) {
+      return'раза';
+    }
+    return'раз';
+  }
+  
   return (
     <div className='App'>
       <div className='App__head'>
@@ -20,15 +36,19 @@ function App({store}) {
         <button onClick={() => {
           const code = counter();
           store.createItem({code, title: `Новая запись ${code}`})
-        }}> Добавить </button>
+        }}> Добавить
+        </button>
       </div>
       <div className='App__center'>
         <div className='List'>{items.map(item =>
           <div key={item.code} className='List__item'>
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
+                 onClick={() => {
+                   store.selectItem(item.code)
+                 }}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}{item.selectionsCount > 0 && ` | Выделялось ${item.selectionsCount} раз`}</div>
+              <div
+                className='Item__title'>{item.title}{item.selectionsCount > 0 && ` | Выделялось ${item.selectionsCount} ${checkCountWord(item.selectionsCount)}`}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

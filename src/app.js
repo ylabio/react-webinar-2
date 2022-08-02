@@ -29,7 +29,7 @@ function App({ store }) {
               onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title}
-              <span className={item.counter > 0 ? "" : "Item__counter"}> | Highlight {item.counter} times</span>
+              <span className={item.counter > 0 ? "" : "Item__counter"}> | Выделялось {item.counter} раз</span>
               </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>

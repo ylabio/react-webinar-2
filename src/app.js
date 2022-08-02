@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, countOfAllocateToString} from './utils.js';
 import './style.css';
 
 /**
@@ -11,6 +11,11 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+  const onDeleteItemClick = (event, code) => {
+    event.stopPropagation();
+    store.deleteItem(code);
+  };
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -18,24 +23,23 @@ function App({store}) {
       </div>
       <div className='Controls'>
         <button onClick={() => {
-          const code = counter();
-          store.createItem({code, title: `Новая запись ${code}`})
+          const id = counter();
+          store.createItem({code: id, title: `Новая запись ${id}`})
         }}> Добавить
         </button>
       </div>
       <div className='App__center'>
-        <div className='List'>{items.map(item =>
-          <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
-              <div className='Item__number'>{item.code}</div>
+        <div className='List'>{items.map(({code, title, selected, countOfAllocate}) =>
+          <div key={code} className='List__item'>
+            <div className={'Item' + (selected ? ' Item_selected' : '')}
+                 onClick={() => store.selectItem(code)}>
+              <div className='Item__number'>{code}</div>
               <div
                 className='Item__title'>
-                {item.title}
-                {item.countOfAllocate > 0 ? ` | Выдлился ${item.countOfAllocate} раз` : ''}
+                {`${title} ${countOfAllocateToString(countOfAllocate)}`}
               </div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={(event) => onDeleteItemClick(event, code)}>
                   Удалить
                 </button>
               </div>

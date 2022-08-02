@@ -1,3 +1,5 @@
+import React from "react";
+
 class Store {
 
   constructor(initState) {
@@ -66,6 +68,15 @@ class Store {
    * @param code
    */
   selectItem(code) {
+    function make_label(some_int){
+      let out = '';
+      if ([1,5,6,7,8,9,0].includes(some_int % 10) || ([12, 13, 14].includes(some_int)))  {
+          out = some_int ? ` | Выделялось ${some_int} раз` : ''
+      } else {
+          out = some_int ? ` | Выделялось ${some_int} раза` : ''
+      }
+      return out;
+    }
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
@@ -73,6 +84,7 @@ class Store {
           item.selected = !item.selected;
           if (item.selected){
             item.selectionCount++;
+            item.countStr = make_label(item.selectionCount, item.title)
           }
         } else {
           item.selected = false;

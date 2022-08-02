@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src"
   ],
-  "SelectedNode": "\\C:\\Users\\aulug\\Source\\Repos_1\\react-webinar-2",
+  "SelectedNode": "\\src\\store.js",
   "PreviewInSolutionExplorer": false
 }

@@ -1,3 +1,5 @@
+import plural from 'plural-ru'
+
 class Store {
 
   constructor(initState) {
@@ -63,25 +65,20 @@ class Store {
 
   /**
    * Выделение записи по её коду
-   * @param code
-   */
+   * @param code - это id обрабатываемого элемента
+   **/
     selectItem(code) {
-
       const items = this.state.items.map(item => {
           if (item.code === code) {
               item.selected = !item.selected;
       
               if (item.selected) {
-      
-                  if (!item.hasOwnProperty('selectedTimes'))
-                      item.selectedTimes = 0;
-      
-                  ++item.selectedTimes;
-                  item.computedTitle = `${item.title} | Выделялся ${item.selectedTimes} раз`
+                  item.selectedTimes = ++item.selectedTimes || 1;
+                  item.computedTitle = `${item.title} | Выделялся ${plural(item.selectedTimes,'%d раз','%d раза')}`
               }
+
           }
-          else
-              item.selected = false;
+          else  item.selected = false;
       
           return item;
       });

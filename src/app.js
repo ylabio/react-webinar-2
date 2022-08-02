@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, countCases} from './utils.js';
 import './style.css';
 
 /**
@@ -41,24 +41,6 @@ function App({store}) {
       </div>
     </div>
   );
-}
-
-function countCases(number) {
-  const casesArr = ['раз', 'раза']
-  const lastDigit = number % 10
-  if (number > 10 && number < 15) {
-    return `| Выделялось ${number} ${casesArr[0]}`
-  } else {
-    switch (lastDigit) {
-      case 2:
-      case 3:
-      case 4:
-        return `| Выделялось ${number} ${casesArr[1]}` 
-      default:
-        return `| Выделялось ${number} ${casesArr[0]}`
-    }
-  }
-
 }
 
 export default App;

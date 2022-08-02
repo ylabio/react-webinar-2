@@ -1,6 +1,7 @@
 import React from 'react';
 import {counter} from './utils.js';
 import './style.css';
+import { countNumber } from './utils.js';
 
 /**
  * Приложение
@@ -29,7 +30,7 @@ function App({store}) {
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title' style={{cursor: 'pointer'}} >{item.title}
-                {item.count !== 0 && ` выделялось ${item.count} раз`}
+                {item.count !== 0 && ` | Выделялось ${item.count} ${countNumber(item.count)}`}
               </div>
               <div className='Item__actions'>
                 <button style={{cursor: 'pointer'}} onClick={() => store.deleteItem(item.code)}>

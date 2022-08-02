@@ -83,6 +83,18 @@ class Store {
 
     this.selectItemForDelete = this.state.items.length
   }
+  singledOutTimes(num) {
+    let numberToString = String(num)
+    let lastIndexArr = numberToString.length - 1;
+    let exception = ["2", "3", "4"]
+
+    let exception2 = numberToString.length > 1 ? numberToString.length - 2 : null;
+
+    return exception.includes(numberToString[lastIndexArr]) && (numberToString[exception2] !== "1" || exception2 === null) ?
+      `| Выделялось ${num} раза` :
+      `| Выделялось ${num} раз`;
+
+  }
 }
 
 export default Store;

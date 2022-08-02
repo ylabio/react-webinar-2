@@ -11,6 +11,17 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+  // Склонение слова "раз"
+  function renderPhrase(clickNumber) {
+    const lastOne = Number(clickNumber.toString().slice(-1));
+    if (clickNumber > 4 && clickNumber < 15) {
+      return "раз";
+    }
+    if (lastOne === 1) return "раз";
+    if ([2, 3, 4].indexOf(lastOne) >= 0) return "раза";
+    return "раз";
+  }
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -29,7 +40,7 @@ function App({store}) {
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title}
-                <div className={item.clickCounter == 0 ? 'hide' : ''}>&nbsp;| Выделялось {item.clickCounter} раз</div>
+                <div className={item.clickCounter == 0 ? 'hide' : ''}>&nbsp;{'| Выделялось' + ' ' + item.clickCounter + ' ' + renderPhrase(item.clickCounter)}</div>
               </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>

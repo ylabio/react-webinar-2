@@ -8,8 +8,9 @@ export function counter(){
 
 export function pluralize(num) {
   const charsForCorrection = [2, 3, 4];
+  const lastChars = num.toString().slice(-2);
   const lastChar = num.toString().slice(-1);
-  if(num < 10 || num > 20) {
+  if(lastChars < 10 || lastChars > 20) {
     return charsForCorrection.includes(+lastChar) ? 'раза' : 'раз';
   }
   return 'раз'; 

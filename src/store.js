@@ -67,10 +67,14 @@ class Store {
    */
   selectItem(code) {
     this.setState({
+      ...this.state,
       items: this.state.items.map(item => {
         if (item.code === code){
           item.selected = !item.selected;
-          this.selectionCountItem(item);
+          if (item.selected) { 
+            if (!item.selection) item.selection = 0;
+            item.selection += 1;
+          }
         }
         if (item.code !== code){
           item.selected = false;
@@ -78,30 +82,6 @@ class Store {
         return item;
       })
     });
-  }
-
-  selectionCountItem(item) {
-    if (item.selected) { 
-      if (!item.selection) item.selection = 0;
-      item.selection += 1;
-    }
-  }
-
-  wordDeclension(number, one, two, tree) {
-    number %= 100;
-    if (number >= 5 && number <= 20) {
-      return tree;
-    }
-
-    number %= 10;
-    if (number == 1) {
-      return one;
-    }
-
-    if (number >= 2 && number <= 4) {
-      return two;
-    }
-    return tree;
   }
 }
 

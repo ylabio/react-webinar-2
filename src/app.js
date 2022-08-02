@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, showTimes} from './utils.js';
 import './style.css';
 
 /**
@@ -19,16 +19,6 @@ function App({store}) {
     items.map(i => {
       if (i.code != item.code) i.selected = false
     })
-  }
-
-  const showTimes = (fTimes) => {
-    let times = "раз";
-    const lastDigit = fTimes.toString()[fTimes.toString().length - 1];
-
-    if((Number(lastDigit) == 2 && fTimes != 12) || (Number(lastDigit) == 3 && fTimes != 13) || (Number(lastDigit) == 4 && fTimes != 14)) times = "раза";
-    else times = "раз";
-
-    return times;
   }
 
   return (

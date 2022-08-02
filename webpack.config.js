@@ -1,16 +1,16 @@
 // Режим сборки development или production
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
-import HtmlWebPackPlugin from 'html-webpack-plugin'
-import MiniCssExtractPlugin, { loader as _loader } from 'mini-css-extract-plugin'
-import { join } from 'path'
+const HtmlWebPackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const path = require('path')
 
 // Опции webpack
 let config = {
-  context: join(__dirname, '/src'), // Директория с исходным кодом приложения
+  context: path.join(__dirname, '/src'), // Директория с исходным кодом приложения
   entry: `index.js`, // Главный файл приложения
   output: {
-    path: join(__dirname, 'dist'), // Куда и как делать сборку
+    path: path.join(__dirname, 'dist'), // Куда и как делать сборку
     filename: '[name].js',
     clean: true // Очистить ./dist от предыдущей сборки
   },
@@ -41,11 +41,8 @@ let config = {
       {
         test: /\.css$/,
         use: [
-          { loader: _loader, options: {} },
-          {
-            loader: 'css-loader',
-            options: { url: true, import: true /*, modules: true*/ }
-          }
+          { loader: MiniCssExtractPlugin.loader, options: {} },
+          { loader: 'css-loader', options: { url: true, import: true /*, modules: true*/ } }
         ]
       }
     ]
@@ -56,10 +53,10 @@ let config = {
 if (process.env.NODE_ENV === 'development') {
   config.devtool = 'inline-source-map'
   config.devServer = {
-    static: join(__dirname, 'dist'),
+    static: path.join(__dirname, 'dist'),
     port: 8010,
     historyApiFallback: true
   }
 }
 
-export default config
+module.exports = config

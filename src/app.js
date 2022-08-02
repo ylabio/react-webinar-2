@@ -1,5 +1,5 @@
 import React from "react";
-import { counter } from "./utils.js";
+import { counter, endingsLetterA } from "./utils.js";
 import "./style.css";
 
 /**
@@ -39,7 +39,9 @@ function App({ store }) {
                 <div className="Item__title">
                   {item.title}{" "}
                   {item.countHighlight !== 0 ? (
-                    <span>{`| Выделялся ${item.countHighlight} раз`}</span>
+                    <span>{`| Выделялся ${item.countHighlight} ${endingsLetterA(
+                      item.countHighlight
+                    )}`}</span>
                   ) : (
                     ""
                   )}

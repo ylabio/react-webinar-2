@@ -60,12 +60,9 @@ body{
 .Item__counter{
     width: 100%;
     padding: 20px 10px;
-
-    color: rgb(60, 60, 60);
-    font-size: 0.8rem;
 }
 
-.Item__counter_hidden {
+.Item__counter_hidden{
     visibility: hidden;
 }
 

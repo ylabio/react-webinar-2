@@ -13,39 +13,47 @@ function App({ store }) {
 
   function selectCount(item) {
     store.selectItem(item.code);
-    if (item.selected == true) {
-      item.count = item.count + 1;
-    }
   }
 
   return (
-    <div className='App'>
-      <div className='App__head'>
+    <div className="App">
+      <div className="App__head">
         <h1>Приложение на чистом JS</h1>
       </div>
-      <div className='Controls'>
+      <div className="Controls">
         <button
           onClick={() => {
             const code = counter();
             store.createItem({ code, title: `Новая запись ${code}` });
-          }}>
-          {' '}
-          Добавить{' '}
+          }}
+        >
+          {" "}
+          Добавить{" "}
         </button>
       </div>
-      <div className='App__center'>
-        <div className='List'>
+      <div className="App__center">
+        <div className="List">
           {items.map((item) => (
-            <div key={item.code} className='List__item'>
+            <div key={item.code} className="List__item">
               <div
-                className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => selectCount(item)}>
-                <div className='Item__number'>{item.code}</div>
-                <div className='Item__title'>
-                  {item.title} {item.count > 0 ? `Выделялся ${item.count} раз` : ''}
+                className={"Item" + (item.selected ? " Item_selected" : "")}
+                onClick={() => selectCount(item)}
+              >
+                <div className="Item__number">{item.code}</div>
+                <div className="Item__title">
+                  {item.title}{" "}
+                  {item.count > 0
+                    ? `| Выделялся ${item.count} ${
+                        item.count === 2 || item.count === 3 || item.count === 4
+                          ? "раза"
+                          : "раз"
+                      }`
+                    : ""}
                 </div>
-                <div className='Item__actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                <div className="Item__actions">
+                  <button onClick={() => store.deleteItem(item.code)}>
+                    Удалить
+                  </button>
                 </div>
               </div>
             </div>
@@ -57,3 +65,5 @@ function App({ store }) {
 }
 
 export default App;
+
+

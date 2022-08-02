@@ -1,6 +1,7 @@
 import React from "react";
 import { counter } from "./utils.js";
 import "./style.css";
+const plural = require('plural-ru');
 
 /**
  * Приложение
@@ -27,6 +28,7 @@ function App({ store }) {
           Добавить{" "}
         </button>
       </div>
+      
       <div className="App__center">
         <div className="List">
           {items.map((item) => (
@@ -38,7 +40,7 @@ function App({ store }) {
                 <div className="Item__number">{item.code}</div>
                 <div className="Item__title">
                   {item.title}
-                  {item.count > 0 ? ` | Выделялось ${item.count} раз` : ""}
+                  {item.count > 0 ? ` | Выделялось ${item.count} ${plural(item.count, 'раз', 'раза', 'раз')}` : ""}
                 </div>
                 <div className="Item__actions">
                   <button onClick={() => store.deleteItem(item.code)}>

@@ -1,6 +1,6 @@
-import React from "react";
-import {counter, getPlural} from "./utils.js";
-import "./style.css";
+import React from 'react';
+import {counter, getPlural} from './utils.js';
+import './style.css';
 
 /**
  * Приложение

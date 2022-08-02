@@ -1,9 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./app.js";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './app.js';
 import Store from "./store.js";
-import {counter} from "./utils";
-
+import {counter} from './utils.js';
+ 
 const store = new Store();
 
 const items = [

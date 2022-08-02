@@ -10,11 +10,9 @@ import './style.css'
 const wordsArr = ['раз', 'раза']
 
 const decOfWords = (num, wordsArr) => {
-  if (10 < num && num < 20) {
-    console.log(66)
+  if (10 < num % 100 && num % 100 < 20) {
     return wordsArr[0]
   } else if (num % 10 < 2 || num % 10 > 4) {
-    console.log(num)
     return wordsArr[0]
   } else {
     return wordsArr[1]

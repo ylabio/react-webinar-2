@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, declination} from './utils.js';
 import './style.css';
 
 /**
@@ -10,16 +10,6 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
-  
-  /**
-   * Функция подбора склонений
-   * @param number Целое число для которого выполняется склонение
-   * @param array Массив возможных окончаний
-   * @param cases Случаи при которых выбирается необходимый индекс из массива
-   * @return {string} подходящий вариант из массива txt для переданого числа number
-   */
-  const declination = (number, txt, cases = [2, 0, 1, 1, 1, 2]) => 
-  txt[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
 
   return (
     <div className='App'>
@@ -39,7 +29,7 @@ function App({store}) {
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title} 
-                {item.selectCount > 0 && `| Выделялось ${item.selectCount} 
+                {item.selectCount > 0 && ` | Выделялось ${item.selectCount} 
                 ${declination(item.selectCount, ['раз', 'раза', 'раз'])}`}</div>
               <div className='Item__actions'>
                 <button onClick={(event) => {

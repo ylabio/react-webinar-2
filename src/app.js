@@ -23,7 +23,7 @@ function App({ store }) {
             const selectedCounter = displaySelected(0);
             store.createItem({
               code,
-              title: `Новая запись ${code}, `,
+              title: `Новая запись ${code}`,
               selectedCounter
             });
           }}

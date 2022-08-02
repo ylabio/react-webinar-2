@@ -40,7 +40,7 @@ function App({ store }) {
                 <div className="Item__title">
                   {item.title}
                   {item.count
-                    ? ` | Выделялcя ${item.count} ${plural(
+                    ? ` | Выделялоcь ${item.count} ${plural(
                         item.count,
                         'раз',
                         'раза',

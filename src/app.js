@@ -1,5 +1,5 @@
 import React from "react";
-import { counter } from "./utils.js";
+import { counter, checkSelectedCount } from "./utils.js";
 import "./style.css";
 
 /**
@@ -10,6 +10,17 @@ import "./style.css";
 function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
+
+  /**
+   * отображение кол-ва совершенных выделений
+   * @param {number} selectedCount
+   * @return {React.ReactElement}
+   */
+  const viewSelectedCount = (selectedCount) => {
+    return selectedCount
+      ? ` | Выделялось ${selectedCount} ${checkSelectedCount(selectedCount)}`
+      : "";
+  };
 
   return (
     <div className="App">
@@ -36,8 +47,7 @@ function App({ store }) {
               >
                 <div className="Item__number">{item.code}</div>
                 <div className="Item__title">
-                  {item.title +
-                    (item.selectedCount ? ` | Выделялось ${item.selectedCount} раз` : "")}
+                  {item.title + viewSelectedCount(item.selectedCount)}
                 </div>
                 <div className="Item__actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>

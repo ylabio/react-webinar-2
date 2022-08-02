@@ -70,7 +70,7 @@ class Store {
       items: this.state.items.map((item) => {
         if (item.code === code) {
           if (!item.selected) item.count;
-          item.selected = !item.selected / 2;
+          item.selected = !item.selected;
         } else {
           item.selected = false;
         }

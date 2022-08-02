@@ -39,10 +39,13 @@ function App({store}) {
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title} 
-                {item.selectCount > 0 && `| Выделялось ${item.selectCount} ${declination(item.selectCount, ['раз', 'раза', 'раз'])}`}</div>
-              <div className='Item__select'>{}</div>
+                {item.selectCount > 0 && `| Выделялось ${item.selectCount} 
+                ${declination(item.selectCount, ['раз', 'раза', 'раз'])}`}</div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={(event) => {
+                  event.stopPropagation();
+                  store.deleteItem(item.code)
+                  }}>
                   Удалить
                 </button>
               </div>

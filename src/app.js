@@ -11,6 +11,8 @@ function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
 
+  // const declension =  
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -23,20 +25,30 @@ function App({ store }) {
         }}> Добавить </button>
       </div>
       <div className='App__center'>
-        <div className='List'>{items.map(item =>
-          <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-              onClick={() => store.selectItem(item.code)}>
-              <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}  {item.counterAllocation ? `| Выделялось ${item.counterAllocation} раз` : ''}</div>
-              <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
-                  Удалить
-                </button>
+        <div className='List'>
+          {items.map(item => {
+            const { counterAllocation } = item;
+            let declination = (counterAllocation === 1) ? 'раз' :
+              (1 < counterAllocation && counterAllocation < 5) ? 'раза' :
+                (5 <= counterAllocation && counterAllocation < 21) ? 'раз' :
+                  (22 <= counterAllocation && counterAllocation <= 24) ? 'раза' :
+                    (25 <= counterAllocation && counterAllocation <= 31) ? 'раз' :
+                      'раз';
+            return <div key={item.code} className='List__item'>
+              <div className={'Item' + (item.selected ? ' Item_selected' : '')}
+                onClick={() => store.selectItem(item.code)}>
+                <div className='Item__number'>{item.code}</div>
+                <div className='Item__title'>{item.title}&nbsp;
+                  {item.counterAllocation !== 0 && `| Выделялось  ${item.counterAllocation} ${declination}`}
+                </div>
+                <div className='Item__actions'>
+                  <button onClick={() => store.deleteItem(item.code)}>
+                    Удалить
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          })}
         </div>
       </div>
     </div>

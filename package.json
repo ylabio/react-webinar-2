@@ -15,7 +15,7 @@
     "react",
     "ylab"
   ],
-  "author": "Vladimir Shestakov",
+  "author": "Denis Solopov",
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.18.9",

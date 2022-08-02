@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { counter } from './utils.js';
 import './style.css';
 
@@ -11,7 +12,7 @@ function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
   function validWord(number) {
-    if (number == 2 || number == 3) {
+    if (number == 2 || number == 3 || number == 4) {
       return 'раза'
     }
     else {
@@ -35,8 +36,10 @@ function App({ store }) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
               onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
-              <div className={'Item__clickCount' + (item.clickCounter == '0' ? ' DispNone' : '')}>Выделялся {item.clickCounter} {validWord(+item.clickCounter)} </div>
+              <div className='Item__title'>
+                <span>{item.title}</span>
+                <span className={'Item__clickCount' + (item.clickCounter == '0' ? ' DispNone' : '')}> Выделялось {item.clickCounter} {validWord(+item.clickCounter)}</span>
+              </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

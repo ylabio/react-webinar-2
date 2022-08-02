@@ -43,10 +43,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+  createItem({code, title = 'Новая запись', selected = false, countOfSelections = 0}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({code, title, selected, countOfSelections})
     });
   }
 
@@ -68,14 +68,28 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          item.selected = !item.selected;
+      items: this.state.items.map(item => { 
+
+        /**Перекрашивание элементов */
+        if (item.selected === true  && item.code != code) {
+          item.selected = false
+        }
+        if (item.code === code) {
+          item.selected = !item.selected
+          
+          /**Подсчёт количетсва выделений */
+          if(item.selected) {
+            ++item.countOfSelections
+          }
         }
         return item;
       })
     });
   }
+  /**
+   * Выведение дополнительной информации
+   * selectInfoOfItem()
+   */
 }
 
 export default Store;

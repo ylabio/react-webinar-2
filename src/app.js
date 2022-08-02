@@ -1,4 +1,5 @@
 import React from 'react';
+import plural from "plural-ru";
 import {counter} from './utils.js';
 import './style.css';
 
@@ -31,7 +32,9 @@ function App({store}) {
               <div className='Item__title'>
                 {item.title}
                 {item.selectedQuantity
-                  ? <span> | Выделялся {item.selectedQuantity} раз</span>
+                  ? <span> | Выделялось {item.selectedQuantity}
+                      {plural(item.selectedQuantity, " раз", " раза", " раз")}
+                    </span>
                   : null
                 }
               </div>

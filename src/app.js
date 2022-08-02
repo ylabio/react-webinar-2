@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, pluralize} from './utils.js';
 import './style.css';
 
 /**
@@ -10,13 +10,6 @@ import './style.css';
 function App({store}) {
     // Выбор состояния из store
     const {items} = store.getState();
-
-    // Множественная форма для отображения количества выделений записи
-    const pluralize = (n, forms) => {
-        return [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100)
-            ? n + forms[0]
-            : n + forms[1];
-    }
 
     return (
         <div className='App'>
@@ -42,7 +35,10 @@ function App({store}) {
                                     : ''}`}
                             </div>
                             <div className='Item__actions'>
-                                <button onClick={() => store.deleteItem(item.code)}>
+                                <button onClick={(event) => {
+                                    store.deleteItem(item.code);
+                                    event.stopPropagation();
+                                }}>
                                     Удалить
                                 </button>
                             </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import {counter} from './utils.js';
 import './style.css';
+import {decNum} from './utils.js';
 
 /**
  * Приложение
@@ -28,7 +29,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title} {item.count === 0 ? '' : ' | Выделялось' + ` ${item.count}` + ' раз'}</div>
+              <div className='Item__title'>{item.title} {item.count > 0 && decNum(item.count)}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

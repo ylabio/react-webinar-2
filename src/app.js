@@ -1,5 +1,5 @@
 import React from "react";
-import { counter, countSelected } from "./utils.js";
+import { counter, formatEnding } from "./utils.js";
 import "./style.css";
 
 /**
@@ -43,11 +43,9 @@ function App({ store }) {
  * @return {React.ReactElement} Виртуальный элемент React
  */
 function ItemComponent({ item, store }) {
-  // Выбрать элемент
-  // Установить количество выделений
+  // Выбрать элемент и зафиксировать количество выделений
   const selectAndCountItem = () => {
     store.selectItem(item.code);
-    store.countSelectedItem(item.code);
   };
 
   // Удалить элемент
@@ -62,7 +60,7 @@ function ItemComponent({ item, store }) {
         <div className="Item__number">{item.code}</div>
         <div className="Item__title">
           {item.title}
-          {countSelected(item)}
+          {item.count ? ` | Выделялось ${item.count} ${formatEnding(item.count.toString())}` : ""}
         </div>
         <div className="Item__actions">
           <button onClick={deleteItem}>Удалить</button>

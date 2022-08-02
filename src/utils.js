@@ -11,13 +11,5 @@ export function counter() {
  * @param countString {string} количество совершенных выделений элемента приведенная к строке
  * @returns {string|string}
  */
-const formatEnding = (countString) =>
+export const formatEnding = (countString) =>
   countString.at(-1).match(/(2|3|4)/g) && !countString.slice(-2).match(/(12|13|14)/g) ? "раза" : "раз";
-
-/**
- * Выводит текст с количеством совершенных выделений
- * @param item {object} Объект элемента
- * @returns {string|string}
- */
-export const countSelected = (item) =>
-  item.count ? ` | Выделялось ${item.count} ${formatEnding(item.count.toString())}` : "";

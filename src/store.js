@@ -21,8 +21,8 @@ class Store {
   setState(newState) {
     this.state = newState;
     // Оповещаем всех подписчиков об изменении стейта
-    for (const lister of this.listeners) {
-      lister();
+    for (const listener of this.listeners) {
+      listener();
     }
   }
 
@@ -61,22 +61,6 @@ class Store {
   }
 
   /**
-   * Фиксирование количество выделений записи по ее коду
-   * @param code
-   */
-  countSelectedItem(code) {
-    const itemIndex = this.state.items.findIndex((item) => item.code === code);
-    const items = [...this.state.items];
-    const item = Object.assign({}, items[itemIndex]);
-    item.count = item.count ? +item.selected + item.count : +item.selected;
-    items[itemIndex] = item;
-    this.setState({
-      ...this.state,
-      items,
-    });
-  }
-
-  /**
    * Выделение записи по её коду
    * @param code
    */
@@ -89,6 +73,7 @@ class Store {
         } else {
           item.selected = false;
         }
+        item.count = item.count ? +item.selected + item.count : +item.selected;
         return item;
       }),
     });

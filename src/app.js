@@ -29,7 +29,12 @@ function App({store}) {
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title}</div>
-              <div className='Item__counter' > {item.counter ? `| Выделялось ${item.counter} раз ` : '' }</div>
+              <div className='Item__counter' > {item.counter ? 
+                  <div style={{display: 'flex'}}>
+                    <p style={{padding: 0 , margin: 0 ,marginRight: '10px', display: 'inline-block',}}>|</p> 
+                    <p style={{padding: 0 , margin: 0 }}>Выделялось {item.counter} раз </p> 
+                  </div>
+                  : '' }</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

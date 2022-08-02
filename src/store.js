@@ -73,7 +73,7 @@ class Store {
         if ((item.code === code)&&(item.selected===true)){
           item.selected=false;
         }
-        else if(((item.code === code)&&(item.selected===false))||((item.code === code)&&(item.selected===undefined))){
+        else if(((item.code === code)&&((item.selected===false)||(item.selected===undefined)))){
           item.selected = true;
           item.clicks++;
           const wordSetter=()=>{

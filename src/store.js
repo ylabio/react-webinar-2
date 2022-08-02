@@ -79,6 +79,15 @@ class Store {
       })
     });
   }
+
+  clickFunc(num) {
+    if (num === 2 || num === 3 || num === 4 )
+      return (' | Выделялся ' + num + ' раза')
+    else if ((num%10 === 2 && num!= 12) || (num%10 === 3 && num!= 13) || (num%10 === 4 && num!= 14))
+      return (' | Выделялся ' + num + ' раза')
+    else 
+      return (' | Выделялся ' + num + ' раз')
+  }
  }
 
 export default Store;

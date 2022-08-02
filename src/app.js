@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, renderCountSelection} from './utils.js';
 import './style.css';
 
 /**
@@ -11,16 +11,6 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
   
-  //Счетчик количества выделений
-  const renderCountSelection = (item) => {
-   if(item.countSelected > 0 && item.countSelected < 5)  {
-     return ` | Выделялось ${item.countSelected} раза`;
-   };
-   if(item.countSelected > 4) {
-    return ` | Выделялось ${item.countSelected} раз`;
-   };
-  };
-
   return (
     <div className='App'>
       <div className='App__head'>
@@ -39,7 +29,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}{renderCountSelection(item)}</div>
+              <div className='Item__title'>{item.title} {renderCountSelection(item)}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

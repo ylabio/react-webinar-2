@@ -74,10 +74,13 @@ class Store {
             items: this.state.items.map(item => {
                 if (item.code === code) {
                     item.selected = !item.selected;
-                    item.counter = item.selected ? item.counter : item.counter ? item.counter + 1 : 1
+                    item.counter = item.counter && item.selected
+                        ? item.counter + 1
+                        : !item.counter && item.selected
+                            ? 1
+                            : item.counter
                 } else if (item.selected) {
                     item.selected = !item.selected
-                    item.counter = item.counter ? item.counter + 1 : 1
                 }
                 return item
             })

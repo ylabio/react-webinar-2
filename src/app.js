@@ -2,6 +2,15 @@ import React from "react";
 import { counter } from "./utils.js";
 import "./style.css";
 
+const renderPhrase = (number) => {
+  const lastOne = Number(number.toString().slice(-1));
+  if (number > 4 && number < 15) {
+    return `Выделялось ${number} раз`;
+  }
+  if (lastOne === 1) return `Выделялось ${number} раз`;
+  if ([2, 3, 4].indexOf(lastOne) >= 0) return `Выделялось ${number} раза`;
+  return `Выделялось ${number} раз`;
+};
 /**
  * Приложение
  * @param store {Store} Состояние приложения
@@ -38,7 +47,7 @@ function App({ store }) {
                 <div className="Item__number">{item.code}</div>
                 <div className="Item__title">
                   {item.count
-                    ? `${item.title} | Выделялось ${item.count} раз`
+                    ? `${item.title} | ${renderPhrase(item.count)}`
                     : item.title}
                 </div>
                 <div className="Item__actions">

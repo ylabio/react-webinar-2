@@ -32,7 +32,8 @@ function App({store}) {
               <div className='Item__counter' > {item.counter ? 
                   <div style={{display: 'flex'}}>
                     <p style={{padding: 0 , margin: 0 ,marginRight: '10px', display: 'inline-block',}}>|</p> 
-                    <p style={{padding: 0 , margin: 0 }}>Выделялось {item.counter} раз </p> 
+                    <p style={{padding: 0 , margin: 0 }}>Выделялось {item.counter}
+                     { item.counter < 5 && item.counter != 1 ? ' разa' : ' раз' }  </p> 
                   </div>
                   : '' }</div>
               <div className='Item__actions'>

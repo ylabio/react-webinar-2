@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, pluralization} from './utils.js';
 import './style.css';
 
 /**
@@ -32,7 +32,7 @@ function App({store}) {
               <div className='Item__text'>
                 <div className='Item__title'>{item.title}</div>
                 <div className={'Item__counter' + (!item.selectedCount ? '' : ' Item__counter_unable')}>
-                  Выделялось {item.selectedCount} {item.selectedCount >= 2 && item.selectedCount < 5 ? 'раза' : 'раз'}
+                  Выделялось {item.selectedCount} {pluralization(item.selectedCount, ["раз","раза","раз"])}
                 </div>
               </div>
               <div className='Item__actions'>

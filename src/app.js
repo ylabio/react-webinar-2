@@ -10,8 +10,6 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
-  items.forEach(item=>
-    item.countSelected = 0);
   return (
     <div className='App'>
       <div className='App__head'>

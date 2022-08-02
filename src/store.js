@@ -1,3 +1,4 @@
+// import {counter} from './utils.js';
 class Store {
 
   constructor(initState) {
@@ -71,6 +72,12 @@ class Store {
       items: this.state.items.map(item => {
         if (item.code === code){
           item.selected = !item.selected;
+        }
+        if (item.code !== code) {
+          item.selected = false
+        } 
+        if(item.code === code) {
+          item.count++
         }
         return item;
       })

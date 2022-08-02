@@ -9,8 +9,9 @@ export function counter(){
 }
 
 export function СlickedCounter(prop){
-  console.log(prop);
     if (prop.prop != 0) {
-      return <div className='item__clicked'>| Выделялось {prop.prop} раз </div>
+      return <div className='item__clicked'>| Выделялось {prop.prop} {declination(prop.prop, ["раз", "раза", "раз"])} </div>
     }
 }
+
+const declination = (number, txt, cases = [2, 0, 1, 1, 1, 2]) => txt[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];

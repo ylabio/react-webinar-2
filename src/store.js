@@ -1,67 +1,85 @@
-import React, { createContext, useReducer } from 'react';
-import { ItemActions } from "./constants"
+class Store {
 
-// Моковые данные
-const startArray = ['Название элемента', 'Некий объект','Заголовок', 'Короткое название', 'Запись', 'Пример выделенной записи', 'Седьмой']
-
-// Вид стейта
-const initialState = {
-  items: startArray.map((el, idx) => {
-    let isActiveByDefault = el === 'Пример выделенной записи'
-    
-    return {
-      code: idx + 1,
-      selected: isActiveByDefault,
-      title: el,
-      counted: +isActiveByDefault
-    }
-  }),
-  counter: startArray.length
-}
-
-export const Ctx = createContext(initialState)
-
-// IDE подсвечивает редюсер от этого диспатча как DispatcherWithoutAction :?
-const reducer = (state, action) => {
-  const {type, payload} = action
-
-  switch (type) {
-    case ItemActions.ADD_NEW_ITEM:
-      return {
-        ...state, 
-        counter: state.counter + 1,
-        items: [...state.items, { code: state.counter + 1, title: payload, counted: 0}]
-      }
-    case ItemActions.DELETE_ITEM:
-      return {
-        ...state,
-        items: state.items.filter(el => el.code !== payload)
-      }
-    case ItemActions.CHANGE_ITEM:
-      return {
-        ...state,
-        items: state.items.map(el => {
-          let cond = el.code === payload && !el.selected
-          return {
-            ...el,
-            selected: cond,
-            counted: el.counted + cond
-          }
-        })
-      }
-    default:
-      return state
+  constructor(initState) {
+    // Состояние приложения (данные)
+    this.state = initState;
+    // Слушатели изменений state
+    this.listners = [];
   }
-}
 
-// Обёртка для приложения, чтобы иметь доступ к стейту из любой точки приложения при помощи хука useContext
-const Store = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState)
-  return (
-    <Ctx.Provider value={{state, dispatch}}>
-      { children }
-    </Ctx.Provider>
-  )
+  /**
+   * Выбор state
+   * @return {Object}
+   */
+  getState() {
+    return this.state;
+  }
+
+  /**
+   * Установка state
+   * @param newState {Object}
+   */
+  setState(newState) {
+    this.state = newState;
+    // Оповещаем всех подписчиков об изменении стейта
+    for (const lister of this.listners) {
+      lister();
+    }
+  }
+
+  /**
+   * Подписка на изменение state
+   * @param callback {Function}
+   * @return {Function} Функция для отписки
+   */
+  subscribe(callback) {
+    this.listners.push(callback);
+    // Возвращаем функцию для удаления слушателя
+    return () => {
+      this.listners = this.listners.filter(item => item !== callback);
+    }
+  }
+
+  /**
+   * Создание записи
+   */
+  createItem({code, title = 'Новая запись', selected = false, counted = 0}) {
+    this.setState({
+      ...this.state,
+      items: this.state.items.concat({code, title, selected, counted})
+    });
+  }
+
+  /**
+   * Удаление записи по её коду
+   * @param code
+   */
+  deleteItem(code) {
+    this.setState({
+      ...this.state,
+      items: this.state.items.filter(item => item.code !== code)
+    });
+  }
+
+  /**
+   * Выделение записи по её коду
+   * @param code
+   */
+  selectItem(code) {
+    this.setState({
+      ...this.state,
+      items: this.state.items.map(item => {
+        if (item.code === code) {  
+          item.selected = !item.selected;
+          item.selected && item.counted++;
+        }
+        else {
+          item.selected = false
+        }
+        return item;
+      })
+    });
+  }
 }
 
 export default Store;

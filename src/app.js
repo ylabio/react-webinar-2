@@ -1,5 +1,5 @@
 import React from "react";
-import { counter } from "./utils.js";
+import { counter, raz } from "./utils.js";
 import "./style.css";
 
 /**
@@ -10,17 +10,6 @@ import "./style.css";
 function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
-
-  // склоняем окончание
-  const raz = (n) => {
-    if (n % 10 === 2 || n % 10 === 3 || n % 10 === 4) {
-      if (n === 12 || n === 13 || n === 14) {
-        return "раз";
-      }
-      return "раза";
-    }
-    return "раз";
-  };
 
   return (
     <div className="App">

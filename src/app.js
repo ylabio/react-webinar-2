@@ -1,5 +1,5 @@
 import React from "react";
-import { counter } from "./utils.js";
+import { counter, getPlural } from "./utils.js";
 import "./style.css";
 
 /**
@@ -23,8 +23,7 @@ function App({ store }) {
             store.createItem({ code, title: `Новая запись ${code}` });
           }}
         >
-          {" "}
-          Добавить{" "}
+          Добавить
         </button>
       </div>
       <div className="App__center">
@@ -38,10 +37,15 @@ function App({ store }) {
                 <div className="Item__number">{item.code}</div>
                 <div className="Item__title">
                   {item.title}
-                  {item.count > 0 && ` | Выделялось ${item.count} раз`}
+                  {item.count > 0 && ` | Выделялось ${getPlural(item.count)}`}
                 </div>
                 <div className="Item__actions">
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      store.deleteItem(item.code);
+                    }}
+                  >
                     Удалить
                   </button>
                 </div>

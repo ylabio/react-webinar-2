@@ -57,7 +57,7 @@ class Store {
     deleteItem(code) {
         this.setState({
             ...this.state,
-            items: this.state.items.filter(item => item.code !== code ? {...item} : null )
+            items: this.state.items.filter(item => item.code !== code ? {...item} : null)
         });
     }
 
@@ -67,21 +67,22 @@ class Store {
      */
     selectItem(code) {
         this.setState({
-            ...this.state,
-            items: this.state.items.map(item => {
-                debugger
-                if (item.selected) {
-                    item.selected = !item.selected
-                }
-                if (item.code === code) {
-                    item.selected = !item.selected;
-                    item.count++
-                }
-
-
-                return item;
-            })
-        });
+                ...this.state,
+                items: this.state.items.map(item => {
+                    if ( item.code === code && !item.selected) {
+                        item.selected = !item.selected
+                        item.count++
+                    }else if(item.code === code && item.selected){
+                       return item
+                    }
+                    else{
+                        item.selected = false
+                    }
+                    return item;
+                })
+            }
+        )
+        ;
     }
 }
 

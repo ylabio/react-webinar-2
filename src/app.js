@@ -7,8 +7,17 @@
      * @param store {Store} Состояние приложения
      * @return {React.ReactElement} Виртуальные элементы React
      */
+
+
     function App({store}) {
 
+        const arr1 = [2, 3, 4] // раза - окончание на эти цифры
+        const arr = [12, 13, 14] // раз - помимо этих
+
+        const handleWord = (count) => {
+            let lastDigit= count % 10 // считаем послденюю цифрц числа
+            return arr.includes(count) ? 'раз' : arr1.includes(lastDigit) ? 'раза' : 'раз';
+        }
         // Выбор состояния из store
         const {items} = store.getState();
 
@@ -35,7 +44,7 @@
                                     <div className='Item__number'>{item.code}</div>
                                     <div className='Item__title'>
                                         {item.title}
-                                        {item.count !== 0 ? <span> | Выделялось {item.count} раз</span> : ''}
+                                        {item.count !== 0 ? <span>| Выделялось {item.count} {handleWord(item.count)}</span> : ''}
                                     </div>
 
                                     <div className='Item__actions'>

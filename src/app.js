@@ -31,7 +31,7 @@ function App({store}) {
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title} {(item.timesSelected > 0) ? `| Выделялось ${item.timesSelected} ${plural(item.timesSelected, 'раз', 'раза', 'раз')}` : ''} </div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={(e) => store.deleteItem(item.code, e)}>
                   Удалить
                 </button>
               </div>

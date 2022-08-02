@@ -19,6 +19,11 @@ function App({store}) {
     }
     return 'раз';
   }
+  const getSelectedStr = (numb) => {
+    return  numb 
+    ? (' | Выделялось ' + numb + ' ' + getWord(numb))
+    : ''
+  }
   return (
     <div className='App'>
       <div className='App__head'>
@@ -43,7 +48,7 @@ function App({store}) {
                   });
                  }}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title + (item.selectCounter ? (' | Выделялось ' + item.selectCounter + ` ${getWord(item.selectCounter)}`)  : '')}</div>
+              <div className='Item__title'>{item.title + getSelectedStr(item.selectCounter)}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

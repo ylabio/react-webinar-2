@@ -16,7 +16,7 @@ export function counter() {
 //   else return 'раз';
 // }
 
-// Вариация №2 упрощенная объектами
+// Вариация №2 упрощенная объектом
 export function declensionWord(num) {
 
   let stringNum = String(num);
@@ -25,7 +25,7 @@ export function declensionWord(num) {
 
   if (stringNum.length >= 2) stringNum = stringNum[stringNum.length - 1];
 
-  return { 2: 'раза', 3: 'раза', 4: 'раза' }[stringNum] || { 0: 'раз', 1: 'раз', 5: 'раз', 6: 'раз', 7: 'раз', 8: 'раз', 9: 'раз' }[stringNum]
+  return { 0: 'раз', 1: 'раз', 2: 'раза', 3: 'раза', 4: 'раза', 5: 'раз', 6: 'раз', 7: 'раз', 8: 'раз', 9: 'раз' }[stringNum];
 }
 
 

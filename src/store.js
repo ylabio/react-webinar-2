@@ -1,5 +1,4 @@
 // импортирую уже готовый счетчик для подсчета "выделений".
-import { counterSelected } from './utils';
 class Store {
 
   constructor(initState) {
@@ -36,7 +35,6 @@ class Store {
    */
   subscribe(callback) {
     this.listners.push(callback);
-    console.log(this.listners)
     // Возвращаем функцию для удаления слушателя
     return () => {
       this.listners = this.listners.filter(item => item !== callback);
@@ -87,7 +85,7 @@ class Store {
         }
 
         // подсчет выделений
-        if (item.selected) ++item.numSelected;
+        if (item.selected) item.numSelected++;
 
 
         return item;

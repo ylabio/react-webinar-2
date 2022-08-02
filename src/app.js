@@ -28,12 +28,13 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{(item.index === 0) ? item.title : `${item.title} | Выделялось ${item.index} раз`}</div>
-              <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
-                  Удалить
-                </button>
-              </div>
+                <div
+                    className='Item__title'>{(item.index === 0) ? item.title : `${item.title} ${store.highlighted(item.index)}`}</div>
+                <div className='Item__actions'>
+                    <button onClick={() => store.deleteItem(item.code)}>
+                        Удалить
+                    </button>
+                </div>
             </div>
           </div>
         )}

@@ -69,7 +69,7 @@ class Store {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
-        if (item.code === code){
+        if (item.code === code) {
           item.selected = true;
           item.index += 1
         } else {
@@ -79,6 +79,18 @@ class Store {
       })
     });
   }
+
+  highlighted(code) {
+    code = String(code);
+    if (code.includes('12') || code.includes('13') || code.includes('14')) {
+      return `| Выделялось ${code} раз`;
+    } else if (code.slice(-1) === '2' || code.slice(-1) === '3' || code.slice(-1) === '4') {
+      return `| Выделялось ${code} раза`;
+    } else {
+      return `| Выделялось ${code} раз`;
+    }
+  }
+
 }
 
 export default Store;

@@ -11,6 +11,13 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+    const arrForTimes=["раз","раза"];
+
+    function declOfNum(n, arrForTimes) {
+        return arrForTimes[n%10===1 && n%100!==11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 0];
+    }
+
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -30,10 +37,10 @@ function App({store}) {
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>
                   {item.title}
-                  {item.indicator > 0 && <div className='Item__indicator'>| Выделялось {item.indicator} раз</div>}
+                  {item.indicator > 0 && <div className='Item__indicator'>| Выделялось {item.indicator} {declOfNum(item.indicator,arrForTimes)}</div>}
               </div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={(evt) => store.deleteItem(item.code,evt)}>
                   Удалить
                 </button>
               </div>

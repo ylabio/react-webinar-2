@@ -53,12 +53,15 @@ class Store {
   /**
    * Удаление записи по её коду
    * @param code
+   * @param evt
    */
-  deleteItem(code) {
+
+  deleteItem(code,evt) {
     this.setState({
       ...this.state,
       items: this.state.items.filter(item => item.code !== code)
     });
+    evt.stopPropagation()
   }
 
   /**

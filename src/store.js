@@ -76,7 +76,7 @@ class Store {
         else if(((item.code === code)&&(item.selected===false))||((item.code === code)&&(item.selected===undefined))){
           item.selected = true;
           item.clicks++;
-         const wordSetter=()=>{
+          const wordSetter=()=>{
           let str=item.clicks.toString();
           let strLetter=str[str.length-1];
           if((strLetter==2||strLetter==3||strLetter==4)&&((str[str.length-2]===undefined)||(str[str.length-2]!=1))){

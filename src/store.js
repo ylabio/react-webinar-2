@@ -83,7 +83,7 @@ class Store {
         if (item.code === code){
           item.selected = !item.selected;
           if (item.selected){
-            item.selectionCount++;
+            item.selectionCount = item.selectionCount ? ++item.selectionCount : 1
             item.countStr = make_label(item.selectionCount, item.title)
           }
         } else {

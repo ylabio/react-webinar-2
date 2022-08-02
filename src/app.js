@@ -11,6 +11,15 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+  // Окончание слов раз/раза
+  const getEndWord = (countSelect) => {
+    countSelect = countSelect % 100;
+    if (countSelect >= 10 && countSelect <= 19) return 'раз';
+    countSelect = countSelect % 10;
+    if (countSelect >= 2 && countSelect <= 4) return 'раза';
+    return 'раз';
+  }
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -28,7 +37,9 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
+              <div className='Item__title'>{item.title}
+                <span>{item.countSelect > 0 ? ` | Выделялось ${item.countSelect} ${getEndWord(item.countSelect)}` : ''}</span>
+              </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

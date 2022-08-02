@@ -7,11 +7,11 @@ export function counter() {
 }
 
 /**
- * Вывод фразы с учетом числа
+ * Определяет показывать или нет фразу "Выделялось N раз"
  */
-export function convertWord(number, words) {
-    return words[(number % 100 > 4 && number % 100 < 20)
-        ? 2
-        : [2, 0, 1, 1, 1, 2][(number % 10 < 5) ? Math.abs(number) % 10 : 5]];
+export function showNumberOfFocus(focusCount) {
+    const plural = require('plural-ru');
+
+    if (focusCount > 0) return ` | Выделялось ${plural(focusCount, '%d раз', '%d раза', '%d раз')}`
 }
 

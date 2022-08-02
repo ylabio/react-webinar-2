@@ -43,10 +43,10 @@ class Store {
     /**
      * Создание записи
      */
-    createItem({code, title = 'Новая запись', selected = false}) {
+    createItem({code, title = 'Новая запись', selected = false, focusCount = 0}) {
         this.setState({
             ...this.state,
-            items: this.state.items.concat({code, title, selected})
+            items: this.state.items.concat({code, title, selected, focusCount})
         });
     }
 
@@ -70,17 +70,8 @@ class Store {
         this.setState({
             ...this.state,
             items: this.state.items.map(item => {
-                /**
-                 * Находим текущий выделенный элемент,
-                 * создаем ему свойство count(если оно еще не создано)
-                 * увеличиваем count на единицу
-                 */
-                if (item.selected) {
-                    if (!item.count) item.count = 0
-                    item.count++
-                }
-
                 if (item.code === code) {
+                    if (!item.selected) item.focusCount++
                     return {...item, selected: !item.selected}
                 } else {
                     return {...item, selected: false}

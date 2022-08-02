@@ -12,22 +12,6 @@ function App( { store } ) {
     // Выбор состояния из store
     const { items } = store.getState();
 
-    function getNoun( number ) {
-        let n = Math.abs(number);
-        n %= 100;
-        if (n >= 5 && n <= 20) {
-            return 'раз'
-        }
-        n %= 10;
-        if (n === 1) {
-            return 'раз';
-        }
-        if (n >= 2 && n <= 4) {
-            return 'раза';
-        }
-        return 'раз';
-    }
-
     return (
         <div className='App'>
             <div className='App__head'>

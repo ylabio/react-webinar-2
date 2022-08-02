@@ -43,7 +43,7 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false, timesSelected = 0, textSelected = ''}) {
+  createItem({code, title = 'Новая запись', selected = false, timesSelected = 0}) {
     this.setState({
       ...this.state,
       items: this.state.items.concat({code, title, selected, timesSelected})
@@ -54,11 +54,12 @@ class Store {
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(code, e) {
     this.setState({
       ...this.state,
       items: this.state.items.filter(item => item.code !== code)
     });
+    e.stopPropagation()
   }
 
   /**
@@ -74,7 +75,6 @@ class Store {
           if(item.selected == 1) {
             item.timesSelected++;
           }
-          item.textSelected = `| Выделялся ${item.timesSelected} раз(а)`
         } else {
           item.selected = 0
         }

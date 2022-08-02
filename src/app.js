@@ -1,6 +1,7 @@
 import React from 'react';
 import { counter } from './utils.js';
 import './style.css';
+import plural from 'plural-ru';
 
 /**
  * Приложение
@@ -44,11 +45,19 @@ function App({ store }) {
                       <div className="Count">
                         <div className="Count_line"></div>
                         <div className="Count_number">
-                          {(item.count % 10 == 2 && item.count % 100 !== 12) ||
+                          {/* {(item.count % 10 == 2 && item.count % 100 !== 12) ||
                           (item.count % 10 == 3 && item.count % 100 !== 13) ||
-                          (item.count % 10 == 4 && item.count % 100 !== 14) 
+                          (item.count % 10 == 4 && item.count % 100 !== 14)
                             ? `Выделялось ${item.count} раза`
-                            : `Выделялось ${item.count} раз`}
+                            : `Выделялось ${item.count} раз`} */}
+                          {item.count
+                            ? `  Выделялось ${item.count} ${plural(
+                                item.count,
+                                'раз',
+                                'раза',
+                                'раз',
+                              )}`
+                            : null}
                         </div>
                       </div>
                     )}

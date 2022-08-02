@@ -61,28 +61,20 @@ class Store {
     });
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
   selectItem(code) {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
-        if (item.code === code){
-          item.selected = !item.selected;
-          if (item.selected == true) {
-            this.state.items.map(i => {
-              if (i != item){
-                if (i.selected == true){
-                  i.selected = false;
-                  i.count++;
-                }
-              }
-            })
-          }
-          else {item.count++;}
+        if (item.selected === true && item.code != code){
+          item.selected = false;
+          item.count++;
         }
+        if (item.code === code ){
+          if (item.selected == true){
+            item.count++;
+          }
+          item.selected = !item.selected; 
+        }  
         return item;
       })
     });

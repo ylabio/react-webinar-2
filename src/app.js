@@ -1,6 +1,7 @@
 import React from 'react';
-import { counter, counterWord } from './utils.js';
+import { counter } from './utils.js';
 import './style.css';
+import { pluralize } from 'numeralize-ru';
 
 /**
  * Приложение
@@ -25,17 +26,18 @@ function App({store}) {
       <div className='App__center'>
         <div className='List'>{items.map(item =>
           <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')} onClick={() => store.selectItem(item.code)}>
+            <div 
+            className={'Item' + (item.selected ? ' Item_selected' : '')} 
+            onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title}
                 <div className={'Item__counter' + (item.selectCount !== 0 ? '' : '_hidden')}>
-                    {' | Выделялось ' + item.selectCount + ' ' + counterWord(item.selectCount)}
+                    {' | Выделялось ' + item.selectCount + ' ' + pluralize(item.selectCount, 'раз', 'раза', 'раз')}
                 </div>
               </div>
               <div className='Item__actions'>
                 <button onClick={(e) => {
-                  e.stopPropagation(); 
-                  store.deleteItem(item.code)
+                  store.deleteItem(item.code, e)
                 }}>
                   Удалить
                 </button>

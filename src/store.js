@@ -76,8 +76,6 @@ class Store {
       })
     });
 
-    console.log(this.state)
-
   }
 }
 

@@ -12,8 +12,18 @@ function App({ store }) {
   const { items } = store.getState();
 
   const renderedItems = items.map((item) => {
+    const times_selected_string = item.times_selected.toLocaleString();
+
+    const times_selected_suffix =
+      times_selected_string[times_selected_string.length - 2] !== "1" &&
+      (times_selected_string[times_selected_string.length - 1] === "2" ||
+        times_selected_string[times_selected_string.length - 1] === "3" ||
+        times_selected_string[times_selected_string.length - 1] === "4")
+        ? "a"
+        : "";
+
     const times_selected_label = item.times_selected
-      ? `| Выделялось ${item.times_selected} раз`
+      ? `| Выделялось ${item.times_selected} раз${times_selected_suffix}`
       : "";
 
     return (

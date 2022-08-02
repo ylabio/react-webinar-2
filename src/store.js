@@ -36,6 +36,7 @@ class Store {
    */
   subscribe(callback) {
     this.listners.push(callback);
+    console.log(this.listners)
     // Возвращаем функцию для удаления слушателя
     return () => {
       this.listners = this.listners.filter(item => item !== callback);
@@ -78,13 +79,17 @@ class Store {
 
         if (item.code === code) {
           item.selected = !item.selected;
-          // добавления объекту поля numSelected для подсчета "выделений" + небольшое улучшение для точности
-          item.numSelected = item.selected ? ++item.numSelected : item.numSelected;
+
         }
         // дополняем конструкцию управления if конструкцией else для добавления объекту поля selected: false
         else {
           item.selected = false;
         }
+
+        // подсчет выделений
+        if (item.selected) ++item.numSelected;
+
+
         return item;
       })
     });

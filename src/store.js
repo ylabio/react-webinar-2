@@ -66,17 +66,15 @@ class Store {
    * @param code
    * @param event
    */
-  selectItem(code, event) {
+  selectItem(code) {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
-        if (event.target.className !== 'delete'){
-          if (item.code === code){
-            item.selected = !item.selected;
-            if (item.selected) item.countOfSelect ++;
-          } else {
-            item.selected = false;
-          }
+        if (item.code === code){
+          item.selected = !item.selected;
+          if (item.selected) item.countOfSelect ++;
+        } else {
+          item.selected = false;
         }
         return item;
       })

@@ -51,6 +51,12 @@ body{
     background: #75aaf1;
 }
 
+.move-to-left {
+    position: absolute;
+    left: 48.1%;
+
+    margin: 20px 10px;
+}
 
 .Item__title{
     width: 100%;

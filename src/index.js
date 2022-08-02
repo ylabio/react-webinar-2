@@ -6,9 +6,9 @@ import {counter} from './utils.js';
 
 const store = new Store({
   items: [
-    {code: counter(), title: 'Название элемента', title2: "| Выделено раз: ", selectedTimes: 0},
-    {code: counter(), title: 'Пример выделенной записи', title2: "| Выделено раз: ", selectedTimes: 0},
-    {code: counter(), title: 'Седьмой', title2: "| Выделено раз: ", selectedTimes: 0},
+    {code: counter(), title: 'Название элемента', selectedTimes: 0},
+    {code: counter(), title: 'Пример выделенной записи', selectedTimes: 0},
+    {code: counter(), title: 'Седьмой', selectedTimes: 0},
   ]
 });
 

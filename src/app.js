@@ -26,10 +26,7 @@ function App({store}) {
         <div className='List'>{items.map(item =>
           <div key={item.code} className='List__item'>
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => {
-                  store.selectItem(item.code)
-                  store.selectedCount(item.code) 
-                }}>
+                onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title} {item.selectedCount > 0 ? `| Выделялось ${item.selectedCount} раз` : null} </div>
               <div className='Item__actions'>

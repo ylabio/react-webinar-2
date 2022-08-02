@@ -14,7 +14,7 @@ function App({ store }) {
   /**
    * отображение кол-ва совершенных выделений
    * @param {number} selectedCount
-   * @return {React.ReactElement}
+   * @return {string}
    */
   const viewSelectedCount = (selectedCount) => {
     return selectedCount

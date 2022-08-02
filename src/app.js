@@ -11,6 +11,31 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+  function getLastDigit(n) {
+    if (n < 20 || n % 10 === 0) {
+      return n;
+    } else {
+      return n % 10;
+    }
+  }
+
+  function getTitle (item) {
+    let title = item.title;
+    let lastDigit = getLastDigit(item.timesSelected);
+
+    if (lastDigit === 0) {
+      return title;
+    }
+
+    if (lastDigit >= 2 && lastDigit <= 4) {
+      title += ` | Выделялось ${item.timesSelected} раза`;
+    } else {
+      title += ` | Выделялось ${item.timesSelected} раз`;
+    }
+
+    return title;
+  }
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -28,7 +53,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
+              <div className='Item__title'>{getTitle(item)}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

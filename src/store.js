@@ -73,12 +73,6 @@ class Store {
           
           if (!item.selected) {
             item.timesSelected = item.timesSelected + 1;
-
-            if (item.timesSelected >= 2 && item.timesSelected < 5) {
-              item.title = item.title.split('|')[0] + ` | Выделялось ${item.timesSelected} раза`;
-            } else {
-              item.title = item.title.split('|')[0] + ` | Выделялось ${item.timesSelected} раз`;
-            }
           }
 
           item.selected = !item.selected;

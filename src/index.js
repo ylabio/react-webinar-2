@@ -13,7 +13,7 @@ const store = new Store({
     { code: counter(), title: "Запись", timesSelected: 0 },
     {
       code: counter(),
-      title: "Пример выделенной записи | Выделялось 1 раз",
+      title: "Пример выделенной записи",
       selected: true,
       timesSelected: 1,
     },

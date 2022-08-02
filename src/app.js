@@ -1,5 +1,5 @@
 import React from 'react';
-import { counter } from './utils.js';
+import { counter, declination } from './utils.js';
 import './style.css';
 
 /**
@@ -10,23 +10,6 @@ import './style.css';
 function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
-
-
-  const declination = (n) => {
-    n = Math.abs(n) % 100;
-    const n1 = n % 10;
-
-    if (n > 10 && n < 20) {
-      return 'раз';
-    } else if (n1 > 1 && n1 < 5) {
-      return 'раза';
-    } else if (n1 == 1) {
-      return 'раз';
-    } else {
-      return 'раз';
-    }
-
-  }
 
   return (
     <div className='App'>
@@ -45,7 +28,6 @@ function App({ store }) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
               onClick={() => {
                 store.selectItem(item.code)
-                store.addSelectValue(item.code)
               }}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>

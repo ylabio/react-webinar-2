@@ -1,6 +1,7 @@
 import React from 'react';
-import {counter, isPlural} from './utils.js';
+import {counter} from './utils.js';
 import './style.css';
+const pluralRu = require('plural-ru');
 
 /**
  * Приложение
@@ -31,7 +32,7 @@ function App({store}) {
               <div className='Item__title'>
                 {item.title}
                 {item.selectedCount > 0 &&
-                  <span> | Выделялось {item.selectedCount} {isPlural(item.selectedCount) ? 'раза' : 'раз'}</span>
+                  <span> | Выделялось {pluralRu(item.selectedCount, '%d раз', '%d раза', '%d раз')}</span>
                 }
               </div>
               <div className='Item__actions'>

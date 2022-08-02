@@ -30,10 +30,10 @@ function App({store}) {
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title}
-                <div className={item.clickCounter == 0 ? 'hide' : ''}>&nbsp;{'| Выделялось' + ' ' + item.clickCounter + ' ' + renderPhrase(item.clickCounter)}</div>
+                <div className={item.clickCounter == 0 ? 'hide' : ''}>&nbsp;| Выделялось {item.clickCounter} {renderPhrase(item.clickCounter)}</div>
               </div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={(event) => store.deleteItem(item.code, event)}>
                   Удалить
                 </button>
               </div>

@@ -64,6 +64,15 @@ body{
 .Item__number{
     padding: 20px 10px 20px 20px;
 }
-
+.Item__counter{
+    width: 270px;
+    height: 35px;
+    margin: auto;
+    padding: 5px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    border-radius: 5px;
+}
 
 

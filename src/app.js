@@ -62,7 +62,7 @@ function Item({item: {
   }
 
   const handleClick = (code) => () => {
-    !selected && dispatch({
+    dispatch({
       type: ItemActions.CHANGE_ITEM,
       payload: code
     })

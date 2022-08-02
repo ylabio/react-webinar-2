@@ -41,10 +41,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         items: state.items.map(el => {
+          let cond = el.code === payload && !el.selected
           return {
             ...el,
-            selected: el.code === payload,
-            counted: el.code === payload ? el.counted + 1 : el.counted // Я не вспомнил, как написать красивее
+            selected: cond,
+            counted: el.counted + cond
           }
         })
       }

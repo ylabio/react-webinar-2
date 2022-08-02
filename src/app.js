@@ -28,7 +28,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title} {item.count ? `Выделялось ${item.count} раз` : null}</div> {/* Добавил динамическую структуру счетчика */}
+              <div className='Item__title'>{item.title} {item.count ? ` | Выделялось ${item.count} ${item.once}` : null}</div> {/* Добавил динамическую структуру счетчика */}
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

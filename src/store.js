@@ -44,10 +44,10 @@ class Store {
    * Создание записи
    */
   /* Добавил count */
-  createItem({code, title = 'Новая запись', selected = false, count = 0}) { 
+  createItem({code, title = 'Новая запись', selected = false, count = 0, once = ""}) { 
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected, count})
+      items: this.state.items.concat({code, title, selected, count, once})
     });
   }
 
@@ -73,8 +73,15 @@ class Store {
         if (item.code === code){
           item.selected = !item.selected;
           if(item.selected) {
-            item.count ++;
-          } /* Счетчик количества раз выделения пунктов меню */
+            item.count ++; /* Счетчик количества раз выделения пунктов меню */
+            if(item.count >=2 && item.count<=4 ||  /* Добавил возможность изменения окончания слова "раз" */
+                item.count >=22 && item.count<=24 ||
+                item.count >=32 && item.count<=34) {
+              item.once = "раза"
+            } else {
+              item.once = "раз"
+            }
+          } 
         } else {
           item.selected = false /* Условие для реализации задания по сбросу выделения у всех пунктов меню кроме выбранного */
         }

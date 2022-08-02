@@ -55,6 +55,8 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    // Event.stopPropagation();
+    console.log(this.state);
     this.setState({
       ...this.state,
       items: this.state.items.filter(item => item.code !== code)

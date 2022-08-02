@@ -13,7 +13,7 @@ function App({store}) {
 
     // Множественная форма для отображения количества выделений записи
     const pluralize = (n, forms) => {
-        return n % 10 >= 2 && n % 10 <= 4 && ![12, 13, 14].includes(n)
+        return [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100)
             ? n + forms[0]
             : n + forms[1];
     }

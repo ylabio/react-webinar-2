@@ -27,22 +27,23 @@ function App({ store }) {
       <div className='App__center'>
         <div className='List'>
           {items.map(item => {
-            const { counterAllocation } = item;
+            const { code, title, selected, counterAllocation } = item;
+
             let declination = (counterAllocation === 1) ? 'раз' :
               (1 < counterAllocation && counterAllocation < 5) ? 'раза' :
                 (5 <= counterAllocation && counterAllocation < 21) ? 'раз' :
                   (22 <= counterAllocation && counterAllocation <= 24) ? 'раза' :
                     (25 <= counterAllocation && counterAllocation <= 31) ? 'раз' :
                       'раз';
-            return <div key={item.code} className='List__item'>
-              <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}>
-                <div className='Item__number'>{item.code}</div>
-                <div className='Item__title'>{item.title}&nbsp;
-                  {item.counterAllocation !== 0 && `| Выделялось  ${item.counterAllocation} ${declination}`}
+            return <div key={code} className='List__item'>
+              <div className={'Item' + (selected ? ' Item_selected' : '')}
+                onClick={() => store.selectItem(code)}>
+                <div className='Item__number'>{code}</div>
+                <div className='Item__title'>{title}&nbsp;
+                  {counterAllocation !== 0 && `| Выделялось  ${counterAllocation} ${declination}`}
                 </div>
                 <div className='Item__actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={() => store.deleteItem(code)}>
                     Удалить
                   </button>
                 </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import {counter} from './utils.js';
+import { renderPhrase } from './utils.js';
 import './style.css';
 
 /**
@@ -10,17 +11,6 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
-
-  // Склонение слова "раз"
-  function renderPhrase(clickNumber) {
-    const lastOne = Number(clickNumber.toString().slice(-1));
-    if (clickNumber > 4 && clickNumber < 15) {
-      return "раз";
-    }
-    if (lastOne === 1) return "раз";
-    if ([2, 3, 4].indexOf(lastOne) >= 0) return "раза";
-    return "раз";
-  }
 
   return (
     <div className='App'>

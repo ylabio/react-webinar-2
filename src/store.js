@@ -61,7 +61,7 @@ class Store {
   }
 
   /**
-   * Выделение записи по её коду
+   * Выделение записи по её коду и создание счётчика
    * @param code
    */
   selectItem(code) {
@@ -70,21 +70,11 @@ class Store {
       items: this.state.items.map((item) => {
         if (item.code === code) {
           item.selected = !item.selected
-        }
-        return item
-      }),
-    })
-  }
-  /**
-   * Создание счётчика
-   * @param code
-   */
-  countItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map((item) => {
-        if (item.code === code) {
-          item.count ? (item.count += 1) : (item.count = 1)
+          if (item.selected) {
+            item.count ? (item.count += 1) : (item.count = 1)
+          }
+        } else {
+          item.selected = false
         }
         return item
       }),

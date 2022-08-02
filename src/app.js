@@ -7,20 +7,23 @@ import './style.css'
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
+const wordsArr = ['раз', 'раза']
+
+const decOfWords = (num, wordsArr) => {
+  if (10 < num && num < 20) {
+    console.log(66)
+    return wordsArr[0]
+  } else if (num % 10 < 2 || num % 10 > 4) {
+    console.log(num)
+    return wordsArr[0]
+  } else {
+    return wordsArr[1]
+  }
+}
+
 function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState()
-
-  const onClick = (itemId) => {
-    items.forEach((item) => {
-      if (item.code !== itemId || item.selected) {
-        item.selected = false
-      } else if (item.code === itemId && !item.selected) {
-        store.countItem(itemId)
-      }
-    })
-    store.selectItem(itemId)
-  }
 
   return (
     <div className='App'>
@@ -43,11 +46,15 @@ function App({ store }) {
             <div key={item.code} className='List__item'>
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => onClick(item.code)}>
+                onClick={() => store.selectItem(item.code)}>
                 <div className='Item__number'>{item.code}</div>
                 <div className='Item__title'>
                   <span>{item.title}</span>
-                  {item.count && <span>{' | Выделялось ' + item.count + ' раз'}</span>}
+                  {item.count && (
+                    <span>
+                      {' | Выделялось ' + item.count + ' ' + decOfWords(item.count, wordsArr)}
+                    </span>
+                  )}
                 </div>
                 <div className='Item__actions'>
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>

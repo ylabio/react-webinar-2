@@ -43,10 +43,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+  createItem({code, title = 'Новая запись', selected = false, amount = 0}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({code, title, selected, amount})
     });
   }
 
@@ -68,14 +68,23 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          item.selected = !item.selected;
+      items: this.state.items.map((item) => {
+        if (!item.selected) {
+          if (item.code === code) {
+            item.selected = !item.selected;
+            item.amount = ++item.amount;
+          } else {
+            item.selected = false;
+          }
+          return item;
         }
-        return item;
-      })
+
+        const { selected, ...newItem } = item;
+        return newItem;
+      }),
     });
   }
 }
 
 export default Store;
+

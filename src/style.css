@@ -55,6 +55,11 @@ body{
 .Item__title{
     width: 100%;
     padding: 20px 10px;
+    display: flex;
+}
+.Item__amount{
+    padding: 0 0 0 10px;
+
 }
 .Item__actions{
     padding: 20px  20px 20px 10px;
@@ -64,6 +69,10 @@ body{
 .Item__number{
     padding: 20px 10px 20px 20px;
 }
+
+
+
+
 
 
 

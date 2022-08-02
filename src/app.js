@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, getLineEnd} from './utils.js';
 import './style.css';
 
 /**
@@ -15,13 +15,7 @@ function App({store}) {
     if(item.selectCount>0){
       return `| Выделялось ${item.selectCount} ${getLineEnd(item.selectCount)}`
     }
-  }
-  var getLineEnd = (selectCount) =>{
-    if ((selectCount < 10 || selectCount > 20) && selectCount % 10 >= 2 && selectCount % 10 <= 4)
-      return 'раза'
-    else return 'раз'
-  }
-  
+  }  
 
   return (
     <div className='App'>
@@ -41,10 +35,13 @@ function App({store}) {
                  onClick={() => {
                   store.selectItem(item.code)}}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title} {itemCountSelect(item)}</div>
-              
+              <div className='Item__title'>{item.title} {itemCountSelect(item)}</div>              
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button 
+                  onClick={() => {                  
+                    store.deleteItem(item.code)
+                  }}
+                >
                   Удалить
                 </button>
               </div>

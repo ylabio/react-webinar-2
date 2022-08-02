@@ -73,8 +73,7 @@ class Store {
           item.selected = !item.selected;
           item.selected? item.selectCount++ : item.selectCount
         } else {
-          item.selected = false
-          item.selectCount = 0
+          item.selected = false          
         }
         return item;
       })

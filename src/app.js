@@ -1,6 +1,7 @@
 import React from 'react';
 import {counter} from './utils.js';
 import './style.css';
+import plural from 'plural-ru'
 
 /**
  * Приложение
@@ -10,7 +11,7 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
-  const sklonenie = (number, txt, cases = [2, 0, 1, 1, 1, 2]) => txt[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
+
 
   return (
     <div className='App'>
@@ -29,7 +30,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}{item.counter ? ` | Выделялся ${item.counter} ${sklonenie(item.counter, ['раз','раза', 'раз'])}` : null}</div>
+              <div className='Item__title'>{item.title}{item.counter ? ` | Выделялся ${item.counter} ${plural(item.counter, 'раз','раза', 'раз')}` : null}</div>
               <div className='Item__actions'>
                 <button onClick={(e) => store.deleteItem(item.code, e)}>
                   Удалить

@@ -23,3 +23,4 @@ store.subscribe(() => {
 
 // Первый рендер (один раз)
 ReactDOM.render(<App store={store}/>, document.body);
+

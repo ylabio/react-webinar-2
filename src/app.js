@@ -1,5 +1,6 @@
 import React from 'react';
-import {counter, declOfNum} from './utils.js';
+import plural from 'plural-ru'
+import {counter} from './utils.js';
 import './style.css';
 
 /**
@@ -29,8 +30,8 @@ function App({store}) {
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>
-                {item.title}
-                {item.count > 0 && ` | Выделялось ${item.count} ${declOfNum(item.count, ['раз', 'раза', 'раз'])}` }
+                {item.title}                
+                {item.count > 0 && ` | Выделялось ${plural(item.count, '%d раз', '%d раза', '%d раз')} ` }
               </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>

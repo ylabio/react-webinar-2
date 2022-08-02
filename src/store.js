@@ -54,7 +54,8 @@ class Store {
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(code, e) {
+    e.stopPropagation();
     this.setState({
       ...this.state,
       items: this.state.items.filter(item => item.code !== code)
@@ -71,7 +72,7 @@ class Store {
       items: this.state.items.map(item => {
         if (item.code === code){
           item.selected = !item.selected;
-          (item.selected) ? item.clicksAmount++ : null;
+          if (item.selected) item.clicksAmount++;
         } else {
           item.selected = false;
         }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, countName} from './utils.js';
 import './style.css';
 
 /**
@@ -10,17 +10,6 @@ import './style.css';
 function App({store}) {
     // Выбор состояния из store
     const {items} = store.getState();
-
-    const countName = (count) => {
-        const countArray = count.toString().split('');
-        const preLastElement = countArray.at(-2) //Можно конверитировать в число, но я подумал легче сраавнимое значение перевести в строку
-        const lastElement = countArray.pop()
-        if (lastElement >= 2 && lastElement <= 4 && preLastElement !== '1') {
-            return `| Выделялся ${count} раза`
-        } else {
-            return `| Выделялся ${count} раз`
-        }
-    }
 
     return (
         <div className='App'>

@@ -72,11 +72,9 @@ class Store {
         if (item.code === code){
           item.selected = !item.selected;
           if (item.selected) {
-            if (!item.selectCounter) {
-            item.selectCounter = 1;
-          } else {
-            item.selectCounter += 1;
-          }
+            !item.selectCounter
+              ? item.selectCounter = 1
+              : item.selectCounter += 1;
           }
         }
         return item;

@@ -31,7 +31,7 @@ function App({ store }) {
       <div className="App__center">
         <div className="List">
           {items.map((item) => (
-            <ItemList item={item} store={store} />
+            <ItemList item={item} store={store} counter={counter} />
           ))}
         </div>
       </div>

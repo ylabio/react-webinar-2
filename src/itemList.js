@@ -13,7 +13,8 @@ function ItemList({ item, store }) {
       >
         <div className="Item__number">{item.code}</div>
         <div onClick={counter} className="Item__title">
-          {item.title} | Выделялось {state > 0 && <i>{state}</i>} раз
+          {item.title}
+          {state > 1 && <i> | Выделялось {Math.floor(state / 2)} раз</i>}
         </div>
         <div className="Item__actions">
           <button onClick={() => store.deleteItem(item.code)}>Удалить</button>

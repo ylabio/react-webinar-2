@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, getEndWord} from './utils.js';
 import './style.css';
 
 /**
@@ -11,14 +11,6 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
-  // Окончание слов раз/раза
-  const getEndWord = (countSelect) => {
-    countSelect = countSelect % 100;
-    if (countSelect >= 10 && countSelect <= 19) return 'раз';
-    countSelect = countSelect % 10;
-    if (countSelect >= 2 && countSelect <= 4) return 'раза';
-    return 'раз';
-  }
 
   return (
     <div className='App'>

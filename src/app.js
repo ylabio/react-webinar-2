@@ -28,7 +28,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
+              <div className='Item__title'>{item.title} {item.count ? ` | Выделялся ${item.count} ${declOfNum(item.count, ['раз', 'раза', 'раз'])} ` : null}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить
@@ -41,6 +41,11 @@ function App({store}) {
       </div>
     </div>
   );
+}
+
+function declOfNum(number, titles) {  
+  const cases = [2, 0, 1, 1, 1, 2];  
+  return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];  
 }
 
 export default App;

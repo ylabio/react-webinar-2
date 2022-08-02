@@ -78,12 +78,11 @@ class Store {
                   i.selected = false;
                   i.count++;
                 }
-            }
+              }
             })
           }
           else {item.count++;}
         }
-        
         return item;
       })
     });

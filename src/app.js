@@ -1,5 +1,6 @@
 import React from 'react';
-import {counter} from './utils.js';
+import simplur from 'simplur';
+import {counter, format} from './utils.js';
 import './style.css';
 
 /**
@@ -28,7 +29,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title} {item.count != 0 ? `| Выделено ${item.count} раз`: ``}</div>
+              <div className='Item__title'>{item.title} {item.count != 0 ? simplur`| Выделено ${[item.count, format]}`: ``}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

@@ -39,7 +39,7 @@ function App({store}) {
               <div
                 className='Item__title'>
                 {item.title + (item?.selectionCount
-                  ? ` | Выделялся ${item.selectionCount} ${pluralize(item.selectionCount, 'раз', 'раза', 'раз')}`
+                  ? ` | Выделялось ${item.selectionCount} ${pluralize(item.selectionCount, 'раз', 'раза', 'раз')}`
                   : '')}
               </div>
               <div className='Item__actions'>

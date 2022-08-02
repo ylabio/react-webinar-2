@@ -64,10 +64,14 @@ body {
 }
 
 .Item__clickCount {
-    display: flex;
-    align-self: center;
-    padding: 20px 10px 20px 20px;
-    flex: 1 1 250px;
+    position: relative;
+    margin-left: 5px;
+}
+
+.Item__clickCount:before {
+    content: "|";
+    left: 0;
+    top: 0;
 }
 
 .DispNone {

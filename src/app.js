@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {counter} from './utils.js';
+import React from 'react';
+import {counter, declOfNum, textFormatter} from './utils.js';
 import './style.css';
 
 /**
@@ -19,7 +19,7 @@ function App({store}) {
             <div className='Controls'>
                 <button onClick={() => {
                     const code = counter();
-                    store.createItem({code, title: `Новая запись ${code}`})
+                    store.createItem({code, title: `Новая запись ${code}`, count: 0})
                 }}> Добавить
                 </button>
             </div>
@@ -32,9 +32,10 @@ function App({store}) {
                             <div className='Item__number'>{item.code}</div>
                             <div className='Item__title'>{item.title}
                                 {
-                                    // Решил сделать таким образом, код нигде не заимствовал, подумал что выводить span логичнее при первом клике, чем сразу
                                     item.count > 0
-                                    && <span> | Выделялось {item.count} раз</span>
+                                    &&
+                                    <span
+                                        className='Item__count'>| Выделялось {item.count} {textFormatter(item.count, ['раз', 'раза', 'раз'])}</span>
                                 }
                             </div>
                             <div className='Item__actions'>

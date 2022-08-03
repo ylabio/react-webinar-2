@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app.js';
 import Store from "./store.js";
-import {counter} from './utils.js';
+import { counter } from './utils.js';
 
 const store = new Store({
   items: [
@@ -11,7 +11,7 @@ const store = new Store({
     {code: counter(), title: 'Заголовок'},
     {code: counter(), title: 'Короткое название'},
     {code: counter(), title: 'Запись'},
-    {code: counter(), title: 'Пример выделенной записи', selected: true},
+    {code: counter(), title: 'Шестой'},
     {code: counter(), title: 'Седьмой'},
   ]
 });

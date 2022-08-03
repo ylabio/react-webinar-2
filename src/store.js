@@ -79,7 +79,6 @@ class Store {
             })
         })
     }
-
     setSelectCount(code) {
         this.setState({
             ...this.state,

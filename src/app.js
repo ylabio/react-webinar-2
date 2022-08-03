@@ -31,7 +31,7 @@ function App({store}) {
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title}
               {item.selectCounter ?
-              <span className="Item__select-counter"> | Выделяется  {plural(item.selectCounter, "%d раз", "%d раза", "%d раз")}</span> : <></>}</div>
+              <span className="Item__select-counter"> | Выделялось  {plural(item.selectCounter, "%d раз", "%d раза", "%d раз")}</span> : <></>}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

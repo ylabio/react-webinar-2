@@ -1,4 +1,5 @@
 import React from 'react';
+import {verb} from 'plural-ru';
 import {counter} from './utils.js';
 import './style.css';
 
@@ -10,18 +11,9 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
-  const getWord = (numb) => {
-    const lastNumb = Number(numb.toString().slice(-1));
-    if (numb < 12 || numb > 14) {
-      if (lastNumb >= 2 && lastNumb <= 4) {
-        return 'раза';
-      }
-    }
-    return 'раз';
-  }
   const getSelectedStr = (numb) => {
     return  numb 
-    ? (' | Выделялось ' + numb + ' ' + getWord(numb))
+    ? (' | Выделялось ' + verb(numb, '%d раз', '%d раза', '%d раз'))
     : ''
   }
   return (

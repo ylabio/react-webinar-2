@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, declOfNum} from './utils.js';
 import './style.css';
 
 /**

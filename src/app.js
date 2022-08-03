@@ -2,6 +2,18 @@ import React from 'react';
 import {counter} from './utils.js';
 import './style.css';
 
+function pluralize(digit) {
+    let cases = [0,1,5,6,7,8,9];
+    if ( [11,12,13,14,15,16,17,18,19].indexOf(digit) !== -1){
+        return 'раз'
+    }
+    if (cases.indexOf(digit % 10) !== -1 ){
+        return 'раз'
+    }
+    return 'раза'
+}
+
+
 /**
  * Приложение
  * @param store {Store} Состояние приложения
@@ -28,7 +40,11 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
+              <div className='Item__title'>
+                  {
+                    !item.counter ?
+                        item.title :
+                        item.title + ` | выделялось ${item.counter} ${pluralize(item.counter)}`}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

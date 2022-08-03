@@ -43,10 +43,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+  createItem({code, title = 'Новая запись',counter =0 , selected = false}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({code, title, counter, selected}),
     });
   }
 
@@ -57,7 +57,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      items: this.state.items.filter(item => item.code !== code),
     });
   }
 
@@ -69,10 +69,17 @@ class Store {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
-        if (item.code === code){
-          item.selected = !item.selected;
+        if (item.code === code && !item.selected){     //выделяем если запись соответствует той, по которой нажали и она уже не выделена
+          this.state.items.map(item2 => {
+            if (item2.selected){                       //убираем выделения если есть
+              item2.selected = !item2.selected;
+            }
+          })
+          ++item.counter;                              //увеличиваем счетчик выделений данной записи
+          item.selected = !item.selected;              //выделяем запись
         }
-        return item;
+        else if (item.code === code && item.selected) item.selected = !item.selected;   //убираем выделение у записи по которой нажали повторно
+        return item ;
       })
     });
   }

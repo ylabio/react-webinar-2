@@ -1,5 +1,5 @@
 import React from "react";
-import { counter } from "./utils.js";
+import { counter, declOfNum } from "./utils.js";
 import "./style.css";
 
 /**
@@ -39,7 +39,8 @@ function App({ store }) {
                   {item.title}
                   {item.count && item.count !== 0 ? (
                     <span className="Item__count">
-                      | Выделялось {item.count} раз
+                      | Выделялось {item.count}{" "}
+                      {declOfNum(item.count, ["раз", "раза", "раз"])}
                     </span>
                   ) : (
                     ""

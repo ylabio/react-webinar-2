@@ -75,6 +75,8 @@ class Store {
           const count = item.selected ? item.count +1: item.count
           item.selected = !item.selected;
           item.count = count
+        } else {
+          item.selected = false
         }
         return item;
       })

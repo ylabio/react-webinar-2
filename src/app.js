@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, ending} from './utils.js';
 import './style.css';
 
 /**
@@ -10,12 +10,6 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
-
-  const Ending = (number, titles) => {
-    const cases = [2, 0, 1, 1, 1, 2];
-    return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];
-  }
-
 
   return (
     <div className='App'>
@@ -34,7 +28,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title} {item.count ? `| Выделялся ${item.count} ${Ending(item.count, ['раз', 'раза', 'раз'])}` : null}</div>
+              <div className='Item__title'>{item.title} {item.count ? `| Выделялся ${item.count} ${ending(item.count, ['раз', 'раза', 'раз'])}` : null}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

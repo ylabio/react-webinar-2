@@ -1,5 +1,6 @@
 import React from "react";
-import { counter, pluralCheck } from "./utils.js";
+import { counter } from "./utils.js";
+import plural from "plural-ru";
 import "./style.css";
 
 /**
@@ -7,10 +8,11 @@ import "./style.css";
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
+
 function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
-  
+
   return (
     <div className="App">
       <div className="App__head">
@@ -22,7 +24,9 @@ function App({ store }) {
             const code = counter();
             store.createItem({ code, title: `Новая запись ${code}` });
           }}
-        > Добавить </button>
+        >
+          Добавить
+        </button>
       </div>
       <div className="App__center">
         <div className="List">
@@ -32,7 +36,6 @@ function App({ store }) {
                 className={"Item" + (item.selected ? " Item_selected" : "")}
                 onClick={() => {
                   store.selectItem(item.code);
-                  item.selected && store.incrementSelectedCounter(item.code);
                 }}
               >
                 <div className="Item__number">{item.code}</div>
@@ -40,10 +43,13 @@ function App({ store }) {
                   {item.title}
                   <div className="Item__counter">
                     {item.selectedCounter > 0 &&
-                      `| Выделялось ${item.selectedCounter} ${pluralCheck(
-                        item.selectedCounter,
-                        ["раз", "раза"]
-                      )}`}
+                      "| Выделялось " +
+                        plural(
+                          item.selectedCounter,
+                          "%d раз",
+                          "%d раза",
+                          "%d раз"
+                        )}
                   </div>
                 </div>
 

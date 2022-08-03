@@ -84,9 +84,8 @@ class Store {
             : item.counterSelection + 1;
 
           item.selected = !item.selected;
-          this.state.items
-            .filter((item) => item.code !== code)
-            .map((item) => (item.selected = false));
+        } else {
+          item.selected = false;
         }
         return item;
       }),

@@ -1,5 +1,6 @@
 import React from 'react';
 import {counter} from './utils.js';
+import plural from 'plural-ru';
 import './style.css';
 
 /**
@@ -28,7 +29,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
+              <div className='Item__title'>{item.title}{!!item.clickCount && ` | Выделялось ${item.clickCount} ${plural(item.clickCount, 'раз', 'раза', 'раз')}`}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

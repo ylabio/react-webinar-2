@@ -3,5 +3,5 @@
  * @returns {number|number}
  */
 export function counter(){
-    return counter.value ? ++counter.value : counter.value = 1;
+  return counter.value ? ++counter.value : counter.value = 1;
 }

@@ -82,7 +82,6 @@ class Store {
           this.state.items.map(item => {
             if (item.selected == true){
               item.cntSelect += 1;
-              console.log(item.cntSelect);
               item.selectedCount = item.cntSelect + " раз"
             }
           })

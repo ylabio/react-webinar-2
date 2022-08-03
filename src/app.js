@@ -35,7 +35,7 @@ function App({store}) {
                 <div className='Item__number'>{item.code}</div>
                 <div className='Item__title'>
                   {item.title}
-                  {` | Выделялся ${plural(item.selectCount, ' %d раз', ' %d раза', ' %d раз')}`}
+                  {item.selectCount !== 0 && ` | Выделялся ${plural(item.selectCount, ' %d раз', ' %d раза', ' %d раз')}`}
                 </div>
                 <div className='Item__selectCounter'></div>
                 <div className='Item__actions'>

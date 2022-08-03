@@ -43,7 +43,15 @@ function App({ store }) {
                 <div className="Item__number">{item.code}</div>
                 <div className="Item__title">
                   {item.title}
-                  {item.count > 0 ? ` | Выделялось ${item.count} раз` : null}
+                  {item.count > 0 &&
+                    ((item.count % 10 == 2 ||
+                      item.count % 10 == 3 ||
+                      item.count % 10 == 4) &&
+                    item.count % 100 != 12 &&
+                    item.count % 100 != 13 &&
+                    item.count % 100 != 14
+                      ? ` | Выделялось ${item.count} разa`
+                      : ` | Выделялось ${item.count} раз`)}
                 </div>
                 <div className="Item__actions">
                   <button onClick={() => store.deleteItem(item.code)}>

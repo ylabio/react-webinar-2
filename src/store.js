@@ -82,7 +82,7 @@ class Store {
 
   highlighted(code) {
     code = String(code);
-    if (code.includes('12') || code.includes('13') || code.includes('14')) {
+    if (code.slice(-2) === '12' || code.slice(-2) === '13' || code.slice(-2) === '14') {
       return `| Выделялось ${code} раз`;
     } else if (code.slice(-1) === '2' || code.slice(-1) === '3' || code.slice(-1) === '4') {
       return `| Выделялось ${code} раза`;

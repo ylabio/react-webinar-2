@@ -10,12 +10,7 @@ import plural from 'plural-ru';
  */
 function App({ store }) {
   // Выбор состояния из store
-  const { items, selectedItemCode } = store.getState();
-
-  const deleteItem = (e,code) => {
-    e.stopPropagation()
-    items.store.deleteItem(code)
-  }
+  const { items } = store.getState();
 
   return (
     <div className='App'>
@@ -31,7 +26,7 @@ function App({ store }) {
       <div className='App__center'>
         <div className='List'>{items.map(item =>
           <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.code === selectedItemCode ? ' Item_selected' : '')}
+            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                   onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title} {item.count > 0 ? `| Выделялось ${plural(item.count,'%d раз', '%d раза', '%d раз')}` : ''}</div>

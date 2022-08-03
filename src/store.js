@@ -70,14 +70,27 @@ class Store {
       ...this.state,
       items: this.state.items.map(item => {
         if (item.code === code){
-          item.selected = !item.selected;
-          item.amount = item.amount + 1;
+          if (!item.selected){
+            item.amount += 1;
+          }
+          item.selected = true;
         } else {
           item.selected = false;
         }
         return item;
       })
     });
+  }
+
+  declinationItem(amount) {
+    amount = String(amount);
+      if (amount.slice(-2) === '12' || amount.slice(-2) === '13' || amount.slice(-2) === '14'){
+          return 'раз';
+      } else if (amount.slice(-1) === '2' || amount.slice(-1) === '3' || amount.slice(-1) === '4'){
+          return 'раза';
+      } else {
+          return 'раз';
+      }
   }
 }
 export default Store;

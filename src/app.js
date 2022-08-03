@@ -10,8 +10,17 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
+  
+  
 
-  console.log(items);
+  const word = (count, words) => {
+    count = Math.abs(count) % 100; 
+    let num = count % 10;
+    if(count > 10 && count < 20) return words[2]; 
+    if(num > 1 && num < 5) return words[1];
+    if(num == 1) return words[0]; 
+    return words[2];
+  }
 
   return (
     <div className='App'>
@@ -30,7 +39,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title + (item.clickCounter > 0 ? ` | Выделялось ${item.clickCounter} раз` : ``)}</div>
+              <div className='Item__title'>{item.title + (item.clickCounter > 0 ? ` | Выделялось ${item.clickCounter} ${word(item.clickCounter, ["раз", "раза", "раз"])}` : ``)}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

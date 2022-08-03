@@ -73,7 +73,9 @@ class Store {
           item.selected = !item.selected;
 
           // Счетчик количества выделений записи по его коду
-          item.countSelected ? item.countSelected++ : item.countSelected = 1;
+          if (item.selected) {
+            item.countSelected ? item.countSelected++ : item.countSelected = 1;
+          }
         } else {
           item.selected = false;
         }

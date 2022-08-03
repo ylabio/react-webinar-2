@@ -1,5 +1,5 @@
 import React from 'react';
-import {counter} from './utils.js';
+import {counter, declanation} from './utils.js';
 import './style.css';
 
 /**
@@ -27,7 +27,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title} {item.counter > 0 ? `| Выделено ${item.counter} раз` : '' } </div>
+              <div className='Item__title'>{item.title} {item.counter > 0 ? `| Выделено ${item.counter} ${declanation(item.counter)}` : '' } </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

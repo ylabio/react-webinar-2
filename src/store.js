@@ -82,10 +82,30 @@ class Store {
           this.state.items.map(item => {
             if (item.selected == true){
               item.cntSelect += 1;
-              item.selectedCount = " | Выделялось " + item.cntSelect + " раз"
+              console.log(item.cntSelect);
+              item.selectedCount = item.cntSelect + " раз"
             }
           })
 
+          this.state.items.map(item => {
+            switch(item.cntSelect){
+              case 2: item.selectedCount = item.cntSelect + " раза";
+              case 3: item.selectedCount = item.cntSelect + " раза";
+              case 4: item.selectedCount = item.cntSelect + " раза";
+              case 22: item.selectedCount = item.cntSelect + " раза";
+              case 23: item.selectedCount = item.cntSelect + " раза";
+              case 24: item.selectedCount = item.cntSelect + " раза";
+              case 32: item.selectedCount = item.cntSelect + " раза";
+              case 33: item.selectedCount = item.cntSelect + " раза";
+              case 34: item.selectedCount = item.cntSelect + " раза";
+              case 42: item.selectedCount = item.cntSelect + " раза";
+              case 43: item.selectedCount = item.cntSelect + " раза";
+              case 44: item.selectedCount = item.cntSelect + " раза";
+              case 52: item.selectedCount = item.cntSelect + " раза";
+              case 53: item.selectedCount = item.cntSelect + " раза";
+              case 54: item.selectedCount = item.cntSelect + " раза";
+            }
+          })
         }
         return item;
       })

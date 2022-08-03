@@ -21,7 +21,7 @@ export function declensionWord(num) {
 
   let stringNum = String(num);
 
-  if (stringNum.length >= 2 && stringNum[stringNum.length - 2] === '1') return "раз"
+  if (stringNum.length >= 2 && stringNum[stringNum.length - 2] === '1') return num + " раз"
 
   if (stringNum.length >= 2) stringNum = stringNum[stringNum.length - 1];
 

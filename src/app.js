@@ -1,6 +1,7 @@
 import React from 'react';
 import {counter, endings} from './utils.js';
 import './style.css';
+import pluralize from 'pluralize-ru';
 
 /**
  * Приложение
@@ -28,7 +29,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}{item.counter > 0 && ` | Выделялось ${item.counter} ${endings(item.counter)}`}</div>
+              <div className='Item__title'>{item.title}{item.counter > 0 && ` | Выделялось ${pluralize(item.counter, 'раз', '%d раз', '%d раза', '%d раз')}`}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

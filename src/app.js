@@ -11,6 +11,12 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+  function selectedCountText (item) {
+    if (item.selectedCount > 0 ) 
+      return ` | Выделялся ${item.selectedCount} раз`;
+    return "";
+  }
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -28,7 +34,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title} | Выделялся {item.selectedCount} раз</div>
+              <div className='Item__title'>{item.title}{selectedCountText(item)}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

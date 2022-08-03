@@ -43,10 +43,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({ code, title = 'Новая запись', selected = false }) {
+  createItem({code, title = 'Новая запись', selected = false}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({ code, title, selected })
+      items: this.state.items.concat({code, title, selected})
     });
   }
 
@@ -79,8 +79,7 @@ class Store {
           item.selected = !item.selected;
         }
         return item;
-      }),
-
+      })
     });
   }
 }

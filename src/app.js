@@ -1,5 +1,5 @@
 import React from 'react';
-import { counter, pluralize } from './utils.js';
+import {counter, pluralize} from './utils.js';
 import './style.css';
 
 
@@ -8,9 +8,9 @@ import './style.css';
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({ store }) {
+function App({store}) {
   // Выбор состояния из store
-  const { items } = store.getState();
+  const {items} = store.getState();
 
   return (
     <div className='App'>
@@ -20,7 +20,7 @@ function App({ store }) {
       <div className='Controls'>
         <button onClick={() => {
           const code = counter();
-          store.createItem({ code, title: `Новая запись ${code}` })
+          store.createItem({code, title: `Новая запись ${code}`})
         }}> Добавить </button>
       </div>
       <div className='App__center'>
@@ -30,15 +30,14 @@ function App({ store }) {
               onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title + ((item.clicksNumber > 0)
-                ? ` | Выделено ${item.clicksNumber + ' ' + pluralize(item.clicksNumber, ['раз', 'раза'])}`
+                ? ` | Выделено ${item.clicksNumber + ' ' + pluralize(item.clicksNumber, ['раз', 'раза', 'раз'])}`
                 : '')}
               </div>
               <div className='Item__actions'>
                 <button onClick={(ev) => {
-                  store.deleteItem(item.code);
                   ev.stopPropagation();
-                }
-                }>
+                  store.deleteItem(item.code);
+                }}>
                   Удалить
                 </button>
               </div>
@@ -47,7 +46,7 @@ function App({ store }) {
         )}
         </div>
       </div>
-    </div >
+    </div>
   );
 }
 

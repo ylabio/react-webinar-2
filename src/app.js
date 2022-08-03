@@ -1,5 +1,6 @@
 import React from 'react';
 import {counter} from './utils.js';
+const formatForRaz = require('plural-ru');
 import './style.css';
 
 /**
@@ -28,7 +29,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title} {item.count > 0 ? ` | Выделялось ${item.count}`: ''}</div>
+              <div className='Item__title'>{item.title} {item.count > 0 ? ` | Выделялось ${formatForRaz(item.count, '%d раз','%d раза','%d раз',)}` : ''} </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

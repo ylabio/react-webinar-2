@@ -64,7 +64,6 @@ class Store {
   /**
    * Выделение записи по её коду
    * @param code
-   * @param event
    */
   selectItem(code) {
     this.setState({

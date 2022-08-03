@@ -7,7 +7,7 @@ export function counter(){
 }
 
 export const checkA = (num) => {
-  if (num >= 12 && num <= 14 ) return false
-  if ( String(num).match(/^\d*[2,3,4]+$/) ) return true
+  if (num >= 2 && num <= 4 ) return true
+  if ( String(num).match(/^\d*[^1][2,3,4]+$/) ) return true
   return false
 }

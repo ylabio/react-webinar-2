@@ -2,6 +2,7 @@
 class Store {
 
   constructor(initState) {
+    console.log("hello")
     // Состояние приложения (данные)
     this.state = initState;
     // Слушатели изменений state

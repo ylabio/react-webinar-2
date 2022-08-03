@@ -1,6 +1,7 @@
 import React from 'react';
 import {counter} from './utils.js';
 import './style.css';
+import plural from 'plural-ru';
 
 /**
  * Приложение
@@ -8,6 +9,7 @@ import './style.css';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  // const plural = require('plural-ru');
   // Выбор состояния из store
   const {items} = store.getState();
 
@@ -28,7 +30,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title} <span className={item.counter > 0 ? " " : "Item__counter"}>| Выделялось {item.counter} раз</span></div>
+              <div className='Item__title'>{item.title} <span className={item.counter > 0 ? " " : "Item__counter"}>| {plural(item.counter, 'Выделялось %d раз', 'Выделялось %d раза', 'Выделялось %d раз')}</span></div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

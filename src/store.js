@@ -43,10 +43,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+   createItem({code, title = 'Новая запись', amountOfSymbols = 0, counter = 0, selected = false}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({code, title, amountOfSymbols, counter, selected})
     });
   }
 
@@ -65,13 +65,22 @@ class Store {
    * Выделение записи по её коду
    * @param code
    */
-  selectItem(code) {
+   selectItem(code) {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
+        const selectedNumberText = ' | Выделялось ';
+        const selectedTimesText = 'раз';
         if (item.code === code){
+          if(item.amountOfSymbols == 0)
+            item.amountOfSymbols = item.title.length;
+          item.title = `${String(item.title).substring(0, item.amountOfSymbols)} ${selectedNumberText} ${++item.counter} ${selectedTimesText}`;
           item.selected = !item.selected;
         }
+        else {
+          item.selected = false;
+        }
+
         return item;
       })
     });

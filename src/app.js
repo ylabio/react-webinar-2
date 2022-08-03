@@ -1,6 +1,7 @@
 import React from 'react';
 import {counter} from './utils.js';
 import './style.css';
+import { getTimesEnd } from './utils.js';
 
 /**
  * Приложение
@@ -23,14 +24,15 @@ function App({store}) {
         }}> Добавить </button>
       </div>
       <div className='App__center'>
-        <div className='List'>{items.map(item =>
-          <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
-              <div className='Item__number'>{item.code}</div>
+        <div className='List'>{items.map(({selected, code, title, countSelection}) =>
+          <div key={code} className='List__item'>
+            <div className={'Item' + (selected ? ' Item_selected' : '')}
+                 onClick={() => store.selectItem(code)}>
+              <div className='Item__number'>{code}</div>
               <div className='Item__title'>
-                {item.title} 
-                {item.countSelection === 0 || <span> | Выделялось {item.countSelection} раз</span>}
+                {title} 
+                {countSelection === 0 || 
+                <span> | Выделялось {countSelection} {getTimesEnd(countSelection)}</span>}
               </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>

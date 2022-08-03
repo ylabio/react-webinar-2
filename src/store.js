@@ -54,7 +54,8 @@ class Store {
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(event, code) {
+    event.stopPropagation();
     this.setState({
       ...this.state,
       items: this.state.items.filter(item => item.code !== code),
@@ -69,16 +70,16 @@ class Store {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
+        if (item.code !== code && item.selected) {
+          item.selected = !item.selected;             //убираем выделение у записи если есть
+        }
         if (item.code === code && !item.selected){     //выделяем если запись соответствует той, по которой нажали и она уже не выделена
-          this.state.items.map(item2 => {
-            if (item2.selected){                       //убираем выделения если есть
-              item2.selected = !item2.selected;
-            }
-          })
           ++item.counter;                              //увеличиваем счетчик выделений данной записи
           item.selected = !item.selected;              //выделяем запись
         }
-        else if (item.code === code && item.selected) item.selected = !item.selected;   //убираем выделение у записи по которой нажали повторно
+        else if (item.code === code){                 // удаляем выделение если поле нажато повторно
+          item.selected = !item.selected;
+        }
         return item ;
       })
     });

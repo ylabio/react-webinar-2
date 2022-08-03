@@ -38,7 +38,7 @@ function App({store}) {
                         item.title :
                         item.title + ` | выделялось ${item.counter} ${pluralize(item.counter)}`}</div>
               <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
+                <button onClick={(event) => store.deleteItem(event,item.code)}>
                   Удалить
                 </button>
               </div>

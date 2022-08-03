@@ -1,3 +1,4 @@
+import plural from 'plural-ru'; // либа для ру-склонений
 class Store {
 
   constructor(initState) {
@@ -78,6 +79,17 @@ class Store {
         return item;
       })
     });
+  }
+
+  /**
+   * Получить полное наименование записи
+   * @param item
+   * @return string
+   */
+  getFullItemTitle(item) {
+	if (item.selected && !item.count) // частный случай для selected в исходных данных
+      item.count = 1;
+    return item.title + (item.count ? " | Выделялось " + plural(item.count, '%d раз', '%d раза', '%d раз') : "");
   }
 }
 

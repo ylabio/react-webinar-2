@@ -1,4 +1,3 @@
-import plural from 'plural-ru'; // либа для ру-склонений
 import React from 'react';
 import './style.css';
 import { counter } from './utils.js';
@@ -29,9 +28,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>
-				{item.title + (item.count ? " | Выделялось " + plural(item.count, '%d раз', '%d раза', '%d раз') : "")}
-			  </div>
+              <div className='Item__title'>{store.getFullItemTitle(item)}</div>
               <div className='Item__actions'>
                 <button onClick={(e) => {e.stopPropagation(); store.deleteItem(item.code)}}>
                   Удалить

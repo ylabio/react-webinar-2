@@ -15,10 +15,7 @@ function App({store}) {
     const code = counter();
     store.createItem({code, title: `Новая запись ${code}`})
   }
-  const select = ({code, selected}) => {
-    if (!selected) {
-      store.incrementItemCounter(code)
-    }
+  const select = ({code}) => {
     store.selectItem(code)
   }
   return (

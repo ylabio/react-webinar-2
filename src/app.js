@@ -11,6 +11,10 @@ function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
 
+  const evenOdd = (num) => {
+    return (num % 10) > 1 && (num % 10) < 5 && num !== 12  &&  num!== 13  && num  !== 14 && num % 100 !== 12  &&  num % 100 !== 13  && num % 100 !== 14 ? 'разa' : 'раз'
+  }
+
   return (
     <div className='App'>
       <div className='App__head'>
@@ -30,8 +34,7 @@ function App({store}) {
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>
                 {item.title}
-                {item.count > 0 &&
-                <strong> | Выделялось {item.count} раз</strong>}
+                {item.count === 0 ? '' : ` | Выделялся ${item.count } ${evenOdd(item.count)}`}
               </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>

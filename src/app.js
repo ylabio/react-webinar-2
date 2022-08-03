@@ -10,6 +10,9 @@ import "./style.css";
 function App({ store }) {
   // Выбор состояния из store
   const { items } = store.getState();
+  const correctCount = (num) => {
+    return 1 < num % 10 && num < 5 ? "раза" : "раз";
+  };
 
   return (
     <div className="App">
@@ -38,7 +41,9 @@ function App({ store }) {
                 <div className="Item__number">{item.code}</div>
                 <div className="Item__title">
                   {item.title}{" "}
-                  {item.count ? ` | Выделялось ${item.count} раз` : null}
+                  {item.count
+                    ? ` | Выделялось ${item.count} ${correctCount(item.count)}`
+                    : null}
                 </div>
                 <div className="Item__actions">
                   <button onClick={() => store.deleteItem(item.code)}>

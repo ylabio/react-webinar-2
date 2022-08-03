@@ -70,10 +70,14 @@ class Store {
       items: this.state.items.map((item) => {
         if (item.code === code) {
           item.selected = !item.selected;
-          let clickCount = item.count ? item.count : 0;
-          item.count = clickCount + 1;
+          if (item.selected) {
+            let clickCount = item.count ? item.count : 0;
+            item.count = clickCount + 1;
+          }
+        } else {
+          item.selected = false;
         }
-        item.selected = item.code === code;
+
         return item;
       }),
     });

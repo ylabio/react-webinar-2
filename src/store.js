@@ -1,3 +1,5 @@
+import {DEFAULT_COUNT} from './constants.js'
+
 class Store {
 
   constructor(initState) {
@@ -43,10 +45,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
+  createItem({code, title = 'Новая запись', selected = false, count = DEFAULT_COUNT}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
+      items: this.state.items.concat({code, title, selected, count})
     });
   }
 
@@ -70,7 +72,9 @@ class Store {
       ...this.state,
       items: this.state.items.map(item => {
         if (item.code === code){
+          const count = item.selected ? item.count +1: item.count
           item.selected = !item.selected;
+          item.count = count
         }
         return item;
       })

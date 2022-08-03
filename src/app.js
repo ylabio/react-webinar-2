@@ -2,7 +2,6 @@ import React from 'react';
 import {counter, pluralize} from './utils.js';
 import './style.css';
 
-
 /**
  * Приложение
  * @param store {Store} Состояние приложения

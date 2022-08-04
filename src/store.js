@@ -72,9 +72,9 @@ class Store {
       ...this.state,
       items: this.state.items.map(item => {
         if (item.code === code){
-          const count = item.selected ? item.count +1: item.count
-          item.selected = !item.selected;
+          const count = item.selected ? item.count : item.count +1
           item.count = count
+          item.selected = !item.selected;
         } else {
           item.selected = false
         }

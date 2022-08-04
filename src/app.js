@@ -30,7 +30,7 @@ function App({store}) {
                              onClick={() => store.selectItem(item.code)}>
                             <div className='Item__number'>{item.code}</div>
                             <div className='Item__title'>
-                                {`${item.title} ${item.clickCount && item.selected
+                                {`${item.title} ${item.clickCount
                                     ? '| Выделялось ' + pluralize(item.clickCount, [' раза', ' раз'])
                                     : ''}`}
                             </div>

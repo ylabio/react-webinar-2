@@ -5,6 +5,7 @@ import propTypes from "prop-types";
 
 function Layout({head, children}){
   const cn = bem('Layout');
+  const test = 0
 
   return (
     <div className={cn()}>

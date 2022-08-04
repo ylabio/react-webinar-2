@@ -24,7 +24,7 @@ function App({store}) {
   };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
+    <Layout head={<h1>Магазин</h1>}>
       <Controls
         onCartOpen={() => callbacks.setPopupVisibility(true)}
         cart={store.getState().cart}

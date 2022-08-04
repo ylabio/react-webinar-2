@@ -2,5 +2,5 @@
 
 .Button {
     min-width: 76px;
-    max-height: 21px;
+    min-height: 21px;
 }

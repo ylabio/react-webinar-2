@@ -3,12 +3,12 @@ import propTypes from "prop-types";
 import "./style.css";
 import Button from "../button";
 
-function Controls({ totalPrice = 0 }) {
+function Controls({ totalPrice = 0, showModal }) {
   return (
     <div className="Controls">
       <div>В корзине:</div>
       <span style={{ fontWeight: "bold" }}>2 товара / {totalPrice} ₽</span>
-      <Button>Перейти</Button>
+      <Button onClick={() => showModal()}>Перейти</Button>
     </div>
   );
 }

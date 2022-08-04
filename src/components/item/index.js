@@ -5,7 +5,7 @@ import plural from "plural-ru";
 import "./style.css";
 import Button from "../button";
 
-function Item(props) {
+function Item({ item, addItemInCart }) {
   const cn = bem("Item");
   //
   // // Счётчик выделений
@@ -28,14 +28,14 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      <div className={cn("number")}>{props.item.code}</div>
-      <div className={cn("title")}>{props.item.title}</div>
+      <div className={cn("number")}>{item.code}</div>
+      <div className={cn("title")}>{item.title}</div>
       <div className={cn("actions")}>
         <div className={cn("actions--price")}>
-          <div>{props.item.price} </div>
+          <div>{item.price} </div>
           <div>₽</div>
         </div>
-        <Button>Добавить</Button>
+        <Button onClick={() => addItemInCart(item.code)}>Добавить</Button>
       </div>
     </div>
   );

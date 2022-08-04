@@ -1,8 +1,10 @@
-class Store {
+import cart from "./components/cart";
 
+class Store {
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
+    this.cartItems = [];
     // Слушатели изменений state
     this.listeners = [];
   }
@@ -13,6 +15,10 @@ class Store {
    */
   getState() {
     return this.state;
+  }
+
+  getCartItems() {
+    return this.cartItems;
   }
 
   /**
@@ -36,8 +42,8 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
   /**
@@ -50,6 +56,18 @@ class Store {
   //   });
   // }
 
+  addItemInCart(code) {
+    let currentItem = this.state.items.find((item) => item.code === code);
+    console.log(currentItem);
+    this.setState({
+      ...this.state,
+      cartItems: {
+        ...this.cartItems,
+        cartItems: this.cartItems.push(currentItem),
+      },
+    });
+  }
+
   /**
    * Удаление записи по её коду
    * @param code
@@ -60,8 +78,6 @@ class Store {
   //     items: this.state.items.filter(item => item.code !== code)
   //   });
   // }
-
-
 }
 
 export default Store;

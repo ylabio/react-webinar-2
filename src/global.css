@@ -1,0 +1,9 @@
+button{
+  min-width: 76px;
+}
+body{
+  margin: 0;
+  padding: 0;
+  background: #535353;
+  font-family: sans-serif;
+}

@@ -4,13 +4,18 @@ import {cn as bem} from "@bem-react/classname";
 import Item from "../item";
 import './style.css';
 
-function List(props) {
+function List({
+  items,
+  handleBtn,
+  btnText
+}) {
   const cn = bem('List');
+  const key = Math.random()
 
   return (
-    <div className={cn()}>{props.items.map(item =>
-      <div key={item.code} className={cn('item')}>
-        <Item item={item} onSelect={props.onItemSelect} onDelete={props.onItemDelete}/>
+    <div className={cn()}>{items.map(item =>
+      <div key={`${key} ${item.code}`} className={cn('item')}>
+        <Item item={item} handleBtn={handleBtn} btnText={btnText}/>
       </div>
     )}
     </div>
@@ -19,14 +24,13 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemSelect: propTypes.func,
-  onItemDelete: propTypes.func
+  handleBtn: propTypes.func,
+  btnText: propTypes.string
 }
 
 List.defaultProps = {
-  items: [],
-  onItemSelect: () => {},
-  onItemDelete: () => {}
+  handleBtn: () => {},
+  btnText: "Добавить"
 }
 
 export default React.memo(List);

@@ -3,4 +3,17 @@
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+    font-size: 18px;
+}
+
+.Controls-boldText{
+    font-weight: 700;
+    margin-left: 15px;
+}
+
+.Controls-title{
+    margin-right: 24px;
+}
+.Controls-actions{
+    padding-left: 10px;
 }

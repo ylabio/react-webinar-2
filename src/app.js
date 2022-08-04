@@ -19,7 +19,7 @@ function App({store}) {
       <div className='Controls'>
         <button onClick={() => {
           const code = counter();
-          store.createItem({code, title: `Новая запись ${code}`})
+          store.createItem({code, title: `Новая запись ${code}. `})
         }}> Добавить </button>
       </div>
       <div className='App__center'>

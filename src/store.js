@@ -59,6 +59,26 @@ class Store {
       items: this.state.items.filter(item => item.code !== code)
     });
   }
+
+  /**
+   * Добавление товара в корзину
+   * @param item
+   */
+  addInCart(item) {
+    let foundItem = this.state.cart.items.find(i => i.code === item.code);
+    this.setState({
+      ...this.state,
+      cart: {
+        items: foundItem
+          ? this.state.cart.items.map(i =>
+              i.code === foundItem.code ? {...i, count: i.count + 1} : i
+            )
+          : this.state.cart.items.concat(item),
+        count: this.state.cart.count + 1,
+        cost: this.state.cart.cost + item.price
+      }
+    });
+  }
 }
 
 export default Store;

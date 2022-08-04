@@ -7,12 +7,22 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
+    onAddInCart: useCallback(
+      e => {
+        props.onAddInCart({
+          code: props.item.code,
+          price: props.item.price,
+          title: props.item.title,
+          count: 1
+        });
+      },
+      [props.onAddInCart, props.item]
+    ),
     onDelete: useCallback(
       e => {
-        e.stopPropagation();
-        props.onDelete(props.item.code);
+        props.onDeleted(props.item.code);
       },
-      [props.onDelete, props.item]
+      [props.onDeleted, props.item]
     )
   };
 
@@ -20,8 +30,17 @@ function Item(props) {
     <div className={cn({selected: props.item.selected})} onClick={callbacks.onClick}>
       <div className={cn('number')}>{props.item.code}</div>
       <div className={cn('title')}>{props.item.title}</div>
+      <div className={cn('price')}>{props.item.price + ' ₽'}</div>
+
+      {props.item.count !== undefined && (
+        <div className={cn('count')}>{props.item.count + ' шт'}</div>
+      )}
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>Удалить</button>
+        {props.item.count !== undefined ? (
+          <button onClick={callbacks.onDelete}>Удалить</button>
+        ) : (
+          <button onClick={callbacks.onAddInCart}>Добавить</button>
+        )}
       </div>
     </div>
   );
@@ -29,12 +48,11 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
+  onDeleted: propTypes.func.isRequired,
+  onAddInCart: propTypes.func.isRequired
 };
 
 Item.defaultProps = {
-  onSelect: () => {},
   onDeleted: () => {}
 };
 

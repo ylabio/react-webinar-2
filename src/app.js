@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import {counter} from "./utils";
+import Modal from "./components/modal";
 
 /**
  * Приложение
@@ -11,10 +12,11 @@ import {counter} from "./utils";
  */
 function App({store}) {
 
+  const [ modalActive, setModalActive] = useState(false);
+
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onOpenBasket: useCallback(() => {
+      setModalActive(true);
     }, []),
     onSelectItems: useCallback((code) => {
       store.selectItem(code);
@@ -25,12 +27,13 @@ function App({store}) {
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls onOpenBasket={callbacks.onOpenBasket}/>
       <List items={store.getState().items}
             onItemSelect={callbacks.onSelectItems}
             onItemDelete={callbacks.onDeleteItems}
       />
+      <Modal active={modalActive} setActive={setModalActive}/>
     </Layout>
   );
 }

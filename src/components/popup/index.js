@@ -20,4 +20,4 @@ Popup.propTypes = {
   head: propTypes.node
 };
 
-export default Popup;
+export default React.memo(Popup);

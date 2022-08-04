@@ -3,6 +3,7 @@ import Controls from './components/controls';
 import Layout from './components/layout';
 import List from './components/list';
 import Popup from './components/popup';
+import TotalPrice from './components/total-price';
 
 /**
  * Приложение
@@ -39,6 +40,7 @@ function App({store}) {
           }
         >
           <List items={store.getState().cart.items} onItemDelete={callbacks.onItemDelete} />
+          <TotalPrice price={store.getState().cart.price} />
         </Popup>
       )}
     </Layout>

@@ -10,7 +10,7 @@ function Controls({onCartOpen, cart}) {
       <strong>
         {cart.count === 0
           ? 'Пусто'
-          : `${cart.count} ${plural(cart.count, 'товар', 'товара', 'товаров')} / ${cart.cost} ₽`}
+          : `${cart.count} ${plural(cart.count, 'товар', 'товара', 'товаров')} / ${cart.price} ₽`}
       </strong>
       <button onClick={onCartOpen}>Перейти</button>
     </div>

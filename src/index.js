@@ -17,7 +17,7 @@ const store = new Store({
   cart: {
     items: [],
     count: 0,
-    cost: 0,
+    price: 0,
     visible: false
   }
 });

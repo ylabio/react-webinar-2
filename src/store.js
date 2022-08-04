@@ -61,7 +61,7 @@ class Store {
         ...this.state.cart,
         items: this.state.cart.items.filter(i => i.code !== code),
         count: this.state.cart.count - 1,
-        cost: this.state.cart.cost - deletedItem.count * deletedItem.price
+        price: this.state.cart.price - deletedItem.count * deletedItem.price
       }
     });
   }
@@ -81,7 +81,7 @@ class Store {
             )
           : this.state.cart.items.concat(item),
         count: this.state.cart.count + !foundItem,
-        cost: this.state.cart.cost + item.price
+        price: this.state.cart.price + item.price
       }
     });
   }

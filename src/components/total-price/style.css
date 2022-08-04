@@ -1,0 +1,6 @@
+.TotalPrice {
+  display: flex;
+  justify-content: flex-end;
+  padding: 26px 108px 26px 0;
+  gap: 49px;
+}

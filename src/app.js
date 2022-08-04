@@ -1,6 +1,6 @@
 import React from 'react';
+import plural from 'plural-ru';
 import {counter} from './utils.js';
-import { NUMBER_TWO, NUMBER_THREE, NUMBER_FOUR } from './const';
 import './style.css';
 
 /**
@@ -11,15 +11,6 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
-
-  const getQuantitySelections = (count) => {
-    const isEqualityTwo = count === NUMBER_TWO;
-    const isEqualityThree = count === NUMBER_THREE;
-    const isEqualityFour = count === NUMBER_FOUR;
-    const isEqualityNumbers = isEqualityTwo | isEqualityThree | isEqualityFour;
-
-    return `| Выделялось ${count} ${(isEqualityNumbers) ? 'раза' : 'раз'}` 
-  }
 
   return (
     <div className='App'>
@@ -38,7 +29,7 @@ function App({store}) {
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title} {(item.count) ? getQuantitySelections(item.count) : null}</div>
+              <div className='Item__title'>{item.title} {(item.count) ? `| Выделялось ${plural(item.count, '%d раз', '%d раза', '%d раз')}` : null}</div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>
                   Удалить

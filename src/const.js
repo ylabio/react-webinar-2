@@ -1,5 +1,0 @@
-const NUMBER_TWO = 2;
-const NUMBER_THREE = 3;
-const NUMBER_FOUR = 4;
-
-export { NUMBER_TWO, NUMBER_THREE, NUMBER_FOUR };

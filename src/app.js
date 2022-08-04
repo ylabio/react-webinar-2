@@ -1,7 +1,15 @@
+<<<<<<< HEAD
+import React, {useCallback} from 'react';
+import Controls from "./components/controls";
+import List from "./components/list";
+import Layout from "./components/layout";
+import {counter} from "./utils";
+=======
 import React from 'react';
 import {counter, selectCountCondition} from './utils.js';
 import './style.css';
 import plural from 'plural-ru'
+>>>>>>> master
 
 /**
  * Приложение
@@ -9,10 +17,30 @@ import plural from 'plural-ru'
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  // Выбор состояния из store
-  const {items} = store.getState();
+
+  const callbacks = {
+    onAdd: useCallback(() => {
+      const code = counter();
+      store.createItem({code, title: `Новая запись ${code}`});
+    }, []),
+    onSelectItems: useCallback((code) => {
+      store.selectItem(code);
+    }, []),
+    onDeleteItems: useCallback((code) => {
+      store.deleteItem(code);
+    }, []),
+  }
 
   return (
+<<<<<<< HEAD
+    <Layout head={<h1>Приложение на чистом JS</h1>}>
+      <Controls onAdd={callbacks.onAdd}/>
+      <List items={store.getState().items}
+            onItemSelect={callbacks.onSelectItems}
+            onItemDelete={callbacks.onDeleteItems}
+      />
+    </Layout>
+=======
     <div className='App'>
       <div className='App__head'>
         <h1>Приложение на чистом JS</h1>
@@ -47,6 +75,7 @@ function App({store}) {
         </div>
       </div>
     </div>
+>>>>>>> master
   );
 };
 

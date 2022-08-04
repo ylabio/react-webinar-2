@@ -3,14 +3,11 @@
     display: flex;
     justify-content: flex-start;
     transition: background-color 1s;
+    font-family: Arial, sans-serif;
 }
-.Item_selected{
-    background: #75aaf1;
-}
-
-
 .Item-title{
-    width: 100%;
+    font-size: 16px;
+    width: 70%;
     padding: 20px 10px;
 }
 .Item-actions{
@@ -19,5 +16,27 @@
     justify-content: flex-end;
 }
 .Item-number{
+    font-size: 16px;
     padding: 20px 10px 20px 20px;
+}
+.Item-price{
+    width: 20%;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 20px 10px 20px 20px;
+    text-align: right;
+}
+.Item-count{
+    width: 0;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 20px 0 20px 0;
+    text-align: right;
+}
+.Item-button{
+    width: 76px;
+    height: 21px;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    cursor: pointer;
 }

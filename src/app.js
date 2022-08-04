@@ -1,8 +1,10 @@
-import React, {useCallback} from 'react';
+import plural from 'plural-ru';
+import React, { useCallback, useState } from 'react';
 import Controls from "./components/controls";
-import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import List from "./components/list";
+import Modal from "./components/modal";
+import { counter } from "./utils";
 
 /**
  * Приложение
@@ -11,27 +13,58 @@ import {counter} from "./utils";
  */
 function App({store}) {
 
+  const [modalActive, setModalActive] = useState(false);
+
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onShowBasket: useCallback(() => {
+      setModalActive(true);
+    }, [modalActive, setModalActive]),
+    onAddItemToBasket: useCallback((code) => {
+      store.addItemToBasket(code);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onRemoveItemFromBasket: useCallback((code) => {
+      store.removeItemFromBasket(code);
     }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <div>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls
+          onButtonClick={callbacks.onShowBasket}
+          stats={
+            store.getTotalGoods(true) + ' ' +
+            plural(store.getTotalGoods(true), 'товар', 'товара', 'товаров') +
+            ' / ' + store.getTotalPrice().toLocaleString('ru-RU') + ' ₽'
+          }
+        />
+        <List items={store.getState().items}
+              buttonsAction={callbacks.onAddItemToBasket}
+              buttonsLabel="Добавить"
+        />
+      </Layout>
+      <Modal active={modalActive} setActive={setModalActive}>
+        <Layout head={<h1>Корзина</h1>}>
+          <List items={store.getState().basket}
+                buttonsAction={callbacks.onRemoveItemFromBasket}
+                buttonsLabel="Удалить"
+          />
+          <div style={{
+            position:"absolute",
+            whiteSpace: "pre",
+            fontSize:18,
+            fontWeight: 700,
+            padding:25,
+            right:102,
+          }}>{store.getTotalGoods(true)
+              ?
+                'Итого\t' + store.getTotalPrice().toLocaleString('ru-RU') + ' ₽'
+              :
+                'Нет товаров в корзине!'
+          }</div>
+        </Layout>
+      </Modal>
+    </div>
   );
 }
 

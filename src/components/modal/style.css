@@ -1,0 +1,69 @@
+.Modal{
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s;
+}
+
+.Modal.active{
+  pointer-events: all;
+  opacity: 1;
+}
+
+.Modal-content{
+  padding: 10px;
+  border-radius: 10px;
+  width: 960px;
+  transform: scale(0.7);
+  transition: 0.4s;
+}
+
+.Modal-content.active{
+  transform: scale(1);
+}
+
+/* Кнопка для закрытия окна */
+.Modal-close {
+  position: absolute;
+  top: 40px;
+  right: 38px;
+  width: 76px;
+  height: 21px;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* Для Layouta внутри окна */
+.Modal-content .Layout{
+  border-radius: 10px;
+  min-height: auto;
+  height: 550px;
+  /* height: 603px; */
+  box-shadow: none;
+}
+
+/* Для шапки Layouta внутри окна */
+.Modal-content .Layout-head{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* В корзинный List добавил скролл, т.к. едва умещаются 7 товаров */
+.Modal-content .List{
+  height: 390px;
+  overflow-y: scroll;
+  scrollbar-width: auto;
+}
+
+.Modal-content .Item-count{
+  width: 120px;
+}

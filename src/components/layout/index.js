@@ -22,6 +22,4 @@ Layout.propTypes = {
   popup: propTypes.node
 };
 
-Layout.defaultProps = {};
-
 export default React.memo(Layout);

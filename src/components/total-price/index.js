@@ -14,7 +14,7 @@ function TotalPrice(props) {
 }
 
 TotalPrice.propTypes = {
-  price: propTypes.number
+  price: propTypes.number.isRequired
 };
 
 export default React.memo(TotalPrice);

@@ -22,6 +22,4 @@ Controls.propTypes = {
   cart: propTypes.object.isRequired
 };
 
-Controls.defaultProps = {};
-
 export default React.memo(Controls);

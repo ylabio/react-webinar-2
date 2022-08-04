@@ -1,3 +1,4 @@
+import { displaySelected } from "./utils";
 class Store {
 
   constructor(initState) {

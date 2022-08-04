@@ -1,10 +1,10 @@
-import {cn as bem} from '@bem-react/classname';
-import propTypes from 'prop-types';
-import React, {useCallback} from 'react';
-import './style.css';
+import { cn as bem } from '@bem-react/classname'
+import propTypes from 'prop-types'
+import React, { useCallback } from 'react'
+import './style.css'
 
 function Item(props) {
-  const cn = bem('Item');
+  const cn = bem('Item')
 
   const callbacks = {
     onAddInCart: useCallback(
@@ -14,17 +14,17 @@ function Item(props) {
           price: props.item.price,
           title: props.item.title,
           count: 1
-        });
+        })
       },
       [props.onAddInCart, props.item]
     ),
     onDelete: useCallback(
       e => {
-        props.onDelete(props.item.code);
+        props.onDelete(props.item.code)
       },
-      [props.onDeleted, props.item]
+      [props.onDelete, props.item]
     )
-  };
+  }
 
   return (
     <div className={cn()} onClick={callbacks.onClick}>
@@ -43,13 +43,13 @@ function Item(props) {
         )}
       </div>
     </div>
-  );
+  )
 }
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onDelete: propTypes.func,
   onAddInCart: propTypes.func
-};
+}
 
-export default React.memo(Item);
+export default React.memo(Item)

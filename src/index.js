@@ -19,8 +19,6 @@ const store = new Store({
   ],
 });
 
-const root = createRoot(document.getElementById('root'));
-
 // Реакция на изменение store - повторный рендер приложения
 store.subscribe(() => {
   root.render(<App store={store} />);

@@ -1,0 +1,30 @@
+.LayoutModal {
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.7); 
+  box-shadow: 0px,4px,4px,rgba(0, 0, 0, 0.25); 
+  z-index: 9999;
+  padding: 0 10px;
+  min-height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.LayoutModal-overlay {
+  top: 240px;
+  left: 211px;
+  width: 960px;
+  height: 603px;
+  background-color: #fff;
+  border-radius: 10px;
+   
+    
+}

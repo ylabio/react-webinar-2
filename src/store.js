@@ -73,7 +73,7 @@ class Store {
                         item.selected = !item.selected
                         item.count++
                     }else if(item.code === code && item.selected){
-                       return item
+                        item.selected = !item.selected
                     }
                     else{
                         item.selected = false

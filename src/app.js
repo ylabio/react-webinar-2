@@ -44,7 +44,7 @@
                                     <div className='Item__number'>{item.code}</div>
                                     <div className='Item__title'>
                                         {item.title}
-                                        {item.count !== 0 ? <span>| Выделялось {item.count} {handleWord(item.count)}</span> : ''}
+                                        {item.count !== 0 ? <span> | Выделялось {item.count} {handleWord(item.count)}</span> : ''}
                                     </div>
 
                                     <div className='Item__actions'>

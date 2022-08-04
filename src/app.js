@@ -38,9 +38,9 @@ function App({store}) {
                              onClick={() => addCountOnClick(item.code)}>
                             <div className='Item__number'>{item.code}</div>
                             <div className='Item__title'>{item.title}
-                                {<span> | Выделялся <span>{item.selectedCount !== 0 && item.selectedCount}</span> {' '}
+                                {item.selectedCount >0 ?<span> | Выделялся <span>{item.selectedCount !== 0 && item.selectedCount}</span> {' '}
                                         {wordDeclension(item.selectedCount, ['раз', 'раза', 'раз'])}
-                                    </span>}
+                                    </span>:''}
                             </div>
                             <div className='Item__actions'>
                                 <button onClick={() => store.deleteItem(item.code)}>

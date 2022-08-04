@@ -73,7 +73,7 @@ class Store {
           if (!item.selected) {
             item.index += 1
           }
-          item.selected = true;
+          item.selected = !item.selected;
         } else {
           item.selected = false
         }

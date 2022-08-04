@@ -75,9 +75,9 @@ class Store {
           if (item.selected){
             item.counter++;
             item.selectedCounter = `| Выделялось ` + displaySelected(item);
-        }
-        }else{
-          item.selected = false
+         }
+        } else {
+          item.selected = false;
         }
         return item;
       })

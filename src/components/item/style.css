@@ -21,3 +21,8 @@
 .Item-number{
     padding: 20px 10px 20px 20px;
 }
+.Item-price{
+    width: 50%;
+    padding: 19px 24px 21px;
+		text-align: right;
+}

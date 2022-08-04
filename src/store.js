@@ -69,22 +69,23 @@ class Store {
         this.setState({
             ...this.state,
             items: this.state.items.map(item => {
-                console.log(item.title.toString())
                 if (item.code === code) {
                     item.selected = !item.selected;
-                    item.select_count++
-                    console.log(item.select_count)
-                    if (!item.title.includes('| Выделялось')) {
-                        item.first_title = item.title
-                        item.title = `${item.title} | Выделялось ${item.select_count}`
-                    }
-                    else {
-                        item.title = `${item.first_title} | Выделялось ${item.select_count}`
-                    }
                 }
                 if (item.code !== code) {
                     item.selected = false;
                 }
+                if (item.selected === true) {
+                    item.select_count++;
+                    if (item.select_count === 1) {
+                        item.first_title = item.title;
+                        item.title = `${item.title} | Выделялось ${item.select_count} раз`;
+                    }
+                    else {
+                        item.title = `${item.first_title} | Выделялось ${item.select_count} раз`;
+                    }
+                }
+
                 return item;
             })
         });

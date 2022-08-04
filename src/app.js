@@ -21,7 +21,7 @@ function App({store}) {
   }
 
   const buildItem = ({selected, code, title, countSelected}) => {
-    const countSelectedHtmlWithLine = <p className='Item__countSelected'>{`Выделялся ${countSelected} ${returnRazWord(countSelected)}`}</p>;
+    const countSelectedHtmlWithLine = <p className='Item__countSelected'> {`| Выделялся ${countSelected} ${returnRazWord(countSelected)}`}</p>;
     return <div key={code} className='List__item'>
         <div className={'Item' + (selected ? ' Item_selected' : '')}
             onClick={() => {

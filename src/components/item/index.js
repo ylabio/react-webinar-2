@@ -20,6 +20,7 @@ function Item(props) {
     <div className={cn({ selected: props.item.selected })}>
       <div className={cn("number")}>{props.item.code}</div>
       <div className={cn("title")}>{props.item.title}</div>
+      <div className={cn("price")}>{props.item.price.toLocaleString()} ₽</div>
       <div className={cn("actions")}>
         <button onClick={callbacks.onDelete}>Удалить</button>
       </div>

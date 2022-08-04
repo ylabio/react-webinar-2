@@ -6,7 +6,7 @@ import {counter} from './utils.js';
 
 const store = new Store({
   items: [
-    {code: counter(), title: 'Название товара', price: 100.0, count: 1},
+    {code: counter(), title: 'Название товара', price: 100.0},
     {code: counter(), title: 'Книга про React', price: 770},
     {code: counter(), title: 'Конфета', price: 33},
     {code: counter(), title: 'Трактор', price: 7955320},
@@ -17,7 +17,8 @@ const store = new Store({
   cart: {
     items: [],
     count: 0,
-    cost: 0
+    cost: 0,
+    visible: false
   }
 });
 

@@ -20,14 +20,14 @@ function Item(props) {
     ),
     onDelete: useCallback(
       e => {
-        props.onDeleted(props.item.code);
+        props.onDelete(props.item.code);
       },
       [props.onDeleted, props.item]
     )
   };
 
   return (
-    <div className={cn({selected: props.item.selected})} onClick={callbacks.onClick}>
+    <div className={cn()} onClick={callbacks.onClick}>
       <div className={cn('number')}>{props.item.code}</div>
       <div className={cn('title')}>{props.item.title}</div>
       <div className={cn('price')}>{props.item.price + ' ₽'}</div>
@@ -48,12 +48,8 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onDeleted: propTypes.func.isRequired,
-  onAddInCart: propTypes.func.isRequired
-};
-
-Item.defaultProps = {
-  onDeleted: () => {}
+  onDelete: propTypes.func,
+  onAddInCart: propTypes.func
 };
 
 export default React.memo(Item);

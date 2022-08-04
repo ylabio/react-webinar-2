@@ -54,9 +54,15 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const deletedItem = this.state.cart.items.find(i => i.code === code);
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      cart: {
+        ...this.state.cart,
+        items: this.state.cart.items.filter(i => i.code !== code),
+        count: this.state.cart.count - 1,
+        cost: this.state.cart.cost - deletedItem.count * deletedItem.price
+      }
     });
   }
 
@@ -74,8 +80,21 @@ class Store {
               i.code === foundItem.code ? {...i, count: i.count + 1} : i
             )
           : this.state.cart.items.concat(item),
-        count: this.state.cart.count + 1,
+        count: this.state.cart.count + !foundItem,
         cost: this.state.cart.cost + item.price
+      }
+    });
+  }
+
+  /**
+   * Отображение или скрытие модалки
+   */
+  setPopupVisibility(visible) {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        visible: visible
       }
     });
   }

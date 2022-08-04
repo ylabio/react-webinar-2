@@ -18,6 +18,7 @@ export function counter() {
 
 // Вариация №2 упрощенная объектом
 export function declensionWord(num) {
+  if (!num) return;
 
   let stringNum = String(num);
 

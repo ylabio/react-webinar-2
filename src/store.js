@@ -3,7 +3,7 @@ class Store {
     // Состояние приложения (данные)
     this.state = initState;
     // Слушатели изменений state
-    this.listners = [];
+    this.listeners = [];
   }
 
   /**
@@ -21,8 +21,8 @@ class Store {
   setState(newState) {
     this.state = newState;
     // Оповещаем всех подписчиков об изменении стейта
-    for (const lister of this.listners) {
-      lister();
+    for (const listener of this.listeners) {
+      listener();
     }
   }
 
@@ -32,11 +32,11 @@ class Store {
    * @return {Function} Функция для отписки
    */
   subscribe(callback) {
-    this.listners.push(callback);
+    this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listners = this.listners.filter((item) => item !== callback);
-    };
+      this.listeners = this.listeners.filter(item => item !== callback);
+    }
   }
 
   /**

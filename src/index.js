@@ -6,7 +6,7 @@ import {counter} from './utils.js';
 
 const store = new Store({
   items: [
-    {code: counter(), title: 'Название товара', price: 100.0},
+    {code: counter(), title: 'Название товара', price: 10000.0},
     {code: counter(), title: 'Книга про React', price: 770},
     {code: counter(), title: 'Конфета', price: 33},
     {code: counter(), title: 'Трактор', price: 7955320},
@@ -20,7 +20,7 @@ const root = createRoot(document.getElementById('root'));
 
 // Реакция на изменение store - повторный рендер приложения
 store.subscribe(() => {
-  root.render(<App store={store}/>);
+  root.render(<App store={store} />);
 });
 
 // Первый рендер (один раз)

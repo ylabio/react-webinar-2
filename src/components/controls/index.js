@@ -1,21 +1,27 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 
-function Controls({onAdd}){
+function Controls(props){
+  const callbacks = {
+    onCartOpen: useCallback(() => {
+      props.onCartOpen();
+    }, [])
+  };
+
   return (
     <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+      <button onClick={callbacks.onCartOpen}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  onCartOpen: propTypes.func.isRequired // Обязательное свойство - функция
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  onCartOpen: () => {} // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

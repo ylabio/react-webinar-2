@@ -2,6 +2,7 @@ import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -14,15 +15,24 @@ function App({store}) {
     onAmountIncrease: useCallback((code) => {
       store.amountIncrease(code);
     }, []),
+    onCartOpen: useCallback(() => {
+      store.openCart();
+    }, []),
+    onCartClose: useCallback(() => {
+      store.closeCart();
+    }, []),
   }
+
+  const isCartOpen = store.getState().isCartOpen;
 
   return (
     <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+      <Controls onCartOpen={callbacks.onCartOpen}/>
       <List
         items={store.getState().items}
         onAmountIncrease={callbacks.onAmountIncrease}
       />
+      {isCartOpen && <Cart onClose={callbacks.onCartClose} />}
     </Layout>
   );
 }

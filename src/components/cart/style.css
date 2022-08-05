@@ -1,0 +1,9 @@
+/* Корзина */
+.Cart {
+  background: #93bdc4;
+
+  width: 500px;
+  height: 500px;
+
+  margin: 0 auto;
+}

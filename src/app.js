@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
-import Controls from "./components/controls";
+import React, {useCallback, useState} from 'react';
+import Basket from "./components/basket";
 import List from "./components/list";
+import BasketList from './components/basket-list';
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -11,27 +12,39 @@ import {counter} from "./utils";
  */
 function App({store}) {
 
+  const [isModalVisible, setIsModalVisible] = useState(false)
+
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
-    }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
+    onDeleteBasketItems: useCallback((code) => {
       store.deleteItem(code);
+    }, []),
+    onAddItems: useCallback((code) => {
+      store.deleteItem(code);
+    }, []),
+    onOpenModal: useCallback(() => {
+      setIsModalVisible(true)
+    }, []),
+    onCloseModal: useCallback(() => {
+      setIsModalVisible(false)
     }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Basket onOpenModal={callbacks.onOpenModal}/>
+        <List items={store.getState().items}
+              onItemAdd={callbacks.onAddItems}
+        />
+      </Layout>
+      {isModalVisible &&
+      <Modal head={<h2>Корзина</h2>} onCloseModal={callbacks.onCloseModal}>
+        <BasketList items={store.getState().basket.basketItems}
+                onBasketItemDelete={callbacks.onDeleteBasketItems}
+        />
+      </Modal>
+      }
+    </>
   );
 }
 

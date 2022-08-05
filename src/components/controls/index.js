@@ -7,7 +7,7 @@ import {getFormattedPrice, getTotalPrice} from '../../utils';
 
 function Controls(props){
   const cn = bem('Controls');
-  const products = props.itemsInCart;
+  const products = props.cartItems;
 
   const callbacks = {
     onCartOpen: useCallback(() => {
@@ -41,7 +41,7 @@ function Controls(props){
 }
 
 Controls.propTypes = {
-  itemsInCart: propTypes.array.isRequired,
+  cartItems: propTypes.array.isRequired,
   onCartOpen: propTypes.func.isRequired // Обязательное свойство - функция
 }
 

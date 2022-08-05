@@ -44,10 +44,10 @@ class Store {
    * Добавление товара в корзину
    */
   amountIncrease(code) {
-    if (this.state.itemsInCart.find((item) => item.code === code)) {
+    if (this.state.cartItems.find((item) => item.code === code)) {
       this.setState({
         ...this.state,
-        itemsInCart: this.state.itemsInCart.map((item) => {
+        cartItems: this.state.cartItems.map((item) => {
           if (item.code === code) {
             return {
               code,
@@ -64,7 +64,7 @@ class Store {
 
       this.setState({
         ...this.state,
-        itemsInCart:  this.state.itemsInCart.concat({
+        cartItems:  this.state.cartItems.concat({
             code,
             title: chosenItem.title,
             price: chosenItem.price,
@@ -79,7 +79,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      itemsInCart: this.state.itemsInCart.filter(item => item.code !== code)
+      cartItems: this.state.cartItems.filter(item => item.code !== code)
     });
   }
 

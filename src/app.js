@@ -31,7 +31,7 @@ function App({store}) {
   return (
     <Layout head={<h1>Магазин</h1>}>
       <Controls
-        itemsInCart={store.getState().itemsInCart}
+        cartItems={store.getState().cartItems}
         onCartOpen={callbacks.onCartOpen}
       />
       <List
@@ -40,7 +40,7 @@ function App({store}) {
       />
       {isCartOpen &&
         <Cart
-          itemsInCart={store.getState().itemsInCart}
+          cartItems={store.getState().cartItems}
           onClose={callbacks.onCartClose}
           onItemDelete={callbacks.onItemDelete}
       />}

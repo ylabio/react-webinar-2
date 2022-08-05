@@ -80,6 +80,26 @@ class Store {
       })
     });
   }
+
+  addItem(item) {
+    this.setState({
+      ...this.state,
+      basket: {
+        ...this.state.basket,
+        [item.code]: {
+          ...item,
+          count: this.state.basket[item.code] && this.state.basket[item.code].count + 1 || 1
+        }
+      }
+    })
+  }
+
+  toggleModal() {
+    this.setState({
+      ...this.state,
+      modal: !this.state.modal,
+    })
+  }
 }
 
 export default Store;

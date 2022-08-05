@@ -21,18 +21,26 @@ function App({store}) {
     onCartClose: useCallback(() => {
       store.closeCart();
     }, []),
+    onItemDelete: useCallback((code) => {
+      store.deleteItem(code);
+    }, []),
   }
 
   const isCartOpen = store.getState().isCartOpen;
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
+    <Layout head={<h1>Магазин</h1>}>
       <Controls onCartOpen={callbacks.onCartOpen}/>
       <List
         items={store.getState().items}
         onAmountIncrease={callbacks.onAmountIncrease}
       />
-      {isCartOpen && <Cart onClose={callbacks.onCartClose} />}
+      {isCartOpen &&
+        <Cart
+          itemsInCart={store.getState().itemsInCart}
+          onClose={callbacks.onCartClose}
+          onItemDelete={callbacks.onItemDelete}
+      />}
     </Layout>
   );
 }

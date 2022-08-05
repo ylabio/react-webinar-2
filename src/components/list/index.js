@@ -8,11 +8,11 @@ function List(props) {
   const cn = bem('List');
 
   return (
-    <div className={cn()}>{props.items.map(item =>
-      <div key={item.code} className={cn('item')}>
-        <Item item={item} onAmountIncrease={props.onAmountIncrease}/>
-      </div>
-    )}
+    <div className={cn()}>
+      {props.items.map(item =>
+        <div key={item.code} className={cn('item')}>
+          <Item item={item} onAmountIncrease={props.onAmountIncrease}/>
+        </div>)}
     </div>
   )
 }

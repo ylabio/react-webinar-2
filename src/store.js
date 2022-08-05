@@ -51,6 +51,8 @@ class Store {
           if (item.code === code) {
             return {
               code,
+              title: item.title,
+              price: item.price,
               amount: item.amount + 1,
             }
           }
@@ -58,11 +60,27 @@ class Store {
         }),
       });
     } else {
+      const chosenItem = this.state.items.find(item => item.code === code);
+
       this.setState({
         ...this.state,
-        itemsInCart:  this.state.itemsInCart.concat({code, amount: 1})
+        itemsInCart:  this.state.itemsInCart.concat({
+            code,
+            title: chosenItem.title,
+            price: chosenItem.price,
+            amount: 1})
       });
     };
+  }
+
+  /**
+  * Удаление товара из корзины по его коду
+  */
+  deleteItem(code) {
+    this.setState({
+      ...this.state,
+      itemsInCart: this.state.itemsInCart.filter(item => item.code !== code)
+    });
   }
 
   /**

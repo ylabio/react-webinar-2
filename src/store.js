@@ -40,45 +40,9 @@ class Store {
     }
 
     /**
-     * Создание записи
+     * Добавалени товара в корзину
+     * @param addedItem
      */
-    createItem({ code, title = 'Новый товар', price = 999, selected = false }) {
-        this.setState({
-            ...this.state,
-            items: this.state.items.concat({ code, title, price, selected }),
-        });
-    }
-
-    /**
-     * Удаление записи по её коду
-     * @param code
-     */
-    deleteItem(code) {
-        this.setState({
-            ...this.state,
-            items: this.state.items.filter((item) => item.code !== code),
-        });
-    }
-
-    /**
-     * Выделение записи по её коду
-     * @param code
-     */
-    selectItem(code) {
-        this.setState({
-            ...this.state,
-            items: this.state.items.map((item) => {
-                if (item.code === code) {
-                    return {
-                        ...item,
-                        selected: !item.selected,
-                        count: item.selected ? item.count : item.count + 1 || 1,
-                    };
-                }
-                return item.selected ? { ...item, selected: false } : item;
-            }),
-        });
-    }
 
     addToCartItem(addedItem) {
         const existingCartItemIndex = this.state.cart.items.findIndex(
@@ -86,6 +50,7 @@ class Store {
         );
         const existingCartItem = this.state.cart.items[existingCartItemIndex];
         let updatedItems;
+        let updatedTotalQuantity = this.state.cart.totalQuantity;
 
         if (existingCartItem) {
             const updatedItem = {
@@ -100,10 +65,55 @@ class Store {
                 ...addedItem,
                 quantity: 1,
             });
+            updatedTotalQuantity += 1;
         }
 
         const updatedTotalPrice = this.state.cart.totalPrice + addedItem.price;
-        const updatedTotalQuantity = this.state.cart.totalQuantity + 1;
+
+        this.setState({
+            ...this.state,
+            cart: {
+                items: updatedItems,
+                totalPrice: updatedTotalPrice,
+                totalQuantity: updatedTotalQuantity,
+            },
+        });
+        console.log(this.state);
+    }
+
+    /**
+     * Удаление товара из корзины
+     * @param removeItemCode
+     */
+
+    deleteFromCartItem(removeItemCode) {
+        const existingCartItemIndex = this.state.cart.items.findIndex(
+            (item) => item.code === removeItemCode
+        );
+        if (existingCartItemIndex === -1) return;
+
+        const existingCartItem = this.state.cart.items[existingCartItemIndex];
+        let updatedItems;
+
+        let updatedTotalQuantity = this.state.cart.totalQuantity;
+
+        if (existingCartItem.quantity === 1) {
+            updatedItems = this.state.cart.items.filter(
+                (item) => item.code !== removeItemCode
+            );
+            updatedTotalQuantity--;
+        } else {
+            const updatedItem = {
+                ...existingCartItem,
+                quantity: existingCartItem.quantity - 1,
+            };
+            updatedItems = [...this.state.cart.items];
+            updatedItems[existingCartItemIndex] = updatedItem;
+        }
+
+        const updatedTotalPrice =
+            this.state.cart.totalPrice - existingCartItem.price;
+
         this.setState({
             ...this.state,
             cart: {

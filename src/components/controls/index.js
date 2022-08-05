@@ -4,7 +4,7 @@ import plural from 'plural-ru';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Controls({ onAdd, totalPrice, totalQuantity }) {
+function Controls({ onCartOpen, totalPrice, totalQuantity }) {
     const cn = bem('Controls');
     return (
         <div className={cn()}>
@@ -22,7 +22,7 @@ function Controls({ onAdd, totalPrice, totalQuantity }) {
                 </b>
             </div>
             <div className={cn('cart')}>
-                <button onClick={onAdd}>Перейти</button>
+                <button onClick={onCartOpen}>Перейти</button>
             </div>
         </div>
     );
@@ -31,13 +31,13 @@ function Controls({ onAdd, totalPrice, totalQuantity }) {
 Controls.propTypes = {
     totalQuantity: propTypes.number,
     totalPrice: propTypes.number,
-    onAdd: propTypes.func.isRequired, // Обязательное свойство - функция
+    onCartOpen: propTypes.func.isRequired, // Обязательное свойство - функция
 };
 
 Controls.defaultProps = {
     totalQuantity: 0,
     totalPrice: 0,
-    onAdd: () => {}, // Значение по умолчанию - функция-заглушка
+    onCartOpen: () => {}, // Значение по умолчанию - функция-заглушка
 };
 
 export default React.memo(Controls);

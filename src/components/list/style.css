@@ -1,6 +1,6 @@
 /*Список*/
 .List{
-
+    width: 100%;
 }
 .List-item{
     border-bottom: 1px dashed #ccc;

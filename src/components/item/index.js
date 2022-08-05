@@ -1,28 +1,21 @@
 import React, { useCallback, useState } from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import plural from 'plural-ru';
+import {formatPrice} from '../../utils/utils.js';
 import './style.css';
 
 function Item(props) {
     const cn = bem('Item');
 
-    // Счётчик выделений
-    const [count, setCount] = useState(0);
-
-    const formattedPrice = new Intl.NumberFormat('ru-RU', {
-        style: 'currency',
-        currency: 'RUB',
-        maximumFractionDigits: 0,
-    }).format(props.item.price);
+    const formattedPrice = formatPrice(props.item.price, 0);
 
     const callbacks = {
-        onClick: useCallback(() => {
-            props.onSelect(props.item.code);
-            if (!props.item.selected) {
-                setCount(count + 1);
-            }
-        }, [props.onSelect, props.item, setCount, count]),
+        // onClick: useCallback(() => {
+        //     props.onSelect(props.item.code);
+        //     if (!props.item.selected) {
+        //         setCount(count + 1);
+        //     }
+        // }, [props.onSelect, props.item, setCount, count]),
 
         // onDelete: useCallback(
         //     (e) => {
@@ -35,28 +28,39 @@ function Item(props) {
         onAddToCart: useCallback(() => {
             props.onAddToCart(props.item);
         }, [props.onAddToCart, props.item]),
+
+        onDeleteFromCart: useCallback(() => {
+            props.onDeleteFromCart(props.item.code);
+        }, [props.onAddToCart, props.item]),
     };
 
     return (
-        <div
-            className={cn({ selected: props.item.selected })}
-            onClick={callbacks.onClick}
-        >
-            <div className={cn('number')}>{props.item.code}</div>
-            <div className={cn('title')}>
-                {props.item.title}
-                {count
-                    ? ` | Выделялось ${count} ${plural(
-                          count,
-                          'раз',
-                          'раза',
-                          'раз'
-                      )}`
-                    : null}
+        <div className={cn()}>
+            <div className={cn('inner')}>
+                <div className={cn('number')}>{props.item.code}</div>
+                <div className={cn('title')}>{props.item.title}</div>
             </div>
-            <div className={cn('price')}>{formattedPrice}</div>
-            <div className={cn('actions')}>
-                <button onClick={callbacks.onAddToCart}>Добавить</button>
+            <div className={cn('inner')}>
+                <div className={cn('price')}>{formattedPrice}</div>
+                {props.item.quantity && (
+                    <div
+                        className={cn('quantity')}
+                    >{`${props.item.quantity} шт`}</div>
+                )}
+
+                {props.item.quantity ? (
+                    <div className={cn('actions')}>
+                        <button onClick={callbacks.onDeleteFromCart}>
+                            Удалить
+                        </button>
+                    </div>
+                ) : (
+                    <div className={cn('actions')}>
+                        <button onClick={callbacks.onAddToCart}>
+                            Добавить
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );
@@ -64,13 +68,13 @@ function Item(props) {
 
 Item.propTypes = {
     item: propTypes.object.isRequired,
-    onSelect: propTypes.func.isRequired,
-    onDeleted: propTypes.func.isRequired,
+    onAddToCart: propTypes.func.isRequired,
+    onDeleteFromCart: propTypes.func.isRequired,
 };
 
 Item.defaultProps = {
-    onSelect: () => {},
-    onDeleted: () => {},
+    onAddToCart: () => {},
+    onDeleteFromCart: () => {},
 };
 
 export default React.memo(Item);

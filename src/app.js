@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import List from './components/list';
 import Layout from './components/layout';
 import Controls from './components/controls';
-import Cart from './components/cart';
 
 /**
  * Приложение

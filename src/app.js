@@ -3,6 +3,7 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import {counter} from "./utils";
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -19,19 +20,23 @@ function App({store}) {
     onSelectItems: useCallback((code) => {
       store.selectItem(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    addToCart: useCallback((code) => {
+      store.addToCart(code);
     }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls cart={store.getState().cart}
+                  items={store.getState().items}
+                  onAdd={callbacks.onAdd}/>
+        <List items={store.getState().items}
+              addToCart={callbacks.addToCart}
+        />
+      </Layout>
+      <Cart/>
+    </>
   );
 }
 

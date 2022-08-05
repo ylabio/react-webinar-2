@@ -30,7 +30,10 @@ function App({store}) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls onCartOpen={callbacks.onCartOpen}/>
+      <Controls
+        itemsInCart={store.getState().itemsInCart}
+        onCartOpen={callbacks.onCartOpen}
+      />
       <List
         items={store.getState().items}
         onAmountIncrease={callbacks.onAmountIncrease}

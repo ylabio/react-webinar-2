@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
+import {cn as bem} from '@bem-react/classname';
+import {getFormattedPrice} from '../../utils';
 import './style.css';
 
 function Item(props) {
@@ -19,11 +20,13 @@ function Item(props) {
       </div>
       <div className={cn('title')}>
         {props.item.title}
-        {props.item.amount ? ` | количество в корзине = ${props.item.amount} ` : null}
+      </div>
+      <div className={cn('price')}>
+        {`${getFormattedPrice(props.item.price)}`}
       </div>
       <div className={cn('actions')}>
         <button onClick={callbacks.onAmountIncrease}>
-          Добавить в корзину
+          Добавить
         </button>
       </div>
     </div>

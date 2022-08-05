@@ -4,6 +4,7 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import {counter} from "./utils";
 import Modal from "./components/modal";
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -12,28 +13,38 @@ import Modal from "./components/modal";
  */
 function App({store}) {
 
-  const [ modalActive, setModalActive] = useState(false);
+  const [modalActive, setModalActive] = useState(false);
 
   const callbacks = {
-    onOpenBasket: useCallback(() => {
+    onOpenCart: useCallback(() => {
       setModalActive(true);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    addItemToCart: useCallback((code) => {
+      store.addItemToCart(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
+    // onSelectItems: useCallback((code) => {
+    //   store.selectItem(code);
+    // }, []),
+    // onDeleteItems: useCallback((code) => {
+    //   store.deleteItem(code);
+    // }, []),
   }
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls onOpenBasket={callbacks.onOpenBasket}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+      <Controls onOpenCart={callbacks.onOpenCart}
+                cartItems={store.getState().cartItems}
       />
-      <Modal active={modalActive} setActive={setModalActive}/>
+      <List items={store.getState().items}
+            button={callbacks.addItemToCart}
+            buttonText={'Добавить'}
+        // onItemSelect={callbacks.onSelectItems}
+        // onItemDelete={callbacks.onDeleteItems}
+      />
+      <Modal active={modalActive}
+             setActive={setModalActive}
+             children={<Cart store={store}/>}
+      />
     </Layout>
   );
 }

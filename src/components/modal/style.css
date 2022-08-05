@@ -19,15 +19,19 @@
 }
 
 .Modal-content {
-    padding: 20px;
     border-radius: 10px;
     background-color: white;
-    height: 400px;
-    width: 920px;
+    height: 440px;
+    width: 950px;
     transform: scale(0.5);
     transition: 0.5s all;
 }
 
 .Modal-content.active {
     transform: scale(1);
+}
+
+.Modal-content > .Layout{
+    min-height: 100%;
+    border-radius: inherit;
 }

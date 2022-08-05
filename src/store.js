@@ -40,26 +40,33 @@ class Store {
     }
   }
 
+  // /**
+  //  * Создание записи
+  //  */
+  // createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  //   this.setState({
+  //     ...this.state,
+  //     items: this.state.items.concat({code, title, price, selected})
+  //   });
+  // }
+  //
+  // /**
+  //  * Удаление записи по её коду
+  //  * @param code
+  //  */
+  // deleteItem(code) {
+  //   this.setState({
+  //     ...this.state,
+  //     items: this.state.items.filter(item => item.code !== code)
+  //   });
+  // }
   /**
-   * Создание записи
+   * Добавление товара в корзину
+   * @param code {number}
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
+  addItemToCart(code) {
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
+    }
 
   /**
    * Выделение записи по её коду

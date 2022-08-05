@@ -21,9 +21,15 @@
 	width: 960px;
 	height: 600px;
 	overflow: hidden;
+	overflow-y: auto;
 }
 
 .Modal-footer{
-	height: 100%;
-	background-color: aqua;
+	/* height: 100%; */
+	display: flex;
+	justify-content: flex-end;
+	padding-top: 26px;
+	padding-right: 108px;
+	gap: 50px;
+	font-weight: 700;
 }

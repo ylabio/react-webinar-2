@@ -37,7 +37,6 @@ class Store {
     return () => {
       this.listeners = this.listeners.filter(item => item !== callback);
     }
-
   }
 
   /**
@@ -79,9 +78,33 @@ class Store {
 
     this.setState({
       ...this.state,
-      cart:  updatedCart
+      cart: updatedCart
     });
   }
+
+    /**
+   * Удаление из корзины
+   */
+  removeFromCart(item) {
+    let updatedCart = [];
+    const currentItem = this.state.cart.find(cartItem=> cartItem.code === item.code);
+    if (currentItem.qty === 1) {
+      updatedCart = this.state.cart.filter(cartItem => cartItem.code !== currentItem.code);
+      } else {
+        updatedCart = this.state.cart.map(cartItem => {
+          if(cartItem.code === item.code) {
+            cartItem.qty--;
+          }
+          return cartItem;
+        });
+      }
+    
+      this.setState({
+      ...this.state,
+      cart: updatedCart,
+      });
+    }
 }
+
 
 export default Store;

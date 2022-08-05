@@ -22,7 +22,10 @@
     padding: 20px 10px 20px 20px;
 }
 
-.Item-price{
+.Item-secondaryInfo{
+    display: flex;
+    justify-content: flex-end;
+    gap: 55px;
     width: 100%;
     text-align: end;
 }

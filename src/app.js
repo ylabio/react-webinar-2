@@ -17,22 +17,21 @@ function App({store}) {
     callModal: useCallback((bool) => {
       setModalActive(bool);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
     addToCart: useCallback((item) => {
       store.addToCart(item);
     }, []),
+    removeFromCart: useCallback((item) => {
+      store.removeFromCart(item);
+    })
   }
 
   return (
     <Layout head={<h1>Приложение на чистом JS</h1>} fullHeight={true}>
       <Controls cart={store.getState().cart} callModal={callbacks.callModal}/>
       <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            addToCart={callbacks.addToCart}
+            callback={callbacks.addToCart}
       />
-      <Modal active={modalActive} callModal={callbacks.callModal} cartItems={store.getState().cart}/>
+      <Modal active={modalActive} callModal={callbacks.callModal} cartItems={store.getState().cart} callback={callbacks.removeFromCart}/>
     </Layout>
 
   );

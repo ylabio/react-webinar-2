@@ -1,57 +1,45 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
+import Button from './../button/index';
 
 function Item(props) {
   const cn = bem('Item');
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
   const callbacks = {
-
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
-
-    onDelete: useCallback((e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
+    callback: useCallback(item => {
+      props.buttonAction(item);
+    }, [props.buttonAction]),
   };
 
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
+    <div className={cn()}>
       <div className={cn('number')}>
-        {props.item.code}
+        {props.itemNumber}
       </div>
       <div className={cn('title')}>
-        {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
+        {props.title}
       </div>
-      <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
+      <div className={cn('secondaryInfo')}>
+        {props.secondaryInfo}
       </div>
+      <Button callback={()=>callbacks.callback(props.item)} >{props.buttonValue}</Button>
     </div>
   )
 }
 
 Item.propTypes = {
-  item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
+  item: propTypes.object,
+  itemNumber: propTypes.number,
+  title: propTypes.string,
+  secondaryInfo: propTypes.node,
+  buttonValue: propTypes.string,
+  buttonAction: propTypes.func,
 }
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
+  buttonAction: () => {}
 }
 
 export default React.memo(Item);

@@ -1,5 +1,4 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -61,25 +60,51 @@ class Store {
     });
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
+    /**
+   * Добавление в корзину
    */
-  selectItem(code) {
+  addToCart(item) {
+    let updatedCart = [];
+    const isInCart = this.state.cart.some(cartItem => cartItem.code === item.code);
+
+    !isInCart 
+    ? updatedCart = [...this.state.cart,{...item, qty: 1}] 
+    : updatedCart = this.state.cart.map(uCartItem => {
+      if(uCartItem.code === item.code) {
+        uCartItem.qty++;
+      }
+      return uCartItem;
+    });
+
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cart: updatedCart
     });
   }
+
+    /**
+   * Удаление из корзины
+   */
+  removeFromCart(item) {
+    let updatedCart = [];
+    const currentItem = this.state.cart.find(cartItem=> cartItem.code === item.code);
+    if (currentItem.qty === 1) {
+      updatedCart = this.state.cart.filter(cartItem => cartItem.code !== currentItem.code);
+      } else {
+        updatedCart = this.state.cart.map(cartItem => {
+          if(cartItem.code === item.code) {
+            cartItem.qty--;
+          }
+          return cartItem;
+        });
+      }
+    
+      this.setState({
+      ...this.state,
+      cart: updatedCart,
+      });
+    }
 }
+
 
 export default Store;

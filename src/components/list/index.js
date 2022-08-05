@@ -10,7 +10,17 @@ function List(props) {
   return (
     <div className={cn()}>{props.items.map(item =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} onSelect={props.onItemSelect} onDelete={props.onItemDelete}/>
+        <Item item={item}
+        itemNumber={props.type === 'cart' ? props.items.indexOf(item, 0)+1 : item.code}
+        title={item.title}
+        secondaryInfo={props.type === 'cart' 
+        ? <>
+            <div>{`${(item.price * item.qty).toLocaleString	()} \u20BD`}</div>
+            <div>{`${item.qty} шт`}</div>
+          </>
+        : <div>{`${(item.price).toLocaleString()} \u20BD`}</div>}
+        buttonAction={props.callback} 
+        buttonValue={props.type === 'cart' ? 'Удалить' : 'Добавить'}/>
       </div>
     )}
     </div>
@@ -19,14 +29,13 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemSelect: propTypes.func,
-  onItemDelete: propTypes.func
+  type: propTypes.string,
+  callback: propTypes.func
 }
 
 List.defaultProps = {
   items: [],
-  onItemSelect: () => {},
-  onItemDelete: () => {}
+  callback: () => {}
 }
 
 export default React.memo(List);

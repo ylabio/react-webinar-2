@@ -55,6 +55,8 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    this.selectItemForDelete = this.state.items.length;
+
     this.setState({
       ...this.state,
       items: this.state.items.filter(item => item.code !== code)
@@ -78,7 +80,10 @@ class Store {
         }
         return item.selected ? {...item, selected: false} : item;
       })
+
     });
+
+    this.selectItemForDelete = this.state.items.length
   }
 }
 

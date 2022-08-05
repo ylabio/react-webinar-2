@@ -41,31 +41,39 @@ class Store {
   }
 
   /**
-   * Добавление в корзину
+   * Добавление в корзину.
+   * Если товар уже есть, его количество инкрементируется
+   * @param {number} code Айдишник товара
    */
   addInCart(code) {
     const cb = (el) => el.code === code
     const newCart = [...this.state.cart]
-    if (newCart.find(cb)) {
-      newCart[newCart.findIndex(cb)].count++ 
+
+    const stagedElem = newCart.find(cb)
+
+    if (stagedElem) {
+      newCart[newCart.indexOf(stagedElem)] = {
+        ...stagedElem, 
+        count: stagedElem.count + 1
+      } 
     } else {
       newCart.push({ // Не мутация изначального состояния
         ...this.state.items.find(cb), 
         count: 1
       })
       newCart.sort((a, b) => a.code - b.code) // Чтобы выглядело красиво и по порядку
-                                              // Ещё раз, это не мутация изначального состояния, реакту хорошо
+                                              // Это не мутация изначального состояния, реакту хорошо
     }
 
     this.setState({
       ...this.state,
-      cart: newCart
+      cart: newCart // Даже ссылка новая!
     })
   }
 
   /**
-   * Удаление записи по её коду
-   * @param code
+   * Удаление товара из корзины
+   * @param {number} code Айдишник товара
    */
   deleteFromCart(code) {
     this.setState({
@@ -73,28 +81,6 @@ class Store {
       cart: this.state.cart.filter(el => el.code !== code)
     });
   }
-
-
-
-  // /**
-  //  * Выделение записи по её коду
-  //  * @param code
-  //  */
-  // selectItem(code) {
-  //   this.setState({
-  //     ...this.state,
-  //     items: this.state.items.map(item => {
-  //       if (item.code === code){
-  //         return {
-  //           ...item,
-  //           selected: !item.selected,
-  //           count: item.selected ? item.count : item.count + 1 || 1
-  //         }
-  //       }
-  //       return item.selected ? {...item, selected: false} : item;
-  //     })
-  //   });
-  // }
 }
 
 export default Store;

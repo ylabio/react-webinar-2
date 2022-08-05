@@ -1,0 +1,18 @@
+.Basket {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.Basket-button {
+    width: 80px;
+}
+
+.Basket-button::first-letter {
+    text-transform: uppercase;
+}
+
+.Basket-info {
+    font-weight: bold;
+    margin: 0 20px 0 12px;
+}

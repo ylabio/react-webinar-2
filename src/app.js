@@ -1,6 +1,9 @@
-import React from 'react';
-import {counter} from './utils.js';
-import './style.css';
+import React, {useCallback, useState} from 'react';
+import BasketList from "./components/basket-list";
+import Layout from "./components/layout";
+
+import Basket from './components/basket';
+import BasketModal from './components/basket-modal';
 
 /**
  * Приложение
@@ -8,38 +11,43 @@ import './style.css';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  // Выбор состояния из store
-  const {items} = store.getState();
+
+  const [visibilityBasket, setVisibilityBasket] = useState(false);
+
+  const callbacks = {
+    onAddItemToBasket: useCallback((item) => {
+      store.addItemToBasket(item);
+    }, [store]),
+    onDeleteItemToBasket: useCallback((item) => {
+      store.deleteItemToBasket(item);
+    }, [store])
+  }
 
   return (
-    <div className='App'>
-      <div className='App__head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='Controls'>
-        <button onClick={() => {
-          const code = counter();
-          store.createItem({code, title: `Новая запись ${code}`})
-        }}> Добавить </button>
-      </div>
-      <div className='App__center'>
-        <div className='List'>{items.map(item =>
-          <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
-              <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
-              <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
-                  Удалить
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-        </div>
-      </div>
-    </div>
+    <>
+      {
+        visibilityBasket 
+        ? 
+        <BasketModal 
+          onVisibility={() => setVisibilityBasket(false)}
+          items={store.getState().product}
+          price={store.getState().price}
+          onDeleteItemToBasket={callbacks.onDeleteItemToBasket} 
+        /> 
+        : null
+      }
+      <Layout head={<h1>Магазин</h1>}>
+        <Basket 
+          onVisibility={() => setVisibilityBasket(true)}
+          price={store.getState().price}
+          count={store.getState().count}
+        />
+        <BasketList 
+          items={store.getState().items}
+          onAddItemToBasket={callbacks.onAddItemToBasket}
+        />
+      </Layout>
+    </>
   );
 }
 

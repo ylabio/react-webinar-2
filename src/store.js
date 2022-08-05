@@ -69,7 +69,7 @@ class Store {
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
-        if (item.code === code){
+        if (item.code === code) {
           return {
             ...item,
             selected: !item.selected,
@@ -79,6 +79,26 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     });
+  }
+
+  /**
+   * Добавление товара в корзину по его коду
+   * @param code
+   */
+  onAddToCart(code) {
+    const index = this.state.cart.findIndex(item => item.code === code);
+    const newCart = [...this.state.cart];
+
+    if (index === -1) {
+      newCart.push({code, count: 1});
+    } else {
+      newCart[index] = {
+        ...newCart[index],
+        count: newCart[index].count + 1
+      };
+    }
+    this.setState({...this.state, cart: newCart});
+    console.log(this.state.cart)
   }
 }
 

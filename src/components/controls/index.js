@@ -1,21 +1,34 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import './style.css';
+import React, { useCallback } from "react";
+import propTypes from "prop-types";
+import "./style.css";
 
-function Controls({onAdd}){
+function Controls({ setIsOpenedModal, isMainContent }) {
+  const callbacks = {
+    onClick: useCallback(() => {
+      setIsOpenedModal(true);
+    }, [setIsOpenedModal]),
+    onClose: useCallback(() => {
+      setIsOpenedModal(false);
+    }, [setIsOpenedModal]),
+  };
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className="Controls">
+      {isMainContent ? (
+        <button onClick={callbacks.onClick}>Перейти</button>
+      ) : (
+        <button onClick={callbacks.onClose}>Закрыть</button>
+      )}
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
+  isMainContent: propTypes.any,
+  setIsOpenedModal: propTypes.func.isRequired,
+};
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
-}
+  setIsOpenedModal: () => {},
+};
 
 export default React.memo(Controls);

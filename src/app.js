@@ -14,10 +14,6 @@ import { counter } from './utils';
 function App({ store }) {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const callbacks = {
-        onAdd: useCallback(() => {
-            const code = counter();
-            store.createItem({ code, title: `Новая запись ${code}` });
-        }, []),
         onAddToCart: useCallback((item) => {
             store.addToCartItem(item);
         }, []),

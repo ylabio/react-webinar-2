@@ -78,7 +78,6 @@ class Store {
                 totalQuantity: updatedTotalQuantity,
             },
         });
-        console.log(this.state);
     }
 
     /**

@@ -5,6 +5,7 @@ import './style.css';
 function Controls({onOpenBasket}){
   return (
     <div className='Controls'>
+      <div>В корзине:</div>
       <button onClick={onOpenBasket}>Перейти</button>
     </div>
   )

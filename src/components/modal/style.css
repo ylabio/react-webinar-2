@@ -1,4 +1,4 @@
-.modal {
+.Modal {
     height: 100%;
     width: 100%;
     background-color: rgba(0,0,0,0.7);
@@ -13,14 +13,14 @@
     transition: 0.5s;
 }
 
-.modal.active {
+.Modal.active {
     opacity: 1;
     pointer-events: all;
 }
 
-.modal__content {
+.Modal-content {
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: white;
     height: 400px;
     width: 920px;
@@ -28,6 +28,6 @@
     transition: 0.5s all;
 }
 
-.modal__content.active {
+.Modal-content.active {
     transform: scale(1);
 }

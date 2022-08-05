@@ -9,7 +9,7 @@ function Modal(props) {
   const callbacks = {
 		onToggleModal: useCallback(() => {
       props.onToggleModal();
-		}, [props.onToggleModal])
+		}, [props.onToggleModal, props.isOpenModal])
   };
 
   return (

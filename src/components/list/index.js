@@ -8,9 +8,9 @@ function List(props) {
   const cn = bem('List');
 
   return (
-    <div className={cn()}>{props.items.map(item =>
+    <div className={cn()}>{props.items.map((item, index) =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} onCallback={props.onCallbackItem}/>
+        <Item item={item} elemIndex={index} onCallback={props.onCallbackItem}/>
       </div>
     )}
     </div>

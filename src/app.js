@@ -18,7 +18,7 @@ function App({store}) {
       setIsOpenModal(prevState => !prevState);
 		}, []),
 		
-		onAddToCartItems: useCallback((code) => {
+		onAddToCartItem: useCallback((code) => {
 			store.addToCartItem(code);
 		}, []),
 
@@ -32,7 +32,7 @@ function App({store}) {
 			<Layout head={<h1>Магазин</h1>}>
 				<Controls onToggleModal={callbacks.onToggleModal} cartItems={store.getState().cartItems}/>
 				<List items={store.getState().items}
-							onCallbackItem={callbacks.onAddToCartItems}
+							onCallbackItem={callbacks.onAddToCartItem}
 				/>
 			</Layout>
 

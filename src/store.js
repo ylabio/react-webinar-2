@@ -27,6 +27,13 @@ class Store {
     }
   }
 
+  updateStateField(field, value) {
+    this.setState({
+      ...this.state,
+      [field]: value,
+    });
+  }
+
   /**
    * Подписка на изменение state
    * @param callback {Function}
@@ -43,11 +50,9 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
+
+  createItem({code, title = 'Новый товар', price = 999, count = 0}) {
+    this.updateStateField('items', {code, title, price, selected});
   }
 
   /**
@@ -55,31 +60,50 @@ class Store {
    * @param code
    */
   deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+    this.updateStateField('items', this.state.items.filter(item => item.code !== code));
+    this.dropItemFromBasket(code);
+  }
+
+  calculateTotalSumm() {
+    this.updateStateField('totalSumm', this.state.basket.reduce((total, item) => {
+      return total + (item.selectCount * item.price);
+    }, 0));
+  }
+
+  addItemToBasket(item) {
+    let itemAlreadyInBasket = false;
+    let updatedBasket = this.state.basket.map((basketItem) => {
+      if (basketItem.code === item.code) {
+        itemAlreadyInBasket = true;
+        basketItem = {
+          ...basketItem,
+          selectCount: isNaN(basketItem.selectCount) ? 1 : basketItem.selectCount + 1,
+        };
+      }
+
+      return basketItem;
     });
+
+    if (!itemAlreadyInBasket) {
+      updatedBasket = updatedBasket.concat([{
+        ...item,
+        selectCount: 1,
+      }]);
+    }
+
+    this.updateStateField('basket', updatedBasket.sort((a, b) => a.code - b.code));
+    this.calculateTotalSumm();
+  }
+
+  dropItemFromBasket(code) {
+    this.updateStateField('basket', this.state.basket.filter(item => item.code !== code));
+    this.calculateTotalSumm();
   }
 
   /**
    * Выделение записи по её коду
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
-  }
 }
 
 export default Store;

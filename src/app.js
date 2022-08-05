@@ -1,5 +1,8 @@
-import React from 'react';
-import { counter } from './utils.js';
+import React, { useCallback, useState } from 'react';
+import Controls from './components/controls';
+import List from './components/list';
+import Layout from './components/layout';
+import Drawer from './components/drawer';
 import './style.css';
 
 /**
@@ -8,45 +11,35 @@ import './style.css';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({ store }) {
-  // Выбор состояния из store
-  const { items } = store.getState();
+  const [drawerView, setDrawerView] = useState(false);
+  const callbacks = {
+    onClickBtn: useCallback((code) => {
+      store.deleteItem(code);
+    }, []),
+    showCart: () => setDrawerView(true),
+    closeCart: () => setDrawerView(false),
+    addNewInCart: useCallback((code) => {
+      store.addInCart(code);
+    }, []),
+    deleteFromCart: useCallback((code) => {
+      store.deleteFromCart(code);
+    }, []),
+  };
 
   return (
-    <div className="App">
-      <div className="App__head">
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className="Controls">
-        <button
-          onClick={() => {
-            const code = counter();
-            store.createItem({ code, title: `Новая запись ${code}` });
-          }}>
-          Добавить
-        </button>
-      </div>
-      <div className="App__center">
-        <div className="List">
-          {items.map((item, value) => (
-            <div key={item.code} className="List__item">
-              <div
-                className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}>
-                <div className="Item__number">{item.code}</div>
-                <div className="Item__title">
-                  {item.title}
-                  {item.count ? ` | Выделялcя ${item.count} раз` : null}
-                </div>
-                <div className="Item__actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls cart={store.getState().cart} handleClick={callbacks.showCart} />
+      <List items={store.getState().items} mainBtn={callbacks.addNewInCart} />
+      {drawerView && (
+        <Drawer
+          cart={store.getState().cart}
+          handleClose={callbacks.closeCart}
+          mainBtn={callbacks.deleteFromCart}
+          btnText={'Удалить'}
+        />
+      )}{' '}
+      {/* Очень хотелось здесь контекст впихнуть на самом деле*/}
+    </Layout>
   );
 }
-
 export default App;

@@ -16,7 +16,7 @@ function Controls(props){
       <span className={cn('info')}>
         {`${totalQty} ${plural('товар','товара', 'товаров')} / ${totalPrice} \u20BD`}</span>
       <div className={cn('actions')}>
-        <button onClick={props.callModal} >Перейти</button>
+        <button onClick={()=>props.callModal(true)} >Перейти</button>
       </div>
     </div>
   )

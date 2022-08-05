@@ -1,8 +1,8 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Modal from './components/modal';
 
 
 /**
@@ -11,9 +11,11 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const [modalActive, setModalActive] = useState(false);
 
   const callbacks = {
-    callModal: useCallback(() => {
+    callModal: useCallback((bool) => {
+      setModalActive(bool);
     }, []),
     onSelectItems: useCallback((code) => {
       store.selectItem(code);
@@ -24,12 +26,13 @@ function App({store}) {
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls callModal={callbacks.callModal} cart={store.getState().cart}/>
+    <Layout head={<h1>Приложение на чистом JS</h1>} fullHeight={true}>
+      <Controls cart={store.getState().cart} callModal={callbacks.callModal}/>
       <List items={store.getState().items}
             onItemSelect={callbacks.onSelectItems}
             addToCart={callbacks.addToCart}
       />
+      <Modal active={modalActive} callModal={callbacks.callModal} cartItems={store.getState().cart}/>
     </Layout>
 
   );

@@ -1,14 +1,10 @@
 import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
-
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
 
   const callbacks = {
     addToCart: useCallback(item => {

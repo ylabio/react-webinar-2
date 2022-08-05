@@ -49,6 +49,25 @@ class Store {
       items: this.state.items.concat({code, title, price, selected})
     });
   }
+
+	/**
+	 * Добавление записи в массив cartItems
+	 * @param code
+	 */
+	addToCartItem(item) {
+		this.setState({
+			...this.state,
+			cartItems: 
+				!this.state.cartItems.some(cartItem => cartItem.code === item.code) ? 
+          [...this.state.cartItems, {...item, totalCount: 1}] : 
+					this.state.cartItems.map(cartItem => {
+						if(cartItem.code === item.code) {
+							return {...cartItem, totalCount: cartItem.totalCount + 1};
+						}
+						return cartItem;
+					})
+		});
+	}
 }
 
 export default Store;

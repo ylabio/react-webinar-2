@@ -18,13 +18,13 @@ function App({store}) {
     }, []),
 		
 		onAddToCartItems: useCallback((item) => {
-      console.log(item);
+			store.addToCartItem(item);
 		}, [])
   }
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+      <Controls onAdd={callbacks.onAdd} cartItems={store.getState().cartItems}/>
       <List items={store.getState().items}
 						onItemAddToCart={callbacks.onAddToCartItems}
       />

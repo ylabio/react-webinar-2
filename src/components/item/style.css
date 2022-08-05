@@ -2,6 +2,7 @@
 .Item{
     display: flex;
     justify-content: flex-start;
+		align-items: center;
     transition: background-color 1s;
 }
 .Item_selected{
@@ -23,6 +24,8 @@
 }
 .Item-price{
     width: 50%;
-    padding: 19px 24px 21px;
+		font-size: 18px;
+    line-height: 1;
+    padding: 19px 16px 21px;
 		text-align: right;
 }

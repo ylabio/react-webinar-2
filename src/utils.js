@@ -9,3 +9,7 @@ export function counter(){
 export function formatPrice(price){
 	return price.toLocaleString('ru-RU');
 }
+
+export function calculateTotalPrice(cartItems){
+	return formatPrice(cartItems.reduce((totalPrice, currObject) => totalPrice + (currObject.price * currObject.totalCount), 0));
+}

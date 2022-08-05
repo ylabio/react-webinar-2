@@ -4,6 +4,7 @@ import List from "./components/list";
 import BasketList from './components/basket-list';
 import Layout from "./components/layout";
 import Modal from './components/modal';
+import BasketResult from './components/basket-result';
 
 /**
  * Приложение
@@ -12,14 +13,16 @@ import Modal from './components/modal';
  */
 function App({store}) {
 
+  console.log(store)
+
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const callbacks = {
     onDeleteBasketItems: useCallback((code) => {
-      store.deleteItem(code);
+      store.deleteBasketItem(code);  // поменять название функции
     }, []),
     onAddItems: useCallback((code) => {
-      store.deleteItem(code);
+      store.addItem(code); 
     }, []),
     onOpenModal: useCallback(() => {
       setIsModalVisible(true)
@@ -29,10 +32,13 @@ function App({store}) {
     }, []),
   }
 
+  const count = store.getState().basket.count;
+  const totalSum = store.getState().basket.totalSum;
+
   return (
     <>
       <Layout head={<h1>Магазин</h1>}>
-        <Basket onOpenModal={callbacks.onOpenModal}/>
+        <Basket onOpenModal={callbacks.onOpenModal} count={count} totalSum={totalSum}/>
         <List items={store.getState().items}
               onItemAdd={callbacks.onAddItems}
         />
@@ -42,6 +48,7 @@ function App({store}) {
         <BasketList items={store.getState().basket.basketItems}
                 onBasketItemDelete={callbacks.onDeleteBasketItems}
         />
+        <BasketResult totalSum={totalSum} count={count}/>
       </Modal>
       }
     </>

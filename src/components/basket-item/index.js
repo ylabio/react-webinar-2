@@ -1,15 +1,13 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
+import {cn as bem} from "@bem-react/classname";
 
 function BasketItem(props) {
   const cn = bem('BasketItem');
 
   const callbacks = {
-    onDelete: useCallback((e) => {
-      e.stopPropagation();
+    onDelete: useCallback(() => {
       props.onDelete(props.item.code)
     }, [props.onDelete,  props.item])
   };
@@ -17,7 +15,7 @@ function BasketItem(props) {
   return (
     <div className={cn()}>
       <div className={cn('number')}>
-        {props.item.code}
+        {props.number}
       </div>
       <div className={cn('title')}>
         {props.item.title}
@@ -26,7 +24,7 @@ function BasketItem(props) {
         {props.item.price} ₽
       </div>
       <div className={cn('amount')}>
-        {props.item.price} шт
+        {props.item.amount} шт
       </div>
       <div className={cn('actions')}>
         <button className={cn('actions__button')} onClick={callbacks.onDelete}>
@@ -37,13 +35,14 @@ function BasketItem(props) {
   )
 }
 
-// Item.propTypes = {
-//   item: propTypes.object.isRequired,
-//   onDeleted: propTypes.func.isRequired
-// }
+BasketItem.propTypes = {
+  number: propTypes.number.isRequired,
+  item: propTypes.object.isRequired,
+  onDeleted: propTypes.func.isRequired
+}
 
-// Item.defaultProps = {
-//   onDeleted: () => {}
-// }
+BasketItem.defaultProps = {
+  onDeleted: () => {}
+}
 
 export default React.memo(BasketItem);

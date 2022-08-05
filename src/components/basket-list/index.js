@@ -1,16 +1,16 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
 import BasketItem from "../basket-item";
 import './style.css';
+import {cn as bem} from "@bem-react/classname";
 
 function BasketList(props) {
   const cn = bem('BasketList');
 
   return (
-    <div className={cn()}>{props.items.map(item =>
+    <div className={cn()}>{props.items.map((item, index) =>
       <div key={item.code} className={cn('item')}>
-        <BasketItem item={item} onDelete={props.onBasketItemDelete}/>
+        <BasketItem item={item} number={index + 1} onDelete={props.onBasketItemDelete}/>
       </div>
     )}
     </div>

@@ -41,34 +41,65 @@ class Store {
   }
 
   /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price})
-    });
-  }
-
-  /**
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
+  deleteBasketItem(code) {
+    const basketItems = this.state.basket.basketItems.filter(item => item.code !== code)
+    
+    const totalSum = basketItems.reduce((sum, item) => {
+      return item.amount * item.price + sum
+    }, 0)
+
+
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      basket: {
+        count: basketItems.length,
+        totalSum,
+        basketItems
+      }
     });
   }
 
-  
   /**
    * Добавление товара в корзину, счет суммы и количества товара
    * @param code
    */
   addItem(code) {
-  
+    const shopItem = this.state.items.find(item => item.code === code);
+
+    const basketItem = {
+      ...shopItem,
+      amount: 1
+    }
+
+    let isItemAdded = false;
     
+    const basketItems = this.state.basket.basketItems.map(item => {
+      if (item.code === code){
+        isItemAdded = true;
+        return {...item, amount: item.amount + 1}
+      }
+      return item
+    });
+
+    if (!isItemAdded) {
+    basketItems.push(basketItem)
+    }
+
+    const totalSum = basketItems.reduce((sum, item) => {
+      return item.amount * item.price + sum
+    }, 0)
+    
+    this.setState({
+      ...this.state,
+      basket: {
+        count: basketItems.length,
+        totalSum,
+        basketItems
+      }
+    });
   }
 }
 

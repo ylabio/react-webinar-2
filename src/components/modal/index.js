@@ -1,29 +1,40 @@
 import React from 'react';
+import {cn as bem} from "@bem-react/classname";
 import './style.css';
+import propTypes from "prop-types"; 
 
 
 function Modal({head, children, onCloseModal}){
+  const cn = bem('Modal');
 
+  const stopPropagation = e => e.stopPropagation();
 
   return (
-    <div className='Modal'>
-      <div className='Modal__body'>
-        <div className='Modal__inner'>
-          <div className='Modal__head'>
+    <div className={cn()}>
+      <div className={cn('body')} onClick={onCloseModal}>
+        <div className={cn('inner')} onClick={stopPropagation}>
+          <div className={cn('head')}>
             {head}
-            <button className='Modal__button-close' onClick={onCloseModal}>Закрыть</button>
+            <button className={cn('close')} onClick={onCloseModal}>Закрыть</button>
           </div>
-          <div className='Modal__content'>
+          <div className={cn('content')}>
             {children}
-          </div>
-          <div className='Modal__footer'>
-              <span className='Modal__total'>Итого</span>
-              <span className='Modal__price'>233 ₽</span>
           </div>
         </div>
       </div>
     </div>
   )
+}
+
+
+Modal.propTypes = {
+  head: propTypes.node,
+  children: propTypes.node,
+  onCloseModal: propTypes.func.isRequired
+}
+
+Modal.defaultProps = {
+  onCloseModal: () => {} // Значение по умолчанию - функция-заглушка
 }
 
 

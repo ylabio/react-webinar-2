@@ -1,18 +1,13 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
+import {cn as bem} from "@bem-react/classname";
 
 function Item(props) {
   const cn = bem('Item');
 
-  // Счётчик выделений
-
-
   const callbacks = {
-    onAdd: useCallback((e) => {
-      e.stopPropagation();
+    onAdd: useCallback(() => {
       props.onAdd(props.item.code)
     }, [props.onAdd,  props.item])
   };
@@ -39,11 +34,11 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onDeleted: propTypes.func.isRequired
+  onAdd: propTypes.func.isRequired
 }
 
 Item.defaultProps = {
-  onDeleted: () => {}
+  onAdd: () => {}
 }
 
 export default React.memo(Item);

@@ -17,11 +17,7 @@ const store = new Store({
   basket: {
     totalSum: 0,
     count: 0,
-    basketItems:[
-    {code: counter(), title: 'Название товара', price: 100.0},
-    {code: counter(), title: 'Книга про React', price: 770},
-    {code: counter(), title: 'Конфета', price: 33},
-    ]
+    basketItems:[]
   }
 });
 

@@ -4,3 +4,9 @@
     justify-content: flex-end;
     padding: 20px;
 }
+.Controls div{
+    margin-right: 1.5em;
+}
+.Controls-basket-info{
+    margin: 0 0.5em;
+}

@@ -5,7 +5,10 @@
 .List-item{
     border-bottom: 1px dashed #ccc;
 }
-
+.Product-price{
+    padding: 0 0.75rem;
+    white-space: nowrap;
+}
 .List-item:first-child{
     border-top: 1px dashed #ccc;
 }

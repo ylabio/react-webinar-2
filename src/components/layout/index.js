@@ -15,15 +15,15 @@ function Layout({head, children}){
         {children}
       </div>
     </div>
-  )
+  );
 }
 
 Layout.propTypes = {
   head: propTypes.node,
   children: propTypes.node,
-}
+};
 
 Layout.defaultProps = {
-}
+};
 
 export default React.memo(Layout);

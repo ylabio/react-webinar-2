@@ -1,8 +1,13 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
+
+/** Utils */
+import {counter} from "./utils";
+
+/** Components */
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Basket from "./components/basket";
 
 /**
  * Приложение
@@ -10,26 +15,38 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const [basketOpened, setBasketOpened] = useState(false);
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAddToBasket: useCallback((item) => {
+      store.addItemToBasket(item);
+      console.log(store);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onDropFromBasket: useCallback((code) => {
+      store.dropItemFromBasket(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
-  }
+    onOpenBasket: useCallback(() => {
+      setBasketOpened(true);
+    }, [basketOpened]),
+    onCloseBasket: useCallback(() => {
+      setBasketOpened(false);
+    }, [basketOpened]),
+  };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls
+        totalSumm={store.getState().totalSumm}
+        basketProductsCount={store.getState().basket.length}
+        onOpenBasket={callbacks.onOpenBasket}
+      />
+      <List items={store.getState().items} onAddToBasket={callbacks.onAddToBasket} />
+      <Basket
+        items={store.getState().basket}
+        totalSumm={store.getState().totalSumm}
+        isOpened={basketOpened}
+        onClose={callbacks.onCloseBasket}
+        onDropItem={callbacks.onDropFromBasket}
       />
     </Layout>
   );

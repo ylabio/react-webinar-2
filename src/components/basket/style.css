@@ -1,0 +1,30 @@
+.Basket-list{
+    margin-top: 3em;
+    margin-bottom: 2em;
+}
+.Basket-list h4 {
+    width: 100%;
+    text-align: center;
+}
+.Basket-list .Item {
+    border-bottom: 1px solid #e5e5e5;
+}
+.Basket-list .Item:first-child {
+    border-top: 1px solid #e5e5e5;
+}
+.Basket-list .Basket-total-summ {
+    text-align: right;
+    margin-right: 4em;
+}
+.Basket-list-item-info {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: auto;
+    gap: 2em;
+    margin-right: 1em;
+    width: fit-content;
+    text-align: center;
+}
+.Basket-list-item-info div {
+    white-space: nowrap;
+}

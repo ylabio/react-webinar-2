@@ -1,0 +1,14 @@
+.Basket {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.Basket > *:not(:last-child) {
+  margin-right: 20px;
+}
+
+.Basket > :first-child{
+  margin-right: 15px;
+}

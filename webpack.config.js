@@ -4,6 +4,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const webpack = require("webpack");
 
 // Опции webpack
 let config = {
@@ -16,7 +17,9 @@ let config = {
   },
   plugins: [
     new MiniCssExtractPlugin(), // Сборка стилей в отдельный файл
-    new HtmlWebPackPlugin({ // Создание dist/index.html с подключенной сборкой
+    new webpack.ProvidePlugin({ React: 'react'}), // Auto import "React"
+    new HtmlWebPackPlugin({
+      // Создание dist/index.html с подключенной сборкой
       template: './index.html',
       filename: './index.html',
       base: '',
@@ -33,15 +36,15 @@ let config = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: [{loader: 'babel-loader'}],
+        use: [{ loader: 'babel-loader' }],
       },
       // Возможность подключать css как модули, чтобы попали в сборку
       // С опцией modules при импорте стиля получаем объект с названиями ccs классов
       {
         test: /\.css$/,
         use: [
-          {loader: MiniCssExtractPlugin.loader, options: {}},
-          {loader: 'css-loader', options: {url: true, import: true/*, modules: true*/}},
+          { loader: MiniCssExtractPlugin.loader, options: {} },
+          { loader: 'css-loader', options: { url: true, import: true /*, modules: true*/ } },
         ],
       },
     ],

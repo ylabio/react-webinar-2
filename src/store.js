@@ -1,12 +1,10 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
     // Слушатели изменений state
-    this.listners = [];
+    this.listeners = [];
   }
-
   /**
    * Выбор state
    * @return {Object}
@@ -14,7 +12,6 @@ class Store {
   getState() {
     return this.state;
   }
-
   /**
    * Установка state
    * @param newState {Object}
@@ -22,60 +19,63 @@ class Store {
   setState(newState) {
     this.state = newState;
     // Оповещаем всех подписчиков об изменении стейта
-    for (const lister of this.listners) {
-      lister();
+    for (const listener of this.listeners) {
+      listener();
     }
   }
-
   /**
    * Подписка на изменение state
    * @param callback {Function}
    * @return {Function} Функция для отписки
    */
   subscribe(callback) {
-    this.listners.push(callback);
+    this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listners = this.listners.filter(item => item !== callback);
+      this.listeners = this.listeners.filter(item => item !== callback);
     }
   }
 
   /**
-   * Создание записи
+   * Добавление в корзину.
+   * @param {number} code 
    */
-  createItem({code, title = 'Новая запись', selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, selected})
-    });
-  }
+  addInCart(code) {
+    const cb = (el) => el.code === code
+    const newCart = [...this.state.cart]
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
+    const stagedElem = newCart.find(cb)
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          item.selected = !item.selected;
-        }
-        return item;
+    if (stagedElem) {
+      newCart[newCart.indexOf(stagedElem)] = {
+        ...stagedElem, 
+        count: stagedElem.count + 1
+      } 
+    } else {
+      newCart.push({ 
+        ...this.state.items.find(cb), 
+        count: 1
       })
+      newCart.sort((a, b) => a.code - b.code) 
+    }
+
+    this.setState({
+      ...this.state,
+      cart: newCart 
+    })
+  }
+
+  /**
+   * Удаление товара из корзины
+   * @param {number} code Айдишник товара
+   */
+  deleteFromCart(code) {
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.filter(el => el.code !== code)
     });
   }
+
 }
 
 export default Store;

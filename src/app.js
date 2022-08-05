@@ -42,7 +42,6 @@ function App({ store }) {
                 >
                     <Cart
                         cart={store.getState().cart}
-                        onAddToCart={callbacks.onAddToCart}
                         onDeleteFromCart={callbacks.onDeleteFromCart}
                         onCartClose={callbacks.onCartClose}
                     />

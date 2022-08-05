@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import {formatPrice} from '../../utils/utils.js';
+import { formatPrice } from '../../utils/utils.js';
 import List from '../list';
 import './style.css';
 
@@ -33,7 +33,6 @@ function Cart(props) {
                 <div className={cn('content')}>
                     <List
                         items={props.cart.items}
-                        onAddToCart={props.onAddToCart}
                         onDeleteFromCart={props.onDeleteFromCart}
                     />
                     <div className={cn('total')}>
@@ -48,13 +47,11 @@ function Cart(props) {
 
 List.propTypes = {
     cart: propTypes.object.isRequired,
-    onAddToCart: propTypes.func,
     onDeleteFromCart: propTypes.func,
 };
 
 List.defaultProps = {
     cart: {},
-    onAddToCart: () => {},
     onDeleteFromCart: () => {},
 };
 

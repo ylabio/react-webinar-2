@@ -97,22 +97,14 @@ class Store {
 
         let updatedTotalQuantity = this.state.cart.totalQuantity;
 
-        if (existingCartItem.quantity === 1) {
-            updatedItems = this.state.cart.items.filter(
-                (item) => item.code !== removeItemCode
-            );
-            updatedTotalQuantity--;
-        } else {
-            const updatedItem = {
-                ...existingCartItem,
-                quantity: existingCartItem.quantity - 1,
-            };
-            updatedItems = [...this.state.cart.items];
-            updatedItems[existingCartItemIndex] = updatedItem;
-        }
+        updatedItems = this.state.cart.items.filter(
+            (item) => item.code !== removeItemCode
+        );
+        updatedTotalQuantity--;
 
         const updatedTotalPrice =
-            this.state.cart.totalPrice - existingCartItem.price;
+            this.state.cart.totalPrice -
+            existingCartItem.price * existingCartItem.quantity;
 
         this.setState({
             ...this.state,

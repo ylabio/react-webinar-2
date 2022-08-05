@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import CartItem from "../cart-item";
@@ -26,9 +26,13 @@ function Cart(props) {
         </div>
         <ul className={cn('list')}>
           {props.cartItems.length > 0 &&
-            props.cartItems.map((item) =>
+            props.cartItems.map((item, index) =>
               <li key={item.code} className={cn('item')}>
-                <CartItem cartItem={item} onItemDelete={callbacks.onItemDelete} />
+                <CartItem
+                  cartItem={item}
+                  itemCount={index + 1}
+                  onItemDelete={callbacks.onItemDelete}
+                />
               </li>)}
         </ul>
         <div className={cn('result')}>

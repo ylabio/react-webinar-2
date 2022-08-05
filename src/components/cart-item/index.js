@@ -15,8 +15,8 @@ function CartItem(props) {
 
   return (
     <div className={cn()}>
-      <div className={cn('number')}>
-        {props.cartItem.code}
+      <div className={cn('count')}>
+        {props.itemCount}
       </div>
       <div className={cn('title')}>
         {props.cartItem.title}
@@ -38,6 +38,7 @@ function CartItem(props) {
 
 CartItem.propTypes = {
   cartItem: propTypes.object,
+  itemCount: propTypes.number.isRequired,
   onItemDelete: propTypes.func.isRequired
 }
 

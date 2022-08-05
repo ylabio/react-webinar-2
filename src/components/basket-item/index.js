@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import './style.css';
+import { formatNumber } from '../../utils';
 import {cn as bem} from "@bem-react/classname";
 
 function BasketItem(props) {
@@ -21,7 +22,7 @@ function BasketItem(props) {
         {props.item.title}
       </div>
       <div className={cn('price')}>
-        {props.item.price} ₽
+        {formatNumber(props.item.price)} ₽
       </div>
       <div className={cn('amount')}>
         {props.item.amount} шт

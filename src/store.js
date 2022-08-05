@@ -45,8 +45,22 @@ class Store {
    * @param code
    */
   deleteBasketItem(code) {
-    const basketItems = this.state.basket.basketItems.filter(item => item.code !== code)
-    
+    const basketItem = this.state.basket.basketItems.find(item => item.code === code)
+
+    let basketItems;
+    if (basketItem.amount > 1){
+      basketItems = this.state.basket.basketItems.map(item => {
+          if (item.code === code){
+            return {...item, amount: item.amount - 1}
+          }
+          return item
+        }
+      )
+    }
+    else {
+      basketItems = this.state.basket.basketItems.filter(item => item.code !== code)
+    }
+  
     const totalSum = basketItems.reduce((sum, item) => {
       return item.amount * item.price + sum
     }, 0)
@@ -67,10 +81,10 @@ class Store {
    * @param code
    */
   addItem(code) {
-    const shopItem = this.state.items.find(item => item.code === code);
+    const item = this.state.items.find(item => item.code === code);
 
     const basketItem = {
-      ...shopItem,
+      ...item,
       amount: 1
     }
 
@@ -85,7 +99,7 @@ class Store {
     });
 
     if (!isItemAdded) {
-    basketItems.push(basketItem)
+      basketItems.push(basketItem)
     }
 
     const totalSum = basketItems.reduce((sum, item) => {

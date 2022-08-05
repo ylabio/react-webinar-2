@@ -1,57 +1,62 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
+import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
   const callbacks = {
-
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
-
-    onDelete: useCallback((e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
+    onAddToCart: useCallback(() => {
+      props.onAddToCart(props.item.code);
+    }, [props.onAddToCart, props.item]),
+    onDeleteFromCart: useCallback(() => {
+      props.onDeleteFromCart(props.item.code);
+    }, [props.onDeleteFromCart, props.item]),
   };
 
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
-      <div className={cn('number')}>
-        {props.item.code}
-      </div>
+    <div className={cn()}>
+      <div className={cn('number')}>{props.item.code}</div>
       <div className={cn('title')}>
-        {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
+        <p> {props.item.title}</p>
+        <p className={cn('info')}>
+          {new Intl.NumberFormat('ru', {
+            style: 'currency',
+            currency: 'RUB',
+            minimumFractionDigits: 0,
+          }).format(props.item.price)}
+          {props.item.amount ? <p>{props.item.amount} шт</p> : null}
+        </p>
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button
+          onClick={
+            props.item.amount
+              ? callbacks.onDeleteFromCart
+              : callbacks.onAddToCart
+          }
+        >
+          {props.item.amount ? 'Удалить' : 'Добавить'}
         </button>
       </div>
     </div>
-  )
+  );
 }
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
-}
+  onSelect: propTypes.func,
+  onDeleted: propTypes.func,
+  onAddToCart: propTypes.func,
+  onDeleteFromCart: propTypes.func,
+};
 
 Item.defaultProps = {
   onSelect: () => {},
-  onDeleted: () => {}
-}
+  onDeleted: () => {},
+  onAddToCart: () => {},
+  onDeleteFromCart: () => {},
+};
 
 export default React.memo(Item);

@@ -65,21 +65,37 @@ class Store {
    * Выделение записи по её коду
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
-  }
+  // selectItem(code) {
+  //   this.setState({
+  //     ...this.state,
+  //     items: this.state.items.map(item => {
+  //       if (item.code === code){
+  //         return {
+  //           ...item,
+  //           selected: !item.selected,
+  //           count: item.selected ? item.count : item.count + 1 || 1
+  //         }
+  //       }
+  //       return item.selected ? {...item, selected: false} : item;
+  //     })
+  //   });
+  // }
+
+    addProduct(code, counts) {
+      this.setState({
+        ...this.state,
+        items: this.state.items.map(item => {
+                if (item.code === code){
+                  return {
+                    ...this.state,
+                    userProducts: this.state.userProducts.concat({code, title: item.title, price: item.price, counts})
+                  }
+                }
+        })
+
+      });
+    }
+
 }
 
 export default Store;

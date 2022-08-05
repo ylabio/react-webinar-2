@@ -2,6 +2,7 @@ import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
+import BasketPopup from "./components/basket-popup"
 import {counter} from "./utils";
 
 /**
@@ -12,12 +13,9 @@ import {counter} from "./utils";
 function App({store}) {
 
   const callbacks = {
-    onAdd: useCallback(() => {
+    onAdd: useCallback((count) => {
       const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
-    }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+      store.addProduct(code, count);
     }, []),
     onDeleteItems: useCallback((code) => {
       store.deleteItem(code);
@@ -25,13 +23,18 @@ function App({store}) {
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
+     <>
+    <Layout head={<h1>Магазин</h1>}>
+      {/*<BasketPopup*/}
+      {/*    items={store.getState().userProducts}*/}
+      {/*/>*/}
+          <Controls userProducts={store.getState().userProducts}/>
+          <List items={store.getState().items}
+            // onItemSelect={callbacks.onSelectItems}
             onItemDelete={callbacks.onDeleteItems}
-      />
+          />
     </Layout>
+       </>
   );
 }
 

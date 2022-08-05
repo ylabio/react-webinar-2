@@ -4,3 +4,18 @@
     justify-content: flex-end;
     padding: 20px;
 }
+
+.Controls__basket-block {
+    margin: 0 20px 0 0;
+
+}
+
+.Controls__text {
+    size: 18px;
+}
+
+.Controls__products-sum {
+    size: 18px;
+    font-weight: 700;
+    margin: 0 0 0 15px;
+}

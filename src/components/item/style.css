@@ -3,11 +3,8 @@
     display: flex;
     justify-content: flex-start;
     transition: background-color 1s;
+    font-family: Arial, Helvetica, sans-serif;
 }
-.Item_selected{
-    background: #75aaf1;
-}
-
 
 .Item-title{
     width: 100%;
@@ -20,4 +17,13 @@
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+
+.Item-wrapper {
+    display: flex;
+}
+
+.Item-price {
+    margin: 0 20px 0 0;
+    white-space: nowrap;
 }

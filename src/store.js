@@ -35,34 +35,18 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-<<<<<<< HEAD
       this.listeners = this.listeners.filter(item => item !== callback);
     }
-=======
-      this.listners = this.listners.filter((item) => item !== callback);
-    };
->>>>>>> master
+
   }
 
   /**
    * Создание записи
    */
-<<<<<<< HEAD
   createItem({code, title = 'Новый товар', price = 999, selected = false}) {
     this.setState({
       ...this.state,
       items: this.state.items.concat({code, title, price, selected})
-=======
-  createItem({
-    code,
-    title = 'Новая запись',
-    selected = false,
-    selectCount = 0,
-  }) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, selected, selectCount}),
->>>>>>> master
     });
   }
 
@@ -77,35 +61,25 @@ class Store {
     });
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
+    /**
+   * Добавление в корзину
    */
-  selectItem(code) {
+  addToCart(item) {
+    let updatedCart = [];
+    const isInCart = this.state.cart.some(cartItem => cartItem.code === item.code);
+
+    !isInCart 
+    ? updatedCart = [...this.state.cart,{...item, qty: 1}] 
+    : updatedCart = this.state.cart.map(uCartItem => {
+      if(uCartItem.code === item.code) {
+        uCartItem.qty++;
+      }
+      return uCartItem;
+    });
+
     this.setState({
       ...this.state,
-<<<<<<< HEAD
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-=======
-      items: this.state.items.map((item) => {
-        if (!item.selected && item.code === code) {
-          item.selected = !item.selected;
-          item.selectCount++;
-        } else {
-          item.selected = false;
-        }
-        return item;
-      }),
->>>>>>> master
+      cart:  updatedCart
     });
   }
 }

@@ -1,23 +1,32 @@
 /* Пункт списка */
-.Item{
+.Item {
     display: flex;
-    justify-content: flex-start;
-    transition: background-color 1s;
-}
-.Item_selected{
-    background: #75aaf1;
+    justify-content: space-between;
 }
 
+.Item-inner {
+    display: flex;
+}
 
-.Item-title{
-    width: 100%;
+.Item-title {
+    /* width: 100%; */
     padding: 20px 10px;
 }
-.Item-actions{
-    padding: 20px  20px 20px 10px;
-    display: flex;
-    justify-content: flex-end;
+.Item-actions {
+    padding: 20px 20px 20px 10px;
+    /* display: flex;
+    justify-content: flex-end; */
 }
-.Item-number{
+.Item-number,
+.Item-price {
     padding: 20px 10px 20px 20px;
+}
+
+.Item-price,
+.Item-quantity {
+    font-size: 18px;
+}
+
+.Item-quantity {
+    padding: 20px 10px 20px 45px;
 }

@@ -1,38 +1,60 @@
-import React, {useCallback} from 'react';
-import Controls from "./components/controls";
-import List from "./components/list";
-import Layout from "./components/layout";
-import {counter} from "./utils";
+import React, { useCallback, useState } from 'react';
+import Controls from './components/controls';
+import List from './components/list';
+import Cart from './components/cart';
+import Layout from './components/layout';
+import Modal from './components/modal';
+import { counter } from './utils';
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+function App({ store }) {
+    const [isCartOpen, setIsCartOpen] = useState(false);
+    const callbacks = {
+        onAddToCart: useCallback((item) => {
+            store.addToCartItem(item);
+        }, []),
+        onDeleteFromCart: useCallback((code) => {
+            store.deleteFromCartItem(code);
+        }, []),
+        onCartOpen: useCallback(() => {
+            setIsCartOpen(true);
+        }, []),
+        onCartClose: useCallback(() => {
+            setIsCartOpen(false);
+        }, []),
+    };
 
-  const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
-    }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
-  }
-
-  return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
-  );
+    return (
+        <Layout head={<h1>Магазин</h1>}>
+            {isCartOpen && (
+                <Modal
+                    onClose={() => {
+                        setIsCartOpen(false);
+                    }}
+                >
+                    <Cart
+                        cart={store.getState().cart}
+                        onDeleteFromCart={callbacks.onDeleteFromCart}
+                        onCartClose={callbacks.onCartClose}
+                    />
+                </Modal>
+            )}
+            <Controls
+                onCartOpen={callbacks.onCartOpen}
+                totalQuantity={store.getState().cart.totalQuantity}
+                totalPrice={store.getState().cart.totalPrice}
+            />
+            <List
+                items={store.getState().items}
+                onAddToCart={callbacks.onAddToCart}
+                onDeleteFromCart={callbacks.onDeleteFromCart}
+            />
+        </Layout>
+    );
 }
 
 export default App;

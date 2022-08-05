@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import {formatPrice} from '../../utils/utils.js';
+import { formatPrice } from '../../utils/utils.js';
 import './style.css';
 
 function Item(props) {
@@ -10,21 +10,6 @@ function Item(props) {
     const formattedPrice = formatPrice(props.item.price, 0);
 
     const callbacks = {
-        // onClick: useCallback(() => {
-        //     props.onSelect(props.item.code);
-        //     if (!props.item.selected) {
-        //         setCount(count + 1);
-        //     }
-        // }, [props.onSelect, props.item, setCount, count]),
-
-        // onDelete: useCallback(
-        //     (e) => {
-        //         e.stopPropagation();
-        //         props.onDelete(props.item.code);
-        //     },
-        //     [props.onDelete, props.item]
-        // ),
-
         onAddToCart: useCallback(() => {
             props.onAddToCart(props.item);
         }, [props.onAddToCart, props.item]),
@@ -48,7 +33,7 @@ function Item(props) {
                     >{`${props.item.quantity} шт`}</div>
                 )}
 
-                {props.item.quantity ? (
+                {props.isCartItem ? (
                     <div className={cn('actions')}>
                         <button onClick={callbacks.onDeleteFromCart}>
                             Удалить
@@ -68,6 +53,7 @@ function Item(props) {
 
 Item.propTypes = {
     item: propTypes.object.isRequired,
+    isCartItem: propTypes.bool.isRequired,
     onAddToCart: propTypes.func.isRequired,
     onDeleteFromCart: propTypes.func.isRequired,
 };

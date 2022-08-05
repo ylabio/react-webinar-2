@@ -13,6 +13,7 @@ function List(props) {
                 <div key={item.code} className={cn('item')}>
                     <Item
                         item={item}
+                        isCartItem={props.isCartList}
                         onAddToCart={props.onAddToCart}
                         onDeleteFromCart={props.onDeleteFromCart}
                     />
@@ -24,12 +25,14 @@ function List(props) {
 
 List.propTypes = {
     items: propTypes.arrayOf(propTypes.object).isRequired,
+    isCartList: propTypes.bool.isRequired,
     onAddToCart: propTypes.func,
     onDeleteFromCart: propTypes.func,
 };
 
 List.defaultProps = {
     items: [],
+    isCartList: false,
     onAddToCart: () => {},
     onDeleteFromCart: () => {},
 };

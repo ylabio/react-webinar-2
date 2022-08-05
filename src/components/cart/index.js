@@ -33,6 +33,7 @@ function Cart(props) {
                 <div className={cn('content')}>
                     <List
                         items={props.cart.items}
+                        isCartList={true}
                         onDeleteFromCart={props.onDeleteFromCart}
                     />
                     <div className={cn('total')}>

@@ -8,6 +8,13 @@ import { cn as bem } from '@bem-react/classname';
 function Controls({handleClick, cart}){
   const cn = bem('Controls')
 
+  const callbacks = {
+    showCart: useCallback(() => {
+      handleClick() 
+    }, [handleClick])
+    // Наверно, этот юсколбэк бесполезен
+  }
+
   return (
     <div className={cn()}>
       <div className={cn("title")}>
@@ -21,18 +28,19 @@ function Controls({handleClick, cart}){
         </span>
       </div>
       <div className={cn('actions')}>
-        <button onClick={handleClick}>Перейти</button>
+        <button onClick={callbacks.showCart}>Перейти</button>
       </div>
     </div>
   )
 }
 
 Controls.propTypes = {
-  handleClick: propTypes.func.isRequired, // Обяхательное свойство - функция
+  handleClick: propTypes.func.isRequired, // Обязательное свойство - функция
   cart: propTypes.arrayOf(propTypes.object).isRequired
 }
 
 Controls.defaultProps = {
+  // Бойлерплейт если нужно будет приколить необязательные пропсы, бандл не увеличивает вроде
 }
 
 export default React.memo(Controls);

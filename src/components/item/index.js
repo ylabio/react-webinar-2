@@ -3,6 +3,10 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
+// Для лучшей читабельности кода. Вроде ничего не руинит.
+// Нигде больше не используется, не имеет специальных стилей, не вызывает лишних рендеров, вынесение бессмыслено
+const Simple = React.memo(({cn, bemIndex, text}) => <div className={cn(bemIndex)}>{text}</div>)
+
 function Item({
   item,
   handleBtn,
@@ -13,26 +17,18 @@ function Item({
   const callbacks = {
     handleBtn: useCallback((e) => {
       e.stopPropagation();
-      handleBtn(item.code)
+      handleBtn(item.code) 
     }, [handleBtn, item])
   };
 
   return (
-    <div className={cn({'selected': item.selected})}>
-      <div className={cn('number')}>
-        {item.code}
-      </div>
-      <div className={cn('title')}>
-        {item.title}
-      </div>
-      <div className={cn('price')}>
-        <span>{`${item.price.toLocaleString('ru')} ₽`}</span>
-      </div>
+    <div className={cn()}>
+      <Simple cn={cn} bemIndex={'number'} text={item.code} />
+      <Simple cn={cn} bemIndex={'title'} text={item.title} />
+      <Simple cn={cn} bemIndex={'price'} text={`${item.price.toLocaleString('ru')} ₽`} />
       {
         item.count && 
-        <div className={cn('count')}>
-          {`${item.count} шт.`}
-        </div>
+        <Simple cn={cn} bemIndex={'count'} text={`${item.count} шт.`} />
       }
       <div className={cn('actions')}>
         <button onClick={callbacks.handleBtn}>

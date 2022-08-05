@@ -13,13 +13,13 @@ import './global.css'
 function App({store}) {
   const [modalView, setModalView] = useState(false)
   const callbacks = {
-    onClickBtn: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
-    showCart: () => 
-      setModalView(true),
-    closeCart: () => 
-      setModalView(false),
+    showCart: useCallback(() => {
+      setModalView(true)
+    }, [modalView, setModalView]),
+    closeCart: useCallback(() => {
+      setModalView(false)
+    }, [modalView, setModalView]), 
+    // Наверно, эти два юзколбека сверху бесполезны, но я могу ошибаться. В любом случае, это мало что ломает.
     addNewInCart: useCallback((code) => {
       store.addInCart(code)
     }, []),

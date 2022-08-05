@@ -4,8 +4,10 @@ import './style.css';
 import propTypes from "prop-types";
 
 function Layout({head, children, name, onClick}){
-  const cn = bem(name);
-
+  // name вынес как прос потому, что хотел сделать для модульника отдельный лайаут, поэтому сделал так, но потом понял, что идея фигня
+  // Тем не менее, это наверно добавило реюзабельности коду
+  const cn = bem(name); 
+  
   return (
     <div className={cn()}
          onClick={onClick}>

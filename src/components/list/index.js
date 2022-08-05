@@ -10,11 +10,16 @@ function List({
   btnText
 }) {
   const cn = bem('List');
-  const key = Math.random()
 
   return (
     <div className={cn()}>{items.map(item =>
-      <div key={`${key} ${item.code}`} className={cn('item')}>
+      <div key={item.code} className={cn('item')}> 
+      {/* 
+        key одинаковые в модальнике и в списке товаров.
+        Мне стало интересно, нужно ли делать их разными.
+        Ответ: https://ru.reactjs.org/docs/lists-and-keys.html#keys-must-only-be-unique-among-siblings
+        Вкратце: нет, они должны быть полностью уникальными только в пределах одного списка
+      */}
         <Item item={item} handleBtn={handleBtn} btnText={btnText}/>
       </div>
     )}

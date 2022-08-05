@@ -14,11 +14,12 @@ function Modal({
 }) {
   const cn = bem("Modal")
 
-  // Это удобно
+  // Это удобно (и круто, никогда так не делал, но мне нравилось, когда так делали на других сайтах)
+  // Позволяет по Esc сбрасывать модальник
   useEffect(() => {
     if (typeof window !== 'undefined') {  
       function keydown(e) {
-        if (e.key === "Escape") handleClose()
+        if (e.key === "Escape") handleClose() // Это всё равно используется только на первый рендер, нет смысла от заюсколбеченного
       }
       window.addEventListener('keydown', keydown)
       return () => {
@@ -27,18 +28,29 @@ function Modal({
     }
   }, [])
 
+  const callbacks = {
+    closeModal: useCallback(() => {
+      handleClose()
+    }, [handleClose]),
+  }
+
   return (
     <div className={cn()}
-         onClick={handleClose}> {/* Это тоже удобно */}
+         onClick={callbacks.closeModal}> 
+         {/* 
+          Это тоже удобно, но я так уже делал)
+          Позволяет по клику вне модальника сбрасывать модальник
+         */}
       <Layout head={
       <>
         <h1>Корзина</h1>
-        <button onClick={handleClose}>Закрыть</button>
+        <button onClick={callbacks.closeModal}>Закрыть</button>
       </>
-      } onClick={(e) => e.stopPropagation()}>
+      } onClick={(e) => e.stopPropagation()}> {/* Чтобы при клике на сам модальник его не скидывало */}
         {
         cart.length 
-        ? <>
+        ? 
+        <> {/* Фрагментом это делать неприлично, но здесь норм */}
           <List handleBtn={handleBtn}
                 items={cart}
                 btnText={btnText}
@@ -47,11 +59,12 @@ function Modal({
             <div>Итого: </div>
             <div>{getCartCost(cart).toLocaleString('ru')} ₽</div>
           </div>
-          </>
-        : <div className={cn('empty')}>
-            <span className={cn('empty-bold')}>Корзина пуста!</span>
-            <span className={cn('empty-text')}>Приходите, когда выберите товары</span>
-          </div>
+        </>
+        : 
+        <div className={cn('empty')}>
+          <span className={cn('empty-bold')}>Корзина пуста!</span>
+          <span className={cn('empty-text')}>Приходите, когда выберите товары</span>
+        </div>
         }
       </Layout>
     </div>

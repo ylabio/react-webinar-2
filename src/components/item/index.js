@@ -32,7 +32,8 @@ function Item(props) {
       </div>
       <div className={cn('title')}>
         {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
+        {/* {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null} */}
+        {` | Цена: ${props.item.price} руб.`}
       </div>
       <div className={cn('actions')}>
         <button onClick={callbacks.onDelete}>

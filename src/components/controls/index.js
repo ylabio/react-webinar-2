@@ -2,16 +2,24 @@ import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 
-function Controls({onAdd}){
-  return (
+function Controls({onAdd, setActive}){
+  
+  // reducer fn 
+  const counterPrice = () => "пусто"
+   
+   
+   return (
     <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+      <p  style={{padding: 0 , margin: 0 ,marginRight: '20px', display: 'inline-block',}}
+      >В корзине: {counterPrice()}</p>
+      
+      <button onClick={() => setActive(true)}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  onAdd: propTypes.func.isRequired // Обязательное свойство - функция
 }
 
 Controls.defaultProps = {

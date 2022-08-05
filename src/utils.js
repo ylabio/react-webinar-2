@@ -1,3 +1,5 @@
+import { number } from "prop-types";
+
 /**
  * Генерирует уникальный код на основе счётчика
  * @returns {number|number}

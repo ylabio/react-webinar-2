@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
@@ -8,10 +8,9 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-		onAddToCart: useCallback((e) => {
-			e.stopPropagation();
-      props.onAddToCart(props.item);
-		}, [props.onAddToCart])
+		onCallback: useCallback((e) => {
+      props.onCallback(props.item.code);
+		}, [props.onCallback])
   };
 
   return (
@@ -25,9 +24,12 @@ function Item(props) {
 			<div className={cn('price')}>
 				{formatPrice(props.item.price)} ₽
       </div>
+			{props.item.totalCount && <div className={cn('totalcount')}>
+				{props.item?.totalCount} шт
+			</div>}
       <div className={cn('actions')}>
-        <button onClick={callbacks.onAddToCart}>
-          Добавить
+        <button onClick={callbacks.onCallback}>
+					{props.item.totalCount ? 'Удалить' : 'Добавить'}
         </button>
       </div>
     </div>
@@ -36,11 +38,11 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-	onAddToCart: propTypes.func
+	onCallback: propTypes.func
 }
 
 Item.defaultProps = {
-	onAddToCart: () => {}
+	onCallback: () => {}
 }
 
 export default React.memo(Item);

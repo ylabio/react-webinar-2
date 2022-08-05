@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Modal from "./components/modal";
+import {calculateTotalPrice} from "./utils";
 
 /**
  * Приложение
@@ -10,25 +11,50 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+	const [isOpenModal, setIsOpenModal] = useState(false);
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
-    }, []),
+		onToggleModal: useCallback(() => {
+      setIsOpenModal(prevState => !prevState);
+		}, []),
 		
-		onAddToCartItems: useCallback((item) => {
-			store.addToCartItem(item);
+		onAddToCartItems: useCallback((code) => {
+			store.addToCartItem(code);
+		}, []),
+
+		onDeleteFromCartItem: useCallback((code) => {
+      store.deleteFromCartItem(code);
 		}, [])
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <Controls onAdd={callbacks.onAdd} cartItems={store.getState().cartItems}/>
-      <List items={store.getState().items}
-						onItemAddToCart={callbacks.onAddToCartItems}
-      />
-    </Layout>
+		<>
+			<Layout head={<h1>Магазин</h1>}>
+				<Controls onToggleModal={callbacks.onToggleModal} cartItems={store.getState().cartItems}/>
+				<List items={store.getState().items}
+							onCallbackItem={callbacks.onAddToCartItems}
+				/>
+			</Layout>
+
+			<Modal isOpenModal={isOpenModal} onToggleModal={callbacks.onToggleModal}>
+				<Layout head={<><h1>Корзина</h1><button onClick={callbacks.onToggleModal}>Закрыть</button></>}>
+					{store.getState().cartItems.length ?
+						<>
+              <List items={store.getState().cartItems}
+                    onCallbackItem={callbacks.onDeleteFromCartItem}
+              />
+              <div className="Modal-total">
+								<strong>Итого</strong>
+								<strong>{store.getState().cartItems.length ? `${calculateTotalPrice(store.getState().cartItems)} ₽` : 'пусто'}</strong>
+							</div>
+						</> :
+						<div className="Modal-empty">
+              <h3>Корзина пустая!</h3>
+						</div>
+        }
+				</Layout>
+			</Modal>
+		</>
   );
 }
 

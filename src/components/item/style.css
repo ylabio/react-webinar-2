@@ -29,3 +29,10 @@
     padding: 19px 16px 21px;
 		text-align: right;
 }
+.Item-totalcount {
+    width: 14%;
+    font-size: 18px;
+    line-height: 1;
+    padding: 19px 16px 21px;
+    text-align: right;
+}

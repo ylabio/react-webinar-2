@@ -8,9 +8,9 @@ function Button({children, callback}) {
 
   return (
 	<div className={cn()}>
-        <button onClick={callback}>
-          {children}
-        </button>
+    <button onClick={callback}>
+        {children}
+    </button>
 	</div>
   )
 }

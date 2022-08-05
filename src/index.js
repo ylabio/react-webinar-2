@@ -27,4 +27,3 @@ store.subscribe(() => {
 
 // Первый рендер (один раз)
 root.render(<App store={store}/>);
-

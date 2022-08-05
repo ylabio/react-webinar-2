@@ -16,15 +16,15 @@ function Modal({active, callModal, cartItems, callback}) {
 	<div className={cn({'active': active})} onClick={()=>callModal(false)}>
 		<div className={cn('content')} onClick={(e)=> e.stopPropagation()}>
 			<Layout head={
-					<>
-						<h1>Корзина</h1>
-						<Button callback={()=>callModal(false)}>Закрыть</Button>
-					</>} 
+				<>
+					<h1>Корзина</h1>
+					<Button callback={()=>callModal(false)}>Закрыть</Button>
+				</>} 
 					fullHeight={false}>
 				<List items={cartItems} type={'cart'} callback={callback}/>
 				<div className={cn('footer')}>
-						<span>Итого</span>
-						<span>{`${(totalPrice).toLocaleString()}  \u20BD`}</span>
+					<span>Итого</span>
+					<span>{`${(totalPrice).toLocaleString()}  \u20BD`}</span>
 				</div>
 			</Layout>
 		</div>

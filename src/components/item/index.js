@@ -24,13 +24,17 @@ function Item(props) {
             }
         }, [props.onSelect, props.item, setCount, count]),
 
-        onDelete: useCallback(
-            (e) => {
-                e.stopPropagation();
-                props.onDelete(props.item.code);
-            },
-            [props.onDelete, props.item]
-        ),
+        // onDelete: useCallback(
+        //     (e) => {
+        //         e.stopPropagation();
+        //         props.onDelete(props.item.code);
+        //     },
+        //     [props.onDelete, props.item]
+        // ),
+
+        onAddToCart: useCallback(() => {
+            props.onAddToCart(props.item);
+        }, [props.onAddToCart, props.item]),
     };
 
     return (
@@ -52,7 +56,7 @@ function Item(props) {
             </div>
             <div className={cn('price')}>{formattedPrice}</div>
             <div className={cn('actions')}>
-                <button onClick={callbacks.onDelete}>Добавить</button>
+                <button onClick={callbacks.onAddToCart}>Добавить</button>
             </div>
         </div>
     );

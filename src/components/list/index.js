@@ -9,9 +9,10 @@ function List(props) {
 
   return (
     <div className={cn()}>
-      {props.items.map((item) => (
+      {props.items.map((item, index) => (
         <div key={item.code} className={cn('item')}>
           <Item
+            num={index + 1}
             item={item}
             onAddToCart={props.onItemAddToCart}
             onDeleteFromCart={props.onItemDeleteFromCart}

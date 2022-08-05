@@ -17,7 +17,7 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      <div className={cn('number')}>{props.item.code}</div>
+      <div className={cn('number')}>{props.num}</div>
       <div className={cn('title')}>
         <p> {props.item.title}</p>
         <p className={cn('info')}>
@@ -50,6 +50,7 @@ Item.propTypes = {
   onDeleted: propTypes.func,
   onAddToCart: propTypes.func,
   onDeleteFromCart: propTypes.func,
+  num: propTypes.number,
 };
 
 Item.defaultProps = {
@@ -57,6 +58,7 @@ Item.defaultProps = {
   onDeleted: () => {},
   onAddToCart: () => {},
   onDeleteFromCart: () => {},
+  num: 0,
 };
 
 export default React.memo(Item);

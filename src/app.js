@@ -2,6 +2,7 @@ import React from 'react';
 import {counter} from './utils.js';
 import './style.css';
 
+
 /**
  * Приложение
  * @param store {Store} Состояние приложения
@@ -10,6 +11,17 @@ import './style.css';
 function App({store}) {
   // Выбор состояния из store
   const {items} = store.getState();
+
+  function findNumberOfSelections(num){
+      if(num===12||num===13||num===14)   return `| Выделялось ${num} раз`
+
+      let lastDigit= num%10
+      if(lastDigit===2||lastDigit===3||lastDigit===4){
+          return `| Выделялось ${num} раза`
+      }else {
+          return `| Выделялось ${num} раз`
+      }
+  }
 
   return (
     <div className='App'>
@@ -30,7 +42,7 @@ function App({store}) {
                  onClick={() => store.selectItem(item.code)}>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title}
-                  {item.counter>0 && <span> | Выделялось {item.counter} раз </span>}
+                  {item.counter>0 && <span> {findNumberOfSelections(item.counter)} </span>}
               </div>
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>

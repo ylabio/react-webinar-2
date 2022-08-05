@@ -3,7 +3,7 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import propTypes from "prop-types";
 
-function Layout({head, children}){
+function Layout({head, children, modal}){
   const cn = bem('Layout');
 
   return (
@@ -14,6 +14,7 @@ function Layout({head, children}){
       <div className={cn('content')}>
         {children}
       </div>
+      {modal}
     </div>
   )
 }
@@ -21,6 +22,7 @@ function Layout({head, children}){
 Layout.propTypes = {
   head: propTypes.node,
   children: propTypes.node,
+  modal: propTypes.node,
 }
 
 Layout.defaultProps = {

@@ -80,6 +80,16 @@ class Store {
       })
     });
   }
+
+  /**
+   * Изменение отображения модального окна
+   */
+  toggleModal() {
+    this.setState({
+      ...this.state,
+      isModal: !this.state.isModal
+    })
+  }
 }
 
 export default Store;

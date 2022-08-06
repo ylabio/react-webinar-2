@@ -1,8 +1,12 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from "react";
+import plural from "plural-ru";
+import propTypes from "prop-types";
+
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Modal from "./components/modal";
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -10,29 +14,75 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const [cart, setCart] = useState([]);
+  const rub = '\u20bd';
+  const [isShowCart, setIsShowCart] = useState(false);
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onShow: useCallback(() => {
+      setIsShowCart(true)
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onClose: useCallback(() => {
+      setIsShowCart(false)
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
+    getTotalSum: useCallback(() => {
+      if(cart.length){
+        return cart.reduce((acc, c) => (c.price * c.count) + acc, 0)
+      }
+    }, [cart]),
+    getInfo: useCallback(() => {
+      if (cart.length){
+        return `${cart.length} ${plural(cart.length, 'товар', 'товара', 'товаров')} / ${callbacks.getTotalSum()} ${rub}`
+      } else {
+        return "Пусто"
+      }
+    }, [cart]),
+    addToCart: useCallback((code) => {
+      /*
+      * решение нашел по этому адресу:
+      * https://www.stackfinder.ru/questions/60536035/how-to-increase-quantity-of-the-item-if-it-is-already-added-in-shopping-cart-in
+      * */
+      const items = store.getState().items
+      items.forEach(item => {
+       if(item.code === code){
+         const index = cart.findIndex(c => c.code === item.code)
+         if(index === -1){
+           setCart(prevState => [
+               ...prevState,
+             {...item, count: 1}
+           ])
+         } else {
+           const updateCart = [...cart]
+           updateCart[index].count += 1
+           setCart(updateCart)
+         }
+       }
+      })
+    }, [cart]),
+    removeCartItem: useCallback((code) => {
+      let updateCart = [...cart]
+      updateCart = updateCart.filter(c => c.code !== code)
+      setCart(updateCart)
+    }, [cart])
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+      <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls onShow={callbacks.onShow} getInfo={callbacks.getInfo}/>
+        <List items={store.getState().items} onAdd={callbacks.addToCart}/>
+      </Layout>
+        {isShowCart && (
+            <Modal>
+              <Cart cart={cart} onClose={callbacks.onClose} totalSum={callbacks.getTotalSum} onRemove={callbacks.removeCartItem}/>
+            </Modal>
+        )}
+      </>
   );
+}
+
+App.propTypes = {
+  store: propTypes.object.isRequired
 }
 
 export default App;

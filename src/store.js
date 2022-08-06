@@ -80,6 +80,48 @@ class Store {
       })
     });
   }
+
+  /**
+   * Добавление товара в корзину
+   */
+  addItemInCart(code) {
+      if (this.state.productCart.find((item) => item.code === code)) {
+          this.setState({
+              ...this.state,
+              productCart: this.state.productCart.map((item) => {
+                  if (item.code === code) {
+                      return {
+                          code,
+                          title: item.title,
+                          price: item.price,
+                          amount: item.amount + 1,
+                      }
+                  }
+                  return item;
+              }),
+          });
+      } else {
+          const chosenItem = this.state.items.find(item => item.code === code);
+
+          this.setState({
+              ...this.state,
+              productCart:  this.state.productCart.concat({
+                  code,
+                  title: chosenItem.title,
+                  price: chosenItem.price,
+                  amount: 1})
+          });
+      };
+  }
+    /**
+     * Удаление товара из корзины
+     */
+    deleteFromCart(code) {
+        this.setState({
+            ...this.state,
+            productCart: this.state.productCart.filter((item) => item.code !== code),
+        });
+    }
 }
 
 export default Store;

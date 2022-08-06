@@ -1,0 +1,50 @@
+.Modal{
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.Modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.Modal-gap {
+    font-size: 0;
+    height: 60px;
+}
+
+.Modal-content{
+    width: 50vw;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.Modal-total{
+    text-align: right;
+    margin-top: 20px;
+    padding-right: 90px;
+    font-weight: 700;
+}
+
+.Modal-total span{
+    padding-left: 25px;
+    font-family: 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    /* identical to box height */
+
+
+    color: #000000;
+}

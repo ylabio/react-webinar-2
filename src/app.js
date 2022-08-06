@@ -22,14 +22,18 @@ function App({store}) {
     onDeleteItems: useCallback((code) => {
       store.deleteItem(code);
     }, []),
+    onAddToCart: useCallback((code)=> {
+      store.addToCartItem(code)
+    }, []),
   }
-
+console.log(store)
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+      <Controls cart={store.getState().cart} onAdd={callbacks.onAdd}/>
       <List items={store.getState().items}
             onItemSelect={callbacks.onSelectItems}
             onItemDelete={callbacks.onDeleteItems}
+            onAddToCart={callbacks.onAddToCart}
       />
     </Layout>
   );

@@ -1,10 +1,14 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
+import { currencyFormat } from '../../utils';
 
-function Controls({onAdd}){
-  return (
+function Controls({onAdd, cart: {totalPrice, totalQuantity}}){
+  const modifiedCurrency = currencyFormat(totalPrice, 0);
+
+   return (
     <div className='Controls'>
+      <p>В корзине: {totalQuantity} товара / {modifiedCurrency}</p>
       <button onClick={onAdd}>Перейти</button>
     </div>
   )

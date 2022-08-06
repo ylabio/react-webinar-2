@@ -80,6 +80,24 @@ class Store {
       })
     });
   }
+
+  /**
+   * Выделение записи по её коду
+   * @param cartItem
+   */
+  addToCartItem(itemId) {
+    const cartItem = this.state.items.find(item => item.code === itemId); 
+// использовать reduce здесь
+    this.setState({
+      ...this.state,
+     cart: {
+      ...this.state.cart,
+      cartItems: this.state.cart.cartItems.concat(cartItem),
+      totalPrice: this.state.cart.totalPrice + cartItem.price,
+      totalQuantity: this.state.cart.totalQuantity + 1
+     }     
+    })
+  }
 }
 
 export default Store;

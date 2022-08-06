@@ -20,10 +20,10 @@ function Item(props) {
       }
     }, [props.onSelect, props.item, setCount, count]),
 
-    onDelete: useCallback((e) => {
+    onAddToCart: useCallback((e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
+      props.onAddToCart(props.item.code)
+    }, [props.onAddToCart,  props.item])
   };
 
   const modifiedPrice = currencyFormat(props.item.price, 0);
@@ -41,7 +41,7 @@ function Item(props) {
         {modifiedPrice}
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
+        <button onClick={callbacks.onAddToCart}>
           Добавить
         </button>
       </div>

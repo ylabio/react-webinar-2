@@ -13,7 +13,7 @@ const store = new Store({
     {code: counter(), title: 'Трактор', price: 7955320},
     {code: counter(), title: 'Телефон iPhone XIXV', price: 120000},
     {code: counter(), title: 'Карандаши цветные', price: 111},
-    {code: counter(1231), title: 'Товар сюрприз', price: 0},
+    {code: counter(), title: 'Товар сюрприз', price: 0},
   ],
   itemsInCart: [],
 });

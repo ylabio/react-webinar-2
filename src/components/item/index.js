@@ -19,27 +19,27 @@ function Item(props) {
       }
     }, [props.onSelect, props.item, setCount, count]),
 
-    onDelete: useCallback((e) => {
+    btnAction : useCallback((e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code)
+      props.btnAction(props.item.code)
     }, [props.onDelete,  props.item])
   };
 
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
+    <div className={cn({'selected': props.item.selected})} >
       <div className={cn('number')}>
         {props.item.code}
       </div>
       <div className={cn('title')}>
         {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
+        {/* {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null} */}
       </div>
       <div className={cn('price')}>
         {props.item.price}
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Добавить
+        <button onClick={callbacks.btnAction}>
+          {props.btnActionName}
         </button>
       </div>
     </div>

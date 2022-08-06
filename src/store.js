@@ -44,9 +44,10 @@ class Store {
    * Создание записи
    */
   createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+    
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      itemsInCart : this.state.itemsInCart.concat({code, title, price, selected})
     });
   }
 
@@ -72,7 +73,6 @@ class Store {
         if (item.code === code){
           return {
             ...item,
-            selected: !item.selected,
             count: item.selected ? item.count : item.count + 1 || 1
           }
         }

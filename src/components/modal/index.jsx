@@ -6,7 +6,6 @@ import './style.css';
 
 
 function Modal({ active, setActive, children, head = "Корзина", totalPricee = 232 }) {
-    console.log(active)
     const cn = bem('Modal');
     return (
         <div className={active ? cn('active') : cn()}>

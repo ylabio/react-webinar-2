@@ -20,13 +20,7 @@ function List({ items, addItemInCart }) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  addItemInCart: propTypes.func,
-  // onItemDelete: propTypes.func,
-};
-
-List.defaultProps = {
-  items: [],
-  // onItemDelete: () => {},
+  addItemInCart: propTypes.func.isRequired,
 };
 
 export default React.memo(List);

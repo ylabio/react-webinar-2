@@ -1,30 +1,11 @@
-import React, { useCallback, useState } from "react";
-import propTypes from "prop-types";
+import React from "react";
 import { cn as bem } from "@bem-react/classname";
-import plural from "plural-ru";
 import "./style.css";
+import propTypes from "prop-types";
 import Button from "../button";
 
 function Item({ item, addItemInCart }) {
   const cn = bem("Item");
-  //
-  // // Счётчик выделений
-  // const [count, setCount] = useState(0);
-  //
-  // const callbacks = {
-  //
-  //   onClick: useCallback(() => {
-  //     props.onSelect(props.item.code);
-  //     if (!props.item.selected) {
-  //       setCount(count + 1);
-  //     }
-  //   }, [props.onSelect, props.item, setCount, count]),
-  //
-  //   onDelete: useCallback((e) => {
-  //     e.stopPropagation();
-  //     props.onDelete(props.item.code)
-  //   }, [props.onDelete,  props.item])
-  // };
 
   return (
     <div className={cn()}>
@@ -41,15 +22,9 @@ function Item({ item, addItemInCart }) {
   );
 }
 
-// Item.propTypes = {
-//   item: propTypes.object.isRequired,
-//   onSelect: propTypes.func.isRequired,
-//   onDeleted: propTypes.func.isRequired
-// }
-//
-// Item.defaultProps = {
-//   onSelect: () => {},
-//   onDeleted: () => {}
-// }
+Item.propTypes = {
+  item: propTypes.object.isRequired,
+  addItemInCart: propTypes.func.isRequired,
+};
 
 export default React.memo(Item);

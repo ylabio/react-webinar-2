@@ -1,5 +1,3 @@
-import cart from "./components/cart";
-
 class Store {
   constructor(initState) {
     // Состояние приложения (данные)
@@ -9,10 +7,6 @@ class Store {
     this.listeners = [];
   }
 
-  /**
-   * Выбор state
-   * @return {Object}
-   */
   getState() {
     return this.state;
   }
@@ -21,10 +15,6 @@ class Store {
     return this.cartItems;
   }
 
-  /**
-   * Установка state
-   * @param newState {Object}
-   */
   setState(newState) {
     this.state = newState;
     // Оповещаем всех подписчиков об изменении стейта
@@ -33,11 +23,8 @@ class Store {
     }
   }
 
-  /**
-   * Подписка на изменение state
-   * @param callback {Function}
-   * @return {Function} Функция для отписки
-   */
+  getPrice() {}
+
   subscribe(callback) {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
@@ -46,38 +33,51 @@ class Store {
     };
   }
 
-  /**
-   * Создание записи
-   */
-  // createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-  //   this.setState({
-  //     ...this.state,
-  //     items: this.state.items.concat({code, title, price, selected})
-  //   });
-  // }
-
-  addItemInCart(code) {
-    let currentItem = this.state.items.find((item) => item.code === code);
-    console.log(currentItem);
+  removeItem(code) {
+    let currentItem = this.cartItems.find((item) => item.code == code);
+    let currentItemIndex = this.cartItems.findIndex(
+      (item) => item.code == code
+    );
     this.setState({
       ...this.state,
-      cartItems: {
-        ...this.cartItems,
-        cartItems: this.cartItems.push(currentItem),
-      },
+      ...this.cartItems,
+      cartItems: this.cartItems.map((item) => {
+        if (item == currentItem) {
+          return {
+            ...item,
+            count:
+              item.count > 1
+                ? item.count--
+                : this.cartItems.map((item) => {
+                    if (item == currentItem) {
+                      this.cartItems.splice(currentItemIndex, 1);
+                    }
+                  }),
+          };
+        }
+      }),
     });
   }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  // deleteItem(code) {
-  //   this.setState({
-  //     ...this.state,
-  //     items: this.state.items.filter(item => item.code !== code)
-  //   });
-  // }
+  addItemInCart(code) {
+    let currentItem = this.state.items.find((item) => item.code == code);
+    let isItemInCart = this.cartItems.some((item) => item.code == code);
+    this.setState({
+      ...this.cartItems,
+      ...this.state,
+      cartItems: isItemInCart
+        ? this.state.items.map((item) => {
+            if (item === currentItem) {
+              return {
+                ...item,
+                count: ++item.count,
+              };
+            }
+            return item;
+          })
+        : this.cartItems.push(currentItem),
+    });
+  }
 }
 
 export default Store;

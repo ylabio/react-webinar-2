@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from "react";
-import Controls from "./components/controls";
+import Header from "./components/header";
 import List from "./components/list";
 import Layout from "./components/layout";
-import { counter } from "./utils";
 import Cart from "./components/cart";
+import { getItemsQuantity, getTotalPrice } from "./utils";
 
 /**
  * Приложение
@@ -11,36 +11,48 @@ import Cart from "./components/cart";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({ store }) {
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(false); // модальное окно
+  const cartItems = store.getCartItems(); // Корзина
+  const totalPrice = getTotalPrice(cartItems); // Полная стоимость всех товаров
+  const ItemsQuantity = getItemsQuantity(cartItems); // Количество товаров
+
+  const { items } = store.getState();
+
+  console.log("items,", items);
 
   const callbacks = {
-    showModal: () => {
+    toggleModal: useCallback(() => {
       setModal(!modal);
-      console.log("setModal");
-    },
-
-    addItemInCart: (code) => {
-      console.log(store.getCartItems());
+    }, [modal, setModal]),
+    addItemInCart: useCallback((code) => {
       store.addItemInCart(code);
-    },
-
-    // onAdd: useCallback(() => {
-    //   const code = counter();
-    //   store.createItem({code, title: `Новая запись ${code}`});
-    // }, []),
-    // onDeleteItems: useCallback((code) => {
-    //   store.deleteItem(code);
-    // }, []),
+    }, []),
+    removeItem: useCallback((code) => {
+      store.removeItem(code);
+    }, []),
   };
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls totalPrice={223} showModal={callbacks.showModal} />
+      <Header
+        totalPrice={totalPrice}
+        cartLength={cartItems.length}
+        showModal={callbacks.toggleModal}
+        ItemsQuantity={ItemsQuantity}
+      />
       <List
         items={store.getState().items}
         addItemInCart={callbacks.addItemInCart}
       />
-      {modal && <Cart cartItems={store.getCartItems()} />}
+      {modal && (
+        // По нормальному я бы не стал так передавать пропсы, делал бы черед редакс, а так получается что я передаю пропсы через 2 компонента
+        <Cart
+          cartItems={cartItems}
+          totalPrice={totalPrice}
+          closeModal={callbacks.toggleModal}
+          removeItem={callbacks.removeItem}
+        />
+      )}
     </Layout>
   );
 }

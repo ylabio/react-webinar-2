@@ -11,6 +11,13 @@
 .Cart-container {
     display: flex;
     justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
 
 }
 
@@ -23,10 +30,6 @@
     background: #F5F5F5;
     margin-bottom: 74px;
 
-}
-
-.Cart-content {
-    width: 100%;
 }
 
 .Cart-footer {
@@ -42,28 +45,8 @@
 
 }
 
-.Cart-footer--total-price span {
-    margin-right: 25px;
+.Cart-footer--total-price {
+    display: flex;
+    gap: 35px;
 }
 
-.Cart-content {
-    display: flex;
-    justify-content: space-between;
-    border: 1px dashed #CCCCCC;
-}
-
-.Cart-content--right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
-    padding: 20px;
-}
-
-.Cart-content--left {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-}

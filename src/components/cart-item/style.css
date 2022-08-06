@@ -1,0 +1,25 @@
+.Cart-content {
+    display: flex;
+    justify-content: space-between;
+    border: 1px dashed #CCCCCC;
+}
+
+.Cart-content--right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    padding: 20px;
+}
+
+.Cart-content--left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 21px;
+}
+
+.Cart-content {
+    width: 100%;
+}

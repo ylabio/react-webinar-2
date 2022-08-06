@@ -1,23 +1,25 @@
 /* Пункт списка */
-.Item{
+.Item {
     display: flex;
     justify-content: flex-start;
 }
 
-.Item-title{
+.Item-title {
     width: 100%;
     padding: 20px 10px;
 }
-.Item-actions{
-    padding: 20px  20px 20px 10px;
+
+.Item-actions {
+    padding: 20px 20px 20px 10px;
     display: flex;
     justify-content: flex-end;
 }
-.Item-number{
+
+.Item-number {
     padding: 20px 10px 20px 20px;
 }
 
-.Item-Prise{
+.Item-Prise {
     margin-right: 24px;
-    white-space:pre;
+    white-space: pre;
 }

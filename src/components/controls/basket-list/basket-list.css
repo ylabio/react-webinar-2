@@ -1,29 +1,31 @@
-.Basket-list-item{
+.Basket-list-item {
     display: flex;
     justify-content: flex-start;
 }
 
-.Basket-list-title{
+.Basket-list-title {
     width: 100%;
     padding: 20px 10px;
     font-size: 16px;
 }
-.Basket-list-actions{
-    padding: 20px  20px 20px 10px;
+
+.Basket-list-actions {
+    padding: 20px 20px 20px 10px;
     display: flex;
     justify-content: flex-end;
 }
-.Basket-list-number{
+
+.Basket-list-number {
     padding: 20px 10px 20px 20px;
     font-size: 16px;
 }
 
-.Basket-list-prise{
+.Basket-list-prise {
     margin-right: 62px;
-    white-space:pre;
-}
-.Basket-list-amount{
-    margin-right: 33px;
-    white-space:pre;
+    white-space: pre;
 }
 
+.Basket-list-amount {
+    margin-right: 33px;
+    white-space: pre;
+}

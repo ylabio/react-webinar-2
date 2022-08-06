@@ -43,10 +43,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  createItem({code, title = 'Новый товар', price = 999}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      items: this.state.items.concat({code, title, price})
     });
   }
 
@@ -57,28 +57,45 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      basket: this.state.basket.filter(item => item.code !== code)
     });
   }
 
   /**
-   * Выделение записи по её коду
+   * Добавление товара
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
+  addProduct(code) {
+    const getOneItem = () => {
+      const result = this.state.items.filter((item) => item.code === code);
+      result[0].count = 1;
+      return result;
+    }
+
+    if (this.state.basket.some((item) => item.code === code)) {
+      this.setState({
+        ...this.state,
+        basket: this.state.basket.map((item) => {
+          if (item.code === code) {
+            return {
+              ...item,
+              count: item.count + 1
+            }
           }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+          return item;
+        })
+      });
+    } else if (this.state.basket.length) {
+      this.setState({
+        ...this.state,
+        basket: this.state.basket.concat(getOneItem()), 
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        basket: getOneItem(), 
+      });
+    }
   }
 }
 

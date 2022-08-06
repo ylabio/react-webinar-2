@@ -1,0 +1,29 @@
+/* Пункт списка */
+.ItemModal{
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 1s;
+}
+
+.ItemModal-title{
+    width: 100%;
+    padding: 20px 10px;
+}
+
+.ItemModal-price,
+.ItemModal-count {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 10%;
+    padding: 0 10px;
+}
+
+.ItemModal-actions{
+    padding: 20px  20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.ItemModal-number{
+    padding: 20px 10px 20px 20px;
+}

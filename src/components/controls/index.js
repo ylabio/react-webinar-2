@@ -1,21 +1,53 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
+import {cn as bem} from "@bem-react/classname";
+import plural from 'plural-ru';
 import './style.css';
 
-function Controls({onAdd}){
+function Controls({ basket, onClick }){
+  const cn = bem('Controls');
+
+  const callbacks = {
+    onClick: useCallback(() => {
+      onClick(true);
+    }, [onClick]),
+  };
+
+  const getQuantityProducts = () => {
+    if (basket.length) {
+      const price = basket.reduce((sum, product) => sum + product.price * product.count, 0);
+      
+      return `${plural(
+        basket.length, 
+        '%d товар', '%d товара', '%d товаров'
+        )} / ${price.toLocaleString('ru-RU', { 
+        style: 'currency', 
+        currency: 'RUB', 
+        minimumFractionDigits: 0 
+      })}`
+    }
+
+    return 'пусто'
+  }
+
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className={cn()}>
+      <p className={cn('basket')}>В корзине:
+        <span className={cn('basket', { weight: 'semiBold' })}>{getQuantityProducts()}</span>
+      </p>
+      <button className={cn('btnOpenModal')} onClick={callbacks.onClick}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  basket: propTypes.arrayOf(propTypes.object).isRequired,
+  onClick: propTypes.func.isRequired // Обяхательное свойство - функция
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  basket: [],
+  onClick: () => {} // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

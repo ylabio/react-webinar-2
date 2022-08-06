@@ -1,0 +1,23 @@
+.CartItem {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  
+  .CartItem-count {
+    margin-right: 20px;
+  }
+  
+  .CartItem-title {
+    margin-right: auto;
+  }
+  
+  .CartItem-price {
+    margin-right: 55px;
+    font-size: 18px;
+  }
+  
+  .CartItem-amount {
+    margin-right: 23px;
+    font-size: 18px;
+  } 

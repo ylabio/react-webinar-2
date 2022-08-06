@@ -44,29 +44,25 @@ class Store {
    * Добавление товара в корзину
    */
   addToCart(item) {
-    let index = -1
-    // если корзина не пустая, возможно, текущий товар был уже добавлен;
-    // тогда ищем этот товар по коду и сохраняем его индекс
-    if (this.state.cartItems.length > 0) {
-      for (let i=0; i<this.state.cartItems.length; i++) {
-        if (item.code === this.state.cartItems[i].code) {
-          index = i
-          break
-        }
-      }
-    }
+    // товар мог быть уже добавлен в корзину, ищем его индекс
+    const index = this.state.cartItems.findIndex((cartItem) => cartItem.code === item.code)
+
     if (index === -1) {
-      // если товар не был найден в корзине, то добавляем его и устанавливаем счетчик
+    // если товар не был найден в корзине, то добавляем его и устанавливаем счетчик
       this.setState({
         ...this.state,
         cartItems: [...this.state.cartItems, {...item, amount: 1}]
       });
     } else {
-      // если товар уже содержится в корзине, увеличиваем счетчик и возвращаем новый стейт
-      this.state.cartItems[index].amount += 1
+      // если товар уже содержится в корзине, увеличиваем счетчик
       this.setState({
         ...this.state,
-        cartItems: [...this.state.cartItems]
+        cartItems: this.state.cartItems.map((cartItem) => {
+          if (cartItem.code === item.code) {
+            return {...cartItem, amount: cartItem.amount + 1}
+          }
+          return cartItem
+        })
       })
     }
   }

@@ -19,11 +19,5 @@
   width: max-content;
 }
 .Item-price:after{
-  content: ' \20BD';
-}
-.Item-count{
-    padding: 0 20px 0 50px;
-}
-.Item-count:after{
-  content: ' шт';
+  content: var(--ruble-content);
 }

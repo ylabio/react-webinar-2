@@ -3,4 +3,9 @@
     display: flex;
     justify-content: flex-end;
     justify-self: flex-end;
+    align-items: center;
+    gap: 25px;
+}
+.Actions div{
+    padding-left: 45px;
 }

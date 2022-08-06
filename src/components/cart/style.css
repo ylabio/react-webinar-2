@@ -1,3 +1,8 @@
+.Cart{
+    display: flex;
+    flex-direction: column;
+}
+
 .Cart-head{
     display: flex;
     justify-content: space-between;
@@ -19,17 +24,18 @@
   font-weight: bold;
 }
 .Cart-total{
-    width: 100%;
     font-weight: bold;
     padding: 20px 0;
-    text-align: end;
+    text-align: center;
+    width: max-content;
+    align-self: flex-end;
 }
 .Cart-total_active:before{
     content: 'Итого';
     padding-right: 50px;
 }
 .Cart-total_active:after{
-    content: ' \20BD';
-    padding-right: 109px;
+    content: var(--ruble-content);
+    padding-right: 110px;
 }
 

@@ -1,3 +1,7 @@
+:root {
+    --ruble-content: ' \20BD'
+}
+
 body{
     margin: 0;
     padding: 0;

@@ -7,11 +7,11 @@ import './style.css';
 function Item(props) {
   const cn = bem('Item');
 
-  const {item, callbackButton, index} = props;
+  const {item, callback, index} = props;
 
   const handleCallback = useCallback(() => {
-    callbackButton.action(item)
-  }, [callbackButton, item]);
+    callback.action(item)
+  }, [callback.action, item]);
 
   return (
     <div className={cn()}>
@@ -24,23 +24,22 @@ function Item(props) {
       <div className={cn('price')}>
         {item.price.toLocaleString('ru-Ru')}
       </div>
-      <div className={item.count && 'Item-count'}>
-        {item.count}
-      </div>
-      <Actions action={handleCallback} name={callbackButton.name}/>
+      <Actions action={handleCallback} name={callback.name}>
+        {`${item.count ? item.count + ' шт' : ''}`}
+      </Actions>
     </div>
   )
 };
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  callbackButton: propTypes.object.isRequired,
+  callback: propTypes.object.isRequired,
   index: propTypes.number.isRequired
 };
 
 Item.defaultProps = {
   item: {},
-  callbackButton: {action: () => {}, name: ''},
+  callback: {action: () => {}, name: ''},
   index: 0
 };
 

@@ -7,8 +7,7 @@ import './style.css';
 
 /*
 * @param items {arrayOf(object)}
-* @param onHandleClickButton {function} Функция обработчик на кнопку (additem или deleteItem)
-* @param component {React.ReactElement} Компонент React (Item или CartItem)
+* @param callback {objectOf(Function, string)} Объект с функцией и названием обработчика на кнопку (additem или deleteItem)
 * @return {React.ReactElement} Виртуальные элементы React
 */
 function List(props) {
@@ -19,7 +18,7 @@ function List(props) {
   return (
     <ul className={cn()}>{items.map((item, index) =>
       <li key={item._id || item.code} className={cn('item')}>
-        <Item item={item} callbackButton={callback} index={index + 1}/>
+        <Item item={item} callback={callback} index={index + 1}/>
       </li>
     )}
     </ul>

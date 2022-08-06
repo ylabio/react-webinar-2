@@ -13,7 +13,7 @@
     padding: 0 15px;
 }
 .Controls-cart-info:after{
-    content: ' \20BD';
+    content: var(--ruble-content);
 }
 .Controls-cart-info_empty:after{
     content: '';

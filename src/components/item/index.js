@@ -29,7 +29,6 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
   onDeleted: propTypes.func.isRequired,
 }
 

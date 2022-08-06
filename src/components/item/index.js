@@ -1,42 +1,31 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
 
-function Item(props) {
+function Item({item, onButtonClick, index}) {
   const cn = bem('Item');
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
   const callbacks = {
-
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
-
-    onDelete: useCallback((e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
+    onButtonClick: useCallback(() => {
+      onButtonClick(item)
+    }, [onButtonClick, item])
   };
 
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
+    <div className={cn()}>
       <div className={cn('number')}>
-        {props.item.code}
+        {item.amount ? index : item.code}
       </div>
       <div className={cn('title')}>
-        {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
+        {item.title}
+      </div>
+      <div className={cn('info')}>
+        {item.price} &#8381; {item.amount ? <span className={cn('amount')}>{item.amount} шт</span> : ''}
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button className={cn('button')} onClick={callbacks.onButtonClick}>
+          {item.amount ? 'Удалить' : 'Добавить'}
         </button>
       </div>
     </div>
@@ -45,13 +34,8 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
-}
-
-Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
+  onButtonClick: propTypes.func.isRequired,
+  index: propTypes.number
 }
 
 export default React.memo(Item);

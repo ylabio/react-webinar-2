@@ -1,0 +1,11 @@
+.Cart-total{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 108px;
+    margin-top: 26px;
+    font-weight: 700;
+    font-size: 18px;
+}
+.Cart-label{
+    margin-right: 49px;
+}

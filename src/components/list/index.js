@@ -4,13 +4,15 @@ import {cn as bem} from "@bem-react/classname";
 import Item from "../item";
 import './style.css';
 
-function List(props) {
+function List({items, onButtonClick}) {
   const cn = bem('List');
 
   return (
-    <div className={cn()}>{props.items.map(item =>
+    <div className={cn()}>{items.map((item, index) =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} onSelect={props.onItemSelect} onDelete={props.onItemDelete}/>
+        <Item item={item}
+              onButtonClick={onButtonClick}
+              index={index + 1}/>
       </div>
     )}
     </div>
@@ -19,14 +21,7 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemSelect: propTypes.func,
-  onItemDelete: propTypes.func
-}
-
-List.defaultProps = {
-  items: [],
-  onItemSelect: () => {},
-  onItemDelete: () => {}
+  onButtonClick: propTypes.func.isRequired
 }
 
 export default React.memo(List);

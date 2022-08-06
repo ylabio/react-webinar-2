@@ -31,7 +31,7 @@
     display: block;
     width: 100%;
     max-width: 960px;
-    height: 603px; 
+    min-height: 603px; 
     box-sizing: border-box;
     background-color: #fff;
     border-radius: 10px;

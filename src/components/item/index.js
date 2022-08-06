@@ -9,14 +9,14 @@ function Item(props) {
   const callbacks = {
     clickItemHandler: useCallback((e) => {
       e.stopPropagation();
-      props.action(props.item.code)
+      props.action()
     }, [props.action,  props.item])
   };
 
   return (
     <div className={cn()}>
       <div className={cn('number')}>
-        {props.count ? props.count : props.item.code}
+        {props.count}
       </div>
       <div className={cn('title')}>
         {props.item.title}
@@ -38,7 +38,9 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  addToCart: propTypes.func.isRequired
+  addToCart: propTypes.func.isRequired,
+  count: propTypes.number.isRequired,
+  amount: propTypes.number,
 }
 
 Item.defaultProps = {

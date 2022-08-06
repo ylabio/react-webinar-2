@@ -7,25 +7,38 @@ import './style.css';
 function List(props) {
   const cn = bem('List');
 
+  const items = props.items
+
+  const getItems = () => {
+    let elements = [];
+    for (let prop in items) {
+      elements.push(
+        <div key={prop} className={cn('item')}>
+          <Item item={items[prop]}
+                count={+prop}
+                actionName="Добавить"
+                action={() => props.addToCart(prop)}/>
+        </div>);     
+    }
+    return elements;
+  }
+
   return (
-    <div className={cn()}>{props.items.map(item =>
-      <div key={item.code} className={cn('item')}>
-        <Item item={item}
-              actionName="Добавить"
-              action={props.addToCart}/>
-      </div>
-    )}
+    <div className={cn()}>
+
+      { getItems() }
+
     </div>
   )
 }
 
 List.propTypes = {
-  items: propTypes.arrayOf(propTypes.object).isRequired,
+  items: propTypes.objectOf(propTypes.object).isRequired,
   addToCart: propTypes.func
 }
 
 List.defaultProps = {
-  items: [],
+  items: {},
   addToCart: () => {}
 }
 

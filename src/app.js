@@ -13,17 +13,24 @@ import Cart from './components/cart';
 function App({store}) {
 
   const { cart, items } = store.getState()
-  const countOfItems = Object.keys(cart).length;                  
+  const countOfItems = Object.keys(cart).length;
 
   let totalPrice = 0;
   
   if (countOfItems) {
     for (let prop in cart) {
-      totalPrice += items.find(el => el.code === +prop).price*cart[prop]
+      totalPrice += items[prop]['price']*cart[prop]
     }
   }
 
   const callbacks = {
+    onAdd: useCallback(() => {
+      const code = counter();
+      store.createItem({code, title: `Новая запись ${code}`});
+    }, []),
+    onSelectItems: useCallback((code) => {
+      store.selectItem(code);
+    }, []),
     addToCart: useCallback((code) => {
       store.addToCart(code);
     }, []),

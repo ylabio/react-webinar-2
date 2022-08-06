@@ -14,19 +14,18 @@ function Cart({setOpenCart, removeFromCart, isOpenCart, state, totalPrice}){
     const { items, cart } = state
 
     const getItems = () => {
-      let count = 0;
+      getItems.count = 0;
       let elements = [];
       for (let prop in cart) {
-        count++
         elements.push(
         <div key={prop} className={cn('item')}>
-          <Item item={items.find(el => el.code == prop)}
-                count={count}
+          <Item item={items[prop]}
+                count={++getItems.count}
                 amount={cart[prop]}
                 actionName="Удалить"
                 action={() => removeFromCart(prop)}
           />
-        </div>);     
+        </div>);
       }
       return elements;
     }

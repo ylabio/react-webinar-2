@@ -5,17 +5,16 @@ import Store from "./store.js";
 import {counter} from './utils.js';
 
 const store = new Store({
-  items: [
-    {code: counter(), title: 'Название товара', price: 100.0},
-    {code: counter(), title: 'Книга про React', price: 770},
-    {code: counter(), title: 'Конфета', price: 33},
-    {code: counter(), title: 'Трактор', price: 7955320},
-    {code: counter(), title: 'Телефон iPhone XIXV', price: 120000},
-    {code: counter(), title: 'Карандаши цветные', price: 111},
-    {code: counter(), title: 'Товар сюрприз', price: 0},
-  ],
+  items: {
+    [counter()]: {title: 'Название товара', price: 100.0},
+    [counter()]: {title: 'Книга про React', price: 770},
+    [counter()]: {title: 'Конфета', price: 33},
+    [counter()]: {title: 'Трактор', price: 7955320},
+    [counter()]: {title: 'Телефон iPhone XIXV', price: 120000},
+    [counter()]: {title: 'Карандаши цветные', price: 111},
+    [counter()]: {title: 'Товар сюрприз', price: 0},
+  },
   cart: {},
-  isOpenCart: false,
 });
 
 const root = createRoot(document.getElementById('root'));
@@ -28,7 +27,7 @@ store.subscribe(() => {
 // Первый рендер (один раз)
 root.render(<App store={store}/>);
 
-/* 
-  объект cart содержит данные в формате 
- { ключ - code товара : значение - количество }
+/*
+  В объекте cart хранятся данные в формате
+  { ключ - code: значение - количество }
 */

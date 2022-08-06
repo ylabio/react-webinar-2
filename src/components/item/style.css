@@ -13,6 +13,13 @@
     width: 100%;
     padding: 20px 10px;
 }
+.Item-price{
+    padding: 20px 10px;
+    font-size: 18px;
+    line-height: 21px;
+    color: #404040;
+    white-space: nowrap;
+}
 .Item-actions{
     padding: 20px  20px 20px 10px;
     display: flex;

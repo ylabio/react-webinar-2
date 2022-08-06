@@ -1,0 +1,7 @@
+.CartList-item {
+	border-bottom: 1px dashed #cccccc;
+}
+
+.CartList-item:first-child {
+	border-top: 1px dashed #cccccc;
+}

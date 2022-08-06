@@ -1,0 +1,27 @@
+.CartPreview {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding: 20px;
+	font-size: 18px;
+	line-height: 21px;
+}
+.CartPreview-title {
+	margin-right: 15px;
+}
+.CartPreview-info {
+	display: flex;
+	font-weight: 700;
+	color: #000000;
+	margin-right: 20px;
+}
+.CartPreview-infoCount span {
+	color: #0c0c0c;
+}
+.CartPreview-infoSeparator {
+	display: inline-block;
+	margin: 0 5px;
+}
+.CartPreview button {
+	min-width: 80px;
+}

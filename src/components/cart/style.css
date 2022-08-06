@@ -1,0 +1,10 @@
+.Cart-total {
+	display: flex;
+	justify-content: flex-end;
+	gap: 56px;
+	font-weight: 700;
+	padding: 26px 105px 26px 20px;
+}
+.Cart-bodyEmpty {
+	text-align: center;
+}

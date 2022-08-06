@@ -10,8 +10,8 @@ function Modal({head, children, onCloseModal}){
   const stopPropagation = e => e.stopPropagation();
 
   return (
-    <div className={cn()}>
-      <div className={cn('body')} onClick={onCloseModal}>
+    <div className={cn()} onClick={onCloseModal}>
+      <div className={cn('body')} >
         <div className={cn('inner')} onClick={stopPropagation}>
           <div className={cn('head')}>
             {head}

@@ -1,21 +1,34 @@
-import React from 'react';
+import React, {useState} from 'react';
 import propTypes from 'prop-types';
 import './style.css';
+import plural from 'plural-ru'
+import CartComponent from "../cart/cartComponent";
 
-function Controls({onAdd}){
-  return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
-    </div>
-  )
+function Controls({goodsInCart, setGoodsInCart}) {
+
+    const [cartStatus, setCartStatus] = useState(false)
+
+    const onAddToCart = () => {
+        setCartStatus(true)
+    }
+
+    const price = goodsInCart.reduce((prev, cur) => prev + cur.count * cur.price, 0) // находим сумму товаров
+
+    return (
+        <div className='Controls'>
+            <span
+                className='Description'>В корзине: <strong>{plural(goodsInCart.length, '%d товар', '%d товара', '%d товаров')} / {price} ₽</strong>
+            </span>
+            <button onClick={onAddToCart}>Перейти</button>
+            <CartComponent cartStatus={cartStatus} setCartStatus={setCartStatus} goodsInCart={goodsInCart} price={price} setGoodsInCart={setGoodsInCart}/>
+        </div>
+    )
 }
 
-Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+    onAddToCart: () => {
+    } // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

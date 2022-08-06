@@ -3,4 +3,22 @@
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+    align-items: center;
+}
+.Description{
+    padding-right: 20px;
+}
+
+.Controls button {
+    margin-right: 21px;
+    padding: 3px 8px 2px 9px;
+    font-size: 13px;
+    color: #000000;
+    border-radius: 2px;
+    border: 1px solid #767676;
+    cursor: pointer;
+    transition: 0.25s;
+}
+.Controls button:hover {
+    transform: scale(1.1);
 }

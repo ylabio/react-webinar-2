@@ -4,14 +4,21 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import List from '../../list';
 
-function ContentModal({basket, sum}) {
-  const products = Object.values(basket);
+const ProductCount = (item) => <span>{item.count} шт</span>;
+
+function ContentModal(props) {
+  const products = Object.values(props.basket);
   return (
     <div className='Content-modal'>
-      <List items={products} />
+      <List
+        items={products}
+        callback={props.delete}
+        text={'Удалить'}
+        component={ProductCount}
+      />
       <div className='summary'>
         <span>Итого</span>
-        <span>{sum}</span>
+        <span>{props.sum}</span>
       </div>
     </div>
   )
@@ -20,6 +27,12 @@ function ContentModal({basket, sum}) {
 ContentModal.propTypes = {
   basket: propTypes.object.isRequired,
   sum: propTypes.string.isRequired,
+  isOpen: propTypes.bool.isRequired,
+  delete: propTypes.func
+}
+
+ContentModal.defaultProps = {
+  delete: () => {}
 }
 
 export default React.memo(ContentModal);

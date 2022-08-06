@@ -10,25 +10,22 @@ function Item(props) {
     'ru', {style: 'currency', currency: 'RUB', minimumFractionDigits: 0}
   );
 
-  const callbacks = {
-    onAdd: useCallback(() => {
-      props.onAddItem(props.item);
-    }, [props.item]),
-  };
+  const handleClick = () => {
+    props.callback(props.item);
+  }
 
   return (
     <div className={cn({'selected': props.item.selected})}>
-      <div className={cn('number')}>
-        {props.item.code}
-      </div>
+      <div className={cn('number')}>{props.position}</div>
       <div className={cn('title')}>
         <span>{props.item.title}</span>
-        <span className={cn({'price': true})}>{price}</span>
+        <div className={cn({'price': true})}>
+          <span>{price}</span>
+          {props.children}
+        </div>
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onAdd}>
-          Добавить
-        </button>
+        <button onClick={handleClick}>{props.text}</button>
       </div>
     </div>
   )
@@ -36,6 +33,8 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
+  position: propTypes.number,
+  text: propTypes.string.isRequired,
   onAddItem: propTypes.func.isRequired,
 }
 

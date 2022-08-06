@@ -8,7 +8,11 @@
     background: #75aaf1;
 }
 .Item_price {
+    display: flex;
     font-size: 18px;
+}
+.Item_price span:last-child{
+    padding-left: 55px;
 }
 .Item-title{
     display: flex;

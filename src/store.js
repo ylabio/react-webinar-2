@@ -57,7 +57,9 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      basket: Object.fromEntries(
+        Object.entries(this.state.basket).filter(item => item[1].code !== code)
+      )
     });
   }
 

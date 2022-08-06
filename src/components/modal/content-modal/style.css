@@ -1,7 +1,10 @@
 .Content-modal {
-  height: 450px;
-  overflow: auto;
   padding-top: 74px;
+}
+
+.Content-modal .List{
+  height: 380px;
+  overflow: auto;
 }
 
 .summary {

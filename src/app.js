@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter, useBasket} from "./utils";
+import {useBasket} from "./utils";
 import Basket from './components/basket';
 import HeaderModal from './components/modal/header-modal';
 import ContentModal from './components/modal/content-modal';
@@ -21,6 +21,9 @@ function App({store}) {
     onAddItem: useCallback((item) => {
       store.addItem(item);
     }, []),
+    onDeleteItem: useCallback((item) => {
+      store.deleteItem(item.code);
+    }, []),
     onModal: useCallback(() => {
       store.toggleModal();
     }, [])
@@ -33,11 +36,20 @@ function App({store}) {
           <Basket count={basketCount} sumPrice={sumPrice} />
           <Controls onModal={callbacks.onModal} textButton={'Перейти'} />
         </div>
-        <List items={store.getState().items} onItemAdd={callbacks.onAddItem} />
+        <List
+          items={store.getState().items}
+          callback={callbacks.onAddItem}
+          text={'Добавить'}
+        ></List>
       </Layout>
       <Modal isOpen={store.state.modal} onClose={callbacks.onModal}>
         <HeaderModal onModal={callbacks.onModal} />
-        <ContentModal basket={store.state.basket} sum={sumPrice} />
+        <ContentModal
+          basket={store.state.basket}
+          sum={sumPrice}
+          isOpen={store.state.modal}
+          delete={callbacks.onDeleteItem}
+        />
       </Modal>
     </>
   );

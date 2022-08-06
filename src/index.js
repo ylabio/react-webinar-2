@@ -15,6 +15,7 @@ const store = new Store({
     {code: counter(), title: 'Товар сюрприз', price: 0},
   ],
   cart: {},
+  isOpenCart: false,
 });
 
 const root = createRoot(document.getElementById('root'));
@@ -26,3 +27,8 @@ store.subscribe(() => {
 
 // Первый рендер (один раз)
 root.render(<App store={store}/>);
+
+/* 
+  объект cart содержит данные в формате 
+ { ключ - code товара : значение - количество }
+*/

@@ -10,7 +10,9 @@ function List(props) {
   return (
     <div className={cn()}>{props.items.map(item =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} addToCart={props.addToCart}/>
+        <Item item={item}
+              actionName="Добавить"
+              action={props.addToCart}/>
       </div>
     )}
     </div>

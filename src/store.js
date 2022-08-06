@@ -51,7 +51,7 @@ class Store {
   }
 
   /**
-   * Удаление записи по её коду
+   * Добавление товара в корзину
    * @param code
    */
    addToCart(code) {
@@ -63,6 +63,29 @@ class Store {
       }
     });
   }
+
+   /**
+   * Удаление товара из корзины
+   * @param code
+   */
+    removeFromCart(code) {
+      const cartCopy = {...this.state.cart};
+      delete cartCopy[code]
+      this.setState({
+        ...this.state,
+        cart: cartCopy
+      });
+    }
+
+   /**
+   * Удаление записи по её коду
+   * @param code
+   */
+    setOpenCart(isOpenCart) {
+      this.setState({
+        ...this.state, isOpenCart
+      });
+    }
 }
 
 export default Store;

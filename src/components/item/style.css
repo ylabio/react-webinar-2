@@ -3,12 +3,8 @@
     display: flex;
     justify-content: flex-start;
     transition: background-color 1s;
+    white-space: nowrap;
 }
-.Item_selected{
-    background: #75aaf1;
-}
-
-
 .Item-title{
     width: 100%;
     padding: 20px 10px;
@@ -16,15 +12,12 @@
 .Item-price{
     display: flex;
     align-items: center;
-    white-space: nowrap;
-    font-family: 'Arial';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 21px;
-    text-align: right;
-    color: #404040;
     padding-right: 14px;
+}
+.Item-amount{
+    display: flex;
+    align-items: center;
+    padding: 0 14px 0 41px;
 }
 .Item-actions{
     padding: 20px  20px 20px 10px;

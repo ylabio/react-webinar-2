@@ -7,16 +7,16 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onAddToCart: useCallback((e) => {
+    clickItemHandler: useCallback((e) => {
       e.stopPropagation();
-      props.addToCart(props.item.code)
-    }, [props.addToCart,  props.item])
+      props.action(props.item.code)
+    }, [props.action,  props.item])
   };
 
   return (
     <div className={cn()}>
       <div className={cn('number')}>
-        {props.item.code}
+        {props.count ? props.count : props.item.code}
       </div>
       <div className={cn('title')}>
         {props.item.title}
@@ -24,9 +24,12 @@ function Item(props) {
       <div className={cn('price')}>
         {props.item.price.toLocaleString('ru')} ₽
       </div>
+      { props.amount && <div className={cn('amount')}>
+        {props.amount} шт
+      </div> }
       <div className={cn('actions')}>
-        <button onClick={callbacks.onAddToCart}>
-          Добавить
+        <button onClick={callbacks.clickItemHandler}>
+          {props.actionName}
         </button>
       </div>
     </div>

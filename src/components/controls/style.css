@@ -3,32 +3,20 @@
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+    color: #000000;
 }
 .Controls-text{
     margin-right: 15px;
-    font-family: 'Arial';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 21px;
-    color: #000000;
 }
 .Controls-data{
     margin-right: 20px;
-    font-family: 'Arial';
-    font-style: normal;
     font-weight: 700;
-    font-size: 18px;
-    line-height: 21px;
 }
 .Controls-button{
     display: flex;
     justify-content: center;
     width: 80px;
     height: 21px;
-    font-family: 'Arial';
-    font-style: normal;
-    font-weight: 400;
     font-size: 13px;
     line-height: 15px;
     text-align: center;

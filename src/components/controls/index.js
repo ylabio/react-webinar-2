@@ -4,18 +4,8 @@ import {cn as bem} from "@bem-react/classname";
 import plural from 'plural-ru';
 import './style.css';
 
-function Controls({onAdd, cart, items}){
+function Controls({countOfItems, totalPrice, setOpenCart}){
   const cn = bem('Controls');
-
-  const countOfItems = Object.keys(cart).length;
-
-  let totalPrice = 0;
-  
-  if (countOfItems) {
-    for (let prop in cart) {
-      totalPrice += items.find(el => el.code === +prop).price*cart[prop]
-    }
-  }
 
   return (
     <div className={cn()}>
@@ -28,7 +18,7 @@ function Controls({onAdd, cart, items}){
              ${totalPrice.toLocaleString('ru')} ₽` 
           : "пусто" }
         </span>
-      <button className={cn('button')} onClick={onAdd}>
+      <button onClick={() => setOpenCart(true)} className={cn('button')}>
         Перейти
       </button>
     
@@ -37,15 +27,15 @@ function Controls({onAdd, cart, items}){
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired, // Обяхательное свойство - функция
-  cart: propTypes.object,
-  items: propTypes.arrayOf(propTypes.object).isRequired,
+  setOpenCart: propTypes.func.isRequired,
+  countOfItems: propTypes.number.isRequired,
+  totalPrice: propTypes.number.isRequired,
 }
 
 Controls.defaultProps = {
-  onAdd: () => {}, // Значение по умолчанию - функция-заглушка
-  cart: {},
-  items: [],
+  setOpenCart: () => {},
+  countOfItems: 0,
+  totalPrice: 0,
 }
 
 export default React.memo(Controls);

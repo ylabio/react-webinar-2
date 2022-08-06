@@ -31,8 +31,12 @@ function Item(props) {
         {props.item.code}
       </div>
       <div className={cn('title')}>
-        {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
+        <span>
+          {props.item.title}
+        </span>
+        <span>
+        {`${props.item.price} ₽`}
+        </span>
       </div>
       <div className={cn('actions')}>
         <button onClick={callbacks.onDelete}>

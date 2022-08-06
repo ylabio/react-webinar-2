@@ -10,6 +10,8 @@
 
 
 .Item-title{
+    display: flex;
+    justify-content: space-between;
     width: 100%;
     padding: 20px 10px;
 }

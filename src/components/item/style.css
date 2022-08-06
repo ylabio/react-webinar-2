@@ -4,9 +4,7 @@
     justify-content: flex-start;
     transition: background-color 1s;
 }
-.Item_selected{
-    background: #75aaf1;
-}
+
 
 
 .Item-title{
@@ -20,4 +18,17 @@
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+.Item-price{
+    min-width: 150px;
+    text-align: end;
+    margin-right: 25px;
+    align-self: center;    
+}
+
+.Item-stats{
+    min-width: 50px;
+    text-align: end;
+    margin-right: 10px;
+    align-self: center;    
 }

@@ -1,21 +1,28 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
+import {cn as bem} from "@bem-react/classname";
 
-function Controls({onAdd}){
+function Controls({getCartStats, onOpen}){
+  const cn = bem('Controls');
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className={cn()}>
+      <div className={cn('stats')}>
+        В корзине: <strong>{getCartStats().count ? `${getCartStats().count} товара / ${getCartStats().sumPrice} ₽` : `пусто`}</strong>
+      </div>
+      <button onClick={onOpen}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  onOpen: propTypes.func.isRequired, // Обяхательное свойство - функция
+  getCartStats:  propTypes.func.isRequired
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  onOpen: () => {}, // Значение по умолчанию - функция-заглушка
+  getCartStats: () => {}
 }
 
 export default React.memo(Controls);

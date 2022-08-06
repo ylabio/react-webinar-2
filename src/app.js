@@ -37,14 +37,11 @@ function App({ store }) {
           btnActionName={'Добавить'}
         />
       </Layout>
-      <Modal active={modalActive} setActive={setModalActive}>
+      <Modal active={modalActive} setActive={setModalActive} summationCart={callbacks.summationCart().priceCrat}>
         <List items={store.getState().itemsInCart}
-          // onItemSelect={callbacks.onSelectItems}
           btnAction={callbacks.onDeleteItems}
           btnActionName={'Удалить'}
           model={'Modal'}
-          con={console.log}
-
         />
       </Modal>
     </>

@@ -25,10 +25,6 @@ function Item(props) {
   };
 
 
-  props.model == 'Modal' ?
-  props.con()
-  : ''
-
   return (
     <div className={cn()} >
       <div className={cn('number')}>
@@ -37,12 +33,13 @@ function Item(props) {
       <div className={cn('title')}>
         {props.item.title}
       </div>
-      {props.model == 'Modal' ? <div className={cn('price')}>
-        {props.item.count}
-      </div> : ''}
       <div className={cn('price')}>
-        {props.item.price}
+        <p className={cn('price-p')}>{props.item.price} ₽ </p>
       </div>
+      {props.model == 'Modal' ?
+        <div className={cn('count')}>
+          <p className={cn('count-p')}>{props.item.count}  шт</p>
+        </div> : ''}
       <div className={cn('actions')}>
         <button onClick={callbacks.btnAction}>
           {props.btnActionName}

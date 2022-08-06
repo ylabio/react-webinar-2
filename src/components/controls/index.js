@@ -3,20 +3,25 @@ import propTypes from 'prop-types';
 import plural from 'plural-ru';
 import './style.css';
 
-function Controls({ setActive, summationCart }){
-  
+function Controls({ setActive, summationCart }) {
+
   // reducer fn 
   const counterPrice = () => "пусто"
-   
-   console.log(summationCart())
-   return (
+
+  console.log(summationCart())
+  return (
     <div className='Controls'>
-      <p  style={{padding: 0 , margin: 0 ,marginRight: '20px', display: 'inline-block',}}
-      >В корзине: {summationCart().quantityP > 0 ? 
+      <p className='Controls-title' >В корзине:</p>
+
+      <p className='Controls-content' >
+        {summationCart().quantityP > 0 ?
         `${summationCart().quantityP}
          ${plural(summationCart().quantityP, 'товар', 'товара', 'товарa')} / 
-         ${summationCart().priceCrat} ₽`: 'пусто'}</p>
-      
+         ${summationCart().priceCrat} ₽` : 'пусто'}
+      </p>
+
+
+
       <button onClick={() => setActive(true)}>Перейти</button>
     </div>
   )
@@ -27,7 +32,7 @@ Controls.propTypes = {
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  onAdd: () => { } // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

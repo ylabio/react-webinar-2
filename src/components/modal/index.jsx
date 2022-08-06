@@ -5,7 +5,7 @@ import propTypes from "prop-types";
 import './style.css';
 
 
-function Modal({ active, setActive, children, head = "Корзина", totalPricee = 232 }) {
+function Modal({ active, setActive, children, head = "Корзина", summationCart }) {
     const cn = bem('Modal');
     return (
         <div className={active ? cn('active') : cn()}>
@@ -30,7 +30,7 @@ function Modal({ active, setActive, children, head = "Корзина", totalPric
                     > Итого </p>
 
                     <p className={cn('price')}
-                    > {` ${totalPricee} ₽`} </p>
+                    > {` ${summationCart} ₽`} </p>
                 </div>
 
             </div>

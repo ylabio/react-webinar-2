@@ -10,3 +10,11 @@
     border-top: 1px dashed #ccc;
 
 }
+button{
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+}

@@ -66,7 +66,7 @@ class Store {
   /**
    * Создание записи корзины
    */
-   createCartItem({code, title = 'Новый товар', price = 999, number}) {
+  createCartItem({code, title = 'Новый товар', price = 999, number}) {
     
     if(this.state.cart.find(item => item.code === code))
     {

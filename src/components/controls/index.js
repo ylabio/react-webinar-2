@@ -8,7 +8,7 @@ function Controls({getCartStats, onOpen}){
   return (
     <div className={cn()}>
       <div className={cn('stats')}>
-        В корзине: <strong>{getCartStats().count ? `${getCartStats().count} товара / ${getCartStats().sumPrice} ₽` : `пусто`}</strong>
+        В корзине: <strong>{getCartStats().count ? `${getCartStats().count} товара / ${getCartStats().sumPrice.toLocaleString()} ₽` : `пусто`}</strong>
       </div>
       <button onClick={onOpen}>Перейти</button>
     </div>

@@ -30,7 +30,7 @@ function Item(props) {
         {props.item.title}
       </div>
       <div className={cn('price')}>
-        {props.item.price} ₽
+        {props.item.price.toLocaleString()} ₽
       </div>
 
       {props.item.count &&

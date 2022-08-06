@@ -1,6 +1,7 @@
 import { cn as bem } from '@bem-react/classname'
 import propTypes from 'prop-types'
 import React, { useCallback } from 'react'
+import { formatRubPrice } from '../../utils'
 import './style.css'
 
 function Item(props) {
@@ -24,7 +25,9 @@ function Item(props) {
     <div className={cn()} onClick={callbacks.onClick}>
       <div className={cn('number')}>{props.item.code}</div>
       <div className={cn('title')}>{props.item.title}</div>
-      <div className={cn('price')}>{props.item.price + ' ₽'}</div>
+      <div className={cn('price')}>
+        {formatRubPrice(props.item.price)}
+      </div>
 
       <div className={cn('actions')}>
         <button onClick={callbacks.onAddInCart}>Добавить</button>

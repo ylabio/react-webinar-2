@@ -1,16 +1,11 @@
 import React, { useCallback, useEffect } from 'react'
-import List from '../list'
-import Layout from '../layout'
 import "./style.css"
 import { cn as bem } from '@bem-react/classname'
 import propTypes from 'prop-types';
-import { getCartCost } from '../../utils'
 
 function Modal({
   handleClose, 
-  cart, 
-  handleBtn, 
-  btnText
+  children
 }) {
   const cn = bem("Modal")
 
@@ -41,32 +36,7 @@ function Modal({
           Это тоже удобно, но я так уже делал)
           Позволяет по клику вне модальника сбрасывать модальник
          */}
-      <Layout head={
-      <>
-        <h1>Корзина</h1>
-        <button onClick={callbacks.closeModal}>Закрыть</button>
-      </>
-      } onClick={(e) => e.stopPropagation()}> {/* Чтобы при клике на сам модальник его не скидывало */}
-        {
-        cart.length 
-        ? 
-        <> {/* Фрагментом это делать неприлично, но здесь норм */}
-          <List handleBtn={handleBtn}
-                items={cart}
-                btnText={btnText}
-          />
-          <div className={cn('sum')}>
-            <div>Итого: </div>
-            <div>{getCartCost(cart).toLocaleString('ru')} ₽</div>
-          </div>
-        </>
-        : 
-        <div className={cn('empty')}>
-          <span className={cn('empty-bold')}>Корзина пуста!</span>
-          <span className={cn('empty-text')}>Приходите, когда выберите товары</span>
-        </div>
-        }
-      </Layout>
+        {children}
     </div>
   )
 }

@@ -25,14 +25,4 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-}
-.Item-count{
-    margin-left: calc(62px - 24px);
-    margin-right: 24px;
-    text-align: center;
-    flex-shrink: 0;
-    font-size: 18px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
+  }

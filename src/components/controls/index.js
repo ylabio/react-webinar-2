@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import {getCartCost} from '../../utils'
 import propTypes from 'prop-types';
 import plural from "plural-ru"
 import './style.css';
@@ -21,8 +20,8 @@ function Controls({handleClick, cart}){
         В корзине: 
         <span className={cn("boldText")}>
           {
-            cart.length 
-            ? `${plural(cart.length, "%d товар", "%d товара", "%d товаров")} / ${getCartCost(cart).toLocaleString('ru')} ₽` 
+            cart.items.length 
+            ? `${plural(cart.items.length, "%d товар", "%d товара", "%d товаров")} / ${cart.cost.toLocaleString('ru')} ₽` 
             : "пусто"
           }
         </span>

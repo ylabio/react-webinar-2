@@ -2,8 +2,9 @@ import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import Modal from './components/modal';
+import ModalCart from './components/modalCart';
 import './global.css'
+import ItemCatalog from './components/itemCatalog';
 
 /**
  * Приложение
@@ -35,14 +36,15 @@ function App({store}) {
       />
       <List items={store.getState().items}
             handleBtn={callbacks.addNewInCart}
+            ItemType={ItemCatalog}
       />
       {
         modalView && 
-        <Modal cart={store.getState().cart} 
-               handleClose={callbacks.closeCart}
-               handleBtn={callbacks.deleteFromCart}
-               btnText={"Удалить"}
-      />} {/* Очень хотелось здесь контекст впихнуть на самом деле*/}
+        <ModalCart closeCart={callbacks.closeCart}
+                   onItemClick={callbacks.deleteFromCart}
+                   cart={store.getState().cart}
+        />
+      } {/* Очень хотелось здесь контекст впихнуть на самом деле*/}
     </Layout>
   );
 }

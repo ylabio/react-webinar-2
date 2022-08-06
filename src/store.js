@@ -1,3 +1,5 @@
+import { getCartCost } from "./utils";
+
 class Store {
 
   constructor(initState) {
@@ -47,24 +49,28 @@ class Store {
    */
   addInCart(code) {
     const cb = (el) => el.code === code
-    const newCart = [...this.state.cart]
+    const newCart = {
+      ...this.state.cart,
+      items: [...this.state.cart.items]
+    }
 
-    const stagedElem = newCart.find(cb)
+    const stagedElem = newCart.items.find(cb)
 
     if (stagedElem) {
-      newCart[newCart.indexOf(stagedElem)] = {
+      newCart.items[newCart.items.indexOf(stagedElem)] = {
         ...stagedElem, 
         count: stagedElem.count + 1
       } 
     } else {
-      newCart.push({ // Не мутация изначального состояния
+      newCart.items.push({ // Не мутация изначального состояния
         ...this.state.items.find(cb), 
         count: 1
       })
-      newCart.sort((a, b) => a.code - b.code) // Чтобы выглядело красиво и по порядку
-                                              // Это не мутация изначального состояния, реакту хорошо
+      newCart.items.sort((a, b) => a.code - b.code) // Чтобы выглядело красиво и по порядку
+                                                    // Это не мутация изначального состояния, реакту хорошо
     }
 
+    newCart.cost = getCartCost(cb, 'add', this.state)
     this.setState({
       ...this.state,
       cart: newCart // Даже ссылка новая!
@@ -78,7 +84,11 @@ class Store {
   deleteFromCart(code) {
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter(el => el.code !== code)
+      cart: {
+        ...this.state.cart,
+        cost: getCartCost(el => el.code === code, 'delete', this.state),
+        items: this.state.cart.items.filter(el => el.code !== code)
+      }
     });
   }
 }

@@ -1,13 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import Item from "../item";
 import './style.css';
 
 function List({
   items,
   handleBtn,
-  btnText
+  ItemType
 }) {
   const cn = bem('List');
 
@@ -20,7 +19,7 @@ function List({
         Ответ: https://ru.reactjs.org/docs/lists-and-keys.html#keys-must-only-be-unique-among-siblings
         Вкратце: нет, они должны быть полностью уникальными только в пределах одного списка
       */}
-        <Item item={item} handleBtn={handleBtn} btnText={btnText}/>
+        <ItemType item={item} handleBtn={handleBtn} />
       </div>
     )}
     </div>

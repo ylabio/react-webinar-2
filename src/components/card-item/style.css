@@ -1,0 +1,45 @@
+/* Пункт списка */
+.Card-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  border-bottom: 1px dashed #cccccc;
+  transition: background-color 1s;
+  border-top: 1px dashed #cccccc;
+}
+
+.Card-item:hover {
+  background-color: #f5f5f5;
+}
+.Card-item-title {
+  flex-grow: 1;
+  padding: 20px 20px;
+}
+.Card-item-price {
+  margin-right: 55px;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #404040;
+}
+.Card-item-count {
+  margin-right: 23px;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #404040;
+}
+.Card-item-actions {
+  cursor: pointer;
+  height: 21px;
+  width: 71px;
+  border-radius: 2px;
+  margin-right: 20px;
+}
+.Card-item-number {
+}

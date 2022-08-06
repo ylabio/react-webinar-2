@@ -1,5 +1,4 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -36,17 +35,17 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  createItem({ code, title = "Новый товар", price = 999, selected = false }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      items: this.state.items.concat({ code, title, price, selected }),
     });
   }
 
@@ -57,27 +56,64 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      items: this.state.items.filter((item) => item.code !== code),
     });
   }
 
   /**
-   * Выделение записи по её коду
+   * Удаление записи в корзину по её коду
    * @param code
    */
-  selectItem(code) {
+  addItem(code) {
+    if (this.state.card.find((item) => item.code === code)) {
+      this.setState({
+        ...this.state,
+        card: this.state.card.map((item) => {
+          if (item.code === code) {
+            return {
+              code,
+              title: item.title,
+              price: item.price,
+              count: item.count + 1,
+            };
+          }
+          return item;
+        }),
+      });
+    } else {
+      const newItem = this.state.items.find((item) => item.code === code);
+      this.setState({
+        ...this.state,
+        card: this.state.card.concat({
+          code,
+          title: newItem.title,
+          price: newItem.price,
+          count: 1,
+        }),
+      });
+    }
+  }
+  onModalClose() {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      modal: false,
+    });
+  }
+  showModal() {
+    this.setState({
+      ...this.state,
+      modal: true,
+    });
+  }
+
+  /**
+   * Удаление записи из корзины по её коду
+   * @param code
+   */
+  deleteCardItem(code) {
+    this.setState({
+      ...this.state,
+      card: this.state.card.filter((item) => item.code !== code),
     });
   }
 }

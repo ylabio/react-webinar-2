@@ -1,37 +1,51 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from "react";
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Card from "./components/card";
+import { nanoid } from "nanoid";
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
-
+function App({ store }) {
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAddItem: useCallback((code) => {
+      store.addItem(code);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onModalClose: useCallback(() => {
+      store.onModalClose();
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onShowModal: useCallback(() => {
+      store.showModal();
     }, []),
-  }
-
+    onDeleteCardItem: useCallback((code) => {
+      store.deleteCardItem(code);
+    }, []),
+  };
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls
+          onShowModal={callbacks.onShowModal}
+          cardItems={store.getState().card}
+        />
+        <List
+          items={store.getState().items}
+          onItemSelect={callbacks.onSelectItems}
+          onItemAdd={callbacks.onAddItem}
+        />
+      </Layout>
+      {store.getState().modal && (
+        <Card
+          onCardItemDelete={callbacks.onDeleteCardItem}
+          onModalClose={callbacks.onModalClose}
+          cardItems={store.getState().card}
+        />
+      )}
+    </>
   );
 }
 

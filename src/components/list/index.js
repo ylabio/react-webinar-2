@@ -21,7 +21,12 @@ function List({items, onButtonClick}) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onButtonClick: propTypes.func.isRequired
+  onButtonClick: propTypes.func
 }
+
+List.defaultProps = {
+  onButtonClick: () => {}
+}
+
 
 export default React.memo(List);

@@ -11,6 +11,9 @@ import Cart from "./components/cart";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const cartModalTitle = 'Корзина';
+  const layoutMainHead = <h1>Магазин</h1>;
+
   const callbacks = {
     onItemAddition: useCallback((item) => {
       store.addItemToCart(item);
@@ -27,14 +30,14 @@ function App({store}) {
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={layoutMainHead}>
       <Controls cart={store.getState().cart}
                 onCartOpen={callbacks.onCartOpen}/>
       <List items={store.getState().items}
             onButtonClick={callbacks.onItemAddition}/>
       <Modal active={store.getState().cart.isOpened}
              onClose={callbacks.onCartClose}
-             title={'Корзина'}>
+             title={cartModalTitle}>
         <Cart onItemDeletion={callbacks.onItemDeletion}
               items={Object.values(store.getState().cart.items)}
               total={store.getState().cart.total}/>

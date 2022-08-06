@@ -17,12 +17,6 @@ function Item(props) {
         })
       },
       [props.onAddInCart, props.item]
-    ),
-    onDelete: useCallback(
-      e => {
-        props.onDelete(props.item.code)
-      },
-      [props.onDelete, props.item]
     )
   }
 
@@ -32,15 +26,8 @@ function Item(props) {
       <div className={cn('title')}>{props.item.title}</div>
       <div className={cn('price')}>{props.item.price + ' ₽'}</div>
 
-      {props.item.count !== undefined && (
-        <div className={cn('count')}>{props.item.count + ' шт'}</div>
-      )}
       <div className={cn('actions')}>
-        {props.item.count !== undefined ? (
-          <button onClick={callbacks.onDelete}>Удалить</button>
-        ) : (
-          <button onClick={callbacks.onAddInCart}>Добавить</button>
-        )}
+        <button onClick={callbacks.onAddInCart}>Добавить</button>
       </div>
     </div>
   )
@@ -48,7 +35,6 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onDelete: propTypes.func,
   onAddInCart: propTypes.func
 }
 

@@ -1,5 +1,7 @@
 import React, { useCallback } from 'react'
+import CartItem from './components/cart-item'
 import Controls from './components/controls'
+import Item from './components/item'
 import Layout from './components/layout'
 import List from './components/list'
 import Popup from './components/popup'
@@ -30,8 +32,11 @@ function App({ store }) {
         cart={store.getState().cart}
       />
       <List
-        items={store.getState().items}
-        onItemAddInCart={callbacks.onAddItemInCart}
+        items={store.getState().items.map(item => ({
+          item,
+          onAddInCart: callbacks.onAddItemInCart
+        }))}
+        itemTemplate={Item}
       />
       {store.getState().cart.visible && (
         <Popup
@@ -47,8 +52,11 @@ function App({ store }) {
           }
         >
           <List
-            items={store.getState().cart.items}
-            onDeleteItem={callbacks.onDeleteItem}
+            items={store.getState().cart.items.map(item => ({
+              item,
+              onDelete: callbacks.onDeleteItem
+            }))}
+            itemTemplate={CartItem}
           />
           <TotalPrice price={store.getState().cart.price} />
         </Popup>

@@ -1,16 +1,33 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import Item from "../item";
 import './style.css';
 
-function List(props) {
+function List({items, itemFunc, isInCart}) {
   const cn = bem('List');
 
+  const callbacks = {
+    onButtonClick: useCallback((item) => {
+      itemFunc(item)
+    }, [itemFunc])
+  };
+
   return (
-    <div className={cn()}>{props.items.map(item =>
+    <div className={cn()}>{items.map((item, index) =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} onSelect={props.onItemSelect} onDelete={props.onItemDelete}/>
+        {isInCart === true ?
+        <Item item={item} number={index + 1}>
+          <button onClick={() => callbacks.onButtonClick(item)}>
+            Удалить
+          </button>
+        </Item>
+        :
+        <Item item={item}>
+          <button onClick={() => callbacks.onButtonClick(item)}>
+            Добавить
+          </button>
+        </Item>}
       </div>
     )}
     </div>
@@ -19,14 +36,14 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemSelect: propTypes.func,
-  onItemDelete: propTypes.func
+  itemFunc: propTypes.func,
+  isInCart: propTypes.bool,
 }
 
 List.defaultProps = {
   items: [],
-  onItemSelect: () => {},
-  onItemDelete: () => {}
+  itemFunc: () => {},
+  isInCart: false
 }
 
 export default React.memo(List);

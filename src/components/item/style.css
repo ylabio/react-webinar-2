@@ -3,6 +3,7 @@
     display: flex;
     justify-content: flex-start;
     transition: background-color 1s;
+    align-items: center;
 }
 .Item_selected{
     background: #75aaf1;
@@ -14,10 +15,19 @@
     padding: 20px 10px;
 }
 .Item-actions{
-    padding: 20px  20px 20px 10px;
+    padding: 20px  20px 20px 24px;
     display: flex;
     justify-content: flex-end;
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+.Item-price{
+    font-size: 18px;
+    white-space: nowrap;
+}
+.Item-count{
+    margin-left: 55.25px;
+    font-size: 18px;
+    white-space: nowrap;
 }

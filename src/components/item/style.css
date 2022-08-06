@@ -4,20 +4,30 @@
     justify-content: flex-start;
     transition: background-color 1s;
 }
-.Item_selected{
-    background: #75aaf1;
-}
-
 
 .Item-title{
     width: 100%;
     padding: 20px 10px;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
 }
+
 .Item-actions{
+    width: 111px;
     padding: 20px  20px 20px 10px;
+    margin: 0;
     display: flex;
     justify-content: flex-end;
 }
+
+.Item-actions > button{
+    width: 76px;
+}
+
 .Item-number{
     padding: 20px 10px 20px 20px;
+    margin: 0;
 }

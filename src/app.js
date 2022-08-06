@@ -1,8 +1,8 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Card from './components/card';
 
 /**
  * Приложение
@@ -11,13 +11,13 @@ import {counter} from "./utils";
  */
 function App({store}) {
 
+  //определяем видимость модального окна, false окно закрыто, true открыто
+  const [ cardActive, setCardActive ] = useState(false);
+
+  //onAddItems добавление в коризну, DeleteItems удаление в корзине
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
-    }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onAddItems: useCallback((code) => {
+      store.addInCard(code);
     }, []),
     onDeleteItems: useCallback((code) => {
       store.deleteItem(code);
@@ -25,11 +25,16 @@ function App({store}) {
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls card={store.getState().card}
+                openCard={setCardActive}/>
       <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+            onItemAdd={callbacks.onAddItems}
+      />
+      <Card  active={cardActive}
+             card={store.getState().card}
+             setActive={setCardActive}
+             onItemDelete={callbacks.onDeleteItems}
       />
     </Layout>
   );

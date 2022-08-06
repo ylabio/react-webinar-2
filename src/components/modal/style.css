@@ -1,0 +1,62 @@
+/* Источник кода для модалки: https://itchief.ru/html-and-css/modal */
+
+.Modal {
+    position: fixed; /* фиксированное положение */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.7); /* цвет фона */
+    z-index: 1050;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    -webkit-transition: opacity 200ms ease-in;
+    -moz-transition: opacity 200ms ease-in;
+    transition: opacity 200ms ease-in; /* анимация перехода */
+    margin: 0;
+    padding: 0;
+}
+/* при отображении модального окно */
+.modal:target {
+    opacity: 1; /* делаем окно видимым */
+    pointer-events: auto; /* элемент видим для событий мыши */
+}
+/* свойства для блока, содержащего контент модального окна */
+.Modal-content {
+    position: relative;
+    display: flex;
+    min-width: 960px;
+    height: 603px;
+    overflow: auto;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border-radius: 10px;
+    outline: 0;
+}
+.Modal .Layout {
+   min-height: 100%;
+   box-shadow: none;
+   overflow: auto;
+   margin: 0;
+}
+
+.Modal .Layout .Layout-content {
+    margin: 70px 0 0;
+}
+
+.Modal .Head .Button {
+  padding: 0 10px 0;
+}

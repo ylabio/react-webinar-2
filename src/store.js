@@ -40,45 +40,41 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+	/**
+	 * Установка нового значения корзины
+	 * @param newBasket
+	 */
+  setBasket(newBasket) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      basket: newBasket
     });
   }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
+	/**
+	 * Добавления нового элемента в корзину
+	 * @param item
+	 */
+  addInBasket(item) {
+    const basket = this.state.basket;
+    let newBasket = [];
+    if (!basket.some(el => el.code === item.code)) {
+      item.count = 1;
+      newBasket=[...basket, item];
+    } else {
+      item.count++;
+      newBasket=basket;
+    }
+
+    this.setBasket(newBasket);
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+	/**
+	 * Удаление элемента из корзины
+	 * @param code
+	 */
+  deleteFromBasket(code) {
+    this.setBasket(this.state.basket.filter(elem => elem.code !== code))
   }
 }
 

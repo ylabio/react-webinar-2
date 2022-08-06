@@ -1,8 +1,11 @@
-import React, {useCallback} from 'react';
-import Controls from "./components/controls";
+import React, {useCallback, useState} from 'react';
+import Button from './components/button';
+import Head from './components/head';
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import ModalPreview from './components/modalPreview';
+import Modal from './components/modal';
+import Total from './components/total';
 
 /**
  * Приложение
@@ -10,28 +13,41 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+	const [isVisibleModal, setVisibleModal] = useState(false);
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAddItems: useCallback(item => {
+      store.addInBasket(item);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
+		onTransition: useCallback(() => setVisibleModal(prev => !prev), []),
+		onDeleteItems: useCallback(item => {
+			store.deleteFromBasket(item);
+		}, []),
   }
 
+	const button = <Button title='Закрыть' callback={callbacks.onTransition} />;
+  const basket = store.getState().basket;
+
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+  		<>
+				<Layout head={<Head title='Магазин' />}>
+					<ModalPreview basket={basket} onTransition={callbacks.onTransition}/>
+					<List items={store.getState().items} onAddItems={callbacks.onAddItems} />
+				</Layout>
+				<Modal isVisibleModal={isVisibleModal} closeModal={callbacks.onTransition}>
+					<Layout head={
+						<Head
+								title='Корзина'
+								button={button}
+						/>}
+					>
+						<List items={basket}
+									onDeleteItems={callbacks.onDeleteItems}
+						/>
+						{!!basket.length && <Total basket={basket}/>}
+					</Layout>
+				</Modal>
+			</>
   );
 }
 

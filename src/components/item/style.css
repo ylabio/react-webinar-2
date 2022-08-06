@@ -8,10 +8,21 @@
     background: #75aaf1;
 }
 
-
 .Item-title{
     width: 100%;
     padding: 20px 10px;
+}
+.Item-price{
+    white-space: pre;
+    padding: 20px  10px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.Item-amount{
+    white-space: pre;
+    padding: 20px  20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
 }
 .Item-actions{
     padding: 20px  20px 20px 10px;

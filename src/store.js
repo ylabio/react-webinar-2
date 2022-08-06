@@ -41,43 +41,56 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Добавление товара в корзину
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
+  addItemCart({code, title, price}) {
+    let checkItem = true;
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
+      cart: this.state.cart.map(item => {
+        if (item.code === code) {
+          checkItem = false;
           return {
             ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
+            count: item.count + 1
           }
         }
-        return item.selected ? {...item, selected: false} : item;
+        return item;
       })
+    });
+
+    if (checkItem) {
+      return this.setState({
+        ...this.state,
+        cart: this.state.cart.concat({code, title, price, count: 1})
+      });
+    }
+  }
+
+  /**
+   * Получение количества и суммы для корзины
+   */
+
+  getCountAndSumCart() {
+    let sum = 0;
+    let count = 0;
+    this.getState().cart.map(item => {
+      sum += item.count * item.price;
+      count += 1;
+      })
+    return {sum, count};
+  }
+
+  /**
+   * Удаление записи по её коду из корзины
+   * @param code
+   */
+  deleteItemCart(code) {
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.filter(item => item.code !== code)
     });
   }
 }

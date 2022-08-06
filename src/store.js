@@ -1,3 +1,5 @@
+import item from "./components/item";
+
 class Store {
 
   constructor(initState) {
@@ -82,21 +84,29 @@ class Store {
   }
 
   /**
-   * Выделение записи по её коду
+   * Добавление записи в корзину
    * @param cartItem
    */
   addToCartItem(itemId) {
-    const cartItem = this.state.items.find(item => item.code === itemId); 
-// использовать reduce здесь
+    const cartItem = this.state.items.find(item => item.code === itemId);  
+
     this.setState({
       ...this.state,
-     cart: {
+      cart: {
       ...this.state.cart,
       cartItems: this.state.cart.cartItems.concat(cartItem),
+      // cartItems: this.state.cart.cartItems.reduce((acc, item) => {
+      //   if(acc.indexOf(item.id) === -1) {
+      //     acc.item.count += 1
+      //   } else {
+      //     acc.concat({...item, count: 1})
+      //   };    
+      //   return acc;
+      // }, []),   
       totalPrice: this.state.cart.totalPrice + cartItem.price,
       totalQuantity: this.state.cart.totalQuantity + 1
-     }     
-    })
+      }   
+    })   
   }
 }
 

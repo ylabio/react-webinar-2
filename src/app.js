@@ -13,12 +13,10 @@ import Cart from "./components/cart";
  */
 function App({store}) {
 
-  // const [modalActive, setModalActive] = useState(false);
-
   const callbacks = {
-    // onOpenCart: useCallback(() => {
-    //   setModalActive(true);
-    // }, []),
+    toggleCart: useCallback(() => {
+      store.toggleCart();
+    }, []),
     addItemToCart: useCallback((code) => {
       store.addItemToCart(code);
     }, []),
@@ -31,7 +29,9 @@ function App({store}) {
     <Layout head={<h1>Магазин</h1>}>
       <Controls store={store}
                 cartItems={store.getState().cartItems}
-                deleteCartItems={callbacks.onDeleteCartItems}/>
+                deleteCartItems={callbacks.onDeleteCartItems}
+                isModalActive={store.getState().isModalActive}
+                toggleCart={callbacks.toggleCart}/>
       <List items={store.getState().items}
             button={callbacks.addItemToCart}
             buttonText={'Добавить'}/>

@@ -8,14 +8,8 @@ import Modal from "../modal";
 import Cart from "../cart";
 
 
-function Controls({cartItems, deleteCartItems, store}) {
+function Controls({ cartItems, deleteCartItems, isModalActive, toggleCart }) {
   const cn = bem('Controls');
-
-  const [isModalActive, setIsModalActive] = useState(false);
-
-  const toggleCart = () => {
-    setIsModalActive((value) => !value);
-  }
 
   return (
     <div className={cn()}>
@@ -27,7 +21,7 @@ function Controls({cartItems, deleteCartItems, store}) {
       </div>
       <button onClick={toggleCart}>Перейти</button>
       {isModalActive && <Modal isModalActive={isModalActive}
-                               closeModal={toggleCart}
+                               toggleCart={toggleCart}
                                cartItems={cartItems}
                                deleteCartItems={deleteCartItems}
         /*children={<Cart store={store}/>}*//>}
@@ -37,14 +31,17 @@ function Controls({cartItems, deleteCartItems, store}) {
 }
 
 Controls.propTypes = {
+  isModalActive: propTypes.bool,
+  toggleCart: propTypes.func,
   cartItems: propTypes.arrayOf(propTypes.object).isRequired,
   deleteCartItems: propTypes.func
 }
 
 Controls.defaultProps = {
+  isModalActive: false,
+  toggleCart: () => {},
   cartItems: [],
-  deleteCartItems: () => {
-  }
+  deleteCartItems: () => {}
 }
 
 export default React.memo(Controls);

@@ -6,18 +6,18 @@ import List from "../list";
 import Layout from "../layout";
 import {getAllCartItemsCost} from "../../utils";
 
-function Modal({isModalActive, closeModal, cartItems, deleteCartItems, children}) {
+function Modal({isModalActive, toggleCart, cartItems, deleteCartItems, children}) {
   const cn = bem('Modal');
   const a = bem('active');
 
   return (
-    <div className={isModalActive ? cn(null, [a()]) : cn()} onClick={closeModal}>
-      <div className={isModalActive ? cn('content', [a()]) : cn('content')} onClick={closeModal}>
+    <div className={isModalActive ? cn(null, [a()]) : cn()} onClick={toggleCart}>
+      <div className={isModalActive ? cn('content', [a()]) : cn('content')} onClick={e => e.stopPropagation()}>
         {/*{children}*/}
         <Layout head={
           <>
             <h1>Корзина</h1>
-            <button onClick={closeModal}>Закрыть</button>
+            <button onClick={toggleCart}>Закрыть</button>
           </>
         }>
           <List items={cartItems}
@@ -39,7 +39,7 @@ function Modal({isModalActive, closeModal, cartItems, deleteCartItems, children}
 
 Modal.propTypes = {
   isModalActive: propTypes.bool,
-  closeModal: propTypes.func.isRequired,
+  toggleCart: propTypes.func.isRequired,
   cartItems: propTypes.arrayOf(propTypes.object).isRequired,
   deleteCartItems: propTypes.func,
   children: propTypes.node
@@ -47,7 +47,7 @@ Modal.propTypes = {
 
 Modal.defaultProps = {
   isModalActive: false,
-  closeModal: () => {},
+  toggleCart: () => {},
   cartItems: [],
   deleteCartItems: () => {},
   children: ''

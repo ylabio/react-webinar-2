@@ -48,7 +48,6 @@ class Store {
     const inCart = this.state.cartItems.map((item) => item.code);
 
     if (!inCart.includes(code)) {
-      console.log(code);
       const [test] = this.state.items.filter((item) => item.code === code);
       this.setState({
         ...this.state,
@@ -75,6 +74,16 @@ class Store {
     this.setState({
       ...this.state,
       cartItems: this.state.cartItems.filter((item) => item.code !== code),
+    });
+  }
+
+  /**
+   * Показать/скрыть модальное окно
+   */
+  toggleCart() {
+    this.setState({
+      ...this.state,
+      isModalActive: !this.state.isModalActive
     });
   }
 }

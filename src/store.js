@@ -80,6 +80,34 @@ class Store {
       })
     });
   }
+
+  addToCart(code) {
+    const inCart = this.state.cart.map((item) => item.code)
+    if (!inCart.includes(code)) {
+      const [test] = this.state.items.filter((item) => item.code === code)
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, { ...test, amount: 1 }],
+      })
+    }else{
+      this.state.cart.forEach((item) => {
+        if (item.code === code) {
+          item.amount += 1
+          this.setState({
+            ...this.state,
+            cart: [...this.state.cart],
+          })
+        }
+      })
+    }
+  }
+  deleteFromCart(code) {
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.filter((item) => item.code !== code),
+    })
+  }
 }
+
 
 export default Store;

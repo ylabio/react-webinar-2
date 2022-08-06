@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import plural from 'plural-ru';
 import './style.css';
+import { currencyFormat } from '../../utils';
 
 function Item(props) {
   const cn = bem('Item');
@@ -25,6 +26,8 @@ function Item(props) {
     }, [props.onDelete,  props.item])
   };
 
+  const modifiedPrice = currencyFormat(props.item.price, 0);
+
   return (
     <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
       <div className={cn('number')}>
@@ -35,7 +38,7 @@ function Item(props) {
          {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
       </div>
       <div>
-        {props.item.price}
+        {modifiedPrice}
       </div>
       <div className={cn('actions')}>
         <button onClick={callbacks.onDelete}>

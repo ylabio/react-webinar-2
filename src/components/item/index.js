@@ -20,6 +20,10 @@ function Item(props) {
     <div className={cn()}>
       <div className={cn('number')}>{props.item.code}</div>
       <div className={cn('title')}>{props.item.title}</div>
+      <div className={cn('price')}>
+        {props.item.price}
+        <span> &#8381;</span>{' '}
+      </div>
       <div className={cn('actions')}>
         <button onClick={callbacks.onDelete}>Удалить</button>
       </div>

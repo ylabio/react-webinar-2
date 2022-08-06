@@ -33,17 +33,17 @@ let config = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: [{loader: 'babel-loader'}],
+        use: [{ loader: 'babel-loader' }],
       },
       // Возможность подключать css как модули, чтобы попали в сборку
       // С опцией modules при импорте стиля получаем объект с названиями ccs классов
       {
         test: /\.css$/,
         use: [
-          {loader: MiniCssExtractPlugin.loader, options: {}},
-          {loader: 'css-loader', options: {url: true, import: true/*, modules: true*/}},
+          { loader: MiniCssExtractPlugin.loader, options: {} },
+          { loader: 'css-loader', options: { url: true, import: true/*, modules: true*/ } },
         ],
-      },
+      }
     ],
   },
 };

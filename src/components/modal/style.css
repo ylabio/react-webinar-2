@@ -1,0 +1,60 @@
+.Modal{
+  position: absolute;
+  top: 0;
+  left: 0 ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+}
+
+.Modal > .Layout{
+  width: 67%;
+  min-height: 67%;
+  border-radius: 10px;
+}
+
+.Modal .Layout-head{
+  border-radius: 10px;
+  margin-bottom: 74px;
+}
+
+.Modal-sum{
+  box-sizing: border-box;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 9rem;
+}
+.Modal-sum-number {
+  padding-left: 1rem;
+}
+.Modal-sum > div{
+  font-weight: 700;
+  flex-shrink: 0;
+  text-align: end;
+  margin-left: 10px;
+}
+
+.Modal-empty{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+.Modal-empty-bold{
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.Modal-empty-text{
+  font-size: 20px;
+  font-weight: 500;
+}

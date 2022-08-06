@@ -5,20 +5,16 @@ import './style.css';
 
 function BasketItem(props) {
     const cn = bem('Item-basket');
-    const price = Intl.NumberFormat("ru").format(props.item.price)
+    const price = Intl.NumberFormat("ru").format(props.item.price);
 
-    // const callbacks = {
-    //
-    //     onDelete: useCallback((e) => {
-    //         e.stopPropagation();
-    //         props.onDelete(props.item.code)
-    //     }, [props.onDelete,  props.item])
-    // };
+    const onDeleteHandler = useCallback(() => {
+        props.onDelete(props.item.code)
+    }, [props.onDelete]);
 
     return (
         <div className={cn()}>
             <div className={cn('number')}>
-                {props.item.code}
+                {props.order}
             </div>
             <div className={cn('title')}>
                 {props.item.title}
@@ -26,8 +22,8 @@ function BasketItem(props) {
             <div className={cn('actions')}>
                 <div className={cn('wrapper')}>
                     <p className={cn('price')}>{price +' ₽'}</p>
-                    <p className={cn('count')}> {props.item.count}  шт</p>
-                    <button>
+                    <p className={cn('count')}> {props.item.quantity + ' шт'}</p>
+                    <button onClick={onDeleteHandler}>
                         Удалить
                     </button>
                 </div>
@@ -38,13 +34,11 @@ function BasketItem(props) {
 
 BasketItem.propTypes = {
     item: propTypes.object.isRequired,
-    onSelect: propTypes.func.isRequired,
-    onDeleted: propTypes.func.isRequired
+    onDelete: propTypes.func.isRequired
 }
 
 BasketItem.defaultProps = {
-    onSelect: () => {},
-    onDeleted: () => {}
+    onDelete: () => {}
 }
 
 export default React.memo(BasketItem);

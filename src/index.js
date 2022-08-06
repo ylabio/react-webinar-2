@@ -14,11 +14,7 @@ const store = new Store({
     {code: counter(), title: 'Карандаши цветные', price: 111},
     {code: counter(), title: 'Товар сюрприз', price: 0},
   ],
-  userProducts: [
-    {code: counter(), title: 'Телефон iPhone XIXV', price: 20, count: 2},
-    {code: counter(), title: 'Карандаши цветные', price: 1, count: 1},
-    {code: counter(), title: 'Конфета', price: 1, count: 1},
-  ],
+  userProducts: [],
 });
 
 const root = createRoot(document.getElementById('root'));

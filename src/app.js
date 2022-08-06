@@ -1,9 +1,8 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import BasketPopup from "./components/basket-popup"
-import {counter} from "./utils";
 
 /**
  * Приложение
@@ -12,29 +11,35 @@ import {counter} from "./utils";
  */
 function App({store}) {
 
+  const [isBasketPopupShown, setIsBasketPopupShown] = useState(false)
+
   const callbacks = {
-    onAdd: useCallback((count) => {
-      const code = counter();
-      store.addProduct(code, count);
+    onAdd: useCallback((code, count) => {
+      store.addProductToCart(code, count);
     }, []),
     onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+      store.deleteProductFromCart(code);
     }, []),
   }
 
   return (
-     <>
     <Layout head={<h1>Магазин</h1>}>
-      {/*<BasketPopup*/}
-      {/*    items={store.getState().userProducts}*/}
-      {/*/>*/}
-          <Controls userProducts={store.getState().userProducts}/>
-          <List items={store.getState().items}
-            // onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+      { isBasketPopupShown && (
+          <BasketPopup
+              items={store.getState().userProducts}
+              onBasketPopupClose={() => setIsBasketPopupShown(false)}
+              onItemDelete={callbacks.onDeleteItems}
           />
+      ) }
+      <Controls
+          items={store.getState().userProducts}
+          onBasketPopupShow={() => setIsBasketPopupShown(true)}
+      />
+      <List
+          items={store.getState().items}
+          onItemAdd={callbacks.onAdd}
+      />
     </Layout>
-       </>
   );
 }
 

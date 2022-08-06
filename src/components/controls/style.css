@@ -5,17 +5,16 @@
     padding: 20px;
 }
 
-.Controls__basket-block {
+.Controls-basket-block {
     margin: 0 20px 0 0;
-
+    font-size: 18px;
 }
 
-.Controls__text {
-    size: 18px;
-}
-
-.Controls__products-sum {
-    size: 18px;
+.Controls-products-sum {
     font-weight: 700;
     margin: 0 0 0 15px;
+}
+
+.Controls button {
+    padding: 1px 12px;
 }

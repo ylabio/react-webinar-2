@@ -6,10 +6,6 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.Item-basket button{
-   padding: 1px 8px;
-}
-
 .Item-basket-title{
     width: 100%;
     padding: 20px 10px;
@@ -31,4 +27,8 @@
 .Item-basket-count {
     margin: 0 29px;
     white-space: nowrap;
+}
+
+.Item-basket button{
+    padding: 1px 8px;
 }

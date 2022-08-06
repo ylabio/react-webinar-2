@@ -1,27 +1,31 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
-import {getSumPrice} from '../../utils';
+import {getSumPrice, getAllQuantity, pluralize} from '../../utils';
+import {cn as bem} from "@bem-react/classname";
 
 function Controls(props) {
-
+  const cn = bem('Controls');
+  const numberOfGoods = getAllQuantity(props.items);
 
   return (
-    <div className='Controls'>
-      <p className={'Controls__basket-block'}><span className={'Controls__text'}>В корзине:</span> <span className={'Controls__products-sum'}>{props.userProducts.length > 0
-          ? props.userProducts.length + ' шт ' + '/ ' + getSumPrice(props.userProducts)  + ' ₽'
+    <div className={cn()}>
+      <p className={cn('basket-block')}><span className={cn('text')}>В корзине:</span> <span className={cn('products-sum')}>{props.items.length > 0
+          ? `${numberOfGoods} ${pluralize(numberOfGoods, ['товар', 'товара', 'товаров'])} / ${getSumPrice(props.items)} ₽`
           : 'пусто'}</span></p>
-      <button>Перейти</button>
+      <button onClick={props.onBasketPopupShow}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  items: propTypes.arrayOf(propTypes.object).isRequired,
+  onBasketPopupShow: propTypes.func.isRequired // Обязательное свойство - функция
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  items: [],
+  onBasketPopupShow: () => {} // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

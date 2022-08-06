@@ -2,25 +2,28 @@
 /* Всплывающее окно корзины с товарами */
 
 .Basket-wrapper {
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
     left: -10px;
     top: -10px;
     right: -10px;
     bottom: -10px;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .Basket {
     position: relative;
-    background: #FFFFFF;
-    border-radius: 10px;
-    width: 94%;
+    top: 220px;
+    max-width: 960px;
     min-height: 603px;
-    margin: 130px auto;
-    padding: 0;
+    max-height: 70%;
+    overflow: scroll;
+    margin: auto;
+    padding: 0 0 10px 0 ;
     box-sizing: border-box;
     z-index: 100;
     font-family: Arial, Helvetica, sans-serif;
+    border-radius: 10px;
+    background: #FFFFFF;
 }
 
 .Basket-header {
@@ -66,4 +69,11 @@
 
 .Basket-sum-text {
     padding: 0 47px 0 0;
+}
+
+.Basket-is-empty {
+    padding: 0 20px;
+    font-style: italic;
+    text-align: center;
+    color: #535353;
 }

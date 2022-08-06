@@ -1,0 +1,22 @@
+.Cart{
+    min-width: 960px;
+    border-radius: 10px;
+    padding-bottom: 61px;
+}
+
+.Cart-head{
+    height: 80px;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+}
+
+.Cart-title{
+    padding: 0px;
+}
+
+.Cart-list{
+    padding-top: 61px;
+}

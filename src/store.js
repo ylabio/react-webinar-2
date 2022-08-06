@@ -2,7 +2,10 @@ class Store {
 
   constructor(initState) {
     // Состояние приложения (данные)
-    this.state = initState;
+    this.state = {
+      ...initState,
+      orders: [] // массив для товаров в корзине
+    }
     // Слушатели изменений state
     this.listeners = [];
   }
@@ -41,13 +44,23 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Добавление в корзину
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
+  createItem(item) {
+    const existItem = this.state.orders.find((el) => el.code === item.code);
+    if(existItem) {
+      this.setState({
+        ...this.state,
+        orders: this.state.orders.map(el => {
+          return el.code === item.code ? {...existItem, amount: existItem.amount + 1} : el
+        })
+      })
+    }else {
+      this.setState({
+        ...this.state,
+        orders: [...this.state.orders, {...item, amount: 1}]
+      });
+    }
   }
 
   /**
@@ -57,27 +70,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      orders: this.state.orders.filter(item => item.code !== code)
     });
   }
 }

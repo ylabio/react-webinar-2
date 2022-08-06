@@ -1,0 +1,7 @@
+.Button{
+    min-width: 75px;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

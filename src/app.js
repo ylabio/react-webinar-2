@@ -18,20 +18,20 @@ function App({ store }) {
     onAdd: useCallback((code) => {
       store.createItem({ code });
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
+    summationCart : useCallback(() => {
+     return store.summationCart();
+    }, [store.state.itemsInCart]),
     onDeleteItems: useCallback((code) => {
       console.log('onDeleteItems ==>', code);
       store.deleteItem(code)
     }, []),
   }
-  // console.log(store.getState())
+  console.log(store)
 
   return (
     <>
       <Layout head={<h1>Магазин</h1>}>
-        <Controls setActive={setModalActive} />
+        <Controls setActive={setModalActive} summationCart={callbacks.summationCart} />
         <List items={store.getState().items}
           btnAction={callbacks.onAdd}
           btnActionName={'Добавить'}
@@ -41,7 +41,7 @@ function App({ store }) {
         <List items={store.getState().itemsInCart}
           // onItemSelect={callbacks.onSelectItems}
           btnAction={callbacks.onDeleteItems}
-          btnActionName={'dleY'}
+          btnActionName={'Удалить'}
           model={'Modal'}
           con={console.log}
 

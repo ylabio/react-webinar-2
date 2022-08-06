@@ -44,7 +44,7 @@ class Store {
    * Добавлен уникального товара в карзину
    */
   createItem({ code }) {
-
+    
     const product = (this.getState().items).filter(item => item.code == code)
 
     {
@@ -85,24 +85,24 @@ class Store {
   }
 
   /**
-   * Выделение записи по её коду
-   * @param code
+   * Суммирование корзины
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      itemsInCart: this.state.items.map(item => {
-        if (item.code === code) {
-          return {
-            ...item,
-            count: item.count ? item.count + 1 : 1,
-          }
-        }
-        return console.log('==> onSelectItems', code) // item.selected ? {...item, selected: false} : item;
+   summationCart() {
+    //Суммирование количества товара (в штуках)
 
-      })
-    });
+    const quantityP = (this.state.itemsInCart
+      .map(item => item.count))
+      .reduce((a,b) => a + b ,0)
+
+
+    //Суммирование стоимости 
+    const priceCrat = (this.state.itemsInCart
+      .map(item => item.price * item.count))
+      .reduce((a,b) => a + b ,0)
+
+    return {priceCrat , quantityP}
   }
+
 }
 
 export default Store;

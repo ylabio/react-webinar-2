@@ -10,7 +10,7 @@ function List({ items, button, buttonText }) {
   return (
     <div className={cn()}>{items.map((item, index) =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} index={++index} button={button} buttonText={buttonText}/>
+        <Item item={item} index={index + 1} button={button} buttonText={buttonText}/>
       </div>
     )}
     </div>

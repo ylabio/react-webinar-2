@@ -1,8 +1,7 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
 import Modal from "./components/modal";
 import Cart from "./components/cart";
 
@@ -17,8 +16,8 @@ function App({store}) {
     toggleCart: useCallback(() => {
       store.toggleCart();
     }, []),
-    addItemToCart: useCallback((code) => {
-      store.addItemToCart(code);
+    onAddItemToCart: useCallback((code, item) => {
+      store.addItemToCart(code, item);
     }, []),
     onDeleteCartItems: useCallback((code) => {
       store.deleteCartItems(code);
@@ -30,16 +29,18 @@ function App({store}) {
       <Controls cartItems={store.getState().cartItems}
                 toggleCart={callbacks.toggleCart}/>
       <List items={store.getState().items}
-            button={callbacks.addItemToCart}
+            button={callbacks.onAddItemToCart}
             buttonText={'Добавить'}/>
-      {store.getState().isModalActive &&
-        <Modal title={'Корзина'}
-               isModalActive={store.getState().isModalActive}
-               toggleCart={callbacks.toggleCart}
-               // cartItems={store.getState().cartItems}
-               // deleteCartItems={callbacks.onDeleteCartItems}
-               children={<Cart cartItems={store.getState().cartItems}
-                               deleteCartItems={callbacks.onDeleteCartItems}/>}/>}
+      <Modal isModalActive={store.getState().isModalActive}
+             toggleCart={callbacks.toggleCart}>
+        <Layout head={
+          <>
+            <h1>Корзина</h1>
+            <button onClick={callbacks.toggleCart}>Закрыть</button>
+          </>}/>
+        <Cart cartItems={store.getState().cartItems}
+              deleteCartItems={callbacks.onDeleteCartItems}/>
+      </Modal>
     </Layout>
   );
 }

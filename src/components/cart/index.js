@@ -2,9 +2,8 @@ import React from 'react';
 import './style.css';
 import propTypes from "prop-types";
 import {cn as bem} from "@bem-react/classname";
-import Layout from "../layout";
 import List from "../list";
-import {getAllCartItemsCost} from "../../utils";
+import {getAllPrice} from "../../utils";
 
 function Cart({cartItems, deleteCartItems }) {
   const cn = bem('Cart');
@@ -18,7 +17,7 @@ function Cart({cartItems, deleteCartItems }) {
         ? <div className={cn('total-price')}>
           <strong>
             <span>Итого</span>
-            <span>{`${getAllCartItemsCost(cartItems).toLocaleString('ru')} ₽`}</span>
+            <span>{getAllPrice(cartItems)}</span>
           </strong>
         </div>
         : ''}

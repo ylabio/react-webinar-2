@@ -4,7 +4,7 @@ import React from 'react'
 import { formatRubPrice } from '../../utils'
 import './style.css'
 
-function Controls({ onCartOpen, cart }) {
+function Controls({ onOpenCart, cart }) {
   return (
     <div className='Controls'>
       <span>В корзине:</span>
@@ -18,13 +18,13 @@ function Controls({ onCartOpen, cart }) {
               'товаров'
             )} / ${formatRubPrice(cart.price)}`}
       </strong>
-      <button onClick={onCartOpen}>Перейти</button>
+      <button onClick={onOpenCart}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onCartOpen: propTypes.func.isRequired,
+  onOpenCart: propTypes.func.isRequired,
   cart: propTypes.object.isRequired
 }
 

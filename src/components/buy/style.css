@@ -1,0 +1,10 @@
+.Buy{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    
+}
+
+.Buy span{
+    padding-right: 15px;
+}

@@ -1,9 +1,10 @@
 import React from "react";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
+import { allBuy } from "../../utils";
 import "./style.css";
 
-function Buy(props) {
+function Buy({ buyState, setModal }) {
   const cn = bem("Buy");
 
   return (
@@ -11,12 +12,15 @@ function Buy(props) {
       <span>
         В корзине:{" "}
         <b>
-          {props.buyState.length
-            ? props.buyState.reduce((acc, curr) => acc + curr.price, 0)
+          {buyState.length
+            ? `${buyState.reduce(
+                (acc, curr) => acc + curr.total,
+                0
+              )} товара / ${allBuy(buyState)} ₽`
             : "пусто"}
         </b>
       </span>
-      <button onClick={() => props.setModal(true)}>Перейти</button>
+      <button onClick={() => setModal(true)}>Перейти</button>
     </div>
   );
 }

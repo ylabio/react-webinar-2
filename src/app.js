@@ -3,7 +3,6 @@ import Modal from "./components/modal";
 import Buy from "./components/buy";
 import List from "./components/list";
 import Layout from "./components/layout";
-import { counter } from "./utils";
 
 /**
  * Приложение
@@ -11,30 +10,9 @@ import { counter } from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({ store }) {
-  const [buyState, setBuyState] = useState([]);
   const [modal, setModal] = useState(false);
 
-  // const addItem = (item) => {
-  //   item.total ? item.total++ : (item.total = 1);
-
-  //   if (!buyState.map((item) => item.code).includes(item.code)) {
-  //     setBuyState([...buyState, item]);
-  //   } else {
-  //     setBuyState([...buyState.filter((i) => i.code !== item.code), item]);
-  //   }
-  // };
-
-  // console.log("buyState", buyState);
-  // console.log("modal", modal);
-
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({ code, title: `Новая запись ${code}` });
-    }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
     onDeleteItems: useCallback((code) => {
       store.deleteItem(code);
     }, []),
@@ -48,16 +26,17 @@ function App({ store }) {
     <Layout
       head={<h1>Магазин</h1>}
       modal={modal}
-      // componentModal={
-      //   <Modal
-      //     setModal={setModal}
-      //     buyState={buyState}
-      //     setBuyState={setBuyState}
-      //   />
-      // }
+      componentModal={
+        <Modal
+          setModal={setModal}
+          buyState={store.getState().itemsBuy}
+          itemClick={callbacks.onDeleteItems}
+          head={<h1>Корзина</h1>}
+        />
+      }
     >
-      {/* <Buy buyState={buyState} setModal={setModal} /> */}
-      <List items={store.getState().items} addItem={callbacks.onAddItem} />
+      <Buy buyState={store.getState().itemsBuy} setModal={setModal} />
+      <List items={store.getState().items} itemClick={callbacks.onAddItem} />
     </Layout>
   );
 }

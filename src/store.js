@@ -11,7 +11,7 @@ class Store {
    * @return {Object}
    */
   getState() {
-    console.log(this.state.itemsBuy, "state");
+    console.log(this.state, "state");
     return this.state;
   }
 
@@ -20,7 +20,7 @@ class Store {
    * @param newState {Object}
    */
   setState(newState) {
-    this.state.itemsBuy = newState;
+    this.state = newState;
     // Оповещаем всех подписчиков об изменении стейта
     for (const listener of this.listeners) {
       listener();
@@ -41,19 +41,22 @@ class Store {
   }
 
   addItem(item) {
-    // item.total ? item.total++ : (item.total = 1);
-
-    console.log(this.state, "add");
-
     if (
       ![...this.state.itemsBuy].map((item) => item.code).includes(item.code)
     ) {
-      this.setState([...this.state.itemsBuy, item]);
+      this.setState({
+        ...this.state,
+        itemsBuy: [...this.state.itemsBuy, { ...item, total: 1 }],
+      });
     } else {
-      this.setState([
-        ...this.state.itemsBuy.filter((i) => i.code !== item.code),
-        item,
-      ]);
+      this.setState({
+        ...this.state,
+        itemsBuy: [
+          ...this.state.itemsBuy.map((i) =>
+            i.code === item.code ? { ...i, total: i.total + 1 } : i
+          ),
+        ],
+      });
     }
   }
 
@@ -74,7 +77,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter((item) => item.code !== code),
+      itemsBuy: this.state.itemsBuy.filter((item) => item.code !== code),
     });
   }
 

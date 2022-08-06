@@ -1,0 +1,45 @@
+.Modal {
+  border: 1px solid black;
+  max-width: 1000px;
+  min-width: 70vw;
+  min-height: 65vh;
+  margin: 0 auto;
+  background: #fff;
+  box-sizing: border-box;
+  box-shadow: 0 0 15px 5px #0000003b;
+}
+
+.Modal-item {
+  border-bottom: 1px dashed #ccc;
+}
+
+.Modal-item:first-child {
+  border-top: 1px dashed #ccc;
+}
+
+.Modal-head {
+  height: 80px;
+  background: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Modal-head button {
+  height: 24px;
+  margin-right: 20px;
+  padding: 0 8px;
+}
+
+.Modal-head h1 {
+  margin: 0;
+  padding: 20px 20px 10px;
+}
+
+.Modal-end {
+  margin-top: 20px;
+  text-align: right;
+}
+.Modal-end b:last-child {
+  padding: 0 20px;
+}

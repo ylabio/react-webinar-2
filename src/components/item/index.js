@@ -1,39 +1,21 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
-import plural from "plural-ru";
 import "./style.css";
 
-function Item({ item, addItem }) {
+function Item({ item, itemClick, index }) {
   const cn = bem("Item");
-
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
-  // const callbacks = {
-  //   onClick: useCallback(() => {
-  //     props.onSelect(props.item.code);
-  //     if (!props.item.selected) {
-  //       setCount(count + 1);
-  //     }
-  //   }, [props.onSelect, props.item, setCount, count]),
-
-  //   onDelete: useCallback(
-  //     (e) => {
-  //       e.stopPropagation();
-  //       props.onDelete(props.item.code);
-  //     },
-  //     [props.onDelete, props.item]
-  //   ),
-  // };
 
   return (
     <div className={cn()}>
-      <div className={cn("number")}>{item.code}</div>
+      <div className={cn("number")}>{item.total ? index + 1 : item.code}</div>
       <div className={cn("title")}>{item.title}</div>
       <div className={cn("price")}>{item.price} ₽</div>
+      {item.total && <div className={cn("total")}>{item.total} шт</div>}
       <div className={cn("actions")}>
-        <button onClick={() => addItem(item)}>Добавить</button>
+        <button onClick={() => itemClick(item.total ? item.code : item)}>
+          {item.total ? "Удалить" : "Добавить"}
+        </button>
       </div>
     </div>
   );
@@ -41,11 +23,12 @@ function Item({ item, addItem }) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  addItem: propTypes.func,
+  itemClick: propTypes.func,
+  index: propTypes.number,
 };
 
 Item.defaultProps = {
-  addItem: () => {},
+  itemClick: () => {},
 };
 
 export default React.memo(Item);

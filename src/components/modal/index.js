@@ -1,41 +1,43 @@
 import React from "react";
 import propTypes from "prop-types";
+import Item from "../item";
+import { allBuy } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
+import "./style.css";
 
-function Modal({ setModal, buyState, setBuyState }) {
+function Modal({ setModal, buyState, itemClick }) {
   const cn = bem("Modal");
 
   return (
     <div className={cn()}>
+      <div className={cn("head")}>
+        <h1>Корзина</h1>{" "}
+        <button onClick={() => setModal(false)}>Закрыть</button>
+      </div>
       {buyState.length
         ? buyState.map((item, index) => (
             <div key={index} className={cn("item")}>
-              <div className={cn("number")}>{index}</div>
-              <div className={cn("title")}>{item.title}</div>
-
-              <div className={cn("actions")}>
-                <button
-                  onClick={() => setBuyState((state) => [...state, item])}
-                >
-                  Добавить
-                </button>
-              </div>
+              <Item item={item} index={index} itemClick={itemClick} />
             </div>
           ))
         : "..."}
+      <div className={cn("end")}>
+        <b>Итого</b>
+        <b>{buyState.length && allBuy(buyState)} ₽</b>
+      </div>
     </div>
   );
 }
 
 Modal.propTypes = {
   setModal: propTypes.func,
-  setBuyState: propTypes.func,
+  itemClick: propTypes.func,
   buyState: propTypes.array,
 };
 
 Modal.defaultProps = {
   setModal: () => {},
-  setBuyState: () => {},
+  itemClick: () => {},
   buyState: [],
 };
 

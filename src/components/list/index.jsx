@@ -1,29 +1,22 @@
-import React from 'react';
+import './style.css';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import Item from './item';
-import './style.css';
+import css from "../../utils/css";
 
-function List({ items }) {
+function List({ children, className, spacing = 'normal' }) {
   const cn = bem('List');
 
   return (
-    <div className={cn()}>
-      {items.map((item) => (
-        <div key={item.code} className={cn('item')}>
-          <Item item={{ ...item, count: 5 }} />
-        </div>
-      ))}
+    <div className={css(className, cn({'row_spacing': spacing}))}>
+      {children}
     </div>
   );
 }
 
 List.propTypes = {
-  items: propTypes.arrayOf(propTypes.object),
-};
-
-List.defaultProps = {
-  items: [],
+  children: propTypes.arrayOf(propTypes.node).isRequired,
+  className: propTypes.string,
+  spacing: propTypes.oneOf(['small', 'normal', 'large'])
 };
 
 export default React.memo(List);

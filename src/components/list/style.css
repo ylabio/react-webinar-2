@@ -1,11 +1,20 @@
-/*Список*/
-.List{
-
+.List_row_spacing_small > div {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
-.List-item{
-    border-bottom: 1px dashed #ccc;
+.List_row_spacing_normal > div {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.List_row_spacing_large > div {
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
-.List-item:first-child{
-    border-top: 1px dashed #ccc;
+.List > div {
+  border-bottom: 1px dashed #ccc;
+}
+
+.List > div:first-child {
+  border-top: 1px dashed #ccc;
 }

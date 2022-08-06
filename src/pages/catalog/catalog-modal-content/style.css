@@ -1,0 +1,40 @@
+.Catalog-modal-content {
+  position: relative;
+  flex-grow: 1;
+}
+
+.Catalog-modal-content_bg_dark {
+  background: rgba(2, 63, 96, 0.1);
+  margin: -10px;
+}
+
+.Catalog-modal-content .Catalog-modal-content-summ, .Catalog-modal-content .Catalog-modal-content-list > div {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.Catalog-modal-content-summ {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  font-size: 18px;
+  padding-right: 85px;
+  padding-left: 10px;
+}
+
+.Catalog-modal-content-empty {
+  font-size: 50px;
+  color: #023f60;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.Catalog-modal-content-summ > span {
+  min-width: 100px;
+  padding-left: 10px;
+  text-align: end;
+}
+

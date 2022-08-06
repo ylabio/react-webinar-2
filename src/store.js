@@ -1,8 +1,12 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
+    this.state.basket = {
+      goods: [],
+      countOfGoods: 0,
+      summ: 0,
+    };
     // Слушатели изменений state
     this.listeners = [];
   }
@@ -36,48 +40,53 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  addToBasket(product) {
+    const basket = this.state.basket;
+    let isProductAdded = false;
+    const resGoods = basket.goods.map((g) => {
+      if (g.code === product.code) {
+        isProductAdded = true;
+        return { ...g, count: g.count + 1 };
+      }
+      return g;
+    });
+    if (!isProductAdded) resGoods.push({ ...product, count: 1 });
+
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      basket: {
+        goods: resGoods,
+        countOfGoods: basket.countOfGoods + 1,
+        summ: basket.summ + product.price,
+      },
     });
   }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+  removeFromBasket(code) {
+    const basket = this.state.basket;
+    const resGoods = [];
+    let productPrice;
+    basket.goods.forEach((g) => {
+      if (g.code === code) {
+        productPrice = g.price;
+        if (g.count === 1) return;
+        return resGoods.push({ ...g, count: g.count - 1 });
+      }
+      resGoods.push(g);
     });
-  }
+    if (typeof productPrice !== 'number') return;
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      basket: {
+        goods: resGoods,
+        countOfGoods: basket.countOfGoods - 1,
+        summ: basket.summ - productPrice,
+      },
     });
   }
 }

@@ -1,5 +1,5 @@
 const css = (...str) => {
-  return str.join(' ')
+  return str.filter((i) => typeof i === 'string').join(' ');
 };
 
 export default css;

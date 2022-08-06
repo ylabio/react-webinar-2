@@ -1,33 +1,38 @@
-/* Пункт списка */
-.Item{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.Item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.Item-title{
-    padding: 20px 10px;
-    justify-self: flex-start;
-    flex-grow: 1;
+.Item-title {
+  justify-self: flex-start;
+  flex-grow: 1;
 }
 
-.Item-price{
-    padding: 20px 10px;
-    justify-self: flex-end;
+.Item-price {
+  justify-self: flex-end;
 }
 
-.Item-count{
-    min-width: 70px;
-    text-align: end;
-    padding: 20px 10px;
+.Item-count {
+  min-width: 70px;
+  text-align: end;
 }
 
-.Item-number{
-    padding: 20px 10px 20px 20px;
+.Item-price, .Item-count, .Item-title {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
-.Item-actions{
-    padding: 20px  20px 20px 10px;
-    display: flex;
-    justify-content: flex-end;
+.Item-number {
+  padding-left: 20px;
+  padding-right: 10px;
+}
+.Item-actions {
+  padding-left: 10px;
+  padding-right: 20px;
+}
+
+.Item-actions {
+  display: flex;
+  justify-content: flex-end;
 }

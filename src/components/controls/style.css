@@ -4,3 +4,8 @@
     justify-content: flex-end;
     padding: 20px;
 }
+
+.Controls-cart-info {
+    margin: 0;
+    padding: 0 20px;
+}

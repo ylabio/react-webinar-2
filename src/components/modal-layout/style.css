@@ -1,0 +1,33 @@
+.Modal-container{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10000;
+    background-color: #000000B2;
+}
+.Modal{
+    z-index: 9999;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 0;
+    width: 960px;
+    height: 600px;
+    border-radius: 10px;
+}
+.Modal-control{
+    align-self: center;
+    margin-right: 40px;
+}
+.Modal .Layout{
+    min-height: 600px;
+    border-radius: 10px;
+    box-shadow: 0 0;
+}
+.Modal .Layout-head{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}

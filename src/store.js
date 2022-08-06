@@ -1,5 +1,4 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -39,45 +38,48 @@ class Store {
       this.listeners = this.listeners.filter(item => item !== callback);
     }
   }
-
   /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
+   * Добавляет товар в корзину пользователя
    * @param code
    */
-  deleteItem(code) {
+  addItemToCart(code) {
+    const newShoppingCart = [...this.state.shoppingCart]
+    const possibleIndex = newShoppingCart.findIndex((item) => item.code === code)
+    possibleIndex !== -1 ?
+      newShoppingCart[possibleIndex].amount++ :
+      newShoppingCart.push({...this.state.items.find((item) => item.code === code), amount: 1})
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      shoppingCart: newShoppingCart
     });
   }
-
   /**
-   * Выделение записи по её коду
+   * Удаляет товар из корзины пользователя
    * @param code
    */
-  selectItem(code) {
+  removeItemFromCart(code) {
+    let newShoppingCart = [...this.state.shoppingCart]
+    const itemIndex = newShoppingCart.findIndex((item) => item.code === code)
+    if (newShoppingCart[itemIndex].amount > 1){
+      const newCartItem = {...newShoppingCart[itemIndex]}
+      newCartItem.amount--
+      newShoppingCart[itemIndex] = newCartItem
+    } else {
+      newShoppingCart.splice(itemIndex, 1)
+    }
+    if(newShoppingCart.length === 0) this.switchCart()
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      shoppingCart: newShoppingCart
+    });
+  }
+  /**
+   * Открывает/закрывает модальное окно
+   */
+  switchCart() {
+    this.setState({
+      ...this.state,
+      cartOpened: !this.state.cartOpened
     });
   }
 }

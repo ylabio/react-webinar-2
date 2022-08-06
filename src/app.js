@@ -2,6 +2,7 @@ import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
+import Cart from "./components/cart";
 import {counter} from "./utils";
 
 /**
@@ -16,8 +17,17 @@ function App({store}) {
       const code = counter();
       store.createItem({code, title: `Новая запись ${code}`});
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onOpenCart: useCallback(() => {
+      store.openModal();
+    }, []),
+    onCloseCart: useCallback(() => {
+      store.closeModal();
+    }, []),
+    onAddItemToCart: useCallback((code) => {
+      store.addItemToCart(code);
+    }, []),
+    onDeleteCartItem: useCallback((code) => {
+      store.deleteCartItem(code);
     }, []),
     onDeleteItems: useCallback((code) => {
       store.deleteItem(code);
@@ -25,11 +35,19 @@ function App({store}) {
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls onOpenCart={callbacks.onOpenCart}
+                cartItems={store.getState().cartItems}
+      />
       <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+            itemClickHandler={callbacks.onAddItemToCart}
+            buttonText='Добавить'
+      />
+      <Cart cartItems={store.getState().cartItems}
+            onCloseCart={callbacks.onCloseCart}
+            isOpen={store.getState().isOpen}
+            itemClickHandler={callbacks.onDeleteCartItem}
+            buttonText='Удалить'
       />
     </Layout>
   );

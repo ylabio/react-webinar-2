@@ -51,6 +51,59 @@ class Store {
   }
 
   /**
+   * Открывает модальное окно
+   */
+  openModal() {
+    this.setState({
+      ...this.state,
+      isOpen: true,
+    });
+  }
+
+  /**
+   * Закрывает модальное окно
+   */
+  closeModal() {
+    this.setState({
+      ...this.state,
+      isOpen: false,
+    });
+  }
+
+  /**
+   * Добавление записи в корзину
+   */
+  addItemToCart(code) {
+    const item = this.state.items.find(i => i.code === code);
+    const isCartItem = this.state.cartItems.find(cartItem => cartItem.code === item.code);
+
+    let cartItems = [];
+    if (isCartItem) {
+      cartItems = this.state.cartItems.map(cartItem => {
+        return cartItem.code === item.code ? {...cartItem, amount: cartItem.amount + 1} : cartItem;
+      });
+    } else {
+      cartItems = [...this.state.cartItems, {...item, amount: 1}];
+    }
+
+    this.setState({
+      ...this.state,
+      cartItems,
+    });
+  }
+
+  /**
+   * Удаление записи из корзины по её коду
+   * @param code
+   */
+  deleteCartItem(code) {
+    this.setState({
+      ...this.state,
+      cartItems: this.state.cartItems.filter(cartItem => cartItem.code !== code)
+    });
+  }
+
+  /**
    * Удаление записи по её коду
    * @param code
    */
@@ -61,25 +114,6 @@ class Store {
     });
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
-  }
 }
 
 export default Store;

@@ -24,4 +24,4 @@ CartList.propTypes = {
   removeItem: propTypes.func.isRequired,
 };
 
-export default CartList;
+export default React.memo(CartList);

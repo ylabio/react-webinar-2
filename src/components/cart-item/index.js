@@ -29,4 +29,4 @@ CartItem.propTypes = {
   code: propTypes.number.isRequired,
 };
 
-export default CartItem;
+export default React.memo(CartItem);

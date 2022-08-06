@@ -14,7 +14,7 @@ function Controls(props){
     <div className={cn()}>
       <span>В корзине:</span>
       <span className={cn('info')}>
-        {`${totalQty} ${plural('товар','товара', 'товаров')} / ${(totalPrice).toLocaleString()} \u20BD`}</span>
+        {`${totalQty} ${plural('товар','товара', 'товаров')} / ${(totalPrice).toLocaleString('ru-RU',{style:'currency', currency:'RUB',maximumFractionDigits: 0})}`}</span>
       <div className={cn('actions')}>
         <button onClick={()=>props.callModal(true)} >Перейти</button>
       </div>

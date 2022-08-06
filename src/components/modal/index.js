@@ -24,7 +24,7 @@ function Modal({active, callModal, cartItems, callback}) {
 				<List items={cartItems} type={'cart'} callback={callback}/>
 				<div className={cn('footer')}>
 						<span>Итого</span>
-						<span>{`${(totalPrice).toLocaleString()}  \u20BD`}</span>
+						<span>{`${(totalPrice).toLocaleString('ru-RU',{style:'currency', currency:'RUB',maximumFractionDigits: 0})}`}</span>
 				</div>
 			</Layout>
 		</div>

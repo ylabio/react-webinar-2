@@ -9,7 +9,7 @@ function BasketSum({price}) {
     const cn = bem('BasketSum')
     return (
         <div className={cn()}>
-            <span>Итого</span>
+            <span className={cn('title')}>Итого</span>
             <span>{price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " ₽"}</span>
         </div>
     )

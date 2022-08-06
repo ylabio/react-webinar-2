@@ -6,7 +6,7 @@ import './style.css';
 
 function Basket({onVisibility, price, count}) {
     const cn = bem('Basket');
-    const basketSumCount = `${count} ${plural(count, "товар", "тавара", "товаров")}`;
+    const basketSumCount = `${count} ${plural(count, "товар", "товара", "товаров")}`;
     const basketSumPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " ₽";
     return (
         <div className={cn()}>

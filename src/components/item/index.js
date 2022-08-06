@@ -48,7 +48,8 @@ Item.propTypes = {
 
 Item.defaultProps = {
   item: {},
-  buttonFunc: () => {}
+  buttonText: "Button",
+  onButtonClick: () => {}
 }
 
 export default React.memo(Item);

@@ -15,6 +15,7 @@ function Modal(props){
   return (
     <div className={cn()}>
       <Layout head={<><h1>Корзина</h1> <button onClick={props.onModalClose}>Закрыть</button></>}>
+        <div className={cn('separator')}/>
         <List items={props.cart}
             onDeleteFromCart={props.onDeleteFromCart}
         />

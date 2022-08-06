@@ -1,4 +1,5 @@
 import React, {useCallback} from 'react';
+import Actions from './../actions';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
@@ -26,11 +27,7 @@ function Item(props) {
       <div className={item.count && 'Item-count'}>
         {item.count}
       </div>
-      <div className={cn('actions')}>
-        <button onClick={handleCallback} className={cn('button')}>
-          {callbackButton.name}
-        </button>
-      </div>
+      <Actions action={handleCallback} name={callbackButton.name}/>
     </div>
   )
 };

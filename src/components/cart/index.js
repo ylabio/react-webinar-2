@@ -20,9 +20,10 @@ function Cart({items, onDeleteItem, onCloseModal, totalPrice}) {
         <h2>Корзина</h2>
         <button onClick={onCloseModal}>Закрыть</button>
       </div>
+      <div className={cn('info')}>{items.length===0 && 'Пусто'}</div>
       <List items={items} callback={{action: onDeleteItem, name: 'Удалить'}}/>
-      <div className={cn('total', {empty: !items.length})}>
-         {items.length ? <span className={cn('price')}>{totalPrice.toLocaleString('ru-RU')}</span> : 'Пусто'}
+      <div className={cn('total', {active: items.length > 0})}>
+         {!!items.length && totalPrice.toLocaleString('ru-RU')}
       </div>
     </div>
   )

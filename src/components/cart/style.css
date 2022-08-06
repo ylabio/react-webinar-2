@@ -13,24 +13,23 @@
     height: max-content;
     margin-right: 32px;
 }
+.Cart-info{
+  padding: 30px 0;
+  text-align: center;
+  font-weight: bold;
+}
 .Cart-total{
     width: 100%;
     font-weight: bold;
     padding: 20px 0;
     text-align: end;
 }
-
-.Cart-total_empty{
-    text-align: center;
-}
-
-.Cart-price{
-    padding-right: 109px;
-}
-.Cart-price:after{
-    content: ' \20BD';
-}
-.Cart-price:before{
+.Cart-total_active:before{
     content: 'Итого';
     padding-right: 50px;
 }
+.Cart-total_active:after{
+    content: ' \20BD';
+    padding-right: 109px;
+}
+

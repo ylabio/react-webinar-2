@@ -1,25 +1,30 @@
 /* Пункт списка */
-.Item{
+.CartItem{
     display: flex;
     justify-content: flex-start;
     transition: background-color 1s;
 }
-.Item-number{
+.CartItem-number{
     padding: 20px 10px 20px 20px;
 }
-.Item-title{
+.CartItem-title{
     width: 100%;
     padding: 20px 10px;
 }
-.Item-price{
+.CartItem-price{
     display: flex;
     justify-content: flex-end;
     width: 100%;
+    padding: 20px 10px;
+}
+.CartItem-count{
+    display: flex;
+    justify-content: flex-end;
+    min-width: 60px;
     padding: 20px 15px;
 }
-.Item-actions{
+.CartItem-actions{
     display: flex;
     justify-content: flex-end;
     padding: 20px  20px 20px 10px;
 }
-

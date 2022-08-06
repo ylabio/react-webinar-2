@@ -3,13 +3,13 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function Item(props) {
-    const cn = bem('Item');
+function CartItem(props) {
+    const cn = bem('CartItem');
 
     const callbacks = {
-        onAdd: useCallback(() => {
-            props.onAdd(props.item.code);
-        }, [props.onAdd, props.item]),
+        onDeleteItems: useCallback(() => {
+          props.onDeleteItems(props.item.code)
+        }, [props.onDeleteItems,  props.item])
     };
 
     return (
@@ -23,23 +23,25 @@ function Item(props) {
             <div className={cn('price')}>
                 {props.item.price} ₽
             </div>
+            <div className={cn('count')}>
+                {props.item.count} шт
+            </div>
             <div className={cn('actions')}>
-                <button onClick={callbacks.onAdd}>
-                    Добавить
+                <button onClick={callbacks.onDeleteItems}>
+                    Удалить
                 </button>
             </div>
         </div>
     )
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
     item: propTypes.object.isRequired,
-    onAdd: propTypes.func.isRequired
+    onDeleteItems: propTypes.func.isRequired
 }
 
-Item.defaultProps = {
-    onAdd: () => {
-    }
+CartItem.defaultProps = {
+    onDeleteItems: () => {}
 }
 
-export default React.memo(Item);
+export default React.memo(CartItem);

@@ -4,3 +4,20 @@
     justify-content: flex-end;
     padding: 20px;
 }
+
+.Controls-info{
+    padding-right: 25px;
+}
+
+.Controls-info span{
+    padding-left: 10px;
+    font-family: 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    /* identical to box height */
+
+
+    color: #000000;
+}

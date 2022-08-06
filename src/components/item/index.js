@@ -4,54 +4,54 @@ import {cn as bem} from "@bem-react/classname";
 import plural from 'plural-ru';
 import './style.css';
 
-function Item(props) {
-  const cn = bem('Item');
+function Item({onAdd, onDelete, item, num}) {
+    const cn = bem('Item');
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
+    const callbacks = {
+        onDelete: useCallback(() => {
+            onDelete(item.code)
+        }, [onDelete, item]),
 
-  const callbacks = {
+        onAdd: useCallback(() => {
+            onAdd(item.code);
+        }, [onAdd, item])
+    };
 
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
+    return (
+        <div className={cn({'selected': item.selected})}>
 
-    onDelete: useCallback((e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
-  };
+            <div className={cn('number')}>
+                {num}
+            </div>
+            <div className={cn('title')}>
+                {item.title}
+            </div>
+            <div className={cn('price')}>
+                {item.price}
+            </div>
+            {item.amount ? <div className={cn('amount')}>{`${item.amount} шт`}</div> : null}
+            <div className={cn('actions')}>
+                <button onClick={item.amount ? callbacks.onDelete : callbacks.onAdd}>
+                    {item.amount ? 'Удалить' : 'Добавить'}
+                </button>
+            </div>
 
-  return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
-      <div className={cn('number')}>
-        {props.item.code}
-      </div>
-      <div className={cn('title')}>
-        {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
-      </div>
-      <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
-      </div>
-    </div>
-  )
+        </div>
+    )
 }
 
 Item.propTypes = {
-  item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
+    item: propTypes.object.isRequired,
+    onDelete: propTypes.func,
+    onAdd: propTypes.func,
+    num: propTypes.number
 }
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
+    item: [],
+    onDelete: () => {},
+    onAdd: () => {},
+    num: 0
 }
 
 export default React.memo(Item);

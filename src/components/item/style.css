@@ -13,8 +13,21 @@
     width: 100%;
     padding: 20px 10px;
 }
+
+.Item-price {
+    display: flex;
+    align-items: center;
+}
+
+.Item-quantity {
+    display: flex;
+    align-items: center;
+    padding-left: 55px;
+    padding-right: 23px;
+}
+
 .Item-actions{
-    padding: 20px  20px 20px 10px;
+    padding: 20px 20px 20px 24px;
     display: flex;
     justify-content: flex-end;
 }

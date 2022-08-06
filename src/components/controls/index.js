@@ -1,21 +1,46 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
+import { Button } from '../button';
+import { calcSumm, declOfNum } from '../../utils';
+import { Cart } from '../cart';
 
-function Controls({onAdd}){
+function Controls({ cartItems, showCart, onShowCart, deleteItemToCart }) {
+  let quantity = calcSumm(cartItems, 'quantity');
+
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
-    </div>
+  <div className='Controls'>
+      <div className="heading-mini">В корзине:</div>
+      <div>
+        {!quantity 
+        ? ( <span className="cart-text">пусто</span>)
+        : (<div className="cart-text">
+            {quantity} {declOfNum(quantity, ["товар", "товара", "товаров"])} /{" "}
+            <span>{calcSumm(cartItems, "price")}&nbsp;₽</span>
+          </div>)}
+      </div>
+      {showCart && (
+        <Cart
+          cartItems={cartItems}
+          onShowCart={onShowCart}
+          deleteItemToCart={deleteItemToCart}
+        />
+      )}
+      <Button class="controls-btn" text="Перейти" onClick={onShowCart} />
+</div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
+  cartItems: propTypes.arrayOf(propTypes.object).isRequired,
+  onShowCart: propTypes.func.isRequired,
+  deleteItemToCart: propTypes.func.isRequired,
+};
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
-}
+  cartItems: [],
+  onShowCart: () => {}, // Значение по умолчанию - функция-заглушка
+  deleteItemToCart: () => {},
+};
 
 export default React.memo(Controls);

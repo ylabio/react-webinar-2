@@ -41,43 +41,53 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Добавление товара в корзину
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+  addItemToCart(item) {
+    let isItemInCart = false;
+    this.state.cartItems.forEach((el) => {
+      if (el.code === item.code) {
+        isItemInCart = true;
+      }
     });
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
+    if (!isItemInCart) {
+      this.setState({
+        ...this.state,
+        cartItems: [...this.state.cartItems, item],
+      });
+    }
+    if (isItemInCart) {
+      this.setState({
+        ...this.state,
+        cartItems: this.state.cartItems.map((el) => {
+          if (el.code === item.code) {
+            el.quantity++;
           }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+          return el;
+        }),
+      });
+    }
+  }
+
+  /**
+   * Удаление товара из корзины
+   * @param item
+   */
+  deleteItemToCart(item) {
+        this.setState({
+          ...this.state,
+          cartItems: this.state.cartItems.filter((el) => el.code !== item.code),
+        });
+  }
+
+  /**
+   * Скрыть/показать модальное окно
+   * @param showCart
+   */
+  showCart(showCart) {
+    this.setState({
+      ...this.state,
+      showCart: !showCart,
     });
   }
 }

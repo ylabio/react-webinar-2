@@ -4,3 +4,21 @@
     justify-content: flex-end;
     padding: 20px;
 }
+
+.controls-btn {
+    padding: 2px 9px;
+}
+
+.heading-mini {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.cart-text {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    padding-left: 15px;
+    padding-right: 20px;
+}

@@ -2,16 +2,15 @@ import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
+import {toRubPrice} from "../../utils";
 
 function Item({ item, index, button, buttonText }) {
   const cn = bem('Item');
 
   const callbacks = {
-    button: useCallback(
-      (event) => {
-        event.stopPropagation();
-        button(item.code);
-      },[button, item],
+    button: useCallback(() => {
+        button(item.code, item);
+      },[button, item]
     )
   };
 
@@ -24,7 +23,7 @@ function Item({ item, index, button, buttonText }) {
         {item.title}
       </div>
       <div className={cn('price')}>
-        {`${item.price.toLocaleString('ru')} ₽`}
+        {toRubPrice(item.price)}
       </div>
       {
         item.amount &&

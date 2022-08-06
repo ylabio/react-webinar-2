@@ -23,6 +23,7 @@ function App({ store }) {
     }, []),
     onDeleteItems: useCallback((code) => {
       console.log('onDeleteItems ==>', code);
+      store.deleteItem(code)
     }, []),
   }
   // console.log(store.getState())
@@ -41,6 +42,8 @@ function App({ store }) {
           // onItemSelect={callbacks.onSelectItems}
           btnAction={callbacks.onDeleteItems}
           btnActionName={'dleY'}
+          model={'Modal'}
+          con={console.log}
 
         />
       </Modal>

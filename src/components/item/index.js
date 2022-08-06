@@ -1,6 +1,6 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
+import { cn as bem } from "@bem-react/classname";
 import plural from 'plural-ru';
 import './style.css';
 
@@ -19,21 +19,28 @@ function Item(props) {
       }
     }, [props.onSelect, props.item, setCount, count]),
 
-    btnAction : useCallback((e) => {
+    btnAction: useCallback((e) => {
       e.stopPropagation();
       props.btnAction(props.item.code)
-    }, [props.onDelete,  props.item])
+    }, [props.onDelete, props.item])
   };
 
+
+  props.model == 'Modal' ?
+  props.con('Modal')
+  : ''
+
   return (
-    <div className={cn({'selected': props.item.selected})} >
+    <div className={cn()} >
       <div className={cn('number')}>
         {props.item.code}
       </div>
       <div className={cn('title')}>
         {props.item.title}
-        {/* {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null} */}
       </div>
+      {props.model == 'Modal' ? <div className={cn('price')}>
+        {props.item.count}
+      </div> : ''}
       <div className={cn('price')}>
         {props.item.price}
       </div>
@@ -53,8 +60,8 @@ Item.propTypes = {
 }
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
+  onSelect: () => { },
+  onDeleted: () => { }
 }
 
 export default React.memo(Item);

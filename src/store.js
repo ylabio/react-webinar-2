@@ -41,14 +41,36 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Добавлен уникального товара в карзину
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    
-    this.setState({
-      ...this.state,
-      itemsInCart : this.state.itemsInCart.concat({code, title, price, selected})
-    });
+  createItem({ code }) {
+
+    const product = (this.getState().items).filter(item => item.code == code)
+
+    {
+      !!((this.getState().itemsInCart).filter(item => item.code == code))[0] ?
+        this.setState({
+
+          //
+          ...this.state,
+          itemsInCart: this.state.itemsInCart.map(item => {
+            if (item.code === code) {
+              return {
+                ...item,
+                count: item.count + 1,
+              }
+            }
+            return item
+          })
+        })
+        :
+        this.setState({
+          ...this.state,
+          itemsInCart: this.state.itemsInCart.concat({ ...product[0], count: 1 })
+        })
+    }
+
+
   }
 
   /**
@@ -58,7 +80,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      itemsInCart: this.state.itemsInCart.filter(item => item.code !== code)
     });
   }
 
@@ -69,14 +91,15 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
+      itemsInCart: this.state.items.map(item => {
+        if (item.code === code) {
           return {
             ...item,
-            count: item.selected ? item.count : item.count + 1 || 1
+            count: item.count ? item.count + 1 : 1,
           }
         }
-        return item.selected ? {...item, selected: false} : item;
+        return console.log('==> onSelectItems', code) // item.selected ? {...item, selected: false} : item;
+
       })
     });
   }

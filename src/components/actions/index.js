@@ -1,7 +1,7 @@
-import React from "react";
-import { cn as bem } from "@bem-react/classname";
-import propTypes from "prop-types";
-import "./style.css";
+import React from 'react';
+import { cn as bem } from '@bem-react/classname';
+import propTypes from 'prop-types';
+import './style.css';
 
 /*
  *  Действие для родительского компонента
@@ -9,15 +9,15 @@ import "./style.css";
  *  @param name {string} Название действия
  *  @return {React.ReactElement} Виртуальный элемент React
  */
-function Actions(props) {
-  const { action, name, children } = props;
+function Actions(props){
+  const {action, name, children} = props;
 
-  const cn = bem("Actions");
+  const cn = bem('Actions');
 
   return (
-    <div className={cn("")}>
+    <div className={cn('')}>
       {children && <div>{children}</div>}
-      <button onClick={action} className={cn("button")}>
+      <button onClick={action} className={cn('button')}>
         {name}
       </button>
     </div>
@@ -31,7 +31,7 @@ Actions.propTypes = {
 
 Actions.defaultProps = {
   action: () => {},
-  name: "",
+  name: '',
 };
 
 export default React.memo(Actions);

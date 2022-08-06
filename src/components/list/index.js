@@ -24,6 +24,7 @@ function List(props) {
 }
 
 List.propTypes = {
+  items: propTypes.arrayOf(propTypes.object).isRequired,
   btn: propTypes.string,
   onBtn: propTypes.func.isRequired,
   showCountItem: propTypes.bool,
@@ -31,6 +32,7 @@ List.propTypes = {
 }
 
 List.defaultProps = {
+  items: [],
   btn: '',
   showCountItem: false,
   onBtn: () => {},

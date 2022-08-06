@@ -11,7 +11,7 @@ function Item(props) {
       e.stopPropagation();
       props.onBtnItems(props.item);
       props.getAllCount(props.item.code);
-    }, [props.onBtnItems, props.getAllCount, props.item, props.item.code])
+    }, [props.onBtnItems, props.getAllCount, props.item])
   };
 
   return (

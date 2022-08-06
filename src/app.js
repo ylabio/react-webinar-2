@@ -59,7 +59,11 @@ function App({store}) {
                     btn="Удалить"
                     showCountItem={true}
               />
-              <Footer countAndSum={countAndSum} />
+              {
+                countAndSum.count
+                ? <Footer countAndSum={countAndSum} />
+                : ''
+              }
             </Layout>
           </Popup>
       }

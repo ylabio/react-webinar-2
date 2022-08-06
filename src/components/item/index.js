@@ -32,7 +32,7 @@ function Item(props) {
       <div className={cn('number')}>{props.item.code}</div>
       <div className={cn('title')}>
         {props.item.title}
-        {/* {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null} */}
+        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
       </div>
       <div className={cn('actions')}>
         <button onClick={callbacks.onDelete}>Удалить</button>

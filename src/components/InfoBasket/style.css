@@ -1,0 +1,10 @@
+/* Контрол с общими действиями */
+.Total-sum {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  gap: 20px;
+}
+.Total-sum-p {
+  margin: 0;
+}

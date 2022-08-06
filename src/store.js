@@ -2,7 +2,7 @@
 class Store {
 
   constructor(initState) {
-    console.log("hello")
+    console.log('сторе');
     // Состояние приложения (данные)
     this.state = initState;
     // Слушатели изменений state
@@ -59,32 +59,53 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      basket: this.state.basket.filter(item => item.code !== code)
     });
+    console.log(this.state.basket);
   }
 
   /**
    * Выделение записи по её коду
    * @param code
    */
-  selectItem(code, event) {
-    // Мой вариант решения проблемы с deleteItem
-    if (event.target.className === "") return;
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code) {
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? { ...item, selected: false } : item;
-      })
-    });
-  }
+  // Функция выделения сейчас без надобности
+  // selectItem(code) {
+  //   this.setState({
+  //     ...this.state,
+  //     items: this.state.items.map(item => {
+  //       if (item.code === code) {
+  //         return {
+  //           ...item,
+  // selected: !item.selected,
+  // Р
+  // count: item.selected ? item.count : item.count + 1 || 1
+  //   }
+  // }
 
+  //         return item.selected ? { ...item, selected: false } : item;
+  //       })
+  //     });
+  //   }
+
+  addItem(code) {
+
+    const addingItem = this.state.items.find(el => el.code === code);
+    console.log(Boolean(this.state.basket.length >= 1 && this.state.basket.find(el => el.code === addingItem.code)));
+
+    (this.state.basket.length >= 1 && this.state.basket.find(el => el.code === addingItem.code)) ? this.setState({
+      ...this.state, basket: this.state.basket.map((el, i) => {
+        if (addingItem.code === el.code) {
+
+          // return { ...el, amount: el.amount ? ++el.amount : el.amount = 2 }
+          return { ...el, amount: el.amount + 1 || 2 }
+        }
+        return { ...el }
+      })
+    }) : this.setState({ ...this.state, basket: this.state.basket.concat(this.state.items.find(el => el.code === addingItem.code)) })
+
+
+  }
 }
+
 
 export default Store;

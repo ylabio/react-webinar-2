@@ -1,0 +1,54 @@
+.dark-background-hidden {
+  display: none;
+}
+
+.dark-background {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.Basket {
+  position: relative;
+  width: 50%;
+  height: 55%;
+  background: #fff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.Basket strong {
+  margin-top: 20px;
+  display: block;
+  position: relative;
+  left: 75%;
+}
+
+.Basket-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  background: #f5f5f5;
+  padding: 20px;
+}
+
+.Basket-head h2 {
+  font-size: 35px;
+  margin: 0;
+}
+
+.Basket-body {
+  position: relative;
+  overflow: hidden;
+  max-height: 20%;
+  padding: 70px 20px;
+  display: flex;
+}

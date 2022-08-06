@@ -10,16 +10,15 @@ import './style.css';
  *  @return {React.ReactElement} Виртуальный элемент React
 */
 function Actions(props){
-
   const {action, name} = props;
 
   const cn = bem('Actions')
 
   return (
     <div className={cn('')}>
-        <button onClick={action} className={cn('button')}>
-          {name}
-        </button>
+      <button onClick={action} className={cn('button')}>
+        {name}
+      </button>
     </div>
   )
 }
@@ -34,4 +33,4 @@ Actions.defaultProps = {
   name: ''
 }
 
-export default Actions;
+export default React.memo(Actions);

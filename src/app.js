@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
@@ -27,8 +27,10 @@ function App({store}) {
     }, []),
     onCloseModal: useCallback(() => {
       setIsOpenModal(false);
-    }),
+    },[]),
   };
+  
+  const callbackButton = useMemo(() => ({action: callbacks.onAdd, name: 'Добавить'}),[])
 
   return (
       <Layout head={<h1>Магазин</h1>}>
@@ -37,7 +39,7 @@ function App({store}) {
           totalPrice={shoppingCart.totalPrice}
           countItems={shoppingCart.items.length}
         />
-        <List items={items} callback={{action: callbacks.onAdd, name: 'Добавить'}} />
+        <List items={items} callback={callbackButton} />
         <Modal isOpened={isOpenModal}>
           <Cart 
             items={shoppingCart.items} 

@@ -21,3 +21,12 @@
 .Item-number{
     padding: 20px 10px 20px 20px;
 }
+
+.Item-price {
+    align-self: center;
+    padding-right: 20px;
+}
+
+.Item-price:after {
+    content: "₽";
+}

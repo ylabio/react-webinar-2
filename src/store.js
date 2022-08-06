@@ -1,3 +1,6 @@
+import {generate} from 'shortid';
+import { calcTotalPrice } from './utils';
+
 class Store {
 
   constructor(initState) {
@@ -40,44 +43,73 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
+  /*
+   * Обновление массива для items в shoppingCart
+   * @param type {string} Тип изменения добавить или удалить
+   * @param item {object} Объект элемента который добавляется или удаляется
+   * @return {Array} Обновленный shoppingCart
+  */
+  #updateCartItems(type, item) {
+    const cartItems = this.state.shoppingCart.items;
+    const index = cartItems.findIndex(product => product.code === item.code);
+    const product = cartItems[index];
+    
+    // прибавляет или уменьшает кол-во товара в объекте
+    // получает число 1 или -1
+    // возвращает массив с обновленным объектом
+    const updatedItems = (digit) => [
+      ...cartItems.slice(0, index), 
+      {...product, count: product.count + digit}, 
+      ...cartItems.slice(index + 1)
+    ];
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
+    switch(type) {
+      case 'ADD':
+        if(index === -1) {
+          return [...cartItems, {...item, count: 1, _id: generate()}]
         }
-        return item.selected ? {...item, selected: false} : item;
-      })
+        return updatedItems(1);
+
+      case 'DELETE':
+        if(product.count - 1 === 0) {
+          return cartItems.filter(item => item.code !== product.code);
+        }
+        return updatedItems(-1);
+
+      default:
+        return cartItems;
+    }
+  }
+
+  /**
+   * Добавление объекта в корзину
+   * @param item {object}
+   */
+  addItemToCart(item) {
+    const items = this.#updateCartItems('ADD', item);
+    this.setState({
+      ...this.state,
+      shoppingCart: { 
+        ...this.state.shoppingCart, 
+        items, 
+        totalPrice: calcTotalPrice(items)
+      }
+    });
+  }
+
+  /**
+   * Удаление/уменьшение кол-ва элементов из корзины
+   * @param item {object}
+   */
+  deleteItemFromCart(item) {
+    const items = this.#updateCartItems('DELETE', item);
+    this.setState({
+      ...this.state,
+      shoppingCart: {
+        ...this.state.shoppingCart,
+        items,
+        totalPrice: calcTotalPrice(items)
+      }
     });
   }
 }

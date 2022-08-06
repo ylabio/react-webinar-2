@@ -1,57 +1,50 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
+  const {item, callbackButton, index} = props;
 
-  const callbacks = {
-
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
-
-    onDelete: useCallback((e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
-  };
+  const handleCallback = useCallback(() => {
+    callbackButton.action(item)
+  }, [callbackButton, item]);
 
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
+    <div className={cn()}>
       <div className={cn('number')}>
-        {props.item.code}
+        {index}
       </div>
       <div className={cn('title')}>
-        {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
+        {item.title}
+      </div>
+      <div className={cn('price')}>
+        {item.price.toLocaleString('ru-Ru')}
+      </div>
+      <div className={item.count && 'Item-count'}>
+        {item.count}
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button onClick={handleCallback} className={cn('button')}>
+          {callbackButton.name}
         </button>
       </div>
     </div>
   )
-}
+};
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
-}
+  callbackButton: propTypes.object.isRequired,
+  index: propTypes.number.isRequired
+};
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
-}
+  item: {},
+  callbackButton: {action: () => {}, name: ''},
+  index: 0
+};
 
 export default React.memo(Item);

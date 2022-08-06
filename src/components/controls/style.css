@@ -4,3 +4,17 @@
     justify-content: flex-end;
     padding: 20px;
 }
+
+.Controls-cart{
+    margin: 0;
+}
+.Controls-cart-info{
+    font-weight: bold;
+    padding: 0 15px;
+}
+.Controls-cart-info:after{
+    content: ' \20BD';
+}
+.Controls-cart-info_empty:after{
+    content: '';
+}

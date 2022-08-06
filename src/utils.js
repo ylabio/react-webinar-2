@@ -11,5 +11,5 @@ export function counter(){
  * @returns {number}
  */
 export function formatNumber(num){
-  return `${num}`.split('').reverse().map((el, index) => index % 3 !== 2 ? el : ` ${el}`).reverse().join('') // функция взята с сайта https://qna.habr.com/q/599927
+  return num.toLocaleString('ru-RU')
 }

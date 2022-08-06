@@ -14,7 +14,8 @@ import Cart from "./components/cart";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  const [cart, setCart] = useState([]);
+  const items = store.getState().items
+  const cart = store.getState().cart
   const rub = '\u20bd';
   const [isShowCart, setIsShowCart] = useState(false);
 
@@ -38,23 +39,23 @@ function App({store}) {
       }
     }, [cart]),
     addToCart: useCallback((code) => {
-      /*
-      * решение нашел по этому адресу:
-      * https://www.stackfinder.ru/questions/60536035/how-to-increase-quantity-of-the-item-if-it-is-already-added-in-shopping-cart-in
-      * */
-      const items = store.getState().items
       items.forEach(item => {
        if(item.code === code){
          const index = cart.findIndex(c => c.code === item.code)
          if(index === -1){
-           setCart(prevState => [
-               ...prevState,
-             {...item, count: 1}
-           ])
+           const newState = {
+             items: [...items],
+             cart: [...cart, {...item, count: 1}]
+           }
+           store.setState(newState)
          } else {
            const updateCart = [...cart]
            updateCart[index].count += 1
-           setCart(updateCart)
+           const newState = {
+             items: [...items],
+             cart: [...updateCart]
+           }
+           store.setState(newState)
          }
        }
       })
@@ -62,7 +63,11 @@ function App({store}) {
     removeCartItem: useCallback((code) => {
       let updateCart = [...cart]
       updateCart = updateCart.filter(c => c.code !== code)
-      setCart(updateCart)
+      const newState = {
+        items: [...items],
+        cart: [...updateCart]
+      }
+      store.setState(newState)
     }, [cart])
   }
 

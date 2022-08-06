@@ -1,3 +1,4 @@
+
 .LayoutModal {
   position: absolute;
   top:0;
@@ -23,8 +24,24 @@
   left: 211px;
   width: 960px;
   height: 603px;
-  background-color: #fff;
+  background: #fff;
+  border-radius: 10px;  
+}
+.LayoutModal-head{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 80px;
+  background: #f5f5f5;
   border-radius: 10px;
-   
-    
+}
+.LayoutModal-head h1{
+  align-self: center;
+  margin-left: 20px;
+  /* margin: 0;
+  padding: 20px 20px 10px; */
+}
+.LayoutModal-close { 
+  align-self: center;
+  margin-right: 31px;
 }

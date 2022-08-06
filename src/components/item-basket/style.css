@@ -1,0 +1,35 @@
+.ItemBasket{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.ItemBasket-title{
+    width: 100%;
+    padding: 20px 10px;
+}
+.ItemBasket-actions{
+    padding: 20px  20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.ItemBasket-number{
+    padding: 20px 10px 20px 20px;
+}
+.ItemBasket-price {    
+    white-space: nowrap;
+    align-self: center;
+}
+
+.ItemBasket-amount {    
+    white-space: nowrap;
+    align-self: center;
+    padding-right: 23px;
+    padding-left: 55px;
+}
+.ItemBasket-info {
+    display: flex;
+    align-content: flex-start;
+    justify-content: space-between;
+}

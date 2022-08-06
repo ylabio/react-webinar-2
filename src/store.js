@@ -40,46 +40,48 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
+    /**
+   * Добавление товара в корзину
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
+  addToCart(item) {
+    let index = -1
+    // если корзина не пустая, возможно, текущий товар был уже добавлен;
+    // тогда ищем этот товар по коду и сохраняем его индекс
+    if (this.state.cartItems.length > 0) {
+      for (let i=0; i<this.state.cartItems.length; i++) {
+        if (item.code === this.state.cartItems[i].code) {
+          index = i
+          break
         }
-        return item.selected ? {...item, selected: false} : item;
+      }
+    }
+    if (index === -1) {
+      // если товар не был найден в корзине, то добавляем его и устанавливаем счетчик
+      this.setState({
+        ...this.state,
+        cartItems: [...this.state.cartItems, {...item, amount: 1}]
+      });
+    } else {
+      // если товар уже содержится в корзине, увеличиваем счетчик и возвращаем новый стейт
+      this.state.cartItems[index].amount += 1
+      this.setState({
+        ...this.state,
+        cartItems: [...this.state.cartItems]
       })
+    }
+  }
+
+  /**
+   * Удаление товара из корзины
+   * @param code
+   */
+  deleteFromCart(code) {
+    this.setState({
+      ...this.state,
+      cartItems: this.state.cartItems.filter(item => item.code !== code)
     });
   }
+
 }
 
 export default Store;

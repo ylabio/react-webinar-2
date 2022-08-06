@@ -11,7 +11,6 @@ import { counter, TotalSum } from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({ store }) {
-  console.log(store.state.basket);
 
   const callbacks = {
     onAdd: useCallback(() => {

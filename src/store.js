@@ -2,7 +2,6 @@
 class Store {
 
   constructor(initState) {
-    console.log('сторе');
     // Состояние приложения (данные)
     this.state = initState;
     // Слушатели изменений state
@@ -61,7 +60,6 @@ class Store {
       ...this.state,
       basket: this.state.basket.filter(item => item.code !== code)
     });
-    console.log(this.state.basket);
   }
 
   /**
@@ -90,10 +88,9 @@ class Store {
   addItem(code) {
 
     const addingItem = this.state.items.find(el => el.code === code);
-    console.log(Boolean(this.state.basket.length >= 1 && this.state.basket.find(el => el.code === addingItem.code)));
 
     (this.state.basket.length >= 1 && this.state.basket.find(el => el.code === addingItem.code)) ? this.setState({
-      ...this.state, basket: this.state.basket.map((el, i) => {
+      ...this.state, basket: this.state.basket.map((el) => {
         if (addingItem.code === el.code) {
 
           // return { ...el, amount: el.amount ? ++el.amount : el.amount = 2 }

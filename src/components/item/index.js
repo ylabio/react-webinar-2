@@ -34,7 +34,6 @@ function Item(props) {
 
     onDelete: useCallback((e) => {
       e.stopPropagation();
-      console.log('onDelete');
       props.onDelete(props.item.code)
     }, [props.onDelete, props.item])
   };

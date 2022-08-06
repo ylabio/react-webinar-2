@@ -5,14 +5,14 @@ import {cn as bem} from "@bem-react/classname";
 import Layout from "../layout";
 import List from "../list";
 
-function Cart(store) {
+function Cart(store, closeCart) {
   const cn = bem('Cart');
 
   return (
     <Layout head={
       <>
         <h1>Корзина</h1>
-        <button>Закрыть</button>
+        <button onClick={closeCart}>Закрыть</button>
       </>
     }>
       <List items={store.store.getState().cartItems}

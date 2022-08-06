@@ -1,7 +1,8 @@
+/*Модальное окно*/
 .Modal {
     height: 100%;
     width: 100%;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     position: fixed;
     top: 0;
     left: 0;
@@ -23,6 +24,7 @@
     background-color: white;
     height: 440px;
     width: 950px;
+    overflow: auto;
     transform: scale(0.5);
     transition: 0.5s all;
 }
@@ -31,7 +33,38 @@
     transform: scale(1);
 }
 
-.Modal-content > .Layout{
+.Modal-content > .Layout {
     min-height: 100%;
     border-radius: inherit;
+}
+
+.Modal .Layout-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Modal .Layout-head button {
+    width: 76px;
+    margin-right: 30px;
+}
+
+.Modal-total-price {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 26px 108px 26px;
+    white-space: nowrap;
+}
+
+.Modal-total-price span{
+    margin-left: 49px;
+}
+
+.Modal .List-item:first-child {
+    margin-top: 74px;
+}
+
+.Modal .Item-actions button{
+    width: 71px;
 }

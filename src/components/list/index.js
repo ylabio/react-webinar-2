@@ -8,9 +8,9 @@ function List({ items, button, buttonText }) {
   const cn = bem('List');
 
   return (
-    <div className={cn()}>{items.map(item =>
+    <div className={cn()}>{items.map((item, index) =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} button={button} buttonText={buttonText}/>
+        <Item item={item} index={++index} button={button} buttonText={buttonText}/>
       </div>
     )}
     </div>

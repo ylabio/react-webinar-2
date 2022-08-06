@@ -5,10 +5,16 @@
     padding: 20px;
 }
 
-.Controls-subscribe{
+.Controls-description{
     margin-right: 20px;
 }
 
-.Controls-subscribe-strong{
-    margin-left: 20px;
+.Controls-description-strong{
+    margin-left: 15px;
+}
+
+.Controls button {
+    width: 80px;
+    margin-right: 1px;
+    margin-left: 5px;
 }

@@ -1,34 +1,50 @@
-import React from 'react';
+import React, {useState} from 'react';
 import propTypes from 'prop-types';
 import './style.css';
-import { cn as bem } from '@bem-react/classname';
+import {cn as bem} from '@bem-react/classname';
 import plural from "plural-ru";
 import {getAllCartItemsCost} from "../../utils";
+import Modal from "../modal";
+import Cart from "../cart";
 
 
-function Controls({onOpenCart, cartItems, children}){
+function Controls({cartItems, deleteCartItems, store}) {
   const cn = bem('Controls');
+
+  const [isModalActive, setIsModalActive] = useState(false);
+
+  const toggleCart = () => {
+    setIsModalActive((value) => !value);
+  }
 
   return (
     <div className={cn()}>
-      <div className={cn("subscribe")}>
+      <div className={cn("description")}>
         В корзине:
-        <strong className={cn("subscribe-strong")}>
+        <strong className={cn("description-strong")}>
           {!cartItems.length ? 'пусто' : `${plural(cartItems.length, "%d товар", "%d товара", "%d товаров")} / ${getAllCartItemsCost(cartItems).toLocaleString('ru')} ₽`}
         </strong>
       </div>
-      <button onClick={onOpenCart}>Перейти</button>
-      {children}
+      <button onClick={toggleCart}>Перейти</button>
+      {isModalActive && <Modal isModalActive={isModalActive}
+                               closeModal={toggleCart}
+                               cartItems={cartItems}
+                               deleteCartItems={deleteCartItems}
+        /*children={<Cart store={store}/>}*//>}
+
     </div>
   )
 }
 
 Controls.propTypes = {
-  onOpenCart: propTypes.func.isRequired // Обяхательное свойство - функция
+  cartItems: propTypes.arrayOf(propTypes.object).isRequired,
+  deleteCartItems: propTypes.func
 }
 
 Controls.defaultProps = {
-  onOpenCart: () => {} // Значение по умолчанию - функция-заглушка
+  cartItems: [],
+  deleteCartItems: () => {
+  }
 }
 
 export default React.memo(Controls);

@@ -1,50 +1,39 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
 
-function Item({ item, button, buttonText }) {
+function Item({ item, index, button, buttonText }) {
   const cn = bem('Item');
 
-  // Счётчик выделений
-  // const [count, setCount] = useState(0);
-
   const callbacks = {
-    //
-    // onClick: useCallback(() => {
-    //   props.onSelect(props.item.code);
-    //   if (!props.item.selected) {
-    //     setCount(count + 1);
-    //   }
-    // }, [props.onSelect, props.item, setCount, count]),
-    //
-    // onDelete: useCallback((e) => {
-    //   e.stopPropagation();
-    //   props.onDelete(props.item.code)
-    // }, [props.onDelete,  props.item])
+    button: useCallback(
+      (event) => {
+        event.stopPropagation();
+        button(item.code);
+      },[button, item],
+    )
   };
 
   return (
-    <div className={cn({'selected': item.selected})} onClick={callbacks.onClick}>
+    <div className={cn()}>
       <div className={cn('number')}>
-        {item.code}
+        {index}
       </div>
       <div className={cn('title')}>
         {item.title}
-        {/*{count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}*/}
       </div>
       <div className={cn('price')}>
-        {`${item.price.toLocaleString('ru')}₽`}
+        {`${item.price.toLocaleString('ru')} ₽`}
       </div>
       {
-        item.count &&
-        <div className={cn('count')}>
-          {`${item.count} шт.`}
+        item.amount &&
+        <div className={cn('amount')}>
+          {`${item.amount} шт`}
         </div>
       }
       <div className={cn('actions')}>
-        <button onClick={button}>
+        <button onClick={callbacks.button}>
           {buttonText}
         </button>
       </div>
@@ -54,11 +43,13 @@ function Item({ item, button, buttonText }) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
+  index: propTypes.number,
   button: propTypes.func,
   buttonText: propTypes.string
 }
 
 Item.defaultProps = {
+  index: 0,
   button: () => {},
   buttonText: 'Кнопка'
 }

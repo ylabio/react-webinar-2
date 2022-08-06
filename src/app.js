@@ -13,38 +13,30 @@ import Cart from "./components/cart";
  */
 function App({store}) {
 
-  const [modalActive, setModalActive] = useState(false);
+  // const [modalActive, setModalActive] = useState(false);
 
   const callbacks = {
-    onOpenCart: useCallback(() => {
-      setModalActive(true);
-    }, []),
+    // onOpenCart: useCallback(() => {
+    //   setModalActive(true);
+    // }, []),
     addItemToCart: useCallback((code) => {
       store.addItemToCart(code);
     }, []),
-    // onSelectItems: useCallback((code) => {
-    //   store.selectItem(code);
-    // }, []),
-    // onDeleteItems: useCallback((code) => {
-    //   store.deleteItem(code);
-    // }, []),
+    onDeleteCartItems: useCallback((code) => {
+      store.deleteCartItems(code);
+    }, []),
   }
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls onOpenCart={callbacks.onOpenCart}
+      <Controls store={store}
                 cartItems={store.getState().cartItems}
-      />
+                deleteCartItems={callbacks.onDeleteCartItems}/>
       <List items={store.getState().items}
             button={callbacks.addItemToCart}
-            buttonText={'Добавить'}
-        // onItemSelect={callbacks.onSelectItems}
-        // onItemDelete={callbacks.onDeleteItems}
-      />
-      <Modal active={modalActive}
-             setActive={setModalActive}
-             children={<Cart store={store}/>}
-      />
+            buttonText={'Добавить'}/>
+
+      {/*<Modal children={<Cart store={store}/>}/>*/}
     </Layout>
   );
 }

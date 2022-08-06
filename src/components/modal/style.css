@@ -49,22 +49,22 @@
     margin-right: 30px;
 }
 
-.Modal-total-price {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 26px 108px 26px;
-    white-space: nowrap;
-}
+/*.Modal-total-price {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: flex-end;*/
+/*    padding: 26px 108px 26px;*/
+/*    white-space: nowrap;*/
+/*}*/
 
-.Modal-total-price span{
-    margin-left: 49px;
-}
+/*.Modal-total-price span{*/
+/*    margin-left: 49px;*/
+/*}*/
 
 .Modal .List-item:first-child {
     margin-top: 74px;
 }
 
-.Modal .Item-actions button{
-    width: 71px;
-}
+/*.Modal .Item-actions button{*/
+/*    width: 71px;*/
+/*}*/

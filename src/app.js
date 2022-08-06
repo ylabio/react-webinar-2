@@ -27,16 +27,19 @@ function App({store}) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls store={store}
-                cartItems={store.getState().cartItems}
-                deleteCartItems={callbacks.onDeleteCartItems}
-                isModalActive={store.getState().isModalActive}
+      <Controls cartItems={store.getState().cartItems}
                 toggleCart={callbacks.toggleCart}/>
       <List items={store.getState().items}
             button={callbacks.addItemToCart}
             buttonText={'Добавить'}/>
-
-      {/*<Modal children={<Cart store={store}/>}/>*/}
+      {store.getState().isModalActive &&
+        <Modal title={'Корзина'}
+               isModalActive={store.getState().isModalActive}
+               toggleCart={callbacks.toggleCart}
+               // cartItems={store.getState().cartItems}
+               // deleteCartItems={callbacks.onDeleteCartItems}
+               children={<Cart cartItems={store.getState().cartItems}
+                               deleteCartItems={callbacks.onDeleteCartItems}/>}/>}
     </Layout>
   );
 }

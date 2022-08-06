@@ -4,25 +4,36 @@ import propTypes from "prop-types";
 import {cn as bem} from "@bem-react/classname";
 import Layout from "../layout";
 import List from "../list";
+import {getAllCartItemsCost} from "../../utils";
 
-function Cart(store, closeCart) {
+function Cart({cartItems, deleteCartItems }) {
   const cn = bem('Cart');
 
   return (
-    <Layout head={
-      <>
-        <h1>Корзина</h1>
-        <button onClick={closeCart}>Закрыть</button>
-      </>
-    }>
-      <List items={store.store.getState().cartItems}
+    <div>
+      <List items={cartItems}
+            button={deleteCartItems}
             buttonText={'Удалить'}/>
-    </Layout>
+      {cartItems.length
+        ? <div className={cn('total-price')}>
+          <strong>
+            <span>Итого</span>
+            <span>{`${getAllCartItemsCost(cartItems).toLocaleString('ru')} ₽`}</span>
+          </strong>
+        </div>
+        : ''}
+    </div>
   )
 }
 
-Cart.propTypes = {}
+Cart.propTypes = {
+  cartItems: propTypes.arrayOf(propTypes.object).isRequired,
+  deleteCartItems: propTypes.func
+}
 
-Cart.defaultProps = {}
+Cart.defaultProps = {
+  cartItems: [],
+  deleteCartItems: () => {}
+}
 
 export default React.memo(Cart);

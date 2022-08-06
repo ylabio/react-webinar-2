@@ -7,6 +7,8 @@ import {cn as bem} from "@bem-react/classname";
 function Controls({cart, onCartOpen}){
   const cn = bem('Controls');
   const amount = Object.keys(cart.items).length;
+  const pluralNoun = plural(amount, 'товар', 'товара', 'товаров');
+  const formattedTotalValue = cart.total.toLocaleString('ru-RU');
 
   const callbacks = {
     onCartOpen: useCallback(() => {
@@ -17,7 +19,7 @@ function Controls({cart, onCartOpen}){
   return (
     <div className='Controls'>
       <div className={cn('info')}>В корзине: {amount ?
-        <b>{amount} {plural(amount, 'товар', 'товара', 'товаров')} / {cart.total} &#8381;</b> :
+        <b>{amount} {pluralNoun} / {formattedTotalValue} &#8381;</b> :
         <b>пусто</b>}
       </div>
       <button className={cn('button')} onClick={callbacks.onCartOpen}>Перейти</button>

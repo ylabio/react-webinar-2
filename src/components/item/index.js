@@ -5,6 +5,12 @@ import './style.css';
 
 function Item({item, onButtonClick, index}) {
   const cn = bem('Item');
+  const formattedPrice = item.price.toLocaleString('ru-RU');
+  const formattedAmount = item.amount ? item.amount.toLocaleString('ru-RU') : null;
+  const buttonValues = {
+    main: 'Добавить',
+    cart: 'Удалить'
+  }
 
   const callbacks = {
     onButtonClick: useCallback(() => {
@@ -21,11 +27,11 @@ function Item({item, onButtonClick, index}) {
         {item.title}
       </div>
       <div className={cn('info')}>
-        {item.price} &#8381; {item.amount ? <span className={cn('amount')}>{item.amount} шт</span> : ''}
+        {formattedPrice} &#8381; {item.amount ? <span className={cn('amount')}>{formattedAmount} шт</span> : ''}
       </div>
       <div className={cn('actions')}>
         <button className={cn('button')} onClick={callbacks.onButtonClick}>
-          {item.amount ? 'Удалить' : 'Добавить'}
+          {item.amount ? buttonValues.cart : buttonValues.main}
         </button>
       </div>
     </div>
@@ -34,8 +40,12 @@ function Item({item, onButtonClick, index}) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onButtonClick: propTypes.func.isRequired,
+  onButtonClick: propTypes.func,
   index: propTypes.number
+}
+
+Item.defaultProps = {
+  onButtonClick: () => {}
 }
 
 export default React.memo(Item);

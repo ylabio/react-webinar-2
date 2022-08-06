@@ -15,10 +15,10 @@ function List(props) {
         title={item.title}
         secondaryInfo={props.type === 'cart' 
         ? <>
-            <div>{`${(item.price * item.qty).toLocaleString('ru-RU',{style:'currency', currency:'RUB',maximumFractionDigits: 0})}`}</div>
+            <div>{(item.price).toLocaleString('ru-RU',{style:'currency', currency:'RUB',maximumFractionDigits: 0})}</div>
             <div>{`${item.qty} шт`}</div>
           </>
-        : <div>{`${(item.price).toLocaleString('ru-RU',{style:'currency', currency:'RUB',maximumFractionDigits: 0})}`}</div>}
+        : <div>{(item.price).toLocaleString('ru-RU',{style:'currency', currency:'RUB',maximumFractionDigits: 0})}</div>}
         buttonAction={props.callback} 
         buttonValue={props.type === 'cart' ? 'Удалить' : 'Добавить'}/>
       </div>

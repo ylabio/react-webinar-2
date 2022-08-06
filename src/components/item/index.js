@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from "@bem-react/classname";
 import './style.css';
+import Button from '../button';
 
 function Item(props) {
   const cn = bem('Item');
@@ -22,9 +23,9 @@ function Item(props) {
         {props.item.title}
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
+        <Button onClick={callbacks.onDelete}>
+          Добавить
+        </Button>
       </div>
     </div>
   )

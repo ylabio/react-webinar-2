@@ -1,0 +1,37 @@
+.Modal-summary{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 40px;
+    
+    margin-top: 15px;
+}
+
+.Modal-text{
+    margin-right: 30px;
+}
+
+.Modal-stats{
+    margin-right: 110px;
+}
+
+.Modal>.Layout{
+    min-height: 70vh;
+    border-radius: 10px;
+    max-width: 980px;
+    width: 80%;
+}
+
+.Modal>.Layout>.Layout-content>.List{
+    margin-top: 60px;
+}
+
+.Modal>.Layout>.Layout-head>button{
+    height: fit-content;
+    margin-right: 25px;
+}
+
+.Modal>.Layout>.Layout-head{
+    border-radius: 10px;
+    align-items: center;
+}

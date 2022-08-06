@@ -43,43 +43,70 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
+  // createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  //   this.setState({
+  //     ...this.state,
+  //     items: this.state.items.concat({code, title, price, selected})
+  //   });
+  // }
+
+  /**
+   * Добавляет в корзину
+   */
+  addToCard(code, id) {
+    const item = this.state.items.find((o) => o.id === id);    
+    const cartItems = this.state.cart.slice();
+    const cartItem = cartItems.find((o) => o.id === item.id);
+    if (cartItem) {
+      cartItem.count += 1;
+      this.setState({
+        ...this.state,
+        cart: [...cartItems],
+      })
+    } else {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.concat({...item, count: 1})
+      })
+    }
+
+    console.log('state', this.state)
+
+
+
   }
+
 
   /**
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
+  // deleteItem(code) {
+  //   this.setState({
+  //     ...this.state,
+  //     items: this.state.items.filter(item => item.code !== code)
+  //   });
+  // }
 
   /**
    * Выделение записи по её коду
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
-  }
+  // selectItem(code) {
+  //   this.setState({
+  //     ...this.state,
+  //     items: this.state.items.map(item => {
+  //       if (item.code === code){
+  //         return {
+  //           ...item,
+  //           selected: !item.selected,
+  //           count: item.selected ? item.count : item.count + 1 || 1
+  //         }
+  //       }
+  //       return item.selected ? {...item, selected: false} : item;
+  //     })
+  //   });
+  // }
 }
 
 export default Store;

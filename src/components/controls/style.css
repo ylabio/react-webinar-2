@@ -1,6 +1,34 @@
 /* Контрол с общими действиями */
-.Controls{
+.Controls {
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+    font-size: 18px;
 }
+
+.Controls-info {
+    font-weight: 700;
+    margin-left: 15px;
+    margin-right: 20px;
+}
+
+.Controls-button {
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 15px;
+    color: black;
+    min-width: 80px;
+    min-height: 21px;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    background: #EFEFEF;
+    padding: 2px 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+}
+
+.Controls-button:hover {
+    transform: translateY(-2px);
+    transition: all 0.1s ease-out;
+}
+

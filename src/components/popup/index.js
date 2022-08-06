@@ -14,12 +14,13 @@ function Popup({ children, header, onClose }) {
 
   return (
     <div className={'Overflow'}>
-      <div className={cn()}></div>
-      <div className={cn('head')}>
-        <h1>{header}</h1>
-        <button onClick={callbacks.onClose}>Закрыть</button>
+      <div className={cn()}>
+        <div className={cn('head')}>
+          <h1>{header}</h1>
+          <button onClick={callbacks.onClose}>Закрыть</button>
+        </div>
+        <div className={cn('content')}>{children}</div>
       </div>
-      <div className={cn('content')}>{children}</div>
     </div>
   )
 }

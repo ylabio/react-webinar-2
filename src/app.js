@@ -20,15 +20,18 @@ function App({ store }) {
     onAddItemInCart: useCallback(item => {
       store.addInCart(item)
     }, []),
-    setPopupVisibility: useCallback(visible => {
-      store.setPopupVisibility(visible)
+    onOpenCartPopup: useCallback(() => {
+      store.setPopupVisibility(true)
+    }, []),
+    onCloseCartPopup: useCallback(() => {
+      store.setPopupVisibility(false)
     }, [])
   }
 
   return (
     <Layout head={<h1>Магазин</h1>}>
       <Controls
-        onCartOpen={() => callbacks.setPopupVisibility(true)}
+        onCartOpen={callbacks.onOpenCartPopup}
         cart={store.getState().cart}
       />
       <List
@@ -40,16 +43,8 @@ function App({ store }) {
       />
       {store.getState().cart.visible && (
         <Popup
-          head={
-            <>
-              <h1>Корзина</h1>
-              <button
-                onClick={() => callbacks.setPopupVisibility(false)}
-              >
-                Закрыть
-              </button>
-            </>
-          }
+          header={'Корзина'}
+          onClose={callbacks.onCloseCartPopup}
         >
           <List
             items={store.getState().cart.items.map(item => ({

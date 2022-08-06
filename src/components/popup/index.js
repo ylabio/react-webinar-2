@@ -1,23 +1,39 @@
-import {cn as bem} from '@bem-react/classname';
-import propTypes from 'prop-types';
-import React from 'react';
-import './style.css';
+import { cn as bem } from '@bem-react/classname'
+import propTypes from 'prop-types'
+import React, { useCallback } from 'react'
+import Layout from '../layout'
+import './style.css'
 
-function Popup({children, head}) {
-  const cn = bem('Popup');
+function Popup({ children, header, onClose }) {
+  const cn = bem('Overflow')
+
+  const callbacks = {
+    onClose: useCallback(() => {
+      onClose()
+    }, [])
+  }
+
   return (
     <div className={cn()}>
-      <div className={cn('dialog')}>
-        <div className={cn('head')}>{head}</div>
-        <div className={cn('content')}>{children}</div>
-      </div>
+      <Layout
+        baseClassName='Popup'
+        head={
+          <>
+            <h1>{header}</h1>
+            <button onClick={callbacks.onClose}>Закрыть</button>
+          </>
+        }
+      >
+        {children}
+      </Layout>
     </div>
-  );
+  )
 }
 
 Popup.propTypes = {
-  children: propTypes.node,
-  head: propTypes.node
-};
+  header: propTypes.string,
+  children: propTypes.node.isRequired,
+  onClose: propTypes.func.isRequired
+}
 
-export default React.memo(Popup);
+export default React.memo(Popup)

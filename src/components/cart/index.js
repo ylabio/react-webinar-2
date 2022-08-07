@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.css';
+import propTypes from 'prop-types';
 import { cn as bem } from "@bem-react/classname";
 import Button from '../button';
 
@@ -19,6 +20,18 @@ function Cart({ head, children, visible, onInvisibleCart }) {
       </div>
     </div>
   )
+}
+
+Cart.propTypes = {
+  head: propTypes.node.isRequired,
+  children: propTypes.node.isRequired,
+  visible: propTypes.bool,
+  onInvisibleCart: propTypes.func
+}
+
+Cart.defaultProps = {
+  visible: false,
+  onInvisibleCart: () => { }
 }
 
 export default React.memo(Cart)

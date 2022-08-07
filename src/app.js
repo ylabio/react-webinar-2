@@ -2,8 +2,6 @@ import React, { useCallback, useState } from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import { counter } from "./utils";
-import item from './components/item';
 import Cart from './components/cart';
 
 /**
@@ -12,40 +10,64 @@ import Cart from './components/cart';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({ store }) {
-
-  const [sumPrice, setSumPrice] = useState(0);
-  const [countItem, setCountItem] = useState(0);
   const [visibleCart, setVisibleCart] = useState(false);
 
   const callbacks = {
     onAddItem: useCallback((item) => {
       store.addItemToCart(item);
-      setSumPrice(sumPrice + item.price);
-      setCountItem(store.getState().itemsCart.length);
-    }, [sumPrice]),
+    }, []),
 
     onVisibleCart: useCallback(() => {
       setVisibleCart(true);
-    }),
+    }, []),
 
     onInvisibleCart: useCallback(() => {
       setVisibleCart(false);
-    }),
-
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
     }, []),
+
+    onRemoveItem: useCallback((item) => {
+      store.removeItemToCart(item);
+    }, []),
+
+    getCartProps: useCallback(() => {
+      let itemsCart = store.getState().itemsCart;
+      if (itemsCart.length) {
+        return {
+          sumPrice: itemsCart.reduce((prevPrice, currentPrice) => prevPrice + currentPrice.sumPrice, 0),
+          count: itemsCart.length
+        }
+      } else {
+        return {
+          sumPrice: 0,
+          count: 0
+        }
+      }
+    }, []),
+
+    isCart: useCallback((items) => {
+      return store.getState().itemsCart === items;
+    }, [])
   }
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls count={countItem} sum={sumPrice} onVisibleCart={callbacks.onVisibleCart} />
-      <List items={store.getState().items}
-        onAddCart={callbacks.onAddItem}
+      <Controls
+        count={callbacks.getCartProps().count}
+        sum={callbacks.getCartProps().sumPrice}
+        onVisibleCart={callbacks.onVisibleCart} />
+      <List
+        isCart={callbacks.isCart(store.getState().items)}
+        items={store.getState().items}
+        callback={callbacks.onAddItem}
       />
       <Cart head={<h1>Корзина</h1>} visible={visibleCart} onInvisibleCart={callbacks.onInvisibleCart}>
         {store.getState().itemsCart.length
-          ? <List items={store.getState().itemsCart}></List>
+          ? <List
+            isCart={callbacks.isCart(store.getState().itemsCart)}
+            items={store.getState().itemsCart}
+            callback={callbacks.onRemoveItem}
+            sum={callbacks.getCartProps().sumPrice}>
+          </List>
           : <h1>Корзина пуста</h1>
         }
       </Cart>

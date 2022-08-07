@@ -51,17 +51,6 @@ class Store {
   }
 
   /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
    * Добавления товара в корзину
    */
   addItemToCart(item) {
@@ -84,6 +73,12 @@ class Store {
           : [...this.state.itemsCart, { ...item, sumPrice: item.price, count: 1 }]
       })
     }
+  }
+  removeItemToCart(item) {
+    this.setState({
+      ...this.state,
+      itemsCart: this.state.itemsCart.filter(itemCart => itemCart.code !== item.code)
+    })
   }
 }
 

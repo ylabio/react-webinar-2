@@ -10,21 +10,27 @@ function List(props) {
   return (
     <div className={cn()}>{props.items.map(item =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} onAddCart={props.onAddCart} />
+        <Item item={item} callback={props.callback} isCart={props.isCart} />
       </div>
     )}
+      {props.isCart
+        ? <div className={cn('bottom')}>Итого: <span>{props.sum.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 })}</span></div>
+        : null
+      }
     </div>
   )
 }
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onAddCart: propTypes.func
+  isCart: propTypes.bool,
+  callback: propTypes.func
 }
 
 List.defaultProps = {
   items: [],
-  onAddCart: () => { }
+  isCart: false,
+  callback: () => { }
 }
 
 export default React.memo(List);

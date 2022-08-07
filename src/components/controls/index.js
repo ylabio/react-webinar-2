@@ -6,14 +6,13 @@ import { cn as bem } from "@bem-react/classname";
 import plural from "plural-ru";
 
 function Controls({ sum, count, onVisibleCart }) {
-
   const cn = bem('Controls');
 
   return (
     <div className={cn()}>
       <div className={cn('price')}>
         В корзине: <span>
-          {sum
+          {count
             ? `${count} ${plural(count, 'товар', 'товара', 'товаров')} / 
             ${sum.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 })}`
             : 'пусто'}

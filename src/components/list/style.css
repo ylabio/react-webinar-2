@@ -8,3 +8,17 @@
 .List-item:first-child {
     border-top: 1px dashed #ccc;
 }
+
+.List-bottom {
+    height: 60px;
+    font-weight: 700;
+    font-size: 18px;
+    padding-right: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.List-bottom span {
+    padding-left: 45px;
+}

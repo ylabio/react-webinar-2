@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from "@bem-react/classname";
 import './style.css';
@@ -8,10 +8,10 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onAddCart: useCallback((e) => {
+    onHandler: useCallback((e) => {
       e.stopPropagation();
-      props.onAddCart(props.item)
-    }, [props.onAddCart, props.item])
+      props.callback(props.item)
+    }, [props.callback, props.item])
   };
 
   return (
@@ -25,16 +25,16 @@ function Item(props) {
       <div className={cn('price')}>
         {props.item.price.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 })}
       </div>
-      {props.item.count
+      {props.isCart
         ? <div className={cn('count')}>{props.item.count} шт</div>
         : null
       }
       <div className={cn('actions')}>
-        {props.item.count
-          ? <Button onClick={callbacks.onAddCart}>
+        {props.isCart
+          ? <Button onClick={callbacks.onHandler}>
             Удалить
           </Button>
-          : <Button onClick={callbacks.onAddCart}>
+          : <Button onClick={callbacks.onHandler}>
             Добавить
           </Button>
         }
@@ -45,11 +45,13 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onAddCart: propTypes.func
+  isCart: propTypes.bool,
+  onHandler: propTypes.func
 }
 
 Item.defaultProps = {
-  onAddCart: () => { }
+  isCart: false,
+  onHandler: () => { }
 }
 
 export default React.memo(Item);

@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
-import Layout from "./components/layout";
+import Layout from "./components/layout/layout";
 import {counter} from "./utils";
+
 
 /**
  * Приложение
@@ -19,17 +20,19 @@ function App({store}) {
     onSelectItems: useCallback((code) => {
       store.selectItem(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onPutItemToBasket: useCallback((code) => {
+      store.putItemToBasket(code);
     }, []),
   }
 
+  
+
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
+    <Layout head={<h1>Магазин</h1>}>
       <Controls onAdd={callbacks.onAdd}/>
       <List items={store.getState().items}
             onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+            onPutItemToBasket={callbacks.onPutItemToBasket}
       />
     </Layout>
   );

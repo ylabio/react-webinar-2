@@ -1,11 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import propTypes from 'prop-types';
 import './style.css';
+import ModalBasket from '../modalBasket/modalBasket';
 
 function Controls({onAdd}){
+  
+  const [modalActive, setModalActive] = useState(false);
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div>
+      <div className='Controls'>
+        <button onClick={() => setModalActive(true)}>Перейти</button>
+      </div>
+      <ModalBasket active={modalActive} setActive={setModalActive}>
+        lorem
+      </ModalBasket>
     </div>
   )
 }

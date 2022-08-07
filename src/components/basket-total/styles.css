@@ -1,0 +1,21 @@
+.BasketTotal {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.BasketTotal-total, .BasketTotal-title {
+    min-width: 100px;
+    text-align: right;
+    font-weight: bold;
+    font-size: 18px;
+}
+.BasketTotal-total {
+    margin-right: 106px;
+}
+.BasketTotal-void-title{
+    min-width: 100px;
+    text-align: right;
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 500px;
+}

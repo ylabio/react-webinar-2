@@ -26,8 +26,11 @@ function App({store}) {
   };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd} />
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls
+        onAdd={callbacks.onAdd}
+        cartItems={store.getState().shoppingCart}
+      />
       <List
         items={store.getState().items}
         onAddItemToCart={callbacks.onAddItemToCart}

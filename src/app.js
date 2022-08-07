@@ -1,36 +1,52 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from "react";
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Cart from "./components/cart";
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+function App({ store }) {
+  const products = store.getState().items;
+  const cart = store.getState().cart;
+  const cartAmount = store.getTotalAmount();
+
+  const [isModalOpen, setModalOpen] = React.useState(false);
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onCartClick: useCallback(() => {
+      setModalOpen(true);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onAdd: useCallback((item) => {
+      store.addItemToCart(item);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onDelete: useCallback((item) => {
+      store.deleteItemFromCart(item);
     }, []),
-  }
+    onCloseModal: useCallback(() => {
+      setModalOpen(false);
+    }),
+  };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls
+        onCartClick={callbacks.onCartClick}
+        amount={cartAmount}
+        cartLength={cart.length}
       />
+      <List items={products} onButtonClick={callbacks.onAdd} />
+      {isModalOpen && (
+        <Cart
+          cart={cart}
+          cartAmount={cartAmount}
+          onClose={callbacks.onCloseModal}
+          deleteItem={callbacks.onDelete}
+        />
+      )}
     </Layout>
   );
 }

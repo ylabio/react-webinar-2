@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import Item from "../item";
+import {cn as bem} from '@bem-react/classname';
+import Item from '../item';
 import './style.css';
 
 function List(props) {
@@ -10,7 +10,7 @@ function List(props) {
   return (
     <div className={cn()}>{props.items.map(item =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} onAddToCart={props.onItemAddToCart}/>
+        <Item item={item} titleButton={props.titleButton} onButton={props.onButton}/>
       </div>
     )}
     </div>
@@ -19,12 +19,8 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemAddToCart: propTypes.func,
-}
-
-List.defaultProps = {
-  items: [],
-  onItemAddToCart: () => {}
+  onButton: propTypes.func.isRequired,
+  titleButton: propTypes.string.isRequired,
 }
 
 export default React.memo(List);

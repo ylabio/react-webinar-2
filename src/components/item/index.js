@@ -1,17 +1,16 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import {numberFormat} from "src/utils";
+import {cn as bem} from '@bem-react/classname';
+import {numberFormat} from 'src/utils';
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onAddToCart: useCallback((e) => {
-      e.stopPropagation();
-      props.onAddToCart(props.item.code)
-    }, [props.onAddToCart, props.item])
+    onButton: useCallback(() => {
+      props.onButton(props.item)
+    }, [props.onButton, props.item])
   };
 
   return (
@@ -23,9 +22,10 @@ function Item(props) {
         <p>{props.item.title}</p>
         <p>{numberFormat(props.item.price)}</p>
       </div>
+      {props.item.count && <div className={cn('quantity')}>{props.item.count} шт.</div>}
       <div className={cn('actions')}>
-        <button className={cn('button')} onClick={callbacks.onAddToCart}>
-          Добавить
+        <button className={cn('button')} onClick={callbacks.onButton}>
+          {props.titleButton}
         </button>
       </div>
     </div>
@@ -34,7 +34,8 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onAddToCart: propTypes.func.isRequired,
+  onButton: propTypes.func.isRequired,
+  titleButton: propTypes.string.isRequired,
 }
 
 export default React.memo(Item);

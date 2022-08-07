@@ -1,7 +1,7 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
 import App from './app.js';
-import Store from "./store.js";
+import Store from './store.js';
 import {counter} from './utils.js';
 
 const store = new Store({

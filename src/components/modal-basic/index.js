@@ -1,8 +1,6 @@
 import React from 'react';
-import {cn as bem} from "@bem-react/classname";
-import propTypes from "prop-types";
-
-
+import {cn as bem} from '@bem-react/classname';
+import propTypes from 'prop-types';
 import './styles.css';
 
 function ModalBasic({isActive, closeModal, children,}) {

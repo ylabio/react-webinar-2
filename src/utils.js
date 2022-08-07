@@ -10,11 +10,10 @@ export function counter() {
  * Сумирует товары в корзине
  * @returns {number}
  */
-export const sumProducts = (cart, items) => {
+export const sumProducts = (cart) => {
   let sum = 0
-  cart.map(({code, count}) => {
-    const index = items.findIndex(item => item.code === code)
-    sum = sum + items[index].price * count
+  cart.map(({price, count}) => {
+    sum = sum + price * count
   })
   return sum
 }

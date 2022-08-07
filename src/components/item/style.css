@@ -26,3 +26,11 @@
     width: 76px;
     height: 21px;
 }
+
+.Item-quantity {
+    word-wrap: normal;
+    width: 100px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}

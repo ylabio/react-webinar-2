@@ -35,7 +35,7 @@ function App({store}) {
                         price={store.getState().cart.price}>
         <List items={store.getState().cart.items}
               btnClick={callbacks.onDeleteItems}
-              btnLabbel={'Убрать'}
+              btnLabbel={'Удалить'}
         />
       </Modal>}
     </>

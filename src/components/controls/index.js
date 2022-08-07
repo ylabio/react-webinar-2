@@ -7,6 +7,7 @@ import { Cart } from '../cart';
 
 function Controls({ cartItems, showCart, onShowCart, deleteItemToCart }) {
   let quantity = calcSumm(cartItems, 'quantity');
+  let unicalCount = calcSumm(cartItems,"unicalCount")
 
   return (
   <div className='Controls'>
@@ -15,8 +16,8 @@ function Controls({ cartItems, showCart, onShowCart, deleteItemToCart }) {
         {!quantity 
         ? ( <span className="cart-text">пусто</span>)
         : (<div className="cart-text">
-            {quantity} {declOfNum(quantity, ["товар", "товара", "товаров"])} /{" "}
-            <span>{calcSumm(cartItems, "price")}&nbsp;₽</span>
+            {unicalCount} {declOfNum(unicalCount, ["товар", "товара", "товаров"])} /{" "}
+            <span>{calcSumm(cartItems, "price").toLocaleString()}&nbsp;₽</span>
           </div>)}
       </div>
       {showCart && (

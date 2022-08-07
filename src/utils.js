@@ -19,7 +19,8 @@ export function declOfNum(number, words) {
 }
 /**
  * Суммирует цену товара с учетом количества если передан 'price"'
- * и суммирует количество если передан 'quantity'
+ * суммирует общее количество если передан 'quantity'
+ * суммирует количество уникального товара, если передан 'unicalCount'
  * @returns {number}
  */
 export function calcSumm(array, arg) {
@@ -36,5 +37,17 @@ export function calcSumm(array, arg) {
       quantity += el.quantity;
     });
     return quantity;
+  }
+    if (arg === "unicalCount") {
+    let count = 0;
+    array.map((el) => {
+      if(el.quantity === 1){
+        count+=1;
+      }
+      else if(el.quantity >1){
+        count+=1;
+      }
+    });
+    return count;
   }
 }

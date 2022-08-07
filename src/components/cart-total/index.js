@@ -9,7 +9,7 @@ export function CartTotal({ cartItems }) {
       {cartItems.length > 0 ? (
         <div className="total-block">
           <div>Итого</div>
-          <div>{calcSumm(cartItems, "price")} ₽</div>
+          <div>{calcSumm(cartItems, "price").toLocaleString()} ₽</div>
         </div>
       ) : (
         <div className="cart-empty">Корзина пуста</div>

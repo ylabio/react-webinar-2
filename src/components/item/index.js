@@ -27,7 +27,7 @@ function Item(props) {
         {props.item.title}
       </div>
       <div className={cn('price')}>
-        {props.item.price}&nbsp;₽
+        {props.item.price.toLocaleString()}&nbsp;₽
       </div>
       {props.quantity && (
         <div className={cn('quantity')}>

@@ -71,10 +71,7 @@ class Store {
         return updatedItems(1);
 
       case 'DELETE':
-        if(product.count - 1 === 0) {
-          return cartItems.filter(item => item.code !== product.code);
-        }
-        return updatedItems(-1);
+        return cartItems.filter(item => item.code !== product.code);
 
       default:
         return cartItems;

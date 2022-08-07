@@ -40,12 +40,13 @@ function App({store}) {
     }, []),
   }
 
-  console.log(store.getState().itemsInCart)
-
   return (
     <>
       <Layout head={<h1>Магазин</h1>}>
-        <Controls openPopup={callbacks.openPopup}/>
+        <Controls items={store.getState().itemsInCart}
+                  openPopup={callbacks.openPopup}
+
+        />
         <List items={store.getState().items}
               buttonName='Добавить'
               onItemClick={callbacks.onAddItemToCart}
@@ -53,8 +54,9 @@ function App({store}) {
               // onItemDelete={callbacks.onDeleteItems}
         />
       </Layout>
-      <Cart isVisible={popupState}
-              closePopup={callbacks.closePopup}
+      <Cart items={store.getState().itemsInCart}
+            isVisible={popupState}
+            closePopup={callbacks.closePopup}
       >
         <List items={store.getState().itemsInCart}
               buttonName='Удалить'

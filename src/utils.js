@@ -6,9 +6,12 @@ export function counter(){
   return counter.value ? ++counter.value : counter.value = 1;
 }
 
-// Разделение стоимости на разряды
-export function divideOnDigits(price) {
+// Получение стоимости в рублях, с разделением числа на разряды
+export function getPriceOnRub(price) {
   return `${new Intl.NumberFormat('ru-RU').format(price)} ₽`;
 }
 
-// Подсчет суммы товаров в корзине
+// Получение стоимости всех товаров в корзине
+export function getAllPrice(itemsInCart) {
+  return itemsInCart.reduce((sum, item) => sum + item.price * item.count, 0)
+}

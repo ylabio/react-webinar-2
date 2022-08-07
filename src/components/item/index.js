@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import {divideOnDigits} from '../../utils';
+import {getPriceOnRub} from '../../utils';
 // import plural from 'plural-ru';
 import './style.css';
 
@@ -37,7 +37,7 @@ function Item({item, indexItem, buttonName, onItemClick}) {
           {/*{count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}*/}
       </div>
       <div className={cn('actions')}>
-        <p className={cn('data')}>{divideOnDigits(item.price)}</p>
+        <p className={cn('price')}>{getPriceOnRub(item.price)}</p>
         {item.count && <p className={cn('count')}>{item.count} шт</p>}
         <button onClick={callbacks.onClick}>
           {buttonName}

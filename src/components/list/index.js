@@ -12,13 +12,7 @@ function List(props) {
     <div className={cn()}>
       {items.map((item, index) => (
         <div key={item.code} className={cn('item')}>
-          <Item
-            item={item}
-            index={index}
-            onSelect={onItemSelect}
-            onDelete={onItemDelete}
-            inCart={inCart}
-          />
+          <Item item={item} onSelect={onItemSelect} onDelete={onItemDelete} inCart={inCart} />
         </div>
       ))}
     </div>

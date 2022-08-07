@@ -24,7 +24,7 @@ function Item(props) {
   };
   return (
     <div className={cn({ selected: item.selected })} onClick={callbacks.onClick}>
-      <div className={cn('number')}>{inCart ? index + 1 : item.code}</div>
+      <div className={cn('number')}>{item.code}</div>
       <div className={cn('title')}>{item.title}</div>
       <div className={cn('price')}>{item.price + ' ₽'}</div>
       {inCart && <div className={cn('quantity')}>{item.quantity + ' шт.'}</div>}

@@ -22,7 +22,12 @@ function Item(props) {
     onDelete: useCallback((e) => {
       e.stopPropagation();
       props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
+    }, [props.onDelete,  props.item]),
+
+    onAddToCart: useCallback((e) => {
+      e.stopPropagation();
+      props.onAddToCart(props.item.code)
+    }, [props.onAddToCart, props.item])
   };
 
   return (
@@ -39,9 +44,15 @@ function Item(props) {
         </span>
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
+        {
+          props.isCartItem
+            ? (<button onClick={callbacks.onDelete}>
+                Удалить
+              </button>)
+            : (<button onClick={callbacks.onAddToCart}>
+                Добавить
+              </button>)
+        }
       </div>
     </div>
   )
@@ -49,13 +60,17 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
+  isCartItem: propTypes.bool,
   onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
+  onDeleted: propTypes.func,
+  onAddToCart: propTypes.func,
 }
 
 Item.defaultProps = {
+  isCartItem: false,
   onSelect: () => {},
-  onDeleted: () => {}
+  onDeleted: () => {},
+  onAddToCart: () => {},
 }
 
 export default React.memo(Item);

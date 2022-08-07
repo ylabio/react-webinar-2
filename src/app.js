@@ -10,7 +10,6 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-
   const callbacks = {
     onAdd: useCallback(() => {
       const code = counter();
@@ -22,6 +21,9 @@ function App({store}) {
     onDeleteItems: useCallback((code) => {
       store.deleteItem(code);
     }, []),
+    onAddToCart: useCallback((code) => {
+      store.addToCart(code);
+    }, []),
   }
 
   return (
@@ -30,6 +32,7 @@ function App({store}) {
       <List items={store.getState().items}
             onItemSelect={callbacks.onSelectItems}
             onItemDelete={callbacks.onDeleteItems}
+            onItemAddToCart={callbacks.onAddToCart}
       />
     </Layout>
   );

@@ -19,7 +19,7 @@ function Item(props){
       <div className={cn('title')}>{item.title}</div>
       <div className={cn('price')}>{item.price.toLocaleString('ru-Ru')}</div>
       <Actions action={handleCallback} name={callback.name}>
-        {`${item.count ? item.count + ' шт' : ''}`}
+        {!!item.count && <div>{item.count + ' шт'}</div>}
       </Actions>
     </div>
   );

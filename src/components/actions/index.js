@@ -16,7 +16,7 @@ function Actions(props){
 
   return (
     <div className={cn('')}>
-      {children && <div>{children}</div>}
+      {children}
       <button onClick={action} className={cn('button')}>
         {name}
       </button>
@@ -27,11 +27,13 @@ function Actions(props){
 Actions.propTypes = {
   action: propTypes.func.isRequired,
   name: propTypes.string.isRequired,
+  children: propTypes.oneOfType(propTypes.node, propTypes.string, propTypes.element, propTypes.bool)
 };
 
 Actions.defaultProps = {
   action: () => {},
   name: '',
+  children: <></>
 };
 
 export default React.memo(Actions);

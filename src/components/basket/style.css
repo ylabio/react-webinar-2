@@ -1,0 +1,37 @@
+.Basket {
+  box-sizing: border-box;
+}
+.Basket-head {
+  height: 80px;
+  background: #f5f5f5;
+  border-radius: 10px;
+  display: flex;
+  padding: 20px 20px 23px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+}
+.Basket-head h1 {
+  margin: 0;
+}
+.Basket-btn_close {
+  background: #efefef;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  padding: 3px 10px;
+  font-size: 13px;
+  line-height: 15px;
+}
+.Basket-total {
+  display: flex;
+  justify-content: flex-end;
+  padding: 26px 108px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  border-top: 1px dashed #ccc;
+}
+.Basket-total span:first-child {
+  margin-right: 49px;
+}

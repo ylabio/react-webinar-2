@@ -1,36 +1,59 @@
-import React, {useCallback} from 'react';
+import React, { useCallback, useState } from "react";
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Modal from "./components/modal";
+import Basket from "./components/basket";
+
+import { counter } from "./utils";
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+function App({ store }) {
+  const [modal, setModal] = useState(false);
 
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
+  const TotalPrice = store
+    .getState()
+    .orders.map((order) => order.total)
+    .reduce((prev, curr) => prev + curr, 0);
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
-    }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
+    onAddItem: useCallback(
+      (item) => {
+        store.addItemToBasket(item);
+      },
+      [store]
+    ),
+
+    deleteItem: useCallback((code) => {
       store.deleteItem(code);
     }, []),
-  }
+  };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout head={<h1>Магазин</h1>}>
+      {modal && (
+        <Modal>
+          <Basket
+            closeModal={toggleModal}
+            orders={store.getState().orders}
+            deleteItem={callbacks.deleteItem}
+            totalPrice={TotalPrice}
+          />
+        </Modal>
+      )}
+      <Controls
+        openModal={toggleModal}
+        orders={store.getState().orders}
+        totalPrice={TotalPrice}
       />
+      <List items={store.getState().items} onAdd={callbacks.onAddItem} />
     </Layout>
   );
 }

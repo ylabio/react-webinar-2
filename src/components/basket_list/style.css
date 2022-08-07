@@ -1,0 +1,9 @@
+.BasketList {
+  padding-top: 74px;
+}
+.BasketList-order {
+  border-bottom: 1px dashed #ccc;
+}
+.BasketList-order:first-child {
+  border-top: 1px dashed #ccc;
+}

@@ -1,25 +1,31 @@
-/* Пункт списка */
-.Item {
+.BasketItem {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
 }
-.Item-title {
+.BasketItem-title {
   width: 100%;
   padding: 20px 10px;
 }
-.Item-actions {
+.BasketItem-actions {
   padding: 20px 20px 20px 10px;
   display: flex;
   justify-content: flex-end;
 }
-.Item-price {
+.BasketItem-total,
+.BasketItem-count {
   font-size: 18px;
   font-weight: 400;
   line-height: 21px;
   color: #404040;
   padding: 20px 14px;
 }
-.Item-number {
+.BasketItem-count {
+  display: flex;
+}
+.BasketItem-count:not(:last-child) span {
+  margin-right: 5px;
+}
+.BasketItem-number {
   padding: 20px 10px 20px 20px;
 }

@@ -16,7 +16,7 @@ function BasketItem(props) {
   return (
     <div className={cn()}>
       <div className={cn('number')}>
-        {props.number}
+        {props.item.position}
       </div>
       <div className={cn('title')}>
         {props.item.title}
@@ -37,7 +37,6 @@ function BasketItem(props) {
 }
 
 BasketItem.propTypes = {
-  number: propTypes.number.isRequired,
   item: propTypes.object.isRequired,
   onDeleted: propTypes.func.isRequired
 }

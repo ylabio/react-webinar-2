@@ -13,8 +13,6 @@ import BasketResult from './components/basket-result';
  */
 function App({store}) {
 
-  console.log(store)
-
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const callbacks = {

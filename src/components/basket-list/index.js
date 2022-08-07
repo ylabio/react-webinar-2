@@ -8,9 +8,9 @@ function BasketList(props) {
   const cn = bem('BasketList');
 
   return (
-    <div className={cn()}>{props.items.map((item, index) =>
+    <div className={cn()}>{props.items.map((item) =>
       <div key={item.code} className={cn('item')}>
-        <BasketItem item={item} number={index + 1} onDelete={props.onBasketItemDelete}/>
+        <BasketItem item={item} onDelete={props.onBasketItemDelete}/>
       </div>
     )}
     </div>

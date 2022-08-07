@@ -1,0 +1,65 @@
+.Modal {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.Modal-visible {
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.3s linear;
+}
+
+.Modal-container {
+    background: white;
+    width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20vh;
+    min-height: 50vh;
+}
+
+.Modal-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 80px;
+    background: #f5f5f5;
+    margin-bottom: 74px;
+}
+
+.Modal-header h1 {
+    margin: 0;
+    padding: 20px 20px 10px;
+}
+
+.Modal-btn {
+    width: 76px;
+    height: 21px;
+    margin-top: 31px;
+    margin-right: 32px;
+}
+
+.Modal-spans {
+    display: flex;
+    justify-content: space-between;
+    max-width: 140px;
+    margin-left: auto;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: right;
+    margin-right: 115px;
+    margin-top: 26px;
+    margin-bottom: 30px;
+}

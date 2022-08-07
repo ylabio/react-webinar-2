@@ -1,7 +1,9 @@
-import React from 'react';
-import {counter} from './utils.js';
-import { pluralize } from "numeralize-ru"
-import './style.css';
+import React, {useCallback} from 'react';
+import Controls from "./components/controls";
+import List from "./components/list";
+import Layout from "./components/layout";
+import {counter} from "./utils";
+import Modal from "./components/modal"
 
 /**
  * Приложение
@@ -9,38 +11,37 @@ import './style.css';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  // Выбор состояния из store
-  const {items} = store.getState();
+
+  const [isModalVisible, setModalVisible] = React.useState(false);
+
+  const callbacks = {
+    onAddItems: useCallback((code) => {
+      store.addToCart(code);
+    }, []),
+    onDeleteItems: useCallback((code) => {
+      store.deleteItem(code);
+    }, []),
+    onOpen: useCallback(() => {
+      setModalVisible(true)
+    }, []),
+      onClose: useCallback(() => {
+          setModalVisible(false)
+      }, []),
+  }
 
   return (
-    <div className='App'>
-      <div className='App__head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='Controls'>
-        <button onClick={() => {
-          const code = counter();
-          store.createItem({code, title: `Новая запись ${code}`})
-        }}> Добавить </button>
-      </div>
-      <div className='App__center'>
-        <div className='List'>{items.map(item =>
-          <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
-              <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title} {item.count > 0 && ` | Выделялось ${item.count}${pluralize(item.count, ' раз', ' раза', ' раз')} `}</div>
-              <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
-                  Удалить
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-        </div>
-      </div>
-    </div>
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls onOpen={callbacks.onOpen} items={store.getState().itemsInCart}/>
+      <List items={store.getState().items}
+            onAddItem={callbacks.onAddItems}
+            
+      />
+      <Modal isVisible={isModalVisible} 
+             listItems={store.getState().itemsInCart} 
+             onClose={callbacks.onClose}
+             onItemDelete={callbacks.onDeleteItems}
+      />
+    </Layout>
   );
 }
 

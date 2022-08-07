@@ -5,13 +5,13 @@ import './style.css';
 function Controls({openPopup}){
   return (
     <div className='Controls'>
-      <button onClick={openPopup}>Добавить</button>
+      <button onClick={openPopup}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  openPopup: propTypes.func // Обяхательное свойство - функция
+  openPopup: propTypes.func.isRequired // Обяхательное свойство - функция
 }
 
 Controls.defaultProps = {

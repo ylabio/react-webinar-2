@@ -3,8 +3,8 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function Basket(props) {
-  const cn = bem('Basket');
+function Cart(props) {
+  const cn = bem('Cart');
   return (
     <div className={props.isVisible ? cn({visible: true}) : cn()}>
       <div className={cn('container')}>
@@ -14,19 +14,20 @@ function Basket(props) {
             Закрыть
           </button>
         </div>
+        {props.children}
       </div>
     </div>
   )
 }
 
-Basket.propTypes = {
-  isVisible: propTypes.bool,
-  closePopup: propTypes.func,
+Cart.propTypes = {
+  isVisible: propTypes.bool.isRequired,
+  closePopup: propTypes.func.isRequired,
 }
 
-Basket.defaultProps = {
+Cart.defaultProps = {
   isVisible: false,
   closePopup: () => {},
 }
 
-export default React.memo(Basket);
+export default React.memo(Cart);

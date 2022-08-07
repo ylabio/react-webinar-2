@@ -10,7 +10,13 @@ function List(props) {
   return (
     <div className={cn()}>{props.items.map(item =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} onSelect={props.onItemSelect} onDelete={props.onItemDelete}/>
+        <Item
+          item={item}
+          buttonName={props.buttonName}
+          onItemClick={props.onItemClick}
+          // onSelect={props.onItemSelect}
+          // onDelete={props.onItemDelete}
+        />
       </div>
     )}
     </div>
@@ -19,14 +25,14 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemSelect: propTypes.func,
-  onItemDelete: propTypes.func
+  // onItemSelect: propTypes.func,
+  // onItemDelete: propTypes.func
 }
 
 List.defaultProps = {
   items: [],
-  onItemSelect: () => {},
-  onItemDelete: () => {}
+  // onItemSelect: () => {},
+  // onItemDelete: () => {}
 }
 
 export default React.memo(List);

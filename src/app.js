@@ -2,8 +2,8 @@ import React, {useState, useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import Basket from "./components/basket";
-import {counter} from "./utils";
+import Cart from "./components/cart";
+// import {counter} from "./utils";
 
 /**
  * Приложение
@@ -15,18 +15,23 @@ function App({store}) {
   // Состояние видимости попапа корзины
   const [popupState, setPopupState] = useState(false);
 
-
   const callbacks = {
     // onAdd: useCallback(() => {
     //   const code = counter();
     //   store.createItem({code, title: `Новая запись ${code}`});
     // }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    // onSelectItems: useCallback((code) => {
+    //   store.selectItem(code);
+    // }, []),
+    onAddItemToCart: useCallback((code) => {
+      store.addItemToCart(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onDeleteItemsToCart: useCallback((code) => {
+      store.deleteItemFromCart(code);
     }, []),
+    // onDeleteItems: useCallback((code) => {
+    //   store.deleteItem(code);
+    // }, []),
     openPopup: useCallback(() => {
       setPopupState(true);
     }, []),
@@ -35,18 +40,29 @@ function App({store}) {
     }, []),
   }
 
+  console.log(store.getState().itemsInCart)
+
   return (
     <>
       <Layout head={<h1>Магазин</h1>}>
         <Controls openPopup={callbacks.openPopup}/>
         <List items={store.getState().items}
-              onItemSelect={callbacks.onSelectItems}
-              onItemDelete={callbacks.onDeleteItems}
+              buttonName='Добавить'
+              onItemClick={callbacks.onAddItemToCart}
+              // onItemSelect={callbacks.onSelectItems}
+              // onItemDelete={callbacks.onDeleteItems}
         />
       </Layout>
-      <Basket isVisible={popupState}
+      <Cart isVisible={popupState}
               closePopup={callbacks.closePopup}
-      />
+      >
+        <List items={store.getState().itemsInCart}
+              buttonName='Удалить'
+              onItemClick={callbacks.onDeleteItemsToCart}
+              // onItemSelect={callbacks.onSelectItems}
+              // onItemDelete={callbacks.onDeleteItems}
+        />
+      </Cart>
     </>
   );
 }

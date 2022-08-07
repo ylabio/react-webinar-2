@@ -1,0 +1,22 @@
+.Basket {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 21px 22px 20px;
+  align-items: center;
+  gap: 20px;
+}
+
+.Basket-count {
+  font-weight: 400;
+  font-size: 18px;
+  color: #000000;
+}
+.Basket-count span {
+  margin-left: 15px;
+  font-weight: 700;
+}
+
+p {
+  margin: 0;
+}
+

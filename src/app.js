@@ -1,36 +1,46 @@
-import React, {useCallback} from 'react';
-import Controls from "./components/controls";
+import React, { useCallback, useState } from 'react';
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Modal from './components/modal';
+import BasketInfo from './components/basket-info';
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
-
+function App({ store }) {
+  const [modal, setModal] = useState(false);
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onDeleteItem: useCallback((item) => {
+      store.deleteItem(item);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
+    switchModal: useCallback(() => {
+      setModal(!modal);
+    }, [modal]),
+    addItem: useCallback((item) => {
+      store.addToBasket(item)
+    }, [])
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+    <Layout head={<h1>Магазин</h1>}>
+      <BasketInfo basket={store.getState().basket} switchModal={callbacks.switchModal} />
       <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+        callBack={callbacks.addItem}
+        buttonTitle={"Добавить"}
       />
+      {
+        modal ?
+          <Modal
+            title="Корзина"
+            switchModal={callbacks.switchModal}
+            basket={store.getState().basket}
+            deleteItem={callbacks.onDeleteItem}
+          />
+          :
+          null
+      }
     </Layout>
   );
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
-import App from './app.js';
+import App from './app';
 import Store from "./store.js";
-import {counter} from './utils.js';
+import {counter} from './utils';
 
 const store = new Store({
   items: [

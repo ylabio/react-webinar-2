@@ -1,21 +1,27 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
+import {cn as bem} from "@bem-react/classname";
+import Button from '../../shared/ui/button';
 
-function Controls({onAdd}){
+function Controls() {
+  const cn = bem('Controls');
+
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className={cn()}>
+      <div className={cn('wrapper')}>
+        <span className={cn('text')}>В корзине:</span>
+        <span className={cn('cart')}>пусто</span>
+      </div>
+      <Button text='Перейти' />
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

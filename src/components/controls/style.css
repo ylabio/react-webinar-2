@@ -1,6 +1,21 @@
-/* Контрол с общими действиями */
 .Controls{
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+    gap: 24px;
+}
+
+.Controls-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.Controls-text {
+    font-size: 18px;
+}
+
+.Controls-cart {
+    font-weight: 700;
+    font-size: 18px;
 }

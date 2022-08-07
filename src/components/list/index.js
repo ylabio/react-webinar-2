@@ -11,7 +11,8 @@ function List(props) {
     <div className={cn()}>{props.items.map(item =>
       <div key={item.code} className={cn('item')}>
         <Item item={item}
-              onAddItemInBasket={props.onAddItemInBasket}/>
+              onAddItemInBasket={props.onAddItemInBasket}
+        />
       </div>
     )}
     </div>

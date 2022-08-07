@@ -11,15 +11,16 @@ const Basket = ({children, basket, totalPrice, deleteItem}) => {
   return(     
     <div className={cn()}>
       {children}
-      {basket.map((item, ind) => (
+      {basket.map((item) => (
         <div className={cn('item-basket')} key={item.code} >
           <ItemBasket item={item}
                       deleteItem={deleteItem}
-                      ind={ind+1}/>
+          />
         </div>
           ))}
         <BasketTotal totalPrice={totalPrice}
-                     basket={basket}/>
+                     basket={basket}
+        />
     </div>
     )
 }

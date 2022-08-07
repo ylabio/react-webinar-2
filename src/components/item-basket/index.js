@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function ItemBasket({item, deleteItem, ind}){
+function ItemBasket({item, deleteItem}){
     const cn = bem('ItemBasket');
     //  Цена за 1 шт. товара
     const price = item.price / item.num;
@@ -11,7 +11,7 @@ function ItemBasket({item, deleteItem, ind}){
     return (
       <div className={cn()}>
         <div className={cn('number')}>
-          {ind}
+          {item.code}
         </div>
         <div className={cn('title')}>
           {item.title}
@@ -34,14 +34,12 @@ function ItemBasket({item, deleteItem, ind}){
 }
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
-  deleteItem: propTypes.func.isRequired,
-  ind: propTypes.number.isRequired
+  deleteItem: propTypes.func.isRequired
 }
 
 ItemBasket.defaultProps = {
   item: {},
-  deleteItem: () => {},
-  ind: 0
+  deleteItem: () => {}
 }
 
 export default React.memo(ItemBasket);

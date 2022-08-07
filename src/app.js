@@ -38,7 +38,8 @@ function App({store}) {
     <Layout head={<h1>Магазин</h1>}>
       <Controls changeBasketVisible={callbacks.changeBasketVisible}
                 basket={basket} 
-                totalPrice={totalPrice}/>
+                totalPrice={totalPrice}
+      />
       <List items={store.getState().items}
             onAddItemInBasket={callbacks.onAddItemInBasket}
       />
@@ -47,7 +48,8 @@ function App({store}) {
                     basketVisible={basketVisible}>
         <Basket basket={basket}
                 totalPrice={totalPrice}
-                deleteItem={callbacks.deleteItem} />
+                deleteItem={callbacks.deleteItem}
+        />
       </LayoutBasket>
     </Layout>
   );

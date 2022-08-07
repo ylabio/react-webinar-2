@@ -3,18 +3,18 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function Cart(props) {
+function Cart({isVisible, closePopup, children}) {
   const cn = bem('Cart');
   return (
-    <div className={props.isVisible ? cn({visible: true}) : cn()}>
+    <div className={isVisible ? cn({visible: true}) : cn()}>
       <div className={cn('container')}>
         <div className={cn('head')}>
           <h2 className={cn('title')}>Корзина</h2>
-          <button className={cn('add-button')} onClick={props.closePopup}>
+          <button className={cn('add-button')} onClick={closePopup}>
             Закрыть
           </button>
         </div>
-        {props.children}
+        {children}
       </div>
     </div>
   )

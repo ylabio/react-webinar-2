@@ -11,7 +11,7 @@ function Controls({openPopup}){
 }
 
 Controls.propTypes = {
-  openPopup: propTypes.func.isRequired // Обяхательное свойство - функция
+  openPopup: propTypes.func.isRequired // Обязательное свойство - функция
 }
 
 Controls.defaultProps = {

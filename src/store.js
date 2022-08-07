@@ -1,4 +1,4 @@
-// import {counter} from './utils';
+import {counter} from './utils';
 // import item from './components/item';
 
 class Store {
@@ -89,10 +89,13 @@ class Store {
   // Добавление элемента в корзину
   addItemToCart(code) {
     const addedItem = this.state.items.find(item => item.code === code);
-    if (this.state.itemsInCart.find(item => item.code === code) === undefined) {
+    if (!this.state.itemsInCart.find(item => item.code === code)) {
       this.setState({
         ...this.state,
-        itemsInCart: [...this.state.itemsInCart, {...addedItem, count: 1}]
+        itemsInCart: [
+          ...this.state.itemsInCart,
+          {...addedItem, count: 1, number: 1 }
+        ]
       })
     } else {
       this.setState({

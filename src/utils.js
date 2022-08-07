@@ -8,5 +8,5 @@ export function counter(){
 
 // Разделение стоимость на разряды
 export function divideOnDigits(num) {
-  return `${new Intl.NumberFormat('ru-RU').format(num)}`
+  return new Intl.NumberFormat('ru-RU').format(num);
 }

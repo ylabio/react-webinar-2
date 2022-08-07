@@ -1,38 +1,42 @@
-import React, {useCallback} from 'react';
-import Controls from "./components/controls";
-import List from "./components/list";
-import Layout from "./components/layout";
-import {counter} from "./utils";
+import React, { useCallback, useState } from 'react'
+import Controls from './components/controls'
+import List from './components/list'
+import Layout from './components/layout'
+import Modal from './components/modal'
+import BasketModal from './components/basket-modal'
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+function App({ store }) {
+  const [tab, setTab] = useState(false)
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAddInBasket: useCallback((code) => {
+      store.addInBasket(code)
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
+    onDeleteFromBasket: useCallback((code) => {
+      store.deleteFromBasket(code)
+    }, [])
   }
 
   return (
     <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
+      <Controls basket={store.getState().basket} openTab={() => setTab(true)} />
+      <List items={store.getState().items} usingFunc={callbacks.onAddInBasket} action={'Добавить'} />
+      {tab && (
+        <Modal>
+          <BasketModal
+            onCloseTab={() => setTab(false)}
+            items={store.getState().basket}
+            usingFunc={callbacks.onDeleteFromBasket}
+          />
+        </Modal>
+      )}
     </Layout>
-  );
+  )
 }
 
-export default App;
+export default App

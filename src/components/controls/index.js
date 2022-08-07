@@ -1,21 +1,40 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import './style.css';
+import React, { useEffect, useState } from 'react'
+import propTypes from 'prop-types'
+import styles from './style.module.css'
+import { calculateQuantityOfItems, calculateSumOfItems } from '../../utils'
 
-function Controls({onAdd}){
+const Controls = ({ basket, openTab }) => {
+  const [sum, setSum] = useState()
+  const [quantity, setQuantity] = useState()
+
+  useEffect(() => {
+    setSum(calculateSumOfItems(basket))
+    setQuantity(calculateQuantityOfItems(basket))
+  }, [basket, setSum, setQuantity, calculateSumOfItems, calculateQuantityOfItems])
+
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className={styles.controls}>
+      <div className={styles.controls__quantity}>
+        <div>В корзине: </div>
+        {basket.length > 0 ? (
+          <div className={styles.controls__price}>{`${quantity} товаров / ${sum} ₽`}</div>
+        ) : (
+          <div className={styles.controls__price}>пусто</div>
+        )}
+      </div>
+      <button onClick={openTab}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  basket: propTypes.array.isRequired,
+  openTab: propTypes.func.isRequired
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  basket: [],
+  openTab: () => {}
 }
 
-export default React.memo(Controls);
+export default Controls

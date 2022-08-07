@@ -1,0 +1,14 @@
+/* Контрол с общими действиями */
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+.controls__quantity {
+  display: flex;
+  margin: 0px 25px 0px 0px;
+}
+.controls__price {
+  font-weight: 700;
+  margin: 0px 0px 0px 10px;
+}

@@ -13,7 +13,7 @@ export function counter(){
 
 export function getSumArrayProperties(arr, property) {
   return arr.reduce((acc, curr) => {
-    return acc + curr[property];
+    return acc + (curr[property] * curr.quantity);
   }, 0)
 }
 

@@ -14,7 +14,7 @@ function Controls({showModal, product}) {
         basketLabel = 'Пусто'
     } else {
         const basketPriceSum = getSumArrayProperties(product, 'price')
-        const basketProductCount = getSumArrayProperties(product, 'quantity')
+        const basketProductCount = product.length
         const basketPrice = getPrice(basketPriceSum)
         basketLabel = `${plural(basketProductCount, '%d товар', '%d товара', '%d товаров')} / ${basketPrice}`
     }

@@ -51,7 +51,6 @@ class Store {
                 ? this.state.basket.map(m => m.code === item.code ? {
                     ...m,
                     quantity: m.quantity - 1,
-                    price: m.price - (m.price / m.quantity)
                 } : m)
                 : this.state.basket.filter(f => f.code !== item.code)
         })
@@ -68,7 +67,6 @@ class Store {
                 ...this.state,
                 basket: this.state.basket.map(m => m.code === item.code ? {
                     ...m,
-                    price: m.price + item.price,
                     quantity: m.quantity ? m.quantity + 1 : 1
                 } : m)
             })

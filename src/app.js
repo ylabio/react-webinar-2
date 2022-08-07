@@ -3,6 +3,7 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import {counter} from "./utils";
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -12,27 +13,25 @@ import {counter} from "./utils";
 function App({store}) {
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onCartAddItems: useCallback((item) => {
+        store.addCartItem(item);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onCartDeleteItems: useCallback((code) => {
+        store.deleteCartItem(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
-  }
+};
 
-  return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+return (
+  <Layout head={<h1>Приложение на чистом JS</h1>}>
+      <Cart cart={store.getState().cart}
+            onItemDelete={callbacks.onCartDeleteItems}
       />
-    </Layout>
-  );
+      <List items={store.getState().items}
+                  onItemAdd={callbacks.onCartAddItems}
+                  inCart={false}
+      />
+  </Layout>
+    );
 }
 
 export default App;

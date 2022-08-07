@@ -1,0 +1,39 @@
+
+.Cart {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 36px;
+    padding: 20px;
+}
+
+.Cart-info {
+    display: flex;
+    gap: 15px;
+}
+
+.Cart-title {
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.Cart-text {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.Cart-total {
+    display: flex;
+    padding-top: 26px;
+    padding-right: 108px;
+    align-self: flex-end;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    gap: 49px;
+}
+
+.Cart-empty {
+    text-align: center;
+}

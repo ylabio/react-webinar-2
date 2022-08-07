@@ -23,7 +23,7 @@
   top: 240px;
   left: 211px;
   width: 960px;
-  height: 603px;
+  min-height: 603px;
   background: #fff;
   border-radius: 10px;  
 }

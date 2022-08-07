@@ -6,6 +6,7 @@ import { counter } from "./utils";
 import LayoutModal from "./components/layout-modal";
 import ItemBasket from "./components/item-basket";
 import Item from "./components/item";
+import BasketTotal from "./components/basket-total";
 
 /**
  * Приложение
@@ -49,14 +50,17 @@ function App({ store }) {
         <List items={store.getState().items} viewItem={getItem} />
       </Layout>
       {modalIsOpen ? (
-        <LayoutModal title="Корзина" onClose={callbacks.onCloseModal}>
+        <LayoutModal title="Корзина" sum={sum} onClose={callbacks.onCloseModal}>
           {store.getState().basket.items.length !== 0 ? (
-            <List
-              items={store.getState().basket.items}
-              viewItem={getItemBasket}
-            />
+            <>
+              <List
+                items={store.getState().basket.items}
+                viewItem={getItemBasket}
+              />
+              <BasketTotal sum={sum} />
+            </>
           ) : (
-            "В корзине пусто, добавьте товары"
+            <div>В корзине пусто, добавьте товары</div>
           )}
         </LayoutModal>
       ) : null}

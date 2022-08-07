@@ -2,8 +2,19 @@
  * Генерирует уникальный код на основе счётчика
  * @returns {number|number}
  */
+import plural from "plural-ru";
+
 export function counter() {
     return counter.value ? ++counter.value : counter.value = 1;
+}
+
+export const product = (times) => {
+    return plural(
+        times,
+        'товар',
+        'товара',
+        'товаров'
+    );
 }
 
 export const checkNumber = (number) => {

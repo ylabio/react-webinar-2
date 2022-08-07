@@ -1,0 +1,36 @@
+/* Пункт списка */
+.Item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 1s;
+}
+
+.Item-title {
+    width: 100%;
+    padding: 20px 10px;
+}
+
+.Item-actions {
+    padding: 20px 20px 20px 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Item-number {
+    padding: 20px 10px 20px 20px;
+}
+
+.Item-price_container {
+    display: flex;
+    align-items: center;
+}
+
+.Item-row {
+    white-space: nowrap;
+    margin-right: 24px;
+}
+
+.Item-row:first-child {
+    margin-right: 55px;
+}

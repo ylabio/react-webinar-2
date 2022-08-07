@@ -1,32 +1,19 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
   const callbacks = {
-
-    // onClick: useCallback(() => {
-    //   props.onSelect(props.item.code);
-    //   if (!props.item.selected) {
-    //     setCount(count + 1);
-    //   }
-    // }, [props.onSelect, props.item, setCount, count]),
-
-    // onDelete: useCallback((e) => {
-    //   e.stopPropagation();
-    //   props.onDelete(props.item.code)
-    // }, [props.onDelete,  props.item])
+    btnClick: useCallback((e) => {
+      e.stopPropagation()
+      props.btnClick(props.item.code)
+  }, [props.btnClick, props.item])
   };
 
   return (
-    // <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
     <div className={cn()}>
       <div className={cn('number')}>
         {props.item.code}
@@ -37,9 +24,10 @@ function Item(props) {
       <div className={cn('price')}>
         {props.item.price.toLocaleString() + ' ₽'}
       </div>
+      {props.item.amount ? <div className={cn('amount')}>{props.item.amount.toLocaleString() + ' шт'}</div> : null}
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Добавить
+        <button onClick={callbacks.btnClick}>
+          {props.btnLabbel}
         </button>
       </div>
     </div>
@@ -48,13 +36,14 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
+  btnClick: propTypes.func.isRequired,
+  btnLabbel: propTypes.string.isRequired
 }
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
+  item: {},
+  btnClick: () => {},
+  btnLabbel: 'Button'
 }
 
 export default React.memo(Item);

@@ -11,20 +11,52 @@
 }
 
 .Modal-content{
-    width: 500px;
+    width: 960px;
+    min-height: 603px;
     background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden
 }
 
 .Modal-header{
-    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    background-color: rgb(245, 245, 245);
+    height: 80px;
 }
 
 .Modal-title{
-    margin: 0;
+    width: 100%;
+}
+
+.Modal-title > h1{
+    margin: 20px auto 23px 20px;
+}
+
+.Modal-headerActions{
+    margin: 31px 32px 28px 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Modal-headerActions > button{
+    height: 21px;
+    width: 76px;
 }
 
 .Modal-body{
-    padding: 10px;
-    border-top: 1px solid whitesmoke;
-    /* border-bottom: 1px solid whitesmoke; */
+    margin-top: 74px;
+}
+
+.Modal-total{
+    display: flex;
+    justify-content: end;
+    margin-top: 26px;
+    margin-right: 108px;
+}
+
+.Modal-total > b{
+    margin-left: 49px;
+    margin-bottom: 50px;
 }

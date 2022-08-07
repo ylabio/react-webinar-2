@@ -1,0 +1,30 @@
+.Modal{
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.Modal-content{
+    width: 500px;
+    background-color: white;
+}
+
+.Modal-header{
+    padding: 10px;
+}
+
+.Modal-title{
+    margin: 0;
+}
+
+.Modal-body{
+    padding: 10px;
+    border-top: 1px solid whitesmoke;
+    /* border-bottom: 1px solid whitesmoke; */
+}

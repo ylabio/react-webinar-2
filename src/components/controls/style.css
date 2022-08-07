@@ -1,6 +1,27 @@
 /* Контрол с общими действиями */
 .Controls{
     display: flex;
-    justify-content: flex-end;
+    justify-content: end;
     padding: 20px;
+    margin-left: auto;
+}
+
+.Controls-empty {
+    margin-right: 20px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.Controls-cart {
+    margin-right: 15px;
+}
+
+.Controls-sum {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    margin-right: 20px;
 }

@@ -40,14 +40,19 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+
+  // Добавление в корзину
+
+  addToCart(code) {
     this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
+      ...this.state, itemsInCart :
+        this.state.items.filter(i => {
+          if(i.code === code) {
+            return {...i, count: ++i.count}
+          }
+          return i.count ? i : null
+        })
+    })
   }
 
   /**
@@ -56,30 +61,17 @@ class Store {
    */
   deleteItem(code) {
     this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
+      ...this.state, itemsInCart :
+          this.state.items.filter(i => {
+            if(i.code === code) {
+              return {...i, count: --i.count}
+            }
+            return i.count > 0 ? i : null
+          })
+    })
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
-  }
+
 }
 
 export default Store;

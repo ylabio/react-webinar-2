@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 import { Modal } from './modal';
+import plural from 'plural-ru';
 
 function Controls({ onItemDeleteFromCart, cart, priceSum }) {
 
@@ -19,7 +20,11 @@ function Controls({ onItemDeleteFromCart, cart, priceSum }) {
   return (
     <div className='Controls'>
       {
-        totalPrice === 0 ? <span>В корзине: <b>Пусто</b> </span> : <span>В корзине: <b>{cart.length} товар</b> / <b>{totalPrice} ₽</b></span>
+        totalPrice === 0
+          ?
+          <span>В корзине: <b>Пусто</b> </span>
+          :
+          <span>В корзине: <b>  {plural(cart.length, '%d товар', '%d товара', '%d товаров')}</b>  <b> / {totalPrice} ₽</b></span>
       }
       {
         openModal && <Modal

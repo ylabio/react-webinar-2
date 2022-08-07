@@ -13,8 +13,10 @@ function Controls({items, openPopup}){
       <p className={cn('cart')}>
         В корзине:
         <span className={cn('cart-info')}>
-         {getAllPrice(items) === 0 ? 'пусто' :
-          `${items.length} ${plural(items.length, 'товар', 'товара', 'товаров')} /  ${getPriceOnRub(getAllPrice(items))}`
+         {items.length > 0 ?
+           `${items.length} ${plural(items.length, 'товар', 'товара', 'товаров')} /  ${getPriceOnRub(getAllPrice(items))}`
+           :
+           'пусто'
          }
         </span>
       </p>

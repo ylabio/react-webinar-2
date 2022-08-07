@@ -30,13 +30,9 @@ function App({store}) {
       setIsPopupOpen(false);
     }, []),
     onDeleteItemsFromCart: useCallback((code) => {
-      console.log('ads')
       store.deleteItemsFromCart(code);
     }, []),
   }
-console.log(store)
-
-
 
   return (
     <Layout head={<h1>Магазин</h1>}>
@@ -44,16 +40,12 @@ console.log(store)
       <List items={store.getState().items}         
             onItemDelete={callbacks.onDeleteItems}
             onAddToCart={callbacks.onAddToCart}          
-      />
-      {/* <Popup isActive={store.getState().cart.isOpened} title={'Корзина'} onClose={callbacks.onPopupClose}> */}
+      />  
       {isPopupOpen && (
          <Popup title={'Корзина'} onClose={callbacks.onPopupClose}>
          <Cart cartItems={Object.values(store.getState().cart.cartItems)} onDeleteItemsFromCart={callbacks.onDeleteItemsFromCart}/>
        </Popup>
-      )}
-      {/* <Popup isActive={isPopupOpen} title={'Корзина'} onClose={callbacks.onPopupClose}>
-        <Cart cartItems={Object.values(store.getState().cart.cartItems)} deleteItemsFromCart={callbacks.onDeleteItemsFromCart}/>
-      </Popup> */}
+      )}    
     </Layout>
   );
 }

@@ -7,7 +7,6 @@ import propTypes from 'prop-types';
 
 function CartItem ({item, removeItemFromCart}) {
   const cn = bem('CartItem');
-  console.log(item)
 
   return <li className={cn()}>
     <div className={cn('blockLeft')}>
@@ -37,4 +36,6 @@ CartItem.defaultProps = {
   removeItemFromCart: () => {},
 };
 
-export default React.memo(CartItem);
+export default React.memo(CartItem, (prev, next) => {
+  return prev.item.data.time === next.item.data.time;
+});

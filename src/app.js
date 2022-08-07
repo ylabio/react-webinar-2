@@ -16,6 +16,10 @@ function App({store}) {
       store.createItem({code, title: `Новая запись ${code}`});
     }, []),
 
+    onAddItemToCart: useCallback(code => {
+      store.addItemToCart(code);
+    }, []),
+
     onDeleteItems: useCallback(code => {
       store.deleteItem(code);
     }, [])
@@ -26,6 +30,7 @@ function App({store}) {
       <Controls onAdd={callbacks.onAdd} />
       <List
         items={store.getState().items}
+        onAddItemToCart={callbacks.onAddItemToCart}
         onItemSelect={callbacks.onSelectItems}
         onItemDelete={callbacks.onDeleteItems}
       />

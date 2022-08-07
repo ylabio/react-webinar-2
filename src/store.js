@@ -61,6 +61,19 @@ class Store {
   }
 
   /**
+   * Добавление записи в корзину
+   * @param code
+   */
+
+  addItemToCart(code) {
+    const itemToAdd = this.state.items.find(item => item.code === code);
+    this.setState({
+      ...this.state,
+      shoppingCart: [...this.state.shoppingCart, itemToAdd]
+    });
+  }
+
+  /**
    * Выделение записи по её коду
    * @param code
    */

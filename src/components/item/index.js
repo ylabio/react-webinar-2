@@ -9,8 +9,8 @@ function Item(props) {
 
   const callbacks = {
     onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-    }, [props.onSelect, props.item]),
+      props.onAddItemToCart(props.item.code);
+    }, [props.onAddItemToCart, props.item]),
 
     onDelete: useCallback(
       e => {
@@ -22,14 +22,11 @@ function Item(props) {
   };
 
   return (
-    <div
-      className={cn({selected: props.item.selected})}
-      onClick={callbacks.onClick}
-    >
+    <div className={cn({selected: props.item.selected})}>
       <div className={cn('number')}>{props.item.code}</div>
       <div className={cn('title')}>{props.item.title}</div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>Добавить</button>
+        <button onClick={callbacks.onClick}>Добавить</button>
       </div>
     </div>
   );

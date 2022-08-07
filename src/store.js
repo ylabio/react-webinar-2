@@ -41,44 +41,58 @@ class Store {
   }
 
   /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
+   * Добавление товара в корзину
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
+  addToCart(code) {
+    const index = this.state.cart.findIndex(item => item.code === code)
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
+    //Если есть в корзине
+    if (index > -1) {
+      const cartItem = this.state.cart.find(item => item.code === code);
+      const plusCartItem = {
+        ...cartItem,
+        number: 1 + cartItem.number
+      };
+
+      this.setState({
+        ...this.state,
+        cart: [
+          ...this.state.cart.slice(0, index),
+          plusCartItem,
+          ...this.state.cart.slice(index + 1)
+        ]
       })
-    });
+    } else {
+      const item = this.state.items.find(item => item.code === code);
+      const newItem = {
+        ...item,
+        number: 1,
+      }
+      this.setState({
+        ...this.state,
+        cart: [
+          ...this.state.cart,
+          newItem
+        ]
+      })
+    }
+  }
+
+  /**
+   * Удаление товара из корзины
+   * @param code
+   */
+  deleteFromCart(code) {
+    const index = this.state.cart.findIndex(item => item.code === code);
+
+    this.setState({
+      ...this.state,
+      cart: [
+        ...this.state.cart.slice(0, index),
+        ...this.state.cart.slice(index + 1),
+      ]
+    })
   }
 }
 

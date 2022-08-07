@@ -27,9 +27,13 @@ function App({ store }) {
     onAddItems: useCallback((item) => {
       store.addItem(item);
     }, []),
-    onCloseModal: useCallback(() => {
-      setModalIsOpen(false);
-    }, [setModalIsOpen]),
+    onCloseModal: useCallback(
+      (e) => {
+        e.stopPropagation();
+        setModalIsOpen(false);
+      },
+      [setModalIsOpen]
+    ),
     onOpenModal: useCallback(() => {
       setModalIsOpen(true);
     }, [setModalIsOpen]),
@@ -60,7 +64,11 @@ function App({ store }) {
               <BasketTotal sum={sum} />
             </>
           ) : (
-            <div>В корзине пусто, добавьте товары</div>
+            <div
+              style={{ width: "50%", margin: "0 auto", textAlign: "center" }}
+            >
+              В корзине пусто, добавьте товары
+            </div>
           )}
         </LayoutModal>
       ) : null}

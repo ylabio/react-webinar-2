@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
+import numberFormat from "../../utils";
 import "./style.css";
 
 function Item(props) {
@@ -20,7 +21,7 @@ function Item(props) {
     <div className={cn()}>
       <div className={cn("number")}>{props.item.code}</div>
       <div className={cn("title")}>{props.item.title}</div>
-      <div className={cn("price")}>{props.item.price.toLocaleString()} ₽</div>
+      <div className={cn("price")}>{numberFormat(props.item.price)} ₽</div>
       <div className={cn("actions")}>
         <button onClick={callbacks.onAdd}>Добавить</button>
       </div>

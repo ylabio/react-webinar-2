@@ -38,9 +38,7 @@
 }
 .LayoutModal-head h1{
   align-self: center;
-  margin-left: 20px;
-  /* margin: 0;
-  padding: 20px 20px 10px; */
+  margin-left: 20px; 
 }
 .LayoutModal-close { 
   align-self: center;

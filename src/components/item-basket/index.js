@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
+import numberFormat from "../../utils";
 import "./style.css";
 
 function ItemBasket(props) {
@@ -21,11 +22,9 @@ function ItemBasket(props) {
       <div className={cn("number")}>{props.item.code}</div>
       <div className={cn("title")}>{props.item.title}</div>
       <div className={cn("info")}>
-        <span className={cn("price")}>
-          {props.item.price?.toLocaleString()} ₽
-        </span>
+        <span className={cn("price")}>{numberFormat(props.item.price)} ₽</span>
         <span className={cn("amount")}>
-          {props.item.amount?.toLocaleString() || 0} шт
+          {numberFormat(props.item.amount) || 0} шт
         </span>
       </div>
 

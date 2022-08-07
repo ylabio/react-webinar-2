@@ -2,6 +2,7 @@ import React from "react";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import plural from "plural-ru";
+import numberFormat from "../../utils";
 import "./style.css";
 
 function BasketInfo({ amount, sum, onOpen }) {
@@ -16,7 +17,7 @@ function BasketInfo({ amount, sum, onOpen }) {
               "товар",
               "товара",
               "товаров"
-            )} / ${sum.toLocaleString()} ₽`
+            )} / ${numberFormat(sum)} ₽`
           : `пусто`}
       </span>
       <button className="button" onClick={onOpen}>

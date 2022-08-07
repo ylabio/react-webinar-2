@@ -1,14 +1,15 @@
 import React from "react";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
+import numberFormat from "../../utils";
 import "./style.css";
 
 function BasketTotal({ sum }) {
   const cn = bem("BasketTotal");
   return (
     <div className={cn()}>
-      <span className={cn("title")}>Итого</span>
-      <span className={cn("total")}>{sum.toLocaleString()} ₽</span>
+      <span className={cn("title")}>Итого </span>
+      <span className={cn("total")}>{numberFormat(sum)} ₽</span>
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
+import AppContextProvider from './context/app-context';
 import AppLayout from "./layout/app-layout";
-import {counter} from "./utils";
 
 /**
  * Приложение
@@ -10,13 +10,14 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  const { items } = store.state;
 
   return (
-    <AppLayout head={<h1>Магазин</h1>}>
-      <Controls />
-      <List items={items} />
-    </AppLayout>
+    <AppContextProvider store={store}>
+      <AppLayout head={<h1>Магазин</h1>}>
+        <Controls />
+        <List />
+      </AppLayout>
+    </AppContextProvider>
   );
 }
 

@@ -40,46 +40,30 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  addItemToCart(item) {
+    const goods = JSON.parse(JSON.stringify(this.state.goods));
+    goods.price += item.price;
+
+    if (item.code in goods.items) {
+      goods.items[item.code].quantity++;
+      goods.items[item.code].price += item.price;
+      goods.items[item.code].time = Date.now();
+    } else {
+      goods.items[item.code] = {
+        quantity: 1,
+        price: item.price,
+        data: item,
+        time: Date.now(),
+      };
+      goods.total++;
+    }
+
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      goods,
     });
   }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
-  }
 }
 
 export default Store;

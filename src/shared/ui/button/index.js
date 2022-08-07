@@ -16,11 +16,15 @@ function Button({
     height,
   };
 
-  return <button  className={cn('button')} 
-                  style={styles} 
-                  {...props}>
-    {text}
-  </button>
+  return (
+    <button  
+      className={cn('button')} 
+      style={styles} 
+      {...props}
+    >
+      {text}
+    </button>
+  );
 }
 
 Button.propTypes = {

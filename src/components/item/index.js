@@ -1,15 +1,12 @@
 import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
 import { formatPrice } from '../../shared/utils';
 import Button from '../../shared/ui/button';
 
-function Item({ item }) {
+function Item({ item, addItemToCart }) {
   const cn = bem('Item');
-
-  console.log(item)
 
   return (
     <div className={cn()}>
@@ -23,7 +20,10 @@ function Item({ item }) {
         {formatPrice(item.price)} ₽
       </div>
       <div className={cn('actions')}>
-        <Button text='Добавить' />
+        <Button 
+        text='Добавить' 
+        onClick={() => addItemToCart(item)}
+      />
       </div>
     </div>
   )
@@ -31,9 +31,11 @@ function Item({ item }) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-}
+  addItemToCart: propTypes.func.isRequired,
+};
 
 Item.defaultProps = { 
-}
+  addItemToCart: () => {},
+};
 
 export default React.memo(Item);

@@ -8,10 +8,10 @@
     width: 100%;
     display: none;
     background: rgba(0, 0, 0, 0.7);
-    overflow-x: hidden;
-    overflow-y: auto;
     min-height: 100%;
     padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 .LayoutBasket-frame{
     min-width: 450px;
@@ -22,6 +22,8 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     background: #FFFFFF;
     border-radius: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 .LayoutBasket.active{
     display: flex;

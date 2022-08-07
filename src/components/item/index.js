@@ -38,13 +38,11 @@ function Item({item, onAddToCart}) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
+  onAddToCart: propTypes.func.isRequired, 
 }
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
+  onAddToCart: () => {}
 }
 
 export default React.memo(Item);

@@ -9,7 +9,6 @@ function Controls({cart: {totalPrice, totalQuantity}, onPopupOpen}){
   const cn = bem('Controls');
   const modifiedCurrency = currencyFormat(totalPrice, 0);
 
-
    return (
     <div className='Controls'>
       <div className={cn('wrapper')}><p className={cn('text')}>В корзине:</p><b>{totalQuantity ? `${totalQuantity} ${plural(totalQuantity, 'товар', 'товара', 'товаров')}` : 0} / {modifiedCurrency}</b></div>
@@ -20,6 +19,7 @@ function Controls({cart: {totalPrice, totalQuantity}, onPopupOpen}){
 
 
 Controls.propTypes = {
+  cart:  propTypes.object.isRequired,
   onPopupOpen: propTypes.func.isRequired // Обяхательное свойство - функция
 }
 

@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import propTypes from 'prop-types';
+import propTypes, { string } from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
@@ -21,15 +21,14 @@ function Popup({onClose, title, children}) {
   );
 }
 
-// List.propTypes = {
-//   items: propTypes.arrayOf(propTypes.object).isRequired,
-//   onItemDelete: propTypes.func,
-//   onAddToCart: propTypes.func
-// }
+Popup.propTypes = {
+  children: propTypes.object.isRequired,
+  title: propTypes.string,
+  onClose: propTypes.func
+}
 
-// List.defaultProps = {
-//   items: [],
-//   onItemDelete: () => {}
-// }
+Popup.defaultProps = {
+  onClose: () => {}
+}
 
 export default React.memo(Popup);

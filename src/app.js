@@ -2,7 +2,6 @@ import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
 import Popup from './components/popup';
 import Cart from './components/cart';
 
@@ -14,19 +13,14 @@ import Cart from './components/cart';
 function App({store}) {
   const[isPopupOpen, setIsPopupOpen] = useState(false);
   
-  const callbacks = {
-    // onDeleteItems: useCallback((code) => {
-    //   store.deleteItem(code);
-    // }, []),
+  const callbacks = {  
     onAddToCart: useCallback((code)=> {
       store.addToCartItem(code)
     }, []),
     onPopupOpen: useCallback(()=> {
-      setIsPopupOpen(true);
-      // store.openCart()
+      setIsPopupOpen(true);   
     }, []),
-    onPopupClose: useCallback(()=> {
-      // store.closeCart()
+    onPopupClose: useCallback(()=> {    
       setIsPopupOpen(false);
     }, []),
     onDeleteItemsFromCart: useCallback((code) => {

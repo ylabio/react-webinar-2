@@ -14,7 +14,7 @@ function CartItem({ item, onDelete }) {
       <div className={cn('title')}>{item.title}</div>
       <div>{modifiedPrice}</div>
       <div className={cn('amount')}>
-        {`${item.count}`} <span>шт</span>
+        {`${item.count}`}<span>шт</span>
       </div>
 
       <button
@@ -29,13 +29,13 @@ function CartItem({ item, onDelete }) {
   );
 }
 
-// CartItem.propTypes = {
-//   item: propTypes.object.isRequired,
-//   onDelete: propTypes.func.isRequired,
-// };
+CartItem.propTypes = {
+  item: propTypes.object.isRequired,
+  onDelete: propTypes.func.isRequired,
+};
 
-// CartItem.defaultProps = {
-//   onDelete: () => {},
-// };
+CartItem.defaultProps = {
+  onDelete: () => {},
+};
 
 export default React.memo(CartItem);

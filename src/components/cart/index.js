@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
@@ -17,13 +17,13 @@ function Cart({ cartItems, onDeleteItemsFromCart }) {
   );
 }
 
-// Cart.propTypes = {
-//   cartItems: propTypes.object.isRequired,
-//   onDeleteItemsFromCart: propTypes.func.isRequired,
-// };
+Cart.propTypes = {
+  cartItems: propTypes.array.isRequired,
+  onDeleteItemsFromCart: propTypes.func.isRequired,
+};
 
-// Cart.defaultProps = {
-//   onDeleteItemsFromCart: () => {},
-// };
+Cart.defaultProps = {
+  onDeleteItemsFromCart: () => {},
+};
 
 export default React.memo(Cart);

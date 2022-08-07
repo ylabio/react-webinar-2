@@ -1,0 +1,78 @@
+/* Модальное окно*/
+
+.Cart {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.Cart.Active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.Cart-content {
+    min-height: 65vh;
+    max-height: 90vh;
+    min-width: 960px;
+    margin-top: 90px;
+    border-radius: 12px;
+    background-color: white;
+    transform: scale(0.1);
+    transition: 0.4s all;
+    overflow-y: auto;
+    font-family: 'Arial';
+    font-weight: 400;
+    font-size: 18px;
+
+}
+
+.Cart-content.Active {
+    transform: scale(1);
+}
+
+@media (max-width: 960px) {
+    .Cart-content {
+        min-width: 80vw;
+    }
+}
+
+.Cart-content-head {
+    font-weight: bold;
+    font-size: 32px;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 20px;
+    background: #f5f5f5;
+}
+
+.Cart-content-head-btn {
+    margin: 13px 9px 3px 0;
+    padding: 0 12px;
+}
+
+.Cart-content-foot {
+    width: 88%;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 23px 10px 23px 10px;
+    display: flex;
+    justify-content: end;
+}
+
+.Cart-content-foot-text {
+    text-align: right;
+}
+
+.Cart-content-foot-total {
+    margin-left: 50px;
+    text-align: right;
+}
+

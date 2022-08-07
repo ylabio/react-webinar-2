@@ -3,18 +3,24 @@
     display: flex;
     justify-content: flex-start;
     transition: background-color 1s;
+    font-family: 'Arial';
+    font-weight: 400;
+    font-size: 18px;
 }
-.Item_selected{
-    background: #75aaf1;
-}
-
 
 .Item-title{
-    width: 100%;
+    width: 70%;
     padding: 20px 10px;
+    font-size: 16px;
+}
+.Item-price{
+    width: 30%;
+    padding: 20px 15px;
+    display: flex;
+    justify-content: flex-end;
 }
 .Item-actions{
-    padding: 20px  20px 20px 10px;
+    padding: 20px 20px 20px 10px;
     display: flex;
     justify-content: flex-end;
 }

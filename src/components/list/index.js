@@ -10,7 +10,7 @@ function List(props) {
   return (
     <div className={cn()}>{props.items.map(item =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} onAdd={props.onItemAdd}/>
+        {props.getItemNode(item)}
       </div>
     )}
     </div>

@@ -1,13 +1,14 @@
 import React, {useCallback, useState} from 'react';
 import Basket from "./components/basket";
 import List from "./components/list";
-import BasketList from './components/basket-list';
 import Layout from "./components/layout";
 import Modal from './components/modal';
 import BasketResult from './components/basket-result';
+import BasketItem from './components/basket-item';
+import Item from './components/item';
 
 /**
- * Приложение
+ * Приложение`  
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
@@ -30,6 +31,17 @@ function App({store}) {
     }, []),
   }
 
+  /**
+   * Функции для возврата item-node для переиспользования компонента List
+   * @param node
+   */
+  function getMainPageItem(item){
+   return <Item item={item} onAdd={callbacks.onAddItems}/>
+  }
+  function getBasketItem(item){
+    return <BasketItem item={item} onDelete={callbacks.onDeleteBasketItems}/>
+  }
+
   const count = store.getState().basket.count;
   const totalSum = store.getState().basket.totalSum;
 
@@ -38,13 +50,13 @@ function App({store}) {
       <Layout head={<h1>Магазин</h1>}>
         <Basket onOpenModal={callbacks.onOpenModal} count={count} totalSum={totalSum}/>
         <List items={store.getState().items}
-              onItemAdd={callbacks.onAddItems}
+              getItemNode={getMainPageItem}
         />
       </Layout>
       {isModalVisible &&
       <Modal head={<h2>Корзина</h2>} onCloseModal={callbacks.onCloseModal}>
-        <BasketList items={store.getState().basket.basketItems}
-                onBasketItemDelete={callbacks.onDeleteBasketItems}
+        <List items={store.getState().basket.basketItems}
+              getItemNode={getBasketItem}
         />
         <BasketResult totalSum={totalSum} count={count}/>
       </Modal>

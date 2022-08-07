@@ -43,10 +43,10 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  addItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      shoppingCart: this.state.shoppingCart.concat(this.state.items.filter(item => item.code == code))
     });
   }
 

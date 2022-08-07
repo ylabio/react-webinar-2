@@ -2,7 +2,6 @@ import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
 
 /**
  * Приложение
@@ -12,20 +11,22 @@ import {counter} from "./utils";
 function App({store}) {
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAdd: useCallback((code) => {
+      store.addItem(code);
+      console.log(store.getState());
     }, []),
-    onDeleteItems: useCallback((code) => {
+    onDelete: useCallback((code) => {
       store.deleteItem(code);
     }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls cart={store.getState().shoppingCart} 
+            onAdd={callbacks.onAdd}
+      />
       <List items={store.getState().items}
-            onItemDelete={callbacks.onDeleteItems}
+            onItemAdd={callbacks.onAdd}
       />
     </Layout>
   );

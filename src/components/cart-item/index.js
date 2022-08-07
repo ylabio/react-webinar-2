@@ -14,7 +14,7 @@ function CartItem(props) {
 
 	return (
 		<div className={cn()}>
-			<div className={cn('number')}>{props.item.code}</div>
+			<div className={cn('number')}>{props.code}</div>
 			<div className={cn('title')}>{props.item.title}</div>
 			<div className={cn('price')}>
 				{props.item.price.toLocaleString('ru-RU')} ₽
@@ -27,6 +27,7 @@ function CartItem(props) {
 
 CartItem.propTypes = {
 	item: propTypes.object.isRequired,
+	code: propTypes.number.isRequired,
 	onDeleteFromCart: propTypes.func.isRequired,
 };
 

@@ -43,7 +43,7 @@
   line-height: 15px;
 }
 
-.Modal-hidden {
+.Modal_hidden {
   transform: scale(0);
 }
 

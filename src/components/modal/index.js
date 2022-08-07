@@ -8,7 +8,7 @@ import { formatCurrency } from '../../utils';
 function Modal({ active, cartItems, price, onOpenModal, onItemDelete }) {
   const cn = bem('Modal');
   return (
-    <div className={active ? cn() : cn('hidden')}>
+    <div className={active ? cn() : cn({ hidden: true })}>
       <div className={cn('content')}>
         <div className={cn('head')}>
           <h2>Корзина</h2>

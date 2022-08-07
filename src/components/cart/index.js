@@ -33,6 +33,7 @@ Cart.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
   isVisible: propTypes.bool.isRequired,
   closePopup: propTypes.func.isRequired,
+  children: propTypes.node,
 }
 
 Cart.defaultProps = {

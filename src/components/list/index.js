@@ -15,8 +15,6 @@ function List({items, buttonName, onItemClick}) {
           indexItem={index+1}
           buttonName={buttonName}
           onItemClick={onItemClick}
-          // onSelect={props.onItemSelect}
-          // onDelete={props.onItemDelete}
         />
       </div>
     )}
@@ -28,16 +26,12 @@ List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
   buttonName: propTypes.string.isRequired,
   onItemClick: propTypes.func.isRequired,
-  // onItemSelect: propTypes.func,
-  // onItemDelete: propTypes.func
 }
 
 List.defaultProps = {
   items: [],
   buttonName: '',
   onItemClick: () => {},
-  // onItemSelect: () => {},
-  // onItemDelete: () => {}
 }
 
 export default React.memo(List);

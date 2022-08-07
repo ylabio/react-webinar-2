@@ -3,7 +3,6 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Cart from "./components/cart";
-// import {counter} from "./utils";
 
 /**
  * Приложение
@@ -16,22 +15,12 @@ function App({store}) {
   const [popupState, setPopupState] = useState(false);
 
   const callbacks = {
-    // onAdd: useCallback(() => {
-    //   const code = counter();
-    //   store.createItem({code, title: `Новая запись ${code}`});
-    // }, []),
-    // onSelectItems: useCallback((code) => {
-    //   store.selectItem(code);
-    // }, []),
     onAddItemToCart: useCallback((code) => {
       store.addItemToCart(code);
     }, []),
     onDeleteItemsToCart: useCallback((code) => {
       store.deleteItemFromCart(code);
     }, []),
-    // onDeleteItems: useCallback((code) => {
-    //   store.deleteItem(code);
-    // }, []),
     openPopup: useCallback(() => {
       setPopupState(true);
     }, []),
@@ -50,8 +39,6 @@ function App({store}) {
         <List items={store.getState().items}
               buttonName='Добавить'
               onItemClick={callbacks.onAddItemToCart}
-              // onItemSelect={callbacks.onSelectItems}
-              // onItemDelete={callbacks.onDeleteItems}
         />
       </Layout>
       <Cart items={store.getState().itemsInCart}
@@ -61,8 +48,6 @@ function App({store}) {
         <List items={store.getState().itemsInCart}
               buttonName='Удалить'
               onItemClick={callbacks.onDeleteItemsToCart}
-              // onItemSelect={callbacks.onSelectItems}
-              // onItemDelete={callbacks.onDeleteItems}
         />
       </Cart>
     </>

@@ -2,7 +2,6 @@ import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import {getPriceOnRub} from '../../utils';
-// import plural from 'plural-ru';
 import './style.css';
 
 function Item({item, indexItem, buttonName, onItemClick}) {
@@ -14,27 +13,13 @@ function Item({item, indexItem, buttonName, onItemClick}) {
       e.stopPropagation();
       onItemClick(item.code)
     }, [onItemClick, item])
-
-    // onClick: useCallback(() => {
-    //   props.onSelect(props.item.code);
-    //   if (!props.item.selected) {
-    //     setCount(count + 1);
-    //   }
-    // }, [props.onSelect, props.item, setCount, count]),
-
-    // onDelete: useCallback((e) => {
-    //   e.stopPropagation();
-    //   props.onDelete(props.item.code)
-    // }, [props.onDelete,  props.item])
   };
 
   return (
-    // <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
     <div className={cn()}>
       <div className={cn('name')}>
         <p className={cn('number')}>{indexItem}</p>
         <p className={cn('title')}>{item.title}</p>
-          {/*{count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}*/}
       </div>
       <div className={cn('actions')}>
         <p className={cn('price')}>{getPriceOnRub(item.price)}</p>
@@ -44,7 +29,6 @@ function Item({item, indexItem, buttonName, onItemClick}) {
         </button>
       </div>
     </div>
-    // </div>
   )
 }
 
@@ -53,17 +37,13 @@ Item.propTypes = {
   indexItem: propTypes.number.isRequired,
   buttonName: propTypes.string.isRequired,
   onItemClick: propTypes.func.isRequired,
-  // onSelect: propTypes.func.isRequired,
-  // onDeleted: propTypes.func.isRequired
 }
 
 Item.defaultProps = {
   item: {},
-  buttonName: '',
   indexItem: 1,
+  buttonName: '',
   onItemClick: () => {},
-  // onSelect: () => {},
-  // onDeleted: () => {}
 }
 
 export default React.memo(Item);

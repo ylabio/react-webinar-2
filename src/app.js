@@ -1,35 +1,41 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Modal from "./components/modal";
+import AVAILABLE_ITEMS from "./const/const"
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+
+function App({ store }) {
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAdd: useCallback((code) => {
+      store.addToCart(code);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+
+    onDelete: useCallback((code) => {
+      store.deleteFromCart(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
+
+    onModalToggle: useCallback(() => {
+      store.setModal();
+    }, [])
+
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout head={<h1>Магазин</h1>} isFullScreen>
+      <Modal active={store.state.isModalActive} onDelete={callbacks.onDelete} onClose={callbacks.onModalToggle} cart={store.state.cart}>
+      </Modal>
+      <Controls onClick={callbacks.onModalToggle} cart={store.state.cart} />
+      <List
+        list={AVAILABLE_ITEMS}
+        onClick={callbacks.onAdd}
       />
     </Layout>
   );

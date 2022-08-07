@@ -1,6 +1,21 @@
-/* Контрол с общими действиями */
 .Controls{
     display: flex;
     justify-content: flex-end;
     padding: 20px;
 }
+
+.Controls-basket {
+    display: flex;
+    font-weight: bold;
+    padding: 0 20px 0 12px;
+}
+
+.Controls-length::after {
+    content: ' /';
+}
+
+.Controls-price {
+    margin-left: 5px;
+}
+
+

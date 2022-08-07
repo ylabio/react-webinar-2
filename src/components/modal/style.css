@@ -1,0 +1,84 @@
+.Modal-wraper{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Modal-cart {
+    width: 960px;
+    background-color: #fff;
+}
+
+.Modal-header {
+    display: flex;
+    height: 80px;
+    background-color: #F5F5F5;
+}
+
+.Modal-name {
+    width: 100%;
+    margin-left: 20px;
+    margin-top: 20px;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 37px;
+}
+
+.Modal-button {
+    justify-content: right;
+    margin-right: 32px;
+    margin-top: 31px;
+    Width: 76px;
+    Height: 21px;
+
+    background: #EFEFEF;
+    border: 1px solid #767676;
+    border-radius: 2px;
+}
+
+.Modal-content {
+    margin-top: 74px;
+}
+
+.Modal-empty {
+    margin-top: 74px;
+    text-align: center;
+}
+
+.Modal-footer {
+    padding-bottom: 50px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Modal-footer_name {
+    margin-top: 26px;
+    margin-right: 10px;
+
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.Modal-footer_price {
+    margin-top: 26px;
+    margin-right: 100px;
+    min-width: 90px;
+
+    text-align: right;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+}

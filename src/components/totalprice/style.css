@@ -1,0 +1,13 @@
+
+.TotalPrice {
+
+}
+
+.TotalPrice-sum {
+
+}
+
+.TotalPrice-sum::after {
+    margin-left: 2px;
+    content: " \20BD";
+}

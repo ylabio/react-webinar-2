@@ -1,0 +1,14 @@
+.Sum {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Sum div {
+  padding: 26px 49px 0 0;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.Sum div:last-child {
+  padding-right: 106px;
+}

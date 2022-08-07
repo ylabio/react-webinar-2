@@ -1,5 +1,4 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -36,18 +35,8 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
-  }
-
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
   /**
@@ -57,28 +46,44 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      cart: this.state.cart.filter((item) => item.code !== code),
     });
   }
 
   /**
-   * Выделение записи по её коду
+   * Добавление товара в корзину
    * @param code
+   * @param item
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+
+  addItemToCart(code, item) {
+    const cart = this.state.cart;
+
+    if (cart.find((item) => item.code === code) === undefined) {
+      this.setState({
+        ...this.state,
+        cart: [...cart, { ...item, amount: 1 }],
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cart: cart.map((item) => {
+          return item.code === code ? { ...item, amount: ++item.amount } : item;
+        }),
+      });
+    }
+  }
+
+  /**
+   *Вычисление суммы всех товаров в корзине
+   * @returns {number}
+   */
+
+  sumInCart() {
+    return this.state.cart.reduce(
+      (partialSum, item) => partialSum + item.price * item.amount,
+      0
+    );
   }
 }
 

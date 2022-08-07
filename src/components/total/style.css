@@ -1,0 +1,9 @@
+.Total{
+    padding:  20px 100px;
+    float: right;
+}
+
+.Total b{
+    margin-left: 20px;
+    text-align: right;
+}

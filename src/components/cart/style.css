@@ -1,0 +1,36 @@
+.Cart{
+    width: 960px;
+    height: 603px;
+
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+.Cart-head{
+    height: 80px;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #F5F5F5;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.Cart-head *{
+    margin: 0;
+    display: inline;
+}
+
+.Cart-head__close{
+    float: right;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+}
+
+.Cart-content{
+    box-sizing: border-box;
+    margin: 70px 0px;
+    overflow-y: auto;
+    height: calc(100% - 80px - 140px); /* Вычитаем head, потом суммарно вычитаем margin */
+}

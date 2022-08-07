@@ -52,33 +52,46 @@ class Store {
 
   /**
    * Удаление записи по её коду
-   * @param code
+   * @param item
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
+  deleteItem(item) {
+    const deleteItem = this.state.cartItems.filter(itemFilter => itemFilter.title === item.title)[0];
+    
+    if (deleteItem.count <= 1) {
+      this.setState({
+        ...this.state,
+        cartItems: [...this.state.cartItems.filter(item => item.title !== deleteItem.title)]
+      });
+    } else {
+      deleteItem.count--;
+      this.setState({
+        ...this.state,
+        cartItems: [...this.state.cartItems.filter(item => item.title !== deleteItem.title), deleteItem]
+      });
+    }
   }
 
   /**
-   * Выделение записи по её коду
-   * @param code
+   * Добавление товара в корзину
+   * @param item
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+  selectItem(item) {
+    const newItem = item;
+    const isProductExists = ()=>{return this.state.cartItems.filter(item => item.title === newItem.title).length !== 0};
+    if (isProductExists() == true) {
+      const existsItem = this.state.cartItems.filter(item => item.title === newItem.title)[0];
+      existsItem.count++;
+      this.setState({
+        ...this.state,
+        cartItems: [...this.state.cartItems.filter(item => item.title !== newItem.title), existsItem]
+      });
+    } else {
+      newItem.count = 1;
+      this.setState({
+        ...this.state,
+        cartItems: [...this.state.cartItems, newItem]
+      });
+    }
   }
 }
 

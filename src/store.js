@@ -1,5 +1,3 @@
-import item from "./components/item";
-
 class Store {
 
   constructor(initState) {

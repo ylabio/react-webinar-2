@@ -1,6 +1,20 @@
 /* Контрол с общими действиями */
-.Controls{
+.Controls {
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+}
+
+.Controls-basket {
+    margin-right: 20px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+}
+
+.Controls-basket-price {
+    font-weight: 700;
+    margin-left: 15px;
 }

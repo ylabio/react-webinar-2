@@ -1,0 +1,91 @@
+.Modal {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.Modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.Modal-content {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    width: 960px;
+    min-height: 603px;
+    max-height: 100%;
+    background-color: white;
+    transform: scale(0.5);
+    transition: 0.4s all;
+    overflow-y: scroll;
+}
+
+.Modal-content.active {
+    transform: scale(1);
+}
+
+.Modal-close {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    padding: 3px 8px;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    margin-right: 32px;
+}
+
+.Modal-empty {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.Modal-item{
+    border-bottom: 1px dashed #ccc;
+}
+
+.Modal-item:first-child{
+    border-top: 1px dashed #ccc;
+}
+
+.head {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 80px;
+    background: #f5f5f5;
+    margin-bottom: 74px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.head h1 {
+    margin: 0;
+    padding: 20px 20px 10px;
+}
+
+.totalPrice {
+    margin-top: 26px;
+    margin-bottom: 26px;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 108px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+}
+
+.totalPrice-count {
+    margin-left: 49px;
+    margin-right: 5px;
+}

@@ -1,0 +1,44 @@
+/* Пункт списка */
+.Basket-count {
+    margin-right: 23px;
+    margin-top: 19px;
+    margin-left: 41px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #404040;
+}
+
+.Basket {
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 1s;
+}
+
+.Basket-title {
+    width: 100%;
+    padding: 20px 10px;
+}
+
+.Basket-actions {
+    padding: 20px 20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Basket-number {
+    padding: 20px 10px 20px 20px;
+}
+
+.Basket-currency {
+    margin-left: 6px;
+}
+
+.Basket-price {
+    margin-right: 14px;
+    margin-top: 19px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #404040;
+}

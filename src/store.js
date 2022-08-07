@@ -1,10 +1,12 @@
+import item from "./components/item";
+
 class Store {
 
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
     // Слушатели изменений state
-    this.listners = [];
+    this.listeners = [];
   }
 
   /**
@@ -22,8 +24,8 @@ class Store {
   setState(newState) {
     this.state = newState;
     // Оповещаем всех подписчиков об изменении стейта
-    for (const lister of this.listners) {
-      lister();
+    for (const listener of this.listeners) {
+      listener();
     }
   }
 
@@ -33,20 +35,20 @@ class Store {
    * @return {Function} Функция для отписки
    */
   subscribe(callback) {
-    this.listners.push(callback);
+    this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listners = this.listners.filter(item => item !== callback);
+      this.listeners = this.listeners.filter(item => item !== callback);
     }
   }
 
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новая запись', selected = false, countSelected = 0}) {
+  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected, countSelected})
+      items: this.state.items.concat({code, title, price, selected})
     });
   }
 
@@ -55,33 +57,62 @@ class Store {
    * @param code
    */
   deleteItem(code) {
-    // Event.stopPropagation();
-    console.log(this.state);
     this.setState({
       ...this.state,
       items: this.state.items.filter(item => item.code !== code)
     });
   }
 
+  addItemInBasket({code, title, price}) {
+    let {totalOfBasket, itemsOfBasket} = this.getState().basket;
+    // const items = this.getState().items;
+    // const seacrhIndex = itemsOfBasket.findIndex((item) => item.code === code)
+    const seachObj = itemsOfBasket.find((item) => item.code === code);
+   
+    if (typeof(seachObj) === 'undefined') {
+      const newBasket = {totalOfBasket: totalOfBasket + price, itemsOfBasket: [...itemsOfBasket, {code, title, price, count: 1}]}
+        this.setState({
+          ...this.state,
+          // basket: {
+          //   totalOfBasket: totalOfBasket += price,
+          //   itemsOfBasket:[...itemsOfBasket,{code, title, price, count: 1}]
+          // },
+          basket:newBasket,
+        }
+      )
+    }
+    else {
+      
+     const newItemsOfBasket = itemsOfBasket.filter((item) => item.code !== code);
+     seachObj.count += 1;
+     const newBasket = {totalOfBasket: totalOfBasket + price, itemsOfBasket: [...newItemsOfBasket, {...seachObj}]}
+      this.setState({
+        ...this.state,
+        basket: newBasket,
+      })
+    }
+    console.log(this.state)
+  }
+
   /**
    * Выделение записи по её коду
    * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if(item.code !== code & item.selected === true) {
-          item.selected = false;
-        }
-        if (item.code === code ){
-          item.selected = !item.selected;
-          item.countSelected = item.selected === true ? item.countSelected += 1 : item.countSelected;
-        }
-        return item;
-      })
-    });
-  }
+  //  */
+  // selectItem(code) {
+  //   this.setState({
+  //     ...this.state,
+  //     items: this.state.items.map(item => {
+  //       if (item.code === code){
+  //         return {
+  //           ...item,
+  //           selected: !item.selected,
+  //           count: item.selected ? item.count : item.count + 1 || 1
+  //         }
+  //       }
+  //       return item.selected ? {...item, selected: false} : item;
+  //     })
+  //   });
+  // }
 }
 
 export default Store;

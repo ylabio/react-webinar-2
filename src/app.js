@@ -1,8 +1,10 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import {counter} from "./utils";
+import LayoutBasket from './components/layout-basket';
+import Basket from './components/basket';
 
 /**
  * Приложение
@@ -12,25 +14,42 @@ import {counter} from "./utils";
 function App({store}) {
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    changeBasketVisible: useCallback((isVisible)=>{ 
+    store.changeBasketVisible(isVisible);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onAddItemInBasket: useCallback((code)=>{
+    store.addItemInBasket(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    deleteItem: useCallback((code)=>{
+    store.deleteItem(code);
     }, []),
+    changeTotalPrice: useCallback((code)=>{
+    store.changeTotalPrice(code);
+    }, [])
   }
+  const basket=store.getState().basket;
+  const totalPrice=store.getState().totalPrice;
+  const basketVisible=store.getState().basketVisible;
+
+  useEffect(()=>{
+    callbacks.changeTotalPrice();
+  }, [basket])
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls changeBasketVisible={callbacks.changeBasketVisible}
+                basket={basket} 
+                totalPrice={totalPrice}/>
       <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+            onAddItemInBasket={callbacks.onAddItemInBasket}
       />
+      <LayoutBasket head={<h1>Корзина</h1>}
+                    changeBasketVisible={callbacks.changeBasketVisible}
+                    basketVisible={basketVisible}>
+        <Basket basket={basket}
+                totalPrice={totalPrice}
+                deleteItem={callbacks.deleteItem} />
+      </LayoutBasket>
     </Layout>
   );
 }

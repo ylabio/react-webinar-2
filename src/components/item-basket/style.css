@@ -1,0 +1,36 @@
+/* Пункт списка товаров в корзине */
+.ItemBasket{
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 1s;
+    flex-direction: row;
+    height: 61px;
+}
+.ItemBasket-title{
+    width: 100%;
+    padding-top: 21px;
+    padding-bottom: 22px;
+}
+.ItemBasket-number{
+    padding: 21px 22px 22px 17.81px;  
+}
+.ItemBasket-price-num{
+    width: 100%;
+    padding: 19px 0 21px 0;
+    text-align: end;
+    padding-right: 0;  
+    display: flex;
+    justify-content: flex-end; 
+    font-size: 18px;
+}
+.ItemBasket-num{
+    width: 93.25px;
+}
+.ItemBasket-num-button{
+    padding: 21px 19.94px 19px 23.12px;
+    align-self: flex-end;
+}
+.ItemBasket-num-button button{
+    width: 71px;
+    height: 21px;
+}

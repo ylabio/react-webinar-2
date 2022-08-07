@@ -41,45 +41,61 @@ class Store {
   }
 
   /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
+   * Удаление записи из корзины по её коду
    * @param code
    */
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      basket: this.state.basket.filter(item => item.code !== code),
     });
   }
 
-  /**
-   * Выделение записи по её коду
+    /**
+   * Добавление записи в корзину по её коду
    * @param code
    */
-  selectItem(code) {
+  addItemInBasket(code) {
+    const basketWithItem = this.state.basket.filter(item => item.code === code);
+    const itemForAdd = this.state.items.filter(item => item.code === code)[0];
+    if(!basketWithItem.length){
+       this.setState({
+         ...this.state,
+        basket: [...this.state.basket, {code: itemForAdd.code, title: itemForAdd.title, price: itemForAdd.price, num: 1}],
+       })
+   } else {
+     this.setState({
+       ...this.state,
+       basket: this.state.basket.map(item => item.code === code 
+         ? 
+           ({...item, price: item.price + itemForAdd.price, num: item.num + 1 }) 
+        : 
+           item),
+       })
+     }
+   }
+
+    /**
+   * Изменение видимости корзины
+   * @param code
+   */
+  changeBasketVisible(isVisible) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+      basketVisible: isVisible
+    })
   }
+
+       /**
+   * Изменение общей стоимости товаров в корзине
+   * @param code
+   */
+  changeTotalPrice() {
+    this.setState({
+    ...this.state,
+    totalPrice: this.state.basket.reduce((a, b) => a + b.price, 0)
+    })
+  }      
 }
 
 export default Store;

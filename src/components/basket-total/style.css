@@ -1,0 +1,18 @@
+/* Общая стоимость товаров в корзине */
+.BasketTotal{
+    display: flex;
+    flex-direction: row;
+    gap: 49px;
+    justify-content: flex-end;
+    padding-top: 26px;
+    padding-right: 108px;
+    font-size: 18px;
+}
+.BasketTotal-total{
+    padding-right: 0;
+    padding-bottom: 0px;  
+}
+.BasketTotal-price{
+    padding-right: 0;
+    padding-bottom: 0px;
+}

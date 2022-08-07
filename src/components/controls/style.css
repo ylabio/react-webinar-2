@@ -1,0 +1,12 @@
+/* Контрол с общими действиями */
+.Controls{
+    display: flex;
+    gap: 1.75rem;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.Controls > div span {
+    margin-inline: .25rem;
+    font-weight: bold;
+}

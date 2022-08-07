@@ -1,6 +1,8 @@
-import React from 'react';
-import {counter} from './utils.js';
-import './style.css';
+import React, {useCallback, useState} from 'react';
+import Controls from "./components/controls";
+import List from "./components/list";
+import Layout from "./components/layout";
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -8,47 +10,44 @@ import './style.css';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  // Выбор состояния из store
-  const {items} = store.getState();
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  
+  const callbacks = {
+    addItem: useCallback((code) => {
+      store.addToCart(code);
+    }, []),
 
-  // функция для склонения слов
-  function declOfNum(number, titles) {  
-    const cases = [2, 0, 1, 1, 1, 2];  
-    return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];  
+    removeItem: useCallback((code) => {
+      store.removeItem(code)
+    }, []),
+
+    openModal: useCallback(() => {
+      setIsModalOpen(true)
+    }, []),
+
+    closeModal: useCallback(() => {
+      setIsModalOpen(false)
+    }, [])
   }
 
   return (
-    <div className='App'>
-      <div className='App__head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='Controls'>
-        <button onClick={() => {
-          const code = counter();
-          store.createItem({code, title: `Новая запись ${code}`})
-        }}> Добавить </button>
-      </div>
-      <div className='App__center'>
-        <div className='List'>{items.map(item =>
-          <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
-              <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'
-              >
-                {item.title}{item.selectCount > 0 && <span> | Выделялось {item.selectCount} {declOfNum(item.selectCount, ['раз', 'раза', 'раз'])}</span>}
-              </div>
-              <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
-                  Удалить
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-        </div>
-      </div>
-    </div>
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls
+        total={store.getState().total}
+        amount={store.getState().amount}
+        openModal={callbacks.openModal} />
+      <List 
+        items={store.getState().items}
+        addItem={callbacks.addItem}
+      />
+      <Cart 
+        items={store.getState().cart}
+        isModalOpen={isModalOpen}
+        closeModal={callbacks.closeModal}
+        removeItem={callbacks.removeItem}
+        total={store.getState().total}
+      />
+    </Layout>
   );
 }
 

@@ -1,19 +1,25 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function Controls({onAdd, onCart}){
+function Controls({cartLabel, openCart}){
+  const cn = bem('Controls');
   return (
-    <div className='Controls'>
-      {onAdd && <button onClick={onAdd}>Добавить</button>}
-      {onCart && <button onClick={onCart}>Перейти</button>}
+    <div className={cn()}>
+      {cartLabel && <div className={cn('actions')}>
+        В корзине: <span>{cartLabel}</span>
+      </div>}
+      {openCart && <div className={cn('actions')}>
+        <button onClick={openCart}>Перейти</button>
+      </div>}
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func,
-  onCart: propTypes.func
+  cartLabel: propTypes.string,
+  openCart: propTypes.func
 }
 
 export default React.memo(Controls);

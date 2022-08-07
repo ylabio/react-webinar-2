@@ -13,8 +13,9 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    min-width: 80%;
+    width: calc(100% - 64px);
     min-height: 50%;
+    max-width: 960px;    
     border-radius: 10px;
     transform: translate(-50%, -50%);
     background: #fff;

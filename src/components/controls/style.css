@@ -2,8 +2,10 @@
 .Controls{
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
 }
-.Controls button{
-    margin-left: 12px;
+.Controls-actions{
+    padding: 20px 20px 20px 10px;
+}
+.Controls-actions span{
+    font-weight: bold;
 }

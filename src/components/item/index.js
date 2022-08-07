@@ -7,7 +7,6 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-
     onAdd: useCallback((e) => {
       e.stopPropagation();
       props.onAdd(props.item.code)
@@ -31,8 +30,8 @@ function Item(props) {
         {props.item.price.toLocaleString('ru-RU') + " \u20bd"} 
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onAdd}>
-          Добавить
+        <button className={cn('button')} onClick={(props.onAdd) ? callbacks.onAdd : callbacks.onDelete}>
+        {(props.onAdd) ? 'Добавить' : 'Удалить'}
         </button>
       </div>
     </div>
@@ -46,8 +45,7 @@ Item.propTypes = {
 }
 
 Item.defaultProps = {
-  onAdd: () => {},
-  onDelete: () => {}
+ 
 }
 
 export default React.memo(Item);

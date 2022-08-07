@@ -4,7 +4,7 @@ import './style.css';
 import {pluralize} from '../../utils';
 import {cn as bem} from "@bem-react/classname";
 
-function Controls({cart, onAdd}){
+function Controls({cart, onOpen}){
   const cn = bem('Controls');
   return (
     <div className={cn()}>
@@ -12,12 +12,16 @@ function Controls({cart, onAdd}){
         В корзине:
       </div>
       <div className={cn('cart')}>
-        {cart.length 
-        + pluralize(cart.length, [' товар', ' товара', ' товаров'])
-        + ` / ${cart.map(el => el.price).reduce((a,b)=>a+b,0).toLocaleString('ru-RU') + " \u20bd"}` }
+        {(cart.length > 0) ? new Set(cart.map(el=>el.code)).size 
+            + pluralize(new Set(cart.map(el=>el.code)).size, [' товар', ' товара', ' товаров'])
+            + ` / ${cart.map(el => el.price)
+                        .reduce((a,b)=>a+b,0)
+                        .toLocaleString('ru-RU') + ' \u20bd'}`
+          : 'пусто'
+        }
       </div>
       <div className={cn('actions')}>
-        <button onClick={onAdd}>Добавить</button>
+        <button className={cn('button')} onClick={onOpen}>Перейти</button>
       </div>
     </div>
   )
@@ -25,12 +29,12 @@ function Controls({cart, onAdd}){
 
 Controls.propTypes = {
   cart: propTypes.array.isRequired,
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  onOpen: propTypes.func.isRequired // Обяхательное свойство - функция
 }
 
 Controls.defaultProps = {
   cart: [],
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  onOpen: () => {} // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

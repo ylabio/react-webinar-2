@@ -1,7 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
+import ShopCart from "./components/cart";
+
 
 /**
  * Приложение
@@ -9,25 +11,29 @@ import Layout from "./components/layout";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const [showCart, setShowCart] = useState(false);
 
   const callbacks = {
     onAdd: useCallback((code) => {
       store.addItem(code);
-      console.log(store.getState());
+    }, []),
+    onOpen: useCallback(() => {
+        setShowCart(!showCart);
     }, []),
     onDelete: useCallback((code) => {
-      store.deleteItem(code);
+      store.deleteCartItem(code);
     }, []),
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>Магазин</h1>} layout='Layout'>
       <Controls cart={store.getState().shoppingCart} 
-            onAdd={callbacks.onAdd}
+            onOpen={callbacks.onOpen}
       />
       <List items={store.getState().items}
             onItemAdd={callbacks.onAdd}
       />
+      {showCart && <ShopCart store={store} show={showCart} setShow={setShowCart} />}
     </Layout>
   );
 }

@@ -27,10 +27,17 @@
     padding: 20px 10px 20px 20px;
 }
 .Item-price{
-    padding: 20px  10px 20px 10px;
+    padding: 20px  14px 20px 10px;
     line-height: 21px;
     letter-spacing: 0em;
     text-align: right;
     white-space: nowrap;
     color: #404040;
+}
+.Item-button{
+    background: #EFEFEF;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    width: 76px;
+    height: 21px;
 }

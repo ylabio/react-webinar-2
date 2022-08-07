@@ -21,3 +21,17 @@ body{
     margin: 0;
     padding: 20px 20px 10px;
 }
+.Cartlayout{
+    background: #f5f5f5;
+    box-sizing: border-box;
+}
+.Cartlayout-head{
+    height: 80px;
+    display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.Cartlayout-head h1{
+    margin: 0px;
+    padding: 20px 20px 10px;
+}

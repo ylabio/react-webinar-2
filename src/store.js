@@ -61,6 +61,12 @@ class Store {
     });
   }
 
+  deleteCartItem(code) {
+    this.setState({
+      ...this.state,
+      shoppingCart: this.getState().shoppingCart.filter(item => item.code !== code)
+    });
+}
 }
 
 export default Store;

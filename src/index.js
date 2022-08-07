@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactModal from "react-modal";
 import {createRoot} from 'react-dom/client';
 import App from './app.js';
 import Store from "./store.js";
@@ -13,7 +14,8 @@ const store = new Store({
     {code: counter(), title: 'Телефон iPhone XIXV', price: 120000},
     {code: counter(), title: 'Карандаши цветные', price: 111},
     {code: counter(), title: 'Товар сюрприз', price: 0},
-  ]
+  ],
+  cart: []
 });
 
 const root = createRoot(document.getElementById('root'));
@@ -25,3 +27,5 @@ store.subscribe(() => {
 
 // Первый рендер (один раз)
 root.render(<App store={store}/>);
+
+ReactModal.setAppElement("#root");

@@ -1,5 +1,6 @@
-class Store {
+import { cartQtyUpdate } from "./utils";
 
+class Store {
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -36,48 +37,41 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
   /**
-   * Создание записи
+   * Удаление товара из корзины
+   * @param code
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  removeItemFromCart(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      cart:
+        // Проверяем количество товара в корзине
+        this.state.cart.find((item) => item.code === code).qty > 1
+          ? // Если количество товара в корзине больше 1 - уменьшаем к-во на 1 шт.
+            cartQtyUpdate(code, this.state.cart, false)
+          : // Если товар один - удаляем запись о товаре из корзины целиком
+            this.state.cart.filter((item) => item.code !== code),
     });
   }
 
   /**
-   * Удаление записи по её коду
+   * Добавление товара в корзину
    * @param code
    */
-  deleteItem(code) {
+  addItemToCart(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cart:
+        // Проверяем наличие товара в корзине
+        this.state.cart.find((item) => item.code === code)
+          ? // Если товар есть в корзине - увеличиваем количество товара на 1 шт.
+            cartQtyUpdate(code, this.state.cart, true)
+          : // Если товара нет в корзине - добавляем новый товар в корзину
+            [...this.state.cart, { code: code, qty: 1 }],
     });
   }
 }

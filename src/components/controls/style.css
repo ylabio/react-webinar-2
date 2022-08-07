@@ -4,3 +4,12 @@
     justify-content: flex-end;
     padding: 20px;
 }
+.Controls-totals {
+    margin-right: 20px;
+}
+.Controls-cart-info {
+    font-weight: 700;
+}
+.Controls-button-modal-on {
+    width: 75px;
+}

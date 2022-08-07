@@ -8,25 +8,30 @@ function List(props) {
   const cn = bem('List');
 
   return (
-    <div className={cn()}>{props.items.map(item =>
+    <>
+    {props.items.length ?
+    <div className={cn()}>
+      {props.items.map(item =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} onSelect={props.onItemSelect} onDelete={props.onItemDelete}/>
+       <Item item={item} {...props} />
       </div>
     )}
     </div>
+    :
+    <div className={cn('note')}>
+    <p className={cn('text')}>Сейчас в корзине ничего нет...</p>
+    </div>
+}
+    </>
   )
 }
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemSelect: propTypes.func,
-  onItemDelete: propTypes.func
 }
 
 List.defaultProps = {
   items: [],
-  onItemSelect: () => {},
-  onItemDelete: () => {}
 }
 
 export default React.memo(List);

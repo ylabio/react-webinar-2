@@ -2,6 +2,7 @@ import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
+import Bucket from "./components/bucket";
 import {counter} from "./utils";
 
 /**
@@ -12,12 +13,17 @@ import {counter} from "./utils";
 function App({store}) {
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onOpenBucket: useCallback(() => {
+      store.openModal();
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onCloseBucket: useCallback(() => {
+      store.closeModal();
+    }, []),
+    onAddItemToBucket: useCallback((code) => {
+      store.addItemToBucket(code);
+    }, []),
+    onDeleteBucketItem: useCallback((code) => {
+      store.deleteBucketItem(code);
     }, []),
     onDeleteItems: useCallback((code) => {
       store.deleteItem(code);
@@ -25,11 +31,19 @@ function App({store}) {
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls onOpenBucket={callbacks.onOpenBucket}
+                bucketItems={store.getState().bucketItems}
+      />
       <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+            itemClickHandler={callbacks.onAddItemToBucket}
+            buttonText='Добавить'
+      />
+      <Bucket bucketItems={store.getState().bucketItems}
+            onCloseBucket={callbacks.onCloseBucket}
+            isOpen={store.getState().isOpen}
+            itemClickHandler={callbacks.onDeleteBucketItem}
+            buttonText='Удалить'
       />
     </Layout>
   );

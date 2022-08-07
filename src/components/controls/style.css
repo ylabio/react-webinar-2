@@ -5,14 +5,14 @@
     font-size: 18px;
     padding: 0 21px;
 }
-.Controls-basket-full{
+.Controls-basket{
     padding: 18px 20px 24px;
     display: flex;
+}
+.Controls-basket_value_full{
     gap: 15px;
 }
-.Controls-basket-empty{
-    padding: 18px 20px 24px;
-    display: flex;
+.Controls-basket_value_empty{
     gap: 12px;
 }
 .Controls-button{

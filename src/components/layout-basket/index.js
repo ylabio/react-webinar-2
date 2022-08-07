@@ -12,21 +12,20 @@ function LayoutBasket(props){
     
   return (
     <div className={cl.join(' ')}>
-     <div className={cn('frame')}>
+      <div className={cn('frame')}>
         <div className={cn('head')}>
           {props.head} 
-          <div className={cn('head-button')}>
-            <button onClick={()=>props.changeBasketVisible(false)}>
-              Закрыть
-            </button>
-          </div>
+            <div className={cn('head-button')}>
+              <button onClick={()=>props.changeBasketVisible(false)}>
+                Закрыть
+              </button>
+            </div>
         </div>
         <div className={cn('content')}>
           {props.children}
         </div>
-        </div>
       </div>
-    
+    </div>
   )
 }
 

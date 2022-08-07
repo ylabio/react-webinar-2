@@ -64,6 +64,26 @@ class Store {
     });
   }
 
+  removeItemFromCart(item) {
+    const goods = JSON.parse(JSON.stringify(this.state.goods));
+    goods.price -= item.data.price;
+    
+    delete goods.items[item.data.code];
+    goods.total--;
+
+    this.setState({
+      ...this.state,
+      goods,
+    });
+  }
+
+  handleModal(arg) {
+    this.setState({
+      ...this.state,
+      isCartOpen: arg,
+    });
+  }
+
 }
 
 export default Store;

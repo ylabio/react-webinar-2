@@ -21,9 +21,9 @@ function AppLayout({head, children}){
 AppLayout.propTypes = { 
   head: propTypes.node,
   children: propTypes.node,
-}
+};
 
 AppLayout.defaultProps = {
-}
+};
 
 export default React.memo(AppLayout);

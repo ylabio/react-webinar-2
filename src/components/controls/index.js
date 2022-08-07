@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
@@ -13,6 +13,12 @@ function Controls() {
   const ending = plural(total, 'товар', 'товара', 'товаров');
   const cn = bem('Controls');
 
+  const callbacks = {
+    openModal: useCallback(() => {
+      store.handleModal(true);
+    }, []),
+  };
+
   return (
     <div className={cn()}>
       <div className={cn('wrapper')}>
@@ -24,7 +30,12 @@ function Controls() {
           }
         </span>
       </div>
-      <Button text='Перейти' />
+      
+      <Button 
+        text='Перейти'
+        onClick={callbacks.openModal}
+        disabled={total < 1} 
+      />
     </div>
   )
 }

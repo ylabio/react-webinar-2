@@ -27,3 +27,16 @@ export function formatPrice(price) {
 
   return formatted.reverse().join('');
 }
+
+export function getCartItems(goods) {
+  const items = [];
+
+  for (const item in goods) {
+    const current = goods[item];
+    items.push(current);
+  }
+
+  items.sort((a, b) => b.price - a.price);
+  
+  return items;
+}

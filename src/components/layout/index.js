@@ -1,14 +1,14 @@
 import React from "react";
 import { cn as bem } from "@bem-react/classname";
-import "./style.css";
 import propTypes from "prop-types";
+import "./style.css";
 
 function Layout({ head, children, modal, componentModal }) {
   const cn = bem("Layout");
 
   return (
     <div className={cn()}>
-      <div className={cn("wrapper", { none: modal })}>
+      <div className={cn("wrapper")}>
         <div className={cn("head")}>{head}</div>
         <div className={cn("content")}>{children}</div>
       </div>

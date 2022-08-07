@@ -7,6 +7,10 @@
   background: #fff;
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .Modal-item {
@@ -26,9 +30,7 @@
 }
 
 .Modal-head button {
-  height: 24px;
   margin-right: 20px;
-  padding: 0 8px;
 }
 
 .Modal-head h1 {
@@ -36,10 +38,15 @@
   padding: 20px 20px 10px;
 }
 
-.Modal-end {
+.Modal-none {
   margin-top: 20px;
+  text-align: center;
+}
+
+.Modal-end {
+  padding: 20px 0;
   text-align: right;
 }
 .Modal-end b:last-child {
-  padding: 0 20px;
+  padding: 0 100px 0 25px;
 }

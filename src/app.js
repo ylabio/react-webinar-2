@@ -17,7 +17,6 @@ function App({ store }) {
       store.deleteItem(code);
     }, []),
     onAddItem: useCallback((item) => {
-      console.log(item, "item");
       store.addItem(item);
     }, []),
   };

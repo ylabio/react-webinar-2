@@ -3,8 +3,15 @@ body {
   padding: 0;
   background: #535353;
   font-family: sans-serif;
+  position: relative;
 }
 /* Страница*/
+
+button {
+  height: 24px;
+  width: 84px;
+  padding: 0 8px;
+}
 
 .Layout {
   max-width: 1024px;
@@ -13,22 +20,13 @@ body {
   background: #fff;
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
-  position: relative;
-}
-
-/* .Layout-wrapper{
-   
-} */
-
-.Layout-wrapper_none {
-  opacity: 0.2;
-  pointer-events: none;
 }
 
 .Layout-head {
   height: 80px;
   background: #f5f5f5;
 }
+
 .Layout-head h1 {
   margin: 0;
   padding: 20px 20px 10px;
@@ -38,9 +36,11 @@ body {
   position: absolute;
   opacity: 0;
   pointer-events: none;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .Layout-modal_onModal {

@@ -1,8 +1,7 @@
 import React, {useCallback} from 'react';
-import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import CartCounter from "components/cart-counter";
+import Cart from "components/cart";
 
 /**
  * Приложение
@@ -21,10 +20,13 @@ function App({store}) {
 
     return (
         <Layout head={<h1>Приложение на чистом JS</h1>}>
-            <CartCounter cart={store.getState().cart}/>
-            <List items={store.getState().items}
+            <Cart cart={store.getState().cart}
                   onItemDelete={callbacks.onCartDeleteItems}
+            />
+
+            <List items={store.getState().items}
                   onItemAdd={callbacks.onCartAddItems}
+                  inCart={false}
             />
         </Layout>
     );

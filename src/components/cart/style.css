@@ -1,3 +1,5 @@
+.Cart {}
+
 .Cart-counter {
     display: flex;
     justify-content: flex-end;
@@ -9,7 +11,6 @@
 .Cart-counter-info {
     display: flex;
     gap: 15px;
-
 }
 
 .Cart-counter-title {
@@ -23,6 +24,22 @@
     line-height: 21px;
 }
 
-.Cart-counter-button {
+.Cart-empty {
+    text-align: center;
 }
+
+.Cart-total {
+    padding-top: 26px;
+    padding-right: 108px;
+    align-self: flex-end;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    display: flex;
+    gap: 49px;
+}
+
+
+
+
 

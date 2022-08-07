@@ -105,8 +105,11 @@ class Store {
     deleteCartItem(code) {
         this.setState({
             ...this.state,
-            cartItems: this.state.items.filter(item => item.code !== code)
+            cart: {
+                items: this.state.cart.items.filter(el=> el.code !== code),
+            }
         });
+        this.getCartTotals();
     }
 
     /**

@@ -1,40 +1,42 @@
 import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+
 import './style.css';
 
-function Item(props) {
+function Item({item, onCartAdd, onCartDelete, inCart}) {
     const cn = bem('Item');
-
-    // Счётчик выделений
-    const [count, setCount] = useState(0);
 
     const callbacks = {
         onCartDelete: useCallback((e) => {
-            e.stopPropagation();
-            props.onCartDelete(props.item.code);
-        }, [props.onCartDelete, props.item]),
+            onCartDelete(item.code);
+        }, [onCartDelete, item]),
 
         onCartAdd: useCallback(() => {
-            props.onCartAdd(props.item);
-        }, [props.onCartAdd, props.item])
+            onCartAdd(item);
+        }, [onCartAdd, item])
     };
 
     return (
         <div className={cn()}>
             <div className={cn('number')}>
-                {props.item.code}
+                {item.code}
             </div>
             <div className={cn('title')}>
-                {props.item.title}
+                {item.title}
             </div>
             <div className={cn('price')}>
-                {props.item.price.toLocaleString('ru-RU')}<span>₽</span>
+                {item.price.toLocaleString('ru-RU')}<span>₽</span>
+            </div>
+            <div className={cn('quantity')}>
+                {inCart ?
+                    <>{item.quantity}<span>  шт</span></> :
+                    null}
             </div>
             <div className={cn('actions')}>
-                <button onClick={callbacks.onCartAdd}>
-                    Добавить
-                </button>
+                {inCart ?
+                    <button onClick={callbacks.onCartDelete}>Удалить</button> :
+                    <button onClick={callbacks.onCartAdd}>Добавить</button>}
             </div>
         </div>
     );
@@ -42,15 +44,18 @@ function Item(props) {
 
 Item.propTypes = {
     item: propTypes.object.isRequired,
-    onCartAdd: propTypes.func.isRequired,
-    onCartDelete: propTypes.func.isRequired
+    onCartAdd: propTypes.func,
+    onCartDelete: propTypes.func,
+    inCart: propTypes.bool.isRequired,
 };
 
 Item.defaultProps = {
+    item: {},
     onCartAdd: () => {
     },
     onCartDelete: () => {
-    }
+    },
+    inCart: false
 };
 
 export default React.memo(Item);

@@ -13,11 +13,6 @@ function App({store}) {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const callbacks = {
-    // add будет модалка
-    // onAdd: useCallback(() => {
-    //   const code = counter();
-    //   store.createItem({code, title: `Новая запись ${code}`});
-    // }, []),
     onAddToCart: useCallback((code) => {
       store.addToCart(code);
     }, []),
@@ -27,9 +22,6 @@ function App({store}) {
     onRemoveToCart: (id) => {
       store.removeToCart(id);
     },
-    // onDeleteItems: useCallback((code) => {
-    //   store.deleteItem(code);
-    // }, []),
   }
 
   return (
@@ -47,11 +39,9 @@ function App({store}) {
           onChangeModal={callbacks.onChangeModal}
           onRemoveToCart={callbacks.onRemoveToCart}
           totalPriceCart={store.getTotalPriceCart()}
-        >
-        </Modal>}
-      
-    </Layout>
-    
+        />
+      }      
+    </Layout>    
   );
 }
 

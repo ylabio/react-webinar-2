@@ -23,11 +23,12 @@ function Controls(props){
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обязательное свойство - функция
+  onChangeModal: propTypes.func.isRequired,
+  totalNumberInCart: propTypes.number.isRequired,
+  totalPriceCart: propTypes.number
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

@@ -1,7 +1,6 @@
 import React from 'react';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
-import List from '../list'
 import Item from '../item';
 import {getCurrencyPrice} from '../../utils';
 import propTypes from 'prop-types';
@@ -31,11 +30,21 @@ function Modal(props) {
                   </p>
                 </div>
               </>
-          }         
+            }         
         </div>      
       </div>
     </div>
   )
 }
 
-export default Modal;
+export default React.memo(Modal);
+
+Modal.propTypes = {
+  items: propTypes.arrayOf(propTypes.object).isRequired,
+  onChangeModal: propTypes.func.isRequired,
+  onRemoveToCart: propTypes.func,
+}
+
+Modal.defaultProps = {
+  onRemoveToCart: () => {},
+}

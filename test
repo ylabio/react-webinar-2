@@ -1,0 +1,100 @@
+<div className={cn()}>
+      <div className={cn('bg')}>
+        <div className={cn('window')}>
+          <div className={cn('head')}>
+            <div className={cn('headBg')}>
+              <div className={cn('buttonWrapper')}>
+                <button>
+                  Закрыть
+                </button>
+              </div>
+              <h1>Корзина</h1>
+              <div className={cn('buttonWrapper')}>
+                <button>
+                  Закрыть
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+.Cart{
+
+}
+
+.Cart-bg{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+
+    width: 100%;
+    height: 100%;
+    
+    background: rgba(0, 0, 0, 0.7);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Cart-window {
+    overflow: hidden;
+
+    width: 960px;
+    height: 603px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+.Cart-head {
+    width: 100%;
+    height: 80px;
+
+    margin-bottom: 74px;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Cart-head h1{
+    margin: 0;
+    padding: 20px 20px 10px;
+}
+
+.Cart-buttonWrapper {
+}
+
+.Cart-headBg {
+    width: 100%;
+    height: 100%;
+
+    background: #F5F5F5;
+}
+
+.Cart-item{
+    border-bottom: 1px dashed #ccc;
+}
+
+.Cart-item:first-child{
+    border-top: 1px dashed #ccc;
+}
+
+
+<div className={cn()}>
+  <div className={cn('bg')}>
+    <div className={cn('window')}>
+      <Layout head={<h1>Корзина</h1>}>
+        
+      </Layout>
+    </div>
+  </div>
+</div>

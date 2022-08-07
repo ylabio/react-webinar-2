@@ -1,9 +1,8 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
-
+import Modal from "./components/modal";
 /**
  * Приложение
  * @param store {Store} Состояние приложения
@@ -12,24 +11,32 @@ import {counter} from "./utils";
 function App({store}) {
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onOpenCart: useCallback(() => {
+      setCartVisibility(true)
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onAddToCart: useCallback((code) => {
+      store.addToCart(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
+    onRemoveFromCart: useCallback(code => {
+      store.removeFromCart(code);
+    }, [])
   }
 
+  const [cartVisible, setCartVisibility] = useState(false);
+
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+    <Layout head={<h1>Магазин</h1>}>
+      <Modal head={<h1>Корзина</h1>}
+            items={store.getState().cart}
+            visible={cartVisible}
+            setVisibility={setCartVisibility}
+            onButton={callbacks.onRemoveFromCart}
+            buttonText={'Удалить'}
+            bottomText={store.calculateCartSum()}/>
+      <Controls controlsText={'В корзине:'} controlsData={store.calculateCart()} onControlButton={callbacks.onOpenCart} buttonText={'Перейти'}/>
       <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+            onButton={callbacks.onAddToCart}
+            buttonText={'Добавить'}
       />
     </Layout>
   );

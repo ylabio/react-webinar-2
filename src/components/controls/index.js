@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import propTypes from 'prop-types'
+import plural from 'plural-ru'
 import styles from './style.module.css'
 import { calculateQuantityOfItems, calculateSumOfItems } from '../../utils'
 
@@ -17,7 +18,12 @@ const Controls = ({ basket, openTab }) => {
       <div className={styles.controls__quantity}>
         <div>В корзине: </div>
         {basket.length > 0 ? (
-          <div className={styles.controls__price}>{`${quantity} товаров / ${sum} ₽`}</div>
+          <div className={styles.controls__price}>{`${quantity} ${plural(
+            quantity,
+            'товар',
+            'товара',
+            'товаров'
+          )} / ${sum} ₽`}</div>
         ) : (
           <div className={styles.controls__price}>пусто</div>
         )}

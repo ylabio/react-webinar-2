@@ -29,7 +29,7 @@ function Item(props) {
       <div className={cn('number')}>{props.item.code}</div>
       <div className={cn('title')}>{props.item.title}</div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>Удалить</button>
+        <button onClick={callbacks.onDelete}>Добавить</button>
       </div>
     </div>
   );

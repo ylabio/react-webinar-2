@@ -1,43 +1,34 @@
-import React, {useCallback, useState} from 'react';
-import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
-import './style.css';
+import React, { useCallback, useEffect, useState } from 'react'
+import propTypes from 'prop-types'
+import { cn as bem } from '@bem-react/classname'
+import './style.css'
 
-function Item(props) {
-  const cn = bem('Item');
+const Item = (props) => {
+  const [price, setPrice] = useState(props.item.currentPrice)
+  const cn = bem('Item')
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
+  useEffect(() => {
+    setPrice(props.item.currentPrice)
+  }, [props.item.currentPrice])
 
   const callbacks = {
-
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
-
-    onDelete: useCallback((e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
-  };
+    usingFunc: useCallback(
+      (e) => {
+        e.stopPropagation()
+        props.usingFunc(props.item.code)
+      },
+      [props.item]
+    )
+  }
 
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
-      <div className={cn('number')}>
-        {props.item.code}
-      </div>
-      <div className={cn('title')}>
-        {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
-      </div>
+    <div className={cn()}>
+      <div className={cn('number')}>{props.item.code}</div>
+      <div className={cn('title')}>{props.item.title}</div>
+      <div className={cn('price')}>{`${props.item.currentPrice ? price : props.item.price} ₽`}</div>
+      {props.item.quantity && <div className={cn('quantity')}>{`${props.item.quantity} шт`}</div>}
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
+        <button onClick={callbacks.usingFunc}>{props.action}</button>
       </div>
     </div>
   )
@@ -45,13 +36,12 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
+  usingFunc: propTypes.func.isRequired,
+  action: propTypes.string.isRequired
 }
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
+  usingFunc: () => {}
 }
 
-export default React.memo(Item);
+export default React.memo(Item)

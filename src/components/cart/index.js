@@ -9,7 +9,8 @@ import CartItem from "../cart-item";
 
 function Cart() {
   const { store } = useContext(AppContext);
-  const {isCartOpen, goods} = store.state;
+  const { isCartOpen, goods } = store.state;
+  const { handleModal } = store;
   const items = getCartItems(store.state.goods.items);
   const cn = bem('Cart');
 
@@ -29,8 +30,11 @@ function Cart() {
     }
   }, [goods.total])
 
-  return <ModalLayout>
-    <div className={cn()}>
+  return <ModalLayout closeModal={callbacks.closeModal}>
+    <div 
+      className={cn()} 
+      onClick={(e) => e.stopPropagation()}
+    >
       <header className={cn('header')}>
         <h2 className={cn('headerText')}>Корзина</h2>
           <Button 

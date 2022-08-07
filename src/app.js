@@ -13,10 +13,12 @@ import './global.css';
  */
 function App({store}) {
   const { isCartOpen } = store.state;
-
+  
   return (
     <AppContextProvider store={store}>
-      {isCartOpen && <Cart />}
+      {isCartOpen && (
+        <Cart />
+      )}
       <AppLayout head={<h1>Магазин</h1>}>
         <Controls />
         <List />

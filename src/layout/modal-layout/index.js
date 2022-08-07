@@ -3,11 +3,16 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import propTypes from "prop-types";
 
-function ModalLayout({ children }){
+function ModalLayout({ children, closeModal }){
   const cn = bem('ModalLayout');
 
+  console.log(closeModal)
+
   return (
-    <div className={cn()}>
+    <div 
+      className={cn()} 
+      onClick={closeModal}
+    >
       {children}
     </div>
   )
@@ -15,9 +20,11 @@ function ModalLayout({ children }){
 
 ModalLayout.propTypes = { 
   children: propTypes.node,
+  closeModal: propTypes.func.isRequired
 };
 
 ModalLayout.defaultProps = {
+  closeModal: () => {},
 };
 
 export default React.memo(ModalLayout);

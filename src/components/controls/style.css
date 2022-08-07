@@ -4,3 +4,8 @@
     justify-content: flex-end;
     padding: 20px;
 }
+
+.Controls__info {
+    margin: 0;
+    margin-right: 20px;
+}

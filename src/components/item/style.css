@@ -18,6 +18,18 @@
     display: flex;
     justify-content: flex-end;
 }
+
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+
+.Item-price{
+    white-space: nowrap;
+    padding: 20px 10px 20px 20px;
+}
+
+.Item-count{
+    white-space: nowrap;
+    margin-left: 55px;
+    padding: 20px 15px 20px 0;
 }

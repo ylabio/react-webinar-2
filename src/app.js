@@ -1,8 +1,8 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Card from './components/card';
 
 /**
  * Приложение
@@ -11,26 +11,28 @@ import {counter} from "./utils";
  */
 function App({store}) {
 
+  const [isCardShow, setCardShow] = useState(false)
+  
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    toCard: useCallback(() => {
+      setCardShow(isCardShow => !isCardShow)
+      
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    addToCard: useCallback((code) => {
+      store.addToCard(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onDeleteCardItem: useCallback((code) => {
+      store.deleteCardItem(code);
     }, []),
   }
 
   return (
     <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
+      <Controls toCard={callbacks.toCard} cardsValue={store.getState().card} />
+      
+      <List items={store.getState().items} cardActive={callbacks.addToCard} isCardShow={isCardShow}/>
+
+      {isCardShow && <Card cardList={store.getState().card} сardClose={callbacks.toCard} onDeleteCardItem={callbacks.onDeleteCardItem} isCardShow={isCardShow}/>}
     </Layout>
   );
 }

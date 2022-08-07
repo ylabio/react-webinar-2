@@ -66,7 +66,7 @@ class Store {
 
   removeItemFromCart(item) {
     const goods = JSON.parse(JSON.stringify(this.state.goods));
-    goods.price -= item.data.price;
+    goods.price -= item.data.price * item.quantity;
     
     delete goods.items[item.data.code];
     goods.total--;

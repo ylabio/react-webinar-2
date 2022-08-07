@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import './style.css';
-import { Modal } from './modal';
+import { Modal } from '../modal/modal';
 import plural from 'plural-ru';
 
 function Controls({ onItemDeleteFromCart, cart, priceSum }) {

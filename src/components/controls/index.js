@@ -5,18 +5,6 @@ import "./style.css";
 import { calculatePrice, changeNumber } from "../../utils";
 
 function Controls({ onShowModal, cardItems }) {
-  // const calculatePrice = (orders) => {
-  //   if (orders === undefined) {
-  //     return 0;
-  //   } else if (orders.length === 0) {
-  //     return 0;
-  //   } else {
-  //     return orders.reduce((acc, curr) => {
-  //       return acc + curr.price * curr.count;
-  //     }, 0);
-  //   }
-  // };
-
   const calculateCount = () => {
     if (cardItems === undefined) {
       return 0;
@@ -24,7 +12,7 @@ function Controls({ onShowModal, cardItems }) {
       return 0;
     } else {
       return cardItems.reduce((acc, curr) => {
-        return acc + curr.count;
+        return acc + 1;
       }, 0);
     }
   };

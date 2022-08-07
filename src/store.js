@@ -40,28 +40,7 @@ class Store {
   }
 
   /**
-   * Создание записи
-   */
-  createItem({ code, title = "Новый товар", price = 999, selected = false }) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({ code, title, price, selected }),
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter((item) => item.code !== code),
-    });
-  }
-
-  /**
-   * Удаление записи в корзину по её коду
+   * Добавление записи в корзину по её коду
    * @param code
    */
   addItem(code) {
@@ -70,6 +49,7 @@ class Store {
         ...this.state,
         card: this.state.card.map((item) => {
           if (item.code === code) {
+            // Подобный товар есть в корзине
             return {
               code,
               title: item.title,
@@ -81,6 +61,7 @@ class Store {
         }),
       });
     } else {
+      // Подобного товара нет в корзине
       const newItem = this.state.items.find((item) => item.code === code);
       this.setState({
         ...this.state,
@@ -93,13 +74,16 @@ class Store {
       });
     }
   }
+
   onModalClose() {
+    // Закрытие модалки
     this.setState({
       ...this.state,
       modal: false,
     });
   }
   showModal() {
+    // Открытие модалки
     this.setState({
       ...this.state,
       modal: true,

@@ -22,13 +22,22 @@ function Item(props) {
       <div className={cn('title')}>
         {props.item.title}
       </div>
-      <div className={cn('info')}>
+      <div className={cn('price')}>
         {props.item.price.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 })}
       </div>
+      {props.item.count
+        ? <div className={cn('count')}>{props.item.count} шт</div>
+        : null
+      }
       <div className={cn('actions')}>
-        <Button onClick={callbacks.onAddCart}>
-          Добавить
-        </Button>
+        {props.item.count
+          ? <Button onClick={callbacks.onAddCart}>
+            Удалить
+          </Button>
+          : <Button onClick={callbacks.onAddCart}>
+            Добавить
+          </Button>
+        }
       </div>
     </div>
   )

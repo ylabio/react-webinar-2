@@ -5,7 +5,7 @@ import Button from '../button';
 import { cn as bem } from "@bem-react/classname";
 import plural from "plural-ru";
 
-function Controls({ sum, count }) {
+function Controls({ sum, count, onVisibleCart }) {
 
   const cn = bem('Controls');
 
@@ -19,7 +19,7 @@ function Controls({ sum, count }) {
             : 'пусто'}
         </span>
       </div>
-      <Button>Перейти</Button>
+      <Button onClick={onVisibleCart}>Перейти</Button>
     </div>
   )
 }

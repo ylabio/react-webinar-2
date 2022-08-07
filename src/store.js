@@ -74,11 +74,11 @@ class Store {
       this.setState({
         ...this.state,
         itemsCart: this.state.itemsCart.find(i => i.code === item.code)
-          ? this.state.itemsCart.map(i => {
-            if (i.code === item.code) {
-              return { ...i, sumPrice: i.price * (i.count + 1), count: i.count + 1 }
+          ? this.state.itemsCart.map(itemCart => {
+            if (itemCart.code === item.code) {
+              return { ...itemCart, sumPrice: itemCart.price * (itemCart.count + 1), count: itemCart.count + 1 }
             } else {
-              return i
+              return itemCart;
             }
           })
           : [...this.state.itemsCart, { ...item, sumPrice: item.price, count: 1 }]

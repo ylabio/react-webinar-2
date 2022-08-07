@@ -1,4 +1,4 @@
-/* Пункт списка */
+/* Пункт товара */
 .Item {
     display: flex;
     justify-content: flex-start;
@@ -22,7 +22,13 @@
     padding: 0px 10px 0px 20px;
 }
 
-.Item-info {
+.Item-price {
     font-size: 18px;
     padding-right: 15px;
+}
+
+.Item-count {
+    white-space: nowrap;
+    font-size: 18px;
+    padding: 0 8px 0 40px;
 }

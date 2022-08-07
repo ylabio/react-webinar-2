@@ -29,15 +29,6 @@ function App({ store }) {
     return sum.toLocaleString('ru');
   };
 
-  const calcNumber = () => {
-    const items = store.getState().cart;
-    let number = 0;
-    items.forEach(item => {
-      number += item.number
-    })
-    return number.toLocaleString('ru');
-  }
-
   return (
     <Layout head={<h1>Магазин</h1>}>
       <Modal calcCost={calcCost}
@@ -51,7 +42,6 @@ function App({ store }) {
         onAdd={callbacks.onAdd}
         calcCost={calcCost}
         setModalActive={setModalActive}
-        calcNumber={calcNumber}
       />
     </Layout>
   );

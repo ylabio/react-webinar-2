@@ -1,35 +1,50 @@
-import React, {useCallback} from 'react';
-import Controls from "./components/controls";
-import List from "./components/list";
-import Layout from "./components/layout";
-import {counter} from "./utils";
+import React, { useCallback, useState } from 'react';
+import Controls from './components/controls';
+import List from './components/list';
+import Layout from './components/layout';
+import Modal from './components/modal';
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+function App({ store }) {
+  const cartArray = store.getState().cartItems;
+  const cartTotalCount = cartArray.length;
+
+  const cartTotalPrice = cartArray
+    .map((item) => item.price * item.count)
+    .reduce((sum, current) => sum + current, 0);
+
+  const [isActive, setIsActive] = useState(false);
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
-    }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onOpenModal: () => {
+      setIsActive((prevState) => !prevState);
+    },
+    onAddItems: useCallback((code, item) => {
+      store.addToCart(code, item);
     }, []),
     onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+      store.deleteFromCart(code);
     }, []),
-  }
+  };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls
+        price={cartTotalPrice}
+        count={cartTotalCount}
+        onOpenModal={callbacks.onOpenModal}
+      />
+      <List items={store.getState().items} onItemAdd={callbacks.onAddItems} />
+      <Modal
+        cartItems={cartArray}
+        active={isActive}
+        price={cartTotalPrice}
+        onOpenModal={callbacks.onOpenModal}
+        onItemDelete={callbacks.onDeleteItems}
       />
     </Layout>
   );

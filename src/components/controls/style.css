@@ -1,6 +1,25 @@
 /* Контрол с общими действиями */
-.Controls{
-    display: flex;
-    justify-content: flex-end;
-    padding: 20px;
+.Controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
+  height: 24px;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.Controls-label {
+  margin-right: 15px;
+}
+
+.Controls-info {
+  margin-right: 20px;
+  font-weight: 700;
+}
+
+.Controls-button {
+  width: 80px;
+  font-size: 13px;
+  line-height: 15px;
 }

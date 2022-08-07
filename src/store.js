@@ -1,5 +1,4 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -36,49 +35,51 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
   /**
-   * Создание записи
+   * Удаление товара из корзины
+   * @param code
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  deleteFromCart(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      cartItems: this.state.cartItems.filter((item) => item.code !== code),
     });
   }
 
   /**
-   * Удаление записи по её коду
+   * Добавление товара в корзину
    * @param code
+   * @param item
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
+  addToCart(code, item) {
+    const alreadyInCart = this.state.cartItems.find(
+      (item) => item.code === code
+    );
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
+    // если товар ранее уже был добавлен
+    if (alreadyInCart) {
+      this.setState({
+        ...this.state,
+        cartItems: this.state.cartItems.map((cartItem) => {
+          if (cartItem.code === code) {
+            return { ...cartItem, count: cartItem.count + 1 };
+          } else {
+            return cartItem;
           }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+        }),
+      });
+
+      // если товар еще не был добавлен
+    } else {
+      this.setState({
+        ...this.state,
+        cartItems: this.state.cartItems.concat({ ...item, count: 1 }),
+      });
+    }
   }
 }
 

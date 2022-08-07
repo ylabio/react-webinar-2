@@ -8,10 +8,10 @@
     background: #75aaf1;
 }
 
-
 .Item-title{
     width: 100%;
     padding: 20px 10px;
+    font-size: 16px;
 }
 .Item-actions{
     padding: 20px  20px 20px 10px;
@@ -21,3 +21,18 @@
 .Item-number{
     padding: 20px 10px 20px 20px;
 }
+
+.Item-price{
+    padding: 20px  24px 20px 10px;
+    display: flex;
+    font-size: 18px;
+    column-gap: 5px;
+    color: #404040;
+}
+
+.Item-quantity{
+    padding: 20px  10px 20px 35px;
+    display: flex;
+    column-gap: 5px;
+}
+

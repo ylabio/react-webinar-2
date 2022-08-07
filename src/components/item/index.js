@@ -1,57 +1,57 @@
 import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
 
-function Item(props) {
+function Item({item, onCartAdd, onCartDelete, inCart}) {
   const cn = bem('Item');
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
   const callbacks = {
+      onCartDelete: useCallback((e) => {
+          onCartDelete(item.code);
+      }, [onCartDelete, item]),
 
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
-
-    onDelete: useCallback((e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
+      onCartAdd: useCallback(() => {
+          onCartAdd(item);
+      }, [onCartAdd, item])
   };
 
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
-      <div className={cn('number')}>
-        {props.item.code}
+      <div className={cn()}>
+          <div className={cn('number')}>
+              {item.code}
+          </div>
+          <div className={cn('title')}>
+              {item.title}
+          </div>
+          <div className={cn('price')}>
+              {item.price.toLocaleString('ru-RU')}<span>₽</span>
+          </div>
+          {inCart &&
+          <div className={cn('quantity')}>    
+              <>{item.quantity}<span>  шт</span></>
+          </div>}
+          <div className={cn('actions')}>
+              {inCart ?
+                  <button onClick={callbacks.onCartDelete}>Удалить</button> :
+                  <button onClick={callbacks.onCartAdd}>Добавить</button>}
+          </div>
       </div>
-      <div className={cn('title')}>
-        {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
-      </div>
-      <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
-      </div>
-    </div>
-  )
+  );
 }
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
-}
+  onCartAdd: propTypes.func,
+  onCartDelete: propTypes.func,
+  inCart: propTypes.bool.isRequired,
+};
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
-}
+  item: {},
+    onCartAdd: () => {},
+    onCartDelete: () => {},
+    inCart: false
+};
 
 export default React.memo(Item);

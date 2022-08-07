@@ -10,7 +10,6 @@ function Busket(props){
         eliminate: useCallback((e) => {
             e.stopPropagation();
             props.eliminate();
-            console.log();
         }, [props.onDelete,  props.item])
         };
 
@@ -19,7 +18,7 @@ function Busket(props){
     const [allAmount,setallAmount]=useState([]);
     const [allMoney,setAllMoney]=useState([]);
     const [busket,setBusket]=useState([]);
-    console.log(props);
+
     let arr=[];
     let proposition=props.items.items;
     let counter=1;

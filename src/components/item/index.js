@@ -1,7 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
 
 function Item({item, onCartAdd, onCartDelete, inCart}) {

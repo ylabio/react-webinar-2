@@ -31,7 +31,7 @@
     font-weight: 700;
     font-size: 18px;
     line-height: 21px;
-    gap: 49px;
+    column-gap: 49px;
 }
 
 .Cart-empty {

@@ -1,8 +1,6 @@
 import React, {useCallback} from 'react';
-import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
 import Cart from './components/cart';
 
 /**

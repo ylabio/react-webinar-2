@@ -1,5 +1,3 @@
-import {getTotalAmount, getTotalPrice} from "utils";
-
 class Store {
 
   constructor(initState) {

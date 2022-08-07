@@ -69,11 +69,9 @@ class Store {
         count:  itemInCart.count + 1
       }
     } else {
-      let i = 1
-      i =+ 1
+
       return {
         ...item,
-        code: cart.length + 1,
         count: 1
       }
     }

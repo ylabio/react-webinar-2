@@ -1,7 +1,7 @@
 import React from 'react';
 import {cn as bem} from "@bem-react/classname";
-import './style.css';
 import propTypes from "prop-types";
+import './style.css';
 
 function Modal(props) {
     const cn = bem('Modal');

@@ -8,7 +8,19 @@
     background: #75aaf1;
 }
 
-
+.Item-price{
+    display: flex;
+    width: 140px;
+    align-items: center;
+    justify-content: start;
+    margin-right: 2%;
+}
+.Item-amount{
+    display: flex;
+    width: 120px;
+    align-items: center;
+    justify-content: start;
+}
 .Item-title{
     width: 100%;
     padding: 20px 10px;

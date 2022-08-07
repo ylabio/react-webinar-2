@@ -50,34 +50,55 @@ class Store {
     });
   }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
+    /**
+   * Открывает popup
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
+ openModal() {
+   this.setState({
+     ...this.state,
+     isOpen: true,
+   });
+ }
 
-  /**
-   * Выделение записи по её коду
+ /**
+  * Закрывает popup
+  */
+ closeModal() {
+   this.setState({
+     ...this.state,
+     isOpen: false,
+   });
+ }
+
+ /**
+  * Добавление в корзину
+  */
+ addItemToBucket(code) {
+   const item = this.state.items.find(i => i.code === code);
+   const isBucketItem = this.state.bucketItems.find(bucketItem => bucketItem.code === item.code);
+
+   let bucketItems = [];
+   if (isBucketItem) {
+    bucketItems = this.state.bucketItems.map(bucketItems => {
+       return bucketItems.code === item.code ? {...bucketItems, amount: bucketItems.amount + 1} : bucketItems;
+     });
+   } else {
+    bucketItems = [...this.state.bucketItems, {...item, amount: 1}];
+   }
+
+   this.setState({
+     ...this.state,
+     bucketItems,
+   });
+ }
+/**
+   * Удаление из корзины по её коду
    * @param code
    */
-  selectItem(code) {
+ deleteBucketItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      bucketItems: this.state.bucketItems.filter(bucketItem => bucketItem.code !== code)
     });
   }
 }

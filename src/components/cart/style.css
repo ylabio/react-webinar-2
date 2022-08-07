@@ -1,0 +1,42 @@
+/* Корзина */
+.Cart-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    margin-bottom: 74px;
+    background: #F5F5F5;
+}
+.Cart-head h2{
+    margin: 0;
+    padding-left: 20px;
+}
+.Cart-head button{
+    height: max-content;
+    margin-right: 32px;
+}
+.Cart-total{
+    width: 100%;
+    font-weight: bold;
+    padding: 20px 0;
+    text-align: end;
+    margin-bottom: 50px;
+}
+.Cart-total_empty{
+    text-align: center;
+}
+.Cart-price{
+    padding-right: 109px;
+}
+.Cart-price:before{
+    content: 'Итого';
+    padding-right: 50px;
+}
+.Cart .Item-amount{
+    padding: 0 20px 0 50px;
+    color: #404040;
+}
+.Cart .Item-amount:after{
+    content:' шт'
+}
+

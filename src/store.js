@@ -41,44 +41,47 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Удаление товара из корзины
+   * @param code
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  deleteItemFromCart(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      shoppingCart: this.state.shoppingCart.filter((item) => item.code !== code),
     });
   }
 
   /**
-   * Удаление записи по её коду
+   * Добавление товара в корзину
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
+  addItemToCart(code) {
+    if (this.state.shoppingCart.find((item) => item.code === code)) {
+      this.setState({
+        ...this.state,
+        shoppingCart: this.state.shoppingCart.map((item) => {
+          if (item.code === code)
+            return {
+              code,
+              title: item.title,
+              price: item.price,
+              amount: item.amount + 1,
+            }
+          return item;
+        }),
+      });
+    } else {
+      const addedItem = this.state.items.find(item => item.code === code);
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+      this.setState({
+        ...this.state,
+        shoppingCart:  this.state.shoppingCart.concat({
+          code,
+          title: addedItem.title,
+          price: addedItem.price,
+          amount: 1})
+      });
+    }
   }
 }
 

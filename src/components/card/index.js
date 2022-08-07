@@ -33,8 +33,8 @@ function Card(props){
           {list}
         </div>
         <div className={cn('total')}>
-            <span>Итого</span> 
-            <span>{totalPrice.toLocaleString()} &#8381;</span>
+            <p>Итого</p> 
+            <p>{totalPrice.toLocaleString()} &#8381;</p>
         </div>
       </div>
     </div>

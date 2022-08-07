@@ -6,8 +6,6 @@ import propTypes from "prop-types";
 function ModalLayout({ children, closeModal }){
   const cn = bem('ModalLayout');
 
-  console.log(closeModal)
-
   return (
     <div 
       className={cn()} 

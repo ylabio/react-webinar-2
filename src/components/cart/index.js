@@ -2,17 +2,14 @@ import React, { useCallback, useContext, useEffect } from "react";
 import ModalLayout from "../../layout/modal-layout";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
-import Button from "../../shared/ui/button";
 import { AppContext } from "../../context/app-context";
-import { formatPrice, getCartItems } from "../../shared/utils";
-import CartItem from "../cart-item";
+import {  getCartItems } from "../../shared/utils";
+import CartDump from "../cart-dump";
 
 function Cart() {
   const { store } = useContext(AppContext);
   const { isCartOpen, goods } = store.state;
-  const { handleModal } = store;
   const items = getCartItems(store.state.goods.items);
-  const cn = bem('Cart');
 
   const callbacks = {
     closeModal: useCallback(() => {
@@ -31,38 +28,16 @@ function Cart() {
   }, [goods.total])
 
   return <ModalLayout closeModal={callbacks.closeModal}>
-    <div 
-      className={cn()} 
-      onClick={(e) => e.stopPropagation()}
-    >
-      <header className={cn('header')}>
-        <h2 className={cn('headerText')}>Корзина</h2>
-          <Button 
-            text='Закрыть'
-            onClick={callbacks.closeModal}
-          />           
-      </header>
-
-      <div className={cn('divider')} />
-
-      <main className={cn('goods', {open: isCartOpen})}>
-        <ul>
-          {items.map(item => (
-            <CartItem 
-              item={item} 
-              key={item.data.code} 
-              removeItemFromCart={callbacks.removeItemFromCart}
-            />
-          ))}
-        </ul>       
-
-        <div className={cn('total')}>
-          <span>Итого</span>
-          <span>{formatPrice(goods.price) + ' ₽'}</span>
-        </div>         
-      </main> 
-    </div>
+    <CartDump
+      removeItemFromCart={callbacks.removeItemFromCart}
+      closeModal={callbacks.closeModal}
+      isCartOpen={isCartOpen}
+      price={goods.price}
+      items={items}
+      id={goods.id}
+    />
   </ModalLayout>
 }
 
 export default Cart;
+

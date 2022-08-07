@@ -1,0 +1,62 @@
+import React, { useEffect, useRef } from "react";
+import {cn as bem} from "@bem-react/classname";
+import Button from "../../shared/ui/button";
+import CartItem from "../cart-item";
+import { formatPrice } from "../../shared/utils";
+import './style.css';
+
+function CartDump({
+  removeItemFromCart, 
+  closeModal, 
+  isCartOpen, 
+  price,
+  items,
+}) {
+  const modalRef = useRef();
+  const cn = bem('CartDump');
+
+  useEffect(() => {
+    if (isCartOpen) {
+      setTimeout(() => {
+        modalRef.current.style.transform = 'translateY(0%)';
+      }, 0)
+    }
+  }, [isCartOpen])
+
+  return (
+    <div 
+      className={cn()} 
+      onClick={(e) => e.stopPropagation()}
+      ref={modalRef}
+    >
+      <header className={cn('header')}>
+        <h2 className={cn('headerText')}>Корзина</h2>
+          <Button 
+            text='Закрыть'
+            onClick={closeModal}
+          />           
+      </header>
+
+      <div className={cn('divider')} />
+
+      <main className={cn('goods', {open: isCartOpen})}>
+        <ul>
+          {items.map(item => (
+            <CartItem 
+              item={item} 
+              key={item.data.code} 
+              removeItemFromCart={removeItemFromCart}
+            />
+          ))}
+        </ul>       
+
+        <div className={cn('total')}>
+          <span>Итого</span>
+          <span>{formatPrice(price) + ' ₽'}</span>
+        </div>         
+      </main> 
+    </div>
+  );
+}
+
+export default CartDump;

@@ -37,9 +37,7 @@ function Item({item, indexItem, buttonName, onItemClick}) {
           {/*{count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}*/}
       </div>
       <div className={cn('actions')}>
-        <p className={cn('data')}>{divideOnDigits(item.price)} &#8381;
-          {/*{new Intl.NumberFormat('ru-RU').format(props.item.price)} &#8381;*/}
-        </p>
+        <p className={cn('data')}>{divideOnDigits(item.price)}</p>
         {item.count && <p className={cn('count')}>{item.count} шт</p>}
         <button onClick={callbacks.onClick}>
           {buttonName}

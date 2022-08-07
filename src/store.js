@@ -43,10 +43,21 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  createCartItem({code, title, price, count = 1}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      cartItems: this.state.cartItems.some(item => item.title === title)
+        ? this.state.cartItems.map(item => {
+          if (item.title === title){
+            return {
+              ...item,
+              count: item.count + 1
+            }
+          }
+          return item;
+        })
+        : this.state.cartItems.concat({code, title, price, count}),
+      totalPrice: this.state.totalPrice + price
     });
   }
 
@@ -54,30 +65,13 @@ class Store {
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
+  deleteCartItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cartItems: this.state.cartItems.filter(item => item.code !== code),
+      totalPrice: this.state.cartItems.reduce((sum, item) => {
+        return sum + (item.code === code ? 0 : item.price * item.count)
+      }, 0)
     });
   }
 }

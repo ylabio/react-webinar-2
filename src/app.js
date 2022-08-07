@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import CartModal from "./components/cartModal";
+import {sumCalculated, sumQuantity} from "./utils";
 
 /**
  * Приложение
@@ -10,28 +11,35 @@ import CartModal from "./components/cartModal";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  const [isModalActive, setIsModalActive] = React.useState(true);
+  const [isModalActive, setIsModalActive] = React.useState(false);
   
-  const handleAddItemToCart = (item) => {
-    store.addItemToCart({title: item.title, price: item.price});
-  };
+  const totalPrice = sumCalculated(store.getState().cartItems);
   
-  const handleDeleteCartItem = (code) => {
-    store.deleteCartItem(code)
-  };
+  const totalCount = sumQuantity(store.getState().cartItems);
+  
+  const callbacks = {
+    handleAddItemToCart: useCallback((item)=> {
+      store.addItemToCart({title: item.title, price: item.price});
+    }, []),
+    handleDeleteCartItem: useCallback((code)=> {
+      store.deleteCartItem(code);
+    }, []),
+  }
   
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls setIsModalActive={setIsModalActive} cartItems={store.getState().cartItems}/>
+      <Controls setIsModalActive={setIsModalActive} totalPrice={totalPrice} totalCount={totalCount}/>
       <List
         items={store.getState().items}
-        handleAddItemToCart={handleAddItemToCart}
+        handleAddItemToCart={callbacks.handleAddItemToCart}
       />
       <CartModal
         cartItems={store.getState().cartItems}
         isModalActive={isModalActive}
         setIsModalActive={setIsModalActive}
-        handleDeleteCartItem={handleDeleteCartItem}
+        handleDeleteCartItem={callbacks.handleDeleteCartItem}
+        totalPrice={totalPrice}
+        totalCount={totalCount}
       />
     </Layout>
   );

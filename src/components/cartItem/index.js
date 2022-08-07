@@ -1,8 +1,10 @@
 import React from 'react';
 import {cn as bem} from "@bem-react/classname";
+import propTypes from "prop-types";
+
 import './style.css';
 
-function CartItem({cartItem,handleDeleteCartItem}) {
+function CartItem({cartItem, handleDeleteCartItem}) {
   const cn = bem('CartItem');
   
   return (
@@ -17,14 +19,20 @@ function CartItem({cartItem,handleDeleteCartItem}) {
         {/*&nbsp - это неразрывный пробел(иначе, при обычном пробеле идет перенос строки)*/}
         <span className={cn('price')}>{cartItem.price * cartItem.quantity}&nbsp;₽</span>
         <span className={cn('quantity')}>{cartItem.quantity}&nbsp;шт.</span>
-        <button onClick={()=>handleDeleteCartItem(cartItem.code)}>Удалить</button>
+        <button onClick={() => handleDeleteCartItem(cartItem.code)}>Удалить</button>
       </div>
     </div>
   )
 }
 
-CartItem.propTypes = {}
+CartItem.propTypes = {
+  cartItem: propTypes.object,
+  handleDeleteCartItem: propTypes.func
+}
 
-CartItem.defaultProps = {}
+CartItem.defaultProps = {
+  cartItem: [],
+  handleDeleteCartItem: ()=> {}
+}
 
 export default React.memo(CartItem);

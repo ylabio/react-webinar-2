@@ -52,3 +52,8 @@
 .CartModal-footer_text {
     margin-right: 50px;
 }
+
+.CartModal-emptyCart {
+    font-weight: 400;
+    margin: 0 auto;
+}

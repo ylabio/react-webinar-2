@@ -1,13 +1,14 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+
 import './style.css';
 
 function Item({item, handleAddItemToCart}) {
   const cn = bem('Item');
 
   return (
-    <div className={cn({'selected': item.selected})}>
+    <div className={cn('')}>
       <div className={cn('number')}>
         {item.code}
       </div>
@@ -25,9 +26,11 @@ function Item({item, handleAddItemToCart}) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
+  handleAddItemToCart: propTypes.func
 }
 
 Item.defaultProps = {
+  handleAddItemToCart: ()=> {}
 }
 
 export default React.memo(Item);

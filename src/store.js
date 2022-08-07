@@ -45,6 +45,7 @@ class Store {
   /**
    * Добавление товара в корзину
    */
+  
   addItemToCart({title, price}) {
     const findItemIndex = this.state.cartItems.findIndex(item => item.title === title)
     if (findItemIndex === -1) {
@@ -69,20 +70,18 @@ class Store {
       })
     }
   }
-}
-
-
-/**
- * Удаление записи по её коду
- * @param code
- */
-deleteCartItem(code)
-{
-  this.setState({
-    ...this.state,
-    cartItems: this.state.cartItems.filter(item => item.code !== code)
-  });
-}
+  
+  
+  /**
+   * Удаление записи по её коду
+   * @param code
+   */
+  deleteCartItem(code) {
+    this.setState({
+      ...this.state,
+      cartItems: this.state.cartItems.filter(item => item.code !== code)
+    });
+  }
 }
 
 export default Store;

@@ -19,9 +19,13 @@ export function cartCounter() {
  */
 
 export function sumCalculated(cartItems) {
-  cartItems.reduce((prev, item) => prev + item.price, 0)
+  return cartItems.reduce((prev, item) => prev + item.price * item.quantity, 0);
 }
 
 /**
  * Высчитывает итоговую стоимость всех добавленных в корзину товаров
  */
+
+export function sumQuantity(cartItems) {
+  return cartItems.reduce((prev, item) => prev + item.quantity, 0);
+}

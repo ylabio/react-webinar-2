@@ -1,9 +1,12 @@
 import React from 'react';
 import {cn as bem} from "@bem-react/classname";
+import propTypes from "prop-types";
+
 import './style.css';
+
 import CartItem from "../cartItem";
 
-function CartModal({cartItems, isModalActive, setIsModalActive, handleDeleteCartItem}) {
+function CartModal({cartItems, isModalActive, setIsModalActive, handleDeleteCartItem, totalPrice, totalCount}) {
   const cn = bem('CartModal');
   
   return (
@@ -16,19 +19,43 @@ function CartModal({cartItems, isModalActive, setIsModalActive, handleDeleteCart
           </div>
         </div>
         <div className={cn('cartList')}>
-          {cartItems.map(cartItem => <CartItem cartItem={cartItem} handleDeleteCartItem={handleDeleteCartItem}/>)}
+          {cartItems.map(cartItem => <CartItem key={cartItem.code} cartItem={cartItem}
+                                               handleDeleteCartItem={handleDeleteCartItem}/>)}
         </div>
         <div className={cn('footer')}>
-          <span className={cn('footer_text')}>Итого</span>
-          <span className={cn('footer_price')}>{100}₽</span>
+          {totalCount > 0 ?
+            <>
+              <span className={cn('footer_text')}>Итого</span>
+              <span className={cn('footer_price')}>{totalPrice}₽</span>
+            </>
+            :
+            <div className={cn('emptyCart')}> В корзине ничего нет :(</div>
+          }
         </div>
       </div>
     </div>
   )
 }
 
-CartModal.propTypes = {}
+CartModal.propTypes = {
+  cartItem: propTypes.arrayOf(propTypes.object),
+  isModalActive: propTypes.bool,
+  totalPrice: propTypes.number,
+  totalCount: propTypes.number,
+  setIsModalActive: propTypes.func,
+  handleDeleteCartItem: propTypes.func
+}
 
-CartModal.defaultProps = {}
+CartModal.defaultProps = {
+  cartItem: [],
+  isModalActive: () => {
+  },
+  totalPrice: 0,
+  totalCount: 0,
+  setIsModalActive: () => {
+  },
+  handleDeleteCartItem: () => {
+  },
+}
 
-export default CartModal;
+export default React.memo(CartModal);

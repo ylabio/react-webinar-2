@@ -2,8 +2,8 @@
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  width: 960px;
 }
-
 
 .BasketItem-title{
   width: 100%;

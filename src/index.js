@@ -17,8 +17,9 @@ const store = new Store({
   basket: {
     totalSum: 0,
     count: 0,
-    basketItems:[]
-  }
+    basketItems:[],
+  },
+  modalTypes: {basket:false}
 });
 
 const root = createRoot(document.getElementById('root'));

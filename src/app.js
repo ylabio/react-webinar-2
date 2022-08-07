@@ -14,8 +14,6 @@ import Item from './components/item';
  */
 function App({store}) {
 
-  const [isModalVisible, setIsModalVisible] = useState(false)
-
   const callbacks = {
     onDeleteBasketItems: useCallback((code) => {
       store.deleteBasketItem(code);  // поменять название функции
@@ -24,13 +22,12 @@ function App({store}) {
       store.addItem(code); 
     }, []),
     onOpenModal: useCallback(() => {
-      setIsModalVisible(true)
+      store.openModal('basket')
     }, []),
     onCloseModal: useCallback(() => {
-      setIsModalVisible(false)
+      store.closeModal()
     }, []),
   }
-
   /**
    * Функции для возврата item-node для переиспользования компонента List
    * @param node
@@ -53,7 +50,7 @@ function App({store}) {
               getItemNode={getMainPageItem}
         />
       </Layout>
-      {isModalVisible &&
+      {store.getState().modalTypes['basket'] &&
       <Modal head={<h2>Корзина</h2>} onCloseModal={callbacks.onCloseModal}>
         <List items={store.getState().basket.basketItems}
               getItemNode={getBasketItem}

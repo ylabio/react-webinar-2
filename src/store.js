@@ -119,6 +119,28 @@ class Store {
       }
     });
   }
+
+  openModal(modal){
+    const modalTypes = {...this.state.modalTypes};
+    console.log(modal)
+    modalTypes[modal] = true
+    console.log(modalTypes)
+    this.setState({
+      ...this.state,
+      modalTypes
+    })
+  }
+
+  closeModal(){
+    const modalTypes = {...this.state.modalTypes}
+    for (let key in modalTypes) {
+      modalTypes[key] = false
+    }
+    this.setState({
+      ...this.state,
+      modalTypes
+    })
+  }
 }
 
 export default Store;

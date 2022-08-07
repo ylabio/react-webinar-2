@@ -16,8 +16,7 @@
 }
 
 .Modal-inner{
-    width: 960px;
-    min-height: 603px;
+    max-width: 960px;
     max-height: 90vh;
     overflow: auto;
     background: #FFFFFF;
@@ -40,6 +39,7 @@
     font-weight: 700;
     font-size: 32px;
     margin: 0;
+    padding-right: 10px;
 }
 
 .Modal-close{

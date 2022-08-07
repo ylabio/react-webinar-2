@@ -17,7 +17,7 @@ function Item(props) {
   return (
     <div className={cn()}>
       <div className={cn('number')}>
-        {props.index + 1}
+        {props.item.code}
       </div>
       <div className={cn('title')}>
         {props.item.title}

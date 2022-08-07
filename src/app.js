@@ -2,8 +2,7 @@ import React, { useCallback, useState } from 'react';
 import Controls from './components/controls';
 import List from './components/list';
 import Layout from './components/layout';
-import Popup from './components/modal';
-import { counter } from './utils';
+import Popup from './components/popup';
 
 /**
  * Приложение
@@ -11,6 +10,8 @@ import { counter } from './utils';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({ store }) {
+  const items = store.getState().items;
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   function handleOpenPopup() {
@@ -21,29 +22,32 @@ function App({ store }) {
     setIsPopupOpen(false);
   }
 
-  const counter = store.state.items
-    .map((item) => {
-      return item.addCounter;
-    })
-    .reduce(function (sum, elem) {
-      return sum + elem;
-    }, 0);
+  const counter = () => {
+    let count = 0;
+    items.map((item) => {
+      if (item.addCounter > 0) {
+        return count++;
+      }
+      return count;
+    });
+    return count;
+  };
 
-  const newObj = store.state.items.map((item) => {
-    const obj = {
-      counter: item.addCounter,
-      price: item.price,
-    };
-    return obj;
-  });
-
-  const totalPrice = newObj
-    .map((item) => {
-      return item.counter * item.price;
-    })
-    .reduce(function (sum, elem) {
-      return sum + elem;
-    }, 0);
+  const totalPrice = () => {
+    return items
+      .map((item) => {
+        return {
+          counter: item.addCounter,
+          price: item.price,
+        };
+      })
+      .map((item) => {
+        return item.counter * item.price;
+      })
+      .reduce(function (sum, elem) {
+        return sum + elem;
+      }, 0);
+  };
 
   const callbacks = {
     onOpenModal: useCallback(() => {
@@ -63,19 +67,15 @@ function App({ store }) {
   return (
     <Layout head={<h1>Магазин</h1>}>
       <Controls
-        items={store.getState().items}
+        items={items}
         onOpenModal={callbacks.onOpenModal}
-        counter={counter}
-        totalPrice={totalPrice}
+        counter={counter()}
+        totalPrice={totalPrice()}
       />
-      <List
-        items={store.getState().items}
-        onAddItemToBin={callbacks.onAddItemToBin}
-      />
+      <List items={items} onAddItemToBin={callbacks.onAddItemToBin} />
       <Popup
-        items={store.getState().items}
-        counter={counter}
-        totalPrice={totalPrice}
+        items={items}
+        totalPrice={totalPrice()}
         isOpen={isPopupOpen}
         onCloseModal={callbacks.onCloseModal}
         onDeleteItemFromBin={callbacks.onDeleteItemFromBin}

@@ -10,7 +10,7 @@ function Controls({ basket, onClick }){
   const callbacks = {
     onClick: useCallback(() => {
       onClick(true);
-    }, [onClick]),
+    }, []),
   };
 
   const getQuantityProducts = () => {

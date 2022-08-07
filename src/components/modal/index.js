@@ -12,7 +12,7 @@ const Modal = ({ isVisible, basket, onDelete, onClose }) => {
   const callbacks = {
     onClose: useCallback(() => {
       onClose(false);
-    }, [onClose]),
+    }, []),
   };
 
   const keydownHandler = ({ key }) => key === 'Escape' && callbacks.onClose();

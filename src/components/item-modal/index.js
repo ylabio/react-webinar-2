@@ -10,7 +10,7 @@ function ItemModal({ item, index, onDelete }) {
     onDelete: useCallback((e) => {
       e.stopPropagation();
       onDelete(item.code)
-    }, [onDelete, item])
+    }, [])
   };
 
   return (

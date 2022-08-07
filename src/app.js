@@ -15,7 +15,7 @@ function App({store}) {
   const callbacks = {
     onButtonModalClick: useCallback((code) => {
       setModal(code);
-    }, [setModal]),
+    }, []),
     onAddProduct: useCallback((code) => {
       store.addProduct(code);
     }, []),

@@ -10,7 +10,7 @@ function Item({item, onAddProduct}) {
     onAddProduct: useCallback((e) => {
       e.stopPropagation();
       onAddProduct(item.code)
-    }, [onAddProduct, item])
+    }, [])
   };
 
   return (

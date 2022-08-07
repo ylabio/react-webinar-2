@@ -10,7 +10,7 @@ function List(props) {
   return (
     <div className={cn()}>{props.items.map((item, index) =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} elemIndex={index} onCallback={props.onCallbackItem}/>
+        <Item item={item} onCallback={props.onCallbackItem}/>
       </div>
     )}
     </div>

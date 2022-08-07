@@ -11,5 +11,5 @@ export function formatPrice(price){
 }
 
 export function calculateTotalPrice(cartItems){
-	return formatPrice(cartItems.reduce((totalPrice, currObject) => totalPrice + (currObject.price * currObject.totalCount), 0));
+	return cartItems.reduce((totalPrice, currObject) => totalPrice + (currObject.price * currObject.totalCount), 0);
 }

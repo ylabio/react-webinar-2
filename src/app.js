@@ -3,7 +3,7 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Modal from "./components/modal";
-import {calculateTotalPrice} from "./utils";
+import {formatPrice} from "./utils";
 
 /**
  * Приложение
@@ -30,7 +30,7 @@ function App({store}) {
   return (
 		<>
 			<Layout head={<h1>Магазин</h1>}>
-				<Controls onToggleModal={callbacks.onToggleModal} cartItems={store.getState().cartItems}/>
+				<Controls onToggleModal={callbacks.onToggleModal} totalCount={store.getState().totalCount} totalPrice={store.getState().totalPrice}/>
 				<List items={store.getState().items}
 							onCallbackItem={callbacks.onAddToCartItem}
 				/>
@@ -45,13 +45,12 @@ function App({store}) {
               />
               <div className="Modal-total">
 								<strong>Итого</strong>
-								<strong>{store.getState().cartItems.length ? `${calculateTotalPrice(store.getState().cartItems)} ₽` : 'пусто'}</strong>
+								<strong>{store.getState().totalCount ? `${formatPrice(store.getState().totalPrice)} ₽` : 'пусто'}</strong>
 							</div>
 						</> :
 						<div className="Modal-empty">
               <h3>Корзина пустая!</h3>
-						</div>
-        }
+						</div>}
 				</Layout>
 			</Modal>
 		</>

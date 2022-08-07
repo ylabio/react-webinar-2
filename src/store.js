@@ -1,3 +1,5 @@
+import { calculateTotalPrice } from 'utils.js';
+
 class Store {
 
   constructor(initState) {
@@ -59,6 +61,8 @@ class Store {
 						return cartItem;
 					})
 		});
+
+		this.getResultsCart();
 	}
 
 	/**
@@ -69,6 +73,20 @@ class Store {
 		this.setState({
       ...this.state,
       cartItems: this.state.cartItems.filter(cartItem => cartItem.code !== code)
+		});
+
+		this.getResultsCart();
+	}
+
+	/**
+	 * Общее количество уникального товара и сумма с учётом всего количества
+	 *
+	 */
+	getResultsCart() {
+		this.setState({
+			...this.state,
+			totalCount: this.state.cartItems.length,
+			totalPrice: calculateTotalPrice(this.state.cartItems)
 		});
 	}
 }

@@ -3,15 +3,15 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import plural from 'plural-ru';
 import './style.css';
-import {calculateTotalPrice} from '../../utils';
+import {formatPrice} from '../../utils';
 
-function Controls({onToggleModal, cartItems}){
+function Controls({onToggleModal, totalCount, totalPrice}){
   const cn = bem('Controls');
 
   return (
     <div className={cn()}>
 			<div className={cn('total')}>
-				В корзине:<strong>{cartItems.length ? `${cartItems.length} ${plural(cartItems.length, 'товар', 'товара', 'товаров')} / ${calculateTotalPrice(cartItems)} ₽` : 'пусто'}</strong>
+				В корзине:<strong>{totalCount ? `${totalCount} ${plural(totalCount, 'товар', 'товара', 'товаров')} / ${formatPrice(totalPrice)} ₽` : 'пусто'}</strong>
 			</div>
       <button onClick={onToggleModal}>Перейти</button>
     </div>
@@ -20,12 +20,14 @@ function Controls({onToggleModal, cartItems}){
 
 Controls.propTypes = {
   onToggleModal: propTypes.func,
-	cartItems: propTypes.arrayOf(propTypes.object)
+  totalCount: propTypes.number,
+	totalPrice: propTypes.number
 }
 
 Controls.defaultProps = {
   onToggleModal: () => {},
-	cartItems: []
+	totalCount: 0,
+	totalPrice: 0
 }
 
 export default React.memo(Controls);

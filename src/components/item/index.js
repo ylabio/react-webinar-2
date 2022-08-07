@@ -16,7 +16,7 @@ function Item(props) {
   return (
     <div className={cn()}>
       <div className={cn('number')}>
-        {props.item.totalCount ? props.elemIndex + 1 : props.item.code}
+        {props.item.code}
       </div>
       <div className={cn('title')}>
         {props.item.title}
@@ -38,7 +38,6 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-	elemIndex: propTypes.number,
 	onCallback: propTypes.func
 }
 

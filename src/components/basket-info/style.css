@@ -1,0 +1,12 @@
+.BasketInfo{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    font-size: 18px;
+}
+
+
+.BasketInfo-total{
+    font-weight: bold;
+    margin: 0 15px;
+}

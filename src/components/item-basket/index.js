@@ -10,9 +10,9 @@ function ItemBasket(props) {
     onDelete: useCallback(
       (e) => {
         e.stopPropagation();
-        props.onDelete(props.item.code);
+        props.onDelete(props.item);
       },
-      [props.onDelete, props.item.code]
+      [props.onDelete, props.item]
     ),
   };
 

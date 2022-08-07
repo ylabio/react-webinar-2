@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import Controls from "./components/controls";
+import BasketInfo from "./components/basket-info";
 import List from "./components/list";
 import Layout from "./components/layout";
 import { counter } from "./utils";
@@ -14,13 +14,14 @@ import Item from "./components/item";
  */
 function App({ store }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { amount, sum } = store.getState().basket;
   const callbacks = {
     onAdd: useCallback(() => {
       const code = counter();
       store.createItem({ code, title: `Новая запись ${code}` });
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteBasketItem(code);
+    onDeleteItems: useCallback((item) => {
+      store.deleteBasketItem(item);
     }, []),
     onAddItems: useCallback((item) => {
       store.addItem(item);
@@ -44,7 +45,7 @@ function App({ store }) {
   return (
     <>
       <Layout head={<h1>Магазин</h1>}>
-        <Controls onAdd={callbacks.onOpenModal} />
+        <BasketInfo amount={amount} sum={sum} onOpen={callbacks.onOpenModal} />
         <List items={store.getState().items} viewItem={getItem} />
       </Layout>
       {modalIsOpen ? (

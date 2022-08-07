@@ -53,10 +53,40 @@ class Store {
    * Добавление товара в корзину
    */
   addItem(item) {
+    let isItemFind = false;
     this.setState({
       ...this.state,
       basket: {
-        items: this.state.basket.items.concat(item),
+        ...this.state.basket,
+        items: this.getState().basket.items.map((elem) => {
+          if (elem.code === item.code) {
+            isItemFind = true;
+            return { ...elem, amount: elem.amount + 1 };
+          }
+          return elem;
+        }),
+      },
+    });
+
+    if (!isItemFind) {
+      this.setState({
+        ...this.state,
+        basket: {
+          ...this.state.basket,
+          items: this.getState().basket.items.concat({
+            ...item,
+            amount: 1,
+          }),
+        },
+      });
+    }
+
+    this.setState({
+      ...this.state,
+      basket: {
+        ...this.state.basket,
+        amount: this.getState().basket.amount + 1,
+        sum: this.state.basket.sum + item.price,
       },
     });
   }
@@ -66,11 +96,15 @@ class Store {
    * @param code
    */
 
-  deleteBasketItem(code) {
+  deleteBasketItem(item) {
     this.setState({
       ...this.state,
       basket: {
-        items: this.state.basket.items.filter((item) => item.code !== code),
+        items: this.state.basket.items.filter(
+          (elem) => elem.code !== item.code
+        ),
+        amount: this.state.basket.amount - item.amount,
+        sum: this.state.basket.sum - item.price * item.amount,
       },
     });
   }

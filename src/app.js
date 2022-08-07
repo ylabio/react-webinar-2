@@ -1,8 +1,8 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import CartModal from "./components/cartModal";
 
 /**
  * Приложение
@@ -10,26 +10,28 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-
-  const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
-    }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
-  }
-
+  const [isModalActive, setIsModalActive] = React.useState(true);
+  
+  const handleAddItemToCart = (item) => {
+    store.addItemToCart({title: item.title, price: item.price});
+  };
+  
+  const handleDeleteCartItem = (code) => {
+    store.deleteCartItem(code)
+  };
+  
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls setIsModalActive={setIsModalActive} cartItems={store.getState().cartItems}/>
+      <List
+        items={store.getState().items}
+        handleAddItemToCart={handleAddItemToCart}
+      />
+      <CartModal
+        cartItems={store.getState().cartItems}
+        isModalActive={isModalActive}
+        setIsModalActive={setIsModalActive}
+        handleDeleteCartItem={handleDeleteCartItem}
       />
     </Layout>
   );

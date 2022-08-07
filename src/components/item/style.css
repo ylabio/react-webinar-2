@@ -1,4 +1,5 @@
 /* Пункт списка */
+
 .Item{
     display: flex;
     justify-content: flex-start;
@@ -7,7 +8,6 @@
 .Item_selected{
     background: #75aaf1;
 }
-
 
 .Item-title{
     width: 100%;
@@ -20,4 +20,10 @@
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+.Item-price {
+    font-size: 18px;
+    line-height: 21px;
+    color: #404040;
+    margin-right: 24px;
 }

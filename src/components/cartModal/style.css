@@ -1,0 +1,54 @@
+/*Модальное окно*/
+
+.CartModal {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0);
+}
+.CartModal_active {
+    transform: scale(1);
+}
+.CartModal-content {
+    border-radius: 10px;
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    min-height: 70vh;
+    width: 960px;
+    margin: 0 10px;
+}
+
+.CartModal-controls {
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+    line-height: 37px;
+}
+.CartModal-controls__title {
+    font-weight: 700;
+    font-size: 32px;
+}
+
+.CartModal-cartList {
+    max-height: 45vh;
+    margin-top: 74px;
+    overflow-y: auto;
+}
+
+.CartModal-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 108px;
+    margin-top: 26px;
+    font-weight: 700;
+    font-size: 18px;
+}
+.CartModal-footer_text {
+    margin-right: 50px;
+}

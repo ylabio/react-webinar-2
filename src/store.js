@@ -1,12 +1,14 @@
-class Store {
+import {cartCounter} from "./utils";
 
+class Store {
+  
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
     // Слушатели изменений state
     this.listeners = [];
   }
-
+  
   /**
    * Выбор state
    * @return {Object}
@@ -14,7 +16,7 @@ class Store {
   getState() {
     return this.state;
   }
-
+  
   /**
    * Установка state
    * @param newState {Object}
@@ -26,7 +28,7 @@ class Store {
       listener();
     }
   }
-
+  
   /**
    * Подписка на изменение state
    * @param callback {Function}
@@ -39,47 +41,48 @@ class Store {
       this.listeners = this.listeners.filter(item => item !== callback);
     }
   }
-
+  
   /**
-   * Создание записи
+   * Добавление товара в корзину
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
+  addItemToCart({title, price}) {
+    const findItemIndex = this.state.cartItems.findIndex(item => item.title === title)
+    if (findItemIndex === -1) {
+      const code = cartCounter()
+      this.setState({
+        ...this.state,
+        cartItems: this.state.cartItems.concat({code: code, title: title, price: price, quantity: 1})
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cartItems: this.state.cartItems.map(item => {
+          if (item.title === title) {
+            return {
+              ...item,
+              quantity: item.quantity + 1
+            }
+          } else {
+            return item
           }
-        }
-        return item.selected ? {...item, selected: false} : item;
+        })
       })
-    });
+    }
   }
+}
+
+
+/**
+ * Удаление записи по её коду
+ * @param code
+ */
+deleteCartItem(code)
+{
+  this.setState({
+    ...this.state,
+    cartItems: this.state.cartItems.filter(item => item.code !== code)
+  });
+}
 }
 
 export default Store;

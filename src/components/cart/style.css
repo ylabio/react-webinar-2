@@ -1,4 +1,29 @@
 /* Пункт списка */
-.Cart{
+.Cart {
   display: flex;
+  width: 100%;
+}
+
+.Cart-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 960px;
+  height: 61px;
+  border-bottom: 1px dashed #cccccc;
+  border-top: 1px dashed #cccccc;
+}
+
+.Cart-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.Cart-total {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
 }

@@ -1,21 +1,21 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Popup(props) {
+function Popup({onClose, title, children}) {
   const cn = bem('Popup');
 
   return (
-    <div className={props.isActive ? `${cn()} is-opened` : cn()}>
+    <div className={cn()}>
       <div className={cn('content')}>
         <div className={cn('title-block')}>
-          <div className={cn('title')}>{props.title}</div>
-          <div className={cn('button')}>
+          <div className={cn('title')}>{title}</div>
+          <button className={cn('button')} onClick={onClose}>
             <div className={cn('close')}>Закрыть</div>
-          </div>
+          </button>
         </div>
-        {props.children}
+        {children}
       </div>
     </div>
   );

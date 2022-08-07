@@ -9,13 +9,6 @@
   left: 0;
   bottom: 0;
   right: 0;
-  /* display: none; */
-}
-
-.Popup-is-opened {
-  opacity: 1;
-  visibility: visible;
-  display: flex;
 }
 
 .Popup-content {
@@ -25,7 +18,7 @@
   position: relative;
   box-sizing: border-box;
   max-width: 960px;
-  max-height: 603;
+  min-height: 603px;
   width: 100%;
   background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);

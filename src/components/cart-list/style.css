@@ -1,0 +1,13 @@
+/*Список корзины*/
+.CartList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.CartList-item {
+  border-bottom: 1px dashed #ccc;
+}
+
+.CartList-item:first-child {
+  border-top: 1px dashed #ccc;
+}

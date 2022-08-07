@@ -1,45 +1,35 @@
 import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
 import { currencyFormat } from '../../utils';
 
-function Item(props) {
+function Item({item, onAddToCart}) {
   const cn = bem('Item');
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
   const callbacks = {
-
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
-
     onAddToCart: useCallback((e) => {
       e.stopPropagation();
-      props.onAddToCart(props.item.code)
-    }, [props.onAddToCart,  props.item])
+      onAddToCart(item.code)
+    }, [onAddToCart,  item])
   };
 
-  const modifiedPrice = currencyFormat(props.item.price, 0);
+  const modifiedPrice = currencyFormat(item.price, 0);
 
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
+    <div className={cn()} >
       <div className={cn('number')}>
-        {props.item.code}
+        {item.code}
       </div>
       <div className={cn('title')}>
-         {props.item.title}
-         {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
+         {item.title}   
       </div>
       <div>
         {modifiedPrice}
       </div>
+      <p className={cn('count')}>
+        {item.count} шт
+      </p>
       <div className={cn('actions')}>
         <button onClick={callbacks.onAddToCart}>
           Добавить

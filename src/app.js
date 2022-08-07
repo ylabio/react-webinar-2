@@ -15,36 +15,45 @@ function App({store}) {
   const[isPopupOpen, setIsPopupOpen] = useState(false);
   
   const callbacks = {
-    // onAdd: useCallback(() => {
-    //   const code = counter();
-    //   store.createItem({code, title: `Новая запись ${code}`});
+    // onDeleteItems: useCallback((code) => {
+    //   store.deleteItem(code);
     // }, []),
-    // onSelectItems: useCallback((code) => {
-    //   store.selectItem(code);
-    // }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
     onAddToCart: useCallback((code)=> {
       store.addToCartItem(code)
     }, []),
-    onPopupOpen: useCallback((code)=> {
-      setIsPopupOpen(code)
-    }, [setIsPopupOpen]),
+    onPopupOpen: useCallback(()=> {
+      setIsPopupOpen(true);
+      // store.openCart()
+    }, []),
+    onPopupClose: useCallback(()=> {
+      // store.closeCart()
+      setIsPopupOpen(false);
+    }, []),
+    onDeleteItemsFromCart: useCallback((code) => {
+      console.log('ads')
+      store.deleteItemsFromCart(code);
+    }, []),
   }
 console.log(store)
+
+
+
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls cart={store.getState().cart} onAdd={callbacks.onAdd} onPopupOpen={callbacks.onPopupOpen}/>
-      <List items={store.getState().items}
-            // onItemSelect={callbacks.onSelectItems}
+      <Controls cart={store.getState().cart} onPopupOpen={callbacks.onPopupOpen}/>
+      <List items={store.getState().items}         
             onItemDelete={callbacks.onDeleteItems}
-            onAddToCart={callbacks.onAddToCart}
-            isOpen={isPopupOpen}
+            onAddToCart={callbacks.onAddToCart}          
       />
-      <Popup isActive={store.getState().cart.isOpened} title={'Корзина'}>
-        <Cart cartItems={store.getState().cart.cartItems}/>
-      </Popup>
+      {/* <Popup isActive={store.getState().cart.isOpened} title={'Корзина'} onClose={callbacks.onPopupClose}> */}
+      {isPopupOpen && (
+         <Popup title={'Корзина'} onClose={callbacks.onPopupClose}>
+         <Cart cartItems={Object.values(store.getState().cart.cartItems)} onDeleteItemsFromCart={callbacks.onDeleteItemsFromCart}/>
+       </Popup>
+      )}
+      {/* <Popup isActive={isPopupOpen} title={'Корзина'} onClose={callbacks.onPopupClose}>
+        <Cart cartItems={Object.values(store.getState().cart.cartItems)} deleteItemsFromCart={callbacks.onDeleteItemsFromCart}/>
+      </Popup> */}
     </Layout>
   );
 }

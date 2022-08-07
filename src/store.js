@@ -94,19 +94,45 @@ class Store {
       ...this.state,
       cart: {
       ...this.state.cart,
-      cartItems: this.state.cart.cartItems.concat(cartItem),
-      // cartItems: this.state.cart.cartItems.reduce((acc, item) => {
-      //   if(acc.indexOf(item.id) === -1) {
-      //     acc.item.count += 1
-      //   } else {
-      //     acc.concat({...item, count: 1})
-      //   };    
-      //   return acc;
-      // }, []),   
+      cartItems: this.state.cart.cartItems[itemId] ?
+        {...this.state.cart.cartItems, [itemId]: {...cartItem, count: this.state.cart.cartItems[itemId].count + 1}} : 
+        {...this.state.cart.cartItems, [itemId]: {...cartItem, count: 1}},
       totalPrice: this.state.cart.totalPrice + cartItem.price,
       totalQuantity: this.state.cart.totalQuantity + 1
       }   
     })   
+  }
+
+  openCart() {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        isOpened: true
+      }
+    })
+  }
+
+  closeCart() {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        isOpened: false
+      }
+    })
+  }
+
+  deleteItemsFromCart(code) {
+    console.log(code)
+    const cartItems = {...this.state.cart.cartItems};
+    delete cartItems[code]
+
+    this.setState({      
+      ...this.state,
+      cart:  {...this.state.cart, cartItems}
+    });
+
   }
 }
 

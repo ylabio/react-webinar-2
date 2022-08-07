@@ -1,0 +1,45 @@
+.Cart {}
+
+.Cart-counter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 36px;
+    padding: 20px;
+}
+
+.Cart-counter-info {
+    display: flex;
+    gap: 15px;
+}
+
+.Cart-counter-title {
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.Cart-counter-text {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.Cart-empty {
+    text-align: center;
+}
+
+.Cart-total {
+    padding-top: 26px;
+    padding-right: 108px;
+    align-self: flex-end;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    display: flex;
+    gap: 49px;
+}
+
+
+
+
+

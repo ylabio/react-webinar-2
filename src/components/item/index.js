@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function Item({item, onButtonClick, index}) {
+function Item({item, onButtonClick}) {
   const cn = bem('Item');
   const formattedPrice = item.price.toLocaleString('ru-RU');
   const formattedAmount = item.amount ? item.amount.toLocaleString('ru-RU') : null;
@@ -21,7 +21,7 @@ function Item({item, onButtonClick, index}) {
   return (
     <div className={cn()}>
       <div className={cn('number')}>
-        {item.amount ? index : item.code}
+        {item.code}
       </div>
       <div className={cn('title')}>
         {item.title}
@@ -40,8 +40,7 @@ function Item({item, onButtonClick, index}) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onButtonClick: propTypes.func,
-  index: propTypes.number
+  onButtonClick: propTypes.func
 }
 
 Item.defaultProps = {

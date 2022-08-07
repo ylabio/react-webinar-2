@@ -8,11 +8,10 @@ function List({items, onButtonClick}) {
   const cn = bem('List');
 
   return (
-    <div className={cn()}>{items.map((item, index) =>
+    <div className={cn()}>{items.map(item =>
       <div key={item.code} className={cn('item')}>
         <Item item={item}
-              onButtonClick={onButtonClick}
-              index={index + 1}/>
+              onButtonClick={onButtonClick}/>
       </div>
     )}
     </div>

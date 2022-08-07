@@ -3,11 +3,8 @@
     display: flex;
     justify-content: flex-start;
     transition: background-color 1s;
+    height: 61px;
 }
-.Item_selected{
-    background: #75aaf1;
-}
-
 
 .Item-title{
     width: 100%;
@@ -20,4 +17,29 @@
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+.Item-right{
+    margin-right: 21px;
+    display: flex;
+}
+.Item-price{
+    margin: 19px 24px 21px;
+    justify-content: center;
+    white-space: nowrap;
+}
+.Item-btn{
+    margin-top: 20px;
+    width: 76px;
+    height: 21px;
+    background: #EFEFEF;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    cursor: pointer;
+    color: #000;
+ }
+.Item-btn:hover{
+    background: #b8b8b8;
+}
+.Item-btn:active{
+    background: #969696;
 }

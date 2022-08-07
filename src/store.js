@@ -80,6 +80,43 @@ class Store {
       })
     });
   }
+  onDeleteFromBasket(code){
+    const item = this.getState().items.find(item => item.code === code);
+    const amount = this.getState().basket.amount - 1;
+    const price = this.getState().basket.price - item.price;
+
+    this.setState({
+      ...this.state,
+      basket: {items: this.state.basket.items.filter(item => item.code !== code), amount, price}
+    });
+  }
+  onAddToBasket(code) {
+
+    const item = this.getState().items.find(item => item.code === code);
+    const items = this.getState().basket.items.map(item => {
+      if (item.code === code){
+        return {...item, amount: item.amount + 1};
+      } return item;
+    });
+    const index = this.getState().basket.items.findIndex(item => item.code === code);
+    if (index === -1) {
+      items.push({...item, amount: 1})
+    }
+    let price = 0;
+    for (const item of items) {
+      price += item.price * item.amount;
+    }
+    let amount = items.length;
+
+    this.setState({
+      ...this.state,
+      basket: {
+        items,
+        amount,
+        price
+      }
+    })
+  }
 }
 
 export default Store;

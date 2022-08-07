@@ -2,5 +2,28 @@
 .Controls{
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
+}
+.Controls-title{
+    margin-top: 20px;
+}
+.Controls-total{
+    margin: 18px 20px 24px 15px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+}
+.Controls-btn{
+    margin: 20px 21px 20px 0px;
+    color: #000;
+    background: #EFEFEF;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    height: 21px;
+    width: 80px;
+}
+.Controls-btn:hover{
+    background: #b8b8b8;
+}
+.Controls-btn:active{
+    background: #969696;
 }

@@ -14,10 +14,14 @@
     padding: 20px 10px;
 }
 .Item-actions{
+    width: 700px;
     padding: 20px  20px 20px 10px;
     display: flex;
     justify-content: flex-end;
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+.Item-price{
+    padding: 0  24px 0 0;
 }

@@ -40,44 +40,46 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
+  addToCart(item) {
+    if (this.state.cart.items.some((cartItem) => cartItem.code === item.code)) {
+      this.setState({
+        ...this.state,
+        cart: {
+          items: this.state.cart.items.map((cartItem) =>
+            cartItem.code === item.code
+              ? {...cartItem, cartCount: cartItem.cartCount + 1}
+              : cartItem,
+          ),
+          totalPrice: this.state.cart.items.reduce((totalPrice, {
+            price,
+            cartCount
+          }) => totalPrice += Number(price) * cartCount, item.price)
         }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cart: {
+          items: this.state.cart.items.concat({...item, cartCount: 1}),
+          totalPrice: this.state.cart.items.reduce((totalPrice, {
+            price,
+            cartCount
+          }) => totalPrice += Number(price) * cartCount, item.price)
+        }
+      });
+    }
+  }
+
+  deleteFromCart(item) {
+    this.setState({
+      ...this.state,
+      cart: {
+        items: this.state.cart.items.filter((cartItem) => cartItem.code !== item.code),
+        totalPrice: this.state.cart.items.reduce((totalPrice, {
+          price,
+          cartCount
+        }) => totalPrice += Number(price) * cartCount, item.price)
+      },
     });
   }
 }

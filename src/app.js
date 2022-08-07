@@ -2,7 +2,6 @@ import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
 
 /**
  * Приложение
@@ -12,25 +11,22 @@ import {counter} from "./utils";
 function App({store}) {
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAddToCart: useCallback((item) => {
+      store.addToCart(item);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    deleteFromCart: useCallback((item) => {
+      store.deleteFromCart(item);
     }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout isModal={false} head={<h1>Магазин</h1>}>
+      <Controls
+        cartItems={store.getState().cart.items}
+        totalPrice={store.getState().cart.totalPrice}
+        deleteFromCart={callbacks.deleteFromCart}
       />
+      <List isCart={false} items={store.getState().items} onAddDeleteToCart={callbacks.onAddToCart}/>
     </Layout>
   );
 }

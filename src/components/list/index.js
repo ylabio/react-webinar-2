@@ -10,7 +10,7 @@ function List(props) {
   return (
     <div className={cn()}>{props.items.map(item =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} onSelect={props.onItemSelect} onDelete={props.onItemDelete}/>
+        <Item isCart={props.isCart} item={item} onAddDeleteToCart={props.onAddDeleteToCart}/>
       </div>
     )}
     </div>
@@ -25,7 +25,6 @@ List.propTypes = {
 
 List.defaultProps = {
   items: [],
-  onItemSelect: () => {},
   onItemDelete: () => {}
 }
 

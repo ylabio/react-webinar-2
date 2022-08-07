@@ -61,25 +61,70 @@ class Store {
     });
   }
 
+
   /**
-   * Выделение записи по её коду
-   * @param code
+   * 
+   * Добавление товара в корзину 
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
+  addCartItem(item) {
+    const isInCart = this.state.cart.items.some(el => el.code === item.code);
+    if (isInCart) {
+        this.setState({
+            ...this.state,
+            cart: {
+                ...this.state.cart,
+                items: this.state.cart.items.map(el => {
+                    if (el.code === item.code) {
+                        return {...el, quantity: ++el.quantity};
+                    } else {
+                        return el;
+                    }
+                }),
+            }
+        });
+        this.setCart();
+        } else {
+            this.setState({
+                ...this.state,
+                cart: {
+                    items: [...this.state.cart.items, {...item, quantity: 1}],
+                }
+            });
+            this.setCart();
           }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
-  }
+    }
+
+    /**
+     * Удаление записи из корзины по её коду
+     * @param code
+     */
+    deleteCartItem(code) {
+        this.setState({
+            ...this.state,
+            cart: {
+                items: this.state.cart.items.filter(el=> el.code !== code),
+            }
+        });
+        this.setCart();
+    }
+
+    /**
+     * Вычисление корзины
+     *
+     */
+    setCart() {
+      const getTotalPrice = (arr) => arr.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const getTotalQuantity = (arr) => arr.reduce((sum, item) => sum + item.quantity, 0);
+        this.setState({
+            ...this.state,
+            cart: {
+                ...this.state.cart,
+                totalQuantity: getTotalQuantity(this.state.cart.items),
+                totalPrice: getTotalPrice(this.state.cart.items),
+            }
+        });
+    }
+
 }
 
 export default Store;

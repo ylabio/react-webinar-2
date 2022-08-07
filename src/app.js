@@ -4,13 +4,7 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import { counter } from "./utils";
 
-/**
- * Приложение
- * @param store {Store} Состояние приложения
- * @return {React.ReactElement} Виртуальные элементы React
- */
 function App({ store }) {
-  console.log(store)
   const callbacks = {
     onAdd: useCallback(() => {
       const code = counter();
@@ -23,7 +17,6 @@ function App({ store }) {
       store.addItem(code);
     }, []),
   }
-
   return (
     <Layout head={<h1>Приложение на чистом JS</h1>}>
       <Controls
@@ -38,5 +31,4 @@ function App({ store }) {
     </Layout>
   );
 }
-
 export default App;

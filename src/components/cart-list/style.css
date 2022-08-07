@@ -1,0 +1,18 @@
+.Cart-list > * {
+    border-bottom: 1px dashed #ccc;
+}
+
+.Cart-list > *:first-child{
+    border-top: 1px dashed #ccc;
+}
+
+.Cart-list-price {
+    width: max-content;
+    display: flex;
+    justify-content: end;
+    margin: 26px 108px 26px auto;
+}
+.Cart-list-price p{
+    font-weight: bold;
+    margin-top: 0;
+}

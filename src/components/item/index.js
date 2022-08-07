@@ -1,15 +1,12 @@
 import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
+
+import {getCurrencyPrice} from '../../utils';
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
-
-  // Счётчик выделений
-  // const [count, setCount] = useState(0);
-
   const callbacks = {
 
     // onClick: useCallback(() => {
@@ -22,7 +19,7 @@ function Item(props) {
 
     onClick: useCallback((e) => {
       e.stopPropagation();
-      props.onClick(props.item.id)
+      props.onClick(props.item.code)
     }, [props.onClick, props.item])
   };
 
@@ -39,11 +36,7 @@ function Item(props) {
         {props.item.price} ₽
       </div>} */}
       <div className={cn('price')}>
-        {props.item.price.toLocaleString('ru-RU', {
-          style: 'currency',
-          currency: 'RUB',
-          minimumFractionDigits: 0
-          })}
+        {getCurrencyPrice(props.item.price)}
       </div>
       {!!props.item.count && <div className={cn('count')}>
           {props.item.count} шт
@@ -51,7 +44,7 @@ function Item(props) {
       
       <div className={cn('actions')}>
         <button className={cn('button')} onClick={callbacks.onClick}>
-        {props.btnName}
+          {props.btnName}
         </button>
       </div>
     </div>

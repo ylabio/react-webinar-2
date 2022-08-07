@@ -53,10 +53,9 @@ class Store {
   /**
    * Добавляет в корзину
    */
-  addToCard(code, id) {
-    const item = this.state.items.find((o) => o.id === id);    
+  addToCart(code) {
     const cartItems = this.state.cart.slice();
-    const cartItem = cartItems.find((o) => o.id === item.id);
+    const cartItem = cartItems.find((o) => o.code === code);
     if (cartItem) {
       cartItem.count += 1;
       this.setState({
@@ -64,16 +63,43 @@ class Store {
         cart: [...cartItems],
       })
     } else {
+      const item = this.state.items.find((o) => o.code === code);
       this.setState({
         ...this.state,
         cart: this.state.cart.concat({...item, count: 1})
       })
     }
+  }
 
-    console.log('state', this.state)
+  /**
+   * Удаление из корзины
+   * @param {*} code
+   */
+  removeToCart(code) {
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.filter((item) => item.code !== code)
+    });
+  }
 
+  /**
+   * Итоговая стоимость товаров в корзине
+   * @returns {Number} - стоимость товаров 
+   */
+  getTotalPriceCart() {
+    if (!this.state.cart.length) return 0;
+    const totalPrice = this.state.cart.reduce((totalPrice, item) => {
+      return totalPrice + item.price * item.count;
+    }, 0);
+    return totalPrice;
+  }
 
-
+  /**
+   * Количество товара в корзине
+   * @returns {Number} - Number
+   */
+  getTotalNumberInCart() {
+    return this.state.cart.length;
   }
 
 

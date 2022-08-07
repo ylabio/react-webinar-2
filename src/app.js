@@ -1,8 +1,7 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from './components/controls';
 import List from './components/list';
 import Layout from './components/layout';
-import {counter} from './utils';
 import Modal from './components/modal';
 
 /**
@@ -11,17 +10,23 @@ import Modal from './components/modal';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const callbacks = {
     // add будет модалка
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    // onAdd: useCallback(() => {
+    //   const code = counter();
+    //   store.createItem({code, title: `Новая запись ${code}`});
+    // }, []),
+    onAddToCart: useCallback((code) => {
+      store.addToCart(code);
     }, []),
-    onAddToCart: useCallback((id) => {
-      const code = counter();
-      store.addToCard(code, id);
-    }, []),
+    onChangeModal: () => {
+      setIsOpenModal((prev) => !prev)
+    },
+    onRemoveToCart: (id) => {
+      store.removeToCart(id);
+    },
     // onDeleteItems: useCallback((code) => {
     //   store.deleteItem(code);
     // }, []),
@@ -29,11 +34,22 @@ function App({store}) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onAddToCart={callbacks.onAddToCart}
+      <Controls onChangeModal={callbacks.onChangeModal}
+        totalPriceCart={store.getTotalPriceCart()}
+        totalNumberInCart={store.getTotalNumberInCart()}
       />
-      {/* <Modal></Modal> */}
+      <List items={store.getState().items}
+          onAddToCart={callbacks.onAddToCart}
+      />
+      {isOpenModal &&
+        <Modal
+          items={store.getState().cart}
+          onChangeModal={callbacks.onChangeModal}
+          onRemoveToCart={callbacks.onRemoveToCart}
+          totalPriceCart={store.getTotalPriceCart()}
+        >
+        </Modal>}
+      
     </Layout>
     
   );

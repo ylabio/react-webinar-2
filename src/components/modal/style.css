@@ -21,6 +21,7 @@
 .Modal-window {
   max-width: 960px;
   width: 100%;
+  min-height: 603px;
   background: #FFFFFF;  
   border-radius: 10px;
   overflow: hidden;

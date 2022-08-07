@@ -89,7 +89,7 @@ class Store {
 
 
 
-    (this.state.basket.length >= 1 && this.state.basket.find(el => el.code === code)) ? this.setState({
+    (this.state.basket.length >= 1 && this.state.basket.some(el => el.code === code)) ? this.setState({
       ...this.state, basket: this.state.basket.map((el) => {
         if (code === el.code) {
 

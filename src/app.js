@@ -56,12 +56,15 @@ function App({store}) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls onClick={callbacks.onOpenCart}
-                children={
-                  (!!cartState.amount) && (<Cart amount={cartState.amount}
-                                                 total={cartState.total} 
-                                            />)
-              }
+      <Controls
+        onClick={callbacks.onOpenCart}
+        children={
+          (!!cartState.amount) && (
+            <Cart
+              amount={cartState.amount}
+              total={cartState.total} 
+          />)
+          }
       />
       <List items={store.getState().items}
             onItemSelect={callbacks.onSelectItems}

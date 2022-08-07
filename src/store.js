@@ -60,26 +60,39 @@ class Store {
       items: this.state.items.filter(item => item.code !== code)
     });
   }
-
-  /**
-   * Выделение записи по её коду
+/**
+   * Добавление записи в корзину
    * @param code
    */
-  selectItem(code) {
+    addToCart(code) {
+      if (this.state.cart.some(n=>n.code==code)){
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map(m=>m.code==code? {
+          ...m,
+          amount:m.amount+1
+          }:m)
+      })
+    }
+  else{
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+      cart:[...this.state.cart,{...this.state.items[code-1],amount:1}]       
+    })
   }
+}
+  /**
+   * Удаление записи из корзины
+   * @param code
+   */
+  deleteFromCart(code) {
+  
+    if (this.state.cart.some(n=>n.code==code)){
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.filter(m=>m.code!=code)})
+    }
+}
 }
 
 export default Store;

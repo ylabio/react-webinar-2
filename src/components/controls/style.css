@@ -4,3 +4,11 @@
     justify-content: flex-end;
     padding: 20px;
 }
+
+.Controls-element{
+    margin-right: 20px;
+    font-size: 18px;
+}
+.Controls-element:nth-child(2){
+    font-weight: 700;    
+}

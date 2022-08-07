@@ -26,7 +26,7 @@ function Item({ item, addItemToCart }) {
       />
       </div>
     </div>
-  )
+  );
 }
 
 Item.propTypes = {

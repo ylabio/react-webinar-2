@@ -1,5 +1,4 @@
 import React, { useCallback, useContext } from 'react';
-import propTypes from 'prop-types';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import Button from '../../shared/ui/button';
@@ -37,11 +36,7 @@ function Controls() {
         disabled={total < 1} 
       />
     </div>
-  )
+  );
 }
-
-Controls.propTypes = {};
-
-Controls.defaultProps = {};
 
 export default React.memo(Controls);

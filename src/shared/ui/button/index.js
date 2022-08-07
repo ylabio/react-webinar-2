@@ -39,4 +39,4 @@ Button.defaultProps = {
   text: '',
 }
 
-export default Button;
+export default React.memo(Button);

@@ -15,15 +15,12 @@ function AppLayout({head, children}){
         {children}
       </div>
     </div>
-  )
+  );
 }
 
 AppLayout.propTypes = { 
   head: propTypes.node,
   children: propTypes.node,
-};
-
-AppLayout.defaultProps = {
 };
 
 export default React.memo(AppLayout);

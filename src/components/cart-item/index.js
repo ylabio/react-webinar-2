@@ -8,23 +8,26 @@ import propTypes from 'prop-types';
 function CartItem ({item, removeItemFromCart}) {
   const cn = bem('CartItem');
 
-  return <li className={cn()}>
-    <div className={cn('blockLeft')}>
-      <span>{item.data.code}</span>
-      <span>{item.data.title}</span>
-    </div>
+  return (
+    <li className={cn()}>
+      <div className={cn('blockLeft')}>
+        <span>{item.data.code}</span>
+        <span>{item.data.title}</span>
+      </div>
 
-    <div className={cn('blockRight')}>
-      <span className={cn('price')}>
-        {formatPrice(item.data.price) + ' ₽'}
-      </span>
-      <span className={cn('quantity')}>{item.quantity} шт</span>
-      <Button 
-        text='Удалить'
-        onClick={() => removeItemFromCart(item)}
-      />
-    </div>
-  </li>;
+      <div className={cn('blockRight')}>
+        <span className={cn('price')}>
+          {formatPrice(item.data.price) + ' ₽'}
+        </span>
+        
+        <span className={cn('quantity')}>{item.quantity} шт</span>
+        <Button 
+          text='Удалить'
+          onClick={() => removeItemFromCart(item)}
+        />
+      </div>
+    </li>
+  );
 }
 
 CartItem.propTypes = {

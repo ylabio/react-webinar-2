@@ -12,13 +12,14 @@ const Basket = ({children, basket, totalPrice, deleteItem}) => {
     <div className={cn()}>
       {children}
       {basket.map((item, ind) => (
-        <div className = {cn('item-basket')} key = {item.code} >
-          <ItemBasket item = {item}
-                      deleteItem = {deleteItem}
-                      ind = {ind + 1}/>
+        <div className={cn('item-basket')} key={item.code} >
+          <ItemBasket item={item}
+                      deleteItem={deleteItem}
+                      ind={ind+1}/>
         </div>
-            ))}
-        <BasketTotal totalPrice={totalPrice} basket={basket}/>
+          ))}
+        <BasketTotal totalPrice={totalPrice}
+                     basket={basket}/>
     </div>
     )
 }

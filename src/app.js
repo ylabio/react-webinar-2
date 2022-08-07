@@ -2,7 +2,6 @@ import React, {useCallback, useEffect} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
 import LayoutBasket from './components/layout-basket';
 import Basket from './components/basket';
 
@@ -27,11 +26,11 @@ function App({store}) {
     store.changeTotalPrice(code);
     }, [])
   }
-  const basket=store.getState().basket;
-  const totalPrice=store.getState().totalPrice;
-  const basketVisible=store.getState().basketVisible;
+  const basket = store.getState().basket;
+  const totalPrice = store.getState().totalPrice;
+  const basketVisible = store.getState().basketVisible;
 
-  useEffect(()=>{
+  useEffect(() => {
     callbacks.changeTotalPrice();
   }, [basket])
 

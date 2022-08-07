@@ -8,22 +8,25 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onDelete: useCallback((e) => {
+    onAddCart: useCallback((e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete, props.item])
+      props.onAddCart(props.item)
+    }, [props.onAddCart, props.item])
   };
 
   return (
-    <div className={cn()} onClick={callbacks.onClick}>
+    <div className={cn()}>
       <div className={cn('number')}>
         {props.item.code}
       </div>
       <div className={cn('title')}>
         {props.item.title}
       </div>
+      <div className={cn('info')}>
+        {props.item.price.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 })}
+      </div>
       <div className={cn('actions')}>
-        <Button onClick={callbacks.onDelete}>
+        <Button onClick={callbacks.onAddCart}>
           Добавить
         </Button>
       </div>
@@ -33,11 +36,11 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onDeleted: propTypes.func
+  onAddCart: propTypes.func
 }
 
 Item.defaultProps = {
-  onDeleted: () => { }
+  onAddCart: () => { }
 }
 
 export default React.memo(Item);

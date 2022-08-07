@@ -21,3 +21,8 @@
 .Item-number {
     padding: 0px 10px 0px 20px;
 }
+
+.Item-info {
+    font-size: 18px;
+    padding-right: 15px;
+}

@@ -1,8 +1,10 @@
+
 import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Modal from "./components/modal"
+
 import {counter} from "./utils";
 
 /**
@@ -25,6 +27,7 @@ function App({store}) {
     onDeleteItems: useCallback((code) => {
       store.deleteItem(code);
     }, []),
+
     onPushItemToCart : useCallback((code) => {
       store.pushItemToCart(code);
     }, [])

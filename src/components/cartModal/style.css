@@ -1,0 +1,31 @@
+.Cart-bg {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Cart-head {
+  display: flex;
+  justify-content: space-between;
+}
+.Cart-head button {
+  margin: 25px 20px;
+  padding: 5px 10px;
+}
+
+.Cart-total {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 110px;
+  margin-top: 25px;
+}
+
+.Cart-total b {
+  margin-left: 50px;
+}

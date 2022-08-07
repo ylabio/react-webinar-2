@@ -50,36 +50,61 @@ class Store {
     });
   }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
+  adderToCart() {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      open:true,
+      
+    });
+    
+  }
+
+  removeItem(item){
+    let  number=item['code']-1;
+    let obj=JSON.parse(JSON.stringify(this.state.items));
+    
+    delete obj[number];
+    delete item.inCart;
+    delete item.counter;
+    obj.push(item);
+    
+    this.setState({
+      ...this.state,
+      items:this.state.items
+  })
+  }
+
+  cartCloser(){
+    this.setState({
+      ...this.state,
+      open:false,
+      
     });
   }
 
   /**
-   * Выделение записи по её коду
+   * Удаление записи по её коду
    * @param code
    */
-  selectItem(code) {
+  addToCart(item) {
+    const d=this.state.items[item['code']-1];
+    if(!d.inCart){
+      d.inCart=1
+    }
+    else{
+      d.inCart++;
+    }
+    const stable=this.state.items;
+    const fromStable=stable.splice(item['code']-1,1,d);
+
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      items: stable,
     });
+    
+
   }
+
 }
 
 export default Store;

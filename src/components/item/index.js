@@ -11,7 +11,6 @@ function Item(props) {
   const [count, setCount] = useState(0);
 
   const callbacks = {
-
     onClick: useCallback(() => {
       props.onSelect(props.item.code);
       if (!props.item.selected) {
@@ -19,9 +18,9 @@ function Item(props) {
       }
     }, [props.onSelect, props.item, setCount, count]),
 
-    onDelete: useCallback((e) => {
+    onAdder: useCallback((e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code)
+      props.onAdder(props.item)
     }, [props.onDelete,  props.item])
   };
 
@@ -32,11 +31,13 @@ function Item(props) {
       </div>
       <div className={cn('title')}>
         {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
+      </div>
+      <div className={cn('price')}>
+        {props.item.price} ₽
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button onClick={callbacks.onAdder}>
+          Добавить
         </button>
       </div>
     </div>

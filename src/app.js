@@ -4,6 +4,8 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import {counter} from "./utils";
 
+import Busket from './components/busket';
+
 /**
  * Приложение
  * @param store {Store} Состояние приложения
@@ -14,23 +16,29 @@ function App({store}) {
   const callbacks = {
     onAdd: useCallback(() => {
       const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+      store.adderToCart();
+
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    eliminateFromCart: useCallback((item) => {
+      store.removeItem(item);
+      
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onAddItems: useCallback((code) => {
+      store.addToCart(code);
+    }, []),
+    closeCart: useCallback(() => {
+      store.cartCloser();
     }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls items={store.getState()} onAdd={callbacks.onAdd}/>
       <List items={store.getState().items}
             onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+            onAddItems={callbacks.onAddItems}
       />
+      <Busket items={store.getState()} eliminate={callbacks.eliminateFromCart} deleter={callbacks.closeCart}/>
     </Layout>
   );
 }

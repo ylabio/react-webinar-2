@@ -4,3 +4,28 @@
     justify-content: flex-end;
     padding: 20px;
 }
+.Controls-aboutBusket{
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+    margin-right: 31px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 1s ease 0.2s ;
+    -webkit-transition: all 1s ease 0.2s ;
+    -moz-transition: all 1s ease 0.2s ;
+    -ms-transition: all 1s ease 0.2s ;
+    -o-transition: all 1s ease 0.2s ;
+}
+
+.Controls-span{
+    display: inline-block;
+    margin-left: 12px;
+}
+.showen{
+    opacity: 1;
+    visibility: visible;
+}

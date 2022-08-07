@@ -1,0 +1,59 @@
+.Modal{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Modal-content{
+    padding: 10px;
+    border-radius: 10px;
+    width: 960px;
+    height: 603px;
+  }
+
+  .Modal-content .Layout{
+    border-radius: 10px;
+    min-height: 603px;
+    border-radius: 10px
+  }
+
+  .Modal-void-cart-message{
+    font-size: 30px;
+    margin: 20px;
+  }
+
+  .Modal-content .Layout-head{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 32px;
+  }
+
+  .Modal-content .Layout-head button{
+    margin-top: 34px;
+    width: 80px;
+    height: 21px;
+  }
+
+  .Modal .Layout .List{
+    margin-top: 74px;
+  }
+
+  .Modal-footer{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .Modal-footer :last-child{
+    margin-right: 108px;
+    margin-left: 49px;
+  }

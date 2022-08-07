@@ -1,0 +1,30 @@
+.Modal-over{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    /* background: #535353; */
+    background: rgba(0, 0, 0, 0.7);
+    top: 0;
+}
+.Modal{
+    position: absolute;
+    width: 960px;
+    height: 50%;
+    left: 240px;
+    top: 211px;
+    overflow: scroll;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+.Modal-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.Modal-head h1{
+    margin: 20px 20px 23px 20px;
+    padding: 0;
+}
+.Modal-head button{
+    margin: 31px 32px 28px 32px;
+}

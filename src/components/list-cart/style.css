@@ -1,0 +1,21 @@
+.ListCart{
+    margin-top: 74px;
+}
+.ListCart-item{
+    border-bottom: 1px dashed #ccc;
+}
+
+.ListCart-item:first-child{
+    border-top: 1px dashed #ccc;
+}
+.ListCart-sum{
+    display: flex;
+    gap: 55.25px;
+    justify-content: flex-end;
+    margin-right: 108px;
+    margin-top: 26px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+}

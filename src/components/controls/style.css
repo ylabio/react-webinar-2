@@ -2,5 +2,20 @@
 .Controls{
     display: flex;
     justify-content: flex-end;
+    gap: 20px;
     padding: 20px;
+}
+.Controls-cart{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.Controls-sum{
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+}
+.Controls button{
+    padding: 0 8px 0 9px;
 }

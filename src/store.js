@@ -51,13 +51,13 @@ class Store {
   }
 
   /**
-   * Удаление записи по её коду
+   * Удаление записи из корзины по её коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItemCart(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      itemsCart: this.state.itemsCart.filter(item => item.code !== code)
     });
   }
 
@@ -79,6 +79,31 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     });
+  }
+
+  /**
+   * Добавление товара в корзину
+   */
+  addProductToCart({item}) {
+    if (this.state.itemsCart.find(itemsCart => itemsCart.code === item.code)) {
+      this.setState({
+        ...this.state,
+        itemsCart: this.state.itemsCart.map(itemCart => {
+          if (itemCart.code === item.code){
+            return {
+              ...itemCart,
+              quantity: itemCart.quantity += 1
+            }
+          }
+          return itemCart;
+        })
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        itemsCart: this.state.itemsCart.concat({...item, quantity: 1})
+      });
+    }
   }
 }
 

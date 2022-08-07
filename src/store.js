@@ -1,5 +1,4 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -36,48 +35,35 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
+  }
+
+  addCart(code, item) {
+    const ifInCart = this.state.cart.find((item) => item.code === code);
+
+    if (ifInCart) {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map((value) => {
+          if (value.code === code) {
+            return { ...value, amount: value.amount + 1 };
+          } else {
+            return value;
+          }
+        }),
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.concat({ ...item, amount: 1 }),
+      });
     }
   }
-
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  deleteCart(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cart: this.state.cart.filter((item) => item.code !== code),
     });
   }
 }

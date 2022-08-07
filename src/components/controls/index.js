@@ -1,21 +1,21 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import './style.css';
+const plural = require('plural-ru');
 
-function Controls({onAdd}){
+function Controls({ cart, price, amount, cartToggle }) {
   return (
     <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+      <div className='cartInfo'>
+        В корзине:
+        <span className='itemsAndPrice'>
+          {cart.length > 0
+            ? `${plural(amount, '%d товар', '%d товара', '%d товаров')} / ${price} ₽`
+            : 'пусто'}
+        </span>
+      </div>
+      <button onClick={() => cartToggle()}>Перейти</button>
     </div>
-  )
-}
-
-Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
-
-Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  );
 }
 
 export default React.memo(Controls);

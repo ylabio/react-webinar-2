@@ -4,22 +4,35 @@
   justify-content: flex-start;
   flex-direction: row;
   align-items: center;
-  transition: background-color 1s;
-  width: 960px;
+  padding: 21px 20px 19px 18px;
 }
 
 .CartItem-title {
   width: 100%;
   padding: 20px 10px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #404040;
 }
+
 .CartItem-actions {
-  padding: 20px 20px 20px 10px;
+  width: 71px;
+  height: 21px;
   display: flex;
   justify-content: flex-end;
+  margin: 0 0 0 32px;
+  cursor: pointer;
 }
+
 .CartItem-number {
   padding: 20px 10px 20px 20px;
 }
+
 .CartItem-amount {
-  padding: 20px 10px 20px 20px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #404040;
+  margin: 0 0 0 55px;
 }

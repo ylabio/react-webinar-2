@@ -103,28 +103,11 @@ class Store {
     })   
   }
 
-  openCart() {
-    this.setState({
-      ...this.state,
-      cart: {
-        ...this.state.cart,
-        isOpened: true
-      }
-    })
-  }
-
-  closeCart() {
-    this.setState({
-      ...this.state,
-      cart: {
-        ...this.state.cart,
-        isOpened: false
-      }
-    })
-  }
-
+  /**
+   * Удаление записи из корзины
+   * @param code
+   */
   deleteItemsFromCart(code) {
-    console.log(code)
     const cartItems = {...this.state.cart.cartItems};
     delete cartItems[code]
 
@@ -132,7 +115,6 @@ class Store {
       ...this.state,
       cart:  {...this.state.cart, cartItems}
     });
-
   }
 }
 

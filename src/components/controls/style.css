@@ -2,5 +2,33 @@
 .Controls{
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
+    align-items: center;
+    padding: 18px 20px 24px 20px;
+}
+
+.Controls-actions{
+    margin: 0 0 0 20px;
+    width: 80px;
+    height: 21px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.Controls-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.Controls-text{
+    margin: 0 15px 0 0;
+    padding: 0;
 }

@@ -3,15 +3,17 @@ import propTypes from 'prop-types';
 import './style.css';
 import { currencyFormat } from '../../utils';
 import plural from 'plural-ru';
+import { cn as bem } from '@bem-react/classname';
 
 function Controls({cart: {totalPrice, totalQuantity}, onPopupOpen}){
+  const cn = bem('Controls');
   const modifiedCurrency = currencyFormat(totalPrice, 0);
 
 
    return (
     <div className='Controls'>
-      <p>В корзине: {totalQuantity ? `${totalQuantity} ${plural(totalQuantity, 'товаров', 'товара', 'товар')}` : null} / {modifiedCurrency}</p>
-      <button onClick={onPopupOpen}>Перейти</button>
+      <div className={cn('wrapper')}><p className={cn('text')}>В корзине:</p><b>{totalQuantity ? `${totalQuantity} ${plural(totalQuantity, 'товар', 'товара', 'товаров')}` : 0} / {modifiedCurrency}</b></div>
+      <button className={cn('actions')} onClick={onPopupOpen}>Перейти</button>
     </div>
   )
 }

@@ -24,12 +24,9 @@ function Item({item, onAddToCart}) {
       <div className={cn('title')}>
          {item.title}   
       </div>
-      <div>
+      <div className={cn('price')}>
         {modifiedPrice}
-      </div>
-      <p className={cn('count')}>
-        {item.count} шт
-      </p>
+      </div>   
       <div className={cn('actions')}>
         <button onClick={callbacks.onAddToCart}>
           Добавить

@@ -46,9 +46,9 @@ class Store {
   createCartItem({code, title, price, count = 1}) {
     this.setState({
       ...this.state,
-      cartItems: this.state.cartItems.some(item => item.title === title)
+      cartItems: this.state.cartItems.some(item => item.code === code)
         ? this.state.cartItems.map(item => {
-          if (item.title === title){
+          if (item.code === code){
             return {
               ...item,
               count: item.count + 1

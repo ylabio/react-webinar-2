@@ -11,7 +11,7 @@ function Item(props) {
     onClickButton: useCallback(()=> {
       props.onCart 
         ? props.onClick(props.item.code) 
-        : props.onClick(props.item.title, props.item.price);
+        : props.onClick(props.item.code, props.item.title, props.item.price);
     }, [props.onCart, props.onClick, props.item])
   };
 

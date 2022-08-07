@@ -3,7 +3,6 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Cart from "./components/cart"
-import {cartCounter} from './utils'
 
 /**
  * Приложение
@@ -18,8 +17,7 @@ function App({store}) {
     isCartOpened: useCallback(() => {
       setOpen(!open)
     }, [setOpen, open]),
-    onAddToCart: useCallback((title, price) => {
-      const code = cartCounter();
+    onAddToCart: useCallback((code, title, price) => {
       store.createCartItem({code, title, price});
     }, []),
     onDeleteFromCart: useCallback((code) => {

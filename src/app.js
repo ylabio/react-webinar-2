@@ -1,8 +1,6 @@
 import React, {useCallback, useState} from 'react';
-import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
 import LayoutModal from "./components/layout-modal";
 import Item from "./components/item";
 import ItemBasket from "./components/item-basket";
@@ -18,18 +16,16 @@ function App({store}) {
 
   const state = store.getState();
 
-  const [modal, setModal] = useState(null);
-
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => {
-      setModal('basket');
-    }, [setModal]),
+      store.get('modals').open('basket');
+    }, []),
 
     // Закрытие любой модалки
     closeModal: useCallback(() => {
-      setModal(null);
-    }, [setModal]),
+      store.get('modals').close();
+    }, []),
 
     // Добавлени в корзину
     addToBasket: useCallback(code => {
@@ -53,7 +49,7 @@ function App({store}) {
         <BasketSimple onOpen={callbacks.openModalBasket} amount={state.basket.amount} sum={state.basket.sum}/>
         <List items={state.catalog.items} renderItem={renders.item}/>
       </Layout>
-      {modal === 'basket' && (
+      {state.modals.name === 'basket' && (
         <LayoutModal title="Корзина" onClose={callbacks.closeModal}>
           <List items={state.basket.items} renderItem={renders.itemBasket}/>
           <BasketTotal sum={state.basket.sum}/>

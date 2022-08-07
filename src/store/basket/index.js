@@ -1,11 +1,9 @@
+import StateModule from "../module";
+
 /**
  * Состояние корзины
  */
-class BasketState {
-
-  constructor(store) {
-    this.store = store;
-  }
+class BasketState extends StateModule{
 
   /**
    * Начальное состояние
@@ -27,7 +25,7 @@ class BasketState {
     let sum = 0;
     // Ищем товар в корзие, чтобы увеличить его количество. Заодно получаем новый массив items
     let exists = false;
-    const items = this.store.getState().basket.items.map(item => {
+    const items = this.getState().items.map(item => {
       let result = item;
       // Искомый товар для увеличения его количества
       if (item.code === code) {
@@ -35,7 +33,7 @@ class BasketState {
         result = {...item, amount: item.amount + 1};
       }
       // Добавляея в общую сумму
-      sum += item.price * item.amount;
+      sum += result.price * result.amount;
       return result
     });
 
@@ -50,14 +48,11 @@ class BasketState {
     }
 
     // Установка состояние, basket тоже нужно сделать новым
-    this.store.setState({
-      ...this.store.state,
-      basket: {
-        items,
-        sum,
-        amount: items.length
-      }
-    });
+    this.setState({
+      items,
+      sum,
+      amount: items.length
+    }, 'Добавление в корзину');
   }
 
   /**
@@ -66,21 +61,18 @@ class BasketState {
    */
   removeFromBasket(code) {
     let sum = 0;
-    const items = this.store.getState().basket.items.filter(item => {
+    const items = this.getState().items.filter(item => {
       // Удаляемый товар
       if (item.code === code) return false
       // Подсчёт суммы если твоар не удаляем.
       sum += item.price * item.amount;
       return true;
     });
-    this.store.setState({
-      ...this.store.state,
-      basket: {
-        items,
-        sum,
-        amount: items.length
-      }
-    })
+    this.setState({
+      items,
+      sum,
+      amount: items.length
+    }, 'Удаление из корзины')
   }
 }
 

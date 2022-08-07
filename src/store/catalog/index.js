@@ -1,13 +1,10 @@
 import {counter} from "../../utils";
+import StateModule from "../module";
 
 /**
  * Состояние каталога
  */
-class CatalogState {
-
-  constructor(store) {
-    this.store = store;
-  }
+class CatalogState extends StateModule{
 
   /**
    * Начальное состояние
@@ -31,12 +28,9 @@ class CatalogState {
    * Создание записи
    */
   createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.store.setState({
-      ...this.store.state,
-      catalog: {
-        items: this.store.getState().catalog.items.concat({code, title, price, selected})
-      }
-    });
+    this.setState({
+      items: this.getState().items.concat({code, title, price, selected})
+    }, 'Создание товара');
   }
 
   /**
@@ -44,10 +38,9 @@ class CatalogState {
    * @param code
    */
   deleteItem(code) {
-    this.store.setState({
-      ...this.store.state,
-      items: this.store.getState().catalog.items.filter(item => item.code !== code)
-    });
+    this.setState({
+      items: this.getState().items.filter(item => item.code !== code)
+    }, 'Удаление товара');
   }
 }
 

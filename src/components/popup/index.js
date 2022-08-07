@@ -77,4 +77,4 @@ Popup.defaultProps = {
   totalPrice: 0,
 };
 
-export default Popup;
+export default React.memo(Popup);

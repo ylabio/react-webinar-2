@@ -1,23 +1,16 @@
 /* Пункт списка */
-.Item{
-    display: flex;
-    justify-content: flex-start;
-    transition: background-color 1s;
-}
-.Item_selected{
-    background: #75aaf1;
+.item {
+  border-bottom: 1px dashed #ccc;
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+  padding: 20px;
 }
 
+.item:first-child {
+  border-top: 1px dashed #ccc;
+}
 
-.Item-title{
-    width: 100%;
-    padding: 20px 10px;
-}
-.Item-actions{
-    padding: 20px  20px 20px 10px;
-    display: flex;
-    justify-content: flex-end;
-}
-.Item-number{
-    padding: 20px 10px 20px 20px;
+.item__title{
+  flex-grow: 1;
 }

@@ -5,7 +5,7 @@ import Store from "./store.js";
 import {counter} from './utils.js';
 
 const store = new Store({
-  items: [
+  catalogItems: [
     {code: counter(), title: 'Название товара', price: 100.0},
     {code: counter(), title: 'Книга про React', price: 770},
     {code: counter(), title: 'Конфета', price: 33},
@@ -13,7 +13,12 @@ const store = new Store({
     {code: counter(), title: 'Телефон iPhone XIXV', price: 120000},
     {code: counter(), title: 'Карандаши цветные', price: 111},
     {code: counter(), title: 'Товар сюрприз', price: 0},
-  ]
+  ],
+  cart: {
+    items: [],
+    totalPrice: 0,
+    distinctItems: 0 // cart.items.length
+  }
 });
 
 const root = createRoot(document.getElementById('root'));

@@ -1,0 +1,45 @@
+.Basket {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 960px;
+    min-height: 603px;
+    padding-bottom: 24px;
+}
+
+.Basket-header {
+    display: flex;
+    height: 80px;
+    align-items: center;
+    background-color: #F5F5F5;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 100%;
+}
+
+.Basket-header h2 {
+    margin-left: 20px;
+    padding-right: 701px;
+    font-size: 32px;
+}
+
+.Basket-header button {
+    width: 76px;
+    height: 21px;
+    font-size: 13px;
+}
+
+.Basket-content {
+    padding-top: 74px;
+    width: 100%;
+}
+
+.Basket-footer {
+    display: flex;
+    justify-content: space-evenly;
+    width: 320px;
+    margin-top: 26px;
+    margin-left: 593px;
+    font-size: 18px;
+    font-weight: 700;
+}

@@ -1,85 +1,85 @@
 class Store {
 
-  constructor(initState) {
-    // Состояние приложения (данные)
-    this.state = initState;
-    // Слушатели изменений state
-    this.listeners = [];
-  }
-
-  /**
-   * Выбор state
-   * @return {Object}
-   */
-  getState() {
-    return this.state;
-  }
-
-  /**
-   * Установка state
-   * @param newState {Object}
-   */
-  setState(newState) {
-    this.state = newState;
-    // Оповещаем всех подписчиков об изменении стейта
-    for (const listener of this.listeners) {
-      listener();
+    constructor(initState) {
+        // Состояние приложения (данные)
+        this.state = initState;
+        // Слушатели изменений state
+        this.listeners = [];
     }
-  }
 
-  /**
-   * Подписка на изменение state
-   * @param callback {Function}
-   * @return {Function} Функция для отписки
-   */
-  subscribe(callback) {
-    this.listeners.push(callback);
-    // Возвращаем функцию для удаления слушателя
-    return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
+    /**
+     * Выбор state
+     * @return {Object}
+     */
+    getState() {
+        return this.state;
     }
-  }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
+    /**
+     * Установка state
+     * @param newState {Object}
+     */
+    setState(newState) {
+        this.state = newState;
+        // Оповещаем всех подписчиков об изменении стейта
+        for (const listener of this.listeners) {
+            listener();
         }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
-  }
+    }
+
+    /**
+     * Подписка на изменение state
+     * @param callback {Function}
+     * @return {Function} Функция для отписки
+     */
+    subscribe(callback) {
+        this.listeners.push(callback);
+        // Возвращаем функцию для удаления слушателя
+        return () => {
+            this.listeners = this.listeners.filter(item => item !== callback);
+        }
+    }
+
+    /**
+     * Удаление записи из корзины
+     * @param item
+     */
+    deleteItem(item) {
+        this.setState({
+            ...this.state,
+            basket: item.quantity > 1
+                ? this.state.basket.map(m => m.code === item.code ? {
+                    ...m,
+                    quantity: m.quantity - 1,
+                    price: m.price - (m.price / m.quantity)
+                } : m)
+                : this.state.basket.filter(f => f.code !== item.code)
+        })
+    }
+
+    /**
+     * Добавление записи в корзину
+     * @param item
+     */
+
+    addInBasket(item) {
+        if (this.state.basket.some(s => s.code === item.code)) {
+            this.setState({
+                ...this.state,
+                basket: this.state.basket.map(m => m.code === item.code ? {
+                    ...m,
+                    price: m.price + item.price,
+                    quantity: m.quantity ? m.quantity + 1 : 1
+                } : m)
+            })
+        } else {
+            this.setState({
+                ...this.state,
+                basket: [...this.state.basket, {...item, quantity: 1}]
+            })
+        }
+    }
+
 }
 
 export default Store;

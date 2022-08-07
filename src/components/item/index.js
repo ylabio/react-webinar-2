@@ -1,57 +1,56 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
+import {getPrice} from "../../utils";
 
 function Item(props) {
-  const cn = bem('Item');
+    const cn = bem('Item');
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
+    const callbacks = {
+        callBackOnClick: useCallback((e) => {
+            e.stopPropagation()
+            props.callBackOnClick(props.item)
+        }, [props.callBackOnClick, props.item])
+    };
 
-  const callbacks = {
+    const price = getPrice(props.item.price)
+    const quantityNum = props.item.quantity
 
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
-
-    onDelete: useCallback((e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
-  };
-
-  return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
-      <div className={cn('number')}>
-        {props.item.code}
-      </div>
-      <div className={cn('title')}>
-        {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
-      </div>
-      <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
-      </div>
-    </div>
-  )
+    return (
+        <div className={cn()}>
+            <div className={cn('number')}>
+                {props.item.code}
+            </div>
+            <div className={cn('title')}>
+                {props.item.title}
+            </div>
+            <div className={cn('price')}>
+                {price}
+            </div>
+            {quantityNum && <div className={cn('amount')}>
+                <span>{quantityNum}</span><span>шт</span>
+            </div>}
+            <div className={cn('actions')}>
+                <button onClick={callbacks.callBackOnClick}>
+                    {props.label}
+                </button>
+            </div>
+        </div>
+    )
 }
 
 Item.propTypes = {
-  item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
+    item: propTypes.object.isRequired,
+    callBackOnClick: propTypes.func.isRequired,
+    label: propTypes.string.isRequired
 }
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
+    item: {},
+    callBackOnClick: () => {
+    },
+    label: 'Кнопка'
 }
 
 export default React.memo(Item);

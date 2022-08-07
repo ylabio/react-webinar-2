@@ -2,5 +2,14 @@
 .Controls{
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
+}
+
+.Controls-price{
+    padding: 20px 24px;
+}
+
+.Controls-actions{
+    padding: 20px  20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
 }

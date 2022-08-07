@@ -1,0 +1,6 @@
+.Item-amount{
+    padding: 20px;
+    white-space: nowrap;
+    min-width: 70px;
+    text-align: end;
+}

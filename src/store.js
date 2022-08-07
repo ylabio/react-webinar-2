@@ -80,6 +80,57 @@ class Store {
       })
     });
   }
+
+  /**
+   * Добавление товара в корзину
+   * @param item
+   */
+  addToCart(item) {
+    if (this.state.cartItems.some(cartItem => cartItem.code === item.code)) {
+      this.setState({
+        ...this.state,
+        cartItems: this.state.cartItems.map(cartItem => {
+          if (cartItem.code === item.code) {
+            return {
+              ...cartItem,
+              amount: cartItem.amount+=1
+            }
+          }
+          return cartItem
+        })
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cartItems: this.state.cartItems.concat({...item, amount: 1} )
+      });
+    }
+
+    this.setTotalSum();
+  }
+
+  /**
+   * Удаление товара из корзины
+   * @param code
+   */
+  deleteFromCart(code) {
+    this.setState({
+      ...this.state,
+      cartItems: this.state.cartItems.filter(item => item.code !== code)
+    });
+
+    this.setTotalSum();
+  }
+
+  /**
+   * Пересчет суммы в корзине, вызывается внутри методов addToCart, deleteFromCart
+   */
+  setTotalSum() {
+    this.setState({
+      ...this.state,
+      sumTotal: this.state.cartItems.reduce((acc, item) => acc + item.price * item.amount, 0)
+    })
+  }
 }
 
 export default Store;

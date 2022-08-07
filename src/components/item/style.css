@@ -1,0 +1,41 @@
+/* Пункт списка */
+.Item{
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 1s;
+}
+.Item_selected{
+    background: #75aaf1;
+}
+
+
+.Item-title{
+    width: 100%;
+    padding: 20px 10px;
+    line-height: 18px;
+    font-size: 16px;
+}
+.Item-actions{
+    padding: 20px  20px 20px 15px;
+    display: flex;
+    justify-content: flex-end;
+}
+.Item-number{
+    padding: 20px 10px 20px 20px;
+}
+.Item-price{
+    width: 100%;
+    padding: 20px 10px;
+    text-align: end;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+.Item-quantity{
+    width: 20%;
+    padding: 20px 10px;
+    text-align: end;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}

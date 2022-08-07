@@ -1,0 +1,18 @@
+/* Контрол с общими действиями */
+.Controls{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 60px;
+}
+.Controls-total{
+    font-weight: 700;
+    margin-left: 12px;
+}
+.Controls-actions{
+    margin-left: 20px;
+}
+.Controls-actions button{
+    width: 76px;
+    margin-right: 20px;
+}

@@ -4,3 +4,8 @@
     justify-content: flex-end;
     padding: 20px;
 }
+
+.Controls span:last-child{
+    font-weight: 600;
+    padding-right: 13px ;
+}

@@ -1,21 +1,31 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { priceReduce, counterReduce } from '../../utils';
 import './style.css';
+import plural from 'plural-ru';
 
-function Controls({onAdd}){
+function Controls(props){
   return (
     <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+      <span>В корзине: <span>
+      {counterReduce(props.chosenItems) !== 0 
+      ? <span> {counterReduce(props.chosenItems)}  
+        {plural(counterReduce(props.chosenItems), ' товар', ' товара', ' товаров')} / 
+        {` ${priceReduce(props.chosenItems)}`} &#8381;</span>  
+      : 'пусто'}</span>
+      </span>
+      <button onClick={props.onToggle}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  onToggle: propTypes.func.isRequired // Обязательное свойство - функция
 }
 
+
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  onToggle: () => {} // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

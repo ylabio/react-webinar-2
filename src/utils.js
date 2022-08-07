@@ -5,3 +5,16 @@
 export function counter(){
   return counter.value ? ++counter.value : counter.value = 1;
 }
+/**
+ *  Подсчет общей суммы товаров
+ */
+ export function priceReduce(array) {
+  return array && array.reduce((total, arr) => total + (arr.price * arr.count), 0)
+}
+
+/**
+*  Подсчет количества товаров
+*/
+export const counterReduce = (array) => {
+  return array && array.reduce((total, arr) => total + arr.count, 0)
+}

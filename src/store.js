@@ -1,5 +1,5 @@
 class Store {
-
+ 
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -41,42 +41,44 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Переключатель модального окна
+   * 
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  modalToggle() {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      modalToggle: !this.state.modalToggle 
     });
   }
 
   /**
-   * Удаление записи по её коду
+   * Добавление товара в корзину
+   * @param code
+   */
+  addItem(code) {
+    this.setState({
+      ...this.state,
+      chosenItems: this.state.items.filter(item => {
+        if(item.code === code) {
+            return {...item, count: ++item.count}
+        }
+        return item.count ? item : null
+      })
+    });
+    }
+  /**
+   * Удаление товаров из корзины
    * @param code
    */
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
+      chosenItems: this.state.items.filter(item => {
         if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
+            return {...item, count: --item.count}
+        } else {
+            return item.count > 0 ? item : null
         }
-        return item.selected ? {...item, selected: false} : item;
       })
     });
   }

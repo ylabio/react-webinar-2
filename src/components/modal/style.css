@@ -1,0 +1,51 @@
+.Modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.477);
+    z-index: 10;
+    display: grid;
+}
+
+.Modal-wrapper {
+    width: 954px;
+    min-height: 520px;
+    justify-self: center;
+    align-self: center;
+    background: #fff;
+    box-sizing: border-box;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Modal-head {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.048);
+    margin-bottom: 65px;
+}
+
+.Modal-head h1 {
+    margin-left: 30px;
+}
+
+.Modal-head button {
+    justify-self: center;
+    align-self: center;
+    margin-right: 30px;
+}
+
+.Modal-sum {
+    align-self: end;
+    font-weight: 600;
+    margin: 30px 0;
+}
+.Modal-sum span:first-child {
+    margin-right: 30px;
+}
+.Modal-sum span:last-child {
+    margin-right: 90px;
+}

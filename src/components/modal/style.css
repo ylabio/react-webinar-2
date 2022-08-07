@@ -2,7 +2,7 @@
   border: 1px solid black;
   max-width: 1000px;
   min-width: 70vw;
-  min-height: 65vh;
+  min-height: 60vh;
   margin: 0 auto;
   background: #fff;
   box-sizing: border-box;
@@ -46,7 +46,9 @@
 .Modal-end {
   padding: 20px 0;
   text-align: right;
+  font-size: 18px;
+  line-height: 21px;
 }
 .Modal-end b:last-child {
-  padding: 0 100px 0 25px;
+  padding: 0 110px 0 25px;
 }

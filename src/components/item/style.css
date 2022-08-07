@@ -3,11 +3,15 @@
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  font-size: 18px;
+  line-height: 21px;
 }
 
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+  font-size: 16px;
+  line-height: 18px;
 }
 
 .Item-price {

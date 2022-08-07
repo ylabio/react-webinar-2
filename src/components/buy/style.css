@@ -1,10 +1,11 @@
-.Buy{
-    display: flex;
-    justify-content: flex-end;
-    padding: 20px;
-    
+.Buy {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  font-size: 18px;
+  line-height: 21px;
 }
 
-.Buy span{
-    padding-right: 15px;
+.Buy span {
+  padding-right: 15px;
 }

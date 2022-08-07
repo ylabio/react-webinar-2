@@ -16,25 +16,21 @@ function Item(props) {
   return (
     <div className={cn()}>
       <div className={cn('number')}>
-        {props.itemNumber}
+        {props.item.code}
       </div>
       <div className={cn('title')}>
-        {props.title}
+        {props.item.title}
       </div>
       <div className={cn('secondaryInfo')}>
-        {props.secondaryInfo}
+        <div>{(props.item.price).toLocaleString('ru-RU',{style:'currency', currency:'RUB',maximumFractionDigits: 0})}</div>
       </div>
-      <Button callback={()=>callbacks.callback(props.item)} >{props.buttonValue}</Button>
+      <Button callback={()=>callbacks.callback(props.item)} >Добавить</Button>
     </div>
   )
 }
 
 Item.propTypes = {
-  item: propTypes.object,
-  itemNumber: propTypes.number,
-  title: propTypes.string,
-  secondaryInfo: propTypes.node,
-  buttonValue: propTypes.string,
+  item: propTypes.object.isRequired,
   buttonAction: propTypes.func,
 }
 

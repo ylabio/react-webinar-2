@@ -7,14 +7,16 @@ import {cn as bem} from '@bem-react/classname';
 function Controls(props){
   const cn = bem('Controls');
 
-  const totalQty = props.cart.length;
-  const totalPrice = props.cart.reduce((x,y)=> x + (y.price * y.qty),0);
+  const totalQty = props.cart.cartItems.length;
 
   return (
     <div className={cn()}>
       <span>В корзине:</span>
       <span className={cn('info')}>
-        {`${totalQty} ${plural('товар','товара', 'товаров')} / ${(totalPrice).toLocaleString('ru-RU',{style:'currency', currency:'RUB',maximumFractionDigits: 0})}`}</span>
+        {props.cart.cartItems.length 
+        ? `${totalQty} ${plural(totalQty,'товар','товара', 'товаров')} / ${(props.cart.totalCost).toLocaleString('ru-RU',{style:'currency', currency:'RUB',maximumFractionDigits: 0})}` 
+        : "Пусто"}
+      </span>
       <div className={cn('actions')}>
         <button onClick={()=>props.callModal(true)} >Перейти</button>
       </div>
@@ -23,12 +25,12 @@ function Controls(props){
 }
 
 Controls.propTypes = {
-  cart: propTypes.arrayOf(propTypes.object).isRequired,
+  cart: propTypes.object.isRequired,
   callModal: propTypes.func.isRequired // Обяхательное свойство - функция
 }
 
 Controls.defaultProps = {
-  cart: [],
+  cart: {},
   callModal: () => {} // Значение по умолчанию - функция-заглушка
 }
 

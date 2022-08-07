@@ -2,31 +2,39 @@ import React from 'react'
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
-import Layout from '../layout/index'
 import Button from '../button';
 import List from '../list';
+import CartItem from '../cartItem';
+import ModalLayout from '../modalLayout/index'
 
-function Modal({active, callModal, cartItems, callback}) {
+function Modal({active, callModal, cart, callback}) {
 	const cn = bem('Modal');
 
-	const totalPrice = cartItems.reduce((prev, curr)=> {
-		return prev + (curr.price * curr.qty)}, 0)
+	const cartListItems = [...cart.cartItems]
+	.sort((a,b) => a.code > b.code ? 1 : -1)
+	.map(item =>{
+    return (
+		<div key={item.code}>
+      <CartItem item={item}
+      buttonAction={callback}/>
+    </div>)
+		});
 
   return (
 	<div className={cn({'active': active})} onClick={()=>callModal(false)}>
 		<div className={cn('content')} onClick={(e)=> e.stopPropagation()}>
-			<Layout head={
+			<ModalLayout head={
 					<>
 						<h1>Корзина</h1>
 						<Button callback={()=>callModal(false)}>Закрыть</Button>
 					</>} 
 					fullHeight={false}>
-				<List items={cartItems} type={'cart'} callback={callback}/>
+				<List items={cart.cartItems} callback={callback}>{cartListItems}</List>
 				<div className={cn('footer')}>
 						<span>Итого</span>
-						<span>{(totalPrice).toLocaleString('ru-RU',{style:'currency', currency:'RUB',maximumFractionDigits: 0})}</span>
+						<span>{(cart.totalCost).toLocaleString('ru-RU',{style:'currency', currency:'RUB',maximumFractionDigits: 0})}</span>
 				</div>
-			</Layout>
+			</ModalLayout>
 		</div>
 	</div>
   )
@@ -34,7 +42,7 @@ function Modal({active, callModal, cartItems, callback}) {
 
 Modal.propTypes = {
 	active: propTypes.bool.isRequired,
-	cartItems: propTypes.arrayOf(propTypes.object).isRequired,
+	cart: propTypes.object.isRequired,
 	callback: propTypes.func.isRequired,
 	callModal: propTypes.func.isRequired // Обяхательное свойство - функция
 }

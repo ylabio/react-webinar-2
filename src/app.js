@@ -3,6 +3,7 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Modal from './components/modal';
+import Item from './components/item/index'
 
 
 /**
@@ -25,13 +26,20 @@ function App({store}) {
     })
   }
 
+  const items = store.getState().items.map(item =>{
+    return (
+    <div key={item.code}>
+      <Item item={item}
+      itemNumber={item.code}
+      buttonAction={callbacks.addToCart}/>
+    </div>)
+    });
+
   return (
     <Layout head={<h1>Приложение на чистом JS</h1>} fullHeight={true}>
       <Controls cart={store.getState().cart} callModal={callbacks.callModal}/>
-      <List items={store.getState().items}
-            callback={callbacks.addToCart}
-      />
-      <Modal active={modalActive} callModal={callbacks.callModal} cartItems={store.getState().cart} callback={callbacks.removeFromCart}/>
+      <List>{items}</List>
+      <Modal active={modalActive} callModal={callbacks.callModal} cart={store.getState().cart} callback={callbacks.removeFromCart}/>
     </Layout>
 
   );

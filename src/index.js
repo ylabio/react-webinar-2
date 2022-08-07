@@ -6,15 +6,18 @@ import {counter} from './utils.js';
 
 const store = new Store({
   items: [
-    {code: counter(), title: 'Название товара', price: 100.0},
-    {code: counter(), title: 'Книга про React', price: 770},
-    {code: counter(), title: 'Конфета', price: 33},
-    {code: counter(), title: 'Трактор', price: 7955320},
-    {code: counter(), title: 'Телефон iPhone XIXV', price: 120000},
-    {code: counter(), title: 'Карандаши цветные', price: 111},
-    {code: counter(), title: 'Товар сюрприз', price: 0},
+    {code: counter(), title: 'Название товара', price: 100.0, qty: 0},
+    {code: counter(), title: 'Книга про React', price: 770, qty: 0},
+    {code: counter(), title: 'Конфета', price: 33, qty: 0},
+    {code: counter(), title: 'Трактор', price: 7955320, qty: 0},
+    {code: counter(), title: 'Телефон iPhone XIXV', price: 120000, qty: 0},
+    {code: counter(), title: 'Карандаши цветные', price: 111, qty: 0},
+    {code: counter(), title: 'Товар сюрприз', price: 0, qty: 0},
   ],
-  cart:[]
+  cart:{
+    cartItems: [],
+    totalCost: 0,
+  }
 });
 
 const root = createRoot(document.getElementById('root'));

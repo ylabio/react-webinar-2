@@ -65,20 +65,26 @@ class Store {
    */
   addToCart(item) {
     let updatedCart = [];
-    const isInCart = this.state.cart.some(cartItem => cartItem.code === item.code);
+    const isInCart = this.state.cart.cartItems.some(cartItem => cartItem.code === item.code);
 
     !isInCart 
-    ? updatedCart = [...this.state.cart,{...item, qty: 1}] 
-    : updatedCart = this.state.cart.map(uCartItem => {
+    ? updatedCart = [...this.state.cart.cartItems,{...item, qty: 1}]
+    : updatedCart = this.state.cart.cartItems.map(uCartItem => {
       if(uCartItem.code === item.code) {
-        uCartItem.qty++;
+        return {
+          ...uCartItem,
+          qty: uCartItem.qty + 1,
+        }
       }
-      return uCartItem;
+      return uCartItem
     });
 
     this.setState({
       ...this.state,
-      cart: updatedCart
+      cart: {...this.state.cart,
+        cartItems: updatedCart,
+        totalCost: this.state.cart.totalCost + item.price,
+      } 
     });
   }
 
@@ -86,24 +92,14 @@ class Store {
    * Удаление из корзины
    */
   removeFromCart(item) {
-    let updatedCart = [];
-    const currentItem = this.state.cart.find(cartItem=> cartItem.code === item.code);
-    if (currentItem.qty === 1) {
-      updatedCart = this.state.cart.filter(cartItem => cartItem.code !== currentItem.code);
-      } else {
-        updatedCart = this.state.cart.map(cartItem => {
-          if(cartItem.code === item.code) {
-            cartItem.qty--;
-          }
-          return cartItem;
-        });
-      }
-    
-      this.setState({
+    this.setState({
       ...this.state,
-      cart: updatedCart,
-      });
-    }
+      cart: {...this.state.cart,
+        cartItems: this.state.cart.cartItems.filter(cartItem => cartItem.code !== item.code),
+        totalCost: this.state.cart.totalCost - (item.price * item.qty)
+      } 
+    });
+  }
 }
 
 

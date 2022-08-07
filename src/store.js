@@ -87,18 +87,18 @@ class Store {
 
   addItem(code) {
 
-    const addingItem = this.state.items.find(el => el.code === code);
 
-    (this.state.basket.length >= 1 && this.state.basket.find(el => el.code === addingItem.code)) ? this.setState({
+
+    (this.state.basket.length >= 1 && this.state.basket.find(el => el.code === code)) ? this.setState({
       ...this.state, basket: this.state.basket.map((el) => {
-        if (addingItem.code === el.code) {
+        if (code === el.code) {
 
           // return { ...el, amount: el.amount ? ++el.amount : el.amount = 2 }
           return { ...el, amount: el.amount + 1 || 2 }
         }
         return { ...el }
       })
-    }) : this.setState({ ...this.state, basket: this.state.basket.concat(this.state.items.find(el => el.code === addingItem.code)) })
+    }) : this.setState({ ...this.state, basket: this.state.basket.concat(this.state.items.find(el => el.code === code)) })
 
 
   }

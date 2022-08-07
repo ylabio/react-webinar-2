@@ -1,0 +1,10 @@
+.Basket__amountPrice {
+  padding: 26px 108px;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: end;
+}
+
+.Basket__amountPrice span {
+  padding-left: 50px;
+}

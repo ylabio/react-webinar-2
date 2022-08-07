@@ -1,21 +1,25 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import './style.css';
+import React, { memo } from "react";
+import "./style.css";
+import Button from "../button";
+import propTypes from "prop-types";
+import BasketDisplay from "../basket-display";
 
-function Controls({onAdd}){
+function Controls({ callbacks, basketData }) {
+  const [openModal] = callbacks;
+
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className="Controls">
+      <BasketDisplay
+        amount={basketData.itemsAmount}
+        price={basketData.itemsPrice}
+      />
+      <Button onClick={openModal} label="Перейти" />
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
+  callbacks: propTypes.arrayOf(propTypes.func).isRequired,
+};
 
-Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
-}
-
-export default React.memo(Controls);
+export default memo(Controls);

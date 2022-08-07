@@ -1,0 +1,22 @@
+.Modal {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.Modal__content {
+  position: relative;
+  width: max-content;
+  height: max-content;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.Modal__close-button {
+  position: absolute;
+  top: 31px;
+  right: 32px;
+}

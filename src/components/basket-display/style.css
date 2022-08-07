@@ -1,0 +1,13 @@
+.BasketDisplay {
+  margin-right: 20px;
+  font-size: 18px;
+}
+
+.BasketDisplay span:first-child {
+  margin-right: 15px;
+}
+
+
+.BasketDisplay span:last-child {
+  font-weight: 700;
+}

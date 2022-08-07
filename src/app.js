@@ -3,6 +3,7 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import CartPreview from './components/cart-preview';
 import Modal from './components/modal';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -44,13 +45,13 @@ function App({store}) {
 				onAddToCart={callbacks.onAddToCart}
 			/>
       {openModal && (
-				<Modal
-          title='Корзина'
-					toggleModal={toggleModal}
-					cartItems={store.getState().cartItems}
-					onDeleteFromCart={callbacks.onDeleteFromCart}
-					totalPrice={store.totalPrice()}
-				/>
+				<Modal title='Корзина' toggleModal={toggleModal}>
+					<Cart
+						cartItems={store.getState().cartItems}
+						onDeleteFromCart={callbacks.onDeleteFromCart}
+						totalPrice={store.totalPrice()}
+					/>
+				</Modal>
 			)}
     </Layout>
   );

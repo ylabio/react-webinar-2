@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
-import Cart from '../cart';
 
 function Modal(props) {
 	const cn = bem('Modal');
@@ -28,13 +27,7 @@ function Modal(props) {
 					<h1>{props.title}</h1>
 					<button onClick={props.toggleModal}>Закрыть</button>
 				</div>
-				<div className={cn('bodyContent')}>
-					<Cart
-						cartItems={props.cartItems}
-						onDeleteFromCart={props.onDeleteFromCart}
-						totalPrice={props.totalPrice}
-					/>
-				</div>
+				<div className={cn('bodyContent')}>{props.children}</div>
 			</div>
 		</div>
 	);
@@ -42,16 +35,12 @@ function Modal(props) {
 
 Modal.propTypes = {
 	title: propTypes.string.isRequired,
-	cartItems: propTypes.arrayOf(propTypes.object).isRequired,
-	totalPrice: propTypes.number.isRequired,
+	children: propTypes.node,
 	toggleModal: propTypes.func.isRequired,
-	onDeleteFromCart: propTypes.func.isRequired,
 };
 
 Modal.defaultProps = {
-	cartItems: [],
 	toggleModal: () => {},
-	onDeleteFromCart: () => {},
 };
 
 export default React.memo(Modal);

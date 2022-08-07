@@ -3,7 +3,7 @@ import propTypes from "prop-types";
 import {cn as bem} from "@bem-react/classname";
 
 import "./style.css";
-import CartItem from "../cart-item";
+import Item from "../item";
 
 function Cart({cart, onClose, totalSum, onRemove}) {
     const cn = bem('Cart');
@@ -18,7 +18,9 @@ function Cart({cart, onClose, totalSum, onRemove}) {
             ?(<>
                 <div className={cn('body')}>
                     {cart.length && (
-                        cart.map((c, index) => <CartItem key={c.code} item={c} index={index + 1} onRemove={onRemove}/>)
+                        cart.map((c, index) => (
+                            <Item key={c.code} item={c} code={index + 1} btnClick={onRemove} btnTitle="Удалить"/>
+                        ))
                     )}
                 </div>
                 <div className={cn('footer')}>

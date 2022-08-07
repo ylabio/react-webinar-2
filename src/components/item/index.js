@@ -4,24 +4,30 @@ import {cn as bem} from "@bem-react/classname";
 
 import "./style.css";
 
-function Item({item, onAdd}) {
+function Item({item, btnClick, btnTitle= 'Кнопка', code}) {
   const cn = bem('Item');
 
   return (
     <div className={cn()}>
       <div className={cn('number')}>
-        {item?.code}
+        {code}
       </div>
       <div className={cn('title')}>
-        {item?.title}
+        {item.title}
       </div>
       <div className={cn('price')}>
-        {item?.price}
+        {item.price}
           <span>&#8381;</span>
       </div>
+        {item.count && (
+            <div className={cn('count')}>
+                <span>{item.count}</span>
+                <span>шт</span>
+            </div>
+        )}
       <div className={cn('actions')}>
-        <button onClick={() => onAdd(item.code)}>
-          Добавить
+        <button onClick={() => btnClick(item.code)}>
+            {btnTitle}
         </button>
       </div>
     </div>
@@ -30,7 +36,9 @@ function Item({item, onAdd}) {
 
 Item.propTypes = {
     item: propTypes.object.isRequired,
-    onAdd: propTypes.func.isRequired,
+    btnClick: propTypes.func.isRequired,
+    btnTitle: propTypes.string,
+    code: propTypes.number
 }
 
 export default React.memo(Item);

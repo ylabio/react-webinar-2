@@ -75,7 +75,7 @@ function App({store}) {
       <>
       <Layout head={<h1>Магазин</h1>}>
         <Controls onShow={callbacks.onShow} getInfo={callbacks.getInfo}/>
-        <List items={store.getState().items} onAdd={callbacks.addToCart}/>
+        <List items={items} onAdd={callbacks.addToCart}/>
       </Layout>
         {isShowCart && (
             <Modal>

@@ -13,7 +13,7 @@ function ModalLayout({ children, closeModal }){
     >
       {children}
     </div>
-  )
+  );
 }
 
 ModalLayout.propTypes = { 

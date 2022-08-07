@@ -4,6 +4,7 @@ import Button from "../../shared/ui/button";
 import CartItem from "../cart-item";
 import { formatPrice } from "../../shared/utils";
 import './style.css';
+import propTypes from 'prop-types';
 
 function CartDump({
   removeItemFromCart, 
@@ -58,5 +59,21 @@ function CartDump({
     </div>
   );
 }
+
+CartDump.propTypes = { 
+  removeItemFromCart: propTypes.func.isRequired,
+  closeModal: propTypes.func.isRequired, 
+  isCartOpen: propTypes.bool.isRequired,
+  price: propTypes.number,
+  items: propTypes.array.isRequired,
+};
+
+CartDump.defaultProps = {
+  removeItemFromCart: () => {},
+  closeModal: () => {}, 
+  isCartOpen: false,
+  price: 0,
+  items: [],
+};
 
 export default CartDump;

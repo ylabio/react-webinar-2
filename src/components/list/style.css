@@ -1,8 +1,9 @@
 /*Список*/
 .List{
-
+    text-align: center;
 }
 .List-item{
+    text-align: start;
     border-bottom: 1px dashed #ccc;
 }
 

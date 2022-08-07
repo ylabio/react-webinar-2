@@ -1,0 +1,17 @@
+.Modal > .Layout{
+    border-radius: 5px;
+}
+.Modal > .Layout > .Layout-head {
+    border-radius: 5px;
+    margin-bottom: 80px;
+}
+.Modal > .Layout > .Layout-content > .Layout-total {
+    padding: 20px 95px;
+    text-align: right;
+}
+.Modal > .Layout > .Layout-content > .Layout-total > span:first-child {
+    margin-right: 45px;
+}
+.Modal > .Layout > .Layout-content > .Layout-total > span {
+    font-weight: bold;
+}

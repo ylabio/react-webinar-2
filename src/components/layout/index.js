@@ -3,27 +3,29 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import propTypes from "prop-types";
 
-function Layout({head, children}){
+function Layout(props){
   const cn = bem('Layout');
 
   return (
     <div className={cn()}>
       <div className={cn('head')}>
-        {head}
+          {props.head.map(item => item)}
       </div>
       <div className={cn('content')}>
-        {children}
+        {props.children}
       </div>
     </div>
   )
 }
 
 Layout.propTypes = {
-  head: propTypes.node,
+  head: propTypes.array,
   children: propTypes.node,
 }
 
 Layout.defaultProps = {
+  head: [],
+  children: <div/>
 }
 
 export default React.memo(Layout);

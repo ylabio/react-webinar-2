@@ -10,6 +10,7 @@ import Item from './components/item';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const {items, itemsQuantity, totalPrice} = store.getState().cart
 
   const callbacks = {
     onAdd: useCallback((item) => {
@@ -17,13 +18,15 @@ function App({store}) {
     }, []),
 
     onDelete: useCallback((item) => {
-      store.deleteFromCart(item.code)
+      store.deleteFromCart(item)
     }, [])
   }
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Cart items={store.getState().cartItems} 
+      <Cart items={items} 
+            itemsQuantity={itemsQuantity}
+            totalPrice={totalPrice}
             onDelete={callbacks.onDelete}
       />
       <List items={store.getState().items} 

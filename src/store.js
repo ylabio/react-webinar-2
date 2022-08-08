@@ -45,36 +45,50 @@ class Store {
    */
   addToCart(item) {
     // товар мог быть уже добавлен в корзину, ищем его индекс
-    const index = this.state.cartItems.findIndex((cartItem) => cartItem.code === item.code)
+    const index = this.state.cart.items.findIndex((cartItem) => cartItem.code === item.code)
 
     if (index === -1) {
-    // если товар не был найден в корзине, то добавляем его и устанавливаем счетчик
+      // если товар не был найден в корзине, то добавляем его в массив, устанавливаем счетчик
       this.setState({
         ...this.state,
-        cartItems: [...this.state.cartItems, {...item, amount: 1}]
+        cart: {
+          ...this.state.cart, 
+          items: [...this.state.cart.items, {...item, amount: 1}],
+          itemsQuantity: this.state.cart.itemsQuantity + 1, 
+          totalPrice: this.state.cart.totalPrice + item.price
+        }
       });
     } else {
-      // если товар уже содержится в корзине, увеличиваем счетчик
+      // если товар уже содержится в корзине, находим его и увеличиваем счетчик
       this.setState({
         ...this.state,
-        cartItems: this.state.cartItems.map((cartItem) => {
-          if (cartItem.code === item.code) {
-            return {...cartItem, amount: cartItem.amount + 1}
-          }
-          return cartItem
-        })
-      })
+        cart: {
+          ...this.state.cart, 
+          items: this.state.cart.items.map((cartItem) => {
+            if (cartItem.code === item.code) {
+              return {...cartItem, amount: cartItem.amount + 1}
+            }
+            return cartItem
+          }), 
+          totalPrice: this.state.cart.totalPrice + item.price
+        }
+      });
     }
   }
 
   /**
    * Удаление товара из корзины
-   * @param code
+   * @param item
    */
-  deleteFromCart(code) {
+  deleteFromCart(item) {
     this.setState({
       ...this.state,
-      cartItems: this.state.cartItems.filter(item => item.code !== code)
+      cart: {
+        ...this.state.cart, 
+        items: this.state.cart.items.filter(cartItem => cartItem.code !== item.code),
+        itemsQuantity: this.state.cart.itemsQuantity - 1,
+        totalPrice: this.state.cart.totalPrice - item.price * item.amount
+      }
     });
   }
 

@@ -12,9 +12,7 @@ import './style.css'
 function Cart(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const cn = bem('Cart');
-  // считаем стоимость добавленных в корзину товаров
-  const totalPrice = useMemo(() => props.items.reduce((acc, cur) => acc + cur.price * cur.amount, 0), [props.items])
-  
+
   const onModalClose = () => {
     setIsModalOpen(false)
   }
@@ -27,9 +25,9 @@ function Cart(props) {
       <div className={cn('info')}>
         В корзине:
         <span>
-          {props.items.length > 0 ?
+          {props.itemsQuantity > 0 ?
             <>
-              {props.items.length} {plural(props.items.length, "товар", "товара", "товаров")} / {getFormattedPrice(totalPrice)}
+              {props.itemsQuantity} {plural(props.itemsQuantity, "товар", "товара", "товаров")} / {getFormattedPrice(props.totalPrice)}
             </>
           :
             <>пусто</>
@@ -38,7 +36,7 @@ function Cart(props) {
       </div>
       <Button onClick={onModalOpen}>Перейти</Button>
       <Modal title={"Корзина"} isOpen={isModalOpen} onClose={onModalClose}>
-        {props.items.length > 0 ?
+        {props.itemsQuantity > 0 ?
         <>
           <List items={props.items} 
                 renderItem={(item) => (
@@ -50,7 +48,7 @@ function Cart(props) {
                 )}
           />
           <div className={cn('total')}>
-            Итого: <span className={cn('total-price')}>{getFormattedPrice(totalPrice)}</span>
+            Итого: <span className={cn('total-price')}>{getFormattedPrice(props.totalPrice)}</span>
           </div>
         </>
         :
@@ -65,10 +63,14 @@ export default Cart
 
 Cart.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
+  itemsQuantity: propTypes.number.isRequired,
+  totalPrice: propTypes.number.isRequired,
   onDelete: propTypes.func.isRequired
 }
 
 Cart.defaultProps = {
   items: [],
+  itemsQuantity: 0,
+  totalPrice: 0,
   onDelete: () => {}
 }

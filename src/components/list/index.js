@@ -2,6 +2,8 @@ import React, {useEffect} from 'react';
 import {cn as bem} from "@bem-react/classname";
 import Item from "../item";
 import './style.css';
+import {ModalItem} from "../modal-item";
+import PropTypes from "prop-types";
 
 function List(props) {
     const cn = bem('List');
@@ -13,7 +15,10 @@ function List(props) {
                 }
                 return (
                     <div key={index} className={cn('item')}>
-                        <Item item={item} onSelect={props.onItemSelect}/>
+                        {props.type === 'main' ?
+                            <Item item={item} onSelect={props.onItemSelect}/>
+                            : <ModalItem item={item} onSelect={props.onItemSelect}/>
+                        }
                     </div>
                 )
             }
@@ -26,6 +31,11 @@ List.defaultProps = {
     items: [],
     onItemSelect: () => {
     },
+    type: 'main'
+}
+
+List.propTypes = {
+    type: PropTypes.oneOf(['main','modal'])
 }
 
 export default React.memo(List);

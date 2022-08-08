@@ -1,12 +1,10 @@
-
-
 class Store {
 
     constructor(initState) {
         // Состояние приложения (данные)
         this.state = initState;
         // Слушатели изменений state
-        this.listners = [];
+        this.listeners = [];
     }
 
     /**
@@ -24,8 +22,8 @@ class Store {
     setState(newState) {
         this.state = newState;
         // Оповещаем всех подписчиков об изменении стейта
-        for (const lister of this.listners) {
-            lister();
+        for (const listener of this.listeners) {
+            listener();
         }
     }
 
@@ -35,53 +33,94 @@ class Store {
      * @return {Function} Функция для отписки
      */
     subscribe(callback) {
-        this.listners.push(callback);
+        this.listeners.push(callback);
         // Возвращаем функцию для удаления слушателя
         return () => {
-            this.listners = this.listners.filter(item => item !== callback);
+            this.listeners = this.listeners.filter(item => item !== callback);
         }
     }
 
-    /**
-     * Создание записи
-     */
-    createItem({code, title = 'Новая запись', selected = false, clickCounter = 0}) {
+    addToCart(code, title, price, counter = 1) {
+        const obj = {
+            code: code,
+            title: title,
+            price: price,
+            counter: counter
+        }
+        let found = false;
+        let index = 0;
+        for (let i = 0; i < this.state.cart.length; i++) {
+            let item = {...this.state.cart[i]};
+            delete item.counter;
+            let obj1 = {...obj}
+            delete obj1.counter;
+            if (JSON.stringify(item) === JSON.stringify(obj1)) {
+                found = true;
+                index = i;
+                break;
+            }
+        }
+        if (found) {
+            this.state.cart[index].counter++;
+            this.setState({
+                ...this.state
+            });
+            return;
+        }
         this.setState({
             ...this.state,
-            items: this.state.items.concat({code, title, selected, clickCounter})
+            cart: this.state.cart.concat({code, title, price, counter})
         });
+
     }
 
-    /**
-     * Удаление записи по её коду
-     * @param code
-     */
-    deleteItem(code) {
-        this.setState({
-            ...this.state,
-            items: this.state.items.filter(item => item.code !== code)
-        });
-    }
-
-    /**
-     * Выделение записи по её коду
-     * @param code
-     */
-    selectItem(code) {
-        this.setState({
-            ...this.state,
-            items: this.state.items.map(item => {
-                if (item.code === code) {
-                    item.selected = !item.selected;
-                    if (item.selected === true) {
-                        item.clickCounter++;
+    removeFromCart(code) {
+        console.log(this.state)
+        if (this.state.cart !== undefined) {
+            this.setState({
+                ...this.state,
+                cart: this.state.cart.map(i => {
+                    if (i?.code === code) {
+                        if (i.counter > 1) {
+                            i.counter--;
+                            return {...i}
+                        }
+                        return;
+                    } else {
+                        return i;
                     }
-                } else {
-                    item.selected = false;
+                })
+            });
+        }
+    }
+
+    getFullPrice() {
+        if(this.state.cart.length > 1) {
+            let price = 0;
+            this.state.cart.map((item) => {
+                if(!isNaN(item?.price)) {
+                    price += item?.price * item?.counter;
+                    console.log(price);
                 }
-                return item;
             })
-        });
+            console.log(price);
+            return price;
+        }
+        return 0
+    }
+
+    getCount() {
+        if(this.state.cart.length > 1 ) {
+            let count = 0;
+            this.state.cart.map((item) => {
+                if(!isNaN(item?.counter)) {
+                    count += item?.counter;
+                    console.log(count);
+                }
+            })
+            return count;
+        }
+        return 0;
     }
 
 }

@@ -1,7 +1,11 @@
-import React from 'react';
-import {counter, checkNumber} from './utils.js';
-
-import './style.css';
+import React, {useCallback, useEffect, useState} from 'react';
+import Controls from "./components/controls";
+import List from "./components/list";
+import Layout from "./components/layout";
+import {Overlay} from "./components/overlay";
+import {CartModal} from "./components/modal";
+import {Header} from "./components/header";
+import {product, rubles} from "./utils";
 
 /**
  * Приложение
@@ -9,46 +13,70 @@ import './style.css';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-    // Выбор состояния из store
-    const {items} = store.getState();
-
-    const removeItem = (code, e) => {
-        e.stopPropagation();
-        store.deleteItem(code);
+    const callbacks = {
+        onSelectItems: useCallback((code, title, price, counter) => {
+            store.addToCart(code, title, price, counter)
+        }, [])
     }
 
+    const removeCallback = {
+        onRemoveItems: useCallback((code) => {
+            store.removeFromCart(code);
+        }, [])
+    }
+
+    const getPriceCallback = {
+        getFullPrice: useCallback(() => {
+           return store.getFullPrice();
+        }, [])
+    }
+
+    const getCountCallback = {
+        getCount: useCallback(() => {
+           return store.getCount();
+        }, [])
+    }
+
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const removeModal = () => {
+        setIsOpen(false)
+    }
+
+    const openModal = () => {
+        setIsOpen(true);
+    }
+
+
     return (
-        <div className='App'>
-            <div className='App__head'>
-                <h1>Приложение на чистом JS</h1>
-            </div>
-            <div className='Controls'>
-                <button onClick={() => {
-                    const code = counter();
-                    store.createItem({code, title: `Новая запись ${code}`})
-                }}> Добавить
-                </button>
-            </div>
-            <div className='App__center'>
-                <div className='List'>{items.map(item =>
-                    <div key={item.code} className='List__item'>
-                        <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                             onClick={() => store.selectItem(item.code)}>
-                            <div className='Item__number'>{item.code}</div>
-                            <div className='Item__title'>
-                                {item.title} {item.clickCounter !== 0 ? ` | Выделялось ${item.clickCounter} ${checkNumber(item.clickCounter)} ` : ''}
-                            </div>
-                            <div className='Item__actions'>
-                                <button onClick={(e) => removeItem(item.code, e)}>
-                                    Удалить
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                )}
-                </div>
-            </div>
-        </div>
+        <>
+            <Layout head={<h1>Магазин</h1>}>
+                <header className={'Header'}>
+                    <p className={('Header-cart')}>
+                        В корзине:
+                    </p>
+
+                    {store.getCount() !== 0 ?
+                        <b>
+                            {store.getCount()} {product(store.getCount())} / {store.getFullPrice()} ₽
+
+                        </b> : <b>
+                            Корзина пуста
+                        </b>
+
+                    }
+                    <Controls title='Перейти' onAdd={() => openModal()}/>
+                </header>
+                <List items={store.getState().items}
+                      onItemSelect={callbacks.onSelectItems}
+                />
+            </Layout>
+            <Overlay isOpened={isOpen} closeModal={removeModal}>
+                <CartModal itemFunc={removeCallback.onRemoveItems} closeModal={removeModal} title='Корзина'
+                           items={store.getState().cart}/>
+            </Overlay>
+        </>
     );
 }
 

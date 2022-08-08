@@ -38,7 +38,7 @@ export const CartModal = (props) => {
                 </button>
             </header>
             <div className={cn('list')}>
-                <ModalList items={props.items}
+                <List type='modal' items={props.items}
                            onItemSelect={props.itemFunc}/>
             </div>
 

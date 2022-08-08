@@ -4,15 +4,19 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
 function Modal(props){
-  if(!props.show){
-    return null;
-  }
-
+  
   const cn = bem('Modal');
 
   return (
     <div className={cn()}>
-      {props.children}
+      <div className={cn('body')}>
+        <div className={cn('head')}>
+          <h1>{props.headText}</h1> <button onClick={props.onClose}>Закрыть</button>
+        </div>
+        <div className={cn('content')}>
+          {props.children}
+        </div>
+      </div>
     </div>
   )
 }

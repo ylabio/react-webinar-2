@@ -10,5 +10,35 @@
     justify-content: center;
 }
 
+.Modal-body{
+    max-width: 1024px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: #fff;
+    box-sizing: border-box;
+    box-shadow: 0 0 15px 5px #0000003b;
+    min-height: 70vh;
+    border-radius: 10px;
+    max-width: 980px;
+    width: 80%;
+}
+.Modal-head{
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    background: #f5f5f5;
+    border-radius: 10px;
+    align-items: center;
+}
+.Modal-head>h1{
+    margin: 0;
+    padding: 20px 20px 10px;
+}
+.Modal-head>button{
+    height: fit-content;
+    margin-right: 25px;
+}
+
+
 
 

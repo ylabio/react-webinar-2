@@ -66,27 +66,34 @@ class Store {
   /**
    * Создание записи корзины
    */
-  createCartItem({code, title = 'Новый товар', price = 999, number}) {
+  createCartItem(code) {
     
-    if(this.state.cart.find(item => item.code === code))
+    if(this.state.cart.items.find(item => item.code === code))
     {
       this.setState({
         ...this.state,
-        cart: this.state.cart.map(item => {
-          if(item.code === code){
-            return {
-              ...item,
-              count: item.count + 1 || 1
+        cart: {...this.state.cart, 
+          items: this.state.cart.items.map(item => {
+            if(item.code === code){
+              return {
+                ...item,
+                count: item.count + 1 || 1
+              }
             }
-          }
-          return item;
-        })
+            return item;
+          }),
+          sum: this.state.cart.sum + this.state.cart.items.find(item => item.code === code).price
+        }
       });
       return
     }
     this.setState({
       ...this.state,
-      cart: this.state.cart.concat({code, number, title, price, count: 1})
+      cart: {...this.state.cart, 
+        items: this.state.cart.items.concat({...this.state.items.find((item) => code === item.code), number: this.state.cart.items.length + 1, count: 1}),
+        count: (this.state.cart.count + 1) || 1,
+        sum: (this.state.cart.sum + this.state.items.find((item) => code === item.code).price) || this.state.items.find((item) => code === item.code).price
+      }
     });
   }
   /**
@@ -97,10 +104,28 @@ class Store {
     let number = 1;
     this.setState({
       ...this.state,
-      cart: this.state.cart
+      cart: {...this.state.cart, 
+        items: this.state.cart.items
         .filter(item => item.code !== code)
-        .map((item) => {return {...item, number: number++}})
+        .map((item) => {return {...item, number: number++}}),
+        count: this.state.cart.count - 1,
+        sum: this.state.cart.sum - this.state.cart.items.find(item => item.code === code).price * this.state.cart.items.find(item => item.code === code).count 
+      }
     });
+  }
+  /**
+   * Получение сумарной ценый элементов корзины
+   */
+  getCartSum()
+  {
+    return this.state.cart.sum;
+  }
+  /**
+   * Получение количества уникальных элементов корзины 
+   */
+  getCartCount()
+  {
+    return this.state.cart.count;
   }
 }
 

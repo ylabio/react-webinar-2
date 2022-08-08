@@ -17,7 +17,7 @@ function Item(props) {
     }, [props.onDelete,  props.item]),
 
     onAddToCart: useCallback(() => {
-      props.onAddToCart(props.item);
+      props.onAddToCart(props.item.code);
     },[])
   };
   

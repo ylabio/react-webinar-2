@@ -15,23 +15,6 @@
     margin-right: 110px;
 }
 
-.Modal>.Layout{
-    min-height: 70vh;
-    border-radius: 10px;
-    max-width: 980px;
-    width: 80%;
-}
-
-.Modal>.Layout>.Layout-content>.List{
+.Modal>.Modal-content>.List{
     margin-top: 60px;
-}
-
-.Modal>.Layout>.Layout-head>button{
-    height: fit-content;
-    margin-right: 25px;
-}
-
-.Modal>.Layout>.Layout-head{
-    border-radius: 10px;
-    align-items: center;
 }

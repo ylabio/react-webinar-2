@@ -29,44 +29,40 @@ function App({store}) {
     onOpen: useCallback(() => {
       setShow(true)
     },[]),
-    onAddToCart: useCallback((item) => {
-      store.createCartItem({...item, number: store.getState().cart.length + 1});
-    },[store.getState().cart]),
+    onAddToCart: useCallback((code) => {
+      store.createCartItem(code);
+    },[store.getState().cart.items]),
     onDeleteFromCart: useCallback((code) => {
       store.deleteCartItem(code);
     },[]),
-    getCartStats: useCallback(() => {
-      return {
-        count: store.getState().cart.length,
-        sumPrice: store.getState().cart.reduce(
-          (sum, item) => sum + item.price * item.count,
-          0
-        )
-      }
-    },[store.getState().cart])
+    getCartSum: useCallback(() => {
+      return store.getCartSum();
+    },[store.getState().cart.sum]),
+    getCartCount: useCallback(() => {
+      return store.getCartCount();
+    },[store.getState().cart.count])
   }
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls getCartStats={callbacks.getCartStats} onOpen={callbacks.onOpen}/>
+      <Controls getCartCount={callbacks.getCartCount} getCartSum={callbacks.getCartSum} onOpen={callbacks.onOpen}/>
       <List items={store.getState().items}
             onAddToCart={callbacks.onAddToCart}
       />
-      <Modal show={show}>
-        <Layout head={<><h1>Корзина</h1> <button onClick={callbacks.onClose}>Закрыть</button></>}>
-          <List   items={store.getState().cart} 
-                  onDeleteFromCart={callbacks.onDeleteFromCart}
-          />
-          <div className='Modal-summary'>
-            <div className='Modal-text'>
-              <strong>Итого</strong>
-            </div>
-            <div className='Modal-stats'>
-              <strong>{callbacks.getCartStats().sumPrice.toLocaleString()} ₽</strong>
-            </div>
+      {show &&
+      <Modal show={show} headText='Корзина' onClose={callbacks.onClose}>
+        <List   items={store.getState().cart.items} 
+                onDeleteFromCart={callbacks.onDeleteFromCart}
+        />
+        <div className='Modal-summary'>
+          <div className='Modal-text'>
+            <strong>Итого</strong>
           </div>
-        </Layout>
-      </Modal>
+          <div className='Modal-stats'>
+            <strong>{callbacks.getCartSum()?.toLocaleString()} ₽</strong>
+          </div>
+        </div>
+      </Modal>}
     </Layout>
   );
 }

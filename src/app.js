@@ -13,17 +13,17 @@ import Basket from './components/basket';
 function App({store}) {
 
   const callbacks = {
-    changeBasketVisible: useCallback((isVisible)=>{ 
-    store.changeBasketVisible(isVisible);
+    changeBasketVisible: useCallback((isVisible) => { 
+      store.changeBasketVisible(isVisible);
     }, []),
-    onAddItemInBasket: useCallback((code)=>{
-    store.addItemInBasket(code);
+    onAddItemInBasket: useCallback((code) => {
+      store.addItemInBasket(code);
     }, []),
-    deleteItem: useCallback((code)=>{
-    store.deleteItem(code);
+    deleteItem: useCallback((code) => {
+      store.deleteItem(code);
     }, []),
-    changeTotalPrice: useCallback((code)=>{
-    store.changeTotalPrice(code);
+    changeTotalPrice: useCallback((code) => {
+      store.changeTotalPrice(code);
     }, [])
   }
   const basket = store.getState().basket;

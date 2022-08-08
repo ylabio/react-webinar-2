@@ -1,0 +1,22 @@
+/*Список*/
+.List{
+
+}
+.List-item{
+    border-bottom: 1px dashed #ccc;
+}
+
+.List-item:first-child{
+    border-top: 1px dashed #ccc;
+}
+
+.List-total {
+    margin-top: 26px;
+    font-weight: 700;
+    text-align: right;
+    padding-right: 8vw;
+}
+
+.List-totalPrice {
+    margin-left: 60px;
+}

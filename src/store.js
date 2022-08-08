@@ -1,8 +1,10 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
-    this.state = initState;
+    this.state = {
+      ...initState,
+      basket: [],
+    };
     // Слушатели изменений state
     this.listeners = [];
   }
@@ -36,18 +38,51 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+  // createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  //   this.setState({
+  //     ...this.state,
+  //     items: this.state.items.concat({code, title, price, selected})
+  //   });
+  // }
+
+  /**
+   * Добавление в корзину
+   */
+  addItemInBasket(itemAdd) {
+    let isItemInBasket = false;
+
+    this.state.basket.forEach((good) => {
+      if (good.code === itemAdd.code) {
+        isItemInBasket = true;
+      }
     });
+
+    if (isItemInBasket) {
+      this.setState({
+        ...this.state,
+        basket: this.state.basket.map((good) => {
+          if (good.code === itemAdd.code) {
+            return {
+              ...good,
+              count: good.count + 1
+            }
+          }
+          return {...good};
+        }),
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        basket: [...this.state.basket, { ...itemAdd, count: 1 }],
+      });
+    }
   }
 
   /**
@@ -57,27 +92,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      basket: this.state.basket.filter((item) => item.code !== code),
     });
   }
 }

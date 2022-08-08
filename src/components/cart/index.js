@@ -35,17 +35,14 @@ function Cart(props) {
 
 Cart.propTypes = {
   shoppingCart: propTypes.arrayOf(propTypes.object).isRequired,
-  onDeleteItem: propTypes.func.isRequired,
-  onModalClose: propTypes.func.isRequired,
-  callback: propTypes.func.isRequired,
+  onDeleteItem: propTypes.func,
+  onModalClose: propTypes.func,
+  callback: propTypes.func,
   totalPrice: propTypes.number.isRequired
 };
 
 Cart.defaultProps = {
   shoppingCart: [],
-  onDeleteItem: () => {},
-  onModalClose: () => {},
-  callback: () => {},
   totalPrice: 0
 };
 

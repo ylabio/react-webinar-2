@@ -33,13 +33,12 @@ function List(props) {
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
   callbackName: propTypes.string.isRequired,
-  callback: propTypes.func.isRequired
+  callback: propTypes.func
 }
 
 List.defaultProps = {
   items: [],
   callbackName: '',
-  callback: () => {}
 }
 
 export default React.memo(List);

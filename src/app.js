@@ -5,7 +5,7 @@ import Layout from "./components/layout";
 import Modal from "./components/modal";
 import Cart from "./components/cart";
 import propTypes from "prop-types";
-import {calcAmount, calcTotalPrice} from "./utils";
+import {calcTotalPrice} from "./utils";
 
 /**
  * Приложение
@@ -16,7 +16,6 @@ function App({store}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {shoppingCart} = store.getState();
-  const countItems = calcAmount(shoppingCart);
   const totalPrice = calcTotalPrice(shoppingCart);
 
   const callbacks = {
@@ -37,8 +36,8 @@ function App({store}) {
   return (
     <Layout head={<h1>Магазин</h1>}>
       <Controls
+        shoppingCart={shoppingCart}
         onModalOpen={callbacks.onModalOpen}
-        countItems={countItems}
         totalPrice={totalPrice}
       />
       <List
@@ -62,12 +61,10 @@ function App({store}) {
 
 App.propTypes = {
   shoppingCart: propTypes.array.isRequired,
-  addItemToCart: propTypes.func.isRequired,
-  deleteItemFromCart: propTypes.func.isRequired
+  addItemToCart: propTypes.func,
+  deleteItemFromCart: propTypes.func,
 }
 App.defaultProps = {
   shoppingCart: [],
-  addItemToCart: () => {},
-  deleteItemFromCart: () => {}
 }
 export default App;

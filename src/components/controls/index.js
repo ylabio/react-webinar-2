@@ -1,8 +1,8 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
-import {getInfoCart} from "../../utils";
+import plural from "plural-ru";
 
 /**
  * Контрол с общими действиями
@@ -14,15 +14,15 @@ import {getInfoCart} from "../../utils";
  */
 function Controls(props){
   const cn = bem('Controls');
-  const {countItems, totalPrice, onModalOpen} = props;
-  const cartInfo = useMemo(() => getInfoCart(countItems, totalPrice), [countItems, totalPrice]);
+  const {totalPrice, onModalOpen, shoppingCart} = props;
+  const cartInfo = `${shoppingCart.length} ${plural(shoppingCart.length, 'товар', 'товара', 'товаров')} / ${totalPrice.toLocaleString('ru-RU')} ₽`;
 
   return (
     <div className={cn()}>
       <p className={cn('cart')}>
         В корзине:
-        <span className={cn('cart-info', {empty: !countItems})}>
-          {`${countItems ? cartInfo : 'пусто'}`}
+        <span className={cn('cart-info', {empty: !shoppingCart})}>
+          {`${shoppingCart.length ? cartInfo : 'пусто'}`}
         </span>
       </p>
       <button onClick={onModalOpen}>Перейти</button>
@@ -31,15 +31,14 @@ function Controls(props){
 }
 
 Controls.propTypes = {
-  countItems: propTypes.number.isRequired,
   totalPrice: propTypes.number.isRequired,
-  onModalOpen: propTypes.func.isRequired
+  onModalOpen: propTypes.func,
+  shoppingCart: propTypes.arrayOf(propTypes.object).isRequired
 }
 
 Controls.defaultProps = {
-  countItems: 0,
   totalPrice: 0,
-  onModalOpen: () => {}
+  shoppingCart: []
 }
 
 export default React.memo(Controls);

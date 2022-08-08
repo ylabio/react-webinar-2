@@ -23,11 +23,9 @@
     border-radius: 10px;
     width: 960px;
     min-height: 603px;
-    max-height: 100%;
     background-color: white;
     transform: scale(0.5);
     transition: 0.4s all;
-    overflow-y: scroll;
 }
 
 .Modal-content.active {

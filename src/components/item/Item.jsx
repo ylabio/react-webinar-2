@@ -1,6 +1,6 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
+import { cn as bem } from "@bem-react/classname";
 import plural from 'plural-ru';
 import './style.css';
 
@@ -13,26 +13,28 @@ function Item(props) {
   const callbacks = {
 
     onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
+      props.onAddProduct(props.item.code)
+
+    }, [props.item]),
   };
 
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
-      <div className={cn('number')}>
-        {props.item.code}
+    <div className={cn({ 'selected': props.item.selected })}>
+      <div className='Left-content'>
+        <div className={cn('number')}>
+          {props.item.code}
+        </div>
+        <div className={cn('title')}>
+          {props.item.title}
+        </div>
       </div>
-      <div className={cn('title')}>
-        {props.item.title}
-        {props.item.price} ₽
-      </div>
-      <div className={cn('actions')}>
-        <button>
-          Добавить
-        </button>
+      <div className='Right-content'>
+        <span className='Price-text'>{props.item.price} ₽</span>
+        <div className={cn('actions')}>
+          <button onClick={callbacks.onClick}>
+            Добавить
+          </button>
+        </div>
       </div>
     </div>
   )
@@ -45,8 +47,8 @@ Item.propTypes = {
 }
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
+  onSelect: () => { },
+  onDeleted: () => { }
 }
 
 export default React.memo(Item);

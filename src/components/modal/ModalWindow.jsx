@@ -1,19 +1,25 @@
 import React from 'react'
+import Item from '../item/Item'
 import Layout from '../layout/Layout'
+import ModalHead from './ModalHead'
+import './style.css'
 
-const ModalWindow = ({products}) => {
+const ModalWindow = ({ setModalStatus, modalStatus, products }) => {
+    let rootClasses = ['Modal']
+    if (modalStatus) {
+        rootClasses.push('active');
+    }
+
     return (
-        <div>
-            <div>
+        <div className={rootClasses.join(' ')} onClick={setModalStatus}>
+            <div className='Modal-content'>
+                <Layout head={<ModalHead />} />
                 <div>
-                    <Layout head={<h1>Корзина</h1>} />
-                    <div>
-                        {products.map(product => <div>product.price </div> )}
-                    </div>
+                    {products.map((product, index) => <Item key={index} item={product} />)}
                 </div>
             </div>
         </div>
     )
 }
 
-export default React.memo(ModalWindow)
+export default ModalWindow

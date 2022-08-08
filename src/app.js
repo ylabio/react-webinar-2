@@ -1,8 +1,8 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import Controls from "./components/controls/Controls";
 import List from "./components/list/List";
 import Layout from "./components/layout/Layout";
-import {counter} from "./utils";
+import { counter } from "./utils";
 import ModalWindow from './components/modal/ModalWindow';
 
 /**
@@ -10,24 +10,25 @@ import ModalWindow from './components/modal/ModalWindow';
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+function App({ store }) {
+  console.log(store.getState().cart)
 
   const callbacks = {
     setModalStatus: useCallback(() => {
       store.setModalStatus()
     }, []),
     onAddProduct: useCallback((code) => {
-      store.selectItem(code);
+      store.onAddProduct(code);
     }, [])
   }
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls openModal={callbacks.setModalStatus}/>
+      <Controls modalStatus={store.getState().modalStatus} openModal={callbacks.setModalStatus} />
       <List items={store.getState().items}
-            onAddProduct={callbacks.onAddProduct}
+        onAddProduct={callbacks.onAddProduct}
       />
-      <ModalWindow products={store.getState().cart}/>
+      <ModalWindow setModalStatus={callbacks.setModalStatus} modalStatus={store.getState().modalStatus} products={store.getState().cart} />
     </Layout>
   );
 }

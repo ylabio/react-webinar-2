@@ -42,19 +42,19 @@ class Store {
 
 
   onAddProduct(code) {
-    this.state({
+    this.setState({
       ...this.state,
-      cart: this.state.items.map(item => {
-        (item.code === code) && this.state.cart.push(item);
-      })
+      cart: this.state.cart.concat(this.state.items.filter(item => item.code === code))
     });
+
   }
 
-  setModaStatus(){
-    this.state({
+  setModaStatus() {
+    this.setState({
       ...this.state,
-      modalStatus: !modalStatus
+      modalStatus: arg
     })
+    console.log(modalStatus)
   }
 }
 

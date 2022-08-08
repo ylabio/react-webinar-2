@@ -2,10 +2,15 @@ import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 
-function Controls({setModalStatus}){
+function Controls({ modalStatus, setModalStatus }) {
+
+  const handle = () => {
+    setModalStatus(true)
+    console.log(modalStatus)
+  }
   return (
     <div className='Controls'>
-      <button onClick={setModalStatus}>Перейти</button>
+      <button className='Controls-button' onClick={handle}>Перейти</button>
     </div>
   )
 }
@@ -15,7 +20,7 @@ Controls.propTypes = {
 }
 
 Controls.defaultProps = {
-  setModalStatus: () => {} // Значение по умолчанию - функция-заглушка
+  setModalStatus: () => { } // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

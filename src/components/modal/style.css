@@ -1,0 +1,33 @@
+.Modal {
+   position: fixed;
+   top: 0;
+   bottom: 0;
+   right: 0;
+   left: 0;
+   display: none;
+   background: rgba(0, 0, 0, 0.5);
+}
+
+.Modal.active {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.Modal-content {
+   padding: 25px;
+   border-radius: 16px;
+   min-height: 450px;
+}
+
+.Modal-head {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.Modal-head button {
+   min-width: 76px;
+   min-height: 21px;
+   margin: 31px 32px 28px 0;
+}

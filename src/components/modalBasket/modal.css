@@ -22,11 +22,38 @@
     padding: 20px;
     border-radius: 12px;
     background-color: white;
-    width: 50vw;
+    height: 75%;
+    width: 40%;
     transform: scale(0.5);
     transition: 0.4s all;
 }
 
 .modal_content.active {
     transform: scale(1);
+}
+
+.scrollable {
+    height: 70%;
+    overflow: auto;
+    margin: 20px;
+    text-align: justify;
+}
+.header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        height: 80px;
+        background: #f5f5f5;
+}
+.button {
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 15px;
+        text-align: center;
+        margin-right: 32px;
+}
+.count {
+    display: flex;
+    justify-content: flex-end;
+    font-weight: bold;
 }

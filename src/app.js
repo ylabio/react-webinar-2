@@ -3,7 +3,7 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout/layout";
 import {counter} from "./utils";
-
+import ModalBasket from './components/modalBasket/modalBasket';
 
 /**
  * Приложение
@@ -13,25 +13,21 @@ import {counter} from "./utils";
 function App({store}) {
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
-    }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onItemDelete: useCallback((code) => {
+      store.deleteItem(code);
     }, []),
     onPutItemToBasket: useCallback((code) => {
       store.putItemToBasket(code);
     }, []),
   }
 
-  
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+      <Controls state={store.getState()}
+                onItemDelete={callbacks.onItemDelete}
+      />
       <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
             onPutItemToBasket={callbacks.onPutItemToBasket}
       />
     </Layout>

@@ -50,6 +50,15 @@ class Store {
     });
   }
 
+  deleteItem(code) {
+    debugger;
+    delete this.state.basket[code]
+    this.setState({
+      ...this.state,
+    })
+  }
+  
+
   /**
    * добавление  записи по её коду в корзину
    * @param code

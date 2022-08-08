@@ -1,13 +1,14 @@
 import plural from 'plural-ru';
 import React from 'react';
 import propTypes from 'prop-types';
-import { getSum } from '../../utils';
+import {getPrice, getSum} from '../../utils';
 import Button from '../button';
 import style from './style.css';
 
 const getContentTotal = basket => {
 	const numberOfGoods = basket.length;
-	return numberOfGoods ? ` ${numberOfGoods} ${plural(basket.length, 'товар', 'товара', 'товаров')} / ${getSum(basket)}` : 'Пусто'
+	const sum = getSum(basket);
+	return numberOfGoods ? ` ${numberOfGoods} ${plural(basket.length, 'товар', 'товара', 'товаров')} / ${getPrice(sum)}` : 'Пусто'
 };
 
 function ModalPreview({basket, onTransition}){

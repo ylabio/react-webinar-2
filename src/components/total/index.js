@@ -1,13 +1,14 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { getSum } from '../../utils';
+import {getSum, getPrice} from '../../utils';
 import './style.css';
 
 function Total({basket}) {
+	const sum = getSum(basket);
 	return (
 		<div className='Total'>
 			<div>Итого</div>
-			<div className={'Total-sum'}>{getSum(basket)}</div>
+			<div className={'Total-sum'}>{getPrice(sum)}</div>
 		</div>
 	)
 }

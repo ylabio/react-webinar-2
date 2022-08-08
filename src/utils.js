@@ -12,5 +12,10 @@ export function getSum(basket){
     return acc;
   }, 0);
 
-  return (`${sum} \u20bd`);
+  return sum;
+}
+
+export function getPrice(number){
+	const formattedNumber = new Intl.NumberFormat('ru-RU').format(number);
+	return `${formattedNumber}  \u20bd`;
 }

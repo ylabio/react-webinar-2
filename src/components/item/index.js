@@ -2,6 +2,7 @@ import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import Button from '../button';
+import {getPrice} from '../../utils';
 import './style.css';
 
 function Item(props) {
@@ -27,7 +28,7 @@ function Item(props) {
         {item.title}
       </div>
         <div className={'Item-price'}>
-            {item.price}{' \u20bd'}
+            {getPrice(item.price)}
         </div>
         {count && <div className={'Item-count'}>
             {count} шт

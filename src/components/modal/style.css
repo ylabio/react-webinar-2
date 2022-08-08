@@ -1,5 +1,4 @@
 /* Источник кода для модалки: https://itchief.ru/html-and-css/modal */
-
 .Modal {
     position: fixed; /* фиксированное положение */
     top: 0;
@@ -29,7 +28,7 @@
     position: relative;
     display: flex;
     min-width: 960px;
-    height: 603px;
+    min-height: 603px;
     overflow: auto;
     display: -webkit-box;
     display: -webkit-flex;

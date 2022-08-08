@@ -19,10 +19,10 @@ background: rgba(0,0,0,0.5);
     align-items: center;
     justify-content: flex-start;
     position: absolute;
-    top: 25%;
     left: 25%;
+    top:20%;
     width: 50vw;
-    height: 50vh;
+    min-height: 50vh;
     background: white;
     border-radius: 10px;
     overflow: auto;
@@ -56,6 +56,7 @@ background: rgba(0,0,0,0.5);
     align-items: center;
     margin-right: 100px;
     margin-top: 26px;
+    margin-bottom: 20px;
 }
 
 .Modal-price:last-child::after{

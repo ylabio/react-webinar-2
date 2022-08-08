@@ -23,9 +23,7 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      <div className={cn("number")}>
-        {props.item.amount ? props.index + 1 : props.item.code}
-      </div>
+      <div className={cn("number")}>{props.item.code}</div>
       <div className={cn("title")}>
         <p> {props.item.title}</p>
         <div className={cn("info-wrapper")}>

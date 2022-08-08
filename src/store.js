@@ -81,21 +81,33 @@ class Store {
   }
 
   addToCart(code) {
-    const inCart = this.state.cart.map((item) => item.code);
+    const inCart = this.state.cart.cartItems.map((item) => item.code);
 
     if (!inCart.includes(code)) {
-      const [test] = this.state.items.filter((item) => item.code === code);
+      const [choosenItem] = this.state.items.filter(
+        (item) => item.code === code
+      );
       this.setState({
         ...this.state,
-        cart: [...this.state.cart, { ...test, amount: 1 }],
+        cart: {
+          cartItems: [
+            ...this.state.cart.cartItems,
+            { ...choosenItem, amount: 1 },
+          ],
+          totalPrice: this.state.cart.totalPrice + choosenItem.price,
+          totalAmount: this.state.cart.cartItems.length + 1,
+        },
       });
     } else {
-      this.state.cart.forEach((item) => {
+      this.state.cart.cartItems.forEach((item) => {
         if (item.code === code) {
           item.amount += 1;
           this.setState({
             ...this.state,
-            cart: [...this.state.cart],
+            cart: {
+              ...this.state.cart,
+              totalPrice: this.state.cart.totalPrice + item.price,
+            },
           });
         }
       });
@@ -103,9 +115,20 @@ class Store {
   }
 
   deleteFromCart(code) {
+    const deletedItem = this.state.cart.cartItems.find(
+      (item) => item.code === code
+    );
+
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter((item) => item.code !== code),
+      cart: {
+        cartItems: [
+          ...this.state.cart.cartItems.filter((item) => item.code !== code),
+        ],
+        totalPrice:
+          this.state.cart.totalPrice - deletedItem.price * deletedItem.amount,
+        totalAmount: this.state.cart.cartItems.length - 1,
+      },
     });
   }
 }

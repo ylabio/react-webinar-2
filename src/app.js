@@ -2,6 +2,9 @@ import React, { useCallback } from 'react';
 import List from './components/list';
 import Layout from './components/layout';
 import Controls from './components/controls';
+import Modal from './components/modal';
+import CartItem from './components/cartItem';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -9,6 +12,8 @@ import Controls from './components/controls';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({ store }) {
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
   const callbacks = {
     onAddToCart: useCallback((code) => {
       store.addToCart(code);
@@ -21,14 +26,40 @@ function App({ store }) {
   return (
     <Layout head={<h1>Приложение на чистом JS</h1>}>
       <Controls
-        items={store.getState().cart}
-        onItemDeleteFromCart={callbacks.onDeleteFromCart}
+        cart={store.getState().cart}
+        setIsModalOpen={setIsModalOpen}
       ></Controls>
 
       <List
         items={store.getState().items}
         onItemAddToCart={callbacks.onAddToCart}
-      />
+      >
+        <Item />
+      </List>
+
+      {isModalOpen && (
+        <Modal
+          header={<h2>Корзина</h2>}
+          setIsModalOpen={setIsModalOpen}
+          footer={
+            <p>
+              Итого{' '}
+              {new Intl.NumberFormat('ru', {
+                style: 'currency',
+                currency: 'RUB',
+                minimumFractionDigits: 0,
+              }).format(store.getState().cart.totalPrice)}
+            </p>
+          }
+        >
+          <List
+            items={store.getState().cart.cartItems}
+            onItemDeleteFromCart={callbacks.onDeleteFromCart}
+          >
+            <CartItem />
+          </List>
+        </Modal>
+      )}
     </Layout>
   );
 }

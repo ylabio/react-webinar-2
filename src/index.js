@@ -14,10 +14,13 @@ const store = new Store({
     { code: counter(), title: 'Карандаши цветные', price: 111 },
     { code: counter(), title: 'Товар сюрприз', price: 0 },
   ],
-  cart: [],
+  cart: {
+    cartItems: [],
+    totalPrice: 0,
+    totalAmount: 0,
+  },
 });
 
-console.log('store:', store.state);
 const root = createRoot(document.getElementById('root'));
 
 // Реакция на изменение store - повторный рендер приложения

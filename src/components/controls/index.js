@@ -1,65 +1,45 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import plural from 'plural-ru';
 import './style.css';
 import { cn as bem } from '@bem-react/classname';
-import Modal from '../modal';
+import plural from 'plural-ru';
 
-function Controls({ items, onItemDeleteFromCart }) {
-  const cn = bem('Controls');
-
-  const [totalPrice, setTotalPrice] = React.useState(0);
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-
-  const handleModalClick = () => {
+function Controls({ setIsModalOpen, cart }) {
+  const handleOpenModal = () => {
     setIsModalOpen((prev) => !prev);
   };
-
-  React.useEffect(() => {
-    setTotalPrice(
-      items.reduce((acc, item) => {
-        return acc + item.price * item.amount;
-      }, 0)
-    );
-  }, [items]);
+  const cn = bem('Controls');
 
   return (
-    <div className={cn()}>
+    <div className="Controls">
       <p className={cn('cart')}>В корзине:</p>
-      {items.length ? (
+
+      {cart.cartItems.length ? (
         <p className={cn('info')}>
-          {items.length} {plural(items.length, 'товар', 'товара', 'товаров')} /{' '}
+          {cart.totalAmount}{' '}
+          {plural(cart.totalAmount, 'товар', 'товара', 'товаров')} /{' '}
           {new Intl.NumberFormat('ru', {
             style: 'currency',
             currency: 'RUB',
             minimumFractionDigits: 0,
-          }).format(totalPrice)}
+          }).format(cart.totalPrice)}
         </p>
       ) : (
         <p className={cn('info')}>пусто</p>
       )}
-
-      <button onClick={handleModalClick}>Перейти</button>
-      {isModalOpen && (
-        <Modal
-          closeModal={handleModalClick}
-          items={items}
-          onItemDeleteFromCart={onItemDeleteFromCart}
-          totalPrice={totalPrice}
-        />
-      )}
+      <button onClick={handleOpenModal}>Перейти</button>
     </div>
   );
 }
 
 Controls.propTypes = {
-  items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemDeleteFromCart: propTypes.func,
+  setIsModalOpen: propTypes.func.isRequired, // Обязательное свойство - функция
+  cart: propTypes.object.isRequired,
 };
 
 Controls.defaultProps = {
-  items: [],
-  onItemDeleteFromCart: () => {},
+  setIsModalOpen: () => {}, // Значение по умолчанию - функция-заглушка
+  cart: {},
 };
 
 export default React.memo(Controls);

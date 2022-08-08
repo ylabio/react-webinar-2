@@ -1,7 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import Item from '../item';
 import './style.css';
 
 function List(props) {
@@ -9,14 +8,14 @@ function List(props) {
 
   return (
     <div className={cn()}>
-      {props.items.map((item, index) => (
+      {!props.items.length && <h3>Пусто</h3>}
+      {props.items.map((item) => (
         <div key={item.code} className={cn('item')}>
-          <Item
-            num={index + 1}
-            item={item}
-            onAddToCart={props.onItemAddToCart}
-            onDeleteFromCart={props.onItemDeleteFromCart}
-          />
+          {React.cloneElement(props.children, {
+            item: item,
+            onAddToCart: props.onItemAddToCart,
+            onDeleteFromCart: props.onItemDeleteFromCart,
+          })}
         </div>
       ))}
     </div>
@@ -24,17 +23,14 @@ function List(props) {
 }
 
 List.propTypes = {
+  children: propTypes.node,
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemSelect: propTypes.func,
-  onItemDelete: propTypes.func,
   onItemAddToCart: propTypes.func,
   onItemDeleteFromCart: propTypes.func,
 };
 
 List.defaultProps = {
   items: [],
-  onItemSelect: () => {},
-  onItemDelete: () => {},
   onItemAddToCart: () => {},
   onItemDeleteFromCart: () => {},
 };

@@ -32,3 +32,4 @@ List.defaultProps = {
 }
 
 export default React.memo(List);
+// export default List;

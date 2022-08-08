@@ -48,27 +48,32 @@ class Store {
    * @param code
    */
   addToCart(code) {
-    let newCart = this.state.cart;
+    let newCart = Array.from(this.state.cart)
+    let newCartItem = {}
+    console.log('newCart')
+    console.log(newCart)
 
     this.state.items.map(item => {
       if (item.code === code) {
-        if (newCart.find(el => el.code == code)) {
-          newCart.find(el => el.code === code).quantity++
-        } else {
-          newCart = newCart.concat(item)
-          newCart.map(item => {
-            if (item.code === code) {
-              item.quantity = 1;
-            }
-          });
-          }
-        }
-        // console.log(this.state)
-        this.setState({
-          ...this.state,
-          cart: newCart
-        })
-      })
+        newCartItem = Object.assign(newCartItem, item)
+      }
+    })
+    console.log(`newCartItem ${newCartItem}`)
+
+    if (newCart.find(el => el.code == newCartItem.code)) {
+      newCart.find(el => el.code == newCartItem.code).quantity++
+    } else {
+      newCartItem.quantity = 1;
+      newCart = newCart.concat(newCartItem)
+      }
+
+
+    this.setState({
+      ...this.state,
+      cart: Array.from(newCart)
+    })
+    console.log('this.state.items')
+    console.log(this.state.items)
   }
 
   /**
@@ -76,35 +81,47 @@ class Store {
    * @param code
    */
   removeFromCart(code) {
-    let newCart = this.state.cart;
+    let newCart = Array.from(this.state.cart)
+    let deleteCartItem = {}
 
-    newCart.map(item => {
+    this.state.cart.map(item => {
       if (item.code === code) {
-        
-        if (item.quantity > 1) {
-          item.quantity -= 1
-        } else {
-          newCart = newCart.filter(item => item.code !== code)
-        }
+        deleteCartItem = Object.assign(deleteCartItem, item)
       }
+    })
+
+    if ((newCart.find(el => el.code == deleteCartItem.code)) && (deleteCartItem.quantity > 1)) {
+      newCart.find(el => el.code == deleteCartItem.code).quantity--
+    } else {
+      newCart = newCart.filter(item => item.code !== deleteCartItem.code)
+    }
+
+    // newCart.map(item => {
+    //   if (item.code === code) {
+        
+    //     if (item.quantity > 1) {
+    //       item.quantity -= 1
+    //     } else {
+    //       newCart = newCart.filter(item => item.code !== code)
+    //     }
+    //   }
 
       this.setState({
         ...this.state,
-        cart: newCart
+        cart: Array.from(newCart)
       })
-    })
-  }
+    }
+
 
   calculateCart() {
-    let quantity = 0, sum = 0
+    let sum = 0
     this.state.cart.map(item => {
-      quantity = quantity + item.quantity
       sum = sum + (item.quantity * item.price)
     })
-    if (quantity === 0) {
+    if (this.state.cart.length === 0) {
       return 'пусто'
     } else {
-      return `${quantity} ${plural(quantity, 'товар', 'товара', 'товаров')} / ${sum.toLocaleString('ru-RU')} ₽`
+      return `${this.state.cart.length} ${plural(this.state.cart.length, 'товар', 'товара', 'товаров')} / ${sum.toLocaleString('ru-RU')} ₽`
     }
   }
 

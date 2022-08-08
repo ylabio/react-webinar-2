@@ -24,6 +24,7 @@ function Item(props) {
         {props.item.price.toLocaleString('ru-RU')} ₽
       </div>
       <div className={props.item.quantity ? cn('quantity') : cn('quantity_hidden')}>
+        {console.log('Quantity')}
         {console.log(props.item)}
         {props.item.quantity} шт
       </div>
@@ -48,3 +49,4 @@ function Item(props) {
 // }
 
 export default React.memo(Item);
+// export default Item;

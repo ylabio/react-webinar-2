@@ -1,6 +1,5 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import Layout from '../layout';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import ListCart from '../list-cart';
@@ -10,18 +9,15 @@ function Modal(props) {
   return (
     <div className={cn('over')}>
         <div className={cn()}>
-        <Layout  head={
             <div className={cn('head')}>
                 <h1>Корзина</h1>
                 <button onClick={props.onCloseCart}>Закрыть</button>
             </div>
-        }>
             <ListCart 
                 itemsCart={props.itemsCart} 
                 sumPrices={props.sumPrices} 
                 onItemCartDelete={props.onItemCartDelete} 
             />
-        </Layout>
         </div>
     </div>
   )

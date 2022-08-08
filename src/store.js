@@ -45,13 +45,16 @@ class Store {
    * @param item {Object}
    */
   addItemToCart(item) {
+    const checkItemInCart = this.state.cart.items.find(element => element.code === item.code);
+
     this.setState({
       ...this.state,
       cart: {
         ... this.state.cart,
-        items: this.state.cart.items[item.code] ?
-          {...this.state.cart.items, [item.code]: {...item, amount: this.state.cart.items[item.code].amount + 1}} :
-          {...this.state.cart.items, [item.code]: {...item, amount: 1}},
+        items: checkItemInCart ?
+          this.state.cart.items.map(element => element.code === item.code ?
+            {...element, amount: element.amount + 1} : element) :
+          this.state.cart.items.concat({...item, amount: 1}),
         total: this.state.cart.total + item.price
       }
     });
@@ -62,14 +65,11 @@ class Store {
    * @param item {Object}
    */
   deleteItemFromCart(item) {
-    const newItemsList = {...this.state.cart.items};
-    delete newItemsList[item.code];
-
     this.setState({
       ...this.state,
       cart: {
         ...this.state.cart,
-        items: {...newItemsList},
+        items: this.state.cart.items.filter(element => element.code !== item.code),
         total: this.state.cart.total - (item.price * item.amount)
       }
     });

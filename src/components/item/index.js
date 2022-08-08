@@ -5,12 +5,6 @@ import './style.css';
 
 function Item({item, onButtonClick}) {
   const cn = bem('Item');
-  const formattedPrice = item.price.toLocaleString('ru-RU');
-  const formattedAmount = item.amount ? item.amount.toLocaleString('ru-RU') : null;
-  const buttonValues = {
-    main: 'Добавить',
-    cart: 'Удалить'
-  }
 
   const callbacks = {
     onButtonClick: useCallback(() => {
@@ -20,19 +14,11 @@ function Item({item, onButtonClick}) {
 
   return (
     <div className={cn()}>
-      <div className={cn('number')}>
-        {item.code}
-      </div>
-      <div className={cn('title')}>
-        {item.title}
-      </div>
-      <div className={cn('info')}>
-        {formattedPrice} &#8381; {item.amount ? <span className={cn('amount')}>{formattedAmount} шт</span> : ''}
-      </div>
+      <div className={cn('number')}>{item.code}</div>
+      <div className={cn('title')}>{item.title}</div>
+      <div className={cn('info')}>{item.price.toLocaleString('ru-RU')} &#8381;</div>
       <div className={cn('actions')}>
-        <button className={cn('button')} onClick={callbacks.onButtonClick}>
-          {item.amount ? buttonValues.cart : buttonValues.main}
-        </button>
+        <button className={cn('button')} onClick={callbacks.onButtonClick}>Добавить</button>
       </div>
     </div>
   )

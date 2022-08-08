@@ -28,6 +28,7 @@ function Modal(props) {
 
 Modal.propTypes = {
 	onToggleModal: propTypes.func,
+	head: propTypes.node,
 	children: propTypes.node
 }
 

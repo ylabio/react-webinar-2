@@ -1,0 +1,39 @@
+.Modal {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s;
+}
+.Modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.Modal-content {
+  overflow: hidden;
+  border-radius: 10px;
+  width: 960px;
+  min-height: 603px;
+  background-color: #fff;
+  position: relative;
+}
+
+.Modal-closeBtn {
+  width: 76px;
+  height: 21px;
+  font-family: 'Arial',sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
+  position: absolute;
+  top: 32px;
+  right: 31px;
+}

@@ -22,8 +22,7 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     background: #FFFFFF;
     border-radius: 10px;
-    overflow-x: hidden;
-    overflow-y: auto;
+   
 }
 .LayoutBasket.active{
     display: flex;

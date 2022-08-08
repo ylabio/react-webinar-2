@@ -28,11 +28,18 @@ function App({store}) {
     }, [])
   };
 
+  const total = store
+    .getState()
+    .shoppingCart.map(item => item.price * item.amount)
+    .reduce((acc, curr) => acc + curr, 0);
+
   return (
     <>
       <Layout head={<h1>Магазин</h1>}>
         <Controls
           onOpenCart={callbacks.onOpenCart}
+          total={total}
+          amount={store.getState().shoppingCart.length}
           cartItems={store.getState().shoppingCart}
         />
         <List
@@ -52,6 +59,7 @@ function App({store}) {
             <ShoppingCart
               cartItems={store.getState().shoppingCart}
               onRemoveItem={callbacks.onRemoveItemFromCart}
+              total={total}
             />
           </Layout>
         </Modal>

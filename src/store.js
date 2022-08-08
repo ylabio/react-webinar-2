@@ -66,11 +66,34 @@ class Store {
    */
 
   addItemToCart(code) {
-    const itemToAdd = this.state.items.find(item => item.code === code);
-    this.setState({
-      ...this.state,
-      shoppingCart: [...this.state.shoppingCart, itemToAdd]
-    });
+    const itemToAdd = this.state.items.find(item => item.code === code); // находим элемент для добавления
+    const itemAlreadyInTheCart = this.state.shoppingCart.find(
+      item => item.code === code
+    ); // есть ли уже такой в корзине?
+
+    if (itemAlreadyInTheCart) {
+      // если есть, то увеличиваем количество
+      const index = this.state.shoppingCart.indexOf(itemAlreadyInTheCart);
+      const amountNew = this.state.shoppingCart[index].amount + 1;
+      const itemCopy = {...this.state.shoppingCart[index], amount: amountNew};
+
+      this.setState({
+        ...this.state,
+        shoppingCart: this.state.shoppingCart.map(item => {
+          if (item.code === itemCopy.code) {
+            return itemCopy;
+          } else {
+            return item;
+          }
+        })
+      });
+    } else {
+      // если не, то добавляем поле amount со значением 1
+      this.setState({
+        ...this.state,
+        shoppingCart: [...this.state.shoppingCart, {...itemToAdd, amount: 1}]
+      });
+    }
   }
 
   /**

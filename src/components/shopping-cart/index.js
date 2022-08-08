@@ -5,21 +5,15 @@ import './style.css';
 import List from '../list';
 import {arrayToCart, currencySign as roubleSign} from '../../utils';
 
-function ShoppingCart({cartItems, onRemoveItem}) {
-  const resultSum = cartItems.length
-    ? cartItems.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
-    : 0;
-
-  const grouppedItemsWithAmount = arrayToCart(cartItems);
-
+function ShoppingCart({cartItems, onRemoveItem, total}) {
   const cn = bem('ShoppingCart');
   return (
     <div className={cn()}>
-      <List items={grouppedItemsWithAmount} onAction={onRemoveItem} cartItem />
+      <List items={cartItems} onAction={onRemoveItem} cartItem />
       <div className={cn('total')}>
         <span>Итого:</span>{' '}
         <span>
-          {resultSum} {roubleSign}{' '}
+          {total} {roubleSign}{' '}
         </span>
       </div>
     </div>
@@ -28,6 +22,7 @@ function ShoppingCart({cartItems, onRemoveItem}) {
 
 ShoppingCart.propTypes = {
   cartItems: propTypes.array,
+  total: propTypes.number,
   onRemoveItem: propTypes.func
 };
 

@@ -5,12 +5,8 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import {arrayToCart, currencySign as roubleSign} from '../../utils';
 
-function Controls({onOpenCart, cartItems}) {
-  const numberOfitems = arrayToCart(cartItems).length;
-  const itemPlural = plural(numberOfitems, 'товар', 'товара', 'товаров');
-  const resultSum = cartItems
-    .map(item => item.price)
-    .reduce((acc, curr) => acc + curr, 0);
+function Controls({total, amount, onOpenCart}) {
+  const itemPlural = plural(amount, 'товар', 'товара', 'товаров');
 
   const cn = bem('Controls');
   return (
@@ -18,8 +14,8 @@ function Controls({onOpenCart, cartItems}) {
       <p>
         В корзине:{' '}
         <span>
-          {numberOfitems
-            ? `${numberOfitems} ${itemPlural} / ${resultSum} ${roubleSign}`
+          {amount
+            ? `${amount} ${itemPlural} / ${total} ${roubleSign}`
             : `пусто`}
         </span>
       </p>
@@ -32,12 +28,12 @@ function Controls({onOpenCart, cartItems}) {
 
 Controls.propTypes = {
   onOpenCart: propTypes.func.isRequired,
-  cartItems: propTypes.array // Обяхательное свойство - функция
+  total: propTypes.number,
+  amount: propTypes.number
 };
 
 Controls.defaultProps = {
-  onOpenCart: () => {},
-  cartItems: [] // Значение по умолчанию - функция-заглушка
+  onOpenCart: () => {}
 };
 
 export default React.memo(Controls);

@@ -13,7 +13,6 @@ function List(props) {
         <div key={item.code} className={cn('item')}>
           <Item
             number={props.cartItem ? props.items.indexOf(item) + 1 : item.code}
-            items={props.items}
             item={item}
             onButtonClick={props.onAction}
             cartItem={props.cartItem}

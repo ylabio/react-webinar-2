@@ -32,10 +32,10 @@ function App({store}) {
    * Функции для возврата item-node для переиспользования компонента List
    * @param node
    */
-  function getMainPageItem(item){
+  const getMainPageItem = (item) => {
    return <Item item={item} onAdd={callbacks.onAddItems}/>
   }
-  function getBasketItem(item){
+  const getBasketItem = (item) => {
     return <BasketItem item={item} onDelete={callbacks.onDeleteBasketItems}/>
   }
 

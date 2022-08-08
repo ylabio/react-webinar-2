@@ -122,9 +122,7 @@ class Store {
 
   openModal(modal){
     const modalTypes = {...this.state.modalTypes};
-    console.log(modal)
     modalTypes[modal] = true
-    console.log(modalTypes)
     this.setState({
       ...this.state,
       modalTypes

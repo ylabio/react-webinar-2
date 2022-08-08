@@ -10,8 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  overflow-y: scroll;
-  padding: 60px 15px;
+  padding: 10px 15px;
 }
 
 .modalContent {

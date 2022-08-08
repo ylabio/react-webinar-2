@@ -1,0 +1,44 @@
+.BasketItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 61px;
+    border: 1px dashed #CCCCCC;
+    font-size: 18px;
+}
+
+.BasketItem_info {
+    display: flex;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.Basket_info_code {
+    margin-left: 18px;
+}
+
+.Basket_wrapper_info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.BasketItem_info p:nth-child(1) {
+    margin-right: 19px;
+}
+
+.Basket_info_price_amount {
+    display: flex;
+}
+
+.Basket_info_price_amount p {
+    text-align: end;
+}
+
+.Basket_info_price_amount p:nth-child(1) {
+    margin-right: 56px;
+}
+
+.Basket_bth_delete {
+    margin: 0px 20px 0px 23px;
+}

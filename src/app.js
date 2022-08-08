@@ -1,47 +1,69 @@
-import React from 'react';
-import { counter } from './utils.js';
-import './style.css';
-import plural from 'plural-ru'
+import React, { useCallback, useState } from 'react';
+import Controls from "./components/controls";
+import List from "./components/list";
+import Layout from "./components/layout";
+import { counter } from "./utils";
+import Basket from './components/basket';
+
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({ store }) {
-  // Выбор состояния из store
-  const { items } = store.getState();
+  const [active, setActive] = useState(false);
+  const callbacks = {
+    onAddBasket: useCallback((code, title, price) => {
 
+      store.addBasket({ code: code, title: title, price: price });
+
+    }, []),
+    onAmountProduct: useCallback(() => {
+      store.counterProduct()
+
+    }, []),
+    onAmountInBasket: useCallback((item) => {
+      store.amountInBasket(item)
+    }, []),
+    onPriceProduct: useCallback((price) => {
+      store.priceProduct(price)
+    }, []),
+    onSelectItems: useCallback((code) => {
+      store.selectItem(code);
+    }, []),
+    onDeleteItems: useCallback((code, amountInBasket, price) => {
+      store.deleteItem(code, amountInBasket, price);
+    }, []),
+
+  }
   return (
-    <div className='App'>
-      <div className='App__head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='Controls'>
-        <button onClick={() => {
-          const code = counter();
-          store.createItem({ code, title: `Новая запись ${code}` })
-        }}> Добавить </button>
-      </div>
-      <div className='App__center'>
-        <div className='List'>{items.map(item =>
-          <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-              onClick={() => store.selectItem(item.code)}>
-              <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title + (item.counterClick > 0 ? ` | Выделялось ${plural(item.counterClick, '%d раз', '%d раза', '%d раз')}` : '')}</div>
+    <>
+      <Basket
+        basket={store.getState().basket}
+        active={active}
+        setActive={setActive}
+        priceProduct={store.getState().priceProduct}
+        onDeleteItems={callbacks.onDeleteItems}
+      />
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls
+          setActive={setActive}
+          priceProduct={store.getState().priceProduct}
+          amountProduct={store.getState().amountProduct}
+        />
 
-              <div className='Item__actions'>
-                <button onClickCapture={() => store.deleteItem(item.code)}>
-                  Удалить
-                </button>
-              </div>
-
-            </div>
-          </div>
-        )}
-        </div>
-      </div>
-    </div>
+        <List
+          onAmountProduct={callbacks.onAmountProduct}
+          onPriceProduct={callbacks.onPriceProduct}
+          onAmountInBasket={callbacks.onAmountInBasket}
+          priceProduct={store.getState().priceProduct}
+          amountProduct={store.getState().amountProduct}
+          items={store.getState().items}
+          onAddBasket={callbacks.onAddBasket}
+          basket={store.getState().basket}
+        />
+      </Layout>
+    </>
   );
 }
 

@@ -1,25 +1,32 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './app.js';
 import Store from "./store.js";
-import {counter} from './utils.js';
+import { counter } from './utils.js';
 
 const store = new Store({
   items: [
-    {code: counter(), title: 'Название элемента',counterClick:0},
-    {code: counter(), title: 'Некий объект',counterClick:0},
-    {code: counter(), title: 'Заголовок',counterClick:0},
-    {code: counter(), title: 'Короткое название',counterClick:0},
-    {code: counter(), title: 'Запись',counterClick:0},
-    {code: counter(), title: 'Пример выделенной записи',counterClick:0},
-    {code: counter(), title: 'Седьмой',counterClick:0},
-  ]
+    { code: counter(), title: 'Название товара', price: 100.0, amountInBasket: 0 },
+    { code: counter(), title: 'Книга про React', price: 770, amountInBasket: 0 },
+    { code: counter(), title: 'Конфета', price: 33, amountInBasket: 0 },
+    { code: counter(), title: 'Трактор', price: 7955320, amountInBasket: 0 },
+    { code: counter(), title: 'Телефон iPhone XIXV', price: 120000, amountInBasket: 0 },
+    { code: counter(), title: 'Карандаши цветные', price: 111, amountInBasket: 0 },
+    { code: counter(), title: 'Товар сюрприз', price: 0, amountInBasket: 0 },
+  ],
+  basket: [
+
+  ],
+  priceProduct: 0,
+  amountProduct: 0,
 });
+
+const root = createRoot(document.getElementById('root'));
 
 // Реакция на изменение store - повторный рендер приложения
 store.subscribe(() => {
-  ReactDOM.render(<App store={store}/>, document.body);
+  root.render(<App store={store} />);
 });
 
 // Первый рендер (один раз)
-ReactDOM.render(<App store={store}/>, document.body);
+root.render(<App store={store} />);

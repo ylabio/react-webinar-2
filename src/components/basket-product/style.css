@@ -1,0 +1,24 @@
+.BasketProduct {
+    margin-top: 26px;
+}
+
+.Basket_product_wrapper_price {
+    width: 100%;
+    margin-top: 26px;
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.Basket_product_price {
+    margin-right: 109px;
+    margin-left: 49px;
+}
+
+.Baket_product_not {
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+}

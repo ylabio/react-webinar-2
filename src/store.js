@@ -4,7 +4,7 @@ class Store {
     // Состояние приложения (данные)
     this.state = initState;
     // Слушатели изменений state
-    this.listners = [];
+    this.listeners = [];
   }
 
   /**
@@ -22,8 +22,8 @@ class Store {
   setState(newState) {
     this.state = newState;
     // Оповещаем всех подписчиков об изменении стейта
-    for (const lister of this.listners) {
-      lister();
+    for (const listener of this.listeners) {
+      listener();
     }
   }
 
@@ -33,32 +33,75 @@ class Store {
    * @return {Function} Функция для отписки
    */
   subscribe(callback) {
-    this.listners.push(callback);
+    this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listners = this.listners.filter(item => item !== callback);
+      this.listeners = this.listeners.filter(item => item !== callback);
     }
   }
 
   /**
    * Создание записи
    */
-  createItem({ code, title = 'Новая запись', selected = false, counterClick = 0 }) {
+  addBasket({ code, title = 'Новый товар', price = 999, amountInBasket = 0 }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({ code, title, selected, counterClick })
+      basket: this.state.basket.concat({ code: code, title: title, price: price, amountInBasket: amountInBasket })
     });
-  }
 
+  }
   /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
+ * Счетчик товара в корзине
+ * @param code
+ */
+  amountInBasket(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      baket: this.state.basket.map(basketElement => {
+        if (basketElement.code === code) {
+          return {
+            ...basketElement,
+            amountInBasket: basketElement.amountInBasket += 1,
+          }
+        }
+        return {
+          ...basketElement,
+
+        }
+      })
+    })
+  }
+  /**
+   * Счетчик уникальных товаров в корзине
+   */
+  counterProduct() {
+    this.setState({
+      ...this.state,
+      amountProduct: this.state.amountProduct += 1
+    })
+  }
+  /**
+ * Счетчик полной цены за  все товары
+ * @param code
+ */
+  priceProduct(price) {
+    this.setState({
+      ...this.state,
+      priceProduct: this.state.priceProduct += price
+    })
+  }
+  /**
+   * Удаление товара  по её коду
+   * @param code,amountInBasket, price
+   */
+  deleteItem(code, amountInBasket, price) {
+    this.setState({
+      ...this.state,
+      basket: this.state.basket.filter(item => item.code !== code),
+      priceProduct: this.state.priceProduct -= (price * amountInBasket),
+      amountProduct: this.state.amountProduct -= 1,
     });
+
   }
 
   /**
@@ -66,20 +109,17 @@ class Store {
    * @param code
    */
   selectItem(code) {
-
     this.setState({
       ...this.state,
       items: this.state.items.map(item => {
-
-        if (item.code !== code) {
-          item.selected = false;
-        }
         if (item.code === code) {
-          item.selected = !item.selected;
-          item.selected === true ? item.counterClick++ : null
-
+          return {
+            ...item,
+            selected: !item.selected,
+            count: item.selected ? item.count : item.count + 1 || 1
+          }
         }
-        return item;
+        return item.selected ? { ...item, selected: false } : item;
       })
     });
   }

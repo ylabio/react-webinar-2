@@ -1,0 +1,40 @@
+.Modal{
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, .7);
+}
+.Modal_displayed{
+  display: block;
+}
+.Modal-container{
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 960px;
+  width: 100%;
+  max-height: 603px;
+  background: #fff;
+}
+.Modal-head{
+  height: 80px;
+  background: #f5f5f5;
+}
+.Modal-head h1 {
+  margin: 0;
+  padding: 20px 20px 10px;
+  display: inline-block;
+}
+.Modal-head button {
+  float: right;
+  margin: 30px 30px;
+}
+.Modal-content{
+  margin-top: 74px;
+}

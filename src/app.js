@@ -4,6 +4,7 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import {counter} from "./utils";
 import Cart from './components/cart';
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -11,7 +12,7 @@ import Cart from './components/cart';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
   const [cartState, setCartState] = useState({amount: 0, total: 0});
 
   const callbacks = {
@@ -29,8 +30,11 @@ function App({store}) {
       store.addToCart(code);
     }, []),
     onOpenCart: useCallback(() => {
-      setIsModalOpen(true);
-    })
+      setIsShowModal(true);
+    }, []),
+    onCloseModal: useCallback(() => {
+      setIsShowModal(false);
+    }, [])
   }
 
   useEffect(() => {
@@ -56,21 +60,23 @@ function App({store}) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls
-        onClick={callbacks.onOpenCart}
-        children={
-          (!!cartState.amount) && (
+      <Controls onClick={callbacks.onOpenCart}>
+          {(!!cartState.amount) && (
             <Cart
               amount={cartState.amount}
-              total={cartState.total} 
-          />)
-          }
-      />
+              total={cartState.total}
+            />)}
+        </Controls>
       <List items={store.getState().items}
             onItemSelect={callbacks.onSelectItems}
             onItemDelete={callbacks.onDeleteItems}
             onItemAddToCart={callbacks.onAddToCart}
       />
+      <Modal isShow={isShowModal}
+             onClose={callbacks.onCloseModal}
+             head={<h1>Корзина</h1>}>
+        <p>place for cart items</p>
+      </Modal>
     </Layout>
   );
 }

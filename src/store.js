@@ -58,9 +58,9 @@ class Store {
     } else {
       const item = { ...this.state.items.find((item) => item.code === code) };
       itemsPrice += item.price;
-      itemsAmount++;
-      item.amount = 1;
       itemsCodes.push(code);
+      item.amount = 1;
+      ++itemsAmount;
       items.push(item);
     }
 
@@ -82,7 +82,7 @@ class Store {
     this.setState({
       ...this.state,
       basket: {
-        itemsAmount: basket.itemsAmount - itemShouldDelete.amount,
+        itemsAmount: basket.itemsAmount - 1,
         itemsPrice:
           basket.itemsPrice - itemShouldDelete.price * itemShouldDelete.amount,
         itemsCodes: basket.itemsCodes.filter((item) => item !== code),

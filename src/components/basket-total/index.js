@@ -33,4 +33,4 @@ BasketTotal.defaultProps = {
   totalPrice: 0
 }
 
-export default BasketTotal;
+export default React.memo(BasketTotal);

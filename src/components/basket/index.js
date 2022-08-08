@@ -38,4 +38,4 @@ Basket.defaultProps = {
   deleteItem: () => {}
 }
 
-export default Basket;
+export default React.memo(Basket);

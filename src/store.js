@@ -66,14 +66,18 @@ class Store {
    * Удаление записи из корзины
    * @param code
    */
-  deleteItemsFromCart(code) {
-    const cartItems = {...this.state.cart.cartItems};
-    delete cartItems[code]
+  deleteItemsFromCart(item) {
+    const cartItems = {...this.state.cart.cartItems}; 
+
+    delete cartItems[item.code]
   
     this.setState({ 
       ...this.state,
-      cart:  {...this.state.cart, cartItems}   
-    });    
+      cart:  {...this.state.cart, 
+      cartItems: {...cartItems},
+      totalPrice: this.state.cart.totalPrice - (item.price * item.count),
+      totalQuantity: this.state.cart.totalQuantity - item.count}   
+    });
   }
 }
 

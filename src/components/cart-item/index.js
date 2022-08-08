@@ -20,7 +20,7 @@ function CartItem({ item, onDelete }) {
       <button
         className={cn('actions')}
         onClick={() => {
-          onDelete(item.code);
+          onDelete(item);
         }}
       >
         Удалить

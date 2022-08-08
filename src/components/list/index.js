@@ -15,6 +15,7 @@ function List(props) {
             item={item}
             onSelect={props.onItemSelect}
             onAddItemToCart={props.onAddItemToCart}
+            cartItem={props.cartItem}
           />
         </div>
       ))}

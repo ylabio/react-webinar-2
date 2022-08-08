@@ -1,12 +1,15 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import './style.css';
 import plural from 'plural-ru';
+import './style.css';
+import {currencySign as roubleSign} from '../../utils';
 
-function Controls({onAdd, cartItems}) {
+function Controls({onOpenCart, cartItems}) {
   const numberOfitems = cartItems.length;
   const itemPlural = plural(numberOfitems, 'товар', 'товара', 'товаров');
-  const roubleSign = `\u20BD`;
+  const resultSum = cartItems
+    .map(item => item.price)
+    .reduce((acc, curr) => acc + curr, 0);
 
   return (
     <div className="Controls">
@@ -14,11 +17,11 @@ function Controls({onAdd, cartItems}) {
         В корзине:{' '}
         <span>
           {numberOfitems
-            ? `${numberOfitems} ${itemPlural} / 223 ${roubleSign}`
+            ? `${numberOfitems} ${itemPlural} / ${resultSum} ${roubleSign}`
             : `пусто`}
         </span>
       </p>
-      <button onClick={onAdd}>Перейти</button>
+      <button onClick={onOpenCart}>Перейти</button>
     </div>
   );
 }

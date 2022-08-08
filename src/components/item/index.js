@@ -25,6 +25,9 @@ function Item(props) {
     <div className={cn({selected: props.item.selected})}>
       <div className={cn('number')}>{props.item.code}</div>
       <div className={cn('title')}>{props.item.title}</div>
+      {props.cartItem && (
+        <div className={cn('amount')}>{props.item.amount} шт</div>
+      )}
       <div className={cn('actions')}>
         <button onClick={callbacks.onClick}>
           {props.cartItem ? 'Удалить' : 'Добавить'}

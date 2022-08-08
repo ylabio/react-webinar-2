@@ -27,11 +27,19 @@ function App({store}) {
           <div key={item.code} className='List__item'>
             <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                  onClick={() => store.selectItem(item.code)}>
+              
+              <div className='Item__infoGroup'>
               <div className='Item__number'>{item.code}</div>
               <div className='Item__title'>{item.title}</div>
               
-              {!!item.touched && <div className='Item__title'> | Выбрано {item.touched} раз</div> }
-              
+              {!!item.touched && 
+                <div className='Item__touched'> | Выделялось  {item.touched} 
+                  {(item.touched % 10 === 2 || item.touched % 10 === 3 || item.touched % 10 === 4) 
+                  ? ' раза'
+                  : ' раз'}
+                </div>
+              }
+              </div>
 
               <div className='Item__actions'>
                 <button onClick={() => store.deleteItem(item.code)}>

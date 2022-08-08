@@ -1,7 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import store from "../../store";
 import './style.css';
 
 function Item(props) {
@@ -16,19 +15,19 @@ function Item(props) {
         //   }
         // }, [props.onSelect, props.item, setCount, count]),
         //
-        onDelete: useCallback((e) => {
-          e.stopPropagation();
-          props.onDelete(props.item.code)
-        }, [props.onDelete,  props.item]),
+        // onDelete: useCallback((e) => {
+        //   e.stopPropagation();
+        //   props.onDelete(props.item.code)
+        // }, [props.onDelete,  props.item]),
 
-        addToCart: useCallback(() => {
-            console.log('addToCart', props.item.code, props.item.price);
-        }, [props.addToCart(), props.item])
 
+        onAddToCart: useCallback(() => {
+            props.onAddToCart(props.item.code);
+        }, [props.onAddToCart, props.item])
     };
 
     return (
-        <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
+        <div className={cn({'selected': props.item.selected})}>
             <div className={cn('number')}>
                 {props.item.code}
             </div>
@@ -39,7 +38,7 @@ function Item(props) {
                 {props.item.price}
             </div>
             <div className={cn('actions')}>
-                <button onClick={callbacks.addToCart}>
+                <button onClick={callbacks.onAddToCart}>
                     Добавить
                 </button>
             </div>
@@ -49,13 +48,14 @@ function Item(props) {
 
 Item.propTypes = {
     item: propTypes.object.isRequired,
-    addToCart: propTypes.func.isRequired,
+    onTest: propTypes.func.isRequired,
+    onAddToCart: propTypes.func.isRequired,
     // onSelect: propTypes.func.isRequired,
     // onDeleted: propTypes.func.isRequired
 }
 
 Item.defaultProps = {
-    addToCart: () => {}
+    onAddToCart: () => {},
     // onSelect: () => {},
     // onDeleted: () => {}
 }

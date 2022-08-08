@@ -1,8 +1,8 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+import numberFormat from "../../utils/numberFormat";
 import './style.css';
-import {numberFormat} from "../../utils";
 
 function Item(props) {
   const cn = bem('Item');

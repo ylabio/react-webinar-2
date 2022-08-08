@@ -1,0 +1,24 @@
+###
+# Список товаров
+
+GET http://example.front.ylab.io/api/v1/articles
+
+###
+# Список с пагинацией
+
+GET http://example.front.ylab.io/api/v1/articles?limit=20&offset=10
+
+###
+# Список с пагинацией и возвратом общего количества
+
+GET http://example.front.ylab.io/api/v1/articles?limit=20&offset=10&fields=items(*),count
+
+###
+# Товар по id
+
+GET http://example.front.ylab.io/api/v1/articles/5ecba930b6b0b01fd3dd35de
+
+###
+# Товар по id с кучей свойств
+
+GET http://example.front.ylab.io/api/v1/articles/5ecba930b6b0b01fd3dd35de?fields=*,maidIn(title,code),category(title)

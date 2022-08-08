@@ -1,4 +1,4 @@
-import {counter} from "../../utils";
+import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**

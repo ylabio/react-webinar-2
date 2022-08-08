@@ -1,29 +1,46 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import propTypes from "prop-types";
 
-function Footer({countAndSum}){
+function Footer({countAndSumCart}){
   const cn = bem('Footer');
 
+  const cb = {
+    showSum: useCallback(() => {
+      const Sum = countAndSumCart();
+      return Sum.sum;
+    }, []),
+    showCount: useCallback(() => {
+      const Count = countAndSumCart();
+      return Count.count;
+    }, []),
+  };
+
   return (
-    <div className={cn()}>
-      <div className={cn('text')}>
-        Итого:
-      </div>
-      <div className={cn('sum')}>
-        {countAndSum.sum} ₽
-      </div>
-    </div>
+    <>
+      {
+        cb.showCount()
+          ? <div className={cn()}>
+              <div className={cn('text')}>
+                Итого:
+              </div>
+              <div className={cn('sum')}>
+                {cb.showSum().toLocaleString('ru-RU')} ₽
+              </div>
+            </div>
+            : ''
+      }
+    </>
   )
 }
 
 Footer.propTypes = {
-  countAndSum: propTypes.object,
+  countAndSumCart: propTypes.func.isRequired,
 }
 
 Footer.defaultProps = {
-  countAndSum: {},
+  countAndSumCart: () => {},
 }
 
 export default React.memo(Footer);

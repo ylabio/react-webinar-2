@@ -13,9 +13,7 @@ function List(props) {
         <Item item={item}
               index={index}
               onBtnItems={props.onBtn}
-              getAllCount={props.getAllCounts}
               btn={props.btn}
-              showCountItem={props.showCountItem}
         />
       </div>
     )}
@@ -27,16 +25,12 @@ List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
   btn: propTypes.string,
   onBtn: propTypes.func.isRequired,
-  showCountItem: propTypes.bool,
-  getAllCounts: propTypes.func.isRequired,
 }
 
 List.defaultProps = {
   items: [],
   btn: '',
-  showCountItem: false,
   onBtn: () => {},
-  getAllCounts: () => {},
 }
 
 export default React.memo(List);

@@ -4,47 +4,50 @@ import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import plural from 'plural-ru';
 
-function Controls({changePopup, children, countAndSum, showCountAndSum}){
+function Controls({openPopup, countAndSumCart}){
   const cn = bem('Controls');
 
-  const callbacks = {
-    changedPopup: useCallback((e) => {
+  const cb = {
+    openPopup: useCallback((e) => {
       e.stopPropagation();
-      changePopup();
-    }, [])
+      openPopup(true);
+    }, []),
+    showSum: useCallback(() => {
+      const Cart = countAndSumCart();
+      return Cart.sum;
+    }, []),
+    showCount: useCallback(() => {
+      const Cart = countAndSumCart();
+      return Cart.count;
+    }, []),
   };
 
   return (
     <div className={cn()}>
-      {
-        showCountAndSum &&
         <div className={cn('information')}>
           <div className={cn('text')}>
             В корзине:
           </div>
           <div className={cn('calc')}>
-            {countAndSum.count
-              ? ` ${countAndSum.count} ${plural(countAndSum.count, 'товар', 'товара', 'товаров')} / ${countAndSum.sum} ₽`
+            {cb.showCount()
+              ? ` ${cb.showCount()} ${plural(cb.showCount(), 'товар', 'товара', 'товаров')} 
+                / ${cb.showSum().toLocaleString('ru-RU')} ₽`
               : ' пусто'}
           </div>
         </div>
-      }
-      <button onClick={callbacks.changedPopup}>{children}</button>
+      <button onClick={cb.openPopup}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  changePopup: propTypes.func.isRequired,
-  children: propTypes.node,
-  countAndSum: propTypes.object,
-  showCountAndSum: propTypes.bool,
+  openPopup: propTypes.func.isRequired,
+  countAndSumCart: propTypes.func.isRequired,
 }
 
 Controls.defaultProps = {
-  changePopup: () => {},
-  countAndSum: {},
-  showCountAndSum: false
+  openPopup: () => {},
+  countAndSumCart: () => {},
 }
 
 export default React.memo(Controls);

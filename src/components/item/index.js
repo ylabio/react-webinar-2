@@ -10,8 +10,7 @@ function Item(props) {
     onBtnItem: useCallback((e) => {
       e.stopPropagation();
       props.onBtnItems(props.item);
-      props.getAllCount(props.item.code);
-    }, [props.onBtnItems, props.getAllCount, props.item])
+    }, [props.onBtnItems, props.item])
   };
 
   return (
@@ -23,13 +22,14 @@ function Item(props) {
         {props.item.title}
       </div>
       <div className={cn('price')}>
-        {props.item.price} ₽
+        {props.item.price.toLocaleString('ru-RU')} ₽
       </div>
       {
-        props.showCountItem &&
-        <div className={cn('count')}>
-          {props.item.count && props.item.count + ' шт'}
-        </div>
+        typeof props.item.count !== 'undefined'
+        ? <div className={cn('count')}>
+            {props.item.count && props.item.count + ' шт'}
+          </div>
+        : ''
       }
       <div className={cn('actions')}>
         <button onClick={callbacks.onBtnItem}>
@@ -44,18 +44,14 @@ Item.propTypes = {
   item: propTypes.object.isRequired,
   index: propTypes.number,
   btn: propTypes.string,
-  showCountItem: propTypes.bool,
   onBtnItems: propTypes.func.isRequired,
-  getAllCount: propTypes.func.isRequired,
 }
 
 Item.defaultProps = {
   item: {},
   index: 0,
   btn: '',
-  showCountItem: false,
   onBtnItems: () => {},
-  getAllCount: () => {},
 }
 
 export default React.memo(Item);

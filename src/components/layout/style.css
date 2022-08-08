@@ -23,15 +23,10 @@ body{
     margin: 0;
     padding: 20px 20px 10px;
 }
-.Popup .Layout{
-    box-shadow: none;
-    min-height: auto;
+
+.Layout-content{
+    padding-bottom: 85px;
 }
-.Popup .Layout-content{
-    padding-top: 74px;
-}
-.Layout-head .Controls {
-    padding: 31px 32px 28px;
-}
+
 
 

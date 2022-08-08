@@ -73,13 +73,15 @@ class Store {
    * Получение количества и суммы для корзины
    */
 
-  getCountAndSumCart() {
+  calcCountAndSumCart(cart) {
     let sum = 0;
     let count = 0;
-    this.getState().cart.map(item => {
+
+    cart.map(item => {
       sum += item.count * item.price;
       count += 1;
       })
+
     return {sum, count};
   }
 

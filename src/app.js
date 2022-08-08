@@ -14,7 +14,7 @@ function App({store}) {
 
   let [isCartOpen, setIsCartOpen] = useState(false);
 
-  let {totalCartPrice, cart} = store.getState();
+  let {totalCartPrice, totalCartItemsCount, cart} = store.getState();
 
   const callbacks = {
     onAdd: useCallback(() => {
@@ -33,8 +33,9 @@ function App({store}) {
     <>
     {isCartOpen ? <Cart cart={cart} totalCartPrice={totalCartPrice} onCartClose={() => setIsCartOpen(false)} onDeleteItemFromCart={callbacks.onDeleteItemFromCart} /> : <></>}
     <Layout head={<h1>Магазин</h1>}>
-      <Controls cart={cart}
+      <Controls
              totalCartPrice={totalCartPrice}
+             totalCartItemsCount={totalCartItemsCount}
              onCartOpen={() => setIsCartOpen(true)}
              />
       <List items={store.getState().items}

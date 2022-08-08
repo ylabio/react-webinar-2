@@ -3,37 +3,36 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function Item({item, number, children}) {
+function Item({item, buttonAction}) {
   const cn = bem('Item');
 
   return (
     <div className={cn()}>
       <div className={cn('number')}>
-        {number !== undefined ?
-        number :
-        item.code}
+        {item.code}
       </div>
       <div className={cn('title')}>
         {item.title}
       </div>
       <div className={cn('price')}>
-        {item.price} ₽
+        {item.price.toLocaleString("ru-RU")} ₽
       </div>
-      {item.count !== undefined ?
-      <div className={cn('count')}>
-        {item.count} шт
-      </div>
-      :
-      <></>}
       <div className={cn('actions')}>
-        {children}
+          <button onClick={() => buttonAction(item)}>
+            Добавить
+          </button>
       </div>
     </div>
   )
 }
 
 Item.propTypes = {
-  item: propTypes.object.isRequired,
+  item: propTypes.object,
+  buttonAction: propTypes.func
+}
+
+Item.defaultProps = {
+  item: {}
 }
 
 export default React.memo(Item);

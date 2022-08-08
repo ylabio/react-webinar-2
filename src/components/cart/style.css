@@ -9,34 +9,6 @@
     justify-content: center;
     font-family: sans-serif;
 }
-
-.Cart-wrapper{
-    min-width: 960px;
-    min-height: 604px;
-    border-radius: 5px;
-    background: #fff;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-}
-.Cart-head{
-    height: 80px;
-    display: flex;
-    box-sizing: border-box;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 32px 23px 20px;
-    border-radius: inherit;
-    background: #f5f5f5;
-}
-.Cart-head h1 {
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 37px;
-    color: #000000;
-}
-.Cart-head button{
-    font-size: 13px;
-    line-height: 15px;
-}
 .Cart-total{
     padding-top: 26px;
     padding-right: 108px;

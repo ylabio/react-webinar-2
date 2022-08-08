@@ -1,18 +1,17 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import plural from "plural-ru";
 import './style.css';
 
-function Controls({cart, totalCartPrice, onCartOpen}){
-  let cn = bem("Controls")
-  let itemsInCartCount = useMemo(() => Object.keys(cart).length , [cart]);
+function Controls({totalCartPrice, totalCartItemsCount, onCartOpen}){
+  let cn = bem("Controls");
   return (
     <div className={cn()}>
       <span className={cn("cart")}>
         В корзине: <span className={cn("cart-count")}>
-          {itemsInCartCount >= 1 ?
-          `${plural(itemsInCartCount, "%d товар", "%d товара", "%d товаров")} / ${totalCartPrice} ₽`
+          {totalCartItemsCount >= 1 ?
+          `${plural(totalCartItemsCount, "%d товар", "%d товара", "%d товаров")} / ${totalCartPrice.toLocaleString("ru-RU")} ₽`
           :
           "пусто"
           }
@@ -24,15 +23,15 @@ function Controls({cart, totalCartPrice, onCartOpen}){
 }
 
 Controls.propTypes = {
-  cart: propTypes.array.isRequired, // Обязательное свойство - корзина
-  totalCartPrice: propTypes.number.isRequired, // Обязательное свойство - общая цена корзины
-  onCartOpen: propTypes.func.isRequired // Обязательное свойство - функция
+  totalCartPrice: propTypes.number,
+  totalCartItemsCount: propTypes.number,
+  onCartOpen: propTypes.func
 }
 
 Controls.defaultProps = {
-  cart: [], // Значение по умолчанию - пустая корзина
-  totalCartPrice: 0, // Значение по умолчанию - цена корзины при отсутсвии в ней товаров
-  onCartOpen: () => {} // Значение по умолчанию - функция-заглушка
+  totalCartPrice: 0,
+  totalCartItemsCount: 0,
+  onCartOpen: () => {}
 }
 
 export default React.memo(Controls);

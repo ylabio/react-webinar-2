@@ -25,9 +25,11 @@
 .Item-price{
     font-size: 18px;
     white-space: nowrap;
+    text-align: right;
 }
 .Item-count{
-    margin-left: 55.25px;
+    flex: 0 0 9%;
     font-size: 18px;
     white-space: nowrap;
+    text-align: right;
 }

@@ -82,51 +82,31 @@ class Store {
   }
   /**
    * Добавление товара в корзину
-   * @param code
+   * @param item
    */
   addItemToCart(item) {
     let newCart = [...this.state.cart];
-    if(newCart.length >= 1) {
-      for(let i = 0; i < newCart.length; i++) {
-        if(newCart[i].code === item.code) {
-          newCart[i].count++;
-          break;
-        } else {
-          if(i === this.state.cart.length - 1) {
-            item.count = 1;
-            newCart.push(item);
-            break;
-          }
-        }
-      }
-    } else {
-      newCart.push({...item, count: 1});
-    }
+    let itemIndex = this.state.cart.findIndex((elem) => elem.code === item.code);
+    if(itemIndex !== -1) {
+      newCart[itemIndex].count++;
+    } else newCart.push({...item, count: 1});
     this.setState({
       ...this.state,
       cart: newCart,
       totalCartPrice: this.state.totalCartPrice + item.price,
+      totalCartItemsCount: this.state.totalCartItemsCount + (itemIndex === -1 ? 1 : 0),
     });
   }
   /**
    * Удаление товара из корзины
-   * @param code
+   * @param item
    */
    deleteItemFromCart(item) {
-    let newCart = [];
-    for(let i = 0; i < this.state.cart.length; i++) {
-      if(this.state.cart[i].code === item.code) {
-        if(this.state.cart[i].count > 1) {
-          newCart.push({...this.state.cart[i], count: this.state.cart[i].count - 1})
-        }
-      } else {
-        newCart.push(this.state.cart[i])
-      }
-    }
     this.setState({
       ...this.state,
-      cart: newCart,
-      totalCartPrice: this.state.totalCartPrice - item.price,
+      cart: this.state.cart.filter((cartItem) => cartItem.code !== item.code),
+      totalCartPrice: this.state.totalCartPrice - (item.price * item.count),
+      totalCartItemsCount: this.state.totalCartItemsCount - 1,
     })
   }
 }

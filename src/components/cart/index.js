@@ -1,34 +1,26 @@
-import React, { useCallback } from "react"
+import React from "react";
 import {cn as bem} from "@bem-react/classname";
-import propTypes from "prop-types"
+import propTypes from "prop-types";
 import List from "../list";
-import "./style.css"
+import "./style.css";
+import Modal from "../modal";
 
 let Cart = ({cart, totalCartPrice, onCartClose, onDeleteItemFromCart}) => {
     let cn = bem("Cart");
-    let callbacks = {
-        onClose: useCallback((e) => {
-            e.stopPropagation();
-            onCartClose()
-        }, [onCartClose])
-    }
+
     return (
     <div className={cn()}>
-        <div className={cn("wrapper")}>
-            <div className={cn('head')}>
-                <h1>Корзина</h1>
-                <button onClick={callbacks.onClose}>Закрыть</button>
+        <Modal head={"Корзина"} callback={onCartClose}>
+            <div className={cn("list")}>
+                <List items={cart} itemFunc={onDeleteItemFromCart} isInCart={true} />
             </div>
-        <div className={cn("list")}>
-            <List items={cart} itemFunc={onDeleteItemFromCart} isInCart={true} />
-        </div>
-        {
-        totalCartPrice > 0 ?
-        <div className={cn("total")}><span>Итого</span> {totalCartPrice} ₽</div>
-        :
-        <></>
-        }
-        </div>
+            {
+            cart.length > 0 ?
+            <div className={cn("total")}><span>Итого</span> {totalCartPrice.toLocaleString("ru-RU")} ₽</div>
+            :
+            <></>
+            }
+        </Modal>
     </div>
     )
 }
@@ -42,7 +34,7 @@ Cart.propTypes = {
 
 Cart.defaultProps = {
     cart: {},
-    totalCartPrice: 0,
+    totalCartPrice: undefined,
     onCartClose: () => {},
     onDeleteItemFromCart: () => {},
 }

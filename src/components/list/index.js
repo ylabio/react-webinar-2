@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import Item from "../item";
 import './style.css';
+import CartItem from '../cartItem';
 
 function List({items, itemFunc, isInCart}) {
   const cn = bem('List');
@@ -17,17 +18,9 @@ function List({items, itemFunc, isInCart}) {
     <div className={cn()}>{items.map((item, index) =>
       <div key={item.code} className={cn('item')}>
         {isInCart === true ?
-        <Item item={item} number={index + 1}>
-          <button onClick={() => callbacks.onButtonClick(item)}>
-            Удалить
-          </button>
-        </Item>
+        <CartItem item={item} number={index + 1} buttonAction={callbacks.onButtonClick} />
         :
-        <Item item={item}>
-          <button onClick={() => callbacks.onButtonClick(item)}>
-            Добавить
-          </button>
-        </Item>}
+        <Item item={item} buttonAction={callbacks.onButtonClick} />}
       </div>
     )}
     </div>
@@ -35,7 +28,7 @@ function List({items, itemFunc, isInCart}) {
 }
 
 List.propTypes = {
-  items: propTypes.arrayOf(propTypes.object).isRequired,
+  items: propTypes.array,
   itemFunc: propTypes.func,
   isInCart: propTypes.bool,
 }

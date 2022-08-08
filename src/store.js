@@ -40,17 +40,7 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price})
-    });
-  }
-
-  /**
+   /**
    * Удаление записи по её коду
    * @param code
    */

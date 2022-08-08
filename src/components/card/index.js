@@ -13,8 +13,7 @@ function Card(props){
   
   for (let i in props.card) {
     list.push(
-      <CardItem key={i} 
-                counter={i}
+      <CardItem key={i}
                 item={props.card[i]} 
                 onDelete={props.onItemDelete}
       />

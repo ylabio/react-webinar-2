@@ -16,7 +16,7 @@ function CardItem(props) {
   return (
     <div className={cn()}>
       <div className={cn('number')}>
-        {Number(props.counter)+1}
+        {props.item.code}
       </div>
       <div className={cn('title')}>
         <span>{props.item.title}</span>
@@ -35,14 +35,12 @@ function CardItem(props) {
 }
 
 CardItem.propTypes = {
-  counter: propTypes.string.isRequired,
   item: propTypes.object.isRequired,
   onDelete: propTypes.func.isRequired,
   count: propTypes.number.isRequired
 }
 
 CardItem.defaultProps = {
-  counter: 0,
   item: {},
   onDelete: () => {},
   count: 0

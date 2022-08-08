@@ -11,7 +11,7 @@ function List(props) {
     <div className={cn()}>{props.items.map(item =>
       <div key={item.code} className={cn('item')}>
         {/* Убрал onSelect */}
-        {<Item item={item} reUse={props.reUse ? props.reUse : false} onAddBasket={props.onAddBasket} onDelete={props.onItemDelete} />}
+        {<Item item={item} reUse={props.reUse} onAddBasket={props.onAddBasket} onDelete={props.onItemDelete} />}
       </div>
     )}
     </div>

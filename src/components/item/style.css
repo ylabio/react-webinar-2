@@ -25,8 +25,5 @@
 .Item-price {
     align-self: center;
     padding-right: 20px;
-}
-
-.Item-price:after {
-    content: "₽";
+    white-space: nowrap;
 }

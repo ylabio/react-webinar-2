@@ -1,0 +1,26 @@
+.Popup {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.Popup-inner {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    width: 65%; /* Could be more or less, depending on screen size */
+}
+
+.Popup-header {
+    display: flex;
+    align-items: center;
+    background-color: #F5F5F5;
+    padding: 25px;
+}
+
+.Popup-header-btn {
+    margin-left: auto;
+}

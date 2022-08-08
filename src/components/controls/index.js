@@ -11,10 +11,10 @@ function Controls(props) {
     return (
         <div className={cn('')}>
             <div className={cn('info')}>
-                <p>В корзине: <b>{cartTotal > 0 ? `${plural(cartItems, '%d товар', '%d товара', '%d товаров')} / ${cartTotal}` : "Пусто"}</b></p>
+                <p>В корзине: <b>{cartItems > 0 ? `${plural(cartItems, '%d товар', '%d товара', '%d товаров')} / ${cartTotal} ₽` : "Пусто"}</b></p>
             </div>
             <div>
-                <button>Перейти</button>
+                <button onClick={() => props.setButtonPopup(true)}>Перейти</button>
             </div>
         </div>
     )
@@ -24,6 +24,8 @@ Controls.propTypes = {
     cart: propTypes.arrayOf(propTypes.object).isRequired,
 }
 
-Controls.defaultProps = {}
+Controls.defaultProps = {
+    cart: [],
+}
 
 export default React.memo(Controls);

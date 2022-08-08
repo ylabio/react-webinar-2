@@ -1,7 +1,8 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
+import Popup from "./components/popup";
 import {counter} from "./utils";
 
 /**
@@ -10,7 +11,7 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-
+    const [buttonPopup, setButtonPopup] = useState(false);
     const callbacks = {
         onAddToCart: useCallback((code) => {
             store.addToCart(code);
@@ -20,11 +21,14 @@ function App({store}) {
 
     return (
         <Layout head={<h1>Приложение на чистом JS</h1>}>
-            {/*TODO: change onAdd to showCart*/}
             <Controls cart={store.getState().cart}
+                      setButtonPopup={setButtonPopup}
             />
             <List items={store.getState().items}
                   onAddToCart={callbacks.onAddToCart}
+            />
+            <Popup isOpened = {buttonPopup}
+                   setButtonPopup={setButtonPopup}
             />
         </Layout>
     );

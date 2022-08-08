@@ -12,10 +12,7 @@ function Controls({onOpenPanel, cartList}){
     if (cartList === undefined || cartList.length === 0) {
       return 0;
     }
-    let orderCount = 0
-    cartList.map((item) => {
-      orderCount += item.count
-    })
+    let orderCount = cartList.length;
     return orderCount
   }
 

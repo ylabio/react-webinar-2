@@ -10,7 +10,7 @@
   justify-content: center;
 }
 
-@media (max-height: calc(748px + 80px)) {
+@media (max-height: calc(788px + 80px)) {
   .ModalLayout {
     overflow-y: auto;
     align-items: flex-start;

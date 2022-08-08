@@ -10,9 +10,10 @@
   margin: 40px 0;
 }
 
-@media (max-height: calc(748px + 80px)) {
+@media (max-height: calc(788px + 80px)) {
   .CartDump {
     width: calc(100% - 40px - 16px);
+   
   }
 }
 
@@ -29,10 +30,7 @@
 }
 
 .CartDump-goods {
-  /* overflow-y: auto;
-  max-height: calc(62.3vh); */
   padding-bottom: 148px;
-  margin: -20px 0;
 }
 
 .CartDump-goods_open {

@@ -5,7 +5,7 @@ import './style.css';
 import {currencySign} from '../../utils';
 
 function Item(props) {
-  const cn = bem('Item');
+  const sequenceNumberInCart = props.items.indexOf(props.item) + 1;
 
   const callbacks = {
     onClick: useCallback(() => {
@@ -13,9 +13,12 @@ function Item(props) {
     }, [props.onButtonClick, props.item])
   };
 
+  const cn = bem('Item');
   return (
     <div className={cn({selected: props.item.selected})}>
-      <div className={cn('number')}>{props.item.code}</div>
+      <div className={cn('number')}>
+        {props.cartItem ? sequenceNumberInCart : props.item.code}
+      </div>
       <div className={cn('title')}>{props.item.title}</div>
       <div className={cn('price')}>
         {props.item.price.toLocaleString()} {currencySign}
@@ -35,6 +38,7 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
+  items: propTypes.array,
   onClick: propTypes.func,
   cartItem: propTypes.bool
 };

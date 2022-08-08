@@ -1,7 +1,7 @@
 import React from "react";
 import propTypes from "prop-types";
 
-export function Button(props) {
+function Button(props) {
   return (
     <button className={props.class} onClick={props.onClick}>
       {props.text}
@@ -20,3 +20,5 @@ Button.defaultProps = {
   onClick: () => {}, // Значение по умолчанию - функция-заглушка
   text: "",
 };
+
+export default React.memo(Button);

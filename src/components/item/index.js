@@ -2,11 +2,10 @@ import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
-import { Button } from "../button";
+import Button from '../button';
 
 function Item(props) {
   const cn = bem('Item');
-  console.log(props);
 
   const callbacks = {
     onClick: useCallback(

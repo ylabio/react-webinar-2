@@ -1,9 +1,9 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
-import { Button } from '../button';
+import Button from '../button';
 import { calcSumm, declOfNum } from '../../utils';
-import { Cart } from '../cart';
+import Cart from '../cart'
 
 function Controls({ cartItems, showCart, onShowCart, deleteItemToCart }) {
   let quantity = calcSumm(cartItems, 'quantity');
@@ -17,7 +17,7 @@ function Controls({ cartItems, showCart, onShowCart, deleteItemToCart }) {
         ? ( <span className="cart-text">пусто</span>)
         : (<div className="cart-text">
             {unicalCount} {declOfNum(unicalCount, ["товар", "товара", "товаров"])} /{" "}
-            <span>{calcSumm(cartItems, "price").toLocaleString()}&nbsp;₽</span>
+            <span>{calcSumm(cartItems, "price")}&nbsp;₽</span>
           </div>)}
       </div>
       {showCart && (

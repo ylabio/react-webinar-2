@@ -29,7 +29,7 @@ export function calcSumm(array, arg) {
     array.map((el) => {
       summ += el.price * el.quantity;
     });
-    return summ;
+    return summ.toLocaleString();
   }
   if (arg === "quantity") {
     let quantity = 0;

@@ -1,12 +1,12 @@
 import React from "react";
 import propTypes from "prop-types";
-import { CartHead } from "../cart-head";
-import { CartTotal } from "../cart-total";
+import CartHead from "../cart-head";
+import CartTotal from "../cart-total"
 import Layout from "../layout";
 import List from "../list";
 import "./style.css";
 
-export function Cart({ cartItems, onShowCart, deleteItemToCart }) {
+function Cart({ cartItems, onShowCart, deleteItemToCart }) {
   return (
     <div className="modalBackground">
       <div className="modalWindow">
@@ -30,3 +30,5 @@ Cart.defaultProps = {
   onShowCart: () => {}, // Значение по умолчанию - функция-заглушка
   deleteItemToCart: () => {},
 };
+
+export default React.memo(Cart);

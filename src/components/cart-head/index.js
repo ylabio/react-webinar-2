@@ -1,9 +1,9 @@
 import React from "react";
 import propTypes from "prop-types";
-import { Button } from "../button";
+import Button from "../button";
 import "./style.css";
 
-export function CartHead({ onClick }) {
+function CartHead({ onClick }) {
   return (
     <>
       <h1>Корзина</h1>
@@ -19,3 +19,5 @@ CartHead.propTypes = {
 CartHead.defaultProps = {
   onClick: () => {}, // Значение по умолчанию - функция-заглушка
 };
+
+export default React.memo(CartHead);

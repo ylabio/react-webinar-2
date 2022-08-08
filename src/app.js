@@ -69,7 +69,6 @@ function App({store}) {
         />
       </Controls>
       <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
             onItemDelete={callbacks.onDeleteItems}
             onItemAddToCart={callbacks.onAddToCart}
       />
@@ -79,7 +78,6 @@ function App({store}) {
         <List items={store.getState().cart}
               isCart
               total={cartState.total}
-              onItemSelect={callbacks.onSelectItems}
               onItemDelete={callbacks.onRemoveFromCart}
         />
       </Modal>

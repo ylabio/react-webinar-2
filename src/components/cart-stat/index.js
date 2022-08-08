@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { cn as bem } from "@bem-react/classname";
 import { get_cart_total_values } from "../../utils.js";
 import plural from "plural-ru";
@@ -13,14 +13,22 @@ function CartStat(props) {
     stat = `${total_quantity} ${noun_form} / ${total_price} ₽`;
   }
 
-  const cn = bem("CardStat");
+  const callbacks = {
+    onClick: useCallback(() => {
+      props.onOpenCart();
+    }),
+  };
+
+  const cn = bem("CartStat");
 
   return (
     <div className={cn()}>
       <span className={cn("label")}>
         В корзине: <span>{stat}</span>
       </span>
-      <button className="justify-button">Перейти</button>
+      <button className="justify-button" onClick={callbacks.onClick}>
+        Перейти
+      </button>
     </div>
   );
 }

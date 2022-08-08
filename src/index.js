@@ -14,15 +14,8 @@ const store = new Store({
     { code: counter(), title: "Карандаши цветные", price: 111 },
     { code: counter(), title: "Товар сюрприз", price: 0 },
   ],
-  cart: [
-    { code: counter(), title: "Название товара", price: 100.0, quantity: 3 },
-    {
-      code: counter(),
-      title: "Телефон iPhone XIXV",
-      price: 120000,
-      quantity: 2,
-    },
-  ],
+  cart: [],
+  cartVisibility: false,
 });
 
 const root = createRoot(document.getElementById("root"));

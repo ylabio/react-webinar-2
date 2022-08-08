@@ -6,27 +6,36 @@ import "./style.css";
 function Item(props) {
   const cn = bem("Item");
 
-  const callbacks = {};
+  const callbacks = {
+    onClick: useCallback(() => {
+      props.onButtonClick({
+        code: props.item.code,
+        title: props.item.title,
+        price: props.item.price,
+      });
+    }),
+  };
 
   return (
     <div className={cn({ selected: props.item.selected })}>
       <div className={cn("number")}>{props.item.code}</div>
       <div className={cn("title")}>{props.item.title}</div>
       <div className={cn("price")}>{`${props.item.price} ₽`}</div>
-      <button className={`${cn("action")} justify-button`}>Добавить</button>
+      {props.item.quantity && (
+        <div className={cn("quantity")}>{`${props.item.quantity} шт`}</div>
+      )}
+      <button
+        className={`${cn("action")} justify-button`}
+        onClick={callbacks.onClick}
+      >
+        Добавить
+      </button>
     </div>
   );
 }
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired,
-};
-
-Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {},
 };
 
 export default React.memo(Item);

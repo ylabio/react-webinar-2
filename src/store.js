@@ -1,5 +1,4 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -36,48 +35,54 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+  addItemToCart({ code, title, price }) {
+    const number = this.state.cart.find((item) => {
+      return item.code === code;
     });
+
+    if (!number)
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.concat({ code, title, price, quantity: 1 }),
+      });
+    else
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map((item) => {
+          return item.code === code
+            ? { ...item, quantity: ++item.quantity }
+            : item;
+        }),
+      });
   }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
+  deleteItemFromCart({ code }) {
+    const target = this.state.cart.find((item) => item.code === code);
+
+    if (target.quantity === 1)
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.filter((item) => item.code !== code),
+      });
+    else
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map((item) => {
+          return item.code === code
+            ? { ...item, quantity: --item.quantity }
+            : item;
+        }),
+      });
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
+  toggleCartVisibility() {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cartVisibility: !this.state.cartVisibility,
     });
   }
 }

@@ -8,6 +8,10 @@ export function counter() {
   return counter.value ? ++counter.value : (counter.value = 1);
 }
 
+export function cartCounter() {
+  return cartCounter.value ? ++cartCounter.value : (cartCounter.value = 1);
+}
+
 export function get_cart_total_values(cart) {
   let total_price = 0,
     total_quantity = 0;

@@ -19,6 +19,11 @@ function List(props) {
         />
       </div>
     )}
+    {(props.isCart) &&
+      <div className={cn('cart')}>
+        <strong>Итого</strong>
+        <strong>{`${props.total} ₽`}</strong>
+      </div>}
     </div>
   )
 }
@@ -26,6 +31,7 @@ function List(props) {
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
   isCart: propTypes.bool,
+  total: propTypes.number,
   onItemSelect: propTypes.func,
   onItemDelete: propTypes.func,
   onItemAddToCart: propTypes.func,
@@ -34,6 +40,7 @@ List.propTypes = {
 List.defaultProps = {
   items: [],
   isCart: false,
+  total: 0,
   onItemSelect: () => {},
   onItemDelete: () => {},
   onItemAddToCart: () => {},

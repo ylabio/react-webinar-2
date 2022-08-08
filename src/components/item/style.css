@@ -13,7 +13,7 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    padding: 20px 10px;
+    padding: 20px 14px 20px 10px;
 }
 .Item-actions{
     padding: 20px  20px 20px 10px;
@@ -22,4 +22,14 @@
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+.Item-price{
+    font-size: 18px;
+}
+.Item-cart{
+    margin-right: 7px;
+    font-size: 18px;
+}
+.Item-cart span:first-child {
+    margin-right: 56px;
 }

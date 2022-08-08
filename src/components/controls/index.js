@@ -9,7 +9,7 @@ function Controls({title, onClick, children}){
     <div className={cn()}>
       {
         (children) && (
-            <div className={cn('description')}>
+            <div className={cn('cart')}>
               {children}
             </div>
           )

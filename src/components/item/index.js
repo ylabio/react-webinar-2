@@ -38,8 +38,14 @@ function Item(props) {
         <span>
           {props.item.title}
         </span>
-        <span>
-        {`${props.item.price} ₽`}
+        <span className={props.isCartItem ? cn('cart'): cn('price')}>
+          {props.isCartItem 
+            ? (<>
+                <span>{`${props.item.price} ₽`}</span>
+                <span>{`${props.item.amount} шт`}</span>
+               </>)
+            : `${props.item.price} ₽`
+          }
         </span>
       </div>
       <div className={cn('actions')}>
@@ -63,6 +69,7 @@ Item.propTypes = {
   onSelect: propTypes.func.isRequired,
   onDeleted: propTypes.func,
   onAddToCart: propTypes.func,
+  onRemoveFromCart: propTypes.func
 }
 
 Item.defaultProps = {
@@ -70,6 +77,7 @@ Item.defaultProps = {
   onSelect: () => {},
   onDeleted: () => {},
   onAddToCart: () => {},
+  onRemoveFromCart: () => {}
 }
 
 export default React.memo(Item);

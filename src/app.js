@@ -30,8 +30,10 @@ function App({store}) {
       store.addToCart(code);
     }, []),
     onOpenCart: useCallback(() => {
-      setIsShowModal(true);
-    }, []),
+      if (cartState.amount) {
+        setIsShowModal(true);
+      }
+    }, [cartState.amount]),
     onCloseModal: useCallback(() => {
       setIsShowModal(false);
     }, [])
@@ -61,12 +63,11 @@ function App({store}) {
   return (
     <Layout head={<h1>Магазин</h1>}>
       <Controls onClick={callbacks.onOpenCart}>
-          {(!!cartState.amount) && (
-            <Cart
-              amount={cartState.amount}
-              total={cartState.total}
-            />)}
-        </Controls>
+        <Cart
+          amount={cartState.amount}
+          total={cartState.total}
+        />
+      </Controls>
       <List items={store.getState().items}
             onItemSelect={callbacks.onSelectItems}
             onItemDelete={callbacks.onDeleteItems}
@@ -75,7 +76,11 @@ function App({store}) {
       <Modal isShow={isShowModal}
              onClose={callbacks.onCloseModal}
              head={<h1>Корзина</h1>}>
-        <p>place for cart items</p>
+        <List items={store.getState().cart}
+              isCart
+              total={cartState.total}
+              onItemSelect={callbacks.onSelectItems}
+        />
       </Modal>
     </Layout>
   );

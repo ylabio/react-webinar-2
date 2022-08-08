@@ -14,17 +14,21 @@
 .Modal-container{
   position: absolute;
   z-index: 10;
-  top: 50%;
+  top: 49.5%;
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 960px;
   width: 100%;
-  max-height: 603px;
+  min-height: 603px;
   background: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
 }
 .Modal-head{
   height: 80px;
   background: #f5f5f5;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 .Modal-head h1 {
   margin: 0;
@@ -33,7 +37,9 @@
 }
 .Modal-head button {
   float: right;
-  margin: 30px 30px;
+  width: 76px;
+  margin-top: 30px;
+  margin-right: 32px;
 }
 .Modal-content{
   margin-top: 74px;

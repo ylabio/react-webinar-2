@@ -1,42 +1,33 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
+import Simple from '../simple';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
 
-function Item(props) {
+function Item({
+  item,
+  handleBtn,
+  btnText,
+  children
+}) {
   const cn = bem('Item');
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
   const callbacks = {
-
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
-
-    onDelete: useCallback((e) => {
+    handleBtn: useCallback((e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
+      handleBtn(item.code) 
+    }, [handleBtn, item])
   };
 
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
-      <div className={cn('number')}>
-        {props.item.code}
-      </div>
-      <div className={cn('title')}>
-        {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
-      </div>
+    <div className={cn()}>
+      <Simple cn={cn} bemIndex={'number'} text={item.code} />
+      <Simple cn={cn} bemIndex={'title'} text={item.title} />
+      <Simple cn={cn} bemIndex={'price'} text={`${item.price.toLocaleString('ru')} ₽`} />
+      { children }
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button onClick={callbacks.handleBtn}>
+          {btnText}
         </button>
       </div>
     </div>
@@ -45,13 +36,14 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
+  handleBtn: propTypes.func,
+  btnText: propTypes.string.isRequired,
+  children: propTypes.element
 }
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
+  handleBtn: () => {},
+  children: null
 }
 
 export default React.memo(Item);

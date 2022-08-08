@@ -1,3 +1,5 @@
+import { getCartCost } from "./utils";
+
 class Store {
 
   constructor(initState) {
@@ -41,43 +43,52 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Добавление в корзину.
+   * Если товар уже есть, его количество инкрементируется
+   * @param {number} code Айдишник товара
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
+  addInCart(code) {
+    const cb = (el) => el.code === code
+    const newCart = {
+      ...this.state.cart,
+      items: [...this.state.cart.items]
+    }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
+    const stagedElem = newCart.items.find(cb)
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
+    if (stagedElem) {
+      newCart.items[newCart.items.indexOf(stagedElem)] = {
+        ...stagedElem, 
+        count: stagedElem.count + 1
+      } 
+    } else {
+      newCart.items.push({ // Не мутация изначального состояния
+        ...this.state.items.find(cb), 
+        count: 1
       })
+      newCart.items.sort((a, b) => a.code - b.code) // Чтобы выглядело красиво и по порядку
+                                                    // Это не мутация изначального состояния, реакту хорошо
+    }
+
+    newCart.cost = getCartCost(cb, 'add', this.state)
+    this.setState({
+      ...this.state,
+      cart: newCart // Даже ссылка новая!
+    })
+  }
+
+  /**
+   * Удаление товара из корзины
+   * @param {number} code Айдишник товара
+   */
+  deleteFromCart(code) {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        cost: getCartCost(el => el.code === code, 'delete', this.state),
+        items: this.state.cart.items.filter(el => el.code !== code)
+      }
     });
   }
 }

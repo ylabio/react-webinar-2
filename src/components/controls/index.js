@@ -16,9 +16,7 @@ Controls.propTypes = {
 }
 
 Controls.defaultProps = {
-  onClick: () => {
-    console.log('заглушка')
-  }, // Значение по умолчанию - функция-заглушка
+  onClick: () => {}, // Значение по умолчанию - функция-заглушка
   title: 'Нажми',
 }
 

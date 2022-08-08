@@ -4,7 +4,7 @@
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.7);
   position: fixed;
   left: 0;
   bottom: 0;
@@ -19,13 +19,13 @@
 }
 
 .Modal-content {
-  padding: 10px;
+  /* padding: 10px; */
   border-radius: 5px;
   background-color: white;
   transform: scale(0);
   transition: 0.4s all;
-  width: 200px;
-  height: 100px;
+  width: 906px;
+  height: 603px;
   border: 1px solid black;
 }
 

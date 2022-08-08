@@ -3,6 +3,7 @@ import Controls from './components/controls'
 import List from './components/list'
 import Layout from './components/layout'
 import Modal from './components/modal'
+import Header from './components/header'
 // import { counter } from './utils'
 
 /**
@@ -26,16 +27,23 @@ function App({ store }) {
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls clickHandler={callbacks.visibilityModal} title='Открыть' />
+    <Layout head={<Header title='Магазин' />}>
+      <Controls clickHandler={callbacks.visibilityModal} title='Перейти' />
       <List
         items={store.getState().items}
         // onItemDelete={callbacks.onDeleteItems}
         addItem={callbacks.addItem}
       />
       <Modal activeModal={activeModal} setActiveModa={setActiveModal}>
-        <Controls clickHandler={callbacks.visibilityModal} title='Закрыть' />
-        <h1>Привет</h1>
+        <Header
+          title='Корзина'
+          button={<Controls clickHandler={callbacks.visibilityModal} title='Закрыть' />}
+        />
+        <List
+          items={store.getState().basket}
+          // onItemDelete={callbacks.onDeleteItems}
+          addItem={callbacks.addItem}
+        />
       </Modal>
     </Layout>
   )

@@ -10,7 +10,7 @@ function Item({ item, itemClick, index }) {
     <div className={cn()}>
       <div className={cn("number")}>{item.total ? index + 1 : item.code}</div>
       <div className={cn("title")}>{item.title}</div>
-      <div className={cn("price")}>{item.price} ₽</div>
+      <div className={cn("price")}>{item.price.toLocaleString("ru-RU")} ₽</div>
       {item.total && <div className={cn("total")}>{item.total} шт</div>}
       <div className={cn("actions")}>
         <button onClick={() => itemClick(item.total ? item.code : item)}>

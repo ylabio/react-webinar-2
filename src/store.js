@@ -87,7 +87,7 @@ class Store {
                 this.state.items.find(item => item.code === code)
             )
         })
-        console.log(this.state.cart);
+        console.log(this.state);
     }
 }
 

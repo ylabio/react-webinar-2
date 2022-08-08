@@ -48,7 +48,6 @@ function Item(props) {
 
 Item.propTypes = {
     item: propTypes.object.isRequired,
-    onTest: propTypes.func.isRequired,
     onAddToCart: propTypes.func.isRequired,
     // onSelect: propTypes.func.isRequired,
     // onDeleted: propTypes.func.isRequired

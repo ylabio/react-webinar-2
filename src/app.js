@@ -14,14 +14,17 @@ function App({store}) {
     const callbacks = {
         onAddToCart: useCallback((code) => {
             store.addToCart(code);
-        }, [])
+        }, []),
+
     }
 
     return (
         <Layout head={<h1>Приложение на чистом JS</h1>}>
-            <Controls onAdd={callbacks.onAdd}/>
+            {/*TODO: change onAdd to showCart*/}
+            <Controls cart={store.getState().cart}
+            />
             <List items={store.getState().items}
-                  onTest={callbacks.test}
+                  onAddToCart={callbacks.onAddToCart}
             />
         </Layout>
     );

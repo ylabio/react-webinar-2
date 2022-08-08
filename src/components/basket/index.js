@@ -19,7 +19,7 @@ function Basket({ tPaP, modalVal = false, setModal, children, head }) {
                 <div className={cN("body")}>
                     {children}
                 </div>
-                <strong> {typeof (price) === "number" ? `Итого ${'\u00A0'} ${price} ₽` : ``}</strong>
+                <strong> {typeof (quantity) === "number" ? `Итого ${'\u00A0'} ${price} ₽` : ``}</strong>
             </div>
         </div>);
 }

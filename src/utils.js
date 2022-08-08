@@ -11,10 +11,13 @@ export function TotalSum(basket) {
 
 
   const quantityProduct = basket.reduce((accum, item) => { return accum + (item.amount ? item.amount : 1) }, 0);
-  const totalPrice = basket.reduce((accum, item) => { return accum + (item.amount ? item.price * item.amount : item.price) }, 0);
-  const declinationWord = plural(quantityProduct, 'товар', 'товара', 'товаров');
+  const totalPrice = new Intl.NumberFormat().format(basket.reduce((accum, item) => { return accum + (item.amount ? item.price * item.amount : item.price) }, 0));
+  const uniqueProdict = `${basket.length}  ${plural(basket.length, 'товар', 'товара', 'товаров')}`;
 
-  return [quantityProduct, totalPrice, declinationWord];
+
+  console.log(typeof (totalPrice));
+
+  return [quantityProduct, totalPrice, uniqueProdict];
 }
 
 

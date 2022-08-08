@@ -2,21 +2,20 @@
 /* Всплывающее окно корзины с товарами */
 
 .Basket-wrapper {
-    position: fixed;
-    left: -10px;
-    top: -10px;
-    right: -10px;
-    bottom: -10px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
 }
 
 .Basket {
     position: relative;
-    top: 220px;
+    top: 210px;
     max-width: 960px;
     min-height: 603px;
-    max-height: 70%;
-    overflow: scroll;
+    height: auto;
     margin: auto;
     padding: 0 0 10px 0 ;
     box-sizing: border-box;

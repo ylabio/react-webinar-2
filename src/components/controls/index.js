@@ -1,17 +1,18 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import plural from 'plural-ru';
 import './style.css';
-import {getSumPrice, getAllQuantity, pluralize} from '../../utils';
+import {getSumPrice} from '../../utils';
 import {cn as bem} from "@bem-react/classname";
 
 function Controls(props) {
   const cn = bem('Controls');
-  const numberOfGoods = getAllQuantity(props.items);
+  const numberOfPositions = props.items.length;
 
   return (
     <div className={cn()}>
       <p className={cn('basket-block')}><span className={cn('text')}>В корзине:</span> <span className={cn('products-sum')}>{props.items.length > 0
-          ? `${numberOfGoods} ${pluralize(numberOfGoods, ['товар', 'товара', 'товаров'])} / ${getSumPrice(props.items)} ₽`
+          ? `${numberOfPositions} ${plural(numberOfPositions, 'товар', 'товара', 'товаров')} / ${getSumPrice(props.items)} ₽`
           : 'пусто'}</span></p>
       <button onClick={props.onBasketPopupShow}>Перейти</button>
     </div>

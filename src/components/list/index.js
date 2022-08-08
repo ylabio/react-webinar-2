@@ -12,6 +12,7 @@ function List(props) {
       {props.items.map(item => (
         <div key={item.code} className={cn('item')}>
           <Item
+            items={props.items}
             item={item}
             onButtonClick={props.onAction}
             cartItem={props.cartItem}

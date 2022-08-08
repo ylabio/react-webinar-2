@@ -50,20 +50,37 @@ body{
 .Item_selected{
     background: #75aaf1;
 }
+.Item__infoGroup {
+    width: 100%;
+}
+
+
 
 
 .Item__title{
-    width: 100%;
+    /* width: 100%; */
     padding: 20px 10px;
+    padding-right: 5px;
+    flex-wrap: nowrap;
+    display: inline-block;
 }
 .Item__actions{
     padding: 20px  20px 20px 10px;
     display: flex;
     justify-content: flex-end;
+    width: min-content;
+    height: min-content;
 }
 .Item__number{
     padding: 20px 10px 20px 20px;
+    width: min-content;
+        display: inline-block;
 }
 
+.Item__touched {
+    padding: 20px 0px; 
+        /* width: 100%; */
+            display: inline-block;
+}
 
 

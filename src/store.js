@@ -67,9 +67,9 @@ class Store {
    */
   addProduct(code) {
     const getOneItem = () => {
-      const result = this.state.items.filter((item) => item.code === code);
-      result[0].count = 1;
-      return result;
+      const item = this.state.items.find((item) => item.code === code);
+      const cloneItem = {...item, count: 1}
+      return [cloneItem];
     }
 
     if (this.state.basket.some((item) => item.code === code)) {

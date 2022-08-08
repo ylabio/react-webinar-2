@@ -1,36 +1,49 @@
-import React, {useCallback} from 'react';
-import Controls from "./components/controls";
-import List from "./components/list";
-import Layout from "./components/layout";
-import {counter} from "./utils";
+import React, { useCallback, useState } from 'react';
+import Controls from './components/controls';
+import List from './components/list';
+import Layout from './components/layout';
+import { counter } from './utils';
+import Cart from './components/cart';
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+function App({ store }) {
+  const [showCart, setShowCart] = useState(false);
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAddItemInCart: useCallback((item) => {
+      store.addItemToCart(item);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onDeleteItemFromCart: useCallback((item) => {
+      store.deleteItemFromCart(item);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onToggleCart: useCallback((flag) => {
+      setShowCart(flag);
     }, []),
-  }
+  };
+
+  const cartInfo = store.getCartInfo();
 
   return (
     <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+      <Controls
+        cartQuantity={cartInfo.quantity}
+        cartPrice={cartInfo.price}
+        onToggleCart={callbacks.onToggleCart}
       />
+      <List items={store.getState().items} onAddItemInCart={callbacks.onAddItemInCart} />
+
+      {showCart && (
+        <Cart
+          items={store.getState().cart}
+          cartPrice={cartInfo.price}
+          onToggleCart={callbacks.onToggleCart}
+          onDeleteItemFromCart={callbacks.onDeleteItemFromCart}
+        />
+      )}
     </Layout>
   );
 }

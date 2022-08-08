@@ -23,7 +23,7 @@
 
 .Modal-content {
     width: 960px;
-    height: 603px;
+    min-height: 603px;
     background-color: #fff;
     border-radius: 10px;
     overflow: hidden;

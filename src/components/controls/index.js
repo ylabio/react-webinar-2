@@ -6,15 +6,14 @@ import './style.css';
 
 function Controls({onModalBtn, items}){
   const cn = bem('Controls');
-  const amount = items.reduce((a, b) => a + b.count, 0)
-  const totalPrice = items.reduce((a, b) => a + b.price*b.count, 0)
+  const totalPrice = items.reduce((a, b) => a + b.price*b.count, 0);
 
   return (
     <div className={cn()}>
       <div className={cn('title')}>В корзине: </div>
       <div className={cn('amount')}> 
         {items.length ? 
-          `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${totalPrice.toLocaleString('ru')} руб.`
+          `${items.length} ${plural(items.length, 'товар', 'товара', 'товаров')} / ${totalPrice.toLocaleString('ru')} ₽`
             : 
           'пусто'}  
       </div>

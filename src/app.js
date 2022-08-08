@@ -29,6 +29,9 @@ function App({store}) {
     onAddToCart: useCallback((code) => {
       store.addToCart(code);
     }, []),
+    onRemoveFromCart: useCallback((code) => {
+      store.deleteItem(code, true)
+    }, []),
     onOpenCart: useCallback(() => {
       if (cartState.amount) {
         setIsShowModal(true);
@@ -57,6 +60,9 @@ function App({store}) {
             : total + (next.price * next.amount)
         ))
       setCartState({amount, total});
+    } else {
+      setCartState({amount: 0, total: 0});
+      setIsShowModal(false);
     }
   }, [store.getState().cart])
 
@@ -80,6 +86,7 @@ function App({store}) {
               isCart
               total={cartState.total}
               onItemSelect={callbacks.onSelectItems}
+              onItemDelete={callbacks.onRemoveFromCart}
         />
       </Modal>
     </Layout>

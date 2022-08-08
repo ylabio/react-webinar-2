@@ -13,8 +13,7 @@
     text-align: right;
     font-size: 18px;
     float: right;
-    margin-top: 25px;
-    margin-right: 110px;
+    margin: 25px 110px;
 }
 .List-cart strong:first-child {
     margin-right: 50px;

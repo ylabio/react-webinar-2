@@ -4,7 +4,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 20px;
+    height: 62px;
 }
 
 .Info_wrapper_items {
@@ -16,4 +16,8 @@
     font-weight: 700;
     margin-right: 20px;
     margin-left: 15px;
+}
+
+.Wrapper_bth {
+    margin-right: 21px;
 }

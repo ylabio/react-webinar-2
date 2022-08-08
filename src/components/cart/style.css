@@ -1,6 +1,6 @@
 .Cart{
     width: 75%;
-    height: 65%;
+    min-height: 65%;
     background-color: #ffffff;
 
     position: absolute;
@@ -28,16 +28,13 @@
 }
 .Cart-body{
     margin-top: 50px;
-    max-height: 50%;
-    overflow-y: auto;
-
 }
 .Cart-footer{
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 50px;
-    padding-top: 26px;
+    padding: 26px 0;
     font-weight: bold;
 }
 .Cart-footer:last-child{

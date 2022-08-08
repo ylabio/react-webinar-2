@@ -4,6 +4,7 @@ import {cn as bem} from "@bem-react/classname";
 
 import "./style.css";
 import Item from "../item";
+import {formatter} from "../../utils";
 
 function Cart({cart, onClose, totalSum, onRemove}) {
     const cn = bem('Cart');
@@ -25,7 +26,7 @@ function Cart({cart, onClose, totalSum, onRemove}) {
                 </div>
                 <div className={cn('footer')}>
                     <span>Итого</span>
-                    <span>{totalSum()} &#8381;</span>
+                    <span>{formatter(totalSum())}</span>
                 </div>
             </>)
                 : <h1 className={cn('banner')}>Ничего нет... &#9785;</h1>

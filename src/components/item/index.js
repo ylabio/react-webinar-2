@@ -3,6 +3,7 @@ import propTypes from "prop-types";
 import {cn as bem} from "@bem-react/classname";
 
 import "./style.css";
+import {formatter} from "../../utils";
 
 function Item({item, btnClick, btnTitle= 'Кнопка', code}) {
   const cn = bem('Item');
@@ -16,8 +17,7 @@ function Item({item, btnClick, btnTitle= 'Кнопка', code}) {
         {item.title}
       </div>
       <div className={cn('price')}>
-        {item.price}
-          <span>&#8381;</span>
+        {formatter(item.price)}
       </div>
         {item.count && (
             <div className={cn('count')}>

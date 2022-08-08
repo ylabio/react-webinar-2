@@ -7,6 +7,7 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import Modal from "./components/modal";
 import Cart from "./components/cart";
+import {formatter} from "./utils";
 
 /**
  * Приложение
@@ -14,9 +15,8 @@ import Cart from "./components/cart";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  const items = store.getState().items
-  const cart = store.getState().cart
-  const rub = '\u20bd';
+  const items = store.getState().items;
+  const cart = store.getState().cart;
   const [isShowCart, setIsShowCart] = useState(false);
 
   const callbacks = {
@@ -33,7 +33,7 @@ function App({store}) {
     }, [cart]),
     getInfo: useCallback(() => {
       if (cart.length){
-        return `${cart.length} ${plural(cart.length, 'товар', 'товара', 'товаров')} / ${callbacks.getTotalSum()} ${rub}`
+        return `${cart.length} ${plural(cart.length, 'товар', 'товара', 'товаров')} / ${formatter(callbacks.getTotalSum())}`
       } else {
         return "Пусто"
       }

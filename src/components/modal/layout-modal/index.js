@@ -16,7 +16,8 @@ function LayoutModal({close, children}) {
 }
 
 LayoutModal.propTypes = {
-  close: propTypes.func.isRequired
+  close: propTypes.func,
+  children: propTypes.node
 }
 
 LayoutModal.defaultProps = {

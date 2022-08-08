@@ -1,10 +1,8 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import List from '../../list';
-
-const ProductCount = (item) => <span>{item.count} шт</span>;
+import BasketItem from '../../basket-item';
 
 function ContentModal(props) {
   const products = Object.values(props.basket);
@@ -14,7 +12,7 @@ function ContentModal(props) {
         items={products}
         callback={props.delete}
         text={'Удалить'}
-        component={ProductCount}
+        component={BasketItem}
       />
       <div className='summary'>
         <span>Итого</span>

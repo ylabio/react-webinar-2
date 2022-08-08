@@ -4,7 +4,7 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import { convertPrice } from '../../utils';
 
-function Item(props) {
+function BasketItem(props) {
   const cn = bem('Item');
 
   const price = convertPrice(props.item.price, 'ru', 'RUB');
@@ -20,7 +20,7 @@ function Item(props) {
         <span>{props.item.title}</span>
         <div className={cn({'price': true})}>
           <span>{price}</span>
-          {props.children}
+          <span>{props.item.count} шт</span>
         </div>
       </div>
       <div className={cn('actions')}>
@@ -30,15 +30,15 @@ function Item(props) {
   )
 }
 
-Item.propTypes = {
+BasketItem.propTypes = {
   item: propTypes.object.isRequired,
   position: propTypes.number,
   text: propTypes.string.isRequired,
   onAddItem: propTypes.func,
 }
 
-Item.defaultProps = {
+BasketItem.defaultProps = {
   onAddItem: () => {},
 }
 
-export default React.memo(Item);
+export default React.memo(BasketItem);

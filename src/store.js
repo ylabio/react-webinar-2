@@ -1,3 +1,5 @@
+import { addBasketItem, deleteItemBasket, getSum } from "./utils";
+
 class Store {
 
   constructor(initState) {
@@ -55,11 +57,11 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const basket = deleteItemBasket(this.state.basket, code);
     this.setState({
       ...this.state,
-      basket: Object.fromEntries(
-        Object.entries(this.state.basket).filter(item => item[1].code !== code)
-      )
+      basket,
+      ...getSum(basket)
     });
   }
 
@@ -84,17 +86,14 @@ class Store {
   }
 
   addItem(item) {
+    const basket = addBasketItem(this.state.basket, item)
     this.setState({
       ...this.state,
-      basket: {
-        ...this.state.basket,
-        [item.code]: {
-          ...item,
-          count: this.state.basket[item.code] && this.state.basket[item.code].count + 1 || 1
-        }
-      }
+      basket,
+      ...getSum(basket),
     })
   }
+
 
   toggleModal() {
     this.setState({

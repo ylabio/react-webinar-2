@@ -30,7 +30,7 @@ function Item(props) {
       </div>
       <div className='Right-content'>
         <span className='Price-text'>{props.item.price} ₽</span>
-        <div className={cn('actions')}>
+        <div className={cn('actions')} onClick={e => e.stopPropagation()}>
           <button onClick={callbacks.onClick}>
             Добавить
           </button>

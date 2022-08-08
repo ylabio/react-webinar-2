@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import plural from 'plural-ru';
 import propTypes from 'prop-types';
 import './style.css';
 
@@ -16,7 +17,7 @@ function Controls({ product, modalStatus, openModal }) {
 
   return (
     <div className='Controls'>
-      <span className='Controls-info'>В корзине: <strong>{product.length} товаров / {totalSum} ₽</strong></span>
+      <span className='Controls-info'>В корзине: <strong>{product.length} {plural(totalSum, 'товар', 'товара', 'товаров')} / {totalSum} ₽</strong></span>
       <button className='Controls-button' onClick={handle}>Перейти</button>
     </div>
   )

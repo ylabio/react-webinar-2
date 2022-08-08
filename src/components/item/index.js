@@ -49,4 +49,3 @@ function Item(props) {
 // }
 
 export default React.memo(Item);
-// export default Item;

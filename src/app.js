@@ -5,7 +5,7 @@ import Layout from "./components/layout";
 import {Overlay} from "./components/overlay";
 import {CartModal} from "./components/modal";
 import {Header} from "./components/header";
-import {product, rubles} from "./utils";
+import {product} from "./utils";
 
 /**
  * Приложение

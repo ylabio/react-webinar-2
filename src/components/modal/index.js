@@ -3,7 +3,6 @@ import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import List from "../list";
 import PropTypes from "prop-types";
-import ModalList from "../modal-list";
 
 export const CartModal = (props) => {
     const cn = bem('Modal');

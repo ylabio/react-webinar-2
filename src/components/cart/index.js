@@ -2,6 +2,7 @@ import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import CartItem from "../cart-item";
+import List from "../list";
 import {getFormattedPrice} from '../../utils';
 import './style.css';
 
@@ -9,8 +10,8 @@ function Cart(props) {
   const cn = bem('Cart');
 
   const callbacks = {
-    onClose: useCallback(() => {
-      props.onClose();
+    onCartClose: useCallback(() => {
+      props.onCartClose();
     }, [props.onClose]),
     onItemDelete: useCallback((code) => {
       props.onItemDelete(code);
@@ -22,19 +23,20 @@ function Cart(props) {
       <div className='Cart'>
         <div className={cn('header')}>
           <h1>Корзина</h1>
-          <button onClick={callbacks.onClose}>Закрыть</button>
+          <button onClick={callbacks.onCartClose}>Закрыть</button>
         </div>
-        <ul className={cn('list')}>
-          {props.cartItems.length > 0 &&
-            props.cartItems.map((item, index) =>
-              <li key={item.code} className={cn('item')}>
-                <CartItem
-                  cartItem={item}
-                  itemCount={index + 1}
-                  onItemDelete={callbacks.onItemDelete}
-                />
-              </li>)}
-        </ul>
+
+        <List>
+          {props.cartItems.map((item, index) =>
+            <CartItem
+              cartItem={item}
+              itemCount={index + 1}
+              onItemDelete={callbacks.onItemDelete}
+              key={item.code}
+            />
+          )}
+        </List>
+
         <div className={cn('result')}>
           <span className={cn('total')}>
             <b>Итого</b>

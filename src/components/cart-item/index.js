@@ -14,7 +14,7 @@ function CartItem(props) {
   };
 
   return (
-    <div className={cn()}>
+    <li className={cn()}>
       <div className={cn('count')}>
         {props.itemCount}
       </div>
@@ -32,7 +32,7 @@ function CartItem(props) {
           Удалить
         </button>
       </div>
-    </div>
+    </li>
   )
 }
 

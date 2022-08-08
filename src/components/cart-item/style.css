@@ -1,7 +1,13 @@
+/* Пункт списка в корзине */
 .CartItem {
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+
+  padding: 20px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.CartItem:first-child {
+  border-top: 1px dashed #ccc;
 }
 
 .CartItem-count {

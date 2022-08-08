@@ -3,6 +3,7 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Cart from "./components/cart";
+import Item from "./components/item";
 
 /**
  * Приложение
@@ -35,17 +36,18 @@ function App({store}) {
         totalPrice={store.getTotalPrice()}
         onCartOpen={callbacks.onCartOpen}
       />
-      <List
-        items={store.getState().items}
-        onAmountIncrease={callbacks.onAmountIncrease}
-      />
+      <List>
+        {store.getState().items.map((item) =>
+          <Item item={item} onClick={callbacks.onAmountIncrease} key={item.code} />
+        )}
+      </List>
       {isCartOpen &&
         <Cart
           cartItems={store.getState().cartItems}
           totalPrice={store.getTotalPrice()}
-          onClose={callbacks.onCartClose}
+          onCartClose={callbacks.onCartClose}
           onItemDelete={callbacks.onItemDelete}
-      />}
+        />}
     </Layout>
   );
 }

@@ -8,13 +8,13 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onAmountIncrease: useCallback(() => {
-      props.onAmountIncrease(props.item.code);
+    onClick: useCallback(() => {
+      props.onClick(props.item.code);
     }, [props.onAmountIncrease,  props.item])
   };
 
   return (
-    <div className={cn()}>
+    <li className={cn()}>
       <div className={cn('number')}>
         {props.item.code}
       </div>
@@ -25,17 +25,17 @@ function Item(props) {
         {`${getFormattedPrice(props.item.price)}`}
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onAmountIncrease}>
+        <button onClick={callbacks.onClick}>
           Добавить
         </button>
       </div>
-    </div>
+    </li>
   )
 }
 
 Item.propTypes = {
-  item: propTypes.object.isRequired,
-  onAmountIncrease: propTypes.func.isRequired
+  item: propTypes.object,
+  onClick: propTypes.func,
 }
 
 Item.defaultProps = {

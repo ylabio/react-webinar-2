@@ -1,5 +1,5 @@
 .CartDump {
-  width: calc(100% - 40px);
+  width: calc(100% - 40px - 16px);
   max-width: 960px;
   background-color: white;
   border-radius: 10px;
@@ -8,13 +8,6 @@
   transition: 0.5s;
   transform: translateY(-500%);
   margin: 40px 0;
-}
-
-@media (max-height: calc(788px + 80px)) {
-  .CartDump {
-    width: calc(100% - 40px - 16px);
-   
-  }
 }
 
 .CartDump-header {

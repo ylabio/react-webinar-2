@@ -1,5 +1,6 @@
 import React from "react";
 import propTypes from "prop-types";
+import plural from "plural-ru";
 import { cn as bem } from "@bem-react/classname";
 import { allBuy } from "../../utils";
 import "./style.css";
@@ -13,10 +14,12 @@ function Buy({ buyState, setModal }) {
         В корзине:{" "}
         <b>
           {buyState.length
-            ? `${buyState.reduce(
-                (acc, curr) => acc + curr.total,
-                0
-              )} товара / ${allBuy(buyState)} ₽`
+            ? `${buyState.length} ${plural(
+                buyState.length,
+                "товар",
+                "товара",
+                "товаров"
+              )} / ${allBuy(buyState)} ₽`
             : "пусто"}
         </b>
       </span>

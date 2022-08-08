@@ -7,5 +7,7 @@ export function counter() {
 }
 
 export function allBuy(array) {
-  return array.reduce((acc, curr) => acc + curr.price * curr.total, 0);
+  return array
+    .reduce((acc, curr) => acc + curr.price * curr.total, 0)
+    .toLocaleString("ru-RU");
 }

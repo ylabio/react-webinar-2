@@ -15,7 +15,7 @@
 
 .Modal-content {
     width: 90%;
-    height: 60%;
+    min-height: 603px;
     background-color: #fff;
     position: absolute;
     top: 50%;

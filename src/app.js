@@ -4,6 +4,7 @@ import List from './components/list'
 import Layout from './components/layout'
 import Modal from './components/modal'
 import Header from './components/header'
+import { sumElements } from './utils'
 // import { counter } from './utils'
 
 /**
@@ -26,9 +27,19 @@ function App({ store }) {
     }, []),
   }
 
+  const basket = store.getState().basket
+
   return (
     <Layout head={<Header title='Магазин' />}>
-      <Controls clickHandler={callbacks.visibilityModal} title='Перейти' />
+      <div>
+        <span>
+          В корзине:{' '}
+          {basket.length ? basket.length + ' товаров / ' + sumElements(basket, 'price') : 'пусто'}
+          {/* {sumElements(store.getState().basket, 'price')} */}
+        </span>
+        <Controls clickHandler={callbacks.visibilityModal} title='Перейти' />
+      </div>
+
       <List
         items={store.getState().items}
         // onItemDelete={callbacks.onDeleteItems}

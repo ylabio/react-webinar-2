@@ -1,30 +1,33 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./app.js";
+
+import React from 'react';
+import {createRoot} from 'react-dom/client';
+import App from './app.js';
+>>>>>>> 17e702cc7760549eec360e526244744df3f36f3b
 import Store from "./store.js";
 import { counter } from "./utils.js";
 
 const store = new Store({
   items: [
-    { code: counter(), title: "Название элемента", selected: false, count: 0 },
-    { code: counter(), title: "Некий объект", selected: false, count: 0 },
-    { code: counter(), title: "Заголовок", selected: false, count: 0 },
-    { code: counter(), title: "Короткое название", selected: false, count: 0 },
-    { code: counter(), title: "Запись", selected: false, count: 0 },
-    {
-      code: counter(),
-      title: "Пример выделенной записи",
-      selected: true,
-      count: 0,
-    },
-    { code: counter(), title: "Седьмой", selected: false, count: 0 },
-  ],
+
+    {code: counter(), title: 'Название товара', price: 100.0},
+    {code: counter(), title: 'Книга про React', price: 770},
+    {code: counter(), title: 'Конфета', price: 33},
+    {code: counter(), title: 'Трактор', price: 7955320},
+    {code: counter(), title: 'Телефон iPhone XIXV', price: 120000},
+    {code: counter(), title: 'Карандаши цветные', price: 111},
+    {code: counter(), title: 'Товар сюрприз', price: 0},
+  ]
+>>>>>>> 17e702cc7760549eec360e526244744df3f36f3b
 });
+
+const root = createRoot(document.getElementById('root'));
 
 // Реакция на изменение store - повторный рендер приложения
 store.subscribe(() => {
-  ReactDOM.render(<App store={store} />, document.body);
+
+  root.render(<App store={store}/>);
 });
 
 // Первый рендер (один раз)
-ReactDOM.render(<App store={store} />, document.body);
+root.render(<App store={store}/>);
+>>>>>>> 17e702cc7760549eec360e526244744df3f36f3b

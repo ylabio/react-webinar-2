@@ -1,0 +1,17 @@
+.Popup-total {
+  margin-top: 26px;
+  display: flex;
+  justify-content: end;
+  margin-right: 108px;
+  font-size: 18px;
+  line-height: 21px;
+  margin-bottom: 20px;
+}
+
+.Popup-total-word {
+  margin: 0 49px 0 0;
+}
+
+.Popup-total-number {
+  margin: 0;
+}

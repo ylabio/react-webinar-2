@@ -1,9 +1,12 @@
 import React from 'react';
+import ItemInBin from '../item-in-bin';
+import TotalPrice from '../totalPrice';
 import { cn as bem } from '@bem-react/classname';
 import propTypes from 'prop-types';
 import './style.css';
 
 const Popup = ({
+  name,
   items,
   totalPrice,
   isOpen,
@@ -16,7 +19,7 @@ const Popup = ({
     <div className={isOpen ? `${cn()} ${cn('opened')} ` : cn()}>
       <div className={cn('container')}>
         <div className={cn('header')}>
-          <h3 className={cn('title')}>Корзина</h3>
+          <h3 className={cn('title')}>{name}</h3>
           <div className={cn('actions')}>
             <button className={cn('btn')} onClick={onCloseModal}>
               Закрыть
@@ -25,37 +28,16 @@ const Popup = ({
         </div>
         <div className={cn('items')}>
           {items.map((item) => {
-            if (item.addCounter) {
-              return (
-                <div key={item.code} className={cn('item')}>
-                  <div className={cn('item-flex-start')}>
-                    <div className={cn('item-number')}>{item.code}</div>
-                    <div className={cn('item-title')}>{item.title}</div>
-                  </div>
-                  <div className={cn('item-flex-end')}>
-                    <div
-                      className={cn('item-price')}
-                    >{`${item.price.toLocaleString('ru-RU')} ₽`}</div>
-                    <div
-                      className={cn('item-counter')}
-                    >{`${item.addCounter} шт`}</div>
-                    <div className={cn('actions')}>
-                      <button onClick={() => onDeleteItemFromBin(item.code)}>
-                        Удалить
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              );
-            }
+            return (
+              <ItemInBin
+                item={item}
+                onDeleteItemFromBin={onDeleteItemFromBin}
+                key={item.code}
+              />
+            );
           })}
         </div>
-        <div className={cn('total')}>
-          <p className={cn('total-word')}>Итого</p>
-          <p className={cn('total-number')}>{`${totalPrice.toLocaleString(
-            'ru-RU'
-          )} ₽`}</p>
-        </div>
+        <TotalPrice totalPrice={totalPrice} />
       </div>
     </div>
   );

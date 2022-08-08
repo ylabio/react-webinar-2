@@ -74,6 +74,7 @@ function App({ store }) {
       />
       <List items={items} onAddItemToBin={callbacks.onAddItemToBin} />
       <Popup
+        name={'Корзина'}
         items={items}
         totalPrice={totalPrice()}
         isOpen={isPopupOpen}

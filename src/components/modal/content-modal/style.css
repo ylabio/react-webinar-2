@@ -2,11 +2,6 @@
   padding-top: 74px;
 }
 
-.Content-modal .List{
-  height: 380px;
-  overflow: auto;
-}
-
 .summary {
   display: flex;
   justify-content: flex-end;

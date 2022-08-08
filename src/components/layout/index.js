@@ -21,6 +21,7 @@ function Layout({head, children}){
 Layout.propTypes = {
   head: propTypes.node,
   children: propTypes.node,
+  headControls: propTypes.node
 }
 
 Layout.defaultProps = {

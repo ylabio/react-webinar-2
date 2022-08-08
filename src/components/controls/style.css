@@ -2,5 +2,27 @@
 .Controls{
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     padding: 20px;
+}
+.Controls-cart{
+    color: #000000;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.Controls-btn{
+    padding-left: 9px;
+    padding-right: 10px;
+}
+
+.Controls-product-count{
+    color: #000000;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0px 15px;
+}
+
+.Controls-wrapper{
+    width: 1000px;
 }

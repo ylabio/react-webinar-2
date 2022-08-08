@@ -9,3 +9,25 @@
 .List-item:first-child{
     border-top: 1px dashed #ccc;
 }
+.List-empty{
+    display: block;
+    text-align: center;
+    padding: 100px;
+    color: #000000;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.List-total{
+    display: flex;
+    justify-content: flex-end;
+    padding: 26px 108px;
+}
+
+.List-total span{
+    font-size: 18px;
+    font-weight: 700;
+}
+.List-total_price{
+    margin-left: 28px
+}

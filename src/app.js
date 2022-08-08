@@ -28,6 +28,13 @@ function App({store}) {
     }, [])
   };
 
+  const modalHead = (
+    <>
+      <h1>Корзина</h1>
+      <button onClick={callbacks.onOpenCart}>Закрыть</button>
+    </>
+  );
+
   return (
     <>
       <Layout head={<h1>Магазин</h1>}>
@@ -43,10 +50,12 @@ function App({store}) {
 
       {isModalVisible && (
         <Modal onClose={callbacks.onOpenCart}>
-          <ShoppingCart
-            cartItems={store.getState().shoppingCart}
-            onRemoveItem={callbacks.onRemoveItemFromCart}
-          />
+          <Layout head={modalHead} modal>
+            <ShoppingCart
+              cartItems={store.getState().shoppingCart}
+              onRemoveItem={callbacks.onRemoveItemFromCart}
+            />
+          </Layout>
         </Modal>
       )}
     </>

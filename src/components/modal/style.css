@@ -8,39 +8,3 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
 }
-
-.Modal-head {
-  background: #f5f5f5;
-  border-radius: 10px;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 75px;
-}
-
-.Modal-head h1 {
-  margin: 0;
-}
-
-.Modal-head button {
-  width: 76px;
-  height: 21px;
-}
-
-.Modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  border: 1px solid #888;
-  max-width: 960px;
-  border-radius: 10px;
-  height: 600px;
-  /* hide scrollbar */
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-/* hide scrollbar*/
-.Modal-content::-webkit-scrollbar {
-  display: none;
-}

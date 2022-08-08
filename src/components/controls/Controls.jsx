@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 
-function Controls({ modalStatus, setModalStatus }) {
+function Controls({ product, modalStatus, openModal }) {
 
   const handle = () => {
-    setModalStatus(true)
-    console.log(modalStatus)
+    openModal()
   }
+  const [totalSum, setTotalSum] = useState(0)
+
+  useMemo(() => {
+    const res = product.map(elem => elem.price).reduce((elem, total) => total += elem, 0)
+    setTotalSum(res)
+  }, [product])
+
   return (
     <div className='Controls'>
+      <span className='Controls-info'>В корзине: <strong>{product.length} товаров / {totalSum} ₽</strong></span>
       <button className='Controls-button' onClick={handle}>Перейти</button>
     </div>
   )

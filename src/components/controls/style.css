@@ -5,6 +5,10 @@
     padding: 20px;
 }
 
+.Controls-info {
+    padding: 0 20px 0 0;
+}
+
 .Controls-button {
     min-width: 80px;
 }

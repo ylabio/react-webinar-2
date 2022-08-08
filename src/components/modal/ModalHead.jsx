@@ -1,10 +1,10 @@
 import React from 'react'
 
-const ModalHead = () => {
+const ModalHead = ({ setModalStatus }) => {
    return (
       <div className='Modal-head'>
          <h1>Корзина</h1>
-         <button>Закрыть</button>
+         <button onClick={setModalStatus}>Закрыть</button>
       </div>
    )
 }

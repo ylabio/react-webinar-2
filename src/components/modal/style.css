@@ -15,19 +15,22 @@
 }
 
 .Modal-content {
-   padding: 25px;
-   border-radius: 16px;
-   min-height: 450px;
+   border-radius: 5px;
+   min-height: 603px;
+   min-width: 960px;
+   background: #FFFFFF;
 }
 
 .Modal-head {
    display: flex;
    justify-content: space-between;
    align-items: center;
+   border-radius: 5px 5px 0 0;
+   padding: 0 32px 0 20px;
+   background: #F5F5F5;
 }
 
 .Modal-head button {
    min-width: 76px;
    min-height: 21px;
-   margin: 31px 32px 28px 0;
 }

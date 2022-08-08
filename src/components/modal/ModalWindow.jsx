@@ -1,8 +1,8 @@
 import React from 'react'
-import Item from '../item/Item'
-import Layout from '../layout/Layout'
+import CartList from '../cart/CartList'
 import ModalHead from './ModalHead'
 import './style.css'
+import propTypes from 'prop-types';
 
 const ModalWindow = ({ setModalStatus, modalStatus, products }) => {
     let rootClasses = ['Modal']
@@ -13,13 +13,24 @@ const ModalWindow = ({ setModalStatus, modalStatus, products }) => {
     return (
         <div className={rootClasses.join(' ')} onClick={setModalStatus}>
             <div className='Modal-content'>
-                <Layout head={<ModalHead />} />
-                <div>
-                    {products.map((product, index) => <Item key={index} item={product} />)}
-                </div>
+                <ModalHead setModalStatus={setModalStatus} />
+                <CartList products={products} />
             </div>
         </div>
     )
 }
 
-export default ModalWindow
+ModalWindow.propTypes = {
+    setModalStatus: propTypes.func.isRequired,
+    modalStatus: propTypes.bool.isRequired,
+    products: propTypes.arrayOf(propTypes.object).isRequired
+}
+
+ModalWindow.defaultProps = {
+    setModalStatus: () => { },
+    modalStatus: false,
+    products: []
+}
+
+
+export default React.memo(ModalWindow)

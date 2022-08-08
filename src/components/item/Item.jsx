@@ -42,13 +42,7 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
 }
 
-Item.defaultProps = {
-  onSelect: () => { },
-  onDeleted: () => { }
-}
 
 export default React.memo(Item);

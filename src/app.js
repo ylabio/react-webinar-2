@@ -1,10 +1,10 @@
 import React, {useCallback, useState} from 'react';
-import Controls from './components/controls';
+import Controls from './components/shoppingcart-controls';
 import List from './components/list';
 import Layout from './components/layout';
-import {counter} from './utils';
 import Modal from './components/modal';
-import ShoppingCart from './components/shoppingCart';
+import ShoppingCart from './components/shopping-cart';
+import ModalHead from './components/modal-head';
 
 /**
  * Приложение
@@ -28,13 +28,6 @@ function App({store}) {
     }, [])
   };
 
-  const modalHead = (
-    <>
-      <h1>Корзина</h1>
-      <button onClick={callbacks.onOpenCart}>Закрыть</button>
-    </>
-  );
-
   return (
     <>
       <Layout head={<h1>Магазин</h1>}>
@@ -50,7 +43,12 @@ function App({store}) {
 
       {isModalVisible && (
         <Modal onClose={callbacks.onOpenCart}>
-          <Layout head={modalHead} modal>
+          <Layout
+            head={
+              <ModalHead headName="Корзина" onAction={callbacks.onOpenCart} />
+            }
+            modal
+          >
             <ShoppingCart
               cartItems={store.getState().shoppingCart}
               onRemoveItem={callbacks.onRemoveItemFromCart}

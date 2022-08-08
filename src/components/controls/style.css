@@ -4,3 +4,24 @@
     justify-content: flex-end;
     padding: 20px;
 }
+
+.Controls-info{
+    display: block;
+    padding-right: 20px;
+    font-size: 18px;
+}
+.Controls-button{
+    display: block;
+    width: 80px;
+    height: 21px;
+    padding: 0;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: #EFEFEF;
+    border: 1px solid #404040;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.Controls-button:hover{
+    opacity: 0.8;
+}

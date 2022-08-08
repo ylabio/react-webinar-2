@@ -41,43 +41,63 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Добавление товара в корзину
+   * @param item {Object}
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  addItemToCart(item) {
+    const checkItemInCart = this.state.cart.items.find(element => element.code === item.code);
+
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      cart: {
+        ... this.state.cart,
+        items: checkItemInCart ?
+          this.state.cart.items.map(element => element.code === item.code ?
+            {...element, amount: element.amount + 1} : element) :
+          this.state.cart.items.concat({...item, amount: 1}),
+        total: this.state.cart.total + item.price
+      }
     });
   }
 
   /**
-   * Удаление записи по её коду
-   * @param code
+   * Удаление товара из корзины
+   * @param item {Object}
    */
-  deleteItem(code) {
+  deleteItemFromCart(item) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      cart: {
+        ...this.state.cart,
+        items: this.state.cart.items.filter(element => element.code !== item.code),
+        total: this.state.cart.total - (item.price * item.amount)
+      }
     });
   }
 
   /**
-   * Выделение записи по её коду
-   * @param code
+   * Открытие модального окна с корзиной
    */
-  selectItem(code) {
+  openCart() {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cart: {
+        ...this.state.cart,
+        isOpened: true
+      }
+    });
+  }
+
+  /**
+   * Закрытие модального окна с корзиной
+   */
+  closeCart() {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        isOpened: false
+      }
     });
   }
 }

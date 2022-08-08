@@ -55,8 +55,9 @@ class Store {
    * @param code
    */
 
-  addItemToBasket(item) {
+  addItemToBasket(code) {
     let exists = false; 
+    const item = this.state.items.find((el) => el.code === code)
     const newItemInBasket = this.state.basket.product.map((newItem) => {
       if (item.code === newItem.code) {
         // newItem.count += 1;
@@ -83,8 +84,9 @@ class Store {
    * @param code
    */
 
-  deleteItemToBasket(item) {
+  deleteItemToBasket(code) {
     let temp = 0;
+    const item = this.state.basket.product.find((el) => el.code === code)
     const newItems = this.state.basket.product.filter(prod => {
       if (prod.code === item.code) {
         temp = item.count

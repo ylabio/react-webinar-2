@@ -8,17 +8,17 @@ import { formatNumber } from "../../utils";
 import "./style.css";
 
 function BasketSum({price}) {
-    const cn = bem('BasketSum')
-    return (
-        <div className={cn()}>
-            <span className={cn('title')}>Итого</span>
-            <span>{formatNumber(price) + " ₽"}</span>
-        </div>
-    )
+  const cn = bem('BasketSum')
+  return (
+    <div className={cn()}>
+      <span className={cn('title')}>Итого</span>
+      <span>{formatNumber(price) + " ₽"}</span>
+    </div>
+  )
 }
 
 BasketSum.propTypes = {
-    price: propTypes.number
+  price: propTypes.number
 }
 
 export default React.memo(BasketSum);

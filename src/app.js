@@ -17,10 +17,10 @@ function App({store}) {
 
   const callbacks = {
     onAddItemToBasket: useCallback((item) => {
-      store.addItemToBasket(item);
+      store.addItemToBasket(item.code);
     }, [store]),
     onDeleteItemToBasket: useCallback((item) => {
-      store.deleteItemToBasket(item);
+      store.deleteItemToBasket(item.code);
     }, [store])
   }
 

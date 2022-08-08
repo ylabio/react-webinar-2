@@ -6,7 +6,7 @@ export function counter() {
   return counter.value ? ++counter.value : (counter.value = 1)
 }
 /**
- * Считает сумму всех элементов массива
+ * Считает сумму всех элементов массива объектов учитавая ключи
  * @returns {number|number}
  */
 

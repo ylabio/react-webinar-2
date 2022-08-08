@@ -2,7 +2,7 @@ import React from 'react';
 import List from '../list';
 import {arrayToCart, currencySign as roubleSign} from '../../utils';
 
-function ShoppingCart({cartItems}) {
+function ShoppingCart({cartItems, onRemoveItem}) {
   const resultSum = cartItems.length
     ? cartItems.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
     : 0;
@@ -10,7 +10,7 @@ function ShoppingCart({cartItems}) {
   const grouppedItemsWithAmount = arrayToCart(cartItems);
   return (
     <>
-      <List items={grouppedItemsWithAmount} cartItem />
+      <List items={grouppedItemsWithAmount} onAction={onRemoveItem} cartItem />
       <p>
         Итого: {resultSum} {roubleSign}{' '}
       </p>

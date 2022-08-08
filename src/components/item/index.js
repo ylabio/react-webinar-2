@@ -9,16 +9,8 @@ function Item(props) {
 
   const callbacks = {
     onClick: useCallback(() => {
-      props.onAddItemToCart(props.item.code);
-    }, [props.onAddItemToCart, props.item]),
-
-    onDelete: useCallback(
-      e => {
-        e.stopPropagation();
-        props.onDelete(props.item.code);
-      },
-      [props.onDelete, props.item]
-    )
+      props.onButtonClick(props.item.code);
+    }, [props.onButtonClick, props.item])
   };
 
   return (

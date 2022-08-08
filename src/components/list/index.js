@@ -13,8 +13,7 @@ function List(props) {
         <div key={item.code} className={cn('item')}>
           <Item
             item={item}
-            onSelect={props.onItemSelect}
-            onAddItemToCart={props.onAddItemToCart}
+            onButtonClick={props.onAction}
             cartItem={props.cartItem}
           />
         </div>

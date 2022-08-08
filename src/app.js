@@ -23,8 +23,8 @@ function App({store}) {
       store.addItemToCart(code);
     }, []),
 
-    onDeleteItems: useCallback(code => {
-      store.deleteItem(code);
+    onRemoveItemFromCart: useCallback(code => {
+      store.removeItemFromCart(code);
     }, [])
   };
 
@@ -37,15 +37,16 @@ function App({store}) {
         />
         <List
           items={store.getState().items}
-          onAddItemToCart={callbacks.onAddItemToCart}
-          onItemSelect={callbacks.onSelectItems}
-          onItemDelete={callbacks.onDeleteItems}
+          onAction={callbacks.onAddItemToCart}
         />
       </Layout>
 
       {isModalVisible && (
         <Modal onClose={callbacks.onOpenCart}>
-          <ShoppingCart cartItems={store.getState().shoppingCart} />
+          <ShoppingCart
+            cartItems={store.getState().shoppingCart}
+            onRemoveItem={callbacks.onRemoveItemFromCart}
+          />
         </Modal>
       )}
     </>

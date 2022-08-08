@@ -1,22 +1,21 @@
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import ModalLayout from "../../layout/modal-layout";
 import './style.css';
-import { AppContext } from "../../context/app-context";
 import { getCartItems } from "../../shared/utils";
 import CartDump from "../cart-dump";
+import propTypes from 'prop-types';
 
-function Cart() {
-  const { store } = useContext(AppContext);
-  const { isCartOpen, goods } = store.state;
-  const items = getCartItems(store.state.goods.items);
+function Cart({ 
+  isCartOpen, 
+  goods, 
+  handleModal, 
+  removeItemFromCart, 
+}) {
+  const items = getCartItems(goods.items);
 
   const callbacks = {
     closeModal: useCallback(() => {
-      store.handleModal(false);
-    }, []),
-
-    removeItemFromCart: useCallback((item) => {
-      store.removeItemFromCart(item);
+      handleModal(false);
     }, []),
   };
 
@@ -29,7 +28,7 @@ function Cart() {
   return (
     <ModalLayout closeModal={callbacks.closeModal}>
       <CartDump
-        removeItemFromCart={callbacks.removeItemFromCart}
+        removeItemFromCart={removeItemFromCart}
         closeModal={callbacks.closeModal}
         isCartOpen={isCartOpen}
         price={goods.price}
@@ -39,6 +38,19 @@ function Cart() {
     </ModalLayout>
   );
 }
+
+Cart.propTypes = { 
+  goods: propTypes.object.isRequired,
+  removeItemFromCart: propTypes.func.isRequired,
+  handleModal: propTypes.func.isRequired,
+  isCartOpen: propTypes.bool.isRequired,
+};
+
+Cart.defaultProps = {
+  removeItemFromCart: () => {},
+  handleModal: () => {},
+  isCartOpen: false,
+};
 
 export default Cart;
 

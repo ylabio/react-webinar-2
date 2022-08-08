@@ -1,3 +1,5 @@
+import { counter } from "./shared/utils";
+
 class Store {
 
   constructor(initState) {
@@ -43,6 +45,7 @@ class Store {
   addItemToCart(item) {
     const goods = JSON.parse(JSON.stringify(this.state.goods));
     goods.price += item.price;
+    goods.id = counter();
 
     if (item.code in goods.items) {
       goods.items[item.code].quantity++;
@@ -67,6 +70,7 @@ class Store {
   removeItemFromCart(item) {
     const goods = JSON.parse(JSON.stringify(this.state.goods));
     goods.price -= item.data.price * item.quantity;
+    goods.id = counter();
     
     delete goods.items[item.data.code];
     goods.total--;

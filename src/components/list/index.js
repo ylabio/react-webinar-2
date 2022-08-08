@@ -2,18 +2,10 @@ import React, { useCallback, useContext } from 'react';
 import {cn as bem} from "@bem-react/classname";
 import Item from "../item";
 import './style.css';
-import { AppContext } from '../../context/app-context';
+import propTypes from 'prop-types';
 
-function List() {
-  const {store} = useContext(AppContext);
-  const {items} = store.state;
+function List({ addItemToCart, items }) {
   const cn = bem('List');
-
-  const callbacks = {
-    addItemToCart: useCallback((item) => {
-      store.addItemToCart(item);
-    }, []) 
-  };
 
   return (
     <div className={cn()}>
@@ -21,12 +13,22 @@ function List() {
         <div key={item.code} className={cn('item')}>
           <Item 
             item={item} 
-            addItemToCart={callbacks.addItemToCart}
+            addItemToCart={addItemToCart}
           />
         </div>
       )}
     </div>
   );
 }
+
+List.propTypes = { 
+  items: propTypes.array.isRequired,
+  addItemToCart: propTypes.func.isRequired,
+};
+
+List.defaultProps = {
+  items: [],
+  addItemToCart: () => {},
+};
 
 export default React.memo(List);

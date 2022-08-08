@@ -1,20 +1,18 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import Button from '../../shared/ui/button';
-import { AppContext } from '../../context/app-context';
 import plural from 'plural-ru';
 import { formatPrice } from '../../shared/utils';
+import propTypes from 'prop-types';
 
-function Controls() {
-  const {store} = useContext(AppContext);
-  const {total, price} = store.state.goods;
+function Controls({ total, price, handleModal }) {
   const ending = plural(total, 'товар', 'товара', 'товаров');
   const cn = bem('Controls');
 
   const callbacks = {
     openModal: useCallback(() => {
-      store.handleModal(true);
+      handleModal(true);
     }, []),
   };
 
@@ -38,5 +36,17 @@ function Controls() {
     </div>
   );
 }
+
+Controls.propTypes = { 
+  total: propTypes.number.isRequired,
+  price: propTypes.number.isRequired,
+  handleModal: propTypes.func.isRequired,
+};
+
+Controls.defaultProps = {
+  total: 0,
+  price: 0,
+  handleModal: () => {},
+};
 
 export default React.memo(Controls);

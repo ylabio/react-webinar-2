@@ -1,6 +1,6 @@
 .Cart{
     width: 960px;
-    height: 603px;
+    min-height: 603px;
 
     background-color: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
@@ -31,6 +31,5 @@
 .Cart-content{
     box-sizing: border-box;
     margin: 70px 0px;
-    overflow-y: auto;
-    height: calc(100% - 80px - 140px); /* Вычитаем head, потом суммарно вычитаем margin */
+    height: calc(100% - 74px); /* Вычитаем head, потом суммарно вычитаем margin */
 }

@@ -20,8 +20,8 @@ function ItemCart(props) {
       </div>
       <div className={cn('title')}>
         {props.item.title}
-        <span className={cn('price')}>{props.item.price} ₽</span>
         <span className={cn('price')}>{props.item.count} шт</span>
+        <span className={cn('price')}>{props.item.price.toLocaleString('ru-RU')} ₽</span>
       </div>
       <div className={cn('actions')}>
         <button onClick={callbacks.onDelete}>

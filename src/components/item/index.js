@@ -24,9 +24,6 @@ function Item(props) {
 			<div className={cn('price')}>
 				{formatPrice(props.item.price)} ₽
       </div>
-			{props.item.totalCount && <div className={cn('totalcount')}>
-				{props.item?.totalCount} шт
-			</div>}
       <div className={cn('actions')}>
         <button onClick={callbacks.onCallback}>
 					Добавить

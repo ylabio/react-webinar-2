@@ -73,13 +73,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      chosenItems: this.state.items.filter(item => {
-        if (item.code === code){
-            return {...item, count: --item.count}
-        } else {
-            return item.count > 0 ? item : null
-        }
-      })
+      chosenItems: this.state.chosenItems.filter(item => item.code !== code)
     });
   }
 }

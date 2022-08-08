@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import propTypes from 'prop-types';
-import { priceReduce, counterReduce } from '../../utils';
+import { formatPrice, priceReduce} from '../../utils';
 import './style.css';
 import plural from 'plural-ru';
 
 function Controls(props){
+
   return (
     <div className='Controls'>
       <span>В корзине: <span>
-      {counterReduce(props.chosenItems) !== 0 
-      ? <span> {counterReduce(props.chosenItems)}  
-        {plural(counterReduce(props.chosenItems), ' товар', ' товара', ' товаров')} / 
-        {` ${priceReduce(props.chosenItems)}`} &#8381;</span>  
+      {props.chosenItems.length !== 0 
+      ? <span> {props.chosenItems.length}  
+        {plural(props.chosenItems.length, ' товар', ' товара', ' товаров')} / 
+        {formatPrice(priceReduce(props.chosenItems))}</span>  
       : 'пусто'}</span>
       </span>
       <button onClick={props.onToggle}>Перейти</button>

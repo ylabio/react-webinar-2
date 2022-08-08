@@ -12,9 +12,12 @@ export function counter(){
   return array && array.reduce((total, arr) => total + (arr.price * arr.count), 0)
 }
 
-/**
-*  Подсчет количества товаров
-*/
-export const counterReduce = (array) => {
-  return array && array.reduce((total, arr) => total + arr.count, 0)
+
+export function formatPrice(price) {
+ return new Intl.NumberFormat("ru-RU", {
+    style: "currency",
+    currency: "RUB",
+    currencyDisplay: "symbol",
+    maximumFractionDigits: 0,
+    }).format(price)
 }

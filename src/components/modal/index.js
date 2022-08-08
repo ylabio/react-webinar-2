@@ -1,7 +1,7 @@
 import React from 'react';
 import {cn as bem} from "@bem-react/classname";
 import List from "../list/index";
-import { priceReduce } from '../../utils';
+import { formatPrice, priceReduce } from '../../utils';
 import './style.css';
 
 function Modal(props) {
@@ -27,7 +27,7 @@ function Modal(props) {
                             />
                             <div className={cn('sum')}>
                                 <span>Итого</span>
-                                <span>{priceReduce(props.chosenItems)} &#8381;</span>
+                                <span>{formatPrice(priceReduce(props.chosenItems))}</span>
                             </div>
                         </div>
                     </div>

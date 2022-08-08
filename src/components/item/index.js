@@ -2,6 +2,7 @@ import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
+import { formatPrice } from '../../utils';
 
 function Item(props) {
   const cn = bem('Item');
@@ -34,7 +35,10 @@ function Item(props) {
           </div>
           <div className={cn('title')}>
             {props.item.title}
-            <span>{props.item.price} &#8381; {props.onToggle && <span>{count} шт</span>}</span>
+            <span>
+              {formatPrice(props.item.price)} 
+              {props.onToggle && <span>{count} шт</span>}
+            </span>
           </div>
           <div className={cn('actions')}>
             {

@@ -4,14 +4,13 @@ import propTypes from 'prop-types';
 
 import './style.css';
 
-function Modal({children, onClose}) {
+function Modal({children}) {
   const cn = bem('Modal');
   return <div className={cn()}>{children}</div>;
 }
 
 Modal.propTypes = {
-  children: propTypes.node,
-  onClose: propTypes.func.isRequired
+  children: propTypes.node
 };
 
 export default React.memo(Modal);

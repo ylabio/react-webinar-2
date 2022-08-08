@@ -1,8 +1,10 @@
-import React, {useCallback} from 'react';
+import React, {useCallback} from "react";
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import {counter} from "./utils";
+import Card from "./components/card";
+import Modal from "./components/modal";
 
 /**
  * Приложение
@@ -10,27 +12,29 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-
+  const[modal, setModal] = React.useState(false)
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    deleteLogic: useCallback((item) => {
+      store.deleteItem(item.code)
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    addLogic: useCallback((code) => {
+      store.createItem(code);
     }, []),
   }
-
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls setModal={setModal} items={store.getState().socket}/>
       <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
+            addLogic={callbacks.addLogic}
+           />
+           <Modal modal={modal} setModal={setModal}>
+           <Card
+           setModal={setModal}
+           socket={store.getState().socket}
+           deleteLogic={callbacks.deleteLogic}
+           onClose={()=>setModal(true)}
+           />
+           </Modal>
     </Layout>
   );
 }

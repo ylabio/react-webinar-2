@@ -2,7 +2,10 @@ class Store {
 
   constructor(initState) {
     // Состояние приложения (данные)
-    this.state = initState;
+    this.state = {
+      ...initState,
+      socket: []  //товары в корзине
+    }
     // Слушатели изменений state
     this.listeners = [];
   }
@@ -40,16 +43,22 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
+  createItem(item) {
+    const arrayOfItems = this.state.socket.find((el) => el.code === item.code);
+    if(arrayOfItems) {
+      this.setState({
+        ...this.state,
+        socket: this.state.socket.map((el) => {
+          return el.code === item.code ? {...arrayOfItems, amount: arrayOfItems.amount + 1} : el
+        })
+      })
+    }else {
+      this.setState({
+        ...this.state,
+        socket: [...this.state.socket, {...item, amount: 1}]
+      });
+    }
   }
-
   /**
    * Удаление записи по её коду
    * @param code
@@ -57,29 +66,11 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      socket: this.state.socket.filter(item => item.code !== code)
     });
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
-  }
+  
 }
 
 export default Store;

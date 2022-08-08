@@ -38,8 +38,20 @@
   cursor: pointer;
   height: 21px;
   width: 71px;
+  border: 1px solid #767676;
+  background: #efefef;
+
   border-radius: 2px;
   margin-right: 20px;
+
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
+  text-align: center;
+
+  color: #000000;
 }
 .Card-item-number {
   margin-left: 18px;

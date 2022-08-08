@@ -17,7 +17,7 @@ function Modal({ setModal, buyState, itemClick }) {
       {buyState.length ? (
         buyState.map((item, index) => (
           <div key={index} className={cn("item")}>
-            <Item item={item} index={index} itemClick={itemClick} />
+            <Item item={item} itemClick={itemClick} />
           </div>
         ))
       ) : (

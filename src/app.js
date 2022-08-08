@@ -28,7 +28,7 @@ function App({ store }) {
       componentModal={
         <Modal
           setModal={setModal}
-          buyState={store.getState().itemsBuy}
+          buyState={store.getState().itemsBuy.sort((a, b) => a.code - b.code)}
           itemClick={callbacks.onDeleteItems}
           head={<h1>Корзина</h1>}
         />

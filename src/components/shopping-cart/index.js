@@ -13,7 +13,7 @@ function ShoppingCart({cartItems, onRemoveItem, total}) {
       <div className={cn('total')}>
         <span>Итого:</span>{' '}
         <span>
-          {total} {roubleSign}{' '}
+          {total.toLocaleString()} {roubleSign}{' '}
         </span>
       </div>
     </div>

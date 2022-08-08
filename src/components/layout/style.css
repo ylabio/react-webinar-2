@@ -28,15 +28,8 @@ body {
 
 .Layout_modal {
   max-width: 960px;
-  min-height: 600px;
+  min-height: 650px;
   margin: 15% auto;
   border-radius: 10px;
-  overflow-y: scroll;
-  /* hide scrollbar */
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-.Layout_modal::-webkit-scrollbar {
-  display: none;
+  overflow-y: auto;
 }

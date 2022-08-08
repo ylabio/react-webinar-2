@@ -15,7 +15,7 @@ function Controls({total, amount, onOpenCart}) {
         В корзине:{' '}
         <span>
           {amount
-            ? `${amount} ${itemPlural} / ${total} ${roubleSign}`
+            ? `${amount} ${itemPlural} / ${total.toLocaleString()} ${roubleSign}`
             : `пусто`}
         </span>
       </p>

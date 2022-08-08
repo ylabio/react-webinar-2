@@ -1,10 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import plural from 'plural-ru';
+import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import {arrayToCart, currencySign as roubleSign} from '../../utils';
 
 function Controls({onOpenCart, cartItems}) {
+  const cn = bem('Controls');
   const numberOfitems = arrayToCart(cartItems).length;
   const itemPlural = plural(numberOfitems, 'товар', 'товара', 'товаров');
   const resultSum = cartItems
@@ -12,7 +14,7 @@ function Controls({onOpenCart, cartItems}) {
     .reduce((acc, curr) => acc + curr, 0);
 
   return (
-    <div className="Controls">
+    <div className={cn()}>
       <p>
         В корзине:{' '}
         <span>
@@ -21,7 +23,9 @@ function Controls({onOpenCart, cartItems}) {
             : `пусто`}
         </span>
       </p>
-      <button onClick={onOpenCart}>Перейти</button>
+      <div className={cn('actions')}>
+        <button onClick={onOpenCart}>Перейти</button>
+      </div>
     </div>
   );
 }

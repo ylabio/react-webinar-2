@@ -7,7 +7,10 @@ function Modal({children, onClose}) {
   return (
     <div className={cn()}>
       <div className={cn('content')}>
-        <button onClick={onClose}>Закрыть</button>
+        <div className={cn('head')}>
+          <h1>Корзина</h1>
+          <button onClick={onClose}>Закрыть</button>
+        </div>
         {children}
       </div>
     </div>

@@ -1,0 +1,15 @@
+.ShoppinCart {
+}
+
+.ShoppingCart-total {
+  margin-top: 30px;
+  font-weight: 700;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 110px;
+}
+
+.ShoppingCart-total span + span {
+  margin-left: 50px;
+}

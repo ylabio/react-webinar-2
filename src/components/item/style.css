@@ -10,13 +10,23 @@
 }
 
 .Item-title {
-  width: 80%;
   padding: 20px 10px;
+  margin-right: auto;
 }
 .Item-actions {
   padding: 20px 20px 20px 10px;
   display: flex;
   justify-content: flex-end;
+}
+
+.Item-amount {
+  margin-right: 20px;
+  margin-left: 50px;
+}
+
+.Item-actions > button {
+  width: 76px;
+  height: 21px;
 }
 .Item-number {
   padding: 20px 10px 20px 20px;

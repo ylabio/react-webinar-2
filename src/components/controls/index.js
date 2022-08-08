@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import { pluralize, numFormat, getPrice } from "../../utils";
@@ -17,9 +17,11 @@ function Controls(props) {
     0
   );
   const cartInfo = ` ${goodsQty} ${pluralize(goodsQty)} / `;
-  
-  const onClick = () => {
-    setIsOpen(!isOpen);
+
+  const callbacks = {
+    onClick: useCallback(() => {
+      setIsOpen(!isOpen);
+    }),
   };
 
   return (
@@ -41,13 +43,15 @@ function Controls(props) {
         )}
       </div>
       <div className={cn("actions")}>
-        <button className={cn("button-modal-on")} onClick={onClick}>Перейти</button>
+        <button className={cn("button-modal-on")} onClick={callbacks.onClick}>
+          Перейти
+        </button>
       </div>
       <Modal
         items={items}
         cart={cart}
         isOpen={isOpen}
-        onClickToggle={onClick}
+        onClickToggle={callbacks.onClick}
         onCart={props.onCart}
       />
     </div>

@@ -1,8 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import Controls from "./components/controls/Controls";
-import List from "./components/list/List";
 import Layout from "./components/layout/Layout";
-import { counter } from "./utils";
+import List from "./components/list/List";
 import ModalWindow from './components/modal/ModalWindow';
 
 /**
@@ -12,11 +11,11 @@ import ModalWindow from './components/modal/ModalWindow';
  */
 function App({ store }) {
 
-  const [countProduct, setCountProduct] = useState()
   const callbacks = {
-    setModalStatus: useCallback(() => {
+    openModal: useCallback(() => {
       store.setModalStatus()
     }, []),
+
     onAddProduct: useCallback((code) => {
       store.onAddProduct(code);
     }, [])
@@ -24,7 +23,7 @@ function App({ store }) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls product={store.getState().cart} modalStatus={store.getState().modalStatus} setModalStatus={callbacks.setModalStatus} />
+      <Controls product={store.getState().cart} modalStatus={store.getState().modalStatus} setModalStatus={callbacks.openModal} />
       <List items={store.getState().items}
         onAddProduct={callbacks.onAddProduct}
       />

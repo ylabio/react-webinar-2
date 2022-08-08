@@ -52,16 +52,15 @@ class Store {
   onDeleteProduct(code) {
     this.setState({
       ...this.state,
-      cart: this.state.cart.filte(item => item.code != code)
+      cart: this.state.cart.filter(item => item.code != code)
     })
   }
 
   setModaStatus() {
     this.setState({
       ...this.state,
-      modalStatus: this.state.modalStatus
+      modalStatus: true
     })
-    return modalStatus
   }
 }
 

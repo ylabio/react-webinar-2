@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
+import { cn as bem } from "@bem-react/classname";
 import Item from "../item/Item";
 import './style.css';
 
@@ -24,7 +24,7 @@ List.propTypes = {
 
 List.defaultProps = {
   items: [],
-  onAddProduct: () => {},
+  onAddProduct: () => { },
 }
 
 export default React.memo(List);

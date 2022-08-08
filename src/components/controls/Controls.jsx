@@ -6,8 +6,10 @@ import './style.css';
 function Controls({ product, modalStatus, openModal }) {
 
   const handle = () => {
-    openModal()
+    openModal
+    console.log(modalStatus)
   }
+
   const [totalSum, setTotalSum] = useState(0)
 
   useMemo(() => {
@@ -17,7 +19,7 @@ function Controls({ product, modalStatus, openModal }) {
 
   return (
     <div className='Controls'>
-      <span className='Controls-info'>В корзине: <strong>{product.length} {plural(totalSum, 'товар', 'товара', 'товаров')} / {totalSum} ₽</strong></span>
+      <span className='Controls-info'>В корзине: <strong>{product.length} {plural(totalSum, 'товара', 'товаров', 'товар')} / {totalSum} ₽</strong></span>
       <button className='Controls-button' onClick={handle}>Перейти</button>
     </div>
   )

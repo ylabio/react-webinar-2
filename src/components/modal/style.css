@@ -13,13 +13,18 @@
   transition: 0.4s;
 }
 
+.Modal-overfilled{
+  padding-top: 20px;
+  align-items: baseline;
+  overflow-y: scroll;
+}
+
 .Modal.active{
   pointer-events: all;
   opacity: 1;
 }
 
 .Modal-content{
-  padding: 10px;
   border-radius: 10px;
   width: 960px;
   transform: scale(0.7);
@@ -30,11 +35,16 @@
   transform: scale(1);
 }
 
+.Modal-content-overfilled{
+  margin-left: 20px;
+  margin-bottom: 40px;
+}
+
 /* Кнопка для закрытия окна */
 .Modal-close {
   position: absolute;
-  top: 40px;
-  right: 38px;
+  top: 30px;
+  right: 28px;
   width: 76px;
   height: 21px;
   border: 1px solid #767676;
@@ -45,9 +55,7 @@
 /* Для Layouta внутри окна */
 .Modal-content .Layout{
   border-radius: 10px;
-  min-height: auto;
-  height: 550px;
-  /* height: 603px; */
+  min-height: 583px;
   box-shadow: none;
 }
 
@@ -58,12 +66,21 @@
 }
 
 /* В корзинный List добавил скролл, т.к. едва умещаются 7 товаров */
-.Modal-content .List{
+/* .Modal-content .List{
   height: 390px;
   overflow-y: scroll;
   scrollbar-width: auto;
-}
+} */
 
 .Modal-content .Item-count{
   width: 120px;
+}
+
+.Modal-stats{
+  white-space: pre;
+  font-size:18;
+  font-weight: 700;
+  width: 840px;
+  text-align: end;
+  padding: 20px;
 }

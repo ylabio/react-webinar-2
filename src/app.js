@@ -1,10 +1,10 @@
 import plural from 'plural-ru';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Controls from "./components/controls";
 import Layout from "./components/layout";
 import List from "./components/list";
 import Modal from "./components/modal";
-import { counter } from "./utils";
+import { checkBasketDesign, counter } from "./utils";
 
 /**
  * Приложение
@@ -27,15 +27,26 @@ function App({store}) {
     }, []),
   }
 
+  window.onresize = (e) => { // проверим корректность отображения корзины после ресайза
+    checkBasketDesign(modalActive);
+  }
+
+  useEffect(() => { // проверим корректность отображения корзины после обновления DOM
+    checkBasketDesign(modalActive);
+  });
+
   return (
     <div>
+
       <Layout head={<h1>Магазин</h1>}>
         <Controls
           onButtonClick={callbacks.onShowBasket}
           stats={
-            store.getTotalGoods(true) + ' ' +
-            plural(store.getTotalGoods(true), 'товар', 'товара', 'товаров') +
-            ' / ' + store.getTotalPrice().toLocaleString('ru-RU') + ' ₽'
+            store.getTotalGoods(true)?
+              store.getTotalGoods(true) + ' ' +
+              plural(store.getTotalGoods(true), 'товар', 'товара', 'товаров') +
+              ' / ' + store.getTotalPrice().toLocaleString('ru-RU') + ' ₽'
+            : 'пусто'
           }
         />
         <List items={store.getState().items}
@@ -43,27 +54,28 @@ function App({store}) {
               buttonsLabel="Добавить"
         />
       </Layout>
-      <Modal active={modalActive} setActive={setModalActive}>
-        <Layout head={<h1>Корзина</h1>}>
-          <List items={store.getState().basket}
-                buttonsAction={callbacks.onRemoveItemFromBasket}
-                buttonsLabel="Удалить"
-          />
-          <div style={{
-            position:"absolute",
-            whiteSpace: "pre",
-            fontSize:18,
-            fontWeight: 700,
-            padding:25,
-            right:102,
-          }}>{store.getTotalGoods(true)
-              ?
-                'Итого\t' + store.getTotalPrice().toLocaleString('ru-RU') + ' ₽'
-              :
-                'Нет товаров в корзине!'
-          }</div>
-        </Layout>
-      </Modal>
+
+      {
+        modalActive? /* Оптимизация, ибо невидимые элементы продолжают перерисовываться */
+          <Modal active={modalActive} setActive={setModalActive}>
+            <Layout head={<h1>Корзина</h1>}>
+              <List items={store.getState().basket}
+                    buttonsAction={callbacks.onRemoveItemFromBasket}
+                    buttonsLabel="Удалить"
+              />
+              <div className='Modal-stats'>
+                {store.getTotalGoods(true)
+                  ?
+                    'Итого\t\t' + store.getTotalPrice().toLocaleString('ru-RU') + ' ₽'
+                  :
+                    'Нет товаров в корзине!'
+                }
+              </div>
+            </Layout>
+          </Modal>
+        :null
+      }
+
     </div>
   );
 }

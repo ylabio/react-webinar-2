@@ -44,7 +44,6 @@ function App({ store }) {
       <Layout head={<h1>Магазин</h1>} >
         <InfoBasket modalVal={modal} setModal={setModal} tPaP={totalPricaAndProduct} />
         <List items={store.getState().items}
-          onItemDelete={callbacks.onDeleteItems}
           onAddBasket={callbacks.onAddBasket}
           totalPricaAndProduct={callbacks.totalPricaAndProduct}
         />
@@ -52,7 +51,6 @@ function App({ store }) {
       <Basket head={<h2>Корзина</h2>} modalVal={modal} setModal={setModal} tPaP={totalPricaAndProduct}>
         <List items={store.getState().basket}
           onItemDelete={callbacks.onDeleteItems}
-          onAddBasket={callbacks.onAddBasket}
           reUse={true}
         />
       </Basket>

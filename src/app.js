@@ -30,7 +30,6 @@ function App({ store }) {
       store.addToBasket(item);
     }, []),
     onDeleteItem: useCallback((item) => {
-      console.log(item);
       store.deleteItemFromBasket(item.code);
     }, []),
   };

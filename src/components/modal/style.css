@@ -28,6 +28,7 @@
     transition: 0.4s all;
 }
 
+
 .Modal-content.active {
     transform: scale(1);
 }

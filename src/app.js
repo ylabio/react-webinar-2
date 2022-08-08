@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
@@ -12,7 +12,6 @@ import BasketItem from "./components/basketItem";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-    const [modalActive, setModalActive] = useState(false);
     const callbacks = {
         onDeleteBasketItem: useCallback((code) => {
             store.deleteBasketItem(code);
@@ -20,15 +19,20 @@ function App({store}) {
         onAddBasketItem: useCallback((code) => {
             store.addBasketItem(code);
         }, []),
+        onChangeModal: useCallback((code) => {
+            store.changeModelItem(code);
+        }, []),
     }
+
     return (
         <Layout head={<h1>Магазин</h1>}>
-            <Controls totalPrice={store.state.totalPrice} totalCount={store.state.totalCount}
-                      setModalActive={setModalActive}/>
-            <List items={store.state.items} onAddBasketItem={callbacks.onAddBasketItem} item={Item}/>
-            <Modal active={modalActive} setActive={setModalActive} totalPrice={store.state.totalPrice}
-                   basket={store.state.basket} deleteItem={callbacks.onDeleteBasketItem}
-                   totalCount={store.state.totalCount} item={BasketItem}/>
+            <Controls modal={store.state.modals[0]} setModalActive={callbacks.onChangeModal}
+                      totalPrice={store.state.totalPrice} totalCount={store.state.totalCount}/>
+            <List items={store.state.items} onAddBasketItem={callbacks.onAddBasketItem} itemComponent={Item}/>
+            <Modal totalPrice={store.state.totalPrice} modal={store.state.modals[0]}
+                   setModalActive={callbacks.onChangeModal} basket={store.state.basket}
+                   deleteItem={callbacks.onDeleteBasketItem} totalCount={store.state.totalCount}
+                   itemComponent={BasketItem}/>
         </Layout>
     );
 }

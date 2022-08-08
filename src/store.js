@@ -123,6 +123,24 @@ class Store {
             })
         }
     }
+
+    /**
+     * Вывод и скрытие модального окна
+     */
+    changeModelItem(id) {
+        this.setState({
+            ...this.state,
+            modals: this.state.modals.map(item => {
+                if (item.id === id) {
+                    return {
+                        ...item,
+                        active: !item.active
+                    }
+                }
+            })
+        })
+    }
+
 }
 
 

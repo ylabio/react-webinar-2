@@ -3,13 +3,13 @@ import './style.css';
 import propTypes from "prop-types";
 import {cn as bem} from "@bem-react/classname";
 
-function Modal({active, setActive, totalPrice, basket, deleteItem, totalCount, item: Item}) {
+function Modal({modal, setModalActive, totalPrice, basket, deleteItem, totalCount, itemComponent: Item}) {
     const cn = bem('Modal');
     return (
-        <div className={active ? 'Modal active' : cn()} onClick={() => setActive(false)}>
-            <div className={active ? cn('content active') : cn('content')} onClick={e => e.stopPropagation()}>
+        <div className={modal.active ? 'Modal active' : cn()} onClick={() => setModalActive(modal.id)}>
+            <div className={modal.active ? cn('content active') : cn('content')} onClick={e => e.stopPropagation()}>
                 <div className='head'><h1>Корзина</h1>
-                    <button onClick={() => setActive(false)} className={cn('close')}>Закрыть</button>
+                    <button onClick={() => setModalActive(modal.id)} className={cn('close')}>Закрыть</button>
                 </div>
                 <div className=''>{basket.map(item =>
                     <div key={item.code} className={cn('item')}>
@@ -29,19 +29,21 @@ function Modal({active, setActive, totalPrice, basket, deleteItem, totalCount, i
 
 Modal.propTypes = {
     deleteItem: propTypes.func,
-    active: propTypes.bool,
-    setActive: propTypes.func,
+    modal: propTypes.object.isRequired,
+    setModalActive: propTypes.func,
     totalPrice: propTypes.number,
+    totalCount: propTypes.number,
+    itemComponent: propTypes.object.isRequired,
     basket: propTypes.arrayOf(propTypes.object).isRequired
 }
 
 Modal.defaultProps = {
     deleteItem: () => {
     },
-    setActive: () => {
+    setModalActive: () => {
     },
-    active: false,
     totalPrice: null,
+    totalCount: null
 }
 
 export default React.memo(Modal);

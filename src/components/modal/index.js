@@ -9,13 +9,16 @@ function Modal(props) {
   const callbacks = {
 		onToggleModal: useCallback(() => {
       props.onToggleModal();
-		}, [props.onToggleModal, props.isOpenModal])
+		}, [props.onToggleModal])
   };
 
   return (
-    <div className={`${cn()} ${props.isOpenModal ? 'Modal_active' : ''}`} onClick={callbacks.onToggleModal}>
+    <div className={cn()} onClick={callbacks.onToggleModal}>
 			<div className={cn('wrapper')}>
 				<div className={cn('content')} onClick={(e) => e.stopPropagation()}>
+					<div className={cn('head')}>
+						{props.head}
+					</div>
 					{props.children}
 				</div>
 			</div>
@@ -24,13 +27,11 @@ function Modal(props) {
 }
 
 Modal.propTypes = {
-	isOpenModal: propTypes.bool,
 	onToggleModal: propTypes.func,
 	children: propTypes.node
 }
 
 Modal.defaultProps = {
-	isOpenModal: false,
 	onToggleModal: () => {}
 }
 

@@ -14,10 +14,7 @@ function List(props) {
 }
 
 List.propTypes = {
-  children: propTypes.node,
-}
-
-List.defaultProps = {
+  children: propTypes.node.isRequired,
 }
 
 export default React.memo(List);

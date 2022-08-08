@@ -15,8 +15,8 @@ function CartItem(props) {
 
   return (
     <li className={cn()}>
-      <div className={cn('count')}>
-        {props.itemCount}
+      <div className={cn('code')}>
+        {props.cartItem.code}
       </div>
       <div className={cn('title')}>
         {props.cartItem.title}
@@ -37,13 +37,13 @@ function CartItem(props) {
 }
 
 CartItem.propTypes = {
-  cartItem: propTypes.object,
-  itemCount: propTypes.number.isRequired,
+  cartItem: propTypes.exact({
+    code: propTypes.number,
+    title: propTypes.string,
+    price: propTypes.number,
+    amount: propTypes.number,
+  }),
   onItemDelete: propTypes.func.isRequired
-}
-
-CartItem.defaultProps = {
-  onItemDelete: () => {}
 }
 
 export default React.memo(CartItem);

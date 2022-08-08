@@ -18,10 +18,9 @@ function Cart(props) {
   return (
     <div className={cn()}>
       <List>
-        {props.cartItems.map((item, index) =>
+        {props.cartItems.map((item) =>
           <CartItem
             cartItem={item}
-            itemCount={index + 1}
             onItemDelete={callbacks.onItemDelete}
             key={item.code}
           />

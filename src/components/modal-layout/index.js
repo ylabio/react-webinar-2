@@ -28,12 +28,9 @@ function ModalLayout({head, children, onClose}){
 }
 
 ModalLayout.propTypes = {
-  head: propTypes.node,
-  children: propTypes.node,
+  head: propTypes.node.isRequired,
+  children: propTypes.node.isRequired,
   onClose: propTypes.func.isRequired,
-}
-
-ModalLayout.defaultProps = {
 }
 
 export default React.memo(ModalLayout);

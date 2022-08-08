@@ -34,7 +34,11 @@ function Item(props) {
 }
 
 Item.propTypes = {
-  item: propTypes.object,
+  item: propTypes.exact({
+    code: propTypes.number,
+    title: propTypes.string,
+    price: propTypes.number,
+  }),
   onClick: propTypes.func,
 }
 

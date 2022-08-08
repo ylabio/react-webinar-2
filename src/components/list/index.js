@@ -8,22 +8,25 @@ function List(props) {
   const cn = bem('List');
 
   return (
-    <div className={cn()}>{props.items.map(item =>
-      <div key={item.code} className={cn('item')}>
-        <Item
-          item={item}
-          isCartItem={props.isCart}
-          onSelect={props.onItemSelect}
-          onDelete={props.onItemDelete}
-          onAddToCart={props.onItemAddToCart}
-        />
-      </div>
-    )}
-    {(props.isCart) &&
-      <div className={cn('cart')}>
+    <div className={cn()}>{
+      props.items.length
+        ? props.items.map(item =>
+          <div key={item.code} className={cn('item')}>
+            <Item
+              item={item}
+              isCartItem={props.isCart}
+              onSelect={props.onItemSelect}
+              onDelete={props.onItemDelete}
+              onAddToCart={props.onItemAddToCart}
+            />
+          </div>)
+        : (<p style={{textAlign: 'center'}}><strong>Пусто</strong></p>)
+      }
+    {(props.isCart && props.items.length > 0) &&
+      (<div className={cn('cart')}>
         <strong>Итого</strong>
         <strong>{`${props.total} ₽`}</strong>
-      </div>}
+      </div>)}
     </div>
   )
 }

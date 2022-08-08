@@ -33,10 +33,8 @@ function App({store}) {
       store.deleteItem(code, true)
     }, []),
     onOpenCart: useCallback(() => {
-      if (cartState.amount) {
         setIsShowModal(true);
-      }
-    }, [cartState.amount]),
+    }, []),
     onCloseModal: useCallback(() => {
       setIsShowModal(false);
     }, [])
@@ -56,7 +54,6 @@ function App({store}) {
       setCartState({amount, total});
     } else {
       setCartState({amount: 0, total: 0});
-      setIsShowModal(false);
     }
   }, [store.getState().cart])
 

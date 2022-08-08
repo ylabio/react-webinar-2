@@ -2,15 +2,16 @@ import React, {useState} from 'react';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import propTypes from 'prop-types';
+import Header from '../../components/header'
 
 function Layout({head, children}){
   const cn = bem('Layout');
 
   return (
     <div className={cn()}>
-      <div className={cn('head')}>
+      <Header>
         {head}
-      </div>
+      </Header>
       <div className={cn('content')}>
         {children}
       </div>
@@ -19,7 +20,7 @@ function Layout({head, children}){
 }
 
 Layout.propTypes = {
-  head: propTypes.node,
+  head: propTypes.node.isRequired,
   children: propTypes.node,
 }
 

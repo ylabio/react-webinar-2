@@ -60,6 +60,29 @@ class Store {
       })
     }
   }
+  //!Второй вариант
+  // addToCart(code) {
+  //   const cartItem = this.state.cart.find((o) => o.code === code);
+  //   if (cartItem) {
+  //     cartItem.count += 1;
+  //     this.setState({
+  //       ...this.state,
+  //       cart: this.state.cart.map(item => {
+  //         if (item.code !== code) return item;
+  //         return {
+  //           ...cartItem,
+  //           count: cartItem.count++,
+  //         }          
+  //       }),
+  //     })
+  //   } else {
+  //     const item = this.state.items.find((o) => o.code === code);
+  //     this.setState({
+  //       ...this.state,
+  //       cart: this.state.cart.concat({...item, count: 1})
+  //     })
+  //   }
+  // }
 
   /**
    * Удаление из корзины

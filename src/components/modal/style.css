@@ -28,20 +28,6 @@
   z-index: 1;
 }
 
-.Modal-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 80px;
-  background: #F5F5F5;
-  padding: 10px 32px 10px 20px;
-}
-
-.Modal-title {
-  font-size: 32px;
-  font-weight: 700;
-}
-
 .Modal-button {
   font-size: 13px;
   font-weight: normal;
@@ -74,7 +60,7 @@
   border-top: 1px dashed #ccc;
 }
 
-.Modal-total {
+/* .Modal-total {
   font-size: 18px;
   font-weight: 700;
   text-align: right;
@@ -83,6 +69,6 @@
 
 .Modal-total-price {
   margin-left: 49px;
-}
+} */
 
 

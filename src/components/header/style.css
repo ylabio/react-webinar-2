@@ -1,0 +1,14 @@
+.Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  background: #F5F5F5;
+  padding: 10px 32px 10px 20px;
+}
+
+.Header h1,
+.Header h2 {
+  font-size: 32px;
+  font-weight: 700;
+}

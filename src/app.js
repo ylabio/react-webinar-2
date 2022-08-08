@@ -3,6 +3,7 @@ import Controls from './components/controls';
 import List from './components/list';
 import Layout from './components/layout';
 import Modal from './components/modal';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -31,15 +32,20 @@ function App({store}) {
         totalNumberInCart={store.getTotalNumberInCart()}
       />
       <List items={store.getState().items}
-          onAddToCart={callbacks.onAddToCart}
+          btnName={'Добавить'}
+          handleAction={callbacks.onAddToCart}
       />
       {isOpenModal &&
         <Modal
-          items={store.getState().cart}
+          head={<h2>Корзина</h2>}
           onChangeModal={callbacks.onChangeModal}
-          onRemoveToCart={callbacks.onRemoveToCart}
-          totalPriceCart={store.getTotalPriceCart()}
-        />
+        >
+          <Cart
+            items={store.getState().cart}
+            onRemoveToCart={callbacks.onRemoveToCart}
+            totalPriceCart={store.getTotalPriceCart()}
+          />
+        </Modal>
       }      
     </Layout>    
   );

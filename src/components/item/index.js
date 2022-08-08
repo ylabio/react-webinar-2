@@ -8,9 +8,9 @@ import './style.css';
 function Item(props) {
   const cn = bem('Item');
   const callbacks = {
-    onClick: useCallback((e) => {
+    handleAction: useCallback((e) => {
       e.stopPropagation();
-      props.onClick(props.item.code)
+      props.handleAction(props.item.code)
     }, [props.onClick, props.item])
   };
 
@@ -27,7 +27,7 @@ function Item(props) {
       </div>
       {!!props.item.count && <div className={cn('count')}>{props.item.count} шт</div>}      
       <div className={cn('actions')}>
-        <button className={cn('button')} onClick={callbacks.onClick}>
+        <button className={cn('button')} onClick={callbacks.handleAction}>
           {props.btnName}
         </button>
       </div>
@@ -37,7 +37,7 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onClick: propTypes.func.isRequired,
+  handleAction: propTypes.func.isRequired,
   btnName: propTypes.string.isRequired,
 }
 

@@ -5,7 +5,7 @@ import './style.css';
 import { formatPrice } from '../../shared/utils';
 import Button from '../../shared/ui/button';
 
-function Item({ item, addItemToCart }) {
+function Item({ item, cb }) {
   const cn = bem('Item');
 
   return (
@@ -22,7 +22,7 @@ function Item({ item, addItemToCart }) {
       <div className={cn('actions')}>
         <Button 
         text='Добавить' 
-        onClick={() => addItemToCart(item)}
+        onClick={() => cb(item)}
       />
       </div>
     </div>
@@ -31,11 +31,11 @@ function Item({ item, addItemToCart }) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  addItemToCart: propTypes.func.isRequired,
+  cb: propTypes.func.isRequired,
 };
 
 Item.defaultProps = { 
-  addItemToCart: () => {},
+  cb: () => {},
 };
 
 export default React.memo(Item);

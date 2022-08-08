@@ -1,34 +1,45 @@
 import React, { useCallback, useContext } from 'react';
 import {cn as bem} from "@bem-react/classname";
-import Item from "../item";
 import './style.css';
 import propTypes from 'prop-types';
 
-function List({ addItemToCart, items }) {
+function List({  
+  items, 
+  ListItem, 
+  cb, 
+  isModal, 
+}) {
   const cn = bem('List');
 
   return (
-    <div className={cn()}>
+    <ul className={cn()}>
       {items.map(item =>
-        <div key={item.code} className={cn('item')}>
-          <Item 
-            item={item} 
-            addItemToCart={addItemToCart}
+        <li 
+          key={isModal ? item.data.code : item.code} 
+          className={cn('item')}
+        >
+          <ListItem 
+            item={item}
+            cb={cb}
           />
-        </div>
+        </li>
       )}
-    </div>
+    </ul>
   );
 }
 
 List.propTypes = { 
   items: propTypes.array.isRequired,
-  addItemToCart: propTypes.func.isRequired,
+  cb: propTypes.func.isRequired,
+  isModal: propTypes.bool.isRequired,
+  ListItem: propTypes.elementType.isRequired
 };
 
 List.defaultProps = {
   items: [],
-  addItemToCart: () => {},
+  cb: () => {},
+  isModal: false,
+  ListItem: () => <></>,
 };
 
 export default React.memo(List);

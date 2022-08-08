@@ -5,6 +5,7 @@ import CartItem from "../cart-item";
 import { formatPrice } from "../../shared/utils";
 import './style.css';
 import propTypes from 'prop-types';
+import List from "../list";
 
 function CartDump({
   removeItemFromCart, 
@@ -41,15 +42,12 @@ function CartDump({
       <div className={cn('divider')} />
 
       <main className={cn('goods', {open: isCartOpen})}>
-        <ul>
-          {items.map(item => (
-            <CartItem 
-              item={item} 
-              key={item.data.code} 
-              removeItemFromCart={removeItemFromCart}
-            />
-          ))}
-        </ul>       
+        <List 
+           items={items} 
+           cb={removeItemFromCart}
+           ListItem={CartItem}
+           isModal={true}
+        />       
 
         <div className={cn('total')}>
           <span>Итого</span>

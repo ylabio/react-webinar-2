@@ -5,11 +5,11 @@ import './style.css';
 import { formatPrice } from "../../shared/utils";
 import propTypes from 'prop-types';
 
-function CartItem ({item, removeItemFromCart}) {
+function CartItem ({ item, cb }) {
   const cn = bem('CartItem');
 
   return (
-    <li className={cn()}>
+    <div className={cn()}>
       <div className={cn('blockLeft')}>
         <span>{item.data.code}</span>
         <span>{item.data.title}</span>
@@ -23,20 +23,20 @@ function CartItem ({item, removeItemFromCart}) {
         <span className={cn('quantity')}>{item.quantity} шт</span>
         <Button 
           text='Удалить'
-          onClick={() => removeItemFromCart(item)}
+          onClick={() => cb(item)}
         />
       </div>
-    </li>
+    </div>
   );
 }
 
 CartItem.propTypes = {
   item: propTypes.object.isRequired,
-  removeItemFromCart: propTypes.func.isRequired,
+  cb: propTypes.func.isRequired,
 };
 
 CartItem.defaultProps = {
-  removeItemFromCart: () => {},
+  cb: () => {},
 };
 
 export default React.memo(CartItem, (prev, next) => {

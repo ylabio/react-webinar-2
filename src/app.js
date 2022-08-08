@@ -4,6 +4,7 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import AppLayout from "./layout/app-layout";
 import './global.css';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -49,8 +50,10 @@ function App({store}) {
           handleModal={callbacks.handleModal}
         />
         <List 
-          addItemToCart={callbacks.addItemToCart}
+          cb={callbacks.addItemToCart}
           items={items}
+          ListItem={Item}
+          isModal={false}
         />
       </AppLayout>
     </>

@@ -3,13 +3,15 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function Item({item, serialNumber, onAddItemToBasket, onDeleteItemToBasket}) {
+import { formatNumber } from '../../utils';
+
+function Item({item, callback}) {
   const cn = bem('Item');
 
   return (
     <div className={cn({'selected': item.selected})}>
       <div className={cn('number')}>
-        {item.count ? serialNumber : item.code}
+        {item.code}
         {/* {item.code} */}
       </div>
 
@@ -18,38 +20,21 @@ function Item({item, serialNumber, onAddItemToBasket, onDeleteItemToBasket}) {
       </div>
 
       <div className={cn('price')}>
-        {item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " ₽"}
+        {formatNumber(item.price) + " ₽"}
       </div>
 
-      {item.count ? 
-        <div className={cn('count')}>
-          {item.count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " шт"}
-        </div>
-        :
-        null
-      } 
-      {onDeleteItemToBasket ? 
-        <div className={cn('actions')}>
-          <button onClick={() => onDeleteItemToBasket(item)}>
-            Удалить
-          </button>
-        </div> 
-        :
-        <div className={cn('actions')}>
-          <button onClick={() => onAddItemToBasket(item)}>
-            Добавить
-          </button>
-        </div>
-      }
+      <div className={cn('actions')}>
+        <button onClick={() => callback(item)}>
+          Добавить
+        </button>
+      </div>
     </div>
   )
 }
 
 Item.propTypes = {
-  item: propTypes.object,
-  serialNumber: propTypes.number,
-  onAddItemToBasket: propTypes.func,
-  onDeleteItemToBasket: propTypes.func
+  item: propTypes.object.isRequired,
+  callback: propTypes.func.isRequired
 }
 
 export default React.memo(Item);

@@ -1,4 +1,4 @@
-.BasketModal-area {
+.ModalLayout-area {
     min-width: 100vw;
     min-height: 100vh;
     position: fixed;
@@ -6,7 +6,7 @@
     background: rgba(0, 0, 0, 0.7);
 }
 
-.BasketModal-window {
+.ModalLayout-window {
     background: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
@@ -22,14 +22,27 @@
     margin: auto;
 }
 
-/* .BasketModal-header {
+.ModalLayout-head {
+    height: 80px;
+    background: #f5f5f5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ModalLayout-head h1 {
+    margin: 0 0 0 20px;
+}
+
+.ModalLayout-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-} */
+}
 
-/* .BasketModal-button {
+.ModalLayout-button {
     height: 21px;
     margin: 0 32px 0 0;
-} */
+}
+

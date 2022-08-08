@@ -57,10 +57,11 @@ class Store {
 
   addItemToBasket(item) {
     let exists = false; 
-    const newItemInBasket = this.state.product.map((newItem) => {
+    const newItemInBasket = this.state.basket.product.map((newItem) => {
       if (item.code === newItem.code) {
-        newItem.count += 1;
-        exists = true
+        // newItem.count += 1;
+        exists = true;
+        return {...newItem, count: newItem.count + 1}
       }
       return newItem
     })
@@ -69,9 +70,11 @@ class Store {
 
     this.setState({
       ...this.state,
-      product: newItemInBasket,
-      count: this.state.count + 1,
-      price: this.state.price + item.price
+      basket: {
+        product: newItemInBasket,
+        count: !exists ? this.state.basket.count + 1 : this.state.basket.count,
+        price: this.state.basket.price + item.price
+      }
     })
   }
 
@@ -82,7 +85,7 @@ class Store {
 
   deleteItemToBasket(item) {
     let temp = 0;
-    const newItems = this.state.product.filter(prod => {
+    const newItems = this.state.basket.product.filter(prod => {
       if (prod.code === item.code) {
         temp = item.count
       }
@@ -91,9 +94,18 @@ class Store {
 
     this.setState({
       ...this.state,
-      product: newItems,
-      count: this.state.count - temp,
-      price: this.state.price - item.price * temp
+      basket: {
+        product: newItems,
+        count: this.state.basket.count - 1,
+        price: this.state.basket.price - item.price * temp
+      }
+    })
+  }
+
+  handleModal(name) {
+    this.setState({
+      ...this.state,
+      modal: name
     })
   }
 }

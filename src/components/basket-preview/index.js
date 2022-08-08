@@ -4,15 +4,17 @@ import plural from 'plural-ru';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function Basket({onVisibility, price, count}) {
+import { formatNumber } from '../../utils';
+
+function BasketPreview({onVisibility, price, count}) {
     const cn = bem('Basket');
     const basketSumCount = `${count} ${plural(count, "товар", "товара", "товаров")}`;
-    const basketSumPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " ₽";
+    const basketSumPrice = formatNumber(price) + " ₽";
     return (
         <div className={cn()}>
             <div className={cn('title')}>
                 В корзине:
-                <span className={cn('info')}>{price ? `${basketSumCount + " / " + basketSumPrice}` : "пусто"}</span>
+                <span className={cn('info')}>{count ? `${basketSumCount + " / " + basketSumPrice}` : "пусто"}</span>
             </div>
 
             <button className={cn('button')} onClick={() => onVisibility()}>перейти</button>
@@ -20,10 +22,10 @@ function Basket({onVisibility, price, count}) {
     )
 }
 
-Basket.propTypes = {
+BasketPreview.propTypes = {
     onVisibility: propTypes.func.isRequired,
     price: propTypes.number,
     count: propTypes.number
 }
 
-export default React.memo(Basket);
+export default React.memo(BasketPreview);

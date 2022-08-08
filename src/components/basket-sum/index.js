@@ -2,6 +2,8 @@ import React from "react";
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 
+import { formatNumber } from "../../utils";
+
 
 import "./style.css";
 
@@ -10,7 +12,7 @@ function BasketSum({price}) {
     return (
         <div className={cn()}>
             <span className={cn('title')}>Итого</span>
-            <span>{price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " ₽"}</span>
+            <span>{formatNumber(price) + " ₽"}</span>
         </div>
     )
 }

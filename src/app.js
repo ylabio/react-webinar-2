@@ -1,9 +1,12 @@
 import React, {useCallback, useState} from 'react';
-import BasketList from "./components/basket-list";
+import List from "./components/list";
 import Layout from "./components/layout";
 
-import Basket from './components/basket';
+import BasketPreview from './components/basket-preview';
 import BasketModal from './components/basket-modal';
+
+import Item from './components/item';
+import BasketItem from './components/basket-item';
 
 /**
  * Приложение
@@ -11,8 +14,6 @@ import BasketModal from './components/basket-modal';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-
-  const [visibilityBasket, setVisibilityBasket] = useState(false);
 
   const callbacks = {
     onAddItemToBasket: useCallback((item) => {
@@ -26,25 +27,31 @@ function App({store}) {
   return (
     <>
       {
-        visibilityBasket 
+        store.getState().modal === 'basket'
         ? 
         <BasketModal 
-          onVisibility={() => setVisibilityBasket(false)}
-          items={store.getState().product}
-          price={store.getState().price}
-          onDeleteItemToBasket={callbacks.onDeleteItemToBasket} 
+          onVisibility={() => store.handleModal('')}
+          items={store.getState().basket.product.map((item) => (
+            <li className='List-item' key={item.code}>
+              <BasketItem item={item} callback={callbacks.onDeleteItemToBasket}/>
+            </li>
+          ))}
+          price={store.getState().basket.price}
         /> 
         : null
       }
       <Layout head={<h1>Магазин</h1>}>
-        <Basket 
-          onVisibility={() => setVisibilityBasket(true)}
-          price={store.getState().price}
-          count={store.getState().count}
+        <BasketPreview 
+          onVisibility={() => store.handleModal('basket')}
+          price={store.getState().basket.price}
+          count={store.getState().basket.count}
         />
-        <BasketList 
-          items={store.getState().items}
-          onAddItemToBasket={callbacks.onAddItemToBasket}
+
+        <List 
+          items={store.getState().items.map((item) => (
+          <li className='List-item' key={item.code}>
+            <Item item={item} callback={callbacks.onAddItemToBasket}/>
+          </li>))}
         />
       </Layout>
     </>

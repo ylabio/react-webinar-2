@@ -1,21 +1,23 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import './style.css';
+import React from "react";
+import propTypes from "prop-types";
+import "./style.css";
 
-function Controls({onGoToBasket}){
+function Controls({ handlerClick, textButton }) {
   return (
-    <div className='Controls'>
-      <button onClick={onGoToBasket}>Добавить</button>
+    <div className="Controls">
+      <button onClick={handlerClick}>{textButton}</button>
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onGoToBasket: propTypes.func.isRequired // Обязательное свойство - функция
-}
+  handlerClick: propTypes.func.isRequired, // Обязательное свойство - функция
+  textButton: propTypes.string.isRequired,
+};
 
 Controls.defaultProps = {
-  onGoToBasket: () => {} // Значение по умолчанию - функция-заглушка
-}
+  handlerClick: () => {}, // Значение по умолчанию - функция-заглушка
+  textButton: "Кнопка", // Значение по умолчанию - функция-заглушка
+};
 
 export default React.memo(Controls);

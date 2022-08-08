@@ -1,35 +1,46 @@
-import React, {useCallback} from 'react';
+import React, { useCallback, useState } from "react";
 import Controls from "./components/controls";
 import List from "./components/list";
+import Basket from "./components/Basket";
 import Layout from "./components/layout";
-import {counter} from "./utils";
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
-
+function App({ store }) {
+  const [open, setOpen] = useState(false);
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    isBasketOpened: useCallback(() => {
+      setOpen(!open);
+    }, [setOpen, open]),
+    onAddToBasket: useCallback((code, title, price) => {
+      store.createBasketItem({ code, title, price });
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onDeleteFromBasket: useCallback((code) => {
+      store.deleteBasketItem(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
-  }
+  };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout head={<h1>Магазин</h1>}>
+      {open && (
+        <Basket
+          isBasketOpened={callbacks.isBasketOpened}
+          totalPrice={store.getState().totalPrice}
+          BasketItems={store.getState().BasketItems}
+          onDeleteFromBasket={callbacks.onDeleteFromBasket}
+        />
+      )}
+      <Controls
+        isBasketOpened={callbacks.isBasketOpened}
+        totalPrice={store.getState().totalPrice}
+        BasketItemsLength={store.getState().BasketItems.length}
+      />
+      <List
+        items={store.getState().items}
+        onClickButton={callbacks.onAddToBasket}
       />
     </Layout>
   );

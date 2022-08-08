@@ -1,5 +1,4 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -36,17 +35,28 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  createBasketItem({ code, title, price, count = 1 }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      BasketItems: this.state.BasketItems.some((item) => item.code === code)
+        ? this.state.BasketItems.map((item) => {
+            if (item.code === code) {
+              return {
+                ...item,
+                count: item.count + 1,
+              };
+            }
+            return item;
+          })
+        : this.state.BasketItems.concat({ code, title, price, count }),
+      totalPrice: this.state.totalPrice + price,
     });
   }
 
@@ -54,30 +64,13 @@ class Store {
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
+  deleteBasketItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      BasketItems: this.state.BasketItems.filter((item) => item.code !== code),
+      totalPrice: this.state.BasketItems.reduce((sum, item) => {
+        return sum + (item.code === code ? 0 : item.price * item.count);
+      }, 0),
     });
   }
 }

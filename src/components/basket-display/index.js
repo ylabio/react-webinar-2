@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import propTypes from "prop-types";
 import plural from "plural-ru";
 import "./style.css";
+import { getFormatedPrice } from "../../utils";
 
 function BasketDisplay({ amount, price }) {
   return (
@@ -15,7 +16,7 @@ function BasketDisplay({ amount, price }) {
               "товар",
               "товара",
               "товаров"
-            )} / ${price} ₽`}
+            )} / ${getFormatedPrice(price)}`}
       </span>
     </div>
   );

@@ -2,7 +2,7 @@
 .Item {
   display: flex;
   justify-content: flex-start;
-  padding: 20px  20px 20px 10px;
+  padding: 20px;
   transition: background-color 1s;
 }
 

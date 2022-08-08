@@ -42,9 +42,9 @@ class Store {
   }
 
   addToBasket(code) {
-    const items = this.state.basket.items;
-    const itemsCodes = this.state.basket.itemsCodes;
-    const itemsAmount = this.state.basket.itemsAmount + 1;
+    const items = [...this.state.basket.items];
+    const itemsCodes = [...this.state.basket.itemsCodes];
+    let itemsAmount = this.state.basket.itemsAmount;
     let itemsPrice = this.state.basket.itemsPrice;
 
     if (itemsCodes.includes(code)) {
@@ -58,8 +58,9 @@ class Store {
     } else {
       const item = { ...this.state.items.find((item) => item.code === code) };
       itemsPrice += item.price;
-      itemsCodes.push(code);
+      itemsAmount++;
       item.amount = 1;
+      itemsCodes.push(code);
       items.push(item);
     }
 

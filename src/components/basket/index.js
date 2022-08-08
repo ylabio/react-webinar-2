@@ -5,6 +5,7 @@ import Item from "../item";
 import { store } from "../../index";
 import Button from "../button";
 import "./style.css";
+import { getFormatedPrice } from "../../utils";
 
 function Basket() {
   const [items, setItems] = useState([...store.getState().basket.items]);
@@ -29,7 +30,7 @@ function Basket() {
       {itemsAmount > 0 && (
         <div className="Basket__amountPrice">
           Итого
-          <span>{itemsPrice} ₽</span>
+          <span>{getFormatedPrice(itemsPrice)}</span>
         </div>
       )}
     </Layout>

@@ -36,14 +36,14 @@ function Item(props) {
       {props.item.count &&
       <div className={cn('stats')}>{props.item.count} штук</div> }
       
-      {props.onDeleteFromCart.toString() !== 'function onDeleteFromCart() {}' &&
+      {props.onDeleteFromCart &&
       <div className={cn('actions')}>
         <button onClick={callbacks.onDeleteFromCart}>
           Удалить
         </button>
       </div>}
 
-      {props.onAddToCart.toString() !== 'function onAddToCart() {}' &&
+      {props.onAddToCart &&
       <div className={cn('actions')}>
         <button onClick={callbacks.onAddToCart}>
           Добавить
@@ -56,13 +56,9 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onDeleteFromCart: propTypes.func.isRequired,
-  onAddToCart: propTypes.func.isRequired
 }
 
 Item.defaultProps = {
-  onDeleteFromCart: () => {},
-  onAddToCart: () => {}
 }
 
 export default React.memo(Item);

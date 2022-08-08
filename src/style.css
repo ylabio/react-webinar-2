@@ -1,0 +1,20 @@
+.Modal-summary{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 40px;
+    
+    margin-top: 15px;
+}
+
+.Modal-text{
+    margin-right: 30px;
+}
+
+.Modal-stats{
+    margin-right: 110px;
+}
+
+.Modal>.Modal-content>.List{
+    margin-top: 60px;
+}

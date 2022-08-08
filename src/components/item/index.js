@@ -12,46 +12,53 @@ function Item(props) {
 
   const callbacks = {
 
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
+    onDeleteFromCart: useCallback(() => {
+      props.onDeleteFromCart(props.item.code)
+    }, [props.onDelete,  props.item]),
 
-    onDelete: useCallback((e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
+    onAddToCart: useCallback(() => {
+      props.onAddToCart(props.item.code);
+    },[])
   };
-
+  
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
+    <div className={cn()} onClick={callbacks.onClick}>
       <div className={cn('number')}>
-        {props.item.code}
+        {props.item.number || props.item.code}
       </div>
       <div className={cn('title')}>
         {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
       </div>
+      <div className={cn('price')}>
+        {props.item.price.toLocaleString()} ₽
+      </div>
+
+      {props.item.count &&
+      <div className={cn('stats')}>{props.item.count} штук</div> }
+      
+      {props.onDeleteFromCart &&
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
+        <button onClick={callbacks.onDeleteFromCart}>
           Удалить
         </button>
-      </div>
+      </div>}
+
+      {props.onAddToCart &&
+      <div className={cn('actions')}>
+        <button onClick={callbacks.onAddToCart}>
+          Добавить
+        </button>
+      </div>}
+      
     </div>
   )
 }
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
 }
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
 }
 
 export default React.memo(Item);

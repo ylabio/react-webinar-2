@@ -4,8 +4,8 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import Button from '../button';
 import List from '../list';
-import CartItem from '../cartItem';
-import ModalLayout from '../modalLayout/index'
+import CartItem from '../cart-item';
+import ModalLayout from '../modal-layout'
 
 function Modal({active, callModal, cart, callback}) {
 	const cn = bem('Modal');
@@ -14,10 +14,10 @@ function Modal({active, callModal, cart, callback}) {
 	.sort((a,b) => a.code > b.code ? 1 : -1)
 	.map(item =>{
     return (
-		<div key={item.code}>
-      <CartItem item={item}
+		<>
+      <CartItem key={item.code} item={item}
       buttonAction={callback}/>
-    </div>)
+    </>)
 		});
 
   return (

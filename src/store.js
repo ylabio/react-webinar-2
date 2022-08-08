@@ -91,8 +91,8 @@ class Store {
    */
   changeTotalPrice() {
     this.setState({
-    ...this.state,
-    totalPrice: this.state.basket.reduce((a, b) => a + b.price, 0)
+      ...this.state,
+      totalPrice: this.state.basket.reduce((a, b) => a + b.price, 0)
     })
   }      
 }

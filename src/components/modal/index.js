@@ -9,7 +9,7 @@ function Modal(props) {
   const cn = bem('Modal');
 
   return (
-    <div className={cn('wrapper', {'hide': !props.isOpen})}>
+    <div className={cn('wrapper')}>
       <div className={cn()}>
         <div className={cn('header')}>
           <h2 className={cn('title')}>{props.title}</h2>
@@ -27,13 +27,7 @@ function Modal(props) {
 export default Modal
 
 Modal.propTypes = {
-  children: propTypes.node,
+  children: propTypes.element.isRequired,
   title: propTypes.string.isRequired,
-  isOpen: propTypes.bool.isRequired,
   onClose: propTypes.func.isRequired
-}
-
-Modal.defaultProps = {
-  isOpen: false,
-  onClose: () => {}
 }

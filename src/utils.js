@@ -17,11 +17,3 @@ export function getFormattedPrice(num) {
     maximumFractionDigits: 0
   }).format(num);
 }
-
-/**
- * Возвращает общую стоимость всех товаров в корзине
- * @returns {number}
- */
-export function getTotalPrice(goods) {
-  return goods.reduce((accum, good) => accum + good.amount * good.price, 0);
-}

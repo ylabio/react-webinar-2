@@ -32,6 +32,7 @@ function App({store}) {
     <Layout head={<h1>Магазин</h1>}>
       <Controls
         cartItems={store.getState().cartItems}
+        totalPrice={store.getTotalPrice()}
         onCartOpen={callbacks.onCartOpen}
       />
       <List
@@ -41,6 +42,7 @@ function App({store}) {
       {isCartOpen &&
         <Cart
           cartItems={store.getState().cartItems}
+          totalPrice={store.getTotalPrice()}
           onClose={callbacks.onCartClose}
           onItemDelete={callbacks.onItemDelete}
       />}

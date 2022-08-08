@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import CartItem from "../cart-item";
-import {getTotalPrice, getFormattedPrice} from '../../utils';
+import {getFormattedPrice} from '../../utils';
 import './style.css';
 
 function Cart(props) {
@@ -40,7 +40,7 @@ function Cart(props) {
             <b>Итого</b>
           </span>
           <span className={cn('price')}>
-            <b>{getFormattedPrice(getTotalPrice(props.cartItems))}</b>
+            <b>{getFormattedPrice(props.totalPrice)}</b>
           </span>
         </div>
       </div>
@@ -50,14 +50,9 @@ function Cart(props) {
 
 Cart.propTypes = {
   cartItems: propTypes.arrayOf(propTypes.object).isRequired,
-  onCartClose: propTypes.func.isRequired, // Обязательное свойство - функция
+  totalPrice: propTypes.number.isRequired,
+  onCartClose: propTypes.func.isRequired,
   onItemDelete: propTypes.func.isRequired
-}
-
-Cart.defaultProps = {
-  cartItems: [],
-  onCartClose: () => {}, // Значение по умолчанию - функция-заглушка
-  onItemDelete: () => {}
 }
 
 export default React.memo(Cart);

@@ -103,6 +103,13 @@ class Store {
     });
   }
 
+  /**
+   * Подсчет общей стоимости товаров в корзине
+   */  
+  getTotalPrice() {
+    return this.state.cartItems.reduce((accum, good) => accum + good.amount * good.price, 0);
+  }
+
 }
 
 export default Store;

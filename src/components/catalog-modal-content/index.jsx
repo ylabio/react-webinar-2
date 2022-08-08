@@ -1,30 +1,28 @@
 import './style.css';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import List from '../../../components/list';
-import Item from '../../../components/list/item';
+import List from '../list';
+import Item from '../item';
 
 const CatalogModalContent = ({ basket, onBasketDelete }) => {
   const cn = bem('Catalog-modal-content');
 
   if (!basket.goods.length)
     return (
-      <div className={cn({bg: 'dark'})}>
+      <div className={cn({ bg: 'dark' })}>
         <div className={cn('empty')}>Пусто</div>
       </div>
     );
 
   return (
     <div className={cn()}>
-      <List className={cn('list')} spacing={'small'}> {/* Usage example for correct className override */}
+      <List className={cn('list')}>
         {basket.goods.map((item) => (
           <Item
             item={item}
             key={item.code}
             count={item.count}
-            actionBtn={
-              <button onClick={() => onBasketDelete(item.code)}>Удалить</button>
-            }
+            actionBtn={<button onClick={() => onBasketDelete(item.code)}>Удалить</button>}
           />
         ))}
       </List>

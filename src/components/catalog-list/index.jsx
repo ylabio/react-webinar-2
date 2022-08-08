@@ -1,6 +1,6 @@
-import propTypes, {object} from "prop-types";
-import Item from '../../../components/list/item';
-import List from '../../../components/list';
+import propTypes, { object } from 'prop-types';
+import List from '../list';
+import Item from '../item';
 
 const CatalogList = ({ items, onAddToBasket }) => {
   return (
@@ -9,11 +9,10 @@ const CatalogList = ({ items, onAddToBasket }) => {
         <Item
           item={item}
           key={item.code}
-          actionBtn={
-            <button onClick={() => onAddToBasket(item)}>Добавить</button>
-          }
+          actionBtn={<button onClick={() => onAddToBasket(item)}>Добавить</button>}
         />
       ))}
+      {/*<a href='#' style={{paddingLeft: '10px'}}>Любой тестовый элемент</a>*/}
     </List>
   );
 };
@@ -21,6 +20,6 @@ const CatalogList = ({ items, onAddToBasket }) => {
 CatalogList.propTypes = {
   items: propTypes.arrayOf(object).isRequired,
   onAddToBasket: propTypes.func.isRequired,
-}
+};
 
 export default React.memo(CatalogList);

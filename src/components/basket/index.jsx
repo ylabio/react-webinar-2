@@ -12,7 +12,8 @@ const Basket = ({ className, basketAction, quantity, summ }) => {
       <span>В корзине: </span>
       {quantity ? (
         <strong>
-          {quantity} {pluralize(quantity, 'товар', 'товара', 'товаров')} /{' '}{summ} &#8381;
+          {quantity} {pluralize(quantity, 'товар', 'товара', 'товаров')} /{' '}
+          {summ.toLocaleString('ru-RU')} &#8381;
         </strong>
       ) : (
         <strong>пусто</strong>

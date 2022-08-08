@@ -1,20 +1,25 @@
-.List_row_spacing_small > div {
+.List{
+  display: flex;
+  flex-direction: column;
+}
+
+.List_row_spacing_small > * {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-.List_row_spacing_normal > div {
+.List_row_spacing_normal > * {
   padding-top: 20px;
   padding-bottom: 20px;
 }
-.List_row_spacing_large > div {
+.List_row_spacing_large > * {
   padding-top: 30px;
   padding-bottom: 30px;
 }
 
-.List > div {
+.List > * {
   border-bottom: 1px dashed #ccc;
 }
 
-.List > div:first-child {
+.List > *:first-child {
   border-top: 1px dashed #ccc;
 }

@@ -11,7 +11,7 @@ const Simple = (
 Simple.propTypes = {
   cn: propTypes.func.isRequired,
   bemIndex: propTypes.string.isRequired,
-  text: propTypes.string.isRequired
+  text: propTypes.oneOfType([propTypes.string, propTypes.number]).isRequired
 }
 
 export default React.memo(Simple)

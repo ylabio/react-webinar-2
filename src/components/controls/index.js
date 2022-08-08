@@ -35,7 +35,7 @@ function Controls({handleClick, cart}){
 
 Controls.propTypes = {
   handleClick: propTypes.func.isRequired, // Обязательное свойство - функция
-  cart: propTypes.arrayOf(propTypes.object).isRequired
+  cart: propTypes.object.isRequired
 }
 
 Controls.defaultProps = {

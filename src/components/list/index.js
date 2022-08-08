@@ -29,12 +29,11 @@ function List({
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
   handleBtn: propTypes.func,
-  btnText: propTypes.string
+  ItemType: propTypes.elementType.isRequired
 }
 
 List.defaultProps = {
-  handleBtn: () => {},
-  btnText: "Добавить"
+  handleBtn: () => {}
 }
 
 export default React.memo(List);

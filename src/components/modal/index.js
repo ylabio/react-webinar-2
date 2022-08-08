@@ -43,14 +43,10 @@ function Modal({
 
 Modal.propTypes = {
   handleClose: propTypes.func.isRequired, 
-  cart: propTypes.arrayOf(propTypes.object).isRequired, 
-  handleBtn: propTypes.func, 
-  btnText: propTypes.string
+  children: propTypes.element.isRequired
 }
 
 Modal.defaultProps = {
-  handleBtn: () => {},
-  btnText: "Удалить"
 }
 
 export default React.memo(Modal)

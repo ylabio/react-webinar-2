@@ -1,7 +1,5 @@
 .Modal {
-  border: 1px solid black;
-  max-width: 1000px;
-  min-width: 70vw;
+  width: 960px;
   min-height: 60vh;
   margin: 0 auto;
   background: #fff;

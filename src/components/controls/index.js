@@ -21,7 +21,7 @@ function Controls(props) {
   const callbacks = {
     onClick: useCallback(() => {
       setIsOpen(!isOpen);
-    }),
+    }, []),
   };
 
   return (

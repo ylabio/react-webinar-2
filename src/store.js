@@ -85,7 +85,7 @@ class Store {
       ...this.state,
       basket: {
         ...this.state.basket,
-        amount: this.getState().basket.amount + 1,
+        amount: this.getState().basket.items.length,
         sum: this.state.basket.sum + item.price,
       },
     });
@@ -103,7 +103,7 @@ class Store {
         items: this.state.basket.items.filter(
           (elem) => elem.code !== item.code
         ),
-        amount: this.state.basket.amount - item.amount,
+        amount: this.getState().basket.amount - 1,
         sum: this.state.basket.sum - item.price * item.amount,
       },
     });

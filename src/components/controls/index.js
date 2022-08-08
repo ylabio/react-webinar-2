@@ -18,10 +18,8 @@ function Controls(props) {
   );
   const cartInfo = ` ${goodsQty} ${pluralize(goodsQty)} / `;
 
-  const callbacks = {
-    onClick: useCallback(() => {
-      setIsOpen(!isOpen);
-    }, []),
+  const onClick = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
@@ -43,7 +41,7 @@ function Controls(props) {
         )}
       </div>
       <div className={cn("actions")}>
-        <button className={cn("button-modal-on")} onClick={callbacks.onClick}>
+        <button className={cn("button-modal-on")} onClick={onClick}>
           Перейти
         </button>
       </div>
@@ -51,7 +49,7 @@ function Controls(props) {
         items={items}
         cart={cart}
         isOpen={isOpen}
-        onClickToggle={callbacks.onClick}
+        onClickToggle={onClick}
         onCart={props.onCart}
       />
     </div>

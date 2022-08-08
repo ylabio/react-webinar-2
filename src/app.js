@@ -12,7 +12,9 @@ import { getTotalCost } from './utils';
  */
 function App({ store }) {
   const [totalCost, setTotalCost] = useState('0');
-  const [isModal, setIsModal] = useState(false);
+  const [isModal, setIsModal] = useState({
+    modalBasket: false
+  });
 
   const callbacks = {
     onAddItem: useCallback((item) => {
@@ -20,7 +22,7 @@ function App({ store }) {
       setTotalCost(getTotalCost(store.getState().basket));
     }, []),
     onMoveToBasket: useCallback(() => {
-      setIsModal(prevState => !prevState);
+      setIsModal(prevState => ({ ...prevState, modalBasket: !prevState.modalBasket }));
     }, []),
     onRemoveFromBasket: useCallback((item) => {
       store.removeFromBasket(item.code);
@@ -43,7 +45,7 @@ function App({ store }) {
           onClick={callbacks.onAddItem}
         />
       </Layout>
-      {isModal &&
+      {isModal.modalBasket &&
         <Modal
           headerTitle="Корзина"
           headerButtonTitle="Закрыть"

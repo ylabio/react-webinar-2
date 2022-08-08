@@ -5,7 +5,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function Basket({children, basket, totalPrice, deleteItem}){
+function Basket({children, basket, totalPrice, deleteItem}) {
   const cn = bem('Basket');
 
   return (     

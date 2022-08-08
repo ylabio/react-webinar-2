@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function LayoutBasket(props){
+function LayoutBasket(props) {
   const cn = bem('LayoutBasket');
     let cl = [cn()];
     if (props.basketVisible) {

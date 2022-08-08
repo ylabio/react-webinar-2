@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function ItemBasket({item, deleteItem}){
+function ItemBasket({item, deleteItem}) {
     const cn = bem('ItemBasket');
     //  Цена за 1 шт. товара
     const price = item.price / item.num;

@@ -1,3 +1,5 @@
+import item from "./components/item";
+
 class Store {
 
   constructor(initState) {
@@ -46,7 +48,23 @@ class Store {
   addItem(code) {
     this.setState({
       ...this.state,
-      shoppingCart: this.state.shoppingCart.concat(this.state.items.filter(item => item.code == code))
+      shoppingCart: (this.state.shoppingCart.find(item => item.code == code))
+        ? this.state.shoppingCart.map(item=>{
+          if (item.code == code) {
+            return {
+              ...item,
+              qty: item.qty + 1,
+            };
+          }
+          else return item; 
+          })
+        : this.state.shoppingCart.concat(
+        this.state.items.filter(item => item.code == code).map(item => {
+          return {...item,
+            qty: 1,
+          }
+        })
+        )
     });
   }
 

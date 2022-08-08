@@ -33,7 +33,7 @@ function App({store}) {
       <List items={store.getState().items}
             onItemAdd={callbacks.onAdd}
       />
-      {showCart && <ShopCart store={store} show={showCart} setShow={setShowCart} />}
+      {showCart && <ShopCart state={store.getState()} store={store} show={showCart} setShow={setShowCart} />}
     </Layout>
   );
 }

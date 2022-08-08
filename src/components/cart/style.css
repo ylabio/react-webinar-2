@@ -14,7 +14,7 @@
     height: 603px;
     border-radius: 10px;
     background-color: white;
-    overflow: hidden;
+    overflow: scroll;
 }
 .Cart-button{
     margin: 31px 32px 28px;
@@ -23,4 +23,30 @@
     border: 1px solid #767676;
     border-radius: 2px;
     background: #EFEFEF;
+}
+.Cart-footer{
+    display: flex;
+    float: right;
+    justify-content: space-between;
+    width: max-content;
+    padding: 26px 49px;
+    margin-right: 59px;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+}
+.Cart-total{
+    margin-left: 49px;
+}
+
+.Cartlayout{
+    background-color: white;
+}
+.Cartlayout-content{
+    margin-top: 63px;
+}
+.Cartlayout-head{
+    background: #F5F5F5;
 }

@@ -12,9 +12,9 @@ function Controls({cart, onOpen}){
         В корзине:
       </div>
       <div className={cn('cart')}>
-        {(cart.length > 0) ? new Set(cart.map(el=>el.code)).size 
-            + pluralize(new Set(cart.map(el=>el.code)).size, [' товар', ' товара', ' товаров'])
-            + ` / ${cart.map(el => el.price)
+        {(cart.length > 0) ? cart.length 
+            + pluralize(cart.length, [' товар', ' товара', ' товаров'])
+            + ` / ${cart.map(el => el.price * el.qty)
                         .reduce((a,b)=>a+b,0)
                         .toLocaleString('ru-RU') + ' \u20bd'}`
           : 'пусто'

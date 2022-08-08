@@ -29,6 +29,9 @@ function Item(props) {
       <div className={cn('price')}>
         {props.item.price.toLocaleString('ru-RU') + " \u20bd"} 
       </div>
+      {props.item.qty && <div className={cn('price')}>
+        {props.item.qty + ' шт'}
+      </div>}
       <div className={cn('actions')}>
         <button className={cn('button')} onClick={(props.onAdd) ? callbacks.onAdd : callbacks.onDelete}>
         {(props.onAdd) ? 'Добавить' : 'Удалить'}
@@ -40,8 +43,8 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onAdd: propTypes.func.isRequired,
-  onDelete: propTypes.func.isRequired
+  onAdd: propTypes.func,
+  onDelete: propTypes.func
 }
 
 Item.defaultProps = {

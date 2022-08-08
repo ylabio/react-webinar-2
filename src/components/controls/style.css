@@ -4,3 +4,9 @@
     justify-content: flex-end;
     padding: 20px;
 }
+
+.Controls-table{
+    font-style: normal;
+    font-weight: 700;
+    padding: 0px 20px 0px 15px;
+}

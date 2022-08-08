@@ -3,8 +3,8 @@ class Store {
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
-    // Слушатели изменений state
     this.listeners = [];
+    this.orderList = [];
   }
 
   /**
@@ -40,45 +40,35 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
+
+  getOrder() {
+    return this.orderList;
   }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
+  showOrder() {
+    
+      const amount = this.orderList.length;
+      const cost = this.orderList.reduce((prev, item) => {
+        return prev + item.price * item.amount
+      }, 0)
+      
+      return {cost, amount}
+      
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
+  addItem(item, amount) {
+    if (this.orderList.length === 0){
+      this.orderList.push({...item, amount})
+    } else {
+      for (let i = 0 ; i < this.orderList.length; i++){
+        if(this.orderList[i].code === item.code){
+          this.orderList[i].amount = amount;
+          break
+        } else if(i === this.orderList.length - 1){
+          this.orderList[this.orderList.length] = {...item, amount}
         }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+      }
+    }
   }
 }
 

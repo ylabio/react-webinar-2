@@ -1,0 +1,19 @@
+/* Контрол с общими действиями */
+.ModalHeader{
+    height: 80px;
+    background: #f5f5f5;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: content-box;
+}
+.ModalHeader h1{
+    margin: 0;
+    padding: 20px 20px 10px;    
+}
+
+.ModalHeader button{
+    margin: 10px 10px 10px 10px;
+    width: min-content;
+    height: min-content;
+    margin: 31px 32px;
+}

@@ -1,37 +1,50 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Modal from './components/modal';
+import ModalHeader from './components/modal header';
+import ModalList from './components/modal list';
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
+
+export const OrderContext = React.createContext();
+
 function App({store}) {
 
+  const [order, setToOrder] = useState(null);
+  const [isModalActive, setModalActive] = useState(false);
+
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAddItem: useCallback((item, amount) => {  
+      store.addItem(item, amount);
+      setToOrder(store.showOrder())
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    getOrder: useCallback(() => {
+      return store.getOrder();
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    showOrder: useCallback(() => {
+      store.showOrder();
     }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <OrderContext.Provider value={{callbacks, order, setModalActive}}>
+      {isModalActive
+        ? <Modal active={isModalActive}>
+            <ModalHeader/>
+            <ModalList />
+          </Modal>
+        : null}
+      <Layout head={<h1>Приложение на чистом JS</h1>}>
+        <Controls/>
+        <List items={store.getState().items}/>
+      </Layout>
+      </OrderContext.Provider>
   );
 }
 

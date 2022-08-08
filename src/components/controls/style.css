@@ -3,4 +3,13 @@
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+    font-size: 18px;
+}
+
+b {
+   margin: 0 20px 0 15px;
+}
+
+.openCart {
+   width: 80px;
 }

@@ -4,6 +4,11 @@ body{
     background: #535353;
     font-family: sans-serif;
 }
+
+button {
+   cursor: pointer;
+}
+
 /* Страница*/
 .Layout{
     max-width: 1024px;

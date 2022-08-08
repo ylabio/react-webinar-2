@@ -6,13 +6,13 @@ import './style.css';
 import {arrayToCart, currencySign as roubleSign} from '../../utils';
 
 function Controls({onOpenCart, cartItems}) {
-  const cn = bem('Controls');
   const numberOfitems = arrayToCart(cartItems).length;
   const itemPlural = plural(numberOfitems, 'товар', 'товара', 'товаров');
   const resultSum = cartItems
     .map(item => item.price)
     .reduce((acc, curr) => acc + curr, 0);
 
+  const cn = bem('Controls');
   return (
     <div className={cn()}>
       <p>
@@ -31,11 +31,13 @@ function Controls({onOpenCart, cartItems}) {
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  onOpenCart: propTypes.func.isRequired,
+  cartItems: propTypes.array // Обяхательное свойство - функция
 };
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  onOpenCart: () => {},
+  cartItems: [] // Значение по умолчанию - функция-заглушка
 };
 
 export default React.memo(Controls);

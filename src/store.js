@@ -73,6 +73,10 @@ class Store {
     });
   }
 
+  /**
+   * Удаление всех записей с кодом из корзины
+   * @param code
+   */
   removeItemFromCart(code) {
     this.setState({
       ...this.state,

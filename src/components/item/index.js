@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
@@ -35,13 +35,13 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
+  onClick: propTypes.func,
+  cartItem: propTypes.bool
 };
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
+  onClick: () => {},
+  cartItem: false
 };
 
 export default React.memo(Item);

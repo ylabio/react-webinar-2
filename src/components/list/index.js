@@ -12,6 +12,7 @@ function List(props) {
       {props.items.map(item => (
         <div key={item.code} className={cn('item')}>
           <Item
+            number={props.cartItem ? props.items.indexOf(item) + 1 : item.code}
             items={props.items}
             item={item}
             onButtonClick={props.onAction}

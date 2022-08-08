@@ -28,7 +28,7 @@ function Item(props) {
         className={`${cn("action")} justify-button`}
         onClick={callbacks.onClick}
       >
-        Добавить
+        {props.buttonLabel}
       </button>
     </div>
   );

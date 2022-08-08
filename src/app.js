@@ -33,14 +33,16 @@ function App({ store }) {
         />
         <List
           items={store.getState().items}
-          onAddToCart={callbacks.addToCart}
+          onButtonClick={callbacks.addToCart}
+          buttonLabel={"Добавить"}
         />
       </Layout>
       {store.getState().cartVisibility && (
         <Cart
           cart={store.getState().cart}
           onCloseCart={callbacks.toggleCartVisibility}
-          onDeleteFromCart={callbacks.deleteFromCart}
+          onButtonClick={callbacks.deleteFromCart}
+          buttonLabel={"Удалить"}
         />
       )}
     </>

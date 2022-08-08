@@ -24,6 +24,11 @@
   padding-right: 110px;
 }
 
+.Cart-empty {
+  text-align: center;
+  font-weight: bold;
+}
+
 .Cart .Layout {
   min-height: 600px;
 }

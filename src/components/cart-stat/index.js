@@ -7,8 +7,8 @@ import "./style.css";
 function CartStat(props) {
   const { cart } = props;
   let stat = "пусто";
-  if (cart.length) {
-    const { total_price, total_quantity } = get_cart_total_values(cart);
+  const { total_price, total_quantity } = get_cart_total_values(cart);
+  if (total_quantity) {
     const noun_form = plural(total_quantity, "товар", "товара", "товаров");
     stat = `${total_quantity} ${noun_form} / ${total_price} ₽`;
   }

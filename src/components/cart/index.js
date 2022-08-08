@@ -16,22 +16,35 @@ function Cart(props) {
   const { total_price, total_quantity } = get_cart_total_values(props.cart);
 
   const cn = bem("Cart");
+  let content = (
+    <>
+      <List
+        items={props.cart}
+        onButtonClick={props.onButtonClick}
+        buttonLabel={props.buttonLabel}
+      />
+      <div className={cn("total")}>
+        <span>Итого</span>
+        <span>{`${total_price} ₽`}</span>
+      </div>
+    </>
+  );
+
+  if (!total_quantity) {
+    content = <h2 className={cn("empty")}>Пусто</h2>;
+  }
 
   return (
     <>
       <div className={cn()}>
         <Layout head={<h1>Корзина</h1>}>
-          <List items={props.cart} cart={true} />
-          <div className={cn("total")}>
-            <span>Итого</span>
-            <span>{`${total_price} ₽`}</span>
-          </div>
+          {content}
           <button className="close" onClick={callbacks.onClick}>
             Закрыть
           </button>
         </Layout>
       </div>
-      <Background />
+      <Background onClick={callbacks.onClick} />
     </>
   );
 }

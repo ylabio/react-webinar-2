@@ -8,7 +8,7 @@ function List(props) {
 
   return (
     <div className={cn()}>{props.items.map(item =>
-      <div key={item.code} className={cn('item')}>
+      <div key={item._id} className={cn('item')}>
         {props.renderItem(item)}
       </div>
     )}

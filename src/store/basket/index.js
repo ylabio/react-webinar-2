@@ -19,16 +19,16 @@ class BasketState extends StateModule{
 
   /**
    * Добавление товара в корзину
-   * @param code Код товара
+   * @param _id Код товара
    */
-  addToBasket(code) {
+  addToBasket(_id) {
     let sum = 0;
     // Ищем товар в корзие, чтобы увеличить его количество. Заодно получаем новый массив items
     let exists = false;
     const items = this.getState().items.map(item => {
       let result = item;
       // Искомый товар для увеличения его количества
-      if (item.code === code) {
+      if (item._id === _id) {
         exists = true;
         result = {...item, amount: item.amount + 1};
       }
@@ -41,7 +41,7 @@ class BasketState extends StateModule{
     if (!exists) {
       // Поиск товара в каталоге, чтобы его в корзину добавить
       // @todo В реальных приложения будет запрос к АПИ на добавление в корзину, и апи выдаст объект товара..
-      const item = this.store.getState().catalog.items.find(item => item.code === code);
+      const item = this.store.getState().catalog.items.find(item => item._id === _id);
       items.push({...item, amount: 1});
       // Досчитываем сумму
       sum += item.price;
@@ -57,13 +57,13 @@ class BasketState extends StateModule{
 
   /**
    * Добавление товара в корзину
-   * @param code Код товара
+   * @param _id Код товара
    */
-  removeFromBasket(code) {
+  removeFromBasket(_id) {
     let sum = 0;
     const items = this.getState().items.filter(item => {
       // Удаляемый товар
-      if (item.code === code) return false
+      if (item._id === _id) return false
       // Подсчёт суммы если твоар не удаляем.
       sum += item.price * item.amount;
       return true;

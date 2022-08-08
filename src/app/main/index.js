@@ -1,7 +1,7 @@
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
@@ -11,6 +11,10 @@ function Main(){
   console.log('Main');
 
   const store = useStore();
+
+  useEffect(() => {
+    store.get('catalog').load();
+  }, [])
 
   const select = useSelector(state => ({
     items: state.catalog.items,
@@ -22,7 +26,7 @@ function Main(){
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
-    addToBasket: useCallback(code => store.get('basket').addToBasket(code), []),
+    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
 
   const renders = {

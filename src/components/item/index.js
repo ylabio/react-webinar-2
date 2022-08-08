@@ -8,14 +8,14 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: useCallback((e) => props.onAdd(props.item.code), [props.onAdd, props.item])
+    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
 
   return (
     <div className={cn()}>
-      <div className={cn('code')}>
-        {props.item.code}
-      </div>
+      {/*<div className={cn('id')}>*/}
+      {/*  {props.item._id}*/}
+      {/*</div>*/}
       <div className={cn('title')}>
         {props.item.title}
       </div>

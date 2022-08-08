@@ -48,7 +48,7 @@ function Item(props) {
       <div className={cn('title')}>
         {props.item.title}
         {/* {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null} */}
-        <span className={props.reUse ? 'Bad-solution' : ""}>{`${props.item.price} ₽`} </span>
+        <span className={props.reUse ? 'Bad-solution' : ""}>{`${new Intl.NumberFormat().format(props.item.price)} ₽`} </span>
         {props.reUse ? <span>{props.item.amount ? props.item.amount : 1} шт</span> : ""}
       </div>
       <div className={cn('actions')}>

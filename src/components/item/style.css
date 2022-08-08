@@ -7,9 +7,16 @@
 .Item_selected{
     background: #75aaf1;
 }
-
-
+.Item_price {
+    display: flex;
+    font-size: 18px;
+}
+.Item_price span:last-child{
+    padding-left: 55px;
+}
 .Item-title{
+    display: flex;
+    justify-content: space-between;
     width: 100%;
     padding: 20px 10px;
 }
@@ -17,6 +24,9 @@
     padding: 20px  20px 20px 10px;
     display: flex;
     justify-content: flex-end;
+}
+.Item-actions button{
+    cursor: pointer;
 }
 .Item-number{
     padding: 20px 10px 20px 20px;

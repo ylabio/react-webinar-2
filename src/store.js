@@ -57,7 +57,9 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      cart: Object.fromEntries(
+        Object.entries(this.state.cart).filter(item => item[1].code !== code)
+      )
     });
   }
 
@@ -79,6 +81,26 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     });
+  }
+
+  addItem(item) {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        [item.code]: {
+          ...item,
+          count: this.state.cart[item.code] && this.state.cart[item.code].count + 1 || 1
+        }
+      }
+    })
+  }
+
+  toggleModal() {
+    this.setState({
+      ...this.state,
+      modal: !this.state.modal,
+    })
   }
 }
 

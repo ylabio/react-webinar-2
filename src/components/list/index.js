@@ -6,11 +6,18 @@ import './style.css';
 
 function List(props) {
   const cn = bem('List');
-
+  const Component = props.component;
   return (
-    <div className={cn()}>{props.items.map(item =>
+    <div className={cn()}>{props.items.map((item, i) =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} onSelect={props.onItemSelect} onDelete={props.onItemDelete}/>
+        <Item
+          item={item}
+          position={++i}
+          callback={props.callback}
+          text={props.text}
+        >
+         {Component && <Component {...item} />}
+        </Item>
       </div>
     )}
     </div>
@@ -19,14 +26,14 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemSelect: propTypes.func,
-  onItemDelete: propTypes.func
+  text: propTypes.string.isRequired,
+  component: propTypes.element,
+  callback: propTypes.func
 }
 
 List.defaultProps = {
   items: [],
-  onItemSelect: () => {},
-  onItemDelete: () => {}
+  callback: () => {}
 }
 
 export default React.memo(List);

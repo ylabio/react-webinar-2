@@ -32,6 +32,7 @@ function ItemBasket({item, deleteItem}){
       </div>
   )
 }
+
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   deleteItem: propTypes.func.isRequired

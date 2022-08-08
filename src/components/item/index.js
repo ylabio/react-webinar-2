@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function Item(props) {
+function Item(props){
   const cn = bem('Item');
   const callbacks = {
     onAddItemInBasket: useCallback(() => {

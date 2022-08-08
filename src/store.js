@@ -58,22 +58,21 @@ class Store {
   addItemInBasket(code) {
     const basketWithItem = this.state.basket.filter(item => item.code === code);
     const itemForAdd = this.state.items.filter(item => item.code === code)[0];
-    if(!basketWithItem.length){
-       this.setState({
-         ...this.state,
+    if (!basketWithItem.length) {
+      this.setState({
+        ...this.state,
         basket: [...this.state.basket, {code: itemForAdd.code, title: itemForAdd.title, price: itemForAdd.price, num: 1}],
-       })
-   } else {
-     this.setState({
-       ...this.state,
-       basket: this.state.basket.map(item => item.code === code 
-         ? 
-           ({...item, price: item.price + itemForAdd.price, num: item.num + 1 }) 
-        : 
-           item),
-       })
-     }
-   }
+      })
+    } else {
+        this.setState({
+          ...this.state,
+          basket: this.state.basket.map(item => item.code === code ? 
+            ({...item, price: item.price + itemForAdd.price, num: item.num + 1 }) 
+          : 
+            item),
+      })
+    }
+  }
 
     /**
    * Изменение видимости корзины

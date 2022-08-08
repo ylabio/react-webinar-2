@@ -3,9 +3,11 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import plural from 'plural-ru';
+
 function Controls({totalPrice, basket, changeBasketVisible}){
   const cn = bem('Controls');
-  return(
+  
+  return (
     <div className={cn()}>
       <>
         {

@@ -1,21 +1,33 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
+import plural from "plural-ru";
 
-function Controls({onAdd}){
-  return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
-    </div>
-  )
+function Controls({onCart, count, sum}) {
+    return (
+        <div className='Controls'>
+       <span>В корзине:
+           <span style={{fontWeight: 'bold'}}>
+         {count ? `${count} ${plural(count, 'товар', 'товара', 'товаров')} / ${sum}     ₽` : 'пусто'}
+       </span>
+           {/*{count ? <span>{count} {plural(count, 'товар', 'товара', 'товаров')} / {sum} р</span> : <span>пусто</span>} */}
+       </span>
+            <button onClick={onCart}>Перейти</button>
+        </div>
+    )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+    onCart: propTypes.func.isRequired,
+    count: propTypes.number,
+    sum: propTypes.number,// Обяхательное свойство - функция
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+    onCart: () => {
+    }, // Значение по умолчанию - функция-заглушка
+    count: 0,
+    sum: 0
 }
 
 export default React.memo(Controls);

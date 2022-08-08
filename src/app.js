@@ -1,8 +1,8 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import {Cart} from "./components/cart";
 
 /**
  * Приложение
@@ -11,28 +11,49 @@ import {counter} from "./utils";
  */
 function App({store}) {
 
-  const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
-    }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
-  }
+    const [cartActive, setCartActive] = useState(false)
 
-  return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
-  );
+    const callbacks = {
+        onCart: useCallback(() => {
+            setCartActive(true)
+        }, []),
+        onAddItems: useCallback((item) => {
+            store.addItemToCart(item);
+        }, []),
+        onDeleteItems: useCallback((code) => {
+            store.deleteItem(code);
+        }, []),
+        uniqueCartItems: useCallback((cartItems) => {
+            let result = [];
+            for (let i of cartItems) {
+                if (!result.includes(i)) {
+                    result.push(i);
+                }
+            }
+            return result;
+        }, [])
+    }
+
+    let count = callbacks.uniqueCartItems(store.getState().cartItems).length
+    let sum = store.getState().cartItems.reduce((sum, item ) => sum + item.price, 0)
+
+
+    return (
+        <Layout head={<h1>Магазин</h1>}>
+            <Controls onCart={callbacks.onCart} count={count} sum = {sum}/>
+            <List items={store.getState().items}
+                  onItemAdd={callbacks.onAddItems}
+            />
+            {cartActive && (
+                <Cart
+                    uniqueCartItems={callbacks.uniqueCartItems}
+                    cartsItems={store.getState().cartItems}
+                    onDelete={callbacks.onDeleteItems}
+                    setActive={setCartActive}
+                    sum={sum}/>)
+            }
+        </Layout>
+    );
 }
 
 export default App;

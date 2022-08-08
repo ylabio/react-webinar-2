@@ -1,0 +1,35 @@
+.cartItem{
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 1s;
+    border-bottom: 1px dashed #ccc;
+}
+
+
+.cartItem-title{
+    width: 100%;
+    padding: 20px 10px;
+}
+.cartItem-actions{
+    padding: 20px  20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.cartItem-number{
+    padding: 20px 10px 20px 20px;
+}
+
+.cartItem-price {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+.cartItem-count {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-left: 10px;
+    width: 30%;
+}

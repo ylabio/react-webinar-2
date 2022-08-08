@@ -3,4 +3,8 @@
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+
+}
+.Controls span {
+    margin: 0px 10px;
 }

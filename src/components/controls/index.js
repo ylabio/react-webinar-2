@@ -1,33 +1,29 @@
-import React, {useCallback} from 'react';
+import React, {useMemo} from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
 import plural from 'plural-ru';
 
-function Controls({shoppingCart, switchCart}){
+function Controls(props){
   const cn = bem('Controls');
-  const getShoppingCartStats = useCallback(() => {
-    if (shoppingCart.length > 0) {
-      let amount = 0, price = 0
-      shoppingCart.forEach((item) => {
-        amount += item.amount
-        price += item.price * item.amount
-      })
-      return String(amount) + " " + plural(amount, "товар", "товара", "товаров") + " / " + price.toLocaleString() + " ₽"
+  const shoppingCartStats = useMemo(() => {
+    if (props.itemsInCart > 0) {
+      return String(props.itemsInCart) + " " +
+        plural(props.itemsInCart, "товар", "товара", "товаров") + " / " + props.cartPrice.toLocaleString() + " ₽"
     } else {
       return "пусто"
     }
-  }, [shoppingCart])
+  }, [props.itemsInCart, props.cartPrice])
   return (
     <div className={cn()}>
       <div className={cn('title')}>
         В корзине:
       </div>
-      <div className={cn('cart')}>
-        {getShoppingCartStats()}
+      <div className={cn('cart-summary')}>
+        {shoppingCartStats}
       </div>
       <div className={cn('actions')}>
-        <button onClick={switchCart} disabled={shoppingCart.length === 0}>Перейти</button>
+        <button onClick={props.switchCart} disabled={props.itemsInCart === 0}>Перейти</button>
       </div>
     </div>
 
@@ -35,12 +31,14 @@ function Controls({shoppingCart, switchCart}){
 }
 
 Controls.propTypes = {
-  shoppingCart: propTypes.array.isRequired, // Обязательное свойство - массив объектов в корзине
+  itemsInCart: propTypes.number.isRequired,
+  cartPrice: propTypes.number.isRequired,
   switchCart: propTypes.func.isRequired // Обяхательное свойство - функция
 }
 
 Controls.defaultProps = {
-  shoppingCart: [],
+  itemsInCart: 0,
+  cartPrice: 0,
 }
 
 export default React.memo(Controls);

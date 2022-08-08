@@ -21,13 +21,9 @@ function Item(props) {
       <div className={cn('price')}>
         {props.item.price.toLocaleString() + ' ₽'}
       </div>
-      {props.actionType === "Удалить" &&
-        <div className={cn('amount')}>
-          {props.item.amount} шт
-        </div>}
-      <div className={cn('actions')}>
+      <div className={cn('action')}>
         <button onClick={triggerCallback}>
-          {props.actionType}
+          Добавить
         </button>
       </div>
     </div>

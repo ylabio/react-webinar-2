@@ -1,6 +1,9 @@
 import React, {useCallback} from 'react';
-import MainPage from './components/main-page';
-import Cart from './components/cart';
+import Layout from './components/layout';
+import Controls from './components/controls';
+import List from './components/list';
+import CartSummary from './components/cart-summary';
+import Modal from './components/modal';
 
 
 /**
@@ -28,11 +31,23 @@ function App({store}) {
 
   return (
     <div className="App">
-      <MainPage shoppingCart={store.getState().shoppingCart} items={store.getState().items}
-                addItemToCartCallback={callbacks.onAddToCart} switchCartCallback={callbacks.switchCart}/>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls itemsInCart={store.getState().itemsInCart} cartPrice={store.getState().cartPrice}
+                  switchCart={callbacks.switchCart}/>
+        <List items={store.getState().items}
+              onItemClickCallback={callbacks.onAddToCart}
+              itemType="shop"
+        />
+      </Layout>
       {store.getState().cartOpened &&
-        <Cart shoppingCart={store.getState().shoppingCart} closeHandler={callbacks.switchCart}
-              removeFromCartCallback={callbacks.removeFromCart} totalCartPrice={callbacks.countTotalCartPrice()}/>}
+        <Modal head={<h1>Корзина</h1>} closeHandler={callbacks.switchCart}>
+          <div style={{height: "74px"}}/>
+          <List items={store.getState().shoppingCart}
+                onItemClickCallback={callbacks.removeFromCart}
+                itemType="cart"
+          />
+          <CartSummary sum={callbacks.countTotalCartPrice()}/>
+        </Modal>}
     </div>
   );
 }

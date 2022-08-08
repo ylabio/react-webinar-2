@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+import {currency} from '../../utils.js';
 import './style.css';
 
 function ItemModal({ item, index, onDelete }) {
@@ -22,11 +23,7 @@ function ItemModal({ item, index, onDelete }) {
         {item.title}
       </div>
       <p className={cn('price')}>
-        {item.price.toLocaleString('ru-RU', { 
-          style: 'currency', 
-          currency: 'RUB', 
-          minimumFractionDigits: 0 
-        })}
+        {currency(item.price)}
       </p>
       <p className={cn('count')}>
         {item.count} шт

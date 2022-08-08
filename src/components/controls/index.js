@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import plural from 'plural-ru';
+import {currency} from '../../utils.js';
 import './style.css';
 
 function Controls({ basket, onClick }){
@@ -20,11 +21,7 @@ function Controls({ basket, onClick }){
       return `${plural(
         basket.length, 
         '%d товар', '%d товара', '%d товаров'
-        )} / ${price.toLocaleString('ru-RU', { 
-        style: 'currency', 
-        currency: 'RUB', 
-        minimumFractionDigits: 0 
-      })}`
+        )} / ${currency(price)}`
     }
 
     return 'пусто'

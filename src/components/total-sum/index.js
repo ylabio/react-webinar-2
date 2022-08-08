@@ -1,6 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+import {currency} from '../../utils.js';
 import './style.css';
 
 function TotalSum({ basket }) {
@@ -11,11 +12,7 @@ function TotalSum({ basket }) {
   return (
     <div className={cn()}>
       <p className={cn('total')}>Итого</p>
-      <p className={cn('sum')}>{price.toLocaleString('ru-RU', { 
-        style: 'currency', 
-        currency: 'RUB', 
-        minimumFractionDigits: 0 
-      })}</p>
+      <p className={cn('sum')}>{currency(price)}</p>
     </div>
   )
 }

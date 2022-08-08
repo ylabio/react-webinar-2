@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+import {currency} from '../../utils.js';
 import './style.css';
 
 function Item({item, onAddProduct}) {
@@ -22,11 +23,7 @@ function Item({item, onAddProduct}) {
         {item.title}
       </div>
       <p className={cn('price')}>
-        {item.price.toLocaleString('ru-RU', { 
-          style: 'currency', 
-          currency: 'RUB', 
-          minimumFractionDigits: 0 
-        })}
+        {currency(item.price)}
       </p>
       <div className={cn('actions')}>
         <button onClick={callbacks.onAddProduct}>

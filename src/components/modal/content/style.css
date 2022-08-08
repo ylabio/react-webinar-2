@@ -1,0 +1,20 @@
+.Content-modal {
+  padding-top: 74px;
+}
+
+.Content-modal .List{
+  height: 380px;
+  overflow: auto;
+}
+
+.Content-total {
+  display: flex;
+  justify-content: flex-end;
+  padding: 25px 108px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.Content-total span:first-child {
+  margin-right: 50px;
+}

@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React from 'react';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import propTypes from 'prop-types';

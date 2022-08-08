@@ -17,7 +17,7 @@ function App({store}) {
     removeItemFromCart, 
     handleModal,
   } = store;
-  const { isCartOpen, items, goods } = store.state;
+  const { isCartOpen, items, goods } = store.getState();
 
   const callbacks= {
     addItemToCart: useCallback((item) => {

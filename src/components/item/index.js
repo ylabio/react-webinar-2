@@ -7,6 +7,14 @@ function Item(props) {
   const cn = bem('Item')
 
   const callbacks = {
+    addItem: useCallback(
+      (e) => {
+        console.log(props.item)
+        e.stopPropagation()
+        props.addItem(props.item)
+      },
+      [props.addItem, props.item]
+    ),
     onDelete: useCallback(
       (e) => {
         e.stopPropagation()
@@ -25,7 +33,8 @@ function Item(props) {
         <span> &#8381;</span>{' '}
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>Удалить</button>
+        <button onClick={callbacks.addItem}>Добавить</button>
+        {/* <button onClick={callbacks.onDelete}>Удалить</button> */}
       </div>
     </div>
   )
@@ -33,11 +42,13 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onDeleted: propTypes.func.isRequired,
+  // onDeleted: propTypes.func.isRequired,
+  addItem: propTypes.func.isRequired,
 }
 
 Item.defaultProps = {
-  onDeleted: () => {},
+  // onDeleted: () => {},
+  addItem: () => {},
 }
 
 export default React.memo(Item)

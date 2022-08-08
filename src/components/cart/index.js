@@ -26,8 +26,13 @@ export const Cart = React.memo(({setActive, cartsItems, onDelete, sum, uniqueCar
         <div className={cn()}>
             <div className={cn('content')}>
                 <Layout head={head()} style={'cartLayout'}>
+                    <div style={{ display: 'flex',
+                        justifyContent: 'flex-end',
+                        borderBottom: '1px dashed #ccc',
+                        padding: '30px'}}>
+                    </div>
                     {uniqueCartItems(cartsItems).map(item => <CartItem cartItem={item} onDelete={onDelete} count={cardItemCount(item)} />)}
-                    <h3 style={{marginLeft: '10px'}}>Итого: {sum} ₽</h3>
+                    <h3 className={cn('allSum')}><span>Итого</span> {sum} ₽</h3>
                 </Layout>
             </div>
 

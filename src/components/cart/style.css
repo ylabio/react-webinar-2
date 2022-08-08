@@ -17,3 +17,11 @@
     width: 900px;
     height: 600px;
 }
+
+
+.cart-allSum {
+    display: flex;
+    justify-content: flex-end;
+    gap: 7%;
+    margin-right: 85px;
+}

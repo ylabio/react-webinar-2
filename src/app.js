@@ -45,13 +45,7 @@ function App({store}) {
   useEffect(() => {
     const { cart } = store.getState();
     if (cart.length) {
-      const amount =  cart.length === 1
-        ? cart[0].amount
-        : cart.reduce((total, next, index) => (
-          index === 1
-            ? total.amount + next.amount
-            : total + next.amount
-        ));
+      const amount =  cart.length;
       const total = cart.length === 1
         ? Math.round(cart[0].price * cart[0].amount) 
         : cart.reduce((total, next, index) => (

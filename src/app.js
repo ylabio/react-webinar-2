@@ -2,9 +2,9 @@ import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import ModalCart from './components/modalCart';
+import ModalCart from './components/modal-cart';
 import './global.css'
-import ItemCatalog from './components/itemCatalog';
+import ItemCatalog from './components/item-catalog';
 
 /**
  * Приложение

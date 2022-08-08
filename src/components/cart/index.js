@@ -1,7 +1,7 @@
 import { cn as bem } from '@bem-react/classname'
 import React from 'react'
 import propTypes from 'prop-types';
-import ItemCart from '../itemCart'
+import ItemCart from '../item-cart'
 import Layout from '../layout'
 import List from '../list'
 import './style.css'

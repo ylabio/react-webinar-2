@@ -3,6 +3,8 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Modal from "./components/modal";
+import Item from "./components/item";
+import CartItem from "./components/cart-item";
 import {formatPrice} from "./utils";
 
 /**
@@ -33,7 +35,9 @@ function App({store}) {
 				<Controls onToggleModal={callbacks.onToggleModal} totalCount={store.getState().totalCount} totalPrice={store.getState().totalPrice}/>
 				<List items={store.getState().items}
 							onCallbackItem={callbacks.onAddToCartItem}
-				/>
+				>
+          <Item />
+				</List>
 			</Layout>
 
 			<Modal isOpenModal={isOpenModal} onToggleModal={callbacks.onToggleModal}>
@@ -42,7 +46,9 @@ function App({store}) {
 						<>
               <List items={store.getState().cartItems}
                     onCallbackItem={callbacks.onDeleteFromCartItem}
-              />
+              >
+								<CartItem />
+							</List>
               <div className="Modal-total">
 								<strong>Итого</strong>
 								<strong>{store.getState().totalCount ? `${formatPrice(store.getState().totalPrice)} ₽` : 'пусто'}</strong>

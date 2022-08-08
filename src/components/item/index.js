@@ -29,7 +29,7 @@ function Item(props) {
 			</div>}
       <div className={cn('actions')}>
         <button onClick={callbacks.onCallback}>
-					{props.item.totalCount ? 'Удалить' : 'Добавить'}
+					Добавить
         </button>
       </div>
     </div>

@@ -62,7 +62,7 @@ class Store {
 					})
 		});
 
-		this.getResultsCart();
+		this.setResultsCart();
 	}
 
 	/**
@@ -75,14 +75,14 @@ class Store {
       cartItems: this.state.cartItems.filter(cartItem => cartItem.code !== code)
 		});
 
-		this.getResultsCart();
+		this.setResultsCart();
 	}
 
 	/**
 	 * Общее количество уникального товара и сумма с учётом всего количества
 	 *
 	 */
-	getResultsCart() {
+	setResultsCart() {
 		this.setState({
 			...this.state,
 			totalCount: this.state.cartItems.length,

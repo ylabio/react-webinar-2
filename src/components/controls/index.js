@@ -2,10 +2,10 @@ import React from 'react';
 import propTypes from 'prop-types';
 import plural from 'plural-ru';
 import './style.css';
-import {currencySign as roubleSign} from '../../utils';
+import {arrayToCart, currencySign as roubleSign} from '../../utils';
 
 function Controls({onOpenCart, cartItems}) {
-  const numberOfitems = cartItems.length;
+  const numberOfitems = arrayToCart(cartItems).length;
   const itemPlural = plural(numberOfitems, 'товар', 'товара', 'товаров');
   const resultSum = cartItems
     .map(item => item.price)

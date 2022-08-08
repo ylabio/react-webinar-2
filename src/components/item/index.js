@@ -7,36 +7,37 @@ import './style.css';
 function Item(props) {
   const cn = bem('Item');
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
   const callbacks = {
 
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
-
-    onDelete: useCallback((e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
+    onClickButton: useCallback(()=> {
+      props.onCart 
+        ? props.onClick(props.item.code) 
+        
+        : props.onClick(props.item.code, props.item.title, props.item.price);
+    }, [props.onCart, props.onClick, props.item])
   };
 
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
+    <div className={cn()}>
       <div className={cn('number')}>
         {props.item.code}
       </div>
       <div className={cn('title')}>
         {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
       </div>
+      <div className={cn('price')}>
+        {props.item.price.toLocaleString('ru')}
+        <span>₽</span>
+      </div>
+      {props.onCart && 
+        <div className={cn('count')}>
+          {props.item.count}
+          <span>шт</span>
+        </div>
+      }
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button onClick={callbacks.onClickButton}>
+          {props.onCart ? 'Удалить' : 'Добавить'}
         </button>
       </div>
     </div>
@@ -44,14 +45,15 @@ function Item(props) {
 }
 
 Item.propTypes = {
-  item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
+  item: propTypes.object,
+  onCart: propTypes.bool,
+  onClick: propTypes.func.isRequired
 }
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
+  onClick: () => {},
+  onCart: false,
+  item: {}
 }
 
 export default React.memo(Item);

@@ -4,6 +4,7 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import Cart from "./components/cart";
 import Item from "./components/item";
+import ModalLayout from "./components/modal-layout";
 
 /**
  * Приложение
@@ -41,13 +42,16 @@ function App({store}) {
           <Item item={item} onClick={callbacks.onAmountIncrease} key={item.code} />
         )}
       </List>
-      {isCartOpen &&
-        <Cart
-          cartItems={store.getState().cartItems}
-          totalPrice={store.getTotalPrice()}
-          onCartClose={callbacks.onCartClose}
-          onItemDelete={callbacks.onItemDelete}
-        />}
+      {
+        isCartOpen &&
+        <ModalLayout head={<h2>Корзина</h2>} onClose={callbacks.onCartClose}>
+          <Cart
+            cartItems={store.getState().cartItems}
+            totalPrice={store.getTotalPrice()}
+            onItemDelete={callbacks.onItemDelete}
+          />
+        </ModalLayout>
+      }
     </Layout>
   );
 }

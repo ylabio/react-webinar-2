@@ -27,6 +27,12 @@
     line-height: 21px;
 
 }
+.Item-amount{
+    margin-left: 55px;
+}
+.Item-info_price{
+    display: flex;
+}
 .Item-actions{
     padding: 20px  20px 20px 10px;
     display: flex;

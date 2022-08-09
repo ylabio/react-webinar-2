@@ -1,23 +1,23 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
+import {pluralProduct} from "../../utils";
+import {cn as bem} from "@bem-react/classname";
 
-function Controls({openBasket}){
+function Controls({openBasket, amount, sum}) {
+  const cn = bem('Controls')
   return (
-      <div className='Controls'>
-        <div className='Controls-title'>В корзине:</div>
-        <div className='Controls-info'>пусто</div>
-        <button onClick={openBasket}>Перейти</button>
-      </div>
+    <div className={cn()}>
+      <div className={cn('title')}>В корзине:</div>
+      <div className={cn('info')}>{amount >= 1 ? `${amount} ${pluralProduct(amount)} / ${sum} ₽` : 'пусто'}</div>
+      <button onClick={openBasket}>Перейти</button>
+    </div>
   )
 }
 
 Controls.propTypes = {
-  openBasket: propTypes.func.isRequired // Обяхательное свойство - функция
+  openBasket: propTypes.func.isRequired
 }
 
-Controls.defaultProps = {
-  openBasket: () => {} // Значение по умолчанию - функция-заглушка
-}
 
 export default React.memo(Controls);

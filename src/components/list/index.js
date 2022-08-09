@@ -1,20 +1,21 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import Item from "../item";
 import './style.css';
+
+const TEXT_BUTTON_ADD = 'добавить'
 
 function List({items, addItemInBasket}) {
   const cn = bem('List');
 
   return (
-      <div className={cn()}>{items.map(item =>
-          <div key={item.code} className={cn('item')}>
-            <Item code={item.code} price={item.price} onCLickButton={addItemInBasket} title={item.title}
-                  titleButton='добавить'/>
-          </div>
-      )}
+    <div className={cn()}>{items.map((item,i) =>
+      <div key={item.code} className={cn('item')}>
+        <Item place={i+1} code={item.code} price={item.price} onCLickButton={addItemInBasket} title={item.title}
+              titleButton={TEXT_BUTTON_ADD}/>
       </div>
+    )}
+    </div>
   )
 }
 

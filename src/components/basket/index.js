@@ -1,15 +1,24 @@
 import React from "react";
-import Item from "../../../../../Downloads/Новая папка/src/components/item";
+import Item from "../item";
 import './style.css'
+import {cn as bem} from "@bem-react/classname";
 
-function Basket({visible, closeBasket, items, onItemDelete}) {
-  return (<div className={'Basket-block'} style={{display: visible ? "flex" : 'none'}}>
-    <div className='Basket'>
-      <div className='Basket-title'>Корзина</div>
-      <button className='Basket-buttonClose' onClick={closeBasket}>Закрыть</button>
-      <div>{items.map(el => <Item onCLickButton={onItemDelete} code={el.code} price={el.price} title={el.title}
-                                  titleButton='удалить' counter={el.counter}/>)}</div>
-      <div className="Basket-results">Итого</div>
+const TEXT_BUTTON_DELETE = 'удалить'
+
+function Basket({visible, closeBasket, items, onItemDelete, sum}) {
+  const cn = bem('Basket');
+
+  return (<div className={cn('block')} style={{display: visible ? "flex" : 'none'}}>
+    <div className={cn()}>
+      <div className={cn('title')}>Корзина</div>
+      <button className={cn('buttonClose')} onClick={closeBasket}>Закрыть</button>
+      <div>{items.map((item, i) =>
+        <div key={item.code} className={cn('item')}>
+          <Item onCLickButton={onItemDelete} code={item.code} price={item.price} title={item.title}
+                titleButton={TEXT_BUTTON_DELETE} count={item.count} place={i + 1}/>
+        </div>
+        )}</div>
+      <div className={cn('results')}>Итого <p>{sum} ₽</p></div>
     </div>
   </div>)
 

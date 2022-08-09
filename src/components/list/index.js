@@ -24,8 +24,4 @@ List.propTypes = {
   onItemAdd: propTypes.func
 }
 
-List.defaultProps = {
-  items: [],
-}
-
 export default React.memo(List);

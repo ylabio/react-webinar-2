@@ -47,8 +47,4 @@ Item.propTypes = {
   onDelete: propTypes.func
 }
 
-Item.defaultProps = {
- 
-}
-
 export default React.memo(Item);

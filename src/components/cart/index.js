@@ -38,15 +38,10 @@ function ShopCart({show, setShow, state, store}){
 }
 
 ShopCart.propTypes = {
+    store: propTypes.object.isRequired,
     state: propTypes.object.isRequired,
     setShow: propTypes.func.isRequired,
-    show: propTypes.bool
-}
-ShopCart.defaultProps = {
-    state: {},
-    store: {},
-    show: bool,
-    setShow: ()=>{},
+    show: propTypes.bool.isRequired
 }
 
 export default React.memo(ShopCart);

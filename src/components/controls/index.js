@@ -32,9 +32,4 @@ Controls.propTypes = {
   onOpen: propTypes.func.isRequired // Обяхательное свойство - функция
 }
 
-Controls.defaultProps = {
-  cart: [],
-  onOpen: () => {} // Значение по умолчанию - функция-заглушка
-}
-
 export default React.memo(Controls);

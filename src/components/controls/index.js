@@ -2,20 +2,18 @@ import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 
-function Controls({onAdd}){
+function Controls({setActive}){
   return (
     <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+      <button onClick={()=>setActive(true)}>Перейти</button>
     </div>
   )
 }
 
-Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+Controls.propTypes={
+  setActive: propTypes.func.isRequired,
 }
-
-Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+Controls.defaultProps={
+  setActive: ()=>{}
 }
-
 export default React.memo(Controls);

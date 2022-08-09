@@ -10,12 +10,12 @@
 	z-index: 999;
 	background: rgba(0, 0, 0, 0.7);
 	padding: 15px;
+	overflow: auto;
 }
 .Modal-body {
 	width: 100%;
-	height: 100%;
 	max-width: 960px;
-	max-height: 603px;
+	min-height: 603px;
 	background-color: #ffffff;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 	border-radius: 10px;
@@ -35,7 +35,5 @@
 	min-width: 76px;
 }
 .Modal-bodyContent {
-	height: calc(100% - 200px);
-	overflow: auto;
 	margin: 74px 0;
 }

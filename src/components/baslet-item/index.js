@@ -1,5 +1,6 @@
 import React from 'react'
 import './style.css'
+import propTypes from 'prop-types'
 function BasketItem({ basketItem, onDeleteItems }) {
     return (
         <div className='BasketItem'>
@@ -21,5 +22,8 @@ function BasketItem({ basketItem, onDeleteItems }) {
         </div>
     )
 }
-
+BasketItem.propTypes = {
+    basketItem: propTypes.object.isRequired,
+    onDeleteItems: propTypes.func.isRequired,
+}
 export default BasketItem

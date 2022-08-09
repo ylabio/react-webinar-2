@@ -23,18 +23,12 @@ function Basket({ active, setActive, basket, priceProduct, onDeleteItems }) {
 }
 Basket.propTypes = {
 
-    basket: propTypes.array.isRequired,
     active: propTypes.bool.isRequired,
     setActive: propTypes.func.isRequired,
+    basket: propTypes.array.isRequired,
     priceProduct: propTypes.number.isRequired,
     onDeleteItems: propTypes.func.isRequired,
 }
 
-Basket.defaultProps = {
-    basket: [],
-    active: false,
-    priceProduct: 0,
-    onDeleteItems: () => { },
-    setActive: () => { },
-}
+
 export default Basket

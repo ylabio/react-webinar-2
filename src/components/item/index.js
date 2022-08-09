@@ -7,18 +7,10 @@ import './style.css';
 function Item(props) {
   const cn = bem('Item');
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
+
 
   const callbacks = {
-
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
-    onAddBasket: useCallback((e) => {
+    onAddItemInBasket: (e) => {
       e.stopPropagation()
       props.onPriceProduct(props.item.price)
       props.onAmountInBasket(props.item.code)
@@ -27,7 +19,9 @@ function Item(props) {
         props.onAmountProduct(props.item.amountInBasket)
         props.onAmountInBasket(props.item.code)
       }
-    }, [props.onAddBasket, props.basket])
+    },
+
+
   };
   return (
     <div className={cn({ 'selected': props.item.selected })} >
@@ -41,7 +35,7 @@ function Item(props) {
         <p>{`${props.item.price.toLocaleString()} ₽`} </p>
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onAddBasket}>
+        <button onClick={callbacks.onAddItemInBasket}>
           Добавить
         </button>
       </div>
@@ -59,14 +53,6 @@ Item.propTypes = {
   priceProduct: propTypes.number.isRequired,
 }
 
-Item.defaultProps = {
-  item: {},
-  basket: [],
-  onPriceProduct: () => { },
-  onAmountInBasket: () => { },
-  onAmountProduct: () => { },
-  onAddBasket: () => { },
-  priceProduct: 0,
-}
+
 
 export default React.memo(Item);

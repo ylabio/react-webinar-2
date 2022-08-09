@@ -22,15 +22,15 @@ function App({ store }) {
       store.counterProduct()
 
     }, []),
+
+
     onAmountInBasket: useCallback((item) => {
       store.amountInBasket(item)
     }, []),
     onPriceProduct: useCallback((price) => {
       store.priceProduct(price)
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
+
     onDeleteItems: useCallback((code, amountInBasket, price) => {
       store.deleteItem(code, amountInBasket, price);
     }, []),

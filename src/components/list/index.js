@@ -28,25 +28,22 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
+  priceProduct: propTypes.number.isRequired,
+  amountProduct: propTypes.number.isRequired,
   onPriceProduct: propTypes.func,
   onItemSelect: propTypes.func,
-  onItemDelete: propTypes.func,
   onAddBasket: propTypes.func,
   onAmountProduct: propTypes.func,
   onAmountInBasket: propTypes.func,
-  priceProduct: propTypes.number,
-  amountProduct: propTypes.number,
 }
 
 List.defaultProps = {
-  items: [],
   onItemSelect: () => { },
   onAddBasket: () => { },
   onAmountProduct: () => { },
   onPriceProduct: () => { },
   onAmountInBasket: () => { },
-  priceProduct: 0,
-  amountProduct: 0,
+
 }
 
 export default React.memo(List);

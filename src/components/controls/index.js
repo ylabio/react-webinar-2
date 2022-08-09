@@ -23,10 +23,6 @@ Controls.propTypes = {
   amountProduct: propTypes.number.isRequired,
 }
 
-Controls.defaultProps = {
-  setActive: () => { },
-  priceProduct: 0,
-  amountProduct: 0,
-}
+
 
 export default React.memo(Controls);

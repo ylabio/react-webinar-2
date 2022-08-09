@@ -8,7 +8,6 @@ import "./style.css";
 function Cart(props) {
   const cn = bem("Cart");
   const [isOpen, setIsOpen] = useState(false);
-
   const cart = props.cart;
   const goodsQty = totalQty(cart);
   const cartInfo = ` ${goodsQty} ${pluralize(goodsQty)} / `;

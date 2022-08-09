@@ -8,14 +8,8 @@ import "./style.css";
 
 function Modal(props) {
   const cn = bem("Modal");
-
   const cart = props.cart
-/*
-  const totalPrice = cart.reduce(
-    (total, item) => item.qty * item.price + total,
-    0
-  );
-*/
+
   return (
     <div className={cn()}>
       <ReactModal

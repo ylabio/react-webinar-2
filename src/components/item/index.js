@@ -6,7 +6,6 @@ import "./style.css";
 
 function Item(props) {
   const cn = bem("Item");
-
   const itemQty = <span>{props.item.qty}&nbsp;шт.</span>;
 
   const onClick = () => {

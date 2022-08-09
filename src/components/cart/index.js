@@ -26,13 +26,13 @@ function Cart(props) {
       <div className={cn("totals")}>
         {goodsQty === 0 ? (
           <>
-            <span className={cn("cart-content-title")}>В корзине: </span>
-            <span className={cn("cart-info")}>пусто</span>
+            <span className={cn("content-title")}>В корзине: </span>
+            <span className={cn("info")}>пусто</span>
           </>
         ) : (
           <>
-            <span className={cn("cart-content-title")}>В корзине: </span>
-            <span className={cn("cart-info")}>
+            <span className={cn("content-title")}>В корзине: </span>
+            <span className={cn("info")}>
               {cartInfo}
               {numFormat(totalPrice)}&nbsp;&#8381;
             </span>

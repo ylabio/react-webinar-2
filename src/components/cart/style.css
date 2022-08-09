@@ -1,4 +1,4 @@
-.Cart{
+.Cart {
     display: flex;
     justify-content: flex-end;
     padding: 20px;
@@ -6,7 +6,7 @@
 .Cart-totals {
     margin-right: 20px;
 }
-.Cart-cart-info {
+.Cart-info {
     font-weight: 700;
 }
 .Cart-button-modal-on {

@@ -39,31 +39,3 @@
     padding-left: 20px;
     padding-right: 12px;
 }
-
-.Modal-content {
-    padding-top: 74px;
-}
-
-.Modal-content-item:first-child {
-    border-top: 1px dashed #ccc;
-}
-
-.Modal-empty {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5vh;
-}
-
-.Modal-content-total {
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 21px;
-    display: flex;
-    justify-content: end;
-    padding: 26px 108px;
-}
-
-.Modal-content-total>span:first-child {
-    padding-right: 49px;
-}

@@ -1,0 +1,27 @@
+.Cart {
+    padding-top: 74px;
+}
+
+.Cart-item:first-child {
+    border-top: 1px dashed #ccc;
+}
+
+.Cart-empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5vh;
+}
+
+.Cart-total {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    display: flex;
+    justify-content: end;
+    padding: 26px 108px;
+}
+
+.Cart-total>span:first-child {
+    padding-right: 49px;
+}

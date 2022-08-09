@@ -94,6 +94,20 @@ class Store {
       ]
     })
   }
+
+  /**
+ * Подсчет стоимости всех товаров
+ * @param code
+ */
+  calcCost() {
+    const items = this.state.cart;
+    let sum = 0;
+    items.forEach(item => {
+      sum += item.number * item.price
+    });
+    return sum.toLocaleString('ru');
+  };
 }
+
 
 export default Store;

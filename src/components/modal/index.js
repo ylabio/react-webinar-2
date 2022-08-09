@@ -5,7 +5,7 @@ import Item from "../item";
 import './style.css';
 import Controls from '../controls';
 
-function Modal({ name, cart, calcCost, modalActive, setModalActive, onDelete }) {
+function Modal({ name, modalActive, setModalActive, content }) {
   const cn = bem('Modal');
 
   return (
@@ -19,42 +19,19 @@ function Modal({ name, cart, calcCost, modalActive, setModalActive, onDelete }) 
           <h1>{name}</h1>
           <Controls action={() => setModalActive(false)} text='Закрыть' />
         </div>
-        {cart.length ?
-          <div className={cn("content")}>{cart.map(item =>
-            <div key={item.code} className={cn('content-item')}>
-              <Item item={item} butText={"Удалить"} butAction={onDelete} />
-            </div>
-          )}
-            <div className={cn('content-total')}>
-              <span>Итого</span>
-              <span>{calcCost()} ₽</span>
-            </div>
-          </div>
-          :
-          <div className={cn('empty')}>
-            Здесь пока ничего нет
-          </div>
-        }
+        {content}
       </div>
     </div>
   )
 }
 
 Modal.propTypes = {
-  calcCost: propTypes.func,
   modalActive: propTypes.bool.isRequired,
   setModalActive: propTypes.func.isRequired,
-  cart: propTypes.array.isRequired,
-  onDelete: propTypes.func,
   name: propTypes.string
 }
 
 Modal.defaultProps = {
-  calcCost: () => { },
-  modalActive: false,
-  setModalActive: () => { },
-  cart: [],
-  onDelete: () => { },
   name: ""
 }
 

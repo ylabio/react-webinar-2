@@ -15,9 +15,4 @@ Controls.propTypes = {
   action: propTypes.func.isRequired // Обязательное свойство - функция
 }
 
-Controls.defaultProps = {
-  text: "",
-  onAdd: () => { } // Значение по умолчанию - функция-заглушка
-}
-
 export default React.memo(Controls);

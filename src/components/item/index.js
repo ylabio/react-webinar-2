@@ -34,10 +34,4 @@ Item.propTypes = {
   butAction: propTypes.func.isRequired
 }
 
-Item.defaultProps = {
-  item: {},
-  butText: "",
-  butAction: () => { }
-}
-
 export default React.memo(Item);

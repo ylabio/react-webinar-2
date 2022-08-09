@@ -36,12 +36,4 @@ List.propTypes = {
   setModalActive: propTypes.func.isRequired
 }
 
-List.defaultProps = {
-  items: [],
-  cart: [],
-  onAdd: () => { },
-  calcCost: () => { },
-  setModalActive: () => { }
-}
-
 export default React.memo(List);

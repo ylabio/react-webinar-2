@@ -88,7 +88,6 @@ class Store {
   }
 
   addItemToCart(code) {
-    const currentItem = this.state.items.find((item) => item.code === code);
     const itemInCart = this.state.cart.find((item) => item.code === code);
     const date = new Date().getTime();
     if (itemInCart) {
@@ -106,6 +105,7 @@ class Store {
         }),
       });
     } else {
+      const currentItem = this.state.items.find((item) => item.code === code);
       this.setState({
         ...this.state,
         cart: this.state.cart.concat({

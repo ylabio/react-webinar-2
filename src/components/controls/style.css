@@ -2,5 +2,15 @@
 .Controls{
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
+    align-items: center;
+    align-content: center;
+    margin: 10px 20px;
+}
+
+.Controls-cart-snapshot{
+    padding:  0 15px ;
+}
+
+.Controls-btn{
+    padding: 1px 9px;
 }

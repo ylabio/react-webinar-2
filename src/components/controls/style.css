@@ -1,20 +1,35 @@
 /* Контрол с общими действиями */
-.Controls{
-    display: flex;
-    justify-content: flex-end;
-    padding: 20px;
+.Controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
 }
 
-.Controls-cart{
-    margin: 0;
+.Controls button {
+  width: 76px;
+  background: #efefef;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  padding: 3px 8px;
 }
-.Controls-cart-info{
-    font-weight: bold;
-    padding: 0 15px;
+
+.Controls button:hover {
+  background-color: white;
+  cursor: pointer;
 }
-.Controls-cart-info:after{
-    content: var(--ruble-content);
+
+.Controls-cart {
+  margin: 0;
 }
-.Controls-cart-info_empty:after{
-    content: '';
+.Controls-cart-info {
+  font-weight: bold;
+  padding-left: 15px;
+}
+.Controls-cart-info:after {
+  content: var(--ruble-content);
+  padding-right: 24px;
+}
+.Controls-cart-info_empty:after {
+  content: "";
 }

@@ -65,19 +65,27 @@ class Store {
    * @param code
    */
     addToCart(code) {
-      if (this.state.cart.some(n=>n.code==code)){
+      const totalPrice= this.state.cart.totalPrice+this.state.items[code-1].price
+      if (this.state.cart.itemsCart.some(n=>n.code==code)){
       this.setState({
         ...this.state,
-        cart: this.state.cart.map(m=>m.code==code? {
+        cart:{itemsCart: this.state.cart.itemsCart.map(m=>m.code==code? {
           ...m,
-          amount:m.amount+1
-          }:m)
+          amount:m.amount+1,
+          }:m),
+        totalPrice,
+        totalItems:this.state.cart.totalItems
+        }
       })
     }
   else{
     this.setState({
       ...this.state,
-      cart:[...this.state.cart,{...this.state.items[code-1],amount:1}]       
+      cart:{
+      itemsCart:[...this.state.cart.itemsCart,{...this.state.items[code-1],amount:1}],
+      totalPrice,
+      totalItems:this.state.cart.totalItems+1
+    }
     })
   }
 }
@@ -86,12 +94,15 @@ class Store {
    * @param code
    */
   deleteFromCart(code) {
-  
-    if (this.state.cart.some(n=>n.code==code)){
+    let obj=this.state.cart.itemsCart.find(m=>m.code===code)
+    let totalPrice= this.state.cart.totalPrice-obj.price*obj.amount
       this.setState({
         ...this.state,
-        cart: this.state.cart.filter(m=>m.code!=code)})
-    }
+        cart:{ 
+        itemsCart:this.state.cart.itemsCart.filter(m=>m.code!=code),
+        totalPrice,
+        totalItems:this.state.cart.totalItems-1}
+      })
 }
 }
 

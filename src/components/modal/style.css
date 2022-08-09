@@ -1,11 +1,11 @@
 
 .Modal-cross{
-    max-width: 900px;
+    max-width: 960px;
     background: #fff;
     width: 100%;
     border-radius: 10px;
     overflow: auto;
-    height: 500px;
+    min-height: 603px;
    }
 
 .Modal-head{
@@ -13,13 +13,18 @@
     background: #f5f5f5;
     justify-content: space-between;
     border-radius: inherit;
-    padding: 0px 0px 0px 20px;
-    margin: 0px 0px 40px 0px;
+    padding: 0px 10px 0px 20px;
+    margin: 0px 0px 60px 0px;
 }
 .Modal-action{
     display: flex;
     align-items: center;
-    padding: 20px;;
+    padding: 20px;
+    width: 75px;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+
 }
 .Modal-overlay{
     display: flex;

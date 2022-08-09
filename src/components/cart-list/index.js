@@ -11,7 +11,7 @@ function CartList(props) {
   
   return (
     <div>
-      <div className={cn()}>{props.cart.map(item =>
+      <div className={cn()}>{props.cart.itemsCart.map(item =>
       <div key={item.code} className={cn('item')}>
         <CartItem item={item} onDeteleCart={props.onDeteleCart}/>
       </div>
@@ -26,12 +26,12 @@ function CartList(props) {
 }
 
 CartList.propTypes = {
-  cart: propTypes.arrayOf(propTypes.object).isRequired,
+  cart: propTypes.object.isRequired,
   onDeteleCart: propTypes.func
   }
 
   CartList.defaultProps = {
-  cart: [],
+  cart: {},
   onDeteleCart: () => {}
 }
 

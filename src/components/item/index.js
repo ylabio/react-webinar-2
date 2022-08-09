@@ -20,6 +20,9 @@ function Item(props) {
       <div className={cn('title')}>
         {props.item.title} 
       </div>
+      <div className={cn('price')}>
+        {props.item.price.toLocaleString()} <span className={cn('currency')}>&#8381;</span>
+      </div>
       <div className={cn('actions')}>
         <button onClick={callbacks.onCartItems}>
           Добавить

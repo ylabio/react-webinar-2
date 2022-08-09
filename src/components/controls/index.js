@@ -19,7 +19,7 @@ function Controls({setModalActive, cart}){
 
 Controls.propTypes = {
   setModalActive: propTypes.func.isRequired,// Обязательное свойство - функция
-  cart: propTypes.array.isRequired
+  cart: propTypes.object.isRequired
 }
 
 Controls.defaultProps = {

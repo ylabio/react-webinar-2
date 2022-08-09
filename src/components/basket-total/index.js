@@ -1,7 +1,6 @@
 import React from 'react';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
-import {number} from "prop-types";
 
 function basketTotal ({totalCount, totalPrice}) {
     const cn = bem('Basket-total');
@@ -16,9 +15,9 @@ function basketTotal ({totalCount, totalPrice}) {
     )
 }
 
-basketTotal.propTypes = {
-    totalCount: number.isRequired,
-    totalPrice: number.isRequired
+basketTotal.defaultProps = {
+    totalCount: null,
+    totalPrice: null
 }
 
 export default React.memo(basketTotal);

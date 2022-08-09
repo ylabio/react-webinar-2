@@ -9,27 +9,39 @@ function List(props) {
 
   return (
     <div className={cn()}>
-      {props.items.map((item) => (
-        <div key={item.code} className={cn('item')}>
-          <Item
-            item={item}
-            // onDelete={props.onItemDelete}
-            addItem={props.addItem}
-          />
-        </div>
-      ))}
+      {/* <h1>{props.items.length && props.items[0].count}</h1> */}
+      {props.items.map((item) => {
+        console.log(item.count)
+        return (
+          <div key={item.code} className={cn('item')}>
+            <Item
+              item={item}
+              titleBtn={props.titleBtn}
+              clickBtn={props.clickBtn}
+              // onDelete={props.onItemDelete}
+              // addItem={props.addItem}
+              // deleteItem={props.deleteItem}
+              itemCount={item.count}
+              arrName={props.arrName}
+            />
+          </div>
+        )
+      })}
     </div>
   )
 }
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemDelete: propTypes.func,
-  addItem: propTypes.func,
+  titleBtn: propTypes.string,
+  clickBtn: propTypes.func,
+  // deleteItem: propTypes.func,
+  // addItem: propTypes.func,
+  arrName: propTypes.string,
 }
 
 List.defaultProps = {
-  items: [],
+  // items: [],
   onItemDelete: () => {},
   addItem: () => {},
 }

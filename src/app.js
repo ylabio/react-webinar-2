@@ -5,6 +5,8 @@ import Layout from './components/layout'
 import Modal from './components/modal'
 import Header from './components/header'
 import { sumElements } from './utils'
+import ModalFooter from './components/modal-footer'
+import PageHeader from './components/page-header'
 // import { counter } from './utils'
 
 /**
@@ -15,6 +17,9 @@ import { sumElements } from './utils'
 function App({ store }) {
   const [activeModal, setActiveModal] = useState(false)
 
+  const basketArr = store.getState().basket
+  const sum = sumElements(basketArr, 'price')
+
   const callbacks = {
     visibilityModal: useCallback(() => {
       setActiveModal((visibility) => !visibility)
@@ -22,39 +27,32 @@ function App({ store }) {
     addItem: useCallback((item) => {
       store.addItem(item)
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code)
+    onDeleteItems: useCallback((item) => {
+      store.deleteItem(item)
     }, []),
   }
 
-  const basket = store.getState().basket
-
   return (
     <Layout head={<Header title='Магазин' />}>
-      <div>
-        <span>
-          В корзине:{' '}
-          {basket.length ? basket.length + ' товаров / ' + sumElements(basket, 'price') : 'пусто'}
-          {/* {sumElements(store.getState().basket, 'price')} */}
-        </span>
-        <Controls clickHandler={callbacks.visibilityModal} title='Перейти' />
-      </div>
-
-      <List
-        items={store.getState().items}
-        // onItemDelete={callbacks.onDeleteItems}
-        addItem={callbacks.addItem}
+      <PageHeader
+        arrLength={basketArr.length}
+        sum={sum}
+        titleBtn='Перейти'
+        clickBtn={callbacks.visibilityModal}
       />
+      <List items={store.getState().items} titleBtn='Добавить' clickBtn={callbacks.addItem} />
       <Modal activeModal={activeModal} setActiveModa={setActiveModal}>
         <Header
           title='Корзина'
           button={<Controls clickHandler={callbacks.visibilityModal} title='Закрыть' />}
         />
         <List
-          items={store.getState().basket}
-          // onItemDelete={callbacks.onDeleteItems}
-          addItem={callbacks.addItem}
+          items={basketArr}
+          titleBtn='Удалить'
+          clickBtn={callbacks.onDeleteItems}
+          arrName={'basket'}
         />
+        <ModalFooter sum={sum} />
       </Modal>
     </Layout>
   )

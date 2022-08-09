@@ -2,39 +2,31 @@ import React, { useCallback, useState } from 'react'
 import propTypes from 'prop-types'
 import { cn as bem } from '@bem-react/classname'
 import './style.css'
+import Controls from '../controls'
 
 function Item(props) {
   const cn = bem('Item')
 
   const callbacks = {
-    addItem: useCallback(
-      (e) => {
-        console.log(props.item)
-        e.stopPropagation()
-        props.addItem(props.item)
-      },
-      [props.addItem, props.item]
-    ),
-    onDelete: useCallback(
-      (e) => {
-        e.stopPropagation()
-        props.onDelete(props.item.code)
-      },
-      [props.onDelete, props.item]
-    ),
+    clickBtn: useCallback((e) => {
+      e.stopPropagation()
+      props.clickBtn(props.item)
+    }, []),
   }
 
   return (
     <div className={cn()}>
-      <div className={cn('number')}>{props.item.code}</div>
+      <div className={cn('number')}>{props.item.code + ' '}</div>
       <div className={cn('title')}>{props.item.title}</div>
-      <div className={cn('price')}>
-        {props.item.price}
-        <span> &#8381;</span>{' '}
-      </div>
+      <div className={cn('price')}>{props.item.price + ' ₽'}</div>
+      {props.item.count && (
+        <div className={cn('count')}>
+          {props.itemCount}
+          <span> шт.</span>{' '}
+        </div>
+      )}
       <div className={cn('actions')}>
-        <button onClick={callbacks.addItem}>Добавить</button>
-        {/* <button onClick={callbacks.onDelete}>Удалить</button> */}
+        <Controls title={props.titleBtn} clickHandler={callbacks.clickBtn} />
       </div>
     </div>
   )
@@ -42,13 +34,8 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  // onDeleted: propTypes.func.isRequired,
-  addItem: propTypes.func.isRequired,
-}
-
-Item.defaultProps = {
-  // onDeleted: () => {},
-  addItem: () => {},
+  itemCount: propTypes.number,
+  arrName: propTypes.string,
 }
 
 export default React.memo(Item)

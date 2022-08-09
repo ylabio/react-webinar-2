@@ -1,0 +1,12 @@
+.ModalFooter {
+  padding:20px 20px;
+  font-weight: bold;
+  text-align: end;
+}
+
+.ModalFooter-text {
+  padding-right: 40px;
+}
+.ModalFooter-sum {
+  padding-right: 93px;
+}

@@ -53,7 +53,6 @@ class Store {
    */
   addItem(item) {
     const coincidence = this.state.basket.find((basketItem) => basketItem.code === item.code)
-    console.log(coincidence)
     {
       coincidence
         ? this.setState({
@@ -69,7 +68,6 @@ class Store {
             ...this.state,
             basket: this.state.basket.concat({ ...item, count: 1 }),
           })
-      // })
     }
   }
 
@@ -77,10 +75,10 @@ class Store {
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(itemArr) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter((item) => item.code !== code),
+      basket: this.state.basket.filter((item) => item.code !== itemArr.code),
     })
   }
 

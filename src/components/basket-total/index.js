@@ -4,7 +4,7 @@ import {cn as bem} from "@bem-react/classname";
 import {number} from "prop-types";
 
 function basketTotal ({totalCount, totalPrice}) {
-    const cn = bem('basket-total');
+    const cn = bem('Basket-total');
     return (
         <div>
             {totalCount

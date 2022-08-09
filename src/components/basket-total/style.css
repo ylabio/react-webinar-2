@@ -1,4 +1,4 @@
-.basketTotal-price {
+.Basket-total-price {
     margin-top: 26px;
     margin-bottom: 26px;
     display: flex;
@@ -10,12 +10,12 @@
     color: #000000;
 }
 
-.basketTotal-count {
+.Basket-total-count {
     margin-left: 49px;
     margin-right: 5px;
 }
 
-.basketTotal-empty {
+.Basket-total-empty {
     text-transform: uppercase;
     text-align: center;
 }

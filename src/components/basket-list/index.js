@@ -5,7 +5,7 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
 function basketList({basket, deleteItem}) {
-    const cn = bem('basket-list');
+    const cn = bem('Basket-list');
     return (
         <div className={cn()}>{basket.map(item =>
             <div key={item.code} className={cn('item')}>

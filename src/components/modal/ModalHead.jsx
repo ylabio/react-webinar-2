@@ -4,7 +4,7 @@ const ModalHead = ({ setModalStatus }) => {
    return (
       <div className='Modal-head'>
          <h1>Корзина</h1>
-         <button onClick={setModalStatus}>Закрыть</button>
+         <button onClick={() => setModalStatus()}>Закрыть</button>
       </div>
    )
 }

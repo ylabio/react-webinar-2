@@ -3,12 +3,7 @@ import plural from 'plural-ru';
 import propTypes from 'prop-types';
 import './style.css';
 
-function Controls({ product, modalStatus, openModal }) {
-
-  const handle = () => {
-    openModal
-    console.log(modalStatus)
-  }
+function Controls({ product, modalStatus, setModalStatus }) {
 
   const [totalSum, setTotalSum] = useState(0)
 
@@ -19,8 +14,8 @@ function Controls({ product, modalStatus, openModal }) {
 
   return (
     <div className='Controls'>
-      <span className='Controls-info'>В корзине: <strong>{product.length} {plural(totalSum, 'товара', 'товаров', 'товар')} / {totalSum} ₽</strong></span>
-      <button className='Controls-button' onClick={handle}>Перейти</button>
+      <span className='Controls-info'>В корзине: <strong>{product.length} {plural(totalSum, 'товар', 'товара', 'товаров')} / {totalSum} ₽</strong></span>
+      <button className='Controls-button' onClick={() => setModalStatus()}>Перейти</button>
     </div>
   )
 }
@@ -33,4 +28,4 @@ Controls.defaultProps = {
   setModalStatus: () => { } // Значение по умолчанию - функция-заглушка
 }
 
-export default React.memo(Controls);
+export default (Controls);

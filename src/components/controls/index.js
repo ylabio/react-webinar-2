@@ -21,7 +21,9 @@ function Controls({totalPrice, basket, changeBasketVisible}) {
           :
             <div className={cn('basket' , {value: 'empty'})}>
               <div>В корзине:</div> 
-              <div><strong>пусто</strong></div>
+              <div>
+                <strong>пусто</strong>
+              </div>
             </div>
         }   
             <div className={cn('button')}>

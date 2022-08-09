@@ -1,0 +1,31 @@
+/* Корзина */
+.Cart-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 74px;
+}
+
+.Cart-item {
+    padding: 20px;
+    border-bottom: 1px dashed #ccc;
+}
+
+.Cart-item:first-child{
+    border-top: 1px dashed #ccc;
+}
+
+.Cart-result {
+    display: flex;
+    justify-content: flex-end;
+
+    padding: 20px;
+    font-size: 18px; 
+}
+
+.Cart-total {
+    margin-right: 50px;
+}
+
+.Cart-price {
+    margin-right: 84px;
+}

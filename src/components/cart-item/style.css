@@ -1,0 +1,29 @@
+/* Пункт списка в корзине */
+.CartItem {
+  display: flex;
+
+  padding: 20px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.CartItem:first-child {
+  border-top: 1px dashed #ccc;
+}
+
+.CartItem-code {
+  margin-right: 20px;
+}
+
+.CartItem-title {
+  margin-right: auto;
+}
+
+.CartItem-price {
+  margin-right: 55px;
+  font-size: 18px;
+}
+
+.CartItem-amount {
+  margin-right: 23px;
+  font-size: 18px;
+}

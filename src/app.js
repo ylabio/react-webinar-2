@@ -1,8 +1,10 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
-import List from "./components/list";
+import getList from "./components/get-list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Cart from "./components/cart";
+import Item from "./components/item";
+import ModalLayout from "./components/modal-layout";
 
 /**
  * Приложение
@@ -10,27 +12,41 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onItemAdd: useCallback((code) => {
+      store.addItem(code);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onItemRemove: useCallback((code) => {
+      store.removeItem(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
+    onCartOpen: useCallback(() => {
+      setIsCartOpen(true);
+    }, [isCartOpen, setIsCartOpen]),
+    onCartClose: useCallback(() => {
+      setIsCartOpen(false);
+    }, [isCartOpen, setIsCartOpen]),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls
+        cartItems={store.getState().cartItems}
+        totalPrice={store.getTotalPrice()}
+        onCartOpen={callbacks.onCartOpen}
       />
+      {getList(Item, store.getState().items, callbacks.onItemAdd)}
+      {
+        isCartOpen &&
+        <ModalLayout head={<h2>Корзина</h2>} onClose={callbacks.onCartClose}>
+          <Cart
+            cartItems={store.getState().cartItems}
+            totalPrice={store.getTotalPrice()}
+            onItemRemove={callbacks.onItemRemove}
+          />
+        </ModalLayout>
+      }
     </Layout>
   );
 }

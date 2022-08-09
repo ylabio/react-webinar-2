@@ -1,7 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
 
 function Item(props) {
@@ -17,7 +16,7 @@ function Item(props) {
   const { code, title, price } = props.item;
 
   return (
-    <div className={cn()} onClick={callbacks.onClick}>
+    <div className={cn()}>
       <div className={cn('number')}>
         {code}
       </div>

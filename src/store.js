@@ -1,3 +1,5 @@
+import item from "./components/item";
+
 class Store {
 
   constructor(initState) {
@@ -53,9 +55,11 @@ class Store {
       this.state.totals.sum = this.state.totals.sum + item.price;
       return this.setState({
           ...this.state,
-          cart: [...this.state.cart, newItem]
+          cart: [...this.state.cart, newItem],
+          totalAmount: this.state.totalAmount + item.price,
         })
     } 
+    console.log(hasInCart)
     this.setState({
       ...this.state,
       cart: this.state.cart.map(item => {
@@ -66,7 +70,8 @@ class Store {
           }
         }
         return item;
-      })
+      }),
+      totalAmount: this.state.totalAmount + hasInCart.price,
     })
    }
 
@@ -74,11 +79,34 @@ class Store {
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
+   removeFromCart(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code)
     });
+    console.log(this.state.cart)
+  }
+
+  /**
+   * Открыть модальное окно
+   * @param code
+   */
+  openModal() {
+    this.setState({
+      ...this.state,
+      isModalOpen: true,
+    })
+  }
+
+  /**
+   * Закрыть модальное окно
+   * @param code
+   */
+  closeModal() {
+    this.setState({
+      ...this.state,
+      isModalOpen: false,
+    })
   }
 }
 

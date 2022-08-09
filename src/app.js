@@ -10,23 +10,32 @@ import Modal from './components/modal';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  const { items, cart, totals, modal } = store.getState();
+  const { items, cart, totals, isModalOpen, totalAmount } = store.getState();
 
   const callbacks = {
     addToCart: useCallback((code) => {
       store.addToCart(code);
     }, []),
+    onRemoveItem: useCallback((code) => {
+      store.removeFromCart(code)
+    }, []),
     onShowCart: useCallback(() => {
-      modal = 'open';
+      store.openModal();
+    }, []),
+    hideCart: useCallback(() => {
+      store.closeModal();
     }, []),
   };
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <Controls cart={cart} totals={totals} onShowCart={callbacks.onShowCart}/>
-      <List items={items} onItemAdd={callbacks.addToCart}/>
-      {modal === 'open' && <Modal />}
-    </Layout>
+    <>
+    {!isModalOpen &&
+      <Layout isModalOpen={isModalOpen} head={<h1>Магазин</h1>}>
+        <Controls cart={cart} totals={totals} onShowCart={callbacks.onShowCart}/>
+        <List items={items} onItemAdd={callbacks.addToCart}/>
+      </Layout>}
+    {isModalOpen && <Modal cart={cart} totalAmount={totalAmount} onClose={callbacks.hideCart} onRemove={callbacks.onRemoveItem}/>}
+    </>
   );
 }
 

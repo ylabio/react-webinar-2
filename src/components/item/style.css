@@ -2,7 +2,6 @@
 .Item{
     display: flex;
     justify-content: flex-start;
-    transition: background-color 1s;
 }
 .Item-title{
     width: 100%;

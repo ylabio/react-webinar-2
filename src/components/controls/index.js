@@ -28,7 +28,7 @@ function Controls(props){
 
 Controls.propTypes = {
   cart: propTypes.arrayOf(propTypes.object).isRequired,
-  totals: propTypes.objectOf(propTypes.object).isRequired,
+  totals: propTypes.object.isRequired,
   onShowCart: propTypes.func.isRequired // Обязательное свойство - функция
 }
 

@@ -36,8 +36,8 @@ function App({store}) {
   return (
     <Layout head={<h1>Магазин</h1>}>
       <CartPreview
-        totalQuantity={store.getState().cartItems.length}
-        totalPrice={store.totalPrice()}
+        totalQuantity={store.getState().totalQuantity}
+        totalPrice={store.getState().totalPrice}
 				toggleModal={toggleModal}
 			/>
       <List
@@ -50,7 +50,7 @@ function App({store}) {
 					<Cart
 						cartItems={store.getState().cartItems}
 						onDeleteFromCart={callbacks.onDeleteFromCart}
-						totalPrice={store.totalPrice()}
+						totalPrice={store.getState().totalPrice}
 					/>
 				</Modal>
 			)}

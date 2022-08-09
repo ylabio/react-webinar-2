@@ -40,11 +40,15 @@ class Store {
     }
   }
 
-	totalPrice() {
-		return this.state.cartItems.reduce(
-			(quantity, item) => item.price * item.quantity + quantity,
-			0,
-		);
+	cartCalc() {
+		this.setState({
+			...this.state,
+			totalQuantity: this.state.cartItems.length,
+			totalPrice: this.state.cartItems.reduce(
+				(quantity, item) => item.price * item.quantity + quantity,
+				0,
+			),
+		});
 	}
 
 	/**
@@ -59,6 +63,7 @@ class Store {
 				...this.state,
 				cartItems: [...cartItems, { ...item, quantity: 1 }],
 			});
+			this.cartCalc()
 		} else {
 			this.setState({
 				...this.state,
@@ -70,6 +75,7 @@ class Store {
 					}
 				}),
 			});
+			this.cartCalc();
 		}
 	}
 
@@ -81,6 +87,7 @@ class Store {
 			...this.state,
 			cartItems: this.state.cartItems.filter((item) => item.code !== code),
 		});
+		this.cartCalc();
 	}
 }
 

@@ -1,0 +1,38 @@
+/* Пункт списка */
+.CartItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 61px;
+  font-size: 16px;
+}
+
+.CartItem-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 18px;
+
+  width: 100%;
+  height: 100%;
+}
+
+.CartItem-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  margin-right: 20px;
+}
+.CartItem-number {
+  margin-left: 18px;
+}
+.CartItem-info {
+  display: flex;
+  align-items: center;
+}
+
+.CartItem-info span {
+  margin-right: 23px;
+  margin-left: 55px;
+}

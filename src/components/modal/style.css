@@ -1,0 +1,24 @@
+.Modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 960px;
+  border-radius: 10px;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.Modal .Layout {
+  min-height: 600px;
+}
+
+.Modal .Layout-head {
+  margin-bottom: 75px;
+}
+
+.Modal-close {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+}

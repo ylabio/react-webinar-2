@@ -1,14 +1,3 @@
-.Cart {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 960px;
-  border-radius: 10px;
-  z-index: 10;
-  overflow: hidden;
-}
-
 .Cart-total {
   margin-top: 25px;
   display: flex;
@@ -27,18 +16,4 @@
 .Cart-empty {
   text-align: center;
   font-weight: bold;
-}
-
-.Cart .Layout {
-  min-height: 600px;
-}
-
-.Cart .Layout-head {
-  margin-bottom: 75px;
-}
-
-.close {
-  position: absolute;
-  top: 30px;
-  right: 20px;
 }

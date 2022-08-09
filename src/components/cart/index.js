@@ -5,10 +5,11 @@ import "./style.css";
 import { cn as bem } from "@bem-react/classname";
 import Background from "../background";
 import { get_cart_total_values } from "../../utils";
+import Modal from "../modal";
 
 function Cart(props) {
   const callbacks = {
-    onClick: useCallback(() => {
+    close: useCallback(() => {
       props.onCloseCart();
     }),
   };
@@ -17,7 +18,7 @@ function Cart(props) {
 
   const cn = bem("Cart");
   let content = (
-    <>
+    <div className={cn()}>
       <List
         items={props.cart}
         onButtonClick={props.onButtonClick}
@@ -27,26 +28,14 @@ function Cart(props) {
         <span>Итого</span>
         <span>{`${total_price} ₽`}</span>
       </div>
-    </>
+    </div>
   );
 
   if (!total_quantity) {
     content = <h2 className={cn("empty")}>Пусто</h2>;
   }
 
-  return (
-    <>
-      <div className={cn()}>
-        <Layout head={<h1>Корзина</h1>}>
-          {content}
-          <button className="close" onClick={callbacks.onClick}>
-            Закрыть
-          </button>
-        </Layout>
-      </div>
-      <Background onClick={callbacks.onClick} />
-    </>
-  );
+  return <Modal onClose={callbacks.close}>{content}</Modal>;
 }
 
 export default Cart;

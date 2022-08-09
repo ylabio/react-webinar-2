@@ -1,0 +1,16 @@
+.Button {
+  background: #EFEFEF;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  font-weight: 400;
+  font-size: 13px;
+  color: #000000;
+  width: 80px;
+  padding: 3px 8px 2px 9px;
+  max-height: 21px;
+}
+
+.Button:active {
+  transform: scale(0.98);
+  box-shadow: inset -2px 4px 10px 2px rgb(0 0 0 / 24%);
+}

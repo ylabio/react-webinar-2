@@ -41,45 +41,82 @@ class Store {
   }
 
   /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  * Увеличение уникальных товаров в корзине 
+  */
+  countUniqueProducts(number) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
+      uniqueProducts: this.state.uniqueProducts + number
+    })
   }
 
   /**
-   * Удаление записи по её коду
+  * Увеличение общей суммы товаров в корзине 
+  */
+  totalPrice() {
+    let total = 0;
+    this.state.basket.forEach(value => total = total + value.price * value.count)
+    this.setState({
+      ...this.state,
+      total: total
+    })
+  }
+
+  /**
+  * Добавление товара в корзину 
+  */
+  addToBasket(code) {
+    let { title, price } = this.state.items.find(value => value.code === code);
+    let count = 1;
+    if (!this.state.basket.length) {
+      this.setState({
+        ...this.state,
+        basket: this.state.basket.concat({ code, title, price, count })
+      });
+      this.countUniqueProducts(1)
+      this.totalPrice()
+    } else {
+      if (this.state.basket.find(value => value.code === code)) {
+        this.setState({
+          ...this.state,
+          basket: this.state.basket.map(value => {
+            if (value.code === code) {
+              return {
+                ...value,
+                count: value.count += 1
+              }
+            }
+            return value
+          })
+        })
+        this.totalPrice()
+      } else {
+        this.countUniqueProducts(1)
+        this.setState({
+          ...this.state,
+          basket: this.state.basket.concat({ code, title, price, count })
+        });
+        this.totalPrice()
+      }
+    }
+  }
+
+  /**
+   * Удаление записи по её коду из корзины
    * @param code
    */
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      basket: this.state.basket.filter(item => item.code !== code)
     });
+    this.countUniqueProducts(-1)
+    this.totalPrice()
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
-  }
+
+
+
 }
 
 export default Store;

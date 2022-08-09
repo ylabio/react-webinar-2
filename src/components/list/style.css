@@ -1,11 +1,25 @@
 /*Список*/
-.List{
-
-}
 .List-item{
     border-bottom: 1px dashed #ccc;
 }
 
 .List-item:first-child{
     border-top: 1px dashed #ccc;
+}
+.List-total-price {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 109px;
+    gap: 49px;
+    margin-top: 25px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+    padding-bottom: 25px;
+}
+
+.List-nothing {
+    display: flex;
+    justify-content: center;
 }

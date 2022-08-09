@@ -4,6 +4,9 @@ body{
     background: #535353;
     font-family: sans-serif;
 }
+p {
+    margin: 0;
+}
 /* Страница*/
 .Layout{
     max-width: 1024px;

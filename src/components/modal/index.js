@@ -19,21 +19,10 @@ function Modal({modal, setModalActive, head, children}) {
 }
 
 Modal.propTypes = {
-    deleteItem: propTypes.func,
+    head: propTypes.object,
     modal: propTypes.object.isRequired,
     setModalActive: propTypes.func,
-    totalPrice: propTypes.number,
-    totalCount: propTypes.number,
-    children: object.isRequired
-}
-
-Modal.defaultProps = {
-    deleteItem: () => {
-    },
-    setModalActive: () => {
-    },
-    totalPrice: null,
-    totalCount: null
+    children: propTypes.arrayOf(object).isRequired,
 }
 
 export default React.memo(Modal);

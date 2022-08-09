@@ -7,6 +7,8 @@ import Controls from '../controls'
 function Item(props) {
   const cn = bem('Item')
 
+  const price = props.item.price.toLocaleString()
+
   const callbacks = {
     clickBtn: useCallback((e) => {
       e.stopPropagation()
@@ -18,7 +20,7 @@ function Item(props) {
     <div className={cn()}>
       <div className={cn('number')}>{props.item.code + ' '}</div>
       <div className={cn('title')}>{props.item.title}</div>
-      <div className={cn('price')}>{props.item.price + ' ₽'}</div>
+      <div className={cn('price')}>{price + ' ₽'}</div>
       {props.item.count && (
         <div className={cn('count')}>
           {props.itemCount}

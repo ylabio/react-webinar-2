@@ -19,7 +19,7 @@
 }
 
 .Modal-content {
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: white;
   transform: scale(0);
   transition: 0.4s all;

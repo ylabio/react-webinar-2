@@ -16,7 +16,7 @@ function App({ store }) {
   const [activeModal, setActiveModal] = useState(false)
 
   const basketArr = store.getState().basket
-  const sum = sumElements(basketArr, 'price')
+  const sum = sumElements(basketArr, 'price').toLocaleString()
 
   const callbacks = {
     visibilityModal: useCallback(() => {
@@ -31,20 +31,24 @@ function App({ store }) {
   }
 
   return (
-    <Layout head={<Header title='Магазин' />}>
-      <PageHeader
-        arrLength={basketArr.length}
-        sum={sum}
-        titleBtn='Перейти'
-        clickBtn={callbacks.visibilityModal}
-      />
-      <List items={store.getState().items} titleBtn='Добавить' clickBtn={callbacks.addItem} />
-      <Modal activeModal={activeModal} setActiveModa={setActiveModal}>
-        <Header title='Корзина' titleBtn='Закрыть' clickBtn={callbacks.visibilityModal} />
-        <List items={basketArr} titleBtn='Удалить' clickBtn={callbacks.onDeleteItems} />
-        <ModalFooter sum={sum} />
-      </Modal>
-    </Layout>
+    <>
+      <Layout head={<Header title='Магазин' />}>
+        <PageHeader
+          arrLength={basketArr.length}
+          sum={sum}
+          titleBtn='Перейти'
+          clickBtn={callbacks.visibilityModal}
+        />
+        <List items={store.getState().items} titleBtn='Добавить' clickBtn={callbacks.addItem} />
+      </Layout>
+      {activeModal && (
+        <Modal activeModal={activeModal} setActiveModa={setActiveModal}>
+          <Header title='Корзина' titleBtn='Закрыть' clickBtn={callbacks.visibilityModal} />
+          <List items={basketArr} titleBtn='Удалить' clickBtn={callbacks.onDeleteItems} />
+          <ModalFooter sum={sum} />
+        </Modal>
+      )}
+    </>
   )
 }
 

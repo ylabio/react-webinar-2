@@ -14,14 +14,14 @@
 }
 
 .Modal-content {
-  width: 65%;
-  height: 70%;
+  width: 960px;
+  min-height: 603px;
   background-color: #fff;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 5px;
+  border-radius: 10px;
   overflow: hidden;
 }
 
@@ -32,23 +32,38 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-right: 2rem;
-  padding-left: 2rem;
-  margin-bottom: 3rem;
 }
+
+.Modal-header h2 {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 23px;
+  font-size: 32px;
+}
+
+.Modal-header button {
+  margin-right: 32px;
+  margin-top: 31px;
+  margin-bottom: 28px;
+}
+
+.Modal-list {
+  margin-top: 74px;
+  width: 100%;
+}
+
 .Modal-footer {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 8rem;
-  margin: 2rem 0;
   font-weight: 700;
+  font-size: 18px;
+  margin-top: 26px;
+  margin-bottom: 20px;
 }
-.Modal-list {
-  width: 100%;
-  max-height: 60%;
-  overflow: scroll;
-  padding-right: 2rem;
-  padding-left: 2rem;
+
+.Modal-footer p span {
+  margin-left: 49px;
+  margin-right: 108px;
 }

@@ -23,7 +23,7 @@ function CartItem(props) {
             currency: 'RUB',
             minimumFractionDigits: 0,
           }).format(props.item.price)}
-          <p>{props.item.amount} шт</p>
+          <span>{props.item.amount} шт</span>
         </p>
       </div>
       <div className={cn('actions')}>

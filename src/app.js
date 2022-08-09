@@ -3,7 +3,7 @@ import List from './components/list';
 import Layout from './components/layout';
 import Controls from './components/controls';
 import Modal from './components/modal';
-import CartItem from './components/cartItem';
+import CartItem from './components/cart-item';
 import Item from './components/item';
 
 /**
@@ -43,12 +43,14 @@ function App({ store }) {
           setIsModalOpen={setIsModalOpen}
           footer={
             <p>
-              Итого{' '}
-              {new Intl.NumberFormat('ru', {
-                style: 'currency',
-                currency: 'RUB',
-                minimumFractionDigits: 0,
-              }).format(store.getState().cart.totalPrice)}
+              Итого
+              <span>
+                {new Intl.NumberFormat('ru', {
+                  style: 'currency',
+                  currency: 'RUB',
+                  minimumFractionDigits: 0,
+                }).format(store.getState().cart.totalPrice)}
+              </span>
             </p>
           }
         >

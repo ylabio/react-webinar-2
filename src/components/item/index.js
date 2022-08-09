@@ -16,6 +16,7 @@ function Item(props) {
   const sum = props.item.price.toLocaleString("ru-RU", {
     style: "currency",
     currency: "RUB",
+    minimumFractionDigits: 0,
   });
 
   return (
@@ -34,13 +35,11 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired,
+  onAdd: propTypes.func.isRequired,
 };
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {},
+  onAdd: () => {},
 };
 
 export default React.memo(Item);

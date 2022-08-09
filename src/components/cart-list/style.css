@@ -1,8 +1,24 @@
 .Order {
-    display: flex;  
-    padding: 20px;
+    display: flex;
+    padding-left: 20px;
+    padding-right: 20px;
     margin: 0;
-   
+
     list-style-type: none;
     border-bottom: 1px dashed #ccc;
+}
+
+.TotalSum {
+    display: flex;
+    justify-content: flex-end;
+    padding: 26px 108px;
+        font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+    border-top: 1px dashed #ccc;
+}
+
+.TotalCurrency {
+    margin-left: 49px;
 }

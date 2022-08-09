@@ -1,5 +1,6 @@
 import React from "react";
 import CartOrder from "../cart-order";
+import propTypes from "prop-types";
 import "./style.css";
 
 const CartList = ({ orders, onItemDelete, total }) => {
@@ -11,12 +12,13 @@ const CartList = ({ orders, onItemDelete, total }) => {
         </ul>
       ))}
 
-      <div className="">
+      <div className="TotalSum">
         Итого:
-        <span>
+        <span className="TotalCurrency">
           {total.toLocaleString("ru-RU", {
             style: "currency",
             currency: "RUB",
+            minimumFractionDigits: 0,
           })}
         </span>
       </div>
@@ -25,3 +27,16 @@ const CartList = ({ orders, onItemDelete, total }) => {
 };
 
 export default React.memo(CartList);
+
+CartList.propTypes = {
+  onItemDelete: propTypes.func.isRequired,
+  orders: propTypes.arrayOf(propTypes.object).isRequired,
+  total: propTypes.number.isRequired,
+};
+
+CartList.defaultProps = {
+  onItemDelete: () => {},
+  orders: [],
+  openModal: () => {},
+  total: 0,
+};

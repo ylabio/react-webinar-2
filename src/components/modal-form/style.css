@@ -12,3 +12,8 @@
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
 }
+
+.Empty {
+  height: 74px;
+  border-bottom: 1px dashed #ccc;
+}

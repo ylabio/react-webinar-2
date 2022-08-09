@@ -21,13 +21,13 @@ function List(props) {
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
   onItemSelect: propTypes.func,
-  onItemDelete: propTypes.func,
+  onAdd: propTypes.func,
 };
 
 List.defaultProps = {
   items: [],
   onItemSelect: () => {},
-  onItemDelete: () => {},
+  onAdd: () => {},
 };
 
 export default React.memo(List);

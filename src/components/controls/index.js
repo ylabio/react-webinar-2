@@ -8,12 +8,13 @@ function Controls({ toggleOnClick, orders, total }) {
   const currency = total.toLocaleString("ru-RU", {
     style: "currency",
     currency: "RUB",
+    minimumFractionDigits: 0,
   });
   return (
     <div className="Controls">
-      <div>
+      <div className="Cart">
         В корзине:
-        <span className="">
+        <span className="CartPrice">
           {orders.length
             ? `${orders.length} ${plural(
                 orders.length,
@@ -31,12 +32,16 @@ function Controls({ toggleOnClick, orders, total }) {
   );
 }
 
+export default React.memo(Controls);
+
 Controls.propTypes = {
-  toggleOnClick: propTypes.func.isRequired, // Обязательное свойство - функция
+  toggleOnClick: propTypes.func.isRequired,
+  orders: propTypes.arrayOf(propTypes.object).isRequired,
+  total: propTypes.number.isRequired,
 };
 
 Controls.defaultProps = {
-  toggleOnClick: () => {}, // Значение по умолчанию - функция-заглушка
+  toggleOnClick: () => {},
+  orders: [],
+  total: 0,
 };
-
-export default React.memo(Controls);

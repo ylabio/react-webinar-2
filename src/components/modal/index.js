@@ -7,7 +7,8 @@ function Modal({ headerTitle, headerButtonTitle, onClick, children }) {
   const cn = bem('Modal');
 
   return (
-    <div className={cn('mask')}>
+    <div className={cn('wrapper')}>
+      <div className={cn('mask')} />
       <div className={cn('container')}>
         <div className={cn('head')}>
           <h1>

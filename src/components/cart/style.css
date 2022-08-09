@@ -1,0 +1,47 @@
+.Cart {
+  width: 100%;
+  background-color: white;
+ 
+}
+
+.Cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 80px;
+  background: #E5E5E5;
+  padding-left: 20px;
+  padding-right: 32px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.Cart-goods {
+  padding-bottom: 148px;
+}
+
+.Cart-goods_open {
+  border-top: 1px dashed #CCCCCC;
+}
+
+.Cart-headerText {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 37px;
+}
+
+.Cart-divider {
+  height: 70px;
+}
+
+.Cart-total {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 108px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  gap: 49px;
+  margin-top: 26px;
+}

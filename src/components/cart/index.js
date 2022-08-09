@@ -1,60 +1,66 @@
-import React, { useCallback, useEffect, useRef } from "react";
-import ModalLayout from "../../layout/modal-layout";
+import React from 'react';
 import './style.css';
-import { getCartItems } from "../../shared/utils";
-import CartDump from "../cart-dump";
+import {cn as bem} from '@bem-react/classname';
 import propTypes from 'prop-types';
+import List from '../list';
+import CartItem from '../cart-item';
+import Button from '../../shared/ui/button';
+import { formatPrice } from '../../shared/utils';
 
 function Cart({ 
-  isCartOpen, 
-  goods, 
-  handleModal, 
-  removeItemFromCart,
+  items, 
+  removeItemFromCart, 
+  closeModal, 
+  price, 
+  isCartOpen,
 }) {
-  const modalRef= useRef();
-  const items = getCartItems(goods.items);
-
-  const callbacks = {
-    closeModal: useCallback(() => {
-      handleModal(false);
-    }, []),
-  };
-
-  useEffect(() => {
-    if (goods.total === 0) {
-      callbacks.closeModal();
-    }
-  }, [goods.total])
+  const cn = bem('Cart');
 
   return (
-    <ModalLayout 
-      closeModal={callbacks.closeModal} 
-      modalRef={modalRef} 
-      items={items}
+    <div
+      className={cn()} 
+      onClick={(e) => e.stopPropagation()}
     >
-      <CartDump
-        removeItemFromCart={removeItemFromCart}
-        closeModal={callbacks.closeModal}
-        isCartOpen={isCartOpen}
-        price={goods.price}
-        items={items}
-        id={goods.id}
-        modalRef={modalRef}
-      />
-    </ModalLayout>
+      <header className={cn('header')}>
+        <h2 className={cn('headerText')}>Корзина</h2>
+          <Button 
+            text='Закрыть'
+            onClick={closeModal}
+          />           
+      </header>
+
+      <div className={cn('divider')} />
+
+      <main className={cn('goods', {open: isCartOpen})}>
+        <List 
+          isModal={true}
+          ListItem={CartItem}
+          cb={removeItemFromCart}
+          items={items}
+        />
+
+        <div className={cn('total')}>
+          <span>Итого</span>
+          <span>{formatPrice(price) + ' ₽'}</span>
+        </div>      
+      </main>
+    </div>
   );
 }
 
-Cart.propTypes = { 
-  goods: propTypes.object.isRequired,
-  removeItemFromCart: propTypes.func.isRequired,
-  handleModal: propTypes.func.isRequired,
+Cart.propTypes = {
+  items: propTypes.array.isRequired, 
+  removeItemFromCart: propTypes.func.isRequired, 
+  closeModal: propTypes.func.isRequired,
+  price: propTypes.number.isRequired,
   isCartOpen: propTypes.bool.isRequired,
 };
 
 Cart.defaultProps = {
-  removeItemFromCart: () => {},
-  handleModal: () => {},
+  items: [], 
+  removeItemFromCart: () => {}, 
+  closeModal: () => {}, 
+  price: 0,
   isCartOpen: false,
 };
 

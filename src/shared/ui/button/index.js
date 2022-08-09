@@ -9,7 +9,7 @@ function Button({
   text,
   ...props
 }) {
-  const cn = bem('UI');
+  const cn = bem('UIButton');
 
   const styles = {
     width,
@@ -18,7 +18,7 @@ function Button({
 
   return (
     <button  
-      className={cn('button')} 
+      className={cn()} 
       style={styles} 
       {...props}
     >

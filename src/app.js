@@ -1,10 +1,12 @@
-import React, { useCallback } from 'react';
-import Cart from './components/cart';
+import React, { useCallback, useEffect } from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import AppLayout from "./layout/app-layout";
 import './global.css';
 import Item from './components/item';
+import Modal from './shared/ui/modal';
+import { getCartItems } from './shared/utils';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -32,16 +34,25 @@ function App({store}) {
       handleModal.call(store, arg);
     }, []),
   };
+
+  useEffect(() => {
+    if (goods.total === 0) {
+      callbacks.handleModal(false);
+    }
+  }, [goods.total])
   
   return (
     <>
       {isCartOpen && (
-        <Cart 
-          goods={goods}
-          isCartOpen={isCartOpen}
-          removeItemFromCart={callbacks.removeItemFromCart}
-          handleModal={callbacks.handleModal}
-        />
+        <Modal closeModal={() => callbacks.handleModal(false)}>
+          <Cart 
+            items={getCartItems(goods.items)}
+            removeItemFromCart={callbacks.removeItemFromCart} 
+            closeModal={() => callbacks.handleModal(false)}
+            price={goods.price}
+            isCartOpen={isCartOpen}
+          />
+        </Modal>
       )}
       <AppLayout head={<h1>Магазин</h1>}>
         <Controls 

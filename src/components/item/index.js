@@ -2,7 +2,6 @@ import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
-import {numberWithSpace} from "../../utils";
 
 function Item(props) {
   const cn = bem('Item');
@@ -24,11 +23,11 @@ function Item(props) {
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>
-          {numberWithSpace(props.item.price)} ₽
+          {props.item.price.toLocaleString('ru-RU')} ₽
         </div>
         {props.isCart &&
           <div className={cn('price')}>
-            {numberWithSpace(props.item.cartCount)} шт
+            {props.item.cartCount} шт
           </div>
         }
         <button onClick={callbacks.onAddDeleteToCart}>

@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import Controls from "./components/controls";
+import Cart from "./components/cart";
 import List from "./components/list";
 import Layout from "./components/layout";
 
@@ -21,7 +21,7 @@ function App({store}) {
 
   return (
     <Layout isModal={false} head={<h1>Магазин</h1>}>
-      <Controls
+      <Cart
         cartItems={store.getState().cart.items}
         totalPrice={store.getState().cart.totalPrice}
         deleteFromCart={callbacks.deleteFromCart}

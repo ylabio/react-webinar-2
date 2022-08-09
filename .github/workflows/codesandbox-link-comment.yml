@@ -2,7 +2,6 @@ name: Add codesandbox link
 
 on: 
   pull_request:
-    types: [opened, reopened]
 
 jobs:
   codesandbox-comment:

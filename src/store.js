@@ -41,22 +41,46 @@ class Store {
   }
 
   /**
- * Добавление товара в корзину 
- */
-  addToBasket(item) {
-    const { title, code, price } = item;
+  * Увеличение уникальных товаров в корзине 
+  */
+  countUniqueProducts(number) {
+    this.setState({
+      ...this.state,
+      uniqueProducts: this.state.uniqueProducts + number
+    })
+  }
+
+  /**
+  * Увеличение общей суммы товаров в корзине 
+  */
+  totalPrice() {
+    let total = 0;
+    this.state.basket.forEach(value => total = total + value.price * value.count)
+    this.setState({
+      ...this.state,
+      total: total
+    })
+  }
+
+  /**
+  * Добавление товара в корзину 
+  */
+  addToBasket(code) {
+    let { title, price } = this.state.items.find(value => value.code === code);
     let count = 1;
     if (!this.state.basket.length) {
       this.setState({
         ...this.state,
         basket: this.state.basket.concat({ code, title, price, count })
       });
+      this.countUniqueProducts(1)
+      this.totalPrice()
     } else {
-      this.state.basket.find(value => value.code === item.code) ?
+      if (this.state.basket.find(value => value.code === code)) {
         this.setState({
           ...this.state,
           basket: this.state.basket.map(value => {
-            if (value.code === item.code) {
+            if (value.code === code) {
               return {
                 ...value,
                 count: value.count += 1
@@ -65,11 +89,15 @@ class Store {
             return value
           })
         })
-        :
+        this.totalPrice()
+      } else {
+        this.countUniqueProducts(1)
         this.setState({
           ...this.state,
           basket: this.state.basket.concat({ code, title, price, count })
         });
+        this.totalPrice()
+      }
     }
   }
 
@@ -77,13 +105,16 @@ class Store {
    * Удаление записи по её коду из корзины
    * @param code
    */
-  deleteItem(item) {
-    const { code } = item;
+  deleteItem(code) {
     this.setState({
       ...this.state,
       basket: this.state.basket.filter(item => item.code !== code)
     });
+    this.countUniqueProducts(-1)
+    this.totalPrice()
   }
+
+
 
 
 }

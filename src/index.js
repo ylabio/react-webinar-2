@@ -15,7 +15,9 @@ const store = new Store({
     { code: counter(), title: 'Товар сюрприз', price: 0 },
   ],
   basket: [
-  ]
+  ],
+  total: 0,
+  uniqueProducts: 0
 });
 
 

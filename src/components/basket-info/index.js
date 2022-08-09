@@ -4,9 +4,9 @@ import propTypes from 'prop-types';
 import Button from '../button'
 import './style.css';
 import plural from 'plural-ru';
-import { sumBasket } from "../../utils";
 
-function BasketInfo(props) {
+
+function BasketInfo({ uniqueProducts, total, switchModal }) {
   const cn = bem('Basket');
   return (
     <div className={cn()}>
@@ -14,23 +14,24 @@ function BasketInfo(props) {
         <p>
           В корзине:
           <span>
-            {props.basket.length ? `${props.basket.length} ${plural(props.basket.length, 'товар', 'товара', 'товаров')}  / ${sumBasket(props.basket).toLocaleString("ru-RU", { style: "currency", currency: "RUB", minimumFractionDigits: 0 })}` : "пусто "}
+            {uniqueProducts ?
+              `${uniqueProducts} ${plural(uniqueProducts, 'товар', 'товара', 'товаров')}  / ${(total).toLocaleString("ru-RU", { style: "currency", currency: "RUB", minimumFractionDigits: 0 })}`
+              :
+              "пусто "}
           </span>
         </p>
       </div>
-      <Button title="Перейти" callBack={props.switchModal} />
+      <Button title="Перейти" callBack={switchModal} />
     </div>
   )
 }
 
 BasketInfo.propTypes = {
   switchModal: propTypes.func.isRequired,
-  basket: propTypes.arrayOf(propTypes.object).isRequired,
+  total: propTypes.number.isRequired,
+  uniqueProducts: propTypes.number.isRequired
 }
 
-BasketInfo.defaultProps = {
-  basket: [],
-  switchModal: () => { },
-}
+
 
 export default React.memo(BasketInfo);

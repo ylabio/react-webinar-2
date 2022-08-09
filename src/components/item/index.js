@@ -1,40 +1,32 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from "@bem-react/classname";
 import './style.css';
 import Button from '../button';
 
-function Item(props) {
+function Item({ item, title, callBack }) {
   const cn = bem('Item');
   const callbacks = {
     onClick: useCallback(() => {
-      props.callBack(props.item)
+      callBack(item.code)
     }, [])
   };
 
   return (
     <div className={cn()}>
       <div className={cn('number')}>
-        {props.item.code}
+        {item.code}
       </div>
       <div className={cn('title')}>
         <div>
-          {props.item.title}
+          {item.title}
         </div>
         <p>
-          {props.item.price.toLocaleString("ru-RU", { style: "currency", currency: "RUB", minimumFractionDigits: 0 })}
-          {
-            props.item.count ?
-              <span className={cn('count')}>
-                {props.item.count} шт
-              </span>
-              :
-              null
-          }
+          {item.price.toLocaleString("ru-RU", { style: "currency", currency: "RUB", minimumFractionDigits: 0 })}
         </p>
       </div>
       <div className={cn('actions')}>
-        <Button title={props.title} callBack={callbacks.onClick} />
+        <Button title={title} callBack={callbacks.onClick} />
       </div>
     </div>
   )
@@ -43,12 +35,9 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   callBack: propTypes.func.isRequired,
-  title: propTypes.node.isRequired,
+  title: propTypes.string.isRequired,
 }
 
-Item.defaultProps = {
-  callBack: () => { },
-  item: {},
-}
+
 
 export default React.memo(Item);

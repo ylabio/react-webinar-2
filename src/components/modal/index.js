@@ -1,12 +1,11 @@
-import React, { useCallback, useState } from 'react';
-import propTypes, { string } from 'prop-types';
+import React from 'react';
+import propTypes from 'prop-types';
 import { cn as bem } from "@bem-react/classname";
 import './style.css';
-import List from '../list';
 import Button from '../button';
-import { sumBasket } from '../../utils';
 
-function Modal(props) {
+
+function Modal({ children, switchModal, title }) {
   const cn = bem('Modal');
   return (
     <div className={cn()}>
@@ -14,29 +13,11 @@ function Modal(props) {
         <div className={cn('wrapper')}>
           <div className={cn('header')}>
             <div className={cn('title')}>
-              {props.title}
+              {title}
             </div>
-            <Button title="Закрыть" callBack={props.switchModal} />
+            <Button title="Закрыть" callBack={switchModal} />
           </div>
-          {
-            props.basket.length ?
-              <>
-                <div className={cn('list')}>
-                  <List items={props.basket} callBack={props.deleteItem} buttonTitle={"Удалить"} />
-                </div>
-                <div className={cn('totalPrice')}>
-                  {
-                    <>
-                      Итого <span>{sumBasket(props.basket).toLocaleString("ru-RU", { style: "currency", currency: "RUB", minimumFractionDigits: 0 })}</span>
-                    </>
-                  }
-                </div>
-              </>
-              :
-              <div className={cn('nothing')}>
-                Корзина пуста
-              </div>
-          }
+          {children}
         </div>
       </div>
     </div>
@@ -44,17 +25,10 @@ function Modal(props) {
 }
 
 Modal.propTypes = {
-  title: propTypes.node.isRequired,
+  title: propTypes.string.isRequired,
   switchModal: propTypes.func.isRequired,
-  deleteItem: propTypes.func.isRequired,
-  basket: propTypes.arrayOf(propTypes.object).isRequired,
+  children: propTypes.node.isRequired,
 }
 
-Modal.defaultProps = {
-  switchModal: () => { },
-  deleteItem: () => { },
-  basket: [],
-  title: "Модальное окно"
-}
 
 export default React.memo(Modal);

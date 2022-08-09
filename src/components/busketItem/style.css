@@ -1,0 +1,74 @@
+body.lock {
+    overflow: hidden;
+  }
+  
+
+  
+ 
+.popup-item:first-child{
+    border-top: 1px dashed #CCCCCC;
+    border-bottom: 1px dashed #CCCCCC;
+}
+.popup-item {
+    flex: 1 1 100%;
+    display: flex;
+    border-bottom: 1px dashed #CCCCCC;
+    padding: 25px 0px;
+}
+.popup-number {
+    flex: 0 0 3.29%;
+    padding-left: 16px;
+    font-family: 'Arial';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 18px;
+color: #000000;
+}
+.popup-name {
+    flex: 1 1 68.64%;
+    font-family: 'Arial';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 18px;
+color: #000000;
+}
+.popup-cost {
+    flex: 0 0 9.7%;
+    white-space: nowrap; 
+    font-family: 'Arial';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 21px;
+color: #404040;
+text-align: right;
+margin-right: 55.25px;
+}
+.popup-amount {
+    flex:  0 7%;
+    white-space: nowrap;
+    font-family: 'Arial';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 21px;
+color: #404040;
+}
+.popup-deleter {
+    flex: 0 0 9.68%;
+    margin-right: 19px;
+    background: #EFEFEF;
+border: 1px solid #767676;
+border-radius: 2px;
+width: 76px;
+height: 21px;
+font-family: 'Arial';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 15px;
+text-align: center;
+color: #000000;
+}

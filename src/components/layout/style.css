@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'Arial';
+    src: url('../../globalFonts/ArialMT.woff2') format('woff2'),
+        url('../../globalFonts/ArialMT.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
 body{
     margin: 0;
     padding: 0;
@@ -20,4 +30,15 @@ body{
 .Layout-head h1{
     margin: 0;
     padding: 20px 20px 10px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38px;
+    font-family: 'Arial';
+    color: #000000;
+    -webkit-font-smoothing:subpixel-antialiased;
+    -webkit-font-smoothing:none;
+
+    
+
 }

@@ -3,7 +3,7 @@ body.lock {
   }
   
   .popup {
-    background-color: rgba(0, 0, 0, 0.765);
+    background-color: rgba(0, 0, 0, 0.7);
     margin: 0px auto;
     position: fixed;
     width: 100%;
@@ -39,7 +39,8 @@ body.lock {
     position: relative;
     overflow: hidden;
     width: 960px;
-    height: 603px;
+    min-height: 603px;
+    padding-bottom: 20px;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -56,11 +57,11 @@ body.lock {
 }
 .popup-caption {
     font-family: 'Arial';
-font-style: normal;
-font-weight: 500;
-font-size: 32px;
-line-height: calc(38/32)*100%;
-color: #000000;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 37px;
+    color: #000000;
 }
 .popup-closer {
     background: #EFEFEF;
@@ -68,57 +69,43 @@ border: 1px solid #767676;
 border-radius: 2px;
 width: 76px;
 height: 21px;
+font-family: 'Arial';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 15px;
+text-align: center;
+color: #000000;
 }
 .popup-main {
     display: flex;
     flex-direction: column;
     margin-top: 76px;
 }
-.popup-item:first-child{
-    border-top: 1px dashed #CCCCCC;
-    border-bottom: 1px dashed #CCCCCC;
-}
-.popup-item {
-    flex: 1 1 100%;
-    display: flex;
-    border-bottom: 1px dashed #CCCCCC;
-    padding: 25px 0px;
-}
-.popup-number {
-    flex: 0 0 3.29%;
-    padding-left: 16px;
-}
-.popup-name {
-    flex: 1 1 68.64%;
 
-}
-.popup-cost {
-    flex: 0 0 9.7%;
-    white-space: nowrap;
-}
-.popup-amount {
-    flex:  0 9%;
-    white-space: nowrap;
-}
-.popup-deleter {
-    flex: 0 0 9.68%;
-    margin-right: 19px;
-    background: #EFEFEF;
-border: 1px solid #767676;
-border-radius: 2px;
-width: 76px;
-height: 21px;
-}
 .popup-downside {
     margin-top: 26px;
     display: flex;
 }
 .popup-word {
-    flex: 0 0 75.25%;
+    flex: 0 0 77.25%;
     display: flex;
     justify-content: end;
+    font-family: 'Arial';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 21px;
+color: #000000;
+margin-right: 10px;
 }
 .popup-generalCost {
     flex: 1 1 auto;
-    padding-left: 40px;
+    padding-left: 38px;
+font-family: 'Arial';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 21px;
+color: #000000;
 }

@@ -1,0 +1,6 @@
+.Cart-footer-totalAmount {
+   display: flex;
+   justify-content: flex-end;
+   margin-right: 90px;
+   font-weight: 900;
+}

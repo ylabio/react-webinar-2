@@ -43,43 +43,86 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  createItem({ code, title = 'Новый товар', price = 999, selected = false }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      items: this.state.items.concat({ code, title, price, selected })
     });
   }
 
   /**
    * Удаление записи по её коду
-   * @param code
+   * @param item
    */
-  deleteItem(code) {
+  deleteItem(delItem) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      cartItems: [
+        ...this.state.cartItems.filter(item => item.code != delItem.code)
+      ],
+      items: [
+        ...this.state.items.map(item => {
+          if (item.code == delItem.code) {
+            return {
+              ...item,
+              addCount: 0
+            }
+          }
+          return item
+        }),
+      ]
+    })
+  }
+  /**
+   * Добавление товара
+   * @param item
+   */
+  addCartItems(addItem) {
+    let isAdd = false;
+    this.state.cartItems.forEach(item => {
+      if (item.code === addItem.code) {
+        isAdd = true
+      }
     });
+    if (!isAdd) {
+      this.setState({
+        ...this.state,
+        cartItems: [
+          ...this.state.cartItems,
+          addItem
+        ]
+      })
+    }
+    else {
+      this.setState({
+        ...this.state,
+        cartItems: [
+          ...this.state.cartItems.filter(item => item.code != addItem.code),
+          {
+            ...addItem,
+            addCount: addItem.addCount
+          }
+        ]
+      })
+    }
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
+  // Modal show
+  showModal() {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+      showModal: true
+    })
   }
+
+  // Modal hide
+  hideModal() {
+    this.setState({
+      ...this.state,
+      showModal: false
+    })
+  }
+
 }
 
 export default Store;

@@ -1,21 +1,31 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import plural from 'plural-ru';
+import { cn as bem } from "@bem-react/classname";
+import numeral from 'numeral';
 import './style.css';
 
-function Controls({onAdd}){
+function Controls({ showModal, totalCount, totalPrice }) {
+  const cn = bem('Cart');
   return (
     <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+      <div className={cn('total')}>
+        В корзине:
+        <strong>
+          {totalCount ? `  ${totalCount} ${plural(totalCount, 'товар', 'товара', 'товаров')} / ${numeral(totalPrice).format('0,0')} ₽` : `  пусто `}
+        </strong>
+      </div>
+      <button onClick={showModal}> Перейти </button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  onClick: propTypes.func.isRequired // Обяхательное свойство - функция
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  onClick: () => { } // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

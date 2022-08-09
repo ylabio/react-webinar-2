@@ -1,0 +1,29 @@
+.CartItem {
+   display: flex;
+   justify-content: flex-start;
+   transition: background-color 1s;
+   border-top: 1px #ddd solid;
+}
+.CartItem:last-child {
+   border-bottom: 1px #ddd solid;
+}
+.CartItem-number {
+   padding: 20px 10px 20px 20px;
+}
+.CartItem-title {
+   width: 80%;
+   flex: 1 1 100%;
+   padding: 20px 10px;
+}
+.CartItem-actions {
+   padding: 20px 20px 20px 10px;
+   display: flex;
+   justify-content: flex-end;
+}
+.CartItem-price {
+   flex: 1 0 100px;
+   padding: 20px 10px 20px 20px;
+}
+.CartItem-count {
+   padding: 20px 10px 20px 20px;
+}

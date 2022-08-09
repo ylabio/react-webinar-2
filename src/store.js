@@ -88,6 +88,12 @@ class Store {
     });
   }
 
+  setCartHeight(height) {
+    this.setState({
+      ...thisState,
+      cartHeight: height,
+    })
+  }
 }
 
 export default Store;

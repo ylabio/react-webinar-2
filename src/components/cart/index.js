@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import ModalLayout from "../../layout/modal-layout";
 import './style.css';
 import { getCartItems } from "../../shared/utils";
@@ -9,8 +9,9 @@ function Cart({
   isCartOpen, 
   goods, 
   handleModal, 
-  removeItemFromCart, 
+  removeItemFromCart,
 }) {
+  const modalRef= useRef();
   const items = getCartItems(goods.items);
 
   const callbacks = {
@@ -26,7 +27,11 @@ function Cart({
   }, [goods.total])
 
   return (
-    <ModalLayout closeModal={callbacks.closeModal}>
+    <ModalLayout 
+      closeModal={callbacks.closeModal} 
+      modalRef={modalRef} 
+      items={items}
+    >
       <CartDump
         removeItemFromCart={removeItemFromCart}
         closeModal={callbacks.closeModal}
@@ -34,6 +39,7 @@ function Cart({
         price={goods.price}
         items={items}
         id={goods.id}
+        modalRef={modalRef}
       />
     </ModalLayout>
   );

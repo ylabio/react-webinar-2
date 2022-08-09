@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import {cn as bem} from "@bem-react/classname";
 import Button from "../../shared/ui/button";
 import CartItem from "../cart-item";
@@ -13,8 +13,8 @@ function CartDump({
   isCartOpen, 
   price,
   items,
+  modalRef
 }) {
-  const modalRef = useRef();
   const cn = bem('CartDump');
 
   useEffect(() => {
@@ -65,6 +65,10 @@ CartDump.propTypes = {
   isCartOpen: propTypes.bool.isRequired,
   price: propTypes.number,
   items: propTypes.array.isRequired,
+  modalRef: propTypes.oneOfType([
+    propTypes.func, 
+    propTypes.shape({ current: propTypes.instanceOf(Element) }),
+  ]),
 };
 
 CartDump.defaultProps = {

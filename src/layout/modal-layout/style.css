@@ -10,9 +10,7 @@
   justify-content: center;
 }
 
-@media (max-height: calc(788px + 80px)) {
-  .ModalLayout {
-    overflow-y: auto;
-    align-items: flex-start;
-  }
+.ModalLayout_media {
+  overflow-y: auto;
+  align-items: flex-start; 
 }

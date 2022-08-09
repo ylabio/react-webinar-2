@@ -27,7 +27,7 @@ function List(props) {
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
   text: propTypes.string.isRequired,
-  component: propTypes.element,
+  component: propTypes.func,
   callback: propTypes.func
 }
 

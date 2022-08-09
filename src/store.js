@@ -73,6 +73,14 @@ class Store {
       })
     }
   }
+
+  numOfGoods() {
+    return this.state.shoppingCart.map(item => item.quantity).reduce((acc, value) => acc + value, 0);
+  }
+
+  sumOfGoods() {
+    return this.state.shoppingCart.map(item => item.price * item.quantity).reduce((acc, value) => acc + value, 0);
+  }
 }
 
 export default Store;

@@ -4,32 +4,31 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import { numberWithSpaces } from "../../utils";
 
-function Item(props) {
+function Item({onAction, item}) {
   const cn = bem('Item');
 
   const callbacks = {
-
     onAction: useCallback((e) => {
       e.stopPropagation();
-      props.onAction(props.item)
-    }, [props.onAction,  props.item])
+      onAction(item)
+    }, [onAction, item])
   };
 
   return (
     <div className={cn()}>
       <div className={cn('number')}>
-        {props.item.code}
+        {item.code}
       </div>
       <div className={cn('title')}>
-        {props.item.title}
+        {item.title}
       </div>
       <div className={cn('price')}>
-        {numberWithSpaces(props.item.price)} ₽
+        {numberWithSpaces(item.price)} ₽
       </div>
-      {props.item.quantity && <div className={cn('quantity')}>{props.item.quantity} шт</div>}
+      {item.quantity && <div className={cn('quantity')}>{item.quantity} шт</div>}
       <div className={cn('actions')}>
         <button onClick={callbacks.onAction}>
-          {props.item.quantity ? 'Удалить' : 'Добавить'}
+          {item.quantity ? 'Удалить' : 'Добавить'}
         </button>
       </div>
     </div>

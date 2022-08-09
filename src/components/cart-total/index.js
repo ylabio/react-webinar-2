@@ -1,7 +1,7 @@
 import React from "react";
 import propTypes from "prop-types";
 import "./style.css";
-import { calcSumm } from "../../utils";
+import { calcPrice } from "../../utils";
 
 function CartTotal({ cartItems }) {
   return (
@@ -9,7 +9,7 @@ function CartTotal({ cartItems }) {
       {cartItems.length > 0 ? (
         <div className="total-block">
           <div>Итого</div>
-          <div>{calcSumm(cartItems, "price")} ₽</div>
+          <div>{calcPrice(cartItems)} ₽</div>
         </div>
       ) : (
         <div className="cart-empty">Корзина пуста</div>

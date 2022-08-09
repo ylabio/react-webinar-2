@@ -1,23 +1,24 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import plural from 'plural-ru';
 import './style.css';
 import Button from '../button';
-import { calcSumm, declOfNum } from '../../utils';
 import Cart from '../cart'
+import { calcPrice, calcQuantity, calcUnicalItems } from '../../utils';
 
 function Controls({ cartItems, showCart, onShowCart, deleteItemToCart }) {
-  let quantity = calcSumm(cartItems, 'quantity');
-  let unicalCount = calcSumm(cartItems,"unicalCount")
+  let quantity = calcQuantity(cartItems);
+  let unicalCount = calcUnicalItems(cartItems)
 
   return (
-  <div className='Controls'>
+    <div className='Controls'>
       <div className="heading-mini">В корзине:</div>
       <div>
-        {!quantity 
+        {!quantity
         ? ( <span className="cart-text">пусто</span>)
         : (<div className="cart-text">
-            {unicalCount} {declOfNum(unicalCount, ["товар", "товара", "товаров"])} /{" "}
-            <span>{calcSumm(cartItems, "price")}&nbsp;₽</span>
+            {unicalCount} {plural(unicalCount, "товар", "товара", "товаров")} /{" "}
+            <span>{calcPrice(cartItems)}&nbsp;₽</span>
           </div>)}
       </div>
       {showCart && (
@@ -28,7 +29,7 @@ function Controls({ cartItems, showCart, onShowCart, deleteItemToCart }) {
         />
       )}
       <Button class="controls-btn" text="Перейти" onClick={onShowCart} />
-</div>
+    </div>
   )
 }
 

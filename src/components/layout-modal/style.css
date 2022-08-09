@@ -8,10 +8,13 @@
   min-height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 99;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .LayoutModal-wrapper {
-  margin: 210px 240px;
+  width: 960px;
 }
 
 .LayoutModal-head {
@@ -30,9 +33,7 @@
 .LayoutModal-content {
   background-color: #fff;
   border-radius: 0 0 5px 5px;
-  height: 50vh;
-  overflow: auto;
-  border-radius: 0 0 5px 5px;
+  height: 523px;
 }
 
 .LayoutModal-actions {

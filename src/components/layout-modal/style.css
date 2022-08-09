@@ -33,7 +33,7 @@
 .LayoutModal-content {
   background-color: #fff;
   border-radius: 0 0 5px 5px;
-  height: 523px;
+  min-height: 449px;
   padding-top: 74px;
 }
 

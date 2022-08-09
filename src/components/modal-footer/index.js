@@ -15,7 +15,7 @@ function ModalFooter(props) {
 }
 
 ModalFooter.propTypes = {
-  sum: propTypes.number,
+  sum: propTypes.string,
 }
 
 export default React.memo(ModalFooter)

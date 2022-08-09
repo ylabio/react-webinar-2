@@ -33,7 +33,7 @@ function PageHeader(props) {
 
 PageHeader.propTypes = {
   arrLength: propTypes.number,
-  sum: propTypes.number,
+  sum: propTypes.string,
   titleBtn: propTypes.string,
   clickBtn: propTypes.func,
 }

@@ -41,14 +41,32 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Добавление товара в корзину
+   * @param code
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+   addToCart(code) {
+    const hasInCart = this.state.cart.find(item => item.code === code);
+    if (!hasInCart) {
+      const item = this.state.items.find(item => item.code === code);
+      const newItem = {...item, selectedTimes: 1 };
+      return this.setState({
+          ...this.state,
+          cart: [...this.state.cart, newItem]
+        })
+    } 
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
+      cart: this.state.cart.map(item => {
+        if (item.code === code){
+          return {
+            ...item,
+            selectedTimes: item.selectedTimes + 1
+          }
+        }
+        return item;
+      })
+    })
+   }
 
   /**
    * Удаление записи по её коду

@@ -4,16 +4,15 @@ import { cn as bem } from "@bem-react/classname";
 import plural from 'plural-ru';
 import './style.css';
 
-function Controls({onModalBtn, items}){
+function Controls({onModalBtn, items, totalPrice}){
   const cn = bem('Controls');
-  const totalPrice = items.reduce((a, b) => a + b.price*b.count, 0);
 
   return (
     <div className={cn()}>
       <div className={cn('title')}>В корзине: </div>
       <div className={cn('amount')}> 
-        {items.length ? 
-          `${items.length} ${plural(items.length, 'товар', 'товара', 'товаров')} / ${totalPrice.toLocaleString('ru')} ₽`
+        {items ? 
+          `${items} ${plural(items, 'товар', 'товара', 'товаров')} / ${totalPrice.toLocaleString('ru')} ₽`
             : 
           'пусто'}  
       </div>

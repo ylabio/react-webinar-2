@@ -8,21 +8,20 @@ import './style.css';
 function Modal(props) {
     const cn = bem('Modal')
     
-    const totalPrice = props.items.reduce((a, b) => a + b.price*b.count, 0)
 
     return (
-       <div className={cn({'active' : props.active})}>
+       <div className={cn()}>
          <div className={cn('content')}>
             <div className={cn('header')}>
                 <h2>Корзина</h2>
                 <button onClick={props.onModalBtn}>Закрыть</button>
             </div>
-            <div className={cn('list')}>
-                <List items={props.items} onHandleBtn={props.onDeleteItem}/>
-            </div>
+            
+            <List items={props.items} onHandleBtn={props.onDeleteItem}/>
+            
             <div className={cn('total')}>
                 <p className={cn('total-title')}>Итого:</p>
-                <p className={cn('total-sum')}>{totalPrice.toLocaleString('ru')} ₽</p>
+                <p className={cn('total-sum')}>{props.totalPrice.toLocaleString('ru')} ₽</p>
             </div>
          </div>
        </div>

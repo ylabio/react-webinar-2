@@ -28,14 +28,15 @@ function App({store}) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls onModalBtn={callbacks.onModalBtn} items={store.getState().cart}/>
+      <Controls onModalBtn={callbacks.onModalBtn} items={store.getState().cart.length} totalPrice={store.getState().totalPrice}/>
       <List items={store.getState().items}
             onHandleBtn={callbacks.onAddToCart}  
       />
-      <Modal items={store.getState().cart} 
-             active={active} 
+      { active && 
+      <Modal items={store.getState().cart}
+             totalPrice={store.getState().totalPrice}
              onModalBtn={callbacks.onModalBtn} 
-             onDeleteItem={callbacks.onDeleteItem}/>
+             onDeleteItem={callbacks.onDeleteItem}/>}
     </Layout>
   );
 }

@@ -59,9 +59,10 @@ class Store {
       ...this.state,
       cart: this.state.cart.filter(item => item.code !== code)
     });
+    this.sumOfPrices()
   }
 
-  updateItem(item, itemInCart, cart) {
+  updateItem(item, itemInCart) {
     
     if (itemInCart) {
       return {
@@ -84,6 +85,14 @@ class Store {
     return [...cart.slice(0, index), newItem, ...cart.slice(index + 1)];
   }
 
+  sumOfPrices() {
+    
+    this.setState({
+      ...this.state,
+      totalPrice: this.state.cart.reduce((a, b) => a + b.price*b.count, 0)
+    })
+  }
+
   /**
    * Выделение записи по её коду
    * @param code
@@ -95,9 +104,10 @@ class Store {
     const getItemIndex = cart.findIndex(item => item.code === code);
     const itemInCart = cart[getItemIndex];
 
-    const newItem = this.updateItem(getItem, itemInCart, this.state.cart)
+    const newItem = this.updateItem(getItem, itemInCart)
     const newArray = this.updateCart(cart, newItem, getItemIndex);
-
+    
+    
     this.setState({
       
       ...this.state,
@@ -105,6 +115,8 @@ class Store {
       cart: [...newArray]
       
     });
+    this.sumOfPrices()
+    
   }
 }
 

@@ -48,9 +48,14 @@ class Store {
     goods.id = counter();
 
     if (item.code in goods.items) {
-      goods.items[item.code].quantity++;
-      goods.items[item.code].price += item.price;
-      goods.items[item.code].time = Date.now();
+      const current = goods.items[item.code];
+
+      if (!item.special) {
+        current.quantity++;
+        current.price += item.price;
+        current.time = Date.now();
+      }
+      
     } else {
       goods.items[item.code] = {
         quantity: 1,

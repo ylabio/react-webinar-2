@@ -5,11 +5,10 @@ import {cn as bem} from "@bem-react/classname";
 
 function Modal({toggleModalShow, children}) {
   const cn = bem('Modal');
-  const a = bem('active');
 
   return (
-    <div className={cn(null, [a()])} onClick={toggleModalShow}>
-      <div className={cn('content', [a()])} onClick={e => e.stopPropagation()}>
+    <div className={cn()} onClick={toggleModalShow}>
+      <div className={cn('content')} onClick={e => e.stopPropagation()}>
           {children}
       </div>
     </div>

@@ -10,7 +10,7 @@ function Item(props) {
   const callbacks = {
     onSelect: useCallback((e) => {
       props.itemAdd(props.item.code);
-    }, [props.onSelect, props.item])
+    }, [props.itemAdd, props.item])
   };
 
   return (

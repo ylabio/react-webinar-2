@@ -1,0 +1,29 @@
+.OrderItem {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.OrderCode {
+    margin-right: 19px;
+}
+
+.OderTitle {
+    width: 100%;
+    padding: 20px 10px;
+}
+
+.Total,
+.Count {
+    display: flex;
+    margin-right: 23px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21px;
+    color: #404040;
+    padding: 20px 14px;
+}
+
+.Total {
+    margin-right: 55px;
+}

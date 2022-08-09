@@ -1,0 +1,19 @@
+/* Контрол с общими действиями */
+.Controls {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.Cart {
+    margin-right: 20px;
+}
+
+.CartPrice {
+    margin-left: 15px;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+}

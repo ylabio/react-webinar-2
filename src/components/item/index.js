@@ -15,7 +15,7 @@ function Item({item, action}) {
         {item.title}
       </div>
       <div className={cn('price')}>
-        {`${item.price} \u20BD`}
+        {`${item.price.toLocaleString('ru-RU')} \u20BD`}
       </div>
       {
         item.count
@@ -33,12 +33,12 @@ function Item({item, action}) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  action: propTypes.func.isRequired
+  action: propTypes.object.isRequired
 }
 
 Item.defaultProps = {
   item: {},
-  action: () => {}
+  action: {}
 }
 
 export default React.memo(Item);

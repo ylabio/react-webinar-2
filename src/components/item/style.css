@@ -12,7 +12,7 @@
 
 .Item-price{
     white-space: nowrap;
-    padding: 20px 10px;
+    margin-right: 12px;
 }
 
 .Item-actions{
@@ -26,4 +26,6 @@
 
 .Item-count {
     white-space: nowrap;
+    margin-right: 10px;
+    margin-left: 30px;
 }

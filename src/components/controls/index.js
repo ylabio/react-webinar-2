@@ -11,7 +11,7 @@ function Controls({openCart, cartItems}){
     const cartLength = cartItems.length;
     if(cartLength > 0) {
       const cartTotal = cartItems.reduce((prev, next) => prev + next.price * next.count, 0)
-      return `${cartLength} ${plural(cartLength, "товар", "товара", "товаров")} / ${cartTotal} \u20BD`
+      return `${cartLength} ${plural(cartLength, "товар", "товара", "товаров")} / ${cartTotal.toLocaleString('ru-RU')} \u20BD`
     }
     return `пусто`
   }
@@ -19,7 +19,7 @@ function Controls({openCart, cartItems}){
   return (
     <div className={cn()}>
       <p className={cn('cart-info')}>В корзине: <b>{cartInfo()}</b></p>
-      <button onClick={openCart}>Перейти</button>
+      <button className={cn('open-cart-btn')} onClick={openCart}>Перейти</button>
     </div>
   )
 }

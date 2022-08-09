@@ -4,18 +4,18 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import plural from 'plural-ru';
 
-function Controls({totalPrice, basket, changeModalVisible}) {
+function Controls({totalPrice, numUniqueItems, changeModalVisible}) {
   const cn = bem('Controls');
   
   return (
     <div className={cn()}>
       <>
         {
-          basket.length ?
+          numUniqueItems ?
             <div className={cn('basket', {value: 'full'})}>
               <div>В корзине:</div> 
               <div>
-                <strong>{basket.length} {plural(basket.length, 'товар', 'товара', 'товаров')} / {totalPrice.toLocaleString('ru')} ₽ </strong>
+                <strong>{numUniqueItems} {plural(numUniqueItems, 'товар', 'товара', 'товаров')} / {totalPrice.toLocaleString('ru')} ₽ </strong>
               </div>
             </div>  
           :
@@ -38,7 +38,7 @@ function Controls({totalPrice, basket, changeModalVisible}) {
 
 Controls.propTypes = {
   totalPrice: propTypes.number.isRequired,
-  basket: propTypes.arrayOf(propTypes.object).isRequired,
+  numUniqueItems: propTypes.number.isRequired,
   changeModalVisible: propTypes.func.isRequired
 }
 

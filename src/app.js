@@ -23,13 +23,18 @@ function App({store}) {
     deleteItem: useCallback((code) => {
       store.deleteItem(code);
     }, []),
-    changeTotalPrice: useCallback((code) => {
-      store.changeTotalPrice(code);
+    changeTotalPrice: useCallback(() => {
+      store.changeTotalPrice();
+    }, []),
+    getNumUniqueItems: useCallback(() => {
+      store.getNumUniqueItems();
     }, [])
   }
+
   const basket = store.getState().basket;
   const totalPrice = store.getState().totalPrice;
   const modalVisible = store.getState().modalVisible;
+  const numUniqueItems = store.getState().numUniqueItems;
 
   const renders = {
     item: useCallback((item) => {
@@ -39,14 +44,15 @@ function App({store}) {
     }, [callbacks.onAddItemInBasket])
   }
 
-  useEffect(() => {
+  useEffect(()=>{
     callbacks.changeTotalPrice();
+    callbacks.getNumUniqueItems(); 
   }, [basket])
-
+ 
   return (
     <Layout head={<h1>Магазин</h1>}>
       <Controls changeModalVisible={callbacks.changeModalVisible}
-                basket={basket} 
+                numUniqueItems={numUniqueItems} 
                 totalPrice={totalPrice}
       />
       <List items={store.getState().items}

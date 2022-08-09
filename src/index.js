@@ -1,6 +1,7 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
 import App from './app.js';
+import basket from './components/basket/index.js';
 import Store from "./store.js";
 import {counter} from './utils.js';
 
@@ -16,7 +17,8 @@ const store = new Store({
   ],
   basket: [],
   totalPrice: 0,
-  modalVisible: false
+  numUniqueItems: 0,
+  modalVisible: false,
 });
 
 const root = createRoot(document.getElementById('root'));

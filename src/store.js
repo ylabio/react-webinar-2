@@ -76,7 +76,7 @@ class Store {
 
     /**
    * Изменение видимости модального окна
-   * @param code
+   * @param isVisible
    */
   changeModalVisible(isVisible) {
     this.setState({
@@ -85,16 +85,22 @@ class Store {
     })
   }
 
-       /**
-   * Изменение общей стоимости товаров в корзине
-   * @param code
-   */
+   // Изменение общей стоимости товаров в корзине
   changeTotalPrice() {
     this.setState({
       ...this.state,
       totalPrice: this.state.basket.reduce((a, b) => a + b.price, 0)
     })
-  }      
+  }
+   
+   // Получение количества уникальных товаров в корзине
+  getNumUniqueItems() {
+    this.setState({
+      ...this.state,
+      numUniqueItems: this.state.basket.length
+    })
+  }  
+  
 }
 
 export default Store;

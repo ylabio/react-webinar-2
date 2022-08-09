@@ -3,6 +3,8 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Modal from "./components/modal";
+import { numberWithSpaces } from "./utils";
+import { cn as bem } from "@bem-react/classname";
 
 /**
  * Приложение
@@ -10,8 +12,10 @@ import Modal from "./components/modal";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const cn = bem('Modal');
 
   const [activeModal, setActiveModal] = useState(false)
+  const goods = store.getState().shoppingCart;
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
@@ -35,10 +39,16 @@ function App({store}) {
               onAction={callbacks.onAddItem}
         />
       </Layout>
-      {activeModal && <Modal goods={store.getState().shoppingCart}
-             store={store}
-             onToggleModal={callbacks.onToggleModal}
-             onDeleteItem={callbacks.onDeleteItem}/>
+      {activeModal &&
+      <Modal onToggleModal={callbacks.onToggleModal} head={<h1>Корзина</h1>}>
+        {goods.length > 0 ? <List items={goods} onAction={callbacks.onDeleteItem}/> :
+          <div className={cn('message')}>Товары не добавлены</div>}
+        {goods.length > 0 &&
+          <div className={cn('total')}>
+            Итого <span>{numberWithSpaces(store.sumOfGoods())} ₽</span>
+          </div>
+        }
+      </Modal>
       }
     </div>
   );

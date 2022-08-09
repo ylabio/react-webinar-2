@@ -10,9 +10,7 @@ function ItemBasket({item, deleteItem}) {
       deleteItem(item.code);
       }, [deleteItem, item]),
   };
-  //  Цена за 1 шт. товара
-  const price = item.price / item.num;
-
+ 
   return (
     <div className={cn()}>
       <div className={cn('number')}>
@@ -23,7 +21,7 @@ function ItemBasket({item, deleteItem}) {
       </div>
       <div className={cn('price-num')}>
         <div className={cn('price')}>
-          {`${price.toLocaleString('ru')} ₽`}
+          {`${item.price.toLocaleString('ru')} ₽`}
         </div>
         <div className={cn('num')}>
           {item.num} шт

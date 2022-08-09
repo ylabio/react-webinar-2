@@ -62,14 +62,14 @@ class Store {
       this.setState({
         ...this.state,
         basket: this.state.basket.map(item => item.code === code ? 
-          ({...item, price: item.price + itemForAdd.price, num: item.num + 1}) 
+          ({...item, totalPrice: item.totalPrice + itemForAdd.price, num: item.num + 1}) 
         : 
           item),
       })
     } else {
       this.setState({
         ...this.state,
-        basket: [...this.state.basket, {code: itemForAdd.code, title: itemForAdd.title, price: itemForAdd.price, num: 1}],
+        basket: [...this.state.basket, {code: itemForAdd.code, title: itemForAdd.title, price: itemForAdd.price, totalPrice: itemForAdd.price, num: 1}],
       }) 
     }
   }
@@ -89,7 +89,7 @@ class Store {
   changeTotalPrice() {
     this.setState({
       ...this.state,
-      totalPrice: this.state.basket.reduce((a, b) => a + b.price, 0)
+      totalPrice: this.state.basket.reduce((a, b) => a + b.totalPrice, 0)
     })
   }
    

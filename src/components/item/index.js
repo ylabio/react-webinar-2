@@ -14,13 +14,18 @@ function Item(props) {
     }, [props.onDelete,  props.item])
   };
 
+  const { code, title, price } = props.item;
+
   return (
     <div className={cn()} onClick={callbacks.onClick}>
       <div className={cn('number')}>
-        {props.item.code}
+        {code}
       </div>
       <div className={cn('title')}>
-        {props.item.title}
+        {title}
+      </div>
+      <div className={cn('price')}>
+        {price} ₽
       </div>
       <div className={cn('actions')}>
         <button onClick={callbacks.onDelete}>

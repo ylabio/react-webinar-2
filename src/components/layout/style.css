@@ -21,3 +21,9 @@ body{
     margin: 0;
     padding: 20px 20px 10px;
 }
+
+.Layout-message {
+    margin-top: 100px;
+    text-align: center;
+    font-weight: bold;
+}

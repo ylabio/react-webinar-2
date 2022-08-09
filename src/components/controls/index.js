@@ -1,21 +1,42 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
 import './style.css';
+import plural from 'plural-ru';
+import { numberWithSpaces } from "../../utils";
+import { cn as bem } from "@bem-react/classname";
 
-function Controls({onAdd}){
+function Controls(props){
+  const cn = bem('Controls');
+  const numOfGoods = props.cart.map(item => item.quantity).reduce((acc, value) => acc + value, 0);
+  const sumOfGoods = props.cart.map(item => item.price * item.quantity).reduce((acc, value) => acc + value, 0);
+
+  const callbacks = {
+    onActiveModal: useCallback(() => {
+      props.onClick(true)
+    }, []),
+  }
+
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className={cn()}>
+      <div className={cn('stats')}>
+        В корзине:
+        <span className={cn('stat')}>
+          {numOfGoods ?
+            `${numOfGoods} ${plural(numOfGoods,'товар','товара','товаров')} / ${numberWithSpaces(sumOfGoods)} ₽`
+            : 'пусто'}
+        </span>
+      </div>
+      <button onClick={callbacks.onActiveModal}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  cart: propTypes.arrayOf(propTypes.object).isRequired,
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  cart: [],
 }
 
 export default React.memo(Controls);

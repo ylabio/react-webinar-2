@@ -41,44 +41,37 @@ class Store {
   }
 
   /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem({code}) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      shoppingCart: this.state.shoppingCart.filter(item => item.code !== code)
     });
   }
 
   /**
-   * Выделение записи по её коду
-   * @param code
+   * Создание записи
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
+  addItem(item) {
+    if (this.state.shoppingCart.find(value => value.code === item.code)) {
+      this.setState({
+        ...this.state,
+        shoppingCart: this.state.shoppingCart.map((value) => {
+          if (value.code === item.code) {
+            return {...value, quantity: value.quantity + 1}
+          } else {
+            return value;
           }
-        }
-        return item.selected ? {...item, selected: false} : item;
+        })
       })
-    });
+    } else {
+      this.setState({
+        ...this.state,
+        shoppingCart: this.state.shoppingCart.concat({...item, quantity: 1})
+      })
+    }
   }
 }
 

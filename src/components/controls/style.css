@@ -4,3 +4,12 @@
     justify-content: flex-end;
     padding: 20px;
 }
+.Controls-stat{
+    font-weight: bold;
+}
+.Controls-stat:first-child{
+    margin-left: 15px;
+}
+.Controls-stat:last-child{
+    margin-right: 20px;
+}

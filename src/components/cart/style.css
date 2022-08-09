@@ -1,15 +1,14 @@
-/* Контрол с общими действиями */
-.Controls{
+.Cart{
     display: flex;
     justify-content: flex-end;
     padding: 20px;
 }
-.Controls-totals {
+.Cart-totals {
     margin-right: 20px;
 }
-.Controls-cart-info {
+.Cart-cart-info {
     font-weight: 700;
 }
-.Controls-button-modal-on {
+.Cart-button-modal-on {
     width: 75px;
 }

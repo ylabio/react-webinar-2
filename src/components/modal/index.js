@@ -2,25 +2,17 @@ import React from "react";
 import ReactModal from "react-modal";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
-import { getTitle, getPrice, numFormat } from "../../utils";
+import { numFormat } from "../../utils";
 import List from "../list";
 import "./style.css";
 
 function Modal(props) {
   const cn = bem("Modal");
-  const items = props.items;
-  const cart = props.cart;
 
-  const cartFullItems = cart.map((obj) =>
-    Object.assign(obj, {
-      title: getTitle(obj.code, items),
-      price: getPrice(obj.code, items),
-    })
-  );
-  console.log("cartFullItems", cartFullItems);
+  const cart = props.cart
 
   const totalPrice = cart.reduce(
-    (total, item) => item.qty * getPrice(item.code, items) + total,
+    (total, item) => item.qty * item.price + total,
     0
   );
 
@@ -49,7 +41,7 @@ function Modal(props) {
             </div>
           </div>
           <List
-            items={cartFullItems}
+            items={cart}
             butAssign="Удалить"
             onCart={props.onCart}
           />
@@ -66,7 +58,6 @@ function Modal(props) {
 }
 
 Modal.propTypes = {
-  items: propTypes.arrayOf(propTypes.object).isRequired,
   cart: propTypes.arrayOf(propTypes.object).isRequired,
   isOpen: propTypes.bool.isRequired,
   onClickToggle: propTypes.func.isRequired,
@@ -74,7 +65,6 @@ Modal.propTypes = {
 };
 
 Modal.defaultProps = {
-  items: [],
   cart: [],
   isOpen: false,
   onClickToggle: () => {},

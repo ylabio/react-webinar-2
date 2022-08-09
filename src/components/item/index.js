@@ -11,7 +11,7 @@ function Item(props) {
 
   const onClick = () => {
     console.log(`нажата кнопка ${props.butAssign}`);
-    props.onCart(props.item.code);
+    props.onCart(props.item);
   };
 
   return (

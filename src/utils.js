@@ -31,39 +31,19 @@ export function numFormat(num) {
 }
 
 /**
- * Получает стоимость товара
- * @param code {number} id товара
- * @param array {Array.<{code: number, title: string, price: number}>} каталог товаров
- * @returns {number}
- */
-export function getPrice(code, array) {
-  return array.find((item) => item.code === code).price;
-}
-
-/**
- * Получает название товара
- * @param code {number} id товара
- * @param array {Array.<{code: number, title: string, price: number}>} каталог товаров
- * @returns {string}
- */
-export function getTitle(code, array) {
-  return array.find((item) => item.code === code).title;
-}
-
-/**
  * Изменяет данные о количестве товара в корзине
- * @param code {number} id товара
- * @param cart {Array.<{code: number, qty: number}>} предыдущий перечень товаров в корзине
+ * @param item {{code: number, title: string, price: number, qty?: number}} объект товара
+ * @param cart {Array.<{code: number, title: string, price: number, qty: number}>} предыдущий перечень товаров в корзине
  * @param increment {bool} true = добавить / false = убрать товар
- * @returns {Array.<{code: number, qty: number}>}
+ * @returns {Array.<{code: number, title: string, price: number, qty: number}>}
  */
-export function cartQtyUpdate(code, cart, increment) {
+export function cartQtyUpdate(item, cart, increment) {
   // Ищет товар в корзине
-  const index = cart.findIndex((item) => item.code === code);
+  const index = cart.findIndex((cartItem) => cartItem.code === item.code);
   const newCart = [...cart];
   // Обновляет информацию о количестве товара
   newCart[index] = {
-    code: code,
+    ...item,
     qty: increment ? ++cart[index].qty : --cart[index].qty,
   };
   return newCart;

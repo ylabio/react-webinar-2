@@ -43,35 +43,36 @@ class Store {
 
   /**
    * Удаление товара из корзины
-   * @param code
+   * @param item {{code: number, title: string, price: number, qty: number}} объект товара из корзины
    */
-  removeItemFromCart(code) {
+  removeItemFromCart(item) {
+    const cartItem = this.state.cart.find((cartItem) => cartItem.code === item.code);
     this.setState({
       ...this.state,
       cart:
         // Проверяем количество товара в корзине
-        this.state.cart.find((item) => item.code === code).qty > 1
+        cartItem.qty > 1
           ? // Если количество товара в корзине больше 1 - уменьшаем к-во на 1 шт.
-            cartQtyUpdate(code, this.state.cart, false)
+            cartQtyUpdate(cartItem, this.state.cart, false)
           : // Если товар один - удаляем запись о товаре из корзины целиком
-            this.state.cart.filter((item) => item.code !== code),
+            this.state.cart.filter((cartItem) => cartItem.code !== item.code),
     });
   }
 
   /**
    * Добавление товара в корзину
-   * @param code
+   * @param item {{code: number, title: string, price: number}} объект товара из каталога
    */
-  addItemToCart(code) {
+  addItemToCart(item) {
     this.setState({
       ...this.state,
       cart:
         // Проверяем наличие товара в корзине
-        this.state.cart.find((item) => item.code === code)
+        this.state.cart.find((cartItem) => cartItem.code === item.code)
           ? // Если товар есть в корзине - увеличиваем количество товара на 1 шт.
-            cartQtyUpdate(code, this.state.cart, true)
+            cartQtyUpdate(item, this.state.cart, true)
           : // Если товара нет в корзине - добавляем новый товар в корзину
-            [...this.state.cart, { code: code, qty: 1 }],
+            [...this.state.cart, { ...item, qty: 1 }],
     });
   }
 }

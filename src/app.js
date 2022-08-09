@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
-import List from "./components/list";
+import getList from "./components/get-list";
 import Layout from "./components/layout";
 import Cart from "./components/cart";
 import Item from "./components/item";
@@ -36,11 +36,7 @@ function App({store}) {
         totalPrice={store.getTotalPrice()}
         onCartOpen={callbacks.onCartOpen}
       />
-      <List>
-        {store.getState().items.map((item) =>
-          <Item item={item} onClick={callbacks.onItemAdd} key={item.code} />
-        )}
-      </List>
+      {getList(Item, store.getState().items, callbacks.onItemAdd)}
       {
         isCartOpen &&
         <ModalLayout head={<h2>Корзина</h2>} onClose={callbacks.onCartClose}>

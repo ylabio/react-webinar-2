@@ -10,7 +10,7 @@ function Item(props) {
   const callbacks = {
     onClick: useCallback(() => {
       props.onClick(props.item.code);
-    }, [props.onAmountIncrease,  props.item])
+    }, [props.onClick,  props.item])
   };
 
   return (

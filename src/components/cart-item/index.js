@@ -1,31 +1,31 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
-import './style.css';
 import {getFormattedPrice} from '../../utils';
+import './style.css';
 
-function CartItem(props) {
+function CartItem({item, onClick}) {
   const cn = bem('CartItem');
 
   const callbacks = {
     onItemRemove: useCallback(() => {
-      props.onItemRemove(props.cartItem.code);
-    }, [props.onItemRemove,  props.cartItem])
+      onClick(item.code);
+    }, [onClick,  item])
   };
 
   return (
     <li className={cn()}>
       <div className={cn('code')}>
-        {props.cartItem.code}
+        {item.code}
       </div>
       <div className={cn('title')}>
-        {props.cartItem.title}
+        {item.title}
       </div>
       <div className={cn('price')}>
-        {getFormattedPrice(props.cartItem.price)}
+        {getFormattedPrice(item.price)}
       </div>
       <div className={cn('amount')}>
-        {`${props.cartItem.amount} шт`}
+        {`${item.amount} шт`}
       </div>
       <div className={cn('actions')}>
         <button onClick={callbacks.onItemRemove}>
@@ -37,13 +37,13 @@ function CartItem(props) {
 }
 
 CartItem.propTypes = {
-  cartItem: propTypes.exact({
+  item: propTypes.exact({
     code: propTypes.number,
     title: propTypes.string,
     price: propTypes.number,
     amount: propTypes.number,
   }),
-  onItemRemove: propTypes.func.isRequired
+  onClick: propTypes.func.isRequired
 }
 
 export default React.memo(CartItem);

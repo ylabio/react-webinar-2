@@ -1,0 +1,23 @@
+.basketTotal-price {
+    margin-top: 26px;
+    margin-bottom: 26px;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 108px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+}
+
+.basketTotal-count {
+    margin-left: 49px;
+    margin-right: 5px;
+}
+
+.basketTotal-empty {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+

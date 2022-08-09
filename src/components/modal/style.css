@@ -29,19 +29,6 @@
     margin-right: 32px;
 }
 
-.Modal-empty {
-    text-transform: uppercase;
-    text-align: center;
-}
-
-.Modal-item {
-    border-bottom: 1px dashed #ccc;
-}
-
-.Modal-item:first-child {
-    border-top: 1px dashed #ccc;
-}
-
 .head {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -56,21 +43,4 @@
 .head h1 {
     margin: 0;
     padding: 20px 20px 10px;
-}
-
-.totalPrice {
-    margin-top: 26px;
-    margin-bottom: 26px;
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 108px;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 21px;
-    color: #000000;
-}
-
-.totalPrice-count {
-    margin-left: 49px;
-    margin-right: 5px;
 }

@@ -1,13 +1,11 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
-
+  
 function Controls({openModal, basketInfo}){
-  // console.log('controls')
-  // console.log(basketInfo.itemsOfBasket)
   const basketInfoText = basketInfo.items.length === 0 ? 'пусто' : `${basketInfo.items.length} товара / ${basketInfo.totalOfBasket} ₽`;
   return (
-    <div className='Controls'>
+  <div className='Controls' style={{boederBottom: '1px dashed white'}}>
       <div className='Controls-content'>
         <p className='Controls-info'>В корзине: <span className='Controls-info-bold'>{basketInfoText}</span></p>
       </div>

@@ -1,4 +1,4 @@
-import item from "./components/item";
+// import item from "./components/itemOfStore";
 
 class Store {
 
@@ -87,6 +87,20 @@ class Store {
         }
       )
     }
+  }
+
+  deleteItemInBasket ({code, title, price, count}) {
+    const {totalOfBasket, items} = this.getState().basket;
+    const seachObj = items.find((item) => item.code === code);
+    const modifiedItems = items.filter((item) => item.code !== code);
+    console.log(modifiedItems)
+    this.setState({
+      ...this.state,
+      basket: {
+        totalOfBasket:totalOfBasket - (price*count),
+        items: modifiedItems
+      }
+    })
   }
 
   openModal (modal, setModal) {

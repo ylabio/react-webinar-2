@@ -2,10 +2,9 @@ import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
 import Mymodal from './components/mymodal';
-import Basket from './components/basket';
-import item from './components/item';
+import ItemOfStore from './components/itemOfStore';
+import ItemOfBasket from './components/itemOfBasket';
 /**
  * Приложение
  * @param store {Store} Состояние приложения
@@ -15,30 +14,25 @@ function App({store}) {
   
   let [modal, setModal] = useState(false);
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
-    }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
     addItemInBasket: useCallback((item) => {
         store.addItemInBasket(item);
     }, []),
+    deleteItemInBasket: useCallback((item) => {
+      store.deleteItemInBasket(item), []
+    })
   }
+
+  const {totalOfBasket, items} = store.getState().basket;
+  const summary = items.length === 0 ? 'пусто' : `${totalOfBasket} ₽`;
+  console.log(items)
+  const basket = <List>{store.getState().basket.items.map((item) => <ItemOfBasket key={item.code} item={item} deleteItemInBasket={callbacks.deleteItemInBasket}></ItemOfBasket>)}</List>
+  const myModal = <div><div style={{ display: 'flex', justifyContent: 'space-between',alignItems: 'center',padding:' 0px 20px'}}><h1>Корзина</h1><button onClick={() => setModal(false)}>Закрыть</button></div>{basket} </div>
 
   return (
     <Layout head={<h1>Магазин</h1>}>
       <Controls openModal={() => setModal(true)} basketInfo={store.getState().basket}/>
-      <Mymodal visible={modal} setvisible={setModal}><div><Basket basket={store.getState().basket}></Basket></div></Mymodal>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-            addItemInBasket = {callbacks.addItemInBasket}
-      />
+      <Mymodal visible={modal} setvisible={setModal}><div>{myModal}</div>{`Итого: ${summary}`}</Mymodal>
+      <List>{store.getState().items.map((item) => <ItemOfStore key={item.code} item={item} addItemInBasket={callbacks.addItemInBasket}></ItemOfStore>)}</List>
     </Layout>
   );
 }

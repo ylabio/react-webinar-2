@@ -1,6 +1,6 @@
 .myModal{
   position: fixed;
-  
+  height: 100%;
   left: 0;
   top: 0;
   left: 0;
@@ -15,9 +15,6 @@
   border-radius: 16px;
   width: 960px;
   height:600px;
-  background: pink;
-  /* min-width:67%;
-  min-height:67%; */
 }
 .myModal-active{
   display: flex;

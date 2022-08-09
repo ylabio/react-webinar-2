@@ -3,11 +3,16 @@
     display: flex;
     justify-content: flex-start;
     transition: background-color 1s;
-}
-.Item_selected{
-    background: #75aaf1;
+    border-bottom:'1px dashed #CCCCCC';
 }
 
+.Item{
+  border-bottom: 1px dashed #ccc;
+}
+
+.Item:first-child{
+  border-top: 1px dashed #ccc;
+}
 
 .Item-title{
     width: 100%;

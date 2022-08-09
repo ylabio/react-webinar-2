@@ -1,11 +1,11 @@
 import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
 
-function Item(props) {
 
+function ItemOfStore(props) {
+  
   const cn = bem('Item');
 
   const callbacks = {
@@ -34,17 +34,16 @@ function Item(props) {
   )
 }
 
-Item.propTypes = {
-  item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired,
+ItemOfStore.propTypes = {
   addItemInBasket: propTypes.func.isRequired,
+  title:propTypes.string,
+  price: propTypes.number,
 }
 
-Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {},
+ItemOfStore.defaultProps = {
   addItemInBasket: () => {},
+  // title:'',
+  // price: 0,
 }
 
-export default React.memo(Item);
+export default React.memo(ItemOfStore);

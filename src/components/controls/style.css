@@ -4,8 +4,12 @@
     justify-content: flex-end;
     padding: 0px 20px;
     align-items:center;
+    background:#fff;
 }
 
+.Controls-content{
+ 
+}
 .Controls-info-bold{
   font-family: 'Arial';
   font-style: normal;

@@ -46,16 +46,11 @@ class Store {
    * @param item {{code: number, title: string, price: number, qty: number}} объект товара из корзины
    */
   removeItemFromCart(item) {
-    const cartItem = this.state.cart.find((cartItem) => cartItem.code === item.code);
     this.setState({
       ...this.state,
       cart:
-        // Проверяем количество товара в корзине
-        cartItem.qty > 1
-          ? // Если количество товара в корзине больше 1 - уменьшаем к-во на 1 шт.
-            cartQtyUpdate(cartItem, this.state.cart, false)
-          : // Если товар один - удаляем запись о товаре из корзины целиком
-            this.state.cart.filter((cartItem) => cartItem.code !== item.code),
+        // Удаляем запись о товаре из корзины целиком
+        this.state.cart.filter((cartItem) => cartItem.code !== item.code),
     });
   }
 

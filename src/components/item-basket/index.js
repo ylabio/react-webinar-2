@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useCallback } from "react";
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
 function ItemBasket({item, deleteItem}) {
   const cn = bem('ItemBasket');
+  const callbacks = {
+    deleteItem: useCallback(() => {
+      deleteItem(item.code);
+      }, [deleteItem, item]),
+  };
   //  Цена за 1 шт. товара
   const price = item.price / item.num;
 
@@ -25,7 +30,7 @@ function ItemBasket({item, deleteItem}) {
         </div>
       </div>
       <div className={cn('num-button')}>
-        <button onClick={()=>deleteItem(item.code)}>
+        <button onClick={()=>callbacks.deleteItem(item.code)}>
           Удалить
         </button>
       </div>

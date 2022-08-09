@@ -40,11 +40,11 @@ function App({store}) {
     item: useCallback((item) => {
       return <Item item={item}
                    onAddItemInBasket={callbacks.onAddItemInBasket}
-      />
+             />
     }, [callbacks.onAddItemInBasket])
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     callbacks.changeTotalPrice();
     callbacks.getNumUniqueItems(); 
   }, [basket])

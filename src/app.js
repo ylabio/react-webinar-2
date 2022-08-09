@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import ModalCart from "src/components/modal-cart";
-import {numberFormat, sumProducts} from "src/utils";
+import {numberFormat} from "src/utils";
 import Controls from './components/controls';
 import List from './components/list';
 import Layout from './components/layout';
@@ -13,15 +13,14 @@ import Layout from './components/layout';
 function App({store}) {
   const [isActiveModal, setIsActiveModal] = useState(false)
 
-  const quantityProduct = store.getState().cart.length
-  const totalSum = numberFormat(sumProducts(store.getState().cart))
+  const totalSum = numberFormat(store.getState().totalSum)
 
   const callbacks = {
-    onAddToCartItem: useCallback((product) => {
-      store.addToCart(product);
+    onAddToCartItem: useCallback((code) => {
+      store.addToCart(code);
     }, []),
-    onDeleteToCartItem: useCallback((product) => {
-      store.deleteToCart(product);
+    onDeleteToCartItem: useCallback((code) => {
+      store.deleteToCart(code);
     }, []),
     onOpenModal: useCallback(() => {
       setIsActiveModal(true)
@@ -34,7 +33,7 @@ function App({store}) {
   return (
     <Layout head={<h1>Магазин</h1>}>
       <Controls totalSum={totalSum}
-                quantityProduct={quantityProduct}
+                quantityProduct={store.getState().quantityProduct}
                 onOpenModal={callbacks.onOpenModal}/>
 
       <List items={store.getState().items}

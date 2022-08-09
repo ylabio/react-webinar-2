@@ -1,3 +1,5 @@
+import {sumProducts} from "src/utils";
+
 class Store {
 
   constructor(initState) {
@@ -42,33 +44,45 @@ class Store {
 
   /**
    * Удаление записи по её коду
-   * @param product
+   * @param code
    */
-  deleteToCart(product) {
+  deleteToCart(code) {
+    const newCart = this.state.cart.filter(item => item.code !== code);
+
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter(item => item.code !== product.code)
+      cart: newCart,
+      totalSum: sumProducts(newCart),
+      quantityProduct: newCart.length
     });
   }
 
   /**
    * Добавление товара в корзину по его коду
-   * @param product
+   * @param code
    */
-  addToCart(product) {
-    const index = this.state.cart.findIndex(item => item.code === product.code);
+  addToCart(code) {
+    const index = this.state.cart.findIndex(item => item.code === code);
+    const item = this.state.items.find(item => item.code === code);
     const newCart = [...this.state.cart];
 
     if (index === -1) {
-      newCart.unshift({...product, count: 1});
+      newCart.unshift({...item, count: 1});
     } else {
       newCart[index] = {
         ...newCart[index],
         count: newCart[index].count + 1
       };
     }
-    this.setState({...this.state, cart: newCart});
+
+    this.setState({
+      ...this.state,
+      cart: newCart,
+      totalSum: sumProducts(newCart),
+      quantityProduct: newCart.length
+    });
   }
+
 }
 
 export default Store;

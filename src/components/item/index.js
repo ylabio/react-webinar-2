@@ -9,8 +9,8 @@ function Item(props) {
 
   const callbacks = {
     onButton: useCallback(() => {
-      props.onButton(props.item)
-    }, [props.onButton, props.item])
+      props.onButton(props.item.code)
+    }, [props.onButton, props.item.code])
   };
 
   return (

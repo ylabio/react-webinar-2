@@ -21,12 +21,11 @@ function Controls(props) {
 
 Controls.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onBasketPopupShow: propTypes.func.isRequired // Обязательное свойство - функция
+  onBasketPopupShow: propTypes.func.isRequired, // Обязательное свойство - функция
 }
 
 Controls.defaultProps = {
   items: [],
-  onBasketPopupShow: () => {} // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

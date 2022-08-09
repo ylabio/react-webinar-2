@@ -2,7 +2,8 @@ import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import BasketPopup from "./components/basket-popup"
+import Popup from "./components/popup";
+import Basket from "./components/basket";
 
 /**
  * Приложение
@@ -11,7 +12,7 @@ import BasketPopup from "./components/basket-popup"
  */
 function App({store}) {
 
-  const [isBasketPopupShown, setIsBasketPopupShown] = useState(false)
+  const [isBasketPopupShown, setIsBasketPopupShown] = useState(false);
 
   const callbacks = {
     onAdd: useCallback((code, count) => {
@@ -25,11 +26,15 @@ function App({store}) {
   return (
     <Layout head={<h1>Магазин</h1>}>
       { isBasketPopupShown && (
-          <BasketPopup
-              items={store.getState().userProducts}
+          <Popup
+              head={<h1>Корзина</h1>}
               onBasketPopupClose={() => setIsBasketPopupShown(false)}
-              onItemDelete={callbacks.onDeleteItems}
-          />
+          >
+              <Basket
+                  items={store.getState().userProducts}
+                  onItemDelete={callbacks.onDeleteItems}
+              />
+          </Popup>
       ) }
       <Controls
           items={store.getState().userProducts}

@@ -1,7 +1,7 @@
 
 /* Всплывающее окно корзины с товарами */
 
-.Basket-wrapper {
+.Popup-wrapper {
     position: absolute;
     left: 0;
     top: 0;
@@ -10,7 +10,7 @@
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-.Basket {
+.Popup {
     position: relative;
     top: 210px;
     max-width: 960px;
@@ -25,7 +25,7 @@
     background: #FFFFFF;
 }
 
-.Basket-header {
+.Popup-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -36,43 +36,13 @@
     box-sizing: border-box;
 }
 
-.Basket-header h1 {
+.Popup-header h1 {
     margin: 0;
     padding: 0;
     font-size: 32px;
     font-weight: 700;
 }
 
-.Basket-header button {
+.Popup-header button {
     padding: 1px 10px;
-}
-
-.Basket-list {
-    padding: 74px 0 0 0;
-}
-
-.Basket-item{
-    border-bottom: 1px dashed #ccc;
-}
-
-.Basket-item:first-child{
-    border-top: 1px dashed #ccc;
-}
-
-.Basket-sum {
-    padding: 7px 108px 0 0;
-    text-align: right;
-    font-weight: 700;
-    font-size: 18px;
-}
-
-.Basket-sum-text {
-    padding: 0 47px 0 0;
-}
-
-.Basket-is-empty {
-    padding: 0 20px;
-    font-style: italic;
-    text-align: center;
-    color: #535353;
 }

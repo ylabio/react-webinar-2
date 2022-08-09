@@ -35,7 +35,7 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onAdd: propTypes.func.isRequired
+  onAdd: propTypes.func.isRequired,
 }
 
 export default React.memo(Item);

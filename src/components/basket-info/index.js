@@ -14,7 +14,7 @@ function BasketInfo(props) {
         <p>
           В корзине:
           <span>
-            {props.basket.length ? `${props.basket.length} ${plural(props.basket.length, 'товар', 'товара', 'товаров')}  / ${sumBasket(props.basket)} ₽` : "пусто "}
+            {props.basket.length ? `${props.basket.length} ${plural(props.basket.length, 'товар', 'товара', 'товаров')}  / ${sumBasket(props.basket).toLocaleString("ru-RU", { style: "currency", currency: "RUB", minimumFractionDigits: 0 })}` : "пусто "}
           </span>
         </p>
       </div>

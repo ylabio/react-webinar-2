@@ -22,7 +22,7 @@ function Item(props) {
           {props.item.title}
         </div>
         <p>
-          {props.item.price} ₽
+          {props.item.price.toLocaleString("ru-RU", { style: "currency", currency: "RUB", minimumFractionDigits: 0 })}
           {
             props.item.count ?
               <span className={cn('count')}>

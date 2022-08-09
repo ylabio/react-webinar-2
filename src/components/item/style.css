@@ -7,9 +7,14 @@
 .Item-title{
     display: flex;
     width: 100%;
-    padding: 19px 12px 21px 10px;
+    padding: 19px 1px 17px 7px;
     justify-content: space-between;
     align-items: center;
+}
+.Item-title p {
+    font-size: 18px;
+    line-height: 21px;
+    color: #404040;
 }
 .Item-actions{
     padding: 21px 21px 19px 12px;
@@ -32,5 +37,8 @@
 }
 
 .Item-count {
+    font-size: 18px;
+    line-height: 21px;
+    color: #404040;
     margin-left: 55px;
 }

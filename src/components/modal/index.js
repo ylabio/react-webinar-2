@@ -27,7 +27,7 @@ function Modal(props) {
                 <div className={cn('totalPrice')}>
                   {
                     <>
-                      Итог <span>{sumBasket(props.basket)} ₽</span>
+                      Итого <span>{sumBasket(props.basket).toLocaleString("ru-RU", { style: "currency", currency: "RUB", minimumFractionDigits: 0 })}</span>
                     </>
                   }
                 </div>

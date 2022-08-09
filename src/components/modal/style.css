@@ -18,7 +18,7 @@
 
 .Modal-wrapper {
   height: 603px;
-  width: 94%;
+  width: 960px;
   background: #FFFFFF;
 box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 border-radius: 10px;
@@ -30,8 +30,8 @@ border-radius: 10px;
   justify-content: space-between;
   align-items: center;
   background: #F5F5F5;
-  padding: 20px 20px 23px 20px;
-  margin-bottom: 74px;
+  padding: 20px 32px 23px 20px;
+  margin-bottom: 72px;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
 }
@@ -56,9 +56,9 @@ border-radius: 10px;
 .Modal-totalPrice {
   display: flex;
   justify-content: flex-end;
-  margin-right: 120px;
+  margin-right: 109px;
   gap: 49px;
-  margin-top: 26px;
+  margin-top: 25px;
   font-weight: 700;
   font-size: 18px;
   line-height: 21px;

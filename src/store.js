@@ -55,30 +55,12 @@ class Store {
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code, price, count) {
-    if (count > 1) {
-      this.setState({
-        ...this.state,
-        totalPrice: this.state.totalPrice - price,
-        totalCount: this.state.totalCount - 1,
-        cart: this.state.cart.map((item) => {
-          if (item.code === code) {
-            return {
-              ...item,
-              count: item.count - 1,
-            };
-          }
-          return item;
-        }),
-      });
-    } else {
-      this.setState({
-        ...this.state,
-        totalPrice: this.state.totalPrice - price,
-        totalCount: this.state.totalCount - 1,
-        cart: this.state.cart.filter((item) => item.code !== code),
-      });
-    }
+  deleteItem(code, price) {
+    this.setState({
+      ...this.state,
+      totalPrice: this.state.totalPrice - price,
+      cart: this.state.cart.filter((item) => item.code !== code),
+    });
   }
 
   /**

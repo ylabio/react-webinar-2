@@ -3,14 +3,19 @@ import propTypes from 'prop-types';
 import plural from 'plural-ru';
 import './style.css';
 
-function Controls({ totalPrice, totalCount, cartItems, onOpenCart }) {
+function Controls({ totalPrice, cartItems, onOpenCart }) {
   return (
     <div className='Controls'>
       <p>
         В корзине:
-        <b>
+        <b style={{ marginLeft: '15px' }}>
           {cartItems.length > 0
-            ? `${totalCount} ${plural(totalCount, 'товар', 'товара', 'товаров')} / ${totalPrice} ₽`
+            ? `${cartItems.length} ${plural(
+                cartItems.length,
+                'товар',
+                'товара',
+                'товаров',
+              )} / ${totalPrice}`
             : 'пусто'}
         </b>
       </p>

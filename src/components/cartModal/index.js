@@ -20,7 +20,7 @@ function CartModal({ totalPrice, onCloseCart, cartItems, onItemDelete }) {
         <List items={cartItems} onItemDelete={onItemDelete} btnTitle='Удалить' />
         <span className={cn('total')}>
           <b>Итого</b>
-          <b>{totalPrice} ₽</b>
+          <b>{totalPrice}</b>
         </span>
       </Layout>
     </div>

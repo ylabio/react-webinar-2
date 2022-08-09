@@ -12,6 +12,11 @@ import CartModal from './components/cartModal';
  */
 function App({ store }) {
   const [activeCartModal, setActiveCartModal] = React.useState(false);
+  const totalPrice = new Intl.NumberFormat('ru-RU', {
+    style: 'currency',
+    currency: 'RUB',
+    minimumFractionDigits: 0,
+  }).format(store.getState().totalPrice);
 
   const callbacks = {
     onAdd: useCallback(() => {
@@ -30,8 +35,8 @@ function App({ store }) {
     onSelectItems: useCallback((code) => {
       store.selectItem(code);
     }, []),
-    onDeleteItems: useCallback((code, price, count) => {
-      store.deleteItem(code, price, count);
+    onDeleteItems: useCallback((code, price) => {
+      store.deleteItem(code, price);
     }, []),
   };
 
@@ -39,8 +44,7 @@ function App({ store }) {
     <>
       <Layout head={<h1>Магазин</h1>}>
         <Controls
-          totalPrice={store.getState().totalPrice}
-          totalCount={store.getState().totalCount}
+          totalPrice={totalPrice}
           cartItems={store.getState().cart}
           onOpenCart={callbacks.onOpenCart}
         />
@@ -53,7 +57,7 @@ function App({ store }) {
       </Layout>
       {activeCartModal && (
         <CartModal
-          totalPrice={store.getState().totalPrice}
+          totalPrice={totalPrice}
           onCloseCart={callbacks.onCloseCart}
           cartItems={store.getState().cart}
           onItemDelete={callbacks.onDeleteItems}

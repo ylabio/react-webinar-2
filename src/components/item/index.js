@@ -8,6 +8,11 @@ function Item(props) {
 
   // Счётчик выделений
   const [count, setCount] = useState(0);
+  const itemPrice = new Intl.NumberFormat('ru-RU', {
+    style: 'currency',
+    currency: 'RUB',
+    minimumFractionDigits: 0,
+  }).format(props.item.price);
 
   const callbacks = {
     onClick: useCallback(() => {
@@ -18,7 +23,7 @@ function Item(props) {
     }, [props.onSelect, props.item, setCount, count]),
 
     onDelete: useCallback(() => {
-      props.onDelete(props.item.code, props.item.price, props.item.count);
+      props.onDelete(props.item.code, props.item.price);
     }, [props.onDelete, props.item]),
     onAddItem: useCallback(() => {
       props.onAddItem(props.item.code, props.item.title, props.item.price);
@@ -31,7 +36,7 @@ function Item(props) {
       <div className={cn('title')}>
         {props.item.title}
         <div>
-          {`${props.item.price} ₽`}
+          {`${itemPrice}`}
           <span style={{ marginLeft: '50px' }}>
             {props.item.count ? props.item.count + ' шт' : ''}
           </span>
@@ -42,7 +47,7 @@ function Item(props) {
         <button
           onClick={() =>
             props.btnTitle === 'Удалить'
-              ? callbacks.onDelete(props.item.code, props.item.price, props.item.count)
+              ? callbacks.onDelete(props.item.code, props.item.price)
               : callbacks.onAddItem(props.item.code, props.item.title, props.item.price)
           }>
           {props.btnTitle}

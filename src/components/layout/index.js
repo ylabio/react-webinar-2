@@ -3,11 +3,11 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import propTypes from "prop-types";
 
-function Layout({head, children}){
+function Layout({head, children, isModalOpen}){
   const cn = bem('Layout');
 
   return (
-    <div className={cn()}>
+    <div className={cn({'hideScroll': isModalOpen})}>
       <div className={cn('head')}>
         {head}
       </div>

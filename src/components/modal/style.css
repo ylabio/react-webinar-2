@@ -9,6 +9,8 @@
         opacity 0.2s cubic-bezier(0.465, 0.183, 0.153, 0.946);
     pointer-events: auto;
     opacity: 1;
+    overflow-y: auto;
+    text-align: center;
     visibility: visible;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
@@ -23,12 +25,16 @@
         opacity 0.2s cubic-bezier(0.465, 0.183, 0.153, 0.946);
     pointer-events: none;
 }
+.Modal-wrapper::before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
 .Modal{
-    position: fixed;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: block;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: left;
     width: 100%;
     max-width: 960px;
     min-height: 603px; 

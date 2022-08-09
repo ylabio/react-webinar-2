@@ -30,7 +30,7 @@ function App({store}) {
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>Магазин</h1>} isModalOpen={isModalOpen}>
       <Cart itemsQuantity={store.getState().cart.itemsQuantity}
             totalPrice={store.getState().cart.totalPrice}
             onModalOpen={callbacks.onModalOpen}

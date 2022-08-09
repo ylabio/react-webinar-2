@@ -1,34 +1,42 @@
 .Item-add-delete-btn {
   width: 75px;
 }
-.Modal-cart {
-  width: 960px;
-  height: 600px;
-  border-radius: 10px;
-}
-.Modal-component {
+.Modal {
   position: fixed;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+}
+.Modal-main {
+  position:fixed;
   overflow: hidden;
+  background: white;
+  border-radius: 10px;
   width: 960px;
   height: 600px;
-  left: 50%;
-  top: 211px;
-  transform: translate(-50%);
-  background-color: #ffffff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
 }
-.Modal-cart-head {
+.Modal-display-block {
+  display: block;
+}
+.Modal-display-none {
+  display: none;
+}
+.Modal-head {
   background: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.Modal-cart-head-title {
+.Modal-head-title {
   height: 80px;
   margin-left: 20px;
 }
-.Modal-cart-head-button-off {
+.Modal-head-button-off {
   margin-top: 5px;
   margin-right: 20px;
   width: 75px;

@@ -1,5 +1,4 @@
 import React from "react";
-import ReactModal from "react-modal";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import { numFormat, totalPrice } from "../../utils";
@@ -8,45 +7,36 @@ import "./style.css";
 
 function Modal(props) {
   const cn = bem("Modal");
-  const cart = props.cart
+  const cart = props.cart;
+  const cartIsOpen = props.isOpen
+    ? "Modal Modal-display-block"
+    : "Modal Modal-display-none";
 
   return (
-    <div className={cn()}>
-      <ReactModal
-        className={cn("component")}
-        isOpen={props.isOpen}
-        onRequestClose={props.onClickToggle}
-        shouldCloseOnOverlayClick={true}
-        style={{ overlay: { background: "rgba(0, 0, 0, 0.7)" } }}
-      >
-        <div className={cn("cart")}>
-          <div className={cn("cart-head")}>
-            <div className={cn("cart-head-title")}>
-              <h1>Корзина</h1>
-            </div>
-            <div className={cn("cart-head-button")}>
-              <button
-                className={cn("cart-head-button-off")}
-                type="button"
-                onClick={props.onClickToggle}
-              >
-                Закрыть
-              </button>
-            </div>
+    <div className={cartIsOpen}>
+      <div className={cn("main")}>
+        <div className={cn("head")}>
+          <div className={cn("head-title")}>
+            <h1>Корзина</h1>
           </div>
-          <List
-            items={cart}
-            butAssign="Удалить"
-            onCart={props.onCart}
-          />
-          <div className={cn("totals")}>
-            <span className={cn("totals-title")}>Итого:</span>
-            <span className={cn("totals-sum")}>
-              {numFormat(totalPrice(cart))}&nbsp;&#8381;
-            </span>
+          <div className={cn("head-button")}>
+            <button
+              className={cn("head-button-off")}
+              type="button"
+              onClick={props.onClickToggle}
+            >
+              Закрыть
+            </button>
           </div>
         </div>
-      </ReactModal>
+        <List items={cart} butAssign="Удалить" onCart={props.onCart} />
+        <div className={cn("totals")}>
+          <span className={cn("totals-title")}>Итого:</span>
+          <span className={cn("totals-sum")}>
+            {numFormat(totalPrice(cart))}&nbsp;&#8381;
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,8 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
+import { formatCurrency } from '../../utils'
 
 
 function Item({item, onAdd}) {
@@ -23,7 +24,7 @@ function Item({item, onAdd}) {
         {item.title}
       </div>
       <p className = {cn('price')}>
-        {item.price} ₽
+        {formatCurrency(item.price)}
       </p>
       <div className={cn('actions')}>
         <button onClick={callbacks.onAdded}>

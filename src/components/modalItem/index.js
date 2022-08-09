@@ -1,6 +1,7 @@
-import React, {useCallback} from 'react'
+import React from 'react'
 import './style.css';
-import {cn as bem} from "@bem-react/classname";
+import {cn as bem} from "@bem-react/classname"
+import { formatCurrency } from '../../utils'
 
 function ModalItem({item, index, deleteItemFromBasket}) {
 
@@ -16,7 +17,7 @@ function ModalItem({item, index, deleteItemFromBasket}) {
                     {item.title}
                 </div>
                 <p className = {cn('price')}>
-                    {item.price} ₽
+                    {formatCurrency(item.price)}
                 </p>
                 <p className = {cn('amount')}>
                     {item.countOnBasket} шт

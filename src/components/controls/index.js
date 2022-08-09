@@ -2,7 +2,8 @@ import React from 'react';
 import { cn as bem } from '@bem-react/classname';
 import propTypes from 'prop-types';
 import './style.css';
-import { plural } from '../../utils';
+import { plural, formatCurrency } from '../../utils';
+
 
 function Controls({openModal, count, totalPrice, basketItems}){
 
@@ -15,7 +16,7 @@ function Controls({openModal, count, totalPrice, basketItems}){
         {
           count && basketItems.length > 0
         ?
-          count + " " + plural(count, 'товар', 'товара', 'товаров') + " / " + totalPrice + " ₽"
+          count + " " + plural(count, 'товар', 'товара', 'товаров') + " / " + formatCurrency(totalPrice)
         :
           <h4 className = {cn('empty')}>пусто</h4>
         }

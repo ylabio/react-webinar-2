@@ -2,6 +2,7 @@ import React from 'react'
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import ModalItem from '../modalItem';
+import { formatCurrency } from '../../utils'
 
 function Modal({closeModal, basketItems, deleteItemFromBasket, totalPrice}) {
 
@@ -41,7 +42,7 @@ function Modal({closeModal, basketItems, deleteItemFromBasket, totalPrice}) {
                     totalPrice !== 0
                 ?
                     <div className = {cn('footer')}>
-                        <h2 className = {cn('footer-text')}>Итого <span className = {cn('footer-price')}>{totalPrice} ₽</span></h2>
+                        <h2 className = {cn('footer-text')}>Итого <span className = {cn('footer-price')}>{formatCurrency(totalPrice)}</span></h2>
                     </div>
                 :
                     null

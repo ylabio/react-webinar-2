@@ -7,3 +7,13 @@ export function counter(){
 }
 
 export const plural = require('plural-ru')
+
+const CURRENCY_FORMATTER = new Intl.NumberFormat(undefined, {
+  style: 'currency',
+  currency: 'RUB',
+  minimumFractionDigits: 0,
+});
+
+export const formatCurrency = (number) => {
+  return CURRENCY_FORMATTER.format(number)
+}

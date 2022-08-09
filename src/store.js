@@ -55,12 +55,15 @@ class Store {
       }
       return product;
     });
+
     this.setState({
       ...this.state,
       basket: isAvailable
         ? newBasket
         : [...this.state.basket, { code, title, price, quantity: 1 }],
     });
+
+    this.setTotalBasketCost(this.state.basket);
   }
 
   /**
@@ -72,6 +75,21 @@ class Store {
       ...this.state,
       basket: this.state.basket.filter(product => product.code !== code)
     });
+
+    this.setTotalBasketCost(this.state.basket);
+  }
+
+  /**
+   * Вычисление общей стоимости товаров в корзине
+   * @param basket {Object[]}
+   */
+  setTotalBasketCost(basket) {
+    const totalCost = basket.reduce((previousValue, currentValue) => {
+      return previousValue + currentValue.price * currentValue.quantity;
+    }, 0);
+    const totalBasketCost = new Intl.NumberFormat('ru').format(totalCost);
+
+    this.setState({ ...this.state, totalBasketCost });
   }
 }
 

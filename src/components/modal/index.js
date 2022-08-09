@@ -42,4 +42,8 @@ Modal.propTypes = {
   children: propTypes.node
 };
 
+Modal.defaultProps = {
+  headerTitle: 'Modal title'
+};
+
 export default Modal;

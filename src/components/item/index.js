@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
-import { getFormattedNumber } from '../../utils';
 
 function Item({ item, index, buttonTitle, onClick }) {
   const cn = bem('Item');
@@ -23,7 +22,7 @@ function Item({ item, index, buttonTitle, onClick }) {
       </div>
       <div className={cn('actions')}>
         <span>
-          {`${getFormattedNumber(item.price)} \u20bd`}
+          {`${new Intl.NumberFormat('ru').format(item.price)} \u20bd`}
         </span>
         {buttonTitle === 'Удалить' &&
           <span>

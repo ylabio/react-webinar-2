@@ -4,7 +4,6 @@ import List from './components/list';
 import Layout from './components/layout';
 import Modal from './components/modal';
 import Total from './components/total';
-import { getTotalCost } from './utils';
 
 /**
  * Приложение
@@ -12,7 +11,6 @@ import { getTotalCost } from './utils';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({ store }) {
-  const [totalCost, setTotalCost] = useState('0');
   const [isModal, setIsModal] = useState({
     modalBasket: false
   });
@@ -20,14 +18,12 @@ function App({ store }) {
   const callbacks = {
     onAddItem: useCallback((item) => {
       store.addToBasket(item.code, item.title, item.price);
-      setTotalCost(getTotalCost(store.getState().basket));
     }, []),
     onMoveToBasket: useCallback(() => {
       setIsModal(prevState => ({ ...prevState, modalBasket: !prevState.modalBasket }));
     }, []),
     onRemoveFromBasket: useCallback((item) => {
       store.removeFromBasket(item.code);
-      setTotalCost(getTotalCost(store.getState().basket));
     }, [])
   };
 
@@ -36,7 +32,7 @@ function App({ store }) {
       <Layout headerTitle="Магазин">
         <Controls
           count={store.getState().basket.length}
-          total={totalCost}
+          total={store.getState().totalBasketCost}
           buttonTitle="Перейти"
           onClick={callbacks.onMoveToBasket}
         />
@@ -60,7 +56,7 @@ function App({ store }) {
           <Total>
             <strong>Итого</strong>
             <strong>
-              {`${totalCost} \u20bd`}
+              {store.getState().totalBasketCost + ' \u20bd'}
             </strong>
           </Total>
         </Modal>}

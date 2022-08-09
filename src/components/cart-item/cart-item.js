@@ -5,8 +5,6 @@ import { cn as bem } from "@bem-react/classname";
 function CartItem({ item, onButtonClick }) {
   const cn = bem("Item"); // Так как стили общие, используем BEM-блок из Item, дополнительные стили не используем
 
-  console.log('cart-item')
-
   return (
     <div className={cn()}>
       {<div className={cn("number")}>{item.code}</div>}

@@ -5,7 +5,7 @@ import "./style.css";
 
 function Item({ item, onButtonClick }) {
   const cn = bem("Item");
-  console.log("item")
+  
   return (
     <div className={cn()}>
       {<div className={cn("number")}>{item.code}</div>}

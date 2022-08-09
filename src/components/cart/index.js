@@ -8,8 +8,6 @@ import CartItem from '../cart-item/cart-item'
 function Cart({ cart, cartAmount, deleteItem }) {
   const cn = bem("Cart");
 
-  console.log('cart')
-
   return (
     <>
       {cart.length ? (

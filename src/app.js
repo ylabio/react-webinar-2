@@ -17,8 +17,6 @@ function App({ store }) {
 
   const [isModalOpen, setModalOpen] = React.useState(false);
 
-  console.log('app')
-
   const callbacks = {
     onCartClick: useCallback(() => {
       setModalOpen(true);

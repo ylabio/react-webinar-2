@@ -5,7 +5,7 @@ import './style.css';
 
 function List({items, onButtonClick, itemRenderer}) {
   const cn = bem('List');
-  console.log('list')
+  
   // Передаем компонент itemRenderer для отрисовки элемента списка, что делает сам List переиспользуемым компонентом
   return (
     <div className={cn()}>{items.map((item) =>

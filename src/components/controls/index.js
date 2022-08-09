@@ -12,7 +12,7 @@ function Controls(props){
       {props.chosenItems.length !== 0 
       ? <span> {props.chosenItems.length}  
         {plural(props.chosenItems.length, ' товар', ' товара', ' товаров')} / 
-        {formatPrice(priceReduce(props.chosenItems))}</span>  
+        {` ${formatPrice(priceReduce(props.chosenItems))}` }</span>  
       : 'пусто'}</span>
       </span>
       <button onClick={props.onToggle}>Перейти</button>

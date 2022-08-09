@@ -1,3 +1,5 @@
+import item from "./components/item";
+
 class Store {
  
   constructor(initState) {
@@ -73,7 +75,14 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      chosenItems: this.state.chosenItems.filter(item => item.code !== code)
+      chosenItems: this.state.chosenItems.filter(item => {
+        if(item.code !== code) {
+          return item
+        } else {
+            item.count = 0
+            return
+        }
+      })
     });
   }
 }

@@ -1,10 +1,16 @@
 /* Источник кода для модалки: https://itchief.ru/html-and-css/modal */
+.App{
+  height: 100vh;
+  overflow: hidden;
+}
+
 .Modal {
     position: fixed; /* фиксированное положение */
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+    overflow-y: scroll;
     background: rgba(0,0,0,0.7); /* цвет фона */
     z-index: 1050;
     display: flex;
@@ -18,14 +24,19 @@
     margin: 0;
     padding: 0;
 }
-/* при отображении модального окно */
-.modal:target {
-    opacity: 1; /* делаем окно видимым */
-    pointer-events: auto; /* элемент видим для событий мыши */
+
+.Modal-container{
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
 }
+
 /* свойства для блока, содержащего контент модального окна */
 .Modal-content {
     position: relative;
+    margin: auto 0;
     display: flex;
     min-width: 960px;
     min-height: 603px;
@@ -45,6 +56,7 @@
     border-radius: 10px;
     outline: 0;
 }
+
 .Modal .Layout {
    min-height: 100%;
    box-shadow: none;

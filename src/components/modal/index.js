@@ -9,8 +9,10 @@ function Modal({isVisibleModal, closeModal, children}){
 
 	return isVisibleModal ? (
 		<div className='Modal' onClick={onOutside}>
-			<div className="Modal-content">
-				{children}
+			<div className='Modal-container'>
+				<div className='Modal-content'>
+					{children}
+				</div>
 			</div>
 		</div>
 	) : null

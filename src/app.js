@@ -6,6 +6,7 @@ import Layout from "./components/layout";
 import ModalPreview from './components/modalPreview';
 import Modal from './components/modal';
 import Total from './components/total';
+import style from './components/modal/style.css';
 
 /**
  * Приложение
@@ -29,7 +30,7 @@ function App({store}) {
   const basket = store.getState().basket;
 
   return (
-  		<>
+  		<div className={isVisibleModal ? 'App' : ''}>
 				<Layout head={<Head title='Магазин' />}>
 					<ModalPreview basket={basket} onTransition={callbacks.onTransition}/>
 					<List items={store.getState().items} onAddItems={callbacks.onAddItems} />
@@ -47,7 +48,7 @@ function App({store}) {
 						{!!basket.length && <Total basket={basket}/>}
 					</Layout>
 				</Modal>
-			</>
+			</div>
   );
 }
 

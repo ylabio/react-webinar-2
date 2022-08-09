@@ -7,7 +7,7 @@ export function counter(){
 }
 
 export function getTotalPrice(arr) {
-  return arr && arr.reduce((sum, arr) => sum + (arr.price * arr.count), 0)
+  return arr && arr.reduce((sum, arr) => sum + (arr.price * arr.count), 0).toLocaleString('ru-RU')
 }
 
 export function getTotalCount(arr) {

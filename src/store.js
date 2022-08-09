@@ -43,16 +43,28 @@ class Store {
 
   // Добавление в корзину
 
-  addToCart(code) {
+  addToCart(item) {
+    //Переменная, определяющая добавляем мы новый item или увеличиваем счетчик
+    let adding = true
+
     this.setState({
       ...this.state, itemsInCart :
-        this.state.items.filter(i => {
-          if(i.code === code) {
-            return {...i, count: ++i.count}
-          }
-          return i.count ? i : null
-        })
+     this.state.itemsInCart.map(i => {
+       if (i.code === item.code) {
+         adding = false
+         return {...i, count: i.count + 1 }
+       } else {
+         return i
+       }
+     })
     })
+
+    if (adding) {
+      this.setState({
+        ...this.state, itemsInCart:
+            this.state.itemsInCart.concat({...item, count: 1})
+      })
+    }
   }
 
   /**
@@ -62,12 +74,8 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state, itemsInCart :
-          this.state.items.filter(i => {
-            if(i.code === code) {
-              return {...i, count: --i.count}
-            }
-            return i.count > 0 ? i : null
-          })
+          this.state.itemsInCart.filter(i => i.code !== code)
+
     })
   }
 

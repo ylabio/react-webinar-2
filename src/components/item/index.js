@@ -9,7 +9,7 @@ function Item(props) {
 
   const callbacks = {
       onAdd: useCallback(() => {
-          props.onAdd(props.item.code)
+          props.onAdd(props.item)
           setCount(props.item.count)
       }, [props]),
       onDelete: useCallback(() => {
@@ -32,7 +32,7 @@ function Item(props) {
                   {props.item.title}
               </div>
               <div className={cn('price')}>
-                  {`${props.item.price} ₽`}
+                  {`${props.item.price.toLocaleString('ru-RU')} ₽`}
               </div>
               {props.isVisible ? <div className={cn('sum')}>{`${count} шт`}</div> : ""}
               <div className={cn('actions')}>

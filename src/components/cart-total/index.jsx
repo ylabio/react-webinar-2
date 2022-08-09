@@ -1,6 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
+import { numberForm } from '../../utils';
 
 // отображает количество / итоговую сумму товаров, количество опциональное (noCount)
 const CartTotal = ({ title, price, count, noCount, className }) => {
@@ -17,8 +18,8 @@ const CartTotal = ({ title, price, count, noCount, className }) => {
     <div className={'cart-total ' + className}>
       <b>{ title }</b>
       {noCount
-        ? <b>{count > 0 ? `${price} ₽` : 'пусто'}</b>
-        : <b>{count > 0 ? `${pluralize(count)} / ${price} ₽` : 'пусто'}</b> }
+        ? <b>{count > 0 ? `${numberForm(price)} ₽` : 'пусто'}</b>
+        : <b>{count > 0 ? `${pluralize(count)} / ${numberForm(price)} ₽` : 'пусто'}</b> }
     </div>
   )
 };

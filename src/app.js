@@ -26,9 +26,12 @@ function App({ store }) {
     }, []),
     openModal: useCallback(() => {
       setModalOpened(true);
+      document.body.style.paddingRight = window.innerWidth - document.body.clientWidth + 'px';
+      document.body.style.overflowY = 'hidden';
     }, []),
     closeModal: useCallback(() => {
       setModalOpened(false);
+      document.body.style.paddingRight = document.body.style.overflowY = '';
     }, []),
   };
 
@@ -38,19 +41,18 @@ function App({ store }) {
         <CartTotal title='В корзине:' price={state.cart.totalPrice} count={state.cart.distinctItems} />
       </Controls>
 
-      <ul>{ state.catalogItems.map(item =>
-        <Item
-          key={item.code}
+      <ul>{state.catalogItems.map(item =>
+        <Item key={item.code}
           code={item.code}
           title={item.title}
-          param={item.price + " ₽"}
+          param={item.price}
           btnText='Добавить'
           btnAction={callbacks.addToCart} />
-      ) }</ul>
+      )}</ul>
 
-      <Modal opened={modalOpened} closingFunc={callbacks.closeModal}>
+      {modalOpened && <Modal closingFunc={callbacks.closeModal}>
         <Cart state={state.cart} btnAction={callbacks.closeModal} itemAction={callbacks.removeFromCart} />
-      </Modal>
+      </Modal>}
     </Layout>
   );
 }

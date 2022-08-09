@@ -14,11 +14,10 @@ const Cart = ({ state, btnAction, itemAction }) => {
       </div>
       {state.items.length > 0 ? <>
         <ul>{state.items.map(item =>
-          <Item
-            key={item.code}
+          <Item key={item.code}
             code={item.code}
             title={item.title}
-            param={item.price + " ₽"}
+            param={item.price}
             param2={item.count + ' шт'}
             btnText='Удалить'
             btnAction={itemAction} />

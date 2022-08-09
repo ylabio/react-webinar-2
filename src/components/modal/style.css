@@ -5,15 +5,13 @@
   left: 0;
   top: 0;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   padding: 80px 5%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow-y: scroll;
 }
 
 .modal__body {
-  width: 100%;
   max-width: 960px;
   min-height: 480px;
+  margin: 0 auto;
 }

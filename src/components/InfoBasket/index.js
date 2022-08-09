@@ -13,7 +13,7 @@ function InfoBasket({ tPaP, modalVal, setModal }) {
 
   return (
     <div className='Total-sum'>
-      <p className='Total-sum-p'>В корзине: <strong>{typeof (quantity) === "number" ? `${word} / ${price} ₽` : "пусто"}</strong></p>
+      <p className='Total-sum-p'>В корзине: <strong>{typeof (quantity) === "number" ? `${word} / ${price} ₽` : tPaP}</strong></p>
       <Button title="Перейти" onClick={() => setModal(!modalVal)} />
     </div>
   )

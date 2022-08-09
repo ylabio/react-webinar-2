@@ -4,7 +4,7 @@ import '../style.css'
 
 const CartItem = ({ onDeleteProduct, product }) => {
    const cn = bem('Item');
-   product.value !== 0 && product.value++
+   product.value++
 
    const callbacks = {
 

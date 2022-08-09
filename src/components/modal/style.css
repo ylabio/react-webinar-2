@@ -35,3 +35,16 @@
    min-width: 76px;
    min-height: 21px;
 }
+
+.Cart-totalprice {
+   margin: 26px 108px 0 0;
+   display: flex;
+   justify-content: flex-end;
+   font-weight: 700;
+   font-size: 18px;
+   line-height: 21px;
+}
+
+.Totalprice-title {
+   padding: 0 49px 0 0;
+}

@@ -9,7 +9,7 @@ function Item(props) {
   const callbacks = {
 
     onClick: useCallback(() => {
-      props.onAddProduct(props.item.code)
+      props.onAddProduct(props.item)
 
     }, [props.item]),
   };
@@ -27,7 +27,7 @@ function Item(props) {
       <div className='Right-content'>
         <span className='Price-text'>{props.item.price} ₽</span>
         <div className={cn('actions')} onClick={e => e.stopPropagation()}>
-          <button onClick={callbacks.onClick}>
+          <button onClick={() => callbacks.onClick()}>
             Добавить
           </button>
         </div>

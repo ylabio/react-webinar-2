@@ -40,12 +40,25 @@ class Store {
     }
   }
 
-
-  onAddProduct(code) {
-    this.setState({
-      ...this.state,
-      cart: this.state.cart.concat(this.state.items.filter(item => item.code === code))
-    });
+  onAddProduct(item) {
+    const uniqueItems = this.state.cart.find((elem) => elem.code === item.code);
+    if (uniqueItems) {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map((elem) => {
+          if (elem.code === item.code) {
+            return { ...uniqueItems, count: ++uniqueItems.value };
+          } else {
+            return elem;
+          }
+        })
+      })
+    } else {
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, { ...item, value: 1 }]
+      });
+    }
   }
 
   onDeleteProduct(code) {

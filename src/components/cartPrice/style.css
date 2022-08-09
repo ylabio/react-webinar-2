@@ -1,0 +1,18 @@
+.cartPrice {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 100px;
+    margin-top: 26px;
+    margin-bottom: 20px;
+}
+
+.cartPrice:last-child::after{
+    content: "\20BD";
+    font-weight: 700;
+    margin-left: 6px;
+}
+
+.cartPrice-total {
+    margin-right: 60px;
+}

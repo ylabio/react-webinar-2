@@ -7,7 +7,6 @@
 
 .Controls-price {
     margin-right: 28px;
-    padding-right: 15px;
 }
 
 .Controls-price-rub::after {
@@ -15,53 +14,4 @@
     padding-left: 6px;
 }
 
-.Cart-Item {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 50vw;
-    border-bottom: 1px dashed #ccc;
 
-}
-
-.Cart-Item:first-child {
-    border-top: 1px dashed #ccc;
-
-}
-
-
-
-
-.Cart-Item-number {
-    padding: 20px 10px 20px 20px;
-}
-
-.Cart-Item-title {
-    width: 100%;
-    padding: 20px 10px;
-}
-
-.Cart-Item-price {
-    display: flex;
-    align-items: center;
-    margin-right: 33px;
-}
-
-.Cart-Item-price::after {
-    content: "\20BD";
-    margin-left: 6px;
-}
-
-.Cart-Item-action {
-    padding: 20px  20px 20px 10px;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.Cart-Item-amount {
-    display: flex;
-    align-items: center;
-    justify-self: left;
-    margin-left: 6px;
-
-}

@@ -56,21 +56,45 @@ class Store {
 
   addCartItem(code) {
     const inCart = this.state.cart.map((item) => item.code);
-    if (!inCart.includes(code)) {
-      const [dummy] = this.state.items.filter((item) => item.code === code);
+
+    const currentItem = this.getState().items.find(
+      (item) => item.code === code
+    );
+    let cartItem = this.state.cart.map((item) => item.code);
+    if (currentItem.code === code) {
+      cartItem = this.state.cart.map((item) => {
+        if (item.code !== currentItem.code) {
+          return item;
+        } else {
+          return {
+            ...item,
+            amount: item.amount + 1,
+          };
+        }
+      });
+      if (!inCart.includes(code)) {
+        cartItem.push({ ...currentItem, amount: 1 });
+      }
       this.setState({
         ...this.state,
-        cart: [...this.state.cart, { ...dummy, amount: 1 }],
+        cart: cartItem,
       });
-    } else {
-      this.state.cart.forEach((item) => {
-        if (item.code === code) {
-          item.amount += 1;
-          this.setState({
-            ...this.state,
-            cart: [...this.state.cart],
-          });
-        }
+      console.log(this.state.cart);
+    }
+    if (this.state.cart.length > 0) {
+      const totalPrice = this.state.cart.reduce((prev, curr) => {
+        return prev + curr.price * curr.amount;
+      }, 0);
+      const totalCount = this.state.cart.reduce((prev, curr) => {
+        return prev + curr.amount;
+      }, 0);
+      this.setState({
+        ...this.state,
+        totalCartPriceAndCount: {
+          ...this.state.totalCartPriceAndCount,
+          price: totalPrice,
+          count: totalCount,
+        },
       });
     }
   }
@@ -83,6 +107,37 @@ class Store {
     this.setState({
       ...this.state,
       cart: this.state.cart.filter((item) => item.code !== code),
+    });
+    if (this.state.cart.length > 0) {
+      const totalPrice = this.state.cart.reduce((prev, curr) => {
+        return prev + curr.price * curr.amount;
+      }, 0);
+      const totalCount = this.state.cart.reduce((prev, curr) => {
+        return prev + curr.amount;
+      }, 0);
+      this.setState({
+        ...this.state,
+        totalCartPriceAndCount: {
+          ...this.state.totalCartPriceAndCount,
+          price: totalPrice,
+          count: totalCount,
+        },
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        totalCartPriceAndCount: {
+          ...this.state.totalCartPriceAndCount,
+          price: 0,
+          count: 0,
+        },
+      });
+    }
+  }
+  showModal() {
+    this.setState({
+      ...this.state,
+      modalIsActive: !this.state.modalIsActive,
     });
   }
 }

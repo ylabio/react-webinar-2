@@ -3,6 +3,9 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import { counter } from "./utils";
+import Modal from "./components/modal";
+import CartItem from "./components/cartItem";
+import CartPrice from "./components/cartPrice";
 
 /**
  * Приложение
@@ -21,17 +24,32 @@ function App({ store }) {
     onDeleteItem: useCallback((code) => {
       store.deleteFromCart(code);
     }, []),
+    showModal: useCallback(() => {
+      store.showModal();
+    }, []),
   };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls
-        onDeleteItem={callbacks.onDeleteItem}
-        cartItems={store.getState().cart}
-        onAdd={callbacks.onAdd}
-      />
-      <List items={store.getState().items} onAddItem={callbacks.onAddItem} />
-    </Layout>
+    <>
+      <Layout head={<h1>Приложение на чистом JS</h1>}>
+        <Controls
+          showModal={callbacks.showModal}
+          allItems={store.getState().cart.length}
+          priceAndCount={store.getState().totalCartPriceAndCount}
+          onAdd={callbacks.onAdd}
+        />
+        <List items={store.getState().items} onAddItem={callbacks.onAddItem} />
+      </Layout>
+      {store.state.modalIsActive && (
+        <Modal showModal={callbacks.showModal} modalName="Корзина">
+          <CartItem
+            onDeleteItem={callbacks.onDeleteItem}
+            cart={store.getState().cart}
+          />
+          <CartPrice cartPrice={store.getState().totalCartPriceAndCount} />
+        </Modal>
+      )}
+    </>
   );
 }
 

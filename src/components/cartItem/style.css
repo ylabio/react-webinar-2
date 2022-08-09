@@ -1,0 +1,38 @@
+.cartItem {
+   display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dashed #ccc;
+    padding: 5px 20px 5px 20px;
+
+}
+
+.cartItem-wrapper {
+    margin-bottom: 25px;
+
+}
+
+.cartItem-wrapper .cartItem:first-child    {
+    border-top: 1px dashed #ccc;
+
+}
+
+.cartItem-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+}
+
+.cartItem-price {
+    margin-right: 60px;
+}
+
+.cartItem-price:after {
+    content: "\20BD";
+    margin-left: 6px;
+}
+
+.cartItem-amount {
+    margin-right: 20px;
+}

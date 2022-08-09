@@ -6,8 +6,6 @@ import "./style.css";
 function Item(props) {
   const cn = bem("Item");
 
-  // Счётчик выделений
-
   const callbacks = {
     onAddItem: useCallback(
       (e) => {
@@ -16,9 +14,6 @@ function Item(props) {
       },
       [props.onAddItem, props.item]
     ),
-    onDeleteItem: useCallback(() => {
-      props.onDeleteItem(props.item.code);
-    }, [props.onDeleteItem, props.item]),
   };
 
   return (
@@ -28,28 +23,13 @@ function Item(props) {
         <p> {props.item.title}</p>
         <div className={cn("info-wrapper")}>
           {" "}
-          <p
-            className={
-              props.item.amount
-                ? "Item-price" + " " + "Item-price-scope"
-                : "Item-price"
-            }
-          >
-            {props.item.price}
-          </p>
-          <p className={cn("amount")}>
-            {props.item.amount ? <>{props.item.amount} шт</> : null}
+          <p className={"Item-price"}>
+            {props.item.price.toLocaleString("ru-RU")}
           </p>
         </div>
       </div>
       <div className={cn("actions")}>
-        <button
-          onClick={
-            props.item.amount ? callbacks.onDeleteItem : callbacks.onAddItem
-          }
-        >
-          {props.item.amount ? "Удалить" : "Добавить"}
-        </button>
+        <button onClick={callbacks.onAddItem}>Добавить</button>
       </div>
     </div>
   );
@@ -58,12 +38,10 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAddItem: propTypes.func.isRequired,
-  onDeleteItem: propTypes.func.isRequired,
 };
 
 Item.defaultProps = {
   onAddItem: () => {},
-  inDeleteItem: () => {},
 };
 
 export default React.memo(Item);

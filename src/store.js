@@ -56,21 +56,21 @@ class Store {
    * @param code
    */
   addItemInBasket(code) {
-    const basketWithItem = this.state.basket.filter(item => item.code === code);
-    const itemForAdd = this.state.items.filter(item => item.code === code)[0];
-    if (!basketWithItem.length) {
+    const itemInBasket = this.state.basket.find(item => item.code === code);
+    const itemForAdd = this.state.items.find(item => item.code === code);
+    if (itemInBasket) {
+      this.setState({
+        ...this.state,
+        basket: this.state.basket.map(item => item.code === code ? 
+          ({...item, price: item.price + itemForAdd.price, num: item.num + 1}) 
+        : 
+          item),
+      })
+    } else {
       this.setState({
         ...this.state,
         basket: [...this.state.basket, {code: itemForAdd.code, title: itemForAdd.title, price: itemForAdd.price, num: 1}],
-      })
-    } else {
-        this.setState({
-          ...this.state,
-          basket: this.state.basket.map(item => item.code === code ? 
-            ({...item, price: item.price + itemForAdd.price, num: item.num + 1 }) 
-          : 
-            item),
-      })
+      }) 
     }
   }
 

@@ -57,10 +57,4 @@ Controls.propTypes = {
   totalPrice: propTypes.number.isRequired,
 };
 
-Controls.defaultProps = {
-  onOpenModal: () => {},
-  counter: 0,
-  totalPrice: 0,
-};
-
 export default React.memo(Controls);

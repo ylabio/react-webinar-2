@@ -70,18 +70,42 @@ class Store {
 
   DeleteItemFromBin(code) {
     this.setState({
-        ...this.state,
-        items: this.state.items.map((item) => {
-          if (item.code === code) {
-            return {
-              ...item,
-              addCounter: 0,
-            };
-          }
-          return item;
-        }),
-      });
+      ...this.state,
+      items: this.state.items.map((item) => {
+        if (item.code === code) {
+          return {
+            ...item,
+            addCounter: 0,
+          };
+        }
+        return item;
+      }),
+    });
+  }
 
+  counterItemsInBin() {
+    this.count = 0;
+    this.state.items.map((item) => {
+      if (item.addCounter > 0) {
+        return this.count++;
+      }
+      return this.count;
+    });
+    return this.count;
+  }
+
+  counterTotalPrice() {
+    return this.state.items
+      .map((item) => {
+        return {
+          counter: item.addCounter,
+          price: item.price,
+        };
+      })
+      .map((item) => item.counter * item.price)
+      .reduce(function (sum, elem) {
+        return sum + elem;
+      }, 0);
   }
 }
 

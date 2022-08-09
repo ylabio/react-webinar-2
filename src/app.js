@@ -1,6 +1,10 @@
 import React, { useCallback, useState } from 'react';
+import { cn as bem } from '@bem-react/classname';
 import Controls from './components/controls';
 import List from './components/list';
+import Item from './components/item/index';
+import TotalPrice from './components/totalPrice';
+import ItemInBin from './components/itemInBin';
 import Layout from './components/layout';
 import Popup from './components/popup';
 
@@ -11,50 +15,17 @@ import Popup from './components/popup';
  */
 function App({ store }) {
   const items = store.getState().items;
+  const totalPrice = store.counterTotalPrice();
+  const counter = store.counterItemsInBin();
 
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-  function handleOpenPopup() {
-    setIsPopupOpen(!isPopupOpen);
-  }
-
-  function handleClosePopup() {
-    setIsPopupOpen(false);
-  }
-
-  const counter = () => {
-    let count = 0;
-    items.map((item) => {
-      if (item.addCounter > 0) {
-        return count++;
-      }
-      return count;
-    });
-    return count;
-  };
-
-  const totalPrice = () => {
-    return items
-      .map((item) => {
-        return {
-          counter: item.addCounter,
-          price: item.price,
-        };
-      })
-      .map((item) => {
-        return item.counter * item.price;
-      })
-      .reduce(function (sum, elem) {
-        return sum + elem;
-      }, 0);
-  };
+  const [isBinPopupOpen, setIsBinPopupOpen] = useState(false);
 
   const callbacks = {
-    onOpenModal: useCallback(() => {
-      handleOpenPopup();
+    onOpenBinModal: useCallback(() => {
+      setIsBinPopupOpen(!isBinPopupOpen);
     }, []),
     onCloseModal: useCallback(() => {
-      handleClosePopup();
+      setIsBinPopupOpen(false);
     }, []),
     onAddItemToBin: useCallback((code) => {
       store.addItemToBin(code);
@@ -68,19 +39,47 @@ function App({ store }) {
     <Layout head={<h1>Магазин</h1>}>
       <Controls
         items={items}
-        onOpenModal={callbacks.onOpenModal}
-        counter={counter()}
-        totalPrice={totalPrice()}
+        onOpenModal={callbacks.onOpenBinModal}
+        counter={counter}
+        totalPrice={totalPrice}
       />
-      <List items={items} onAddItemToBin={callbacks.onAddItemToBin} />
-      <Popup
-        name={'Корзина'}
-        items={items}
-        totalPrice={totalPrice()}
-        isOpen={isPopupOpen}
-        onCloseModal={callbacks.onCloseModal}
-        onDeleteItemFromBin={callbacks.onDeleteItemFromBin}
-      />
+      <List>
+        {items.map((item) => {
+          const cn = bem('List');
+          return (
+            <div key={item.code} className={cn('item')}>
+              <Item item={item} onAddItemToBin={callbacks.onAddItemToBin} />
+            </div>
+          );
+        })}
+      </List>
+      {isBinPopupOpen ? (
+        <Popup
+          name={'Корзина'}
+          items={items}
+          totalPrice={totalPrice}
+          onCloseModal={callbacks.onCloseModal}
+          onDeleteItemFromBin={callbacks.onDeleteItemFromBin}
+        >
+          <List>
+            {items.map((item) => {
+              const cn = bem('Popup');
+              if (item.addCounter > 0) {
+                return (
+                  <div key={item.code} className={cn('item')}>
+                    <ItemInBin
+                      item={item}
+                      onDeleteItemFromBin={callbacks.onDeleteItemFromBin}
+                      key={item.code}
+                    />
+                  </div>
+                );
+              }
+            })}
+          </List>
+          <TotalPrice totalPrice={totalPrice} />
+        </Popup>
+      ) : null}
     </Layout>
   );
 }

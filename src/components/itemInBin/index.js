@@ -7,7 +7,7 @@ const ItemInBin = ({ item, onDeleteItemFromBin }) => {
   const cn = bem('Popup');
   if (item.addCounter > 0) {
     return (
-      <div className={cn('item')}>
+      <>
         <div className={cn('item-flex-start')}>
           <div className={cn('item-number')}>{item.code}</div>
           <div className={cn('item-title')}>{item.title}</div>
@@ -23,7 +23,7 @@ const ItemInBin = ({ item, onDeleteItemFromBin }) => {
             </button>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 };
@@ -31,11 +31,6 @@ const ItemInBin = ({ item, onDeleteItemFromBin }) => {
 ItemInBin.propTypes = {
   item: propTypes.object.isRequired,
   onDeleteItemFromBin: propTypes.func.isRequired,
-};
-
-ItemInBin.defaultProps = {
-  item: {},
-  onDeleteItemFromBin: () => {},
 };
 
 export default React.memo(ItemInBin);

@@ -4,6 +4,10 @@
   justify-content: space-between;
 }
 
+.Popup-item:first-child {
+    margin-top: 74px;
+  }
+
 .Popup-item-number {
   text-align: center;
 }
@@ -20,6 +24,7 @@
 }
 
 .Popup-item-flex-end {
+    align-self: end;
   display: flex;
   padding: 21px 18px 22px 0;
   font-size: 18px;

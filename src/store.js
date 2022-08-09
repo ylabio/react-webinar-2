@@ -83,6 +83,7 @@ class Store {
       });
     }
   }
+
   /**
    * Вычисление полной стоимости
    */
@@ -90,6 +91,16 @@ class Store {
     this.setState({
       ...this.state,
       totalPrice: this.state.shoppingCart.concat().reduce((sum, item) => item.amount * item.price + sum, 0),
+    });
+  }
+
+  /**
+   * Вычисление количества товаров
+   */
+  calcTotalAmount() {
+    this.setState({
+      ...this.state,
+      totalAmount: this.state.shoppingCart.length,
     });
   }
 }

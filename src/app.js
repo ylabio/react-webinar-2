@@ -18,10 +18,12 @@ function App({store}) {
     onAddItem: useCallback((code) => {
       store.addItemToCart(code);
       store.calcTotalPrice();
+      store.calcTotalAmount();
     }, []),
     onDeleteItem: useCallback((code) => {
       store.deleteItemFromCart(code);
       store.calcTotalPrice();
+      store.calcTotalAmount();
     }, []),
     onModalOpen: useCallback(() => {
       setIsModalOpen(true);
@@ -34,8 +36,8 @@ function App({store}) {
   return (
     <Layout head={<h1>Магазин</h1>}>
       <Controls
-        shoppingCart={store.getState().shoppingCart}
         totalPrice={store.getState().totalPrice}
+        totalAmount={store.getState().totalAmount}
         onModalOpen={callbacks.onModalOpen}
       />
       <List

@@ -8,21 +8,21 @@ import plural from "plural-ru";
  * Контрол с общими действиями
  * @param props
  * @param {function} props.onModalOpen Ивент на открытии модалки
- * @param {Array} props.shoppingCart Массив уникальных товаров
+ * @param {number} props.totalAmount Кол-во уникальных товаров
  * @param {number} props.totalPrice Общая цена товаров в корзине
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function Controls(props){
   const cn = bem('Controls');
-  const {shoppingCart, onModalOpen, totalPrice} = props;
-  const cartInfo = `${shoppingCart.length} ${plural(shoppingCart.length, 'товар', 'товара', 'товаров')} / ${totalPrice.toLocaleString('ru-RU')} ₽`;
+  const {onModalOpen, totalPrice, totalAmount} = props;
+  const cartInfo = `${totalAmount} ${plural(totalAmount, 'товар', 'товара', 'товаров')} / ${totalPrice.toLocaleString('ru-RU')} ₽`;
 
   return (
     <div className={cn()}>
       <p className={cn('cart')}>
         В корзине:
-        <span className={cn('cart-info', {empty: !shoppingCart})}>
-          {`${shoppingCart.length ? cartInfo : 'пусто'}`}
+        <span className={cn('cart-info', {empty: !totalAmount})}>
+          {`${totalAmount ? cartInfo : 'пусто'}`}
         </span>
       </p>
       <button onClick={onModalOpen}>Перейти</button>
@@ -32,7 +32,8 @@ function Controls(props){
 
 Controls.propTypes = {
   onModalOpen: propTypes.func.isRequired,
-  shoppingCart: propTypes.array.isRequired,
+  totalAmount: propTypes.number.isRequired,
+  totalPrice: propTypes.number.isRequired,
 }
 
 Controls.defaultProps = {

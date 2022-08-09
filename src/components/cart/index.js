@@ -22,7 +22,7 @@ function Cart(props) {
     <div className={cn()}>
       <List items={shoppingCart} callbackName={callbackName} callback={onDeleteItem}/>
       <div className={cn('total', {empty: !shoppingCart.length})}>
-        {shoppingCart.length ? <p className={cn('price')}> {totalPrice.toLocaleString('ru-RU')} ₽ </p> : 'Пусто'}
+        {shoppingCart.length ? <p className={cn('price')}> {totalPrice.toLocaleString('ru-RU')} ₽ </p> : <p className={cn('empty')}>Пусто</p>}
       </div>
     </div>
   )

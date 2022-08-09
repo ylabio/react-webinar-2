@@ -23,7 +23,7 @@ const Cart = ({ state, btnAction, itemAction }) => {
             btnText='Удалить'
             btnAction={itemAction} />
         )}</ul>
-        <CartTotal noCount price={state.totalPrice} count={state.totalPrice} className='cart__total' />
+        <CartTotal noCount price={state.totalPrice} count={state.distinctItems} className='cart__total' />
       </>
       : <ListErr message='Корзина пуста' />}
     </div>

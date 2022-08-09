@@ -2,5 +2,19 @@
 .Controls{
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
+    align-items: center;
+}
+
+.Controls-info{
+    font-weight: 700;
+    margin-left: 15px;
+}
+
+.Controls-actions{
+    width: 76px;
+    padding: 20px 20px 20px 24px;
+    display: flex;
+}
+.Controls-actions button {
+    width: 100%;
 }

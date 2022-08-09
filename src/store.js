@@ -1,5 +1,4 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -57,29 +56,51 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      items: this.state.items.filter((item) => item.code !== code),
     });
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
+    /**
+   * Добавление в корзину
    */
-  selectItem(code) {
+  addToCart(item) {
+    let updatedCart = [];
+    const isInCart = this.state.cart.cartItems.some(cartItem => cartItem.code === item.code);
+
+    !isInCart 
+    ? updatedCart = [...this.state.cart.cartItems,{...item, qty: 1}]
+    : updatedCart = this.state.cart.cartItems.map(uCartItem => {
+      if(uCartItem.code === item.code) {
+        return {
+          ...uCartItem,
+          qty: uCartItem.qty + 1,
+        }
+      }
+      return uCartItem
+    });
+
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cart: {...this.state.cart,
+        cartItems: updatedCart,
+        totalCost: this.state.cart.totalCost + item.price,
+      } 
+    });
+  }
+
+    /**
+   * Удаление из корзины
+   */
+  removeFromCart(item) {
+    this.setState({
+      ...this.state,
+      cart: {...this.state.cart,
+        cartItems: this.state.cart.cartItems.filter(cartItem => cartItem.code !== item.code),
+        totalCost: this.state.cart.totalCost - (item.price * item.qty)
+      } 
     });
   }
 }
+
 
 export default Store;

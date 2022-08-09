@@ -1,0 +1,10 @@
+.Button{
+	padding: 20px  20px 20px 24px;
+    display: flex;
+    justify-content: flex-end;
+    width: 76px;
+    height: 21px;
+}
+.Button button{
+    width: 100%;
+}

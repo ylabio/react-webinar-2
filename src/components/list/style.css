@@ -2,10 +2,7 @@
 .List{
 
 }
-.List-item{
-    border-bottom: 1px dashed #ccc;
-}
 
-.List-item:first-child{
+.List:nth-child(n){
     border-top: 1px dashed #ccc;
 }

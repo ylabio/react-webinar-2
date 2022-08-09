@@ -2,22 +2,31 @@
 .Item{
     display: flex;
     justify-content: flex-start;
-    transition: background-color 1s;
+    align-items: center;
+    border-bottom: 1px dashed #ccc;
 }
-.Item_selected{
-    background: #75aaf1;
-}
-
 
 .Item-title{
     width: 100%;
     padding: 20px 10px;
 }
 .Item-actions{
-    padding: 20px  20px 20px 10px;
+    padding: 20px  20px 20px 24px;
     display: flex;
     justify-content: flex-end;
+    width: 76px;
+}
+.Item-actions button{
+    width: 100%;
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+
+.Item-secondaryInfo{
+    display: flex;
+    justify-content: flex-end;
+    gap: 55px;
+    width: 100%;
+    text-align: end;
 }

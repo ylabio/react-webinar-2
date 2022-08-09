@@ -1,0 +1,5 @@
+{
+  "turboConsoleLog.quote": "'",
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true
+}

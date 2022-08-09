@@ -36,8 +36,8 @@ function App({store}) {
             onAddToCart={callbacks.onAddToCart}          
       />  
       {isPopupOpen && (
-         <Popup title={'Корзина'} onClose={callbacks.onPopupClose}>
-         <Cart cartItems={Object.values(store.getState().cart.cartItems)} onDeleteItemsFromCart={callbacks.onDeleteItemsFromCart}/>
+         <Popup title={'Корзина'} onClose={callbacks.onPopupClose} >
+         <Cart cartItems={Object.values(store.getState().cart.cartItems)} onDeleteItemsFromCart={callbacks.onDeleteItemsFromCart} totalPrice={store.getState().cart.totalPrice}/>
        </Popup>
       )}    
     </Layout>

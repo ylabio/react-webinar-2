@@ -9,6 +9,8 @@
   left: 0;
   bottom: 0;
   right: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .Popup-content {
@@ -33,9 +35,9 @@
   height: 80px;
   width: 100%;
   background: #f5f5f5;
-  padding: 20px 32px 23px 20px;
+  padding: 31px 32px 28px 20px;
   margin: 0 0 74px 0;
-  border-radius: 10px;  
+  border-radius: 10px;
 }
 
 .Popup-title {
@@ -46,20 +48,14 @@
 }
 
 .Popup-button {
-  background: #EFEFEF;
+  background: #efefef;
   border: 1px solid #767676;
   border-radius: 2px;
   width: 76px;
   height: 21px;
-
-  cursor: pointer;   
+  cursor: pointer;
 }
 
 .Popup-close {
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 15px;
-  text-align: center;
   padding: 0;
-  margin: 2px 8px 2px 8px;
 }

@@ -28,7 +28,7 @@ function Item({item, onAddToCart}) {
         {modifiedPrice}
       </div>   
       <div className={cn('actions')}>
-        <button onClick={callbacks.onAddToCart}>
+        <button className={cn('button')} onClick={callbacks.onAddToCart}>
           Добавить
         </button>
       </div>

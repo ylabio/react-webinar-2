@@ -1,32 +1,39 @@
 /* Пункт списка корзины */
 .CartItem {
-  display: flex;
-  justify-content: flex-start;
+  display: flex;  
   flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
   padding: 21px 20px 19px 18px;
+  transition: background-color 1s;
 }
 
 .CartItem-title {
   width: 100%;
-  padding: 20px 10px;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 21px;
-  color: #404040;
+  font-size: 16px;
+  line-height: 18px;  
+  color: #000000;
 }
 
-.CartItem-actions {
-  width: 71px;
+.CartItem-button {
+  min-width: 71px;
   height: 21px;
   display: flex;
   justify-content: flex-end;
-  margin: 0 0 0 32px;
   cursor: pointer;
+  box-sizing: border-box;
+  background: #EFEFEF;
+  border: 1px solid #767676;
+  border-radius: 2px;
 }
 
 .CartItem-number {
-  padding: 20px 10px 20px 20px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  color: #000000;
+  padding-right: 18px;
 }
 
 .CartItem-amount {
@@ -34,5 +41,16 @@
   font-size: 18px;
   line-height: 21px;
   color: #404040;
-  margin: 0 0 0 55px;
+  margin: 0 23px 0 55px;
+}
+
+.CartItem-price {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #404040;
+}
+
+.CartItem-label {
+  padding-left: 5px;
 }

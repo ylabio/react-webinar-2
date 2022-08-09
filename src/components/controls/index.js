@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 import { currencyFormat } from '../../utils';
@@ -12,7 +12,7 @@ function Controls({cart, cart: {totalPrice}, onPopupOpen}){
 
    return (
     <div className='Controls'>
-      <div className={cn('wrapper')}><p className={cn('text')}>В корзине:</p><b>{total ? `${total} ${plural(total, 'товар', 'товара', 'товаров')}` : 0} / {modifiedCurrency}</b></div>
+      <div className={cn('wrapper')}><p className={cn('text')}>В корзине:</p><b>{total ? `${total} ${plural(total, 'товар', 'товара', 'товаров')} / ${modifiedCurrency}` : 'пусто'}</b></div>
       <button className={cn('actions')} onClick={onPopupOpen}>Перейти</button>
     </div>
   )

@@ -1,6 +1,7 @@
 /* Пункт списка */
 .Cart {
   display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
@@ -24,6 +25,14 @@
 .Cart-total {
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
+  padding: 26px 108px 55px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.Cart-label {
+  margin-right: 49px;
 }

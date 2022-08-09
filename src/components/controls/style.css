@@ -3,13 +3,15 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 18px 20px 24px 20px;
+    padding: 20px 21px 22px 20px;
 }
 
 .Controls-actions{
     margin: 0 0 0 20px;
     width: 80px;
     height: 21px;
+    border: 1px solid #767676;
+    border-radius: 2px;
     font-weight: 400;
     font-size: 13px;
     line-height: 15px;

@@ -50,16 +50,6 @@ class Store {
     });
   }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
 
   /**
    * Выделение записи по её коду
@@ -80,6 +70,47 @@ class Store {
       })
     });
   }
+
+  /**
+   * Удаления товара с корзины
+   * @param code
+   */
+  deleteItem(code) {
+    this.setState({
+      ...this.state,
+      itemsModal: this.state.itemsModal.filter(item => item.code !== code)
+    });
+  }
+  /**
+   * Добавление товара в корзину
+   * @param item
+   */
+  addToModal(item) {
+    const itemIsInModal = this.state.itemsModal.some(
+        (el) => el.code === item.code
+    );
+
+    if (!itemIsInModal) {
+      this.setState({
+        ...this.state,
+        itemsModal: [...this.state.itemsModal, { ...item, amount: 1 }],
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        itemsModal: this.state.itemsModal.map((product) => {
+          if (product.code === item.code) {
+            return { ...product, amount: ++product.amount };
+          } else {
+            return product;
+          }
+        }),
+      });
+    }
+  }
+
 }
+
+
 
 export default Store;

@@ -3,4 +3,18 @@
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+    align-items: center;
+
+}
+.Controls-title{
+    font-size: 18px;
+    padding: 0 15px 0 0;
+
+}.Controls-title span{
+     display: flex;
+     align-items: center;
+ }
+.Controls button{
+    height: 25px;
+    margin: 0 0 0 20px;
 }

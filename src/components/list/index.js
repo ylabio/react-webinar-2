@@ -10,11 +10,18 @@ function List(props) {
     <div className={cn()}>
       {props.items.map((item) => (
         <div key={item.code} className={cn('item')}>
-          <Item addCart={props.addCart} item={item} />
+          <Item cutting={props.cutting} addCart={props.addCart} item={item} />
         </div>
       ))}
     </div>
   );
 }
+List.propTypes = {
+  props: propTypes.object.isRequired,
+};
+
+List.defaultProps = {
+  props: {},
+};
 
 export default React.memo(List);

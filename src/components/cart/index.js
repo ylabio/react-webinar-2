@@ -1,9 +1,8 @@
 import React from 'react';
 import './style.css';
+import propTypes, { object } from 'prop-types';
 
-function Cart({ cartToggle, cart, totalPrice, cartDelete }) {
-  console.log('cart', cart);
-
+function Cart({ cutting, cartToggle, cart, totalPrice, cartDelete }) {
   return (
     <div className='cart'>
       <div className='cartInformation'>
@@ -13,7 +12,7 @@ function Cart({ cartToggle, cart, totalPrice, cartDelete }) {
             Закрыть
           </button>
         </div>
-        <div className='cartItemsBlock'>
+        <div className={cart.length < 6 ? 'cartItemsBlock' : 'cartItemsBlock overflow'}>
           {cart.map((item) => (
             <div key={item.code} className='cartItem'>
               <div className='leftSide'>
@@ -21,7 +20,7 @@ function Cart({ cartToggle, cart, totalPrice, cartDelete }) {
                 <div className='itemTitle text'>{item.title}</div>
               </div>
               <div className='rightSide'>
-                <div className='itemPrice text'>{item.price} ₽</div>
+                <div className='itemPrice text'>{cutting(item.price)} ₽</div>
                 <div className='itemAmount text'>{item.amount} шт</div>
                 <button onClick={() => cartDelete(item.code)} className='delete'>
                   Удалить
@@ -31,11 +30,26 @@ function Cart({ cartToggle, cart, totalPrice, cartDelete }) {
           ))}
         </div>
         <div className='total'>
-          Итого <span className='price'>{totalPrice} ₽</span>
+          Итого <span className='price'>{cutting(totalPrice)} ₽</span>
         </div>
       </div>
     </div>
   );
 }
 
-export default Cart;
+Cart.propTypes = {
+  cutting: propTypes.func.isRequired,
+  cartToggle: propTypes.func.isRequired,
+  cart: propTypes.arrayOf(object).isRequired,
+  totalPrice: propTypes.number.isRequired,
+  cartDelete: propTypes.func.isRequired,
+};
+
+Cart.defaultProps = {
+  cutting: () => {},
+  cartToggle: () => {},
+  cart: [],
+  totalPrice: null,
+  cartDelete: () => {},
+};
+export default React.memo(Cart);

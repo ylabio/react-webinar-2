@@ -25,6 +25,16 @@ function App({ store }) {
     cartToggle: React.useCallback(() => {
       setCartOpen(!cartOpen);
     }),
+    cutting: React.useCallback((num) => {
+      num = String(num).split('');
+      num = num.reverse();
+      let count = Math.round(num.length / 3);
+      for (let i = 3; i <= count * 4; ) {
+        num.splice(i, 0, ' ');
+        i = i + 4;
+      }
+      return num.reverse().join('');
+    }),
   };
   let totalPrice = 0;
   if (cart) {
@@ -32,27 +42,12 @@ function App({ store }) {
       .map((item) => item.price * item.amount)
       .reduce((prev, value) => prev + value, 0);
   }
-  function cutting(num) {
-    num = String(num).split('');
-    num = num.reverse();
-    let count = Math.round(num.length / 3);
-    for (let i = 3; i <= count * 4; ) {
-      num.splice(i, 0, ' ');
-      i = i + 4;
-    }
-    return num.reverse().join('');
-  }
-  totalPrice = cutting(totalPrice);
-
-  // let totalAmount = 0;
-  // if (cart) {
-  //   totalAmount = cart.map((item) => item.amount).reduce((prev, value) => prev + value, 0);
-  // }
 
   return (
     <Layout head={<h1>Магазин</h1>}>
       {cartOpen && (
         <Cart
+          cutting={callbacks.cutting}
           cart={cart}
           totalPrice={totalPrice}
           cartToggle={callbacks.cartToggle}
@@ -61,11 +56,12 @@ function App({ store }) {
       )}
       <Controls
         cartToggle={callbacks.cartToggle}
-        // amount={totalAmount}
+        cutting={callbacks.cutting}
         price={totalPrice}
         cart={cart}
       />
       <List
+        cutting={callbacks.cutting}
         addCart={callbacks.addCart}
         deleteCart={callbacks.deleteCart}
         items={store.getState().items}

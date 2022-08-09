@@ -12,36 +12,32 @@ import Modal from "./components/modal";
  */
 function App({store}) {
 
-  const [active, setActive] = useState(false)
+  const [activeModal, setActiveModal] = useState(false)
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
-    }, []),
     onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
     }, []),
     onAddItem: useCallback((code) => {
       store.addItem(code);
     }, []),
-    onActiveModal: useCallback((value) => {
-      setActive(value)
+    onToggleModal: useCallback(() => {
+      setActiveModal(activeModal => !activeModal)
     }, []),
   }
 
   return (
     <div>
       <Layout head={<h1>Магазин</h1>}>
-        <Controls cart={store.getState().shoppingCart} onClick={callbacks.onActiveModal}/>
+        <Controls cart={store.getState().shoppingCart} onToggleModal={callbacks.onToggleModal}/>
         <List items={store.getState().items}
               onAction={callbacks.onAddItem}
         />
       </Layout>
-      <Modal cart={store.getState().shoppingCart}
-             active={active}
-             onClick={callbacks.onActiveModal}
+      {activeModal && <Modal cart={store.getState().shoppingCart}
+             onToggleModal={callbacks.onToggleModal}
              onDeleteItem={callbacks.onDeleteItem}/>
+      }
     </div>
   );
 }

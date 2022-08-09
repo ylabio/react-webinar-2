@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 import plural from 'plural-ru';
@@ -10,11 +10,6 @@ function Controls(props){
   const numOfGoods = props.cart.map(item => item.quantity).reduce((acc, value) => acc + value, 0);
   const sumOfGoods = props.cart.map(item => item.price * item.quantity).reduce((acc, value) => acc + value, 0);
 
-  const callbacks = {
-    onActiveModal: useCallback(() => {
-      props.onClick(true)
-    }, []),
-  }
 
   return (
     <div className={cn()}>
@@ -26,7 +21,7 @@ function Controls(props){
             : 'пусто'}
         </span>
       </div>
-      <button onClick={callbacks.onActiveModal}>Перейти</button>
+      <button onClick={props.onToggleModal}>Перейти</button>
     </div>
   )
 }

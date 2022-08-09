@@ -38,15 +38,11 @@
     padding: 20px 0 23px 20px;
 }
 .LayoutModal-head-button{
-    margin: 0;
     padding: 31px 32px 28px;
-    width: 76px;
-    height: 21px; 
 }
 .LayoutModal-head-button button{
-    width: 100%;
-    border: 1px solid #767676;
-    border-radius: 2px;
+    width: 76px;
+    height: 21px;
 }
 .LayoutModal-content{
     background: #ffffff;

@@ -1,23 +1,28 @@
-import React from "react";
+import React, { useCallback } from "react";
 import BasketTotal from "../basket-total";
 import ItemBasket from "../item-basket";
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+import List from "../list";
 import './style.css';
 
 function Basket({children, basket, totalPrice, deleteItem}) {
   const cn = bem('Basket');
+  
+  const renders = {
+    itemBasket: useCallback((itemBasket) => {
+      return <ItemBasket item={itemBasket}
+                         deleteItem={deleteItem}
+             />
+    }, [deleteItem])
+  }
 
   return (     
     <div className={cn()}>
       {children}
-      {basket.map((item) => (
-        <div className={cn('item-basket')} key={item.code} >
-          <ItemBasket item={item}
-                      deleteItem={deleteItem}
-          />
-        </div>
-          ))}
+        <List items={basket}
+              itemForRender={renders.itemBasket}
+        />
         <BasketTotal totalPrice={totalPrice}
                      basket={basket}
         />

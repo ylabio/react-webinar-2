@@ -4,6 +4,7 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import LayoutModal from './components/layout-modal';
 import Basket from './components/basket';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -30,6 +31,14 @@ function App({store}) {
   const totalPrice = store.getState().totalPrice;
   const modalVisible = store.getState().modalVisible;
 
+  const renders = {
+    item: useCallback((item) => {
+      return <Item item={item}
+                   onAddItemInBasket={callbacks.onAddItemInBasket}
+      />
+    }, [callbacks.onAddItemInBasket])
+  }
+
   useEffect(() => {
     callbacks.changeTotalPrice();
   }, [basket])
@@ -41,12 +50,12 @@ function App({store}) {
                 totalPrice={totalPrice}
       />
       <List items={store.getState().items}
-            onAddItemInBasket={callbacks.onAddItemInBasket}
+            itemForRender={renders.item}
       />
       { 
         modalVisible ?
           <LayoutModal head={<h1>Корзина</h1>}
-                        changeModalVisible={callbacks.changeModalVisible}
+                       changeModalVisible={callbacks.changeModalVisible}
           >
             <Basket basket={basket}
                     totalPrice={totalPrice}

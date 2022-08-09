@@ -4,20 +4,20 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import {toRubPrice} from "../../utils";
 
-function Item({ item, index, button, buttonText }) {
+function Item({item, addItemToCart}) {
   const cn = bem('Item');
 
   const callbacks = {
-    button: useCallback(() => {
-        button(item.code, item);
-      },[button, item]
+    addItemToCart: useCallback(() => {
+      addItemToCart(item.code, item);
+      },[addItemToCart, item]
     )
   };
 
   return (
     <div className={cn()}>
       <div className={cn('number')}>
-        {index}
+        {item.code}
       </div>
       <div className={cn('title')}>
         {item.title}
@@ -25,15 +25,9 @@ function Item({ item, index, button, buttonText }) {
       <div className={cn('price')}>
         {toRubPrice(item.price)}
       </div>
-      {
-        item.amount &&
-        <div className={cn('amount')}>
-          {`${item.amount} шт`}
-        </div>
-      }
       <div className={cn('actions')}>
-        <button onClick={callbacks.button}>
-          {buttonText}
+        <button onClick={callbacks.addItemToCart}>
+          Добавить
         </button>
       </div>
     </div>
@@ -42,15 +36,11 @@ function Item({ item, index, button, buttonText }) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  index: propTypes.number,
-  button: propTypes.func,
-  buttonText: propTypes.string
+  addItemToCart: propTypes.func,
 }
 
 Item.defaultProps = {
-  index: 0,
-  button: () => {},
-  buttonText: 'Кнопка'
+  addItemToCart: () => {},
 }
 
 export default React.memo(Item);

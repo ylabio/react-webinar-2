@@ -1,4 +1,4 @@
-/* Пункт списка */
+/* Пункт списка товаров в каталоге */
 .Item {
     display: flex;
     justify-content: flex-start;

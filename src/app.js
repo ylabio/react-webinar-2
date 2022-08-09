@@ -6,6 +6,7 @@ import Modal from "./components/modal";
 import Cart from "./components/cart";
 import ModalHeader from "./components/modal/modal-header";
 import CartTotalPrice from "./components/cart/cart-total-price";
+import CartList from "./components/cart/cart-list";
 
 /**
  * Приложение
@@ -34,17 +35,15 @@ function App({store}) {
                 cartUniqItemAmount={state.cartUniqItemAmount}
                 toggleModalShow={callbacks.toggleModalShow}/>
       <List items={state.items}
-            button={callbacks.onAddItemToCart}
-            buttonText={'Добавить'}/>
+            addItemToCart={callbacks.onAddItemToCart}/>
       {state.isModalActive &&
         <Modal toggleModalShow={callbacks.toggleModalShow}>
           <ModalHeader title='Корзина'
                        toggleModalShow={callbacks.toggleModalShow}/>
           <Cart>
             {state.cartUniqItemAmount !== 0 && <>
-                <List items={state.cartItems}
-                      button={callbacks.onDeleteCartItems}
-                      buttonText={'Удалить'}/>
+                <CartList items={state.cartItems}
+                          deleteCartItems={callbacks.onDeleteCartItems}/>
                 <CartTotalPrice cartTotalPrice={state.cartTotalPrice}/></>}
           </Cart>
         </Modal>}

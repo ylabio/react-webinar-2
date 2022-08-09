@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import {cn as bem} from "@bem-react/classname";
 import './style.css'
-import { OrderContext } from "../../app";
 
-function ModalHeader(){
+function ModalHeader({setModalActive}){
   const cn = bem('ModalHeader');
-  const {setModalActive} = useContext(OrderContext)
 
   return(
     <div className={cn()}>

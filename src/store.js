@@ -58,14 +58,16 @@ class Store {
 
   addItem(item, amount) {
     if (this.orderList.length === 0){
-      this.orderList.push({...item, amount})
+      this.orderList = [{...item, amount}]
     } else {
       for (let i = 0 ; i < this.orderList.length; i++){
         if(this.orderList[i].code === item.code){
-          this.orderList[i].amount = amount;
+          const itemWithCahngedAmount = this.orderList[i] //учет иммутабельности при смене количества элементов
+          itemWithCahngedAmount.amount = amount;
+          this.orderList[i] = itemWithCahngedAmount;
           break
         } else if(i === this.orderList.length - 1){
-          this.orderList[this.orderList.length] = {...item, amount}
+          this.orderList = [...this.orderList, {...item, amount}] //учет иммутабельности при добавление нового товара
         }
       }
     }

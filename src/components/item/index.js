@@ -1,6 +1,5 @@
-import React, {useCallback, useContext, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
-import { OrderContext } from '../../app';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
@@ -8,7 +7,7 @@ function Item(props) {
   const cn = bem('Item');
 
   const [count, setCount] = useState(1);
-  const {callbacks} = useContext(OrderContext)
+  const {callbacks} = props
 
   const onAddClickHandler = useCallback((item) => {
     setCount(prev => ++prev);
@@ -33,15 +32,6 @@ function Item(props) {
       </div>
     </div>
   )
-}
-
-Item.propTypes = {
-  item: propTypes.object.isRequired,
-  onAddItem: propTypes.func.isRequired
-}
-
-Item.defaultProps = {
-  onAddItem: () => {}
 }
 
 export default React.memo(Item);

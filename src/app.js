@@ -12,8 +12,6 @@ import ModalList from './components/modal list';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 
-export const OrderContext = React.createContext();
-
 function App({store}) {
 
   const [order, setToOrder] = useState(null);
@@ -33,18 +31,18 @@ function App({store}) {
   }
 
   return (
-    <OrderContext.Provider value={{callbacks, order, setModalActive}}>
-      {isModalActive
-        ? <Modal active={isModalActive}>
-            <ModalHeader/>
-            <ModalList />
-          </Modal>
+    <>
+    {isModalActive
+        ? <Modal>  
+          <ModalHeader setModalActive={setModalActive}/>
+          <ModalList callbacks={callbacks}/> 
+        </Modal>
         : null}
       <Layout head={<h1>Приложение на чистом JS</h1>}>
-        <Controls/>
-        <List items={store.getState().items}/>
+        <Controls order={order} setModalActive={setModalActive}/>
+        <List items={store.getState().items} callbacks={callbacks}/>
       </Layout>
-      </OrderContext.Provider>
+    </>    
   );
 }
 

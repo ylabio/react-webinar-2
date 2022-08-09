@@ -1,0 +1,8 @@
+.Order {
+    display: flex;  
+    padding: 20px;
+    margin: 0;
+   
+    list-style-type: none;
+    border-bottom: 1px dashed #ccc;
+}

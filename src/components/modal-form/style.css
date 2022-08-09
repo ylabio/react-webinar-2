@@ -1,0 +1,14 @@
+.HeaderWrap {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 30px;
+
+  width: 960px;
+  height: 80px;
+  background: #F5F5F5;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}

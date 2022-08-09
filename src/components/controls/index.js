@@ -1,21 +1,42 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import './style.css';
+import React from "react";
+import propTypes from "prop-types";
+import "./style.css";
+import Button from "../button/index.js";
+import plural from "plural-ru";
 
-function Controls({onAdd}){
+function Controls({ toggleOnClick, orders, total }) {
+  const currency = total.toLocaleString("ru-RU", {
+    style: "currency",
+    currency: "RUB",
+  });
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className="Controls">
+      <div>
+        В корзине:
+        <span className="">
+          {orders.length
+            ? `${orders.length} ${plural(
+                orders.length,
+                "товар",
+                "товара",
+                "товаров"
+              )} / ${currency} `
+            : "пусто"}
+        </span>
+      </div>
+      <Button type="button" onClick={toggleOnClick}>
+        Перейти
+      </Button>
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
+  toggleOnClick: propTypes.func.isRequired, // Обязательное свойство - функция
+};
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
-}
+  toggleOnClick: () => {}, // Значение по умолчанию - функция-заглушка
+};
 
 export default React.memo(Controls);

@@ -25,7 +25,7 @@ export function pluralize(num) {
 export function numFormat(num) {
   let str = num.toString().split(".");
   str[0] = str[0].replace(/(?=(\d{3})+(?!\d))/g, " ");
-  return str;
+  return str[0];
 }
 
 /**

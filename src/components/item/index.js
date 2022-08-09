@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState ,useEffect} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import plural from 'plural-ru';
@@ -10,8 +10,9 @@ function Item(props) {
   // Счётчик выделений
   const [count, setCount] = useState(0);
 
-  const callbacks = {
+  const [strNumb,setStrNumb] = useState(props.item.price);
 
+  const callbacks = {
     onClick: useCallback(() => {
       props.onSelect(props.item.code);
       if (!props.item.selected) {
@@ -19,11 +20,42 @@ function Item(props) {
       }
     }, [props.onSelect, props.item, setCount, count]),
 
-    onDelete: useCallback((e) => {
+    onAdder: useCallback((e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code)
+      props.onAdder(props.item)
     }, [props.onDelete,  props.item])
   };
+
+  const spaceAdder=()=>{
+    let str=props.item.price.toString();
+
+    let strArr=[];
+    for(let i=0;i<str.length;i++){
+      strArr.push(str[i]);
+    }
+  
+    if(strArr.length>3){
+      let counter=0;
+
+      for(let i=0;i<=strArr.length;i=i+3){
+        if(strArr[str.length-i]){
+          strArr.splice(-i-counter,0,' ');
+          counter++;
+        }
+        
+      }
+      if(strArr[0]===' '){
+        strArr.shift();
+      }
+    }
+    strArr=strArr.join('')
+    setStrNumb(strArr);
+  }
+
+  useEffect(()=>{
+    spaceAdder();
+  })
+ 
 
   return (
     <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
@@ -32,11 +64,13 @@ function Item(props) {
       </div>
       <div className={cn('title')}>
         {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
+      </div>
+      <div className={cn('price')}>
+        {strNumb} ₽
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button onClick={callbacks.onAdder}>
+          Добавить
         </button>
       </div>
     </div>

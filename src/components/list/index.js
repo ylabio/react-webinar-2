@@ -6,11 +6,10 @@ import './style.css';
 
 function List(props) {
   const cn = bem('List');
-
   return (
     <div className={cn()}>{props.items.map(item =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} onSelect={props.onItemSelect} onDelete={props.onItemDelete}/>
+        <Item item={item} onSelect={props.onItemSelect} onAdder={props.onAddItems}/>
       </div>
     )}
     </div>
@@ -26,7 +25,7 @@ List.propTypes = {
 List.defaultProps = {
   items: [],
   onItemSelect: () => {},
-  onItemDelete: () => {}
+  onAddItems: () => {}
 }
 
 export default React.memo(List);

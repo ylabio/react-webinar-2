@@ -3,4 +3,63 @@
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+    position: relative;
 }
+.Controls-aboutBusket{
+    position:absolute;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+    margin-right: 84px;
+    opacity: 0;
+    visibility: hidden;
+}
+.Controls-empty{
+    position:absolute;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+    margin-right: 84px;
+    opacity: 0;
+    visibility: hidden;
+}
+.Controls-hollowSpan{
+    font-family: 'Arial';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: calc(21/18)*100%;
+color: #000000;
+}
+.Controls-span:first-child{
+    display: inline-block;
+    margin-left: 7px;
+}
+.Controls-span{
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+}
+.showen{
+    opacity: 1;
+    visibility: visible;
+}
+.Controls-button{
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+    
+}
+

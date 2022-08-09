@@ -1,7 +1,6 @@
 name: Add codesandbox link
 
-on: 
-  pull_request:
+on: pull_request
 
 jobs:
   codesandbox-comment:

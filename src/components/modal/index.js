@@ -3,14 +3,14 @@ import './style.css';
 import propTypes, {object} from "prop-types";
 import {cn as bem} from "@bem-react/classname";
 
-function Modal({modal, setModalActive, totalPrice, basket, deleteItem, totalCount, modalTitle, children}) {
+function Modal({modal, setModalActive, totalPrice, basket, deleteItem, totalCount, head, children}) {
     const Item = children
     const cn = bem('Modal');
     return (
         <div className={cn()} onClick={() => setModalActive(modal.id)}>
             <div className={cn('content')} onClick={e => e.stopPropagation()}>
                 <div className='head'>
-                    <h1>{modalTitle}</h1>
+                    {head}
                     <button onClick={() => setModalActive(modal.id)} className={cn('close')}>Закрыть</button>
                 </div>
                 <div className=''>{basket.map(item =>

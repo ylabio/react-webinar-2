@@ -98,28 +98,35 @@ class Store {
     /**
      * Добавление записи в корзину
      */
-    addBasketItem({code, title, price, count = 1}) {
-        const findItem = this.state.basket.find(item => item.code === code)
-        if (findItem) {
+    addBasketItem(code) {
+        const findItem = this.state.items.find(item => item.code === code)        //находим код товара в базе
+        const findBasketItem = this.state.basket.find(item => item.code === code) // смотрим есть ли он в корзине
+        if (findBasketItem) {  // если есть, то просто увеличиваем кол-во
             this.setState({
                 ...this.state,
                 basket: this.state.basket.map(item => {
-                    if (item.code === findItem.code) {
+                    if (item.code === findBasketItem.code) {
                         return {
                             ...item,
-                            count: ++findItem.count
+                            count: ++findBasketItem.count
                         }
                     }
                     return item
                 }),
-                totalPrice: this.state.totalPrice += price,
+                totalPrice: this.state.totalPrice += findBasketItem.price,
             })
-        } else {
+        } else { // если товара нету, то добавляем его
             this.setState({
                 ...this.state,
                 totalCount: ++this.state.totalCount,
-                basket: this.state.basket.concat({code, title, price, count, id: this.state.totalCount}),
-                totalPrice: this.state.totalPrice += price,
+                basket: this.state.basket.concat({
+                    code: findItem.code,
+                    title: findItem.title,
+                    price: findItem.price,
+                    count: 1,
+                    id: this.state.totalCount
+                }),
+                totalPrice: this.state.totalPrice += findItem.price,
             })
         }
     }
@@ -145,5 +152,3 @@ class Store {
 
 
 export default Store;
-
-

@@ -34,7 +34,8 @@ function App({store}) {
             </List>
 
             {isModalActive &&
-                <Modal modalTitle={'Корзина'} totalPrice={store.state.totalPrice} modal={store.state.modals[0]}
+                <Modal head={<h1>Корзина</h1>} modalTitle={'Корзина'} totalPrice={store.state.totalPrice}
+                       modal={store.state.modals[0]}
                        setModalActive={callbacks.onChangeModal} basket={store.state.basket}
                        deleteItem={callbacks.onDeleteBasketItem} totalCount={store.state.totalCount}>
                     {BasketItem}

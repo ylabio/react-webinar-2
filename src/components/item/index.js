@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
@@ -8,7 +8,7 @@ function Item({item, onAddBasketItem}) {
 
     const callbacks = {
         onAddBasketItem: useCallback((e) => {
-            onAddBasketItem({code: item.code, title: item.title, price: item.price});
+            onAddBasketItem(item.code);
         }, [onAddBasketItem, item])
     };
     return (

@@ -14,7 +14,11 @@ const store = new Store({
     {code: counter(), title: 'Карандаши цветные', price: 111},
     {code: counter(), title: 'Товар сюрприз', price: 0},
   ],
-  cart: []
+  cart: {
+    items: [],
+    uniqueItems: 0,
+    totalAmount: 0,
+  }
 });
 
 

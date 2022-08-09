@@ -4,18 +4,18 @@ import { cn as bem } from "@bem-react/classname";
 import plural from "plural-ru";
 import "./style.css";
 
-function Controls({ onCartClick, cartLength, amount }) {
+function Controls({ onCartClick, uniqueItems, amount }) {
   const cn = bem("Controls");
   
   return (
     <div className={cn()}>
       <>
-        <div className={cn("title", {emptyCart: !cartLength})}>В корзине:</div>
+        <div className={cn("title", {emptyCart: !uniqueItems})}>В корзине:</div>
 
         <div className={cn("total")}>
-          {cartLength ? (
+          {uniqueItems ? (
             <>
-              {cartLength} {plural(cartLength, "товар", "товара", "товаров")} /{" "}
+              {uniqueItems} {plural(uniqueItems, "товар", "товара", "товаров")} /{" "}
               {amount.toLocaleString('ru')} ₽
             </>
           ) : (
@@ -30,14 +30,14 @@ function Controls({ onCartClick, cartLength, amount }) {
 }
 
 Controls.propTypes = {
-  onCartClick: propTypes.func.isRequired, // Обязательное свойство - функция
-  cartLength: propTypes.number.isRequired,
-  amount: propTypes.number.isRequired,
+  onCartClick: propTypes.func, 
+  uniqueItems: propTypes.number,
+  amount: propTypes.number,
 };
 
 Controls.defaultProps = {
   onCartClick: () => {}, // Значение по умолчанию - функция-заглушка
-  cartLength: 0,
+  uniqueItems: 0,
   amount: 0,
 };
 

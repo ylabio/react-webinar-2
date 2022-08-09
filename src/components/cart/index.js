@@ -3,47 +3,42 @@ import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 import propTypes from "prop-types";
 import List from "../list";
+import CartItem from '../cart-item/cart-item'
 
-function Cart({ cart, cartAmount, onClose, deleteItem }) {
+function Cart({ cart, cartAmount, deleteItem }) {
   const cn = bem("Cart");
 
+  console.log('cart')
+
   return (
-    <div className={cn("wrapper")}>
-      <div className={cn()}>
-        <div className={cn("head")}>
-          <h1>Корзина</h1>
-          <button onClick={onClose}>Закрыть</button>
-        </div>
-        {cart.length ? (
-          <>
-            <List items={cart} onButtonClick={deleteItem} inCart />{" "}
-            <div className={cn("total")}>
-              <span className={cn("total-title")}>Итого</span>
-              <span className={cn("total-price")}>{cartAmount.toLocaleString("ru")} ₽</span>
-            </div>
-          </>
-        ) : (
-          <div className={cn("empty-title")}>
-            Пока что тут пусто... {String.fromCodePoint(0x1f6d2)}
+    <>
+      {cart.length ? (
+        <>
+          <List items={cart} onButtonClick={deleteItem} itemRenderer={CartItem}/>{" "}
+          <div className={cn("total")}>
+            <span className={cn("total-title")}>Итого</span>
+            <span className={cn("total-price")}>
+              {cartAmount.toLocaleString("ru")} ₽
+            </span>
           </div>
-        )}
-      </div>
-    </div>
+        </>
+      ) : (
+        <div className={cn("empty-title")}>
+          Пока что тут пусто... {String.fromCodePoint(0x1f6d2)}
+        </div>
+      )}
+    </>
   );
 }
 
 Cart.propTypes = {
   cart: propTypes.arrayOf(propTypes.object).isRequired,
   cartAmount: propTypes.number.isRequired,
-  onClose: propTypes.func.isRequired,
-  deleteItem: propTypes.func.isRequired,
+  deleteItem: propTypes.func,
 };
 
 Cart.defaultProps = {
-  cart: [],
-  cartAmount: 0,
-  onClose: () => {},
-  deleteItem: () => {},
+  deleteItem: () => {}
 };
 
 export default React.memo(Cart);

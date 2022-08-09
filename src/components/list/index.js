@@ -1,16 +1,16 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import Item from "../item";
 import './style.css';
 
-function List({items, onButtonClick, inCart}) {
+function List({items, onButtonClick, itemRenderer}) {
   const cn = bem('List');
-  
+  console.log('list')
+  // Передаем компонент itemRenderer для отрисовки элемента списка, что делает сам List переиспользуемым компонентом
   return (
     <div className={cn()}>{items.map((item) =>
-      <div key={item.code} className={cn('item')}>
-        <Item item={item} onButtonClick={onButtonClick} inCart={inCart}/>
+      <div key={item.code} className={cn('item')}> 
+        {React.createElement(itemRenderer, {item, onButtonClick})} 
       </div>
     )}
     </div>
@@ -19,14 +19,12 @@ function List({items, onButtonClick, inCart}) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onButtonClick: propTypes.func.isRequired,
-  inCart: propTypes.bool.isRequired,
+  onButtonClick: propTypes.func,
+  itemRenderer: propTypes.object.isRequired
 }
 
 List.defaultProps = {
-  items: [],
-  onButtonClick: () => {},
-  inCart: false,
+  onButtonClick: () => {}
 }
 
 export default React.memo(List);

@@ -40,48 +40,54 @@ class Store {
   }
 
   /**
-   * Получение стоимости всех покупок в корзине
-   * @return {number}
-   */
-  getTotalAmount() {
-    return this.getState().cart.reduce((sum, current) => {
-      return (sum + current.price * current.quantity) || 0;
-    }, 0)
-  }
-
-  /**
    * Добавление товара в корзину
    * Если товар с таким кодом уже добавлен, изменяется его количество
-   * @param item
+   * @param code {Number}
    */
-  addItemToCart(item) {
-    const isExist = this.state.cart.some((product) => product.code === item.code); // Поиск товара по коду; true - если такой товар есть, false - если нет
-
-    // Если товара нет в корзине он добавляется со значением quantity: 1, в противном случае - меняется количество товара
-
+  addItemToCart(code) {
+    const item = this.state.items.find((product) => product.code === code); 
+    const isExist = this.state.cart.items.some((product) => product.code === item.code); // Поиск уже имеющегося товара в корзине
+    
+    // Если товара нет в корзине, он добавляется со значением quantity: 1, в противном случае - меняется количество товара
     !isExist
       ? this.setState({
           ...this.state,
-          cart: this.state.cart.concat({ ...item, quantity: 1 }),
+          cart: {
+            ...this.state.cart,
+            items: this.state.cart.items.concat({ ...item, quantity: 1 }),
+            totalAmount: this.state.cart.totalAmount += item.price,
+            uniqueItems: this.state.cart.uniqueItems + 1 // Для того, чтобы компонент не высчитывал cart.length, а получал истинное значение из store
+          }
         })
       : this.setState({
           ...this.state,
-          cart: this.state.cart.map((product) =>
-            product.code === item.code
+          cart: {
+            ...this.state.cart,
+            items: this.state.cart.items.map((product) =>
+            product.code === code
               ? { ...product, quantity: product.quantity + 1 }
               : product
           ),
+          totalAmount: this.state.cart.totalAmount += item.price,
+          }
         });
   }
 
   /**
    * Удаление товара из корзины
-   * @param item
+   * @param code {Number}
    */
-  deleteItemFromCart(item) {
+  deleteItemFromCart(code) {
+    const item = this.state.cart.items.find((product) => product.code === code)
+
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter((product) => product.code !== item.code),
+      cart: {
+        ...this.state.cart,
+        items: this.state.cart.items.filter((product) => product.code !== code),
+        totalAmount: this.state.cart.totalAmount -= item.price * item.quantity,
+        uniqueItems: this.state.cart.uniqueItems - 1
+      }
     });
   }
 }

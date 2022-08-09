@@ -12,14 +12,14 @@ function Modal(props) {
   const cn = bem('Modal');
 
   return (
-    <div className={!props.visible ? cn() : cn('_active')}>
+    <div className={cn('')}>
       <div className={cn('bg')} onClick={() => {props.setVisibility(false)}}>
         <div className={cn('window')} onClick={e => e.stopPropagation()}>
 
           <div className={cn('head')}>
             <div className={cn('headBg')}>
               {props.head}
-              <button onClick={() => props.setVisibility(false)}> 
+              <button onClick={() => {props.setVisibility(false)}}> 
                 Закрыть
               </button>
             </div>
@@ -40,5 +40,4 @@ function Modal(props) {
 }
 
 
-// export default React.memo(Modal);
-export default Modal;
+export default React.memo(Modal);

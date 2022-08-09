@@ -49,92 +49,77 @@ class Store {
    */
 
   addToCart(code) {
-    this.state.items.map(item => {
-      if (item.code === code) {
-        if (!this.state.cart.find(el => el.code == code)) {
-          this.setState({
-            ...this.state,
-            cart: this.state.cart.concat([{...item, quantity: 1}])
-          })
-          console.log('this.state after')
-          console.log(this.state)
-        } else {
-          this.setState({
-            ...this.state,
-            cart: this.state.cart.map(item => {
-              if(item.code === code){
-                return {
-                  ...item,
-                  quantity: item.quantity + 1
+      this.state.items.map(item => {
+        if (item.code === code) {
+          if (!this.state.cart.find(el => el.code == code)) {
+            this.setState({
+              ...this.state,
+              cart: this.state.cart.concat([{...item, quantity: 1}])
+            })
+            console.log('this.state after')
+            console.log(this.state)
+          } else {
+            this.setState({
+              ...this.state,
+              cart: this.state.cart.map(item => {
+                if(item.code === code){
+                  return {
+                    ...item,
+                    quantity: item.quantity + 1
+                  }
                 }
-              }
-              return item;
+                return item;
+            })
           })
-        })
+        }
       }
-    }
-  })
-  
-    
+    })
   }
+
+
   /**
    * Удаление товаров из корзины
    * @param code
    */
+  
   removeFromCart(code) {
-    this.state.cart.map(item => {
-      if (item.code === code) {
-        if (item.quantity === 1) {
-          this.setState({
-            ...this.state,
-            cart: this.state.cart.filter(item => item.code !== code)
-          })
+
+      this.state.cart.map(item => {
+        if (item.code === code) {
+            this.setState({
+              ...this.state,
+              cart: this.state.cart.filter(item => item.code !== code)
+            })
+        }
+      })
+    }
+
+
+  calculateCartItemsSum() {
+      let sum = 0
+      this.state.cart.map(item => {
+        sum = sum + (item.quantity * item.price)
+      })
+      if (this.state.cart.length === 0) {
+        return 'пусто'
       } else {
-          this.setState({
-            ...this.state,
-            cart: this.state.cart.map(item => {
-              if(item.code === code){
-                return {
-                  ...item,
-                  quantity: item.quantity - 1
-                }
-              }
-              return item;
-          })
-        })
+        return `${this.state.cart.length} ${plural(this.state.cart.length, 'товар', 'товара', 'товаров')} / ${sum.toLocaleString('ru-RU')} ₽`
       }
     }
-  })
-
-
-    }
-
-
-  calculateCart() {
-    let sum = 0
-    this.state.cart.map(item => {
-      sum = sum + (item.quantity * item.price)
-    })
-    if (this.state.cart.length === 0) {
-      return 'пусто'
-    } else {
-      return `${this.state.cart.length} ${plural(this.state.cart.length, 'товар', 'товара', 'товаров')} / ${sum.toLocaleString('ru-RU')} ₽`
-    }
-  }
 
   calculateCartSum() {
-    let sum = 0, quantity = 0
-    this.state.cart.map(item => {
-      sum = sum + (item.quantity * item.price)
-      quantity = quantity + 1
-    })
+      let sum = 0, quantity = 0
+      this.state.cart.map(item => {
+        sum = sum + (item.quantity * item.price)
+        quantity = quantity + 1
+      })
 
-    if ((sum === 0) && (quantity === 0)) {
-      return null
-    } else {
-    return `${sum.toLocaleString('ru-RU')} ₽`
+      if ((sum === 0) && (quantity === 0)) {
+        return null
+      } else {
+      return `${sum.toLocaleString('ru-RU')} ₽`
+      }
     }
-  }
 
 }
 

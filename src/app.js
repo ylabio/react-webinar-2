@@ -12,7 +12,7 @@ function App({store}) {
 
   const callbacks = {
     onOpenCart: useCallback(() => {
-      setCartVisibility(true)
+      setCartVisibility(true);
     }, []),
     onAddToCart: useCallback((code) => {
       store.addToCart(code);
@@ -26,14 +26,15 @@ function App({store}) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Modal head={<h1>Корзина</h1>}
-            items={store.getState().cart}
-            visible={cartVisible}
-            setVisibility={setCartVisibility}
-            onButton={callbacks.onRemoveFromCart}
-            buttonText={'Удалить'}
-            bottomText={store.calculateCartSum()}/>
-      <Controls controlsText={'В корзине:'} controlsData={store.calculateCart()} onControlButton={callbacks.onOpenCart} buttonText={'Перейти'}/>
+      {cartVisible ? (
+        <Modal head={<h1>Корзина</h1>}
+        items={store.getState().cart}
+        setVisibility={setCartVisibility}
+        onButton={callbacks.onRemoveFromCart}
+        buttonText={'Удалить'}
+        bottomText={store.calculateCartSum()}/>
+      ) : (null)}
+      <Controls controlsText={'В корзине:'} controlsData={store.calculateCartItemsSum()} onControlButton={callbacks.onOpenCart} buttonText={'Перейти'}/>
       <List items={store.getState().items}
             onButton={callbacks.onAddToCart}
             buttonText={'Добавить'}

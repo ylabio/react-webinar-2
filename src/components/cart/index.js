@@ -28,14 +28,11 @@ function Cart({items, onDeleteCart, cartSum}){
 
 Cart.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  cartSum: propTypes.number,
-  onDeleteCart: propTypes.func
+  cartSum: propTypes.number.isRequired,
+  onDeleteCart: propTypes.func.isRequired
 }
 
 Cart.defaultProps = {
-  items: [],
-  cartSum: 0,
-  onDeleteCart: () => {},
 }
 
 export default React.memo(Cart);

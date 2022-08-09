@@ -57,7 +57,7 @@ class Store {
         cart: [...this.state.cart, { ...this.state.items.find(item=>item.code === code), count: 1 } ]
       })
     }
-    this.calculateCartSum()
+    this.calculateCart()
   }
 
   /**
@@ -69,16 +69,17 @@ class Store {
       ...this.state, 
       cart: this.state.cart.filter(item => item.code !== code)
     })
-    this.calculateCartSum()
+    this.calculateCart()
   }
 
   /**
    * Сумма корзины
    */
-  calculateCartSum() {
+  calculateCart() {
     this.setState({
       ...this.state,
-      cartSum: this.state.cart.reduce((a,b)=>a + b.price * b.count, 0)
+      cartSum: this.state.cart.reduce((a,b)=>a + b.price * b.count, 0),
+      cartAmount: this.state.cart.length
     })
   }
 

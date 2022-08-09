@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import Item from "../item";
 import './style.css';
+import ItemCart from '../item-cart';
 
 function List({items, mode, onItemAddCart, onDeleteCart}) {
   const cn = bem('List');
@@ -12,7 +13,8 @@ function List({items, mode, onItemAddCart, onDeleteCart}) {
       {items.length > 0 ? 
         items.map(item =>
         <div key={item.code} className={cn('item')}>
-          <Item item={item} mode={mode} onAddCart={onItemAddCart} onDeleteCart={onDeleteCart} />
+          {mode === 'default' && <Item item={item} onAddCart={onItemAddCart} />}
+          {mode === 'cart' && <ItemCart item={item} onDeleteCart={onDeleteCart} />}
         </div>) : 
         <div>Пусто</div>}
     </div>
@@ -28,7 +30,6 @@ List.propTypes = {
 
 List.defaultProps = {
   mode: 'default',
-  items: [],
   onItemAddCart: () => {},
   onDeleteCart: () => {}
 }

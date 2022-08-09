@@ -6,6 +6,7 @@ import Modal from "./components/modal";
 import Item from "./components/item";
 import BasketTotal from "./components/basket-total";
 import BasketList from "./components/basket-list";
+import BasketItem from "./components/basket-item";
 
 /**
  * Приложение
@@ -36,7 +37,9 @@ function App({store}) {
 
             {isModalActive &&
                 <Modal head={<h1>Корзина</h1>} modal={store.state.modals[0]} setModalActive={callbacks.onChangeModal}>
-                    <BasketList basket={store.state.basket} deleteItem={callbacks.onDeleteBasketItem}/>
+                    <BasketList basket={store.state.basket} deleteItem={callbacks.onDeleteBasketItem}>
+                        {BasketItem}
+                    </BasketList>
                     <BasketTotal totalCount={store.state.totalCount} totalPrice={store.state.totalPrice}/>
                 </Modal>}
 

@@ -4,12 +4,13 @@ import propTypes from "prop-types";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function basketList({basket, deleteItem}) {
+function basketList({basket, deleteItem, children}) {
+    const Item = children
     const cn = bem('Basket-list');
     return (
         <div className={cn()}>{basket.map(item =>
             <div key={item.code} className={cn('item')}>
-                <BasketItem item={item} deleteItem={deleteItem}/>
+                <Item item={item} deleteItem={deleteItem}/>
             </div>
         )}
         </div>

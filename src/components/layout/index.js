@@ -19,6 +19,4 @@ Layout.propTypes = {
   children: propTypes.node.isRequired,
 };
 
-Layout.defaultProps = {};
-
 export default React.memo(Layout);

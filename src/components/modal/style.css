@@ -8,13 +8,14 @@
     z-index: 1;
 }
 .Modal {
-    width: 960px;
+    width: 100%;
+    max-width: 960px;
     position: absolute;
+    top: 17%;
     left: 0;
     right: 0;
-    align-items: center;
-    top: 20%;
-    margin: 0 auto;
+    margin: auto;
+
 
 }
 .Modal-head{
@@ -47,5 +48,5 @@
     font-weight: 600;
 }
 .Modal-total-sum{
-    padding: 0 80px 0 30px;
+    padding: 0 100px 0 30px;
 }

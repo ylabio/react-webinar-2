@@ -89,7 +89,6 @@ class Store {
     const itemIsInModal = this.state.itemsModal.some(
         (el) => el.code === item.code
     );
-
     if (!itemIsInModal) {
       this.setState({
         ...this.state,

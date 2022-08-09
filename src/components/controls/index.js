@@ -19,7 +19,7 @@ function Controls({items, onClickModal}){
                     <b>{items.length} {plural(items.length,
                         'товар', 
                         'товара',
-                        'товаров')} / ${totalPrice} ₽ </b>
+                        'товаров')} / {totalPrice.toLocaleString('ru')} ₽ </b>
                     :
                     <b> пусто</b>}
             </div>

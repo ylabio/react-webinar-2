@@ -22,7 +22,7 @@ function App({store}) {
   const [modalOpened, setModalOpened] = React.useState(false);
   return (
       <div>
-        <Layout head={<h1>Приложение на чистом JS</h1>}>
+        <Layout head={<h1>Магазин</h1>}>
           <Controls items={store.getState().itemsModal} onClickModal = { () => setModalOpened(true)}/>
           <List items={store.getState().items}
                 actionButton={callbacks.onAddItems}

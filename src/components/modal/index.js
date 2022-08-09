@@ -27,7 +27,7 @@ function Modal(props){
 
                     <div className={cn('total')}>
                         <p className={cn('total-title')}>Итого:</p>
-                        <p className={cn('total-sum')}>{totalPrice} ₽</p>
+                        <p className={cn('total-sum')}>{totalPrice.toLocaleString('ru')} ₽</p>
                     </div>
                 </div>
             </div>

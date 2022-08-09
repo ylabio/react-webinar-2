@@ -49,7 +49,7 @@ class Store {
       if (item.code === code) {
         return {
           ...item,
-          count: item.count-=1
+          count: 0
         }
       }
       return item;

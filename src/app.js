@@ -28,7 +28,7 @@ function App({store}) {
   }
   const sumBasket=store.getState().basket.reduce((acc,curr)=>{
     acc.sum+=(curr.price*curr.count)
-    acc.amount+=curr.count
+    acc.amount+=1
     return acc
   },{amount:0,sum:0})
 

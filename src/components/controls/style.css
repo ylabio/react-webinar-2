@@ -2,5 +2,17 @@
 .Controls{
     display: flex;
     justify-content: flex-end;
+		align-items: center;
     padding: 20px;
+}
+.Controls button{
+    padding: 1px 12px;
+}
+.Controls-total{
+    padding: 0 20px;
+		font-size: 18px;
+		line-height: 1;
+}
+.Controls-total strong{
+    margin-left: 15px;
 }

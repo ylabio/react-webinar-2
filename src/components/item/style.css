@@ -2,6 +2,7 @@
 .Item{
     display: flex;
     justify-content: flex-start;
+		align-items: center;
     transition: background-color 1s;
 }
 .Item_selected{
@@ -20,4 +21,18 @@
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+.Item-price{
+    width: 50%;
+		font-size: 18px;
+    line-height: 1;
+    padding: 19px 16px 21px;
+		text-align: right;
+}
+.Item-totalcount {
+    width: 14%;
+    font-size: 18px;
+    line-height: 1;
+    padding: 19px 16px 21px;
+    text-align: right;
 }

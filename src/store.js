@@ -1,3 +1,5 @@
+import { calculateTotalPrice } from 'utils.js';
+
 class Store {
 
   constructor(initState) {
@@ -40,46 +42,53 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
+	/**
+	 * Добавление товара в корзину
+	 * @param code
+	 */
+	addToCartItem(code) {
+		const findItem = this.state.items.find(cartItem => cartItem.code === code);
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
+		this.setState({
+			...this.state,
+			cartItems: 
+				!this.state.cartItems.some(cartItem => cartItem.code === code) ? 
+          [...this.state.cartItems, {...findItem, totalCount: 1}] : 
+					this.state.cartItems.map(cartItem => {
+						if(cartItem.code === code) {
+							return {...cartItem, totalCount: cartItem.totalCount + 1};
+						}
+						return cartItem;
+					})
+		});
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
+		this.setResultsCart();
+	}
+
+	/**
+	 * Удаление товара из корзины
+	 * @param code
+	 */
+	deleteFromCartItem(code) {
+		this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
-  }
+      cartItems: this.state.cartItems.filter(cartItem => cartItem.code !== code)
+		});
+
+		this.setResultsCart();
+	}
+
+	/**
+	 * Общее количество уникального товара и сумма с учётом всего количества
+	 *
+	 */
+	setResultsCart() {
+		this.setState({
+			...this.state,
+			totalCount: this.state.cartItems.length,
+			totalPrice: calculateTotalPrice(this.state.cartItems)
+		});
+	}
 }
 
 export default Store;

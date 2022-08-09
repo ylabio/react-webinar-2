@@ -12,7 +12,7 @@ function Shop(props){
   })
 
   return (
-    <Layout head={[<h1>Магазин</h1>]}>
+    <Layout head={[<h1 key={1}>Магазин</h1>]}>
       <Controls cart={props.state.cart} onButtonEvent={props.onShowCart}/>
       <List items={items} onButtonEvent={props.onAddItem} textButton="Добавить"/>
     </Layout>

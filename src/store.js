@@ -66,9 +66,10 @@ class Store {
    */
   deleteItems(code) {
     const filteredArray = this.state.cart.items.filter(item => item !== code);
+    const count = this.state.cart.items.length - filteredArray.length;
     this.setState({
       ...this.state,
-      cart: {total: this.state.cart.total - this.getItem(code).price, unique: new Set(filteredArray).size, items: filteredArray}
+      cart: {total: this.state.cart.total - this.getItem(code).price * count, unique: new Set(filteredArray).size, items: filteredArray}
     });
   }
 }

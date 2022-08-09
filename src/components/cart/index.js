@@ -22,7 +22,7 @@ function Cart(props) {
   }
 
   return (
-    <Layout head={[<h1>Корзина</h1>, <button onClick={props.onHideModal}>Закрыть</button>]}>
+    <Layout head={[<h1 key={1}>Корзина</h1>, <button key={2} onClick={props.onHideModal}>Закрыть</button>]}>
       <List items={items} onButtonEvent={props.onDeleteItems} textButton="Удалить"/>
       {items.length > 0
         ? <div className="Layout-total">

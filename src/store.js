@@ -3,8 +3,8 @@ class Store {
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
-    // Слушатели изменений state
-    this.listners = [];
+    this.listeners = [];
+    this.orderList = [];
   }
 
   /**
@@ -22,8 +22,8 @@ class Store {
   setState(newState) {
     this.state = newState;
     // Оповещаем всех подписчиков об изменении стейта
-    for (const lister of this.listners) {
-      lister();
+    for (const listener of this.listeners) {
+      listener();
     }
   }
 
@@ -33,48 +33,44 @@ class Store {
    * @return {Function} Функция для отписки
    */
   subscribe(callback) {
-    this.listners.push(callback);
+    this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listners = this.listners.filter(item => item !== callback);
+      this.listeners = this.listeners.filter(item => item !== callback);
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новая запись', selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, selected})
-    });
+
+  getOrder() {
+    return this.orderList;
   }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
+  showOrder() {
+    
+      const amount = this.orderList.length;
+      const cost = this.orderList.reduce((prev, item) => {
+        return prev + item.price * item.amount
+      }, 0)
+      
+      return {cost, amount}
+      
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          item.selected = !item.selected;
+  addItem(item, amount) {
+    if (this.orderList.length === 0){
+      this.orderList = [{...item, amount}]
+    } else {
+      for (let i = 0 ; i < this.orderList.length; i++){
+        if(this.orderList[i].code === item.code){
+          const itemWithCahngedAmount = this.orderList[i] //учет иммутабельности при смене количества элементов
+          itemWithCahngedAmount.amount = amount;
+          this.orderList[i] = itemWithCahngedAmount;
+          break
+        } else if(i === this.orderList.length - 1){
+          this.orderList = [...this.orderList, {...item, amount}] //учет иммутабельности при добавление нового товара
         }
-        return item;
-      })
-    });
+      }
+    }
   }
 }
 

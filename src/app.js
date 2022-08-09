@@ -1,45 +1,48 @@
-import React from 'react';
-import {counter} from './utils.js';
-import './style.css';
+import React, {useCallback, useState} from 'react';
+import Controls from "./components/controls";
+import List from "./components/list";
+import Layout from "./components/layout";
+import Modal from './components/modal';
+import ModalHeader from './components/modal header';
+import ModalList from './components/modal list';
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
+
 function App({store}) {
-  // Выбор состояния из store
-  const {items} = store.getState();
+
+  const [order, setToOrder] = useState(null);
+  const [isModalActive, setModalActive] = useState(false);
+
+  const callbacks = {
+    onAddItem: useCallback((item, amount) => {  
+      store.addItem(item, amount);
+      setToOrder(store.showOrder())
+    }, []),
+    getOrder: useCallback(() => {
+      return store.getOrder();
+    }, []),
+    showOrder: useCallback(() => {
+      store.showOrder();
+    }, []),
+  }
 
   return (
-    <div className='App'>
-      <div className='App__head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='Controls'>
-        <button onClick={() => {
-          const code = counter();
-          store.createItem({code, title: `Новая запись ${code}`})
-        }}> Добавить </button>
-      </div>
-      <div className='App__center'>
-        <div className='List'>{items.map(item =>
-          <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
-              <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
-              <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
-                  Удалить
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-        </div>
-      </div>
-    </div>
+    <>
+    {isModalActive
+        ? <Modal>  
+          <ModalHeader setModalActive={setModalActive}/>
+          <ModalList callbacks={callbacks}/> 
+        </Modal>
+        : null}
+      <Layout head={<h1>Приложение на чистом JS</h1>}>
+        <Controls order={order} setModalActive={setModalActive}/>
+        <List items={store.getState().items} callbacks={callbacks}/>
+      </Layout>
+    </>    
   );
 }
 

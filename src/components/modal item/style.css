@@ -1,0 +1,31 @@
+.Item{
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 1s;
+}
+
+.Item-title{
+    width: 100%;
+    padding: 20px 10px;
+}
+.Item-actions{
+    padding: 20px 20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.Item-number{
+    padding: 20px 10px 20px 20px;
+}
+
+.Item-price{
+    width: 100%;
+    padding: 20px 0px;
+    text-align: right;
+}
+
+.Item-amount{
+    width: 20%;
+    padding: 20px 10px;
+    text-align: right;
+}
+

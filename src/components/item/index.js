@@ -16,19 +16,30 @@ function Item(props) {
     ),
     onAddItemToCart: useCallback(() => {
       props.onAddItemToCart(props.item);
-    }, [props.onAddItemToCart, props.item]),
+    }, [props.onAddItemToCart, props.item, props.setConsolidationItems]),
   };
 
   return (
     <div className={cn()}>
       <div className={cn("number")}>{props.item.code}</div>
       <div className={cn("title")}>{props.item.title}</div>
-      <div className={cn("price")}>{props.item.price + "\u20BD"}</div>
+      <div className={cn("price")}>
+        {props.isMainContent ? props.item.price : props.item.totalPrice}
+      </div>
+      <div className={cn("symbol")}>{"\u20BD"}</div>
+      {props.isMainContent ?? (
+        <div className={cn("count")}>{props.item.count}</div>
+      )}
+      {props.isMainContent ?? <div className={cn("symbol")}>шт</div>}
       <div className={cn("actions")}>
         {props.isMainContent ? (
-          <button onClick={callbacks.onAddItemToCart}>Добавить</button>
+          <button className={cn("button")} onClick={callbacks.onAddItemToCart}>
+            Добавить
+          </button>
         ) : (
-          <button onClick={callbacks.onDelete}>Удалить</button>
+          <button className={cn("button")} onClick={callbacks.onDelete}>
+            Удалить
+          </button>
         )}
       </div>
     </div>
@@ -42,6 +53,7 @@ Item.propTypes = {
 };
 
 Item.defaultProps = {
+  item: {},
   onDeleted: () => {},
   onAddItemToCart: () => {},
 };

@@ -4,27 +4,42 @@ import List from "../list";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 import propTypes from "prop-types";
+import { countingTotalPriceAllItems } from "../../utils";
 
 function Modal(props) {
+  const totalPriceAllItems = countingTotalPriceAllItems(
+    props.consolidationItems
+  );
+
   const cn = bem("Modal");
 
   return (
     <div className={cn()}>
       <div className={cn("group")}>
         <Controls setIsOpenedModal={props.setIsOpenedModal} />
-        <List items={props.items} onItemDelete={props.onItemDelete} />
+        <div className={cn("indent")}></div>
+        <List
+          items={props.consolidationItems}
+          onItemDelete={props.onItemDelete}
+        />
+        <div className={cn("total")}>
+          <div className={cn("totalChild1")}>Итого</div>
+          <div className={cn("totalChild2")}>
+            {totalPriceAllItems ? `${totalPriceAllItems} \u20BD` : "пусто"}
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
 List.propTypes = {
-  items: propTypes.arrayOf(propTypes.object).isRequired,
+  consolidationItems: propTypes.arrayOf(propTypes.object).isRequired,
   onItemDelete: propTypes.func,
 };
 
 List.defaultProps = {
-  items: [],
+  consolidationItems: [],
   setIsOpenedModal: () => {},
   onItemDelete: () => {},
 };

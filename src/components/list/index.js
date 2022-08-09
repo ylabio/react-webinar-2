@@ -26,8 +26,8 @@ function List(props) {
 List.propTypes = {
   isMainContent: propTypes.any,
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemDelete: propTypes.func,
-  onAddItemToCart: propTypes.func,
+  onItemDelete: propTypes.func.isRequired,
+  onAddItemToCart: propTypes.func.isRequired,
 };
 
 List.defaultProps = {

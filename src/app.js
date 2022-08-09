@@ -4,6 +4,7 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import { counter } from "./utils";
 import Modal from "./components/modal";
+import { mergeItems } from "./utils";
 
 /**
  * Приложение
@@ -12,6 +13,7 @@ import Modal from "./components/modal";
  */
 function App({ store }) {
   const [isOpenedModal, setIsOpenedModal] = useState(false);
+  const consolidationItems = mergeItems(store.getState().shoppingCart);
   const callbacks = {
     onAdd: useCallback(() => {
       const code = counter();
@@ -27,7 +29,11 @@ function App({ store }) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls isMainContent setIsOpenedModal={setIsOpenedModal} />
+      <Controls
+        consolidationItems={consolidationItems}
+        isMainContent
+        setIsOpenedModal={setIsOpenedModal}
+      />
       <List
         isMainContent
         items={store.getState().items}
@@ -35,7 +41,7 @@ function App({ store }) {
       />
       {isOpenedModal ? (
         <Modal
-          items={store.getState().shoppingCart}
+          consolidationItems={consolidationItems}
           onItemDelete={callbacks.onDeleteItems}
           setIsOpenedModal={setIsOpenedModal}
         />

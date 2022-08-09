@@ -36,17 +36,16 @@ function App({store}) {
 					<List items={store.getState().items} onAddItems={callbacks.onAddItems} />
 				</Layout>
 				<Modal isVisibleModal={isVisibleModal} closeModal={callbacks.onTransition}>
-					<Layout head={
+					<div>
 						<Head
 								title='Корзина'
 								button={button}
-						/>}
-					>
+						/>
 						<List items={basket}
 									onDeleteItems={callbacks.onDeleteItems}
 						/>
 						{!!basket.length && <Total basket={basket}/>}
-					</Layout>
+					</div>
 				</Modal>
 			</div>
   );

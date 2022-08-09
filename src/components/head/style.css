@@ -7,3 +7,7 @@
 }
 
 .Head h1{margin: 0;}
+
+.Head .Button {
+  padding: 0 10px 0;
+}

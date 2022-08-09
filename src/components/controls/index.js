@@ -41,8 +41,8 @@ Controls.propTypes = {
   calcPrice: propTypes.func.isRequired,
 }
 Controls.defaultProps = {
-  cartList: [],
-  onOpenPanel: () => {},
+  // cartList: [],
+  // onOpenPanel: () => {},
   calcPrice: () => {},
 }
 

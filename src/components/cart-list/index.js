@@ -35,10 +35,10 @@ CartList.propTypes = {
     calcPrice: propTypes.func.isRequired,
 };
   
-CartList.defaultProps = {
-    items: [],
-    onDeleteItem: () => {},
-    calcPrice: () => {},
-};
+// CartList.defaultProps = {
+//     items: [],
+//     onDeleteItem: () => {},
+//     calcPrice: () => {},
+// };
 
 export default React.memo(CartList)

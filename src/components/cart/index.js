@@ -26,10 +26,10 @@ Cart.propTypes = {
   onClosePanel: propTypes.func.isRequired,
   onDeleteItem: propTypes.func.isRequired,
 }
-Cart.defaultProps = {
-  cartList: [],
-  onClosePanel: () => {},
-  onDeleteItem: () => {},
-}
+// Cart.defaultProps = {
+//   cartList: [],
+//   onClosePanel: () => {},
+//   onDeleteItem: () => {},
+// }
 
 export default React.memo(Cart)

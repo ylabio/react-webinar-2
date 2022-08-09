@@ -22,9 +22,9 @@ List.propTypes = {
   addItem: propTypes.func,
 }
 
-List.defaultProps = {
-  items: [],
-  addItem: () => {},
-}
+// List.defaultProps = {
+//   items: [],
+//   addItem: () => {},
+// }
 
 export default React.memo(List);

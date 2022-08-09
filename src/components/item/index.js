@@ -10,7 +10,7 @@ function Item(props) {
 
   const callbacks = {
     addItem: useCallback(() => {
-      props.addItem(props.item);
+      props.addItem(props.item.code);
     }, [props.addItem, props.item]),
   };
 
@@ -39,9 +39,9 @@ Item.propTypes = {
   addItem: propTypes.func.isRequired,
 }
 
-Item.defaultProps = {
-  item: {},
-  addItem: () => {},
-}
+// Item.defaultProps = {
+//   item: {},
+//   addItem: () => {},
+// }
 
 export default React.memo(Item);

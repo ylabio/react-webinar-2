@@ -43,9 +43,9 @@ CartItem.propTypes = {
     onDeleteItem: propTypes.func.isRequired,
 };
   
-CartItem.defaultProps = {
-    item: {},
-    onDeleteItem: () => {},
-};
+// CartItem.defaultProps = {
+//     item: {},
+//     onDeleteItem: () => {},
+// };
 
 export default React.memo(CartItem)

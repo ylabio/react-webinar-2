@@ -65,16 +65,19 @@ class Store {
       isShown: false
     })
   }
-  addItem(item) {
+  addItem(code) {
     const itemIndex = this.state.cartList.findIndex(
-      (cartItem) => cartItem.code === item.code
+      (cartItem) => cartItem.code === code
     );
     let newOrder = null;
     if (itemIndex < 0) {
+        const newItemIndex = this.state.items.findIndex(
+          (cartItem) => cartItem.code === code
+        );
         const newItem = {
-            code: item.code,
-            title: item.title,
-            price: item.price,
+            code,
+            title: this.state.items[newItemIndex].title,
+            price: this.state.items[newItemIndex].price,
             count: 1,
         };
         newOrder = [...this.state.cartList, newItem];

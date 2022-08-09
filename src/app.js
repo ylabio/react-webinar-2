@@ -18,8 +18,8 @@ function App({store}) {
     onClosePanel: useCallback(() => {
       store.closePanel();
     }, []),
-    addItem: useCallback((item) => {
-      store.addItem(item);
+    addItem: useCallback((code) => {
+      store.addItem(code);
     }, []),
     onDeleteItem: useCallback((code) => {
       store.deleteItem(code);

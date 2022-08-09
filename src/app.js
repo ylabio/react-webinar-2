@@ -4,6 +4,8 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import Modal from "./components/modal";
 import Cart from "./components/cart";
+import ModalHeader from "./components/modal/modal-header";
+import CartTotalPrice from "./components/cart/cart-total-price";
 
 /**
  * Приложение
@@ -12,9 +14,11 @@ import Cart from "./components/cart";
  */
 function App({store}) {
 
+  const state = store.getState();
+
   const callbacks = {
-    toggleCart: useCallback(() => {
-      store.toggleCart();
+    toggleModalShow: useCallback(() => {
+      store.toggleModalShow();
     }, []),
     onAddItemToCart: useCallback((code, item) => {
       store.addItemToCart(code, item);
@@ -26,21 +30,24 @@ function App({store}) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls cartItems={store.getState().cartItems}
-                toggleCart={callbacks.toggleCart}/>
-      <List items={store.getState().items}
+      <Controls cartTotalPrice={state.cartTotalPrice}
+                cartUniqItemAmount={state.cartUniqItemAmount}
+                toggleModalShow={callbacks.toggleModalShow}/>
+      <List items={state.items}
             button={callbacks.onAddItemToCart}
             buttonText={'Добавить'}/>
-      <Modal isModalActive={store.getState().isModalActive}
-             toggleCart={callbacks.toggleCart}>
-        <Layout head={
-          <>
-            <h1>Корзина</h1>
-            <button onClick={callbacks.toggleCart}>Закрыть</button>
-          </>}/>
-        <Cart cartItems={store.getState().cartItems}
-              deleteCartItems={callbacks.onDeleteCartItems}/>
-      </Modal>
+      {state.isModalActive &&
+        <Modal toggleModalShow={callbacks.toggleModalShow}>
+          <ModalHeader title='Корзина'
+                       toggleModalShow={callbacks.toggleModalShow}/>
+          <Cart>
+            {state.cartUniqItemAmount !== 0 && <>
+                <List items={state.cartItems}
+                      button={callbacks.onDeleteCartItems}
+                      buttonText={'Удалить'}/>
+                <CartTotalPrice cartTotalPrice={state.cartTotalPrice}/></>}
+          </Cart>
+        </Modal>}
     </Layout>
   );
 }

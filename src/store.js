@@ -52,40 +52,64 @@ class Store {
     if (cartItems.find((item) => item.code === code) === undefined) {
       this.setState({
         ...this.state,
-        cartItems: [...cartItems, { ...item, amount: 1 }],
+        cartItems: [...cartItems, {...item, amount: 1}],
       });
     } else {
       this.setState({
         ...this.state,
         cartItems: cartItems.map((item) => {
           if (item.code === code) {
-            return { ...item, amount: item.amount + 1 };
+            return {...item, amount: item.amount + 1};
           } else {
             return item;
           }
         }),
       });
     }
+    this.calculateCartTotalPrice();
+    this.calculateUniqCartItems();
   }
 
   /**
    * Добавление товара в корзину
    * @param code {number}
    */
-  deleteCartItems(code){
+  deleteCartItems(code) {
     this.setState({
       ...this.state,
       cartItems: this.state.cartItems.filter((item) => item.code !== code),
     });
+    this.calculateCartTotalPrice();
+    this.calculateUniqCartItems();
   }
 
   /**
    * Показать/скрыть модальное окно
    */
-  toggleCart() {
+  toggleModalShow() {
     this.setState({
       ...this.state,
       isModalActive: !this.state.isModalActive
+    });
+  }
+
+  /**
+   * Вычисляет стоимость всех товаров в корзине
+   */
+  calculateCartTotalPrice() {
+    this.setState({
+      ...this.state,
+      cartTotalPrice: this.state.cartItems.reduce((sum, val) => sum + val.price * val.amount, 0)
+    });
+  }
+
+  /**
+   * Вычисляет стоимость количество уникальных товаров в корзине
+   */
+  calculateUniqCartItems() {
+    this.setState({
+      ...this.state,
+      cartUniqItemAmount: this.state.cartItems.length
     });
   }
 }

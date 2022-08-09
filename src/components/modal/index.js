@@ -3,13 +3,13 @@ import './style.css';
 import propTypes from "prop-types";
 import {cn as bem} from "@bem-react/classname";
 
-function Modal({isModalActive, toggleCart, children}) {
+function Modal({toggleModalShow, children}) {
   const cn = bem('Modal');
   const a = bem('active');
 
   return (
-    <div className={isModalActive ? cn(null, [a()]) : cn()} onClick={toggleCart}>
-      <div className={isModalActive ? cn('content', [a()]) : cn('content')} onClick={e => e.stopPropagation()}>
+    <div className={cn(null, [a()])} onClick={toggleModalShow}>
+      <div className={cn('content', [a()])} onClick={e => e.stopPropagation()}>
           {children}
       </div>
     </div>
@@ -17,14 +17,11 @@ function Modal({isModalActive, toggleCart, children}) {
 }
 
 Modal.propTypes = {
-  isModalActive: propTypes.bool,
-  toggleCart: propTypes.func.isRequired,
+  toggleModalShow: propTypes.func.isRequired,
   children: propTypes.node
 }
 
 Modal.defaultProps = {
-  isModalActive: false,
-  toggleCart: () => {},
   children: ''
 }
 

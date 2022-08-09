@@ -2,9 +2,10 @@ import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
-import { getAllPrice, toPlural } from "../../utils";
+import {toRubPrice} from "../../utils";
+import plural from "plural-ru";
 
-function Controls({ cartItems, toggleCart }) {
+function Controls({cartTotalPrice, cartUniqItemAmount, toggleModalShow}) {
   const cn = bem('Controls');
 
   return (
@@ -12,24 +13,26 @@ function Controls({ cartItems, toggleCart }) {
       <div className={cn("description")}>
         В корзине:
         <strong className={cn("description-strong")}>
-          {!cartItems.length
+          {!cartUniqItemAmount
             ? 'пусто'
-            : `${toPlural(cartItems.length,"товар","товара","товаров")} / ${getAllPrice(cartItems)}`}
+            : `${plural(cartUniqItemAmount,"%d товар","%d товара","%d товаров")} / ${toRubPrice(cartTotalPrice)}`}
         </strong>
       </div>
-      <button onClick={toggleCart}>Перейти</button>
+      <button onClick={toggleModalShow}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  toggleCart: propTypes.func,
-  cartItems: propTypes.arrayOf(propTypes.object).isRequired,
+  toggleModalShow: propTypes.func,
+  cartTotalPrice: propTypes.number,
+  cartUniqItemAmount: propTypes.number
 }
 
 Controls.defaultProps = {
-  toggleCart: () => {},
-  cartItems: [],
+  toggleModalShow: () => {},
+  cartTotalPrice: 0,
+  cartUniqItemAmount: 0
 }
 
 export default React.memo(Controls);

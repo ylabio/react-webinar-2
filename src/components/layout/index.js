@@ -24,6 +24,8 @@ Layout.propTypes = {
 }
 
 Layout.defaultProps = {
+  head: '',
+  children: '',
 }
 
 export default React.memo(Layout);

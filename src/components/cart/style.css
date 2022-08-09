@@ -1,15 +1,4 @@
 /*Корзина товаров*/
-.Cart-total-price {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 26px 108px 26px;
-    white-space: nowrap;
-}
-
-.Cart-total-price span{
-    margin-left: 49px;
-}
 
 .Cart .Item-actions button{
     width: 71px;

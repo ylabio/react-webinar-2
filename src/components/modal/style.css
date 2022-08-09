@@ -1,3 +1,7 @@
+body {
+   overflow: auto;
+}
+
 .Modal {
    position: fixed;
    top: 0;
@@ -43,6 +47,16 @@
    font-weight: 700;
    font-size: 18px;
    line-height: 21px;
+}
+
+.Empty-cart-text {
+   font-weight: 700;
+   font-size: 18px;
+   line-height: 21px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 35vh;
 }
 
 .Totalprice-title {

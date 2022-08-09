@@ -4,15 +4,9 @@ import ModalHead from './ModalHead'
 import './style.css'
 import propTypes from 'prop-types';
 import Totalprice from './Totalprice';
+import CartModalContent from './CartModalContent';
 
 const ModalWindow = ({ onDeleteProduct, setModalStatus, modalStatus, products }) => {
-    const [totalPrice, setTotalPrice] = useState(0)
-
-    useMemo(() => {
-        if (products.length !== 0) {
-            setTotalPrice(products.map(item => item.price * item.value).reduce((item, total) => total += item, 0))
-        }
-    }, [products, totalPrice])
 
     let rootClasses = ['Modal']
 
@@ -23,9 +17,7 @@ const ModalWindow = ({ onDeleteProduct, setModalStatus, modalStatus, products })
     return (
         <div className={rootClasses.join(' ')} onClick={setModalStatus}>
             <div className='Modal-content' onClick={e => e.stopPropagation()}>
-                <ModalHead setModalStatus={setModalStatus} />
-                <CartList products={products} onDeleteProduct={onDeleteProduct} />
-                <Totalprice totalPrice={totalPrice} />
+                <CartModalContent setModalStatus={setModalStatus} products={products} onDeleteProduct={onDeleteProduct} />
             </div>
         </div>
     )

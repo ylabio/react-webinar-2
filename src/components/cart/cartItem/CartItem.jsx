@@ -4,8 +4,8 @@ import '../style.css'
 
 const CartItem = ({ onDeleteProduct, product }) => {
    const cn = bem('Item');
-   product.value++
-
+   product.value += 1
+   console.log(product.value)
    const callbacks = {
 
       onClick: useCallback(() => {
@@ -26,7 +26,7 @@ const CartItem = ({ onDeleteProduct, product }) => {
             </div>
             <div className='Right-content'>
                <span className='Product-price'>{product.price} ₽</span>
-               <span className='Product-value'>{product.value} шт</span>
+               <span className='Product-value'>{product.value - 1} шт</span>
                <div className={cn('actions')} onClick={e => e.stopPropagation()}>
                   <button onClick={callbacks.onClick}>
                      Удалить

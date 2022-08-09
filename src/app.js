@@ -30,16 +30,13 @@ function App({ store }) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls
-        onOpenCart={callbacks.onOpenCart}
-        cart={store.getState().cart}
-      />
+      <Controls onOpenCart={callbacks.onOpenCart} cart={store.getState().cart} />
       <List
         items={store.getState().items.map(item => ({
           item,
           onAddInCart: callbacks.onAddItemInCart
         }))}
-        itemTemplate={Item}
+        render={props => <Item {...props} />}
       />
       {store.getState().popups.cart && (
         <Popup header={'Корзина'} onClose={callbacks.onCloseCart}>
@@ -48,7 +45,7 @@ function App({ store }) {
               item,
               onDelete: callbacks.onDeleteItem
             }))}
-            itemTemplate={CartItem}
+            render={props => <CartItem {...props} />}
           />
           <TotalPrice price={store.getState().cart.price} />
         </Popup>

@@ -3,14 +3,14 @@ import propTypes from 'prop-types'
 import React from 'react'
 import './style.css'
 
-function List({ items, itemTemplate }) {
+function List({ items, render }) {
   const cn = bem('List')
 
   return (
     <div className={cn()}>
       {items.map(itemProps => (
         <div className={cn('item')} key={itemProps.item.code}>
-          {React.createElement(itemTemplate, { ...itemProps })}
+          {render(itemProps)}
         </div>
       ))}
     </div>
@@ -18,7 +18,7 @@ function List({ items, itemTemplate }) {
 }
 
 List.propTypes = {
-  itemTemplate: propTypes.elementType,
+  render: propTypes.func,
   items: propTypes.arrayOf(propTypes.object).isRequired
 }
 

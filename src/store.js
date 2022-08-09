@@ -1,5 +1,3 @@
-import {cartCounter} from "./utils";
-
 class Store {
   
   constructor(initState) {
@@ -46,10 +44,9 @@ class Store {
    * Добавление товара в корзину
    */
   
-  addItemToCart({title, price}) {
+  addItemToCart({code, title, price}) {
     const findItemIndex = this.state.cartItems.findIndex(item => item.title === title)
     if (findItemIndex === -1) {
-      const code = cartCounter()
       this.setState({
         ...this.state,
         cartItems: this.state.cartItems.concat({code: code, title: title, price: price, quantity: 1})

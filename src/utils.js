@@ -7,14 +7,6 @@ export function counter() {
 }
 
 /**
- * Генерирует уникальный код элемента корзины
- * @returns {number|number}
- */
-export function cartCounter() {
-  return cartCounter.value ? ++cartCounter.value : cartCounter.value = 1;
-}
-
-/**
  * Высчитывает уникальных товаров в корзине
  */
 

@@ -20,7 +20,7 @@ function App({store}) {
   
   const callbacks = {
     handleAddItemToCart: useCallback((item)=> {
-      store.addItemToCart({title: item.title, price: item.price});
+      store.addItemToCart({code: item.code, title: item.title, price: item.price});
     }, []),
     handleDeleteCartItem: useCallback((code)=> {
       store.deleteCartItem(code);

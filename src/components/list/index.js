@@ -14,7 +14,7 @@ function List(props) {
       </div>
     )}
       {props.isCart
-        ? <div className={cn('bottom')}>Итого: <span>{props.sum.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 })}</span></div>
+        ? <div className={cn('bottom')}>Итого <span>{props.sum.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 })}</span></div>
         : null
       }
     </div>

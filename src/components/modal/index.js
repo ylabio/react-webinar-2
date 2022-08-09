@@ -4,12 +4,11 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import CartList from '../cart-list/index';
 
-function Modal({cart, active, setActive, onDeteleCart}) {
+function Modal({cart, setActive, onDeteleCart}) {
   const cn = bem('Modal');
-  
   return (
 
-    <div className={cn('overlay', {active:active})}>
+    <div className={cn('overlay')}>
       <div className={cn('cross')}>
         <div className={cn('head')}>
           <h1>Корзина</h1>
@@ -28,7 +27,14 @@ function Modal({cart, active, setActive, onDeteleCart}) {
  
 
 Modal.propTypes = {
-  active:propTypes.bool.isRequired,
+  cart:propTypes.object.isRequired,
+  setActive: propTypes.func.isRequired,
+  onDeteleCart: propTypes.func.isRequired
+}
+Modal.defaultProps = {
+  cart:{},
+  setActive: () => {},
+  onDeteleCart: () => {}
 }
 
 export default React.memo(Modal);

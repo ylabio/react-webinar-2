@@ -33,10 +33,9 @@ const [modalActive, setModalActive]=useState(false);
     
     <Layout head={<h1>Магазин</h1>}>      
       <Controls setModalActive={setModalActive} cart={store.getState().cart} />
-      <Modal cart={store.getState().cart} 
-            active={modalActive} 
+      {modalActive?<Modal cart={store.getState().cart}  
             setActive={setModalActive} 
-            onDeteleCart={callbacks.onDeteleCart}/>
+            onDeteleCart={callbacks.onDeteleCart}/>:''}
       <List items={store.getState().items}
             onCartItems={callbacks.onCartItems}
       />

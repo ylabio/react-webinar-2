@@ -41,7 +41,7 @@ function App({store}) {
 
 				{isOpenModal && 
           <Modal 
-						head={<><h1>Корзина</h1><button onClick={callbacks.onToggleModal}>Закрыть</button></>} 
+						title={<><h1>Корзина</h1></>} 
 						onToggleModal={callbacks.onToggleModal}
 					>
 						{store.getState().cartItems.length ?

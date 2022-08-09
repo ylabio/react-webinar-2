@@ -17,7 +17,8 @@ function Modal(props) {
 			<div className={cn('wrapper')}>
 				<div className={cn('content')} onClick={(e) => e.stopPropagation()}>
 					<div className={cn('head')}>
-						{props.head}
+						{props.title}
+						<button onClick={callbacks.onToggleModal}>Закрыть</button>
 					</div>
 					{props.children}
 				</div>
@@ -28,7 +29,7 @@ function Modal(props) {
 
 Modal.propTypes = {
 	onToggleModal: propTypes.func,
-	head: propTypes.node,
+	title: propTypes.node,
 	children: propTypes.node
 }
 

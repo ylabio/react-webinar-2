@@ -10,7 +10,7 @@ function ModalResult({order}){
   return (
     <div className={cn()}>        
       <div className={cn('total')}>Итого</div> 
-        <div className={cn('result')}>{sum} ₽</div>      
+        <div className={cn('result')}>{`${sum} ₽`}</div>      
     </div>
   )
 }

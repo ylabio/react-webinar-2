@@ -48,6 +48,8 @@ class Store {
       ...this.state,
       cartItems: this.state.cartItems.filter((item) => item.code !== code),
     });
+
+    this.getTotalPrice();
   }
 
   /**
@@ -80,6 +82,17 @@ class Store {
         cartItems: this.state.cartItems.concat({ ...item, count: 1 }),
       });
     }
+
+    this.getTotalPrice();
+  }
+
+  getTotalPrice() {
+    this.setState({
+      ...this.state,
+      cartTotalPrice: this.state.cartItems
+        .map((item) => item.price * item.count)
+        .reduce((sum, current) => sum + current, 0),
+    });
   }
 }
 

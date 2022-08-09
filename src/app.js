@@ -3,6 +3,7 @@ import Controls from './components/controls';
 import List from './components/list';
 import Layout from './components/layout';
 import Modal from './components/modal';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -12,16 +13,13 @@ import Modal from './components/modal';
 function App({ store }) {
   const cartArray = store.getState().cartItems;
   const cartTotalCount = cartArray.length;
+  const cartTotalPrice = store.getState().cartTotalPrice;
 
-  const cartTotalPrice = cartArray
-    .map((item) => item.price * item.count)
-    .reduce((sum, current) => sum + current, 0);
-
-  const [isActive, setIsActive] = useState(false);
+  const [isModalActive, setIsModalActive] = useState(false);
 
   const callbacks = {
     onOpenModal: () => {
-      setIsActive((prevState) => !prevState);
+      setIsModalActive((prevState) => !prevState);
     },
     onAddItems: useCallback((code, item) => {
       store.addToCart(code, item);
@@ -32,21 +30,25 @@ function App({ store }) {
   };
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <Controls
-        price={cartTotalPrice}
-        count={cartTotalCount}
-        onOpenModal={callbacks.onOpenModal}
-      />
-      <List items={store.getState().items} onItemAdd={callbacks.onAddItems} />
-      <Modal
-        cartItems={cartArray}
-        active={isActive}
-        price={cartTotalPrice}
-        onOpenModal={callbacks.onOpenModal}
-        onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls
+          price={cartTotalPrice}
+          count={cartTotalCount}
+          onOpenModal={callbacks.onOpenModal}
+        />
+        <List items={store.getState().items} onItemAdd={callbacks.onAddItems} />
+      </Layout>
+      {isModalActive && (
+        <Modal head={<h2>Корзина</h2>} onOpenModal={callbacks.onOpenModal}>
+          <Cart
+            onItemDelete={callbacks.onDeleteItems}
+            items={cartArray}
+            price={cartTotalPrice}
+          />
+        </Modal>
+      )}
+    </>
   );
 }
 

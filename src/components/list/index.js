@@ -1,6 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
+import CartItem from '../cart-item';
 import Item from '../item';
 import './style.css';
 
@@ -9,11 +10,21 @@ function List({ items, onItemAdd, onItemDelete }) {
 
   return (
     <div className={cn()}>
-      {items.map((item) => (
-        <div key={item.code} className={cn('item')}>
-          <Item item={item} onAdd={onItemAdd} onDelete={onItemDelete} />
-        </div>
-      ))}
+      {items.map((item) => {
+        if (item.count) {
+          return (
+            <div key={item.code} className={cn('item')}>
+              <CartItem item={item} onDelete={onItemDelete} />
+            </div>
+          );
+        } else {
+          return (
+            <div key={item.code} className={cn('item')}>
+              <Item item={item} onAdd={onItemAdd} />
+            </div>
+          );
+        }
+      })}
     </div>
   );
 }

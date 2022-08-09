@@ -30,15 +30,17 @@ function App({ store }) {
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>} scrollable={store.getState().popup === ''}>
-      <Controls onOpenCart={callbacks.onOpenCart} cart={store.getState().cart} />
-      <List
-        items={store.getState().items.map(item => ({
-          item,
-          onAddInCart: callbacks.onAddItemInCart
-        }))}
-        render={props => <Item {...props} />}
-      />
+    <>
+      <Layout head={<h1>Магазин</h1>} scrollable={store.getState().popup === ''}>
+        <Controls onOpenCart={callbacks.onOpenCart} cart={store.getState().cart} />
+        <List
+          items={store.getState().items.map(item => ({
+            item,
+            onAddInCart: callbacks.onAddItemInCart
+          }))}
+          render={props => <Item {...props} />}
+        />
+      </Layout>
       {store.getState().popup === CART_POPUP && (
         <Popup header={'Корзина'} onClose={callbacks.onCloseCart}>
           <List
@@ -51,7 +53,7 @@ function App({ store }) {
           <TotalPrice price={store.getState().cart.price} />
         </Popup>
       )}
-    </Layout>
+    </>
   )
 }
 

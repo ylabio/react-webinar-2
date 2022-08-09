@@ -48,15 +48,19 @@ function App({ store }) {
         />
         {store.state.isShowBasket ? (
           <Modal closeModal={callbacks.closeModal}>
-            <List
-              items={store.getState().itemsBasket}
-              handlerClick={callbacks.onDeleteItem}
-              textButton={"Удалить"}
-            />
+
             {store.state.itemsBasket.length ? (
-              <Total list={store.state.itemsBasket} isShowAmount={false} />
+                <>
+                  <List
+                      items={store.getState().itemsBasket}
+                      handlerClick={callbacks.onDeleteItem}
+                      textButton={"Удалить"}
+                  />
+                  <Total list={store.state.itemsBasket} isShowAmount={false} />
+                </>
+
             ) : (
-              ""
+              "В корзине ничего нет ;("
             )}
           </Modal>
         ) : (

@@ -3,6 +3,7 @@ import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 import plural from "plural-ru";
+import { formatToRUB } from "../../utils";
 
 function Total({ list, isShowAmount }) {
   const cn = bem("Total");
@@ -17,7 +18,7 @@ function Total({ list, isShowAmount }) {
   }, [list.length]);
   return (
     <div className={cn()}>
-      {totalPrice && totalAmount ? (
+      {totalPrice || totalAmount ? (
         <>
           <div className={cn("amount")}>
             {isShowAmount
@@ -30,7 +31,7 @@ function Total({ list, isShowAmount }) {
               : "Итого"}
             {}
           </div>
-          <div className={cn("price")}>{totalPrice} &#8381;</div>
+          <div className={cn("price")}>{formatToRUB(totalPrice)}</div>
         </>
       ) : (
         "пусто"

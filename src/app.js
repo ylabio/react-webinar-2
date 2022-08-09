@@ -40,7 +40,11 @@ function App({store}) {
     onDeleteFromCart: useCallback((code) => {
       store.deleteCartItem(code);
     },[]),
-    
+
+    ondeleteCartItem: useCallback((code) => {
+      store.deleteCartItem(code)
+    }, [store.getState().cart]),
+
     getCartStats: useCallback(() => {
       return {
         count: store.getState().cart.length,

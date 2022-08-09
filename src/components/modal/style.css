@@ -11,9 +11,9 @@
 }
 
 .Modal>.Layout{
-    min-height: 70vh;
     border-radius: 10px;
-    min-width: 980px;
+    min-width: 960px;
+    min-height: 600px;
     
 }
 
@@ -35,11 +35,11 @@
 }
 
 .Modal-text{
-    margin-right: 30px;
+    margin-right: 49px;
 }
 
 .Modal-stats{
-    margin-right: 100px;
+    margin-right: 108px;
 }
 
 

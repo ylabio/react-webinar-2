@@ -29,7 +29,19 @@ function Item(props) {
       </div>
 
       {props.item.count &&
-      <div className={cn('stats')}>{props.item.count}</div> }
+      <div className={cn('wrapper')}>
+        <div 
+        className={cn('stats')}
+        >
+          {props.item.count} шт
+        </div>
+        <button 
+          onClick={callbacks.onDeleteFromCart}  
+          className={cn('delete')}
+        >
+          Удалить
+        </button>
+      </div> }
 
       {props.onAddToCart.toString() !== 'function onAddToCart() {}' &&
       <div className={cn('actions')}>

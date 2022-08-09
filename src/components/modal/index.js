@@ -23,7 +23,7 @@ function Modal(props){
             <strong>Итого</strong>
           </div>
           <div className={cn('stats')}>
-            <strong>{props.getCartStats().sumPrice} ₽</strong>
+            <strong>{props.getCartStats().sumPrice.toLocaleString('Ru-ru')} ₽</strong>
           </div>
         </div>
       </Layout>

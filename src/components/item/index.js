@@ -34,12 +34,15 @@ function Item({ item, btnText, btnHandler, countClass }) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  btnHandler: propTypes.func.isRequired
+  btnHandler: propTypes.func.isRequired,
+  btnText: propTypes.string.isRequired,
+  countClass: propTypes.string,
 }
 
 Item.defaultProps = {
   item: {},
   btnHandler: () => { },
+  btnText: 'Нажми меня',
 }
 
 export default React.memo(Item);

@@ -4,7 +4,6 @@ import { prettify } from './../../utils';
 import './style.css';
 
 function Total({ totalPrice }) {
-  console.log(totalPrice);
 
   return (
     <div className='total'>

@@ -13,7 +13,7 @@ import './normalize.css';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({ store }) {
-  const [cartActive, setCartActive] = useState(false);
+  const [modalActive, setModalActive] = useState(false);
   const totalPrice = store.state.cart.reduce((sum, item) => {
     return sum + (item.cartCount * item.price);
   }, 0);
@@ -26,7 +26,7 @@ function App({ store }) {
       store.deleteFromCart(code);
     }, []),
     openModal: useCallback(() => {
-      setCartActive(true);
+      setModalActive(true);
     })
   }
 
@@ -41,7 +41,7 @@ function App({ store }) {
         btnText='Добавить'
         countClass='Item-count-hidden'
       />
-      <Modal cartActive={cartActive} setCartActive={setCartActive} >
+      <Modal modalActive={modalActive} setModalActive={setModalActive} >
         <Title title="Корзина" />
         <List items={store.getState().cart}
           btnHandler={callbacks.deleteFromCart}

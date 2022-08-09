@@ -3,14 +3,14 @@ import propTypes from 'prop-types';
 import { cn as bem } from "@bem-react/classname";
 import './style.css';
 
-function Modal({ cartActive, setCartActive, children }) {
+function Modal({ modalActive, setModalActive, children }) {
   const cn = bem('Modal');
 
   return (
-    <div className={cartActive ? 'Modal active' : 'Modal'}
-      onClick={() => setCartActive(false)}>
+    <div className={modalActive ? 'Modal active' : 'Modal'}
+      onClick={() => setModalActive(false)}>
       <div className={cn('content')} onClick={(e) => e.stopPropagation()}>
-        <button className={cn('closeBtn')} onClick={() => setCartActive(false)}>Закрыть</button>
+        <button className={cn('closeBtn')} onClick={() => setModalActive(false)}>Закрыть</button>
         {children}
       </div>
     </div>
@@ -18,13 +18,14 @@ function Modal({ cartActive, setCartActive, children }) {
 }
 
 Modal.propTypes = {
-  cartActive: propTypes.bool.isRequired,
-  setCartActive: propTypes.func.isRequired,
+  modalActive: propTypes.bool.isRequired,
+  setModalActive: propTypes.func.isRequired,
   children: propTypes.node
 }
 
 Modal.defaultProps = {
-  setCartActive: () => { }
+  modalActive: false,
+  setModalActive: () => { }
 }
 
 export default React.memo(Modal);

@@ -4,16 +4,16 @@ import { cn as bem } from "@bem-react/classname";
 import Item from "../item";
 import './style.css';
 
-function List(props) {
+function List({ items, countClass, btnHandler, btnText }) {
   const cn = bem('List');
 
   return (
-    <div className={cn()}>{props.items.map(item =>
+    <div className={cn()}>{items.map(item =>
       <div key={item.code} className={cn('item')}>
         <Item item={item}
-          countClass={ props.countClass}
-          btnHandler={props.btnHandler}
-          btnText={props.btnText}
+          countClass={countClass}
+          btnHandler={btnHandler}
+          btnText={btnText}
         />
       </div>
     )}
@@ -25,12 +25,14 @@ List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
   btnHandler: propTypes.func.isRequired,
   btnText: propTypes.string.isRequired,
+  countClass: propTypes.string.isRequired,
 }
 
 List.defaultProps = {
   items: [],
   btnText: 'Нажми меня',
   btnHandler: () => { },
+  countClass: 'Item-count',
 }
 
 export default React.memo(List);

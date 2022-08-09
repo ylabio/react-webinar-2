@@ -3,7 +3,7 @@ import { cn as bem } from "@bem-react/classname";
 import './style.css';
 import propTypes from "prop-types";
 
-function Title({ title,btnHandler}) {
+function Title({ title }) {
   const cn = bem('Title');
 
   return (

@@ -8,7 +8,6 @@ import './style.css';
  * Корзина
  * @param props
  * @param {function} props.callback Ивент для кнопки
- * @param {function} props.onModalClose Ивент на закрытии модалки
  * @param {Object[]} props.shoppingCart Массив с товарами из корзины
  * @param {Number} props.totalPrice Общая цена товаров в корзине
  * @param {String} props.callbackName Надпись для кнопки
@@ -17,15 +16,11 @@ import './style.css';
 
 function Cart(props) {
   const cn = bem('Cart');
-  const {onModalClose, shoppingCart, callback, totalPrice, callbackName} = props;
+  const {shoppingCart, onDeleteItem, totalPrice, callbackName} = props;
 
   return (
     <div className={cn()}>
-      <div className={cn('head')}>
-        <h2>Корзина</h2>
-        <button onClick={onModalClose}>Закрыть</button>
-      </div>
-      <List items={shoppingCart} callbackName={callbackName} callback={callback}/>
+      <List items={shoppingCart} callbackName={callbackName} callback={onDeleteItem}/>
       <div className={cn('total', {empty: !shoppingCart.length})}>
         {shoppingCart.length ? <p className={cn('price')}> {totalPrice.toLocaleString('ru-RU')} ₽ </p> : 'Пусто'}
       </div>
@@ -35,15 +30,11 @@ function Cart(props) {
 
 Cart.propTypes = {
   shoppingCart: propTypes.arrayOf(propTypes.object).isRequired,
-  onDeleteItem: propTypes.func,
-  onModalClose: propTypes.func,
-  callback: propTypes.func,
+  onDeleteItem: propTypes.func.isRequired,
   totalPrice: propTypes.number.isRequired
 };
 
 Cart.defaultProps = {
-  shoppingCart: [],
-  totalPrice: 0
-};
+}
 
 export default React.memo(Cart);

@@ -6,6 +6,3 @@
 export function counter(){
   return counter.value ? ++counter.value : counter.value = 1;
 }
-
-export const calcTotalPrice = (items) => items.reduce((sum, item) => item.amount * item.price + sum, 0);
-

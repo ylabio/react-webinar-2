@@ -8,14 +8,23 @@
     left: 0;
     right: 0;
     position: fixed;
-    opacity: 0;
-    visibility: hidden;
     background-color: rgba(0,0,0,0.5);
-    transition:all 0.3s ease;
 }
-.Modal_opened{
-    opacity: 1;
-    visibility: visible;
+.Modal-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    margin-bottom: 74px;
+    background: #F5F5F5;
+}
+.Modal-head h1{
+    margin: 0;
+    padding-left: 20px;
+}
+.Modal-head button{
+    height: max-content;
+    margin-right: 32px;
 }
 .Modal-container{
     border-radius: 10px;

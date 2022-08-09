@@ -83,6 +83,16 @@ class Store {
       });
     }
   }
+  /**
+   * Вычисление полной стоимости
+   */
+  calcTotalPrice() {
+    this.setState({
+      ...this.state,
+      totalPrice: this.state.shoppingCart.concat().reduce((sum, item) => item.amount * item.price + sum, 0),
+    });
+  }
 }
+
 
 export default Store;

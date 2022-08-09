@@ -47,9 +47,6 @@ Item.propTypes = {
 }
 
 Item.defaultProps = {
-  item: {},
-  callbackName: '',
-  callback: () => {},
 }
 
 export default React.memo(Item);

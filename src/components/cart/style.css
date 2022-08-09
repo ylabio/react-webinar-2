@@ -1,20 +1,4 @@
 /* Корзина */
-.Cart-head{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 80px;
-    margin-bottom: 74px;
-    background: #F5F5F5;
-}
-.Cart-head h2{
-    margin: 0;
-    padding-left: 20px;
-}
-.Cart-head button{
-    height: max-content;
-    margin-right: 32px;
-}
 .Cart-total{
     width: 100%;
     font-weight: bold;

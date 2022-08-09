@@ -6,16 +6,20 @@ import './style.css';
 /**
  * Модальное окно
  * @param props
- * @param {element} props.children Содержимое модалки
- * @param {boolean} props.isModalOpen Состояние модалки
+ * @param {node} props.head Шапка модалки
+ * @param {node} props.children Содержимое модалки
+ * @param {function} onModalClose Функция закрытия модалки
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function Modal({children, isModalOpen}) {
+function Modal({head, children, onModalClose}) {
   const cn = bem('Modal')
-
   return (
-    <div className={cn({'opened': isModalOpen})}>
+    <div className={cn()}>
       <div className={cn('container')}>
+        <div className={cn('head')}>
+          {head}
+          <button onClick={onModalClose}>Закрыть</button>
+        </div>
         {children}
       </div>
     </div>
@@ -23,12 +27,14 @@ function Modal({children, isModalOpen}) {
 }
 
 Modal.propTypes = {
-  children: propTypes.element,
-  isModalOpen: propTypes.bool.isRequired,
+  head: propTypes.node,
+  children: propTypes.node,
+  onModalClose: propTypes.func.isRequired,
 }
 
 Modal.defaultProps = {
-  isModalOpen: false,
+  head: <></>,
+  children: <></>,
 }
 
 export default React.memo(Modal);

@@ -1,0 +1,17 @@
+/* Контрол с общими действиями */
+.Controls {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.cartInfo {
+  width: 100%;
+  text-align: end;
+  margin-right: 30px;
+}
+
+.itemsAndPrice {
+  margin-left: 15px;
+  font-weight: 700;
+}

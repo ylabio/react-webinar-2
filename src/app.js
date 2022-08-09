@@ -1,45 +1,76 @@
 import React from 'react';
-import {counter} from './utils.js';
-import './style.css';
+import Controls from './components/controls';
+import List from './components/list';
+import Layout from './components/layout';
+import Cart from './components/cart';
+import { counter } from './utils';
+import { array } from 'prop-types';
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
-  // Выбор состояния из store
-  const {items} = store.getState();
+function App({ store }) {
+  const cart = store.getState().cart;
+  const [cartOpen, setCartOpen] = React.useState(false);
+
+  const callbacks = {
+    addCart: React.useCallback((code, item) => {
+      store.addCart(code, item);
+    }, []),
+    deleteCart: React.useCallback((code) => {
+      store.deleteCart(code);
+    }, []),
+    cartToggle: React.useCallback(() => {
+      setCartOpen(!cartOpen);
+    }),
+  };
+  let totalPrice = 0;
+  if (cart) {
+    totalPrice = cart
+      .map((item) => item.price * item.amount)
+      .reduce((prev, value) => prev + value, 0);
+  }
+  function cutting(num) {
+    num = String(num).split('');
+    num = num.reverse();
+    let count = Math.round(num.length / 3);
+    for (let i = 3; i <= count * 4; ) {
+      num.splice(i, 0, ' ');
+      i = i + 4;
+    }
+    return num.reverse().join('');
+  }
+  totalPrice = cutting(totalPrice);
+
+  // let totalAmount = 0;
+  // if (cart) {
+  //   totalAmount = cart.map((item) => item.amount).reduce((prev, value) => prev + value, 0);
+  // }
 
   return (
-    <div className='App'>
-      <div className='App__head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='Controls'>
-        <button onClick={() => {
-          const code = counter();
-          store.createItem({code, title: `Новая запись ${code}`})
-        }}> Добавить </button>
-      </div>
-      <div className='App__center'>
-        <div className='List'>{items.map(item =>
-          <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
-              <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
-              <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
-                  Удалить
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-        </div>
-      </div>
-    </div>
+    <Layout head={<h1>Магазин</h1>}>
+      {cartOpen && (
+        <Cart
+          cart={cart}
+          totalPrice={totalPrice}
+          cartToggle={callbacks.cartToggle}
+          cartDelete={callbacks.deleteCart}
+        />
+      )}
+      <Controls
+        cartToggle={callbacks.cartToggle}
+        // amount={totalAmount}
+        price={totalPrice}
+        cart={cart}
+      />
+      <List
+        addCart={callbacks.addCart}
+        deleteCart={callbacks.deleteCart}
+        items={store.getState().items}
+      />
+    </Layout>
   );
 }
 

@@ -6,7 +6,6 @@ import './style.css';
 function Item(props) {
   const cn = bem('Item');
 
-
   const callbacks = {
 
     onClick: useCallback(() => {

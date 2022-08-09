@@ -1,5 +1,5 @@
 import React from 'react'
-import CartList from '../cart/CartList'
+import CartList from '../cart/cartList/CartList'
 import ModalHead from './ModalHead'
 import './style.css'
 import propTypes from 'prop-types';
@@ -22,13 +22,13 @@ const ModalWindow = ({ setModalStatus, modalStatus, products }) => {
 
 ModalWindow.propTypes = {
     setModalStatus: propTypes.func.isRequired,
-    // modalStatus: propTypes.bool.isRequired,
+    modalStatus: propTypes.bool.isRequired,
     products: propTypes.arrayOf(propTypes.object).isRequired
 }
 
 ModalWindow.defaultProps = {
     setModalStatus: () => { },
-    // modalStatus: false,
+    modalStatus: false,
     products: []
 }
 

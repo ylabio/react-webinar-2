@@ -1,10 +1,12 @@
 import React from 'react'
-import CartItem from './CartItem'
 import propTypes from 'prop-types';
+import CartItem from '../cartItem/CartItem';
 
 const CartList = ({ products }) => {
    return (
-      <CartItem products={products} />
+      <>
+         {products.map(product => <CartItem product={product} />)}
+      </>
    )
 }
 

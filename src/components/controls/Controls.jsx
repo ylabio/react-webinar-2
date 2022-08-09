@@ -3,7 +3,7 @@ import plural from 'plural-ru';
 import propTypes from 'prop-types';
 import './style.css';
 
-function Controls({ product, modalStatus, setModalStatus }) {
+function Controls({ product, setModalStatus }) {
 
   const [totalSum, setTotalSum] = useState(0)
 

@@ -16,7 +16,7 @@ function App({ store }) {
   const callbacks = {
     setModalStatus: useCallback(() => {
       setModal(!modalStatus)
-    }, []),
+    }, [modalStatus]),
     onAddProduct: useCallback((code) => {
       store.onAddProduct(code);
     }, [])

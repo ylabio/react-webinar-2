@@ -8,7 +8,7 @@ function CartItem(props) {
 
     const callbacks = {
         onDeleteItems: useCallback(() => {
-          props.onDeleteItems(props.item.code)
+          props.onDeleteItems(props.item.code);
         }, [props.onDeleteItems,  props.item])
     };
 
@@ -21,7 +21,7 @@ function CartItem(props) {
                 {props.item.title}
             </div>
             <div className={cn('price')}>
-                {props.item.price} ₽
+                {Intl.NumberFormat('ru-RU').format(props.item.price)} ₽
             </div>
             <div className={cn('count')}>
                 {props.item.count} шт

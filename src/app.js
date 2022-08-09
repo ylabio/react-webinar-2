@@ -17,12 +17,10 @@ function App({store}) {
     const closeCart = () => setShowCart(false);
 
     // Расчет общей суммы и общего количества товаров добавленных в корзину
-    const totalPrice = store.getState().cartItems.reduce((sum, item) => {
-        return item.price * item.count + sum
-    }, 0);
-    const totalCount = store.getState().cartItems.reduce((sum, item) => {
-        return item.count + sum
-    }, 0);
+    const totalPrice = Intl.NumberFormat('ru-RU').format(store.getState().cartItems.reduce((sum, item) => {
+        return item.price * item.count + sum;
+    }, 0));
+    const totalCount = store.getState().cartItems.length;
 
     // Функции добавления и удаления товара
     const callbacks = {
@@ -32,7 +30,7 @@ function App({store}) {
         onDeleteItems: useCallback((code) => {
             store.deleteItem(code);
         }, []),
-    }
+    };
 
     return (
         <Layout head={<h1>Магазин</h1>}>

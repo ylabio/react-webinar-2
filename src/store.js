@@ -51,7 +51,7 @@ class Store {
             if (!cartItem) {
                 this.setState({
                     ...this.state,
-                    cartItems: this.state.cartItems.concat(findItem)
+                    cartItems: this.state.cartItems.concat(findItem),
                 });
             }
             return this.setState({
@@ -60,10 +60,10 @@ class Store {
                     if (item.code === code) {
                         return {
                             ...item,
-                            count: isNaN(item.count) ? 1 : item.count + 1
+                            count: isNaN(item.count) ? 1 : item.count + 1,
                         }
                     }
-                    return item
+                    return item;
                 }),
             });
         }

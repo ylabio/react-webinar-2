@@ -21,7 +21,7 @@ function Item(props) {
                 {props.item.title}
             </div>
             <div className={cn('price')}>
-                {props.item.price} ₽
+                {Intl.NumberFormat('ru-RU').format(props.item.price)} ₽
             </div>
             <div className={cn('actions')}>
                 <button onClick={callbacks.onAdd}>

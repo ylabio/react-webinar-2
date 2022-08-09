@@ -1,4 +1,4 @@
-.Card{
+.Modal{
     display: flex;
     min-height: 100vh;
     width: 100%;
@@ -8,18 +8,12 @@
     position: absolute;
     top: 0;
     left: 0;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.Card__nodisplay{
-    display: none;
-}
-
-/*если товаров больше 7, то не помещается Итого, 
-по согласованию изменил height на min-height*/
-.Card-content{
+.Modal-content{
     min-height: 603px;
     width: 960px;
     margin: 0;
@@ -29,7 +23,7 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
-.Card-head{
+.Modal-head{
     width: 100%;
     height: 80px;
     margin: 0 0 74px 0;
@@ -42,7 +36,7 @@
     justify-content: space-between;
 }
 
-.Card-name{
+.Modal-name{
     width: 131px;
     height: 37px;
     margin: 20px 0 0 20px;
@@ -53,7 +47,7 @@
     color: #000;
 }
 
-.Card-close{
+.Modal-close{
     height: 21px;
     width: 76px;
     margin: 31px 32px 0 0;
@@ -63,25 +57,4 @@
     line-height: 15px;
     text-align: center;
     color: #000;
-}
-
-/*по согласованию сделал плавающее отображение "Итого",
-что бы хорошо смотрелось при цифре больше 6 знаков */
-.Card-total{
-    margin: 0 104px;
-    padding: 20px 10px;
-    font-size: 18px;
-    font-weight: 700;
-    color: #000;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: end;
-}
-
-.Card-total > p{
-    margin: 0 0 0 10px;
-    padding: 0;
-    min-width: 76px;
-    text-align: end;
 }

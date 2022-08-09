@@ -1,0 +1,24 @@
+/*если товаров больше 7, то не помещается Итого, 
+по согласованию изменил height на min-height*/
+
+
+/*по согласованию сделал плавающее отображение "Итого",
+что бы хорошо смотрелось при цифре больше 6 знаков */
+.Cart-total{
+    margin: 0 104px;
+    padding: 20px 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: end;
+}
+
+.Cart-total > p{
+    margin: 0 0 0 10px;
+    padding: 0;
+    min-width: 76px;
+    text-align: end;
+}

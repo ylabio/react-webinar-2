@@ -47,7 +47,13 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      card: this.state.card.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code)
+    });
+    let totalPrice = this.state.cart.reduce((totP, cart) => (totP + (cart.count * cart.price)),0);
+    let totalItems = this.state.cart.length;
+    this.setState({
+      ...this.state,
+      total: [{totalPrice , totalItems}]
     });
   }
 
@@ -55,31 +61,37 @@ class Store {
    * Добавление товара в корзину по его коду
    * @param code
    */
-  addInCard(code) {
+  addInCart(code) {
     let title = this.state.items[code-1].title;
     let price = this.state.items[code-1].price;
     let count = 1;
-    let IncludeFilter = this.state.card.filter(item => item.code === code)
+    let IncludeFilter = this.state.cart.filter(item => item.code === code)
     if(IncludeFilter.length === 0) {
       this.setState({
         ...this.state,
-        card: this.state.card.concat({code, title, price, count})
+        cart: this.state.cart.concat({code, title, price, count})
       });
     }
     else {
       this.setState({
         ...this.state,
-        card: this.state.card.map(card => {
-          if (card.code === code ) {
+        cart: this.state.cart.map(cart => {
+          if (cart.code === code ) {
             return {
-              ...card,
-              count: card.count += 1
+              ...cart,
+              count: cart.count += 1
             }
           }  
-          return card;  
+          return cart;  
         })
       });
     }
+    let totalPrice = this.state.cart.reduce((totP, cart) => (totP + (cart.count * cart.price)),0);
+    let totalItems = this.state.cart.length;
+    this.setState({
+      ...this.state,
+      total: [{totalPrice , totalItems}]
+    });
   }
 }
 

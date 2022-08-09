@@ -8,15 +8,6 @@ function Controls(props){
 
   const cn = bem('Controls');
 
-  let counterItems = 0;
-  let counterTotalPrice = 0;
-
-  if (Array.isArray(props.card)) {
-    counterItems = props.card.length;
-    props.card.forEach((card) => {
-      counterTotalPrice += (card.price * card.count);
-    });
-  }
   return (
     <div className={cn()}>
       <div className={cn('total')}>
@@ -24,27 +15,27 @@ function Controls(props){
           В корзине:  
         </span>
         <span className={cn('text',{'':'bold'})}>
-          {counterItems? `${counterItems} `+
-          `${plural(counterItems, 'товар', 'товара', 'товаров')} / `+
-          counterTotalPrice.toLocaleString()+
+          {props.counterItems? `${props.counterItems} `+
+          `${plural(props.counterItems, 'товар', 'товара', 'товаров')} / `+
+          props.counterTotalPrice.toLocaleString()+
           ' ₽': 'пусто'}
         </span>
       </div>
       <div className={cn('open')}>
-        <button onClick={() => props.openCard(true)}>Перейти</button>
+        <button onClick={() => props.openCart(true)}>Перейти</button>
       </div>
     </div>
   )
 }
 
 Controls.propTypes = {
-  card: propTypes.arrayOf(propTypes.object).isRequired,
-  openCard: propTypes.func.isRequired
+  counterItems: propTypes.number.isRequired,
+  counterTotalPrice: propTypes.number.isRequired,
+  cart: propTypes.arrayOf(propTypes.object).isRequired,
+  openCart: propTypes.func.isRequired
 }
 
 Controls.defaultProps = {
-  card: [],
-  openCard: () => {}
 }
 
 export default React.memo(Controls);

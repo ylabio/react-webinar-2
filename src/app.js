@@ -2,7 +2,8 @@ import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import Card from './components/card';
+import Modal from './components/modal';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -12,31 +13,36 @@ import Card from './components/card';
 function App({store}) {
 
   //определяем видимость модального окна, false окно закрыто, true открыто
-  const [ cardActive, setCardActive ] = useState(false);
+  const [ modalActive, setModalActive ] = useState(false);
 
   //onAddItems добавление в коризну, DeleteItems удаление в корзине
   const callbacks = {
     onAddItems: useCallback((code) => {
-      store.addInCard(code);
+      store.addInCart(code);
     }, []),
     onDeleteItems: useCallback((code) => {
       store.deleteItem(code);
-    }, []),
+    }, [])
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <Controls card={store.getState().card}
-                openCard={setCardActive}/>
-      <List items={store.getState().items}
-            onItemAdd={callbacks.onAddItems}
-      />
-      <Card  active={cardActive}
-             card={store.getState().card}
-             setActive={setCardActive}
-             onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls counterItems={store.getState().total[0].totalItems}
+                  counterTotalPrice={store.getState().total[0].totalPrice}
+                  cart={store.getState().cart}
+                  openCart={setModalActive}/>
+        <List items={store.getState().items}
+              onSelect={callbacks.onAddItems}
+        />
+      </Layout>
+      {modalActive && <Modal head={'Корзина'} setActive={setModalActive}>
+        <Cart cart={store.getState().cart}
+              onItemDelete={callbacks.onDeleteItems}
+              counterTotalPrice={store.getState().total[0].totalPrice}
+        />
+      </Modal>}
+    </>        
   );
 }
 

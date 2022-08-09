@@ -7,10 +7,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transform: scale(0);
+    overflow-y: auto;
 }
 .CartModal_active {
     transform: scale(1);
@@ -21,7 +19,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     min-height: 70vh;
     width: 960px;
-    margin: 0 10px;
+    margin: 130px auto 0 auto;
 }
 
 .CartModal-controls {
@@ -48,9 +46,10 @@ button{
 .CartModal-footer {
     display: flex;
     justify-content: flex-end;
-    margin: 26px 108px 40px 0;
+    margin: 26px 108px 50px 0;
     font-weight: 700;
     font-size: 18px;
+    padding-bottom: 40px;
 }
 .CartModal-footer_text {
     margin-right: 50px;

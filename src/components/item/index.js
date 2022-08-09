@@ -30,14 +30,9 @@ function Item(props) {
         : null
       }
       <div className={cn('actions')}>
-        {props.isCart
-          ? <Button onClick={callbacks.onHandler}>
-            Удалить
-          </Button>
-          : <Button onClick={callbacks.onHandler}>
-            Добавить
-          </Button>
-        }
+        <Button onClick={callbacks.onHandler}>
+          {props.isCart ? 'Удалить' : 'Добавить'}
+        </Button>
       </div>
     </div>
   )

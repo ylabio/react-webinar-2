@@ -21,7 +21,6 @@ function App({ store }) {
 	const cartAPI = {
 		onAddItem: useCallback((item) => {
 			store.addItemToCart(item);
-			console.log(store);
 		}, []),
 		onDeleteItem: useCallback((item) => {
 			store.deleteItemFromCart(item);

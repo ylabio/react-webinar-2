@@ -20,7 +20,7 @@ function CartInfo({ items, totalPrice, onDeleteItem }) {
 	const cn = bem('Cart');
 
 	if (items.length === 0)
-		return <div className={cn('epmty')}>Заказов еще нет</div>;
+		return <div className={cn('empty')}>Заказов еще нет</div>;
 
 	return (
 		<>
@@ -36,13 +36,13 @@ function CartInfo({ items, totalPrice, onDeleteItem }) {
 CartInfo.propTypes = {
 	items: propTypes.arrayOf(propTypes.object).isRequired,
 	onDeleteItem: propTypes.func.isRequired,
-	totalPrice: propTypes.number.isRequired,
+	totalPrice: propTypes.string.isRequired,
 };
 
 CartInfo.defaultProps = {
 	items: [],
 	onDeleteItem: () => {},
-	totalPrice: 0,
+	totalPrice: '0',
 };
 
 export default React.memo(CartInfo);

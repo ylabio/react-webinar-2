@@ -45,5 +45,6 @@ export function toRUB(value) {
 		style: 'currency',
 		currency: 'RUB',
 		currencyDisplay: 'symbol',
+		maximumFractionDigits: 0,
 	}).format(value);
 }

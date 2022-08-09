@@ -43,6 +43,7 @@ List.propTypes = {
 
 List.defaultProps = {
 	items: [],
+	btnTitle: 'Добавить',
 	itemAction: () => {},
 };
 

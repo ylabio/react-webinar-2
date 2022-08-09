@@ -4,9 +4,8 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import Modal from "./components/modal";
 import Item from "./components/item";
-import BasketItem from "./components/basketItem";
-import BasketTotal from "./components/basketTotal";
-import BasketList from "./components/basketList";
+import BasketTotal from "./components/basket-total";
+import BasketList from "./components/basket-list";
 
 /**
  * Приложение

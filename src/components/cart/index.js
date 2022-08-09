@@ -26,12 +26,12 @@ function ShopCart({show, setShow, state, store}){
             } layout='Cartlayout'>
           <List items={state.shoppingCart} onDelete={callbacks.onDelete} />
         </Layout>
-        <div className={cn('footer')}>
+       {(state.shoppingCart.length > 0) && <div className={cn('footer')}>
           <span>Итого</span>
           <span className={cn('total')}>{state.shoppingCart.map(el => el.price * el.qty)
           .reduce((prev, curr)=> prev + curr,0)
           .toLocaleString('ru-RU') + ' \u20bd'}</span>
-      </div>
+      </div>}
       </div>
     </div>
 );

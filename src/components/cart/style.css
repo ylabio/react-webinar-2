@@ -1,5 +1,5 @@
 .Cart{
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     background-color: rgba(0,0,0,0.7);
     position: fixed;
@@ -11,10 +11,10 @@
 }
 .Cart-content{
     width: 960px;
-    height: 603px;
+    min-height: 603px;
     border-radius: 10px;
     background-color: white;
-    overflow: scroll;
+    overflow: hidden;
 }
 .Cart-button{
     margin: 31px 32px 28px;

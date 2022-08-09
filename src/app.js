@@ -41,6 +41,7 @@ function App({store}) {
 				toggleModal={toggleModal}
 			/>
       <List
+        listType='main'
 				items={store.getState().items}
 				onAddToCart={callbacks.onAddToCart}
 			/>

@@ -1,8 +1,8 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import CartList from '../cart-list';
 import './style.css';
+import List from '../list';
 
 function Cart(props) {
 	const cn = bem('Cart');
@@ -11,8 +11,9 @@ function Cart(props) {
 		<div className={cn()}>
 			{props.cartItems.length > 0 ? (
 				<>
-					<CartList
-						cartItems={props.cartItems}
+					<List
+						listType='cart'
+						items={props.cartItems}
 						onDeleteFromCart={props.onDeleteFromCart}
 					/>
 					<div className={cn('total')}>

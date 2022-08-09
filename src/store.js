@@ -75,13 +75,13 @@ class Store {
   }
 
     /**
-   * Изменение видимости корзины
+   * Изменение видимости модального окна
    * @param code
    */
-  changeBasketVisible(isVisible) {
+  changeModalVisible(isVisible) {
     this.setState({
       ...this.state,
-      basketVisible: isVisible
+      modalVisible: isVisible
     })
   }
 

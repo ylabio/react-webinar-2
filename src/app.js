@@ -2,7 +2,7 @@ import React, {useCallback, useEffect} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import LayoutBasket from './components/layout-basket';
+import LayoutModal from './components/layout-modal';
 import Basket from './components/basket';
 
 /**
@@ -13,8 +13,8 @@ import Basket from './components/basket';
 function App({store}) {
 
   const callbacks = {
-    changeBasketVisible: useCallback((isVisible) => { 
-      store.changeBasketVisible(isVisible);
+    changeModalVisible: useCallback((isVisible) => { 
+      store.changeModalVisible(isVisible);
     }, []),
     onAddItemInBasket: useCallback((code) => {
       store.addItemInBasket(code);
@@ -28,7 +28,7 @@ function App({store}) {
   }
   const basket = store.getState().basket;
   const totalPrice = store.getState().totalPrice;
-  const basketVisible = store.getState().basketVisible;
+  const modalVisible = store.getState().modalVisible;
 
   useEffect(() => {
     callbacks.changeTotalPrice();
@@ -36,21 +36,26 @@ function App({store}) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls changeBasketVisible={callbacks.changeBasketVisible}
+      <Controls changeModalVisible={callbacks.changeModalVisible}
                 basket={basket} 
                 totalPrice={totalPrice}
       />
       <List items={store.getState().items}
             onAddItemInBasket={callbacks.onAddItemInBasket}
       />
-      <LayoutBasket head={<h1>Корзина</h1>}
-                    changeBasketVisible={callbacks.changeBasketVisible}
-                    basketVisible={basketVisible}>
-        <Basket basket={basket}
-                totalPrice={totalPrice}
-                deleteItem={callbacks.deleteItem}
-        />
-      </LayoutBasket>
+      { 
+        modalVisible ?
+          <LayoutModal head={<h1>Корзина</h1>}
+                        changeModalVisible={callbacks.changeModalVisible}
+          >
+            <Basket basket={basket}
+                    totalPrice={totalPrice}
+                    deleteItem={callbacks.deleteItem}
+            />
+          </LayoutModal>
+      :
+          null
+      }
     </Layout>
   );
 }

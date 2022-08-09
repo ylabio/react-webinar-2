@@ -29,8 +29,4 @@ BasketTotal.propTypes = {
   totalPrice: propTypes.number.isRequired
 }
 
-BasketTotal.defaultProps = {
-  totalPrice: 0
-}
-
 export default React.memo(BasketTotal);

@@ -21,12 +21,7 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onAddItemInBasket: propTypes.func
-}
-
-List.defaultProps = {
-  items: [],
-  onAddItemInBasket: () => {}
+  onAddItemInBasket: propTypes.func.isRequired
 }
 
 export default React.memo(List);

@@ -1,19 +1,21 @@
-/* Layout для корзины*/
-.LayoutBasket{
+/* Layout для модального окна*/
+.LayoutModal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: fixed;
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
     width: 100%;
-    display: none;
     background: rgba(0, 0, 0, 0.7);
     min-height: 100%;
     padding: 0;
     overflow-x: hidden;
     overflow-y: auto;
 }
-.LayoutBasket-frame{
+.LayoutModal-frame{
     min-width: 450px;
     width: 960px;   
     min-height: 603px;
@@ -22,14 +24,8 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     background: #FFFFFF;
     border-radius: 10px;
-   
 }
-.LayoutBasket.active{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.LayoutBasket-head{
+.LayoutModal-head{
     height: 80px;
     border-radius: 10px 10px 0 0;
     background: #F5F5F5;
@@ -37,33 +33,33 @@
     flex-direction: row;
     justify-content: space-between;
 }
-.LayoutBasket-head h1{
+.LayoutModal-head h1{
     margin: 0;
     padding: 20px 0 23px 20px;
 }
-.LayoutBasket-head-button{
+.LayoutModal-head-button{
     margin: 0;
     padding: 31px 32px 28px;
     width: 76px;
     height: 21px; 
 }
-.LayoutBasket-head-button button{
+.LayoutModal-head-button button{
     width: 100%;
     border: 1px solid #767676;
     border-radius: 2px;
 }
-.LayoutBasket-content{
+.LayoutModal-content{
     background: #ffffff;
     padding: 74px 0;
     border-radius: 10px;
 }
 @media (max-height: 603px){
-    .LayoutBasket.active{
+    .LayoutModal{
         align-items: stretch;
     }
 }
 @media (max-width: 630px){
-    .LayoutBasket.active{
+    .LayoutModal{
         justify-content: stretch;
         overflow-x: scroll;
     }

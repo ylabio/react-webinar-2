@@ -3,20 +3,16 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function LayoutBasket(props) {
-  const cn = bem('LayoutBasket');
-    let cl = [cn()];
-    if (props.basketVisible) {
-      cl.push('active')
-    }
-    
+function LayoutModal(props) {
+  const cn = bem('LayoutModal');
+  
   return (
-    <div className={cl.join(' ')}>
+    <div className={cn()}>
       <div className={cn('frame')}>
         <div className={cn('head')}>
           {props.head} 
             <div className={cn('head-button')}>
-              <button onClick={()=>props.changeBasketVisible(false)}>
+              <button onClick={()=>props.changeModalVisible(false)}>
                 Закрыть
               </button>
             </div>
@@ -29,16 +25,10 @@ function LayoutBasket(props) {
   )
 }
 
-LayoutBasket.propTypes = {
-  basketVisible: propTypes.bool.isRequired, 
-  changeBasketVisible: propTypes.func.isRequired,
+LayoutModal.propTypes = {
+  changeModalVisible: propTypes.func.isRequired,
   head: propTypes.node,
   children: propTypes.node
 }
 
-LayoutBasket.defaultProps = {
-  basketVisible: false,
-  changeBasketVisible: () => {}
-}
-
-export default React.memo(LayoutBasket);
+export default React.memo(LayoutModal);

@@ -4,7 +4,7 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import plural from 'plural-ru';
 
-function Controls({totalPrice, basket, changeBasketVisible}) {
+function Controls({totalPrice, basket, changeModalVisible}) {
   const cn = bem('Controls');
   
   return (
@@ -27,7 +27,7 @@ function Controls({totalPrice, basket, changeBasketVisible}) {
             </div>
         }   
             <div className={cn('button')}>
-              <button onClick={()=>changeBasketVisible(true)}>
+              <button onClick={()=>changeModalVisible(true)}>
                 Перейти
               </button>
             </div> 
@@ -39,13 +39,7 @@ function Controls({totalPrice, basket, changeBasketVisible}) {
 Controls.propTypes = {
   totalPrice: propTypes.number.isRequired,
   basket: propTypes.arrayOf(propTypes.object).isRequired,
-  changeBasketVisible: propTypes.func.isRequired
-}
-
-Controls.defaultProps = {
-  totalPrice: 0,
-  basket: [],
-  changeBasketVisible: () => {}
+  changeModalVisible: propTypes.func.isRequired
 }
 
 export default React.memo(Controls);

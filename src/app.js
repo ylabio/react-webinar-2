@@ -2,7 +2,8 @@ import React, { useCallback, useState } from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import Cart from './components/cart';
+import Button from './components/button';
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -60,17 +61,22 @@ function App({ store }) {
         items={store.getState().items}
         callback={callbacks.onAddItem}
       />
-      <Cart head={<h1>Корзина</h1>} visible={visibleCart} onInvisibleCart={callbacks.onInvisibleCart}>
-        {store.getState().itemsCart.length
-          ? <List
-            isCart={callbacks.isCart(store.getState().itemsCart)}
-            items={store.getState().itemsCart}
-            callback={callbacks.onRemoveItem}
-            sum={callbacks.getCartProps().sumPrice}>
-          </List>
-          : <h1>Корзина пуста</h1>
-        }
-      </Cart>
+      <Modal visible={visibleCart}>
+        <Layout head={<>
+          <h1>Корзина</h1>
+          <Button onClick={callbacks.onInvisibleCart}>Закрыть</Button>
+        </>}>
+          {store.getState().itemsCart.length
+            ? <List
+              isCart={callbacks.isCart(store.getState().itemsCart)}
+              items={store.getState().itemsCart}
+              callback={callbacks.onRemoveItem}
+              sum={callbacks.getCartProps().sumPrice}>
+            </List>
+            : <h2>Корзина пуста</h2>
+          }
+        </Layout>
+      </Modal>
     </Layout>
   );
 }

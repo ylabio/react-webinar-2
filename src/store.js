@@ -90,9 +90,7 @@ class Store {
    summationCart() {
     //Суммирование количества товара (в штуках)
 
-    const quantityP = (this.state.itemsInCart
-      .map(item => item.count))
-      .reduce((a,b) => a + b ,0)
+    const quantityP = (this.state.itemsInCart.length)
 
 
     //Суммирование стоимости 

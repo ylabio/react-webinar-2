@@ -15,7 +15,7 @@ function Modal({ active, setActive, children, head = "Корзина", summation
 
 
                     <button
-                        className={cn('setActive')}
+                        className={cn('setActive')} 
                         onClick={() => setActive(false)}
                     > Закрыть
                     </button>

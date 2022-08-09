@@ -5,10 +5,7 @@ import './style.css';
 
 function Controls({ setActive, summationCart }) {
 
-  // reducer fn 
-  const counterPrice = () => "пусто"
 
-  console.log(summationCart())
   return (
     <div className='Controls'>
       <p className='Controls-title' >В корзине:</p>
@@ -22,7 +19,7 @@ function Controls({ setActive, summationCart }) {
 
 
 
-      <button onClick={() => setActive(true)}>Перейти</button>
+      <button className='btnAction' onClick={() => setActive(true)}>Перейти</button>
     </div>
   )
 }

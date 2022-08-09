@@ -18,3 +18,7 @@ button{
     line-height: 15px;
     text-align: center;
 }
+.btnAction{
+    height: 21px;
+    width: 76px;
+}

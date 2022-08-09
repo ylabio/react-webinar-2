@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
-import Controls from "./components/controls";
-import List from "./components/list";
-import Layout from "./components/layout";
-import {counter} from "./utils";
+import React, {useCallback, useState} from 'react';
+import ModalCart from "src/components/modal-cart";
+import {numberFormat} from "src/utils";
+import Controls from './components/controls';
+import List from './components/list';
+import Layout from './components/layout';
 
 /**
  * Приложение
@@ -10,27 +11,40 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const [isActiveModal, setIsActiveModal] = useState(false)
+
+  const totalSum = numberFormat(store.getState().totalSum)
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAddToCartItem: useCallback((code) => {
+      store.addToCart(code);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onDeleteToCartItem: useCallback((code) => {
+      store.deleteToCart(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onOpenModal: useCallback(() => {
+      setIsActiveModal(true)
+    }, []),
+    onCloseModal: useCallback(() => {
+      setIsActiveModal(false)
     }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls totalSum={totalSum}
+                quantityProduct={store.getState().quantityProduct}
+                onOpenModal={callbacks.onOpenModal}/>
+
       <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
+            onButton={callbacks.onAddToCartItem}
+            titleButton="Добавить"/>
+
+      <ModalCart cart={store.getState().cart}
+                 totalSum={totalSum}
+                 isActiveModal={isActiveModal}
+                 onCloseModal={callbacks.onCloseModal}
+                 onDeleteToCartItem={callbacks.onDeleteToCartItem}/>
     </Layout>
   );
 }

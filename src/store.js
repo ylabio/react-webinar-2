@@ -1,3 +1,5 @@
+import {sumProducts} from "src/utils";
+
 class Store {
 
   constructor(initState) {
@@ -41,45 +43,46 @@ class Store {
   }
 
   /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
+  deleteToCart(code) {
+    const newCart = this.state.cart.filter(item => item.code !== code);
+
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      cart: newCart,
+      totalSum: sumProducts(newCart),
+      quantityProduct: newCart.length
     });
   }
 
   /**
-   * Выделение записи по её коду
+   * Добавление товара в корзину по его коду
    * @param code
    */
-  selectItem(code) {
+  addToCart(code) {
+    const index = this.state.cart.findIndex(item => item.code === code);
+    const item = this.state.items.find(item => item.code === code);
+    const newCart = [...this.state.cart];
+
+    if (index === -1) {
+      newCart.unshift({...item, count: 1});
+    } else {
+      newCart[index] = {
+        ...newCart[index],
+        count: newCart[index].count + 1
+      };
+    }
+
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cart: newCart,
+      totalSum: sumProducts(newCart),
+      quantityProduct: newCart.length
     });
   }
+
 }
 
 export default Store;

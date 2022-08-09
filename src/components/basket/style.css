@@ -1,0 +1,63 @@
+/* Контрол с общими действиями */
+.Basket {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+.Basket-title {
+  margin-right: 2px;
+}
+.Basket-quantity {
+  font-weight: bold;
+  margin-left: 10px;
+}
+.Basket-button {
+  width: 80px;
+  height: 21px;
+  margin-left: 20px;
+}
+.Basket-modal {
+  width: 960px;
+  margin-bottom: 26px;
+}
+.Basket-modal_header {
+  background: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 20px;
+  box-sizing:border-box;
+  margin-bottom: 74px;
+  border-radius: 10px;
+}
+.Basket-header_title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 37px;
+}
+.Basket-content_empty {
+  display: flex;
+  justify-content: center;
+  font-weight: 800;
+  margin-bottom: 100px;
+}
+
+.Basket-summ {
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding-right: 108px;
+  margin-bottom: 280px;
+}
+
+.Basket-total {
+  margin-right: 49px;
+}

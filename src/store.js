@@ -1,3 +1,5 @@
+import controls from "./components/controls";
+
 class Store {
 
   constructor(initState) {
@@ -32,6 +34,7 @@ class Store {
    * @param callback {Function}
    * @return {Function} Функция для отписки
    */
+
   subscribe(callback) {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
@@ -41,44 +44,59 @@ class Store {
   }
 
   /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
+   * Добавление товара в корзину по её коду
    * @param code
+   * @param item
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
+   addItem(code, item) {
+    const already = this.state.basketItems.find((item) => item.code === code)
+    if (already) {
+      this.setState({
+        ...this.state,
+        basketItems: this.state.basketItems.map((item) => {
+          if (item.code === code) {
+            return {
+              ...item,
+              countOnBasket: item.countOnBasket + 1,
+            }
+          } else {
+            return item
           }
-        }
-        return item.selected ? {...item, selected: false} : item;
+        }),
+        totalPrice: already.price + this.state.totalPrice
       })
+    } else {
+      this.setState({
+        ...this.state,
+        basketItems: this.state.basketItems.concat({ ...item, countOnBasket: 1 }),
+        totalPrice: item.price + this.state.totalPrice
+      })
+    }
+   }
+  /**
+   * Удаление товара из корзины по её коду
+   * @param code
+   */
+
+  deleteItem(removeItem) {
+    this.setState({
+      ...this.state,
+      basketItems: this.state.basketItems.filter(item => item.code !== removeItem.code),
+      totalPrice: this.state.totalPrice - (removeItem.price * removeItem.countOnBasket)
     });
+  }
+
+  /*  Открытие модалки  */ 
+
+  openModal(viewModal, setViewModal) {
+    setViewModal(!viewModal)
+  }
+
+  /*  Закрытие модалки  */
+
+  closeModal(viewModal, setViewModal) {
+    setViewModal(!viewModal)
   }
 }
 

@@ -2,5 +2,22 @@
 .Controls{
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     padding: 20px;
+    height: 24px;
+}
+
+.Controls-label {
+    margin-right: 15px;
+  }
+  
+.Controls-info {
+    margin-right: 20px;
+    font-weight: 700;
+}
+
+.Controls-go-button {
+    width: 80px;
+    font-size: 13px;
+    line-height: 15px;
 }

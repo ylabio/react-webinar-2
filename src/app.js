@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Modal from './components/modal'
 
 /**
  * Приложение
@@ -11,26 +11,54 @@ import {counter} from "./utils";
  */
 function App({store}) {
 
+  const [viewModal, setViewModal] = React.useState(false)
+  const [count, setCount] = React.useState(0)
+  const [totalPrice, setTotalPrice] = React.useState(store.state.totalPrice)
+
+  React.useEffect(() => {
+    setCount(store.state.basketItems.length)
+    setTotalPrice(store.state.totalPrice)
+  }, [store.state.basketItems])
+
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onItemAddBasket: useCallback((code, item) => {
+      store.addItem(code, item);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onItemDeleteBasket: useCallback((removeItem) => {
+      store.deleteItem(removeItem);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onViewModal: useCallback(() => {
+      store.openModal(viewModal, setViewModal)
     }, []),
+    onCloseModal: useCallback(() => {
+      store.closeModal(viewModal, setViewModal)
+    }, [viewModal]),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout head = {<h1>Магазин</h1>}>
+      <Controls 
+          openModal = {callbacks.onViewModal}
+          count = {count}
+          totalPrice = {totalPrice}
+          basketItems = {store.state.basketItems}
       />
+      <List 
+          items = {store.getState().items}
+          onItemAddBasket = {callbacks.onItemAddBasket}
+      />
+      {
+        viewModal
+      ?
+        <Modal
+          closeModal = {callbacks.onCloseModal}
+          basketItems = {store.state.basketItems}
+          deleteItemFromBasket = {callbacks.onItemDeleteBasket}
+          totalPrice = {totalPrice}
+        />
+      :
+        null
+      }
     </Layout>
   );
 }

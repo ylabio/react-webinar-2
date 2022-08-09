@@ -1,20 +1,16 @@
 .LayoutModal {
-  position: absolute;
+  position: fixed;
+  display: block;
   top: 0;
   left: 0;
-  width: 100%;
+  right: 0;
   height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  background: rgba(0,0,0,0.7);
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.85);
   z-index: 9999;
-  padding: 0 10px;
   min-height: 100%;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  transition: background-color 2s;
 }
 
 .LayoutModal-frame {

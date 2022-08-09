@@ -18,7 +18,8 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object),
-  onCallbackItem: propTypes.func
+  onCallbackItem: propTypes.func,
+	children: propTypes.node.isRequired
 }
 
 List.defaultProps = {

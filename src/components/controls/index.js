@@ -1,21 +1,20 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import './style.css';
+import {cn as bem} from "@bem-react/classname";
+import { declOfNum } from '../../utils';
 
-function Controls({onAdd}){
+const words = ['товар', 'товара', 'товаров']
+declOfNum
+function Controls({getCartStats, onOpen}){
+  const cn = bem('Controls');
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className={cn()}>
+      <div className={cn('stats')}>
+        В корзине: <strong>{getCartStats().count ? `${getCartStats().count} ${declOfNum(getCartStats().count, words)} / ${getCartStats().sumPrice.toLocaleString('Ru-ru')} ₽` : `пусто`}</strong>
+      </div>
+      <button onClick={onOpen}>Перейти</button>
     </div>
   )
-}
-
-Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
-
-Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

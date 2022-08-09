@@ -4,9 +4,7 @@
     justify-content: flex-start;
     transition: background-color 1s;
 }
-.Item_selected{
-    background: #75aaf1;
-}
+
 
 
 .Item-title{
@@ -20,4 +18,32 @@
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+.Item-price{
+    min-width: 150px;
+    text-align: end;
+    margin-right: 25px;
+    align-self: center;
+}
+
+.Item-stats{
+    display: inline-flex;
+    min-width: 38px;
+    margin-right: 23px;
+    align-self: center;
+    margin-left: 25px;
+}
+
+.Item-delete{
+    display: flex;
+    justify-content: flex-end;
+    width: 71px;
+    height: 21px;
+    margin-right: 20px;
+}
+
+.Item-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

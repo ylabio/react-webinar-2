@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
-import { pluralize, numFormat } from "../../utils";
+import { pluralize, numFormat, totalPrice, totalQty } from "../../utils";
 import Modal from "../modal";
 import "./style.css";
 
@@ -10,11 +10,7 @@ function Cart(props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const cart = props.cart;
-  const goodsQty = cart.reduce((total, item) => item.qty + total, 0);
-  const totalPrice = cart.reduce(
-    (total, item) => item.qty * item.price + total,
-    0
-  );
+  const goodsQty = totalQty(cart);
   const cartInfo = ` ${goodsQty} ${pluralize(goodsQty)} / `;
 
   const onClick = () => {
@@ -34,7 +30,7 @@ function Cart(props) {
             <span className={cn("content-title")}>В корзине: </span>
             <span className={cn("info")}>
               {cartInfo}
-              {numFormat(totalPrice)}&nbsp;&#8381;
+              {numFormat(totalPrice(cart))}&nbsp;&#8381;
             </span>
           </>
         )}

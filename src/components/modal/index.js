@@ -2,7 +2,7 @@ import React from "react";
 import ReactModal from "react-modal";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
-import { numFormat } from "../../utils";
+import { numFormat, totalPrice } from "../../utils";
 import List from "../list";
 import "./style.css";
 
@@ -10,12 +10,12 @@ function Modal(props) {
   const cn = bem("Modal");
 
   const cart = props.cart
-
+/*
   const totalPrice = cart.reduce(
     (total, item) => item.qty * item.price + total,
     0
   );
-
+*/
   return (
     <div className={cn()}>
       <ReactModal
@@ -48,7 +48,7 @@ function Modal(props) {
           <div className={cn("totals")}>
             <span className={cn("totals-title")}>Итого:</span>
             <span className={cn("totals-sum")}>
-              {numFormat(totalPrice)}&nbsp;&#8381;
+              {numFormat(totalPrice(cart))}&nbsp;&#8381;
             </span>
           </div>
         </div>

@@ -17,7 +17,7 @@ function Modal(props) {
 			<div className={cn('wrapper')}>
 				<div className={cn('content')} onClick={(e) => e.stopPropagation()}>
 					<div className={cn('head')}>
-						{props.title}
+						<h1>{props.title}</h1>
 						<button onClick={callbacks.onToggleModal}>Закрыть</button>
 					</div>
 					{props.children}
@@ -29,12 +29,13 @@ function Modal(props) {
 
 Modal.propTypes = {
 	onToggleModal: propTypes.func,
-	title: propTypes.node,
+	title: propTypes.string,
 	children: propTypes.node
 }
 
 Modal.defaultProps = {
-	onToggleModal: () => {}
+	onToggleModal: () => {},
+	title: ''
 }
 
 export default React.memo(Modal);

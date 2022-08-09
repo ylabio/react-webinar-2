@@ -5,6 +5,7 @@
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.7);
+  overflow: auto;
 }
 
 .Overflow * {
@@ -12,13 +13,10 @@
 }
 
 .Popup {
-  position: absolute;
+  margin: 200px auto;
   width: 960px;
-  height: 600px;
+  min-height: 600px;
   background-color: #fff;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   border-radius: 10px;
 }
 
@@ -33,7 +31,6 @@
 }
 
 .Popup-content {
-  overflow-y: auto;
-  height: 520px;
+  min-height: 520px;
   padding: 74px 0 0 0;
 }

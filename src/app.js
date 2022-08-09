@@ -33,8 +33,7 @@ function App({store}) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls cart={store.getState().cart}
-                totalSum={totalSum}
+      <Controls totalSum={totalSum}
                 quantityProduct={quantityProduct}
                 onOpenModal={callbacks.onOpenModal}/>
 

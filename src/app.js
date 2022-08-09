@@ -16,7 +16,9 @@ function App({store}) {
         onAddToCart: useCallback((code) => {
             store.addToCart(code);
         }, []),
-
+        onDeleteFromCart: useCallback((code) => {
+            store.deleteFromCart(code);
+        }, [])
     }
 
     return (
@@ -29,6 +31,8 @@ function App({store}) {
             />
             <Popup isOpened = {buttonPopup}
                    setButtonPopup={setButtonPopup}
+                   cart={store.getState().cart}
+                   deleteFromCart={callbacks.onDeleteFromCart}
             />
         </Layout>
     );

@@ -7,27 +7,13 @@ function Item(props) {
     const cn = bem('Item');
 
     const callbacks = {
-
-        // onClick: useCallback(() => {
-        //   props.onSelect(props.item.code);
-        //   if (!props.item.selected) {
-        //     setCount(count + 1);
-        //   }
-        // }, [props.onSelect, props.item, setCount, count]),
-        //
-        // onDelete: useCallback((e) => {
-        //   e.stopPropagation();
-        //   props.onDelete(props.item.code)
-        // }, [props.onDelete,  props.item]),
-
-
         onAddToCart: useCallback(() => {
             props.onAddToCart(props.item.code);
         }, [props.onAddToCart, props.item])
     };
 
     return (
-        <div className={cn({'selected': props.item.selected})}>
+        <div className={cn()}>
             <div className={cn('number')}>
                 {props.item.code}
             </div>
@@ -35,7 +21,7 @@ function Item(props) {
                 {props.item.title}
             </div>
             <div className={cn('price')}>
-                {props.item.price + ' ₽'}
+                {props.item.price.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', maximumSignificantDigits: 20 })}
             </div>
             <div className={cn('actions')}>
                 <button onClick={callbacks.onAddToCart}>
@@ -49,14 +35,10 @@ function Item(props) {
 Item.propTypes = {
     item: propTypes.object.isRequired,
     onAddToCart: propTypes.func.isRequired,
-    // onSelect: propTypes.func.isRequired,
-    // onDeleted: propTypes.func.isRequired
 }
 
 Item.defaultProps = {
     onAddToCart: () => {},
-    // onSelect: () => {},
-    // onDeleted: () => {}
 }
 
 export default React.memo(Item);

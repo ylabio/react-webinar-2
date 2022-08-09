@@ -38,29 +38,29 @@ function App({store}) {
 				>
           <Item />
 				</List>
-
-				{isOpenModal && 
-          <Modal 
-						head={<><h1>Корзина</h1><button onClick={callbacks.onToggleModal}>Закрыть</button></>} 
-						onToggleModal={callbacks.onToggleModal}
-					>
-						{store.getState().cartItems.length ?
-							<>
-								<List items={store.getState().cartItems}
-											onCallbackItem={callbacks.onDeleteFromCartItem}
-								>
-									<CartItem />
-								</List>
-								<div className="Modal-total">
-									<strong>Итого</strong>
-									<strong>{store.getState().totalCount ? `${formatPrice(store.getState().totalPrice)} ₽` : 'пусто'}</strong>
-								</div>
-							</> :
-							<div className="Modal-empty">
-								<h3>Корзина пустая!</h3>
-							</div>}
-					</Modal>}
 			</Layout>
+
+			{isOpenModal && 
+        <Modal 
+					head={<><h1>Корзина</h1><button onClick={callbacks.onToggleModal}>Закрыть</button></>} 
+					onToggleModal={callbacks.onToggleModal}
+				>
+					{store.getState().cartItems.length ?
+						<>
+							<List items={store.getState().cartItems}
+										onCallbackItem={callbacks.onDeleteFromCartItem}
+							>
+								<CartItem />
+							</List>
+							<div className="Modal-total">
+								<strong>Итого</strong>
+								<strong>{store.getState().totalCount ? `${formatPrice(store.getState().totalPrice)} ₽` : 'пусто'}</strong>
+							</div>
+						</> :
+						<div className="Modal-empty">
+							<h3>Корзина пустая!</h3>
+						</div>}
+				</Modal>}
 		</>
   );
 }

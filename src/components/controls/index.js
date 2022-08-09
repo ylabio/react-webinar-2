@@ -43,10 +43,6 @@ Controls.propTypes = {
   handleModal: propTypes.func.isRequired,
 };
 
-Controls.defaultProps = {
-  total: 0,
-  price: 0,
-  handleModal: () => {},
-};
+Controls.defaultProps = {};
 
 export default React.memo(Controls);

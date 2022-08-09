@@ -56,13 +56,7 @@ Cart.propTypes = {
   isCartOpen: propTypes.bool.isRequired,
 };
 
-Cart.defaultProps = {
-  items: [], 
-  removeItemFromCart: () => {}, 
-  closeModal: () => {}, 
-  price: 0,
-  isCartOpen: false,
-};
+Cart.defaultProps = {};
 
 export default Cart;
 

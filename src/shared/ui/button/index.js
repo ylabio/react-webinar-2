@@ -31,12 +31,11 @@ Button.propTypes = {
   width: propTypes.string,
   height: propTypes.string,
   text: propTypes.string.isRequired,
-}
+};
 
 Button.defaultProps = {
   width: '80px',
   height: '21px',
-  text: '',
-}
+};
 
 export default React.memo(Button);

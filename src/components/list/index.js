@@ -35,11 +35,6 @@ List.propTypes = {
   ListItem: propTypes.elementType.isRequired
 };
 
-List.defaultProps = {
-  items: [],
-  cb: () => {},
-  isModal: false,
-  ListItem: () => <></>,
-};
+List.defaultProps = {};
 
 export default React.memo(List);

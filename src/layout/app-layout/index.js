@@ -19,8 +19,8 @@ function AppLayout({head, children}){
 }
 
 AppLayout.propTypes = { 
-  head: propTypes.node,
-  children: propTypes.node,
+  head: propTypes.node.isRequired,
+  children: propTypes.node.isRequired,
 };
 
 export default React.memo(AppLayout);

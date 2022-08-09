@@ -34,8 +34,6 @@ Item.propTypes = {
   cb: propTypes.func.isRequired,
 };
 
-Item.defaultProps = { 
-  cb: () => {},
-};
+Item.defaultProps = {};
 
 export default React.memo(Item);

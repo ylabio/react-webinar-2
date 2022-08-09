@@ -35,9 +35,7 @@ CartItem.propTypes = {
   cb: propTypes.func.isRequired,
 };
 
-CartItem.defaultProps = {
-  cb: () => {},
-};
+CartItem.defaultProps = {};
 
 export default React.memo(CartItem, (prev, next) => {
   return prev.item.time === next.item.time;

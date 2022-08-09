@@ -16,7 +16,7 @@ function Item({item, callback, btnName}) {
         {item.title}
       </div>
       <div className={cn('actions')}>
-        <div className={cn('price')}>{item.price} &#8381;</div>
+        <div className={cn('price')}>{item.price.toLocaleString('ru-RU')} &#8381;</div>
         {item.count && <div className={cn('quantity')}>{item.count} шт</div>}
         <CustomButton onClick={() => callback(item)}>
           {btnName}

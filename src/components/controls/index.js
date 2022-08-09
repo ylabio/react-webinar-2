@@ -13,7 +13,11 @@ function Controls({basketCount, totalSum, setModal}){
       <div className={cn('element')}>В корзине:</div>
       <div className={cn('element')}>
         {basketCount ? 
-          <span>{basketCount} {plural(basketCount, "товар", "товара", "товаров")} / {totalSum} &#8381; </span> :
+          <span>
+            {basketCount} {''}
+            {plural(basketCount, "товар", "товара", "товаров")} / {''}
+            {totalSum.toLocaleString('ru-RU')} &#8381; 
+          </span> :
           <span>пусто</span>
         }
       </div>

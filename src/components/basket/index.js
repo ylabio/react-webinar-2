@@ -20,7 +20,7 @@ function Basket({children, basketCount, totalSum, setModal}) {
           {children}
           <div className={cn('summary')}>
             <span>Итого</span>
-            <span>{totalSum} &#8381;</span>
+            <span>{totalSum.toLocaleString('ru-RU')} &#8381;</span>
           </div>
         </> :
         <div className={cn('empty')}>Нет товаров</div>

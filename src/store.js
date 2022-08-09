@@ -43,42 +43,66 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  createItem({ code, title = 'Новый товар', price = 999, selected = false }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      items: this.state.items.concat({ code, title, price, selected })
     });
   }
 
   /**
-   * Удаление записи по её коду
-   * @param code
+   * Переключение "флага" модального окна
    */
-  deleteItem(code) {
+  modalTogge() {
+    console.log(' this.state.isModalActive', this.state.isModalActive)
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
+      isModalActive: !this.state.isModalActive
+    })
+    console.log(' this.state.isModalActive', this.state.isModalActive)
   }
 
   /**
-   * Выделение записи по её коду
+   * Удаление товара из корзины по его коду
    * @param code
    */
-  selectItem(code) {
+  removeItemFromBasket(code) {
+
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+      basketItems:
+        this.state.basketItems.filter(item => item.code !== code),
+      basketUniqueItems:
+        this.state.basketUniqueItems.filter(item => item.code !== code)
+    })
+  }
+
+  /**
+   * Добавление товара в корзину по его коду
+   * @param code
+   */
+  addItemToBasket(code) {
+
+    let item = this.state.items.find(item => item.code === code);
+    let itemInBasket = this.state.basketUniqueItems.find(item => item.code === code);
+
+    if (itemInBasket === undefined) {
+      this.setState({
+        ...this.state,
+        basketItems:
+          this.state.basketItems.concat(item),
+        basketUniqueItems:
+          this.state.basketUniqueItems.concat(item),
+      });
+    }
+    else if (itemInBasket !== undefined) {
+      this.setState({
+        ...this.state,
+        basketItems:
+          this.state.basketItems.concat(item)
+      });
+
+    }
   }
 }
 

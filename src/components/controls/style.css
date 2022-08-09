@@ -1,6 +1,42 @@
 /* Контрол с общими действиями */
-.Controls{
-    display: flex;
-    justify-content: flex-end;
-    padding: 20px;
+.Controls {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.Controls-title {
+  display: flex;
+  margin-right: 22px;
+}
+
+.Controls-titleText {
+  margin-right: 15px;
+}
+
+.Controls-titleText {
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+}
+
+.Controls-basketInfo {
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+}
+
+.Controls-button {
+  width: 80px;
+  height: 21px;
+}
+
+.Controls-emptyBasketMessage {
+  text-align: center;
 }

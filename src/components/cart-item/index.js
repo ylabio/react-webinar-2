@@ -2,6 +2,8 @@ import React, {useCallback} from "react";
 import "./style.css";
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
+import {formatNumber} from '../../utils.js';
+
 
 
 const CartItem = ({item, onDeleteItem}) => {
@@ -22,7 +24,7 @@ const CartItem = ({item, onDeleteItem}) => {
                 {item.title}
             </div>
             <div className={cn('price')}>
-                {item.price + " ₽"} 
+                {formatNumber(item.price) + " ₽"} 
             </div>
             <div className={cn('count')}>
                 {item.count + " шт"} 

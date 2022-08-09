@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
-import {calcPrice} from '../../utils.js';
+import {calcPrice, formatNumber} from '../../utils.js';
 
 function Controls({onOpenPanel, cartList}){
   const cn = bem('Controls');
@@ -23,7 +23,7 @@ function Controls({onOpenPanel, cartList}){
           <p className={cn("paragraph-price")}> 
             {cartList.length > 0 ? (
             
-            `${calcCount(cartList)} ${plural(calcCount(cartList), 'товар', 'товара', 'товаров')} / ${calcPrice(cartList)} ₽`
+            `${calcCount(cartList)} ${plural(calcCount(cartList), 'товар', 'товара', 'товаров')} / ${formatNumber(calcPrice(cartList))} ₽`
             
           ) : (
             "пусто"

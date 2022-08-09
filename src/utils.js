@@ -19,3 +19,10 @@ export function counter(){
     }, 0);
   }
 }
+/**
+ * Возвращает отформатированный вариант цены
+ * @returns {number|number}
+ */
+export function formatNumber(num) {
+  return num.toLocaleString('ru-RU')
+}

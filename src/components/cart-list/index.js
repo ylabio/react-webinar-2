@@ -3,7 +3,7 @@ import {cn as bem} from "@bem-react/classname";
 import CartItem from "../cart-item";
 import "./style.css";
 import propTypes from "prop-types";
-import {calcPrice} from '../../utils.js';
+import {calcPrice, formatNumber} from '../../utils.js';
 
 const CartList = ({items, onDeleteItem}) => {
     const cn = bem("Cart-list");
@@ -23,7 +23,7 @@ const CartList = ({items, onDeleteItem}) => {
             </div>
             <div className={cn("price")}>
                 <p style={{marginRight: "49px"}}>Итого</p> 
-                <p>{calcPrice(items)} ₽</p>
+                <p>{formatNumber(calcPrice(items))} ₽</p>
             </div>
         </>
     )

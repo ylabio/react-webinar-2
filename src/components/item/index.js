@@ -2,6 +2,8 @@ import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
+import {formatNumber} from '../../utils.js';
+
 
 function Item(props) {
   const cn = bem('Item');
@@ -21,7 +23,7 @@ function Item(props) {
         {props.item.title}
       </div>
       <div className={cn('price')}>
-        {props.item.price + " ₽"} 
+        {formatNumber(props.item.price) + " ₽"} 
       </div>
       <div className={cn('actions')}>
         <button onClick={callbacks.addItem}>

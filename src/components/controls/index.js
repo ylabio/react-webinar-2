@@ -5,13 +5,14 @@ import { currencyFormat } from '../../utils';
 import plural from 'plural-ru';
 import { cn as bem } from '@bem-react/classname';
 
-function Controls({cart: {totalPrice, totalQuantity}, onPopupOpen}){
+function Controls({cart, cart: {totalPrice}, onPopupOpen}){
   const cn = bem('Controls');
   const modifiedCurrency = currencyFormat(totalPrice, 0);
+  const total = Object.keys(cart.cartItems).length;
 
    return (
     <div className='Controls'>
-      <div className={cn('wrapper')}><p className={cn('text')}>В корзине:</p><b>{totalQuantity ? `${totalQuantity} ${plural(totalQuantity, 'товар', 'товара', 'товаров')}` : 0} / {modifiedCurrency}</b></div>
+      <div className={cn('wrapper')}><p className={cn('text')}>В корзине:</p><b>{total ? `${total} ${plural(total, 'товар', 'товара', 'товаров')}` : 0} / {modifiedCurrency}</b></div>
       <button className={cn('actions')} onClick={onPopupOpen}>Перейти</button>
     </div>
   )

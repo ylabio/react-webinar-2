@@ -56,8 +56,7 @@ class Store {
       cartItems: this.state.cart.cartItems[itemId] ?
         {...this.state.cart.cartItems, [itemId]: {...cartItem, count: this.state.cart.cartItems[itemId].count + 1}} : 
         {...this.state.cart.cartItems, [itemId]: {...cartItem, count: 1}},
-      totalPrice: this.state.cart.totalPrice + cartItem.price,
-      totalQuantity: this.state.cart.totalQuantity + 1
+      totalPrice: this.state.cart.totalPrice + cartItem.price,    
       }   
     })   
   }
@@ -75,8 +74,7 @@ class Store {
       ...this.state,
       cart:  {...this.state.cart, 
       cartItems: {...cartItems},
-      totalPrice: this.state.cart.totalPrice - (item.price * item.count),
-      totalQuantity: this.state.cart.totalQuantity - item.count}   
+      totalPrice: this.state.cart.totalPrice - (item.price * item.count)}   
     });
   }
 }

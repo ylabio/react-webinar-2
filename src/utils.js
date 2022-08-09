@@ -1,6 +1,4 @@
-import React from "react";
 import plural from "plural-ru";
-import NumberFormat from "react-number-format";
 
 /**
  * Генерирует уникальный код на основе счётчика
@@ -20,14 +18,14 @@ export function pluralize(num) {
 }
 
 /**
- * Обеспечивает форматирование вывода чисел
+ * Обеспечивает вывод чисел в формате: (3 цифры)(пробел)(3 цифры)
  * @param num {number} число для форматирования
- * @returns {React.ReactElement}
+ * @returns {string}
  */
 export function numFormat(num) {
-  return (
-    <NumberFormat value={num} displayType={"text"} thousandSeparator={" "} />
-  );
+  let str = num.toString().split(".");
+  str[0] = str[0].replace(/(?=(\d{3})+(?!\d))/g, " ");
+  return str;
 }
 
 /**
@@ -63,6 +61,6 @@ export function totalPrice(cart) {
  * @param cart {Array.<{code: number, title: string, price: number, qty: number}>} корзина с товарами
  * @returns {number}
  */
- export function totalQty(cart) {
+export function totalQty(cart) {
   return cart.reduce((total, item) => item.qty + total, 0);
 }

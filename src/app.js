@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
@@ -12,23 +12,22 @@ import ModalLayout from "./components/modal-layout";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const callbacks = {
-    onAmountIncrease: useCallback((code) => {
-      store.amountIncrease(code);
+    onItemAdd: useCallback((code) => {
+      store.addItem(code);
+    }, []),
+    onItemRemove: useCallback((code) => {
+      store.removeItem(code);
     }, []),
     onCartOpen: useCallback(() => {
-      store.openCart();
-    }, []),
+      setIsCartOpen(true);
+    }, [isCartOpen, setIsCartOpen]),
     onCartClose: useCallback(() => {
-      store.closeCart();
-    }, []),
-    onItemDelete: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
+      setIsCartOpen(false);
+    }, [isCartOpen, setIsCartOpen]),
   }
-
-  const isCartOpen = store.getState().isCartOpen;
 
   return (
     <Layout head={<h1>Магазин</h1>}>
@@ -39,7 +38,7 @@ function App({store}) {
       />
       <List>
         {store.getState().items.map((item) =>
-          <Item item={item} onClick={callbacks.onAmountIncrease} key={item.code} />
+          <Item item={item} onClick={callbacks.onItemAdd} key={item.code} />
         )}
       </List>
       {
@@ -48,7 +47,7 @@ function App({store}) {
           <Cart
             cartItems={store.getState().cartItems}
             totalPrice={store.getTotalPrice()}
-            onItemDelete={callbacks.onItemDelete}
+            onItemRemove={callbacks.onItemRemove}
           />
         </ModalLayout>
       }

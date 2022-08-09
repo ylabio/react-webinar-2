@@ -10,9 +10,9 @@ function Cart(props) {
   const cn = bem('Cart');
 
   const callbacks = {
-    onItemDelete: useCallback((code) => {
-      props.onItemDelete(code);
-    }, [props.onItemDelete]),
+    onItemRemove: useCallback((code) => {
+      props.onItemRemove(code);
+    }, [props.onItemRemove]),
   };
 
   return (
@@ -21,7 +21,7 @@ function Cart(props) {
         {props.cartItems.map((item) =>
           <CartItem
             cartItem={item}
-            onItemDelete={callbacks.onItemDelete}
+            onItemRemove={callbacks.onItemRemove}
             key={item.code}
           />
         )}
@@ -42,7 +42,7 @@ function Cart(props) {
 Cart.propTypes = {
   cartItems: propTypes.arrayOf(propTypes.object).isRequired,
   totalPrice: propTypes.number.isRequired,
-  onItemDelete: propTypes.func.isRequired,
+  onItemRemove: propTypes.func.isRequired,
 }
 
 export default React.memo(Cart);

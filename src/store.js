@@ -43,7 +43,7 @@ class Store {
   /**
    * Добавление товара в корзину
    */
-  amountIncrease(code) {
+  addItem(code) {
     if (this.state.cartItems.find((item) => item.code === code)) {
       this.setState({
         ...this.state,
@@ -76,7 +76,7 @@ class Store {
   /**
   * Удаление товара из корзины по его коду
   */
-  deleteItem(code) {
+  removeItem(code) {
     this.setState({
       ...this.state,
       cartItems: this.state.cartItems.filter(item => item.code !== code)

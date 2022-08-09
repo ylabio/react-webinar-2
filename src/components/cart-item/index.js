@@ -8,9 +8,9 @@ function CartItem(props) {
   const cn = bem('CartItem');
 
   const callbacks = {
-    onItemDelete: useCallback(() => {
-      props.onItemDelete(props.cartItem.code);
-    }, [props.onItemDelete,  props.cartItem])
+    onItemRemove: useCallback(() => {
+      props.onItemRemove(props.cartItem.code);
+    }, [props.onItemRemove,  props.cartItem])
   };
 
   return (
@@ -28,7 +28,7 @@ function CartItem(props) {
         {`${props.cartItem.amount} шт`}
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onItemDelete}>
+        <button onClick={callbacks.onItemRemove}>
           Удалить
         </button>
       </div>
@@ -43,7 +43,7 @@ CartItem.propTypes = {
     price: propTypes.number,
     amount: propTypes.number,
   }),
-  onItemDelete: propTypes.func.isRequired
+  onItemRemove: propTypes.func.isRequired
 }
 
 export default React.memo(CartItem);

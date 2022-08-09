@@ -80,6 +80,28 @@ class Store {
       })
     });
   }
+  addItemInBasket(code){
+    this.setState({
+      ...this.state,
+      basket: this.state.basket.map(item => {
+        if (item.code === code){
+          return {
+            ...item,
+            selected: !item.selected,
+            count: item.count+=1
+          }
+        }
+        return item;
+      })
+    });
+  }
+  deleteItemInBasket(code){
+    // надо внести проверку на уже существующий элемент и увеличение его
+    this.setState({
+      ...this.state,
+      basket:this.state.basket.filter(item => item.code !== code)
+    });
+  }
 }
 
 export default Store;

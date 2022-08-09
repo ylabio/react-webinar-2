@@ -3,7 +3,7 @@ import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
 const CartPrice = ({ cartPrice }) => {
-  const cn = bem("cartPrice");
+  const cn = bem("cart-price");
 
   if (cartPrice.price > 0 && cartPrice.count > 0) {
     return (

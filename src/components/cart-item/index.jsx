@@ -3,7 +3,7 @@ import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
 const CartItem = ({ cart, onDeleteItem }) => {
-  const cn = bem("cartItem");
+  const cn = bem("cart-item");
 
   return (
     <div className={cn("wrapper")}>

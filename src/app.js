@@ -4,8 +4,8 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import { counter } from "./utils";
 import Modal from "./components/modal";
-import CartItem from "./components/cartItem";
-import CartPrice from "./components/cartPrice";
+import CartItem from "./components/cart-item";
+import CartPrice from "./components/cart-price";
 
 /**
  * Приложение

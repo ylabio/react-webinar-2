@@ -1,4 +1,4 @@
-.cartPrice {
+.cart-price {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -7,12 +7,12 @@
     margin-bottom: 20px;
 }
 
-.cartPrice:last-child::after{
+.cart-price:last-child::after{
     content: "\20BD";
     font-weight: 700;
     margin-left: 6px;
 }
 
-.cartPrice-total {
+.cart-price-total {
     margin-right: 60px;
 }

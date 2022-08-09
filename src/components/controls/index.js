@@ -9,7 +9,7 @@ function Controls(props){
 
   return (
     <div className={cn()}>
-      <div className={cn('label')}>В Корзине:{'\t'}
+      <div className={cn('label')}>В корзине:{'\t'}
         <b> {
           props.stats.goods
             ?

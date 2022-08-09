@@ -19,7 +19,6 @@
 }
 
 .Modal-content {
-  /* padding: 10px; */
   border-radius: 5px;
   background-color: white;
   transform: scale(0);
@@ -27,6 +26,7 @@
   width: 906px;
   height: 603px;
   border: 1px solid black;
+  overflow: hidden;
 }
 
 .Modal-content_active {

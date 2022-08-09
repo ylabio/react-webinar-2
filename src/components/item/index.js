@@ -19,7 +19,7 @@ function Item(props) {
         {props.item.title}
       </div>
       <div className={cn('price')}>
-         {props.item.price} ₽
+         {new Intl.NumberFormat("ru", {style: "currency", currency: "RUB"}).format(props.item.price)}
       </div>
       {props.item.count ? <div className={cn('count')}>
         {props.item.count} шт 

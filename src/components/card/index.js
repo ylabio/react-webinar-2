@@ -25,7 +25,7 @@ function Card(props) {
           <b>
             Итого 
             <span>
-              {props.cardList.reduce((acc, item) => acc + item.price, 0)} ₽
+              {new Intl.NumberFormat("ru", {style: "currency", currency: "RUB"}).format(props.cardList.reduce((acc, item) => acc + item.price, 0))}
             </span>
           </b>
         </div>

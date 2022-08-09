@@ -5,12 +5,10 @@ import './style.css';
 import {getСonvertProps} from '../../utils'
 
 function Controls({toCard, cardsValue}){
-  const priceSum = cardsValue.reduce((acc, value) => acc + value.price, 0)
-
   return (
     <div className='Controls'>
       <p className='Controls__info'>В корзине:
-      {Boolean(cardsValue.length) ? <b>{getСonvertProps(cardsValue).length} {plural(getСonvertProps(cardsValue).length, 'товар', 'товара', 'товаров')}/{priceSum} ₽</b> : <b>пусто</b>}</p>
+      {Boolean(cardsValue.length) ? <b>{getСonvertProps(cardsValue).length} {plural(getСonvertProps(cardsValue).length, 'товар', 'товара', 'товаров')}/{new Intl.NumberFormat("ru", {style: "currency", currency: "RUB"}).format(cardsValue.reduce((acc, item) => acc + item.price, 0))}</b> : <b>пусто</b>}</p>
       <button onClick={toCard}>Корзина</button>
     </div>
   )

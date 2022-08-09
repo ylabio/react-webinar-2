@@ -5,6 +5,13 @@ class Store {
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
+
+    if (!this.state.basket)
+      this.state.basket = [];
+
+    if (!this.state.stats)
+      this.state.stats = {goods: 0, price: 0};
+
     // Слушатели изменений state
     this.listeners = [];
   }
@@ -23,6 +30,13 @@ class Store {
    */
   setState(newState) {
     this.state = newState;
+
+    if (!this.state.basket)
+      this.state.basket = [];
+
+    if (!this.state.stats)
+      this.state.stats = {goods: 0, price: 0};
+    
     // Оповещаем всех подписчиков об изменении стейта
     for (const listener of this.listeners) {
       listener();
@@ -68,9 +82,6 @@ class Store {
    * @param code
    */
   addItemToBasket(code) {
-    if (!this.state.basket) // если еще ничего нет
-      this.state.basket = [];
-
     if (this.state.basket.find((item) => item.code === code)) { // такой товар уже добавляли
       this.setState({
         ...this.state,
@@ -93,10 +104,11 @@ class Store {
         })
       });
     };
+    this.updateBasketStats();
   }
 
   /**
-  * Удаление товара из корзины
+  * Удаление товара из корзины (целиком наимеование)
   * @param code
   */
   removeItemFromBasket(code) {
@@ -104,42 +116,25 @@ class Store {
       ...this.state,
       basket: this.state.basket.filter(item => item.code !== code)
     });
+    this.updateBasketStats();
   }
 
   /**
-   * Узнать сумму всех товаров в корзине
-   * @return number
+   * Обновить количество и стоимость всех товаров в корзине
    */
-  getTotalPrice() {
-    if (!this.state.basket || !this.state.basket.length)
-      return 0;
-    
-    let totalPrice = 0;
+  updateBasketStats() {
+    let price = 0;
     this.state.basket.forEach(item => {
-      totalPrice += item.price * item.count;
+      price += item.price * item.count;
     });
-    
-    return totalPrice;
-  }
 
-  /**
-   * Узнать количество товаров в корзине
-   * @param skipCount если true, то считаем наименования, без учета штук
-   * @return number
-   */
-  getTotalGoods(skipCount = false) {
-    if (!this.state.basket || !this.state.basket.length)
-      return 0;
-
-    if (skipCount)
-      return this.state.basket.length;
-    
-    let totalGoods = 0;
-    this.state.basket.forEach(item => {
-      totalGoods += item.count;
+    this.setState({
+      ...this.state,
+      stats: {
+        goods: this.state.basket.length,
+        price
+      }
     });
-    
-    return totalGoods;
   }
 
 }

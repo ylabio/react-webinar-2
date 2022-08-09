@@ -37,8 +37,8 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  label: propTypes.string.isRequired,
-  onAction: propTypes.func.isRequired
+  label: propTypes.string,
+  onAction: propTypes.func
 }
 
 Item.defaultProps = {

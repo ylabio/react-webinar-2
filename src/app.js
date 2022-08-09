@@ -1,10 +1,10 @@
-import plural from 'plural-ru';
 import React, { useCallback, useEffect, useState } from 'react';
+import BasketStats from "./components/basket_stats";
 import Controls from "./components/controls";
 import Layout from "./components/layout";
 import List from "./components/list";
 import Modal from "./components/modal";
-import { checkBasketDesign, counter } from "./utils";
+import { checkModalDesign } from "./utils";
 
 /**
  * Приложение
@@ -14,25 +14,27 @@ import { checkBasketDesign, counter } from "./utils";
 function App({store}) {
 
   const [modalActive, setModalActive] = useState(false);
-
+  
   const callbacks = {
     onShowBasket: useCallback(() => {
       setModalActive(true);
     }, [modalActive, setModalActive]),
+
     onAddItemToBasket: useCallback((code) => {
       store.addItemToBasket(code);
     }, []),
+
     onRemoveItemFromBasket: useCallback((code) => {
       store.removeItemFromBasket(code);
     }, []),
   }
 
-  window.onresize = (e) => { // проверим корректность отображения корзины после ресайза
-    checkBasketDesign(modalActive);
+  window.onresize = () => { // проверим корректность отображения корзины после ресайза
+    checkModalDesign(modalActive);
   }
 
   useEffect(() => { // проверим корректность отображения корзины после обновления DOM
-    checkBasketDesign(modalActive);
+    checkModalDesign(modalActive);
   });
 
   return (
@@ -41,13 +43,7 @@ function App({store}) {
       <Layout head={<h1>Магазин</h1>}>
         <Controls
           onButtonClick={callbacks.onShowBasket}
-          stats={
-            store.getTotalGoods(true)?
-              store.getTotalGoods(true) + ' ' +
-              plural(store.getTotalGoods(true), 'товар', 'товара', 'товаров') +
-              ' / ' + store.getTotalPrice().toLocaleString('ru-RU') + ' ₽'
-            : 'пусто'
-          }
+          stats={store.getState().stats}
         />
         <List items={store.getState().items}
               buttonsAction={callbacks.onAddItemToBasket}
@@ -57,20 +53,13 @@ function App({store}) {
 
       {
         modalActive? /* Оптимизация, ибо невидимые элементы продолжают перерисовываться */
-          <Modal active={modalActive} setActive={setModalActive}>
+          <Modal setActive={setModalActive}>
             <Layout head={<h1>Корзина</h1>}>
               <List items={store.getState().basket}
                     buttonsAction={callbacks.onRemoveItemFromBasket}
                     buttonsLabel="Удалить"
               />
-              <div className='Modal-stats'>
-                {store.getTotalGoods(true)
-                  ?
-                    'Итого\t\t' + store.getTotalPrice().toLocaleString('ru-RU') + ' ₽'
-                  :
-                    'Нет товаров в корзине!'
-                }
-              </div>
+              <BasketStats stats={store.getState().stats} />
             </Layout>
           </Modal>
         :null

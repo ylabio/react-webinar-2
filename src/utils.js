@@ -6,8 +6,11 @@ export function counter(){
   return counter.value ? ++counter.value : counter.value = 1;
 }
 
-/** Проверка и улучшение отображения корзины */ 
-export function checkBasketDesign(isActive = false){
+/** 
+ * Проверка и улучшение отображения модалки
+ * @param isActive
+ */ 
+export function checkModalDesign(isActive = false){
   if (!isActive) {
     document.body.style.overflowY = "auto";
     return;

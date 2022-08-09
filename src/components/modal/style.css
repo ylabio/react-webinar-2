@@ -8,33 +8,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
+  pointer-events: all;
+  /* opacity: 0;
   pointer-events: none;
-  transition: 0.4s;
+  transition: 0.4s; */
 }
 
 .Modal-overfilled{
   padding-top: 20px;
-  align-items: baseline;
+  align-items: flex-start;
   overflow-y: scroll;
 }
 
-.Modal.active{
-  pointer-events: all;
-  opacity: 1;
-}
-
+/* Контентная часть модалки */
 .Modal-content{
   border-radius: 10px;
   width: 960px;
-  transform: scale(0.7);
-  transition: 0.4s;
-}
-
-.Modal-content.active{
+  /* transform: scale(0.7);
+  transition: 0.4s; */
   transform: scale(1);
 }
 
+/* Выравнивание переполненного контента */
 .Modal-content-overfilled{
   margin-left: 20px;
   margin-bottom: 40px;
@@ -65,22 +60,23 @@
   border-top-right-radius: 10px;
 }
 
+.Modal-content .Item-count{
+  width: 120px;
+}
+
+/* Это для анимации, пока отключено */
+/* .Modal.active{
+  pointer-events: all;
+  opacity: 1;
+} */
+
+/* .Modal-content.active{
+  transform: scale(1);
+} */
+
 /* В корзинный List добавил скролл, т.к. едва умещаются 7 товаров */
 /* .Modal-content .List{
   height: 390px;
   overflow-y: scroll;
   scrollbar-width: auto;
 } */
-
-.Modal-content .Item-count{
-  width: 120px;
-}
-
-.Modal-stats{
-  white-space: pre;
-  font-size:18;
-  font-weight: 700;
-  width: 840px;
-  text-align: end;
-  padding: 20px;
-}

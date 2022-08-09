@@ -1,3 +1,5 @@
+import { counter } from "./utils";
+
 class Store {
   constructor(initState) {
     // Состояние приложения (данные)
@@ -35,31 +37,29 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
->>>>>>> 17e702cc7760549eec360e526244744df3f36f3b
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
   /**
    * Создание записи
    */
 
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  createItem({ code, title = "Новый товар", price = 999, selected = false }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
->>>>>>> 17e702cc7760549eec360e526244744df3f36f3b
+      items: this.state.items.concat({ code, title, price, selected }),
     });
   }
 
   /**
-   * Удаление записи по её коду
+   * Удаление записи из корзины по её коду
    * @param code
    */
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter((item) => item.code !== code),
+      cartItems: this.state.cartItems.filter((item) => item.code !== code),
     });
   }
 
@@ -67,22 +67,28 @@ class Store {
    * Выделение записи по её коду
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
+  selectItem(elem) {
+    const searchElem = this.state.cartItems.find((el) => el.code === elem.code);
+    if (searchElem) {
+      this.setState({
+        ...this.state,
+        cartItems: this.state.cartItems.map((el) => {
+          if (el.code === elem.code) {
+            return { ...el, count: el.count + 1 };
           }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
->>>>>>> 17e702cc7760549eec360e526244744df3f36f3b
-    });
+          return el;
+        }),
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cartItems: this.state.cartItems.concat({
+          ...elem,
+          count: 1,
+        }),
+      });
+    }
+    console.log("state", this.state.cartItems);
   }
 }
 

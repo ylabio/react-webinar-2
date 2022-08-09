@@ -1,10 +1,9 @@
-
-import React, {useCallback} from 'react';
+import React, { useCallback } from "react";
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
->>>>>>> 17e702cc7760549eec360e526244744df3f36f3b
+import { counter } from "./utils";
+import Card from "./components/card";
 
 /**
  * Приложение
@@ -12,30 +11,36 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 
-function App({store}) {
+function App({ store }) {
+  const [show, setShow] = React.useState(true);
+
+  const onIsShow = () => {
+    setShow(!show);
+    console.log(show);
+  };
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
-    }, []),
     onSelectItems: useCallback((code) => {
       store.selectItem(code);
     }, []),
     onDeleteItems: useCallback((code) => {
       store.deleteItem(code);
     }, []),
-  }
+  };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
->>>>>>> 17e702cc7760549eec360e526244744df3f36f3b
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls isShow={onIsShow} />
+        <List
+          items={store.getState().items}
+          onItemSelect={callbacks.onSelectItems}
+          onItemDelete={callbacks.onDeleteItems}
+        />
+
+        {show && <Card items={store.cartItems} />}
+      </Layout>
+    </>
   );
 }
 

@@ -36,6 +36,7 @@ function App({ store }) {
         onAddItemToCart={callbacks.onAddItemToCart}
         activeCart={activeCart}
         onDelete={callbacks.onDelete}
+        sumInCart={store.sumInCart()}
       />
       {activeCart && (
         <Modal

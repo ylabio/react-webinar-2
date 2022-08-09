@@ -4,10 +4,10 @@ import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Item(props){
+function Item(props) {
   const cn = bem('Item');
 
-  const {item, callback, index} = props;
+  const { item, callback } = props;
 
   const handleCallback = useCallback(() => {
     callback.action(item);
@@ -15,12 +15,10 @@ function Item(props){
 
   return (
     <div className={cn()}>
-      <div className={cn('number')}>{index}</div>
+      <div className={cn('number')}>{item.code}</div>
       <div className={cn('title')}>{item.title}</div>
       <div className={cn('price')}>{item.price.toLocaleString('ru-Ru')}</div>
-      <Actions action={handleCallback} name={callback.name}>
-        {!!item.count && <div>{item.count + ' шт'}</div>}
-      </Actions>
+      <Actions action={handleCallback} name={callback.name} />
     </div>
   );
 }
@@ -28,13 +26,11 @@ function Item(props){
 Item.propTypes = {
   item: propTypes.object.isRequired,
   callback: propTypes.object.isRequired,
-  index: propTypes.number.isRequired,
 };
 
 Item.defaultProps = {
   item: {},
   callback: { action: () => {}, name: '' },
-  index: 0,
 };
 
 export default React.memo(Item);

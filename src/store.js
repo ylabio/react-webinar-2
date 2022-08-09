@@ -1,8 +1,7 @@
-import {generate} from 'shortid';
+import { generate } from 'shortid';
 import { calcTotalPrice } from './utils';
 
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -10,7 +9,7 @@ class Store {
     this.listeners = [];
   }
 
-  /**
+  /*
    * Выбор state
    * @return {Object}
    */
@@ -18,7 +17,7 @@ class Store {
     return this.state;
   }
 
-  /**
+  /*
    * Установка state
    * @param newState {Object}
    */
@@ -30,7 +29,7 @@ class Store {
     }
   }
 
-  /**
+  /*
    * Подписка на изменение state
    * @param callback {Function}
    * @return {Function} Функция для отписки
@@ -39,74 +38,56 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
   /*
-   * Обновление массива для items в shoppingCart
-   * @param type {string} Тип изменения добавить или удалить
-   * @param item {object} Объект элемента который добавляется или удаляется
-   * @return {Array} Обновленный shoppingCart
-  */
-  #updateCartItems(type, item) {
-    const cartItems = this.state.shoppingCart.items;
-    const index = cartItems.findIndex(product => product.code === item.code);
-    const product = cartItems[index];
-    
-    // прибавляет или уменьшает кол-во товара в объекте
-    // получает число 1 или -1
-    // возвращает массив с обновленным объектом
-    const updatedItems = (digit) => [
-      ...cartItems.slice(0, index), 
-      {...product, count: product.count + digit}, 
-      ...cartItems.slice(index + 1)
-    ];
-
-    switch(type) {
-      case 'ADD':
-        if(index === -1) {
-          return [...cartItems, {...item, count: 1, _id: generate()}]
-        }
-        return updatedItems(1);
-
-      case 'DELETE':
-        return cartItems.filter(item => item.code !== product.code);
-
-      default:
-        return cartItems;
-    }
-  }
-
-  /**
-   * Добавление объекта в корзину
-   * @param item {object}
+   * Добавление/прибавление кол-ва товара в корзину
+   * @param item {Object}
    */
   addItemToCart(item) {
-    const items = this.#updateCartItems('ADD', item);
-    this.setState({
-      ...this.state,
-      shoppingCart: { 
-        ...this.state.shoppingCart, 
-        items, 
-        totalPrice: calcTotalPrice(items)
-      }
-    });
-  }
-
-  /**
-   * Удаление/уменьшение кол-ва элементов из корзины
-   * @param item {object}
-   */
-  deleteItemFromCart(item) {
-    const items = this.#updateCartItems('DELETE', item);
+    const cartItems = this.state.shoppingCart.items;
+    const items = cartItems.reduce(
+      (items, product, index) => {
+        // если объект встретился в массиве, то обновить объект
+        // и вернуть массив без последнего элемента, который заведомо был инициализирован
+        if (product.code === item.code) {
+          items[index] = { ...product, count: product.count + 1 };
+          return items.slice(0, -1);
+        }
+        return items;
+      },
+      // массив объектов корзины + новый объект
+      // он останется если в редюсере не сработает условие
+      // и таким образом добавится новый товар
+      [...cartItems, { ...item, count: 1, _id: generate() }]
+    );
     this.setState({
       ...this.state,
       shoppingCart: {
         ...this.state.shoppingCart,
         items,
-        totalPrice: calcTotalPrice(items)
-      }
+        totalPrice: calcTotalPrice(items),
+      },
+    });
+  }
+
+  /*
+   * Удаление товара из корзины
+   * @param item {Object}
+   */
+  deleteItemFromCart(item) {
+    const items = this.state.shoppingCart.items.filter(
+      (product) => item.code !== product.code
+    );
+    this.setState({
+      ...this.state,
+      shoppingCart: {
+        ...this.state.shoppingCart,
+        items,
+        totalPrice: calcTotalPrice(items),
+      },
     });
   }
 }

@@ -40,7 +40,7 @@ function Item(props) {
     }, [props.onDelete, props.item])
   };
 
-  console.log(props);
+
   // Убрал атрибут онКлик из элемента JSX с функцией выделения
   return (
     <div className={cn({ 'selected': props.item.selected })}>

@@ -15,7 +15,6 @@ export function TotalSum(basket) {
   const uniqueProdict = `${basket.length}  ${plural(basket.length, 'товар', 'товара', 'товаров')}`;
 
 
-  console.log(typeof (totalPrice));
 
   return [quantityProduct, totalPrice, uniqueProdict];
 }

@@ -20,9 +20,14 @@ function Controls(props){
   return (
     <div className={cn()}>
       В корзине:
-      <div className={cn('sum')}>
-        {itemsSum} {plural(itemsSum, 'товар', 'товара', 'товаров')} / {priceSum} ₽
-      </div>
+      { itemsSum > 0 &&
+        <div className={cn('sum')}>
+          {`${itemsSum + ' ' + plural(itemsSum, 'товар', 'товара', 'товаров')} / ${priceSum.toLocaleString('ru-RU')} ₽`}
+        </div> ||
+        <div className={cn('sum')}>
+          пусто
+        </div>
+      }
       <div className={cn('actions')}>
         <button className={cn('btn-tocart')} onClick={props.isModalActive}>Перейти</button>
       </div>

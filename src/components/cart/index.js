@@ -32,7 +32,7 @@ function Cart(props) {
           <button className={cn('content-head-btn')} onClick={callbacks.onChangeActive}>{props.headBtn}</button>
         </div>
         {props.children}
-        {(props.footTotal !== 0) && <div className={cn('content-foot')}>
+        {(props.footTotal !== '0') && <div className={cn('content-foot')}>
           <div className={cn('content-foot-text')}>{props.footText}</div>
           <div className={cn('content-foot-total')}>{props.footTotal} ₽</div>
         </div>}
@@ -47,7 +47,7 @@ Cart.propTypes = {
   headName: propTypes.string,
   headBtn: propTypes.string,
   footText: propTypes.string,
-  footTotal: propTypes.number
+  footTotal: propTypes.string
 }
 
 Cart.defaultProps = {

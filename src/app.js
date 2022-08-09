@@ -44,7 +44,7 @@ function App({store}) {
             setActive={setModalActive}
             headName={'Корзина'}
             footText={'Итого'}
-            footTotal={priceSum}
+            footTotal={priceSum.toLocaleString('ru-RU')}
             headBtn={'Закрыть'}>
         <CartList items={getCartItems}
                   onItemDelete={callbacks.onDeleteItems}

@@ -45,7 +45,7 @@ class Store {
    */
   
   addItemToCart({code, title, price}) {
-    const findItemIndex = this.state.cartItems.findIndex(item => item.title === title)
+    const findItemIndex = this.state.cartItems.findIndex(item => item.code === code)
     if (findItemIndex === -1) {
       this.setState({
         ...this.state,
@@ -55,7 +55,7 @@ class Store {
       this.setState({
         ...this.state,
         cartItems: this.state.cartItems.map(item => {
-          if (item.title === title) {
+          if (item.code === code) {
             return {
               ...item,
               quantity: item.quantity + 1

@@ -4,14 +4,14 @@ import propTypes from "prop-types";
 
 import './style.css';
 
-import CartItem from "../cartItem";
+import CartItem from "../cart-item";
 import {priceFormat} from "../../utils";
 
-function CartModal({cartItems, isModalActive, setIsModalActive, handleDeleteCartItem, totalPrice, totalCount}) {
+function Modal({cartItems, setIsModalActive, handleDeleteCartItem, totalPrice, totalCount}) {
   const cn = bem('CartModal');
   
   return (
-    <div className={isModalActive ? 'CartModal CartModal_active' : cn()} onClick={() => setIsModalActive(false)}>
+    <div className={cn()} onClick={() => setIsModalActive(false)}>
       <div className={cn('content')} onClick={e => e.stopPropagation()}>
         <div className={cn('controls')}>
           <div className={cn('controls__title')}>Корзина</div>
@@ -20,8 +20,6 @@ function CartModal({cartItems, isModalActive, setIsModalActive, handleDeleteCart
           </div>
         </div>
         <div className={cn('cartList')}>
-          {cartItems.map(cartItem => <CartItem key={cartItem.code} cartItem={cartItem}
-                                               handleDeleteCartItem={handleDeleteCartItem}/>)}
           {cartItems.map(cartItem => <CartItem key={cartItem.code} cartItem={cartItem}
                                                handleDeleteCartItem={handleDeleteCartItem}/>)}
         </div>
@@ -40,7 +38,7 @@ function CartModal({cartItems, isModalActive, setIsModalActive, handleDeleteCart
   )
 }
 
-CartModal.propTypes = {
+Modal.propTypes = {
   cartItem: propTypes.arrayOf(propTypes.object),
   isModalActive: propTypes.bool,
   totalPrice: propTypes.number,
@@ -49,7 +47,7 @@ CartModal.propTypes = {
   handleDeleteCartItem: propTypes.func
 }
 
-CartModal.defaultProps = {
+Modal.defaultProps = {
   cartItem: [],
   isModalActive: () => {
   },
@@ -61,4 +59,4 @@ CartModal.defaultProps = {
   },
 }
 
-export default React.memo(CartModal);
+export default React.memo(Modal);

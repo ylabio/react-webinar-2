@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import CartModal from "./components/cartModal";
+import Modal from "./components/modal";
 import {sumCalculated, sumQuantity} from "./utils";
 
 /**
@@ -19,30 +19,32 @@ function App({store}) {
   const totalCount = sumQuantity(store.getState().cartItems);
   
   const callbacks = {
-    handleAddItemToCart: useCallback((item)=> {
+    handleAddItemToCart: useCallback((item) => {
       store.addItemToCart({code: item.code, title: item.title, price: item.price});
     }, []),
-    handleDeleteCartItem: useCallback((code)=> {
+    handleDeleteCartItem: useCallback((code) => {
       store.deleteCartItem(code);
     }, []),
   }
   
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <Controls setIsModalActive={setIsModalActive} totalPrice={totalPrice} totalCount={totalCount}/>
-      <List
-        items={store.getState().items}
-        handleAddItemToCart={callbacks.handleAddItemToCart}
-      />
-      <CartModal
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls setIsModalActive={setIsModalActive} totalPrice={totalPrice} totalCount={totalCount}/>
+        <List
+          items={store.getState().items}
+          handleAddItemToCart={callbacks.handleAddItemToCart}
+        />
+      </Layout>
+      {isModalActive && <Modal
         cartItems={store.getState().cartItems}
         isModalActive={isModalActive}
         setIsModalActive={setIsModalActive}
         handleDeleteCartItem={callbacks.handleDeleteCartItem}
         totalPrice={totalPrice}
         totalCount={totalCount}
-      />
-    </Layout>
+      />}
+    </>
   );
 }
 

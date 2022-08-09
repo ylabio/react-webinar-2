@@ -7,11 +7,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    transform: scale(0);
     overflow-y: auto;
-}
-.CartModal_active {
-    transform: scale(1);
 }
 .CartModal-content {
     border-radius: 10px;

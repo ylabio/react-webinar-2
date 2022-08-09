@@ -2,6 +2,7 @@ import React, {useState, useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
+import LayoutCart from './components/layout-cart';
 import Cart from "./components/cart";
 
 /**
@@ -12,7 +13,7 @@ import Cart from "./components/cart";
 function App({store}) {
 
   // Состояние видимости попапа корзины
-  const [popupState, setPopupState] = useState(false);
+  const [isCartVisible, setIsCartVisible] = useState(false);
 
   const callbacks = {
     onAddItemToCart: useCallback((code) => {
@@ -22,10 +23,10 @@ function App({store}) {
       store.deleteItemFromCart(code);
     }, []),
     openPopup: useCallback(() => {
-      setPopupState(true);
+      setIsCartVisible(true);
     }, []),
     closePopup: useCallback(() => {
-      setPopupState(false);
+      setIsCartVisible(false);
     }, []),
   }
 
@@ -41,15 +42,18 @@ function App({store}) {
               onItemClick={callbacks.onAddItemToCart}
         />
       </Layout>
-      <Cart items={store.getState().itemsInCart}
-            isVisible={popupState}
-            closePopup={callbacks.closePopup}
-      >
-        <List items={store.getState().itemsInCart}
-              buttonName='Удалить'
-              onItemClick={callbacks.onDeleteItemsToCart}
-        />
-      </Cart>
+      {isCartVisible &&
+        <LayoutCart>
+          <Cart items={store.getState().itemsInCart}
+                closePopup={callbacks.closePopup}
+          >
+            <List items={store.getState().itemsInCart}
+                  buttonName='Удалить'
+                  onItemClick={callbacks.onDeleteItemsToCart}
+            />
+          </Cart>
+        </LayoutCart>
+      }
     </>
   );
 }

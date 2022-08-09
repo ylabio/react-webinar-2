@@ -1,7 +1,6 @@
 .Cart {
-    height: 600px;
+    min-height: 600px;
     width: 960px;
-    overflow-y: auto;
 }
 
 .Cart-title {

@@ -1,4 +1,6 @@
 .ModalBasic-modal {
+  padding-top: 150px;
+  padding-bottom: 50px;
   position: fixed;
   background: rgba(0, 0, 0, 0.7);
   top: 0;
@@ -8,13 +10,12 @@
   display: flex;
   justify-content: center;
   z-index: 900;
-
   align-items: center;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 .ModalBasic-content {
-  max-height: 600px;
+  min-height: 600px;
   position: relative;
   min-width: 450px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);

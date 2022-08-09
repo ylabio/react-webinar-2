@@ -1,0 +1,26 @@
+.Cart-item {
+    padding: 20px 20px 22px 18px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.Cart-item:hover{
+    background: #eeeeee;
+}
+.Cart-item-number {
+    margin-right: 18px;
+}
+.Cart-item-title {
+    flex-grow: 1;
+}
+.Cart-item-price {
+    margin-right: 55px;
+}
+.Cart-item-count {
+    margin-right: 23px;
+}
+.Cart-item-actions button{
+    cursor: pointer;
+    height: 21px;
+    width: 71px;
+}

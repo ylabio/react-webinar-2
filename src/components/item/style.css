@@ -1,22 +1,28 @@
 /* Пункт списка */
+
 .Item{
     display: flex;
     justify-content: flex-start;
     transition: background-color 1s;
 }
-.Item_selected{
-    background: #75aaf1;
+.Item:hover{
+    background: #eeeeee;
 }
 
-
 .Item-title{
-    width: 100%;
+    flex-grow: 1;
+    padding: 20px 10px;
+}
+.Item-price {
     padding: 20px 10px;
 }
 .Item-actions{
     padding: 20px  20px 20px 10px;
     display: flex;
     justify-content: flex-end;
+}
+.Item-actions button {
+    cursor: pointer;
 }
 .Item-number{
     padding: 20px 10px 20px 20px;

@@ -43,41 +43,69 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  createItem({code, title = 'Новая запись', selected = false}) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      items: this.state.items.concat({code, title, selected})
     });
   }
 
   /**
-   * Удаление записи по её коду
-   * @param code
+   * Изменение положения всплывающего модального окна
    */
-  deleteItem(code) {
+  openPanel(isShown) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      isShown: true
+    })
+  }
+  closePanel(isShown) {
+    this.setState({
+      ...this.state,
+      isShown: false
+    })
+  }
+  addItem(code) {
+    const itemIndex = this.state.cartList.findIndex(
+      (cartItem) => cartItem.code === code
+    );
+    let newOrder = null;
+    if (itemIndex < 0) {
+        const newItemIndex = this.state.items.findIndex(
+          (cartItem) => cartItem.code === code
+        );
+        const newItem = {
+            code,
+            title: this.state.items[newItemIndex].title,
+            price: this.state.items[newItemIndex].price,
+            count: 1,
+        };
+        newOrder = [...this.state.cartList, newItem];
+    } else {
+        newOrder = this.state.cartList.map((cartItem, index) => {
+            if (index === itemIndex) {
+                return {
+                    ...cartItem,
+                    count: cartItem.count + 1,
+                };
+            } else {
+                return cartItem;
+            }
+        });
+    }
+    this.setState({
+        ...this.state,
+        cartList: newOrder,
     });
   }
-
   /**
-   * Выделение записи по её коду
+   * Удаление записи из корзины по её коду
    * @param code
    */
-  selectItem(code) {
+   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cartList: this.state.cartList.filter(item => item.code !== code)
     });
   }
 }

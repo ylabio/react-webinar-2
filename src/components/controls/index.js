@@ -36,7 +36,7 @@ function Controls({
         <div className={cn("titleText")}>В корзине: </div>
         <div className={cn("basketInfo")}>
           {basketItems.length !== 0 ?
-            `${countItemsInBasket} ${plural(countItemsInBasket, 'товар', 'товара', 'товаров')} / ${totalPriceGoods} ₽` : 'пусто'}
+            `${countItemsInBasket} ${plural(countItemsInBasket, 'товар', 'товара', 'товаров')} / ${Intl.NumberFormat().format(totalPriceGoods)} ₽` : 'пусто'}
         </div>
       </div>
       <button

@@ -54,12 +54,10 @@ class Store {
    * Переключение "флага" модального окна
    */
   modalTogge() {
-    console.log(' this.state.isModalActive', this.state.isModalActive)
     this.setState({
       ...this.state,
       isModalActive: !this.state.isModalActive
     })
-    console.log(' this.state.isModalActive', this.state.isModalActive)
   }
 
   /**

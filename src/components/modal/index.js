@@ -48,7 +48,7 @@ function Modal({
         ></List>
         {basketItems.length ? <div className={cn('total')}>
           <div className={cn('totalText')}>Итого</div>
-          <div className={cn('totalPrice')}>{totalPriceGoods}&nbsp;₽</div>
+          <div className={cn('totalPrice')}>{Intl.NumberFormat().format(totalPriceGoods)}&nbsp;₽</div>
         </div> : <div className={cn('emptyBasketMessage')}>Корзина пуста</div>}
       </div>
     </div>

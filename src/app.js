@@ -20,7 +20,7 @@ function App({store}) {
 };
 
 return (
-  <Layout head={<h1>Приложение на чистом JS</h1>}>
+  <Layout head={<h1>Магазин</h1>}>
       <Cart cart={store.getState().cart}
             onItemDelete={callbacks.onCartDeleteItems}
       />

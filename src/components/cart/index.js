@@ -22,7 +22,7 @@ function Cart({cart, onItemDelete}) {
             </div>
             <button onClick={() => setOpenModal(true)}>Перейти</button>
             {openModal &&
-                <Modal title="Корзина" onClose={() => setOpenModal(false)}>
+                <Modal title='Корзина' onClose={() => setOpenModal(false)}>
                     {
                         cart.items.length ?
                         <>

@@ -18,6 +18,4 @@ ModalFooter.propTypes = {
   sum: propTypes.number,
 }
 
-ModalFooter.defaultProps = {}
-
 export default React.memo(ModalFooter)

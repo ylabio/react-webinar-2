@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react'
-import Controls from './components/controls'
 import List from './components/list'
 import Layout from './components/layout'
 import Modal from './components/modal'
@@ -7,7 +6,6 @@ import Header from './components/header'
 import { sumElements } from './utils'
 import ModalFooter from './components/modal-footer'
 import PageHeader from './components/page-header'
-// import { counter } from './utils'
 
 /**
  * Приложение
@@ -42,16 +40,8 @@ function App({ store }) {
       />
       <List items={store.getState().items} titleBtn='Добавить' clickBtn={callbacks.addItem} />
       <Modal activeModal={activeModal} setActiveModa={setActiveModal}>
-        <Header
-          title='Корзина'
-          button={<Controls clickHandler={callbacks.visibilityModal} title='Закрыть' />}
-        />
-        <List
-          items={basketArr}
-          titleBtn='Удалить'
-          clickBtn={callbacks.onDeleteItems}
-          arrName={'basket'}
-        />
+        <Header title='Корзина' titleBtn='Закрыть' clickBtn={callbacks.visibilityModal} />
+        <List items={basketArr} titleBtn='Удалить' clickBtn={callbacks.onDeleteItems} />
         <ModalFooter sum={sum} />
       </Modal>
     </Layout>

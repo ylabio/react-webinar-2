@@ -14,13 +14,10 @@ function Modal({ activeModal, children }) {
 }
 
 Modal.propTypes = {
-  setActiveModal: propTypes.func.isRequired,
   activeModal: propTypes.bool.isRequired,
   children: propTypes.node,
 }
 
-Modal.defaultProps = {
-  setActiveModal: () => {},
-}
+Modal.defaultProps = {}
 
 export default React.memo(Modal)

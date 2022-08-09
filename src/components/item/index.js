@@ -35,7 +35,8 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   itemCount: propTypes.number,
-  arrName: propTypes.string,
+  titleBtn: propTypes.string,
+  clickBtn: propTypes.func,
 }
 
 export default React.memo(Item)

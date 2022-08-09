@@ -1,35 +1,51 @@
-import React, {useCallback} from 'react';
+import React, { useCallback, useState } from "react";
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Basket from "./components/basket";
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
-
+function App({ store }) {
+  const [modalOpen, setModalOpen] = useState(false);
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    addItemToCart: useCallback((code) => {
+      store.addToCart(code);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+
+    removeItemToCart: useCallback((code) => {
+      store.removeItemToCart(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+
+    openToCart: useCallback(() => {
+      setModalOpen(true);
     }, []),
-  }
+
+    closeToCart: useCallback(() => {
+      setModalOpen(false);
+    }, []),
+  };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls
+        overall={store.getState().overall}
+        quantity={store.getState().basket.length}
+        openToCart={callbacks.openToCart}
+      />
+      <List
+        items={store.getState().items}
+        addItemToCart={callbacks.addItemToCart}
+      />
+      <Basket
+        items={store.getState().basket}
+        modalOpen={modalOpen}
+        closeToCart={callbacks.closeToCart}
+        removeItemToCart={callbacks.removeItemToCart}
+        overall={store.getState().overall}
       />
     </Layout>
   );

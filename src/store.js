@@ -1,5 +1,4 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -36,49 +35,74 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
+  addToCart(code) {
+    if (this.state.basket.find((item) => item.code === code)) {
+      this.setState({
+        ...this.state,
+        basket: this.state.basket.map((item) =>
+          item.code === code ? { ...item, quantity: item.quantity + 1 } : item
+        ),
+      });
+    } else {
+      const newItem = this.state.items.find((item) => item.code === code);
+
+      this.setState({
+        ...this.state,
+        basket: [...this.state.basket, { ...newItem, quantity: 1 }],
+      });
+    }
+    this.getOverall();
   }
 
   /**
-   * Удаление записи по её коду
+   * Удаление записи
    * @param code
    */
-  deleteItem(code) {
+  removeItemToCart(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      basket: this.state.basket.filter((item) => item.code !== code),
     });
+    this.getOverall();
   }
 
   /**
-   * Выделение записи по её коду
+   * Получение общей цены
    * @param code
    */
-  selectItem(code) {
+
+  getOverall() {
+    let { overall, quantity } = this.state.basket.reduce(
+      (basketOverall, basketItem) => {
+        const { price, quantity } = basketItem;
+        basketOverall.overall += price * quantity;
+        basketOverall.quantity += quantity;
+
+        return basketOverall;
+      },
+      { overall: 0, quantity: 0 }
+    );
+
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      overall,
+      quantity,
     });
+  }
+
+  openToCart() {
+    this.setState({ ...this.state, modalOpen: true });
+  }
+
+  closeToCart() {
+    this.setState({ ...this.state, modalOpen: false });
   }
 }
 

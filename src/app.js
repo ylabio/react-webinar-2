@@ -34,6 +34,8 @@ function App({ store }) {
       <List
         items={store.getState().items}
         onAddItemToCart={callbacks.onAddItemToCart}
+        activeCart={activeCart}
+        onDelete={callbacks.onDelete}
       />
       {activeCart && (
         <Modal
@@ -41,6 +43,7 @@ function App({ store }) {
           sumInCart={store.sumInCart()}
           onActiveCart={callbacks.onActiveCart}
           onDelete={callbacks.onDelete}
+          activeCart={activeCart}
         />
       )}
     </Layout>

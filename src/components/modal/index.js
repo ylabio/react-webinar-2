@@ -3,11 +3,16 @@ import LayoutModal from '../layout-modal';
 import ListModal from '../list-modal';
 import propTypes from 'prop-types';
 
-const Modal = ({ onActiveCart, cart, onDelete, sumInCart }) => {
+const Modal = ({ onActiveCart, cart, onDelete, sumInCart, activeCart }) => {
   return (
     <LayoutModal head={<h1>Корзина</h1>} onActiveCart={onActiveCart}>
       {cart.length !== 0 ? (
-        <ListModal cart={cart} onDelete={onDelete} sumInCart={sumInCart} />
+        <ListModal
+          cart={cart}
+          onDelete={onDelete}
+          sumInCart={sumInCart}
+          activeCart={activeCart}
+        />
       ) : (
         'Пока тут пуcто'
       )}
@@ -26,7 +31,6 @@ Modal.defaultProps = {
   cart: [],
   onActiveCart: () => {},
   onDelete: () => {},
-  sumInCart: () => {},
 };
 
 export default memo(Modal);

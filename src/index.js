@@ -13,25 +13,23 @@ const store = new Store({
     { code: counter(), title: 'Телефон iPhone XIXV', price: 120000 },
     { code: counter(), title: 'Карандаши цветные', price: 111 },
     { code: counter(), title: 'Товар сюрприз', price: 0 },
-    { code: counter(), title: 'Товар сюрприз', price: 0 },
-    { code: counter(), title: 'Товар сюрприз', price: 0 },
-    { code: counter(), title: 'Товар сюрприз', price: 0 },
-    { code: counter(), title: 'Товар сюрприз', price: 0 },
-    { code: counter(), title: 'Товар сюрприз', price: 0 },
-    { code: counter(), title: 'Товар сюрприз', price: 0 },
-    { code: counter(), title: 'Товар сюрприз', price: 0 },
-    { code: counter(), title: 'Товар сюрприз', price: 0 },
-    { code: counter(), title: 'Товар сюрприз', price: 0 },
-    { code: counter(), title: 'Товар сюрприз', price: 0 }
+    { code: counter(), title: 'Товар сюрприз', price: 1 },
+    { code: counter(), title: 'Товар сюрприз', price: 2 },
+    { code: counter(), title: 'Товар сюрприз', price: 3 },
+    { code: counter(), title: 'Товар сюрприз', price: 4 },
+    { code: counter(), title: 'Товар сюрприз', price: 5 },
+    { code: counter(), title: 'Товар сюрприз', price: 6 },
+    { code: counter(), title: 'Товар сюрприз', price: 7 },
+    { code: counter(), title: 'Товар сюрприз', price: 8 },
+    { code: counter(), title: 'Товар сюрприз', price: 9 },
+    { code: counter(), title: 'Товар сюрприз', price: 10 }
   ],
   cart: {
     items: [],
     count: 0,
     price: 0
   },
-  popups: {
-    cart: false
-  }
+  popup: ''
 })
 
 const root = createRoot(document.getElementById('root'))

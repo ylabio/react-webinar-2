@@ -6,6 +6,7 @@ import Layout from './components/layout'
 import List from './components/list'
 import Popup from './components/popup'
 import TotalPrice from './components/total-price'
+import { CART_POPUP } from './constants'
 
 /**
  * Приложение
@@ -38,7 +39,7 @@ function App({ store }) {
         }))}
         render={props => <Item {...props} />}
       />
-      {store.getState().popups.cart && (
+      {store.getState().popup === CART_POPUP && (
         <Popup header={'Корзина'} onClose={callbacks.onCloseCart}>
           <List
             items={store.getState().cart.items.map(item => ({

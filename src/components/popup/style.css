@@ -13,7 +13,7 @@
 }
 
 .Popup {
-  margin: 200px auto;
+  margin: calc(50vh - 300px) auto;
   width: 960px;
   min-height: 600px;
   background-color: #fff;

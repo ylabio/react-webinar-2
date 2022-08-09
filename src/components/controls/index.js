@@ -24,7 +24,11 @@ function Controls({ onItemDeleteFromCart, cart, priceSum }) {
           ?
           <span>В корзине: <b>Пусто</b> </span>
           :
-          <span>В корзине: <b>{plural(cart.length, '%d товар', '%d товара', '%d товаров')}</b><b>/{totalPrice} ₽</b></span>
+          <span>В корзине: <b>{plural(cart.length, '%d товар', '%d товара', '%d товаров')}</b><b> / {totalPrice.toLocaleString("ru-RU", {
+            style: "currency",
+            currency: "RUB",
+          })}</b>
+          </span>
       }
       {
         openModal && <Modal

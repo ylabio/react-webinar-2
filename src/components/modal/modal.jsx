@@ -10,7 +10,7 @@ export const Modal = ({ onItemDeleteFromCart, totalPrice, cart, setOpenModal, pr
       <div className={cls.modalContent}>
         <div className={cls.modalHeader}>
           <span>Корзина</span>
-          <button onClick={() => setOpenModal(false)} >закрыть</button>
+          <button onClick={() => setOpenModal(false)} >Закрыть</button>
         </div>
         {
           cart.map(card => {
@@ -29,7 +29,10 @@ export const Modal = ({ onItemDeleteFromCart, totalPrice, cart, setOpenModal, pr
             Итого
           </b>
           <b>
-            {totalPrice} ₽
+          {totalPrice.toLocaleString("ru-RU", {
+            style: "currency",
+            currency: "RUB",
+          })}
           </b>
         </div>
 

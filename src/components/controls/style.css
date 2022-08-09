@@ -4,3 +4,8 @@
     justify-content: flex-end;
     padding: 20px;
 }
+.Controls button {
+    width: 80px;
+    margin-left: 20px;
+
+}

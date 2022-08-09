@@ -3,7 +3,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px dashed #cccccc;
+  border-bottom: 1px dashed #cccccc;
+  border-top: 1px dashed #cccccc;
 }
 .Item-numTitle {
   display: flex;
@@ -27,6 +28,7 @@
 .Item {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   transition: background-color 1s;
 }
 .Item_selected {
@@ -36,6 +38,11 @@
 .Item-title {
   width: 100%;
   padding: 20px 10px;
+}
+.Item-itemPrice {
+  width: 100%;
+  text-align: right;
+  margin-right: 33px;
 }
 .Item-actions {
   padding: 20px 20px 20px 10px;

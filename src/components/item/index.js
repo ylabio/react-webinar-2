@@ -9,9 +9,9 @@ function Item(props) {
 
   const callbacks = {
 
-    onItemDeleteFromCart:useCallback (() => {
+    onItemDeleteFromCart: useCallback(() => {
       props.onItemDeleteFromCart(props.item.code)
-   },[]),
+    }, []),
 
     onAddItemToCard: useCallback(() => {
       props.onAddItemToCard(props.item.code)
@@ -34,7 +34,10 @@ function Item(props) {
             </div>
             <div className={cn('priceCount')}>
               <div className={cn('price')}>
-                {props.item.price} ₽
+                {props.item.price.toLocaleString("ru-RU", {
+                  style: "currency",
+                  currency: "RUB",
+                })}
               </div>
               <div className={cn('count')}>
                 {props.item.count} шт
@@ -52,8 +55,11 @@ function Item(props) {
             <div className={cn('title')}>
               {props.item.title}
             </div>
-            <div>
-              {props.item.price}
+            <div className={cn('itemPrice')}>
+              {props.item.price.toLocaleString("ru-RU", {
+                style: "currency",
+                currency: "RUB",
+              })}
             </div>
             <div className={cn('actions')}>
               <button onClick={callbacks.onAddItemToCard}>
@@ -74,8 +80,8 @@ Item.propTypes = {
 
 Item.defaultProps = {
   cards: [],
-  onItemSelect: () => {},
-  onItemDeleteFromCart: () => {}
+  onItemSelect: () => { },
+  onItemDeleteFromCart: () => { }
 }
 
 

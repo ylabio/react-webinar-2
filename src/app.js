@@ -1,4 +1,5 @@
 import React, {useCallback, useState} from 'react';
+import {getCurrencyPrice} from './utils'; 
 import Controls from './components/controls';
 import List from './components/list';
 import Layout from './components/layout';
@@ -12,6 +13,8 @@ import Cart from './components/cart';
  */
 function App({store}) {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const {totalNumber, totalPrice} = store.getState().cart;
+  const totalCurrencyPrice = getCurrencyPrice(totalPrice); // Формирует представление цены в виде '1000 Р'
 
   const callbacks = {
     onAddToCart: useCallback((code) => {
@@ -26,28 +29,30 @@ function App({store}) {
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <Controls onChangeModal={callbacks.onChangeModal}
-        totalPriceCart={store.getTotalPriceCart()}
-        totalNumberInCart={store.getTotalNumberInCart()}
-      />
-      <List items={store.getState().items}
-          btnName={'Добавить'}
-          handleAction={callbacks.onAddToCart}
-      />
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls onChangeModal={callbacks.onChangeModal}
+          totalCurrencyPrice={totalCurrencyPrice}
+          totalNumberInCart={totalNumber}
+        />
+        <List items={store.getState().items}
+            btnName={'Добавить'}
+            handleAction={callbacks.onAddToCart}
+        />        
+      </Layout>
       {isOpenModal &&
         <Modal
           head={<h2>Корзина</h2>}
           onChangeModal={callbacks.onChangeModal}
         >
           <Cart
-            items={store.getState().cart}
+            items={store.getState().cart.items}
             onRemoveToCart={callbacks.onRemoveToCart}
-            totalPriceCart={store.getTotalPriceCart()}
+            totalCurrencyPrice={totalCurrencyPrice}
           />
         </Modal>
-      }      
-    </Layout>    
+      }
+    </>
   );
 }
 

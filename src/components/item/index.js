@@ -1,8 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-
-import {getCurrencyPrice} from '../../utils';
+import {cn as bem} from '@bem-react/classname';
+import {getCurrencyPrice} from '../../utils'; // формирует представление числа в виде 1000 000 Р
 import './style.css';
 
 function Item(props) {
@@ -11,7 +10,7 @@ function Item(props) {
     handleAction: useCallback((e) => {
       e.stopPropagation();
       props.handleAction(props.item.code)
-    }, [props.onClick, props.item])
+    }, [props.handleAction, props.item])
   };
 
   return (
@@ -25,7 +24,6 @@ function Item(props) {
       <div className={cn('price')}>
         {getCurrencyPrice(props.item.price)}
       </div>
-      {!!props.item.count && <div className={cn('count')}>{props.item.count} шт</div>}      
       <div className={cn('actions')}>
         <button className={cn('button')} onClick={callbacks.handleAction}>
           {props.btnName}

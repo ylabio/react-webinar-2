@@ -41,79 +41,57 @@ class Store {
   }
 
   /**
-   * Добавляет в корзину
+   * Добавляет товар в корзину
+   * @param {*} code - код товара
    */
   addToCart(code) {
-    const cartItems = this.state.cart.slice();
-    const cartItem = cartItems.find((o) => o.code === code);
+    const cartItems = this.state.cart.items.slice(); // Делаем копию items
+    const cartItem = cartItems.find(item => item.code === code);
+
     if (cartItem) {
       cartItem.count += 1;
-      this.setState({
-        ...this.state,
-        cart: [...cartItems],
-      })
     } else {
-      const item = this.state.items.find((o) => o.code === code);
-      this.setState({
-        ...this.state,
-        cart: this.state.cart.concat({...item, count: 1})
-      })
+      const item = this.state.items.find(item => item.code === code);
+      cartItems.push({...item, count: 1});
     }
+
+    const totalPrice = cartItems.reduce((acc, item) => {
+      return acc + item.price * item.count;
+    }, 0);
+
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        items: [...cartItems],
+        totalPrice,
+        totalNumber: cartItems.length, 
+      }
+    })
   }
-  //!Второй вариант
-  // addToCart(code) {
-  //   const cartItem = this.state.cart.find((o) => o.code === code);
-  //   if (cartItem) {
-  //     cartItem.count += 1;
-  //     this.setState({
-  //       ...this.state,
-  //       cart: this.state.cart.map(item => {
-  //         if (item.code !== code) return item;
-  //         return {
-  //           ...cartItem,
-  //           count: cartItem.count++,
-  //         }          
-  //       }),
-  //     })
-  //   } else {
-  //     const item = this.state.items.find((o) => o.code === code);
-  //     this.setState({
-  //       ...this.state,
-  //       cart: this.state.cart.concat({...item, count: 1})
-  //     })
-  //   }
-  // }
 
   /**
    * Удаление из корзины
-   * @param {*} code
+   * @param {*} code - код товара
    */
   removeToCart(code) {
+    const cartItems = this.state.cart.items.filter(item => item.code !== code);
+    
+    const totalPrice = cartItems.reduce((acc, item) => {
+      return acc + item.price * item.count;
+    }, 0);
+
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter((item) => item.code !== code)
+      cart: {
+        ...this.state.cart,
+        items: [...cartItems],
+        totalPrice,
+        totalNumber: cartItems.length,
+      } 
     });
-  }
-
-  /**
-   * Итоговая стоимость товаров в корзине
-   * @returns {Number} - стоимость товаров 
-   */
-  getTotalPriceCart() {
-    if (!this.state.cart.length) return 0;
-    const totalPrice = this.state.cart.reduce((totalPrice, item) => {
-      return totalPrice + item.price * item.count;
-    }, 0);
-    return totalPrice;
-  }
-
-  /**
-   * Количество товара в корзине
-   * @returns {Number} - Number
-   */
-  getTotalNumberInCart() {
-    return this.state.cart.length;
   }
 }
 
 export default Store;
+ 

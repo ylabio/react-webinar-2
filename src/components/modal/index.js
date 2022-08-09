@@ -4,7 +4,6 @@ import './style.css';
 import propTypes from 'prop-types';
 import Header from '../../components/header'
 
-
 function Modal(props) {
   const cn = bem('Modal');
   return (

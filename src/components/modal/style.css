@@ -6,7 +6,9 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
+  padding: 15px;
 }
 
 .Modal::before {
@@ -59,16 +61,3 @@
 .Modal-item:first-child{
   border-top: 1px dashed #ccc;
 }
-
-/* .Modal-total {
-  font-size: 18px;
-  font-weight: 700;
-  text-align: right;
-  padding: 26px 108px 26px 10px;
-}
-
-.Modal-total-price {
-  margin-left: 49px;
-} */
-
-

@@ -1,0 +1,51 @@
+/* Пункт списка */
+.CardItem {
+  display: flex;
+  align-items: center;
+  min-height: 61px;
+  padding: 10px 20px;
+}
+
+/* .CardItem-number {
+
+} */
+
+.CardItem-title {
+  flex: 1 1;  
+  margin-left: 20px;
+  padding-right: 25px; 
+}
+
+.CardItem-price {
+  font-size: 18px;
+  color: #404040;
+}
+
+.CardItem-count {
+  font-size: 18px;
+  color: #404040;
+  margin-left: 55px;
+}
+
+.CardItem-actions {
+  margin-left: 24px;
+}
+
+.CardItem-button {
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 15px;
+  color: black;
+  min-height: 21px;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  background: #EFEFEF;
+  padding: 2px 9px;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+
+.CardItem-button:hover {
+  transform: translateY(-2px);
+  transition: all 0.1s ease-out;
+}

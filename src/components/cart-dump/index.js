@@ -23,6 +23,7 @@ function CartDump({
         modalRef.current.style.transform = 'translateY(0%)';
       }, 0)
     }
+
   }, [isCartOpen])
 
   return (

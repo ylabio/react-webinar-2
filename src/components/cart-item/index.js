@@ -40,5 +40,5 @@ CartItem.defaultProps = {
 };
 
 export default React.memo(CartItem, (prev, next) => {
-  return prev.item.data.time === next.item.data.time;
+  return prev.item.time === next.item.time;
 });

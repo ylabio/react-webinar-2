@@ -65,6 +65,7 @@ function App({store}) {
           >
             <Basket basket={basket}
                     totalPrice={totalPrice}
+                    numUniqueItems={numUniqueItems}
                     deleteItem={callbacks.deleteItem}
             />
           </LayoutModal>

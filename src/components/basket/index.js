@@ -6,7 +6,7 @@ import {cn as bem} from "@bem-react/classname";
 import List from "../list";
 import './style.css';
 
-function Basket({children, basket, totalPrice, deleteItem}) {
+function Basket({children, basket, totalPrice, deleteItem, numUniqueItems}) {
   const cn = bem('Basket');
   
   const renders = {
@@ -24,7 +24,7 @@ function Basket({children, basket, totalPrice, deleteItem}) {
               itemForRender={renders.itemBasket}
         />
         <BasketTotal totalPrice={totalPrice}
-                     basket={basket}
+                     numUniqueItems={numUniqueItems}
         />
     </div>
   )
@@ -34,6 +34,7 @@ Basket.propTypes = {
   children: propTypes.node,
   basket: propTypes.array.isRequired,
   totalPrice: propTypes.number.isRequired,
+  numUniqueItems: propTypes.number.isRequired,
   deleteItem: propTypes.func.isRequired
 }
 

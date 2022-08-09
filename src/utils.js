@@ -51,7 +51,7 @@ export function cartQtyUpdate(item, cart, increment) {
 
 /**
  * Подсчитывает общую стоимость товаров
- * @param cart {Array.<{code: number, title: string, price: number, qty: number}>} предыдущий перечень товаров в корзине
+ * @param cart {Array.<{code: number, title: string, price: number, qty: number}>} корзина с товарами
  * @returns {number}
  */
 export function totalPrice(cart) {
@@ -60,7 +60,7 @@ export function totalPrice(cart) {
 
 /**
  * Подсчитывает общее количество товаров в корзине
- * @param cart {Array.<{code: number, title: string, price: number, qty: number}>} предыдущий перечень товаров в корзине
+ * @param cart {Array.<{code: number, title: string, price: number, qty: number}>} корзина с товарами
  * @returns {number}
  */
  export function totalQty(cart) {

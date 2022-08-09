@@ -62,10 +62,10 @@ class Store {
     } else {
       this.state.cart.forEach((item) => {
         if (item.code === id) {
-          item.count += 1;
+          item.count += 1
           this.setState({
             ...this.state,
-            cart: [...this.state.cart],
+            cart: [...this.state.cart], 
           });
         }
       });

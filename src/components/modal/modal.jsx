@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import cls from 'modal.module.css'
 import Item from '../item';
 
-export const Modal = ({ onItemDeleteFromCart, totalPrice, cart, setOpenModal, priceSum }) => {
-  const [items, setItems] = useState(1)
+export const Modal = ({ onItemDeleteFromCart, totalPrice, cart, setOpenModal }) => {
 
+console.log('render')
   return (
     <div className={cls.modal}>
       <div className={cls.modalContent}>

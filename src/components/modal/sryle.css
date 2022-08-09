@@ -6,13 +6,11 @@
     right: 0;
     bottom: 0;
     top: 0;
-background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.5);
     display: inline-block;
 
 }
 
-.Modal::-webkit-scrollbar {
-}
 
 .Modal-content {
     flex-direction: column;
@@ -31,45 +29,5 @@ background: rgba(0,0,0,0.5);
 
 
 
-.Modal-content-header {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 50vw;
-    background: #F5F5F5;
-    margin-bottom: 34px;
-}
 
-.Modal-content-header h2 {
-    margin-left: 20px;
-}
 
-.Modal-content-header button {
-    margin-right: 20px;
-}
-
-.Modal-price {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-right: 100px;
-    margin-top: 26px;
-    margin-bottom: 20px;
-}
-
-.Modal-price:last-child::after{
-    content: "\20BD";
-    font-weight: 700;
-    margin-left: 6px;
-}
-
-.Modal-price-total {
-    margin-right: 60px;
-}
-
-.Modal-empty {
-    text-align: center;
-    margin-top: 150px;
-}

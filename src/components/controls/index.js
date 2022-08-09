@@ -29,10 +29,13 @@ function Controls({ priceAndCount, showModal, allItems }) {
 }
 
 Controls.propTypes = {
-  showModal: propTypes.func.isRequired,
+  priceAndCount: propTypes.object.isRequired,
+  showModal: propTypes.func,
+  allItems: propTypes.number,
 };
 
 Controls.defaultProps = {
+  allItems: 0,
   showModal: () => {},
 };
 

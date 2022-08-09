@@ -1,6 +1,7 @@
 import React from "react";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
+import propTypes from "prop-types";
 
 const CartPrice = ({ cartPrice }) => {
   const cn = bem("cart-price");
@@ -17,6 +18,10 @@ const CartPrice = ({ cartPrice }) => {
       </div>
     );
   }
+};
+
+CartPrice.propTypes = {
+  cartPrice: propTypes.object.isRequired,
 };
 
 export default CartPrice;

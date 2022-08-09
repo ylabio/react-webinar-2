@@ -9,9 +9,9 @@ function List(props) {
 
   return (
     <div className={cn()}>
-      {props.items.map((item, index) => (
+      {props.items.map((item) => (
         <div key={item.code} className={cn("item")}>
-          <Item index={index} item={item} onAddItem={props.onAddItem} />
+          <Item item={item} onAddItem={props.onAddItem} />
         </div>
       ))}
     </div>

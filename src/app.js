@@ -4,8 +4,9 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import { counter } from "./utils";
 import Modal from "./components/modal";
-import CartItem from "./components/cart-item";
 import CartPrice from "./components/cart-price";
+import CartList from "./components/cart-list";
+import ModalLayout from "./components/modal-layout";
 
 /**
  * Приложение
@@ -42,9 +43,10 @@ function App({ store }) {
       </Layout>
       {store.state.modalIsActive && (
         <Modal showModal={callbacks.showModal} modalName="Корзина">
-          <CartItem
-            onDeleteItem={callbacks.onDeleteItem}
+          <ModalLayout showModal={callbacks.showModal} modalName={"Корзина"} />
+          <CartList
             cart={store.getState().cart}
+            onDeleteItem={callbacks.onDeleteItem}
           />
           <CartPrice cartPrice={store.getState().totalCartPriceAndCount} />
         </Modal>

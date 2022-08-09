@@ -3,13 +3,9 @@
     justify-content: space-between;
     border-bottom: 1px dashed #ccc;
     padding: 20px
-
 }
 
-.cart-item-wrapper {
-    margin-bottom: 25px;
 
-}
 
 .cart-item-code {
     display: flex;
@@ -19,18 +15,10 @@
     margin-left: 20px;
 }
 
-.cart-item-wrapper .cart-item:first-child    {
-    border-top: 1px dashed #ccc;
-
-}
-
-
 .cart-item-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-
 }
 
 .cart-item-price {

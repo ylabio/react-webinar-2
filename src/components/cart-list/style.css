@@ -1,0 +1,11 @@
+.cart-list {
+
+    margin-bottom: 25px;
+
+
+}
+
+.cart-list .cart-item:first-child    {
+    border-top: 1px dashed #ccc;
+
+}

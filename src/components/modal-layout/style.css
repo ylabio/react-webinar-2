@@ -1,0 +1,18 @@
+.Modal-layout-content-header {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 50vw;
+    background: #F5F5F5;
+    margin-bottom: 34px;
+}
+
+.Modal-layout-content-header h2 {
+    margin-left: 20px;
+}
+
+.Modal-layout-content-header button {
+    margin-right: 20px;
+}

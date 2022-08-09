@@ -18,9 +18,11 @@ function Cart(props) {
   return (
     <div className={cn()}>
       <h2 className={cn('title')}>Корзина</h2>
+
       <List items={props.items}
             onButton={props.onDeleteToCartItem}
             titleButton="Удалить"/>
+
       <div className={cn('total')}>
         <p>Итого</p> <p>{props.total}</p>
       </div>

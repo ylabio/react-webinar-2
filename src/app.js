@@ -12,6 +12,7 @@ import BasketItem from "./components/basketItem";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+    const isModalActive = store.state.modals[0].active
     const callbacks = {
         onDeleteBasketItem: useCallback((code) => {
             store.deleteBasketItem(code);
@@ -23,16 +24,22 @@ function App({store}) {
             store.changeModelItem(code);
         }, []),
     }
-
     return (
         <Layout head={<h1>Магазин</h1>}>
             <Controls modal={store.state.modals[0]} setModalActive={callbacks.onChangeModal}
                       totalPrice={store.state.totalPrice} totalCount={store.state.totalCount}/>
-            <List items={store.state.items} onAddBasketItem={callbacks.onAddBasketItem} itemComponent={Item}/>
-            <Modal totalPrice={store.state.totalPrice} modal={store.state.modals[0]}
-                   setModalActive={callbacks.onChangeModal} basket={store.state.basket}
-                   deleteItem={callbacks.onDeleteBasketItem} totalCount={store.state.totalCount}
-                   itemComponent={BasketItem}/>
+
+            <List items={store.state.items} onAddBasketItem={callbacks.onAddBasketItem}>
+                {Item}
+            </List>
+
+            {isModalActive &&
+                <Modal modalTitle={'Корзина'} totalPrice={store.state.totalPrice} modal={store.state.modals[0]}
+                       setModalActive={callbacks.onChangeModal} basket={store.state.basket}
+                       deleteItem={callbacks.onDeleteBasketItem} totalCount={store.state.totalCount}>
+                    {BasketItem}
+                </Modal>}
+
         </Layout>
     );
 }

@@ -8,14 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;
-    pointer-events: none;
     transition: 0.5s;
-}
-
-.Modal.active {
-    opacity: 1;
-    pointer-events: all;
 }
 
 .Modal-content {
@@ -24,13 +17,6 @@
     width: 960px;
     min-height: 603px;
     background-color: white;
-    transform: scale(0.5);
-    transition: 0.4s all;
-}
-
-
-.Modal-content.active {
-    transform: scale(1);
 }
 
 .Modal-close {
@@ -48,11 +34,11 @@
     text-align: center;
 }
 
-.Modal-item{
+.Modal-item {
     border-bottom: 1px dashed #ccc;
 }
 
-.Modal-item:first-child{
+.Modal-item:first-child {
     border-top: 1px dashed #ccc;
 }
 

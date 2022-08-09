@@ -47,12 +47,7 @@ class Store {
     deleteItem(item) {
         this.setState({
             ...this.state,
-            basket: item.quantity > 1
-                ? this.state.basket.map(m => m.code === item.code ? {
-                    ...m,
-                    quantity: m.quantity - 1,
-                } : m)
-                : this.state.basket.filter(f => f.code !== item.code)
+            basket: this.state.basket.filter(f => f.code !== item.code)
         })
     }
 

@@ -12,12 +12,3 @@
 .List-item:first-child {
 	border-top: 1px dashed #ccc;
 }
-
-.List-total {
-	margin: 26px 108px;
-	text-align: right;
-}
-
-.List-total strong {
-	margin-left: 49px;
-}

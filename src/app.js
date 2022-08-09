@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Controls from './components/controls';
 import List from './components/list';
 import Layout from './components/layout';
 import Modal from './components/modal';
+import Total from './components/total';
 import { getTotalCost } from './utils';
 
 /**
@@ -15,23 +16,6 @@ function App({ store }) {
   const [isModal, setIsModal] = useState({
     modalBasket: false
   });
-
-  useEffect(() => {
-    if (isModal.modalBasket) {
-      document.body.style.overflowY = 'hidden';
-
-      const clientHeight = document.documentElement.clientHeight;
-      const modalContainer = document.getElementsByClassName('Modal-container')[0];
-      const modalContainerHeight = parseFloat(getComputedStyle(modalContainer).height);
-      const modalWrapper = document.getElementsByClassName('Modal-wrapper')[0];
-
-      clientHeight < modalContainerHeight
-        ? modalWrapper.classList.add('Modal-wrapper_scroll')
-        : modalWrapper.classList.remove('Modal-wrapper_scroll');
-    } else {
-      document.body.style.overflowY = '';
-    }
-  }, [isModal, totalCost]);
 
   const callbacks = {
     onAddItem: useCallback((item) => {
@@ -72,8 +56,13 @@ function App({ store }) {
             items={store.getState().basket}
             buttonTitle="Удалить"
             onClick={callbacks.onRemoveFromBasket}
-            total={totalCost}
           />
+          <Total>
+            <strong>Итого</strong>
+            <strong>
+              {`${totalCost} \u20bd`}
+            </strong>
+          </Total>
         </Modal>}
     </>
   );

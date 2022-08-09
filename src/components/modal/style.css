@@ -1,33 +1,26 @@
 /* Модальное окно */
-.Modal-wrapper {
+.Modal {
 	position: fixed;
 	top: 0;
 	right: 0;
 	width: 100vw;
-	height: 100vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	min-height: 100vh;
+	overflow: hidden;
 	overflow-y: auto;
 }
 
-.Modal-wrapper_scroll {
-	align-items: normal;
-}
-
 .Modal-mask {
-	position: fixed;
-	z-index: 10;
-	top: 0;
-	right: 0;
+	position: absolute;
 	width: 100vw;
-	height: 100vh;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 	background-color: #000000B2;
 }
 
 .Modal-container {
-	position: absolute;
-	z-index: 11;
 	width: 960px;
 	max-width: 100vw;
 	min-height: 604px;

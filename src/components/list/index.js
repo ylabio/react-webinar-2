@@ -4,7 +4,7 @@ import { cn as bem } from '@bem-react/classname';
 import Item from '../item';
 import './style.css';
 
-function List({ items, buttonTitle, onClick, total }) {
+function List({ items, buttonTitle, onClick }) {
   const cn = bem('List');
 
   return (
@@ -19,13 +19,6 @@ function List({ items, buttonTitle, onClick, total }) {
           />
         </li>
       )}
-      {buttonTitle === 'Удалить' &&
-        <div className={cn('total')}>
-          <strong>Итого</strong>
-          <strong>
-            {`${total} \u20bd`}
-          </strong>
-        </div>}
     </ul>
   );
 }
@@ -33,12 +26,7 @@ function List({ items, buttonTitle, onClick, total }) {
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
   buttonTitle: propTypes.string.isRequired,
-  onClick: propTypes.func.isRequired,
-  total: propTypes.string
-};
-
-List.defaultProps = {
-  total: '0'
+  onClick: propTypes.func.isRequired
 };
 
 export default React.memo(List);

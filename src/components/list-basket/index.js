@@ -7,10 +7,8 @@ import "./style.css";
 function ListBasket(props) {
   const cn = bem("List");
 
-  let totalPrice = props.stateBasket.reduce((acc, { price, count }) => {
-    return acc + price * count;
-  }, 0);
-
+  let totalPrice = props.calculationSumPrice(props.stateBasket);
+  
   totalPrice = new Intl.NumberFormat("ru-RU", {
     style: "currency",
     currency: "RUB",

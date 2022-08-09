@@ -9,11 +9,13 @@
 
 .Modal-content {
     width: 960px;
-    height: 70vh;
-    min-height: 400px;
+    min-height: 603px;
     background-color: #FFFFFF;
     margin: auto;
-    margin-top: 15vh;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     border-radius: 10px;

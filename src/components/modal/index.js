@@ -13,7 +13,7 @@ function Modal(props) {
             <h1 className={cn("title")}>Корзина</h1>
             <button onClick={props.onCloseBasket} className={cn("button")}>Закрыть</button>
         </div>
-         <ListBasket stateBasket={props.stateBasket} onDeleteOfBasket={props.onDeleteOfBasket}/>
+         <ListBasket stateBasket={props.stateBasket} onDeleteOfBasket={props.onDeleteOfBasket} calculationSumPrice={props.calculationSumPrice}/>
       </div>
     </div>
   );

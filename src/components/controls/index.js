@@ -13,9 +13,7 @@ function Controls(props) {
   let lengthStateBasket = props.stateBasket.length;
 
   if (lengthStateBasket) {
-    let price = props.stateBasket.reduce((acc, { price, count }) => {
-      return acc + price * count;
-    }, 0);
+    let price = props.calculationSumPrice(props.stateBasket);
 
     price = new Intl.NumberFormat("ru-RU", {
       style: "currency",
@@ -47,6 +45,7 @@ function Controls(props) {
           stateBasket={props.stateBasket}
           onCloseBasket={closeBasketHandler}
           onDeleteOfBasket={props.onDeleteOfBasket}
+          calculationSumPrice={props.calculationSumPrice}
         />
       ) : (
         ""

@@ -8,7 +8,7 @@ import Layout from "./components/layout";
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+function App({store, calculationSumPrice}) {
 
   const callbacks = {
     onAdd: useCallback((item) => {
@@ -16,7 +16,7 @@ function App({store}) {
     }, []),
     onDeleteOfBasket: useCallback((code) => {
       store.deleteItem(code);
-    })
+    }, []),
   };
 
   return (
@@ -24,6 +24,7 @@ function App({store}) {
       <Controls 
         stateBasket={store.getState().basket}
         onDeleteOfBasket={callbacks.onDeleteOfBasket}
+        calculationSumPrice={calculationSumPrice}
       />
       <List items={store.getState().items}
             onAdd={callbacks.onAdd}

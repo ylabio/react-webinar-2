@@ -39,17 +39,6 @@ class Store {
       this.listeners = this.listeners.filter(item => item !== callback);
     }
   }
-
-  /**
-   * Создание записи
-   */
-  createItem({ code, title = 'Новый товар', price = 999, selected = false }) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({ code, title, price, selected })
-    });
-  }
-
   /**
    * Добавления товара в корзину
    */

@@ -8,7 +8,7 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onHandler: useCallback((e) => {
+    onAddItem: useCallback((e) => {
       e.stopPropagation();
       props.callback(props.item)
     }, [props.callback, props.item])
@@ -25,13 +25,9 @@ function Item(props) {
       <div className={cn('price')}>
         {props.item.price.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 })}
       </div>
-      {props.isCart
-        ? <div className={cn('count')}>{props.item.count} шт</div>
-        : null
-      }
       <div className={cn('actions')}>
-        <Button onClick={callbacks.onHandler}>
-          {props.isCart ? 'Удалить' : 'Добавить'}
+        <Button onClick={callbacks.onAddItem}>
+          Добавить
         </Button>
       </div>
     </div>
@@ -40,13 +36,6 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  isCart: propTypes.bool,
-  onHandler: propTypes.func
-}
-
-Item.defaultProps = {
-  isCart: false,
-  onHandler: () => { }
 }
 
 export default React.memo(Item);

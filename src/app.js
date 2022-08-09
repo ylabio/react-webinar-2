@@ -4,6 +4,7 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import Button from './components/button';
 import Modal from './components/modal';
+import CartSum from './components/cart-sum';
 
 /**
  * Приложение
@@ -11,11 +12,22 @@ import Modal from './components/modal';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({ store }) {
+
   const [visibleCart, setVisibleCart] = useState(false);
+  const [sumPrice, setSumPrice] = useState(0);
+  const [uniqueItem, setUniqueItem] = useState(0);
 
   const callbacks = {
     onAddItem: useCallback((item) => {
       store.addItemToCart(item);
+      setSumPrice(store.getState().itemsCart.reduce((prev, price) => prev + price.sumPrice, 0));
+      setUniqueItem(store.getState().itemsCart.length);
+    }, []),
+
+    onRemoveItem: useCallback((item) => {
+      store.removeItemToCart(item);
+      setSumPrice(store.getState().itemsCart.reduce((prev, price) => prev + price.sumPrice, 0));
+      setUniqueItem(store.getState().itemsCart.length);
     }, []),
 
     onVisibleCart: useCallback(() => {
@@ -26,58 +38,42 @@ function App({ store }) {
       setVisibleCart(false);
     }, []),
 
-    onRemoveItem: useCallback((item) => {
-      store.removeItemToCart(item);
-    }, []),
-
-    getCartProps: useCallback(() => {
-      let itemsCart = store.getState().itemsCart;
-      if (itemsCart.length) {
-        return {
-          sumPrice: itemsCart.reduce((prevPrice, currentPrice) => prevPrice + currentPrice.sumPrice, 0),
-          count: itemsCart.length
-        }
-      } else {
-        return {
-          sumPrice: 0,
-          count: 0
-        }
-      }
-    }, []),
-
     isCart: useCallback((items) => {
       return store.getState().itemsCart === items;
     }, [])
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <Controls
-        count={callbacks.getCartProps().count}
-        sum={callbacks.getCartProps().sumPrice}
-        onVisibleCart={callbacks.onVisibleCart} />
-      <List
-        isCart={callbacks.isCart(store.getState().items)}
-        items={store.getState().items}
-        callback={callbacks.onAddItem}
-      />
-      <Modal visible={visibleCart}>
-        <Layout head={<>
-          <h1>Корзина</h1>
-          <Button onClick={callbacks.onInvisibleCart}>Закрыть</Button>
-        </>}>
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls
+          count={uniqueItem}
+          sum={sumPrice}
+          onVisibleModal={callbacks.onVisibleCart} />
+        <List
+          isCart={callbacks.isCart(store.getState().items)}
+          items={store.getState().items}
+          callback={callbacks.onAddItem}
+        />
+      </Layout >
+      {visibleCart
+        ? <Modal head={'Корзина'} onInvisibleModal={callbacks.onInvisibleCart}>
           {store.getState().itemsCart.length
-            ? <List
-              isCart={callbacks.isCart(store.getState().itemsCart)}
-              items={store.getState().itemsCart}
-              callback={callbacks.onRemoveItem}
-              sum={callbacks.getCartProps().sumPrice}>
-            </List>
+            ? <>
+              <List
+                isCart={callbacks.isCart(store.getState().itemsCart)}
+                items={store.getState().itemsCart}
+                callback={callbacks.onRemoveItem}
+                sum={sumPrice}>
+              </List>
+              <CartSum sum={sumPrice}></CartSum>
+            </>
             : <h2>Корзина пуста</h2>
           }
-        </Layout>
-      </Modal>
-    </Layout>
+        </Modal >
+        : null
+      }
+    </>
   );
 }
 

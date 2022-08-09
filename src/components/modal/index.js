@@ -2,26 +2,32 @@ import React from 'react';
 import './style.css';
 import propTypes from 'prop-types';
 import { cn as bem } from "@bem-react/classname";
+import Button from '../button';
 
-function Modal({ children, visible }) {
+function Modal({ head, onInvisibleModal, children }) {
   const cn = bem('Modal');
 
   return (
-    <div className={cn({ 'active': visible })}>
+    <div className={cn()}>
       <div className={cn('content')}>
-        {children}
+        <div className={cn('head')}>
+          <h1>{head}</h1>
+          <Button onClick={onInvisibleModal}>Закрыть</Button>
+        </div>
+        <div className={cn('body')}>{children}</div>
       </div>
     </div>
   )
 }
 
 Modal.propTypes = {
+  head: propTypes.node.isRequired,
   children: propTypes.node.isRequired,
-  visible: propTypes.bool
+  onInvisibleModal: propTypes.func,
 }
 
 Modal.defaultProps = {
-  visible: false,
+  onInvisibleModal: () => { }
 }
 
 export default React.memo(Modal)

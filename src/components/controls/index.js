@@ -5,7 +5,7 @@ import Button from '../button';
 import { cn as bem } from "@bem-react/classname";
 import plural from "plural-ru";
 
-function Controls({ sum, count, onVisibleCart }) {
+function Controls({ sum, count, onVisibleModal }) {
   const cn = bem('Controls');
 
   return (
@@ -18,19 +18,21 @@ function Controls({ sum, count, onVisibleCart }) {
             : 'пусто'}
         </span>
       </div>
-      <Button onClick={onVisibleCart}>Перейти</Button>
+      <Button onClick={onVisibleModal}>Перейти</Button>
     </div>
   )
 }
 
 Controls.propTypes = {
   sum: propTypes.number,
-  count: propTypes.number
+  count: propTypes.number,
+  onVisibleModal: propTypes.func
 }
 
 Controls.defaultProps = {
   sum: 0,
-  count: 0
+  count: 0,
+  onVisibleModal: () => { }
 }
 
 export default React.memo(Controls);

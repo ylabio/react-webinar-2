@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import { cn as bem } from "@bem-react/classname";
 import Item from "../item";
 import './style.css';
+import ItemCart from '../item-cart';
 
 function List(props) {
   const cn = bem('List');
@@ -10,13 +11,12 @@ function List(props) {
   return (
     <div className={cn()}>{props.items.map(item =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} callback={props.callback} isCart={props.isCart} />
+        {props.isCart
+          ? <ItemCart item={item} callback={props.callback} isCart={props.isCart} />
+          : <Item item={item} callback={props.callback} isCart={props.isCart} />
+        }
       </div>
     )}
-      {props.isCart
-        ? <div className={cn('bottom')}>Итого <span>{props.sum.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 })}</span></div>
-        : null
-      }
     </div>
   )
 }

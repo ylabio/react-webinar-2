@@ -1,0 +1,13 @@
+.Cart-sum {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 72px;
+  font-weight: 700;
+  font-size: 18px;
+  padding-right: 108px;
+}
+
+.Cart-sum span {
+  padding-left: 50px;
+}

@@ -1,5 +1,7 @@
 .Modal {
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -8,19 +10,14 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-.Modal.Modal_active {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.Modal-content .Layout {
+.Modal-content {
   width: 960px;
   min-height: 603px;
   border-radius: 10px;
+  background-color: #fff;
 }
 
-.Modal-content .Layout-head {
+.Modal-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -31,11 +28,11 @@
   padding: 0px 20px 0px;
 }
 
-.Modal-content .Layout-head h1 {
+.Modal-head h1 {
   padding: 0;
 }
 
-.Modal-content .Layout-content h2 {
+.Modal-content h2 {
   display: flex;
   justify-content: center;
 }

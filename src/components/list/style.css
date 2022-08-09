@@ -1,24 +1,8 @@
 /*Список товаров*/
-.List {}
-
 .List-item {
     border-bottom: 1px dashed #ccc;
 }
 
 .List-item:first-child {
     border-top: 1px dashed #ccc;
-}
-
-.List-bottom {
-    height: 72px;
-    font-weight: 700;
-    font-size: 18px;
-    padding-right: 108px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.List-bottom span {
-    padding-left: 50px;
 }

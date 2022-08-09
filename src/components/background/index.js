@@ -1,11 +1,16 @@
 import React from "react";
 import { cn as bem } from "@bem-react/classname";
+import propTypes from "prop-types";
 import "./style.css";
 
-function Background(props) {
+function Background({ onClick }) {
   const cn = bem("Background");
 
-  return <div className={cn()} onClick={props.onClick}></div>;
+  return <div className={cn()} onClick={onClick}></div>;
 }
 
-export default Background;
+Background.propTypes = {
+  onClick: propTypes.func,
+};
+
+export default React.memo(Background);

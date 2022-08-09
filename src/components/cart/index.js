@@ -1,28 +1,22 @@
-import React, { useCallback } from "react";
-import Layout from "../layout";
+import React from "react";
 import List from "../list";
 import "./style.css";
 import { cn as bem } from "@bem-react/classname";
-import Background from "../background";
 import { get_cart_total_values } from "../../utils";
 import Modal from "../modal";
+import propTypes from "prop-types";
 
-function Cart(props) {
-  const callbacks = {
-    close: useCallback(() => {
-      props.onCloseCart();
-    }),
-  };
-
-  const { total_price, total_quantity } = get_cart_total_values(props.cart);
+function Cart({ cart, buttonLabel, onButtonClick, onCloseCart }) {
+  const { total_price, total_quantity } = get_cart_total_values(cart);
 
   const cn = bem("Cart");
+
   let content = (
     <div className={cn()}>
       <List
-        items={props.cart}
-        onButtonClick={props.onButtonClick}
-        buttonLabel={props.buttonLabel}
+        items={cart}
+        onButtonClick={onButtonClick}
+        buttonLabel={buttonLabel}
       />
       <div className={cn("total")}>
         <span>Итого</span>
@@ -35,7 +29,14 @@ function Cart(props) {
     content = <h2 className={cn("empty")}>Пусто</h2>;
   }
 
-  return <Modal onClose={callbacks.close}>{content}</Modal>;
+  return <Modal onClose={onCloseCart}>{content}</Modal>;
 }
 
-export default Cart;
+Cart.propTypes = {
+  cart: propTypes.arrayOf(propTypes.object).isRequired,
+  buttonLabel: propTypes.string.isRequired,
+  onButtonClick: propTypes.func.isRequired,
+  onCloseCart: propTypes.func.isRequired,
+};
+
+export default React.memo(Cart);

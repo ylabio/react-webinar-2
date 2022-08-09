@@ -4,7 +4,6 @@ import Layout from "./components/layout";
 import CartStat from "./components/cart-stat";
 import Cart from "./components/cart";
 import "./style.css";
-import { cartCounter, counter } from "./utils";
 
 /**
  * Приложение

@@ -4,17 +4,17 @@ import { cn as bem } from "@bem-react/classname";
 import Item from "../item";
 import "./style.css";
 
-function List(props) {
+function List({ items, buttonLabel, onButtonClick }) {
   const cn = bem("List");
 
   return (
     <div className={cn()}>
-      {props.items.map((item) => (
+      {items.map((item) => (
         <div key={item.code} className={cn("item")}>
           <Item
             item={item}
-            onButtonClick={props.onButtonClick}
-            buttonLabel={props.buttonLabel}
+            onButtonClick={onButtonClick}
+            buttonLabel={buttonLabel}
           />
         </div>
       ))}
@@ -24,10 +24,8 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-};
-
-List.defaultProps = {
-  items: [],
+  buttonLabel: propTypes.string.isRequired,
+  onButtonClick: propTypes.func.isRequired,
 };
 
 export default React.memo(List);

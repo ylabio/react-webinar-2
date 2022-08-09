@@ -30,7 +30,7 @@ function App({ store }) {
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>Магазин</h1>} scrollable={store.getState().popup === ''}>
       <Controls onOpenCart={callbacks.onOpenCart} cart={store.getState().cart} />
       <List
         items={store.getState().items.map(item => ({

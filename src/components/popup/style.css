@@ -6,6 +6,7 @@
   left: 0;
   background-color: rgba(0, 0, 0, 0.7);
   overflow: auto;
+  display: flex;
 }
 
 .Overflow * {
@@ -13,7 +14,7 @@
 }
 
 .Popup {
-  margin: calc(50vh - 300px) auto;
+  margin: auto;
   width: 960px;
   min-height: 600px;
   background-color: #fff;

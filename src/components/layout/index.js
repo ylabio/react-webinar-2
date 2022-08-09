@@ -1,10 +1,14 @@
 import { cn as bem } from '@bem-react/classname'
 import propTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect } from 'react'
 import './style.css'
 
-function Layout({ head, children, baseClassName }) {
+function Layout({ head, children, baseClassName, scrollable }) {
   const cn = bem(baseClassName)
+
+  useEffect(() => {
+    document.body.style.overflow = scrollable ? 'auto' : 'hidden'
+  }, [scrollable])
 
   return (
     <div className={cn()}>
@@ -17,7 +21,8 @@ function Layout({ head, children, baseClassName }) {
 Layout.propTypes = {
   head: propTypes.node,
   children: propTypes.node,
-  baseClassName: propTypes.string
+  baseClassName: propTypes.string,
+  scrollable: propTypes.bool
 }
 
 Layout.defaultProps = {

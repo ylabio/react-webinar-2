@@ -1,21 +1,37 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import {cn as bem} from "@bem-react/classname";
+import plural from 'plural-ru';
+import propTypes, { number } from 'prop-types';
 import './style.css';
 
-function Controls({onAdd}){
+function Controls({openCart, cartItems}){
+  const cn = bem('Controls')
+
+  const cartInfo = () => {
+    const cartLength = cartItems.length;
+    if(cartLength > 0) {
+      const cartTotal = cartItems.reduce((prev, next) => prev + next.price * next.count, 0)
+      return `${cartLength} ${plural(cartLength, "товар", "товара", "товаров")} / ${cartTotal.toLocaleString('ru-RU')} \u20BD`
+    }
+    return `пусто`
+  }
+  
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className={cn()}>
+      <p className={cn('cart-info')}>В корзине: <b>{cartInfo()}</b></p>
+      <button className={cn('open-cart-btn')} onClick={openCart}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  openCart: propTypes.func.isRequired, // Обязательное свойство - функция
+  cartItems: propTypes.array.isRequired
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  openCart: () => {}, // Значение по умолчанию - функция-заглушка
+  cartItems: []
 }
 
 export default React.memo(Controls);

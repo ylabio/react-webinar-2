@@ -2,17 +2,19 @@
 .Item{
     display: flex;
     justify-content: flex-start;
-    transition: background-color 1s;
+    align-items: center;
 }
-.Item_selected{
-    background: #75aaf1;
-}
-
 
 .Item-title{
     width: 100%;
     padding: 20px 10px;
 }
+
+.Item-price{
+    white-space: nowrap;
+    margin-right: 12px;
+}
+
 .Item-actions{
     padding: 20px  20px 20px 10px;
     display: flex;
@@ -20,4 +22,10 @@
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+
+.Item-count {
+    white-space: nowrap;
+    margin-right: 10px;
+    margin-left: 30px;
 }

@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { cn as bem } from "@bem-react/classname";
 import '../style.css'
 
-const CartItem = ({ product }) => {
+const CartItem = ({ onDeleteProduct, product }) => {
    const cn = bem('Item');
 
+   const callbacks = {
+
+      onClick: useCallback(() => {
+         onDeleteProduct(product.code)
+
+      }, [product]),
+   };
    return (
       <div>
          <div className='Item Cart-item'>
@@ -20,7 +27,7 @@ const CartItem = ({ product }) => {
                <span className='Product-price'>{product.price} ₽</span>
                <span className='Product-value'>{product.value} шт</span>
                <div className={cn('actions')} onClick={e => e.stopPropagation()}>
-                  <button>
+                  <button onClick={callbacks.onClick}>
                      Удалить
                   </button>
                </div>

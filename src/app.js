@@ -17,8 +17,13 @@ function App({ store }) {
     setModalStatus: useCallback(() => {
       setModal(!modalStatus)
     }, [modalStatus]),
+
     onAddProduct: useCallback((code) => {
       store.onAddProduct(code);
+    }, []),
+
+    onDeleteProduct: useCallback((code) => {
+      store.onDeleteProduct(code)
     }, [])
   }
 
@@ -28,7 +33,7 @@ function App({ store }) {
       <List items={store.getState().items}
         onAddProduct={callbacks.onAddProduct}
       />
-      <ModalWindow setModalStatus={callbacks.setModalStatus} modalStatus={modalStatus} products={store.getState().cart} />
+      <ModalWindow onDeleteProduct={callbacks.onDeleteProduct} setModalStatus={callbacks.setModalStatus} modalStatus={modalStatus} products={store.getState().cart} />
     </Layout>
   );
 }

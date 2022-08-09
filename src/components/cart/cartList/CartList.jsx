@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import propTypes from 'prop-types';
 import CartItem from '../cartItem/CartItem';
 
-const CartList = ({ products }) => {
+const CartList = ({ onDeleteProduct, products }) => {
+
+   useEffect(() => {
+      if (products.filter((item, pos) => products.indexOf(item) == pos)) {
+         console.log(1)
+      }
+   }, [products])
+
    return (
       <>
-         {products.map(product => <CartItem product={product} />)}
+         {products.map((product, index) => <CartItem key={index} onDeleteProduct={onDeleteProduct} product={product} />)}
       </>
    )
 }

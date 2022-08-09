@@ -4,7 +4,7 @@ import ModalHead from './ModalHead'
 import './style.css'
 import propTypes from 'prop-types';
 
-const ModalWindow = ({ setModalStatus, modalStatus, products }) => {
+const ModalWindow = ({ onDeleteProduct, setModalStatus, modalStatus, products }) => {
     let rootClasses = ['Modal']
     if (modalStatus) {
         rootClasses.push('active');
@@ -12,9 +12,9 @@ const ModalWindow = ({ setModalStatus, modalStatus, products }) => {
 
     return (
         <div className={rootClasses.join(' ')} onClick={setModalStatus}>
-            <div className='Modal-content'>
+            <div className='Modal-content' onClick={e => e.stopPropagation()}>
                 <ModalHead setModalStatus={setModalStatus} />
-                <CartList products={products} />
+                <CartList products={products} onDeleteProduct={onDeleteProduct} />
             </div>
         </div>
     )

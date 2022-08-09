@@ -1,0 +1,15 @@
+.total-price {
+    display: flex;
+    justify-content: flex-end;
+    padding: 26px 0;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.total-price-text {
+    padding-right: 49px;
+}
+.total-price-sum {
+    padding-right: 108px;
+}

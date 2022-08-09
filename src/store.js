@@ -4,7 +4,7 @@ class Store {
     // Состояние приложения (данные)
     this.state = initState;
     // Слушатели изменений state
-    this.listners = [];
+    this.listeners = [];
   }
 
   /**
@@ -22,8 +22,8 @@ class Store {
   setState(newState) {
     this.state = newState;
     // Оповещаем всех подписчиков об изменении стейта
-    for (const lister of this.listners) {
-      lister();
+    for (const listener of this.listeners) {
+      listener();
     }
   }
 
@@ -33,49 +33,44 @@ class Store {
    * @return {Function} Функция для отписки
    */
   subscribe(callback) {
-    this.listners.push(callback);
+    this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listners = this.listners.filter(item => item !== callback);
+      this.listeners = this.listeners.filter(item => item !== callback);
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новая запись', selected = false}) {
+  addItemToCart({item}) {
+    let checkItem = true;
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          item.selected = !item.selected;
+      cartItems: this.state.cartItems.map(itemObj => {
+        if (itemObj.code === item.code) {
+          checkItem = false;
+          return {
+            ...itemObj,
+            count: itemObj.count + 1
+          }
         }
-        return item;
+        return itemObj;
       })
     });
+
+    if (checkItem) {
+      return this.setState({
+        ...this.state,
+        cartItems: this.state.cartItems.concat({...item, count: 1})
+      });
+
+    }
   }
+  deleteCartItem(item) {
+    this.setState({
+      ...this.state,
+      cartItems: this.state.cartItems.filter((itemObj)=>itemObj.code !== item.code)
+    })
+  }
+
 }
 
 export default Store;

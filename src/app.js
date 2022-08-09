@@ -33,6 +33,7 @@ function App({ store }) {
         cartQuantity={cartInfo.quantity}
         cartPrice={cartInfo.price}
         onToggleCart={callbacks.onToggleCart}
+        uniqueItemsInCart={cartInfo.uniqueItemsInCart}
       />
       <List items={store.getState().items} onAddItemInCart={callbacks.onAddItemInCart} />
 

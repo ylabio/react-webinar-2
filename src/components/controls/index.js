@@ -5,14 +5,14 @@ import plular from 'plural-ru';
 import './style.css';
 import Button from '../button';
 
-function Controls({ cartQuantity, cartPrice, onToggleCart }) {
+function Controls({ cartQuantity, cartPrice, onToggleCart, uniqueItemsInCart }) {
   const cn = bem('Controls');
 
   return (
     <div className={cn()}>
       В корзине:
       <span className={cn('info')}>
-        {`${cartQuantity} ${plular(cartQuantity, 'товар', 'товара', 'товаров')}`} /{' '}
+        {`${uniqueItemsInCart} ${plular(uniqueItemsInCart, 'товар', 'товара', 'товаров')}`} /{' '}
         {`${cartPrice.toLocaleString('ru-RU')} ₽`}
       </span>
       <Button onClick={() => onToggleCart(true)}>Перейти</Button>
@@ -24,11 +24,13 @@ Controls.propTypes = {
   cartQuantity: propTypes.number,
   cartPrice: propTypes.number,
   onToggleCart: propTypes.func.isRequired,
+  uniqueItemsInCart: propTypes.number,
 };
 
 Controls.defaultProps = {
   cartQuantity: 0,
   cartPrice: 0,
+  uniqueItemsInCart: 0,
 };
 
 export default React.memo(Controls);

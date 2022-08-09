@@ -90,23 +90,23 @@ class Store {
       return newItem.code === item.code;
     });
 
-    this.setState({
-      ...this.state,
-      cart: itemIsAlreadyInTheCart
-        ? this.state.cart.map((item) => {
-            if (item.code === newItem.code) {
-              return {
-                ...item,
-                quantity: item.quantity + 1,
-              };
-            }
-            return item;
-          })
-        : this.state.cart.concat({
-            ...newItem,
-            quantity: 1,
-          }),
-    });
+    if (itemIsAlreadyInTheCart) {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map((item) => {
+          if (item.code === newItem.code) {
+            return { ...item, quantity: item.quantity + 1 };
+          }
+          return item;
+        }),
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.concat({ ...newItem, quantity: 1 }),
+        uniqueItemsInCart: this.state.uniqueItemsInCart + 1,
+      });
+    }
   }
 
   deleteItemFromCart(deleteItem) {
@@ -115,6 +115,7 @@ class Store {
       cart: this.state.cart.filter((item) => {
         return item.code !== deleteItem.code;
       }),
+      uniqueItemsInCart: this.state.uniqueItemsInCart - 1,
     });
   }
 
@@ -130,7 +131,7 @@ class Store {
       quantity += item.quantity;
     });
 
-    return { price, quantity };
+    return { price, quantity, uniqueItemsInCart: this.getState().uniqueItemsInCart };
   }
 }
 

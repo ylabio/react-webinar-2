@@ -30,7 +30,7 @@ function App({ store }) {
   };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
+    <Layout head={<h1>Магазин</h1>}>
       <Basket
         deleteItem={callbacks.onDeleteItem}
         items={store.getState().cart.items}

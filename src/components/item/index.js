@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import {getFormattedPrice} from '../../utils'
 
 function Item({ cart, item, addToCart, index, deleteItem }) {
   const cn = bem('Item');
@@ -29,12 +30,10 @@ function Item({ cart, item, addToCart, index, deleteItem }) {
       <div className={cn('actions')}>
         {item.count !== undefined ? (
           <div className={cn('price')}>
-            {item.price * item.count} <div className={cn('r')}>₽</div>
+            {`${getFormattedPrice(item.price * item.count)}`}
           </div>
         ) : (
-          <div className={cn('price')}>
-            {item.price} <div className={cn('r')}>₽</div>
-          </div>
+          <div className={cn('price')}>{`${getFormattedPrice(item.price)}`}</div>
         )}
 
         {item.count !== undefined && (

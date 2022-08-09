@@ -5,6 +5,8 @@ import { cn as bem } from '@bem-react/classname';
 import Modal from '../modal';
 import List from '../list';
 import plural from 'plural-ru';
+import { getFormattedPrice } from '../../utils';
+
 
 function Basket({ cart, items, deleteItem }) {
   const cn = bem('Basket');
@@ -19,8 +21,8 @@ function Basket({ cart, items, deleteItem }) {
       <div className={cn('quantity')}>
         {cart.items.length > 0
           ? `${cart.items.length} ${plural(cart.items.length, 'товар', 'товара', 'товаров')} / ${
-              cart.summ
-            } ₽`
+              getFormattedPrice(cart.summ)
+            }`
           : 'пусто'}
       </div>
       <button className={cn('button')} onClick={() => setModalActive(true)}>
@@ -44,7 +46,7 @@ function Basket({ cart, items, deleteItem }) {
         </div>
         {cart.items.length > 0 && (
           <div className={cn('summ')}>
-            <div className={cn('total')}>Итого:</div> {cart.summ} ₽
+            <div className={cn('total')}>Итого:</div> {`${getFormattedPrice(cart.summ)}`}
           </div>
         )}
       </Modal>

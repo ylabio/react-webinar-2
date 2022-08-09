@@ -27,7 +27,9 @@
   align-items: center;
   height: 80px;
   padding: 20px;
+  box-sizing:border-box;
   margin-bottom: 74px;
+  border-radius: 10px;
 }
 .Basket-header_title {
   font-style: normal;

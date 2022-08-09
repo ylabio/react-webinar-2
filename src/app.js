@@ -32,12 +32,12 @@ function App({store}) {
    * Функции для возврата item-node для переиспользования компонента List
    * @param node
    */
-  const getMainPageItem = (item) => {
+  const getMainPageItem = useCallback((item) => {
    return <Item item={item} onAdd={callbacks.onAddItems}/>
-  }
-  const getBasketItem = (item) => {
+  }, [])
+  const getBasketItem = useCallback((item) => {
     return <BasketItem item={item} onDelete={callbacks.onDeleteBasketItems}/>
-  }
+  }, [])
 
   const count = store.getState().basket.count;
   const totalSum = store.getState().basket.totalSum;

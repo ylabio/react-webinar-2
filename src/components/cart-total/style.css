@@ -1,0 +1,22 @@
+.total-block {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: right;
+  color: #000000;
+  display: flex;
+  justify-content: flex-end;
+  gap: 49px;
+  margin: 26px 120px;
+}
+
+.cart-empty {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: right;
+  color: #000000;
+  display: flex;
+  justify-content: center;
+  margin: 50px auto;
+}

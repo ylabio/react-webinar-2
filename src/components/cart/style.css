@@ -1,0 +1,34 @@
+.modalBackground {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+  overflow: auto;
+}
+.modalWindow {
+  min-height: 603px;
+  max-width: 960px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  margin: 210px auto;
+  overflow: auto;
+}
+.modalWindow .List{
+  margin-top:74px ;
+}
+.modalWindow .Layout-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modalWindow .Layout-head h1{
+  padding: 20px 20px 20px 23px; 
+}
+.modalWindow .Layout{
+  min-height: 603px;
+  overflow: auto;
+}

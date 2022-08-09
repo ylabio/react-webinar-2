@@ -22,21 +22,25 @@ function App({ store }) {
   };
 
   return (
-    <Layout
-      head={<h1>Магазин</h1>}
-      modal={modal}
-      componentModal={
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Buy
+          allPrice={store.getState().allPrice}
+          allItems={store.getState().allItems}
+          setModal={setModal}
+        />
+        <List items={store.getState().items} itemClick={callbacks.onAddItem} />
+      </Layout>
+      {modal && (
         <Modal
           setModal={setModal}
           buyState={store.getState().itemsBuy.sort((a, b) => a.code - b.code)}
+          allPrice={store.getState().allPrice}
           itemClick={callbacks.onDeleteItems}
           head={<h1>Корзина</h1>}
         />
-      }
-    >
-      <Buy buyState={store.getState().itemsBuy} setModal={setModal} />
-      <List items={store.getState().items} itemClick={callbacks.onAddItem} />
-    </Layout>
+      )}
+    </>
   );
 }
 

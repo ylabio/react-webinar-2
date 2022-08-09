@@ -3,7 +3,7 @@ import { cn as bem } from "@bem-react/classname";
 import propTypes from "prop-types";
 import "./style.css";
 
-function Layout({ head, children, modal, componentModal }) {
+function Layout({ head, children }) {
   const cn = bem("Layout");
 
   return (
@@ -12,7 +12,6 @@ function Layout({ head, children, modal, componentModal }) {
         <div className={cn("head")}>{head}</div>
         <div className={cn("content")}>{children}</div>
       </div>
-      <div className={cn("modal", { onModal: modal })}>{componentModal}</div>
     </div>
   );
 }
@@ -20,12 +19,8 @@ function Layout({ head, children, modal, componentModal }) {
 Layout.propTypes = {
   head: propTypes.node,
   children: propTypes.node,
-  componentModal: propTypes.node,
-  modaL: propTypes.bool,
 };
 
-Layout.defaultProps = {
-  modal: false,
-};
+Layout.defaultProps = {};
 
 export default React.memo(Layout);

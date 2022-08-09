@@ -57,15 +57,14 @@ class Store {
         ],
       });
     }
-  }
 
-  /**
-   * Создание записи
-   */
-  createItem({ code, title = "Новый товар", price = 999, selected = false }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({ code, title, price, selected }),
+      allItems: [...this.state.itemsBuy].length,
+      allPrice: [...this.state.itemsBuy].reduce(
+        (acc, curr) => acc + curr.price * curr.total,
+        0
+      ),
     });
   }
 
@@ -77,6 +76,14 @@ class Store {
     this.setState({
       ...this.state,
       itemsBuy: this.state.itemsBuy.filter((item) => item.code !== code),
+    });
+    this.setState({
+      ...this.state,
+      allItems: [...this.state.itemsBuy].length,
+      allPrice: [...this.state.itemsBuy].reduce(
+        (acc, curr) => acc + curr.price * curr.total,
+        0
+      ),
     });
   }
 }

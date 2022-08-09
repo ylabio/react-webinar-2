@@ -2,10 +2,9 @@ import React from "react";
 import propTypes from "prop-types";
 import plural from "plural-ru";
 import { cn as bem } from "@bem-react/classname";
-import { allBuy } from "../../utils";
 import "./style.css";
 
-function Buy({ buyState, setModal }) {
+function Buy({ allPrice, allItems, setModal }) {
   const cn = bem("Buy");
 
   return (
@@ -13,13 +12,13 @@ function Buy({ buyState, setModal }) {
       <span>
         В корзине:{" "}
         <b>
-          {buyState.length
-            ? `${buyState.length} ${plural(
-                buyState.length,
+          {allItems > 0
+            ? `${allItems} ${plural(
+                allItems,
                 "товар",
                 "товара",
                 "товаров"
-              )} / ${allBuy(buyState)} ₽`
+              )} / ${allPrice.toLocaleString("ru-RU")} ₽`
             : "пусто"}
         </b>
       </span>
@@ -29,13 +28,15 @@ function Buy({ buyState, setModal }) {
 }
 
 Buy.propTypes = {
-  buyState: propTypes.array,
   setModal: propTypes.func,
+  allPrice: propTypes.number,
+  allItems: propTypes.number,
 };
 
 Buy.defaultProps = {
-  buyState: [],
   setModal: () => {},
+  allPrice: 0,
+  allItems: 0,
 };
 
 export default React.memo(Buy);

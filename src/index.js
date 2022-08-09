@@ -15,6 +15,8 @@ const store = new Store({
     { code: counter(), title: "Товар сюрприз", price: 0 },
   ],
   itemsBuy: [],
+  allItems: 0,
+  allPrice: 0,
 });
 
 const root = createRoot(document.getElementById("root"));

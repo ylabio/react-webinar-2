@@ -25,7 +25,6 @@
 }
 
 .Modal-footer{
-	/* height: 100%; */
 	display: flex;
 	justify-content: flex-end;
 	padding-top: 26px;

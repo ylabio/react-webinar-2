@@ -20,4 +20,10 @@
 .Item-price {    
     white-space: nowrap;
     align-self: center;
+    font-size: 18px;
+}
+
+.Item-actions button{
+    padding: 0 8px;
+    font-size: 13px;
 }

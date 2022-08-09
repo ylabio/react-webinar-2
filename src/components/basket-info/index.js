@@ -20,7 +20,7 @@ function BasketInfo({ amount, sum, onOpen }) {
             )} / ${numberFormat(sum)} ₽`
           : `пусто`}
       </span>
-      <button className="button" onClick={onOpen}>
+      <button className={cn("button")} onClick={onOpen}>
         Перейти
       </button>
     </div>

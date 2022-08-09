@@ -69,8 +69,11 @@ class Store {
             basket: this.state.basket.concat({ ...item, count: 1 }),
           })
     }
+    this.setState({
+      ...this.state,
+      sum: this.state.basket.reduce((acc, num) => acc + num.price * (num.count || 1), 0),
+    })
   }
-
   /**
    * Удаление записи по её коду
    * @param code
@@ -79,6 +82,10 @@ class Store {
     this.setState({
       ...this.state,
       basket: this.state.basket.filter((item) => item.code !== itemArr.code),
+    })
+    this.setState({
+      ...this.state,
+      sum: this.state.basket.reduce((acc, num) => acc + num.price * (num.count || 1), 0),
     })
   }
 

@@ -16,7 +16,7 @@ function App({ store }) {
   const [activeModal, setActiveModal] = useState(false)
 
   const basketArr = store.getState().basket
-  const sum = sumElements(basketArr, 'price').toLocaleString()
+  const sum = store.getState().sum.toLocaleString()
 
   const callbacks = {
     visibilityModal: useCallback(() => {

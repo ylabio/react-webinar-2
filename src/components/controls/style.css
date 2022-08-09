@@ -3,4 +3,9 @@
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+    align-items: center;
+}
+
+.Controls-info {
+    padding-right: 20px;
 }

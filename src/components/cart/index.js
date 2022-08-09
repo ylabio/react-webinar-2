@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import propTypes from 'prop-types';
 import './style.css'
 
 const Cart = ({ items, isModalOpen, closeModal, removeItem, total }) => {
+  useEffect(() => {
+    isModalOpen ? 
+      document.body.style.overflow = 'hidden' : 
+      document.body.style.overflow = ''
+  }, [isModalOpen])
+
   return (
     <div className={isModalOpen ? 'modal-overlay show-modal' : 'modal-overlay'}>
       <div className='cart'>

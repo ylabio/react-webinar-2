@@ -1,6 +1,7 @@
 .cart {
     width: 60rem;
-    min-height: 37.5rem;
+    height: 37.5rem;
+    overflow: scroll;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);

@@ -10,11 +10,11 @@
     text-align: center;
 }
 .Cart-price{
-    padding-right: 109px;
+    padding-right: 120px;
 }
 .Cart-price:before{
     content: 'Итого';
-    padding-right: 50px;
+    padding-right: 40px;
 }
 .Cart .Item-amount{
     padding: 0 20px 0 50px;

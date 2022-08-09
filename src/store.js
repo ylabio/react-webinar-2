@@ -79,7 +79,6 @@ class Store {
         ...this.state,
         cart: cartItem,
       });
-      console.log(this.state.cart);
     }
     if (this.state.cart.length > 0) {
       const totalPrice = this.state.cart.reduce((prev, curr) => {

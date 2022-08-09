@@ -28,7 +28,7 @@ function Item(props) {
         {price} ₽
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onAdd}>
+        <button className={cn('actions-button')} onClick={callbacks.onAdd}>
           Добавить
         </button>
       </div>

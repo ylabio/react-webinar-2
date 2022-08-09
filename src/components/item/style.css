@@ -20,3 +20,7 @@
     display: flex;
     justify-content: flex-end;
 }
+.Item-actions-button{
+    min-width: 75px;
+    max-width: 100px;
+}

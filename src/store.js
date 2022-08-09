@@ -49,6 +49,8 @@ class Store {
     if (!hasInCart) {
       const item = this.state.items.find(item => item.code === code);
       const newItem = {...item, selectedTimes: 1 };
+      this.state.totals.quantity = this.state.totals.quantity + 1;
+      this.state.totals.sum = this.state.totals.sum + item.price;
       return this.setState({
           ...this.state,
           cart: [...this.state.cart, newItem]

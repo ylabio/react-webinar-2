@@ -128,6 +128,11 @@ class Store {
       price += item.price * item.count;
     });
 
+    // Если ничего не поменялось то не обновляем состяние
+    if (this.state.stats.goods == this.state.basket.length &&
+        this.state.stats.price == price)
+        return;
+
     this.setState({
       ...this.state,
       stats: {

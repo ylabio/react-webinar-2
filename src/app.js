@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import BasketStats from "./components/basket_stats";
+import BasketStats from "./components/basket-stats";
 import Controls from "./components/controls";
 import Layout from "./components/layout";
 import List from "./components/list";

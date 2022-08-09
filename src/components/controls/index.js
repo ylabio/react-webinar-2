@@ -2,13 +2,15 @@ import React from 'react';
 import propTypes from 'prop-types';
 import plural from 'plural-ru';
 import './style.css';
+import {getСonvertProps} from '../../utils'
 
 function Controls({toCard, cardsValue}){
   const priceSum = cardsValue.reduce((acc, value) => acc + value.price, 0)
 
   return (
     <div className='Controls'>
-      {Boolean(cardsValue.length) ? <p className='Controls__info'>В корзине:  <b>{cardsValue.length} {plural(cardsValue.length, 'товар', 'товара', 'товаров')}/{priceSum} ₽</b> </p>: null}
+      <p className='Controls__info'>В корзине:
+      {Boolean(cardsValue.length) ? <b>{getСonvertProps(cardsValue).length} {plural(getСonvertProps(cardsValue).length, 'товар', 'товара', 'товаров')}/{priceSum} ₽</b> : <b>пусто</b>}</p>
       <button onClick={toCard}>Корзина</button>
     </div>
   )

@@ -2,15 +2,9 @@ import React from "react";
 import propTypes from "prop-types";
 import "./style.css";
 import List from "../list";
+import {getСonvertProps} from '../../utils'
 
 function Card(props) {
-  
-  const items = Object.entries(props.cardList.reduce((acc, item) => {
-    const key = item.title
-    acc[key] = {...item, count: (acc[key]?.count || 0) + 1} 
-    
-    return acc
-  }, {})).map(([, item]) => item)
 
   return (
     <div className="Card">
@@ -23,7 +17,7 @@ function Card(props) {
         </div>
         <div className="Card__list">
           <List
-          items={items}
+          items={getСonvertProps(props.cardList)}
           cardActive={props.onDeleteCardItem}
           isCardShow={props.isCardShow}
         />

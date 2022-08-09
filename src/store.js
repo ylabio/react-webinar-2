@@ -50,25 +50,22 @@ class Store {
         ...this.state,
         cart: this.state.cart.map(item => item.code === code ? {...item, amount: item.amount + 1} : item)
       })
-      this.getTotals()
     } else {
       const newItem = this.state.items.find(item => item.code === code)
 
       this.setState({...this.state, cart: [...this.state.cart, {...newItem, amount: 1}]})
-      this.getTotals()
     }
+    this.getTotals()
   }
 
   /**
-   * Удаление товара поштучно
+   * Удаление товара
    * @param code
    */
   removeItem(code) {
     this.setState({
       ...this.state, 
-      cart: this.state.cart.map(item => 
-        item.code === code ? {...item, amount: item.amount - 1} : item)
-        .filter(item => item.amount > 0)
+      cart: this.state.cart.filter(item => item.code !== code)
       })
     this.getTotals()
   }

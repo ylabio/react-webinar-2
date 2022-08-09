@@ -11,7 +11,7 @@ import Cart from './components/cart';
  */
 function App({store}) {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  
+
   const callbacks = {
     addItem: useCallback((code) => {
       store.addToCart(code);
@@ -34,7 +34,7 @@ function App({store}) {
     <Layout head={<h1>Магазин</h1>}>
       <Controls
         total={store.getState().total}
-        amount={store.getState().amount}
+        amount={store.getState().cart.length}
         openModal={callbacks.openModal} />
       <List 
         items={store.getState().items}

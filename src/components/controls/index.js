@@ -5,7 +5,7 @@ import {cn as bem} from "@bem-react/classname";
 
 function orderToString(order){
   if (!order) return 'пусто'
-  return `${order.amount} ${plural(order.amount, 'товар', 'товара', 'товаров')} / ${order.cost} ₽`;
+  return `${order.amount} ${plural(order.amount, 'товар', 'товара', 'товаров')} / ${Intl.NumberFormat('ru-RU').format(order.cost)} ₽`;
 }
 
 function Controls(props){
@@ -13,7 +13,7 @@ function Controls(props){
 
   const {order, setModalActive} = props;
 
-  let strinOrder = useMemo(()=>orderToString(order), [order])
+  let strinOrder = useMemo(() => orderToString(order), [order])
 
   return (
     <div>

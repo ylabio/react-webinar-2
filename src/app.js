@@ -10,6 +10,7 @@ import {sumCalculated, sumQuantity} from "./utils";
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
+
 function App({store}) {
   const [isModalActive, setIsModalActive] = React.useState(false);
   

@@ -5,6 +5,7 @@ import propTypes from "prop-types";
 import './style.css';
 
 import CartItem from "../cartItem";
+import {priceFormat} from "../../utils";
 
 function CartModal({cartItems, isModalActive, setIsModalActive, handleDeleteCartItem, totalPrice, totalCount}) {
   const cn = bem('CartModal');
@@ -21,12 +22,14 @@ function CartModal({cartItems, isModalActive, setIsModalActive, handleDeleteCart
         <div className={cn('cartList')}>
           {cartItems.map(cartItem => <CartItem key={cartItem.code} cartItem={cartItem}
                                                handleDeleteCartItem={handleDeleteCartItem}/>)}
+          {cartItems.map(cartItem => <CartItem key={cartItem.code} cartItem={cartItem}
+                                               handleDeleteCartItem={handleDeleteCartItem}/>)}
         </div>
         <div className={cn('footer')}>
           {totalCount > 0 ?
             <>
               <span className={cn('footer_text')}>Итого</span>
-              <span className={cn('footer_price')}>{totalPrice}₽</span>
+              <span className={cn('footer_price')}>{priceFormat(totalPrice)}₽</span>
             </>
             :
             <div className={cn('emptyCart')}> В корзине ничего нет :(</div>

@@ -27,5 +27,13 @@ export function sumCalculated(cartItems) {
  */
 
 export function sumQuantity(cartItems) {
-  return cartItems.reduce((prev, item) => prev + item.quantity, 0);
+  return cartItems.length;
+}
+
+/**
+ * Формат цены (каждые 3 символа пробел)
+ */
+
+export function priceFormat(price) {
+  return price.toLocaleString('ru-RU')
 }

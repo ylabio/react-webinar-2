@@ -3,6 +3,7 @@ import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 
 import './style.css';
+import {priceFormat} from "../../utils";
 
 function CartItem({cartItem, handleDeleteCartItem}) {
   const cn = bem('CartItem');
@@ -17,7 +18,7 @@ function CartItem({cartItem, handleDeleteCartItem}) {
       </div>
       <div className={cn('actions')}>
         {/*&nbsp - это неразрывный пробел(иначе, при обычном пробеле идет перенос строки)*/}
-        <span className={cn('price')}>{cartItem.price * cartItem.quantity}&nbsp;₽</span>
+        <span className={cn('price')}>{priceFormat(cartItem.price * cartItem.quantity)}&nbsp;₽</span>
         <span className={cn('quantity')}>{cartItem.quantity}&nbsp;шт.</span>
         <button onClick={() => handleDeleteCartItem(cartItem.code)}>Удалить</button>
       </div>

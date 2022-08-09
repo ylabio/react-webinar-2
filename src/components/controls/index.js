@@ -4,6 +4,7 @@ import plural from 'plural-ru';
 import propTypes from "prop-types";
 
 import './style.css';
+import {priceFormat} from "../../utils";
 
 function Controls({setIsModalActive, totalPrice, totalCount}) {
   const cn = bem('Controls');
@@ -12,7 +13,7 @@ function Controls({setIsModalActive, totalPrice, totalCount}) {
       <span className={cn('text')}>В корзине:</span>
       {totalCount > 0 ?
         <span className={cn('itemCount')}>
-          {totalCount} {plural(totalCount, 'товар', 'товара', 'товаров')} / {totalPrice} ₽
+          {totalCount} {plural(totalCount, 'товар', 'товара', 'товаров')} / {priceFormat(totalPrice)} ₽
         </span>
         :
         

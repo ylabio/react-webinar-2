@@ -25,27 +25,30 @@
 }
 
 .CartModal-controls {
-    margin: 20px;
+    padding: 20px;
     display: flex;
     justify-content: space-between;
     line-height: 37px;
+    background: #F5F5F5;
+    border-radius: 10px 10px 0 0;
 }
 .CartModal-controls__title {
     font-weight: 700;
     font-size: 32px;
 }
-
+button{
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+}
 .CartModal-cartList {
-    max-height: 45vh;
     margin-top: 74px;
-    overflow-y: auto;
 }
 
 .CartModal-footer {
     display: flex;
     justify-content: flex-end;
-    margin-right: 108px;
-    margin-top: 26px;
+    margin: 26px 108px 40px 0;
     font-weight: 700;
     font-size: 18px;
 }

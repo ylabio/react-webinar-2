@@ -63,20 +63,10 @@ class Store {
   deleteItemFromCart({ code }) {
     const target = this.state.cart.find((item) => item.code === code);
 
-    if (target.quantity === 1)
-      this.setState({
-        ...this.state,
-        cart: this.state.cart.filter((item) => item.code !== code),
-      });
-    else
-      this.setState({
-        ...this.state,
-        cart: this.state.cart.map((item) => {
-          return item.code === code
-            ? { ...item, quantity: --item.quantity }
-            : item;
-        }),
-      });
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.filter((item) => item.code !== code),
+    });
   }
 
   toggleCartVisibility() {

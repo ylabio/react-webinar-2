@@ -20,7 +20,7 @@ function Cart({ cart, buttonLabel, onButtonClick, onCloseCart }) {
       />
       <div className={cn("total")}>
         <span>Итого</span>
-        <span>{`${total_price} ₽`}</span>
+        <span>{`${total_price.toLocaleString("ru-RU")} ₽`}</span>
       </div>
     </div>
   );

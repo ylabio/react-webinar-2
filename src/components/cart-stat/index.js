@@ -9,8 +9,10 @@ function CartStat({ cart, onOpenCart }) {
   let stat = "пусто";
   const { total_price, total_quantity } = get_cart_total_values(cart);
   if (total_quantity) {
-    const noun_form = plural(total_quantity, "товар", "товара", "товаров");
-    stat = `${total_quantity} ${noun_form} / ${total_price} ₽`;
+    const noun_form = plural(cart.length, "товар", "товара", "товаров");
+    stat = `${cart.length} ${noun_form} / ${total_price.toLocaleString(
+      "ru-RU"
+    )}`;
   }
 
   const cn = bem("CartStat");

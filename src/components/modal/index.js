@@ -18,7 +18,7 @@ function Modal({ children, onClose }) {
           </button>
         </Layout>
       </div>
-      <Background />
+      <Background onClick={onClose} />
     </>
   );
 }

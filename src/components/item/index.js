@@ -20,7 +20,9 @@ function Item({ item, buttonLabel, onButtonClick }) {
     <div className={cn({ selected: item.selected })}>
       <div className={cn("number")}>{item.code}</div>
       <div className={cn("title")}>{item.title}</div>
-      <div className={cn("price")}>{`${item.price} ₽`}</div>
+      <div className={cn("price")}>{`${item.price.toLocaleString(
+        "ru-RU"
+      )} ₽`}</div>
       {item.quantity && (
         <div className={cn("quantity")}>{`${item.quantity} шт`}</div>
       )}

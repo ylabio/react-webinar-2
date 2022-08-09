@@ -14,9 +14,9 @@ function Controls({totalPrice, basket, changeBasketVisible}) {
           basket.length ?
             <div className={cn('basket', {value: 'full'})}>
               <div>В корзине:</div> 
-              <diV>
+              <div>
                 <strong>{basket.length} {plural(basket.length, 'товар', 'товара', 'товаров')} / {totalPrice.toLocaleString('ru')} ₽ </strong>
-              </diV>
+              </div>
             </div>  
           :
             <div className={cn('basket' , {value: 'empty'})}>

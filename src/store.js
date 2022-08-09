@@ -1,3 +1,5 @@
+import item from "./components/item";
+
 class Store {
 
   constructor(initState) {
@@ -60,57 +62,43 @@ class Store {
       items: this.state.items.filter(item => item.code !== code)
     });
   }
-
+  // Добавление выбранных итемов в корзину
   addItemInBasket({code, title, price}) {
-    let {totalOfBasket, itemsOfBasket} = this.getState().basket;
-    // const items = this.getState().items;
-    // const seacrhIndex = itemsOfBasket.findIndex((item) => item.code === code)
-    const seachObj = itemsOfBasket.find((item) => item.code === code);
-   
+    
+    const {totalOfBasket, items} = this.getState().basket;
+    const seachObj = items.find((item) => item.code === code);
+    
+    
     if (typeof(seachObj) === 'undefined') {
-      const newBasket = {totalOfBasket: totalOfBasket + price, itemsOfBasket: [...itemsOfBasket, {code, title, price, count: 1}]}
+      const newBasket = {totalOfBasket: totalOfBasket + price, items: [...items,{code, title, price, count: 1}]}
         this.setState({
           ...this.state,
-          // basket: {
-          //   totalOfBasket: totalOfBasket += price,
-          //   itemsOfBasket:[...itemsOfBasket,{code, title, price, count: 1}]
-          // },
           basket:newBasket,
         }
       )
     }
-    else {
-      
-     const newItemsOfBasket = itemsOfBasket.filter((item) => item.code !== code);
-     seachObj.count += 1;
-     const newBasket = {totalOfBasket: totalOfBasket + price, itemsOfBasket: [...newItemsOfBasket, {...seachObj}]}
-      this.setState({
-        ...this.state,
-        basket: newBasket,
-      })
+      else{
+        const seachObj = items.find((item) => item.code === code);
+        seachObj.count += 1
+        const newBasket = {totalOfBasket: totalOfBasket + price, items: [...items]}
+        this.setState({
+          ...this.state,
+          basket:newBasket,
+        }
+      )
     }
-    console.log(this.state)
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-  //  */
-  // selectItem(code) {
-  //   this.setState({
-  //     ...this.state,
-  //     items: this.state.items.map(item => {
-  //       if (item.code === code){
-  //         return {
-  //           ...item,
-  //           selected: !item.selected,
-  //           count: item.selected ? item.count : item.count + 1 || 1
-  //         }
-  //       }
-  //       return item.selected ? {...item, selected: false} : item;
-  //     })
-  //   });
-  // }
+  openModal (modal, setModal) {
+    if (modal === true) {
+      modal = false;
+      setModal(modal)
+    }
+    else{
+      modal = true;
+      setModal(modal);
+    }
+  }
 }
 
 export default Store;

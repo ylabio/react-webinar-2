@@ -5,38 +5,28 @@ import plural from 'plural-ru';
 import './style.css';
 
 function Item(props) {
-  // console.log('Item')
+
   const cn = bem('Item');
-  // console.log( props)
-  // Счётчик выделений
-  // const [count, setCount] = useState(0);
 
   const callbacks = {
-
-    // onClick: useCallback(() => {
-    //   props.onSelect(props.item.code);
-    //   if (!props.item.selected) {
-    //     setCount(count + 1);
-    //   }
-    // }, [props.onSelect, props.item, setCount, count]),
-
-    // onDelete: useCallback((e) => {
-    //   e.stopPropagation();
-    //   props.onDelete(props.item.code)
-    // }, [props.onDelete,  props.item])
+    addItemInBasket: useCallback(() => {
+      props.addItemInBasket(props.item),[]
+    })
   };
-
+  
   return (
-    <div className={cn({'selected': props.item.selected})}>
+    <div className={cn()}>
       <div className={cn('number')}>
         {props.item.code}
       </div>
       <div className={cn('title')}>
         {props.item.title}
-        {/* {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null} */}
+      </div>
+      <div className={cn('price')}>
+        {`${props.item.price} ₽`}
       </div>
       <div className={cn('actions')}>
-        <button onClick={() => props.addItemInBasket(props.item)}>
+        <button onClick={callbacks.addItemInBasket}>
           Добавить
         </button>
       </div>
@@ -53,7 +43,8 @@ Item.propTypes = {
 
 Item.defaultProps = {
   onSelect: () => {},
-  onDeleted: () => {}
+  onDeleted: () => {},
+  addItemInBasket: () => {},
 }
 
 export default React.memo(Item);

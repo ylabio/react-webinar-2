@@ -14,8 +14,7 @@ const store = new Store({
     {code: counter(), title: 'Карандаши цветные', price: 111},
     {code: counter(), title: 'Товар сюрприз', price: 0},
   ],
-  basket: {totalOfBasket: 0, itemsOfBasket:[
-    
+  basket: {totalOfBasket: 0, items:[
   ]}
 });
 

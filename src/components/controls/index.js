@@ -2,11 +2,16 @@ import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 
-function Controls({onAdd}){
-  console.log('controls')
+function Controls({openModal, basketInfo}){
+  // console.log('controls')
+  // console.log(basketInfo.itemsOfBasket)
+  const basketInfoText = basketInfo.items.length === 0 ? 'пусто' : `${basketInfo.items.length} товара / ${basketInfo.totalOfBasket} ₽`;
   return (
     <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+      <div className='Controls-content'>
+        <p className='Controls-info'>В корзине: <span className='Controls-info-bold'>{basketInfoText}</span></p>
+      </div>
+      <button className="Controls-button" onClick={openModal}>Перейти</button>
     </div>
   )
 }

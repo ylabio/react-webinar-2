@@ -11,10 +11,8 @@ const CartItem = ({ cart, onDeleteItem }) => {
         return (
           <div className={cn()} key={item.code}>
             <div className={cn("code")}>
-              <p>
-                {item.code} {item.title}
-              </p>{" "}
-              <p></p>
+              <div>{item.code}</div>{" "}
+              <div className={cn("title")}>{item.title}</div>
             </div>
             <div className={cn("info")}>
               <div className={cn("price")}>

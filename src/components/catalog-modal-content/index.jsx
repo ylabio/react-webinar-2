@@ -28,7 +28,7 @@ const CatalogModalContent = ({ basket, onBasketDelete }) => {
       </List>
       <div>
         <strong className={cn('summ')}>
-          Итого <span>{basket.summ} &#8381;</span>
+          Итого <span>{basket.summ.toLocaleString('ru-RU')} &#8381;</span>
         </strong>
       </div>
     </div>

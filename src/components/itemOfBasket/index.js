@@ -4,7 +4,7 @@ import {cn as bem}  from "@bem-react/classname";
 import propTypes from 'prop-types';
 import style from './style.css'
 function ItemOfBasket (props) {
-  const cn = bem('Item');
+  const cn = bem('ItemOfBasket');
 
   const callbacks = {
     deleteItemInBasket: useCallback(() => {

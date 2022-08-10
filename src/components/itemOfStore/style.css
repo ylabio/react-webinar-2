@@ -1,25 +1,25 @@
 /* Пункт списка */
-.Item{
+.ItemOfStore{
     display: flex;
     justify-content: flex-start;
     transition: background-color 1s;
     border-bottom:'1px dashed #CCCCCC';
 }
 
-.Item{
+.ItemOfStore{
   border-bottom: 1px dashed #ccc;
 }
 
-.Item:first-child{
+.ItemOfStore:first-child{
   border-top: 1px dashed #ccc;
 }
 
-.Item-title{
+.ItemOfStore-title{
     width: 100%;
     padding: 20px 10px;
 }
 
-.Item-price{
+.ItemOfStore-price{
   font-family: 'Arial';
   font-style: normal;
   font-weight: 400;
@@ -31,11 +31,11 @@
   white-space: nowrap;
 }
 
-.Item-actions{
+.ItemOfStore-actions{
     padding: 20px  20px 20px 10px;
     display: flex;
     justify-content: flex-end;
 }
-.Item-number{
+.ItemOfStore-number{
     padding: 20px 10px 20px 20px;
 }

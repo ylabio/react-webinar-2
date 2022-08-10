@@ -11,7 +11,7 @@ function Mymodal ({children, visible, setvisible}) {
 
   return (
     <div className={myModalClassName.join(' ')} onClick={() => setvisible(false)}>
-      <div className='myModalContent'>
+      <div className='myModalContent' onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
     </div>

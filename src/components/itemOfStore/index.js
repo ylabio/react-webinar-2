@@ -6,7 +6,7 @@ import './style.css';
 
 function ItemOfStore(props) {
   
-  const cn = bem('Item');
+  const cn = bem('ItemOfStore');
 
   const callbacks = {
     addItemInBasket: useCallback(() => {

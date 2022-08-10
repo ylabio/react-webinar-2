@@ -1,6 +1,47 @@
-.Item-count{
+.ItemOfBasket-count{
   white-space: nowrap;
+  margin-right: 25px;
 }
-.Item{
-  align-items:center;
+/* Пункт списка */
+.ItemOfBasket{
+  display: flex;
+  justify-content: flex-start;
+  transition: background-color 1s;
+  border-bottom:'1px dashed #CCCCCC';
+}
+
+.ItemOfBasket{
+border-bottom: 1px dashed #ccc;
+align-items:center;
+}
+
+.ItemOfBasket:first-child{
+border-top: 1px dashed #ccc;
+}
+
+.ItemOfBasket-title{
+  width: 100%;
+  padding: 20px 10px;
+}
+
+.ItemOfBasket-price{
+font-family: 'Arial';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 21px;
+text-align: right;
+color: #404040;
+padding: 20px 10px;
+white-space: nowrap;
+margin-right: 55px;
+}
+
+.ItemOfBasket-actions{
+  padding: 20px  20px 20px 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.ItemOfBasket-number{
+  padding: 20px 10px 20px 20px;
 }

@@ -1,4 +1,3 @@
-import item from "./components/item";
 
 class Store {
 
@@ -64,8 +63,14 @@ class Store {
             qty: 1,
           }
         })
-        )
+        ),
     });
+    this.setState({
+      ...this.state,
+      shoppingCartQty: this.state.shoppingCart.length,
+      shoppingCartTotal: this.state.shoppingCart.map(el => el.price * el.qty)
+                                                .reduce((a,b)=>a+b,0),
+    })
   }
 
   /**
@@ -82,8 +87,15 @@ class Store {
   deleteCartItem(code) {
     this.setState({
       ...this.state,
-      shoppingCart: this.getState().shoppingCart.filter(item => item.code !== code)
+      shoppingCart: this.state.shoppingCart.filter(item => item.code !== code),
     });
+
+    this.setState({
+      ...this.state,
+      shoppingCartQty: this.state.shoppingCart.length,
+      shoppingCartTotal: this.state.shoppingCart.map(el => el.price * el.qty)
+                                                .reduce((a,b)=>a+b,0),
+    })
 }
 }
 

@@ -27,8 +27,9 @@ function App({store}) {
 
   return (
     <Layout head={<h1>Магазин</h1>} layout='Layout'>
-      <Controls cart={store.getState().shoppingCart} 
-            onOpen={callbacks.onOpen}
+      <Controls onOpen={callbacks.onOpen}
+                cartQty={store.getState().shoppingCartQty} 
+                cartTotal={store.getState().shoppingCartTotal}
       />
       <List items={store.getState().items}
             onItemAdd={callbacks.onAdd}

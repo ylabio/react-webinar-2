@@ -4,7 +4,7 @@ import './style.css';
 import {pluralize} from '../../utils';
 import {cn as bem} from "@bem-react/classname";
 
-function Controls({cart, onOpen}){
+function Controls({onOpen, cartQty, cartTotal}){
   const cn = bem('Controls');
   return (
     <div className={cn()}>
@@ -12,11 +12,9 @@ function Controls({cart, onOpen}){
         В корзине:
       </div>
       <div className={cn('cart')}>
-        {(cart.length > 0) ? cart.length 
-            + pluralize(cart.length, [' товар', ' товара', ' товаров'])
-            + ` / ${cart.map(el => el.price * el.qty)
-                        .reduce((a,b)=>a+b,0)
-                        .toLocaleString('ru-RU') + ' \u20bd'}`
+        {(cartQty > 0) ? cartQty 
+            + pluralize(cartQty, [' товар', ' товара', ' товаров'])
+            + ` / ${cartTotal.toLocaleString('ru-RU') + ' \u20bd'}`
           : 'пусто'
         }
       </div>
@@ -28,8 +26,9 @@ function Controls({cart, onOpen}){
 }
 
 Controls.propTypes = {
-  cart: propTypes.array.isRequired,
-  onOpen: propTypes.func.isRequired // Обяхательное свойство - функция
+  onOpen: propTypes.func.isRequired, // Обяхательное свойство - функция
+  cartQty: propTypes.number,
+  cartTotal: propTypes.number,
 }
 
 export default React.memo(Controls);

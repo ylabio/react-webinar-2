@@ -43,7 +43,7 @@ function App({ store }) {
           setIsModalOpen={setIsModalOpen}
           footer={
             <p>
-              Итого{' '}
+              Итого{' '}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               {new Intl.NumberFormat('ru', {
                 style: 'currency',
                 currency: 'RUB',

@@ -5,7 +5,7 @@ import plural from 'plural-ru';
 import './style.css';
 import { categoriesNumber, findIndex } from '../../utils';
 
-function ModalItem(props) {
+function CartItem(props) {
   
   const cn = bem('ModalItem');
 
@@ -39,13 +39,13 @@ function ModalItem(props) {
   )
 }
 
-ModalItem.propTypes = {
+CartItem.propTypes = {
   item: propTypes.object.isRequired,
   onDeleteItems: propTypes.func.isRequired
 }
 
-ModalItem.defaultProps = {
+CartItem.defaultProps = {
   onDeleteItems: () => {}
 }
 
-export default React.memo(ModalItem);
+export default React.memo(CartItem);

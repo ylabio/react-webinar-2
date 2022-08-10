@@ -45,9 +45,12 @@ class Store {
    */
   addItem(code) {
     const getOneObj = () => {
-      const newObj = this.state.items.filter(item => item.code === code)
-      newObj[0].total = 1
-      return newObj
+      this.setState({
+        ...this.state,
+        newObj: this.state.items.filter(item => item.code === code)
+      })
+      this.state.newObj[0].total = 1
+      return this.state.newObj
     }
 
     if(!this.state.cart.length){
@@ -68,14 +71,16 @@ class Store {
             } 
             return item
           }),
-        })
+        });
       } else {
         this.setState({
           ...this.state,
           cart: this.state.cart.concat(getOneObj()),
         });
+        
       }
-    }
+    };
+    this.totalPriceChange ()
   }
 
   /**
@@ -87,6 +92,14 @@ class Store {
       ...this.state,
       cart: this.state.cart.filter(item => item.code !== code),
     });
+    this.totalPriceChange()
+  }
+
+  totalPriceChange () {
+    this.setState({
+      ...this.state,
+      totalPrice: this.state.cart.reduce((sum, el) => sum + el.price * el.total, 0)
+    })
   }
 
 }

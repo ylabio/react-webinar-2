@@ -1,0 +1,35 @@
+
+.Footer-wraper {
+    padding-bottom: 50px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Footer-name {
+    margin-top: 26px;
+    margin-right: 10px;
+
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.Footer-price {
+    margin-top: 26px;
+    margin-right: 105px;
+    min-width: 95px;
+
+    text-align: right;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.Footer-price::after {
+    margin-left: 2px;
+    content: " \20BD";
+}

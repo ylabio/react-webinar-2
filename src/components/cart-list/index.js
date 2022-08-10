@@ -2,16 +2,16 @@ import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
-import ModalItem from '../modal-item';
+import CartItem from '../cart-item';
 
-function ModalList(props) {
+function CartList(props) {
 
-  const cn = bem('ModalList');
+  const cn = bem('CartList');
 
   return (
     <div className={cn()}>{props.items.map(item =>
       <div key={item.code} className={cn('item')}>
-        <ModalItem item={item}
+        <CartItem item={item}
                    items={props.items}
                    onDeleteItems={props.onDeleteItems}/>
       </div>
@@ -20,14 +20,14 @@ function ModalList(props) {
   )
 }
 
-ModalList.propTypes = {
+CartList.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
   onDeleteItems: propTypes.func
 }
 
-ModalList.defaultProps = {
+CartList.defaultProps = {
   items: [],
   onDeleteItems: () => {}
 }
 
-export default React.memo(ModalList);
+export default React.memo(CartList);

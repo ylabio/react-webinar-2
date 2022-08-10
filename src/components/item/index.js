@@ -13,7 +13,7 @@ function Item(props) {
   };
 
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
+    <div className={cn()}>
       <div className={cn('number')}>
         {props.item.code}
       </div>

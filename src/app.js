@@ -4,6 +4,7 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import Modal from "./components/modal"
 import {counter} from "./utils";
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -47,12 +48,15 @@ function App({store}) {
       />
     </Layout>
     {showModal &&
-     <Modal changeShowModal={changeShowModal} 
-            items={store.getState().cart}
-            onItemAction={callbacks.onDeleteItems}
-            btnTxt='Удалить'
-            cartCost={store.getState().cartCost}
-     />}
+     <Modal closeBtn={changeShowModal} 
+            head={<h1>Корзина</h1>}
+      >
+        <Cart items={store.getState().cart}
+              deleteItem={callbacks.onDeleteItems}
+              cartCost={store.getState().cartCost}
+        />
+      </Modal>
+     }
     </>
   );
 }

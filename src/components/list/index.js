@@ -22,13 +22,12 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemAction: propTypes.func,
+  onItemAction: propTypes.func.isRequired,
   btnTxt: propTypes.string.isRequired
 }
 
 List.defaultProps = {
-  items: [],
-  onItemAction: () => {}
+
 }
 
 export default React.memo(List);

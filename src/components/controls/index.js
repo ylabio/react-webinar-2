@@ -15,11 +15,12 @@ function Controls({cart , changeShowModal , cartCost}){
 
 Controls.propTypes = {
   cart: propTypes.array.isRequired ,
-  changeShowModal: propTypes.func.isRequired
+  changeShowModal: propTypes.func.isRequired,
+  cartCost: propTypes.number.isRequired
 }
 
 Controls.defaultProps = {
-  cart: []
+
 }
 
 export default React.memo(Controls);

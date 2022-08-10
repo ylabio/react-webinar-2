@@ -10,50 +10,33 @@
     justify-content: center;
 }
 
-.Modal-content{
-    padding: 10px;
-    border-radius: 10px;
-    width: 960px;
-    height: 603px;
-  }
+.Modal-window{
+  border-radius: 10px;
+  width: 960px;
+  min-height: 603px;
+  margin: 0 auto;
+  background: #fff;
+  box-sizing: border-box;
+  box-shadow: 0 0 15px 5px #0000003b;
+}
 
-  .Modal-content .Layout{
-    border-radius: 10px;
-    min-height: 603px;
-    border-radius: 10px
-  }
+.Modal-head h1{
+  margin: 0;
+  padding: 20px 20px 10px;
+}
 
-  .Modal-void-cart-message{
-    font-size: 30px;
-    margin: 20px;
-  }
+.Modal-head{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 32px;
+  height: 80px;
+  background: #f5f5f5;
+ }
 
-  .Modal-content .Layout-head{
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-    padding-right: 32px;
-  }
-
-  .Modal-content .Layout-head button{
-    margin-top: 34px;
-    width: 80px;
-    height: 21px;
-  }
-
-  .Modal .Layout .List{
-    margin-top: 74px;
-  }
-
-  .Modal-footer{
-    display: flex;
-    justify-content: flex-end;
-    font-size: 18px;
-    font-weight: 700;
-  }
-
-  .Modal-footer :last-child{
-    margin-right: 108px;
-    margin-left: 49px;
-  }
+.Modal-head button{
+  margin-top: 34px;
+  width: 80px;
+  height: 21px;
+}

@@ -70,29 +70,17 @@ class Store {
   /**
    * Удаление записи из корзины 
    */
-  deleteItemFromCart({code, title, price, amount}) {
+  deleteItemFromCart({code, amount}) {
     const itemByCode = (item) => item.code === code
 
-    if (this.state.cart.find(itemByCode) && amount > 1) {
+    if (this.state.cart.find(itemByCode)) {
       this.setState({
         ...this.state,
-        cart: this.state.cart.map(item => {
-          if (item.code === code) {
-            return {
-              ...item,
-              amount: item.amount - 1
-            }
-          }
-          return item
+        cart: this.state.cart.filter(item => item.code !== code)
         })
-      });
+      };
       return
-    }
-    this.setState({
-      ...this.state,
-      cart: this.state.cart.filter(item => item.code !== code)
-    })
-  }
+    } 
 }
 
 export default Store;

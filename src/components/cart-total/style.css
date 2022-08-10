@@ -1,0 +1,14 @@
+.Cart-total{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding-right: 65px;
+    padding-left: 65px;
+    display: flex;
+    justify-content: flex-end;
+}
+.Cart-total b{
+    margin-right: 50px;
+}
+.Cart-total h2{
+    margin: 25px auto;
+}

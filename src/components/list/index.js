@@ -19,14 +19,13 @@ function List(props) {
 }
 
 List.propTypes = {
-  onCart: propTypes.bool.isRequired,
+  onCart: propTypes.bool,
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onClickButton: propTypes.func.isRequired
+  onClickButton: propTypes.func
 }
 
 List.defaultProps = {
   onCart: false,
-  items: [],
   onClickButton: () => {}
 }
 

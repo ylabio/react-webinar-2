@@ -10,11 +10,8 @@ function Item(props) {
   const callbacks = {
 
     onClickButton: useCallback(()=> {
-      props.onCart 
-        ? props.onClick(props.item.code) 
-        
-        : props.onClick(props.item.code, props.item.title, props.item.price);
-    }, [props.onCart, props.onClick, props.item])
+      props.onClick(props.item.code)
+    }, [props.onClick, props.item])
   };
 
   return (
@@ -29,15 +26,10 @@ function Item(props) {
         {props.item.price.toLocaleString('ru')}
         <span>₽</span>
       </div>
-      {props.onCart && 
-        <div className={cn('count')}>
-          {props.item.count}
-          <span>шт</span>
-        </div>
-      }
+      
       <div className={cn('actions')}>
         <button onClick={callbacks.onClickButton}>
-          {props.onCart ? 'Удалить' : 'Добавить'}
+          Добавить
         </button>
       </div>
     </div>
@@ -45,15 +37,12 @@ function Item(props) {
 }
 
 Item.propTypes = {
-  item: propTypes.object,
-  onCart: propTypes.bool,
-  onClick: propTypes.func.isRequired
+  item: propTypes.object.isRequired,
+  onClick: propTypes.func
 }
 
 Item.defaultProps = {
   onClick: () => {},
-  onCart: false,
-  item: {}
 }
 
 export default React.memo(Item);

@@ -43,10 +43,13 @@ class Store {
   /**
    * Создание записи
    */
-  createCartItem({code, title, price, count = 1}) {
+  addCartItem(code) {
+    const findItem = this.state.items.find(item => item.code === code);
+    const IsCartItem = this.state.cartItems.some(item => item.code === code);
+
     this.setState({
       ...this.state,
-      cartItems: this.state.cartItems.some(item => item.code === code)
+      cartItems: IsCartItem 
         ? this.state.cartItems.map(item => {
           if (item.code === code){
             return {
@@ -56,22 +59,29 @@ class Store {
           }
           return item;
         })
-        : this.state.cartItems.concat({code, title, price, count}),
-      totalPrice: this.state.totalPrice + price
-    });
+        : this.state.cartItems.concat({... findItem, count: 1}),
+      
+      totalPrice: this.state.totalPrice + findItem.price,
+      
+      totalCount: IsCartItem
+        ? this.state.totalCount
+        : this.state.totalCount + 1
+    })
   }
 
   /**
    * Удаление записи по её коду
    * @param code
    */
-  deleteCartItem(code) {
+  removeCartItem(code) {
     this.setState({
       ...this.state,
       cartItems: this.state.cartItems.filter(item => item.code !== code),
       totalPrice: this.state.cartItems.reduce((sum,item) => {
         return sum + (item.code === code ? 0 : item.price * item.count)
-      },0)
+        
+      },0),
+      totalCount: this.state.totalCount - 1
     });
   }
 

@@ -44,14 +44,17 @@ class Store {
    * Удаление записи из корзины по её коду
    * @param code
    */
-  deleteItem(code) {
+   deleteItem(code) {
+    const itemInBasket = this.state.basket.find(item => item.code === code);
     this.setState({
       ...this.state,
       basket: this.state.basket.filter(item => item.code !== code),
+      numUniqueItems: this.state.numUniqueItems - 1,
+      totalPrice: this.state.totalPrice - itemInBasket.totalPrice
     });
   }
 
-      /**
+  /**
    * Добавление записи в корзину по её коду
    * @param code
    */
@@ -64,12 +67,15 @@ class Store {
           ({...item, totalPrice: item.totalPrice + item.price, num: item.num + 1}) 
         : 
           item),
+        totalPrice: this.state.totalPrice + itemInBasket.price
       })
     } else {
       const itemForAdd = this.state.items.find(item => item.code === code);
       this.setState({
         ...this.state,
         basket: [...this.state.basket, {code: itemForAdd.code, title: itemForAdd.title, price: itemForAdd.price, totalPrice: itemForAdd.price, num: 1}],
+        numUniqueItems: this.state.numUniqueItems + 1,
+        totalPrice: this.state.totalPrice + itemForAdd.price
       }) 
     }
   }
@@ -84,22 +90,6 @@ class Store {
       modalVisible: isVisible
     })
   }
-
-   // Изменение общей стоимости товаров в корзине
-  changeTotalPrice() {
-    this.setState({
-      ...this.state,
-      totalPrice: this.state.basket.reduce((a, b) => a + b.totalPrice, 0)
-    })
-  }
-   
-   // Получение количества уникальных товаров в корзине
-  getNumUniqueItems() {
-    this.setState({
-      ...this.state,
-      numUniqueItems: this.state.basket.length
-    })
-  }  
   
 }
 

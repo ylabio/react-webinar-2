@@ -22,12 +22,6 @@ function App({store}) {
     }, []),
     deleteItem: useCallback((code) => {
       store.deleteItem(code);
-    }, []),
-    changeTotalPrice: useCallback(() => {
-      store.changeTotalPrice();
-    }, []),
-    getNumUniqueItems: useCallback(() => {
-      store.getNumUniqueItems();
     }, [])
   }
 
@@ -43,11 +37,6 @@ function App({store}) {
              />
     }, [callbacks.onAddItemInBasket])
   }
-
-  useEffect(() => {
-    callbacks.changeTotalPrice();
-    callbacks.getNumUniqueItems(); 
-  }, [basket])
  
   return (
     <Layout head={<h1>Магазин</h1>}>

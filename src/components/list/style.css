@@ -1,11 +1,25 @@
-/*Список*/
 .List{
-
-}
-.List-item{
-    border-bottom: 1px dashed #ccc;
+  display: flex;
+  flex-direction: column;
 }
 
-.List-item:first-child{
-    border-top: 1px dashed #ccc;
+.List_row_spacing_small > * {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.List_row_spacing_normal > * {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.List_row_spacing_large > * {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.List > * {
+  border-bottom: 1px dashed #ccc;
+}
+
+.List > *:first-child {
+  border-top: 1px dashed #ccc;
 }

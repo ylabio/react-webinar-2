@@ -10,7 +10,7 @@ function Item({item, onAddToCart}) {
   const callbacks = {
     onAddToCart: useCallback((e) => {
       e.stopPropagation();
-      onAddToCart(item.code)
+      onAddToCart(item)    
     }, [onAddToCart,  item])
   };
 

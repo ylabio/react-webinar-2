@@ -1,7 +1,4 @@
-import item from "./components/item";
-
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -39,42 +36,43 @@ class Store {
     // Возвращаем функцию для удаления слушателя
     return () => {
       this.listeners = this.listeners.filter(item => item !== callback);
-    }
-  } 
+    };
+  }
 
   /**
    * Добавление записи в корзину
-   * @param cartItem
+   * @param cartItem {Object}
    */
-  addToCartItem(itemId) {
-    const cartItem = this.state.items.find(item => item.code === itemId);  
-
+  addToCartItem(cartItem) { 
+    const cartItemFound = this.state.cart.cartItems.find(elem => elem.code === cartItem.code);
+   
     this.setState({
       ...this.state,
       cart: {
-      ...this.state.cart,
-      cartItems: this.state.cart.cartItems[itemId] ?
-        {...this.state.cart.cartItems, [itemId]: {...cartItem, count: this.state.cart.cartItems[itemId].count + 1}} : 
-        {...this.state.cart.cartItems, [itemId]: {...cartItem, count: 1}},
-      totalPrice: this.state.cart.totalPrice + cartItem.price,    
-      }   
-    })   
+        ...this.state.cart,
+        cartItems: cartItemFound ?
+          this.state.cart.cartItems.map(elem =>
+              elem.code === cartItem.code ? { ...elem, count: elem.count + 1 } : elem
+            )
+          : this.state.cart.cartItems.concat({ ...cartItem, count: 1 }),
+          totalPrice: this.state.cart.totalPrice + cartItem.price,
+      },
+    });
   }
 
   /**
    * Удаление записи из корзины
-   * @param code
+   * @param cartItem {Object}
    */
-  deleteItemsFromCart(item) {
-    const cartItems = {...this.state.cart.cartItems}; 
+  deleteItemsFromCart(cartItem) {
 
-    delete cartItems[item.code]
-  
-    this.setState({ 
+    this.setState({
       ...this.state,
-      cart:  {...this.state.cart, 
-      cartItems: {...cartItems},
-      totalPrice: this.state.cart.totalPrice - (item.price * item.count)}   
+      cart: {
+        ...this.state.cart,
+        cartItems: this.state.cart.cartItems.filter(elem=> elem.code !== cartItem.code),
+        totalPrice: this.state.cart.totalPrice - cartItem.price * cartItem.count,
+      },
     });
   }
 }

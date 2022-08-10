@@ -4,3 +4,14 @@
     justify-content: flex-end;
     padding: 20px;
 }
+
+.Controls-price {
+    margin-right: 28px;
+}
+
+.Controls-price-rub::after {
+   content: "\20BD";
+    padding-left: 6px;
+}
+
+

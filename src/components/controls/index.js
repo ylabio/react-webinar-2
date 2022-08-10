@@ -1,21 +1,42 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import './style.css';
+import React from "react";
+import propTypes from "prop-types";
+import { cn as bem } from "@bem-react/classname";
+import "./style.css";
+import plural from "plural-ru";
 
-function Controls({onAdd}){
+function Controls({ priceAndCount, showModal, allItems }) {
+  const cn = bem("Controls");
+
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className="Controls">
+      {priceAndCount.count > 0 ? (
+        <span className={cn("price")}>
+          В корзине:{" "}
+          <strong className={cn("price-rub")}>
+            {allItems} {plural(allItems, "товар", "товара", "товаров")} /{" "}
+            {priceAndCount.price.toLocaleString("ru-RU")}
+          </strong>
+        </span>
+      ) : (
+        <span className={cn("price")}>
+          В корзине: <strong>Пусто</strong>
+        </span>
+      )}
+
+      <button onClick={showModal}>Перейти</button>
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
+  priceAndCount: propTypes.object.isRequired,
+  showModal: propTypes.func,
+  allItems: propTypes.number,
+};
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
-}
+  allItems: 0,
+  showModal: () => {},
+};
 
 export default React.memo(Controls);

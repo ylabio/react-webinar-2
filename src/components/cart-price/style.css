@@ -1,0 +1,20 @@
+.cart-price {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 100px;
+    margin-top: 26px;
+    margin-bottom: 20px;
+}
+
+
+
+.cart-price-total {
+    margin-right: 60px;
+    font-weight: bold;
+}
+
+.cart-price-total-price {
+    font-weight: bold;
+}
+

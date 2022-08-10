@@ -1,0 +1,34 @@
+.cart-item {
+   display: flex;
+    justify-content: space-between;
+    padding: 20px
+}
+
+
+
+.cart-item-code {
+    display: flex;
+}
+
+.cart-item-title {
+    margin-left: 20px;
+}
+
+.cart-item-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-item-price {
+    margin-right: 60px;
+}
+
+.cart-item-price:after {
+    content: "\20BD";
+    margin-left: 6px;
+}
+
+.cart-item-amount {
+    margin-right: 20px;
+}

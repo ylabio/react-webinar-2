@@ -1,0 +1,33 @@
+.Modal {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: rgba(0,0,0,0.5);
+    display: inline-block;
+
+}
+
+
+.Modal-content {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    left: 25%;
+    top:20%;
+    width: 50vw;
+    min-height: 50vh;
+    background: white;
+    border-radius: 10px;
+    overflow: auto;
+
+}
+
+
+
+
+

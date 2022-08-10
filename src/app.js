@@ -1,36 +1,54 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from "react";
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Cart from "./components/cart";
+import Modal from "./components/modal";
+import Item from './components/item'
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+function App({ store }) {
+  const products = store.getState().items;
+  const {items: cart, totalAmount, uniqueItems} = store.getState().cart; // Переименовываю массив items, взятый путем деструктуризации, чтобы исбежать путаницы 
+
+  const [isModalOpen, setModalOpen] = React.useState(false);
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onCartClick: useCallback(() => {
+      setModalOpen(true);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onAdd: useCallback((code) => {
+      store.addItemToCart(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onDelete: useCallback((code) => {
+      store.deleteItemFromCart(code);
     }, []),
-  }
+    onCloseModal: useCallback(() => {
+      setModalOpen(false);
+    }),
+  };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls
+        onCartClick={callbacks.onCartClick}
+        amount={totalAmount}
+        uniqueItems={uniqueItems}
       />
+      <List items={products} onButtonClick={callbacks.onAdd} itemRenderer={Item}/>
+      {isModalOpen && (
+        <Modal title={"Корзина"} closeModal={callbacks.onCloseModal}> 
+          <Cart     
+            cart={cart}
+            cartAmount={totalAmount}
+            deleteItem={callbacks.onDelete}/>
+        </Modal>
+      
+      )}
     </Layout>
   );
 }

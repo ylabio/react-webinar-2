@@ -1,0 +1,18 @@
+.Cart-total {
+  display: flex;
+  justify-content: flex-end;
+  margin: 26px 0;
+  font-weight: 700;
+  font-size: 18px;
+}
+.Cart-total-title {
+  margin-right: 49px;
+}
+.Cart-total-price {
+  margin-right: 108px;
+}
+.Cart-empty-title {
+  font-weight: 700;
+  font-size: 24px;
+  text-align: center;
+}

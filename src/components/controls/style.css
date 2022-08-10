@@ -2,5 +2,21 @@
 .Controls{
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     padding: 20px;
+    font-size: 18px;
+}
+.Controls-total {
+    font-weight: 700;
+    margin-right: 20px;
+}
+.Controls-title {
+    margin-right: 15px;
+}
+.Controls-title_emptyCart {
+    margin-right: 12px;
+}
+.Controls button {
+    width: 80px;
+    font-size: 13px;
 }

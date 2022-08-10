@@ -1,0 +1,19 @@
+/* Контрол с общими действиями */
+.Controls{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 18px;
+    line-height: 21px;
+    padding-right: 20px;
+}
+.Controls-cart{
+    margin-right: 15px;
+}
+.Controls__cartItem{
+    margin-right: 20px;
+}
+
+.Controls button{
+    width: 80px;
+}

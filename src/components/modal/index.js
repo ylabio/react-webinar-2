@@ -1,25 +1,32 @@
 import React from 'react';
 import propTypes from "prop-types";
 import './style.css';
+import Button from '../button';
+import Head from '../head';
 
-function Modal({isVisibleModal, closeModal, children}){
-	const onOutside = e => {
-		e.currentTarget === e.target && closeModal();
-	};
+function Modal({closeModal, children}){
+  const onOutside = e => {
+	  e.currentTarget === e.target && closeModal();
+  };
 
-	return isVisibleModal ? (
-		<div className='Modal' onClick={onOutside}>
-			<div className='Modal-container'>
-				<div className='Modal-content'>
-					{children}
-				</div>
-			</div>
-		</div>
-	) : null
+  const button = <Button title='Закрыть' callback={closeModal}/>;
+
+  return (
+	  <div className='Modal' onClick={onOutside}>
+		  <div className='Modal-container'>
+			  <div className='Modal-content'>
+				  <Head
+					  title='Корзина'
+					  button={button}
+					/>
+				  {children}
+			  </div>
+		  </div>
+	  </div>
+  )
 }
 
 Modal.propTypes = {
-	isVisibleModal: propTypes.bool.isRequired,
 	closeModal: propTypes.func
 }
 

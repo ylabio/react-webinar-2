@@ -1,24 +1,24 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import {getSum, getPrice} from '../../utils';
+import {getPrice} from '../../utils';
 import './style.css';
 
-function Total({basket}) {
-	const sum = getSum(basket);
-	return (
-		<div className='Total'>
-			<div>Итого</div>
-			<div className={'Total-sum'}>{getPrice(sum)}</div>
-		</div>
-	)
+function Total({sum}) {
+  return (
+	  <div className='Total'>
+		  <div>Итого</div>
+		  <div className='Total-sum'>{getPrice(sum)}</div>
+    </div>
+  )
 }
 
 Total.propTypes = {
-	basket: propTypes.arrayOf(propTypes.object)
+  basket: propTypes.arrayOf(propTypes.object),
+	sum: propTypes.number
 }
 
 Total.defaultProps = {
-	basket: []
+  basket: []
 }
 
 export default React.memo(Total);

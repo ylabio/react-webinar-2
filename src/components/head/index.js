@@ -10,6 +10,7 @@ function Head({title, button}){
 	  </div>
   );
 }
+
 export default React.memo(Head);
 
 Head.propTypes = {

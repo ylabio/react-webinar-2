@@ -1,0 +1,19 @@
+.total {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  margin-top: 26px;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 108px;
+  margin-bottom: 50px;
+}
+
+.total-text {
+  margin-left: 416px;
+  margin-right: auto;
+}
+
+.total-number {
+  margin-left: 49px;
+}

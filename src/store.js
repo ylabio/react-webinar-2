@@ -40,46 +40,50 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  _calculateTotalPrice() {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
+      totalPrice: this.state.cart.reduce((sum, item) => {
+        return sum + (item.cartCount * item.price);
+      }, 0)
+    })
   }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
+  deleteFromCart(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code),
+      itemsInCart: this.state.itemsInCart - 1
     });
+    this._calculateTotalPrice()
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
+  addToCart(code) {
+    const cart = this.state.cart;
+    const addedItem = this.state.items.find(item => item.code === code);
+    const isAddedItemInCart = cart.some((item) => item.code === code);
+
+    if (isAddedItemInCart) {
+      this.setState({
+        ...this.state,
+        cart: cart.map((item) => {
+          if (item.code === code) {
+            return { ...item, cartCount: ++item.cartCount }
           }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+          return item;
+        })
+      });
+      this._calculateTotalPrice()
+    } else {
+      this.setState({
+        ...this.state,
+        cart: cart.concat({ ...addedItem, cartCount: 1 }),
+        itemsInCart: this.state.itemsInCart + 1
+      });
+      this._calculateTotalPrice()
+    }
   }
+
 }
 
 export default Store;

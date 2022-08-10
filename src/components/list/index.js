@@ -6,11 +6,12 @@ import './style.css';
 
 function List(props) {
   const cn = bem('List');
+  
 
   return (
     <div className={cn()}>{props.items.map(item =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} onSelect={props.onItemSelect} onDelete={props.onItemDelete}/>
+        <Item onCart={props.onCart} item={item} onClick={props.onClickButton}/>
       </div>
     )}
     </div>
@@ -18,15 +19,14 @@ function List(props) {
 }
 
 List.propTypes = {
+  onCart: propTypes.bool,
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemSelect: propTypes.func,
-  onItemDelete: propTypes.func
+  onClickButton: propTypes.func
 }
 
 List.defaultProps = {
-  items: [],
-  onItemSelect: () => {},
-  onItemDelete: () => {}
+  onCart: false,
+  onClickButton: () => {}
 }
 
 export default React.memo(List);

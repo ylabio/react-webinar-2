@@ -2,7 +2,9 @@ import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Modal from "./components/modal";
+import CartTotal from "./components/cart-total";
+
 
 /**
  * Приложение
@@ -11,27 +13,40 @@ import {counter} from "./utils";
  */
 function App({store}) {
 
+  const [modalOpen, setModalOpen] = React.useState(false)
+
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    isModalOpened: useCallback(() => {
+      setModalOpen(!modalOpen)
+    }, [modalOpen, setModalOpen]),
+    addToCart: useCallback((code) => {
+      store.addCartItem(code);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
+    removeFromCart: useCallback((code) => {
+      store.removeCartItem(code);
+    }, [])
   }
 
+
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <>
+      {modalOpen && 
+        <Modal title={'Корзина'} onClickClose={callbacks.isModalOpened}>
+          <List items={store.getState().cartItems}
+                onClickButton={callbacks.removeFromCart}
+                onCart/>
+          <CartTotal totalPrice={store.getState().totalPrice}
+                     totalCount={store.getState().totalCount}/>
+        </Modal>
+      }
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls isModalOpened={callbacks.isModalOpened}
+                  totalPrice={store.getState().totalPrice}
+                  totalCount={store.getState().totalCount}/>
+        <List items={store.getState().items}
+              onClickButton={callbacks.addToCart}/>
+      </Layout>
+    </>
   );
 }
 

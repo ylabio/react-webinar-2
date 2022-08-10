@@ -4,6 +4,8 @@ import "./style.css";
 import plural from "plural-ru";
 
 function Controls({ getModal, amountBasketItems, totalPrice }) {
+  const price = totalPrice.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
+
   return (
     <div className="Controls">
       <div> В корзине:</div>
@@ -15,7 +17,7 @@ function Controls({ getModal, amountBasketItems, totalPrice }) {
                 "товар",
                 "товара",
                 "товаров"
-              )} / ${totalPrice} ₽`
+              )} / ${price} ₽`
             : "пусто"}
         </b>
       </div>
@@ -32,10 +34,6 @@ Controls.propTypes = {
   totalPrice: propTypes.number.isRequired,
 };
 
-Controls.defaultProps = {
-  getModal: () => {},
-  amountBasketItems: 0,
-  totalPrice: 0,
-};
+Controls.defaultProps = {};
 
 export default React.memo(Controls);

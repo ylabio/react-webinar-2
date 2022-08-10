@@ -5,18 +5,18 @@ import { Modal } from './../modal/modal';
 import plural from 'plural-ru'
 import { OpenModalButton } from './open-modal-button/openModalButton';
 
-function Controls({totalPrice, setOpenModal,openModal, cart}) {
+function Controls({totalPrice,productsCount, setOpenModal,openModal}) {
 
 
 
   return (
     <div className='Controls'>
       {
-        totalPrice === 0
+        productsCount === 0
           ?
           <span>В корзине: <b>Пусто</b> </span>
           :
-          <span>В корзине: <b>{plural(cart.length, '%d товар', '%d товара', '%d товаров')}</b><b> / {totalPrice.toLocaleString("ru-RU", {
+          <span>В корзине: <b>{plural(productsCount, '%d товар', '%d товара', '%d товаров')}</b><b> / {totalPrice.toLocaleString("ru-RU", {
             style: "currency",
                         currency: "RUB",
           })}</b>
@@ -34,14 +34,13 @@ Controls.propTypes = {
   setOpenModal: propTypes.func.isRequired,
   openModal: propTypes.func.isRequired,
   totalPrice: propTypes.node,
-  cart: [],
+  productsCount: propTypes.node,
 }
 
 Controls.defaultProps = {
   onItemDeleteFromCart: () => { },
   setOpenModal: () => { },
   openModal: () => { },
-  cart:[]
 }
 
 

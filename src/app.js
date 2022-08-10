@@ -3,7 +3,7 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import { counter } from "./utils";
-import { Modal } from './components/modal/modal';
+import { ModalLayout } from './components/modal-layout/ModalLayout';
 
 /**
  * Приложение
@@ -14,15 +14,7 @@ function App({ store }) {
   console.log(store)
 
   const [openModal, setOpenModal] = useState(false)
-  const [totalPrice, setTotalPrice] = useState(0)
 
-  React.useEffect(() => {
-    setTotalPrice(
-      store.getState().cart.reduce((acc, item) => {
-        return acc + item.price * item.count;
-      }, 0)
-    );
-  }, [store.getState().cart]);
 
   const callbacks = {
     onAdd: useCallback(() => {
@@ -39,22 +31,19 @@ function App({ store }) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      {
-        openModal
-        &&
-        <Modal
-          onItemDeleteFromCart={callbacks.onDeleteFromCart}
-          key={store.getState().cart.code}
-          cart={store.getState().cart}
-          setOpenModal={setOpenModal}
-          totalPrice={totalPrice}
-        />
-      }
+      <ModalLayout
+      onItemDeleteFromCart={callbacks.onDeleteFromCart}
+      key={store.getState().cart.code}
+      cart={store.getState().cart}
+      setOpenModal={setOpenModal}
+      openModal={openModal}
+      totalPrice={store.getState().totalPrice}
+      />
       <Controls
-        totalPrice={totalPrice}
+        totalPrice={store.getState().totalPrice}
         openModal={openModal}
         setOpenModal={setOpenModal}
-        cart={store.getState().cart}
+        productsCount={store.getState().productsCount}
       />
       <List
         items={store.getState().items}

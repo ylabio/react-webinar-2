@@ -49,6 +49,18 @@ class Store {
       items: this.state.items.concat({ code, title, price, selected })
     });
   }
+counter () {
+  const unicProducts = this.state.cart.length;
+    const totalPriceCounter = this.state.cart.reduce((sum, elem) => {
+      return sum + elem.price * elem.count;
+    }, 0);
+    this.setState({
+      ...this.state,
+      totalPrice:totalPriceCounter,
+      productsCount:unicProducts
+    })
+}
+
 
   addItem(id) {
     const inCart = this.state.cart.map((item) => item.code);
@@ -63,13 +75,16 @@ class Store {
 
       this.setState({
         ...this.state,
+
         cart: this.state.cart.map(cartItem => {
           if (cartItem.code === id) {
             return { ...cartItem, count: cartItem.count + 1 }
+
           } else return cartItem
         })
       })
     }
+    this.counter()
   }
 
   deleteFromCart(code) {
@@ -77,6 +92,7 @@ class Store {
       ...this.state,
       cart: this.state.cart.filter((item) => item.code !== code),
     });
+    this.counter()
   }
 
 }

@@ -33,10 +33,4 @@ List.propTypes = {
   component: propTypes.instanceOf(Object).isRequired,
 };
 
-List.defaultProps = {
-  items: [],
-  callback: { action: () => {}, name: '' },
-  component: Item,
-};
-
 export default React.memo(List);

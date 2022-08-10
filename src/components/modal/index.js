@@ -32,9 +32,7 @@ Modal.propTypes = {
 };
 
 Modal.defaultProps = {
-  isOpened: false,
   children: <></>,
-  title: '',
 };
 
 export default React.memo(Modal);

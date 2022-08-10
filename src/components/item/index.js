@@ -10,7 +10,7 @@ function Item(props) {
   const { item, callback } = props;
 
   const handleCallback = useCallback(() => {
-    callback.action(item);
+    callback.action(item.code);
   }, [callback.action, item]);
 
   return (
@@ -26,11 +26,6 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   callback: propTypes.object.isRequired,
-};
-
-Item.defaultProps = {
-  item: {},
-  callback: { action: () => {}, name: '' },
 };
 
 export default React.memo(Item);

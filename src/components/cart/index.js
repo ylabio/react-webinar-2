@@ -37,10 +37,4 @@ Cart.propTypes = {
   totalPrice: propTypes.number.isRequired,
 };
 
-Cart.defaultProps = {
-  items: [],
-  onDeleteItem: () => {},
-  totalPrice: 0,
-};
-
 export default React.memo(Cart);

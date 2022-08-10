@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import propTypes from 'prop-types';
 import Actions from '../actions';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
@@ -9,7 +10,7 @@ function CartItem(props) {
   const { item, callback } = props;
 
   const handleCallback = useCallback(() => {
-    callback.action(item);
+    callback.action(item.code);
   }, [callback.action, item]);
 
   return (
@@ -22,5 +23,10 @@ function CartItem(props) {
     </div>
   );
 }
+
+CartItem.propTypes = {
+  item: propTypes.object.isRequired,
+  callback: propTypes.object.isRequired,
+};
 
 export default React.memo(CartItem);

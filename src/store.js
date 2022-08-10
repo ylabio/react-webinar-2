@@ -44,9 +44,10 @@ class Store {
 
   /*
    * Добавление/прибавление кол-ва товара в корзину
-   * @param item {Object}
+   * @param code {number}
    */
-  addItemToCart(item) {
+  addItemToCart(code) {
+    const item = this.state.items.find((item) => item.code === code);
     const cartItems = this.state.shoppingCart.items;
     const items = cartItems.reduce(
       (items, product, index) => {
@@ -75,11 +76,11 @@ class Store {
 
   /*
    * Удаление товара из корзины
-   * @param item {Object}
+   * @param code {number}
    */
-  deleteItemFromCart(item) {
+  deleteItemFromCart(code) {
     const items = this.state.shoppingCart.items.filter(
-      (product) => item.code !== product.code
+      (product) => product.code !== code
     );
     this.setState({
       ...this.state,

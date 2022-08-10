@@ -37,8 +37,6 @@ Actions.propTypes = {
 };
 
 Actions.defaultProps = {
-  action: () => {},
-  name: '',
   children: <></>,
 };
 

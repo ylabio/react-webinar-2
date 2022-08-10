@@ -20,11 +20,11 @@ function App({ store }) {
   const { shoppingCart, items } = store.getState();
 
   const callbacks = {
-    onAdd: useCallback((item) => {
-      store.addItemToCart(item);
+    onAdd: useCallback((code) => {
+      store.addItemToCart(code);
     }, []),
-    onDelete: useCallback((item) => {
-      store.deleteItemFromCart(item);
+    onDelete: useCallback((code) => {
+      store.deleteItemFromCart(code);
     }, []),
     onOpenModal: useCallback(({ title, nameComponent }) => {
       setModal({

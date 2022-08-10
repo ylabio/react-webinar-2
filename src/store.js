@@ -40,6 +40,13 @@ class Store {
     }
   }
 
+  setOrder(newOrderList){
+    this.orderList = newOrderList;
+    for (const listener of this.listeners) {
+      listener();
+    }
+  }
+
 
   getOrder() {
     return this.orderList;
@@ -57,21 +64,27 @@ class Store {
   }
 
   addItem(item, amount) {
-    if (this.orderList.length === 0){
-      this.orderList = [{...item, amount}]
-    } else {
-      for (let i = 0 ; i < this.orderList.length; i++){
-        if(this.orderList[i].code === item.code){
-          const itemWithCahngedAmount = this.orderList[i] //учет иммутабельности при смене количества элементов
-          itemWithCahngedAmount.amount = amount;
-          this.orderList[i] = itemWithCahngedAmount;
-          break
-        } else if(i === this.orderList.length - 1){
-          this.orderList = [...this.orderList, {...item, amount}] //учет иммутабельности при добавление нового товара
+
+    let isAddNewItem = true;
+
+    if (this.orderList.length === 0) {
+      isAddNewItem = false;
+      this.setOrder([{...item, amount}])
+    } else { 
+      this.setOrder(this.orderList.map((elem) => {
+        if (elem.code === item.code){
+          isAddNewItem = false;
+          return {...elem, amount};
+        } else {
+          return {...elem}
         }
+      }))
+      if(isAddNewItem) {
+        this.setOrder([...this.orderList, {...item, amount}])
       }
     }
-  }
+    console.log(this.orderList)
+    }
 }
 
 export default Store;

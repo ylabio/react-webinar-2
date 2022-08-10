@@ -10,7 +10,7 @@ function List({ items, children }) {
 }
 
 List.propTypes = {
-  children: propTypes.array.isRequired,
+  children: propTypes.func.isRequired,
 };
 
 export default React.memo(List);

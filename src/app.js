@@ -45,6 +45,7 @@ function App({store}) {
             cartItems={store.getState().cart.cartItems}
             onDeleteItemsFromCart={callbacks.onDeleteItemsFromCart}
             totalPrice={store.getState().cart.totalPrice}
+            totalAmount={store.getState().cart.totalAmount}
           />
         </Popup>
       )}

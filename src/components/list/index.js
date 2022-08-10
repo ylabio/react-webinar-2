@@ -5,7 +5,7 @@ import Item from "../item";
 import './style.css';
 
 function List({items, onItemDelete, onAddToCart }) {  
-  const cn = bem('List');
+  const cn = bem('List'); 
 
   return (
     <div className={cn()}>{items.map(item =>
@@ -18,7 +18,7 @@ function List({items, onItemDelete, onAddToCart }) {
 }
 
 List.propTypes = {
-  items: propTypes.array.isRequired,
+  items: propTypes.arrayOf(propTypes.object).isRequired,
   onItemDelete: propTypes.func,
   onAddToCart: propTypes.func
 }

@@ -14,7 +14,6 @@ import './normalize.css';
  */
 function App({ store }) {
   const [modalActive, setModalActive] = useState(false);
-console.log(store.state.itemsInCart);
 
   const callbacks = {
     addToCart: useCallback((code) => {

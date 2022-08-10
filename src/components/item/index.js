@@ -15,8 +15,8 @@ function Item(props) {
   };
 
   return (
-    <div className={props.item.count? cnCart() : cn()}>
-      <div className={props.item.count? cnCart('number') : cn('number')}>
+    <div className={cn()}>
+      <div className={cn('number')}>
         {props.item.code}
       </div>
       {!props.item.count && <>

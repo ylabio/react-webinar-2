@@ -1,8 +1,11 @@
 /* Пункт списка */
 .Item{
+    margin: 0;
+    padding: 0;
+    height: 61px;
+    width: 100%;
     display: flex;
-    justify-content: flex-start;
-    transition: background-color 1s;
+    flex-direction: row;
 }
 
 .Item-title{
@@ -28,25 +31,6 @@
 }
 
 .Item-number{
-    padding: 20px 10px 20px 20px;
-    margin: 0;
-}
-
-.CartItem{
-    margin: 0;
-    padding: 0;
-    height: 61px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    border-bottom: 1px dashed #ccc;
-}
-
-.CartItem:first-child{
-    border-top: 1px dashed #ccc;
-}
-
-.CartItem-number{
     padding: 20px 10px 20px 20px;
     margin: 0;
 }

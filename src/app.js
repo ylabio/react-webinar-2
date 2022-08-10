@@ -3,6 +3,7 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Card from './components/card';
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -32,7 +33,12 @@ function App({store}) {
       
       <List items={store.getState().items} cardActive={callbacks.addToCard} isCardShow={isCardShow}/>
 
-      {isCardShow && <Card cardList={store.getState().card} сardClose={callbacks.toCard} onDeleteCardItem={callbacks.onDeleteCardItem} isCardShow={isCardShow}/>}
+      {/* {isCardShow && <Card cardList={store.getState().card} сardClose={callbacks.toCard} onDeleteCardItem={callbacks.onDeleteCardItem} isCardShow={isCardShow}/>} */}
+      {
+      isCardShow && <Modal сardClose={callbacks.toCard} isCardShow={isCardShow} title={'Корзина'}>
+        <Card cardList={store.getState().card} isCardShow={isCardShow} onDeleteCardItem={callbacks.onDeleteCardItem} />
+      </Modal>
+      }
     </Layout>
   );
 }

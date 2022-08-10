@@ -1,6 +1,28 @@
-/* Контрол с общими действиями */
+/* Панель отображения кнопки перехода в корзину и количества и цены товаров в корзине */
 .Controls{
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
+    font-size: 18px;
+    padding: 0 21px;
 }
+.Controls-basket{
+    padding: 18px 20px 24px;
+    display: flex;
+}
+.Controls-basket_value_full{
+    gap: 15px;
+}
+.Controls-basket_value_empty{
+    gap: 12px;
+}
+.Controls-button{
+    padding: 20px 0 22px;
+    height: 21px;
+    
+}
+.Controls-button button{
+    height: 100%;
+    width: 80px; 
+    box-sizing: border-box;
+}
+

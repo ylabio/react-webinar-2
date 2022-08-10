@@ -1,0 +1,7 @@
+/* Пункт списка товаров в корзине */
+.Basket-item-basket{
+    border-bottom: 1px dashed #ccc;
+}
+.Basket-item-basket:first-child{
+    border-top: 1px dashed #ccc;
+}

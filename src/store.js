@@ -41,45 +41,56 @@ class Store {
   }
 
   /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
+   * Удаление записи из корзины по её коду
    * @param code
    */
   deleteItem(code) {
+    const itemInBasket = this.state.basket.find(item => item.code === code);
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      basket: this.state.basket.filter(item => item.code !== code),
+      numUniqueItems: this.state.numUniqueItems - 1,
+      totalPrice: this.state.totalPrice - itemInBasket.totalPrice
     });
   }
 
   /**
-   * Выделение записи по её коду
+   * Добавление записи в корзину по её коду
    * @param code
    */
-  selectItem(code) {
+  addItemInBasket(code) {
+    const itemInBasket = this.state.basket.find(item => item.code === code);
+    if (itemInBasket) {
+      this.setState({
+        ...this.state,
+        basket: this.state.basket.map(item => item.code === code ? 
+          ({...item, totalPrice: item.totalPrice + item.price, num: item.num + 1}) 
+        : 
+          item),
+        totalPrice: this.state.totalPrice + itemInBasket.price
+      })
+    } else {
+        const itemForAdd = this.state.items.find(item => item.code === code);
+        this.setState({
+          ...this.state,
+          basket: [...this.state.basket, {code: itemForAdd.code, title: itemForAdd.title, price: itemForAdd.price, totalPrice: itemForAdd.price, num: 1}],
+          numUniqueItems: this.state.numUniqueItems + 1,
+          totalPrice: this.state.totalPrice + itemForAdd.price
+        }) 
+     }
+  }
+
+    /**
+   * Изменение видимости модального окна
+   * @param isVisible
+   */
+  changeModalVisible(isVisible) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+      modalVisible: isVisible
+    })
   }
+  
 }
 
 export default Store;

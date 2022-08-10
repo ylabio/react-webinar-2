@@ -1,8 +1,10 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import LayoutModal from './components/layout-modal';
+import Basket from './components/basket';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -12,25 +14,53 @@ import {counter} from "./utils";
 function App({store}) {
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    changeModalVisible: useCallback((isVisible) => { 
+      store.changeModalVisible(isVisible);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onAddItemInBasket: useCallback((code) => {
+      store.addItemInBasket(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
+    deleteItem: useCallback((code) => {
       store.deleteItem(code);
-    }, []),
+    }, [])
   }
 
+  const basket = store.getState().basket;
+  const totalPrice = store.getState().totalPrice;
+  const modalVisible = store.getState().modalVisible;
+  const numUniqueItems = store.getState().numUniqueItems;
+
+  const renders = {
+    item: useCallback((item) => {
+      return <Item item={item}
+                   onAddItemInBasket={callbacks.onAddItemInBasket}
+             />
+    }, [callbacks.onAddItemInBasket])
+  }
+ 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls changeModalVisible={callbacks.changeModalVisible}
+                numUniqueItems={numUniqueItems} 
+                totalPrice={totalPrice}
       />
+      <List items={store.getState().items}
+            itemForRender={renders.item}
+      />
+      { 
+        modalVisible ?
+          <LayoutModal head={<h1>Корзина</h1>}
+                       changeModalVisible={callbacks.changeModalVisible}
+          >
+            <Basket basket={basket}
+                    totalPrice={totalPrice}
+                    numUniqueItems={numUniqueItems}
+                    deleteItem={callbacks.deleteItem}
+            />
+          </LayoutModal>
+        :
+          null
+      }
     </Layout>
   );
 }

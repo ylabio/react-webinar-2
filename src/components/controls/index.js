@@ -1,11 +1,10 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
-import {getPriceOnRub, getAllPrice} from '../../utils';
+import {getDataForControl} from '../../utils';
 import './style.css';
 
-function Controls({items, openPopup}){
+function Controls({store, openPopup}){
   const cn = bem('Controls');
 
   return (
@@ -13,11 +12,11 @@ function Controls({items, openPopup}){
       <p className={cn('cart')}>
         В корзине:
         <span className={cn('cart-info')}>
-         {items.length > 0 ?
-           `${items.length} ${plural(items.length, 'товар', 'товара', 'товаров')} /  ${getPriceOnRub(getAllPrice(items))}`
-           :
-           'пусто'
-         }
+          {store.allSumItemsInCart > 0 ?
+            getDataForControl(store.allSumItemsInCart, store.allPriceItemsInCart)
+            :
+            'пусто'
+          }
         </span>
       </p>
       <button onClick={openPopup}>Перейти</button>
@@ -26,7 +25,7 @@ function Controls({items, openPopup}){
 }
 
 Controls.propTypes = {
-  items: propTypes.arrayOf(propTypes.object).isRequired,
+  store: propTypes.object.isRequired,
   openPopup: propTypes.func.isRequired
 }
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import {getPriceOnRub, getAllPrice} from '../../utils';
+import {getPriceOnRub} from '../../utils';
 import './style.css';
 
-function Cart({items, closePopup, children}) {
+function Cart({store, closePopup, children}) {
   const cn = bem('Cart');
   return (
     <div className={cn()}>
@@ -15,11 +15,11 @@ function Cart({items, closePopup, children}) {
         </button>
       </div>
       {children}
-      {items.length > 0 &&
+      {store.allSumItemsInCart > 0 &&
         <p className={cn('total')}>
           Итого
           <span className={cn('price')}>
-          {getPriceOnRub(getAllPrice(items))}
+          {getPriceOnRub(store.allPriceItemsInCart)}
           </span>
         </p>
       }
@@ -28,7 +28,7 @@ function Cart({items, closePopup, children}) {
 }
 
 Cart.propTypes = {
-  items: propTypes.arrayOf(propTypes.object).isRequired,
+  store: propTypes.object.isRequired,
   closePopup: propTypes.func.isRequired,
   children: propTypes.node,
 }

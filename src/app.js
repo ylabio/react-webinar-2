@@ -33,7 +33,7 @@ function App({store}) {
   return (
     <>
       <Layout head={<h1>Магазин</h1>}>
-        <Controls items={store.getState().itemsInCart}
+        <Controls store={store.getState()}
                   openPopup={callbacks.openPopup}
 
         />
@@ -44,7 +44,7 @@ function App({store}) {
       </Layout>
       {isCartVisible &&
         <LayoutCart>
-          <Cart items={store.getState().itemsInCart}
+          <Cart store={store.getState()}
                 closePopup={callbacks.closePopup}
           >
             <List items={store.getState().itemsInCart}

@@ -13,14 +13,14 @@ function Controls(props){
       В корзине:
       { props.getItemsSum > 0 &&
         <div className={cn('sum')}>
-          {`${props.getItemsSum + ' ' + plural(props.getItemsSum, 'товар', 'товара', 'товаров')} / ${props.getPriceSum.toLocaleString('ru-RU')} ₽`}
+          {`${props.getItemsSum + ' ' + plural(props.getItemsSum, 'товар', 'товара', 'товаров')} / ${props.getPriceSum} ₽`}
         </div> ||
         <div className={cn('sum')}>
           пусто
         </div>
       }
       <div className={cn('actions')}>
-        <button className={cn('btn-tocart')} onClick={props.isModalActive}>Перейти</button>
+        <button className={cn('btn')} onClick={props.isModalActive}>Перейти</button>
       </div>
     </div>
   )
@@ -29,12 +29,12 @@ function Controls(props){
 Controls.propTypes = {
   isModalActive: propTypes.func.isRequired,
   getItemsSum: propTypes.number,
-  getPriceSum: propTypes.number,
+  getPriceSum: propTypes.string
 }
 
 Controls.defaultProps = {
   getItemsSum: 0,
-  getPriceSum: 0,
+  getPriceSum: '0',
 }
 
 export default React.memo(Controls);

@@ -1,0 +1,14 @@
+.Modal-head-content {
+  font-weight: bold;
+  font-size: 32px;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 20px;
+  background: #f5f5f5;
+}
+
+.Modal-head-btn {
+  margin: 13px 9px 3px 0;
+  padding: 0 12px;
+}

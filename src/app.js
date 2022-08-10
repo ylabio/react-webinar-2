@@ -2,9 +2,10 @@ import React from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import Cart from './components/cart';
-import CartList from './components/cart/cart-list';
-import {arrFromSet} from './utils.js';
+import Modal from './components/modal/modal-layout';
+import ModalList from './components/modal/modal-list';
+import ModalHead from './components/modal/modal-head';
+import ModalFoot from './components/modal/modal-foot';
 
 /**
  * Приложение
@@ -24,36 +25,38 @@ function App({store}) {
  * Отслеживание изменений в {Store}
  */
   React.useEffect(() => {
-    setPriceSum(Number(getCartItems.map(i => i.price).reduce((a, b) => (a + b) , 0)));
-    setItemsSum(Number(arrFromSet(getCartItems).length));
-  }, [getCartItems]);
+    setPriceSum(store.getSummaryPrice());
+    setItemsSum(store.getTotalUniqueCount());
+  }, [store.getState().cartItems]);
 
   const callbacks = {
     onAddItems: React.useCallback((code) => {
-      store.addItem(code)
-    }, []),
-    onSelectItems: React.useCallback((code) => {
-      store.selectItem(code);
+      store.addItemToCart(code)
     }, []),
     onDeleteItems: React.useCallback((code) => {
-      store.deleteItem(code);
+      store.deleteItemFromCart(code);
     }, []),
   }
 
   return (
     <div>
-      <Cart isActive={modalActive}
-            setActive={setModalActive}
-            headName={'Корзина'}
-            footTotal={priceSum.toLocaleString('ru-RU')}>
-        <CartList cartItems={getCartItems}
-                  onItemDelete={callbacks.onDeleteItems}
+      <Modal isActive={modalActive}
+              setActive={setModalActive}
+              head={<ModalHead headText={'Корзина'}
+                                headBtnName={'Закрыть'}
+                                headBtnAction={setModalActive}/>}
+              foot={<ModalFoot totalItems={itemsSum}
+                                totalSum={priceSum.toLocaleString('ru-RU')}
+                                text={'Итого'}/>}
+      >
+        <ModalList cartItems={getCartItems}
+                    onItemDelete={callbacks.onDeleteItems}
         />
-      </Cart>
+      </Modal>
       <Layout head={<h1>Магазин</h1>}>
         <Controls isModalActive={() => setModalActive(true)}
                   getItemsSum={itemsSum}
-                  getPriceSum={priceSum}/>
+                  getPriceSum={priceSum.toLocaleString('ru-RU')}/>
         <List items={getItems}
               onItemSelect={callbacks.onSelectItems}
               onItemAdd={callbacks.onAddItems}

@@ -1,15 +1,14 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import store from '../../../index.js';
 import { arrFromSet } from '../../../utils.js';
 import './style.css';
 
 // Список уникальных товаров отображаемых в модальном окне
 
-function CartList(props) {
+function ModalList(props) {
 
-  const cn = bem('Cart-list');
+  const cn = bem('Modal-list');
 
   return (
     <div className={cn()}>{arrFromSet(props.cartItems).map((item, index) =>
@@ -25,7 +24,7 @@ function CartList(props) {
             {item.price.toLocaleString('ru-RU')} ₽
           </div>
           <div className={cn('item-count')}>
-            {store.getState().cartItems.filter(i => i.code === item.code).length} шт
+            {props.cartItems.filter(i => i.code === item.code).length} шт
           </div>
           <div className={cn('item-actions')}>
             <button onClick={() => props.onItemDelete(item.code)}>
@@ -40,9 +39,13 @@ function CartList(props) {
 
 }
 
-CartList.propTypes = {
+ModalList.propTypes = {
   cartItems: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemDelete: propTypes.func.isRequired
+  onItemDelete: propTypes.func
 }
 
-export default React.memo(CartList)
+ModalList.defaultProps = {
+  onItemDelete: () => {}
+}
+
+export default React.memo(ModalList)

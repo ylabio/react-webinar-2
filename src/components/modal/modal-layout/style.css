@@ -1,0 +1,47 @@
+/* Модальное окно*/
+
+.Modal {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.Modal.Active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.Modal-layout {
+    min-height: 65vh;
+    max-height: 80vh;
+    min-width: 960px;
+    margin-top: 90px;
+    border-radius: 12px;
+    background-color: white;
+    transform: scale(0.1);
+    transition: 0.4s all;
+    font-family: 'Arial';
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.Modal-layout.Active {
+    transform: scale(1);
+}
+
+@media (max-width: 960px) {
+    .Modal-layout {
+        min-width: 80vw;
+    }
+}
+
+.Modal-content {
+    margin-top: 80px;
+}

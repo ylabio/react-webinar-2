@@ -1,0 +1,17 @@
+.Modal-foot-content {
+  width: 88%;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 23px 10px 23px 10px;
+  display: flex;
+  justify-content: end;
+}
+
+.Modal-foot-text {
+  text-align: right;
+}
+
+.Modal-foot-total {
+  margin-left: 50px;
+  text-align: right;
+}

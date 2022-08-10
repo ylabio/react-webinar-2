@@ -52,24 +52,48 @@ class Store {
 
   /**
    * Удаление записи по её коду
+   * и тут же запись общей суммы и количества уникального товара
    * @param code
    */
-  deleteItem(code) {
+  deleteItemFromCart(code) {
+    const cartItemsAfterDelete = this.state.cartItems.filter(item => item.code !== code)
     this.setState({
       ...this.state,
-      cartItems: this.state.cartItems.filter(item => item.code !== code)
+      cartItems: cartItemsAfterDelete,
+      cartPriceSum: this.calcCartSumPrice(cartItemsAfterDelete),
+      cartUniqueCount: this.calcCartUniqueCount(cartItemsAfterDelete)
     });
   }
 
   /**
    * Добавление записи по её коду
+   * и тут же запись общей суммы и количества уникального товара
    * @param code
    */
-  addItem(code) {
+  addItemToCart(code) {
+    const cartItemsAfterAdd = this.state.cartItems.concat(this.state.items.find(item => item.code === code))
     this.setState({
       ...this.state,
-      cartItems: this.state.cartItems.concat(this.state.items.find(item => item.code === code))
+      cartItems: cartItemsAfterAdd,
+      cartPriceSum: this.calcCartSumPrice(cartItemsAfterAdd),
+      cartUniqueCount: this.calcCartUniqueCount(cartItemsAfterAdd)
     });
+  }
+
+  calcCartSumPrice(state) {
+    return state.map(i => i.price).reduce((a, b) => (a + b), 0)
+  }
+
+  calcCartUniqueCount(state) {
+    return Array.from(new Set(state)).length
+  }
+
+  getSummaryPrice() {
+    return this.state.cartPriceSum
+  }
+
+  getTotalUniqueCount() {
+    return this.state.cartUniqueCount
   }
 
 }

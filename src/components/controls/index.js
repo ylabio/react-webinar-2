@@ -5,21 +5,23 @@ import { cn as bem } from "@bem-react/classname";
 import './style.css';
 
 export function Controls({ onClick, cart }) {
-  const [count, price] = getMeta(cart)
+  const [cartlength, count, price] = getMeta(cart)
 
   const cn = bem('Controls');
 
   return (
+
     <div className={cn()}>
       <div className={cn('cart')}>
         В корзине:
       </div>
-      {!!count && <div className={cn('count')}>
-        {count.toLocaleString()} {declOfNum(count, ["товар", "товара", "товаров"])} / {price.toLocaleString()} ₽
+      {!!cartlength && <div className={cn('count')}>
+        {cartlength.toLocaleString()} {declOfNum(cartlength, ["товар", "товара", "товаров"])} / {price.toLocaleString()} ₽
       </div>}
-      {!count && <div className={cn('count')}>пусто</div>}
-      {!!count && <button className={cn('button')} onClick={onClick}>Перейти</button>}
+      {!cartlength && <><div className={cn('count')}>пусто</div> <button className={cn('button')}>Перейти</button></>}
+      {!!cartlength && <button className={cn('button')} onClick={onClick}>Перейти</button>}
     </div>
+
   )
 }
 

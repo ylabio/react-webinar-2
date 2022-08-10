@@ -70,24 +70,9 @@ class Store {
   }
 
   deleteFromCart(code) {
-    const record = this.state.cart.find(item => item.code === code)
-    if (record && record.count > 1) {
-      this.setState({
-        ...this.state, cart: this.state.cart.map(oldRecord => {
-          if (record === oldRecord) {
-            return {
-              ...record, count: record.count - 1
-            }
-          } else {
-            return oldRecord
-          }
-        })
-      })
-    }
-    else if (record) {
-      this.setState({ ...this.state, cart: this.state.cart.filter(item => item !== record) })
-    }
+    this.setState({ ...this.state, cart: this.state.cart.filter(item => item.code !== code) })
   }
+
 
   setModal(active) {
     this.setState({ ...this.state, isModalActive: (!this.state.isModalActive) })

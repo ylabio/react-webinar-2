@@ -21,6 +21,7 @@ export function declOfNum(number, titles) {
  */
 
 export function getMeta(cart) {
+  let cartlength = cart.length;
   let count = 0;
   let price = 0;
   for (const item of cart) {
@@ -28,6 +29,6 @@ export function getMeta(cart) {
     price += item.price * item.count;
   }
   return (
-    [count, price]
+    [cartlength, count, price]
   )
 }

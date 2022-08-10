@@ -15,7 +15,7 @@ function Modal(props) {
     }
   }, [props.cart.length, props.active])
 
-  const [count, price] = getMeta(props.cart)
+  const [cartlength, count, price] = getMeta(props.cart)
   return (
 
     (props.active) &&
@@ -23,13 +23,15 @@ function Modal(props) {
       <div className={cn("container")}>
         <Layout head={
           <div className={cn('head')}>
-            <h1>Корзина</h1>
-            <button className={cn('button')} onClick={props.onClose}>Закрыть</button>
-          </div>
+            <h1 className={cn('container__title')}>Корзина</h1>
+
+            <button className={cn('button')} onClick={props.onClose}><div className={cn('text')}>Закрыть</div></button></div>
         }>
           <div className={cn('content')}>
-            <List list={props.cart} actionName={'Удалить'} onClick={props.onDelete}>
-            </List>
+            <div className={cn('content__list')}>
+              <List list={props.cart} actionName={'Удалить'} onClick={props.onDelete}>
+              </List>
+            </div>
             <div className={cn('common__container')}>
               <div className={cn('common__price')}>{price.toLocaleString()} ₽</div>
               <div className={cn('common')}>

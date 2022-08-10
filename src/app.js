@@ -1,8 +1,12 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
+import CartPrice from './components/cart-price';
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Modal from './components/modal';
+import Item from './components/item';
+import CartItem from './components/cart-item';
+
 
 /**
  * Приложение
@@ -10,27 +14,36 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const [active, setActive] = useState(false)
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onModalBtn: useCallback(() => {
+      setActive(!active)
+    }, [active]),
+    onAddToCart: useCallback((code) => {
+      store.addItemToCart(code);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
+    onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
-    }, []),
+    }, [])
+    
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls onModalBtn={callbacks.onModalBtn} items={store.getState().itemsAmount} totalPrice={store.getState().totalPrice}/>
       <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+            onHandleBtn={callbacks.onAddToCart}  
+            component={Item}
       />
+      { active && 
+      <Modal head={<h2>Корзина</h2>}
+             onModalBtn={callbacks.onModalBtn}>
+          <List items={store.getState().cart}
+                onHandleBtn={callbacks.onDeleteItem}
+                component={CartItem} />
+          <CartPrice totalPrice={store.getState().totalPrice}/>
+      </Modal>}
     </Layout>
   );
 }

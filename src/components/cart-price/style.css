@@ -1,0 +1,22 @@
+.Cart-price {
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    justify-content: flex-end;
+    margin: 26px 110px 26px 0;
+}
+.Cart-price-wrapper {
+    min-width: 146px;
+    /* margin: 26px 100px 26px 0; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.Cart-price-title{
+    margin-right: 10px;
+    
+}
+
+.Cart-price-sum {
+    white-space: nowrap;
+}

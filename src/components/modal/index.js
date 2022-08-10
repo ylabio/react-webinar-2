@@ -23,8 +23,14 @@ export default React.memo(Modal);
 
 Modal.propType = {
   children: propTypes.element,
+  showModal: propTypes.func,
+  modalName: propTypes.string,
+  cartPrice: propTypes.object,
 };
 
 Modal.defaultProps = {
   children: <></>,
+  showModal: () => {},
+  modalName: "",
+  cartPrice: {},
 };

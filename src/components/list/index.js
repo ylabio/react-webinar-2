@@ -17,4 +17,15 @@ function List(props) {
   );
 }
 
+List.propTypes = {
+  cutting: propTypes.function.isRequired,
+  addCart: propTypes.function.isRequired,
+};
+
+List.defaultProps = {
+  cutting: () => {},
+  addCart: () => {},
+};
+
+
 export default React.memo(List);

@@ -2,7 +2,7 @@ import React from 'react';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
 
-function basketTotal ({totalCount, totalPrice}) {
+function BasketTotal ({totalCount, totalPrice}) {
     const cn = bem('Basket-total');
     return (
         <div>
@@ -15,9 +15,9 @@ function basketTotal ({totalCount, totalPrice}) {
     )
 }
 
-basketTotal.defaultProps = {
+BasketTotal.defaultProps = {
     totalCount: null,
     totalPrice: null
 }
 
-export default React.memo(basketTotal);
+export default React.memo(BasketTotal);

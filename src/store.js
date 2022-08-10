@@ -1,3 +1,5 @@
+import AVAILABLE_ITEMS from "./const/const"
+
 class Store {
 
   constructor(initState) {
@@ -41,44 +43,39 @@ class Store {
   }
 
   /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
+   * Добавление товара в корзину
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
+  addToCart(code) {
+    const record = this.state.cart.find(item => item.code === code)
+    if (record) {
+      this.setState({
+        ...this.state, cart: this.state.cart.map(oldRecord => {
+          if (record === oldRecord) {
+            return {
+              ...record, count: record.count + 1
+            }
+          } else {
+            return oldRecord
           }
-        }
-        return item.selected ? {...item, selected: false} : item;
+        })
       })
-    });
+    }
+    else {
+      const product = AVAILABLE_ITEMS.find(item => item.code === code)
+      const newRecord = { code, ...product, count: 1 }
+      this.setState({ ...this.state, cart: [...this.state.cart, newRecord] })
+    }
+  }
+
+  deleteFromCart(code) {
+    this.setState({ ...this.state, cart: this.state.cart.filter(item => item.code !== code) })
+  }
+
+
+  setModal(active) {
+    this.setState({ ...this.state, isModalActive: (!this.state.isModalActive) })
   }
 }
 

@@ -28,7 +28,7 @@ function App({ store }) {
     <Layout head={<h1>Магазин</h1>}>
       <Controls
         cart={store.getState().cart}
-        sumInCart={store.sumInCart()}
+        sumInCart={store.getState().summaryInCart}
         onActiveCart={callbacks.onActiveCart}
       />
       <List
@@ -36,12 +36,12 @@ function App({ store }) {
         onAddItemToCart={callbacks.onAddItemToCart}
         activeCart={activeCart}
         onDelete={callbacks.onDelete}
-        sumInCart={store.sumInCart()}
+        sumInCart={store.getState().summaryInCart}
       />
       {activeCart && (
         <Modal
           cart={store.getState().cart}
-          sumInCart={store.sumInCart()}
+          sumInCart={store.getState().summaryInCart}
           onActiveCart={callbacks.onActiveCart}
           onDelete={callbacks.onDelete}
           activeCart={activeCart}

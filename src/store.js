@@ -47,7 +47,10 @@ class Store {
     this.setState({
       ...this.state,
       cart: this.state.cart.filter((item) => item.code !== code),
+      itemsInCart: this.state.itemsInCart - 1,
     });
+
+    this.sumInCart();
   }
 
   /**
@@ -63,6 +66,7 @@ class Store {
       this.setState({
         ...this.state,
         cart: [...cart, { ...item, amount: 1 }],
+        itemsInCart: this.state.itemsInCart + 1,
       });
     } else {
       this.setState({
@@ -72,6 +76,8 @@ class Store {
         }),
       });
     }
+
+    this.sumInCart();
   }
 
   /**
@@ -79,11 +85,22 @@ class Store {
    * @returns {number}
    */
 
+  // sumInCart() {
+  //   return this.state.cart.reduce(
+  //     (partialSum, item) => partialSum + item.price * item.amount,
+  //     0
+  //   );
+  // }
   sumInCart() {
-    return this.state.cart.reduce(
-      (partialSum, item) => partialSum + item.price * item.amount,
-      0
-    );
+    const cart = this.state.cart;
+
+    this.setState({
+      ...this.state,
+      summaryInCart: cart.reduce(
+        (partialSum, item) => partialSum + item.price * item.amount,
+        0
+      ),
+    });
   }
 }
 

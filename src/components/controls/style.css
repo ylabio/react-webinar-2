@@ -3,4 +3,24 @@
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+    font-family: 'Arial';
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.Controls-sum{
+    margin-left: 16px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: end;
+}
+
+.Controls-actions{
+    display: flex;
+    justify-content: flex-end;
+    width: 100px;
+}
+
+.Controls-btn{
+    padding: 1px 12px 1px 12px;
 }

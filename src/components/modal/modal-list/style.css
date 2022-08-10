@@ -1,0 +1,45 @@
+.Modal-list{
+  box-sizing: border-box;
+}
+.Modal-list-child{
+    border-bottom: 1px dashed #ccc;
+}
+
+.Modal-list-child:first-child{
+    border-top: 1px dashed #ccc;
+}
+
+.Modal-list-item{
+  display: flex;
+  justify-content: flex-start;
+  transition: background-color 1s;
+}
+
+.Modal-list-item-title{
+  width: 70%;
+  padding: 20px 10px;
+}
+.Modal-list-item-count{
+  width: 12%;
+  padding: 20px 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Modal-list-item-price{
+  width: 40%;
+  padding: 20px 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Modal-list-item-actions{
+  width: 14%;
+  padding: 20px 10px 20px 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.Modal-list-item-number{
+  padding: 20px 10px 20px 20px;
+}

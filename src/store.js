@@ -62,6 +62,14 @@ class Store {
         cart: this.state.cart.concat({code, title, price, count: 1})
       })
     }
+    this.setState({ //  считает общие показатели корзины
+      ...this.state,
+      cartParams: {
+        ...this.state.cartParams,
+        totalQuantity: !itemFind  ? ++this.state.cartParams.totalQuantity : this.state.cartParams.totalQuantity,
+        totalPrice: this.state.cart.reduce((sum, prod) => sum + prod.price * prod.count, 0),
+      }
+    })
   }
 
   /**`
@@ -71,8 +79,19 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter(item => item.code !== code)
-    });
+      cart: this.state.cart.filter(item => item.code !== code),
+      cartParams: {
+        ...this.state.cartParams,
+        totalQuantity: --this.state.cartParams.totalQuantity,
+      }
+    })
+    this.setState({
+      ...this.state,
+      cartParams: {
+        ...this.state.cartParams,
+        totalPrice: this.state.cart.reduce((sum, prod) => sum + prod.price * prod.count, 0),
+      }
+    })
   }
 
 }

@@ -4,11 +4,11 @@ import './style.css';
 import CustomButton from "../castom-button";
 import {cn as bem} from "@bem-react/classname";
 import plural from 'plural-ru';
-import {formattingNumber, total} from "../../utils";
+import {formattingNumber} from "../../utils";
 
 function Controls(props) {
   const cn = bem('Controls');
-  const quantityItems = props.cart.length
+  const totalQuantity = props.cartParams.totalQuantity
 
   const callbacks = {
     onOpenModal: useCallback(() => {
@@ -20,9 +20,9 @@ function Controls(props) {
       <div className={cn()}>
         <div className={cn('title')}>
           <span className={cn('title-default')}>В корзине:</span>
-          {quantityItems
+          {totalQuantity
               ? <b>
-                {quantityItems} {plural(quantityItems,'товар','товара','товаров')} / {formattingNumber(total(props.cart))}
+                {totalQuantity} {plural(totalQuantity,'товар','товара','товаров')} / {formattingNumber(props.cartParams.totalPrice)}
               </b>
               : <b>пусто</b>}
         </div>
@@ -37,6 +37,7 @@ function Controls(props) {
 Controls.propTypes = {
   onOpenModal: propTypes.func.isRequired, // Обязательное свойство - функция
   cart: propTypes.arrayOf(propTypes.object).isRequired,
+  cartParams: propTypes.object.isRequired,
 }
 
 Controls.defaultProps = {

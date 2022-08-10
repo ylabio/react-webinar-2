@@ -33,6 +33,7 @@ function App({store}) {
   return (<>
         <Layout head={<h1>Магазин</h1>}>
           <Controls cart={store.getState().cart}
+                    cartParams={store.getState().cartParams}
                     onOpenModal={callbacks.onOpenModal}/>
           <List items={store.getState().items}
                 onAddProduct={callbacks.onAddProduct}/>
@@ -40,6 +41,7 @@ function App({store}) {
         {showModal && <Modal title={'Корзина'}
                              onCloseModal={callbacks.onCloseModal}>
           <Cart cart={store.getState().cart}
+                cartParams={store.getState().cartParams}
                 onDeleteProduct={callbacks.onDeleteProduct}/>
         </Modal>}
       </>

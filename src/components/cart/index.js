@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import ItemCart from "../item-cart";
-import {formattingNumber, total} from "../../utils";
+import {formattingNumber} from "../../utils";
 
 function Cart(props) {
   const cn = bem('Cart');
@@ -14,11 +14,11 @@ function Cart(props) {
             <ItemCart item={item} onDeleteProduct={props.onDeleteProduct}/>
           </div>
       )}
-        {props.cart.length
+        {props.cartParams.totalQuantity
             ? <>
               <div className={cn('title')}>
                 <div className={cn('total')}>Итого</div>
-                <div className={cn('price')}> {formattingNumber(total(props.cart))}</div>
+                <div className={cn('price')}> {formattingNumber(props.cartParams.totalPrice)}</div>
               </div>
             </>
             : <b className={cn('title-empty')}>Корзина пуста</b>}
@@ -28,6 +28,7 @@ function Cart(props) {
 
 Cart.propTypes = {
   cart: propTypes.arrayOf(propTypes.object).isRequired,
+  cartParams: propTypes.object.isRequired,
   onDeleteProduct: propTypes.func
 }
 

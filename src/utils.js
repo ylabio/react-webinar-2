@@ -11,9 +11,6 @@ export function counter(){
  * @returns {number}
  */
 
-export function total (cart) {
-  return  cart.reduce((sum, prod) => sum + prod.price * prod.count, 0)
-}
 
 /**
  * Форматирует число в валюту

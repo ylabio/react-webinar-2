@@ -30,9 +30,4 @@ Controls.propTypes = {
   openPopup: propTypes.func.isRequired
 }
 
-Controls.defaultProps = {
-  items: [],
-  openPopup: () => {}
-}
-
 export default React.memo(Controls);

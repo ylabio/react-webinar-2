@@ -77,9 +77,7 @@ class Store {
     this.setState({
       ...this.state,
       calcInCart: {
-        count: this.state.cart.length
-          ? this.state.cart.reduce(sum => sum + 1 , 0)
-          : 0,
+        count: this.state.cart.length,
         sum: this.state.cart.length
           ? this.state.cart.reduce((sum, item) => sum + item.price * item.count , 0)
           : 0,

@@ -41,45 +41,57 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Добавляет товар в корзину
+   * @param {*} code - код товара
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  addToCart(code) {
+    const cartItems = this.state.cart.items.slice(); // Делаем копию items
+    const cartItem = cartItems.find(item => item.code === code);
+
+    if (cartItem) {
+      cartItem.count += 1;
+    } else {
+      const item = this.state.items.find(item => item.code === code);
+      cartItems.push({...item, count: 1});
+    }
+
+    const totalPrice = cartItems.reduce((acc, item) => {
+      return acc + item.price * item.count;
+    }, 0);
+
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
+      cart: {
+        ...this.state.cart,
+        items: [...cartItems],
+        totalPrice,
+        totalNumber: cartItems.length, 
+      }
+    })
   }
 
   /**
-   * Удаление записи по её коду
-   * @param code
+   * Удаление из корзины
+   * @param {*} code - код товара
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
+  removeToCart(code) {
+    const cartItems = this.state.cart.items.filter(item => item.code !== code);
+    
+    const totalPrice = cartItems.reduce((acc, item) => {
+      return acc + item.price * item.count;
+    }, 0);
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cart: {
+        ...this.state.cart,
+        items: [...cartItems],
+        totalPrice,
+        totalNumber: cartItems.length,
+      } 
     });
   }
 }
 
 export default Store;
+ 

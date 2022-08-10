@@ -1,23 +1,51 @@
 /* Пункт списка */
-.Item{
+.Item {
     display: flex;
-    justify-content: flex-start;
-    transition: background-color 1s;
-}
-.Item_selected{
-    background: #75aaf1;
+    align-items: center;
+    min-height: 61px;
+    padding: 10px 20px;
 }
 
+/* .Item-number {
 
-.Item-title{
-    width: 100%;
-    padding: 20px 10px;
+} */
+
+.Item-title {
+    flex: 1 1;  
+    margin-left: 20px;
+    padding-right: 25px; 
 }
-.Item-actions{
-    padding: 20px  20px 20px 10px;
-    display: flex;
-    justify-content: flex-end;
+
+.Item-price {
+    font-size: 18px;
+    color: #404040;
 }
-.Item-number{
-    padding: 20px 10px 20px 20px;
+
+.Item-count {
+    font-size: 18px;
+    color: #404040;
+    margin-left: 55px;
+}
+
+.Item-actions {
+    margin-left: 24px;
+}
+
+.Item-button {
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 15px;
+    color: black;
+    min-height: 21px;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    background: #EFEFEF;
+    padding: 2px 9px;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+}
+
+.Item-button:hover {
+    transform: translateY(-2px);
+    transition: all 0.1s ease-out;
 }

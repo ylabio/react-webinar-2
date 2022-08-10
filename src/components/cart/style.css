@@ -1,0 +1,18 @@
+.Cart-total {
+  font-size: 18px;
+  font-weight: 700;
+  text-align: right;
+  padding: 26px 108px 26px 10px;
+}
+
+.Cart-total-price {
+  margin-left: 49px;
+}
+
+.Cart-item{
+    border-bottom: 1px dashed #ccc;
+}
+
+.Cart-item:first-child{
+    border-top: 1px dashed #ccc;
+}

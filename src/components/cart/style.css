@@ -1,0 +1,15 @@
+.Cart-label {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.Total {
+    display: flex;
+    justify-content: right;
+}
+
+.Total-action {
+    padding: 20px 20px 20px 10px;
+    font-weight: bold;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import Item from "../item";
+import ItemCart from "../item-cart";
 import './style.css';
 
 function List(props) {
@@ -10,13 +11,19 @@ function List(props) {
 
 
   return (
-    <div className={cn()}>{props.items.map(item =>
-      <div key={item.code} className={cn('item')}>
-        <Item item={item}
-        onButton={props.onButton}
-        buttonText={props.buttonText}/>
-      </div>
-      
+    <div className={cn()}>
+      {props.items.map(item =>
+      !props.isCart ? 
+        <div key={item.code} className={cn('item')}>
+          <Item item={item}
+          onButton={props.onButton}
+          buttonText={props.buttonText}/>
+        </div> :
+        <div key={item.code} className={cn('item')}>
+          <ItemCart item={item}
+          onButton={props.onButton}
+          buttonText={props.buttonText}/>
+        </div>
     )}
     </div>
   )

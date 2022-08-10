@@ -1,10 +1,7 @@
 import React, {useCallback, useState} from 'react';
 // import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import Layout from "../layout";
-import Controls from "../controls";
 import List from "../list";
-import Item from "../item";
 import Modal from "../modal";
 import './style.css';
 
@@ -16,6 +13,7 @@ function Cart(props) {
     <Modal head={props.head}
         setVisibility={props.setVisibility}>
       <List items={props.cart}
+            isCart={true}
             onButton={props.onButton}
             buttonText={'Удалить'}/>
       <div className={props.cartInfo.itemsCount ? cn('bottomText') : cn('bottomText_hidden')}>

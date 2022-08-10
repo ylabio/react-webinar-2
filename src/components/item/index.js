@@ -23,9 +23,6 @@ function Item(props) {
       <div className={cn('price')}>
         {props.item.price.toLocaleString('ru-RU')} ₽
       </div>
-      <div className={props.item.quantity ? cn('quantity') : cn('quantity_hidden')}>
-        {props.item.quantity} шт
-      </div>
       <div className={cn('actions')}>
         <button onClick={callbacks.onButton}>
           {props.buttonText}

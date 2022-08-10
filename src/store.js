@@ -54,8 +54,6 @@ class Store {
               ...this.state,
               cart: this.state.cart.concat([{...item, quantity: 1}])
             })
-            console.log('this.state after')
-            console.log(this.state)
           } else {
             this.setState({
               ...this.state,

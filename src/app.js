@@ -12,7 +12,7 @@ import Cart from './components/cart';
  */
 function App({ store }) {
   const cartArray = store.getState().cartItems;
-  const cartTotalCount = cartArray.length;
+  const cartTotalCount = store.getState().cartTotalCount;
   const cartTotalPrice = store.getState().cartTotalPrice;
 
   const [isModalActive, setIsModalActive] = useState(false);

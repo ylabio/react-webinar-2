@@ -50,6 +50,7 @@ class Store {
     });
 
     this.getTotalPrice();
+    this.decreaseCartCount();
   }
 
   /**
@@ -81,6 +82,7 @@ class Store {
         ...this.state,
         cartItems: this.state.cartItems.concat({ ...item, count: 1 }),
       });
+      this.increaseCartCount();
     }
 
     this.getTotalPrice();
@@ -92,6 +94,20 @@ class Store {
       cartTotalPrice: this.state.cartItems
         .map((item) => item.price * item.count)
         .reduce((sum, current) => sum + current, 0),
+    });
+  }
+
+  increaseCartCount() {
+    this.setState({
+      ...this.state,
+      cartTotalCount: (this.state.cartTotalCount += 1),
+    });
+  }
+
+  decreaseCartCount() {
+    this.setState({
+      ...this.state,
+      cartTotalCount: (this.state.cartTotalCount -= 1),
     });
   }
 }

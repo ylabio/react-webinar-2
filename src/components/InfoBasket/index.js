@@ -19,6 +19,7 @@ function InfoBasket({ tPaP, modalVal, setModal }) {
   )
 }
 
+
 InfoBasket.propTypes = {
   onAdd: propTypes.func.isRequired // Обязхательное свойство - функция
 }

@@ -37,6 +37,8 @@ function App({ store }) {
 
   const totalPricaAndProduct = store.state.basket.length > 0 ? TotalSum(store.state.basket) : "пусто";
 
+  console.log(store.state.basket);
+
 
 
   return (

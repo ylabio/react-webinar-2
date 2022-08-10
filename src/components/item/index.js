@@ -11,6 +11,7 @@ import Button from '../button';
 
 function Item(props) {
   const cn = bem('Item');
+  console.log('item');
 
 
 

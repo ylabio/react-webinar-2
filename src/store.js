@@ -85,20 +85,42 @@ class Store {
   //     });
   //   }
 
+
+  // Реализация через тернарник
+  // addItem(code) {
+
+
+
+  //   (this.state.basket.length >= 1 && this.state.basket.some(el => el.code === code)) ? this.setState({
+  //     ...this.state, basket: this.state.basket.map((el) => {
+  //       if (code === el.code) {
+
+  //         // return { ...el, amount: el.amount ? ++el.amount : el.amount = 2 }
+  //         return { ...el, amount: el.amount + 1 || 2 }
+  //       }
+  //       return { ...el }
+  //     })
+  //   }) : this.setState({ ...this.state, basket: this.state.basket.concat(this.state.items.find(el => el.code === code)) })
+
+
+  // }
+
+  // реализация через If else
   addItem(code) {
 
-
-
-    (this.state.basket.length >= 1 && this.state.basket.some(el => el.code === code)) ? this.setState({
-      ...this.state, basket: this.state.basket.map((el) => {
-        if (code === el.code) {
-
-          // return { ...el, amount: el.amount ? ++el.amount : el.amount = 2 }
-          return { ...el, amount: el.amount + 1 || 2 }
-        }
-        return { ...el }
+    if (this.state.basket.length >= 1 && this.state.basket.some(el => el.code === code))
+      this.setState({
+        ...this.state, basket: this.state.basket
+          .map((el) => {
+            if (code === el.code) return { ...el, amount: el.amount + 1 || 2 }
+            // Итак судя по всему реакт не откликается на мутабельные элементы, следовательно он реагирует только на новые и создав элемент заново, я тем самым его перерендаривал без надобности
+            //  if (code === el.code) el.amount = el.amount + 1 || 2; действительно не обновляет.
+            // Без имутабельности никуда...
+            return el
+          })
       })
-    }) : this.setState({ ...this.state, basket: this.state.basket.concat(this.state.items.find(el => el.code === code)) })
+
+    else this.setState({ ...this.state, basket: this.state.basket.concat(this.state.items.find(el => el.code === code)) });
 
 
   }

@@ -6,6 +6,11 @@ import './style.css';
 function Item(props) {
   const cn = bem('Item');
 
+  const formatter = new Intl.NumberFormat('ru-RU', {
+    style: 'currency',
+    currency: 'RUB',
+  });
+
   const callbacks = {
 
     onClick: useCallback(() => {
@@ -25,7 +30,7 @@ function Item(props) {
         </div>
       </div>
       <div className='Right-content'>
-        <span className='Price-text'>{props.item.price} ₽</span>
+        <span className='Price-text'>{formatter.format(props.item.price)}</span>
         <div className={cn('actions')} onClick={e => e.stopPropagation()}>
           <button onClick={() => callbacks.onClick()}>
             Добавить

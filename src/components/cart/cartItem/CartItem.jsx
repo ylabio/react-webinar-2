@@ -4,12 +4,18 @@ import '../style.css'
 
 const CartItem = ({ onDeleteProduct, product }) => {
    const cn = bem('Item');
-   product.value += 1
-   console.log(product.value)
+   const formatter = new Intl.NumberFormat('ru-RU', {
+      style: 'currency',
+      currency: 'RUB',
+   });
+
+
+   product.value += 1;
+
    const callbacks = {
 
       onClick: useCallback(() => {
-         onDeleteProduct(product.code)
+         onDeleteProduct(product.code);
 
       }, [product]),
    };
@@ -25,7 +31,7 @@ const CartItem = ({ onDeleteProduct, product }) => {
                </div>
             </div>
             <div className='Right-content'>
-               <span className='Product-price'>{product.price} ₽</span>
+               <span className='Product-price'>{formatter.format(product.price)}</span>
                <span className='Product-value'>{product.value - 1} шт</span>
                <div className={cn('actions')} onClick={e => e.stopPropagation()}>
                   <button onClick={callbacks.onClick}>

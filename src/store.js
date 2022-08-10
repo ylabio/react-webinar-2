@@ -1,5 +1,3 @@
-import plural from 'plural-ru';
-
 class Store {
 
   constructor(initState) {
@@ -74,6 +72,7 @@ class Store {
         }
       }
     })
+    this.calculateCartInfo()
   }
 
 
@@ -91,34 +90,24 @@ class Store {
             })
         }
       })
+      this.calculateCartInfo()
     }
 
-
-  calculateCartItemsSum() {
+    calculateCartInfo() {
       let sum = 0
       this.state.cart.map(item => {
-        sum = sum + (item.quantity * item.price)
+              sum = sum + (item.quantity * item.price)
+            })
+      this.setState({
+        ...this.state,
+        cartInfo: {
+          itemsCount: this.state.cart.length,
+          cartSum: sum
+        }
       })
-      if (this.state.cart.length === 0) {
-        return 'пусто'
-      } else {
-        return `${this.state.cart.length} ${plural(this.state.cart.length, 'товар', 'товара', 'товаров')} / ${sum.toLocaleString('ru-RU')} ₽`
-      }
     }
 
-  calculateCartSum() {
-      let sum = 0, quantity = 0
-      this.state.cart.map(item => {
-        sum = sum + (item.quantity * item.price)
-        quantity = quantity + 1
-      })
 
-      if ((sum === 0) && (quantity === 0)) {
-        return null
-      } else {
-      return `${sum.toLocaleString('ru-RU')} ₽`
-      }
-    }
 
 }
 

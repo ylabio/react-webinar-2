@@ -3,6 +3,7 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Cart from "./components/сart";
+import plural from 'plural-ru';
 /**
  * Приложение
  * @param store {Store} Состояние приложения
@@ -32,9 +33,12 @@ function App({store}) {
         cart={store.getState().cart}
         setVisibility={setCartVisibility}
         onButton={callbacks.onRemoveFromCart}
-        bottomText={store.calculateCartSum()}/>
+        cartSum={store.getState().cartInfo.cartSum}/>
       ) : (null)}
-      <Controls controlsText={'В корзине:'} controlsData={store.calculateCartItemsSum()} onControlButton={callbacks.onOpenCart} buttonText={'Перейти'}/>
+      <Controls controlsText={'В корзине:'}
+      controlsData={store.getState().cartInfo.itemsCount ? `${store.getState().cartInfo.itemsCount} ${plural(store.getState().cartInfo.itemsCount, 'товар', 'товара', 'товаров')} / ${store.getState().cartInfo.cartSum.toLocaleString('ru-RU')} ₽` : 'пусто'}
+      onControlButton={callbacks.onOpenCart}
+      buttonText={'Перейти'}/>
       <List items={store.getState().items}
             onButton={callbacks.onAddToCart}
             buttonText={'Добавить'}

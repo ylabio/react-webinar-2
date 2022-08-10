@@ -51,22 +51,22 @@ class Store {
     });
   }
 
-    /**
+      /**
    * Добавление записи в корзину по её коду
    * @param code
    */
   addItemInBasket(code) {
     const itemInBasket = this.state.basket.find(item => item.code === code);
-    const itemForAdd = this.state.items.find(item => item.code === code);
     if (itemInBasket) {
       this.setState({
         ...this.state,
         basket: this.state.basket.map(item => item.code === code ? 
-          ({...item, totalPrice: item.totalPrice + itemForAdd.price, num: item.num + 1}) 
+          ({...item, totalPrice: item.totalPrice + item.price, num: item.num + 1}) 
         : 
           item),
       })
     } else {
+      const itemForAdd = this.state.items.find(item => item.code === code);
       this.setState({
         ...this.state,
         basket: [...this.state.basket, {code: itemForAdd.code, title: itemForAdd.title, price: itemForAdd.price, totalPrice: itemForAdd.price, num: 1}],

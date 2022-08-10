@@ -3,11 +3,11 @@ import propTypes from 'prop-types';
 import { prettify } from './../../utils';
 import './style.css';
 
-function Total({ totalPrice }) {
+function Total({ totalPrice, isCartEmpty }) {
 
   return (
     <div className='total'>
-      {totalPrice === 0 ?
+      {isCartEmpty ?
         <div className='total-text'>Корзина пуста</div>
         : <>
           <span>Итого</span>

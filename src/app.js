@@ -47,7 +47,7 @@ function App({ store }) {
           btnHandler={callbacks.deleteFromCart}
           btnText='Удалить'
         />
-        <Total totalPrice={totalPrice} />
+        <Total totalPrice={totalPrice} isCartEmpty={store.state.cart.length === 0} />
       </Modal>
     </Layout>
   );

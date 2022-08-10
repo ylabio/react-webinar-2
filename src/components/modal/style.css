@@ -5,20 +5,21 @@
     position: fixed;
     top: 0;
     left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 .Modal-body{
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
     margin: 0 auto;
     padding: 0 31px;
 }
-
 .Modal-inner{
+    margin: 20px auto;
     max-width: 960px;
-    max-height: 90vh;
-    overflow: auto;
     background: #FFFFFF;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);

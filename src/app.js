@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import Basket from "./components/basket";
 import List from "./components/list";
 import Layout from "./components/layout";
@@ -22,9 +22,11 @@ function App({store}) {
       store.addItem(code); 
     }, []),
     onOpenModal: useCallback(() => {
+      document.body.style.overflow = 'hidden' // отключение скролинга для страницы во время откртия модального окна
       store.openModal('basket')
     }, []),
     onCloseModal: useCallback(() => {
+      document.body.removeAttribute('style');
       store.closeModal()
     }, []),
   }

@@ -23,10 +23,11 @@
 }
 
 .Basket-title{
+  margin: 0;
   width: 960px;
   font-size: 40px;
   display: flex;
   justify-content: center;
   padding: 0;
-  padding-bottom: 34px;
+  padding-bottom: 74px;
 }

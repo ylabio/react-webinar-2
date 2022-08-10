@@ -1,7 +1,8 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState} from "react";
 import Modal from "./components/modal";
-import Cart from "./components/cart";
 import Shop from "./components/shop";
+import List from "./components/list";
+import Total from "./components/total";
 
 /**
  * Приложение
@@ -9,32 +10,39 @@ import Shop from "./components/shop";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  const [modal, setModal] = useState(false);
+	const [modal, setModal] = useState(false);
 
-  const callbacks = {
-    onShowModal: useCallback(() => {
-      setModal(true);
-    }, []),
-    onHideModal: useCallback(() => {
-      setModal(false);
-    }, []),
-    onAddItem: useCallback((code) => {
-      store.addItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItems(code);
-    }, []),
-  }
+	const callbacks = {
+		onShowModal: useCallback(() => {
+			setModal(true);
+		}, []),
+		onHideModal: useCallback(() => {
+			setModal(false);
+		}, []),
+		onAddItem: useCallback((code) => {
+			store.addToCart(code);
+		}, []),
+		onDeleteItems: useCallback((code) => {
+			store.deleteFromCart(code);
+		}, []),
+	};
 
-  return (
-    <React.Fragment>
-      <Shop onShowCart={callbacks.onShowModal} onAddItem={callbacks.onAddItem} state={store.getState()}/>
-      {modal
-        ? <Modal content={<Cart state={store.getState()} onDeleteItems={callbacks.onDeleteItems}  onHideModal={callbacks.onHideModal}/>}/>
-        : null
-      }
-    </React.Fragment>
-  );
+	return (
+		<React.Fragment>
+			<Shop onShowCart={callbacks.onShowModal} onAddItem={callbacks.onAddItem} items={store.getItems()} total={store.getTotal()}/>
+			{modal
+				? <Modal title={"Корзина"}
+								 content={
+									 <React.Fragment>
+										 <List items={store.getCart().items} onButtonEvent={callbacks.onDeleteItems} textButton="Удалить"/>
+										 <Total total={store.getCart().total}/>
+									 </React.Fragment>
+								 }
+								 onHideModal={callbacks.onHideModal}/>
+				: null
+			}
+		</React.Fragment>
+	);
 }
 
 export default App;

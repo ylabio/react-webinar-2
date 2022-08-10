@@ -1,15 +1,18 @@
 /* Контрол с общими действиями */
-.Controls{
-    display: flex;
-    justify-content: flex-end;
-    padding: 20px;
+.Controls {
+	display: flex;
+	justify-content: flex-end;
+	padding: 20px;
 }
-.Controls-title{
-    white-space: pre-wrap;
-    padding: 0 18px;
+
+.Controls-title {
+	white-space: pre-wrap;
+	padding: 0 18px;
 }
-.Controls-title span{
-    font-weight: bold
+
+.Controls-title span {
+	font-weight: bold
 }
-.Controls-actions{
+
+.Controls-actions {
 }

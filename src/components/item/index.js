@@ -1,6 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+import prettyMoney from 'pretty-money';
 import './style.css';
 
 function Item(props) {
@@ -41,10 +42,10 @@ function Item(props) {
         <span className={props.isCartItem ? cn('cart'): cn('price')}>
           {props.isCartItem 
             ? (<>
-                <span>{`${props.item.price} ₽`}</span>
+                <span>{prettyMoney({currency: '₽', thousandsDelimiter: ' '}, props.item.price)}</span>
                 <span>{`${props.item.amount} шт`}</span>
                </>)
-            : `${props.item.price} ₽`
+            : prettyMoney({currency: '₽', thousandsDelimiter: ' '}, props.item.price)
           }
         </span>
       </div>

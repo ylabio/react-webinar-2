@@ -1,6 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+import prettyMoney from 'pretty-money';
 import Item from "../item";
 import './style.css';
 
@@ -25,7 +26,7 @@ function List(props) {
     {(props.isCart && props.items.length > 0) &&
       (<div className={cn('cart')}>
         <strong>Итого</strong>
-        <strong>{`${props.total} ₽`}</strong>
+        <strong>{prettyMoney({currency: '₽', thousandsDelimiter: ' '}, props.total)}</strong>
       </div>)}
     </div>
   )

@@ -52,14 +52,16 @@ class Store {
   /**
    * Добавление товара в корзину
    */
-  addItem(item) {
+  addItem(code) {
     let isItemFind = false;
+    const basketItems = this.getState().basket.items;
+
     this.setState({
       ...this.state,
       basket: {
         ...this.state.basket,
         items: this.getState().basket.items.map((elem) => {
-          if (elem.code === item.code) {
+          if (elem.code === code) {
             isItemFind = true;
             return { ...elem, amount: elem.amount + 1 };
           }
@@ -69,14 +71,13 @@ class Store {
     });
 
     if (!isItemFind) {
+      const item = this.getState().items.find((elem) => elem.code === code);
+      basketItems.push({ ...item, amount: 1 });
       this.setState({
         ...this.state,
         basket: {
           ...this.state.basket,
-          items: this.getState().basket.items.concat({
-            ...item,
-            amount: 1,
-          }),
+          items: basketItems,
         },
       });
     }
@@ -86,13 +87,15 @@ class Store {
       basket: {
         ...this.state.basket,
         amount: this.getState().basket.items.length,
-        sum: this.state.basket.sum + item.price,
+        sum: this.getState().basket.items.reduce((a, b) => {
+          return a + b.amount * b.price;
+        }, 0),
       },
     });
   }
 
   /**
-   * Удаление записи з корзины по её коду
+   * Удаление записи из корзины по её коду
    * @param code
    */
 

@@ -24,8 +24,8 @@ function App({ store }) {
     onDeleteItems: useCallback((item) => {
       store.deleteBasketItem(item);
     }, []),
-    onAddItems: useCallback((item) => {
-      store.addItem(item);
+    onAddItems: useCallback((code) => {
+      store.addItem(code);
     }, []),
     onCloseModal: useCallback(
       (e) => {

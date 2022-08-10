@@ -11,9 +11,9 @@ function Item(props) {
     onAdd: useCallback(
       (e) => {
         e.stopPropagation();
-        props.onAdd(props.item);
+        props.onAdd(props.item.code);
       },
-      [props.onAdd, props.item]
+      [props.onAdd, props.item.code]
     ),
   };
 

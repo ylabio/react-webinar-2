@@ -1,0 +1,28 @@
+/* Пункт списка */
+.ModalItem{
+    display: flex;
+    align-items: center;
+    transition: background-color 1s;
+}
+
+
+.ModalItem-title{
+    width: 100%;
+}
+.ModalItem-price{
+    text-align: end;
+    width: 100%;
+}
+.ModalItem-count{
+    padding-left: 50px;
+    text-align: end;
+    min-width: 40px;
+}
+.ModalItem-actions{
+    text-align: end;
+    display: flex;
+    justify-content: flex-end;
+}
+.ModalItem-number{
+    padding: 20px;
+}

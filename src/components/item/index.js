@@ -4,7 +4,8 @@ import {cn as bem} from '@bem-react/classname';
 import CustomButton from '../custom-button';
 import './style.css';
 
-function Item({item, callback, btnName}) {
+/* Компонент товара из каталога */
+function Item({item, callback}) {
   const cn = bem('Item');
 
   return (
@@ -17,9 +18,8 @@ function Item({item, callback, btnName}) {
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{item.price.toLocaleString('ru-RU')} &#8381;</div>
-        {item.count && <div className={cn('quantity')}>{item.count} шт</div>}
-        <CustomButton onClick={() => callback(item)}>
-          {btnName}
+        <CustomButton onClick={() => callback(item.code)}>
+          Добавить
         </CustomButton>
       </div>
     </div>
@@ -29,7 +29,6 @@ function Item({item, callback, btnName}) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   callback: propTypes.func.isRequired,
-  btnName: propTypes.string.isRequired,
 }
 
 export default React.memo(Item);

@@ -1,20 +1,16 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
-import CustomButton from '../custom-button';
 import './style.css';
 
-function Basket({children, basketCount, totalSum, setModal}) {
+function Basket({children, basketCount, totalSum}) {
   const cn = bem('Basket');
-  
+  /* Изменил корзину согласно замечаниям, теперь она содержит
+     список товаров и блок "итого", либо сообщение об 
+     отсутствии товаров 
+  */
   return (
     <div className={cn()}>
-      <div className={cn('head')}>
-        <h1>Корзина</h1>
-        <span className={cn('head-button')}>
-          <CustomButton onClick={() => setModal(false)}>Закрыть</CustomButton>
-        </span>
-      </div>
       {basketCount ?
         <>
           {children}
@@ -32,8 +28,7 @@ function Basket({children, basketCount, totalSum, setModal}) {
 Basket.propTypes = {
   children: propTypes.node.isRequired,
   basketCount: propTypes.number.isRequired,
-  totalSum: propTypes.number.isRequired,
-  setModal: propTypes.func.isRequired
+  totalSum: propTypes.number.isRequired
 }
 
 export default Basket;

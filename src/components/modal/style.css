@@ -4,12 +4,32 @@
     bottom: 0;
     left: 0;
     right: 0;
-    display: none;
-    background: rgba(0, 0, 0, 0.7);
-}
-
-.Modal-active{
     display: flex;
     justify-content: center;
     align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.Modal-window {
+    background: #fff;
+    border-radius: 10px;
+    width: 960px;
+    min-height: 603px;
+    overflow: auto;
+}
+.Modal-head{
+    height: 80px;
+    background: #f5f5f5;
+    border-radius: 15px 15px 0 0;
+    margin-bottom: 74px;
+    display: flex;
+    justify-content: space-between;
+}
+.Modal-head h1{
+    margin: 0;
+    padding: 20px 20px 23px;
+    font-size: 32px;
+}
+.Modal-head-button{
+    margin: 30px;
 }

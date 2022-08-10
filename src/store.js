@@ -41,48 +41,50 @@ class Store {
   }
 
   /**
-   * Добавление товара в корзину
+   * Добавление товара в корзину по коду
    */
-  addToBasket(item) {
-    const index = this.state.basket.findIndex(elem => elem.code === item.code);
-    if (index!== -1) {
+  addToBasket(itemCode) {
+    const oldElem = this.state.basketLength ? 
+                    this.state.basket.find(elem => elem.code === itemCode) :
+                    undefined;
+    if (oldElem) {
+      const changedElem = {
+        ...oldElem,
+        count: oldElem.count + 1 
+      };
       this.setState({
         ...this.state,
         basket: this.state.basket.map(((elem) => {                
-          if (elem.code === item.code) {
-            return {
-              ...elem,
-              count: ++elem.count  
-            }
+          if (elem.code === itemCode) {
+            return changedElem
           }
           return elem;
-        }))
+        })),
+        basketSum: this.state.basketSum + changedElem.price
       })
     } else {
+      const newElem = {...this.state.items.find(elem => elem.code === itemCode), count: 1};
       this.setState({
         ...this.state,
-        basket: this.state.basket.concat({...item, count: 1}),
+        basket: this.state.basket.concat(newElem),
+        basketSum: this.state.basketSum + newElem.price,
+        basketLength: this.state.basketLength + 1
       });
     }
   }
 
   /**
-   * Удаление товара из корзины
+   * Удаление товара из корзины по коду
    */
   deleteFromBasket(itemCode) {
+    const deletingElem = this.state.basket.find(elem => elem.code === itemCode);
     this.setState({
-        ...this.state,
-        basket: this.state.basket.filter(elem => elem.code !== itemCode)
-      });
+      ...this.state,
+      basket: this.state.basket.filter(elem => elem.code !== itemCode),
+      basketSum: this.state.basketSum - deletingElem.price * deletingElem.count,
+      basketLength: this.state.basketLength - 1
+    });
   }
-
-  /**
-   * Получение общей суммы товаров в корзине
-   */
-  totalSum() {
-    return this.state.basket.reduce((sum, current) => sum + current.price * current.count, 0);
-  }
-
 }
 
 export default Store;

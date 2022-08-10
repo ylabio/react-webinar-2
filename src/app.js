@@ -1,7 +1,9 @@
 import React, {useState, useCallback} from 'react';
-import Controls from "./components/controls";
-import List from "./components/list";
-import Layout from "./components/layout";
+import Controls from './components/controls';
+import List from './components/list';
+import Item from './components/item';
+import ItemBasket from './components/item-basket';
+import Layout from './components/layout';
 import Modal from './components/modal';
 import Basket from './components/basket';
 
@@ -12,44 +14,50 @@ import Basket from './components/basket';
  */
 function App({store}) {
   const [modal, setModal] = useState(false)
-  const basket = store.getState().basket;
-  const totalSum = store.totalSum();
+  const state = store.getState();
 
   const callbacks = {
     setModalWindow: useCallback((value) => {
       setModal(value);
     }, []),
-    onAddToBasket: useCallback((item) => {
-      store.addToBasket(item);
+    onAddToBasket: useCallback((itemCode) => {
+      store.addToBasket(itemCode);
     }, []),
-    onDeleteFromBasket: useCallback((item) => {
-      store.deleteFromBasket(item.code);
+    onDeleteFromBasket: useCallback((itemCode) => {
+      store.deleteFromBasket(itemCode);
     }, []),
+    /* Функция рендера для товара в каталоге */
+    renderItems: useCallback((item, callback) => (
+        <Item item={item} callback={callback} />
+    ), []),
+    /* Функция рендера для товара в корзине */
+    renderBasketItems: useCallback((item, callback) => (
+        <ItemBasket item={item} callback={callback} />
+    ), []),
   }
 
   return (
     <>
       {modal && (
-        <Modal visible={modal} setVisible={callbacks.setModalWindow}>
-        <Basket basketCount={basket.length} 
-                totalSum={totalSum} 
-                setModal={callbacks.setModalWindow}
-        >
-          <List items={basket}
-                callback={callbacks.onDeleteFromBasket}
-                btnName={"Удалить"}
-          />
-        </Basket>
-      </Modal> 
+        <Modal title={"Корзина"} setVisible={callbacks.setModalWindow}>
+          <Basket basketCount={state.basketLength} 
+                  totalSum={state.basketSum} 
+          >
+            <List items={state.basket}
+                  callback={callbacks.onDeleteFromBasket}
+                  render={callbacks.renderBasketItems}
+            />
+          </Basket>
+        </Modal> 
       )}
       <Layout head={<h1>Магазин</h1>}>
-        <Controls basketCount={basket.length} 
-                  totalSum={totalSum}
+        <Controls basketCount={state.basketLength} 
+                  totalSum={state.basketSum}
                   setModal={callbacks.setModalWindow} 
         />
-        <List items={store.getState().items}
+        <List items={state.items}
               callback={callbacks.onAddToBasket}
-              btnName={"Добавить"}
+              render={callbacks.renderItems}
         />
       </Layout>
     </>

@@ -1,14 +1,16 @@
-import React, {useCallback} from 'react';
+import React, { useCallback,useState } from "react";
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
+import Modal from "./components/modal";
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store, calculationSumPrice}) {
+function App({ store, calculationSumPrice }) {
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const callbacks = {
     onAdd: useCallback((item) => {
@@ -17,19 +19,38 @@ function App({store, calculationSumPrice}) {
     onDeleteOfBasket: useCallback((code) => {
       store.deleteItem(code);
     }, []),
+    onOpenModal: useCallback( () => {
+      setIsOpenModal(true);
+    }, [isOpenModal]),
+    onCloseModal: useCallback( () => {
+      setIsOpenModal(false);
+    }, [isOpenModal])
   };
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <Controls 
-        stateBasket={store.getState().basket}
-        onDeleteOfBasket={callbacks.onDeleteOfBasket}
-        calculationSumPrice={calculationSumPrice}
-      />
-      <List items={store.getState().items}
-            onAdd={callbacks.onAdd}
-      />
-    </Layout>
+    <React.Fragment>
+      {isOpenModal ? (
+        <Modal
+          title='Корзина'
+          buttonName='Закрыть'
+          stateBasket={store.getState().basket}
+          onCloseModal={callbacks.onCloseModal}
+          onDeleteOfBasket={callbacks.onDeleteOfBasket}
+          calculationSumPrice={calculationSumPrice}
+        />
+      ) : (
+        ""
+      )}
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls
+          stateBasket={store.getState().basket}
+          onDeleteOfBasket={callbacks.onDeleteOfBasket}
+          calculationSumPrice={calculationSumPrice}
+          onOpenModal={callbacks.onOpenModal}
+        />
+        <List items={store.getState().items} onAdd={callbacks.onAdd} />
+      </Layout>
+    </React.Fragment>
   );
 }
 

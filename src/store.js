@@ -86,12 +86,41 @@ class Store {
         cart: [...this.state.cart, {...item, count: 1}]
       });
     }
+    this.setState({
+      ...this.state,
+      totalCount: this.state.cart.reduce((counter, item)=>{        
+        return counter+=item.count;        
+      },0),
+      totalPrice: this.state.cart.reduce((counter, item)=>{        
+        return counter +=(item.price * item.count)       
+      },0),
+      uniqueItemsCount: this.state.cart.reduce((counter, item)=>{        
+        if(item){
+          return ++counter;
+        }       
+      },0),
+    });    
+    
   }
 
   deleteFromCart(item){
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter(element => element.code !== item.code)
+      cart: this.state.cart.filter(element => element.code !== item.code)   
+    });
+    this.setState({
+      ...this.state,
+      totalCount: this.state.cart.reduce((counter, item)=>{        
+        return counter+=item.count;        
+      },0),
+      totalPrice: this.state.cart.reduce((counter, item)=>{        
+        return counter +=(item.price * item.count)       
+      },0),
+      uniqueItemsCount: this.state.cart.reduce((counter, item)=>{        
+        if(item){
+          return ++counter;
+        }       
+      },0),
     });
   }
 

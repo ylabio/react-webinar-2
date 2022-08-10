@@ -3,6 +3,7 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import CartHeader from './components/cart-header';
 import Modal from './components/modal';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -25,20 +26,23 @@ function App({store}) {
   }
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Modal active={modalActive} 
+      {modalActive && <Modal  
       setActive={setModalActive} 
-      cart={store.getState().cart}
-      deleteFromCart={callbacks.onDeleteFromCart}
-      />
+      head={<h1>Корзина</h1>}
+      children={<Cart 
+        cart={store.getState().cart}
+        deleteFromCart={callbacks.onDeleteFromCart}
+        totalPrice={store.getState().totalPrice}
+      />}
+      />}
       <CartHeader cart = {store.getState().cart}
-      active={modalActive} setActive={setModalActive}      
-      
+      setActive={setModalActive}   
+      totalPrice={store.getState().totalPrice}
+      uniqueItemsCount={store.getState().uniqueItemsCount}   
       />
       <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
             onItemDelete={callbacks.onDeleteItems}
-            addItem={callbacks.onAddToCart}
-            
+            addItem={callbacks.onAddToCart}            
       />
     </Layout>
   );

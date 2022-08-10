@@ -40,48 +40,118 @@ class Store {
     }
   }
 
+  countTotalPrice() {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        totalPrice: Object.keys(this.state.cart.items)
+          .reduce((totalPrice, itemCode) => {
+            return totalPrice + Number(this.state.cart.items[itemCode].price) * this.state.cart.items[itemCode].cartCount
+          }, 0)
+      }
+    });
+  }
+
   addToCart(item) {
-    if (this.state.cart.items.some((cartItem) => cartItem.code === item.code)) {
+    if (this.state.cart.items[item.code]) {
       this.setState({
         ...this.state,
         cart: {
-          items: this.state.cart.items.map((cartItem) =>
-            cartItem.code === item.code
-              ? {...cartItem, cartCount: cartItem.cartCount + 1}
-              : cartItem,
-          ),
-          totalPrice: this.state.cart.items.reduce((totalPrice, {
-            price,
-            cartCount
-          }) => totalPrice += Number(price) * cartCount, item.price)
+          ...this.state.cart,
+          items: {
+            ...this.state.cart.items,
+            [item.code]: {
+              ...this.state.cart.items[item.code],
+              cartCount: this.state.cart.items[item.code].cartCount + 1
+            },
+          },
         }
       });
     } else {
       this.setState({
         ...this.state,
         cart: {
-          items: this.state.cart.items.concat({...item, cartCount: 1}),
-          totalPrice: this.state.cart.items.reduce((totalPrice, {
-            price,
-            cartCount
-          }) => totalPrice += Number(price) * cartCount, item.price)
+          ...this.state.cart,
+          items: {
+            ...this.state.cart.items,
+            [item.code]: {
+              ...item,
+              cartCount: 1
+            },
+          },
+          uniqueItems: this.state.cart.uniqueItems + 1,
         }
       });
     }
+    this.countTotalPrice()
   }
 
   deleteFromCart(item) {
+    const itemsWithoutDeleted = {...this.state.cart.items}
+    delete itemsWithoutDeleted[item.code];
     this.setState({
       ...this.state,
       cart: {
-        items: this.state.cart.items.filter((cartItem) => cartItem.code !== item.code),
-        totalPrice: this.state.cart.items.reduce((totalPrice, {
-          price,
-          cartCount
-        }) => totalPrice += Number(price) * cartCount, item.price)
+        ...this.state.cart,
+        items: {
+          ...itemsWithoutDeleted
+        },
+        uniqueItems: this.state.cart.uniqueItems - 1,
       },
     });
+    this.countTotalPrice();
   }
 }
 
 export default Store;
+
+// countTotalPrice(item) {
+//   this.setState({
+//     ...this.state,
+//     cart: {
+//       ...this.state.cart,
+//       totalPrice: this.state.cart.items.reduce((totalPrice, {
+//         price,
+//         cartCount
+//       }) => totalPrice + Number(price) * cartCount, 0)
+//     }
+//   });
+// }
+// addToCart(item) {
+//   if (this.state.cart.items.some((cartItem) => cartItem.code === item.code)) {
+//     this.setState({
+//       ...this.state,
+//       cart: {
+//         ...this.state.cart,
+//         items: this.state.cart.items.map((cartItem) =>
+//           cartItem.code === item.code
+//             ? {...cartItem, cartCount: cartItem.cartCount + 1}
+//             : cartItem,
+//         ),
+//       }
+//     });
+//   } else {
+//     this.setState({
+//       ...this.state,
+//       cart: {
+//         ...this.state.cart,
+//         items: this.state.cart.items.concat({...item, cartCount: 1}),
+//         uniqueItems: this.state.cart.uniqueItems + 1,
+//       }
+//     });
+//   }
+//   this.countTotalPrice(item)
+// }
+//
+// deleteFromCart(item) {
+//   this.setState({
+//     ...this.state,
+//     cart: {
+//       ...this.state.cart,
+//       items: this.state.cart.items.filter((cartItem) => cartItem.code !== item.code),
+//       uniqueItems: this.state.cart.uniqueItems - 1,
+//     },
+//   });
+//   this.countTotalPrice(item);
+// }

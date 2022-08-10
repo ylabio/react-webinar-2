@@ -1,0 +1,18 @@
+.cart{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}
+.price {
+    padding: 0 20px 0 10px;
+    font-weight: bold;
+}
+.modal-allPrice {
+    display: flex;
+    justify-content: flex-end;
+    padding: 26px 0;
+}
+.modal-text {
+    padding: 0 49px 0 0;
+    font-weight: bold;
+}

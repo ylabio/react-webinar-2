@@ -7,10 +7,10 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onAddDeleteToCart: useCallback((e) => {
+    onAdded: useCallback((e) => {
       e.stopPropagation();
-      props.onAddDeleteToCart(props.item)
-    }, [props.onAddDeleteToCart, props.item])
+      props.onAdded(props.item)
+    }, [props.onAdded, props.item])
   };
 
   return (
@@ -25,13 +25,8 @@ function Item(props) {
         <div className={cn('price')}>
           {props.item.price.toLocaleString('ru-RU')} ₽
         </div>
-        {props.isCart &&
-          <div className={cn('price')}>
-            {props.item.cartCount} шт
-          </div>
-        }
-        <button onClick={callbacks.onAddDeleteToCart}>
-          {props.isCart ? 'Удалить' : 'Добавить'}
+        <button onClick={callbacks.onAdded}>
+          Добавить
         </button>
       </div>
     </div>
@@ -40,8 +35,7 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
+  onAdded: propTypes.func.isRequired
 }
 
 Item.defaultProps = {

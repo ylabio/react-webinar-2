@@ -1,7 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Cart from "./components/cart";
 import List from "./components/list";
 import Layout from "./components/layout";
+import {Modal} from "./components/modal";
+import TotalPrice from "./components/total-price";
 
 /**
  * Приложение
@@ -9,6 +11,7 @@ import Layout from "./components/layout";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const [isModalOpen, setModalOpen] = useState(false)
 
   const callbacks = {
     onAddToCart: useCallback((item) => {
@@ -19,15 +22,29 @@ function App({store}) {
     }, []),
   }
 
+  const items = store.getState().items;
+  const cartItems = Object.values(store.getState().cart.items);
+  console.log(cartItems)
+  const totalPrice = store.getState().cart.totalPrice;
+  const uniqueItems = store.getState().cart.uniqueItems;
+
   return (
-    <Layout isModal={false} head={<h1>Магазин</h1>}>
-      <Cart
-        cartItems={store.getState().cart.items}
-        totalPrice={store.getState().cart.totalPrice}
-        deleteFromCart={callbacks.deleteFromCart}
-      />
-      <List isCart={false} items={store.getState().items} onAddDeleteToCart={callbacks.onAddToCart}/>
-    </Layout>
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Cart
+          totalPrice={totalPrice}
+          openCart={setModalOpen}
+          uniqueItems={uniqueItems}
+        />
+        <List items={items} onAddDeleteToCart={callbacks.onAddToCart}/>
+      </Layout>
+      {isModalOpen &&
+        <Modal title='Корзина' closeModal={setModalOpen}>
+          <List isCart={true} items={cartItems} onAddDeleteToCart={callbacks.deleteFromCart}/>
+          {uniqueItems !== 0 && <TotalPrice totalPrice={totalPrice}/>}
+        </Modal>
+      }
+    </>
   );
 }
 

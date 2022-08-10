@@ -1,0 +1,10 @@
+.totalPrice {
+    display: flex;
+    justify-content: flex-end;
+    padding: 26px 0;
+}
+
+.totalPrice-text {
+    padding: 0 49px 0 0;
+    font-weight: bold;
+}

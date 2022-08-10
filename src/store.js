@@ -1,5 +1,4 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -37,47 +36,53 @@ class Store {
     // Возвращаем функцию для удаления слушателя
     return () => {
       this.listeners = this.listeners.filter(item => item !== callback);
-    }
+    };
   }
 
   /**
-   * Создание записи
+   * Добавление записи в корзину
+   * @param cartItem {Object}
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  addToCartItem(cartItem) {
+    const cartItemFound = this.state.cart.cartItems.find(
+      elem => elem.code === cartItem.code
+    );
+
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      cart: {
+        ...this.state.cart,
+        cartItems: cartItemFound
+          ? this.state.cart.cartItems.map(elem =>
+              elem.code === cartItem.code
+                ? { ...elem, count: elem.count + 1 }
+                : elem
+            )
+          : this.state.cart.cartItems.concat({ ...cartItem, count: 1 }),
+        totalPrice: this.state.cart.totalPrice + cartItem.price,
+        totalAmount: cartItemFound
+          ? this.state.cart.totalAmount
+          : this.state.cart.totalAmount + 1,
+      },
     });
   }
 
   /**
-   * Удаление записи по её коду
-   * @param code
+   * Удаление записи из корзины
+   * @param cartItem {Object}
    */
-  deleteItem(code) {
+  deleteItemsFromCart(cartItem) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cart: {
+        ...this.state.cart,
+        cartItems: this.state.cart.cartItems.filter(
+          elem => elem.code !== cartItem.code
+        ),
+        totalPrice:
+          this.state.cart.totalPrice - cartItem.price * cartItem.count,
+        totalAmount: this.state.cart.totalAmount - 1,
+      },
     });
   }
 }

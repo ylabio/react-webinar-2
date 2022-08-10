@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Popup from './components/popup';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -10,27 +11,44 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-
-  const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+  const[isPopupOpen, setIsPopupOpen] = useState(false);
+  
+  const callbacks = {  
+    onAddToCart: useCallback((code)=> {
+      store.addToCartItem(code)
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onPopupOpen: useCallback(()=> {
+      setIsPopupOpen(true);   
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onPopupClose: useCallback(()=> {    
+      setIsPopupOpen(false);
+    }, []),
+    onDeleteItemsFromCart: useCallback((code) => {
+      store.deleteItemsFromCart(code);
     }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls
+        totalPrice={store.getState().cart.totalPrice}
+        totalAmount={store.getState().cart.totalAmount}
+        onPopupOpen={callbacks.onPopupOpen}
       />
+      <List
+        items={store.getState().items}   
+        onAddToCart={callbacks.onAddToCart}
+      />
+      {isPopupOpen && (
+        <Popup title={'Корзина'} onClose={callbacks.onPopupClose}>
+          <Cart
+            cartItems={store.getState().cart.cartItems}
+            onDeleteItemsFromCart={callbacks.onDeleteItemsFromCart}
+            totalPrice={store.getState().cart.totalPrice}
+            totalAmount={store.getState().cart.totalAmount}
+          />
+        </Popup>
+      )}
     </Layout>
   );
 }

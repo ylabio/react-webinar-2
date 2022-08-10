@@ -8,11 +8,10 @@ function List({items, buttonName, onItemClick}) {
   const cn = bem('List');
 
   return (
-    <div className={cn()}>{items.map((item, index) =>
+    <div className={cn()}>{items.map(item =>
       <div key={item.code} className={cn('item')}>
         <Item
           item={item}
-          indexItem={index+1}
           buttonName={buttonName}
           onItemClick={onItemClick}
         />
@@ -26,12 +25,6 @@ List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
   buttonName: propTypes.string.isRequired,
   onItemClick: propTypes.func.isRequired,
-}
-
-List.defaultProps = {
-  items: [],
-  buttonName: '',
-  onItemClick: () => {},
 }
 
 export default React.memo(List);

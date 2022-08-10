@@ -4,7 +4,7 @@ import {cn as bem} from "@bem-react/classname";
 import {getPriceOnRub} from '../../utils';
 import './style.css';
 
-function Item({item, indexItem, buttonName, onItemClick}) {
+function Item({item, buttonName, onItemClick}) {
   const cn = bem('Item');
 
   const callbacks = {
@@ -18,7 +18,7 @@ function Item({item, indexItem, buttonName, onItemClick}) {
   return (
     <div className={cn()}>
       <div className={cn('name')}>
-        <p className={cn('number')}>{indexItem}</p>
+        <p className={cn('number')}>{item.code}</p>
         <p className={cn('title')}>{item.title}</p>
       </div>
       <div className={cn('actions')}>
@@ -34,16 +34,8 @@ function Item({item, indexItem, buttonName, onItemClick}) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  indexItem: propTypes.number.isRequired,
   buttonName: propTypes.string.isRequired,
   onItemClick: propTypes.func.isRequired,
-}
-
-Item.defaultProps = {
-  item: {},
-  indexItem: 1,
-  buttonName: '',
-  onItemClick: () => {},
 }
 
 export default React.memo(Item);

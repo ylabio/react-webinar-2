@@ -3,19 +3,11 @@ import propTypes from 'prop-types';
 import './style.css';
 import { Modal } from './../modal/modal';
 import plural from 'plural-ru'
+import { OpenModalButton } from './openModalButton/openModalButton';
 
-function Controls({ onItemDeleteFromCart, cart, priceSum }) {
+function Controls({totalPrice, setOpenModal,openModal, cart}) {
 
-  const [openModal, setOpenModal] = useState(false)
-  const [totalPrice, setTotalPrice] = useState(0)
 
-  React.useEffect(() => {
-    setTotalPrice(
-      cart.reduce((acc, item) => {
-        return acc + item.price * item.count;
-      }, 0)
-    );
-  }, [cart]);
 
   return (
     <div className='Controls'>
@@ -26,25 +18,14 @@ function Controls({ onItemDeleteFromCart, cart, priceSum }) {
           :
           <span>В корзине: <b>{plural(cart.length, '%d товар', '%d товара', '%d товаров')}</b><b> / {totalPrice.toLocaleString("ru-RU", {
             style: "currency",
-            currency: "RUB",
+                        currency: "RUB",
           })}</b>
           </span>
       }
-      {
-        openModal && <Modal
-          onItemDeleteFromCart={onItemDeleteFromCart}
-          key={cart.code}
-          totalPrice={totalPrice}
-          cart={cart}
-          setOpenModal={setOpenModal}
-          priceSum={priceSum}
-        />
-
-      }
-      {
-        !openModal &&
-        <button onClick={() => setOpenModal(true)}>Перейти</button>
-      }
+      <OpenModalButton
+      setOpenModal={setOpenModal}
+      openModal={openModal}
+      />
     </div>
   )
 }

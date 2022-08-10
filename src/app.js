@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import { counter } from "./utils";
+import { Modal } from './components/modal/modal';
 
 /**
  * Приложение
@@ -11,6 +12,18 @@ import { counter } from "./utils";
  */
 function App({ store }) {
   console.log(store)
+
+  const [openModal, setOpenModal] = useState(false)
+  const [totalPrice, setTotalPrice] = useState(0)
+
+  React.useEffect(() => {
+    setTotalPrice(
+      store.getState().cart.reduce((acc, item) => {
+        return acc + item.price * item.count;
+      }, 0)
+    );
+  }, [store.getState().cart]);
+
   const callbacks = {
     onAdd: useCallback(() => {
       const code = counter();
@@ -26,14 +39,27 @@ function App({ store }) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
+      {
+        openModal
+        &&
+        <Modal
+          onItemDeleteFromCart={callbacks.onDeleteFromCart}
+          key={store.getState().cart.code}
+          cart={store.getState().cart}
+          setOpenModal={setOpenModal}
+          totalPrice={totalPrice}
+        />
+      }
       <Controls
+        totalPrice={totalPrice}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
         cart={store.getState().cart}
-        onItemDeleteFromCart={callbacks.onDeleteFromCart}
       />
-      <List items={store.getState().items}
+      <List
+        items={store.getState().items}
         cards={store.getState().cards}
         onAddItemToCard={callbacks.onAddItemToCard}
-
       />
     </Layout>
   );

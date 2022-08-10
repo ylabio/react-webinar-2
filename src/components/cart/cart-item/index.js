@@ -40,12 +40,12 @@ function CartItem({item, index, deleteCartItems}) {
 CartItem.propTypes = {
   item: propTypes.object.isRequired,
   index: propTypes.number,
-  button: propTypes.func,
+  deleteCartItems: propTypes.func,
 }
 
 CartItem.defaultProps = {
   index: 0,
-  button: () => {}
+  deleteCartItems: () => {}
 }
 
 export default React.memo(CartItem);

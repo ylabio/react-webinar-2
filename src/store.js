@@ -57,18 +57,17 @@ class Store {
   deleteItem(item) {
     const deleteItem = this.state.cartItems.filter(itemFilter => itemFilter.title === item.title)[0];
     
-    if (deleteItem.count <= 1) {
-      this.setState({
-        ...this.state,
-        cartItems: [...this.state.cartItems.filter(item => item.title !== deleteItem.title)]
-      });
-    } else {
-      deleteItem.count--;
-      this.setState({
-        ...this.state,
-        cartItems: [...this.state.cartItems.filter(item => item.title !== deleteItem.title), deleteItem]
-      });
-    }
+    this.setState({
+      ...this.state,
+      cartItems: [...this.state.cartItems.filter(item => item.title !== deleteItem.title)],
+    });
+
+    this.setState({
+      ...this.state,
+      total: this.getTotal(),
+      unique: this.getUnique(),
+    });
+
   }
 
   /**
@@ -83,15 +82,38 @@ class Store {
       existsItem.count++;
       this.setState({
         ...this.state,
-        cartItems: [...this.state.cartItems.filter(item => item.title !== newItem.title), existsItem]
+        cartItems: [...this.state.cartItems.filter(item => item.title !== newItem.title), existsItem],
       });
     } else {
       newItem.count = 1;
       this.setState({
         ...this.state,
-        cartItems: [...this.state.cartItems, newItem]
+        cartItems: [...this.state.cartItems, newItem],
       });
     }
+    this.setState({
+      ...this.state,
+      total: this.getTotal(),
+      unique: this.getUnique(),
+    });
+  }
+
+  /**
+   * Подсчет суммы
+   */
+  getTotal() {
+    let total = 0;
+    this.state.cartItems.map(item => {
+      total += item.price * item.count;
+    })
+    return Number(total);
+  }
+
+  /**
+   * Подсчет суммы
+   */
+   getUnique() {
+    return Number(this.state.cartItems.length);
   }
 }
 

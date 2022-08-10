@@ -1,27 +1,25 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import propTypes, { number } from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
-import {getTotal} from '../../utils';
 
 function Total(props) {
   const cn = bem('Total');
-  const total = getTotal(props.items).toLocaleString('ru-RU');
 
   return (
     <div className={cn()}>
         <b>Итого</b>
-        <b>{total} ₽</b>
+        <b>{props.total.toLocaleString('ru-RU')} ₽</b>
     </div>
   )
 }
 
 Total.propTypes = {
-  items: propTypes.arrayOf(propTypes.object).isRequired
+  total: propTypes.number.isRequired
 }
 
 Total.defaultProps = {
-  items: [],
+  total: null,
 }
 
 export default React.memo(Total);

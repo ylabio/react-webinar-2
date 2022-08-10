@@ -6,7 +6,6 @@ import PopupWindow from "./components/popup-window";
 import Cart from "./components/cart";
 import ListCart from "./components/list-cart";
 import Total from "./components/total";
-import counter from "./utils";
 
 /**
  * Приложение
@@ -38,7 +37,7 @@ function App({store}) {
                 onItemSelect={callbacks.onSelectItems}
                 onItemDelete={callbacks.onDeleteItems}
           />
-          <Total items={store.getState().cartItems}/>
+          <Total total={store.getState().total}/>
         </Cart>
       </PopupWindow>
       :
@@ -46,7 +45,7 @@ function App({store}) {
     }
 
       <Layout head={<h1>Магазин</h1>}>
-        <Controls onShowCart={()=>{callbacks.changeCartVisible(true)}} cartInfo={store.getState().cartItems}/>
+        <Controls onShowCart={()=>{callbacks.changeCartVisible(true)}} cartInfo={store.getState().cartItems} total={store.getState().total} unique={store.getState().unique}/>
         <List items={store.getState().items}
               onItemSelect={callbacks.onSelectItems}
               onItemDelete={callbacks.onDeleteItems}

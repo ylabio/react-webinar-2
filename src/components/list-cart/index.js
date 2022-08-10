@@ -13,10 +13,10 @@ function ListCart(props) {
         <ItemCart item={item} onDelete={props.onItemCartDelete}/>
       </div>
     )}
-      {props.itemsCart.length ? 
+      {props.quantityUnicItemsCart ? 
       (<div className={cn('sum')}>
         <div>Итого</div>
-        <div>{`${props.sumPrices.toLocaleString()} ₽`}</div>
+        <div>{`${props.sumPricesInCart.toLocaleString()} ₽`}</div>
       </div>) : 
       (<div className={cn('sum')}>
         <div>Корзина пуста</div>
@@ -28,13 +28,15 @@ function ListCart(props) {
 
 ListCart.propTypes = {
   itemsCart: propTypes.arrayOf(propTypes.object).isRequired,
-  sumPrices: propTypes.number.isRequired,
+  sumPricesInCart: propTypes.number.isRequired,
+  quantityUnicItemsCart: propTypes.number.isRequired,
   onItemCartDelete: propTypes.func.isRequired
 }
 
 ListCart.defaultProps = {
   itemsCart: [],
-  sumPrices: 0,
+  sumPricesInCart: 0,
+  quantityUnicItemsCart: 0,
   onItemCartDelete: () => {}
 }
 

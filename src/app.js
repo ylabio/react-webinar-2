@@ -2,7 +2,8 @@ import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import Modal from './components/modal';
+import LayoutCart from './components/layout-cart';
+import ListCart from './components/list-cart';
 
 /**
  * Приложение
@@ -12,8 +13,6 @@ import Modal from './components/modal';
 function App({store}) {
   const [openModal, setOpenModal] = useState(false);
 
-  const sumPrices = store.state.itemsCart.reduce((a, b) => a + b.price * b.quantity, 0);
-
   const callbacks = {
     onShowCart: useCallback(() => {
       setOpenModal(true);
@@ -21,8 +20,8 @@ function App({store}) {
     onCloseCart: useCallback(() => {
       setOpenModal(false);
     }, []),
-    onDeleteItemsCart: useCallback((code) => {
-      store.deleteItemCart(code);
+    onDeleteItemsCart: useCallback((code, price, quantity) => {
+      store.deleteItemCart(code, price, quantity);
     }, []),
     onAddProductToCart: useCallback((item) => {
       store.addProductToCart({item});
@@ -34,8 +33,8 @@ function App({store}) {
     <Layout head={<h1>Магазин</h1>}>
       <Controls 
         onShowCart={callbacks.onShowCart} 
-        sumPrices={sumPrices} 
-        itemsCart={store.state.itemsCart}
+        sumPricesInCart={store.state.sumPricesInCart} 
+        quantityUnicItemsCart={store.state.quantityUnicItemsCart}
       />
       <List 
         items={store.getState().items} 
@@ -43,12 +42,16 @@ function App({store}) {
       />
     </Layout>
     {openModal && (
-      <Modal 
-        onCloseCart={callbacks.onCloseCart} 
-        onItemCartDelete={callbacks.onDeleteItemsCart} 
-        itemsCart={store.state.itemsCart}
-        sumPrices={sumPrices}
-      />
+      <LayoutCart 
+        head={<><h1>Корзина</h1><button onClick={callbacks.onCloseCart}>Закрыть</button></>}
+      >
+        <ListCart 
+          itemsCart={store.state.itemsCart} 
+          sumPricesInCart={store.state.sumPricesInCart}
+          quantityUnicItemsCart={store.state.quantityUnicItemsCart} 
+          onItemCartDelete={callbacks.onDeleteItemsCart}
+        />
+      </LayoutCart>
     )}
     </>
   );

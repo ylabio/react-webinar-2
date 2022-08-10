@@ -8,7 +8,7 @@ function ItemCart(props) {
 
   const callbacks = {
     onDelete: useCallback(() => {
-      props.onDelete(props.item.code)
+      props.onDelete(props.item.code, props.item.price, props.item.quantity)
     }, [props.onDelete,  props.item]),
   };
 

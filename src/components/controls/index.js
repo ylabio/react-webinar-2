@@ -4,14 +4,14 @@ import {cn as bem} from "@bem-react/classname";
 import plural from 'plural-ru';
 import './style.css';
 
-function Controls({onShowCart, itemsCart, sumPrices}){
+function Controls({onShowCart, quantityUnicItemsCart, sumPricesInCart}){
   const cn = bem('Controls');
 
   return (
     <div className={cn()}>
       <div className={cn('cart')}>
         <div>В корзине:</div>
-        <div className={cn('sum')}>{itemsCart.length ? `${itemsCart.length} ${plural(itemsCart.length, 'товар', 'товара', 'товаров')} / ${sumPrices.toLocaleString()} ₽` : 'пусто'}</div>
+        <div className={cn('sum')}>{quantityUnicItemsCart ? `${quantityUnicItemsCart} ${plural(quantityUnicItemsCart, 'товар', 'товара', 'товаров')} / ${sumPricesInCart.toLocaleString()} ₽` : 'пусто'}</div>
       </div>
       <button onClick={onShowCart}>Перейти</button>
     </div>
@@ -20,13 +20,13 @@ function Controls({onShowCart, itemsCart, sumPrices}){
 
 Controls.propTypes = {
   onShowCart: propTypes.func.isRequired, // Обяхательное свойство - функция
-  itemsCart: propTypes.arrayOf(propTypes.object).isRequired,
-  sumPrices: propTypes.number.isRequired
+  quantityUnicItemsCart: propTypes.number.isRequired,
+  sumPricesInCart: propTypes.number.isRequired
 }
 
 Controls.defaultProps = {
-  itemsCart: [],
-  sumPrices: 0,
+  quantityUnicItemsCart: 0,
+  sumPricesInCart: 0,
   onShowCart: () => {} // Значение по умолчанию - функция-заглушка
 }
 

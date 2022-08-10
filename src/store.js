@@ -1,3 +1,5 @@
+import item from './components/item';
+
 class Store {
   constructor(initState) {
     // Состояние приложения (данные)
@@ -85,13 +87,16 @@ class Store {
           } else {
             return item;
           }
-        })
+        }),
+        total: this.state.total + amountNew * itemToAdd.price
       });
     } else {
       // если нет, то добавляем поле amount со значением 1
       this.setState({
         ...this.state,
-        shoppingCart: [...this.state.shoppingCart, {...itemToAdd, amount: 1}]
+        shoppingCart: [...this.state.shoppingCart, {...itemToAdd, amount: 1}],
+        numberOfUniqueItemsInCart: this.state.numberOfUniqueItemsInCart + 1,
+        total: this.state.total + itemToAdd.price
       });
     }
   }
@@ -100,7 +105,7 @@ class Store {
    * Возвращение количества уникальных товаров в корзине
    */
   getNumberOfUniqueItemsInCart() {
-    return this.state.shoppingCart.length;
+    return this.state.numberOfUniqueItemsInCart;
   }
 
   /**
@@ -108,9 +113,7 @@ class Store {
    */
 
   getTotalInCart() {
-    return this.state.shoppingCart
-      .map(item => item.price * item.amount)
-      .reduce((acc, curr) => acc + curr, 0);
+    return this.state.total;
   }
 
   /**
@@ -118,9 +121,14 @@ class Store {
    * @param code
    */
   removeItemFromCart(code) {
+    const itemToRemove = this.state.shoppingCart.find(
+      item => item.code === code
+    );
     this.setState({
       ...this.state,
-      shoppingCart: this.state.shoppingCart.filter(item => item.code !== code)
+      shoppingCart: this.state.shoppingCart.filter(item => item.code !== code),
+      numberOfUniqueItemsInCart: this.state.numberOfUniqueItemsInCart - 1,
+      total: this.state.total - itemToRemove.price * itemToRemove.amount
     });
   }
 }

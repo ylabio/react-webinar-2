@@ -1,21 +1,64 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import './style.css';
+import React, { useCallback } from "react";
+import propTypes from "prop-types";
+import "./style.css";
+import plural from "plural-ru";
+import { cn as bem } from "@bem-react/classname";
+import { countingTotalPriceAllItems } from "../../utils";
 
-function Controls({onAdd}){
+function Controls({ setIsOpenedModal, isMainContent, consolidationItems }) {
+  const cn = bem("Controls");
+  const amountOfItems = consolidationItems.length;
+  const totalPriceAllItems = countingTotalPriceAllItems(consolidationItems);
+  const callbacks = {
+    onClick: useCallback(() => {
+      setIsOpenedModal(true);
+    }, [setIsOpenedModal]),
+    onClose: useCallback(() => {
+      setIsOpenedModal(false);
+    }, [setIsOpenedModal]),
+  };
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className={isMainContent ? cn() : cn("background")}>
+      {isMainContent ? null : <h1>Корзина</h1>}
+      {isMainContent ? (
+        <div>
+          В корзине:{" "}
+          <span className={cn("totalPrice")}>
+            {amountOfItems
+              ? `${amountOfItems} ${plural(
+                  amountOfItems,
+                  "товар",
+                  "товара",
+                  "товаров"
+                )} / ${new Intl.NumberFormat("ru-RU").format(
+                  totalPriceAllItems
+                )} \u20BD`
+              : "пусто"}
+          </span>
+        </div>
+      ) : null}
+      {isMainContent ? (
+        <button className={cn("buttonMain")} onClick={callbacks.onClick}>
+          Перейти
+        </button>
+      ) : (
+        <button className={cn("button")} onClick={callbacks.onClose}>
+          Закрыть
+        </button>
+      )}
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
+  consolidationItems: propTypes.arrayOf(propTypes.object).isRequired,
+  isMainContent: propTypes.any,
+  setIsOpenedModal: propTypes.func.isRequired,
+};
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
-}
+  consolidationItems: [],
+  setIsOpenedModal: () => {},
+};
 
 export default React.memo(Controls);

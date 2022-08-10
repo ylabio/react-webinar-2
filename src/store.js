@@ -1,12 +1,12 @@
 class Store {
-
+  
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
     // Слушатели изменений state
     this.listeners = [];
   }
-
+  
   /**
    * Выбор state
    * @return {Object}
@@ -14,7 +14,7 @@ class Store {
   getState() {
     return this.state;
   }
-
+  
   /**
    * Установка state
    * @param newState {Object}
@@ -26,7 +26,7 @@ class Store {
       listener();
     }
   }
-
+  
   /**
    * Подписка на изменение state
    * @param callback {Function}
@@ -39,47 +39,62 @@ class Store {
       this.listeners = this.listeners.filter(item => item !== callback);
     }
   }
-
+  
   /**
-   * Создание записи
+   * Добавление товара в корзину
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
+  
+  addItemToCart({code, title, price}) {
+    const findItemIndex = this.state.cartItems.findIndex(item => item.code === code)
+    if (findItemIndex === -1) {
+      this.setState({
+        ...this.state,
+        cartItems: this.state.cartItems.concat({code: code, title: title, price: price, quantity: 1}),
+        totalUniqueCount: this.state.totalUniqueCount + 1,
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cartItems: this.state.cartItems.map(item => {
+          if (item.code === code) {
+            return {
+              ...item,
+              quantity: item.quantity + 1
+            }
+          } else {
+            return item
+          }
+        }),
+      })
+    }
+    this.calcTotalPrice()
   }
-
+  
+  
   /**
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
+  deleteCartItem(code){
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      cartItems: this.state.cartItems.filter(item => item.code !== code),
+      totalUniqueCount: this.state.totalUniqueCount - 1
     });
+    this.calcTotalPrice()
   }
-
+  
+  
   /**
-   * Выделение записи по её коду
-   * @param code
+   * Высчитывает итоговую сумму
    */
-  selectItem(code) {
+  calcTotalPrice(){
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+      totalPrice: this.state.cartItems.reduce((prev, item) => item.price * item.quantity + prev, 0)
+    })
   }
 }
+
 
 export default Store;

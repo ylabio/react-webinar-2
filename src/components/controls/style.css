@@ -4,3 +4,17 @@
     justify-content: flex-end;
     padding: 20px;
 }
+
+.Controls-text {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    margin-right: 15px;
+}
+
+.Controls-itemCount{
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    margin-right: 20px;
+}

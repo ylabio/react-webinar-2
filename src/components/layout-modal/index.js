@@ -11,11 +11,11 @@ function LayoutModal(props) {
       <div className={cn('frame')}>
         <div className={cn('head')}>
           {props.head} 
-            <div className={cn('head-button')}>
-              <button onClick={()=>props.changeModalVisible(false)}>
-                Закрыть
-              </button>
-            </div>
+          <div className={cn('head-button')}>
+            <button onClick={()=>props.changeModalVisible(false)}>
+              Закрыть
+            </button>
+          </div>
         </div>
         <div className={cn('content')}>
           {props.children}

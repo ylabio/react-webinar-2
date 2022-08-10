@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import Modal from "./components/modal";
 import Buy from "./components/buy";
 import List from "./components/list";
+import Cart from "./components/cart";
 import Layout from "./components/layout";
 
 /**
@@ -32,13 +33,13 @@ function App({ store }) {
         <List items={store.getState().items} itemClick={callbacks.onAddItem} />
       </Layout>
       {modal && (
-        <Modal
-          setModal={setModal}
-          buyState={store.getState().itemsBuy.sort((a, b) => a.code - b.code)}
-          allPrice={store.getState().allPrice}
-          itemClick={callbacks.onDeleteItems}
-          head={<h1>Корзина</h1>}
-        />
+        <Modal setModal={setModal} head={<h1>Корзина</h1>}>
+          <Cart
+            buyState={store.getState().itemsBuy.sort((a, b) => a.code - b.code)}
+            allPrice={store.getState().allPrice}
+            itemClick={callbacks.onDeleteItems}
+          />
+        </Modal>
       )}
     </>
   );

@@ -79,14 +79,14 @@ class Store {
    */
    removeFromCart(code) {
     const itemIndex = this.state.cart.findIndex(item => item.code === code);
-    const deltePrice = this.state.cart[itemIndex].price;
-    const deltaSum = this.state.cart[itemIndex].selectedTimes * deltePrice;
+    const deltaPrice = this.state.cart[itemIndex].price;
+    const deltaSum = this.state.cart[itemIndex].selectedTimes * deltaPrice;
     this.state.cart.splice(itemIndex, 1);
     const newCart = this.state.cart;
     this.setState({
       ...this.state,
       cart: newCart,
-      totals: { quantity: this.state.totals.quantity - 1, sum: this.state.totals.sum - deltePrice},
+      totals: { quantity: this.state.totals.quantity - 1, sum: this.state.totals.sum - deltaPrice},
       totalAmount: this.state.totalAmount - deltaSum,
     });
   }

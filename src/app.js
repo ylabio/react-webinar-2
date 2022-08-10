@@ -18,13 +18,12 @@ function App({store}) {
     }, []),
     onRemoveItem: useCallback((code) => {
       store.removeFromCart(code)
-    }, []),
+    }, [store.cart]),
     onShowCart: useCallback((e) => {
       e.stopPropagation();
       store.openModal();
     }, []),
-    hideCart: useCallback((e) => {
-      e.stopPropagation();
+    hideCart: useCallback(() => {
       store.closeModal();
     }, []),
   };
@@ -35,7 +34,7 @@ function App({store}) {
         <Controls cart={cart} totals={totals} onShowCart={callbacks.onShowCart}/>
         <List items={items} onItemAdd={callbacks.addToCart}/>
       </Layout>
-      {isModalOpen && <Modal cart={cart} totalAmount={totalAmount} onClose={callbacks.hideCart} onRemove={callbacks.onRemoveItem}/>}
+      {isModalOpen && <Modal cart={cart} totalAmount={totalAmount} totals={totals} onClose={callbacks.hideCart} onRemove={callbacks.onRemoveItem}/>}
     </>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-const BasketItem = ({ item, index }) => {
+const BasketItem = ({ item, index, removeItemToCart }) => {
   return (
     <div className="basket__item">
       <div className="basket__item_number">{index + 1}</div>

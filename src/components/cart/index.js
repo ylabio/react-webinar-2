@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import {getPriceOnRub} from '../../utils';
+import Total from '../total';
 import './style.css';
 
 function Cart({store, closePopup, children}) {
@@ -15,14 +15,7 @@ function Cart({store, closePopup, children}) {
         </button>
       </div>
       {children}
-      {store.allSumItemsInCart > 0 &&
-        <p className={cn('total')}>
-          Итого
-          <span className={cn('price')}>
-          {getPriceOnRub(store.allPriceItemsInCart)}
-          </span>
-        </p>
-      }
+      {store.sumItemsInCart > 0 && <Total totalPrice={store.allPriceItemsInCart}/>}
     </div>
   )
 }

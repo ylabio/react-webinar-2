@@ -27,15 +27,3 @@
   align-self: center;
   margin-right: 32px;
 }
-
-.Cart-total{
-  margin: 0;
-  padding: 26px 108px;
-  text-align: right;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.Cart-price{
-  padding-left: 49px;
-}

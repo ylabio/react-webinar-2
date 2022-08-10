@@ -8,7 +8,7 @@ class Store {
     // Сумма элементов в корзине
     this.state.allPriceItemsInCart = 0;
     // Количество уникальных товаров в корзине
-    this.state.allSumItemsInCart = 0;
+    this.state.sumItemsInCart = 0;
     // Слушатели изменений state
     this.listeners = [];
   }
@@ -62,7 +62,7 @@ class Store {
         // добавление суммы товара к общей сумме корзины
         allPriceItemsInCart: this.state.allPriceItemsInCart + addedItem.price,
         // добавление товара к количеству уникальных товаров в корзине
-        allSumItemsInCart: this.state.allSumItemsInCart + 1,
+        sumItemsInCart: this.state.sumItemsInCart + 1,
       })
     } else {
       this.setState({
@@ -89,7 +89,7 @@ class Store {
       // удаление суммы товара из общей суммы корзины
       allPriceItemsInCart: this.state.allPriceItemsInCart - (removeItem.price * removeItem.count),
       // удаление товара из общего количества уникальных товаров в корзине
-      allSumItemsInCart: this.state.allSumItemsInCart - 1,
+      sumItemsInCart: this.state.sumItemsInCart - 1,
     });
   }
 }

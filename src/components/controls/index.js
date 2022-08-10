@@ -12,8 +12,8 @@ function Controls({store, openPopup}){
       <p className={cn('cart')}>
         В корзине:
         <span className={cn('cart-info')}>
-          {store.allSumItemsInCart > 0 ?
-            getDataForControl(store.allSumItemsInCart, store.allPriceItemsInCart)
+          {store.sumItemsInCart > 0 ?
+            getDataForControl(store.sumItemsInCart, store.allPriceItemsInCart)
             :
             'пусто'
           }

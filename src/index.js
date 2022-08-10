@@ -16,6 +16,7 @@ const store = new Store({
   ],
   basket: [],
   totalBasketCost: '0',
+  uniqueGoodsCount: 0,
 });
 
 const root = createRoot(document.getElementById('root'));

@@ -64,6 +64,7 @@ class Store {
     });
 
     this.setTotalBasketCost(this.state.basket);
+    !isAvailable && this.setUniqueGoodsCount('increase');
   }
 
   /**
@@ -77,6 +78,7 @@ class Store {
     });
 
     this.setTotalBasketCost(this.state.basket);
+    this.setUniqueGoodsCount('decrease');
   }
 
   /**
@@ -90,6 +92,18 @@ class Store {
     const totalBasketCost = new Intl.NumberFormat('ru').format(totalCost);
 
     this.setState({ ...this.state, totalBasketCost });
+  }
+
+  /**
+   * Установка количества уникальных товаров в корзине
+   * @param actionType {string}
+   */
+  setUniqueGoodsCount(actionType) {
+    if (actionType === 'increase') {
+      this.setState({ ...this.state, uniqueGoodsCount: ++this.state.uniqueGoodsCount });
+    } else if (actionType === 'decrease') {
+      this.setState({ ...this.state, uniqueGoodsCount: --this.state.uniqueGoodsCount });
+    }
   }
 }
 

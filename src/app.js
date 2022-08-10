@@ -31,7 +31,7 @@ function App({ store }) {
     <>
       <Layout headerTitle="Магазин">
         <Controls
-          count={store.getState().basket.length}
+          count={store.getState().uniqueGoodsCount}
           total={store.getState().totalBasketCost}
           buttonTitle="Перейти"
           onClick={callbacks.onMoveToBasket}

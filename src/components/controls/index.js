@@ -5,7 +5,7 @@ import { currencyFormat } from '../../utils';
 import plural from 'plural-ru';
 import { cn as bem } from '@bem-react/classname';
 
-function Controls({cart: {totalPrice, totalAmount}, onPopupOpen}){
+function Controls({totalPrice, totalAmount, onPopupOpen}){
   const cn = bem('Controls');
   const modifiedCurrency = currencyFormat(totalPrice, 0);
 
@@ -19,12 +19,9 @@ function Controls({cart: {totalPrice, totalAmount}, onPopupOpen}){
 
 
 Controls.propTypes = {
-  cart:  propTypes.object.isRequired,
+  totalPrice: propTypes.number.isRequired,
+  totalAmount: propTypes.number.isRequired,
   onPopupOpen: propTypes.func.isRequired // Обяхательное свойство - функция
-}
-
-Controls.defaultProps = {
-  onPopupOpen: () => {} // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

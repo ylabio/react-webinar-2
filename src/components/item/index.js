@@ -41,8 +41,4 @@ Item.propTypes = {
   onAddToCart: propTypes.func.isRequired, 
 }
 
-Item.defaultProps = {
-  onAddToCart: () => {}
-}
-
 export default React.memo(Item);

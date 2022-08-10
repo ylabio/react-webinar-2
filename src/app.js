@@ -31,7 +31,8 @@ function App({store}) {
   return (
     <Layout head={<h1>Магазин</h1>}>
       <Controls
-        cart={store.getState().cart}
+        totalPrice={store.getState().cart.totalPrice}
+        totalAmount={store.getState().cart.totalAmount}
         onPopupOpen={callbacks.onPopupOpen}
       />
       <List

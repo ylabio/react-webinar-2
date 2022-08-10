@@ -23,12 +23,8 @@ function CartList({ cartItems, onDeleteItemsFromCart }) {
 }
 
 CartList.propTypes = {
-  cartItems: propTypes.array.isRequired,
-  onDelete: propTypes.func.isRequired,
-};
-
-CartList.defaultProps = {
-  onDelete: () => {},
+  cartItems: propTypes.arrayOf(propTypes.object).isRequired,
+  onDeleteItemsFromCart: propTypes.func.isRequired,
 };
 
 export default React.memo(CartList);

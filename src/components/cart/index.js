@@ -27,12 +27,9 @@ function Cart({ cartItems, onDeleteItemsFromCart, totalPrice }) {
 }
 
 Cart.propTypes = {
-  cartItems: propTypes.array.isRequired,
+  cartItems: propTypes.arrayOf(propTypes.object).isRequired,
   onDeleteItemsFromCart: propTypes.func.isRequired,
-};
-
-Cart.defaultProps = {
-  onDeleteItemsFromCart: () => {},
+  totalPrice: propTypes.number.isRequired,
 };
 
 export default React.memo(Cart);

@@ -23,12 +23,8 @@ function Popup({onClose, title, children}) {
 
 Popup.propTypes = {
   children: propTypes.object.isRequired,
-  title: propTypes.string,
-  onClose: propTypes.func
-}
-
-Popup.defaultProps = {
-  onClose: () => {}
+  title: propTypes.string.isRequired,
+  onClose: propTypes.func.isRequired,
 }
 
 export default React.memo(Popup);

@@ -1,0 +1,20 @@
+/*Итого в корзине*/
+.Total-total{
+    margin-top: 26px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    margin-right: 108px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.Total-empty{
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.Total-sum{
+    margin-left: 49px
+}

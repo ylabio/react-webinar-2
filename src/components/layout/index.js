@@ -21,9 +21,9 @@ function Layout({head, children}){
 Layout.propTypes = {
   head: propTypes.node,
   children: propTypes.node,
-}
+};
 
 Layout.defaultProps = {
-}
+};
 
 export default React.memo(Layout);

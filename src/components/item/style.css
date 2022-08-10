@@ -12,12 +12,34 @@
 .Item-title{
     width: 100%;
     padding: 20px 10px;
+    line-height: 18px;
+    font-size: 16px;
 }
 .Item-actions{
-    padding: 20px  20px 20px 10px;
+    padding: 20px  20px 20px 15px;
     display: flex;
     justify-content: flex-end;
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+
+}
+.Item-price{
+    width: 100%;
+    padding: 20px 10px;
+    text-align: end;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+.Item-quantity{
+    width: 20%;
+    padding: 20px 10px;
+    text-align: end;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
 }

@@ -75,7 +75,7 @@ class Store {
   }
 
   numOfGoods() {
-    return this.state.shoppingCart.map(item => item.quantity).reduce((acc, value) => acc + value, 0);
+    return [...new Set(this.state.shoppingCart)].length;
   }
 
   sumOfGoods() {

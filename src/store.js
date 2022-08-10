@@ -47,21 +47,20 @@ class Store {
    * @param code
    */
    addToCart(code) {
-    const hasInCart = this.state.cart.find(item => item.code === code);
-    if (!hasInCart) {
-      const item = this.state.items.find(item => item.code === code);
-      const newItem = {...item, selectedTimes: 1 };
-      this.state.totals.quantity = this.state.totals.quantity + 1;
-      this.state.totals.sum = this.state.totals.sum + item.price;
+    const itemInCart = this.state.cart.find(item => item.code === code);
+    if (!itemInCart) {
+      const itemInStore = this.state.items.find(item => item.code === code);
+      const newItem = {...itemInStore, selectedTimes: 1 };
       return this.setState({
           ...this.state,
           cart: [...this.state.cart, newItem],
-          totalAmount: this.state.totalAmount + item.price,
+          totals: { quantity: this.state.totals.quantity + 1, sum: this.state.totals.sum + newItem.price},
+          totalAmount: this.state.totalAmount + newItem.price,
         })
     } 
-    console.log(hasInCart)
     this.setState({
       ...this.state,
+      totalAmount: this.state.totalAmount + itemInCart.price,
       cart: this.state.cart.map(item => {
         if (item.code === code){
           return {
@@ -71,7 +70,6 @@ class Store {
         }
         return item;
       }),
-      totalAmount: this.state.totalAmount + hasInCart.price,
     })
    }
 
@@ -80,11 +78,17 @@ class Store {
    * @param code
    */
    removeFromCart(code) {
+    const itemIndex = this.state.cart.findIndex(item => item.code === code);
+    const deltePrice = this.state.cart[itemIndex].price;
+    const deltaSum = this.state.cart[itemIndex].selectedTimes * deltePrice;
+    this.state.cart.splice(itemIndex, 1);
+    const newCart = this.state.cart;
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter(item => item.code !== code)
+      cart: newCart,
+      totals: { quantity: this.state.totals.quantity - 1, sum: this.state.totals.sum - deltePrice},
+      totalAmount: this.state.totalAmount - deltaSum,
     });
-    console.log(this.state.cart)
   }
 
   /**

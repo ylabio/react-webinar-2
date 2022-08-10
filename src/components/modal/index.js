@@ -19,38 +19,37 @@ function Modal(props){
 
     return (
         <div className={cn()}>
-            <div>
-                <div className={cn('header')}>
-                    <h2>Корзина</h2>
-                    <button className={cn('button_close')} onClick={callbacks.onClose}>
-                        Закрыть
-                    </button>
-                </div>
-                {cart.length !== 0 && cart.map(({ code, title, price, selectedTimes}) =>
-                    <div key={code} className={cn('list')}>
-                        <div className={cn('item')}>
-                            <div className={cn('number')}>
-                                {code}
-                            </div>
-                            <div className={cn('title')}>
-                                {title}
-                            </div>
-                            <div className={cn('price')}>
-                                {price} ₽
-                            </div>
-                            <div className={cn('price')}>
-                                {selectedTimes} шт
-                            </div>
-                            <div className={cn('actions')}>
-                                <button className={cn('list_actions-button')} onClick={() => callbacks.onRemove(code)}>
-                                Удалить
-                                </button>
-                            </div>
-                        </div>
-                    </div>)}
-                    <div className={cn('total')}>
-                        Итого {totalAmount} ₽
+            <div className={cn('header')}>
+                <h2>Корзина</h2>
+                <button className={cn('button_close')} onClick={callbacks.onClose}>
+                    Закрыть
+                </button>
+            </div>
+            {cart.length !== 0 && cart.map(({ code, title, price, selectedTimes}) =>
+            <div key={code} className={cn('list')}>
+                <div className={cn('item')}>
+                    <div className={cn('number')}>
+                        {code}
                     </div>
+                    <div className={cn('title')}>
+                        {title}
+                    </div>
+                    <div className={cn('price')}>
+                        {price} ₽
+                    </div>
+                    <div className={cn('price')}>
+                        {selectedTimes} шт
+                    </div>
+                    <div className={cn('actions')}>
+                        <button className={cn('list_actions-button')} onClick={() => callbacks.onRemove(code)}>
+                            Удалить
+                        </button>
+                    </div>
+                </div>
+            </div>)}
+            <div className={cn('total')}>
+                Итого 
+                <span className={cn('amount')}>{totalAmount} ₽</span>
             </div>
         </div>
     )

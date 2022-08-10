@@ -1,5 +1,4 @@
 import React from "react";
-// import propTypes from "prop-types";
 import "./style.css";
 
 const BasketItem = ({ item, index }) => {
@@ -17,10 +16,5 @@ const BasketItem = ({ item, index }) => {
     </div>
   );
 };
-
-// BasketItem.propTypes = {
-//   index: propTypes.number.isRequired,
-//   item: propTypes.object.isRequired,
-// };
 
 export default React.memo(BasketItem);

@@ -1,5 +1,4 @@
 import React from "react";
-// import propTypes from "prop-types";
 import "./style.css";
 
 const BasketOverall = ({ overall }) => {
@@ -9,9 +8,5 @@ const BasketOverall = ({ overall }) => {
     </div>
   );
 };
-
-// BasketOverall.propTypes = {
-//   overall: propTypes.number.isRequired,
-// };
 
 export default React.memo(BasketOverall);

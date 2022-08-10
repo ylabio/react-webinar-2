@@ -3,6 +3,7 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Modal from "./components/modal";
+import BasketFinalPrice from "./components/basket-final-price";
 
 /**
  * Приложение
@@ -26,21 +27,33 @@ function App({ store }) {
   return (
     <Layout head={<h1>Магазин</h1>}>
       <Controls
-        basketItems={store.getState().basketItems}
-        basketUniqueItems={store.getState().basketUniqueItems}
+        amountOfUniqueGoodsInBasket={store.getState().amountOfUniqueGoodsInBasket}
+        totalPriceGoodsInBasket={store.getState().totalPriceGoodsInBasket}
         onModalTogge={callbacks.onModalTogge}
       />
       <List
         items={store.getState().items}
         addItemToBasket={callbacks.onAddItemToBasket}
       />
-      <Modal
-        items={store.getState().basketUniqueItems}
-        basketItems={store.getState().basketItems}
+      {store.getState().isModalActive && <Modal
+        head={'Корзина'}
+        amountOfUniqueGoodsInBasket={store.getState().amountOfUniqueGoodsInBasket}
         isModalActive={store.getState().isModalActive}
         onModalTogge={callbacks.onModalTogge}
-        onRemoveItemFromBasket={callbacks.onRemoveItemFromBasket}
-      />
+      >
+        <List
+          items={store.getState().basketItems}
+          basketItems={store.getState().basketItems}
+          totalPriceGoodsInBasket={store.getState().totalPriceGoodsInBasket}
+          isModalActive={store.getState().isModalActive}
+          onModalTogge={callbacks.onModalTogge}
+          onRemoveItemFromBasket={callbacks.onRemoveItemFromBasket}
+        ></List>
+        <BasketFinalPrice
+          totalPriceGoodsInBasket={store.getState().totalPriceGoodsInBasket}
+          amountOfUniqueGoodsInBasket={store.getState().amountOfUniqueGoodsInBasket}
+        />
+      </Modal>}
     </Layout>
   );
 }

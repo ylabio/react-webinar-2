@@ -1,0 +1,29 @@
+/* Общая цена корзины */
+.TotalPrice {
+  display: flex;
+  flex-grow: 1;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: right;
+  color: #000000;
+  margin-top: 26px;
+}
+
+.TotalPrice-text {
+  flex-grow: 1;
+  flex-basis: 68%;
+  text-align: right;
+  margin-right: 49px;
+}
+
+.TotalPrice-price {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.TotalPrice-emptyBasketMessage {
+  text-align: center;
+}

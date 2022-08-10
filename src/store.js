@@ -1,3 +1,5 @@
+import item from "./components/item";
+
 class Store {
 
   constructor(initState) {
@@ -65,14 +67,13 @@ class Store {
    * @param code
    */
   removeItemFromBasket(code) {
-
+    let item = this.state.basketItems.find(item => item.code === code);
     this.setState({
       ...this.state,
-      basketItems:
-        this.state.basketItems.filter(item => item.code !== code),
-      basketUniqueItems:
-        this.state.basketUniqueItems.filter(item => item.code !== code)
-    })
+      basketItems: this.state.basketItems.filter(item => item.code !== code),
+      amountOfUniqueGoodsInBasket: --this.state.amountOfUniqueGoodsInBasket,
+      totalPriceGoodsInBasket: this.state.totalPriceGoodsInBasket - (item.quantity * item.price)
+    });
   }
 
   /**
@@ -81,25 +82,40 @@ class Store {
    */
   addItemToBasket(code) {
 
+    // Находим товар
     let item = this.state.items.find(item => item.code === code);
-    let itemInBasket = this.state.basketUniqueItems.find(item => item.code === code);
+    // Проверяем наличие товара в корзине(ищем)
+    let itemInBasket = this.state.basketItems.find(item => item.code === code);
 
+    // Если товара нет в корзине
     if (itemInBasket === undefined) {
       this.setState({
         ...this.state,
         basketItems:
-          this.state.basketItems.concat(item),
-        basketUniqueItems:
-          this.state.basketUniqueItems.concat(item),
+          this.state.basketItems.concat({ code: item.code, title: item.title, price: item.price, quantity: 1 }),
+        amountOfUniqueGoodsInBasket: ++this.state.amountOfUniqueGoodsInBasket,
+        totalPriceGoodsInBasket: this.state.totalPriceGoodsInBasket + item.price,
       });
-    }
+    } // Если товар есть в корзине
     else if (itemInBasket !== undefined) {
+
+      // Находим индекс добавляемого товара в корзине
+      let indexItemToBasket = this.state.basketItems.findIndex(item => item.code === code);
+
+      let prevBasketUniqueItems = this.state.basketItems;
+
+      // Увеличиваем количество товара, вновь добавленного в корзину
+      prevBasketUniqueItems.splice(indexItemToBasket, 1, {
+        code: item.code,
+        title: item.title,
+        price: item.price,
+        quantity: ++prevBasketUniqueItems[indexItemToBasket].quantity
+      })
       this.setState({
         ...this.state,
-        basketItems:
-          this.state.basketItems.concat(item)
+        basketItems: prevBasketUniqueItems,
+        totalPriceGoodsInBasket: this.state.totalPriceGoodsInBasket + item.price,
       });
-
     }
   }
 }

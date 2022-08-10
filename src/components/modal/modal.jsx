@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import cls from 'modal.module.css'
-import Item from '../item';
+import { Cart } from './cart/cart';
 
 export const Modal = ({ onItemDeleteFromCart, totalPrice, cart, setOpenModal }) => {
 
-console.log('render')
+  console.log('render')
   return (
     <div className={cls.modal}>
       <div className={cls.modalContent}>
@@ -12,33 +12,11 @@ console.log('render')
           <span>Корзина</span>
           <button onClick={() => setOpenModal(false)} >Закрыть</button>
         </div>
-        {
-          cart.map(card => {
-            return (
-              <Item
-                key={card.code}
-                onItemDeleteFromCart={onItemDeleteFromCart}
-                item={card}
-                cart={true}
-              />)
-
-          })
-        }
-        <div className={cls.totalPriceContainer}>
-          <b>
-            Итого
-          </b>
-          <b>
-          {totalPrice.toLocaleString("ru-RU", {
-            style: "currency",
-            currency: "RUB",
-          })}
-          </b>
-        </div>
-
-
-
-
+        <Cart
+        onItemDeleteFromCart={onItemDeleteFromCart}
+        totalPrice={totalPrice}
+        cart={cart}
+        />
       </div>
     </div>
   )

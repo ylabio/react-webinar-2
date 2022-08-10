@@ -60,18 +60,18 @@ class Store {
         cart: [...this.state.cart, { ...test, count: 1 }],
       });
     } else {
-      this.state.cart.forEach((item) => {
-        if (item.code === id) {
-          item.count += 1
-          this.setState({
-            ...this.state,
-            cart: [...this.state.cart], 
-          });
-        }
-      });
+
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map(cartItem => {
+          if (cartItem.code === id) {
+            return { ...cartItem, count: cartItem.count + 1 }
+          } else return cartItem
+        })
+      })
     }
   }
-  
+
   deleteFromCart(code) {
     this.setState({
       ...this.state,

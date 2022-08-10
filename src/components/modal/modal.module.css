@@ -6,7 +6,7 @@
   bottom: 0;
   left: 0;
   z-index: 1000;
-  background: #e5e5e5;
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -17,6 +17,7 @@
 .modalContent {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
+  margin-top: 100px;
   width: 960px;
   min-height: 603px;
   background: #fff;

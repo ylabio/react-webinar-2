@@ -10,32 +10,22 @@ function Item(props) {
     onAddBucket: useCallback(() => {
       props.onAddBucket(props.item.code);
     }, [props.onAddBucket, props.item]),
-    onDeleteBucket: useCallback(() => {
-      props.onDeleteBucket(props.item.code);
-    }, [props.onDeleteBucket, props.item]),
   };
 
   return (
     <div className={cn()}>
-      <div className={cn('number')}>{props.num}</div>
-      <div className={cn('title')}>
-        <p> {props.item.title}</p>
-        <p className={cn('info')}>
-          {new Intl.NumberFormat('ru', {
-            style: 'currency',
-            currency: 'RUB',
-            minimumFractionDigits: 0
-          })
-          .format(props.item.price)}
+      <div className={cn('number')}>{props.item.code}</div>
+      <div className={cn('title')}>{props.item.title}</div>
 
-          {props.item.amount ? <p>{props.item.amount} шт</p> : null}
-        </p>
-      </div>
+      <p className={cn('info')}>
+        {new Intl.NumberFormat('ru', {
+          style: 'currency',
+          currency: 'RUB',
+          minimumFractionDigits: 0 }).format(props.item.price)}
+      </p>
+
       <div className={cn('actions')}>
-        <button
-          onClick={ props.item.amount ? callbacks.onDeleteBucket : callbacks.onAddBucket}>
-          {props.item.amount ? 'Удалить' : 'Добавить'}
-        </button>
+        <button onClick={callbacks.onAddBucket}>Добавить</button>
       </div>
     </div>
   );
@@ -43,21 +33,12 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func,
-  onDeleted: propTypes.func,
-
   onAddBucket: propTypes.func,
-  onDeleteBucket: propTypes.func,
-  num: propTypes.number,
 };
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {},
-
   onAddBucket: () => {},
-  onDeleteBucket: () => {},
-  num: 0,
+  item: {},
 };
 
 export default React.memo(Item);

@@ -81,21 +81,33 @@ class Store {
   }
 
   addBucket(code) {
-    const inBucket = this.state.bucket.map((item) => item.code);
+    const inBucket = this.state.bucket.bucketElements.map((item) => item.code);
 
     if (!inBucket.includes(code)) {
-      const [products] = this.state.items.filter((item) => item.code === code);
+      const [choosenItem] = this.state.items.filter(
+        (item) => item.code === code
+      );
       this.setState({
         ...this.state,
-        bucket: [...this.state.bucket, { ...products, amount: 1 }],
+        bucket: {
+          bucketElements: [
+            ...this.state.bucket.bucketElements,
+            { ...choosenItem, amount: 1 },
+          ],
+          totalPrice: this.state.bucket.totalPrice + choosenItem.price,
+          totalAmount: this.state.bucket.bucketElements.length + 1,
+        },
       });
     } else {
-      this.state.bucket.forEach((item) => {
+      this.state.bucket.bucketElements.forEach((item) => {
         if (item.code === code) {
           item.amount += 1;
           this.setState({
             ...this.state,
-            bucket: [...this.state.bucket],
+            bucket: {
+              ...this.state.bucket,
+              totalPrice: this.state.bucket.totalPrice + item.price,
+            },
           });
         }
       });
@@ -103,9 +115,20 @@ class Store {
   }
 
   deleteBucket(code) {
+    const deletedItem = this.state.bucket.bucketElements.find(
+      (item) => item.code === code
+    );
+
     this.setState({
       ...this.state,
-      bucket: this.state.bucket.filter((item) => item.code !== code),
+      bucket: {
+        bucketElements: [
+          ...this.state.bucket.bucketElements.filter((item) => item.code !== code),
+        ],
+        totalPrice:
+          this.state.bucket.totalPrice - deletedItem.price * deletedItem.amount,
+        totalAmount: this.state.bucket.bucketElements.length - 1,
+      },
     });
   }
 }

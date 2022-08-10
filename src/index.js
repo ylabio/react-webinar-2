@@ -6,7 +6,7 @@ import { counter } from './utils.js';
 
 const store = new Store({
   items: [
-    { code: counter(), title: 'Название товара', price: 100 },
+    { code: counter(), title: 'Название товара', price: 100.0 },
     { code: counter(), title: 'Книга про React', price: 770 },
     { code: counter(), title: 'Конфета', price: 33 },
     { code: counter(), title: 'Трактор', price: 7955320 },
@@ -14,10 +14,13 @@ const store = new Store({
     { code: counter(), title: 'Карандаши цветные', price: 111 },
     { code: counter(), title: 'Товар сюрприз', price: 0 },
   ],
-  bucket: [],
+  bucket: {
+    bucketElements: [],
+    totalPrice: 0,
+    totalAmount: 0,
+  },
 });
 
-console.log('store:', store.state);
 const root = createRoot(document.getElementById('root'));
 
 // Реакция на изменение store - повторный рендер приложения

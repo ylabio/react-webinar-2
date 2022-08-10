@@ -2,45 +2,41 @@ import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 import { cn as bem } from '@bem-react/classname';
-import List from '../list';
 
-function Modal({ closeModal, items, onItemDeleteBucket, totalPrice }) {
+function Modal({ setIsModalOpen, header, footer, children }) {
   const cn = bem('Modal');
+
+  const handleCloseModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
 
   return (
     <div className={cn()}>
       <div className={cn('content')}>
         <div className={cn('header')}>
-          <h2>Корзина</h2>
-          <button onClick={closeModal}>Закрыть</button>
+          {header}
+          <button onClick={handleCloseModal}>Закрыть</button>
         </div>
-        <List items={items} onItemDeleteBucket={onItemDeleteBucket} />
-        {items.length ? (
-          <div className={cn('total')}>
-            Итого:{new Intl.NumberFormat('ru', {
-              style: 'currency', 
-              currency: 'RUB',
-              minimumFractionDigits: 0})
-              .format(totalPrice)}
-          </div>
-        ) :<h1 className={cn('content')}></h1> }
+
+        <div className={cn('list')}>{children}</div>
+
+        <div className={cn('footer')}>{footer}</div>
       </div>
     </div>
   );
 }
 
 Modal.propTypes = {
-  items: propTypes.arrayOf(propTypes.object).isRequired,
-  closeModal: propTypes.func.isRequired,
+  setIsModalOpen: propTypes.func.isRequired,
   onItemDeleteBucket: propTypes.func,
-  totalPrice: propTypes.number,
+  children: propTypes.node,
+  header: propTypes.node,
+  footer: propTypes.node,
 };
 
 Modal.defaultProps = {
-  items: [],
-  closeModal: () => {},
+  setIsModalOpen: () => {},
   onItemDeleteBucket: () => {},
-  totalPrice: 0,
 };
 
 export default React.memo(Modal);

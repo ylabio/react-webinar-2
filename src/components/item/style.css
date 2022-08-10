@@ -3,15 +3,21 @@
     display: flex;
     justify-content: flex-start;
     transition: background-color 1s;
+    white-space: nowrap;
 }
-.Item_selected{
-    background: #75aaf1;
-}
-
-
 .Item-title{
     width: 100%;
     padding: 20px 10px;
+}
+.Item-price{
+    display: flex;
+    align-items: center;
+    padding-right: 14px;
+}
+.Item-amount{
+    display: flex;
+    align-items: center;
+    padding: 0 14px 0 41px;
 }
 .Item-actions{
     padding: 20px  20px 20px 10px;

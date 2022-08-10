@@ -3,13 +3,14 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import propTypes from "prop-types";
 
-function Layout({head, children}){
+function Layout({head, btn, className, children}){
   const cn = bem('Layout');
 
   return (
-    <div className={cn()}>
+    <div className={`${cn()} ${className}`}>
       <div className={cn('head')}>
         {head}
+        {btn}
       </div>
       <div className={cn('content')}>
         {children}
@@ -20,6 +21,8 @@ function Layout({head, children}){
 
 Layout.propTypes = {
   head: propTypes.node,
+  btn: propTypes.node,
+  className: propTypes.string,
   children: propTypes.node,
 }
 

@@ -3,6 +3,8 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import {counter} from "./utils";
+import Cart from './components/cart';
+import Popup from './components/popup';
 
 /**
  * Приложение
@@ -10,6 +12,8 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+
+  const { cart, totalPrice,  isOpenCart } = store.getState()
 
   const callbacks = {
     onAdd: useCallback(() => {
@@ -19,19 +23,38 @@ function App({store}) {
     onSelectItems: useCallback((code) => {
       store.selectItem(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    addToCart: useCallback((code) => {
+      store.addToCart(code);
+    }, []),
+    setOpenCart: useCallback((isOpenCart) => {
+      store.setOpenCart(isOpenCart);
+    }, []),
+    removeFromCart: useCallback((code) => {
+      store.removeFromCart(code);
     }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls setOpenCart={callbacks.setOpenCart}
+                  totalPrice={totalPrice}
+                  countOfItems={cart.length}
+        />
+        <List items={store.getState().items}
+              action={callbacks.addToCart}
+        />
+      </Layout>
+      { 
+        isOpenCart && <Popup close={() => callbacks.setOpenCart(false)}>
+          <Cart setOpenCart={callbacks.setOpenCart}
+              removeFromCart={callbacks.removeFromCart}
+              cart={cart}
+              totalPrice={totalPrice}
+          />
+        </Popup> 
+      }
+    </>
   );
 }
 

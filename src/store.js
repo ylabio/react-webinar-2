@@ -15,6 +15,10 @@ class Store {
     return this.state;
   }
 
+  _getTotalPrice() {
+    return this.state.cart.reduce((acc, cur) => acc + cur.price*cur.amount, 0)
+  }
+
   /**
    * Установка state
    * @param newState {Object}
@@ -41,45 +45,68 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Добавление товара в корзину
+   * @param code
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+   addToCart(code) {
+    // const items = this.state.items - для альтернативного варианта
+    const index = this.state.cart.findIndex(el => el.code === code)
+
+    if (index !== -1) {
+      let copyCart = this.state.cart.map((el, idx) => idx === index 
+      ? {...this.state.cart[idx], "amount": this.state.cart[idx]["amount"] + 1}
+      : el)
+
+      this.setState({
+        ...this.state,
+        cart: copyCart
+      });
+    } else {
+        this.setState({
+        ...this.state,
+        cart: this.state.cart.concat({...this.state.items.find(item => item.code === code), amount: 1 })
+      });
+      // Альтернативный вариант - получил данные не перебирая массив, но в реальности код товара - будет уникальный идентификатор, да и в целом полагаться на такой способ не надежно. Как вариант еще передавать цену и название вместе с кодом товара через пропсы. Или хранить весь список товаров в объекте с ключами id товара (как я сделал в предидущей реализации state items)
+      // this.setState({
+      //   ...this.state,
+      //   cart: this.state.cart.concat({
+      //     code, 
+      //     title: items[code - 1]["title"], 
+      //     price: items[code - 1]["price"], 
+      //     amount: 1
+      //   })
+      // });
+    } 
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      totalPrice: this._getTotalPrice()
     });
   }
 
-  /**
+   /**
+   * Удаление товара из корзины
+   * @param code
+   */
+    removeFromCart(code) {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.filter(item => item.code !== code)
+      });
+      this.setState({
+        ...this.state,
+        totalPrice: this._getTotalPrice()
+      });
+    }
+
+   /**
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
-  }
+    setOpenCart(isOpenCart) {
+      this.setState({
+        ...this.state, isOpenCart
+      });
+    }
 }
 
 export default Store;

@@ -13,7 +13,9 @@ const store = new Store({
     {code: counter(), title: 'Телефон iPhone XIXV', price: 120000},
     {code: counter(), title: 'Карандаши цветные', price: 111},
     {code: counter(), title: 'Товар сюрприз', price: 0},
-  ]
+  ],
+  cart: [],
+  totalPrice: 0,
 });
 
 const root = createRoot(document.getElementById('root'));
@@ -25,3 +27,8 @@ store.subscribe(() => {
 
 // Первый рендер (один раз)
 root.render(<App store={store}/>);
+
+/*
+  В объекте cart хранятся данные в формате
+  { ключ - code: значение - количество }
+*/

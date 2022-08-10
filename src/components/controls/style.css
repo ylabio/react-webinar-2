@@ -3,4 +3,22 @@
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+    color: #000000;
+}
+.Controls-text{
+    margin-right: 15px;
+}
+.Controls-data{
+    margin-right: 20px;
+    font-weight: 700;
+}
+.Controls-button{
+    display: flex;
+    justify-content: center;
+    width: 80px;
+    height: 21px;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+    color: #000000;
 }

@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import LayoutCart from './components/layout-cart';
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -11,27 +12,50 @@ import {counter} from "./utils";
  */
 function App({store}) {
 
+  // Состояние видимости попапа корзины
+  const [isCartVisible, setIsCartVisible] = useState(false);
+
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAddItemToCart: useCallback((code) => {
+      store.addItemToCart(code);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onDeleteItemsToCart: useCallback((code) => {
+      store.deleteItemFromCart(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    openPopup: useCallback(() => {
+      setIsCartVisible(true);
+    }, []),
+    closePopup: useCallback(() => {
+      setIsCartVisible(false);
     }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls store={store.getState()}
+                  openPopup={callbacks.openPopup}
+
+        />
+        <List items={store.getState().items}
+              buttonName='Добавить'
+              onItemClick={callbacks.onAddItemToCart}
+        />
+      </Layout>
+      {isCartVisible &&
+        <LayoutCart>
+          <Cart store={store.getState()}
+                closePopup={callbacks.closePopup}
+          >
+            <List items={store.getState().itemsInCart}
+                  isCart={true}
+                  buttonName='Удалить'
+                  onItemClick={callbacks.onDeleteItemsToCart}
+            />
+          </Cart>
+        </LayoutCart>
+      }
+    </>
   );
 }
 

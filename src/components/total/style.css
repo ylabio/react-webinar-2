@@ -1,0 +1,18 @@
+.Total{
+  display: flex;
+  justify-content: flex-end;
+  padding: 26px 108px;
+}
+
+.Total-text{
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.Total-price{
+  margin: 0;
+  padding-left: 49px;
+  font-size: 18px;
+  font-weight: 700;
+}

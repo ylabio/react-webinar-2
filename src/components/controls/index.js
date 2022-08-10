@@ -1,21 +1,32 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import {cn as bem} from "@bem-react/classname";
+import {getDataForControl} from '../../utils';
 import './style.css';
 
-function Controls({onAdd}){
+function Controls({store, openPopup}){
+  const cn = bem('Controls');
+
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className={cn()}>
+      <p className={cn('cart')}>
+        В корзине:
+        <span className={cn('cart-info')}>
+          {store.sumItemsInCart > 0 ?
+            getDataForControl(store.sumItemsInCart, store.allPriceItemsInCart)
+            :
+            'пусто'
+          }
+        </span>
+      </p>
+      <button onClick={openPopup}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
-
-Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  store: propTypes.object.isRequired,
+  openPopup: propTypes.func.isRequired
 }
 
 export default React.memo(Controls);

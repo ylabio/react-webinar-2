@@ -1,6 +1,5 @@
 .Modal {
-    visibility: hidden;
-    opacity: 0;
+    display: none;
 }
 
 .Modal-visible {
@@ -13,8 +12,6 @@
     background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
     display: flex;
-    visibility: visible;
-    opacity: 1;
     transition: all 0.3s linear;
 }
 
@@ -24,7 +21,8 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 10vh;
-    min-height: 603px;
+    min-height: 670px;
+    border-radius: 5px;
 }
 
 .Modal-header {

@@ -46,37 +46,45 @@ class Store {
   addToCart(item) {
     //Переменная, определяющая добавляем мы новый item или увеличиваем счетчик
     let adding = true
-
+console.log(item)
     this.setState({
       ...this.state, itemsInCart :
      this.state.itemsInCart.map(i => {
        if (i.code === item.code) {
          adding = false
+         console.log("1")
          return {...i, count: i.count + 1 }
        } else {
          return i
        }
-     })
+     }), totalPrice:
+           this.state.totalPrice + item.price
     })
 
     if (adding) {
+      console.log("2")
       this.setState({
         ...this.state, itemsInCart:
-            this.state.itemsInCart.concat({...item, count: 1})
+            this.state.itemsInCart.concat({...item, count: 1}),
+        totalCount: this.state.totalCount + 1, totalPrice: this.state.totalPrice
       })
     }
+    console.log("cnt", this.state.totalCount)
+    console.log("price", this.state.totalPrice)
   }
 
   /**
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(item) {
     this.setState({
       ...this.state, itemsInCart :
-          this.state.itemsInCart.filter(i => i.code !== code)
-
+          this.state.itemsInCart.filter(i => i.code !== item.code),
+      totalCount: this.state.totalCount - 1, totalPrice: this.state.totalPrice - item.price * item.count
     })
+    console.log(this.state.totalCount)
+    console.log(this.state.totalPrice)
   }
 
 

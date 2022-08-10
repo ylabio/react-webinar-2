@@ -31,12 +31,18 @@ function App({store}) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls onOpen={callbacks.onOpen} items={store.getState().itemsInCart}/>
+      <Controls 
+          onOpen={callbacks.onOpen} 
+          items={store.getState().itemsInCart} 
+          totalPrice={store.getState().totalPrice}
+          totalCount={store.getState().totalCount}
+      />
       <List items={store.getState().items}
             onAddItem={callbacks.onAddItems}
             
       />
-      <Modal isVisible={isModalVisible} 
+      <Modal isVisible={isModalVisible}
+             totalPrice={store.getState().totalPrice}
              listItems={store.getState().itemsInCart} 
              onClose={callbacks.onClose}
              onItemDelete={callbacks.onDeleteItems}

@@ -13,7 +13,7 @@ function Item(props) {
           setCount(props.item.count)
       }, [props]),
       onDelete: useCallback(() => {
-          props.onDelete(props.item.code)
+          props.onDelete(props.item)
           setCount(props.item.count)
       }, [props])
   }

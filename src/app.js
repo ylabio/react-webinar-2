@@ -41,8 +41,7 @@ function App({store}) {
       buttonText={'Перейти'}/>
       <List items={store.getState().items}
             onButton={callbacks.onAddToCart}
-            buttonText={'Добавить'}
-      />
+            buttonText={'Добавить'}/>
     </Layout>
   );
 }

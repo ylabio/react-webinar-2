@@ -1,10 +1,6 @@
-import React, {useCallback, useState} from 'react';
-// import propTypes from 'prop-types';
+import React from 'react';
+import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import Layout from "../layout";
-import Controls from "../controls";
-import List from "../list";
-import Item from "../item";
 import './style.css';
 
 function Modal(props) {
@@ -33,5 +29,14 @@ function Modal(props) {
   )
 }
 
+Modal.propTypes = {
+  head: propTypes.node.isRequired, 
+  setVisibility: propTypes.func.isRequired,
+  children: propTypes.node,
+}
+
+Modal.defaultProps = {
+  children: null,
+}
 
 export default React.memo(Modal);

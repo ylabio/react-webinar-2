@@ -32,15 +32,10 @@ function Item(props) {
   )
 }
 
-// Item.propTypes = {
-//   item: propTypes.object.isRequired,
-//   onSelect: propTypes.func.isRequired,
-//   onDeleted: propTypes.func.isRequired
-// }
-
-// Item.defaultProps = {
-//   onSelect: () => {},
-//   onDeleted: () => {}
-// }
+Item.propTypes = {
+  item: propTypes.object.isRequired,
+  onButton: propTypes.func.isRequired,
+  buttonText: propTypes.string.isRequired
+}
 
 export default React.memo(Item);

@@ -22,11 +22,10 @@ function Controls({controlsText, controlsData, onControlButton, buttonText}){
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
-
-Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  controlsText: propTypes.string.isRequired,
+  controlsData: propTypes.string.isRequired,
+  onControlButton: propTypes.func.isRequired,
+  buttonText: propTypes.string.isRequired
 }
 
 export default React.memo(Controls);

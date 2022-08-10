@@ -30,15 +30,15 @@ function List(props) {
 }
 
 List.propTypes = {
-  items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemSelect: propTypes.func,
-  onItemDelete: propTypes.func
+  items: propTypes.arrayOf(propTypes.object),
+  isCart: propTypes.bool,
+  onButton: propTypes.func.isRequired,
+  buttonText: propTypes.string.isRequired
 }
 
 List.defaultProps = {
   items: [],
-  onItemSelect: () => {},
-  onItemDelete: () => {}
+  isCart: false
 }
 
 export default React.memo(List);

@@ -1,5 +1,5 @@
-import React, {useCallback, useState} from 'react';
-// import propTypes from 'prop-types';
+import React from 'react';
+import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import List from "../list";
 import Modal from "../modal";
@@ -23,6 +23,18 @@ function Cart(props) {
       <div className={!props.cartInfo.itemsCount ? cn('emptyCartMessage') : cn('emptyCartMessage_hidden')}>В корзине пока ничего нет, но вы можете это исправить :)</div>
      </Modal>
   )
+}
+
+Cart.propTypes = {
+  head: propTypes.node.isRequired,
+  cart: propTypes.arrayOf(propTypes.object),
+  setVisibility: propTypes.object.isRequired,
+  onButton: propTypes.func.isRequired,
+  cartInfo: propTypes.object.isRequired
+}
+
+Cart.defaultProps = {
+  cart: [],
 }
 
 

@@ -6,7 +6,7 @@ import Basket from './components/basket';
 import Layout from './components/layout';
 import CatalogList from './components/catalog-list';
 import Modal from './components/modal';
-import CatalogModalContent from './components/catalog-modal-content';
+import BasketModalContent from "./components/basket-modal-content";
 import './app.css';
 
 /**
@@ -19,8 +19,8 @@ function App({ store }) {
   const cn = bem('Catalog');
 
   const cb = {
-    onAddToBasket: useCallback((product) => {
-      store.addToBasket(product);
+    onAddToBasket: useCallback((code) => {
+      store.addToBasket(code);
     }, []),
     onDeleteFromBasket: useCallback((code) => {
       store.removeFromBasket(code);
@@ -49,7 +49,7 @@ function App({ store }) {
         <CatalogList items={store.getState().items} onAddToBasket={cb.onAddToBasket} />
         <Modal head={<div>Корзина</div>} isOpen={modal.isOpen} onClose={cb.onModalClose}>
           {modal.type === 'basket' && (
-            <CatalogModalContent
+            <BasketModalContent
               basket={store.getState().basket}
               onBasketDelete={cb.onDeleteFromBasket}
             />

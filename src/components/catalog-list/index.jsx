@@ -9,10 +9,9 @@ const CatalogList = ({ items, onAddToBasket }) => {
         <Item
           item={item}
           key={item.code}
-          actionBtn={<button onClick={() => onAddToBasket(item)}>Добавить</button>}
+          actionBtn={<button onClick={() => onAddToBasket(item.code)}>Добавить</button>}
         />
       ))}
-      {/*<a href='#' style={{paddingLeft: '10px'}}>Любой тестовый элемент</a>*/}
     </List>
   );
 };

@@ -2,9 +2,9 @@ import './style.css';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import List from '../list';
-import Item from '../item';
+import BasketItem from "../basket-item";
 
-const CatalogModalContent = ({ basket, onBasketDelete }) => {
+const BasketModalContent = ({ basket, onBasketDelete }) => {
   const cn = bem('Catalog-modal-content');
 
   if (!basket.goods.length)
@@ -18,11 +18,12 @@ const CatalogModalContent = ({ basket, onBasketDelete }) => {
     <div className={cn()}>
       <List className={cn('list')}>
         {basket.goods.map((item) => (
-          <Item
+          <BasketItem
             item={item}
             key={item.code}
-            count={item.count}
-            actionBtn={<button onClick={() => onBasketDelete(item.code)}>Удалить</button>}
+            actionBtn={
+                <button onClick={() => onBasketDelete(item.code)}>Удалить</button>
+            }
           />
         ))}
       </List>
@@ -35,9 +36,9 @@ const CatalogModalContent = ({ basket, onBasketDelete }) => {
   );
 };
 
-CatalogModalContent.propTypes = {
+BasketModalContent.propTypes = {
   basket: propTypes.object.isRequired,
   onBasketDelete: propTypes.func.isRequired,
 };
 
-export default React.memo(CatalogModalContent);
+export default React.memo(BasketModalContent);

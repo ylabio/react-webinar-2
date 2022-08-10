@@ -4,7 +4,6 @@
   top: 0;
   z-index: 100;
   transition: all .2s cubic-bezier(.7, 0, .3, 1);
-  overflow: hidden;
 }
 
 .Modal-wrapper {
@@ -20,12 +19,12 @@
   z-index: 1000;
 }
 
-.Modal_is_closed {
+.Modal_fade_out {
   opacity: 0;
   z-index: -1;
 }
 
-.Modal_is_opened {
+.Modal_fade_in {
   opacity: 1;
 }
 

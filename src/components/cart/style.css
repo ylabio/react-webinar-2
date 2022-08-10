@@ -1,0 +1,18 @@
+.Cart {
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+  width: 83%;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.Cart-total {
+  margin-right: 50px;
+}
+
+.Cart-message {
+  font-size: 40px;
+  text-align: center;
+}

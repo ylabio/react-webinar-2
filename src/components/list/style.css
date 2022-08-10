@@ -1,11 +1,21 @@
-/*Список*/
-.List{
-
+/* Список */
+.List {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
 }
-.List-item{
-    border-bottom: 1px dashed #ccc;
-}
 
-.List-item:first-child{
+.List-item:first-child {
     border-top: 1px dashed #ccc;
+}
+
+.List-head {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.List-head>span {
+    font-weight: 700;
+    padding-left: 15px;
 }

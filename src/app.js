@@ -1,35 +1,46 @@
-import React, {useCallback} from 'react';
-import Controls from "./components/controls";
+import React, { useCallback, useState } from 'react';
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Modal from './components/modal';
+import Cart from './components/cart';
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+function App({ store }) {
+  const [modalActive, setModalActive] = useState(false);
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onDelete: useCallback((code) => {
+      store.deleteFromCart(code);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onAdd: useCallback((code) => {
+      store.addToCart(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
+    calcCost: useCallback(() => {
+      return store.calcCost();
+    }, [])
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+    <Layout head={<h1>Магазин</h1>}>
+      {modalActive &&
+        <Modal name={"Корзина"}
+          modalActive={modalActive}
+          setModalActive={setModalActive}
+          content={
+            <Cart calcCost={callbacks.calcCost}
+            cart={store.getState().cart}
+            onDelete={callbacks.onDelete} />
+          }/>}
+
       <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+        cart={store.getState().cart}
+        onAdd={callbacks.onAdd}
+        calcCost={callbacks.calcCost}
+        setModalActive={setModalActive}
       />
     </Layout>
   );

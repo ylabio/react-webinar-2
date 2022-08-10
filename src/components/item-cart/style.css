@@ -1,0 +1,34 @@
+/* Пункт товара */
+.Item-cart {
+  display: flex;
+  justify-content: flex-start;
+  transition: background-color 1s;
+  height: 60px;
+  align-items: center;
+}
+
+.Item-cart-title {
+  width: 100%;
+  padding: 0px 10px;
+}
+
+.Item-cart-actions {
+  padding: 0px 20px 0px 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Item-cart-number {
+  padding: 0px 10px 0px 20px;
+}
+
+.Item-cart-price {
+  font-size: 18px;
+  padding-right: 15px;
+}
+
+.Item-cart-count {
+  white-space: nowrap;
+  font-size: 18px;
+  padding: 0 8px 0 40px;
+}

@@ -1,9 +1,9 @@
 import React from 'react';
-import {cn as bem} from "@bem-react/classname";
+import { cn as bem } from "@bem-react/classname";
 import './style.css';
-import propTypes from "prop-types";
+import propTypes from 'prop-types';
 
-function Layout({head, children}){
+function Layout({ head, children }) {
   const cn = bem('Layout');
 
   return (
@@ -19,11 +19,8 @@ function Layout({head, children}){
 }
 
 Layout.propTypes = {
-  head: propTypes.node,
-  children: propTypes.node,
-}
-
-Layout.defaultProps = {
+  head: propTypes.node.isRequired,
+  children: propTypes.node.isRequired,
 }
 
 export default React.memo(Layout);

@@ -39,46 +39,38 @@ class Store {
       this.listeners = this.listeners.filter(item => item !== callback);
     }
   }
-
   /**
-   * Создание записи
+   * Добавления товара в корзину
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
+  addItemToCart(item) {
+    if (!this.state.itemsCart.length || !this.state.itemsCart.find(i => i.code === item.code)) {
+      this.setState({
+        ...this.state,
+        itemsCart: [...this.state.itemsCart, { ...item, count: 1 }],
+        sumItemsInCart: this.state.sumItemsInCart + item.price,
+        uniqueItemsInCart: this.state.uniqueItemsInCart + 1
       })
-    });
+    } else {
+      this.setState({
+        ...this.state,
+        itemsCart: this.state.itemsCart.map(itemCart => {
+          if (itemCart.code === item.code) {
+            return { ...itemCart, count: itemCart.count + 1 }
+          } else {
+            return itemCart;
+          }
+        }),
+        sumItemsInCart: this.state.sumItemsInCart + item.price,
+      })
+    }
+  }
+  removeItemToCart(item) {
+    this.setState({
+      ...this.state,
+      itemsCart: this.state.itemsCart.filter(itemCart => itemCart.code !== item.code),
+      sumItemsInCart: this.state.sumItemsInCart - item.price * (item.count),
+      uniqueItemsInCart: this.state.uniqueItemsInCart - 1
+    })
   }
 }
 

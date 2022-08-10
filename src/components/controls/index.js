@@ -1,21 +1,38 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
+import Button from '../button';
+import { cn as bem } from "@bem-react/classname";
+import plural from "plural-ru";
 
-function Controls({onAdd}){
+function Controls({ sum, count, onVisibleModal }) {
+  const cn = bem('Controls');
+
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className={cn()}>
+      <div className={cn('price')}>
+        В корзине: <span>
+          {count
+            ? `${count} ${plural(count, 'товар', 'товара', 'товаров')} / 
+            ${sum.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 })}`
+            : 'пусто'}
+        </span>
+      </div>
+      <Button onClick={onVisibleModal}>Перейти</Button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  sum: propTypes.number,
+  count: propTypes.number,
+  onVisibleModal: propTypes.func
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  sum: 0,
+  count: 0,
+  onVisibleModal: () => { }
 }
 
 export default React.memo(Controls);

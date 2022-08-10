@@ -1,6 +1,18 @@
 /* Контрол с общими действиями */
-.Controls{
+.Controls {
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
+    height: 63px;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.Controls-price {
+    padding-right: 25px;
+    font-size: 18px;
+}
+
+.Controls-price span {
+    padding-left: 10px;
+    font-weight: 700;
 }

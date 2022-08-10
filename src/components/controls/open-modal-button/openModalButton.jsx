@@ -1,4 +1,5 @@
 import React from 'react'
+import propTypes from 'prop-types';
 
 export const OpenModalButton = ({openModal,setOpenModal}) => {
   return (
@@ -9,4 +10,14 @@ export const OpenModalButton = ({openModal,setOpenModal}) => {
       }
     </div>
   )
+}
+OpenModalButton.propTypes = {
+  setOpenModal: propTypes.func.isRequired,
+  openModal: propTypes.func.isRequired,
+ 
+}
+
+OpenModalButton.defaultProps = {
+  setOpenModal: () => { },
+  openModal: () => { },
 }

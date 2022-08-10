@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import './style.css';
 import { Modal } from './../modal/modal';
 import plural from 'plural-ru'
-import { OpenModalButton } from './openModalButton/openModalButton';
+import { OpenModalButton } from './open-modal-button/openModalButton';
 
 function Controls({totalPrice, setOpenModal,openModal, cart}) {
 
@@ -31,12 +31,18 @@ function Controls({totalPrice, setOpenModal,openModal, cart}) {
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-
+  setOpenModal: propTypes.func.isRequired,
+  openModal: propTypes.func.isRequired,
+  totalPrice: propTypes.node,
+  cart: [],
 }
 
 Controls.defaultProps = {
-  onAdd: () => { } // Значение по умолчанию - функция-заглушка
+  onItemDeleteFromCart: () => { },
+  setOpenModal: () => { },
+  openModal: () => { },
+  cart:[]
 }
+
 
 export default React.memo(Controls);

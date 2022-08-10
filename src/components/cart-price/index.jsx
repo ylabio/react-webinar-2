@@ -30,4 +30,4 @@ CartPrice.propTypes = {
   cartPrice: propTypes.object.isRequired,
 };
 
-export default CartPrice;
+export default React.memo(CartPrice);

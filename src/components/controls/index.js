@@ -9,7 +9,7 @@ function Controls({ priceAndCount, showModal, allItems }) {
 
   return (
     <div className="Controls">
-      {priceAndCount.price !== 0 || priceAndCount.count !== 0 ? (
+      {priceAndCount.count > 0 ? (
         <span className={cn("price")}>
           В корзине:{" "}
           <strong className={cn("price-rub")}>

@@ -21,7 +21,7 @@ function Controls({ product, setModalStatus }) {
       <span className='Controls-info'>В корзине: {
         product.length === 0 ?
           <strong>пусто</strong> :
-          <strong>{product.length} {plural(totalSum, 'товара', 'товаров', 'товар', 'товара')} / {formatter.format(totalSum)}</strong>
+          <strong>{product.length} {plural(product.length, 'товар', 'товара', 'товаров',)} / {formatter.format(totalSum)}</strong>
       }</span>
       <button className='Controls-button' onClick={() => setModalStatus()}>Перейти</button>
     </div>

@@ -1,37 +1,58 @@
-import React, {useCallback} from 'react';
-import Controls from "./components/controls";
+import React, { Fragment, useCallback, useState } from 'react';
+import InfoBasket from "./components/InfoBasket";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Basket from './components/basket';
+import { counter, TotalSum } from "./utils";
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+function App({ store }) {
+  console.log('store');
 
   const callbacks = {
     onAdd: useCallback(() => {
       const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+      store.createItem({ code, title: `Новая запись ${code}` });
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    // onSelectItems: useCallback((code) => {
+    //   store.selectItem(code);
+    // }, []),
+    onAddBasket: useCallback((code) => {
+      store.addItem(code);
     }, []),
     onDeleteItems: useCallback((code) => {
       store.deleteItem(code);
     }, []),
   }
 
+
+  const [modal, setModal] = useState(false);
+
+
+  const totalPricaAndProduct = store.state.basket.length > 0 ? TotalSum(store.state.basket) : "пусто";
+
+
+
+
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <Fragment>
+      <Layout head={<h1>Магазин</h1>} >
+        <InfoBasket modalVal={modal} setModal={setModal} tPaP={totalPricaAndProduct} />
+        <List items={store.getState().items}
+          onAddBasket={callbacks.onAddBasket}
+        />
+      </Layout>
+      <Basket head={<h2>Корзина</h2>} modalVal={modal} setModal={setModal} tPaP={totalPricaAndProduct}>
+        <List items={store.getState().basket}
+          onItemDelete={callbacks.onDeleteItems}
+          reUse={true}
+        />
+      </Basket>
+    </Fragment>
   );
 }
 

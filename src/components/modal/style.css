@@ -65,11 +65,11 @@
 }
 .Modal-total{
     font-weight: bold;
-    padding: 20px  60px 20px 10px;
+    padding: 20px  15% 20px 10px;
     display: flex;
     justify-content: flex-end;
     margin: auto 0;
 }
 .Modal-amount{
-    margin-left: 40px;
+    margin-left: 5%;
 }

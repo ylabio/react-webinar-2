@@ -19,22 +19,23 @@ function App({store}) {
     onRemoveItem: useCallback((code) => {
       store.removeFromCart(code)
     }, []),
-    onShowCart: useCallback(() => {
+    onShowCart: useCallback((e) => {
+      e.stopPropagation();
       store.openModal();
     }, []),
-    hideCart: useCallback(() => {
+    hideCart: useCallback((e) => {
+      e.stopPropagation();
       store.closeModal();
     }, []),
   };
 
   return (
     <>
-    {!isModalOpen &&
-      <Layout isModalOpen={isModalOpen} head={<h1>Магазин</h1>}>
+      <Layout isModalOpen={isModalOpen} head={<h1>Магазин</h1>} onClick={callbacks.hideCart}>
         <Controls cart={cart} totals={totals} onShowCart={callbacks.onShowCart}/>
         <List items={items} onItemAdd={callbacks.addToCart}/>
-      </Layout>}
-    {isModalOpen && <Modal cart={cart} totalAmount={totalAmount} onClose={callbacks.hideCart} onRemove={callbacks.onRemoveItem}/>}
+      </Layout>
+      {isModalOpen && <Modal cart={cart} totalAmount={totalAmount} onClose={callbacks.hideCart} onRemove={callbacks.onRemoveItem}/>}
     </>
   );
 }

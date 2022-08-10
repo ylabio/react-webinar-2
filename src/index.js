@@ -1,7 +1,6 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
 import App from './app.js';
-import basket from './components/basket/index.js';
 import Store from "./store.js";
 import {counter} from './utils.js';
 

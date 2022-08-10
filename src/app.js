@@ -34,13 +34,15 @@ function App({store}) {
               <Basket
                   items={store.getState().userProducts}
                   onItemDelete={callbacks.onDeleteItems}
+                  sumPrice={store.getSumPrice()}
+                  numberOfPositions={store.getNumberOfPositions()}
               />
           </Popup>
       ) }
       <Controls
           onBasketPopupShow={() => setIsBasketPopupShown(true)}
-          sumPrice={getSumPrice(store.getState().userProducts)}
-          numberOfPositions={store.getState().userProducts.length}
+          sumPrice={store.getSumPrice()}
+          numberOfPositions={store.getNumberOfPositions()}
       />
       <List
           items={store.getState().items}

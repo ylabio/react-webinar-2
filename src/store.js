@@ -1,3 +1,4 @@
+import {getSumPrice} from "./utils";
 
 class Store {
 
@@ -76,6 +77,14 @@ class Store {
           })
         : this.state.userProducts.concat([{...item, quantity: count}])
     });
+  }
+
+  getSumPrice() {
+    return getSumPrice(this.state.userProducts);
+  }
+
+  getNumberOfPositions () {
+   return this.state.userProducts.length
   }
 }
 

@@ -58,6 +58,7 @@ class Store {
         newCart = [...cart];
     }
     this.setState({...this.state , cart: newCart})
+    this.setActualCost();
   }
 
   /**
@@ -69,6 +70,18 @@ class Store {
       ...this.state,
       cart: this.state.cart.filter(item => item.code !== code)
     });
+    this.setActualCost();
+  }
+
+  /**
+   * Обновление суммы товара в корзине
+   */
+  setActualCost(){
+    let cost = 0;
+    this.state.cart.forEach((item) => {
+      cost += item.count * item.price;
+    })
+    this.setState({...this.state , cartCost: cost});
   }
 }
 

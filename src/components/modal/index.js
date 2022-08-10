@@ -4,9 +4,8 @@ import {cn as bem} from "@bem-react/classname";
 import propTypes from 'prop-types';
 import "style.css"
 import List from "../list";
-import { getFullCostOfCart } from "../../utils";
 
-function Modal ({changeShowModal ,btnTxt ,onItemAction ,items }) {
+function Modal ({changeShowModal ,btnTxt ,onItemAction ,items , cartCost}) {
     const cn = bem('Modal');
 
     return (
@@ -24,7 +23,7 @@ function Modal ({changeShowModal ,btnTxt ,onItemAction ,items }) {
                    }
                    <div className={cn('footer')}>
                     <p>Итого</p>
-                    <p>{getFullCostOfCart(items).toLocaleString('ru-RU') + " ₽"}</p>
+                    <p>{cartCost.toLocaleString('ru-RU') + " ₽"}</p>
                    </div>
                 </Layout>
             </div>

@@ -1,0 +1,8 @@
+.basket__overall {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2.75rem;
+  margin-right: 7rem;
+  margin-block: 1.5rem;
+  font-weight: bold;
+}

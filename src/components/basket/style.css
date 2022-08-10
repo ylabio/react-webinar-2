@@ -6,69 +6,6 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
-.basket__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 80px;
-  margin-bottom: 4.375rem;
-  padding-inline: 2rem;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  background-color: #f5f5f5;
-}
-
-.basket__header h2 {
-  font-size: 2rem;
-}
-
-.basket__item {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px dashed #ccc;
-}
-
-.basket__item:first-child {
-  border-top: 1px dashed #ccc;
-}
-
-.basket__item_title {
-  width: 100%;
-  padding: 20px 10px;
-}
-
-.basket__item_price {
-  display: flex;
-  width: 100%;
-  justify-content: flex-end;
-  margin-right: 0.875rem;
-}
-
-.basket__item_actions {
-  padding: 20px 20px 20px 10px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.basket__item_number {
-  padding: 20px 10px 20px 20px;
-}
-
-.basket__item_quantity {
-  width: 20%;
-  margin-inline: 2rem 0.75rem;
-  text-align: center;
-}
-
-.basket__overall {
-  display: flex;
-  justify-content: flex-end;
-  gap: 2.75rem;
-  margin-right: 7rem;
-  margin-block: 1.5rem;
-  font-weight: bold;
-}
-
 .modal-cover {
   position: fixed;
   inset: 0;

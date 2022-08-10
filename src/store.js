@@ -41,13 +41,30 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Добавление товара в корзину
+   * @param code
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  pushItemToCart(code) {
+    const cart = [...this.state.cart];
+    let newCart = [];
+    if(cart.find((item) => item.code === code)){
+      newCart = cart.map((item) => {
+        if(item.code === code){
+          return {...item , count: ++item.count}
+        } return item;
+        })
+    }else{
+        cart.push({...this.state.items.find((item) => item.code === code) , count: 1})
+        newCart = [...cart];
+        this.setState({
+          ...this.state ,
+          goodsAmount: ++this.state.goodsAmount
+        })
+    }
     this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
+      ...this.state ,
+      cart: newCart})
+    this.setActualCost();
   }
 
   /**
@@ -57,28 +74,21 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code),
+      goodsAmount: --this.state.goodsAmount
     });
+    this.setActualCost();
   }
 
   /**
-   * Выделение записи по её коду
-   * @param code
+   * Обновление суммы товара в корзине
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+  setActualCost(){
+    let cost = 0;
+    this.state.cart.forEach((item) => {
+      cost += item.count * item.price;
+    })
+    this.setState({...this.state , cartCost: cost});
   }
 }
 

@@ -13,11 +13,30 @@
     width: 100%;
     padding: 20px 10px;
 }
+
+.Item-info{
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    font-size: 18px;
+}
+
+.Item-info-item{
+    white-space: nowrap
+}
+
+.Item-info-item:last-child{
+    margin-left: 55px;
+}
+
 .Item-actions{
     padding: 20px  20px 20px 10px;
     display: flex;
     justify-content: flex-end;
 }
+
 .Item-number{
     padding: 20px 10px 20px 20px;
 }
+
+

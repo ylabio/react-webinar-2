@@ -55,7 +55,7 @@ class Store {
           cart: {
             ...this.state.cart,
             items: this.state.cart.items.concat({ ...item, quantity: 1 }),
-            totalAmount: this.state.cart.totalAmount += item.price,
+            totalAmount: this.state.cart.totalAmount + item.price,
             uniqueItems: this.state.cart.uniqueItems + 1 // Для того, чтобы компонент не высчитывал cart.length, а получал истинное значение из store
           }
         })
@@ -68,7 +68,7 @@ class Store {
               ? { ...product, quantity: product.quantity + 1 }
               : product
           ),
-          totalAmount: this.state.cart.totalAmount += item.price,
+          totalAmount: this.state.cart.totalAmount + item.price,
           }
         });
   }
@@ -85,7 +85,7 @@ class Store {
       cart: {
         ...this.state.cart,
         items: this.state.cart.items.filter((product) => product.code !== code),
-        totalAmount: this.state.cart.totalAmount -= item.price * item.quantity,
+        totalAmount: this.state.cart.totalAmount - item.price * item.quantity,
         uniqueItems: this.state.cart.uniqueItems - 1
       }
     });

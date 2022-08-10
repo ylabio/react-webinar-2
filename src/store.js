@@ -1,5 +1,5 @@
+// @ts-nocheck
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -36,48 +36,55 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
+  }
+
+  addItemsToBasket(obj) {
+    const findItemInBasket = this.state.basket.items.find(
+      (item) => item.code === obj.code
+    );
+
+    const totalPrice = this.state.basket.totalPrice + obj.price;
+
+    if (findItemInBasket) {
+      this.setState({
+        ...this.state,
+        basket: {
+          items: this.state.basket.items.map((item) => {
+            if (item.code === obj.code) {
+              return {
+                ...item,
+                amount: item.amount + 1,
+              };
+            }
+            return item;
+          }),
+          totalPrice,
+        },
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        basket: {
+          items: this.state.basket.items.concat({ ...obj, amount: 1 }),
+          totalPrice,
+        },
+      });
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
+  deleteItemsFromBasket(obj) {
+    const totalPrice = this.state.basket.items.reduce((sum, item) => {
+      return sum + (item.code === obj.code ? 0 : item.price * item.amount);
+    }, 0);
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      basket: {
+        items: this.state.basket.items.filter((item) => item.code !== obj.code),
+        totalPrice,
+      },
     });
   }
 }

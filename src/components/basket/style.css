@@ -1,0 +1,55 @@
+/*Список*/
+.Basket-item {
+   border-bottom: 1px dashed #ccc;
+}
+
+.Basket-item:first-child {
+   border-top: 1px dashed #ccc;
+}
+
+.Basket-modal {
+   background-color: #fff;
+   max-width: 960px;
+   min-height: 603px;
+   margin: auto;
+   margin-top: 211px;
+   border-radius: 7px;
+}
+
+.Basket-head {
+   height: 80px;
+   padding: 0 20px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   background-color: #F5F5F5;
+   margin-bottom: 74px;
+   border-top-left-radius: 7px;
+   border-top-right-radius: 7px;
+}
+
+.Basket-head button {
+   width: 76px;
+}
+
+.Basket-total h3 {
+   margin: 0;
+   margin-left: 49px;
+}
+
+.Basket-total {
+   display: flex;
+   justify-content: flex-end;
+   padding: 26px 108px  26px 26px;
+}
+
+.Basket-closeModal {
+   margin-right: 12px;
+}
+
+.Basket-isEmpty {
+   text-align: center;
+}
+
+
+

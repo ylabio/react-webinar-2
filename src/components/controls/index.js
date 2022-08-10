@@ -1,21 +1,37 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import './style.css';
+import React from "react";
+import propTypes from "prop-types";
+import "./style.css";
+import plural from "plural-ru";
 
-function Controls({onAdd}){
+function Controls({ getModal, amountBasketItems, totalPrice }) {
+  const price = totalPrice.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
+
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className="Controls">
+      <div> В корзине:</div>
+      <div>
+        <b>
+          {amountBasketItems
+            ? `${amountBasketItems} ${plural(
+                amountBasketItems,
+                "товар",
+                "товара",
+                "товаров"
+              )} / ${price} ₽`
+            : "пусто"}
+        </b>
+      </div>
+      <button className="openCart" onClick={() => getModal(true)}>
+        Перейти
+      </button>
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
-
-Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
-}
+  getModal: propTypes.func.isRequired,
+  amountBasketItems: propTypes.number.isRequired,
+  totalPrice: propTypes.number.isRequired,
+};
 
 export default React.memo(Controls);

@@ -1,37 +1,58 @@
-import React, {useCallback} from 'react';
+// @ts-nocheck
+import React, { useCallback } from "react";
+
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Basket from "./components/basket";
+import Modal from "./components/modal";
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+
+function App({ store }) {
+  const [activeBasketModal, setActiveBasketModal] = React.useState(false);
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    getModal: useCallback((useModal) => {
+      setActiveBasketModal(useModal);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    addItemsToBasket: useCallback((obj) => {
+      store.addItemsToBasket(obj);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    deleteItemsFromBasket: useCallback((obj) => {
+      store.deleteItemsFromBasket(obj);
     }, []),
-  }
+  };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <React.Fragment>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls
+          totalPrice={store.state.basket.totalPrice}
+          amountBasketItems={store.state.basket.items.length}
+          getModal={callbacks.getModal}
+        />
+        <List
+          addItemsToBasket={callbacks.addItemsToBasket}
+          items={store.getState().items}
+        />
+      </Layout>
+
+      {activeBasketModal && (
+        <Modal>
+          <Basket
+            totalPrice={store.state.basket.totalPrice}
+            basketItems={store.state.basket.items}
+            deleteItemsFromBasket={callbacks.deleteItemsFromBasket}
+            getModal={callbacks.getModal}
+          />
+        </Modal>
+      )}
+    </React.Fragment>
   );
 }
 

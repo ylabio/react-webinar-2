@@ -13,8 +13,11 @@ const store = new Store({
     {code: counter(), title: 'Телефон iPhone XIXV', price: 120000},
     {code: counter(), title: 'Карандаши цветные', price: 111},
     {code: counter(), title: 'Товар сюрприз', price: 0},
-  ]
+  ],
+  basket: {},
+  showBasketModal: false,
 });
+
 
 const root = createRoot(document.getElementById('root'));
 

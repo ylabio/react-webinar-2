@@ -1,5 +1,5 @@
 /* Пункт списка */
-.Item{
+.Item {
     display: flex;
     justify-content: flex-start;
     transition: background-color 1s;
@@ -20,4 +20,17 @@
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+
+.Item-price{
+    padding: 20px 10px 20px 20px;
+    /* width: 150px; */
+    display: flex;
+    justify-content: flex-end;
+}
+.Item-count{
+    padding: 20px 10px 20px 20px;
+    /* width: 150px; */
+    display: flex;
+    justify-content: flex-end;
 }

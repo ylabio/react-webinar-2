@@ -7,6 +7,12 @@ class Store {
     this.listeners = [];
   }
 
+  toggleBasketModal() {
+    this.setState({
+      ...this.state,
+      showBasketModal: !this.state.showBasketModal
+    })
+  }
   /**
    * Выбор state
    * @return {Object}
@@ -50,36 +56,34 @@ class Store {
     });
   }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
   deleteItem(code) {
+    delete this.state.basket[code]
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+    })
+  }
+
+
+  /**
+   * добавление  записи по её коду в корзину
+   * @param code
+   */
+  putItemToBasket(code) {
+    if(this.state.basket[code] != undefined) {
+      this.state.basket[code] = this.state.basket[code] + 1
+    } else {
+      this.state.basket[code] = 1
+    }
+    this.setState({
+      ...this.state,
     });
   }
+
 
   /**
    * Выделение записи по её коду
    * @param code
    */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
-  }
 }
 
 export default Store;

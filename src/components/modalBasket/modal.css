@@ -1,0 +1,77 @@
+.modal {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.modal.active{
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal_content {
+    padding: 10px;
+    border-radius: 12px;
+    background-color: white;
+    height: 60%;
+    width: 65%;
+    transform: scale(0.5);
+    transition: 0.4s all;
+}
+
+.modal_content.active {
+    transform: scale(1);
+}
+
+.scrollable {
+    height: 70%;
+    overflow: auto;
+    margin: 20px;
+    text-align: justify;
+}
+.button {
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 15px;
+        text-align: center;
+        margin-right: 50px;
+}
+.count {
+display: flex;
+justify-content: flex-end;
+margin: 26px 100px 50px 0;
+font-weight: 700;
+font-size: 18px;
+padding-bottom: 40px;
+}
+.text {
+margin-right: 25px;
+}
+.item{
+    border-bottom: 1px dashed #ccc;
+}
+
+.item:first-child{
+    border-top: 1px dashed #ccc;
+}
+.head{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    height: 80px;
+    background: #f5f5f5;
+    margin-bottom: 60px;
+}
+.head h1{
+    margin: 0;
+    padding: 20px 20px 10px;
+}

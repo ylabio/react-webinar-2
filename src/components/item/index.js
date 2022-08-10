@@ -23,7 +23,7 @@ function Item(props) {
     }, [props.onSelect, props.item, setCount, count]),
 
     onDelete: useCallback(() => {
-      props.onDelete(props.item.code, props.item.price);
+      props.onDelete(props.item.code, props.item.price, props.item.count);
     }, [props.onDelete, props.item]),
     onAddItem: useCallback(() => {
       props.onAddItem(props.item.code, props.item.title, props.item.price);
@@ -47,7 +47,7 @@ function Item(props) {
         <button
           onClick={() =>
             props.btnTitle === 'Удалить'
-              ? callbacks.onDelete(props.item.code, props.item.price)
+              ? callbacks.onDelete(props.item.code, props.item.price, props.item.count)
               : callbacks.onAddItem(props.item.code, props.item.title, props.item.price)
           }>
           {props.btnTitle}

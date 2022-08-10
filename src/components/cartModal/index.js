@@ -17,11 +17,14 @@ function CartModal({ totalPrice, onCloseCart, cartItems, onItemDelete }) {
           </div>
         }
         className='cart'>
+        {!cartItems.length && <p style={{ textAlign: 'center' }}>В корзине ничего нет</p>}
         <List items={cartItems} onItemDelete={onItemDelete} btnTitle='Удалить' />
-        <span className={cn('total')}>
-          <b>Итого</b>
-          <b>{totalPrice}</b>
-        </span>
+        {cartItems.length > 0 && (
+          <span className={cn('total')}>
+            <b>Итого</b>
+            <b>{totalPrice}</b>
+          </span>
+        )}
       </Layout>
     </div>
   );

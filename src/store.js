@@ -55,10 +55,10 @@ class Store {
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code, price) {
+  deleteItem(code, price, count) {
     this.setState({
       ...this.state,
-      totalPrice: this.state.totalPrice - price,
+      totalPrice: this.state.totalPrice - price * count,
       cart: this.state.cart.filter((item) => item.code !== code),
     });
   }
@@ -87,7 +87,6 @@ class Store {
       this.setState({
         ...this.state,
         totalPrice: this.state.totalPrice + price,
-        totalCount: this.state.totalCount + 1,
         cart: this.state.cart.map((item) => {
           if (item.code === code) {
             return {
@@ -100,7 +99,6 @@ class Store {
       });
     } else {
       this.state.totalPrice = this.state.totalPrice + price;
-      this.state.totalCount = this.state.totalCount + 1;
       this.setState({
         ...this.state,
         cart: this.state.cart.concat({ code, title, price, count: 1 }),

@@ -35,8 +35,8 @@ function App({ store }) {
     onSelectItems: useCallback((code) => {
       store.selectItem(code);
     }, []),
-    onDeleteItems: useCallback((code, price) => {
-      store.deleteItem(code, price);
+    onDeleteItems: useCallback((code, price, count) => {
+      store.deleteItem(code, price, count);
     }, []),
   };
 

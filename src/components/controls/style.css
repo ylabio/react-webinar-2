@@ -1,6 +1,15 @@
 /* Контрол с общими действиями */
-.Controls{
+.Controls {
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
+    align-items: center;
+    height: 60px;
+}
+
+.Controls-title-default {
+    margin-right: 12px;
+}
+
+.Controls-button {
+    margin: 0 21px 0 24px;
 }

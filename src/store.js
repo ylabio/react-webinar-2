@@ -41,45 +41,59 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Добавление товара в корзину
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
+  addItem(code, title, price) {
+   let itemFind = false       // перееменная результата поиска item
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map(item => {
+          if (item.code === code) {
+            itemFind = true
+            return {code, title, price, count: ++item.count}
+          } else {
+            return item
+          }
+        })
+      })
+    if (!itemFind) {  // если item был найден itemFind блокирует добавление одинакового товара
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.concat({code, title, price, count: 1})
+      })
+    }
+    this.setState({ //  считает общие показатели корзины
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
+      cartParams: {
+        ...this.state.cartParams,
+        totalQuantity: !itemFind  ? ++this.state.cartParams.totalQuantity : this.state.cartParams.totalQuantity,
+        totalPrice: this.state.cart.reduce((sum, prod) => sum + prod.price * prod.count, 0),
+      }
+    })
   }
 
-  /**
-   * Удаление записи по её коду
+  /**`
+   * Удаление товара из корзины
    * @param code
    */
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
+      cart: this.state.cart.filter(item => item.code !== code),
+      cartParams: {
+        ...this.state.cartParams,
+        totalQuantity: --this.state.cartParams.totalQuantity,
+      }
+    })
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+      cartParams: {
+        ...this.state.cartParams,
+        totalPrice: this.state.cart.reduce((sum, prod) => sum + prod.price * prod.count, 0),
+      }
+    })
   }
+
 }
 
 export default Store;

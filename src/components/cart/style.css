@@ -1,0 +1,36 @@
+/*Список*/
+.Cart {
+
+}
+
+.Cart-item-cart {
+    border-bottom: 1px dashed #ccc;
+}
+
+.Cart-item-cart:first-child {
+    border-top: 1px dashed #ccc;
+}
+
+.Cart-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    font-weight: bold;
+    margin: 26px 120px 0 0;
+}
+
+.Cart-total {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Cart-price {
+    display: flex;
+    justify-content: flex-end;
+    width: 13%;
+}
+
+.Cart-title-empty {
+    display: flex;
+    justify-content: center;
+}

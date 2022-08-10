@@ -1,0 +1,36 @@
+/* Пункт списка */
+.ItemCart{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 60px;
+}
+
+.ItemCart-number{
+    margin-left: 20px;
+}
+
+.ItemCart-title{
+    width: 100%;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+}
+.ItemCart-price{
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 20px;
+    color: #404040;
+}
+.ItemCart-count{
+    width: 20%;
+    display: flex;
+    justify-content: flex-end;
+    color: #404040;
+}
+
+
+.ItemCart-button{
+    margin: 0 21px 0 24px;
+}

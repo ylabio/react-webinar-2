@@ -1,0 +1,40 @@
+.Modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Modal-content {
+    width: 960px;
+    height: 600px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.Modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    background-color: #F5F5F5;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 30px;
+}
+
+.Modal-title {
+    margin: 0 0 0 20px;
+}
+
+.Modal-button {
+    margin-right: 30px;
+}
+
+.Modal-body {
+    border-radius: 0 0 10px 10px;
+}

@@ -13,11 +13,10 @@ export const OpenModalButton = ({openModal,setOpenModal}) => {
 }
 OpenModalButton.propTypes = {
   setOpenModal: propTypes.func.isRequired,
-  openModal: propTypes.func.isRequired,
+  openModal: propTypes.bool,
  
 }
 
 OpenModalButton.defaultProps = {
   setOpenModal: () => { },
-  openModal: () => { },
 }

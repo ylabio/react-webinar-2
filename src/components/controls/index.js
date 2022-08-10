@@ -32,7 +32,7 @@ function Controls({totalPrice,productsCount, setOpenModal,openModal}) {
 
 Controls.propTypes = {
   setOpenModal: propTypes.func.isRequired,
-  openModal: propTypes.func.isRequired,
+  openModal: propTypes.bool,
   totalPrice: propTypes.node,
   productsCount: propTypes.node,
 }
@@ -40,7 +40,6 @@ Controls.propTypes = {
 Controls.defaultProps = {
   onItemDeleteFromCart: () => { },
   setOpenModal: () => { },
-  openModal: () => { },
 }
 
 

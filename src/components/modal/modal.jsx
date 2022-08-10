@@ -26,11 +26,9 @@ Modal.propTypes = {
   onItemDeleteFromCart: propTypes.func.isRequired,
   setOpenModal: propTypes.func.isRequired,
   totalPrice: propTypes.node,
-  cart: [],
 }
 
 Modal.defaultProps = {
   onItemDeleteFromCart: () => { },
   setOpenModal: () => { },
-  cart:[]
 }

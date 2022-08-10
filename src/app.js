@@ -3,6 +3,7 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Modal from "./components/modal";
+import ListBasket from "./components/list-basket";
 
 /**
  * Приложение
@@ -37,7 +38,12 @@ function App({ store, calculationSumPrice }) {
           onCloseModal={callbacks.onCloseModal}
           onDeleteOfBasket={callbacks.onDeleteOfBasket}
           calculationSumPrice={calculationSumPrice}
-        />
+        >
+          <ListBasket 
+            stateBasket={store.getState().basket} 
+            onDeleteOfBasket={callbacks.onDeleteOfBasket} 
+            calculationSumPrice={calculationSumPrice}/>
+        </Modal>
       ) : (
         ""
       )}

@@ -2,7 +2,6 @@ import React from "react";
 import "./style.css";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
-import ListBasket from "../list-basket";
 
 function Modal(props) {
   const cn = bem("Modal");
@@ -14,7 +13,7 @@ function Modal(props) {
             <h1 className={cn("title")}>{props.title}</h1>
             <button onClick={props.onCloseModal} className={cn("button")}>{props.buttonName}</button>
         </div>
-         <ListBasket stateBasket={props.stateBasket} onDeleteOfBasket={props.onDeleteOfBasket} calculationSumPrice={props.calculationSumPrice}/>
+         {props.children}
       </div>
     </div>
   );

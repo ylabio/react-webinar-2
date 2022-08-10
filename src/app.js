@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
-import Controls from "./components/controls";
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
+import CartList from "./components/cart-list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Controls from "./components/controls";
+import Modal from "./components/modal";
 
 /**
  * Приложение
@@ -11,25 +12,43 @@ import {counter} from "./utils";
  */
 function App({store}) {
 
+  // Открытие модалки
+  const [modal, setModal] = useState(false);
+
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    handleShowModal: useCallback(() => {
+      setModal(!modal);
+    }, [setModal, modal]),
+    onItemAdd: useCallback((code) => {
+      store.addToCart(code);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onItemDelete: useCallback((code) => {
+      store.deleteFromCart(code);
     }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+    <Layout head={<h1>Магазин</h1>}>
+      {modal && <Modal
+        title={'Корзина'}
+        handleShowModal={callbacks.handleShowModal}
+      >
+        {store.getState().cartItems.length ?
+          <CartList
+            cart={store.getState().cartItems}
+            onItemDelete={callbacks.onItemDelete}
+            sumInCart={store.getState().sumTotal}
+          /> :
+          <p className={'Modal-empty'}>В корзине пока пусто</p>
+        }
+      </Modal>}
+      <Controls
+        handleShowModal={callbacks.handleShowModal}
+        sumInCart={store.getState().sumTotal}
+        amountUnique={store.getState().amountUnique}
+      />
       <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+            onItemAdd={callbacks.onItemAdd}
       />
     </Layout>
   );

@@ -3,4 +3,9 @@
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+    align-items: center;
+    column-gap: 20px;
+}
+.Controls-cart-info{
+    font-weight: bold;
 }

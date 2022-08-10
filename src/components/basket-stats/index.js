@@ -5,9 +5,9 @@ import './style.css';
 function BasketStats(props){
   return (
     <div className='Basket-stats'>
-      {props.stats.goods
+      {props.goods
         ?
-          'Итого\t\t' + props.stats.price.toLocaleString('ru-RU') + ' ₽'
+          'Итого\t\t' + props.price.toLocaleString('ru-RU') + ' ₽'
         :
           'Нет товаров в корзине!'
       }
@@ -16,11 +16,13 @@ function BasketStats(props){
 };
 
 BasketStats.propTypes = {
-  stats: propTypes.object.isRequired
+  goods: propTypes.number,
+  price: propTypes.number
 }
 
 BasketStats.defaultProps = {
-  
+  goods: 0,
+  price: 0
 }
 
 export default React.memo(BasketStats);

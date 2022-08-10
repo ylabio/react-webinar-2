@@ -43,7 +43,8 @@ function App({store}) {
       <Layout head={<h1>Магазин</h1>}>
         <Controls
           onButtonClick={callbacks.onShowBasket}
-          stats={store.getState().stats}
+          goods={store.getState().goods}
+          price={store.getState().price}
         />
         <List items={store.getState().items}
               buttonsAction={callbacks.onAddItemToBasket}
@@ -59,7 +60,10 @@ function App({store}) {
                     buttonsAction={callbacks.onRemoveItemFromBasket}
                     buttonsLabel="Удалить"
               />
-              <BasketStats stats={store.getState().stats} />
+              <BasketStats
+                goods={store.getState().goods}
+                price={store.getState().price}
+              />
             </Layout>
           </Modal>
         :null

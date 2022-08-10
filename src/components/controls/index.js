@@ -11,11 +11,11 @@ function Controls(props){
     <div className={cn()}>
       <div className={cn('label')}>В корзине:{'\t'}
         <b> {
-          props.stats.goods
+          props.goods
             ?
-            props.stats.goods + ' ' +
-              plural(props.stats.goods, 'товар', 'товара', 'товаров') +
-              ' / ' + props.stats.price.toLocaleString('ru-RU') + ' ₽'
+            props.goods + ' ' +
+              plural(props.goods, 'товар', 'товара', 'товаров') +
+              ' / ' + props.price.toLocaleString('ru-RU') + ' ₽'
             :
               'пусто'
         } </b>
@@ -27,11 +27,14 @@ function Controls(props){
 
 Controls.propTypes = {
   onButtonClick: propTypes.func.isRequired, // Обязательное свойство - функция
-  stats: propTypes.object.isRequired
+  goods: propTypes.number,
+  price: propTypes.number
 }
 
 Controls.defaultProps = {
-  onButtonClick: () => {} // Значение по умолчанию - функция-заглушка
+  onButtonClick: () => {}, // Значение по умолчанию - функция-заглушка
+  goods: 0,
+  price: 0
 }
 
 export default React.memo(Controls);

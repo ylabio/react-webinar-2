@@ -89,7 +89,7 @@ class Store {
           if (item.code === code) {
             return {
               ...item,
-              count: ++item.count,
+              count: item.count + 1,
             }
           }
           return item;
@@ -104,7 +104,11 @@ class Store {
         })
       });
     };
-    this.updateBasketStats();
+    this.setState({
+      ...this.state,
+      goods: this.getBasketGoods(),
+      price: this.getBasketPrice()
+    });
   }
 
   /**
@@ -116,30 +120,31 @@ class Store {
       ...this.state,
       basket: this.state.basket.filter(item => item.code !== code)
     });
-    this.updateBasketStats();
+    this.setState({
+      ...this.state,
+      goods: this.getBasketGoods(),
+      price: this.getBasketPrice()
+    });
   }
 
   /**
-   * Обновить количество и стоимость всех товаров в корзине
+   * Получить количество категорий товаров в корзине
+   * @return number
    */
-  updateBasketStats() {
+  getBasketGoods() {
+    return this.state.basket.length;
+  }
+
+  /**
+   * Узнмть стоимость всех товаров в корзине
+   * @return number
+   */
+  getBasketPrice() {
     let price = 0;
     this.state.basket.forEach(item => {
       price += item.price * item.count;
     });
-
-    // Если ничего не поменялось то не обновляем состяние
-    if (this.state.stats.goods == this.state.basket.length &&
-        this.state.stats.price == price)
-        return;
-
-    this.setState({
-      ...this.state,
-      stats: {
-        goods: this.state.basket.length,
-        price
-      }
-    });
+    return price;
   }
 
 }

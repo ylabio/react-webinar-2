@@ -1,20 +1,10 @@
-import React, { useCallback } from "react";
+import React from "react";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
 function Item(props) {
   const cn = bem("Item");
-
-  const callbacks = {
-    onAddItem: useCallback(
-      (e) => {
-        e.stopPropagation();
-        props.onAddItem(props.item.code);
-      },
-      [props.onAddItem, props.item]
-    ),
-  };
 
   return (
     <div className={cn()}>
@@ -29,7 +19,7 @@ function Item(props) {
         </div>
       </div>
       <div className={cn("actions")}>
-        <button onClick={callbacks.onAddItem}>Добавить</button>
+        <button onClick={() => props.onAdd(props.item.code)}>Добавить</button>
       </div>
     </div>
   );

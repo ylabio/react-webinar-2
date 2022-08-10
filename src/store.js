@@ -55,13 +55,13 @@ class Store {
    */
 
   addCartItem(code) {
-    const inCart = this.state.cart.map((item) => item.code);
+    const inCart = this.getState().cart.map((item) => item.code);
     const currentItem = this.getState().items.find(
       (item) => item.code === code
     );
-    let cartItem = this.state.cart.map((item) => item.code);
+    let cartItem = this.getState().cart.map((item) => item.code);
     if (currentItem.code === code) {
-      cartItem = this.state.cart.map((item) => {
+      cartItem = this.getState().cart.map((item) => {
         if (item.code !== currentItem.code) {
           return item;
         } else {
@@ -74,22 +74,16 @@ class Store {
       if (!inCart.includes(code)) {
         cartItem.push({ ...currentItem, amount: 1 });
       }
-      this.setState({
-        ...this.state,
-        cart: cartItem,
-      });
-    }
-    if (this.state.cart.length > 0) {
-      const totalPrice = this.state.cart.reduce((prev, curr) => {
+      const totalPrice = cartItem.reduce((prev, curr) => {
         return prev + curr.price * curr.amount;
       }, 0);
-      const totalCount = this.state.cart.reduce((prev, curr) => {
+      const totalCount = cartItem.reduce((prev, curr) => {
         return prev + curr.amount;
       }, 0);
       this.setState({
         ...this.state,
+        cart: cartItem,
         totalCartPriceAndCount: {
-          ...this.state.totalCartPriceAndCount,
           price: totalPrice,
           count: totalCount,
         },
@@ -101,36 +95,22 @@ class Store {
    * Удаление записи из корзину по её коду
    * @param code
    */
+
   deleteFromCart(code) {
+    const target = this.getState().cart.find((item) => item.code === code);
+    const totalPrice =
+      this.getState().totalCartPriceAndCount.price -
+      target.price * target.amount;
+    const totalCount =
+      this.getState().totalCartPriceAndCount.count - target.amount;
     this.setState({
       ...this.state,
       cart: this.state.cart.filter((item) => item.code !== code),
+      totalCartPriceAndCount: {
+        price: totalPrice,
+        count: totalCount,
+      },
     });
-    if (this.state.cart.length > 0) {
-      const totalPrice = this.state.cart.reduce((prev, curr) => {
-        return prev + curr.price * curr.amount;
-      }, 0);
-      const totalCount = this.state.cart.reduce((prev, curr) => {
-        return prev + curr.amount;
-      }, 0);
-      this.setState({
-        ...this.state,
-        totalCartPriceAndCount: {
-          ...this.state.totalCartPriceAndCount,
-          price: totalPrice,
-          count: totalCount,
-        },
-      });
-    } else {
-      this.setState({
-        ...this.state,
-        totalCartPriceAndCount: {
-          ...this.state.totalCartPriceAndCount,
-          price: 0,
-          count: 0,
-        },
-      });
-    }
   }
 }
 

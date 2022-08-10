@@ -11,7 +11,8 @@ function List(props) {
     <div className={cn()}>
       {props.items.map((item) => (
         <div key={item.code} className={cn("item")}>
-          <Item item={item} onAddItem={props.onAddItem} />
+          {/*<Item item={item} onAddItem={props.onAddItem} />*/}
+          {props.renderItem(item)}
         </div>
       ))}
     </div>

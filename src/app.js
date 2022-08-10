@@ -4,9 +4,8 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import { counter } from "./utils";
 import Modal from "./components/modal";
-import CartPrice from "./components/cart-price";
-import CartList from "./components/cart-list";
-import ModalHeader from "./components/modal-header";
+import Item from "./components/item";
+import CartItem from "./components/cart-item";
 
 /**
  * Приложение
@@ -16,9 +15,9 @@ import ModalHeader from "./components/modal-header";
 function App({ store }) {
   const [modalIsActive, setModalIsActive] = useState(false);
 
-  const showModal = () => {
+  const showModal = useCallback(() => {
     setModalIsActive(!modalIsActive);
-  };
+  }, [modalIsActive]);
   const callbacks = {
     onAdd: useCallback(() => {
       const code = counter();
@@ -32,6 +31,21 @@ function App({ store }) {
     }, []),
   };
 
+  const renders = {
+    renderItem: useCallback(
+      (item) => {
+        return <Item item={item} onAdd={callbacks.onAddItem} />;
+      },
+      [callbacks.onAddItem]
+    ),
+    renderCartItem: useCallback(
+      (item) => {
+        return <CartItem item={item} onDeleteItem={callbacks.onDeleteItem} />;
+      },
+      [callbacks.onAddItem]
+    ),
+  };
+
   return (
     <>
       <Layout head={<h1>Магазин</h1>}>
@@ -42,8 +56,8 @@ function App({ store }) {
           onAdd={callbacks.onAdd}
         />
         <List
+          renderItem={renders.renderItem}
           items={store.getState().items}
-          onAddItem={callbacks.onAddItem}
           cartPrice={store.getState().totalCartPriceAndCount}
         />
       </Layout>
@@ -53,9 +67,9 @@ function App({ store }) {
           modalName="Корзина"
           cartPrice={store.state.totalCartPriceAndCount}
         >
-          <CartList
-            cart={store.getState().cart}
-            onDeleteItem={callbacks.onDeleteItem}
+          <List
+            renderItem={renders.renderCartItem}
+            items={store.getState().cart}
           />
         </Modal>
       )}

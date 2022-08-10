@@ -8,7 +8,7 @@ const ModalHeader = ({ modalName, showModal }) => {
   return (
     <div className={cn("content-header")}>
       <h2>{modalName}</h2>
-      <button onClick={() => showModal()}>Закрыть</button>
+      <button onClick={showModal}>Закрыть</button>
     </div>
   );
 };

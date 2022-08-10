@@ -4,18 +4,18 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
 /**
- * Элемент списка товаров
+ * Элемент списка товаров корзины
  * @param props Передаваемые пропсы
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function Item(props) {
-  const cn = bem('Item');
+function CartItem(props) {
+  const cn = bem('CartItem');
 
   const callbacks = {
     onClick: useCallback((event) => {
       event.stopPropagation();
-      props.onAddItemToCart(props.item.code);
-    }, [props.onAddItemToCart, props.item]),
+      props.onDeleteCartItem(props.item.code);
+    }, [props.onDeleteCartItem, props.item]),
 
   };
 
@@ -37,18 +37,19 @@ function Item(props) {
       }
       <div className={cn('actions')}>
         <button className={cn('btn')} onClick={callbacks.onClick}>
-          Добавить
+          Удалить
         </button>
       </div>
     </div>
   )
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: propTypes.object.isRequired,
-  onAddItemToCart: propTypes.func.isRequired,
+  onDeleteCartItem: propTypes.func.isRequired,
 }
 
-Item.defaultProps = {}
+CartItem.defaultProps = {
+}
 
-export default React.memo(Item);
+export default React.memo(CartItem);

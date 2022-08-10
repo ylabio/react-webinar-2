@@ -2,6 +2,10 @@ import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
+import Modal from "./components/modal";
+import Cart from "./components/cart";
+import Item from "./components/item";
+import CartItem from "./components/cart-item";
 import {counter} from "./utils";
 
 /**
@@ -16,8 +20,17 @@ function App({store}) {
       const code = counter();
       store.createItem({code, title: `Новая запись ${code}`});
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onOpenModal: useCallback(() => {
+      store.openModal();
+    }, []),
+    onCloseModal: useCallback(() => {
+      store.closeModal();
+    }, []),
+    onAddItemToCart: useCallback((code) => {
+      store.addItemToCart(code);
+    }, []),
+    onDeleteCartItem: useCallback((code) => {
+      store.deleteCartItem(code);
     }, []),
     onDeleteItems: useCallback((code) => {
       store.deleteItem(code);
@@ -25,12 +38,28 @@ function App({store}) {
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls onOpenCart={callbacks.onOpenModal}
+                cartItems={store.getState().cartItems}
+                cartItemsAmount={store.getState().cartItemsAmount}
+                cartTotalPrice={store.getState().cartTotalPrice}
       />
+      <List items={store.getState().items}
+            onAddItemToCart={callbacks.onAddItemToCart}
+            component={Item}
+      />
+      {store.getState().isOpen &&
+        <Modal onCloseModal={callbacks.onCloseModal}
+               title='Корзина'
+        >
+          <Cart cartItems={store.getState().cartItems}
+                onDeleteCartItem={callbacks.onDeleteCartItem}
+                cartTotalPrice={store.getState().cartTotalPrice}
+                component={CartItem}
+          />
+        </Modal>
+      }
+
     </Layout>
   );
 }

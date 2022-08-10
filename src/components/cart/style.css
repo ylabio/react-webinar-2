@@ -1,0 +1,12 @@
+.Cart-total {
+  height: 70px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 100px;
+  font-weight: bold;
+}
+
+.Cart-total-title {
+  margin-right: 40px;
+}

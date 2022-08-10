@@ -1,21 +1,31 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import './style.css';
+import plural from 'plural-ru'
+import propTypes from 'prop-types'
+import React from 'react'
+import { formatRubPrice } from '../../utils'
+import './style.css'
 
-function Controls({onAdd}){
+function Controls({ onOpenCart, cart }) {
   return (
     <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+      <span>В корзине:</span>
+      <strong>
+        {cart.count === 0
+          ? 'Пусто'
+          : `${cart.count} ${plural(
+              cart.count,
+              'товар',
+              'товара',
+              'товаров'
+            )} / ${formatRubPrice(cart.price)}`}
+      </strong>
+      <button onClick={onOpenCart}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  onOpenCart: propTypes.func.isRequired,
+  cart: propTypes.object.isRequired
 }
 
-Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
-}
-
-export default React.memo(Controls);
+export default React.memo(Controls)

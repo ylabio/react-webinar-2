@@ -1,10 +1,11 @@
-class Store {
+import { CART_POPUP } from './constants'
 
+class Store {
   constructor(initState) {
     // Состояние приложения (данные)
-    this.state = initState;
+    this.state = initState
     // Слушатели изменений state
-    this.listeners = [];
+    this.listeners = []
   }
 
   /**
@@ -12,7 +13,7 @@ class Store {
    * @return {Object}
    */
   getState() {
-    return this.state;
+    return this.state
   }
 
   /**
@@ -20,10 +21,10 @@ class Store {
    * @param newState {Object}
    */
   setState(newState) {
-    this.state = newState;
+    this.state = newState
     // Оповещаем всех подписчиков об изменении стейта
     for (const listener of this.listeners) {
-      listener();
+      listener()
     }
   }
 
@@ -33,21 +34,21 @@ class Store {
    * @return {Function} Функция для отписки
    */
   subscribe(callback) {
-    this.listeners.push(callback);
+    this.listeners.push(callback)
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
+      this.listeners = this.listeners.filter(item => item !== callback)
     }
   }
 
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  createItem({ code, title = 'Новый товар', price = 999, selected = false }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
+      items: this.state.items.concat({ code, title, price, selected })
+    })
   }
 
   /**
@@ -55,31 +56,48 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const deletedItem = this.state.cart.items.find(i => i.code === code)
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
+      cart: {
+        ...this.state.cart,
+        items: this.state.cart.items.filter(i => i.code !== code),
+        count: this.state.cart.count - 1,
+        price: this.state.cart.price - deletedItem.count * deletedItem.price
+      }
+    })
   }
 
   /**
-   * Выделение записи по её коду
-   * @param code
+   * Добавление товара в корзину
+   * @param item
    */
-  selectItem(code) {
+  addInCart(item) {
+    let foundItem = this.state.cart.items.find(i => i.code === item.code)
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+      cart: {
+        items: foundItem
+          ? this.state.cart.items.map(i =>
+              i.code === foundItem.code ? { ...i, count: i.count + 1 } : i
+            )
+          : this.state.cart.items.concat(item),
+        count: this.state.cart.count + !foundItem,
+        price: this.state.cart.price + item.price
+      }
+    })
+  }
+
+  /**
+   * Отображение или скрытие модалки корзины
+   * @param isVisible
+   */
+  setCartPopupVisibility(isVisible) {
+    this.setState({
+      ...this.state,
+      popup: isVisible ? CART_POPUP : ''
+    })
   }
 }
 
-export default Store;
+export default Store

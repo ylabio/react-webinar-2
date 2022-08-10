@@ -13,38 +13,32 @@ function Item(props) {
   const callbacks = {
     onAdd: useCallback(() => {
       props.onAdd(item)
-    }, [props.onAdd,  item]),
-    onDelete: useCallback(() => {
-      props.onDelete(item.code)
-    }, [props.onDelete,  item])
+    }, [props.onAdd,  item])
   };
 
   return (
-    <div className={'Item'}>
+    <div className='Item'>
       <div className={cn('number')}>
         {item.code}
       </div>
       <div className={cn('title')}>
         {item.title}
       </div>
-        <div className={'Item-price'}>
+        <div className='Item-price'>
             {getPrice(item.price)}
         </div>
-        {count && <div className={'Item-count'}>
-            {count} шт
-        </div>}
-        {count ? <Button callback={callbacks.onDelete} title='Удалить' /> : <Button callback={callbacks.onAdd} title='Добавить' />}
+        <Button callback={callbacks.onAdd} title='Добавить' />
     </div>
   )
 }
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onDeleted: propTypes.func
+	onAdd: propTypes.func
 }
 
 Item.defaultProps = {
-  onDeleted: () => {}
+	onAdd: () => {}
 }
 
 export default React.memo(Item);

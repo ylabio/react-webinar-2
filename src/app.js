@@ -1,9 +1,9 @@
 import React, {useCallback, useState} from 'react';
-import Button from './components/button';
 import Head from './components/head';
 import List from "./components/list";
+import ListModal from "./components/list-modal";
 import Layout from "./components/layout";
-import ModalPreview from './components/modalPreview';
+import ModalPreview from './components/modal-preview';
 import Modal from './components/modal';
 import Total from './components/total';
 import style from './components/modal/style.css';
@@ -14,41 +14,37 @@ import style from './components/modal/style.css';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-	const [isVisibleModal, setVisibleModal] = useState(false);
+  const [isVisibleModal, setVisibleModal] = useState(false);
 
   const callbacks = {
     onAddItems: useCallback(item => {
       store.addInBasket(item);
     }, []),
-		onTransition: useCallback(() => setVisibleModal(prev => !prev), []),
-		onDeleteItems: useCallback(item => {
-			store.deleteFromBasket(item);
-		}, []),
+    onTransition: useCallback(() => setVisibleModal(prev => !prev), []),
+    onDeleteItems: useCallback((code, count) => {
+      store.deleteFromBasket(code, count);
+    }, []),
   }
 
-	const button = <Button title='Закрыть' callback={callbacks.onTransition} />;
-  const basket = store.getState().basket;
+  const state = store.getState();
+  const {basket, count, sum} = state;
 
   return (
-  		<div className={isVisibleModal ? 'App' : ''}>
-				<Layout head={<Head title='Магазин' />}>
-					<ModalPreview basket={basket} onTransition={callbacks.onTransition}/>
-					<List items={store.getState().items} onAddItems={callbacks.onAddItems} />
-				</Layout>
-				<Modal isVisibleModal={isVisibleModal} closeModal={callbacks.onTransition}>
-					<div>
-						<Head
-								title='Корзина'
-								button={button}
-						/>
-						<List items={basket}
-									onDeleteItems={callbacks.onDeleteItems}
-						/>
-						{!!basket.length && <Total basket={basket}/>}
-					</div>
-				</Modal>
-			</div>
-  );
+    <div className={isVisibleModal ? 'App' : ''}>
+      <Layout head={<Head title='Магазин' />}>
+        <ModalPreview sum={sum} count={count} onTransition={callbacks.onTransition}/>
+        <List items={store.getState().items} onAddItems={callbacks.onAddItems} />
+      </Layout>
+      {isVisibleModal && <Modal closeModal={callbacks.onTransition} >
+        <div>
+          <ListModal items={basket}
+            onDeleteItems={callbacks.onDeleteItems}
+          />
+            {!!basket.length && <Total sum={sum}/>}
+        </div>
+           </Modal>}
+    </div>
+	);
 }
 
 export default App;

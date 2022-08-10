@@ -40,10 +40,10 @@ class Store {
     }
   }
 
-	/**
-	 * Установка нового значения корзины
-	 * @param newBasket
-	 */
+  /**
+   * Установка нового значения корзины
+   * @param newBasket
+   */
   setBasket(newBasket) {
     this.setState({
       ...this.state,
@@ -51,10 +51,59 @@ class Store {
     });
   }
 
-	/**
-	 * Добавления нового элемента в корзину
-	 * @param item
-	 */
+  /**
+   * Установка нового значения суммы
+   * @param newSum
+   */
+  setSum(newSum) {
+    this.setState({
+      ...this.state,
+      sum: newSum
+    });
+  }
+
+  /**
+   * Установка нового значения числа товаров
+   * @param newCount
+   */
+  setCount(newCount) {
+    this.setState({
+      ...this.state,
+      count: newCount
+    });
+  }
+
+  /**
+   * Подсчет суммы
+   */
+  calculateSum(){
+    const sum = this.state.basket.reduce((acc, val) => {
+      acc += val.price * val.count;
+      return acc;
+    }, 0);
+
+    this.setSum(sum);
+  }
+
+  /**
+   * Увеличение числа товаров
+   */
+  increaseCount(){
+    this.setCount(++this.state.count);
+  }
+
+  /**
+   * Уменьшение числа товаров
+   *  @param count
+   */
+  decrementCounter(count){
+    this.setCount(this.state.count-count);
+  }
+
+  /**
+   * Добавление нового элемента в корзину
+   * @param item
+   */
   addInBasket(item) {
     const basket = this.state.basket;
     let newBasket = [];
@@ -63,18 +112,23 @@ class Store {
       newBasket=[...basket, item];
     } else {
       item.count++;
-      newBasket=basket;
+      newBasket=[...basket];
     }
 
     this.setBasket(newBasket);
+    this.calculateSum();
+    this.increaseCount();
   }
 
-	/**
-	 * Удаление элемента из корзины
-	 * @param code
-	 */
-  deleteFromBasket(code) {
-    this.setBasket(this.state.basket.filter(elem => elem.code !== code))
+  /**
+   * Удаление элемента из корзины
+   * @param code
+   * @param count
+   */
+  deleteFromBasket(code, count) {
+    this.setBasket(this.state.basket.filter(elem => elem.code !== code));
+    this.calculateSum();
+    this.decrementCounter(count);
   }
 }
 

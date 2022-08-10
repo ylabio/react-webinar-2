@@ -13,11 +13,6 @@
     text-align: end;
     width: 100%;
 }
-.Item-count{
-    padding-left: 50px;
-    text-align: end;
-    min-width: 40px;
-}
 .Item-actions{
     text-align: end;
     display: flex;

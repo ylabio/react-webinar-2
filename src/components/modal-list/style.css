@@ -1,0 +1,11 @@
+/*Список*/
+.ModalList{
+
+}
+.ModalList-item{
+    border-bottom: 1px dashed #ccc;
+}
+
+.ModalList-item:first-child{
+    border-top: 1px dashed #ccc;
+}

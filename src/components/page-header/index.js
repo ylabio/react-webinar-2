@@ -14,10 +14,10 @@ function PageHeader(props) {
         <span>В корзине: </span>
         <span className={cn('quantity')}>
           {' '}
-          {props.arrLength
-            ? props.arrLength +
+          {props.quantity
+            ? props.quantity +
               ' ' +
-              plural(props.arrLength, 'товар', 'товарa', 'товаров') +
+              plural(props.quantity, 'товар', 'товарa', 'товаров') +
               ' / ' +
               props.sum +
               '  ₽'
@@ -32,7 +32,7 @@ function PageHeader(props) {
 }
 
 PageHeader.propTypes = {
-  arrLength: propTypes.number,
+  quantity: propTypes.number,
   sum: propTypes.string,
   titleBtn: propTypes.string,
   clickBtn: propTypes.func,

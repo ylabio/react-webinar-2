@@ -12,12 +12,7 @@ function List(props) {
       {props.items.map((item) => {
         return (
           <div key={item.code} className={cn('item')}>
-            <Item
-              item={item}
-              titleBtn={props.titleBtn}
-              clickBtn={props.clickBtn}
-              itemCount={item.count}
-            />
+            <Item item={item} titleBtn={props.titleBtn} clickBtn={props.clickBtn} />
           </div>
         )
       })}
@@ -33,8 +28,7 @@ List.propTypes = {
 
 List.defaultProps = {
   items: [],
-  onItemDelete: () => {},
-  addItem: () => {},
+  clickBtn: () => {},
 }
 
 export default React.memo(List)

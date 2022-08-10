@@ -51,27 +51,34 @@ class Store {
   /**
    * Добавление товара в корзину
    */
-  addItem(item) {
-    const coincidence = this.state.basket.find((basketItem) => basketItem.code === item.code)
+  addItem(code) {
+    const coincidence = this.state.basket.find((basketItem) => basketItem.code === code)
+
     {
       coincidence
         ? this.setState({
             ...this.state,
-            basket: this.state.basket.map((basketItem) => {
-              if (coincidence.code === basketItem.code) {
-                basketItem.count++
-              }
-              return basketItem
-            }),
+            basket: [
+              ...this.state.basket.map((basketItem) => {
+                if (coincidence.code === basketItem.code) {
+                  basketItem.count++
+                }
+                return basketItem
+              }),
+            ],
           })
         : this.setState({
             ...this.state,
-            basket: this.state.basket.concat({ ...item, count: 1 }),
+            basket: this.state.basket.concat({
+              ...this.state.items.find((item) => item.code === code),
+              count: 1,
+            }),
           })
     }
     this.setState({
       ...this.state,
-      sum: this.state.basket.reduce((acc, num) => acc + num.price * (num.count || 1), 0),
+      sum: Number(this.state.basket.reduce((acc, num) => acc + num.price * (num.count || 1), 0)),
+      quantity: this.state.basket.length,
     })
   }
   /**
@@ -85,7 +92,8 @@ class Store {
     })
     this.setState({
       ...this.state,
-      sum: this.state.basket.reduce((acc, num) => acc + num.price * (num.count || 1), 0),
+      sum: Number(this.state.basket.reduce((acc, num) => acc + num.price * (num.count || 1), 0)),
+      quantity: this.state.basket.length,
     })
   }
 

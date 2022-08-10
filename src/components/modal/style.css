@@ -9,7 +9,7 @@ body {
    right: 0;
    left: 0;
    display: none;
-   background: rgba(0, 0, 0, 0.5);
+   background: rgba(0, 0, 0, 0.7);
 }
 
 .Modal.active {
@@ -21,7 +21,7 @@ body {
 .Modal-content {
    border-radius: 5px;
    min-height: 603px;
-   min-width: 95vw;
+   min-width: 73vw;
    background: #FFFFFF;
 }
 
@@ -33,6 +33,12 @@ body {
    padding: 0 32px 0 20px;
    background: #F5F5F5;
    margin: 0 0 74px;
+}
+
+.Modal-head-title {
+   font-weight: 700;
+   font-size: 32px;
+   line-height: 37px;
 }
 
 .Modal-head button {

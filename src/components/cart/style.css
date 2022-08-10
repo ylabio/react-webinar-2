@@ -7,8 +7,12 @@
    align-items: center;
 }
 
+.Cart-item:first-child {
+   border-top: 1px dashed rgb(204, 204, 204);
+}
+
 .Cart-item {
-   border-bottom: 1px dotted #CCCCCC;
+   border-bottom: 1px dashed rgb(204, 204, 204);
 }
 
 .Item_selected {

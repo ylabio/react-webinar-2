@@ -57,7 +57,15 @@ class Store {
     this.setState({
       ...this.state,
       items: newItems,
-      basket:newItems.filter(el=>el.count>=1)
+      basket:newItems.filter(el=>el.count>=1),
+      sum:newItems.filter(el=>el.count>=1).reduce((acc,curr)=>{
+        acc+=(curr.price*curr.count)
+        return acc
+      },0),
+      amount:newItems.filter(el=>el.count>=1).reduce((acc)=>{
+        acc+=1
+        return acc
+      },0)
     });
   }
 
@@ -78,8 +86,17 @@ class Store {
     this.setState({
       ...this.state,
       items: newItems,
-      basket:newItems.filter(el=>el.count>=1)
+      basket:newItems.filter(el=>el.count>=1),
+      sum:newItems.filter(el=>el.count>=1).reduce((acc,curr)=>{
+        acc+=(curr.price*curr.count)
+        return acc
+      },0),
+      amount:newItems.filter(el=>el.count>=1).reduce((acc)=>{
+        acc+=1
+        return acc
+      },0)
     });
+
   }
 
 }

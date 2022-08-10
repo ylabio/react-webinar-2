@@ -1,6 +1,7 @@
 import React from 'react';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
+import propTypes from "prop-types";
 
 function Item({onCLickButton, price, titleButton, title, code, count,place}) {
   const cn = bem('Item');
@@ -28,6 +29,26 @@ function Item({onCLickButton, price, titleButton, title, code, count,place}) {
       </div>
     </div>
   )
+}
+Item.propTypes = {
+  items: propTypes.arrayOf(propTypes.object).isRequired,
+  price:propTypes.number,
+  titleButton:propTypes.string,
+  title:propTypes.string,
+  code:propTypes.string,
+  count:propTypes.number,
+  place:propTypes.number,
+  onCLickButton: propTypes.func
+}
+
+Item.defaultProps = {
+  items: [],
+  price:0,
+  titleButton:'',
+  title:'',
+  code:'',
+  count:0,
+  place:0
 }
 
 

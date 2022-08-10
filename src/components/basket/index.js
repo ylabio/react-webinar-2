@@ -2,6 +2,7 @@ import React from "react";
 import Item from "../item";
 import './style.css'
 import {cn as bem} from "@bem-react/classname";
+import propTypes from 'prop-types';
 
 const TEXT_BUTTON_DELETE = 'удалить'
 
@@ -18,10 +19,23 @@ function Basket({visible, closeBasket, items, onItemDelete, sum}) {
                 titleButton={TEXT_BUTTON_DELETE} count={item.count} place={i + 1}/>
         </div>
         )}</div>
-      <div className={cn('results')}>Итого <p>{sum} ₽</p></div>
+      <div className={cn('results')}>Итого <p>{sum.toLocaleString('ru')} ₽</p></div>
     </div>
   </div>)
 
+}
+Basket.propTypes = {
+  items: propTypes.arrayOf(propTypes.object).isRequired,
+  visible:propTypes.bool,
+  sum:propTypes.number,
+  closeBasket:propTypes.func,
+  onItemDelete: propTypes.func
+}
+
+Basket.defaultProps = {
+  items: [],
+  visible: false,
+  sum:0
 }
 
 export default React.memo(Basket)

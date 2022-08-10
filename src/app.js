@@ -11,6 +11,7 @@ import Basket from "./components/basket";
  */
 function App({store}) {
   const [visibleBasket, setVisibleBasket] = useState(false)
+  const {items, basket, sum, amount} = store.getState()
 
   const callbacks = {
     closeBasket: useCallback(() => {
@@ -26,21 +27,16 @@ function App({store}) {
       store.deleteItem(code);
     }, []),
   }
-  const sumBasket=store.getState().basket.reduce((acc,curr)=>{
-    acc.sum+=(curr.price*curr.count)
-    acc.amount+=1
-    return acc
-  },{amount:0,sum:0})
 
   return (
-      <Layout head={<h1>Магазин</h1>}>
-        <Controls openBasket={callbacks.openBasket} amount={sumBasket.amount} sum={sumBasket.sum}/>
-        <Basket items={store.getState().basket} visible={visibleBasket} closeBasket={callbacks.closeBasket}
-                onItemDelete={callbacks.onDeleteItems} sum={sumBasket.sum}/>
-        <List items={store.getState().items}
-              addItemInBasket={callbacks.onSelectItems}
-        />
-      </Layout>
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls openBasket={callbacks.openBasket} amount={amount} sum={sum}/>
+      <Basket items={basket} visible={visibleBasket} closeBasket={callbacks.closeBasket}
+              onItemDelete={callbacks.onDeleteItems} sum={sum}/>
+      <List items={items}
+            addItemInBasket={callbacks.onSelectItems}
+      />
+    </Layout>
   );
 }
 

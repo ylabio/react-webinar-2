@@ -14,7 +14,9 @@ const store = new Store({
     {code: counter(), title: 'Карандаши цветные', price: 111, count: 0},
     {code: counter(), title: 'Товар сюрприз', price: 0, count: 0},
   ],
-  basket: []
+  basket: [],
+  sum:0,
+  amount:0
 });
 
 const root = createRoot(document.getElementById('root'));

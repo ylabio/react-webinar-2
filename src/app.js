@@ -15,8 +15,7 @@ import {formatter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  const items = store.getState().items;
-  const cart = store.getState().cart;
+  const {items, cart, totalCount, totalSum} = store.getState();
   const [isShowCart, setIsShowCart] = useState(false);
 
   const callbacks = {
@@ -26,48 +25,12 @@ function App({store}) {
     onClose: useCallback(() => {
       setIsShowCart(false)
     }, []),
-    getTotalSum: useCallback(() => {
-      if(cart.length){
-        return cart.reduce((acc, c) => (c.price * c.count) + acc, 0)
-      }
-    }, [cart]),
     getInfo: useCallback(() => {
       if (cart.length){
-        return `${cart.length} ${plural(cart.length, 'товар', 'товара', 'товаров')} / ${formatter(callbacks.getTotalSum())}`
+        return `${totalCount} ${plural(totalCount, 'товар', 'товара', 'товаров')} / ${formatter(totalSum)}`
       } else {
         return "Пусто"
       }
-    }, [cart]),
-    addToCart: useCallback((code) => {
-      items.forEach(item => {
-       if(item.code === code){
-         const index = cart.findIndex(c => c.code === item.code)
-         if(index === -1){
-           const newState = {
-             items: [...items],
-             cart: [...cart, {...item, count: 1}]
-           }
-           store.setState(newState)
-         } else {
-           const updateCart = [...cart]
-           updateCart[index].count += 1
-           const newState = {
-             items: [...items],
-             cart: [...updateCart]
-           }
-           store.setState(newState)
-         }
-       }
-      })
-    }, [cart]),
-    removeCartItem: useCallback((code) => {
-      let updateCart = [...cart]
-      updateCart = updateCart.filter(c => c.code !== code)
-      const newState = {
-        items: [...items],
-        cart: [...updateCart]
-      }
-      store.setState(newState)
     }, [cart])
   }
 
@@ -75,11 +38,11 @@ function App({store}) {
       <>
       <Layout head={<h1>Магазин</h1>}>
         <Controls onShow={callbacks.onShow} getInfo={callbacks.getInfo}/>
-        <List items={items} onAdd={callbacks.addToCart}/>
+        <List items={items} onAdd={store.addToCart}/>
       </Layout>
         {isShowCart && (
             <Modal>
-              <Cart cart={cart} onClose={callbacks.onClose} totalSum={callbacks.getTotalSum} onRemove={callbacks.removeCartItem}/>
+              <Cart cart={cart} onClose={callbacks.onClose} totalSum={totalSum} onRemove={store.removeCartItem}/>
             </Modal>
         )}
       </>

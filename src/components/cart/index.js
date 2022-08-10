@@ -26,7 +26,7 @@ function Cart({cart, onClose, totalSum, onRemove}) {
                 </div>
                 <div className={cn('footer')}>
                     <span>Итого</span>
-                    <span>{formatter(totalSum())}</span>
+                    <span>{formatter(totalSum)}</span>
                 </div>
             </>)
                 : <h1 className={cn('banner')}>Ничего нет... &#9785;</h1>
@@ -38,7 +38,7 @@ function Cart({cart, onClose, totalSum, onRemove}) {
 Cart.propTypes = {
     cart: propTypes.array.isRequired,
     onClose: propTypes.func.isRequired,
-    totalSum: propTypes.func.isRequired,
+    totalSum: propTypes.number.isRequired,
     onRemove: propTypes.func.isRequired,
 }
 

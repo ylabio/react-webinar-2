@@ -1,0 +1,13 @@
+.Basket-empty{
+    text-align: center;
+    font-weight: 700;
+}
+.Basket-summary{
+    margin: 26px 108px;
+    text-align: end;
+    font-weight: 700;
+    font-size: 18px;
+}
+.Basket-summary span:first-child{
+    margin-right: 49px;
+}

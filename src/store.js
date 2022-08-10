@@ -41,43 +41,48 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Добавление товара в корзину по коду
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
+  addToBasket(itemCode) {
+    const oldElem = this.state.basketLength ? 
+                    this.state.basket.find(elem => elem.code === itemCode) :
+                    undefined;
+    if (oldElem) {
+      const changedElem = {
+        ...oldElem,
+        count: oldElem.count + 1 
+      };
+      this.setState({
+        ...this.state,
+        basket: this.state.basket.map(((elem) => {                
+          if (elem.code === itemCode) {
+            return changedElem
           }
-        }
-        return item.selected ? {...item, selected: false} : item;
+          return elem;
+        })),
+        basketSum: this.state.basketSum + changedElem.price
       })
+    } else {
+      const newElem = {...this.state.items.find(elem => elem.code === itemCode), count: 1};
+      this.setState({
+        ...this.state,
+        basket: this.state.basket.concat(newElem),
+        basketSum: this.state.basketSum + newElem.price,
+        basketLength: this.state.basketLength + 1
+      });
+    }
+  }
+
+  /**
+   * Удаление товара из корзины по коду
+   */
+  deleteFromBasket(itemCode) {
+    const deletingElem = this.state.basket.find(elem => elem.code === itemCode);
+    this.setState({
+      ...this.state,
+      basket: this.state.basket.filter(elem => elem.code !== itemCode),
+      basketSum: this.state.basketSum - deletingElem.price * deletingElem.count,
+      basketLength: this.state.basketLength - 1
     });
   }
 }

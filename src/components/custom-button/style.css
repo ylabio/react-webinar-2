@@ -1,0 +1,8 @@
+.CustomButton{
+    width: 76px;
+    height: 21px;
+    background: #EFEFEF;
+    color: #000;
+    border: 1px solid #767676;
+    border-radius: 2px;
+}

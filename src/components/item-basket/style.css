@@ -1,0 +1,27 @@
+.ItemBasket{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.ItemBasket-title{
+    width: 80%;
+    padding: 20px 10px;
+}
+.ItemBasket-actions{
+    padding: 20px  20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.ItemBasket-number{
+    padding: 20px 10px 20px 20px;
+}
+.ItemBasket-price{
+    width: max-content;
+    margin-right: 25px;
+    font-size: 18px;
+}
+.ItemBasket-quantity{
+    width: max-content;
+    margin: 0 25px;
+    font-size: 18px;
+}

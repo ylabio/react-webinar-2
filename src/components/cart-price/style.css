@@ -7,11 +7,7 @@
     margin-bottom: 20px;
 }
 
-.cart-price:last-child::after{
-    content: "\20BD";
-    font-weight: 700;
-    margin-left: 6px;
-}
+
 
 .cart-price-total {
     margin-right: 60px;

@@ -6,18 +6,24 @@ import propTypes from "prop-types";
 const CartPrice = ({ cartPrice }) => {
   const cn = bem("cart-price");
 
-  if (cartPrice.price > 0 && cartPrice.count > 0) {
-    return (
-      <div className={cn()}>
+  return (
+    <div className={cn()}>
+      {cartPrice.count ? (
         <span className={cn("total")}>
           <strong>Итого </strong>
         </span>
-        <span>
-          <strong>{cartPrice.price.toLocaleString("ru-RU")}</strong>
+      ) : (
+        <span className={cn("total")}>
+          <strong>Корзина пуста</strong>
         </span>
-      </div>
-    );
-  }
+      )}
+      <span>
+        {cartPrice.count
+          ? `${cartPrice.price.toLocaleString("ru-RU")} ₽`
+          : null}
+      </span>
+    </div>
+  );
 };
 
 CartPrice.propTypes = {

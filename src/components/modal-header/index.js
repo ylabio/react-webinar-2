@@ -3,8 +3,8 @@ import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 import propTypes from "prop-types";
 
-const ModalLayout = ({ modalName, showModal }) => {
-  const cn = bem("Modal-layout");
+const ModalHeader = ({ modalName, showModal }) => {
+  const cn = bem("Modal-header");
   return (
     <div className={cn("content-header")}>
       <h2>{modalName}</h2>
@@ -13,14 +13,14 @@ const ModalLayout = ({ modalName, showModal }) => {
   );
 };
 
-ModalLayout.propType = {
+ModalHeader.propType = {
   showModal: propTypes.func,
   modalName: propTypes.string,
 };
 
-ModalLayout.defaultProps = {
+ModalHeader.defaultProps = {
   showModal: () => {},
   modalName: "",
 };
 
-export default ModalLayout;
+export default ModalHeader;

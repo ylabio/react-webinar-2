@@ -56,7 +56,6 @@ class Store {
 
   addCartItem(code) {
     const inCart = this.state.cart.map((item) => item.code);
-
     const currentItem = this.getState().items.find(
       (item) => item.code === code
     );
@@ -132,12 +131,6 @@ class Store {
         },
       });
     }
-  }
-  showModal() {
-    this.setState({
-      ...this.state,
-      modalIsActive: !this.state.modalIsActive,
-    });
   }
 }
 

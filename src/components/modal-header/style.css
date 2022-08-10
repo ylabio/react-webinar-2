@@ -1,4 +1,4 @@
-.Modal-layout-content-header {
+.Modal-header-content-header {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -9,10 +9,10 @@
     margin-bottom: 34px;
 }
 
-.Modal-layout-content-header h2 {
+.Modal-header-content-header h2 {
     margin-left: 20px;
 }
 
-.Modal-layout-content-header button {
+.Modal-header-content-header button {
     margin-right: 20px;
 }

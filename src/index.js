@@ -19,7 +19,6 @@ const store = new Store({
     price: 0,
     count: 0,
   },
-  modalIsActive: false,
 });
 
 const root = createRoot(document.getElementById("root"));

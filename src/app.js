@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
@@ -6,7 +6,7 @@ import { counter } from "./utils";
 import Modal from "./components/modal";
 import CartPrice from "./components/cart-price";
 import CartList from "./components/cart-list";
-import ModalLayout from "./components/modal-layout";
+import ModalHeader from "./components/modal-header";
 
 /**
  * Приложение
@@ -14,6 +14,11 @@ import ModalLayout from "./components/modal-layout";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({ store }) {
+  const [modalIsActive, setModalIsActive] = useState(false);
+
+  const showModal = () => {
+    setModalIsActive(!modalIsActive);
+  };
   const callbacks = {
     onAdd: useCallback(() => {
       const code = counter();
@@ -25,30 +30,33 @@ function App({ store }) {
     onDeleteItem: useCallback((code) => {
       store.deleteFromCart(code);
     }, []),
-    showModal: useCallback(() => {
-      store.showModal();
-    }, []),
   };
 
   return (
     <>
       <Layout head={<h1>Магазин</h1>}>
         <Controls
-          showModal={callbacks.showModal}
+          showModal={showModal}
           allItems={store.getState().cart.length}
           priceAndCount={store.getState().totalCartPriceAndCount}
           onAdd={callbacks.onAdd}
         />
-        <List items={store.getState().items} onAddItem={callbacks.onAddItem} />
+        <List
+          items={store.getState().items}
+          onAddItem={callbacks.onAddItem}
+          cartPrice={store.getState().totalCartPriceAndCount}
+        />
       </Layout>
-      {store.state.modalIsActive && (
-        <Modal showModal={callbacks.showModal} modalName="Корзина">
-          <ModalLayout showModal={callbacks.showModal} modalName={"Корзина"} />
+      {modalIsActive && (
+        <Modal
+          showModal={showModal}
+          modalName="Корзина"
+          cartPrice={store.state.totalCartPriceAndCount}
+        >
           <CartList
             cart={store.getState().cart}
             onDeleteItem={callbacks.onDeleteItem}
           />
-          <CartPrice cartPrice={store.getState().totalCartPriceAndCount} />
         </Modal>
       )}
     </>

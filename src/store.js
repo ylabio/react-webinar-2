@@ -46,25 +46,30 @@ class Store {
     if (!this.state.itemsCart.length || !this.state.itemsCart.find(i => i.code === item.code)) {
       this.setState({
         ...this.state,
-        itemsCart: [...this.state.itemsCart, { ...item, sumPrice: item.price, count: 1 }]
+        itemsCart: [...this.state.itemsCart, { ...item, count: 1 }],
+        sumItemsInCart: this.state.sumItemsInCart + item.price,
+        uniqueItemsInCart: this.state.uniqueItemsInCart + 1
       })
     } else {
       this.setState({
         ...this.state,
         itemsCart: this.state.itemsCart.map(itemCart => {
           if (itemCart.code === item.code) {
-            return { ...itemCart, sumPrice: itemCart.price * (itemCart.count + 1), count: itemCart.count + 1 }
+            return { ...itemCart, count: itemCart.count + 1 }
           } else {
             return itemCart;
           }
-        })
+        }),
+        sumItemsInCart: this.state.sumItemsInCart + item.price,
       })
     }
   }
   removeItemToCart(item) {
     this.setState({
       ...this.state,
-      itemsCart: this.state.itemsCart.filter(itemCart => itemCart.code !== item.code)
+      itemsCart: this.state.itemsCart.filter(itemCart => itemCart.code !== item.code),
+      sumItemsInCart: this.state.sumItemsInCart - item.price * (item.count),
+      uniqueItemsInCart: this.state.uniqueItemsInCart - 1
     })
   }
 }

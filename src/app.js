@@ -14,20 +14,15 @@ import CartSum from './components/cart-sum';
 function App({ store }) {
 
   const [visibleCart, setVisibleCart] = useState(false);
-  const [sumPrice, setSumPrice] = useState(0);
-  const [uniqueItem, setUniqueItem] = useState(0);
+  const { items, itemsCart, sumItemsInCart, uniqueItemsInCart } = store.getState();
 
   const callbacks = {
     onAddItem: useCallback((item) => {
       store.addItemToCart(item);
-      setSumPrice(store.getState().itemsCart.reduce((prev, price) => prev + price.sumPrice, 0));
-      setUniqueItem(store.getState().itemsCart.length);
     }, []),
 
     onRemoveItem: useCallback((item) => {
       store.removeItemToCart(item);
-      setSumPrice(store.getState().itemsCart.reduce((prev, price) => prev + price.sumPrice, 0));
-      setUniqueItem(store.getState().itemsCart.length);
     }, []),
 
     onVisibleCart: useCallback(() => {
@@ -47,26 +42,25 @@ function App({ store }) {
     <>
       <Layout head={<h1>Магазин</h1>}>
         <Controls
-          count={uniqueItem}
-          sum={sumPrice}
+          count={uniqueItemsInCart}
+          sum={sumItemsInCart}
           onVisibleModal={callbacks.onVisibleCart} />
         <List
-          isCart={callbacks.isCart(store.getState().items)}
-          items={store.getState().items}
+          isCart={callbacks.isCart(items)}
+          items={items}
           callback={callbacks.onAddItem}
         />
       </Layout >
       {visibleCart
         ? <Modal head={'Корзина'} onInvisibleModal={callbacks.onInvisibleCart}>
-          {store.getState().itemsCart.length
+          {uniqueItemsInCart
             ? <>
               <List
-                isCart={callbacks.isCart(store.getState().itemsCart)}
-                items={store.getState().itemsCart}
-                callback={callbacks.onRemoveItem}
-                sum={sumPrice}>
+                isCart={callbacks.isCart(itemsCart)}
+                items={itemsCart}
+                callback={callbacks.onRemoveItem}>
               </List>
-              <CartSum sum={sumPrice}></CartSum>
+              <CartSum sum={sumItemsInCart}></CartSum>
             </>
             : <h2>Корзина пуста</h2>
           }

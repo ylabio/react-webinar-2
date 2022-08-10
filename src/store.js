@@ -106,8 +106,8 @@ class Store {
     };
     this.setState({
       ...this.state,
-      goods: this.getBasketGoods(),
-      price: this.getBasketPrice()
+      goods: this._calculateBasketGoods(),
+      price: this._calculateBasketPrice()
     });
   }
 
@@ -122,8 +122,8 @@ class Store {
     });
     this.setState({
       ...this.state,
-      goods: this.getBasketGoods(),
-      price: this.getBasketPrice()
+      goods: this._calculateBasketGoods(),
+      price: this._calculateBasketPrice()
     });
   }
 
@@ -131,15 +131,15 @@ class Store {
    * Получить количество категорий товаров в корзине
    * @return number
    */
-  getBasketGoods() {
+  _calculateBasketGoods() {
     return this.state.basket.length;
   }
 
   /**
-   * Узнмть стоимость всех товаров в корзине
+   * Узнать стоимость всех товаров в корзине
    * @return number
    */
-  getBasketPrice() {
+  _calculateBasketPrice() {
     let price = 0;
     this.state.basket.forEach(item => {
       price += item.price * item.count;

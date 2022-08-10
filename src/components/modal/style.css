@@ -18,3 +18,7 @@
   min-height: max(480px, 100%);
   margin: 0 auto;
 }
+
+.modal__body > div {
+  min-height: 480px;
+}

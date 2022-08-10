@@ -32,9 +32,4 @@ Item.propTypes = {
   addItemsToBasket: propTypes.func.isRequired,
 };
 
-Item.defaultProps = {
-  item: propTypes.object.isRequired,
-  addItemsToBasket: () => {},
-};
-
 export default React.memo(Item);

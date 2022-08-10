@@ -34,6 +34,4 @@ Controls.propTypes = {
   totalPrice: propTypes.number.isRequired,
 };
 
-Controls.defaultProps = {};
-
 export default React.memo(Controls);

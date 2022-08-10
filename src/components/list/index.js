@@ -24,9 +24,4 @@ List.propTypes = {
   addItemsToBasket: propTypes.func.isRequired,
 };
 
-List.defaultProps = {
-  items: [],
-  addItemsToBasket: () => {},
-};
-
 export default React.memo(List);

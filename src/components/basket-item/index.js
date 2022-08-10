@@ -33,9 +33,4 @@ BasketItem.propTypes = {
   item: propTypes.object.isRequired,
 };
 
-BasketItem.defaultProps = {
-  deleteItemsFromBasket: () => {},
-  item: propTypes.object.isRequired,
-};
-
 export default React.memo(BasketItem);

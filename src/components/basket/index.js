@@ -56,11 +56,4 @@ Basket.propTypes = {
   deleteItemsFromBasket: propTypes.func.isRequired,
 };
 
-Basket.defaultProps = {
-  totalPrice: 0,
-  basketItems: [],
-  getModal: () => {},
-  deleteItemsFromBasket: () => {},
-};
-
 export default React.memo(Basket);

@@ -7,9 +7,8 @@ import BasketItem from '../item/basketItem'
 import {getPriceFormatter, getBasketTotalPrice} from '../../utils';
 
 function Controls(props){
-  const [modalActive, setModalActive] = useState(false);
 
-  let renderBasketCount = () => {    
+  let renderBasketCount = () => {
     if (Object.keys(props.state.basket).length == 0) {
       return 'Пусто'
     } else {
@@ -25,9 +24,8 @@ function Controls(props){
       {renderBasketCount()}
       </div>
       <div className=''>
-        <button onClick={() => setModalActive(true)}>Перейти</button>
+        <button onClick={() => props.onOpenBasketClicked()}>Перейти</button>
       </div>
-      <ModalBasket active={modalActive} setActive={setModalActive} state={props.state} onItemDelete={props.onItemDelete} />
     </div>
   )
 }

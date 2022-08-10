@@ -19,11 +19,11 @@
 }
 
 .modal_content {
-    padding: 20px;
+    padding: 10px;
     border-radius: 12px;
     background-color: white;
-    height: 75%;
-    width: 40%;
+    height: 60%;
+    width: 65%;
     transform: scale(0.5);
     transition: 0.4s all;
 }
@@ -38,22 +38,40 @@
     margin: 20px;
     text-align: justify;
 }
-.header {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        height: 80px;
-        background: #f5f5f5;
-}
 .button {
         font-weight: 400;
         font-size: 13px;
         line-height: 15px;
         text-align: center;
-        margin-right: 32px;
+        margin-right: 50px;
 }
 .count {
+display: flex;
+justify-content: flex-end;
+margin: 26px 100px 50px 0;
+font-weight: 700;
+font-size: 18px;
+padding-bottom: 40px;
+}
+.text {
+margin-right: 25px;
+}
+.item{
+    border-bottom: 1px dashed #ccc;
+}
+
+.item:first-child{
+    border-top: 1px dashed #ccc;
+}
+.head{
     display: flex;
-    justify-content: flex-end;
-    font-weight: bold;
+    align-items: baseline;
+    justify-content: space-between;
+    height: 80px;
+    background: #f5f5f5;
+    margin-bottom: 60px;
+}
+.head h1{
+    margin: 0;
+    padding: 20px 20px 10px;
 }

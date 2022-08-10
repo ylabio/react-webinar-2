@@ -7,6 +7,12 @@ class Store {
     this.listeners = [];
   }
 
+  toggleBasketModal() {
+    this.setState({
+      ...this.state,
+      showBasketModal: !this.state.showBasketModal
+    })
+  }
   /**
    * Выбор state
    * @return {Object}
@@ -51,13 +57,12 @@ class Store {
   }
 
   deleteItem(code) {
-    debugger;
     delete this.state.basket[code]
     this.setState({
       ...this.state,
     })
   }
-  
+
 
   /**
    * добавление  записи по её коду в корзину
@@ -65,7 +70,7 @@ class Store {
    */
   putItemToBasket(code) {
     if(this.state.basket[code] != undefined) {
-      this.state.basket[code] = this.state.basket[code] + 1 
+      this.state.basket[code] = this.state.basket[code] + 1
     } else {
       this.state.basket[code] = 1
     }

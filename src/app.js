@@ -19,17 +19,24 @@ function App({store}) {
     onPutItemToBasket: useCallback((code) => {
       store.putItemToBasket(code);
     }, []),
+    onToggleBasketWindow: useCallback(() => {
+      store.toggleBasketModal();
+    }, []),
   }
 
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls state={store.getState()}
-                onItemDelete={callbacks.onItemDelete}
-      />
+            {store.getState().showBasketModal ?
+            <ModalBasket
+              onCloseBasketClicked={callbacks.onToggleBasketWindow}
+              state={store.getState()}
+              onItemDelete={callbacks.onItemDelete}/> : <></>
+      }
+      <Controls state={store.getState()} onOpenBasketClicked={callbacks.onToggleBasketWindow}
+                onItemDelete={callbacks.onItemDelete}/>
       <List items={store.getState().items}
-            onPutItemToBasket={callbacks.onPutItemToBasket}
-      />
+            onPutItemToBasket={callbacks.onPutItemToBasket}/>
     </Layout>
   );
 }

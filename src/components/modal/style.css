@@ -1,0 +1,70 @@
+body {
+   overflow: auto;
+}
+
+.Modal {
+   position: fixed;
+   top: 0;
+   bottom: 0;
+   right: 0;
+   left: 0;
+   display: none;
+   background: rgba(0, 0, 0, 0.7);
+}
+
+.Modal.active {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.Modal-content {
+   border-radius: 5px;
+   min-height: 603px;
+   min-width: 73vw;
+   background: #FFFFFF;
+}
+
+.Modal-head {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   border-radius: 5px 5px 0 0;
+   padding: 0 32px 0 20px;
+   background: #F5F5F5;
+   margin: 0 0 74px;
+}
+
+.Modal-head-title {
+   font-weight: 700;
+   font-size: 32px;
+   line-height: 37px;
+}
+
+.Modal-head button {
+   min-width: 76px;
+   min-height: 21px;
+}
+
+.Cart-totalprice {
+   margin: 26px 108px 0 0;
+   display: flex;
+   justify-content: flex-end;
+   font-weight: 700;
+   font-size: 18px;
+   line-height: 21px;
+}
+
+.Empty-cart-text {
+   font-weight: 700;
+   font-size: 18px;
+   line-height: 21px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 35vh;
+}
+
+.Totalprice-title {
+   padding: 0 49px 0 0;
+}

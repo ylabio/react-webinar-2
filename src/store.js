@@ -45,8 +45,8 @@ class Store {
   createBasketItem({ code, title, price, count = 1 }) {
     this.setState({
       ...this.state,
-      BasketItems: this.state.BasketItems.some((item) => item.code === code)
-        ? this.state.BasketItems.map((item) => {
+      basketItems: this.state.basketItems.some((item) => item.code === code)
+        ? this.state.basketItems.map((item) => {
             if (item.code === code) {
               return {
                 ...item,
@@ -55,7 +55,7 @@ class Store {
             }
             return item;
           })
-        : this.state.BasketItems.concat({ code, title, price, count }),
+        : this.state.basketItems.concat({ code, title, price, count }),
       totalPrice: this.state.totalPrice + price,
     });
   }
@@ -67,8 +67,8 @@ class Store {
   deleteBasketItem(code) {
     this.setState({
       ...this.state,
-      BasketItems: this.state.BasketItems.filter((item) => item.code !== code),
-      totalPrice: this.state.BasketItems.reduce((sum, item) => {
+      basketItems: this.state.basketItems.filter((item) => item.code !== code),
+      totalPrice: this.state.basketItems.reduce((sum, item) => {
         return sum + (item.code === code ? 0 : item.price * item.count);
       }, 0),
     });

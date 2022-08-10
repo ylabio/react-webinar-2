@@ -15,12 +15,12 @@ function Basket(props) {
         </div>
         <div className={cn("content")}>
           <List
-            items={props.BasketItems}
+            items={props.basketItems}
             onClickButton={props.onDeleteFromBasket}
             onBasket
           />
           <div className={cn("content-info")}>
-            {props.BasketItems.length ? (
+            {props.basketItems.length ? (
               <>
                 <b>Итого</b>
                 <b>{props.totalPrice.toLocaleString("ru")} ₽</b>
@@ -37,14 +37,14 @@ function Basket(props) {
 
 Basket.propTypes = {
   totalPrice: propTypes.number,
-  BasketItems: propTypes.arrayOf(propTypes.object).isRequired,
+  basketItems: propTypes.arrayOf(propTypes.object).isRequired,
   isBasketOpened: propTypes.func,
   onDeleteFromBasket: propTypes.func.isRequired,
 };
 
 Basket.defaultProps = {
   totalPrice: 0,
-  BasketItems: [],
+  basketItems: [],
   isBasketOpened: () => {},
   onDeleteFromBasket: () => {},
 };

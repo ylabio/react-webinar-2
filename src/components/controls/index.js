@@ -10,9 +10,9 @@ function Controls(props) {
     <div className={cn()}>
       <div className={cn("info")}>
         В корзине:
-        {props.BasketItemsLength ? (
+        {props.basketItemsLength ? (
           <b>
-            {`${props.BasketItemsLength} 
+            {`${props.basketItemsLength} 
               ${plural(props.BasketItemsLength, "товар", "товара", "товаров")} 
               / ${props.totalPrice.toLocaleString("ru")} ₽`}
           </b>
@@ -27,13 +27,13 @@ function Controls(props) {
 
 Controls.propTypes = {
   totalPrice: propTypes.number,
-  BasketItemsLength: propTypes.number,
+  basketItemsLength: propTypes.number,
   isBasketOpened: propTypes.func,
 };
 
 Controls.defaultProps = {
   totalPrice: 0,
-  BasketItemsLength: 0,
+  basketItemsLength: 0,
   isBasketOpened: () => {},
 };
 

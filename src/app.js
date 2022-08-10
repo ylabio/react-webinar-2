@@ -29,14 +29,14 @@ function App({ store }) {
         <Basket
           isBasketOpened={callbacks.isBasketOpened}
           totalPrice={store.getState().totalPrice}
-          BasketItems={store.getState().BasketItems}
+          basketItems={store.getState().basketItems}
           onDeleteFromBasket={callbacks.onDeleteFromBasket}
         />
       )}
       <Controls
         isBasketOpened={callbacks.isBasketOpened}
         totalPrice={store.getState().totalPrice}
-        BasketItemsLength={store.getState().BasketItems.length}
+        basketItemsLength={store.getState().basketItems.length}
       />
       <List
         items={store.getState().items}

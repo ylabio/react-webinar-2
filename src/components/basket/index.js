@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import propTypes from "prop-types";
 import "./style.css";
 
@@ -9,6 +9,12 @@ const Basket = ({
   removeItemToCart,
   overall,
 }) => {
+  useEffect(() => {
+    modalOpen
+      ? (document.body.style.overflow = "hidden")
+      : (document.body.style.overflow = "");
+  }, [modalOpen]);
+
   return (
     <div className={modalOpen ? "modal-cover show-modal" : "modal-cover"}>
       <div className="basket">

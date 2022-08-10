@@ -27,23 +27,24 @@ function App({store}) {
         }, []),
     }
     return (
-        <Layout head={<h1>Магазин</h1>}>
-            <Controls modal={store.state.modals[0]} setModalActive={callbacks.onChangeModal}
-                      totalPrice={store.state.totalPrice} totalCount={store.state.totalCount}/>
-
-            <List items={store.state.items} onAddBasketItem={callbacks.onAddBasketItem}>
-                {Item}
-            </List>
-
-            {isModalActive &&
+        <>
+            <Layout head={<h1>Магазин</h1>}>
+                <Controls modal={store.state.modals[0]} setModalActive={callbacks.onChangeModal}
+                          totalPrice={store.state.totalPrice} totalCount={store.state.totalCount}/>
+                <List items={store.state.items} onAddBasketItem={callbacks.onAddBasketItem}>
+                    {Item}
+                </List>
+            </Layout>
+            {
+                isModalActive &&
                 <Modal head={<h1>Корзина</h1>} modal={store.state.modals[0]} setModalActive={callbacks.onChangeModal}>
                     <BasketList basket={store.state.basket} deleteItem={callbacks.onDeleteBasketItem}>
                         {BasketItem}
                     </BasketList>
                     <BasketTotal totalCount={store.state.totalCount} totalPrice={store.state.totalPrice}/>
-                </Modal>}
-
-        </Layout>
+                </Modal>
+            }
+        </>
     );
 }
 

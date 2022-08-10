@@ -11,6 +11,7 @@ const Basket = ({
   deleteItemsFromBasket,
   getModal,
 }) => {
+  const price = totalPrice.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
   const cn = bem("Basket");
 
   return (
@@ -41,7 +42,7 @@ const Basket = ({
         )}
 
         <div className={cn("total")}>
-          <h3>Итого</h3> <h3>{totalPrice} ₽</h3>
+          <h3>Итого</h3> <h3>{price} ₽</h3>
         </div>
       </div>
     </div>

@@ -39,7 +39,7 @@ function App({store}) {
         <>
             <Layout head={<h1>Магазин</h1>}>
                 <Header count={store.getState().count} price={store.getState().price} openModal={openModal}/>
-                <List items={store.getState().items}
+                <List type={'main'} items={store.getState().items}
                       onItemSelect={callbacks.onSelectItems}
                 />
             </Layout>

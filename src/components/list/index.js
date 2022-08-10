@@ -28,13 +28,10 @@ function List(props) {
 }
 
 List.propTypes = {
-    type: PropTypes.oneOf(['main', 'modal']),
+    type: PropTypes.oneOf(['main', 'modal']).isRequired,
     onItemSelect: PropTypes.func.isRequired,
     items: PropTypes.array.isRequired
 }
 
-List.defaultProps = {
-    type: 'main'
-}
 
 export default React.memo(List);

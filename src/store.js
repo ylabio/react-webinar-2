@@ -4,6 +4,8 @@ class Store {
     this.state = initState;
     // Слушатели изменений state
     this.listeners = [];
+    this.counter = this.counterItemsInBin();
+    this.totalPrice = 0;
   }
 
   /**
@@ -66,6 +68,8 @@ class Store {
         return item;
       }),
     });
+    this.counterItemsInBin();
+    this.counterTotalPrice();
   }
 
   DeleteItemFromBin(code) {
@@ -81,21 +85,23 @@ class Store {
         return item;
       }),
     });
+    this.counterItemsInBin();
+    this.counterTotalPrice();
   }
 
-  counterItemsInBin() {
-    this.count = 0;
+  counterItemsInBin = () => {
+    this.counter = 0;
     this.state.items.map((item) => {
       if (item.addCounter > 0) {
-        return this.count++;
+        return this.counter++;
       }
-      return this.count;
+      return this.counter;
     });
-    return this.count;
-  }
+    return this.counter;
+  };
 
-  counterTotalPrice() {
-    return this.state.items
+  counterTotalPrice = () => {
+    return (this.totalPrice = this.state.items
       .map((item) => {
         return {
           counter: item.addCounter,
@@ -105,8 +111,8 @@ class Store {
       .map((item) => item.counter * item.price)
       .reduce(function (sum, elem) {
         return sum + elem;
-      }, 0);
-  }
+      }, 0));
+  };
 }
 
 export default Store;

@@ -3,8 +3,8 @@ import { cn as bem } from '@bem-react/classname';
 import Controls from './components/controls';
 import List from './components/list';
 import Item from './components/item/index';
-import TotalPrice from './components/totalPrice';
-import ItemInBin from './components/itemInBin';
+import TotalPrice from './components/total-price';
+import ItemInBin from './components/item-in-bin';
 import Layout from './components/layout';
 import Popup from './components/popup';
 
@@ -15,8 +15,6 @@ import Popup from './components/popup';
  */
 function App({ store }) {
   const items = store.getState().items;
-  const totalPrice = store.counterTotalPrice();
-  const counter = store.counterItemsInBin();
 
   const [isBinPopupOpen, setIsBinPopupOpen] = useState(false);
 
@@ -40,8 +38,8 @@ function App({ store }) {
       <Controls
         items={items}
         onOpenModal={callbacks.onOpenBinModal}
-        counter={counter}
-        totalPrice={totalPrice}
+        counter={store.counter}
+        totalPrice={store.totalPrice}
       />
       <List>
         {items.map((item) => {
@@ -57,7 +55,7 @@ function App({ store }) {
         <Popup
           name={'Корзина'}
           items={items}
-          totalPrice={totalPrice}
+          totalPrice={store.totalPrice}
           onCloseModal={callbacks.onCloseModal}
           onDeleteItemFromBin={callbacks.onDeleteItemFromBin}
         >
@@ -77,7 +75,7 @@ function App({ store }) {
               }
             })}
           </List>
-          <TotalPrice totalPrice={totalPrice} />
+          <TotalPrice totalPrice={store.totalPrice} />
         </Popup>
       ) : null}
     </Layout>

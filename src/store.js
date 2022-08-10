@@ -93,6 +93,23 @@ class Store {
       total: [{totalPrice , totalItems}]
     });
   }
+  /**
+   * уставнока видимости модального окна
+   * модальных окон может быть много, передаем номер (параметры окна
+   * предварительно должны быть внесены в store
+   * @param number
+   */
+  setModal(number) {
+    this.setState({
+      ...this.state,
+      modal: this.state.modal.map(item => {
+        if (item.number === number){
+          item.visible = !item.visible;
+        }
+        return item;
+      })
+    });
+  }
 }
 
 export default Store;

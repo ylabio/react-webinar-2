@@ -12,7 +12,7 @@ function Modal({children, head, setActive}){
       <div className={cn('content')}>
         <div className={cn('head')}>
             <h2 className={cn('name')}>{head}</h2>
-            <button className={cn('close')} onClick={() => setActive(false)}>Закрыть</button>
+            <button className={cn('close')} onClick={() => setActive(0)}>Закрыть</button>
         </div>
         {children}
       </div>

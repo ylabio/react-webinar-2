@@ -12,16 +12,17 @@ import Cart from './components/cart';
  */
 function App({store}) {
 
-  //определяем видимость модального окна, false окно закрыто, true открыто
-  const [ modalActive, setModalActive ] = useState(false);
-
   //onAddItems добавление в коризну, DeleteItems удаление в корзине
+  //setModal установка видимости модального окна
   const callbacks = {
     onAddItems: useCallback((code) => {
       store.addInCart(code);
     }, []),
     onDeleteItems: useCallback((code) => {
       store.deleteItem(code);
+    }, []),
+    setModal: useCallback((number) => {
+      store.setModal(number);
     }, [])
   }
 
@@ -31,12 +32,12 @@ function App({store}) {
         <Controls counterItems={store.getState().total[0].totalItems}
                   counterTotalPrice={store.getState().total[0].totalPrice}
                   cart={store.getState().cart}
-                  openCart={setModalActive}/>
+                  openCart={callbacks.setModal}/>
         <List items={store.getState().items}
               onSelect={callbacks.onAddItems}
         />
       </Layout>
-      {modalActive && <Modal head={'Корзина'} setActive={setModalActive}>
+      {store.getState().modal[0].visible && <Modal head={'Корзина'} setActive={callbacks.setModal}>
         <Cart cart={store.getState().cart}
               onItemDelete={callbacks.onDeleteItems}
               counterTotalPrice={store.getState().total[0].totalPrice}

@@ -22,7 +22,7 @@ function Controls(props){
         </span>
       </div>
       <div className={cn('open')}>
-        <button onClick={() => props.openCart(true)}>Перейти</button>
+        <button onClick={() => props.openCart(0)}>Перейти</button>
       </div>
     </div>
   )

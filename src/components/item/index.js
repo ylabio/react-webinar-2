@@ -15,22 +15,17 @@ function Item(props) {
   };
 
   return (
-    <div className={props.isCart? cnCart() : cn()}>
-      <div className={props.isCart? cnCart('number') : cn('number')}>
+    <div className={props.item.count? cnCart() : cn()}>
+      <div className={props.item.count? cnCart('number') : cn('number')}>
         {props.item.code}
       </div>
-      {!props.isCart && <>
+      {!props.item.count && <>
         <div className={cn('title')}>
           <span>{props.item.title}</span>
           <span>{props.item.price.toLocaleString()} &#8381;</span>
         </div>
-        <div className={cn('actions')}>
-          <button onClick={callbacks.onSelect}>
-            Добавить
-          </button>
-        </div>
       </>}
-      {props.isCart && <>
+      {props.item.count && <>
         <div className={cnCart('title')}>
           <span>{props.item.title}</span>
         </div>
@@ -38,12 +33,12 @@ function Item(props) {
           <p>{props.item.price.toLocaleString()} &#8381;</p>
           <p>{props.item.count} шт</p>
         </div>
-        <div className={cnCart('actions')}>
-          <button onClick={callbacks.onSelect}>
-            Удалить
-          </button>
-        </div>
       </>}
+      <div className={props.item.count? cnCart('actions') : cn('actions')}>
+        <button onClick={callbacks.onSelect}>
+          {props.item.count? 'Удалить' : 'Добавить'}
+        </button>
+      </div>
     </div>
   )
 }
@@ -51,12 +46,10 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   itemAdd: propTypes.func.isRequired,
-  onDelete: propTypes.func.isRequired,
-  isCart: propTypes.bool
+  onDelete: propTypes.func.isRequired
 }
 
 Item.defaultProps = {
-  isCart: false,
   onDelete: () => {},
   itemAdd: () => {}
 }

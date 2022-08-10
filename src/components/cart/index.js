@@ -11,7 +11,7 @@ function Cart(props){
   return (
     <div className={cn()}>
       <div className={cn('content')}>
-        <List items={props.cart} onSelect={props.onItemDelete} isCart={true}/>
+        <List items={props.cart} onSelect={props.onItemDelete} />
         <div className={cn('total')}>
             <p>Итого</p> 
             <p>{props.counterTotalPrice.toLocaleString()} &#8381;</p>

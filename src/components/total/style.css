@@ -1,12 +1,12 @@
-.Total {
-  padding: 20px 95px;
-  text-align: right;
+.Total{
+    padding: 20px 95px;
+    text-align: right;
 }
 
-.Total > span:first-child {
-  margin-right: 45px;
+.Total > span:first-child{
+    margin-right: 45px;
 }
 
-.Total > span {
-  font-weight: bold;
+.Total > span{
+    font-weight: bold;
 }

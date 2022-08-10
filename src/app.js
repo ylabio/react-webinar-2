@@ -1,6 +1,7 @@
 import React, {useCallback, useState} from "react";
 import Modal from "./components/modal";
-import Shop from "./components/shop";
+import Layout from "./components/layout";
+import Controls from "./components/controls";
 import List from "./components/list";
 import Total from "./components/total";
 
@@ -29,7 +30,10 @@ function App({store}) {
 
   return (
     <React.Fragment>
-      <Shop onShowCart={callbacks.onShowModal} onAddItem={callbacks.onAddItem} items={store.getItems()} total={store.getTotal()}/>
+	  <Layout head={[<h1>Магазин</h1>]}>
+        <Controls cart={store.getTotal()} onButtonEvent={callbacks.onShowModal}/>
+        <List items={store.getItems()} onButtonEvent={callbacks.onAddItem} textButton="Добавить"/>
+      </Layout>
       {modal
         ? <Modal title={"Корзина"}
                  content={

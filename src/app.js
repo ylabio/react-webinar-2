@@ -4,6 +4,7 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import Modal from "./components/modal";
 import {sumCalculated, sumQuantity} from "./utils";
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -27,6 +28,10 @@ function App({store}) {
     }, []),
   }
   
+  const handleCloseModal = () => {
+    setIsModalActive(false)
+  }
+  
   return (
     <>
       <Layout head={<h1>Магазин</h1>}>
@@ -36,14 +41,18 @@ function App({store}) {
           handleAddItemToCart={callbacks.handleAddItemToCart}
         />
       </Layout>
-      {isModalActive && <Modal
-        cartItems={store.getState().cartItems}
-        isModalActive={isModalActive}
-        setIsModalActive={setIsModalActive}
-        handleDeleteCartItem={callbacks.handleDeleteCartItem}
-        totalPrice={totalPrice}
-        totalCount={totalCount}
-      />}
+      {isModalActive &&
+        <Modal
+          handleCloseModal={handleCloseModal}
+        >
+          <Cart
+            cartItems={store.getState().cartItems}
+            handleDeleteCartItem={callbacks.handleDeleteCartItem}
+            totalPrice={totalPrice}
+            totalCount={totalCount}
+          />
+        </Modal>
+      }
     </>
   );
 }

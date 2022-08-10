@@ -1,0 +1,23 @@
+/*Корзина*/
+
+
+.Cart-cartList {
+    margin-top: 74px;
+}
+
+.Cart-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin: 26px 108px 50px 0;
+    font-weight: 700;
+    font-size: 18px;
+    padding-bottom: 40px;
+}
+.Cart-footer_text {
+    margin-right: 50px;
+}
+
+.Cart-emptyCart {
+    font-weight: 400;
+    margin: 0 auto;
+}

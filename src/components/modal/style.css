@@ -1,6 +1,6 @@
 /*Модальное окно*/
 
-.CartModal {
+.Modal {
     height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.7);
@@ -9,7 +9,7 @@
     left: 0;
     overflow-y: auto;
 }
-.CartModal-content {
+.Modal-content {
     border-radius: 10px;
     background: #FFFFFF;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -18,7 +18,7 @@
     margin: 130px auto 0 auto;
 }
 
-.CartModal-controls {
+.Modal-controls {
     padding: 20px;
     display: flex;
     justify-content: space-between;
@@ -26,32 +26,7 @@
     background: #F5F5F5;
     border-radius: 10px 10px 0 0;
 }
-.CartModal-controls__title {
+.Modal-controls__title {
     font-weight: 700;
     font-size: 32px;
-}
-button{
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 15px;
-}
-.CartModal-cartList {
-    margin-top: 74px;
-}
-
-.CartModal-footer {
-    display: flex;
-    justify-content: flex-end;
-    margin: 26px 108px 50px 0;
-    font-weight: 700;
-    font-size: 18px;
-    padding-bottom: 40px;
-}
-.CartModal-footer_text {
-    margin-right: 50px;
-}
-
-.CartModal-emptyCart {
-    font-weight: 400;
-    margin: 0 auto;
 }

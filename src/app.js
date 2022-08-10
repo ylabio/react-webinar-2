@@ -1,6 +1,8 @@
-import React from 'react';
-import {counter} from './utils.js';
-import './style.css';
+import React, {useCallback} from 'react';
+import Controls from "./components/controls";
+import List from "./components/list";
+import Layout from "./components/layout";
+import ModalLayout from './components/modalLayout/index'
 
 /**
  * Приложение
@@ -8,38 +10,57 @@ import './style.css';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  // Выбор состояния из store
-  const {items} = store.getState();
+
+  const [viewModal, setViewModal] = React.useState(false)
+  const [count, setCount] = React.useState(store.state.totalCount)
+  const [totalPrice, setTotalPrice] = React.useState(store.state.totalPrice)
+
+  React.useEffect(() => {
+    setCount(store.state.basketItems.length)
+    setTotalPrice(store.state.totalPrice)
+  }, [store.state.basketItems])
+
+  const callbacks = {
+    onItemAddBasket: useCallback((code, item) => {
+      store.addItem(code, item);
+    }, []),
+    onItemDeleteBasket: useCallback((removeItem) => {
+      store.deleteItem(removeItem);
+    }, []),
+    onViewModal: useCallback(() => {
+      store.openModal(viewModal, setViewModal)
+    }, []),
+    onCloseModal: useCallback(() => {
+      store.closeModal(viewModal, setViewModal)
+    }, [viewModal]),
+  }
 
   return (
-    <div className='App'>
-      <div className='App__head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='Controls'>
-        <button onClick={() => {
-          const code = counter();
-          store.createItem({code, title: `Новая запись ${code}`})
-        }}> Добавить </button>
-      </div>
-      <div className='App__center'>
-        <div className='List'>{items.map(item =>
-          <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
-              <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
-              <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
-                  Удалить
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-        </div>
-      </div>
-    </div>
+    <Layout head = {<h1>Магазин</h1>}>
+      <Controls 
+          openModal = {callbacks.onViewModal}
+          count = {count}
+          totalPrice = {totalPrice}
+      />
+      <List 
+          items = {store.getState().items}
+          onItemAddBasket = {callbacks.onItemAddBasket}
+      />
+      {
+        viewModal
+      ?
+        <>
+          <ModalLayout
+            closeModal = {callbacks.onCloseModal}
+            basketItems = {store.state.basketItems}
+            deleteItemFromBasket = {callbacks.onItemDeleteBasket}
+            totalPrice = {totalPrice}
+          />
+        </>
+      :
+        null
+      }
+    </Layout>
   );
 }
 

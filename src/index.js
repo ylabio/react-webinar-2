@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactModal from "react-modal";
 import {createRoot} from 'react-dom/client';
 import App from './app.js';
 import Store from "./store.js";
@@ -28,5 +27,3 @@ store.subscribe(() => {
 
 // Первый рендер (один раз)
 root.render(<App store={store}/>);
-
-ReactModal.setAppElement("#root");

@@ -11,28 +11,28 @@ function Controls(props){
     <div className={cn()}>
       <div className={cn('info')}>
         В корзине:
-        {props.cartItemsLength
-          ? <b>{`${props.cartItemsLength} 
-              ${plural(props.cartItemsLength, 'товар', 'товара', 'товаров')} 
+        {props.totalCount
+          ? <b>{`${props.totalCount} 
+              ${plural(props.totalCount, 'товар', 'товара', 'товаров')} 
               / ${props.totalPrice.toLocaleString('ru')} ₽`}
             </b>
           : <b>пусто</b>}
       </div> 
-      <button onClick={props.isCartOpened}>Перейти</button>
+      <button onClick={props.isModalOpened}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
   totalPrice: propTypes.number,
-  cartItemsLength: propTypes.number,
-  isCartOpened: propTypes.func // Обяхательное свойство - функция
+  totalCount: propTypes.number,
+  isModalOpened: propTypes.func // Обяхательное свойство - функция
 }
 
 Controls.defaultProps = {
   totalPrice: 0,
-  cartItemsLength: 0,
-  isCartOpened: () => {} // Значение по умолчанию - функция-заглушка
+  totalCount: 0,
+  isModalOpened: () => {} // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

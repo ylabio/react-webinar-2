@@ -17,13 +17,6 @@
 .Item-price span{
     padding-left: 5px;
 }
-.Item-count{
-    padding: 20px 5px;
-    margin-left: 45px;
-}
-.Item-count span{
-    padding-left: 5px;
-}
 .Item-actions{
     padding: 20px;
     display: flex;

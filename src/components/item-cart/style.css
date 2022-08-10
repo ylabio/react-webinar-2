@@ -1,0 +1,35 @@
+/* Пункт списка в корзине*/
+.Item-cart{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.Item-cart-number{
+  padding: 20px 10px 20px 20px;
+}
+.Item-cart-title{
+  width: 100%;
+  padding: 20px 10px;
+}
+.Item-cart-price{
+  padding: 20px 5px;
+}
+.Item-cart-price span{
+  padding-left: 5px;
+}
+.Item-cart-count{
+  padding: 20px 5px;
+  margin-left: 45px;
+}
+.Item-cart-count span{
+  padding-left: 5px;
+}
+.Item-cart-actions{
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+.Item-cart-actions button{
+  width: 76px;
+  height: 21px;
+}

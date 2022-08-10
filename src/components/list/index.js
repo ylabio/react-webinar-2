@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import Item from "../item";
+import ItemCart from "../item-cart";
 import './style.css';
 
 function List(props) {
@@ -10,7 +11,10 @@ function List(props) {
   return (
     <div className={cn()}>{props.items.map(item =>
       <div key={item.code} className={cn('item')}>
-        <Item onCart={props.onCart} item={item} onClick={props.onClickButton}/>
+        {props.onCart
+          ? <ItemCart item={item} onClick={props.onClickButton}/>
+          : <Item item={item} onClick={props.onClickButton}/>
+        }
       </div>
     )}
     </div>
@@ -18,14 +22,13 @@ function List(props) {
 }
 
 List.propTypes = {
-  onCart: propTypes.bool.isRequired,
+  onCart: propTypes.bool,
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onClickButton: propTypes.func.isRequired
+  onClickButton: propTypes.func
 }
 
 List.defaultProps = {
   onCart: false,
-  items: [],
   onClickButton: () => {}
 }
 

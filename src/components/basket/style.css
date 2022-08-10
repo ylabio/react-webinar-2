@@ -26,9 +26,11 @@
 
 .Basket strong {
   margin-top: 20px;
-  display: block;
+  display: inline-block;
   position: relative;
   left: 75%;
+  size: 18px;
+  font-weight: 700;
 }
 
 .Basket-head {

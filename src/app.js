@@ -1,8 +1,11 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import PopupWindow from "./components/popup-window";
+import Cart from "./components/cart";
+import ListCart from "./components/list-cart";
+import Total from "./components/total";
 
 /**
  * Приложение
@@ -11,27 +14,44 @@ import {counter} from "./utils";
  */
 function App({store}) {
 
+  const [cartVisible, setCartVisible] = useState(false);
+
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
-    }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onSelectItems: useCallback((item) => {
+      store.selectItem(item);
     }, []),
     onDeleteItems: useCallback((code) => {
       store.deleteItem(code);
     }, []),
+    changeCartVisible: useCallback((value) => {
+      setCartVisible(value)
+    }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <>
+      {cartVisible ? 
+      <PopupWindow>
+        <Cart head={<h1>Корзина</h1>} onClose={()=>{callbacks.changeCartVisible(false)}}>
+          <ListCart items={store.getState().cartItems}
+                onItemSelect={callbacks.onSelectItems}
+                onItemDelete={callbacks.onDeleteItems}
+          />
+          <Total total={store.getState().total}/>
+        </Cart>
+      </PopupWindow>
+      :
+      null
+    }
+
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls onShowCart={()=>{callbacks.changeCartVisible(true)}} cartInfo={store.getState().cartItems} total={store.getState().total} unique={store.getState().unique}/>
+        <List items={store.getState().items}
+              onItemSelect={callbacks.onSelectItems}
+              onItemDelete={callbacks.onDeleteItems}
+        />
+      </Layout>
+    </>
   );
 }
 

@@ -4,3 +4,7 @@
     justify-content: flex-end;
     padding: 20px;
 }
+
+.Controls span{
+    margin-right: 10px;
+}

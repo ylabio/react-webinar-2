@@ -1,11 +1,13 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import plural from 'plural-ru';
 import './style.css';
 
-function Controls({onAdd}){
+function Controls({onShowCart, cartInfo, total, unique}){
   return (
     <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+      <span>В корзине: <b>{unique !== 0 ? <>{unique} {plural(cartInfo.length, 'товар', 'товара', 'товаров')} / {total.toLocaleString('ru-RU')} ₽</> : "Пусто"}</b></span>
+      <button onClick={onShowCart}>Перейти</button>
     </div>
   )
 }

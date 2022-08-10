@@ -10,6 +10,7 @@
     margin: 0 15px;
 }
 .BasketInfo-button{
-    padding: 3 8px;
+    padding: 3px 9px;
     font-size: 13px;
+    line-height: 15px;
 }

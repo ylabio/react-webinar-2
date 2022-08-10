@@ -44,7 +44,7 @@ class Store {
    * Удаление записи из корзины по её коду
    * @param code
    */
-   deleteItem(code) {
+  deleteItem(code) {
     const itemInBasket = this.state.basket.find(item => item.code === code);
     this.setState({
       ...this.state,

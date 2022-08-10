@@ -32,7 +32,7 @@ function Basket({children, basket, totalPrice, deleteItem, numUniqueItems}) {
 
 Basket.propTypes = {
   children: propTypes.node,
-  basket: propTypes.array.isRequired,
+  basket: propTypes.arrayOf(propTypes.object).isRequired,
   totalPrice: propTypes.number.isRequired,
   numUniqueItems: propTypes.number.isRequired,
   deleteItem: propTypes.func.isRequired

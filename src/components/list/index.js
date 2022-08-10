@@ -21,11 +21,4 @@ List.propTypes = {
   itemForRender: propTypes.func.isRequired
 }
 
-List.defaultProps = {
-  items: [],
-  itemForRender: (item) => {
-    return item.toString()
-  }
-}
-
 export default React.memo(List);

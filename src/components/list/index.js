@@ -16,12 +16,5 @@ function List(props) {
     </div>
   );
 }
-List.propTypes = {
-  props: propTypes.object.isRequired,
-};
-
-List.defaultProps = {
-  props: {},
-};
 
 export default React.memo(List);

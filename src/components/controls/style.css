@@ -1,6 +1,46 @@
 /* Контрол с общими действиями */
 .Controls{
+    height: 61px;
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.Controls-total{
+    padding: 20px 10px;
+    margin: 0;
+}
+
+.Controls-total > span{
+    margin: 0 0 0 12px;
+    padding: 0;
+}
+
+.Controls-open{
+    width: 91px;
+    padding: 20px 20px 20px 10px;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Controls-open > button{
+    width: 80px;
+    padding: 0;
+    margin: 0;
+}
+
+.Controls-text__normal{
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: 400;
+    color: #000;
+}
+
+.Controls-text__bold{
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
 }

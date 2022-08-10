@@ -41,42 +41,72 @@ class Store {
   }
 
   /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
+     * Удаление записи по её коду
+     * @param code
+     */
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code)
+    });
+    let totalPrice = this.state.cart.reduce((totP, cart) => (totP + (cart.count * cart.price)),0);
+    let totalItems = this.state.cart.length;
+    this.setState({
+      ...this.state,
+      total: [{totalPrice , totalItems}]
     });
   }
 
   /**
-   * Выделение записи по её коду
+   * Добавление товара в корзину по его коду
    * @param code
    */
-  selectItem(code) {
+  addInCart(code) {
+    let title = this.state.items[code-1].title;
+    let price = this.state.items[code-1].price;
+    let count = 1;
+    let IncludeFilter = this.state.cart.filter(item => item.code === code)
+    if(IncludeFilter.length === 0) {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.concat({code, title, price, count})
+      });
+    }
+    else {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map(cart => {
+          if (cart.code === code ) {
+            return {
+              ...cart,
+              count: cart.count += 1
+            }
+          }  
+          return cart;  
+        })
+      });
+    }
+    let totalPrice = this.state.cart.reduce((totP, cart) => (totP + (cart.count * cart.price)),0);
+    let totalItems = this.state.cart.length;
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
+      total: [{totalPrice , totalItems}]
+    });
+  }
+  /**
+   * уставнока видимости модального окна
+   * модальных окон может быть много, передаем номер (параметры окна
+   * предварительно должны быть внесены в store
+   * @param number
+   */
+  setModal(number) {
+    this.setState({
+      ...this.state,
+      modal: this.state.modal.map(item => {
+        if (item.number === number){
+          item.visible = !item.visible;
         }
-        return item.selected ? {...item, selected: false} : item;
+        return item;
       })
     });
   }

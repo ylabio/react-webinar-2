@@ -19,8 +19,8 @@ function App({store}) {
     handleShowModal: useCallback(() => {
       setModal(!modal);
     }, [setModal, modal]),
-    onItemAdd: useCallback((item) => {
-      store.addToCart(item);
+    onItemAdd: useCallback((code) => {
+      store.addToCart(code);
     }, []),
     onItemDelete: useCallback((code) => {
       store.deleteFromCart(code);
@@ -43,9 +43,9 @@ function App({store}) {
         }
       </Modal>}
       <Controls
-        cart = {store.getState().cartItems}
         handleShowModal={callbacks.handleShowModal}
         sumInCart={store.getState().sumTotal}
+        amountUnique={store.getState().amountUnique}
       />
       <List items={store.getState().items}
             onItemAdd={callbacks.onItemAdd}

@@ -8,8 +8,8 @@ function Item(props) {
 
   const callbacks = {
     onAdd: useCallback(() => {
-      props.onAdd(props.item)
-    }, [props.onAdd, props.item])
+      props.onAdd(props.item.code)
+    }, [props.onAdd, props.item.code])
   };
 
   return (
@@ -32,7 +32,7 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onAdd: propTypes.func.isRequired,
+  onAdd: propTypes.func,
 }
 
 Item.defaultProps = {

@@ -12,8 +12,8 @@ function Controls(props){
     <div className={cn('')}>
       <span>В корзине:</span>
       <span className={cn('cart-info')}>
-        {props.cart.length ?
-          `${props.cart.length} ${plural(props.cart.length, 'товар', 'товара', 'товаров')} / 
+        {props.amountUnique ?
+          `${props.amountUnique} ${plural(props.amountUnique, 'товар', 'товара', 'товаров')} / 
           ${props.sumInCart.toLocaleString('ru')} ₽`
           : 'пусто'}
       </span>
@@ -23,14 +23,15 @@ function Controls(props){
 }
 
 Controls.propTypes = {
-  cart: propTypes.arrayOf(propTypes.object).isRequired,
-  handleShowModal: propTypes.func.isRequired,
+  handleShowModal: propTypes.func,
   sumInCart: propTypes.number,
+  amountUnique: propTypes.number,
 }
 
 Controls.defaultProps = {
-  cart: [],
   handleShowModal: () => {},
+  sumInCart: 0,
+  amountUnique: 0,
 }
 
 export default React.memo(Controls);

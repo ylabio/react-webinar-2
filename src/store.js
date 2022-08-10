@@ -83,14 +83,14 @@ class Store {
 
   /**
    * Добавление товара в корзину
-   * @param item
+   * @param code
    */
-  addToCart(item) {
-    if (this.state.cartItems.some(cartItem => cartItem.code === item.code)) {
+  addToCart(code) {
+    if (this.state.cartItems.some(cartItem => cartItem.code === code)) {
       this.setState({
         ...this.state,
         cartItems: this.state.cartItems.map(cartItem => {
-          if (cartItem.code === item.code) {
+          if (cartItem.code === code) {
             return {
               ...cartItem,
               amount: cartItem.amount+=1
@@ -102,11 +102,11 @@ class Store {
     } else {
       this.setState({
         ...this.state,
-        cartItems: this.state.cartItems.concat({...item, amount: 1} )
+        cartItems: this.state.cartItems.concat({...this.state.items.find(item => item.code === code), amount: 1} )
       });
     }
 
-    this.setTotalSum();
+    this.setCart();
   }
 
   /**
@@ -119,16 +119,17 @@ class Store {
       cartItems: this.state.cartItems.filter(item => item.code !== code)
     });
 
-    this.setTotalSum();
+    this.setCart();
   }
 
   /**
-   * Пересчет суммы в корзине, вызывается внутри методов addToCart, deleteFromCart
+   * Пересчет суммы и кол-ва уникального товара в корзине, вызывается внутри методов addToCart, deleteFromCart
    */
-  setTotalSum() {
+  setCart() {
     this.setState({
       ...this.state,
-      sumTotal: this.state.cartItems.reduce((acc, item) => acc + item.price * item.amount, 0)
+      sumTotal: this.state.cartItems.reduce((acc, item) => acc + item.price * item.amount, 0),
+      amountUnique: this.state.cartItems.length
     })
   }
 }

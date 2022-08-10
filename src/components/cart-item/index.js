@@ -33,7 +33,7 @@ function CartItem(props) {
 
 CartItem.propTypes = {
   item: propTypes.object.isRequired,
-  onDelete: propTypes.func.isRequired,
+  onDelete: propTypes.func,
 }
 
 CartItem.defaultProps = {

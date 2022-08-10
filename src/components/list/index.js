@@ -23,7 +23,6 @@ List.propTypes = {
 }
 
 List.defaultProps = {
-  items: [],
   onItemAdd: () => {},
 }
 

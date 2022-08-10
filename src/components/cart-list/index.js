@@ -30,7 +30,6 @@ CartList.propTypes = {
 }
 
 CartList.defaultProps = {
-  cart: [],
   onItemDelete: () => {},
 }
 

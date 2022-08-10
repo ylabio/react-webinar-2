@@ -30,7 +30,6 @@ Modal.propTypes = {
 
 Modal.defaultProps = {
   title: '',
-  handleShowModal: () => {},
 }
 
 export default React.memo(Modal);

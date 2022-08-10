@@ -17,7 +17,7 @@ const CartPrice = ({totalPrice}) => {
     )
 }
 
-CartItem.propTypes = {
+CartPrice.propTypes = {
     totalPrice: propTypes.number.isRequired,
 }
 

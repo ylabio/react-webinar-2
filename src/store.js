@@ -77,9 +77,7 @@ class Store {
       const totalPrice = cartItem.reduce((prev, curr) => {
         return prev + curr.price * curr.amount;
       }, 0);
-      const totalCount = cartItem.reduce((prev, curr) => {
-        return prev + curr.amount;
-      }, 0);
+      const totalCount = cartItem.length;
       this.setState({
         ...this.state,
         cart: cartItem,
@@ -95,23 +93,6 @@ class Store {
    * Удаление записи из корзину по её коду
    * @param code
    */
-  //
-  // deleteFromCart(code) {
-  //   const target = this.getState().cart.find((item) => item.code === code);
-  //   const totalPrice =
-  //     this.getState().totalCartPriceAndCount.price -
-  //     target.price * target.amount;
-  //   const totalCount =
-  //     this.getState().totalCartPriceAndCount.count - target.amount;
-  //   this.setState({
-  //     ...this.state,
-  //     cart: this.state.cart.filter((item) => item.code !== code),
-  //     totalCartPriceAndCount: {
-  //       price: totalPrice,
-  //       count: totalCount,
-  //     },
-  //   });
-  // }
 
   deleteFromCart(code) {
     const target = this.getState().cart.find((item) => item.code === code);

@@ -9,15 +9,13 @@ const CartPrice = ({ cartPrice }) => {
   return (
     <div className={cn()}>
       {cartPrice.count ? (
-        <span className={cn("total")}>
-          <strong>Итого </strong>
-        </span>
+        <span className={cn("total")}>Итого</span>
       ) : (
         <span className={cn("total")}>
           <strong>Корзина пуста</strong>
         </span>
       )}
-      <span>
+      <span className={cn("total-price")}>
         {cartPrice.count
           ? `${cartPrice.price.toLocaleString("ru-RU")} ₽`
           : null}

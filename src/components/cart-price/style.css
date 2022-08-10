@@ -11,4 +11,10 @@
 
 .cart-price-total {
     margin-right: 60px;
+    font-weight: bold;
 }
+
+.cart-price-total-price {
+    font-weight: bold;
+}
+

@@ -1,6 +1,18 @@
-/* Контрол с общими действиями */
-.Controls{
-    display: flex;
-    justify-content: flex-end;
-    padding: 20px;
+/* Корзина с общими действиями */
+.Controls {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+.Controls-text {
+  font-size: 18px;
+  line-height: 21px;
+}
+.Controls-total {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  margin-left: 15px;
+  margin-right: 20px;
 }

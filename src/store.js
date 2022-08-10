@@ -40,45 +40,41 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  addToCart(code) {
+    const s = this.state;
+    const cartIndex = s.cart.items.findIndex(item => item.code === code);
+
+    const result = (cartIndex === -1)
+      ? s.cart.items.concat({
+          ...s.catalogItems.find(item => item.code === code),
+          count: 1
+        })
+      : s.cart.items.map((item, index) => {  
+          return (index === cartIndex)
+            ? { ...item, count: item.count + 1 }
+            : item;
+        });
+
     this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
+      ...s,
+      cart: {
+        items: result,
+        totalPrice: result.reduce((sum, item) => sum + item.price * item.count, 0),
+        distinctItems: result.length
+      }
+    })
   }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
+  removeFromCart(code) {
+    const result = this.state.cart.items.filter(item => item.code !== code);
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+      cart: {
+        items: result,
+        totalPrice: result.reduce((sum, item) => sum + item.price * item.count, 0),
+        distinctItems: result.length
+      }
+    })
   }
 }
 

@@ -5,15 +5,15 @@ import { prettify } from './../../utils';
 import { cn as bem } from "@bem-react/classname";
 import './style.css';
 
-function Controls({ openModal, cart, totalPrice }) {
+function Controls({ openModal, itemsInCart, totalPrice }) {
   const cn = bem('Controls');
 
   return (
     <div className={cn()}>
       В корзине:
       <span className={cn('info')}>
-        {cart.length ?
-          `${plural(cart.length, '%d товар', '%d товара', '%d товаров')} / ${prettify(totalPrice)} ₽` :
+        {itemsInCart ?
+          `${plural(itemsInCart, '%d товар', '%d товара', '%d товаров')} / ${prettify(totalPrice)} ₽` :
           'пусто'}
       </span>
       <button className={cn('btn')} onClick={openModal}>Перейти</button>
@@ -23,13 +23,13 @@ function Controls({ openModal, cart, totalPrice }) {
 
 Controls.propTypes = {
   openModal: propTypes.func.isRequired,
-  cart: propTypes.array.isRequired,
+  itemsInCart: propTypes.number.isRequired,
   totalPrice: propTypes.number.isRequired,
 }
 
 Controls.defaultProps = {
   openModal: () => { },
-  cart: [],
+  itemsInCart: 0,
   totalPrice: 0
 }
 

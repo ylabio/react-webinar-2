@@ -52,6 +52,7 @@ class Store {
     this.setState({
       ...this.state,
       cart: this.state.cart.filter(item => item.code !== code),
+      itemsInCart: this.state.itemsInCart - 1
     });
     this.calculateTotalPrice()
   }
@@ -75,7 +76,8 @@ class Store {
     } else {
       this.setState({
         ...this.state,
-        cart: cart.concat({ ...addedItem, cartCount: 1 })
+        cart: cart.concat({ ...addedItem, cartCount: 1 }),
+        itemsInCart: this.state.itemsInCart + 1
       });
       this.calculateTotalPrice()
     }

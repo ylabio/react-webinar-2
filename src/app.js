@@ -41,6 +41,7 @@ function App({store}) {
       <Controls cart={store.getState().cart}
                 changeShowModal={changeShowModal}
                 cartCost={store.getState().cartCost}
+                goodsAmount={store.getState().goodsAmount}
       />
       <List items={store.getState().items}
             onItemAction={callbacks.onPushItemToCart}

@@ -56,8 +56,14 @@ class Store {
     }else{
         cart.push({...this.state.items.find((item) => item.code === code) , count: 1})
         newCart = [...cart];
+        this.setState({
+          ...this.state ,
+          goodsAmount: ++this.state.goodsAmount
+        })
     }
-    this.setState({...this.state , cart: newCart})
+    this.setState({
+      ...this.state ,
+      cart: newCart})
     this.setActualCost();
   }
 
@@ -68,7 +74,8 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code),
+      goodsAmount: --this.state.goodsAmount
     });
     this.setActualCost();
   }

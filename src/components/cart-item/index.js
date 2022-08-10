@@ -32,7 +32,7 @@ CartItem.propTypes = {
 }
 
 CartItem.defaultProps = {
-  cartItem: [],
+  cartItem: {},
   handleDeleteCartItem: ()=> {}
 }
 

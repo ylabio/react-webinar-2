@@ -33,8 +33,7 @@ Controls.propTypes = {
 Controls.defaultProps = {
   totalPrice: 0,
   totalUniqueCount: 0,
-  setIsCartModalActive: () => {
-  }
+  setIsCartModalActive: () => {}
 }
 
 export default React.memo(Controls);

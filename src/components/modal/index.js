@@ -27,10 +27,12 @@ function Modal({children, setIsModalActive, title}){
 Modal.propTypes = {
   setIsModalActive: propTypes.func,
   children: propTypes.node,
+  title: propTypes.string
 }
 
 Modal.defaultProps = {
-  setIsModalActive: ()=>{}
+  setIsModalActive: ()=>{},
+  title: ''
 }
 
 export default React.memo(Modal);

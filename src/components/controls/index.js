@@ -5,7 +5,7 @@ import './style.css';
 import { plural, formatCurrency } from '../../utils';
 
 
-function Controls({openModal, count, totalPrice, basketItems}){
+function Controls({openModal, count, totalPrice}){
 
   const cn = bem('Controls');
 
@@ -14,11 +14,11 @@ function Controls({openModal, count, totalPrice, basketItems}){
       <p className = {cn('label')}>В корзине:</p>
       <h4 className = {cn('info')}>
         {
-          count && basketItems.length > 0
+          count === 0
         ?
-          count + " " + plural(count, 'товар', 'товара', 'товаров') + " / " + formatCurrency(totalPrice)
-        :
           <h4 className = {cn('empty')}>пусто</h4>
+        :
+          count + " " + plural(count, 'товар', 'товара', 'товаров') + " / " + formatCurrency(totalPrice)
         }
       </h4>
       <button onClick = {openModal} className = {cn('go-button')}>Перейти</button>

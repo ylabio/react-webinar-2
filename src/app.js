@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import Modal from './components/modal'
+import ModalLayout from './components/modalLayout/index'
 
 /**
  * Приложение
@@ -12,7 +12,7 @@ import Modal from './components/modal'
 function App({store}) {
 
   const [viewModal, setViewModal] = React.useState(false)
-  const [count, setCount] = React.useState(0)
+  const [count, setCount] = React.useState(store.state.totalCount)
   const [totalPrice, setTotalPrice] = React.useState(store.state.totalPrice)
 
   React.useEffect(() => {
@@ -41,7 +41,6 @@ function App({store}) {
           openModal = {callbacks.onViewModal}
           count = {count}
           totalPrice = {totalPrice}
-          basketItems = {store.state.basketItems}
       />
       <List 
           items = {store.getState().items}
@@ -50,12 +49,14 @@ function App({store}) {
       {
         viewModal
       ?
-        <Modal
-          closeModal = {callbacks.onCloseModal}
-          basketItems = {store.state.basketItems}
-          deleteItemFromBasket = {callbacks.onItemDeleteBasket}
-          totalPrice = {totalPrice}
-        />
+        <>
+          <ModalLayout
+            closeModal = {callbacks.onCloseModal}
+            basketItems = {store.state.basketItems}
+            deleteItemFromBasket = {callbacks.onItemDeleteBasket}
+            totalPrice = {totalPrice}
+          />
+        </>
       :
         null
       }

@@ -39,7 +39,7 @@ function Modal({closeModal, basketItems, deleteItemFromBasket, totalPrice}) {
                     }
                 </div>
                 {
-                    totalPrice !== 0
+                    basketItems.length > 0
                 ?
                     <div className = {cn('footer')}>
                         <h2 className = {cn('footer-text')}>Итого <span className = {cn('footer-price')}>{formatCurrency(totalPrice)}</span></h2>

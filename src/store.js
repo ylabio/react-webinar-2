@@ -64,7 +64,8 @@ class Store {
             return item
           }
         }),
-        totalPrice: already.price + this.state.totalPrice
+        totalPrice: already.price + this.state.totalPrice,
+        totalCount: this.state.basketItems.length
       })
     } else {
       this.setState({
@@ -83,7 +84,8 @@ class Store {
     this.setState({
       ...this.state,
       basketItems: this.state.basketItems.filter(item => item.code !== removeItem.code),
-      totalPrice: this.state.totalPrice - (removeItem.price * removeItem.countOnBasket)
+      totalPrice: this.state.totalPrice - (removeItem.price * removeItem.countOnBasket),
+      totalCount: this.state.basketItems.length
     });
   }
 

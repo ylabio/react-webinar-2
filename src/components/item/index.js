@@ -1,57 +1,31 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback } from 'react';
+import Actions from './../actions';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
+import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
+  const { item, callback } = props;
 
-  const callbacks = {
-
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
-
-    onDelete: useCallback((e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
-  };
+  const handleCallback = useCallback(() => {
+    callback.action(item.code);
+  }, [callback.action, item]);
 
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
-      <div className={cn('number')}>
-        {props.item.code}
-      </div>
-      <div className={cn('title')}>
-        {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
-      </div>
-      <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
-      </div>
+    <div className={cn()}>
+      <div className={cn('number')}>{item.code}</div>
+      <div className={cn('title')}>{item.title}</div>
+      <div className={cn('price')}>{item.price.toLocaleString('ru-Ru')}</div>
+      <Actions action={handleCallback} name={callback.name} />
     </div>
-  )
+  );
 }
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
-}
-
-Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
-}
+  callback: propTypes.object.isRequired,
+};
 
 export default React.memo(Item);

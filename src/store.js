@@ -1,5 +1,7 @@
-class Store {
+import { generate } from 'shortid';
+import { calcTotalPrice } from './utils';
 
+class Store {
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -7,7 +9,7 @@ class Store {
     this.listeners = [];
   }
 
-  /**
+  /*
    * Выбор state
    * @return {Object}
    */
@@ -15,7 +17,7 @@ class Store {
     return this.state;
   }
 
-  /**
+  /*
    * Установка state
    * @param newState {Object}
    */
@@ -27,7 +29,7 @@ class Store {
     }
   }
 
-  /**
+  /*
    * Подписка на изменение state
    * @param callback {Function}
    * @return {Function} Функция для отписки
@@ -36,48 +38,57 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
-  /**
-   * Создание записи
+  /*
+   * Добавление/прибавление кол-ва товара в корзину
+   * @param code {number}
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
+  addItemToCart(code) {
+    const item = this.state.items.find((item) => item.code === code);
+    const cartItems = this.state.shoppingCart.items;
+    const items = cartItems.reduce(
+      (items, product, index) => {
+        // если объект встретился в массиве, то обновить объект
+        // и вернуть массив без последнего элемента, который заведомо был инициализирован
+        if (product.code === item.code) {
+          items[index] = { ...product, count: product.count + 1 };
+          return items.slice(0, -1);
         }
-        return item.selected ? {...item, selected: false} : item;
-      })
+        return items;
+      },
+      // массив объектов корзины + новый объект
+      // он останется если в редюсере не сработает условие
+      // и таким образом добавится новый товар
+      [...cartItems, { ...item, count: 1, _id: generate() }]
+    );
+    this.setState({
+      ...this.state,
+      shoppingCart: {
+        ...this.state.shoppingCart,
+        items,
+        totalPrice: calcTotalPrice(items),
+      },
+    });
+  }
+
+  /*
+   * Удаление товара из корзины
+   * @param code {number}
+   */
+  deleteItemFromCart(code) {
+    const items = this.state.shoppingCart.items.filter(
+      (product) => product.code !== code
+    );
+    this.setState({
+      ...this.state,
+      shoppingCart: {
+        ...this.state.shoppingCart,
+        items,
+        totalPrice: calcTotalPrice(items),
+      },
     });
   }
 }

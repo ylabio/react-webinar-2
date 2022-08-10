@@ -1,32 +1,36 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import Item from "../item";
+import { cn as bem } from '@bem-react/classname';
+import Item from './../item';
+import { types } from './../../utils';
 import './style.css';
 
+/*
+ * @param items {arrayOf(object)}
+ * @param callback {objectOf(Function, string)} Объект с функцией и названием обработчика на кнопку (additem или deleteItem)
+ * @param component {React.ReactElement} Виртуальный элемент React, для рендера списка переданного элемента
+ * @return {React.ReactElement} Виртуальные элементы React
+ */
 function List(props) {
+  const { items, callback, component: ItemComponent } = props;
+
   const cn = bem('List');
 
   return (
-    <div className={cn()}>{props.items.map(item =>
-      <div key={item.code} className={cn('item')}>
-        <Item item={item} onSelect={props.onItemSelect} onDelete={props.onItemDelete}/>
-      </div>
-    )}
-    </div>
-  )
+    <ul className={cn()}>
+      {items.map((item) => (
+        <li key={item._id || item.code} className={cn('item')}>
+          <ItemComponent item={item} callback={callback} />
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemSelect: propTypes.func,
-  onItemDelete: propTypes.func
-}
-
-List.defaultProps = {
-  items: [],
-  onItemSelect: () => {},
-  onItemDelete: () => {}
-}
+  callback: propTypes.shape(types.CallbackPropsShape).isRequired,
+  component: propTypes.instanceOf(Object).isRequired,
+};
 
 export default React.memo(List);

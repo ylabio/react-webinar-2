@@ -1,21 +1,41 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import propTypes from 'prop-types';
+import { cn as bem } from '@bem-react/classname';
+import { getInfoCart } from '../../utils';
 import './style.css';
 
-function Controls({onAdd}){
+function Controls({ onOpenModal, totalPrice, countItems }) {
+  const cn = bem('Controls');
+
+  const cartInfo = useMemo(
+    () => getInfoCart(countItems, totalPrice),
+    [countItems, totalPrice]
+  );
+
+  const handleOpenModal = useCallback(
+    () => onOpenModal({ title: 'Корзина', nameComponent: 'cart' }),
+    [onOpenModal]
+  );
+
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className={cn()}>
+      <p className={cn('cart')}>
+        В корзине:
+        <span
+          className={cn('cart-info', { empty: !countItems && !totalPrice })}
+        >
+          {`${countItems || totalPrice ? cartInfo : 'пусто'}`}
+        </span>
+      </p>
+      <button onClick={handleOpenModal}>Перейти</button>
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
-
-Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
-}
+  onOpenModal: propTypes.func.isRequired,
+  totalPrice: propTypes.number.isRequired,
+  countItems: propTypes.number.isRequired,
+};
 
 export default React.memo(Controls);

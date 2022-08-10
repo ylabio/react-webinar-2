@@ -1,0 +1,26 @@
+.CartItem {
+  display: flex;
+  transition: background-color 1s;
+  align-items: center;
+}
+.CartItem_selected {
+  background: #75aaf1;
+}
+
+.CartItem-title {
+  padding: 20px 10px;
+  flex: 1;
+}
+.CartItem-number {
+  padding: 20px 10px 20px 20px;
+}
+.CartItem-price {
+  width: max-content;
+}
+.CartItem-price:after {
+  content: var(--ruble-content);
+}
+.CartItem-count {
+  padding-left: 45px;
+  padding-right: 24px;
+}

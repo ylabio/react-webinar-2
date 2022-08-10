@@ -1,0 +1,24 @@
+.Actions {
+  padding: 20px 20px 20px 0;
+  display: flex;
+  justify-content: flex-end;
+  justify-self: flex-end;
+  align-items: center;
+  gap: 25px;
+}
+
+.Actions-button {
+  background: #efefef;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  padding: 3px 8px;
+}
+
+.Actions-button:hover {
+  cursor: pointer;
+  background-color: white;
+}
+
+.Actions-button:active {
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}

@@ -27,11 +27,9 @@
     background-color: white;
     transform: scale(0.1);
     transition: 0.4s all;
-    overflow-y: auto;
     font-family: 'Arial';
     font-weight: 400;
     font-size: 18px;
-
 }
 
 .Cart-content.Active {
@@ -45,6 +43,7 @@
 }
 
 .Cart-content-head {
+    border-radius: 12px 12px 0 0;
     font-weight: bold;
     font-size: 32px;
     display: flex;

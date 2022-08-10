@@ -50,7 +50,6 @@ class Store {
     });
   }
 
-
   /**
    * Удаление записи по её коду
    * @param code
@@ -69,7 +68,7 @@ class Store {
   addItem(code) {
     this.setState({
       ...this.state,
-      cartItems: this.state.cartItems.concat(this.state.items.filter(item => item.code === code))
+      cartItems: this.state.cartItems.concat(this.state.items.find(item => item.code === code))
     });
   }
 

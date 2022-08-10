@@ -25,16 +25,16 @@ function Cart(props) {
   };
 
   return (
-    <div className={props.active ? cn() + ' Active' : cn()} onClick={callbacks.onChangeActive}>
-      <div className={props.active ? cn('content') + ' Active' : cn('content')} onClick={callbacks.onContentClick}>
+    <div className={props.isActive ? cn() + ' Active' : cn()} onClick={callbacks.onChangeActive}>
+      <div className={props.isActive ? cn('content') + ' Active' : cn('content')} onClick={callbacks.onContentClick}>
         <div className={cn('content-head')}>
-          {props.headName ? props.headName : 'Modal example'}
-          <button className={cn('content-head-btn')} onClick={callbacks.onChangeActive}>{props.headBtn}</button>
+          {props.headName}
+          <button className={cn('content-head-btn')} onClick={callbacks.onChangeActive}> Закрыть </button>
         </div>
         {props.children}
         {(props.footTotal !== '0') && <div className={cn('content-foot')}>
-          <div className={cn('content-foot-text')}>{props.footText}</div>
-          <div className={cn('content-foot-total')}>{props.footTotal} ₽</div>
+          <div className={cn('content-foot-text')}> Итого </div>
+          <div className={cn('content-foot-total')}> {props.footTotal} ₽ </div>
         </div>}
       </div>
     </div>
@@ -43,14 +43,14 @@ function Cart(props) {
 };
 
 Cart.propTypes = {
-  active: propTypes.bool.isRequired,
-  headName: propTypes.string,
-  headBtn: propTypes.string,
-  footText: propTypes.string,
-  footTotal: propTypes.string
+  isActive: propTypes.bool,
+  headName: propTypes.string.isRequired,
+  footTotal: propTypes.string,
+  children: propTypes.node,
 }
 
 Cart.defaultProps = {
+  headName: 'Modal Example'
 }
 
 export default React.memo(Cart);

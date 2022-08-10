@@ -2,27 +2,18 @@ import React from 'react';
 import propTypes from 'prop-types';
 import plural from 'plural-ru';
 import {cn as bem} from '@bem-react/classname';
-import {arrFromSet} from '../../utils.js'
 import './style.css';
 
 function Controls(props){
 
   const cn = bem('Controls');
 
-  const [priceSum, setPriceSum] = React.useState(0);
-  const [itemsSum, setItemsSum] = React.useState(0);
-
-  React.useEffect(() => {
-    setPriceSum(Number(props.cart.map(i => i.price).reduce((a, b) => (a + b) , 0)));
-    setItemsSum(Number(arrFromSet(props.cart).length));
-  }, [props.cart]);
-
   return (
     <div className={cn()}>
       В корзине:
-      { itemsSum > 0 &&
+      { props.getItemsSum > 0 &&
         <div className={cn('sum')}>
-          {`${itemsSum + ' ' + plural(itemsSum, 'товар', 'товара', 'товаров')} / ${priceSum.toLocaleString('ru-RU')} ₽`}
+          {`${props.getItemsSum + ' ' + plural(props.getItemsSum, 'товар', 'товара', 'товаров')} / ${props.getPriceSum.toLocaleString('ru-RU')} ₽`}
         </div> ||
         <div className={cn('sum')}>
           пусто
@@ -36,12 +27,14 @@ function Controls(props){
 }
 
 Controls.propTypes = {
-  isModalActive: propTypes.func.isRequired,
-  cart: propTypes.arrayOf(propTypes.object).isRequired,
+  isModalActive: propTypes.func,
+  getItemsSum: propTypes.number.isRequired,
+  getPriceSum: propTypes.number.isRequired,
 }
 
 Controls.defaultProps = {
-  cart: []
+  getItemsSum: 0,
+  getPriceSum: 0,
 }
 
 export default React.memo(Controls);

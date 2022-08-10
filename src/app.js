@@ -4,6 +4,7 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import Cart from './components/cart';
 import CartList from './components/cart/cart-list';
+import {arrFromSet} from './utils.js';
 
 /**
  * Приложение
@@ -17,12 +18,14 @@ function App({store}) {
 
   const [modalActive, setModalActive] = React.useState(false);
   const [priceSum, setPriceSum] = React.useState(0);
+  const [itemsSum, setItemsSum] = React.useState(0);
 
 /**
- * Отслеживание изменений в {Store}, если есть, то запись общей суммы в корзине в state
+ * Отслеживание изменений в {Store}
  */
   React.useEffect(() => {
     setPriceSum(Number(getCartItems.map(i => i.price).reduce((a, b) => (a + b) , 0)));
+    setItemsSum(Number(arrFromSet(getCartItems).length));
   }, [getCartItems]);
 
   const callbacks = {
@@ -39,20 +42,18 @@ function App({store}) {
 
   return (
     <div>
-      {/* Возможно слишком много пропсов, зато можно сразу задать содержимое модального окна */}
-      <Cart active={modalActive}
+      <Cart isActive={modalActive}
             setActive={setModalActive}
             headName={'Корзина'}
-            footText={'Итого'}
-            footTotal={priceSum.toLocaleString('ru-RU')}
-            headBtn={'Закрыть'}>
+            footTotal={priceSum.toLocaleString('ru-RU')}>
         <CartList items={getCartItems}
                   onItemDelete={callbacks.onDeleteItems}
         />
       </Cart>
       <Layout head={<h1>Магазин</h1>}>
-        <Controls cart={getCartItems}
-                  isModalActive={() => setModalActive(true)}/>
+        <Controls isModalActive={() => setModalActive(true)}
+                  getItemsSum={itemsSum}
+                  getPriceSum={priceSum}/>
         <List items={getItems}
               onItemSelect={callbacks.onSelectItems}
               onItemAdd={callbacks.onAddItems}

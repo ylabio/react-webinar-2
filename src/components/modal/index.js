@@ -3,11 +3,11 @@ import propTypes from 'prop-types';
 import { cn as bem } from "@bem-react/classname";
 import './style.css';
 
-function Modal({ modalActive, setModalActive, children }) {
+function Modal({  setModalActive, children }) {
   const cn = bem('Modal');
 
   return (
-    <div className={modalActive ? 'Modal active' : 'Modal'}
+    <div className={'Modal active' }
       onClick={() => setModalActive(false)}>
       <div className={cn('content')} onClick={(e) => e.stopPropagation()}>
         <button className={cn('closeBtn')} onClick={() => setModalActive(false)}>Закрыть</button>

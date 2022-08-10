@@ -41,14 +41,16 @@ function App({ store }) {
         btnText='Добавить'
         countClass='Item-count-hidden'
       />
-      <Modal modalActive={modalActive} setModalActive={setModalActive} >
-        <Title title="Корзина" />
-        <List items={store.getState().cart}
-          btnHandler={callbacks.deleteFromCart}
-          btnText='Удалить'
-        />
-        <Total totalPrice={totalPrice} isCartEmpty={store.state.cart.length === 0} />
-      </Modal>
+      {modalActive ?
+        <Modal setModalActive={setModalActive} >
+          <Title title="Корзина" />
+          <List items={store.getState().cart}
+            btnHandler={callbacks.deleteFromCart}
+            btnText='Удалить'
+          />
+          <Total totalPrice={totalPrice} isCartEmpty={store.state.cart.length === 0} />
+        </Modal>
+        : null}
     </Layout>
   );
 }

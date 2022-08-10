@@ -34,7 +34,7 @@ function Item(props) {
       </div>}
       <div className={cn('actions')}>
         <button className={cn('button')} onClick={(props.onAdd) ? callbacks.onAdd : callbacks.onDelete}>
-        {(props.onAdd) ? 'Добавить' : 'Удалить'}
+          {(props.onAdd) ? 'Добавить' : 'Удалить'}
         </button>
       </div>
     </div>

@@ -1,9 +1,9 @@
 import React, {useCallback, useState} from 'react';
+import {cn as bem} from '@bem-react/classname';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import ShopCart from "./components/cart";
-
 
 /**
  * Приложение
@@ -12,6 +12,7 @@ import ShopCart from "./components/cart";
  */
 function App({store}) {
   const [showCart, setShowCart] = useState(false);
+  const cn = bem('Cart');
 
   const callbacks = {
     onAdd: useCallback((code) => {
@@ -31,10 +32,22 @@ function App({store}) {
                 cartQty={store.getState().shoppingCartQty} 
                 cartTotal={store.getState().shoppingCartTotal}
       />
-      <List items={store.getState().items}
-            onItemAdd={callbacks.onAdd}
-      />
-      {showCart && <ShopCart state={store.getState()} store={store} show={showCart} setShow={setShowCart} />}
+      <List items={store.getState().items} onItemAdd={callbacks.onAdd} />
+      {showCart && 
+        <ShopCart header='Корзина' onClose={()=> setShowCart(!showCart)}>
+          <List items={store.getState().shoppingCart} onDelete={callbacks.onDelete} />
+          {(store.getState().shoppingCartQty > 0) 
+            && <div className={cn('footer')}>
+                 <span>Итого</span>
+                 <span className={cn('total')}>
+                   {store.getState().shoppingCartTotal
+                                    .toLocaleString('ru-RU') 
+                                    + ' \u20bd'}
+                 </span>
+              </div>
+              }
+        </ShopCart>
+        }
     </Layout>
   );
 }

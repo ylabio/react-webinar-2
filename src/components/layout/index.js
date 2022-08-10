@@ -21,6 +21,7 @@ function Layout({head, layout, children}){
 Layout.propTypes = {
   head: propTypes.node,
   children: propTypes.node,
+  layout: propTypes.string.isRequired,
 }
 
 export default React.memo(Layout);

@@ -6,16 +6,17 @@ import {cn as bem} from "@bem-react/classname";
 
 function Controls({onOpen, cartQty, cartTotal}){
   const cn = bem('Controls');
+
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-        В корзине:
+          В корзине:
       </div>
       <div className={cn('cart')}>
         {(cartQty > 0) ? cartQty 
             + pluralize(cartQty, [' товар', ' товара', ' товаров'])
             + ` / ${cartTotal.toLocaleString('ru-RU') + ' \u20bd'}`
-          : 'пусто'
+            : 'пусто'
         }
       </div>
       <div className={cn('actions')}>

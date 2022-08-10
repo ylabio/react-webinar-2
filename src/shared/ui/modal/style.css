@@ -27,8 +27,20 @@
   overflow: hidden;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #70abd3;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+}
+
+
 .UIModal_media {
   overflow-y: auto;
-  align-items: flex-start; 
-  margin-right: -16px;
+  align-items: flex-start;
 }

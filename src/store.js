@@ -1,5 +1,6 @@
-class Store {
+import item from './components/item';
 
+class Store {
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -37,7 +38,7 @@ class Store {
     // Возвращаем функцию для удаления слушателя
     return () => {
       this.listeners = this.listeners.filter(item => item !== callback);
-    }
+    };
   }
 
   /**
@@ -62,22 +63,72 @@ class Store {
   }
 
   /**
-   * Выделение записи по её коду
+   * Добавление записи в корзину
    * @param code
    */
-  selectItem(code) {
+
+  addItemToCart(code) {
+    const itemToAdd = this.state.items.find(item => item.code === code); // находим элемент для добавления
+    const itemAlreadyInTheCart = this.state.shoppingCart.find(
+      item => item.code === code
+    ); // есть ли уже такой в корзине?
+
+    if (itemAlreadyInTheCart) {
+      // если есть, то увеличиваем количество
+      const index = this.state.shoppingCart.indexOf(itemAlreadyInTheCart);
+      const amountNew = this.state.shoppingCart[index].amount + 1;
+      const itemCopy = {...this.state.shoppingCart[index], amount: amountNew};
+
+      this.setState({
+        ...this.state,
+        shoppingCart: this.state.shoppingCart.map(item => {
+          if (item.code === itemCopy.code) {
+            return itemCopy;
+          } else {
+            return item;
+          }
+        }),
+        total: this.state.total + amountNew * itemToAdd.price
+      });
+    } else {
+      // если нет, то добавляем поле amount со значением 1
+      this.setState({
+        ...this.state,
+        shoppingCart: [...this.state.shoppingCart, {...itemToAdd, amount: 1}],
+        numberOfUniqueItemsInCart: this.state.numberOfUniqueItemsInCart + 1,
+        total: this.state.total + itemToAdd.price
+      });
+    }
+  }
+
+  /**
+   * Возвращение количества уникальных товаров в корзине
+   */
+  getNumberOfUniqueItemsInCart() {
+    return this.state.numberOfUniqueItemsInCart;
+  }
+
+  /**
+   * Возвращение общей суммы товаров в корзине
+   */
+
+  getTotalInCart() {
+    return this.state.total;
+  }
+
+  /**
+   * Удаление всех записей с кодом из корзины
+   * @param code
+   */
+  removeItemFromCart(code) {
+    const itemToRemove = this.state.shoppingCart.find(
+      item => item.code === code
+    );
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      shoppingCart: this.state.shoppingCart.filter(item => item.code !== code),
+      numberOfUniqueItemsInCart: this.state.numberOfUniqueItemsInCart - 1,
+      total: this.state.total - itemToRemove.price * itemToRemove.amount
     });
   }
 }

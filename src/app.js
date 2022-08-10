@@ -1,8 +1,10 @@
-import React, {useCallback} from 'react';
-import Controls from "./components/controls";
-import List from "./components/list";
-import Layout from "./components/layout";
-import {counter} from "./utils";
+import React, {useCallback, useState} from 'react';
+import Controls from './components/shoppingcart-controls';
+import List from './components/list';
+import Layout from './components/layout';
+import Modal from './components/modal';
+import ShoppingCart from './components/shopping-cart';
+import ModalHead from './components/modal-head';
 
 /**
  * Приложение
@@ -10,28 +12,57 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const [isModalVisible, toggleModal] = useState(false);
+
+  const amount = store.getNumberOfUniqueItemsInCart();
+  const total = store.getTotalInCart();
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onOpenCart: useCallback(() => {
+      toggleModal(prevState => !prevState);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+
+    onAddItemToCart: useCallback(code => {
+      store.addItemToCart(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
-  }
+
+    onRemoveItemFromCart: useCallback(code => {
+      store.removeItemFromCart(code);
+    }, [])
+  };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls
+          onOpenCart={callbacks.onOpenCart}
+          total={total}
+          amount={amount}
+          cartItems={store.getState().shoppingCart}
+        />
+        <List
+          items={store.getState().items}
+          onAction={callbacks.onAddItemToCart}
+        />
+      </Layout>
+
+      {isModalVisible && (
+        <Modal onClose={callbacks.onOpenCart}>
+          <Layout
+            head={
+              <ModalHead headName="Корзина" onAction={callbacks.onOpenCart} />
+            }
+            modal
+          >
+            <ShoppingCart
+              cartItems={store.getState().shoppingCart}
+              onRemoveItem={callbacks.onRemoveItemFromCart}
+              total={total}
+            />
+          </Layout>
+        </Modal>
+      )}
+    </>
   );
 }
 

@@ -7,6 +7,8 @@ import List from "../list";
 function Product({ children, items, onBtn, btn, calcCountAndSumCart }){
   const cn = bem('Product');
 
+  console.log(items)
+
   return (
     <div className={cn()}>
       <List items={items}

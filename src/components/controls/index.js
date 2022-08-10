@@ -4,19 +4,13 @@ import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import plural from 'plural-ru';
 
-function Controls({openPopup, showCountAndSum}){
+function Controls({openPopup, countAndSum}){
   const cn = bem('Controls');
 
   const cb = {
     openPopup: useCallback((e) => {
       e.stopPropagation();
       openPopup(true);
-    }, []),
-    showSum: useCallback(() => {
-      return showCountAndSum().sum;
-    }, []),
-    showCount: useCallback(() => {
-      return showCountAndSum().count;
     }, []),
   };
 
@@ -27,9 +21,9 @@ function Controls({openPopup, showCountAndSum}){
           В корзине:
         </div>
         <div className={cn('calc')}>
-          {cb.showCount()
-            ? ` ${cb.showCount()} ${plural(cb.showCount(), 'товар', 'товара', 'товаров')} 
-              / ${cb.showSum().toLocaleString('ru-RU')} ₽`
+          {countAndSum.count
+            ? ` ${countAndSum.count} ${plural(countAndSum.count, 'товар', 'товара', 'товаров')} 
+              / ${countAndSum.sum.toLocaleString('ru-RU')} ₽`
             : ' пусто'}
         </div>
       </div>
@@ -40,12 +34,12 @@ function Controls({openPopup, showCountAndSum}){
 
 Controls.propTypes = {
   openPopup: propTypes.func.isRequired,
-  showCountAndSum: propTypes.func.isRequired,
+  countAndSum: propTypes.object.isRequired,
 }
 
 Controls.defaultProps = {
   openPopup: () => {},
-  showCountAndSum: () => {},
+  countAndSum: {},
 }
 
 export default React.memo(Controls);

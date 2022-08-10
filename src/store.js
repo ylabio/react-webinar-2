@@ -49,7 +49,8 @@ class Store {
     if (findItemIndex === -1) {
       this.setState({
         ...this.state,
-        cartItems: this.state.cartItems.concat({code: code, title: title, price: price, quantity: 1})
+        cartItems: this.state.cartItems.concat({code: code, title: title, price: price, quantity: 1}),
+        totalUniqueCount: this.state.totalUniqueCount + 1,
       });
     } else {
       this.setState({
@@ -63,9 +64,10 @@ class Store {
           } else {
             return item
           }
-        })
+        }),
       })
     }
+    this.calcTotalPrice()
   }
   
   
@@ -73,12 +75,26 @@ class Store {
    * Удаление записи по её коду
    * @param code
    */
-  deleteCartItem(code) {
+  deleteCartItem(code){
     this.setState({
       ...this.state,
-      cartItems: this.state.cartItems.filter(item => item.code !== code)
+      cartItems: this.state.cartItems.filter(item => item.code !== code),
+      totalUniqueCount: this.state.totalUniqueCount - 1
     });
+    this.calcTotalPrice()
+  }
+  
+  
+  /**
+   * Высчитывает итоговую сумму
+   */
+  calcTotalPrice(){
+    this.setState({
+      ...this.state,
+      totalPrice: this.state.cartItems.reduce((prev, item) => item.price * item.quantity + prev, 0)
+    })
   }
 }
+
 
 export default Store;

@@ -6,34 +6,34 @@ import propTypes from "prop-types";
 import './style.css';
 import {priceFormat} from "../../utils";
 
-function Controls({setIsModalActive, totalPrice, totalCount}) {
+function Controls({setIsCartModalActive, totalPrice, totalUniqueCount}) {
   const cn = bem('Controls');
   return (
     <div className={cn()}>
       <span className={cn('text')}>В корзине:</span>
-      {totalCount > 0 ?
+      {totalUniqueCount > 0 ?
         <span className={cn('itemCount')}>
-          {totalCount} {plural(totalCount, 'товар', 'товара', 'товаров')} / {priceFormat(totalPrice)} ₽
+          {totalUniqueCount} {plural(totalUniqueCount, 'товар', 'товара', 'товаров')} / {priceFormat(totalPrice)} ₽
         </span>
         :
         
         <span className={cn('itemCount')}>пусто</span>
       }
-      <button onClick={() => setIsModalActive(true)}>Перейти</button>
+      <button onClick={() => setIsCartModalActive(true)}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
   totalPrice: propTypes.number,
-  totalCount: propTypes.number,
-  setIsModalActive: propTypes.func
+  totalUniqueCount: propTypes.number,
+  setIsCartModalActive: propTypes.func
 }
 
 Controls.defaultProps = {
   totalPrice: 0,
-  totalCount: 0,
-  setIsModalActive: () => {
+  totalUniqueCount: 0,
+  setIsCartModalActive: () => {
   }
 }
 

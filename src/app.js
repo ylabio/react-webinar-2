@@ -13,11 +13,9 @@ import Cart from "./components/cart";
  */
 
 function App({store}) {
-  const [isModalActive, setIsModalActive] = React.useState(false);
+  const state = store.getState();
   
-  const totalPrice = sumCalculated(store.getState().cartItems);
-  
-  const totalCount = sumQuantity(store.getState().cartItems);
+  const [isCartModalActive, setIsCartModalActive] = React.useState(false);
   
   const callbacks = {
     handleAddItemToCart: useCallback((item) => {
@@ -28,28 +26,25 @@ function App({store}) {
     }, []),
   }
   
-  const handleCloseModal = () => {
-    setIsModalActive(false)
-  }
-  
   return (
     <>
       <Layout head={<h1>Магазин</h1>}>
-        <Controls setIsModalActive={setIsModalActive} totalPrice={totalPrice} totalCount={totalCount}/>
+        <Controls setIsCartModalActive={setIsCartModalActive} totalPrice={state.totalPrice} totalUniqueCount={state.totalUniqueCount}/>
         <List
-          items={store.getState().items}
+          items={state.items}
           handleAddItemToCart={callbacks.handleAddItemToCart}
         />
       </Layout>
-      {isModalActive &&
+      {isCartModalActive &&
         <Modal
-          handleCloseModal={handleCloseModal}
+        setIsModalActive={() => setIsCartModalActive(false)}
+          title={'Корзина'}
         >
           <Cart
-            cartItems={store.getState().cartItems}
+            cartItems={state.cartItems}
             handleDeleteCartItem={callbacks.handleDeleteCartItem}
-            totalPrice={totalPrice}
-            totalCount={totalCount}
+            totalPrice={state.totalPrice}
+            totalUniqueCount={state.totalUniqueCount}
           />
         </Modal>
       }

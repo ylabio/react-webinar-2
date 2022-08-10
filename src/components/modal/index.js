@@ -5,7 +5,7 @@ import {cn as bem} from "@bem-react/classname";
 
 import './style.css';
 
-function Modal(props) {
+function Modal({head, onModalBtn, children}) {
     const cn = bem('Modal')
     
 
@@ -13,16 +13,16 @@ function Modal(props) {
        <div className={cn()}>
          <div className={cn('content')}>
             <div className={cn('header')}>
-                <h2>Корзина</h2>
-                <button onClick={props.onModalBtn}>Закрыть</button>
+                {head}
+                <button onClick={onModalBtn}>Закрыть</button>
             </div>
-            
-            <List items={props.items} onHandleBtn={props.onDeleteItem}/>
+            {children}
+            {/* <List items={props.items} onHandleBtn={props.onDeleteItem}/>
             
             <div className={cn('total')}>
                 <p className={cn('total-title')}>Итого:</p>
                 <p className={cn('total-sum')}>{props.totalPrice.toLocaleString('ru')} ₽</p>
-            </div>
+            </div> */}
          </div>
        </div>
     )

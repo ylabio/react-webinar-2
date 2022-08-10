@@ -25,12 +25,9 @@ function Item(props) {
       <p className={cn('price')}>
         {`${props.item.price.toLocaleString('ru')} ₽`}
       </p>
-      {
-        props.item.count ? <p className={cn('amount')}>{props.item.count} шт</p> : null
-      }
       <div className={cn('actions')}>
         <button onClick={callbacks.onHandleBtn}>
-          {props.item.count ? 'Удалить' : 'Добавить'}
+          Добавить
         </button>
       </div>
     </div>

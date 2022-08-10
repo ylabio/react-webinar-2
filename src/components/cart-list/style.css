@@ -1,0 +1,10 @@
+.Cart-list{
+
+}
+.Cart-list-item{
+    border-bottom: 1px dashed #ccc;
+}
+
+.Cart-list-item:first-child{
+    border-top: 1px dashed #ccc;
+}

@@ -59,7 +59,7 @@ class Store {
       ...this.state,
       cart: this.state.cart.filter(item => item.code !== code)
     });
-    this.sumOfPrices()
+    this.sumOfPricesAndItems()
   }
 
   updateItem(item, itemInCart) {
@@ -85,11 +85,12 @@ class Store {
     return [...cart.slice(0, index), newItem, ...cart.slice(index + 1)];
   }
 
-  sumOfPrices() {
+  sumOfPricesAndItems() {
     
     this.setState({
       ...this.state,
-      totalPrice: this.state.cart.reduce((a, b) => a + b.price*b.count, 0)
+      totalPrice: this.state.cart.reduce((a, b) => a + b.price*b.count, 0),
+      itemsAmount: this.state.cart.length
     })
   }
 
@@ -115,8 +116,8 @@ class Store {
       cart: [...newArray]
       
     });
-    this.sumOfPrices()
-    
+    this.sumOfPricesAndItems()
+
   }
 }
 

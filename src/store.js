@@ -43,23 +43,21 @@ class Store {
    * Добавления товара в корзину
    */
   addItemToCart(item) {
-    if (!this.state.itemsCart.length) {
+    if (!this.state.itemsCart.length || !this.state.itemsCart.find(i => i.code === item.code)) {
       this.setState({
         ...this.state,
-        itemsCart: [{ ...item, sumPrice: item.price, count: 1 }]
+        itemsCart: [...this.state.itemsCart, { ...item, sumPrice: item.price, count: 1 }]
       })
     } else {
       this.setState({
         ...this.state,
-        itemsCart: this.state.itemsCart.find(i => i.code === item.code)
-          ? this.state.itemsCart.map(itemCart => {
-            if (itemCart.code === item.code) {
-              return { ...itemCart, sumPrice: itemCart.price * (itemCart.count + 1), count: itemCart.count + 1 }
-            } else {
-              return itemCart;
-            }
-          })
-          : [...this.state.itemsCart, { ...item, sumPrice: item.price, count: 1 }]
+        itemsCart: this.state.itemsCart.map(itemCart => {
+          if (itemCart.code === item.code) {
+            return { ...itemCart, sumPrice: itemCart.price * (itemCart.count + 1), count: itemCart.count + 1 }
+          } else {
+            return itemCart;
+          }
+        })
       })
     }
   }

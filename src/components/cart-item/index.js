@@ -22,7 +22,7 @@ function CartItem(props) {
         {props.item.title} 
       </div>
       <div className={cn('price')}>
-        {props.item.price} &#8381;
+        {props.item.price.toLocaleString()} &#8381;
       </div>
       <div className={cn('amount')}>
         {props.item.amount} шт.
@@ -42,7 +42,8 @@ CartItem.propTypes = {
 }
 
 CartItem.defaultProps = {
-  onDeteleCart: () => {}
+  onDeteleCart: () => {},
+  item:{}
 }
 
 export default React.memo(CartItem);

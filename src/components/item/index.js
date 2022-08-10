@@ -38,7 +38,8 @@ Item.propTypes = {
 }
 
 Item.defaultProps = {
-  onCartItems: () => {}
+  onCartItems: () => {},
+  item:{}
 }
 
 export default React.memo(Item);

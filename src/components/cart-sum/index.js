@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import plural from 'plural-ru';
 import './style.css'
@@ -24,6 +25,16 @@ function CartSumm(props) {
     )
   }
   else return <div className={cn('')}> пусто </div> 
+}
+
+CartSumm.propTypes = {
+  place: propTypes.string.isRequired,
+  cart: propTypes.object.isRequired
+  }
+
+  CartSumm.defaultProps = {
+    place: '',
+    cart: {}
 }
 
 export default React.memo(CartSumm);

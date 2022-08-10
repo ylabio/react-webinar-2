@@ -23,7 +23,8 @@ Controls.propTypes = {
 }
 
 Controls.defaultProps = {
-  setModalActive: () => {} // Значение по умолчанию - функция-заглушка
+  setModalActive: () => {}, // Значение по умолчанию - функция-заглушка
+  cart: {}
 }
 
 export default React.memo(Controls);

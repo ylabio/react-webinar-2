@@ -2,8 +2,9 @@ import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
 import Modal from './components/modal';
+import CartList from './components/cart-list/index';
+import {cn as bem} from "@bem-react/classname";
 
 /**
  * Приложение
@@ -12,7 +13,7 @@ import Modal from './components/modal';
  */
 function App({store}) {
 const [modalActive, setModalActive]=useState(false);
-
+const cn = bem('Modal');
   const callbacks = {
     onAdd: useCallback(() => {
       const code = counter();
@@ -33,9 +34,9 @@ const [modalActive, setModalActive]=useState(false);
     
     <Layout head={<h1>Магазин</h1>}>      
       <Controls setModalActive={setModalActive} cart={store.getState().cart} />
-      {modalActive?<Modal cart={store.getState().cart}  
-            setActive={setModalActive} 
-            onDeteleCart={callbacks.onDeteleCart}/>:''}
+      {modalActive?<Modal head={<h1>Корзина</h1>} setModalActive={setModalActive}>
+            <CartList cart={store.getState().cart} onDeteleCart={callbacks.onDeteleCart}/>
+            </Modal>:''}
       <List items={store.getState().items}
             onCartItems={callbacks.onCartItems}
       />

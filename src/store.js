@@ -4,7 +4,11 @@ class Store {
     // Состояние приложения (данные)
     this.state = initState;
     // Слушатели изменений state
-    this.listners = [];
+    this.listeners = [];
+    this.addToCart = this.addToCart.bind(this);
+    this.removeCartItem = this.removeCartItem.bind(this);
+    this.setTotalCount = this.setTotalCount.bind(this);
+    this.setTotalSum = this.setTotalSum.bind(this);
   }
 
   /**
@@ -22,8 +26,8 @@ class Store {
   setState(newState) {
     this.state = newState;
     // Оповещаем всех подписчиков об изменении стейта
-    for (const lister of this.listners) {
-      lister();
+    for (const listener of this.listeners) {
+      listener();
     }
   }
 
@@ -33,49 +37,71 @@ class Store {
    * @return {Function} Функция для отписки
    */
   subscribe(callback) {
-    this.listners.push(callback);
+    this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listners = this.listners.filter(item => item !== callback);
+      this.listeners = this.listeners.filter(item => item !== callback);
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новая запись', selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          item.selected = !item.selected;
+  addToCart(code) {
+    const {items, cart} = this.getState();
+    items.forEach(item => {
+      if(item.code === code){
+        const index = cart.findIndex(c => c.code === item.code)
+        if(index === -1){
+          const newState = {
+            ...this.state,
+            cart: [...cart, {...item, count: 1}]
+          }
+          this.setState(newState);
+        } else {
+          const updateCart = [...cart];
+          updateCart[index].count += 1;
+          const newState = {
+            ...this.state,
+            cart: [...updateCart]
+          }
+          this.setState(newState)
         }
-        return item;
-      })
-    });
+      }
+    })
+    this.setTotalCount();
+    this.setTotalSum();
+  }
+
+  removeCartItem(code){
+    const cart = this.getState().cart;
+    let updateCart = [...cart];
+    updateCart = updateCart.filter(c => c.code !== code);
+    const newState = {
+      ...this.state,
+      cart: [...updateCart]
+    }
+    this.setState(newState);
+    this.setTotalCount();
+    this.setTotalSum();
+  }
+
+  setTotalCount(){
+    const cart = this.getState().cart;
+    const newState = {
+      ...this.state,
+      totalCount: cart.length
+    }
+    this.setState(newState);
+  }
+
+  setTotalSum(){
+    const cart = this.getState().cart;
+    const total = cart.reduce((acc, c) => (c.price * c.count) + acc, 0);
+    const newState = {
+      ...this.state,
+      totalSum: total
+    }
+    this.setState(newState);
   }
 }
+
 
 export default Store;

@@ -1,6 +1,13 @@
-import React from 'react';
-import {counter} from './utils.js';
-import './style.css';
+import React, {useCallback, useState} from "react";
+import plural from "plural-ru";
+import propTypes from "prop-types";
+
+import Controls from "./components/controls";
+import List from "./components/list";
+import Layout from "./components/layout";
+import Modal from "./components/modal";
+import Cart from "./components/cart";
+import {formatter} from "./utils";
 
 /**
  * Приложение
@@ -8,39 +15,42 @@ import './style.css';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  // Выбор состояния из store
-  const {items} = store.getState();
+  const {items, cart, totalCount, totalSum} = store.getState();
+  const [isShowCart, setIsShowCart] = useState(false);
+
+  const callbacks = {
+    onShow: useCallback(() => {
+      setIsShowCart(true)
+    }, []),
+    onClose: useCallback(() => {
+      setIsShowCart(false)
+    }, []),
+    getInfo: useCallback(() => {
+      if (cart.length){
+        return `${totalCount} ${plural(totalCount, 'товар', 'товара', 'товаров')} / ${formatter(totalSum)}`
+      } else {
+        return "Пусто"
+      }
+    }, [cart])
+  }
 
   return (
-    <div className='App'>
-      <div className='App__head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='Controls'>
-        <button onClick={() => {
-          const code = counter();
-          store.createItem({code, title: `Новая запись ${code}`})
-        }}> Добавить </button>
-      </div>
-      <div className='App__center'>
-        <div className='List'>{items.map(item =>
-          <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
-              <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
-              <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
-                  Удалить
-                </button>
-              </div>
-            </div>
-          </div>
+      <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls onShow={callbacks.onShow} getInfo={callbacks.getInfo}/>
+        <List items={items} onAdd={store.addToCart}/>
+      </Layout>
+        {isShowCart && (
+            <Modal>
+              <Cart cart={cart} onClose={callbacks.onClose} totalSum={totalSum} onRemove={store.removeCartItem}/>
+            </Modal>
         )}
-        </div>
-      </div>
-    </div>
+      </>
   );
+}
+
+App.propTypes = {
+  store: propTypes.object.isRequired
 }
 
 export default App;

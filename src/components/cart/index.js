@@ -1,68 +1,38 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import propTypes, { object } from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
-import Popup from '../popup';
-import Layout from '../layout';
-import Item from '../item';
+import List from '../list';
 
-function Cart({setOpenCart, removeFromCart, isOpenCart, state, totalPrice}){
+function Cart({setOpenCart, removeFromCart, cart, totalPrice}){
     const cn = bem('Cart');
-
-    if (!isOpenCart) return
-
-    const { items, cart } = state
-
-    const getItems = () => {
-      getItems.count = 0;
-      let elements = [];
-      for (let prop in cart) {
-        elements.push(
-        <div key={prop} className={cn('item')}>
-          <Item item={items[prop]}
-                count={++getItems.count}
-                amount={cart[prop]}
-                actionName="Удалить"
-                action={() => removeFromCart(prop)}
-          />
-        </div>);
-      }
-      return elements;
-    }
   
     return (
-      <Popup close={() => setOpenCart(false)}>
-        <Layout className={cn()} 
-                head={<h1>Корзина</h1>}
-                btn={<button onClick={() => setOpenCart(false)} className='Layout-btn'>
-                Закрыть
-              </button>}
-        >
+      <div className={cn()}>
+        <div className={cn('head')}>
+          <h1>Корзина</h1>
+          <button onClick={() => setOpenCart(false)}>Закрыть</button>
+        </div>
+        
+        <List items={cart} action={removeFromCart}/>
 
-          { getItems() }
+        <div className={cn('total')}>
+          <span>Итого</span>
+          {totalPrice.toLocaleString('ru')} ₽
+        </div>
 
-          <div className={cn('total')}>
-            <span>Итого</span>
-            {totalPrice.toLocaleString('ru')} ₽
-          </div>
-
-        </Layout>
-      </Popup>
+      </div>
     )
   }
   
   Cart.propTypes = {
-    state: propTypes.object,
+    cart: propTypes.arrayOf(propTypes.object).isRequired,
     setOpenCart: propTypes.func.isRequired,
     removeFromCart: propTypes.func.isRequired,
-    isOpenCart: propTypes.bool.isRequired,
+    totalPrice: propTypes.number.isRequired,
   }
   
   Cart.defaultProps = {
-    items: {},
-    setOpenCart: () => {},
-    removeFromCart: () => {},
-    isOpenCart: false,
   }
   
   export default React.memo(Cart);

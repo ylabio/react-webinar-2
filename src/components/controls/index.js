@@ -6,7 +6,7 @@ import './style.css';
 
 function Controls({countOfItems, totalPrice, setOpenCart}){
   const cn = bem('Controls');
-
+console.log("Render Controls");
   return (
     <div className={cn()}>
 
@@ -29,12 +29,10 @@ function Controls({countOfItems, totalPrice, setOpenCart}){
 Controls.propTypes = {
   setOpenCart: propTypes.func.isRequired,
   countOfItems: propTypes.number.isRequired,
-  totalPrice: propTypes.number.isRequired,
+  totalPrice: propTypes.number,
 }
 
 Controls.defaultProps = {
-  setOpenCart: () => {},
-  countOfItems: 0,
   totalPrice: 0,
 }
 

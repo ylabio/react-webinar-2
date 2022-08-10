@@ -15,6 +15,10 @@ class Store {
     return this.state;
   }
 
+  _getTotalPrice() {
+    return this.state.cart.reduce((acc, cur) => acc + cur.price*cur.amount, 0)
+  }
+
   /**
    * Установка state
    * @param newState {Object}
@@ -45,12 +49,37 @@ class Store {
    * @param code
    */
    addToCart(code) {
+    // const items = this.state.items - для альтернативного варианта
+    const index = this.state.cart.findIndex(el => el.code === code)
+
+    if (index !== -1) {
+      let copyCart = this.state.cart.map((el, idx) => idx === index 
+      ? {...this.state.cart[idx], "amount": this.state.cart[idx]["amount"] + 1}
+      : el)
+
+      this.setState({
+        ...this.state,
+        cart: copyCart
+      });
+    } else {
+        this.setState({
+        ...this.state,
+        cart: this.state.cart.concat({...this.state.items.find(item => item.code === code), amount: 1 })
+      });
+      // Альтернативный вариант - получил данные не перебирая массив, но в реальности код товара - будет уникальный идентификатор, да и в целом полагаться на такой способ не надежно. Как вариант еще передавать цену и название вместе с кодом товара через пропсы. Или хранить весь список товаров в объекте с ключами id товара (как я сделал в предидущей реализации state items)
+      // this.setState({
+      //   ...this.state,
+      //   cart: this.state.cart.concat({
+      //     code, 
+      //     title: items[code - 1]["title"], 
+      //     price: items[code - 1]["price"], 
+      //     amount: 1
+      //   })
+      // });
+    } 
     this.setState({
       ...this.state,
-      cart: {
-        ...this.state.cart,
-        [code]: this.state.cart[code] ? this.state.cart[code] += 1 : 1
-      }
+      totalPrice: this._getTotalPrice()
     });
   }
 
@@ -59,11 +88,13 @@ class Store {
    * @param code
    */
     removeFromCart(code) {
-      const cartCopy = {...this.state.cart};
-      delete cartCopy[code]
       this.setState({
         ...this.state,
-        cart: cartCopy
+        cart: this.state.cart.filter(item => item.code !== code)
+      });
+      this.setState({
+        ...this.state,
+        totalPrice: this._getTotalPrice()
       });
     }
 

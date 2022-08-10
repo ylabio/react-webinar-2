@@ -4,42 +4,30 @@ import {cn as bem} from "@bem-react/classname";
 import Item from "../item";
 import './style.css';
 
-function List(props) {
+function List({ items, action }) {
   const cn = bem('List');
-
-  const items = props.items
-
-  const getItems = () => {
-    let elements = [];
-    for (let prop in items) {
-      elements.push(
-        <div key={prop} className={cn('item')}>
-          <Item item={items[prop]}
-                count={+prop}
-                actionName="Добавить"
-                action={() => props.addToCart(prop)}/>
-        </div>);     
-    }
-    return elements;
-  }
 
   return (
     <div className={cn()}>
 
-      { getItems() }
+      { 
+        items.map(item => <div key={item.code} className={cn('item')}>
+          <Item item={item}
+                action={action}/>
+        </div>) 
+      }
 
     </div>
   )
 }
 
 List.propTypes = {
-  items: propTypes.objectOf(propTypes.object).isRequired,
-  addToCart: propTypes.func
+  items: propTypes.arrayOf(propTypes.object).isRequired,
+  action: propTypes.func
 }
 
 List.defaultProps = {
-  items: {},
-  addToCart: () => {}
+  action: () => {}
 }
 
 export default React.memo(List);

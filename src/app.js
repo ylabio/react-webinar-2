@@ -4,6 +4,7 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import {counter} from "./utils";
 import Cart from './components/cart';
+import Popup from './components/popup';
 
 /**
  * Приложение
@@ -12,16 +13,7 @@ import Cart from './components/cart';
  */
 function App({store}) {
 
-  const { cart, items } = store.getState()
-  const countOfItems = Object.keys(cart).length;
-
-  let totalPrice = 0;
-  
-  if (countOfItems) {
-    for (let prop in cart) {
-      totalPrice += items[prop]['price']*cart[prop]
-    }
-  }
+  const { cart, totalPrice,  isOpenCart } = store.getState()
 
   const callbacks = {
     onAdd: useCallback(() => {
@@ -47,18 +39,21 @@ function App({store}) {
       <Layout head={<h1>Магазин</h1>}>
         <Controls setOpenCart={callbacks.setOpenCart}
                   totalPrice={totalPrice}
-                  countOfItems={countOfItems}
+                  countOfItems={cart.length}
         />
         <List items={store.getState().items}
-              addToCart={callbacks.addToCart}
+              action={callbacks.addToCart}
         />
       </Layout>
-      <Cart setOpenCart={callbacks.setOpenCart}
-            removeFromCart={callbacks.removeFromCart}
-            state={store.getState()}
-            isOpenCart={store.getState().isOpenCart}
-            totalPrice={totalPrice}
-      />
+      { 
+        isOpenCart && <Popup close={() => callbacks.setOpenCart(false)}>
+          <Cart setOpenCart={callbacks.setOpenCart}
+              removeFromCart={callbacks.removeFromCart}
+              cart={cart}
+              totalPrice={totalPrice}
+          />
+        </Popup> 
+      }
     </>
   );
 }

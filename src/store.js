@@ -46,11 +46,17 @@ class Store {
    * @param item {{code: number, title: string, price: number, qty: number}} объект товара из корзины
    */
   removeItemFromCart(item) {
+    const totals = this.state.cartTotals;
     this.setState({
       ...this.state,
       cart:
         // Удаляем запись о товаре из корзины целиком
         this.state.cart.filter((cartItem) => cartItem.code !== item.code),
+      cartTotals: {
+        ...totals,
+        qty: --totals.qty,
+        totalPrice: totals.totalPrice - item.qty * item.price,
+      },
     });
   }
 
@@ -59,6 +65,13 @@ class Store {
    * @param item {{code: number, title: string, price: number}} объект товара из каталога
    */
   addItemToCart(item) {
+    const totals = this.state.cartTotals;
+    const qty = this.state.cartTotals.qty;
+    const price = this.state.cartTotals.totalPrice;
+    const cartItem = this.state.cart.find(
+      (cartItem) => cartItem.code === item.code
+    );
+
     this.setState({
       ...this.state,
       cart:
@@ -68,6 +81,12 @@ class Store {
             cartQtyUpdate(item, this.state.cart, true)
           : // Если товара нет в корзине - добавляем новый товар в корзину
             [...this.state.cart, { ...item, qty: 1 }],
+      cartTotals: {
+        ...totals,
+        // Проверяем наличие товара в корзине
+        qty: cartItem?.qty ? qty : qty + 1,
+        totalPrice: price + item.price,
+      },
     });
   }
 }

@@ -1,18 +1,18 @@
 import React from "react";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
-import { pluralize, numFormat, totalPrice } from "../../utils";
+import { pluralize, numFormat } from "../../utils";
 import "./style.css";
 
-function Controls({cart, onClickToggle}) {
+function Controls({cartTotals, onClickToggle}) {
   const cn = bem("Controls");
-  const goodsQty = cart.length;
-  const cartInfo = ` ${goodsQty} ${pluralize(goodsQty)} / `;
+  const qty = cartTotals.qty;
+  const cartInfo = ` ${qty} ${pluralize(qty)} / `;
 
   return (
     <div className={cn()}>
       <div className={cn("totals")}>
-        {goodsQty === 0 ? (
+        {qty === 0 ? (
           <>
             <span className={cn("content-title")}>В корзине: </span>
             <span className={cn("info")}>пусто</span>
@@ -22,7 +22,7 @@ function Controls({cart, onClickToggle}) {
             <span className={cn("content-title")}>В корзине: </span>
             <span className={cn("info")}>
               {cartInfo}
-              {numFormat(totalPrice(cart))}&nbsp;&#8381;
+              {numFormat(cartTotals.totalPrice)}&nbsp;&#8381;
             </span>
           </>
         )}
@@ -37,7 +37,7 @@ function Controls({cart, onClickToggle}) {
 }
 
 Controls.propTypes = {
-  cart: propTypes.arrayOf(propTypes.object).isRequired,
+  cartTotals: propTypes.object.isRequired,
   onClickToggle: propTypes.func.isRequired,
 };
 

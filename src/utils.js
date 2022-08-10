@@ -46,21 +46,3 @@ export function cartQtyUpdate(item, cart, increment) {
   };
   return newCart;
 }
-
-/**
- * Подсчитывает общую стоимость товаров
- * @param cart {Array.<{code: number, title: string, price: number, qty: number}>} корзина с товарами
- * @returns {number}
- */
-export function totalPrice(cart) {
-  return cart.reduce((total, item) => item.qty * item.price + total, 0);
-}
-
-/**
- * Подсчитывает общее количество товаров в корзине
- * @param cart {Array.<{code: number, title: string, price: number, qty: number}>} корзина с товарами
- * @returns {number}
- */
-export function totalQty(cart) {
-  return cart.reduce((total, item) => item.qty + total, 0);
-}

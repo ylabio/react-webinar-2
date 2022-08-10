@@ -28,7 +28,7 @@ function App({ store }) {
   return (
     <Layout head={<h1>Магазин</h1>}>
       <Controls
-        cart={store.getState().cart}
+        cartTotals={store.getState().cartTotals}
         onClickToggle={callbacks.onModalOpen}
       />
       <List items={store.getState().items} onCart={callbacks.onAddItemToCart} />
@@ -39,7 +39,7 @@ function App({ store }) {
             buttonAssign="Удалить"
             onCart={callbacks.onRemoveItemFromCart}
           />
-          <Totals cart={store.getState().cart} />
+          <Totals totalPrice={store.getState().cartTotals.totalPrice} />
         </Modal>
       ) : null}
     </Layout>

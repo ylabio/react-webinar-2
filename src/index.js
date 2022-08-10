@@ -1,8 +1,8 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
-import App from './app.js';
+import App from './app';
 import Store from "./store.js";
-import {counter} from './utils.js';
+import {counter} from './shared/utils';
 
 const store = new Store({
   items: [
@@ -12,8 +12,14 @@ const store = new Store({
     {code: counter(), title: 'Трактор', price: 7955320},
     {code: counter(), title: 'Телефон iPhone XIXV', price: 120000},
     {code: counter(), title: 'Карандаши цветные', price: 111},
-    {code: counter(), title: 'Товар сюрприз', price: 0},
-  ]
+    {code: counter(), title: 'Товар сюрприз', price: 0, special: true},
+  ],
+  goods: {
+    total: 0,
+    price: 0,
+    items: {}
+  },
+  isCartOpen: false,
 });
 
 const root = createRoot(document.getElementById('root'));

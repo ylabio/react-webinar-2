@@ -1,3 +1,5 @@
+import { counter } from "./shared/utils";
+
 class Store {
 
   constructor(initState) {
@@ -40,45 +42,62 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  addItemToCart(item) {
+    const goods = JSON.parse(JSON.stringify(this.state.goods));
+    goods.price += item.price;
+    goods.id = counter();
+
+    if (item.code in goods.items) {
+      const current = goods.items[item.code];
+
+      if (!item.special) {
+        current.quantity++;
+        current.price += item.price;
+        current.time = Date.now();
+      }
+      
+    } else {
+      goods.items[item.code] = {
+        quantity: 1,
+        price: item.price,
+        data: item,
+        time: Date.now(),
+      };
+      goods.total++;
+    }
+
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      goods,
     });
   }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
+  removeItemFromCart(item) {
+    const goods = JSON.parse(JSON.stringify(this.state.goods));
+    goods.price -= item.data.price * item.quantity;
+    goods.id = counter();
+    
+    delete goods.items[item.data.code];
+    goods.total--;
+
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      goods,
     });
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
+  handleModal(arg) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      isCartOpen: arg,
     });
+  }
+
+  setCartHeight(height) {
+    this.setState({
+      ...thisState,
+      cartHeight: height,
+    })
   }
 }
 

@@ -70,6 +70,30 @@ class Store {
     });
   }
 
+    /**
+   * Устанавливает кол-во товара в корзине
+   */
+   setCartItemsAmount() {
+     this.setState({
+      ...this.state,
+      cartItemsAmount: this.state.cartItems.length,
+    });
+   }
+
+    /**
+   * Устанавливает сумму всех товаров в корзине
+   */
+   setCartTotalPrice() {
+     const cartTotalPrice = this.state.cartItems.length > 0
+    ? this.state.cartItems.reduce((acc, item) => acc + item.price * item.amount, 0)
+    : 0;
+
+     this.setState({
+      ...this.state,
+      cartTotalPrice,
+    });
+   }
+
   /**
    * Добавление записи в корзину
    */
@@ -90,6 +114,9 @@ class Store {
       ...this.state,
       cartItems,
     });
+
+    this.setCartItemsAmount();
+    this.setCartTotalPrice();
   }
 
   /**
@@ -101,6 +128,9 @@ class Store {
       ...this.state,
       cartItems: this.state.cartItems.filter(cartItem => cartItem.code !== code)
     });
+
+    this.setCartItemsAmount();
+    this.setCartTotalPrice();
   }
 
   /**

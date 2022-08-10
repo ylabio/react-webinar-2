@@ -1,6 +1,6 @@
 import React from 'react';
+import propTypes from "prop-types";
 import List from "../list";
-import {getTotalPrice} from '../../utils.js';
 import './style.css';
 
 /**
@@ -8,30 +8,26 @@ import './style.css';
  * @param props Передаваемые пропсы
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function Cart({cartItems, onCloseCart, isOpen, ...props}) {
-  const classNames = isOpen ? 'Cart Cart--open' : 'Cart';
-
+function Cart({cartItems, cartTotalPrice, ...props}) {
   return (
-    <div className={classNames}>
-      <div className='Cart-overlay' onClick={onCloseCart}></div>
-      <div className='Cart-content'>
-        <header className='Cart-header'>
-          <h1 className='Cart-title'>Корзина</h1>
-          <button className='Cart-close-btn'
-                  onClick={onCloseCart}
-          >
-            Закрыть
-          </button>
-        </header>
-        <List items={cartItems}
-              {...props}
-        />
-        <div className='Cart-total'>
-          <span className='Cart-total-title'>Итого</span> {getTotalPrice(cartItems).toLocaleString('ru-RU')} ₽
-        </div>
+    <>
+      <List items={cartItems}
+            {...props}
+      />
+      <div className='Cart-total'>
+        <span className='Cart-total-title'>Итого</span> {cartTotalPrice.toLocaleString('ru-RU')} ₽
       </div>
-    </div>
+    </>
   );
+}
+
+Cart.propTypes = {
+  cartItems: propTypes.arrayOf(propTypes.object).isRequired,
+  cartTotalPrice: propTypes.number,
+}
+
+Cart.defaultProps = {
+  cartTotalPrice: 0,
 }
 
 export default React.memo(Cart);

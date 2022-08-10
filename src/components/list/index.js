@@ -10,7 +10,7 @@ function List(props) {
   return (
     <div className={cn()}>{props.items.map(item =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} {...props} />
+        <props.component item={item} {...props} />
       </div>
     )}
     </div>
@@ -21,8 +21,6 @@ List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
 }
 
-List.defaultProps = {
-  items: [],
-}
+List.defaultProps = {}
 
 export default React.memo(List);

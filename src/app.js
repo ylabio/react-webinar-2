@@ -2,7 +2,10 @@ import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
+import Modal from "./components/modal";
 import Cart from "./components/cart";
+import Item from "./components/item";
+import CartItem from "./components/cart-item";
 import {counter} from "./utils";
 
 /**
@@ -17,10 +20,10 @@ function App({store}) {
       const code = counter();
       store.createItem({code, title: `Новая запись ${code}`});
     }, []),
-    onOpenCart: useCallback(() => {
+    onOpenModal: useCallback(() => {
       store.openModal();
     }, []),
-    onCloseCart: useCallback(() => {
+    onCloseModal: useCallback(() => {
       store.closeModal();
     }, []),
     onAddItemToCart: useCallback((code) => {
@@ -36,19 +39,27 @@ function App({store}) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls onOpenCart={callbacks.onOpenCart}
+      <Controls onOpenCart={callbacks.onOpenModal}
                 cartItems={store.getState().cartItems}
+                cartItemsAmount={store.getState().cartItemsAmount}
+                cartTotalPrice={store.getState().cartTotalPrice}
       />
       <List items={store.getState().items}
-            itemClickHandler={callbacks.onAddItemToCart}
-            buttonText='Добавить'
+            onAddItemToCart={callbacks.onAddItemToCart}
+            component={Item}
       />
-      <Cart cartItems={store.getState().cartItems}
-            onCloseCart={callbacks.onCloseCart}
-            isOpen={store.getState().isOpen}
-            itemClickHandler={callbacks.onDeleteCartItem}
-            buttonText='Удалить'
-      />
+      {store.getState().isOpen &&
+        <Modal onCloseModal={callbacks.onCloseModal}
+               title='Корзина'
+        >
+          <Cart cartItems={store.getState().cartItems}
+                onDeleteCartItem={callbacks.onDeleteCartItem}
+                cartTotalPrice={store.getState().cartTotalPrice}
+                component={CartItem}
+          />
+        </Modal>
+      }
+
     </Layout>
   );
 }

@@ -1,21 +1,52 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import './style.css';
+import React from "react";
+import propTypes from "prop-types";
+import "./style.css";
+import { cn as bem } from "@bem-react/classname";
+import plural from "plural-ru";
 
-function Controls({onAdd}){
+function Controls(props) {
+  const cn = bem("Controls");
+
+  let itemInBasket = "пусто";
+  let lengthStateBasket = props.stateBasket.length;
+
+  if (lengthStateBasket) {
+    let price = props.calculationSumPrice(props.stateBasket);
+
+    price = new Intl.NumberFormat("ru-RU", {
+      style: "currency",
+      currency: "RUB",
+      currencyDisplay: "symbol",
+      maximumFractionDigits: 0,
+    }).format(price);
+
+    itemInBasket = `${lengthStateBasket} ${plural(
+      lengthStateBasket,
+      "товар",
+      "товара",
+      "товаров"
+    )} / ${price}`;
+  }
+
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className={cn()}>
+      <p className={cn("basket")}>
+        В корзине:
+        <span className={cn("basketInfo")}>{itemInBasket}</span>
+      </p>
+      <button className={cn("button")} onClick={props.onOpenModal}>Перейти</button>
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
+  stateBasket: propTypes.array.isRequired,
+  onOpenModal: propTypes.func.isRequired
+};
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
-}
+  stateBasket: [],
+  onOpenModal: () => {}
+};
 
-export default React.memo(Controls);
+export default Controls;

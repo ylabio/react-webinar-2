@@ -16,12 +16,20 @@ const store = new Store({
   ]
 });
 
+const calculationSumPrice = (item) => {
+  const total = item.reduce((acc, { price, count }) => {
+    return acc + price * count;
+  }, 0);
+
+  return total;
+}
+
 const root = createRoot(document.getElementById('root'));
 
 // Реакция на изменение store - повторный рендер приложения
 store.subscribe(() => {
-  root.render(<App store={store}/>);
+  root.render(<App store={store} calculationSumPrice={calculationSumPrice}/>);
 });
 
 // Первый рендер (один раз)
-root.render(<App store={store}/>);
+root.render(<App store={store} calculationSumPrice={calculationSumPrice}/>);

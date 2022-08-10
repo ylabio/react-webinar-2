@@ -1,6 +1,19 @@
 /* Контрол с общими действиями */
-.Controls{
+.Controls {
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+}
+
+.Controls-button {
+    padding: 1px 10px;
+}
+
+.Controls-basket {
+    margin: 0;
+}
+
+.Controls-basketInfo {
+    margin: 0 20px;
+    font-weight: 700;
 }

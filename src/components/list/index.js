@@ -8,9 +8,13 @@ function List(props) {
   const cn = bem('List');
 
   return (
-    <div className={cn()}>{props.items.map(item =>
+    <div className={cn()}>{props.items && props.items.map(item =>
+      
       <div key={item.code} className={cn('item')}>
-        <Item item={item} onSelect={props.onItemSelect} onDelete={props.onItemDelete}/>
+        <Item 
+          item={item} 
+          onPush={props.onItemPush}
+        />
       </div>
     )}
     </div>
@@ -19,14 +23,13 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemSelect: propTypes.func,
-  onItemDelete: propTypes.func
+  onItemPush: propTypes.func.isRequired
 }
 
 List.defaultProps = {
+  propTypes: [],
   items: [],
-  onItemSelect: () => {},
-  onItemDelete: () => {}
+  onItemPush: () => {},
 }
 
 export default React.memo(List);

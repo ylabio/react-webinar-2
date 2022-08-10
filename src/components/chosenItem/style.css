@@ -1,0 +1,31 @@
+/* Пункт списка */
+.ChosenItem{
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 1px dashed #ccc;
+}
+
+.ChosenItem:first-child {
+    border-top: 1px dashed #ccc;
+}
+
+.ChosenItem-title{
+    width: 100%;
+    padding: 20px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ChosenItem-title span {
+    margin-left: 10px;
+    color: rgb(99, 99, 99);
+    font-weight: 600;
+}
+.ChosenItem-actions{
+    padding: 20px  20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.ChosenItem-number{
+    padding: 20px 10px 20px 20px;
+}

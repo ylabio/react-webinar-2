@@ -1,57 +1,50 @@
 import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
+import { formatPrice } from '../../utils';
 
 function Item(props) {
   const cn = bem('Item');
 
   // Счётчик выделений
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(props.item.count);
 
   const callbacks = {
-
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
-
-    onDelete: useCallback((e) => {
+    onPush: useCallback((e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
+      setCount(props.item.count)
+      props.onPush(props.item.code, props.item.title, props.item.price)
+    }, [props.onPush, props.item])
   };
 
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
-      <div className={cn('number')}>
-        {props.item.code}
-      </div>
-      <div className={cn('title')}>
-        {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
-      </div>
-      <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
-      </div>
-    </div>
+       <div className={cn()}>
+          <div className={cn('number')}>
+            {props.item.code}
+          </div>
+          <div className={cn('title')}>
+            {props.item.title}
+            <span>
+              {formatPrice(props.item.price)} 
+              {props.onToggle && <span>{count} шт</span>}
+            </span>
+          </div>
+          <div className={cn('actions')}>
+              <button onClick={callbacks.onPush}>Добавить</button>
+          </div>
+        </div>
   )
 }
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
+  onPush: propTypes.func.isRequired,
 }
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
+  item: {},
+  onPush: () => {},
 }
 
 export default React.memo(Item);

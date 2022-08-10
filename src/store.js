@@ -1,5 +1,6 @@
-class Store {
 
+class Store {
+ 
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -41,43 +42,63 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Переключатель модального окна
+   * 
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  modalToggle() {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      modalToggle: !this.state.modalToggle 
     });
   }
 
   /**
-   * Удаление записи по её коду
+   * Добавление товара в корзину
+   * @param code
+   */
+  addItem(code, title, price) {
+
+    const chosenElem = this.state.chosenItems.find((item) => item.code === code);
+
+    if(chosenElem) {
+      this.setState({
+        ...this.state,
+        chosenItems: this.state.chosenItems.map(item => {
+          if(item.code === code) {
+            return {...item, count: ++item.count}
+          } else {
+            return item
+          } 
+        }),
+      })
+    } 
+    else {
+      this.setState({
+        ...this.state,
+        amountOfItems: ++this.state.amountOfItems,
+        chosenItems: this.state.chosenItems.concat({code, title, price, count: 1}),
+      })
+    }
+
+    this.setState({
+      ...this.state,
+      sum: this.state.chosenItems.reduce((total, item) => total + (item.price * item.count), 0),
+    })
+ 
+  }
+  /**
+   * Удаление товаров из корзины
    * @param code
    */
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      chosenItems: this.state.chosenItems.filter(item =>  item.code !== code),
     });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      amountOfItems: --this.state.amountOfItems,
+      sum: this.state.chosenItems.reduce((total, item) => total + (item.price * item.count), 0),
     });
   }
 }

@@ -28,7 +28,7 @@ function Cart(props) {
 Cart.propTypes = {
   head: propTypes.node.isRequired,
   cart: propTypes.arrayOf(propTypes.object),
-  setVisibility: propTypes.object.isRequired,
+  setVisibility: propTypes.func.isRequired,
   onButton: propTypes.func.isRequired,
   cartInfo: propTypes.object.isRequired
 }

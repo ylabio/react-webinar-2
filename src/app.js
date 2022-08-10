@@ -6,7 +6,6 @@ import Controls from './components/controls';
 import List from './components/list';
 import Layout from './components/layout';
 import ModalLayout from './components/layout/modal-layout';
-import { computeTotalPrice } from './utils';
 import CartInfo from './components/cart-info';
 
 /**
@@ -25,7 +24,6 @@ function App({ store }) {
 		onDeleteItem: useCallback((item) => {
 			store.deleteItemFromCart(item);
 		}, []),
-		totalPrice: useMemo(() => computeTotalPrice(cart.items), [cart.items]),
 	};
 
 	const modalAPI = {
@@ -41,8 +39,8 @@ function App({ store }) {
 		<>
 			<Layout head={<h1>Магазин</h1>}>
 				<Controls
-					itemsCount={cart.items.length}
-					totalPrice={cartAPI.totalPrice}
+					itemsCount={cart.itemsAmout}
+					totalPrice={cart.totalPrice}
 					onCartOpen={modalAPI.onModalOpen}
 				/>
 				<List items={items} itemAction={cartAPI.onAddItem} />
@@ -59,7 +57,7 @@ function App({ store }) {
 				<CartInfo
 					items={cart.items}
 					onDeleteItem={cartAPI.onDeleteItem}
-					totalPrice={cartAPI.totalPrice}
+					totalPrice={cart.totalPrice}
 				/>
 			</ModalLayout>
 		</>

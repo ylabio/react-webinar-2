@@ -43,7 +43,7 @@ Controls.propTypes = {
 
 Controls.defaultProps = {
 	itemsCount: 0,
-	totalPrice: 0,
+	totalPrice: '',
 	onCartOpen: () => {},
 };
 

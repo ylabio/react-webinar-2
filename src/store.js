@@ -67,6 +67,8 @@ class Store {
 			cart: {
 				...this.state.cart,
 				items,
+				itemsAmout: items.length,
+				totalPrice: computeTotalPrice(items),
 			},
 		});
 	}
@@ -85,6 +87,8 @@ class Store {
 			cart: {
 				...this.state.cart,
 				items,
+				itemsAmout: items.length,
+				totalPrice: computeTotalPrice(items),
 			},
 		});
 	}

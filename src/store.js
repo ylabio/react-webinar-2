@@ -1,3 +1,5 @@
+import { addCartItem, deleteCartItem, getTotal } from "./utils";
+
 class Store {
 
   constructor(initState) {
@@ -54,12 +56,13 @@ class Store {
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(code) { 
+    const cart = deleteCartItem(this.state.cart, code)
+
     this.setState({
       ...this.state,
-      cart: Object.fromEntries(
-        Object.entries(this.state.cart).filter(item => item[1].code !== code)
-      )
+      cart,
+      ...getTotal(cart)
     });
   }
 
@@ -84,16 +87,13 @@ class Store {
   }
 
   addItem(item) {
+    const cart = addCartItem(this.state.cart, item)
     this.setState({
       ...this.state,
-      cart: {
-        ...this.state.cart,
-        [item.code]: {
-          ...item,
-          count: this.state.cart[item.code] && this.state.cart[item.code].count + 1 || 1
-        }
+      cart,
+       ...getTotal(cart)
       }
-    })
+    )
   }
 
   toggleModal() {

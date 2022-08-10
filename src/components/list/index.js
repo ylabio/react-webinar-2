@@ -10,14 +10,12 @@ function List(props) {
   return (
     <div className={cn()}>{props.items.map((item, i) =>
       <div key={item.code} className={cn('item')}>
-        <Item
+        <Component
           item={item}
           position={++i}
           callback={props.callback}
           text={props.text}
-        >
-         {Component && <Component {...item} />}
-        </Item>
+        />
       </div>
     )}
     </div>
@@ -25,9 +23,9 @@ function List(props) {
 }
 
 List.propTypes = {
-  items: propTypes.arrayOf(propTypes.object).isRequired,
+  items: propTypes.arrayOf(propTypes.object),
   text: propTypes.string.isRequired,
-  component: propTypes.func,
+  component: propTypes.object,
   callback: propTypes.func
 }
 

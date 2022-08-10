@@ -25,8 +25,8 @@ function Cart({count, totalPrice}){
 }
 
 Cart.propTypes = {
-  count: propTypes.number.isRequired,
-  totalPrice: propTypes.string.isRequired,
+  count: propTypes.number,
+  totalPrice: propTypes.string,
 }
 
 export default React.memo(Cart);

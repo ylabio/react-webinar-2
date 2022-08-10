@@ -1,14 +1,13 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+import { convertPrice } from '../../utils';
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
 
-  const price = props.item.price.toLocaleString(
-    'ru', {style: 'currency', currency: 'RUB', minimumFractionDigits: 0}
-  );
+  const price = convertPrice(props.item.price, 'ru', 'RUB')
 
   const handleClick = () => {
     props.callback(props.item);
@@ -35,7 +34,7 @@ Item.propTypes = {
   item: propTypes.object.isRequired,
   position: propTypes.number,
   text: propTypes.string.isRequired,
-  onAddItem: propTypes.func.isRequired,
+  onAddItem: propTypes.func,
 }
 
 Item.defaultProps = {

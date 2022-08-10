@@ -14,7 +14,7 @@ function Controls({onModal, textButton}){
 }
 
 Controls.propTypes = {
-  onModal: propTypes.func.isRequired, // Обяхательное свойство - функция
+  onModal: propTypes.func, // Обяхательное свойство - функция
   textButton: propTypes.string
 }
 

@@ -1,13 +1,13 @@
 /*Список*/
 .List {
-	text-align: center;
+  text-align: center;
 }
 
 .List-item {
-	text-align: start;
-	border-bottom: 1px dashed #ccc;
+  text-align: start;
+  border-bottom: 1px dashed #ccc;
 }
 
 .List-item:first-child {
-	border-top: 1px dashed #ccc;
+  border-top: 1px dashed #ccc;
 }

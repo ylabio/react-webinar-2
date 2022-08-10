@@ -61,6 +61,15 @@ class Store {
       ...this.state,
       cartItems: this.state.cartItems.filter((item) => item.code !== code),
     });
+    const summ = this.state.cartItems.reduce(function (sum, elem) {
+      return sum + elem.price * elem.count;
+    }, 0);
+    const countElem = this.state.cartItems.length;
+    this.setState({
+      ...this.state,
+      countCartItems: countElem,
+      sumCart: summ,
+    });
   }
 
   /**
@@ -69,6 +78,7 @@ class Store {
    */
   selectItem(elem) {
     const searchElem = this.state.cartItems.find((el) => el.code === elem.code);
+
     if (searchElem) {
       this.setState({
         ...this.state,
@@ -88,7 +98,16 @@ class Store {
         }),
       });
     }
-    console.log("state", this.state.cartItems);
+    const countElem = this.state.cartItems.length;
+    const summ = this.state.cartItems.reduce(function (sum, elem) {
+      return sum + elem.price * elem.count;
+    }, 0);
+
+    this.setState({
+      ...this.state,
+      countCartItems: countElem,
+      sumCart: summ,
+    });
   }
 }
 

@@ -1,0 +1,22 @@
+.Cart-item{
+    display: flex;
+}
+
+.Cart-item-number{
+    padding: 20px 10px 20px 20px;
+}
+
+.Cart-item-title{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 71%;
+    padding: 20px 10px;
+}
+
+.Cart-item-actions{
+    padding:  1px 10px;
+    margin: 0px 0px 0px 20px;
+    display: flex;
+    justify-content: flex-end;
+}

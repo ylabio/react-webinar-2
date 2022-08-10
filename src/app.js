@@ -3,7 +3,7 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import { counter } from "./utils";
-import Card from "./components/card";
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -12,7 +12,8 @@ import Card from "./components/card";
  */
 
 function App({ store }) {
-  const [show, setShow] = React.useState(true);
+  console.log("appstore", store);
+  const [show, setShow] = React.useState(false);
 
   const onIsShow = () => {
     setShow(!show);
@@ -31,14 +32,25 @@ function App({ store }) {
   return (
     <>
       <Layout head={<h1>Магазин</h1>}>
-        <Controls isShow={onIsShow} />
+        <Controls
+          isShow={onIsShow}
+          countCartItems={store.getState().countCartItems}
+          sumCart={store.getState().sumCart}
+        />
         <List
           items={store.getState().items}
           onItemSelect={callbacks.onSelectItems}
-          onItemDelete={callbacks.onDeleteItems}
         />
 
-        {show && <Card items={store.cartItems} />}
+        {show && (
+          <Cart
+            items={store.getState().cartItems}
+            onItemDelete={callbacks.onDeleteItems}
+            onIsShow={onIsShow}
+            countCartItems={store.getState().countCartItems}
+            sumCart={store.getState().sumCart}
+          />
+        )}
       </Layout>
     </>
   );

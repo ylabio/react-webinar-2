@@ -1,5 +1,4 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -36,48 +35,80 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  createItem({ code, title = "Новый товар", price = 999, selected = false }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      items: this.state.items.concat({ code, title, price, selected }),
     });
   }
 
   /**
-   * Удаление записи по её коду
-   * @param code
+   * Добавление товара в корзину
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
+  addItem(code) {
+    let isItemFind = false;
+    const basketItems = this.getState().basket.items;
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
+      basket: {
+        ...this.state.basket,
+        items: this.getState().basket.items.map((elem) => {
+          if (elem.code === code) {
+            isItemFind = true;
+            return { ...elem, amount: elem.amount + 1 };
           }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+          return elem;
+        }),
+      },
+    });
+
+    if (!isItemFind) {
+      const item = this.getState().items.find((elem) => elem.code === code);
+      basketItems.push({ ...item, amount: 1 });
+      this.setState({
+        ...this.state,
+        basket: {
+          ...this.state.basket,
+          items: basketItems,
+        },
+      });
+    }
+
+    this.setState({
+      ...this.state,
+      basket: {
+        ...this.state.basket,
+        amount: this.getState().basket.items.length,
+        sum: this.getState().basket.items.reduce((a, b) => {
+          return a + b.amount * b.price;
+        }, 0),
+      },
+    });
+  }
+
+  /**
+   * Удаление записи из корзины по её коду
+   * @param code
+   */
+
+  deleteBasketItem(item) {
+    this.setState({
+      ...this.state,
+      basket: {
+        items: this.state.basket.items.filter(
+          (elem) => elem.code !== item.code
+        ),
+        amount: this.getState().basket.amount - 1,
+        sum: this.state.basket.sum - item.price * item.amount,
+      },
     });
   }
 }

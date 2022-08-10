@@ -1,0 +1,16 @@
+.BasketInfo{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.BasketInfo-total{
+    font-weight: bold;
+    margin: 0 15px;
+}
+.BasketInfo-button{
+    padding: 3px 9px;
+    font-size: 13px;
+    line-height: 15px;
+}

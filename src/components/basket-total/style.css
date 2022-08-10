@@ -1,0 +1,17 @@
+.BasketTotal {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    margin-top: 26px;
+    padding-left: 680px;
+    padding-right: 91px;
+   
+}
+
+.BasketTotal-total, .BasketTotal-title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+

@@ -1,37 +1,78 @@
-import React, {useCallback} from 'react';
-import Controls from "./components/controls";
+import React, { useCallback, useState } from "react";
+import BasketInfo from "./components/basket-info";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import { counter } from "./utils";
+import LayoutModal from "./components/layout-modal";
+import ItemBasket from "./components/item-basket";
+import Item from "./components/item";
+import BasketTotal from "./components/basket-total";
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
-
+function App({ store }) {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { amount, sum } = store.getState().basket;
   const callbacks = {
     onAdd: useCallback(() => {
       const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+      store.createItem({ code, title: `Новая запись ${code}` });
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onDeleteItems: useCallback((item) => {
+      store.deleteBasketItem(item);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onAddItems: useCallback((code) => {
+      store.addItem(code);
     }, []),
-  }
+    onCloseModal: useCallback(
+      (e) => {
+        e.stopPropagation();
+        setModalIsOpen(false);
+      },
+      [setModalIsOpen]
+    ),
+    onOpenModal: useCallback(() => {
+      setModalIsOpen(true);
+    }, [setModalIsOpen]),
+  };
+
+  const getItemBasket = (item) => {
+    return <ItemBasket item={item} onDelete={callbacks.onDeleteItems} />;
+  };
+
+  const getItem = (item) => {
+    return <Item item={item} onAdd={callbacks.onAddItems} />;
+  };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <BasketInfo amount={amount} sum={sum} onOpen={callbacks.onOpenModal} />
+        <List items={store.getState().items} viewItem={getItem} />
+      </Layout>
+      {modalIsOpen ? (
+        <LayoutModal title="Корзина" sum={sum} onClose={callbacks.onCloseModal}>
+          {store.getState().basket.items.length !== 0 ? (
+            <>
+              <List
+                items={store.getState().basket.items}
+                viewItem={getItemBasket}
+              />
+              <BasketTotal sum={sum} />
+            </>
+          ) : (
+            <div
+              style={{ width: "50%", margin: "0 auto", textAlign: "center" }}
+            >
+              В корзине пусто, добавьте товары
+            </div>
+          )}
+        </LayoutModal>
+      ) : null}
+    </>
   );
 }
 

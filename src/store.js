@@ -41,44 +41,103 @@ class Store {
   }
 
   /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
+  deleteBasketItem(code) {
+    const basketItem = this.state.basket.basketItems.find(item => item.code === code)
+
+    let basketItems;
+    if (basketItem.amount > 1){
+      basketItems = this.state.basket.basketItems.map(item => {
+          if (item.code === code){
+            return {...item, amount: item.amount - 1}
+          }
+          return item
+        }
+      )
+    }
+    else {
+      const newBasketItems = this.state.basket.basketItems.filter(item => item.code !== code)
+
+      basketItems = newBasketItems.map((item, index) => {
+        return {...item, position: index + 1}
+      })
+    }
+
+    const totalSum = basketItems.reduce((sum, item) => {
+      return item.amount * item.price + sum
+    }, 0)
+
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      basket: {
+        count: basketItems.length,
+        totalSum,
+        basketItems
+      }
     });
   }
 
   /**
-   * Выделение записи по её коду
+   * Добавление товара в корзину, счет суммы и количества товара
    * @param code
    */
-  selectItem(code) {
+  addItem(code) {
+    const item = this.state.items.find(item => item.code === code);
+
+    let isItemAdded = false;
+    
+    const basketItems = this.state.basket.basketItems.map(item => {
+      if (item.code === code){
+        isItemAdded = true;
+        return {...item, amount: item.amount + 1}
+      }
+      return item
+    });
+
+    const basketItem = {
+      ...item,
+      amount: 1,                        
+      position: basketItems.length + 1  // позиция товара в корзине
+    }
+
+    if (!isItemAdded) {
+      basketItems.push(basketItem)
+    }
+
+    const totalSum = basketItems.reduce((sum, item) => {
+      return item.amount * item.price + sum
+    }, 0)
+    
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      basket: {
+        count: basketItems.length,
+        totalSum,
+        basketItems
+      }
     });
+  }
+
+  openModal(modal){
+    const modalTypes = {...this.state.modalTypes};
+    modalTypes[modal] = true
+    this.setState({
+      ...this.state,
+      modalTypes
+    })
+  }
+
+  closeModal(){
+    const modalTypes = {...this.state.modalTypes}
+    for (let key in modalTypes) {
+      modalTypes[key] = false
+    }
+    this.setState({
+      ...this.state,
+      modalTypes
+    })
   }
 }
 

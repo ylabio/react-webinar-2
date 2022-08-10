@@ -1,0 +1,44 @@
+.BasketItem{
+  display: flex;
+  justify-content: flex-start;
+  transition: background-color 1s;
+  width: 960px;
+}
+
+.BasketItem-title{
+  width: 100%;
+  padding: 20px 10px;
+}
+.BasketItem-actions{
+  padding: 20px 20px 24px;
+}
+.BasketItem-number{
+  padding: 20px 10px 20px 20px;
+}
+
+.BasketItem-price{
+  padding: 20px 0;
+  white-space: nowrap;
+  font-size: 18px;
+  color: #404040;
+  
+}
+
+.BasketItem-amount{
+  text-align: right;
+  padding: 20px 0;
+  white-space: nowrap;
+  font-size: 18px;
+  color: #404040;
+  min-width: 100px;
+}
+
+.BasketItem-actions__button{
+  font-size: 13px;
+  line-height: 15px;
+  padding: 3px 8px 2px;
+  background: #EFEFEF;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  cursor: pointer;
+}

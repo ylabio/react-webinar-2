@@ -4,9 +4,6 @@
     justify-content: flex-start;
     transition: background-color 1s;
 }
-.Item_selected{
-    background: #75aaf1;
-}
 
 
 .Item-title{
@@ -20,4 +17,21 @@
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+
+.Item-price{
+    padding: 20px 14px 20px 20px;
+    white-space: nowrap;
+    font-size: 18px;
+    color: #404040;
+}
+
+.Item-actions__button{
+    font-size: 13px;
+    line-height: 15px;
+    padding: 3px 8px 2px;
+    background: #EFEFEF;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    cursor: pointer;
 }

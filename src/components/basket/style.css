@@ -1,0 +1,26 @@
+/* Контрол с общими действиями */
+.Basket{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.Basket-text{
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.Basket-count{
+  padding: 0 20px 0 15px;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.Basket-button{
+  font-size: 13px;
+  line-height: 15px;
+  padding: 3px 8px 2px;
+  background: #EFEFEF;
+  border: 1px solid #767676;
+  border-radius: 2px;
+}

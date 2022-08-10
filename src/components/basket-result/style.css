@@ -1,0 +1,33 @@
+.Basket-footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-right: 108px;
+  padding-bottom: 284px;
+}
+
+.Basket-total{
+  padding: 20px 0 20px 0;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.Basket-price{
+  padding: 20px 0 20px 5px;
+  min-width: 100px;
+  text-align: right;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.Basket-title{
+  margin: 0;
+  width: 960px;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  padding-bottom: 74px;
+}

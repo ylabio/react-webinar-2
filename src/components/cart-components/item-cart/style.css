@@ -1,0 +1,26 @@
+.Item-cart {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.Item-cart-number {
+  padding: 20px 10px 20px 20px;
+}
+.Item-cart-title {
+  width: 100%;
+  padding: 20px 10px;
+}
+.Item-cart-price {
+  padding: 20px 0;
+  white-space: nowrap;
+}
+.Item-cart-amount {
+  padding: 20px 0px 20px 20px;
+  margin-left: 35px;
+  white-space: nowrap;
+}
+.Item-cart-actions {
+  padding: 20px 20px 20px 24px;
+  display: flex;
+  justify-content: flex-end;
+}

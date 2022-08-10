@@ -1,0 +1,19 @@
+/* Контрол с общими действиями */
+.Cart_preview {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.Cart_preview-total {
+  font-weight: bold;
+  margin: 0 10px 0 15px;
+}
+.Cart_preview-actions {
+  padding: 20px 20px 20px 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.Cart_preview-actions button {
+  width: 80px;
+  height: 21px;
+}

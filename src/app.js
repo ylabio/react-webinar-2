@@ -24,7 +24,6 @@ function App({store}) {
       store.addItemToCart(item);
     }, []),
     onDeleteItemFromCart: useCallback((item) => {
-      console.log(item) 
       store.deleteItemFromCart(item);
     }, []),
     getCartState: useCallback(() => {

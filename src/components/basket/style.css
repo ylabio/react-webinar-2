@@ -1,0 +1,57 @@
+.Overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 211px;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+}
+.Basket {
+  position: absolute;
+  width: 960px;
+  min-height: 603px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.Basket-head {
+  height: 80px;
+  background: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 74px;
+}
+.Basket-head h1 {
+  margin: 0;
+  padding: 20px 20px;
+  font-size: 32px;
+}
+.Basket-head button {
+  width: 76px;
+  height: 21px;
+  margin: auto 32px;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-size: 13px;
+}
+.Basket-content {
+  margin: 0;
+  padding: 0;
+}
+.Basket-content-info {
+  margin-top: 26px;
+  margin-bottom: 25px;
+  padding-right: 58px;
+  padding-left: 65px;
+  display: flex;
+  justify-content: flex-end;
+}
+.Basket-content-info b {
+  margin-right: 50px;
+}
+.Basket-content-info h2 {
+  margin: auto;
+}

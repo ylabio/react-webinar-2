@@ -5,7 +5,9 @@ import Item from "../item";
 import './style.css';
 
 function List(props) {
+
   const cn = bem('List');
+
 
   return (
     <div className={cn()}>{props.items.map(item =>
@@ -14,6 +16,7 @@ function List(props) {
         onButton={props.onButton}
         buttonText={props.buttonText}/>
       </div>
+      
     )}
     </div>
   )

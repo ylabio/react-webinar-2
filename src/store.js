@@ -83,7 +83,6 @@ class Store {
    */
   
   removeFromCart(code) {
-
       this.state.cart.map(item => {
         if (item.code === code) {
             this.setState({

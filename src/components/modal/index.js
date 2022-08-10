@@ -24,15 +24,9 @@ function Modal(props) {
               </button>
             </div>
           </div>
-          <List items={props.items}
-                onButton={props.onButton}
-                buttonText={props.buttonText}
-          />
-          <div className={props.bottomText ? cn('bottomText') : cn('bottomText_hidden')}>
-            <div className={cn('bottomTextSum')}>Итого</div>
-            <div className={cn('bottomTextData')}>{props.bottomText}</div>
+          <div className={cn('content')}>
+            {props.children}
           </div>
-          <div className={!props.bottomText ? cn('emptyCartMessage') : cn('emptyCartMessage_hidden')}>В корзине пока ничего нет, но вы можете это исправить :)</div>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import Modal from "./components/modal";
+import Cart from "./components/сart";
 /**
  * Приложение
  * @param store {Store} Состояние приложения
@@ -17,9 +17,10 @@ function App({store}) {
     onAddToCart: useCallback((code) => {
       store.addToCart(code);
     }, []),
-    onRemoveFromCart: useCallback(code => {
+    onRemoveFromCart: useCallback((code) => {
       store.removeFromCart(code);
     }, [])
+
   }
 
   const [cartVisible, setCartVisibility] = useState(false);
@@ -27,11 +28,10 @@ function App({store}) {
   return (
     <Layout head={<h1>Магазин</h1>}>
       {cartVisible ? (
-        <Modal head={<h1>Корзина</h1>}
-        items={store.getState().cart}
+        <Cart head={<h1>Корзина</h1>}
+        cart={store.getState().cart}
         setVisibility={setCartVisibility}
         onButton={callbacks.onRemoveFromCart}
-        buttonText={'Удалить'}
         bottomText={store.calculateCartSum()}/>
       ) : (null)}
       <Controls controlsText={'В корзине:'} controlsData={store.calculateCartItemsSum()} onControlButton={callbacks.onOpenCart} buttonText={'Перейти'}/>

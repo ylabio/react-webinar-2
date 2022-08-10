@@ -19,9 +19,9 @@ function Modal({modal, setModalActive, head, children}) {
 }
 
 Modal.propTypes = {
-    head: propTypes.object,
+    head: propTypes.object.isRequired,
     modal: propTypes.object.isRequired,
-    setModalActive: propTypes.func,
+    setModalActive: propTypes.func.isRequired,
     children: propTypes.arrayOf(object).isRequired,
 }
 

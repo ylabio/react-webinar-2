@@ -1,7 +1,0 @@
-.Basket-list-item {
-    border-bottom: 1px dashed #ccc;
-}
-
-.Basket-list-item:first-child {
-    border-top: 1px dashed #ccc;
-}

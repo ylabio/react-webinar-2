@@ -3,13 +3,13 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function List({items, onAddBasketItem, children}) {
+function List({items, itemAction, children}) {
     const Item = children
     const cn = bem('List');
     return (
         <div className={cn()}>{items.map(item =>
             <div key={item.code} className={cn('item')}>
-                <Item item={item} onAddBasketItem={onAddBasketItem}/>
+                <Item item={item} itemAction={itemAction}/>
             </div>
         )}
         </div>
@@ -18,7 +18,7 @@ function List({items, onAddBasketItem, children}) {
 
 List.propTypes = {
     items: propTypes.arrayOf(propTypes.object).isRequired,
-    onAddBasketItem: propTypes.func.isRequired,
+    itemAction: propTypes.func.isRequired,
     children: propTypes.object.isRequired
 }
 

@@ -3,13 +3,13 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function BasketItem({item, deleteItem}) {
+function BasketItem({item, itemAction}) {
     const cn = bem('Basket');
 
     const callbacks = {
         onDeleteItem: useCallback(() => {
-            deleteItem(item.code)
-        }, [deleteItem, item])
+            itemAction(item.code)
+        }, [itemAction, item])
     };
 
     return (
@@ -37,7 +37,7 @@ function BasketItem({item, deleteItem}) {
 
 BasketItem.propTypes = {
     item: propTypes.object.isRequired,
-    deleteItem: propTypes.func.isRequired,
+    itemAction: propTypes.func.isRequired,
 }
 
 export default React.memo(BasketItem);

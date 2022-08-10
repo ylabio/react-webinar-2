@@ -3,13 +3,13 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function Item({item, onAddBasketItem}) {
+function Item({item, itemAction}) {
     const cn = bem('Item');
 
     const callbacks = {
         onAddBasketItem: useCallback((e) => {
-            onAddBasketItem(item.code);
-        }, [onAddBasketItem, item])
+            itemAction(item.code);
+        }, [itemAction, item])
     };
     return (
         <div className={cn()}>
@@ -33,7 +33,7 @@ function Item({item, onAddBasketItem}) {
 
 Item.propTypes = {
     item: propTypes.object.isRequired,
-    onAddBasketItem: propTypes.func.isRequired,
+    itemAction: propTypes.func.isRequired,
 }
 
 export default React.memo(Item);

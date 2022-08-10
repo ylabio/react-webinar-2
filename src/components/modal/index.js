@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.css';
 import { cn as bem } from "@bem-react/classname";
+import propTypes from "prop-types";
 
 function Modal({onToggleModal, head, children}) {
   const cn = bem('Modal');
@@ -16,6 +17,16 @@ function Modal({onToggleModal, head, children}) {
           </div>
         </div>
   );
+}
+
+Modal.propTypes = {
+  head: propTypes.node,
+  children: propTypes.node,
+  onAction: propTypes.func,
+}
+
+Modal.defaultProps = {
+  onAction: () => {},
 }
 
 export default React.memo(Modal);

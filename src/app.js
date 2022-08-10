@@ -41,7 +41,7 @@ function App({store}) {
       </Layout>
       {activeModal &&
       <Modal onToggleModal={callbacks.onToggleModal} head={<h1>Корзина</h1>}>
-        {goods.length > 0 ? <List items={goods} onAction={callbacks.onDeleteItem}/> :
+        {goods.length ? <List items={goods} onAction={callbacks.onDeleteItem}/> :
           <div className={cn('message')}>Товары не добавлены</div>}
         {goods.length > 0 &&
           <div className={cn('total')}>

@@ -3,6 +3,7 @@ import './style.css';
 import plural from 'plural-ru';
 import { numberWithSpaces } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
+import propTypes from "prop-types";
 
 function Controls({store, onToggleModal}){
   const cn = bem('Controls');
@@ -22,6 +23,13 @@ function Controls({store, onToggleModal}){
     </div>
   )
 }
+Controls.propTypes = {
+  store: propTypes.object,
+  onToggleModal: propTypes.func
+}
 
+Controls.defaultProps = {
+  onToggleModal: () => {}
+}
 
 export default React.memo(Controls);

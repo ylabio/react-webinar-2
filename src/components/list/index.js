@@ -1,32 +1,43 @@
-import React from 'react';
+import React, { memo } from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import Item from "../item";
+import { cn as bem } from '@bem-react/classname';
+import Item from '../item';
 import './style.css';
+import SumModal from '../sum-modal';
 
-function List(props) {
+function List({ items, onAddItemToCart, onDelete, activeCart, sumInCart }) {
   const cn = bem('List');
 
   return (
-    <div className={cn()}>{props.items.map(item =>
-      <div key={item.code} className={cn('item')}>
-        <Item item={item} onSelect={props.onItemSelect} onDelete={props.onItemDelete}/>
-      </div>
-    )}
+    <div className={cn()}>
+      {items.map((item) => (
+        <div key={item.code} className={cn('item')}>
+          <Item
+            item={item}
+            onAddItemToCart={onAddItemToCart}
+            onDelete={onDelete}
+            activeCart={activeCart}
+          />
+        </div>
+      ))}
+      {activeCart && <SumModal sumInCart={sumInCart} />}
     </div>
-  )
+  );
 }
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemSelect: propTypes.func,
-  onItemDelete: propTypes.func
-}
+  onAddItemToCart: propTypes.func,
+  onDelete: propTypes.func,
+  activeCart: propTypes.bool,
+  sumInCart: propTypes.number,
+};
 
 List.defaultProps = {
   items: [],
-  onItemSelect: () => {},
-  onItemDelete: () => {}
-}
+  onAddItemToCart: () => {},
+  onDelete: () => {},
+  activeCart: false,
+};
 
-export default React.memo(List);
+export default memo(List);

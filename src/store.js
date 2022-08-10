@@ -1,5 +1,4 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -36,17 +35,36 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  addItem(item) {
+    if (
+      ![...this.state.itemsBuy].map((item) => item.code).includes(item.code)
+    ) {
+      this.setState({
+        ...this.state,
+        itemsBuy: [...this.state.itemsBuy, { ...item, total: 1 }],
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        itemsBuy: [
+          ...this.state.itemsBuy.map((i) =>
+            i.code === item.code ? { ...i, total: i.total + 1 } : i
+          ),
+        ],
+      });
+    }
+
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      allItems: [...this.state.itemsBuy].length,
+      allPrice: [...this.state.itemsBuy].reduce(
+        (acc, curr) => acc + curr.price * curr.total,
+        0
+      ),
     });
   }
 
@@ -57,27 +75,15 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      itemsBuy: this.state.itemsBuy.filter((item) => item.code !== code),
     });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      allItems: [...this.state.itemsBuy].length,
+      allPrice: [...this.state.itemsBuy].reduce(
+        (acc, curr) => acc + curr.price * curr.total,
+        0
+      ),
     });
   }
 }

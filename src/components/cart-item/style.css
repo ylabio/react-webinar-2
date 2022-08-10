@@ -1,0 +1,48 @@
+/* Пункт списка */
+.ModalItem{
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 1s;
+}
+.ModalItem_selected{
+    background: #75aaf1;
+}
+
+.ModalItem-title{
+    width: 100%;
+    padding: 20px 10px;
+}
+
+.ModalItem-price{
+    width: 100%;
+    display: flex;
+    padding: 20px 20px;
+    justify-content: flex-end;
+}
+
+.ModalItem-price::after{
+    margin-left: 10px;
+    content: " \20BD";
+}
+
+.ModalItem-total{
+    display: flex;
+    padding: 20px 20px;
+    justify-content: flex-end;
+    min-width: 50px;
+}
+
+.ModalItem-total::after {
+    margin-left: 5px;
+    content: 'ШТ';
+}
+
+.ModalItem-actions{
+    padding: 20px  20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ModalItem-number{
+    padding: 20px 10px 20px 20px;
+}

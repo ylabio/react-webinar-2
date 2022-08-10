@@ -8,16 +8,29 @@
     background: #75aaf1;
 }
 
-
 .Item-title{
     width: 100%;
     padding: 20px 10px;
 }
+
+.Item-price{
+    width: 100%;
+    display: flex;
+    padding: 20px 20px;
+    justify-content: flex-end;
+}
+
+.Item-price::after{
+    margin-left: 10px;
+    content: " \20BD";
+}
+
 .Item-actions{
     padding: 20px  20px 20px 10px;
     display: flex;
     justify-content: flex-end;
 }
+
 .Item-number{
     padding: 20px 10px 20px 20px;
 }

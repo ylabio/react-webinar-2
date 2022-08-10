@@ -8,12 +8,12 @@ function Modal ({closeBtn , head , children}) {
 
     return (
         <div className={cn()} onClick={() => closeBtn()}>
-          <div className={cn('window')}>
+          <div className={cn('window')} onClick={(e) => e.stopPropagation()}>
             <div className={cn('head')}>
               {head}
               <button onClick={() => closeBtn()}>Закрыть</button>
             </div>
-            <div className={cn('content')} onClick={(e) => e.stopPropagation()}>
+            <div className={cn('content')}>
               {children}
             </div>
           </div>

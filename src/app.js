@@ -1,9 +1,11 @@
 // @ts-nocheck
 import React, { useCallback } from "react";
+
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Basket from "./components/basket";
+import Modal from "./components/modal";
 
 /**
  * Приложение
@@ -12,11 +14,11 @@ import Basket from "./components/basket";
  */
 
 function App({ store }) {
-  const [activeModal, setActiveModal] = React.useState(false);
+  const [activeBasketModal, setActiveBasketModal] = React.useState(false);
 
   const callbacks = {
     getModal: useCallback((useModal) => {
-      setActiveModal(useModal);
+      setActiveBasketModal(useModal);
     }, []),
     addItemsToBasket: useCallback((obj) => {
       store.addItemsToBasket(obj);
@@ -27,25 +29,30 @@ function App({ store }) {
   };
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <Controls
-        totalPrice={store.state.basket.totalPrice}
-        amountBasketItems={store.state.basket.items.length}
-        getModal={callbacks.getModal}
-      />
-      <List
-        addItemsToBasket={callbacks.addItemsToBasket}
-        items={store.getState().items}
-      />
-      {activeModal && (
-        <Basket
+    <React.Fragment>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls
           totalPrice={store.state.basket.totalPrice}
-          basketItems={store.state.basket.items}
-          deleteItemsFromBasket={callbacks.deleteItemsFromBasket}
+          amountBasketItems={store.state.basket.items.length}
           getModal={callbacks.getModal}
         />
+        <List
+          addItemsToBasket={callbacks.addItemsToBasket}
+          items={store.getState().items}
+        />
+      </Layout>
+
+      {activeBasketModal && (
+        <Modal>
+          <Basket
+            totalPrice={store.state.basket.totalPrice}
+            basketItems={store.state.basket.items}
+            deleteItemsFromBasket={callbacks.deleteItemsFromBasket}
+            getModal={callbacks.getModal}
+          />
+        </Modal>
       )}
-    </Layout>
+    </React.Fragment>
   );
 }
 

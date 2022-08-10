@@ -15,7 +15,7 @@ const Basket = ({
   const cn = bem("Basket");
 
   return (
-    <div className={cn()}>
+    <>
       <div className={cn("modal")}>
         <div className={cn("head")}>
           <h1>Корзина</h1>
@@ -45,7 +45,7 @@ const Basket = ({
           <h3>Итого</h3> <h3>{price} ₽</h3>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

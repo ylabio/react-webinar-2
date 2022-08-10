@@ -1,0 +1,11 @@
+.ModalPreview{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.ModalPreview-total{
+    font-weight: bold;
+    padding: 20px 10px;
+}

@@ -40,45 +40,95 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+	/**
+	 * Установка нового значения корзины
+	 * @param newBasket
+	 */
+  setBasket(newBasket) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      basket: newBasket
     });
   }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
+	/**
+	 * Установка нового значения суммы
+	 * @param newSum
+	 */
+	setSum(newSum) {
+		this.setState({
+			...this.state,
+			sum: newSum
+		});
+	}
+
+	/**
+	 * Установка нового значения числа товаров
+	 * @param newCount
+	 */
+	setCount(newCount) {
+		this.setState({
+			...this.state,
+			count: newCount
+		});
+	}
+
+	/**
+	 * Подсчет суммы
+	 */
+	calculateSum(){
+		const sum = this.state.basket.reduce((acc, val) => {
+			acc += val.price * val.count;
+			return acc;
+		}, 0);
+
+		this.setSum(sum);
+	}
+
+	/**
+	 * Увеличение числа товаров
+	 */
+	increaseCount(){
+		this.setCount(++this.state.count);
+	}
+
+	/**
+	 * Уменьшение числа товаров
+	 *  @param count
+	 */
+	decrementCounter(count){
+		this.setCount(this.state.count-count);
+	}
+
+	/**
+	 * Добавление нового элемента в корзину
+	 * @param item
+	 */
+  addInBasket(item) {
+    const basket = this.state.basket;
+    let newBasket = [];
+    if (!basket.some(el => el.code === item.code)) {
+      item.count = 1;
+      newBasket=[...basket, item];
+    } else {
+      item.count++;
+      newBasket=[...basket];
+    }
+
+    this.setBasket(newBasket);
+		this.calculateSum();
+		this.increaseCount();
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+	/**
+	 * Удаление элемента из корзины
+	 * @param code
+	 * @param count
+	 */
+  deleteFromBasket(code, count) {
+    this.setBasket(this.state.basket.filter(elem => elem.code !== code));
+		this.calculateSum();
+		this.decrementCounter(count);
   }
 }
 

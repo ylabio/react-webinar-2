@@ -8,9 +8,7 @@ function Layout({head, children}){
 
   return (
     <div className={cn()}>
-      <div className={cn('head')}>
         {head}
-      </div>
       <div className={cn('content')}>
         {children}
       </div>
@@ -21,9 +19,6 @@ function Layout({head, children}){
 Layout.propTypes = {
   head: propTypes.node,
   children: propTypes.node,
-}
-
-Layout.defaultProps = {
 }
 
 export default React.memo(Layout);

@@ -20,10 +20,8 @@ export const CartModal = (props) => {
     }, [props.items])
 
 
-
     useEffect(() => {
         callback();
-        console.log(props.items.length);
     }, [props.items]);
 
     return (
@@ -38,7 +36,7 @@ export const CartModal = (props) => {
             </header>
             <div className={cn('list')}>
                 <List type='modal' items={props.items}
-                           onItemSelect={props.itemFunc}/>
+                      onItemSelect={props.itemFunc}/>
             </div>
 
             <div className={cn('last-price')}>
@@ -50,7 +48,7 @@ export const CartModal = (props) => {
                     <b className={cn('result')}>
                         {lastPrice} ₽
                     </b>
-                </>) : <b>Корзина пуста</b>}
+                </>) : <b className={cn('empty-cart')}>Корзина пуста</b>}
             </div>
         </div>
     )

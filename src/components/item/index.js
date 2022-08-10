@@ -30,7 +30,7 @@ function Item(props) {
             </div>
             <div className={cn('price_container')}>
                 <p className={cn('price')}>
-                    {props.item.price} ₽
+                    {props.item.price.toLocaleString()} ₽
                 </p>
                 <div className={cn('actions')}>
                     <button onClick={callbacks.onClick}>

@@ -41,6 +41,7 @@ class Store {
     }
 
     addToCart(code, title, price, counter = 1) {
+        console.log('here')
         const obj = {
             code: code,
             title: title,
@@ -71,22 +72,16 @@ class Store {
             ...this.state,
             cart: this.state.cart.concat({code, title, price, counter})
         });
+        console.log(this.state.cart);
 
     }
 
     removeFromCart(code) {
-        console.log(this.state)
         if (this.state.cart !== undefined) {
             this.setState({
                 ...this.state,
-                cart: this.state.cart.map(i => {
-                    if (i?.code === code) {
-                        if (i.counter > 1) {
-                            i.counter--;
-                            return {...i}
-                        }
-                        return;
-                    } else {
+                cart: this.state.cart.filter(i => {
+                    if (i?.code !== code) {
                         return i;
                     }
                 })
@@ -95,27 +90,24 @@ class Store {
     }
 
     getFullPrice() {
-        if(this.state.cart.length > 1) {
+        if (this.state.cart.length >= 1) {
             let price = 0;
             this.state.cart.map((item) => {
-                if(!isNaN(item?.price)) {
+                if (!isNaN(item?.price)) {
                     price += item?.price * item?.counter;
-                    console.log(price);
                 }
             })
-            console.log(price);
             return price;
         }
         return 0
     }
 
     getCount() {
-        if(this.state.cart.length > 1 ) {
+        if (this.state.cart.length > 1) {
             let count = 0;
             this.state.cart.map((item) => {
-                if(!isNaN(item?.counter)) {
+                if (!isNaN(item?.counter)) {
                     count += item?.counter;
-                    console.log(count);
                 }
             })
             return count;

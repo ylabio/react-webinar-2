@@ -43,3 +43,9 @@
 .Modal-result:last-child {
     margin-right: 108px;
 }
+
+.Modal-empty-cart {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}

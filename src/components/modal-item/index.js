@@ -21,7 +21,7 @@ export const ModalItem = (props) => {
             </div>
             <div className={cn('price_container')}>
                 <p className={cn('row')}>
-                    {props.item.price} ₽
+                    {props.item.price.toLocaleString()} ₽
                 </p>
 
                 <p className={cn('row')}>

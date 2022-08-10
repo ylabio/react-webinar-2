@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useRef} from 'react'
 import PropTypes from "prop-types";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
@@ -10,13 +10,6 @@ export const Overlay = (props) => {
 
     useCloseModal(ref, props.closeModal);
 
-    useEffect(() => {
-        console.log('swapped');
-    }, [props.isOpened])
-
-    if (!props.isOpened) {
-        return <></>
-    }
     return (
         <div ref={ref} className={cn()}>
             {props.children}
@@ -25,7 +18,6 @@ export const Overlay = (props) => {
 }
 
 Overlay.propTypes = {
-    isOpened: PropTypes.bool.isRequired,
     closeModal: PropTypes.func.isRequired
 }
 

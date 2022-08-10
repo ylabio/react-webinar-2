@@ -27,18 +27,19 @@ function App({store}) {
 
     const getPriceCallback = {
         getFullPrice: useCallback(() => {
-           return store.getFullPrice();
+            return store.getFullPrice();
         }, [])
     }
 
     const getCountCallback = {
         getCount: useCallback(() => {
-           return store.getCount();
+            return store.getCount();
         }, [])
     }
 
 
     const [isOpen, setIsOpen] = useState(false);
+    const [count, setCount] = useState(0);
 
     const removeModal = () => {
         setIsOpen(false)
@@ -47,6 +48,10 @@ function App({store}) {
     const openModal = () => {
         setIsOpen(true);
     }
+
+    useEffect(() => {
+        setCount(store.state.cart.length);
+    }, [store.state.cart.length])
 
 
     return (
@@ -57,12 +62,12 @@ function App({store}) {
                         В корзине:
                     </p>
 
-                    {store.getCount() !== 0 ?
+                    {count > 0 ?
                         <b>
-                            {store.getCount()} {product(store.getCount())} / {store.getFullPrice()} ₽
+                            {count} {product(count)} / {store.getFullPrice()} ₽
 
                         </b> : <b>
-                            Корзина пуста
+                            пусто
                         </b>
 
                     }
@@ -72,10 +77,13 @@ function App({store}) {
                       onItemSelect={callbacks.onSelectItems}
                 />
             </Layout>
-            <Overlay isOpened={isOpen} closeModal={removeModal}>
-                <CartModal itemFunc={removeCallback.onRemoveItems} closeModal={removeModal} title='Корзина'
-                           items={store.getState().cart}/>
-            </Overlay>
+            {isOpen ?
+                <Overlay isOpened={isOpen} closeModal={removeModal}>
+                    <CartModal itemFunc={removeCallback.onRemoveItems} closeModal={removeModal} title='Корзина'
+                               items={store.getState().cart}/>
+                </Overlay>
+                : null
+            }
         </>
     );
 }

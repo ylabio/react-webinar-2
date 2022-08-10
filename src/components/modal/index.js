@@ -23,6 +23,10 @@ function Modal({
     setTotalPriceGoods(totalPrice);
   }, [basketItems]);
 
+  useEffect(() => {
+
+  }, [items]);
+
   const callbacks = {
     onModalTogge: useCallback(() => {
       onModalTogge();
@@ -31,7 +35,10 @@ function Modal({
 
   return (
     <div className={cn()} style={{ display: isModalActive ? 'block' : 'none' }}>
-      <div className={cn('modalWindow')}>
+      <div
+        className={cn('modalWindow')}
+        style={{ overflow: (items.length > 6) ? "scroll" : 'visible' }}
+      >
         <div className={cn('head')}>
           <p>Корзина</p>
           <button

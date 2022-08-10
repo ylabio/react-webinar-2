@@ -1,8 +1,8 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Modal from "./components/modal"
 
 /**
  * Приложение
@@ -11,26 +11,43 @@ import {counter} from "./utils";
  */
 function App({store}) {
 
+  const [show, setShow] = useState()
+
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onCartClose: useCallback(() => {
+      setShow(false);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onCartOpen: useCallback(() => {
+      setShow(true);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onAddItemToCart: useCallback((item) => {
+      store.addItemToCart(item);
     }, []),
+    onDeleteItemFromCart: useCallback((item) => {
+      store.deleteItemFromCart(item);
+    }, []),
+    getCartState: useCallback(() => {
+      const cart = store.getState().cart;
+      return {
+        count: cart.length,
+        priceSum: cart.reduce((sum, item) => sum + item.price * item.amount, 0)
+      }
+    }, [store.getState().cart]),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls getCartState={callbacks.getCartState} onCartOpen={callbacks.onCartOpen}/>
       <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+            btnHandle={callbacks.onAddItemToCart}
+            btnText='Добавить'
       />
+      <Modal
+        getCartState={callbacks.getCartState}
+        cart={store.getState().cart}
+        onCartClose={callbacks.onCartClose}
+        onDeleteItemFromCart={callbacks.onDeleteItemFromCart}
+        show={show}/>
     </Layout>
   );
 }

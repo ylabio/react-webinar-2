@@ -7,7 +7,7 @@ function Layout({head, children}){
   const cn = bem('Layout');
 
   return (
-    <div className={cn()}>
+    <div onClick={(e) => e.stopPropagation()} className={cn()}>
       <div className={cn('head')}>
         {head}
       </div>

@@ -3,6 +3,8 @@ import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
+import Button from '../button';
+
 function Item({ item, onAdd }) {
   const cn = bem("Item");
 
@@ -14,19 +16,21 @@ function Item({ item, onAdd }) {
         {item.price.toLocaleString("ru-RU", {
           style: "currency",
           currency: "RUB",
+          minimumFractionDigits: 0,
         })}{" "}
       </div>
-      <div className={cn("actions")}>
-        <button onClick={() => onAdd(item)}>Добавить</button>
-      </div>
+
+      <Button onClick={() => onAdd(item)}  children={'Добавить'} />
+
     </div>
   );
 }
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onAdd: propTypes.func.isRequired,
+  onAdd: propTypes.func,
 };
+
 
 Item.defaultProps = {
   onAdd: () => {},

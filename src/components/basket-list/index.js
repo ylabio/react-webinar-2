@@ -2,7 +2,7 @@ import React from "react";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
-import BasketItem from "../basket_item";
+import BasketItem from "../basket-item";
 
 function BasketList({ orders, deleteItem }) {
   const cn = bem("BasketList");
@@ -17,13 +17,13 @@ function BasketList({ orders, deleteItem }) {
   );
 }
 BasketList.propTypes = {
-  deleteItem: propTypes.func.isRequired,
+  deleteItem: propTypes.func,
   orders: propTypes.arrayOf(propTypes.object).isRequired,
 };
 
+
 BasketList.defaultProps = {
   deleteItem: () => {},
-  orders: [],
 };
 
 export default React.memo(BasketList);

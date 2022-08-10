@@ -3,23 +3,18 @@
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  padding: 20px;
 }
 .Item-title {
   width: 100%;
-  padding: 20px 10px;
-}
-.Item-actions {
-  padding: 20px 20px 20px 10px;
-  display: flex;
-  justify-content: flex-end;
 }
 .Item-price {
   font-size: 18px;
   font-weight: 400;
   line-height: 21px;
   color: #404040;
-  padding: 20px 14px;
+  margin-right: 24px;
 }
 .Item-number {
-  padding: 20px 10px 20px 20px;
+  margin-right: 20px;
 }

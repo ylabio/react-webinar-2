@@ -2,30 +2,30 @@ import React from "react";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
-import BasketList from "../basket_list";
+import BasketList from "../basket-list";
 
-function Basket({ orders, deleteItem, closeModal, totalPrice }) {
+import Button from "../button";
+function Basket({ orders, deleteItem, closeModal, totalPrice, head, uniqueOrder }) {
   const cn = bem("Basket");
 
   return (
     <div className={cn()}>
       <div className={cn("head")}>
-        <h1>Корзина</h1>
-        <button type="button" onClick={closeModal} className={cn("btn_close")}>
-          Закрыть
-        </button>
+        {head}
+        <Button onClick={closeModal} children={"Закрыть"} />
       </div>
 
       <div className={cn("content")}>
-        <BasketList orders={orders} deleteItem={deleteItem} />
+        <BasketList orders={orders} deleteItem={deleteItem} uniqueOrder={uniqueOrder}/>
       </div>
 
       <div className={cn("total")}>
-        <span>Итого:</span>
+        <span>Итого</span>
         <span>
           {totalPrice.toLocaleString("ru-RU", {
             style: "currency",
             currency: "RUB",
+            minimumFractionDigits: 0,
           })}
         </span>
       </div>
@@ -34,17 +34,16 @@ function Basket({ orders, deleteItem, closeModal, totalPrice }) {
 }
 
 Basket.propTypes = {
-  deleteItem: propTypes.func.isRequired,
+  deleteItem: propTypes.func,
   orders: propTypes.arrayOf(propTypes.object).isRequired,
-  openModal: propTypes.func.isRequired,
+  openModal: propTypes.func,
   totalPrice: propTypes.number.isRequired,
 };
 
-Basket.defaultProps = {
+BasketList.defaultProps = {
   deleteItem: () => {},
-  orders: [],
   openModal: () => {},
-  totalPrice: 0,
 };
+
 
 export default React.memo(Basket);

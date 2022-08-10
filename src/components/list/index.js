@@ -24,7 +24,6 @@ List.propTypes = {
 };
 
 List.defaultProps = {
-  items: [],
   onAdd: () => {},
 };
 

@@ -58,6 +58,38 @@ class Store {
       ...this.state,
       orders: this.state.orders.filter((order) => order.code !== code),
     });
+    this.getTotalPrice();
+    this.getTotalCount(-1);
+
+  }
+  /**
+   * Увелечение общей суммы всех товаров
+   *
+   */
+  getTotalPrice() {
+    const { orders} = this.state;
+
+    let total = orders
+      .map((order) => order.total)
+      .reduce((prev, curr) => prev + curr, 0);
+   
+    this.setState({
+      ...this.state,
+      total: total,
+    });
+  }
+
+  /**
+   * Увелечение общей суммы уникальных товаров
+   *
+   */
+
+  getTotalCount (number) {
+    const {uniqueOrder} = this.state;
+    this.setState({
+      ...this.state,
+      uniqueOrder: uniqueOrder + number,
+    })
   }
 
   /**
@@ -74,29 +106,39 @@ class Store {
     if (orders.length === 0) {
       this.setState({
         ...this.state,
-        orders: [...orders, item],
+        orders: orders.concat(item),
       });
+      this.getTotalPrice();
+      this.getTotalCount(1);
+
     } else {
-      orders.find((order) => order.code === item.code)
-        ? this.setState({
-            ...this.state,
-            orders: orders.map((order) => {
-              if (order.code === item.code) {
-                return {
-                  ...order,
-                  count: (order.count += 1),
-                  total: order.count * order.price,
-                };
-              }
-              return order;
-            }),
-          })
-        : this.setState({
-            ...this.state,
-            orders: [...orders, item],
-          });
+      if (orders.find((order) => order.code === item.code)) {
+        this.setState({
+          ...this.state,
+          orders: orders.map((order) => {
+            if (order.code === item.code) {
+              return {
+                ...order,
+                count: (order.count += 1),
+                total: order.count * order.price,
+              };
+            }
+            return order;
+          }),
+        });
+        this.getTotalPrice();
+      } else {
+        this.setState({
+          ...this.state,
+          orders: [...orders, item],
+        });
+        this.getTotalPrice();
+      this.getTotalCount(1);
+
+      }
     }
   }
-}
+  
 
+}
 export default Store;

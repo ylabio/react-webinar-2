@@ -5,7 +5,6 @@ import Layout from "./components/layout";
 import Modal from "./components/modal";
 import Basket from "./components/basket";
 
-import { counter } from "./utils";
 
 /**
  * Приложение
@@ -18,11 +17,7 @@ function App({ store }) {
   const toggleModal = () => {
     setModal(!modal);
   };
-
-  const TotalPrice = store
-    .getState()
-    .orders.map((order) => order.total)
-    .reduce((prev, curr) => prev + curr, 0);
+    
   const callbacks = {
     onAddItem: useCallback(
       (item) => {
@@ -44,14 +39,17 @@ function App({ store }) {
             closeModal={toggleModal}
             orders={store.getState().orders}
             deleteItem={callbacks.deleteItem}
-            totalPrice={TotalPrice}
+            totalPrice={store.getState().total}
+            head={<h1>Корзина</h1>}
+            uniqueOrder={store.getState().uniqueOrder}
           />
         </Modal>
       )}
       <Controls
         openModal={toggleModal}
         orders={store.getState().orders}
-        totalPrice={TotalPrice}
+        totalPrice={store.getState().total}
+        uniqueOrder={store.getState().uniqueOrder}
       />
       <List items={store.getState().items} onAdd={callbacks.onAddItem} />
     </Layout>

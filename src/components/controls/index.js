@@ -4,41 +4,40 @@ import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-function Controls({ openModal, orders, totalPrice }) {
+import Button from '../button';
+function Controls({ openModal, totalPrice, uniqueOrder }) {
   const cn = bem("Controls");
   return (
     <div className={cn()}>
       <div className={cn("text")}>В корзине: </div>
       <span className={cn("total")}>
-        {orders.length
-          ? `${orders.length} ${plural(
-              orders.length,
+        {uniqueOrder
+          ? `${uniqueOrder} ${plural(
+            uniqueOrder,
               "товар",
               "товара",
               "товаров"
             )} / ${totalPrice.toLocaleString("ru-RU", {
               style: "currency",
               currency: "RUB",
+              minimumFractionDigits: 0, 
             })} `
           : "пусто"}
       </span>
-      <button onClick={openModal} type="button">
-        Перейти
-      </button>
+      <Button onClick={openModal} children={'Перейти'} />
+       
     </div>
   );
 }
 
 Controls.propTypes = {
-  openModal: propTypes.func.isRequired, // Обяхательное свойство - функция
+  openModal: propTypes.func, // Обяхательное свойство - функция
   orders: propTypes.arrayOf(propTypes.object).isRequired,
   totalPrice: propTypes.number.isRequired,
 };
 
 Controls.defaultProps = {
-  openModal: () => {}, // Значение по умолчанию - функция-заглушка
-  orders: [],
-  totalPrice: 0,
+  openModal: () => {},
 };
 
 export default React.memo(Controls);

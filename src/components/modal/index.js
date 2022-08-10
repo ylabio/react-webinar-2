@@ -13,9 +13,8 @@ function Modal({ children }) {
   );
 }
 Modal.propTypes = {
-  children: propTypes.node,
+  children: propTypes.node.isRequired,
 };
 
-Modal.defaultProps = {};
 
 export default Modal;

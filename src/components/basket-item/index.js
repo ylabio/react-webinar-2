@@ -3,7 +3,8 @@ import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-function BasketItem({ order, deleteItem }) {
+import Button from '../button';
+function BasketItem({ order, deleteItem, uniqueOrder }) {
   const cn = bem("BasketItem");
 
   const callbacks = {
@@ -20,6 +21,7 @@ function BasketItem({ order, deleteItem }) {
         {order.total.toLocaleString("ru-RU", {
           style: "currency",
           currency: "RUB",
+          minimumFractionDigits: 0, 
         })}{" "}
       </div>
       <div className={cn("count")}>
@@ -27,20 +29,19 @@ function BasketItem({ order, deleteItem }) {
         <span>{order.count} </span> <span> шт</span>{" "}
       </div>
 
-      <div className={cn("actions")}>
-        <button onClick={callbacks.onDeleteItem}>Удалить</button>
-      </div>
+        <Button onClick={callbacks.onDeleteItem} children={'Удалить'}/>
     </div>
   );
 }
 
 BasketItem.propTypes = {
   order: propTypes.object.isRequired,
-  onDeleteItem: propTypes.func.isRequired,
+  onDeleteItem: propTypes.func,
 };
 
 BasketItem.defaultProps = {
   onDeleteItem: () => {},
 };
+
 
 export default React.memo(BasketItem);

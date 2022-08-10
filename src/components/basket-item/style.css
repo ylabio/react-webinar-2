@@ -2,13 +2,12 @@
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  padding: 20px;
 }
 .BasketItem-title {
   width: 100%;
-  padding: 20px 10px;
 }
 .BasketItem-actions {
-  padding: 20px 20px 20px 10px;
   display: flex;
   justify-content: flex-end;
 }
@@ -18,14 +17,18 @@
   font-weight: 400;
   line-height: 21px;
   color: #404040;
-  padding: 20px 14px;
+}
+.BasketItem-total {
+  margin-right: 55px;
+
 }
 .BasketItem-count {
   display: flex;
+  margin-right: 23px;
 }
 .BasketItem-count:not(:last-child) span {
   margin-right: 5px;
 }
 .BasketItem-number {
-  padding: 20px 10px 20px 20px;
+  margin-right: 18px;
 }

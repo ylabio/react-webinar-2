@@ -70,14 +70,14 @@ class Store {
         totalPrice: this.state.totalPrice + itemInBasket.price
       })
     } else {
-      const itemForAdd = this.state.items.find(item => item.code === code);
-      this.setState({
-        ...this.state,
-        basket: [...this.state.basket, {code: itemForAdd.code, title: itemForAdd.title, price: itemForAdd.price, totalPrice: itemForAdd.price, num: 1}],
-        numUniqueItems: this.state.numUniqueItems + 1,
-        totalPrice: this.state.totalPrice + itemForAdd.price
-      }) 
-    }
+        const itemForAdd = this.state.items.find(item => item.code === code);
+        this.setState({
+          ...this.state,
+          basket: [...this.state.basket, {code: itemForAdd.code, title: itemForAdd.title, price: itemForAdd.price, totalPrice: itemForAdd.price, num: 1}],
+          numUniqueItems: this.state.numUniqueItems + 1,
+          totalPrice: this.state.totalPrice + itemForAdd.price
+        }) 
+     }
   }
 
     /**

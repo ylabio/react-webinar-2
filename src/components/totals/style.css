@@ -1,0 +1,11 @@
+.Totals {
+    margin-top: 20px;
+    margin-right: 118px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .Totals-title {
+    margin-right: 20px;
+  }

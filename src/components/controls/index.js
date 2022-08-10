@@ -1,20 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import { pluralize, numFormat, totalPrice } from "../../utils";
-import Modal from "../modal";
 import "./style.css";
 
-function Cart(props) {
-  const cn = bem("Cart");
-  const [isOpen, setIsOpen] = useState(false);
-  const cart = props.cart;
+function Controls({cart, onClickToggle}) {
+  const cn = bem("Controls");
   const goodsQty = cart.length;
   const cartInfo = ` ${goodsQty} ${pluralize(goodsQty)} / `;
-
-  const onClick = () => {
-    setIsOpen(!isOpen);
-  };
 
   return (
     <div className={cn()}>
@@ -35,28 +28,17 @@ function Cart(props) {
         )}
       </div>
       <div className={cn("actions")}>
-        <button className={cn("button-modal-on")} onClick={onClick}>
+        <button className={cn("button-modal-on")} onClick={onClickToggle}>
           Перейти
         </button>
       </div>
-      <Modal
-        cart={cart}
-        isOpen={isOpen}
-        onClickToggle={onClick}
-        onCart={props.onCart}
-      />
     </div>
   );
 }
 
-Cart.propTypes = {
+Controls.propTypes = {
   cart: propTypes.arrayOf(propTypes.object).isRequired,
-  onCart: propTypes.func.isRequired,
+  onClickToggle: propTypes.func.isRequired,
 };
 
-Cart.defaultProps = {
-  cart: [],
-  onCart: () => {},
-};
-
-export default React.memo(Cart);
+export default React.memo(Controls);

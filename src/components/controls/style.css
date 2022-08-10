@@ -1,14 +1,14 @@
-.Cart {
+.Controls {
     display: flex;
     justify-content: flex-end;
     padding: 20px;
 }
-.Cart-totals {
+.Controls-totals {
     margin-right: 20px;
 }
-.Cart-info {
+.Controls-info {
     font-weight: 700;
 }
-.Cart-button-modal-on {
+.Controls-button-modal-on {
     width: 75px;
 }

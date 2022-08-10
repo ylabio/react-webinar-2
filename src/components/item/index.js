@@ -36,7 +36,7 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onHandleBtn: propTypes.func.isRequired,
+  onHandleBtn: propTypes.func,
   
 }
 

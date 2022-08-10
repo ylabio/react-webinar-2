@@ -29,17 +29,13 @@ function Modal({head, onModalBtn, children}) {
 }
 
 Modal.propTypes = {
-    items: propTypes.arrayOf(propTypes.object).isRequired,
     onModalBtn: propTypes.func.isRequired,
-    onDeleteItem: propTypes.func.isRequired,
-    active: propTypes.bool.isRequired
+    head: propTypes.node,
+    children: propTypes.node
   }
   
 Modal.defaultProps = {
-    items: [],
-    onModalBtn: () => {},
-    onDeleteItem: () => {},
-    active: false
+
   }
   
 

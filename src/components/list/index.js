@@ -19,8 +19,8 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onHandleBtn: propTypes.func.isRequired,
-  component: propTypes.node.isRequired
+  onHandleBtn: propTypes.func,
+  component: propTypes.elementType.isRequired
 }
 
 List.defaultProps = {

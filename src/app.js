@@ -4,6 +4,7 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import Popup from "./components/popup";
 import Basket from "./components/basket";
+import {getSumPrice} from "./utils";
 
 /**
  * Приложение
@@ -37,8 +38,10 @@ function App({store}) {
           </Popup>
       ) }
       <Controls
-          items={store.getState().userProducts}
+          // items={store.getState().userProducts}
           onBasketPopupShow={() => setIsBasketPopupShown(true)}
+          sumPrice={getSumPrice(store.getState().userProducts)}
+          numberOfPositions={store.getState().userProducts.length}
       />
       <List
           items={store.getState().items}

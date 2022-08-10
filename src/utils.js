@@ -12,5 +12,6 @@ export const getSumPrice = (products) => {
   const sumResult = allProductsPrices.reduce(function(sum, elem) {
     return sum + elem;
   }, 0);
+
   return Intl.NumberFormat("ru").format(sumResult);
 }

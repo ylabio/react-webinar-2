@@ -40,46 +40,58 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
+    /**
+   * Добавление товара в корзину
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
+  addToCart(item) {
+    // товар мог быть уже добавлен в корзину, ищем его индекс
+    const index = this.state.cart.items.findIndex((cartItem) => cartItem.code === item.code)
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
+    if (index === -1) {
+      // если товар не был найден в корзине, то добавляем его в массив, устанавливаем счетчик
+      this.setState({
+        ...this.state,
+        cart: {
+          ...this.state.cart, 
+          items: [...this.state.cart.items, {...item, amount: 1}],
+          itemsQuantity: this.state.cart.itemsQuantity + 1, 
+          totalPrice: this.state.cart.totalPrice + item.price
         }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      });
+    } else {
+      // если товар уже содержится в корзине, находим его и увеличиваем счетчик
+      this.setState({
+        ...this.state,
+        cart: {
+          ...this.state.cart, 
+          items: this.state.cart.items.map((cartItem) => {
+            if (cartItem.code === item.code) {
+              return {...cartItem, amount: cartItem.amount + 1}
+            }
+            return cartItem
+          }), 
+          totalPrice: this.state.cart.totalPrice + item.price
+        }
+      });
+    }
+  }
+
+  /**
+   * Удаление товара из корзины
+   * @param item
+   */
+  deleteFromCart(item) {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart, 
+        items: this.state.cart.items.filter(cartItem => cartItem.code !== item.code),
+        itemsQuantity: this.state.cart.itemsQuantity - 1,
+        totalPrice: this.state.cart.totalPrice - item.price * item.amount
+      }
     });
   }
+
 }
 
 export default Store;

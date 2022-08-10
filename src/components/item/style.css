@@ -1,17 +1,24 @@
 /* Пункт списка */
 .Item{
     display: flex;
+    align-items: center;
     justify-content: flex-start;
-    transition: background-color 1s;
+    border-bottom: 1px dashed #ccc;
 }
-.Item_selected{
-    background: #75aaf1;
+.Item:first-child{
+    border-top: 1px dashed #ccc;
 }
-
-
 .Item-title{
     width: 100%;
     padding: 20px 10px;
+}
+.Item-price{
+    flex-shrink: 0;
+    padding: 20px  23px 20px 15px;
+}
+.Item-amount{
+    flex-shrink: 0;
+    padding: 20px  20px 20px 35px;
 }
 .Item-actions{
     padding: 20px  20px 20px 10px;

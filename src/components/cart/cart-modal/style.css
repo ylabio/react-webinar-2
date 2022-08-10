@@ -1,0 +1,13 @@
+.CartModal-total{
+  flex-shrink: 0;
+  text-align: right;
+  padding: 26px 130px 20px 0px;
+  font-weight: 700;
+}
+.CartModal-price{
+  margin-left: 36px;
+}
+.CartModal-empty{
+  font-size: 24px;
+  text-align: center;
+}

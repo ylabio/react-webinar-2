@@ -11,6 +11,7 @@ import { counter, TotalSum } from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({ store }) {
+  console.log('store');
 
   const callbacks = {
     onAdd: useCallback(() => {
@@ -26,18 +27,14 @@ function App({ store }) {
     onDeleteItems: useCallback((code) => {
       store.deleteItem(code);
     }, []),
-
-
-
-
   }
+
 
   const [modal, setModal] = useState(false);
 
 
   const totalPricaAndProduct = store.state.basket.length > 0 ? TotalSum(store.state.basket) : "пусто";
 
-  console.log(store.state.basket);
 
 
 

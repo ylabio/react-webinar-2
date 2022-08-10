@@ -11,8 +11,6 @@ import Button from '../button';
 
 function Item(props) {
   const cn = bem('Item');
-  console.log('item');
-
 
 
 
@@ -25,7 +23,7 @@ function Item(props) {
     onAdd: useCallback((e) => {
       e.stopPropagation();
       props.onAddBasket(props.item.code)
-    }, [props.item, props.onAdd]),
+    }, [props.item]),
 
     // Функция выделения тоже не нужна раз мы решили не выделять ничего
     // onClick: useCallback(() => {

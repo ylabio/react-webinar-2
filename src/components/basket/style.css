@@ -47,8 +47,6 @@
 
 .Basket-body {
   position: relative;
-  overflow: hidden;
-  max-height: 20%;
   padding: 70px 20px;
   display: flex;
 }

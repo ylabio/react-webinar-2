@@ -24,7 +24,9 @@ function Item(props) {
       <div className={cn("number")}>{props.item.code}</div>
       <div className={cn("title")}>{props.item.title}</div>
       <div className={cn("price")}>
-        {props.isMainContent ? props.item.price : props.item.totalPrice}
+        {props.isMainContent
+          ? new Intl.NumberFormat("ru-RU").format(props.item.price)
+          : new Intl.NumberFormat("ru-RU").format(props.item.totalPrice)}
       </div>
       <div className={cn("symbol")}>{"\u20BD"}</div>
       {props.isMainContent ?? (

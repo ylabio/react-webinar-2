@@ -30,7 +30,9 @@ function Controls({ setIsOpenedModal, isMainContent, consolidationItems }) {
                   "товар",
                   "товара",
                   "товаров"
-                )} / ${totalPriceAllItems} \u20BD`
+                )} / ${new Intl.NumberFormat("ru-RU").format(
+                  totalPriceAllItems
+                )} \u20BD`
               : "пусто"}
           </span>
         </div>

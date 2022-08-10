@@ -25,7 +25,11 @@ function Modal(props) {
         <div className={cn("total")}>
           <div className={cn("totalChild1")}>Итого</div>
           <div className={cn("totalChild2")}>
-            {totalPriceAllItems ? `${totalPriceAllItems} \u20BD` : "пусто"}
+            {totalPriceAllItems
+              ? `${new Intl.NumberFormat("ru-RU").format(
+                  totalPriceAllItems
+                )} \u20BD`
+              : "пусто"}
           </div>
         </div>
       </div>

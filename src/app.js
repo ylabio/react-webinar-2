@@ -30,16 +30,24 @@ function App({store}) {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls cart={store.getState().cart} onPopupOpen={callbacks.onPopupOpen}/>
-      <List items={store.getState().items}         
-            onItemDelete={callbacks.onDeleteItems}
-            onAddToCart={callbacks.onAddToCart}          
-      />  
+      <Controls
+        cart={store.getState().cart}
+        onPopupOpen={callbacks.onPopupOpen}
+      />
+      <List
+        items={store.getState().items}
+        onItemDelete={callbacks.onDeleteItems}
+        onAddToCart={callbacks.onAddToCart}
+      />
       {isPopupOpen && (
-         <Popup title={'Корзина'} onClose={callbacks.onPopupClose} >
-         <Cart cartItems={store.getState().cart.cartItems} onDeleteItemsFromCart={callbacks.onDeleteItemsFromCart} totalPrice={store.getState().cart.totalPrice}/>
-       </Popup>
-      )}    
+        <Popup title={'Корзина'} onClose={callbacks.onPopupClose}>
+          <Cart
+            cartItems={store.getState().cart.cartItems}
+            onDeleteItemsFromCart={callbacks.onDeleteItemsFromCart}
+            totalPrice={store.getState().cart.totalPrice}
+          />
+        </Popup>
+      )}
     </Layout>
   );
 }

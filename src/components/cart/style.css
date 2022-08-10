@@ -33,6 +33,10 @@
   line-height: 21px;
 }
 
+.Cart-amount {
+  max-width: 46px;
+}
+
 .Cart-label {
   margin-right: 49px;
 }

@@ -19,7 +19,7 @@ function Cart({ cartItems, onDeleteItemsFromCart, totalPrice }) {
       {cartItems.length !== 0 && (
         <div className={cn('total')}>
           <span className={cn('label')}>Итого</span>
-          {modifiedPrice}
+          <div className={cn('amount')}>{modifiedPrice}</div>
         </div>
       )}
     </div>

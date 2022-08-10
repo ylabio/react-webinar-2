@@ -27,9 +27,9 @@ function Controls(props){
 }
 
 Controls.propTypes = {
-  isModalActive: propTypes.func,
-  getItemsSum: propTypes.number.isRequired,
-  getPriceSum: propTypes.number.isRequired,
+  isModalActive: propTypes.func.isRequired,
+  getItemsSum: propTypes.number,
+  getPriceSum: propTypes.number,
 }
 
 Controls.defaultProps = {

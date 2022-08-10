@@ -12,7 +12,7 @@ function CartList(props) {
   const cn = bem('Cart-list');
 
   return (
-    <div className={cn()}>{arrFromSet(props.items).map((item, index) =>
+    <div className={cn()}>{arrFromSet(props.cartItems).map((item, index) =>
       <div key={index} className={cn('child')}>
         <div className={cn('item')}>
           <div className={cn('item-number')}>
@@ -41,13 +41,8 @@ function CartList(props) {
 }
 
 CartList.propTypes = {
-  items: propTypes.arrayOf(propTypes.object).isRequired,
+  cartItems: propTypes.arrayOf(propTypes.object).isRequired,
   onItemDelete: propTypes.func.isRequired
-}
-
-CartList.defaultProps = {
-  items: [],
-  onItemDelete: () => {},
 }
 
 export default React.memo(CartList)

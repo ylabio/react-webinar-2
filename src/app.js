@@ -46,7 +46,7 @@ function App({store}) {
             setActive={setModalActive}
             headName={'Корзина'}
             footTotal={priceSum.toLocaleString('ru-RU')}>
-        <CartList items={getCartItems}
+        <CartList cartItems={getCartItems}
                   onItemDelete={callbacks.onDeleteItems}
         />
       </Cart>

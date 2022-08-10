@@ -43,14 +43,15 @@ function Cart(props) {
 };
 
 Cart.propTypes = {
-  isActive: propTypes.bool,
-  headName: propTypes.string.isRequired,
+  isActive: propTypes.bool.isRequired,
+  headName: propTypes.string,
   footTotal: propTypes.string,
   children: propTypes.node,
 }
 
 Cart.defaultProps = {
-  headName: 'Modal Example'
+  headName: 'Modal Example',
+  footTotal: '0'
 }
 
 export default React.memo(Cart);

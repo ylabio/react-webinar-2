@@ -4,3 +4,12 @@
     justify-content: flex-end;
     padding: 20px;
 }
+.Controls-info{
+    margin: 0 20px;
+    font-weight: bold;
+}
+.Controls button{
+    width: 80px;
+    height: 21px;
+    box-sizing: border-box;
+}

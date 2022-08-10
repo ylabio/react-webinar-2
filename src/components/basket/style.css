@@ -1,0 +1,61 @@
+.Basket-block {
+    background: rgba(133, 133, 133, 0.6);
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.Basket {
+    position: relative;
+    width: 90%;
+    height: 70%;
+    background: white;
+    border-radius: 13px;
+}
+
+.Basket-buttonClose {
+    position: absolute;
+    right: 32px;
+    top: 31px;
+}
+
+.Basket-title {
+    background: #F5F5F5;
+    padding: 20px;
+    border-radius: 13px 13px 0 0;
+    height: 80px;
+    font-family: Arial, serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 36.8px;
+    box-sizing: border-box;
+    margin-bottom: 72px;
+}
+
+.Basket-results {
+    text-align: right;
+    padding-right: 100px;
+    font-family: Arial, serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21px;
+    letter-spacing: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.Basket-results p{
+    margin-left: 48px;
+}
+.Basket-item{
+    border-bottom: 1px dashed #ccc;
+}
+
+.Basket-item:first-child{
+    border-top: 1px dashed #ccc;
+}

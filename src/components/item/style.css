@@ -9,9 +9,29 @@
 }
 
 
-.Item-title{
+.Item-info{
     width: 100%;
     padding: 20px 10px;
+    font-family: Arial,serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+}
+.Item-price{
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21px;
+
+}
+.Item-amount{
+    margin-left: 55px;
+}
+.Item-info_price{
+    display: flex;
 }
 .Item-actions{
     padding: 20px  20px 20px 10px;

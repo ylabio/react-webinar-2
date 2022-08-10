@@ -1,0 +1,24 @@
+/*Шапка модального окна*/
+
+.Modal-header {
+    min-height: 100%;
+}
+
+.Modal-header {
+    height: 80px;
+    background: #f5f5f5;
+    border-radius: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Modal-header h1{
+    margin: 0;
+    padding: 20px 20px 23px;
+}
+
+.Modal-header button {
+    width: 76px;
+    margin-right: 30px;
+}

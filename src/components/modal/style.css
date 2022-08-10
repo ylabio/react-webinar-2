@@ -1,0 +1,23 @@
+/*Модальное окно*/
+.Modal {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: all;
+}
+
+
+.Modal-content {
+    border-radius: 10px;
+    background-color: white;
+    min-height: 603px;
+    max-height: 100vh;
+    width: 960px;
+    overflow: auto;
+}

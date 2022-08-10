@@ -2,7 +2,11 @@ import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Modal from "./components/modal";
+import Cart from "./components/cart";
+import ModalHeader from "./components/modal/modal-header";
+import CartTotalPrice from "./components/cart/cart-total-price";
+import CartList from "./components/cart/cart-list";
 
 /**
  * Приложение
@@ -11,26 +15,38 @@ import {counter} from "./utils";
  */
 function App({store}) {
 
+  const state = store.getState();
+
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    toggleModalShow: useCallback(() => {
+      store.toggleModalShow();
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onAddItemToCart: useCallback((code, item) => {
+      store.addItemToCart(code, item);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onDeleteCartItems: useCallback((code) => {
+      store.deleteCartItems(code);
     }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls cartTotalPrice={state.cartTotalPrice}
+                cartUniqItemAmount={state.cartUniqItemAmount}
+                toggleModalShow={callbacks.toggleModalShow}/>
+      <List items={state.items}
+            addItemToCart={callbacks.onAddItemToCart}/>
+      {state.isModalActive &&
+        <Modal toggleModalShow={callbacks.toggleModalShow}>
+          <ModalHeader title='Корзина'
+                       toggleModalShow={callbacks.toggleModalShow}/>
+          <Cart>
+            {state.cartUniqItemAmount !== 0 && <>
+                <CartList items={state.cartItems}
+                          deleteCartItems={callbacks.onDeleteCartItems}/>
+                <CartTotalPrice cartTotalPrice={state.cartTotalPrice}/></>}
+          </Cart>
+        </Modal>}
     </Layout>
   );
 }

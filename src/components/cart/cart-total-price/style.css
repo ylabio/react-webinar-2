@@ -1,0 +1,13 @@
+/*Итоговая цена всех товаров в корзине*/
+
+.Cart-total-price {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 26px 108px 26px;
+    white-space: nowrap;
+}
+
+.Cart-total-price span{
+    margin-left: 49px;
+}

@@ -1,0 +1,7 @@
+.Cart-total {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold;
+  padding: 20px 105px 20px 20px;
+  gap: 52px;
+}

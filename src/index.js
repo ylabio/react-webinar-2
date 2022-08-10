@@ -16,6 +16,8 @@ const store = new Store({
   ],
   currency: "₽",
   cart: [],
+  cartTotalCost: 0,
+  uniqItemsInCart: 0,
 });
 
 const root = createRoot(document.getElementById("root"));

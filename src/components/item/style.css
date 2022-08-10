@@ -11,12 +11,7 @@
   padding: 20px 10px;
 }
 .Item-price {
-  padding: 20px 0px 20px 20px;
-  white-space: nowrap;
-}
-.Item-amount {
-  padding: 20px 10px 20px 20px;
-  margin-left: 35px;
+  padding: 20px 0;
   white-space: nowrap;
 }
 .Item-actions {

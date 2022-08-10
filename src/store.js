@@ -17,7 +17,7 @@ class Store {
    * Выбор отсортированной по дате корзины
    * @return {Object}
    */
-  getSortedCart() {
+  get sortedCart() {
     return this.state.cart.sort(
       (prev, next) => prev.additionDate - next.additionDate
     );
@@ -103,6 +103,7 @@ class Store {
           }
           return item;
         }),
+        cartTotalCost: this.state.cartTotalCost + itemInCart.price,
       });
     } else {
       const currentItem = this.state.items.find((item) => item.code === code);
@@ -113,14 +114,20 @@ class Store {
           amount: 1,
           additionDate: date,
         }),
+        cartTotalCost: this.state.cartTotalCost + currentItem.price,
+        uniqItemsInCart: this.state.uniqItemsInCart + 1,
       });
     }
   }
 
   deleteItemFromCart(code) {
+    const itemInCart = this.state.cart.find((item) => item.code === code);
     this.setState({
       ...this.state,
       cart: this.state.cart.filter((item) => item.code !== code),
+      cartTotalCost:
+        this.state.cartTotalCost - itemInCart.price * itemInCart.amount,
+      uniqItemsInCart: this.state.uniqItemsInCart - 1,
     });
   }
 }

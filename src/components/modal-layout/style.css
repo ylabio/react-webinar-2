@@ -1,0 +1,26 @@
+.Modal{ 
+    min-height: 400px;
+    border-radius: 10px;
+    min-width: 50%;
+    max-width: 70%;
+    
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    background-color: #fff;
+    transition: 0.3s all;
+ 
+    display: flex;
+    flex-direction: column;
+ }
+ .Modal-header{
+     padding: 5px 30px 5px 10px;
+     background: #f5f5f5;
+ 
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     border-radius: 10px;
+ }

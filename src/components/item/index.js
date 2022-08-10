@@ -1,6 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+import { divideNumberByPieces } from '../../utils';
 import './style.css';
 
 function Item(props) {
@@ -24,7 +25,7 @@ function Item(props) {
         {title}
       </div>
       <div className={cn('price')}>
-        {price} ₽
+        {divideNumberByPieces(price)} ₽
       </div>
       <div className={cn('actions')}>
         <button className={cn('actions-button')} onClick={callbacks.onAdd}>

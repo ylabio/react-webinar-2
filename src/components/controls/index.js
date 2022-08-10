@@ -2,6 +2,7 @@ import React, {useMemo} from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 import { cn as bem } from '@bem-react/classname';
+import { divideNumberByPieces } from '../../utils';
 import plural from 'plural-ru';
 
 function Controls(props){
@@ -9,7 +10,7 @@ function Controls(props){
   const cn = bem('Controls');
 
   const { quantity, sum } = useMemo(() => props.totals, [props.totals]);
-  const isEmptyCart = quantity !==0 ? `${quantity} ${plural(quantity, 'товар', 'товара', 'товаров')} / ${sum}` : 'пусто';
+  const isEmptyCart = quantity !==0 ? `${quantity} ${plural(quantity, 'товар', 'товара', 'товаров')} / ${divideNumberByPieces(sum)} ₽` : 'пусто';
   return (
     <div className={cn()}>
       <div className={cn('info')}>

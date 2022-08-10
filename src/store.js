@@ -79,14 +79,12 @@ class Store {
    * @param code
    */
    removeFromCart(code) {
-    const itemIndex = this.state.cart.findIndex(item => item.code === code);
-    const deltaPrice = this.state.cart[itemIndex].price;
-    const deltaSum = this.state.cart[itemIndex].selectedTimes * deltaPrice;
-    this.state.cart.splice(itemIndex, 1);
-    const newCart = this.state.cart;
+    const item = this.state.cart.find(item => item.code === code);
+    const deltaPrice = item.price;
+    const deltaSum = item.selectedTimes * deltaPrice;
     this.setState({
       ...this.state,
-      cart: newCart,
+      cart: this.state.cart.filter(item => item.code !== code),
       totals: { quantity: this.state.totals.quantity - 1, sum: this.state.totals.sum - deltaSum},
       totalAmount: this.state.totalAmount - deltaSum,
     });

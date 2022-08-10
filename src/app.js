@@ -2,7 +2,10 @@ import React, {useCallback, useMemo} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import Modal from './components/modal';
+import ModalLayout from './components/modal-layout';
+import Modalhead from './components/modalhead';
+import Cart from './components/cart';
+import ModalTotal from './components/modal-total';
 
 /**
  * Приложение
@@ -34,7 +37,11 @@ function App({store}) {
         <Controls cart={cart} totals={totals} onShowCart={callbacks.onShowCart}/>
         <List items={items} onItemAdd={callbacks.addToCart}/>
       </Layout>
-      {isModalOpen && <Modal cart={cart} totalAmount={totalAmount} totals={totals} onClose={callbacks.hideCart} onRemove={callbacks.onRemoveItem}/>}
+      {isModalOpen && 
+      <ModalLayout head={<Modalhead onClose={callbacks.hideCart} />}>
+        <Cart cart={cart} onRemove={callbacks.onRemoveItem}/>
+        <ModalTotal totalAmount={totalAmount} />
+      </ModalLayout>}
     </>
   );
 }

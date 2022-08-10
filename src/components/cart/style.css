@@ -1,0 +1,38 @@
+.Cart-list{
+    display: flex;
+    justify-items: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px dashed #ccc;
+}
+
+.Cart-list:first-child{
+    border-top: 1px dashed #ccc;
+}
+.Cart-item{
+    display: flex;
+    justify-items: center;
+    border-top: 1px dashed #ccc;
+}
+.Cart-title{
+    width: 100%;
+    padding: 20px 10px;
+}
+.Cart-number{
+    padding: 20px 10px 20px 20px;
+}
+.Cart-price{
+    padding: 20px 10px 20px 20px;
+    white-space: nowrap;
+}
+.Cart-actions{
+    padding: 20px  20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.Cart-actions-button{
+    min-width: 75px;
+    max-width: 100px;
+}

@@ -1,18 +1,12 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
 
 function Item(props) {
     const cn = bem('Item');
 
-    useEffect(() => {
-        console.log('item displayed')
-    })
-
     const callbacks = {
-
         onClick: useCallback(() => {
             props.onSelect(props.item.code, props.item.title, props.item.price, props.item.counter);
 
@@ -45,12 +39,6 @@ function Item(props) {
 Item.propTypes = {
     item: propTypes.object.isRequired,
     onSelect: propTypes.func.isRequired,
-
-}
-
-Item.defaultProps = {
-    onSelect: () => {
-    },
 }
 
 export default React.memo(Item);

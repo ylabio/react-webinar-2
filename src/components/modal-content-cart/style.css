@@ -1,0 +1,26 @@
+
+.Modal-content-list {
+    margin-top: 74px;
+}
+
+.Modal-content-last-price {
+    margin-top: 26px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+}
+
+.Modal-content-result {
+    margin-right: 49px;
+}
+
+.Modal-content-result:last-child {
+    margin-right: 108px;
+}
+
+.Modal-content-empty-cart {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}

@@ -1,28 +1,10 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React from 'react'
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
-import List from "../list";
 import PropTypes from "prop-types";
 
 export const CartModal = (props) => {
     const cn = bem('Modal');
-    const [lastPrice, setLastPrice] = useState(0);
-    const callback = useCallback(() => {
-        let price = 0;
-
-        props.items.map(i => {
-            if (i === undefined) {
-                return;
-            }
-            price += i.price * i.counter;
-        })
-        setLastPrice(price);
-    }, [props.items])
-
-
-    useEffect(() => {
-        callback();
-    }, [props.items]);
 
     return (
         <div className={cn()}>
@@ -34,36 +16,14 @@ export const CartModal = (props) => {
                     Закрыть
                 </button>
             </header>
-            <div className={cn('list')}>
-                <List type='modal' items={props.items}
-                      onItemSelect={props.itemFunc}/>
-            </div>
-
-            <div className={cn('last-price')}>
-                {props.items.length !== 0 ? (<>
-                    <b className={cn('result')}>
-                        Итого
-                    </b>
-
-                    <b className={cn('result')}>
-                        {lastPrice.toLocaleString()} ₽
-                    </b>
-                </>) : <b className={cn('empty-cart')}>Корзина пуста</b>}
-            </div>
+            {props.children}
         </div>
     )
 }
 
-CartModal.defaultProps = {
-    closeModal: () => {
-    },
-    title: '',
-    items: []
-}
 
 CartModal.propTypes = {
     title: PropTypes.string.isRequired,
     closeModal: PropTypes.func.isRequired,
-    items: PropTypes.array,
-    itemFunc: PropTypes.func.isRequired
+    children: PropTypes.elementType
 }

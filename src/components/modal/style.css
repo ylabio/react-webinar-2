@@ -23,29 +23,3 @@
     font-weight: 700;
     margin: 0;
 }
-
-.Modal-list {
-    margin-top: 74px;
-}
-
-.Modal-last-price {
-    margin-top: 26px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: right;
-}
-
-.Modal-result {
-    margin-right: 49px;
-}
-
-.Modal-result:last-child {
-    margin-right: 108px;
-}
-
-.Modal-empty-cart {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-}

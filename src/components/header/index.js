@@ -1,43 +1,33 @@
 import Controls from "../controls";
-import React, {useCallback, useEffect, useState} from "react";
+import React from "react";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
+import {product} from "../../utils";
+import PropTypes from "prop-types";
 
 
-export const Header = ({list, openModal, getPrice, getCount}) => {
-
-    const [count, setCount] = useState(0);
-
-    const callbacks = {
-        onChange: useCallback(() => {
-           setCount(getPrice());
-        }, [list])
-    };
-
-    useEffect(() => {
-        callbacks.onChange();
-    }, [list])
-
-    useEffect(() => {
-        console.log(count);
-    }, [count]);
-
+export const Header = ({openModal, price, count}) => {
     const cn = bem('Header');
     return(
         <header className={cn()}>
             <p className={cn('cart')}>
-                В корзине
+                В корзине:
             </p>
 
-            {count !== 0 ?
-                <p>
-                    {count} / {getCount}
-                </p> : <p>
-                    Корзина пуста
-                </p>
+            {count > 0 ?
+                <b>
+                    {count} {product(count)} / {price.toLocaleString()} ₽
 
-            }
+                </b> : <b>
+                    пусто
+                </b>}
             <Controls title='Перейти' onAdd={() => openModal()}/>
         </header>
     )
+}
+
+Header.propTypes = {
+    openModal: PropTypes.func.isRequired,
+    count: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
 }

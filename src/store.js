@@ -39,41 +39,22 @@ class Store {
             this.listeners = this.listeners.filter(item => item !== callback);
         }
     }
-
-    addToCart(code, title, price, counter = 1) {
-        console.log('here')
-        const obj = {
-            code: code,
-            title: title,
-            price: price,
-            counter: counter
-        }
-        let found = false;
-        let index = 0;
-        for (let i = 0; i < this.state.cart.length; i++) {
-            let item = {...this.state.cart[i]};
-            delete item.counter;
-            let obj1 = {...obj}
-            delete obj1.counter;
-            if (JSON.stringify(item) === JSON.stringify(obj1)) {
-                found = true;
-                index = i;
-                break;
-            }
-        }
-        if (found) {
-            this.state.cart[index].counter++;
-            this.setState({
-                ...this.state
-            });
-            return;
-        }
+    addToCart(code) {
         this.setState({
             ...this.state,
-            cart: this.state.cart.concat({code, title, price, counter})
-        });
-        console.log(this.state.cart);
-
+            cart: this.state.cart.concat(this.state.items.filter(i => {
+                if (i.code === code) {
+                    const result = this.state.cart.find(item => item.code === code);
+                    if (result) {
+                        result.counter = result.counter + 1;
+                    } else {
+                        return Object.assign(i, {counter: 1}) //
+                    }
+                }
+            }))
+        })
+        this.setFullPrice();
+        this.setCount();
     }
 
     removeFromCart(code) {
@@ -87,9 +68,18 @@ class Store {
                 })
             });
         }
+        this.setFullPrice();
+        this.setCount();
     }
 
-    getFullPrice() {
+    setFullPrice() {
+        this.setState({
+            ...this.state,
+            price: this.getPrice()
+        })
+    }
+
+    getPrice() {
         if (this.state.cart.length >= 1) {
             let price = 0;
             this.state.cart.map((item) => {
@@ -102,17 +92,11 @@ class Store {
         return 0
     }
 
-    getCount() {
-        if (this.state.cart.length > 1) {
-            let count = 0;
-            this.state.cart.map((item) => {
-                if (!isNaN(item?.counter)) {
-                    count += item?.counter;
-                }
-            })
-            return count;
-        }
-        return 0;
+    setCount() {
+        this.setState({
+            ...this.state,
+            count: this.state.cart.length
+        })
     }
 
 }

@@ -1,11 +1,10 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import Controls from "./components/controls";
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Layout from "./components/layout";
 import {Overlay} from "./components/overlay";
 import {CartModal} from "./components/modal";
+import {ModalContentCart} from "./components/modal-content-cart";
 import {Header} from "./components/header";
-import {product} from "./utils";
 
 /**
  * Приложение
@@ -14,8 +13,8 @@ import {product} from "./utils";
  */
 function App({store}) {
     const callbacks = {
-        onSelectItems: useCallback((code, title, price, counter) => {
-            store.addToCart(code, title, price, counter)
+        onSelectItems: useCallback((code) => {
+            store.addToCart(code)
         }, [])
     }
 
@@ -25,21 +24,8 @@ function App({store}) {
         }, [])
     }
 
-    const getPriceCallback = {
-        getFullPrice: useCallback(() => {
-            return store.getFullPrice();
-        }, [])
-    }
-
-    const getCountCallback = {
-        getCount: useCallback(() => {
-            return store.getCount();
-        }, [])
-    }
-
 
     const [isOpen, setIsOpen] = useState(false);
-    const [count, setCount] = useState(0);
 
     const removeModal = () => {
         setIsOpen(false)
@@ -49,38 +35,20 @@ function App({store}) {
         setIsOpen(true);
     }
 
-    useEffect(() => {
-        setCount(store.state.cart.length);
-    }, [store.state.cart.length])
-
-
     return (
         <>
             <Layout head={<h1>Магазин</h1>}>
-                <header className={'Header'}>
-                    <p className={('Header-cart')}>
-                        В корзине:
-                    </p>
-
-                    {count > 0 ?
-                        <b>
-                            {count} {product(count)} / {store.getFullPrice().toLocaleString()} ₽
-
-                        </b> : <b>
-                            пусто
-                        </b>
-
-                    }
-                    <Controls title='Перейти' onAdd={() => openModal()}/>
-                </header>
+                <Header count={store.getState().count} price={store.getState().price} openModal={openModal}/>
                 <List items={store.getState().items}
                       onItemSelect={callbacks.onSelectItems}
                 />
             </Layout>
             {isOpen ?
                 <Overlay isOpened={isOpen} closeModal={removeModal}>
-                    <CartModal itemFunc={removeCallback.onRemoveItems} closeModal={removeModal} title='Корзина'
-                               items={store.getState().cart}/>
+                    <CartModal closeModal={removeModal} title='Корзина'>
+                        <ModalContentCart price={store.getState().price} count={store.getState().count}
+                                          callback={removeCallback.onRemoveItems} list={store.getState().cart}/>
+                    </CartModal>
                 </Overlay>
                 : null
             }

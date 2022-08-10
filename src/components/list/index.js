@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {cn as bem} from "@bem-react/classname";
 import Item from "../item";
 import './style.css';
@@ -27,15 +27,14 @@ function List(props) {
     )
 }
 
-List.defaultProps = {
-    items: [],
-    onItemSelect: () => {
-    },
-    type: 'main'
+List.propTypes = {
+    type: PropTypes.oneOf(['main', 'modal']),
+    onItemSelect: PropTypes.func.isRequired,
+    items: PropTypes.func.isRequired
 }
 
-List.propTypes = {
-    type: PropTypes.oneOf(['main','modal'])
+List.defaultProps = {
+    type: 'main'
 }
 
 export default React.memo(List);

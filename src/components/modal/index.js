@@ -46,7 +46,7 @@ export const CartModal = (props) => {
                     </b>
 
                     <b className={cn('result')}>
-                        {lastPrice} ₽
+                        {lastPrice.toLocaleString()} ₽
                     </b>
                 </>) : <b className={cn('empty-cart')}>Корзина пуста</b>}
             </div>

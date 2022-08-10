@@ -64,7 +64,7 @@ function App({store}) {
 
                     {count > 0 ?
                         <b>
-                            {count} {product(count)} / {store.getFullPrice()} ₽
+                            {count} {product(count)} / {store.getFullPrice().toLocaleString()} ₽
 
                         </b> : <b>
                             пусто

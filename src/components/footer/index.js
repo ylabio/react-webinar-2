@@ -3,17 +3,15 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import propTypes from "prop-types";
 
-function Footer({countAndSumCart}){
+function Footer({showSum}){
   const cn = bem('Footer');
 
   const cb = {
     showSum: useCallback(() => {
-      const Sum = countAndSumCart();
-      return Sum.sum;
+      return showSum().sum;
     }, []),
     showCount: useCallback(() => {
-      const Count = countAndSumCart();
-      return Count.count;
+      return showSum().count;
     }, []),
   };
 
@@ -36,11 +34,11 @@ function Footer({countAndSumCart}){
 }
 
 Footer.propTypes = {
-  countAndSumCart: propTypes.func.isRequired,
+  showSum: propTypes.func.isRequired,
 }
 
 Footer.defaultProps = {
-  countAndSumCart: () => {},
+  showSum: () => {},
 }
 
 export default React.memo(Footer);

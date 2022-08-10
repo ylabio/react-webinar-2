@@ -4,7 +4,7 @@ import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import plural from 'plural-ru';
 
-function Controls({openPopup, countAndSumCart}){
+function Controls({openPopup, showCountAndSum}){
   const cn = bem('Controls');
 
   const cb = {
@@ -13,28 +13,26 @@ function Controls({openPopup, countAndSumCart}){
       openPopup(true);
     }, []),
     showSum: useCallback(() => {
-      const Cart = countAndSumCart();
-      return Cart.sum;
+      return showCountAndSum().sum;
     }, []),
     showCount: useCallback(() => {
-      const Cart = countAndSumCart();
-      return Cart.count;
+      return showCountAndSum().count;
     }, []),
   };
 
   return (
     <div className={cn()}>
-        <div className={cn('information')}>
-          <div className={cn('text')}>
-            В корзине:
-          </div>
-          <div className={cn('calc')}>
-            {cb.showCount()
-              ? ` ${cb.showCount()} ${plural(cb.showCount(), 'товар', 'товара', 'товаров')} 
-                / ${cb.showSum().toLocaleString('ru-RU')} ₽`
-              : ' пусто'}
-          </div>
+      <div className={cn('information')}>
+        <div className={cn('text')}>
+          В корзине:
         </div>
+        <div className={cn('calc')}>
+          {cb.showCount()
+            ? ` ${cb.showCount()} ${plural(cb.showCount(), 'товар', 'товара', 'товаров')} 
+              / ${cb.showSum().toLocaleString('ru-RU')} ₽`
+            : ' пусто'}
+        </div>
+      </div>
       <button onClick={cb.openPopup}>Перейти</button>
     </div>
   )
@@ -42,12 +40,12 @@ function Controls({openPopup, countAndSumCart}){
 
 Controls.propTypes = {
   openPopup: propTypes.func.isRequired,
-  countAndSumCart: propTypes.func.isRequired,
+  showCountAndSum: propTypes.func.isRequired,
 }
 
 Controls.defaultProps = {
   openPopup: () => {},
-  countAndSumCart: () => {},
+  showCountAndSum: () => {},
 }
 
 export default React.memo(Controls);

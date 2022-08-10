@@ -36,8 +36,7 @@ function App({store}) {
         onPopupOpen={callbacks.onPopupOpen}
       />
       <List
-        items={store.getState().items}
-        onItemDelete={callbacks.onDeleteItems}
+        items={store.getState().items}   
         onAddToCart={callbacks.onAddToCart}
       />
       {isPopupOpen && (

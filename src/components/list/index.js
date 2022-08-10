@@ -13,9 +13,6 @@ function List(props) {
       <div key={item.code} className={cn('item')}>
         <Item 
           item={item} 
-          onToggle={props.onToggle}
-          onSelect={props.onItemSelect} 
-          onDelete={props.onItemDelete} 
           onPush={props.onItemPush}
         />
       </div>
@@ -26,17 +23,13 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemSelect: propTypes.func,
-  onItemDelete: propTypes.func,
-  onItemPush: propTypes.func
+  onItemPush: propTypes.func.isRequired
 }
 
 List.defaultProps = {
   propTypes: [],
   items: [],
-  onItemSelect: () => {},
-  onItemDelete: () => {},
-  onItemPush: () => {}
+  onItemPush: () => {},
 }
 
 export default React.memo(List);

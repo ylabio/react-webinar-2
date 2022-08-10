@@ -1,4 +1,3 @@
-import item from "./components/item";
 
 class Store {
  
@@ -57,17 +56,36 @@ class Store {
    * Добавление товара в корзину
    * @param code
    */
-  addItem(code) {
+  addItem(code, title, price) {
+
+    const chosenElem = this.state.chosenItems.find((item) => item.code === code);
+
+    if(chosenElem) {
+      this.setState({
+        ...this.state,
+        chosenItems: this.state.chosenItems.map(item => {
+          if(item.code === code) {
+            return {...item, count: ++item.count}
+          } else {
+            return item
+          } 
+        }),
+      })
+    } 
+    else {
+      this.setState({
+        ...this.state,
+        amountOfItems: ++this.state.amountOfItems,
+        chosenItems: this.state.chosenItems.concat({code, title, price, count: 1}),
+      })
+    }
+
     this.setState({
       ...this.state,
-      chosenItems: this.state.items.filter(item => {
-        if(item.code === code) {
-            return {...item, count: ++item.count}
-        }
-        return item.count ? item : null
-      })
-    });
-    }
+      sum: this.state.chosenItems.reduce((total, item) => total + (item.price * item.count), 0),
+    })
+ 
+  }
   /**
    * Удаление товаров из корзины
    * @param code
@@ -75,14 +93,12 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      chosenItems: this.state.chosenItems.filter(item => {
-        if(item.code !== code) {
-          return item
-        } else {
-            item.count = 0
-            return
-        }
-      })
+      chosenItems: this.state.chosenItems.filter(item =>  item.code !== code),
+    });
+    this.setState({
+      ...this.state,
+      amountOfItems: --this.state.amountOfItems,
+      sum: this.state.chosenItems.reduce((total, item) => total + (item.price * item.count), 0),
     });
   }
 }

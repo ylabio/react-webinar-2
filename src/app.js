@@ -15,8 +15,8 @@ function App({store}) {
     onDeleteItems: useCallback((code) => {
       store.deleteItem(code);
     }, []),
-    onPushItems: useCallback((code) => {
-      store.addItem(code)
+    onPushItems: useCallback((code, title, price) => {
+      store.addItem(code, title, price)
     }, []),
     onModalToggle: useCallback(() => {
       store.modalToggle()
@@ -26,18 +26,21 @@ function App({store}) {
   return (
     <Layout head={<h1>Магазин</h1>}>
       <Modal 
-          toggle={store.getState().modalToggle}
-          chosenItems={store.getState().chosenItems}
-          onToggle={callbacks.onModalToggle}
-          onItemDelete={callbacks.onDeleteItems}
+        toggle={store.getState().modalToggle}
+        chosenItems={store.getState().chosenItems}
+        onToggle={callbacks.onModalToggle}
+        onDelete={callbacks.onDeleteItems}
+        sum={store.getState().sum}  
+        amount={store.getState().amountOfItems}
       />
       <Controls 
         onToggle={callbacks.onModalToggle} 
-        chosenItems={store.getState().chosenItems}
+        sum={store.getState().sum}  
+        amount={store.getState().amountOfItems}
       />
-      <List items={store.getState().items}
-            onItemDelete={callbacks.onDeleteItems}
-            onItemPush={callbacks.onPushItems}
+      <List 
+        items={store.getState().items}
+        onItemPush={callbacks.onPushItems}
       />
     </Layout>
   );

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
-import { formatPrice, priceReduce} from '../../utils';
+import { formatPrice} from '../../utils';
 import './style.css';
 import plural from 'plural-ru';
 
@@ -9,10 +9,10 @@ function Controls(props){
   return (
     <div className='Controls'>
       <span>В корзине: <span>
-      {props.chosenItems.length !== 0 
-      ? <span> {props.chosenItems.length}  
-        {plural(props.chosenItems.length, ' товар', ' товара', ' товаров')} / 
-        {` ${formatPrice(priceReduce(props.chosenItems))}` }</span>  
+      {props.amount 
+      ? <span> {props.amount}  
+        {plural(props.amount, ' товар', ' товара', ' товаров')} / 
+        {` ${formatPrice(props.sum)}`}</span>  
       : 'пусто'}</span>
       </span>
       <button onClick={props.onToggle}>Перейти</button>
@@ -21,12 +21,16 @@ function Controls(props){
 }
 
 Controls.propTypes = {
-  onToggle: propTypes.func.isRequired // Обязательное свойство - функция
+  onToggle: propTypes.func.isRequired, // Обязательное свойство - функция
+  sum: propTypes.number.isRequired,
+  amount: propTypes.number.isRequired,
 }
 
 
 Controls.defaultProps = {
-  onToggle: () => {} // Значение по умолчанию - функция-заглушка
+  onToggle: () => {}, // Значение по умолчанию - функция-заглушка
+  sum: 0,
+  amount: 0
 }
 
 export default React.memo(Controls);

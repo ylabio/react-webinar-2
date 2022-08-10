@@ -1,42 +1,46 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
+import { cn as bem } from "@bem-react/classname";
 import './style.css';
 
-function Item(props) {
+function Item({
+  item,
+  isModalActive,
+  addItemToBasket,
+  onRemoveItemFromBasket,
+}) {
   const cn = bem('Item');
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
   const callbacks = {
+    addItemToBasket: useCallback(() => {
+      addItemToBasket(item.code);
+    }, []),
 
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
-
-    onDelete: useCallback((e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
+    onRemoveItemFromBasket: useCallback(() => {
+      onRemoveItemFromBasket(item.code);
+    }, []),
   };
 
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
+    <div className={cn()}>
       <div className={cn('number')}>
-        {props.item.code}
+        {item.code}
       </div>
       <div className={cn('title')}>
-        {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
+        {item.title}
       </div>
+      <div className={cn('price')}
+        style={{ marginRight: isModalActive ? '55px' : '17px' }}
+      >
+        {Intl.NumberFormat().format(item.price)}&nbsp;₽
+      </div>
+      {isModalActive && <div className={cn('amount')}>
+        {item.quantity}&nbsp;шт
+      </div>}
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button
+          onClick={isModalActive ? callbacks.onRemoveItemFromBasket : callbacks.addItemToBasket}>
+          {isModalActive ? 'Удалить' : 'Добавить'}
         </button>
       </div>
     </div>
@@ -44,14 +48,17 @@ function Item(props) {
 }
 
 Item.propTypes = {
-  item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
+  item: propTypes.object.isRequired, // Обязательное свойство - объект товара
+  isModalActive: propTypes.bool,  // Обязательное свойство - флаг модального окна
+  addItemToBasket: propTypes.func, // Обязательное свойство - функция добавления товара в корзину
+  onRemoveItemFromBasket: propTypes.func, // Обязательное свойство - функция удаления товара из корзины по его коду
 }
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
+  item: {},
+  isModalActive: false,
+  addItemToBasket: () => { },
+  onRemoveItemFromBasket: () => { },
 }
 
 export default React.memo(Item);

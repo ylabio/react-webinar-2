@@ -1,38 +1,62 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Modal from "./components/modal";
+import BasketFinalPrice from "./components/basket-final-price";
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+function App({ store }) {
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onModalTogge: useCallback(() => {
+      store.modalTogge();
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onRemoveItemFromBasket: useCallback((code) => {
+      store.removeItemFromBasket(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onAddItemToBasket: useCallback((code) => {
+      store.addItemToBasket(code);
     }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls
+        amountOfUniqueGoodsInBasket={store.getState().amountOfUniqueGoodsInBasket}
+        totalPriceGoodsInBasket={store.getState().totalPriceGoodsInBasket}
+        onModalTogge={callbacks.onModalTogge}
       />
+      <List
+        items={store.getState().items}
+        addItemToBasket={callbacks.onAddItemToBasket}
+      />
+      {store.getState().isModalActive && <Modal
+        head={'Корзина'}
+        amountOfUniqueGoodsInBasket={store.getState().amountOfUniqueGoodsInBasket}
+        isModalActive={store.getState().isModalActive}
+        onModalTogge={callbacks.onModalTogge}
+      >
+        <List
+          items={store.getState().basketItems}
+          basketItems={store.getState().basketItems}
+          totalPriceGoodsInBasket={store.getState().totalPriceGoodsInBasket}
+          isModalActive={store.getState().isModalActive}
+          onModalTogge={callbacks.onModalTogge}
+          onRemoveItemFromBasket={callbacks.onRemoveItemFromBasket}
+        ></List>
+        <BasketFinalPrice
+          totalPriceGoodsInBasket={store.getState().totalPriceGoodsInBasket}
+          amountOfUniqueGoodsInBasket={store.getState().amountOfUniqueGoodsInBasket}
+        />
+      </Modal>}
     </Layout>
   );
 }
 
 export default App;
+

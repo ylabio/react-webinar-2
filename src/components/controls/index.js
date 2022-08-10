@@ -6,7 +6,6 @@ import {cn as bem} from "@bem-react/classname";
 
 function Controls({numberOfPositions, onBasketPopupShow, sumPrice}) {
   const cn = bem('Controls');
-  console.log(sumPrice)
 
   return (
     <div className={cn()}>
@@ -20,12 +19,8 @@ function Controls({numberOfPositions, onBasketPopupShow, sumPrice}) {
 
 Controls.propTypes = {
   onBasketPopupShow: propTypes.func.isRequired, // Обязательное свойство - функция
-  sumPrice: propTypes.number.isRequired,
-  numberOfPositions: propTypes.number,
-}
-
-Controls.defaultProps = {
-    numberOfPositions: 0,
+  sumPrice: propTypes.string.isRequired,
+  numberOfPositions: propTypes.number.isRequired,
 }
 
 export default React.memo(Controls);

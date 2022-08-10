@@ -38,7 +38,6 @@ function App({store}) {
           </Popup>
       ) }
       <Controls
-          // items={store.getState().userProducts}
           onBasketPopupShow={() => setIsBasketPopupShown(true)}
           sumPrice={getSumPrice(store.getState().userProducts)}
           numberOfPositions={store.getState().userProducts.length}

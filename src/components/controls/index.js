@@ -1,9 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
+const plural = require('plural-ru');
   
 function Controls({openModal, basketInfo}){
-  const basketInfoText = basketInfo.items.length === 0 ? 'пусто' : `${basketInfo.items.length} товара / ${basketInfo.totalOfBasket} ₽`;
+  console.log(basketInfo.items.length)
+  const basketInfoText = basketInfo.items.length === 0 ? 'пусто' : `${basketInfo.items.length} 
+    ${plural( basketInfo.items.length, 'товар', 'товара','товаров')} / ${basketInfo.totalOfBasket.toLocaleString('ru-RU', {currency: 'RUB',style: 'currency',minimumFractionDigits: '0'})}`;
   return (
   <div className='Controls' style={{boederBottom: '1px dashed white'}}>
       <div className='Controls-content'>
@@ -21,5 +24,6 @@ Controls.propTypes = {
 Controls.defaultProps = {
   onAdd: () => {} // Значение по умолчанию - функция-заглушка
 }
+
 
 export default React.memo(Controls);

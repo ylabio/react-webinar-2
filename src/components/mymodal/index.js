@@ -19,7 +19,7 @@ function Mymodal ({children, visible, setvisible}) {
 }
 
 Mymodal.propTypes = {
-  children: propTypes.element
+  children: propTypes.node,
 };
 
 export default Mymodal;

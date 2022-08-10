@@ -88,12 +88,29 @@ class Store {
         })
       });
     } else {
-      // если не, то добавляем поле amount со значением 1
+      // если нет, то добавляем поле amount со значением 1
       this.setState({
         ...this.state,
         shoppingCart: [...this.state.shoppingCart, {...itemToAdd, amount: 1}]
       });
     }
+  }
+
+  /**
+   * Возвращение количества уникальных товаров в корзине
+   */
+  getNumberOfUniqueItemsInCart() {
+    return this.state.shoppingCart.length;
+  }
+
+  /**
+   * Возвращение общей суммы товаров в корзине
+   */
+
+  getTotalInCart() {
+    return this.state.shoppingCart
+      .map(item => item.price * item.amount)
+      .reduce((acc, curr) => acc + curr, 0);
   }
 
   /**

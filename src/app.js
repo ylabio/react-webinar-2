@@ -14,6 +14,9 @@ import ModalHead from './components/modal-head';
 function App({store}) {
   const [isModalVisible, toggleModal] = useState(false);
 
+  const amount = store.getNumberOfUniqueItemsInCart();
+  const total = store.getTotalInCart();
+
   const callbacks = {
     onOpenCart: useCallback(() => {
       toggleModal(prevState => !prevState);
@@ -28,18 +31,13 @@ function App({store}) {
     }, [])
   };
 
-  const total = store
-    .getState()
-    .shoppingCart.map(item => item.price * item.amount)
-    .reduce((acc, curr) => acc + curr, 0);
-
   return (
     <>
       <Layout head={<h1>Магазин</h1>}>
         <Controls
           onOpenCart={callbacks.onOpenCart}
           total={total}
-          amount={store.getState().shoppingCart.length}
+          amount={amount}
           cartItems={store.getState().shoppingCart}
         />
         <List

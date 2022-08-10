@@ -69,7 +69,7 @@ function App({store}) {
                     deleteItem={callbacks.deleteItem}
             />
           </LayoutModal>
-      :
+        :
           null
       }
     </Layout>

@@ -1,3 +1,5 @@
+import { cartSummary } from './utils';
+
 class Store {
   constructor(initState) {
     // Состояние приложения (данные)
@@ -54,9 +56,16 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const cart = this.state.cart;
+    const inCart = cart.inCart.filter((item) => item.code !== code);
+
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter((item) => item.code !== code),
+      cart: {
+        inCart,
+        amount: cartSummary(inCart),
+        count: --cart.count,
+      },
     });
   }
 
@@ -66,17 +75,24 @@ class Store {
    */
   selectItem(code) {
     const cart = this.state.cart;
-    if (!cart.find((item) => item.code === code)) {
-      cart.push({ ...this.state.items.find((item) => item.code === code), quantity: 0 });
+    let count = this.state.cart.count;
+    if (!cart.inCart.find((item) => item.code === code)) {
+      cart.inCart.push({ ...this.state.items.find((item) => item.code === code), quantity: 0 });
+      ++count;
     }
+    const inCart = cart.inCart.map((item) => {
+      if (item.code === code) {
+        ++item.quantity;
+      }
+      return item;
+    });
     this.setState({
       ...this.state,
-      cart: cart.map((item) => {
-        if (item.code === code) {
-          item.quantity++;
-        }
-        return item;
-      }),
+      cart: {
+        inCart,
+        amount: cartSummary(inCart),
+        count,
+      },
     });
   }
 }

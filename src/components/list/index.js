@@ -23,11 +23,10 @@ List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
   onItemSelect: propTypes.func,
   onItemDelete: propTypes.func,
-  inCart: propTypes.bool.isRequired,
+  inCart: propTypes.bool,
 };
 
 List.defaultProps = {
-  items: [],
   onItemSelect: () => {},
   onItemDelete: () => {},
   inCart: false,

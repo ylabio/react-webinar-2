@@ -6,12 +6,8 @@ function Button({ onClick, children }) {
 }
 
 Button.propTypes = {
-  onClick: propTypes.func.isRequired,
+  onClick: propTypes.func,
   children: propTypes.node,
-};
-
-Button.defaultProps = {
-  onClick: () => {},
 };
 
 export default React.memo(Button);

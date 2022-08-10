@@ -44,12 +44,19 @@ class Store {
    * Добавление товара в корзину
    */
   addItem(code, title, price) {
-    if (this.state.cart.find((item) => item.code === code)) {
+   let itemFind = false       // перееменная результата поиска item
       this.setState({
         ...this.state,
-        cart: this.state.cart.map(item => item.code === code ? {code, title, price, count: ++item.count} : item)
+        cart: this.state.cart.map(item => {
+          if (item.code === code) {
+            itemFind = true
+            return {code, title, price, count: ++item.count}
+          } else {
+            return item
+          }
+        })
       })
-    } else {
+    if (!itemFind) {  // если item был найден itemFind блокирует добавление одинакового товара
       this.setState({
         ...this.state,
         cart: this.state.cart.concat({code, title, price, count: 1})

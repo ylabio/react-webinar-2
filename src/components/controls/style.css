@@ -1,0 +1,12 @@
+/* Контрол с общими действиями */
+.Controls {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 0;
+}
+
+.Controls button {
+  margin: auto 20px;
+  width: 80px;
+  height: 21px;
+}

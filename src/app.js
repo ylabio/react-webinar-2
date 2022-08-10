@@ -18,7 +18,7 @@ function App({store}) {
     }, []),
     onRemoveItem: useCallback((code) => {
       store.removeFromCart(code)
-    }, [store.cart]),
+    }, []),
     onShowCart: useCallback((e) => {
       e.stopPropagation();
       store.openModal();

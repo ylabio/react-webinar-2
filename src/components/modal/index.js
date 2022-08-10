@@ -20,7 +20,7 @@ function Modal(props){
         if (cart.some(item => item.selectedTimes > 0)) {
             return (
                 <div className={cn('list')}>
-{cart.map(({ code, title, price, selectedTimes}) =>
+                {cart.map(({ code, title, price, selectedTimes}) =>
                 <div key={code}>
                     <div className={cn('item')}>
                         <div className={cn('number')}>

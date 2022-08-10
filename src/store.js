@@ -54,13 +54,12 @@ class Store {
       return this.setState({
           ...this.state,
           cart: [...this.state.cart, newItem],
-          totals: { quantity: this.state.totals.quantity + 1, sum: this.state.totals.sum + newItem.price},
+          totals: { quantity: this.state.totals.quantity + 1, sum: this.state.totals.sum + newItem.price },
           totalAmount: this.state.totalAmount + newItem.price,
         })
     } 
     this.setState({
       ...this.state,
-      totalAmount: this.state.totalAmount + itemInCart.price,
       cart: this.state.cart.map(item => {
         if (item.code === code){
           return {
@@ -70,6 +69,8 @@ class Store {
         }
         return item;
       }),
+      totals: { quantity: this.state.totals.quantity, sum: this.state.totals.sum + itemInCart.price },
+      totalAmount: this.state.totalAmount + itemInCart.price,
     })
    }
 
@@ -86,7 +87,7 @@ class Store {
     this.setState({
       ...this.state,
       cart: newCart,
-      totals: { quantity: this.state.totals.quantity - 1, sum: this.state.totals.sum - deltaPrice},
+      totals: { quantity: this.state.totals.quantity - 1, sum: this.state.totals.sum - deltaSum},
       totalAmount: this.state.totalAmount - deltaSum,
     });
   }

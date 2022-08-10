@@ -8,9 +8,9 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-      onAddItem: useCallback((e) => {
-          props.onAddItem(props.item.code);
-      }, [props.onAddItem, props.item]),
+      onItemAdd: useCallback((e) => {
+          props.onItemAdd(props.item.code);
+      }, [props.onItemAdd, props.item]),
 
 
       onItemDelete: useCallback((e) => {
@@ -19,11 +19,10 @@ function Item(props) {
       },[props.onItemDelete,  props.item]),
   };
 
-
   return (
     <div className={cn()}>
         <div className={cn('number')}>
-            { props.item.code}
+            {props.item.code}
         </div>
         <div className={cn('title')}>
             {props.item.title}
@@ -31,10 +30,10 @@ function Item(props) {
         <div className={cn('price')}>
             {spaceInPrice(props.item.price)} ₽
         </div>
-            {props.openedModal ? <div className={cn('quantity')} > {props.item.counter} шт </div> : null}
+            {props.item.id ? <div className={cn('quantity')} > {props.item.counter} шт </div> : null}
         <div className={cn('actions')}>
-            <button onClick={!props.openedModal ? callbacks.onAddItem : callbacks.onItemDelete}>
-                {!props.openedModal ? "Добавить" : "Удалить"}
+            <button onClick={!props.item.id? callbacks.onItemAdd :callbacks.onItemDelete}>
+                {!props.item.id? "Добавить" : "Удалить"}
             </button>
         </div>
     </div>
@@ -43,14 +42,11 @@ function Item(props) {
 
 Item.propTypes = {
     item: propTypes.object.isRequired,
-    onAddItem: propTypes.func.isRequired,
-    onItemDelete: propTypes.func.isRequired,
-    openedModal:propTypes.bool,
+    onItemAdd: propTypes.func.isRequired,
 };
 
 Item.defaultProps = {
-    onAddItem: () => {},
-    onItemDelete: () => {}
+
 };
 
 export default React.memo(Item);

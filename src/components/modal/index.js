@@ -1,18 +1,15 @@
 import React from 'react';
-import './style.css';
 import {cn as bem} from "@bem-react/classname";
-import List from "../list";
-import {spaceInPrice} from "../../utils";
-import propTypes from 'prop-types';
-
+import './style.css';
+import propTypes from "prop-types";
+import Cart from "../cart"
 
 function Modal(props){
-
     const cn = bem('Modal');
 
     return (
-        <div className={cn('')}>
-            <div className={cn('container')}>
+        <div className={cn()}>
+            <div className={cn('content')}>
                 <div className={cn('header')}>
                     <p>Корзина</p>
                     <div className={cn('actions')}>
@@ -21,17 +18,13 @@ function Modal(props){
                         </button>
                     </div>
                 </div>
-                <List items={props.cart}  cart={props.cart} onItemDelete={props.onItemDelete} openedModal={props.openedModal}/>
-                {props.cart.length
-                    ?
-                        <div className={cn('total')}>
-                            Итого: <p className={cn('sum')}>{spaceInPrice(props.result)}  ₽</p>
-                        </div>
-                    :
-                        <div className={cn('empty')}>
-                            Корзина пуста
-                        </div>
-                }
+                <Cart
+                    cart={props.cart}
+                    lengthCart={props.lengthCart}
+                    onItemDelete={props.onItemDelete}
+                    amount={props.amount}
+                    items={props.items}
+                />
             </div>
         </div>
     )
@@ -39,16 +32,14 @@ function Modal(props){
 
 Modal.propTypes = {
     cart: propTypes.arrayOf(propTypes.object).isRequired,
-    onItemDelete: propTypes.func.isRequired,
+    items: propTypes.arrayOf(propTypes.object).isRequired,
+    lengthCart:propTypes.number.isRequired,
     closeModal: propTypes.func.isRequired,
-    result:propTypes.number.isRequired,
-    openedModal:propTypes.bool,
+    amount:propTypes.number.isRequired,
+    onItemDelete:propTypes.func.isRequired
 };
 
 Modal.defaultProps = {
-    cart:[],
-    onItemDelete: () => {},
-    result: 0
 };
 
 export default React.memo(Modal);

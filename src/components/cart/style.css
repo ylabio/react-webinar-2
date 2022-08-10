@@ -1,0 +1,16 @@
+/*Корзина*/
+.Cart{
+    display: flex;
+    flex-direction: column;
+    width: 960px;
+    background: #FFFFFF;
+    border-radius: 10px;
+}
+.Cart-container{
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+

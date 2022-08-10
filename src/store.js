@@ -58,8 +58,14 @@ class Store {
     deleteItem(code) {
         this.setState({
             ...this.state,
-            cart: this.state.cart.filter(item => item.code !== code)
+            cart: this.state.cart.filter(item => item.id !== code),
         });
+        this.setState({
+            ...this.state,
+            amount: this.state.cart.reduce((s, itemInCart) => s = s + itemInCart.result, 0),
+            cartLength: this.state.cart.filter((val, ind, arr) => arr.indexOf(val) === ind).length
+        });
+
     }
 
     /**
@@ -82,26 +88,36 @@ class Store {
         });
     }
 
+    totalPrice(code){
+
+    }
     addItem(code) {
         const [item] = this.state.items.filter((item) => item.code === code);
-
         for (let index in this.state.cart){
             const itemInCart = this.state.cart[index];
-            if (itemInCart.code === code) {
+            if (itemInCart.id === code) {
                 itemInCart.counter++;
+                itemInCart.result=this.state.cart.reduce((s, itemInCart) => s = s + itemInCart.counter*item.price, 0),
                 this.setState({
                     ...this.state,
-                    cart: [...this.state.cart]
+                    cart: [...this.state.cart],
+                    amount:this.state.amount + item.price,
+                    cartLength: this.state.cart.filter((val, ind, arr) => arr.indexOf(val) === ind).length
                 });
                 return
             }
         }
 
+
         this.setState({
             ...this.state,
-            cart: [...this.state.cart, {...item, counter: 1}]
+            // cart: [...this.state.cart, {...item, counter: 1, result:item.price}],
+            cart: [...this.state.cart, {id:item.code, counter: 1, result:item.price}],
+            amount: this.state.amount + item.price,
+            cartLength: this.state.cartLength + 1
         });
     }
+
 }
 
 export default Store;

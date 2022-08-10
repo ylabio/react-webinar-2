@@ -1,7 +1,7 @@
-import React from 'react';
-import {cn as bem} from "@bem-react/classname";
-import './style.css';
+import { cn as bem } from "@bem-react/classname";
 import propTypes from "prop-types";
+import React from 'react';
+import './style.css';
 
 function Layout({head, children}){
   const cn = bem('Layout');

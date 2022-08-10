@@ -1,8 +1,10 @@
-import React, {useCallback} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import BasketStats from "./components/basket-stats";
 import Controls from "./components/controls";
-import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import List from "./components/list";
+import Modal from "./components/modal";
+import { checkModalDesign } from "./utils";
 
 /**
  * Приложение
@@ -11,27 +13,63 @@ import {counter} from "./utils";
  */
 function App({store}) {
 
+  const [modalActive, setModalActive] = useState(false);
+  
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onShowBasket: useCallback(() => {
+      setModalActive(true);
+    }, [modalActive, setModalActive]),
+
+    onAddItemToBasket: useCallback((code) => {
+      store.addItemToBasket(code);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+
+    onRemoveItemFromBasket: useCallback((code) => {
+      store.removeItemFromBasket(code);
     }, []),
   }
 
+  window.onresize = () => { // проверим корректность отображения корзины после ресайза
+    checkModalDesign(modalActive);
+  }
+
+  useEffect(() => { // проверим корректность отображения корзины после обновления DOM
+    checkModalDesign(modalActive);
+  });
+
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <div>
+
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls
+          onButtonClick={callbacks.onShowBasket}
+          goods={store.getState().goods}
+          price={store.getState().price}
+        />
+        <List items={store.getState().items}
+              buttonsAction={callbacks.onAddItemToBasket}
+              buttonsLabel="Добавить"
+        />
+      </Layout>
+
+      {
+        modalActive? /* Оптимизация, ибо невидимые элементы продолжают перерисовываться */
+          <Modal setActive={setModalActive}>
+            <Layout head={<h1>Корзина</h1>}>
+              <List items={store.getState().basket}
+                    buttonsAction={callbacks.onRemoveItemFromBasket}
+                    buttonsLabel="Удалить"
+              />
+              <BasketStats
+                goods={store.getState().goods}
+                price={store.getState().price}
+              />
+            </Layout>
+          </Modal>
+        :null
+      }
+
+    </div>
   );
 }
 

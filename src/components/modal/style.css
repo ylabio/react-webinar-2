@@ -1,0 +1,82 @@
+.Modal{
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
+  /* opacity: 0;
+  pointer-events: none;
+  transition: 0.4s; */
+}
+
+.Modal-overfilled{
+  padding-top: 20px;
+  align-items: flex-start;
+  overflow-y: scroll;
+}
+
+/* Контентная часть модалки */
+.Modal-content{
+  border-radius: 10px;
+  width: 960px;
+  /* transform: scale(0.7);
+  transition: 0.4s; */
+  transform: scale(1);
+}
+
+/* Выравнивание переполненного контента */
+.Modal-content-overfilled{
+  margin-left: 20px;
+  margin-bottom: 40px;
+}
+
+/* Кнопка для закрытия окна */
+.Modal-close {
+  position: absolute;
+  top: 30px;
+  right: 28px;
+  width: 76px;
+  height: 21px;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* Для Layouta внутри окна */
+.Modal-content .Layout{
+  border-radius: 10px;
+  min-height: 583px;
+  box-shadow: none;
+}
+
+/* Для шапки Layouta внутри окна */
+.Modal-content .Layout-head{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.Modal-content .Item-count{
+  width: 120px;
+}
+
+/* Это для анимации, пока отключено */
+/* .Modal.active{
+  pointer-events: all;
+  opacity: 1;
+} */
+
+/* .Modal-content.active{
+  transform: scale(1);
+} */
+
+/* В корзинный List добавил скролл, т.к. едва умещаются 7 товаров */
+/* .Modal-content .List{
+  height: 390px;
+  overflow-y: scroll;
+  scrollbar-width: auto;
+} */

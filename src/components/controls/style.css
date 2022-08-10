@@ -2,5 +2,21 @@
 .Controls{
     display: flex;
     justify-content: flex-end;
+    font-family: Arial, sans-serif; /* в дизайне Arial */
     padding: 20px;
+}
+
+.Controls-label{
+    padding: 0 10px;
+    font-weight: 400;
+    white-space: pre;
+    font-size: 18px;
+}
+
+.Controls-showBasket{
+    width: 80px;
+    height: 21px;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    cursor: pointer;
 }

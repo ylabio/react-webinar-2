@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import propTypes from "prop-types";
 import "./style.css";
 
@@ -9,12 +9,6 @@ const Basket = ({
   removeItemToCart,
   overall,
 }) => {
-  useEffect(() => {
-    modalOpen
-      ? (document.body.style.overflow = "hidden")
-      : (document.body.style.overflow = "");
-  }, [modalOpen]);
-
   return (
     <div className={modalOpen ? "modal-cover show-modal" : "modal-cover"}>
       <div className="basket">
@@ -37,7 +31,7 @@ const Basket = ({
           </div>
         ))}
 
-        {overall !== 0 && (
+        {items.length > 0 && (
           <div className="basket__overall">
             <div>Итого</div> <span>{overall.toLocaleString()} ₽</span>
           </div>

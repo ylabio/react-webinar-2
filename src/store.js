@@ -1,18 +1,14 @@
+import { getItemsQuantity, getTotalPrice } from "./utils";
+
 class Store {
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
-    this.cartItems = [];
-    // Слушатели изменений state
     this.listeners = [];
   }
 
   getState() {
     return this.state;
-  }
-
-  getCartItems() {
-    return this.cartItems;
   }
 
   setState(newState) {
@@ -23,8 +19,6 @@ class Store {
     }
   }
 
-  getPrice() {}
-
   subscribe(callback) {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
@@ -33,49 +27,55 @@ class Store {
     };
   }
 
-  removeItem(code) {
-    let currentItem = this.cartItems.find((item) => item.code == code);
-    let currentItemIndex = this.cartItems.findIndex(
-      (item) => item.code == code
+  addItemInCart(item) {
+    const isInCart = this.state.cart.itemsInCart.some(
+      (el) => el.code === item.code
     );
+    if (isInCart) {
+      this.setState({
+        ...this.state,
+        cart: {
+          ...this.state.cart,
+          itemsInCart: this.state.cart.itemsInCart.map((el) => {
+            if (el.code === item.code) {
+              return { ...el, quantity: ++el.quantity };
+            }
+
+            return el;
+          }),
+        },
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cart: {
+          itemsInCart: [
+            ...this.state.cart.itemsInCart,
+            { ...item, quantity: 1 },
+          ],
+        },
+      });
+    }
+  }
+
+  removeItem(code) {
     this.setState({
       ...this.state,
-      ...this.cartItems,
-      cartItems: this.cartItems.map((item) => {
-        if (item == currentItem) {
-          return {
-            ...item,
-            count:
-              item.count > 1
-                ? item.count--
-                : this.cartItems.map((item) => {
-                    if (item == currentItem) {
-                      this.cartItems.splice(currentItemIndex, 1);
-                    }
-                  }),
-          };
-        }
-      }),
+      cart: {
+        itemsInCart: this.state.cart.itemsInCart.filter(
+          (el) => el.code !== code
+        ),
+      },
     });
   }
 
-  addItemInCart(code) {
-    let currentItem = this.state.items.find((item) => item.code == code);
-    let isItemInCart = this.cartItems.some((item) => item.code == code);
+  updateCart() {
     this.setState({
-      ...this.cartItems,
       ...this.state,
-      cartItems: isItemInCart
-        ? this.state.items.map((item) => {
-            if (item === currentItem) {
-              return {
-                ...item,
-                count: ++item.count,
-              };
-            }
-            return item;
-          })
-        : this.cartItems.push(currentItem),
+      cart: {
+        ...this.state.cart,
+        totalPrice: getTotalPrice(this.state.cart.itemsInCart),
+      },
     });
   }
 }

@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from "react";
-import Header from "./components/header";
+import React, { useCallback, useEffect, useState } from "react";
+import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Cart from "./components/cart";
-import { getItemsQuantity, getTotalPrice } from "./utils";
+import Item from "./components/item";
 
 /**
  * Приложение
@@ -12,13 +12,8 @@ import { getItemsQuantity, getTotalPrice } from "./utils";
  */
 function App({ store }) {
   const [modal, setModal] = useState(false); // модальное окно
-  const cartItems = store.getCartItems(); // Корзина
-  const totalPrice = getTotalPrice(cartItems); // Полная стоимость всех товаров
-  const ItemsQuantity = getItemsQuantity(cartItems); // Количество товаров
 
-  const { items } = store.getState();
-
-  console.log("items,", items);
+  const { itemsInCart, totalPrice } = store.state.cart;
 
   const callbacks = {
     toggleModal: useCallback(() => {
@@ -26,28 +21,34 @@ function App({ store }) {
     }, [modal, setModal]),
     addItemInCart: useCallback((code) => {
       store.addItemInCart(code);
+      store.updateCart();
     }, []),
     removeItem: useCallback((code) => {
       store.removeItem(code);
+      store.updateCart();
     }, []),
   };
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Header
+      <Controls
         totalPrice={totalPrice}
-        cartLength={cartItems.length}
+        cartLength={itemsInCart.length}
         showModal={callbacks.toggleModal}
-        ItemsQuantity={ItemsQuantity}
       />
       <List
         items={store.getState().items}
-        addItemInCart={callbacks.addItemInCart}
+        component={(item) => (
+          <Item
+            item={item}
+            key={item.code}
+            addItemInCart={callbacks.addItemInCart}
+          />
+        )}
       />
       {modal && (
-        // По нормальному я бы не стал так передавать пропсы, делал бы черед редакс, а так получается что я передаю пропсы через 2 компонента
         <Cart
-          cartItems={cartItems}
+          itemsInCart={itemsInCart}
           totalPrice={totalPrice}
           closeModal={callbacks.toggleModal}
           removeItem={callbacks.removeItem}

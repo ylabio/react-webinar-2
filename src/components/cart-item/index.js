@@ -1,11 +1,9 @@
-import Button from "../button";
 import React, { useState } from "react";
 import { cn as bem } from "@bem-react/classname";
 const cn = bem("Cart");
 import "./style.css";
 import propTypes from "prop-types";
 const CartItem = ({ item, removeItem, code }) => {
-  let total = item.price * item.count; // стоимость товара с учётом его количества
   return (
     <div className={cn("content")}>
       <div className={cn("content--left")}>
@@ -13,8 +11,8 @@ const CartItem = ({ item, removeItem, code }) => {
         <div>{item.title}</div>
       </div>
       <div className={cn("content--right")}>
-        <div>{total}₽</div>
-        <div>{item.count} шт</div>
+        <div>{item.price}₽</div>
+        <div>{item.quantity} шт</div>
         <div onClick={removeItem}>
           <button onClick={() => removeItem(code)}>Удалить</button>
         </div>

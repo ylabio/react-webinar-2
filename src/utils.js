@@ -8,13 +8,15 @@ export function counter() {
 
 export const getTotalPrice = (array) => {
   return array.reduce((acc, item) => {
-    return acc + item.price * item.count;
+    return acc + item.price * item.quantity;
   }, 0);
 };
 
+// По заданию нет необходимости считать общее количество так как в шапку мы выводим макс 7, но если надо, то можно использовать функцию ниже
+
 export const getItemsQuantity = (array) =>
   array.reduce((acc, item) => {
-    return acc + item.count;
+    return acc + item.quantity;
   }, 0);
 
 // Функцию форматирования позаимствовал отсюда https://snipp.ru/jquery/word-declination-js.

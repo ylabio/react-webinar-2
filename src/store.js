@@ -39,12 +39,21 @@ class Store {
       this.listeners = this.listeners.filter(item => item !== callback);
     }
   }
+  calculateTotalPrice() {
+    this.setState({
+      ...this.state,
+      totalPrice: this.state.cart.reduce((sum, item) => {
+        return sum + (item.cartCount * item.price);
+      }, 0)
+    })
+  }
 
   deleteFromCart(code) {
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code),
     });
+    this.calculateTotalPrice()
   }
 
   addToCart(code) {
@@ -62,11 +71,13 @@ class Store {
           return item;
         })
       });
+      this.calculateTotalPrice()
     } else {
       this.setState({
         ...this.state,
         cart: cart.concat({ ...addedItem, cartCount: 1 })
       });
+      this.calculateTotalPrice()
     }
   }
 

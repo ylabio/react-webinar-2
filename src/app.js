@@ -14,9 +14,6 @@ import './normalize.css';
  */
 function App({ store }) {
   const [modalActive, setModalActive] = useState(false);
-  const totalPrice = store.state.cart.reduce((sum, item) => {
-    return sum + (item.cartCount * item.price);
-  }, 0);
 
   const callbacks = {
     addToCart: useCallback((code) => {
@@ -34,7 +31,7 @@ function App({ store }) {
     <Layout head={<h1>Магазин</h1>}>
       <Controls openModal={callbacks.openModal}
         cart={store.state.cart}
-        totalPrice={totalPrice}
+        totalPrice={store.state.totalPrice}
       />
       <List items={store.getState().items}
         btnHandler={callbacks.addToCart}
@@ -48,7 +45,7 @@ function App({ store }) {
             btnHandler={callbacks.deleteFromCart}
             btnText='Удалить'
           />
-          <Total totalPrice={totalPrice} isCartEmpty={store.state.cart.length === 0} />
+          <Total totalPrice={store.state.totalPrice} isCartEmpty={store.state.cart.length === 0} />
         </Modal>
         : null}
     </Layout>

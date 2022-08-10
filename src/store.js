@@ -1,4 +1,3 @@
-
 class Store {
 
   constructor(initState) {

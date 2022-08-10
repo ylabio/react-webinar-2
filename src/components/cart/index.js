@@ -1,8 +1,5 @@
-import React, {useEffect, useState, useCallback} from 'react';
-import propTypes, { bool } from 'prop-types';
-import Layout from '../layout';
-import List from '../list';
-import Controls from '../controls';
+import React from 'react';
+import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 

@@ -1,32 +1,50 @@
+//Core
 import React from 'react';
+
+//3rd party libraries
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import Item from "../item";
+import { cn as bem } from '@bem-react/classname';
+
+//Local
+import Item from '../item';
 import './style.css';
 
-function List(props) {
-  const cn = bem('List');
+/**
+ * Элемент-список для отображения данных про товары
+ * @param items {Array} данные о товарах
+ * @param btnTitle {String} название кнопки
+ * @param itemAction {Function} callback при клике на кнопку
+ * @return {React.ReactElement} Виртуальные элементы React
+ */
+function List({ items, btnTitle, itemAction }) {
+	const cn = bem('List');
 
-  return (
-    <div className={cn()}>{props.items.map(item =>
-      <div key={item.code} className={cn('item')}>
-        <Item item={item} onSelect={props.onItemSelect} onDelete={props.onItemDelete}/>
-      </div>
-    )}
-    </div>
-  )
+	return (
+		<ul className={cn()}>
+			{items.map((item, index) => (
+				<li key={item.code} className={cn('item')}>
+					<Item
+						index={index + 1}
+						item={item}
+						btnTitle={btnTitle}
+						btnAction={itemAction}
+					/>
+				</li>
+			))}
+		</ul>
+	);
 }
 
 List.propTypes = {
-  items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemSelect: propTypes.func,
-  onItemDelete: propTypes.func
-}
+	items: propTypes.arrayOf(propTypes.object).isRequired,
+	btnTitle: propTypes.string.isRequired,
+	itemAction: propTypes.func,
+};
 
 List.defaultProps = {
-  items: [],
-  onItemSelect: () => {},
-  onItemDelete: () => {}
-}
+	items: [],
+	btnTitle: 'Добавить',
+	itemAction: () => {},
+};
 
 export default React.memo(List);

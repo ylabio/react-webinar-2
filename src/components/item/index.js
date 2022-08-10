@@ -1,57 +1,54 @@
-import React, {useCallback, useState} from 'react';
+//Core
+import React from 'react';
+
+//3rd party libraries
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
+import { cn as bem } from '@bem-react/classname';
+
+//Local
+import { toRUB } from '../../utils';
 import './style.css';
 
-function Item(props) {
-  const cn = bem('Item');
+/**
+ * Элемент с данными о товаре для отображения в списке
+ * @param index {Number} индек в списке
+ * @param item {Object} данные о товаре
+ * @param btnTitle {String} название кнопки
+ * @param btnAction {Function} callback при клике на кнопку
+ * @return {React.ReactElement} Виртуальные элементы React
+ */
+function Item({ index, item, btnTitle, btnAction }) {
+	const cn = bem('Item');
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
-
-  const callbacks = {
-
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
-
-    onDelete: useCallback((e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
-  };
-
-  return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
-      <div className={cn('number')}>
-        {props.item.code}
-      </div>
-      <div className={cn('title')}>
-        {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
-      </div>
-      <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
-      </div>
-    </div>
-  )
+	return (
+		<div className={cn()}>
+			<div className={cn('left')}>
+				<div className={cn('number')}>{index}</div>
+				<div className={cn('title')}>{item.title}</div>
+			</div>
+			<div className={cn('right')}>
+				<div className={cn('price')}>{toRUB(item.price)}</div>
+				{item.count && (
+					<div className={cn('count')}>{`${item.count}шт`}</div>
+				)}
+				<button onClick={btnAction.bind(null, item)}>{btnTitle}</button>
+			</div>
+		</div>
+	);
 }
 
 Item.propTypes = {
-  item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
-}
+	index: propTypes.number.isRequired,
+	item: propTypes.object.isRequired,
+	btnTitle: propTypes.string.isRequired,
+	BtnAction: propTypes.func.isRequired,
+};
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
-}
+	index: 1,
+	item: {},
+	btnTitle: 'Добавить',
+	BtnAction: () => {},
+};
 
 export default React.memo(Item);

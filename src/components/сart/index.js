@@ -18,11 +18,11 @@ function Cart(props) {
       <List items={props.cart}
             onButton={props.onButton}
             buttonText={'Удалить'}/>
-      <div className={props.cartSum ? cn('bottomText') : cn('bottomText_hidden')}>
+      <div className={props.cartInfo.itemsCount ? cn('bottomText') : cn('bottomText_hidden')}>
         <div className={cn('bottomTextSum')}>Итого</div>
-        <div className={cn('bottomTextData')}>{props.cartSum.toLocaleString('ru-RU')} ₽</div>
+        <div className={cn('bottomTextData')}>{props.cartInfo.cartSum.toLocaleString('ru-RU')} ₽</div>
       </div>
-      <div className={!props.cartSum ? cn('emptyCartMessage') : cn('emptyCartMessage_hidden')}>В корзине пока ничего нет, но вы можете это исправить :)</div>
+      <div className={!props.cartInfo.itemsCount ? cn('emptyCartMessage') : cn('emptyCartMessage_hidden')}>В корзине пока ничего нет, но вы можете это исправить :)</div>
      </Modal>
   )
 }

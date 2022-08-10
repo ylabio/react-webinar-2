@@ -33,7 +33,7 @@ function App({store}) {
         cart={store.getState().cart}
         setVisibility={setCartVisibility}
         onButton={callbacks.onRemoveFromCart}
-        cartSum={store.getState().cartInfo.cartSum}/>
+        cartInfo={store.getState().cartInfo}/>
       ) : (null)}
       <Controls controlsText={'В корзине:'}
       controlsData={store.getState().cartInfo.itemsCount ? `${store.getState().cartInfo.itemsCount} ${plural(store.getState().cartInfo.itemsCount, 'товар', 'товара', 'товаров')} / ${store.getState().cartInfo.cartSum.toLocaleString('ru-RU')} ₽` : 'пусто'}

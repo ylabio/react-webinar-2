@@ -48,6 +48,7 @@ function App({store}) {
                 closePopup={callbacks.closePopup}
           >
             <List items={store.getState().itemsInCart}
+                  isCart={true}
                   buttonName='Удалить'
                   onItemClick={callbacks.onDeleteItemsToCart}
             />

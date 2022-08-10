@@ -9,7 +9,7 @@ function Item({item, buttonName, onItemClick}) {
 
   const callbacks = {
 
-    onClick: useCallback((e) => {
+    onAddItem: useCallback((e) => {
       e.stopPropagation();
       onItemClick(item.code)
     }, [onItemClick, item])
@@ -23,8 +23,7 @@ function Item({item, buttonName, onItemClick}) {
       </div>
       <div className={cn('actions')}>
         <p className={cn('price')}>{getPriceOnRub(item.price)}</p>
-        {item.count && <p className={cn('count')}>{item.count} шт</p>}
-        <button onClick={callbacks.onClick}>
+        <button onClick={callbacks.onAddItem}>
           {buttonName}
         </button>
       </div>

@@ -30,7 +30,7 @@ export const ModalContentCart = (props) => {
 }
 
 ModalContentCart.propTypes = {
-    price: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
     count: PropTypes.number.isRequired,
     callback: PropTypes.func.isRequired,
     list: PropTypes.array.isRequired

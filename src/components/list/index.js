@@ -30,7 +30,7 @@ function List(props) {
 List.propTypes = {
     type: PropTypes.oneOf(['main', 'modal']),
     onItemSelect: PropTypes.func.isRequired,
-    items: PropTypes.func.isRequired
+    items: PropTypes.array.isRequired
 }
 
 List.defaultProps = {

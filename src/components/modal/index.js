@@ -25,5 +25,8 @@ export const CartModal = (props) => {
 CartModal.propTypes = {
     title: PropTypes.string.isRequired,
     closeModal: PropTypes.func.isRequired,
-    children: PropTypes.elementType
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ]).isRequired
 }

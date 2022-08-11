@@ -1,21 +1,38 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import './style.css';
+import React from "react";
+import propTypes from "prop-types";
+import plural from "plural-ru";
+import "./style.css";
 
-function Controls({onAdd}){
+function Controls({ toCard, cardValue, totalPrice }) {
+  
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className="Controls">
+      <p className="Controls__info">
+        В корзине:
+        {Boolean(cardValue.length) ? (
+          <b>
+            {cardValue.length}{" "}
+            {plural(cardValue.length, "товар", "товара", "товаров")}/
+            {new Intl.NumberFormat("ru", {
+                style: "currency",
+                currency: "RUB",
+              }).format(totalPrice)}
+          </b>
+        ) : (
+          <b>пусто</b>
+        )}
+      </p>
+      <button onClick={toCard}>Корзина</button>
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
+  toCard: propTypes.func.isRequired, // Обяхательное свойство - функция
+};
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
-}
+  toCard: () => {}, // Значение по умолчанию - функция-заглушка
+};
 
 export default React.memo(Controls);

@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Card from './components/card';
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -10,27 +11,33 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-
+  const [isCardShow, setCardShow] = useState(false)
+  
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    toCard: useCallback(() => {
+      setCardShow(isCardShow => !isCardShow)
+      
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    addToCard: useCallback((code) => {
+      store.addToCard(code);
+      store.getTotalPrice();
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onDeleteCardItem: useCallback((code) => {
+      store.deleteCardItem(code);
     }, []),
   }
 
   return (
     <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
+        <Controls toCard={callbacks.toCard} cardValue={store.getState().card} totalPrice={store.getState().totalPrice}/>
+      
+      <List items={store.getState().items} cardActive={callbacks.addToCard} isCardShow={isCardShow}/>
+
+      {
+      isCardShow && <Modal сardClose={callbacks.toCard} isCardShow={isCardShow} title={'Корзина'}>
+        <Card cardList={store.getState().card} isCardShow={isCardShow} onDeleteCardItem={callbacks.onDeleteCardItem} totalPrice={store.getState().totalPrice}/>
+      </Modal>
+      }
     </Layout>
   );
 }

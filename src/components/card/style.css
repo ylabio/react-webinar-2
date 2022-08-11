@@ -1,0 +1,14 @@
+.Card__list {
+    padding-top: 50px;
+}
+
+.Card__total-price {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 25px;
+}
+
+.Card__total-price span {
+    margin-right: 105px;
+    margin-left: 25px;
+}

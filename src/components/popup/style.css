@@ -1,0 +1,48 @@
+
+/* Всплывающее окно корзины с товарами */
+
+.Popup-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.Popup {
+    position: relative;
+    top: 210px;
+    max-width: 960px;
+    min-height: 603px;
+    height: auto;
+    margin: auto;
+    padding: 0 0 10px 0 ;
+    box-sizing: border-box;
+    z-index: 100;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 10px;
+    background: #FFFFFF;
+}
+
+.Popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    background-color: #F5F5F5;
+    padding: 20px 32px 20px 20px;
+    border-radius: 10px 10px 0 0;
+    box-sizing: border-box;
+}
+
+.Popup-header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.Popup-header button {
+    padding: 1px 10px;
+}

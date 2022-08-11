@@ -1,3 +1,5 @@
+import {getSumPrice} from "./utils";
+
 class Store {
 
   constructor(initState) {
@@ -41,44 +43,48 @@ class Store {
   }
 
   /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
+  deleteProductFromCart(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      userProducts: this.state.userProducts.filter(item => item.code !== code)
     });
   }
 
   /**
-   * Выделение записи по её коду
-   * @param code
+   * Добавление товара в корзину
+   * @param code код товара
+   * @param count количество добавляемое в корзину
    */
-  selectItem(code) {
+  addProductToCart(code, count) {
+    const item = this.state.items.find((item) => {
+      return item.code === code
+    });
+    const isItemInCart = this.state.userProducts.some((cartItem) => {
+      return cartItem.code === code
+    })
+
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      userProducts: isItemInCart
+        ? this.state.userProducts.map((cartItem) => {
+            if (cartItem.code === code) {
+              return {...item, quantity: count + cartItem.quantity}
+            }
+            return cartItem;
+          })
+        : this.state.userProducts.concat([{...item, quantity: count}])
     });
+  }
+
+  getSumPrice() {
+    return getSumPrice(this.state.userProducts);
+  }
+
+  getNumberOfPositions () {
+   return this.state.userProducts.length
   }
 }
 

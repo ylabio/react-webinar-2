@@ -1,0 +1,32 @@
+
+/* Содержимое корзины */
+
+.Basket-list {
+    padding: 74px 0 0 0;
+}
+
+.Basket-item{
+    border-bottom: 1px dashed #ccc;
+}
+
+.Basket-item:first-child{
+    border-top: 1px dashed #ccc;
+}
+
+.Basket-sum {
+    padding: 7px 108px 0 0;
+    text-align: right;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.Basket-sum-text {
+    padding: 0 47px 0 0;
+}
+
+.Basket-is-empty {
+    padding: 0 20px;
+    font-style: italic;
+    text-align: center;
+    color: #535353;
+}

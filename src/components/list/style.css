@@ -5,7 +5,16 @@
 .List-item{
     border-bottom: 1px dashed #ccc;
 }
-
 .List-item:first-child{
     border-top: 1px dashed #ccc;
+}
+.List-cart{
+    width: fit-content;
+    text-align: right;
+    font-size: 18px;
+    float: right;
+    margin: 25px 110px;
+}
+.List-cart strong:first-child {
+    margin-right: 50px;
 }

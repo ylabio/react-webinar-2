@@ -4,8 +4,8 @@ import {cn as bem} from "@bem-react/classname";
 import prettyMoney from 'pretty-money';
 import './style.css';
 
-function Item(props) {
-  const cn = bem('Item');
+function ItemCart(props) {
+  const cn = bem('ItemCart');
 
   // Счётчик выделений
   const [count, setCount] = useState(0);
@@ -23,11 +23,6 @@ function Item(props) {
       e.stopPropagation();
       props.onDelete(props.item.code)
     }, [props.onDelete, props.item]),
-
-    onAddToCart: useCallback((e) => {
-      e.stopPropagation();
-      props.onAddToCart(props.item.code)
-    }, [props.onAddToCart, props.item])
   };
 
   return (
@@ -39,31 +34,30 @@ function Item(props) {
         <span>
           {props.item.title}
         </span>
-        <span className={cn('price')}>
-          {prettyMoney({currency: '₽', thousandsDelimiter: ' '}, props.item.price)}
+        <span className={cn('cart')}>
+          <span>{prettyMoney({currency: '₽', thousandsDelimiter: ' '}, props.item.price)}</span>
+          <span>{`${props.item.amount} шт`}</span>
         </span>
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onAddToCart}>
-          Добавить
+        <button onClick={callbacks.onDelete}>
+          Удалить
         </button>
       </div>
     </div>
   )
 }
 
-Item.propTypes = {
+ItemCart.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func,
-  onDelete: propTypes.func,
-  onAddToCart: propTypes.func,
+  onSelect: propTypes.func.isRequired,
+  onDelete: propTypes.func.isRequired,
 }
 
-Item.defaultProps = {
+ItemCart.defaultProps = {
   item: {},
   onSelect: () => {},
   onDelete: () => {},
-  onAddToCart: () => {},
 }
 
-export default React.memo(Item);
+export default React.memo(ItemCart);

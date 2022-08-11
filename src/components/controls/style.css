@@ -4,3 +4,9 @@
     justify-content: flex-end;
     padding: 20px;
 }
+.Controls button{
+    width: 75px;
+}
+.Controls-cart{
+    margin-right: 26px;
+}

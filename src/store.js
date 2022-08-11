@@ -47,8 +47,9 @@ class Store {
    * @param price {number}
    */
   addToBasket(code, title, price) {
-    let isAvailable;
-    const newBasket = this.state.basket.map(product => {
+    let isAvailable, basket, uniqueGoodsCount;
+
+    const tempBasket = this.state.basket.map(product => {
       if (product.code === code) {
         isAvailable = true;
         return { ...product, quantity: product.quantity + 1 };
@@ -56,15 +57,22 @@ class Store {
       return product;
     });
 
+    if (isAvailable) {
+      basket = tempBasket;
+      uniqueGoodsCount = this.#setUniqueGoodsCount('default');
+    } else {
+      basket = [...this.state.basket, { code, title, price, quantity: 1 }];
+      uniqueGoodsCount = this.#setUniqueGoodsCount('increase');
+    }
+
+    const totalBasketCost = this.#setTotalBasketCost(basket);
+
     this.setState({
       ...this.state,
-      basket: isAvailable
-        ? newBasket
-        : [...this.state.basket, { code, title, price, quantity: 1 }],
+      basket,
+      totalBasketCost,
+      uniqueGoodsCount
     });
-
-    this.setTotalBasketCost(this.state.basket);
-    !isAvailable && this.setUniqueGoodsCount('increase');
   }
 
   /**
@@ -72,37 +80,41 @@ class Store {
    * @param code {number}
    */
   removeFromBasket(code) {
+    const basket = this.state.basket.filter(product => product.code !== code);
+    const totalBasketCost = this.#setTotalBasketCost(basket);
+    const uniqueGoodsCount = this.#setUniqueGoodsCount('decrease');
+
     this.setState({
       ...this.state,
-      basket: this.state.basket.filter(product => product.code !== code)
+      basket,
+      totalBasketCost,
+      uniqueGoodsCount
     });
-
-    this.setTotalBasketCost(this.state.basket);
-    this.setUniqueGoodsCount('decrease');
   }
 
   /**
-   * Вычисление общей стоимости товаров в корзине
+   * Возврат общей стоимости товаров в корзине
    * @param basket {Object[]}
    */
-  setTotalBasketCost(basket) {
-    const totalCost = basket.reduce((previousValue, currentValue) => {
+  #setTotalBasketCost(basket) {
+    const totalBasketCost = basket.reduce((previousValue, currentValue) => {
       return previousValue + currentValue.price * currentValue.quantity;
     }, 0);
-    const totalBasketCost = new Intl.NumberFormat('ru').format(totalCost);
-
-    this.setState({ ...this.state, totalBasketCost });
+    return new Intl.NumberFormat('ru').format(totalBasketCost);
   }
 
   /**
-   * Установка количества уникальных товаров в корзине
+   * Возврат количества уникальных товаров в корзине
    * @param actionType {string}
    */
-  setUniqueGoodsCount(actionType) {
-    if (actionType === 'increase') {
-      this.setState({ ...this.state, uniqueGoodsCount: ++this.state.uniqueGoodsCount });
-    } else if (actionType === 'decrease') {
-      this.setState({ ...this.state, uniqueGoodsCount: --this.state.uniqueGoodsCount });
+  #setUniqueGoodsCount(actionType) {
+    switch (actionType) {
+      case 'increase':
+        return ++this.state.uniqueGoodsCount;
+      case 'decrease':
+        return --this.state.uniqueGoodsCount;
+      default:
+        return this.state.uniqueGoodsCount;
     }
   }
 }

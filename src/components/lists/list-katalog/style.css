@@ -1,0 +1,8 @@
+.ListKatalog {
+}
+.ListKatalog-item {
+  border-bottom: 1px dashed #ccc;
+}
+.ListKatalog-item:first-child {
+  border-top: 1px dashed #ccc;
+}

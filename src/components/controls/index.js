@@ -5,31 +5,33 @@ import plular from 'plural-ru';
 import './style.css';
 import Button from '../button';
 
-function Controls({ cartQuantity, cartPrice, onToggleCart, uniqueItemsInCart }) {
+function Controls({ amountItemsInCart, onToggleCart, uniqueItemsInCart }) {
   const cn = bem('Controls');
 
   return (
     <div className={cn()}>
       В корзине:
-      <span className={cn('info')}>
-        {`${uniqueItemsInCart} ${plular(uniqueItemsInCart, 'товар', 'товара', 'товаров')}`} /{' '}
-        {`${cartPrice.toLocaleString('ru-RU')} ₽`}
-      </span>
+      {uniqueItemsInCart ? (
+        <span className={cn('info')}>
+          {`${uniqueItemsInCart} ${plular(uniqueItemsInCart, 'товар', 'товара', 'товаров')}`} /{' '}
+          {`${amountItemsInCart.toLocaleString('ru-RU')} ₽`}
+        </span>
+      ) : (
+        <span className={cn('info')}>пусто</span>
+      )}
       <Button onClick={() => onToggleCart(true)}>Перейти</Button>
     </div>
   );
 }
 
 Controls.propTypes = {
-  cartQuantity: propTypes.number,
-  cartPrice: propTypes.number,
+  amountItemsInCart: propTypes.number,
   onToggleCart: propTypes.func.isRequired,
   uniqueItemsInCart: propTypes.number,
 };
 
 Controls.defaultProps = {
-  cartQuantity: 0,
-  cartPrice: 0,
+  amountItemsInCart: 0,
   uniqueItemsInCart: 0,
 };
 

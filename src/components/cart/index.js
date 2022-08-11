@@ -1,48 +1,49 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
-import Button from '../button';
-import List from '../list';
 
-function Cart({ items, cartPrice, onToggleCart, onDeleteItemFromCart }) {
+import ModalWindow from '../modal-window';
+import ListCart from '../lists/list-cart';
+
+function Cart({ items, amountItemsInCart, onToggleCart, onDeleteItemFromCart }) {
   const cn = bem('Cart');
   const cnInfo = bem('info');
 
+  const callbacks = {
+    closeCart: useCallback(
+      (flag) => {
+        onToggleCart(!flag);
+      },
+      [onToggleCart]
+    ),
+  };
+
   return (
-    <div className={cn()}>
-      <div className={cn('content')}>
-        <div className={cn('head')}>
-          <span className={cn('title')}>Корзина</span>
-          <Button className={cn('button')} onClick={() => onToggleCart(false)}>
-            Закрыть
-          </Button>
-        </div>
+    <ModalWindow title="Корзина" closeModal={callbacks.closeCart}>
+      {items.length ? (
+        <ListCart items={items} listType="Cart" onDeleteItemFromCart={onDeleteItemFromCart} />
+      ) : (
+        <div className={cn('empty')}>В корзине нет товаров</div>
+      )}
 
-        {items.length ? (
-          <List items={items} listType="Cart" onDeleteItemFromCart={onDeleteItemFromCart} />
-        ) : (
-          <div className={cn('empty')}>В корзине нет товаров</div>
-        )}
-
-        <div className={cn('info', ['info'])}>
-          Итого
-          <span className={cnInfo('right')}>{`${cartPrice.toLocaleString('ru-RU')} ₽`}</span>
-        </div>
+      <div className={cn('info', ['info'])}>
+        Итого
+        <span className={cnInfo('right')}>{`${amountItemsInCart.toLocaleString('ru-RU')} ₽`}</span>
       </div>
-    </div>
+    </ModalWindow>
   );
 }
 
 Cart.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  cartPrice: propTypes.number,
+  amountItemsInCart: propTypes.number,
   onToggleCart: propTypes.func.isRequired,
   onDeleteItemFromCart: propTypes.func.isRequired,
 };
 
 Cart.defaultProps = {
-  cartPrice: 0,
+  amountItemsInCart: 0,
 };
 
 export default React.memo(Cart);

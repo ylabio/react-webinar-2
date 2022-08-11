@@ -1,8 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import Controls from './components/controls';
-import List from './components/list';
+import ListKatalog from './components/lists/list-katalog';
 import Layout from './components/layout';
-import { counter } from './utils';
 import Cart from './components/cart';
 
 /**
@@ -11,6 +10,8 @@ import Cart from './components/cart';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({ store }) {
+  const { amountItemsInCart, uniqueItemsInCart, items, cart } = store.getState();
+
   const [showCart, setShowCart] = useState(false);
 
   const callbacks = {
@@ -25,27 +26,26 @@ function App({ store }) {
     }, []),
   };
 
-  const cartInfo = store.getCartInfo();
-
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls
-        cartQuantity={cartInfo.quantity}
-        cartPrice={cartInfo.price}
-        onToggleCart={callbacks.onToggleCart}
-        uniqueItemsInCart={cartInfo.uniqueItemsInCart}
-      />
-      <List items={store.getState().items} onAddItemInCart={callbacks.onAddItemInCart} />
+    <>
+      <Layout head={<h1>Приложение на чистом JS</h1>} showCart={showCart}>
+        <Controls
+          amountItemsInCart={amountItemsInCart}
+          onToggleCart={callbacks.onToggleCart}
+          uniqueItemsInCart={uniqueItemsInCart}
+        />
+        <ListKatalog items={items} onAddItemInCart={callbacks.onAddItemInCart} />
+      </Layout>
 
       {showCart && (
         <Cart
-          items={store.getState().cart}
-          cartPrice={cartInfo.price}
+          items={cart}
+          amountItemsInCart={amountItemsInCart}
           onToggleCart={callbacks.onToggleCart}
           onDeleteItemFromCart={callbacks.onDeleteItemFromCart}
         />
       )}
-    </Layout>
+    </>
   );
 }
 

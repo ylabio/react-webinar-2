@@ -1,3 +1,5 @@
+import item from './components/items/item-katalog';
+
 class Store {
   constructor(initState) {
     // Состояние приложения (данные)
@@ -85,26 +87,28 @@ class Store {
    * @param newItem
    */
   addItemToCart(newItem) {
-    // проверяем, есть ли товар уже в корзине
-    const itemIsAlreadyInTheCart = this.state.cart.some((item) => {
-      return newItem.code === item.code;
+    let itemIsAlreadyInTheCart = false;
+
+    const newCart = this.state.cart.map((item) => {
+      if (item.code === newItem.code) {
+        itemIsAlreadyInTheCart = true;
+        return { ...item, quantity: item.quantity + 1 };
+      }
+      return item;
     });
 
     if (itemIsAlreadyInTheCart) {
       this.setState({
         ...this.state,
-        cart: this.state.cart.map((item) => {
-          if (item.code === newItem.code) {
-            return { ...item, quantity: item.quantity + 1 };
-          }
-          return item;
-        }),
+        cart: newCart,
+        amountItemsInCart: this.state.amountItemsInCart + newItem.price,
       });
     } else {
       this.setState({
         ...this.state,
         cart: this.state.cart.concat({ ...newItem, quantity: 1 }),
         uniqueItemsInCart: this.state.uniqueItemsInCart + 1,
+        amountItemsInCart: this.state.amountItemsInCart + newItem.price,
       });
     }
   }
@@ -116,22 +120,8 @@ class Store {
         return item.code !== deleteItem.code;
       }),
       uniqueItemsInCart: this.state.uniqueItemsInCart - 1,
+      amountItemsInCart: this.state.amountItemsInCart - deleteItem.price * deleteItem.quantity,
     });
-  }
-
-  /**
-   * Получить сумму товаров и их кол-во в корзине
-   */
-  getCartInfo() {
-    let price = 0;
-    let quantity = 0;
-
-    this.getState().cart.forEach((item) => {
-      price += item.price * item.quantity;
-      quantity += item.quantity;
-    });
-
-    return { price, quantity, uniqueItemsInCart: this.getState().uniqueItemsInCart };
   }
 }
 

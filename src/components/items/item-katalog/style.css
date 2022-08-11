@@ -1,0 +1,21 @@
+/* Пункт списка */
+.ItemKatalog {
+  display: flex;
+  justify-content: flex-start;
+}
+.ItemKatalog-title {
+  width: 100%;
+  padding: 20px 10px;
+}
+.ItemKatalog-actions {
+  padding: 20px 20px 20px 25px;
+  display: flex;
+  justify-content: flex-end;
+}
+.ItemKatalog-number {
+  padding: 20px 10px 20px 20px;
+}
+.ItemKatalog-price {
+  white-space: nowrap;
+  padding: 21px 0 21px 0;
+}

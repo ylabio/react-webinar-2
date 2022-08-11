@@ -1,5 +1,5 @@
 .Cart-total {
-  margin-top: 25px;
+  margin: 25px 0;
   display: flex;
   justify-content: flex-end;
   font-weight: bold;

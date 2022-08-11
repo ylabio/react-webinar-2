@@ -1,3 +1,5 @@
+import { get_cart_total_values } from "./utils";
+
 class Store {
   constructor(initState) {
     // Состояние приложения (данные)
@@ -40,21 +42,24 @@ class Store {
   }
 
   addItemToCart({ code, title, price }) {
-    const number = this.state.cart.find((item) => {
+    const target = this.state.cart.find((item) => {
       return item.code === code;
     });
 
-    if (!number)
+    if (!target)
       this.setState({
         ...this.state,
         cart: this.state.cart.concat({ code, title, price, quantity: 1 }),
+        total_cart_price: this.state.total_cart_price + price,
+        total_cart_quantity: this.state.total_cart_quantity + 1,
       });
     else
       this.setState({
         ...this.state,
+        total_cart_price: this.state.total_cart_price + price,
         cart: this.state.cart.map((item) => {
           return item.code === code
-            ? { ...item, quantity: ++item.quantity }
+            ? { ...item, quantity: item.quantity + 1 }
             : item;
         }),
       });
@@ -66,6 +71,9 @@ class Store {
     this.setState({
       ...this.state,
       cart: this.state.cart.filter((item) => item.code !== code),
+      total_cart_price:
+        this.state.total_cart_price - target.price * target.quantity,
+      total_cart_quantity: this.state.total_cart_quantity - 1,
     });
   }
 

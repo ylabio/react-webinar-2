@@ -27,7 +27,8 @@ function App({ store }) {
     <>
       <Layout head={<h1>Магазин</h1>}>
         <CartStat
-          cart={store.getState().cart}
+          price={store.getState().total_cart_price}
+          quantity={store.getState().total_cart_quantity}
           onOpenCart={callbacks.toggleCartVisibility}
         />
         <List
@@ -39,6 +40,8 @@ function App({ store }) {
       {store.getState().cartVisibility && (
         <Cart
           cart={store.getState().cart}
+          total_price={store.getState().total_cart_price}
+          total_quantity={store.getState().total_cart_quantity}
           onCloseCart={callbacks.toggleCartVisibility}
           onButtonClick={callbacks.deleteFromCart}
           buttonLabel={"Удалить"}

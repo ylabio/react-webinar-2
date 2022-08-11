@@ -13,4 +13,8 @@ Background.propTypes = {
   onClick: propTypes.func,
 };
 
+Background.defaultProps = {
+  onClick: () => {},
+};
+
 export default React.memo(Background);

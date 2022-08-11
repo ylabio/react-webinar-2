@@ -1,22 +1,20 @@
 import React from "react";
 import Background from "../background";
-import Layout from "../layout";
 import "./style.css";
 import { cn as bem } from "@bem-react/classname";
 import propTypes from "prop-types";
 
-function Modal({ children, onClose }) {
+function Modal({ title, children, onClose }) {
   const cn = bem("Modal");
 
   return (
     <>
       <div className={cn()}>
-        <Layout head={<h1>Корзина</h1>}>
-          {children}
-          <button className={cn("close")} onClick={onClose}>
-            Закрыть
-          </button>
-        </Layout>
+        <div className={cn("title")}>{title}</div>
+        <div className={cn("content")}>{children}</div>
+        <button className={cn("close")} onClick={onClose}>
+          Закрыть
+        </button>
       </div>
       <Background onClick={onClose} />
     </>
@@ -24,6 +22,7 @@ function Modal({ children, onClose }) {
 }
 
 Modal.propTypes = {
+  title: propTypes.node,
   children: propTypes.node,
   onClose: propTypes.func.isRequired,
 };

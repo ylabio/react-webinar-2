@@ -1,18 +1,14 @@
 import React from "react";
 import { cn as bem } from "@bem-react/classname";
-import { get_cart_total_values } from "../../utils.js";
 import plural from "plural-ru";
 import "./style.css";
 import propTypes from "prop-types";
 
-function CartStat({ cart, onOpenCart }) {
+function CartStat({ price, quantity, onOpenCart }) {
   let stat = "пусто";
-  const { total_price, total_quantity } = get_cart_total_values(cart);
-  if (total_quantity) {
-    const noun_form = plural(cart.length, "товар", "товара", "товаров");
-    stat = `${cart.length} ${noun_form} / ${total_price.toLocaleString(
-      "ru-RU"
-    )}`;
+  if (quantity) {
+    const noun_form = plural(quantity, "товар", "товара", "товаров");
+    stat = `${quantity} ${noun_form} / ${price.toLocaleString("ru-RU")} ₽`;
   }
 
   const cn = bem("CartStat");
@@ -30,7 +26,8 @@ function CartStat({ cart, onOpenCart }) {
 }
 
 CartStat.propTypes = {
-  cart: propTypes.arrayOf(propTypes.object).isRequired,
+  price: propTypes.number.isRequired,
+  quantity: propTypes.number.isRequired,
   onOpenCart: propTypes.func.isRequired,
 };
 

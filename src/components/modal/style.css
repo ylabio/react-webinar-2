@@ -7,14 +7,22 @@
   border-radius: 10px;
   z-index: 10;
   overflow: hidden;
+  background: #fff;
 }
 
-.Modal .Layout {
-  min-height: 600px;
-}
-
-.Modal .Layout-head {
+.Modal-title {
   margin-bottom: 75px;
+  background: #f5f5f5;
+}
+
+.Modal-title h2 {
+  margin: 0;
+  padding: 20px 20px 10px;
+  font-size: 32px;
+}
+
+.Modal {
+  min-height: 600px;
 }
 
 .Modal-close {

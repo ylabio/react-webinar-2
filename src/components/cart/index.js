@@ -2,13 +2,18 @@ import React from "react";
 import List from "../list";
 import "./style.css";
 import { cn as bem } from "@bem-react/classname";
-import { get_cart_total_values } from "../../utils";
+
 import Modal from "../modal";
 import propTypes from "prop-types";
 
-function Cart({ cart, buttonLabel, onButtonClick, onCloseCart }) {
-  const { total_price, total_quantity } = get_cart_total_values(cart);
-
+function Cart({
+  cart,
+  buttonLabel,
+  onButtonClick,
+  onCloseCart,
+  total_price,
+  total_quantity,
+}) {
   const cn = bem("Cart");
 
   let content = (
@@ -29,7 +34,11 @@ function Cart({ cart, buttonLabel, onButtonClick, onCloseCart }) {
     content = <h2 className={cn("empty")}>Пусто</h2>;
   }
 
-  return <Modal onClose={onCloseCart}>{content}</Modal>;
+  return (
+    <Modal title={<h2>Корзина</h2>} onClose={onCloseCart}>
+      {content}
+    </Modal>
+  );
 }
 
 Cart.propTypes = {
@@ -37,6 +46,8 @@ Cart.propTypes = {
   buttonLabel: propTypes.string.isRequired,
   onButtonClick: propTypes.func.isRequired,
   onCloseCart: propTypes.func.isRequired,
+  total_price: propTypes.number.isRequired,
+  total_quantity: propTypes.number.isRequired,
 };
 
 export default React.memo(Cart);

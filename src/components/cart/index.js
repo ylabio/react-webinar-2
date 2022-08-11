@@ -9,7 +9,7 @@ function Cart({totalPrice, openCart, uniqueItems}) {
       <div>В корзине:</div>
       <div className='price'> {
         uniqueItems !== 0 ?
-          `${uniqueItems} ${plural(uniqueItems, 'товар', 'товарa', 'товаров')} / ${totalPrice} ₽`
+          `${uniqueItems} ${plural(uniqueItems, 'товар', 'товарa', 'товаров')} / ${totalPrice.toLocaleString('ru-RU')} ₽`
           : 'пусто'}
       </div>
       <button onClick={() => openCart(true)}>Перейти</button>

@@ -1,21 +1,38 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { cn as bem } from '@bem-react/classname';
+import plular from 'plural-ru';
 import './style.css';
+import Button from '../button';
 
-function Controls({onAdd}){
+function Controls({ amountItemsInCart, onToggleCart, uniqueItemsInCart }) {
+  const cn = bem('Controls');
+
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className={cn()}>
+      В корзине:
+      {uniqueItemsInCart ? (
+        <span className={cn('info')}>
+          {`${uniqueItemsInCart} ${plular(uniqueItemsInCart, 'товар', 'товара', 'товаров')}`} /{' '}
+          {`${amountItemsInCart.toLocaleString('ru-RU')} ₽`}
+        </span>
+      ) : (
+        <span className={cn('info')}>пусто</span>
+      )}
+      <Button onClick={() => onToggleCart(true)}>Перейти</Button>
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
+  amountItemsInCart: propTypes.number,
+  onToggleCart: propTypes.func.isRequired,
+  uniqueItemsInCart: propTypes.number,
+};
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
-}
+  amountItemsInCart: 0,
+  uniqueItemsInCart: 0,
+};
 
 export default React.memo(Controls);

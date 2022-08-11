@@ -1,37 +1,51 @@
-import React, {useCallback} from 'react';
-import Controls from "./components/controls";
-import List from "./components/list";
-import Layout from "./components/layout";
-import {counter} from "./utils";
+import React, { useCallback, useState } from 'react';
+import Controls from './components/controls';
+import ListKatalog from './components/lists/list-katalog';
+import Layout from './components/layout';
+import Cart from './components/cart';
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+function App({ store }) {
+  const { amountItemsInCart, uniqueItemsInCart, items, cart } = store.getState();
+
+  const [showCart, setShowCart] = useState(false);
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAddItemInCart: useCallback((item) => {
+      store.addItemToCart(item);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onDeleteItemFromCart: useCallback((item) => {
+      store.deleteItemFromCart(item);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onToggleCart: useCallback((flag) => {
+      setShowCart(flag);
     }, []),
-  }
+  };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <>
+      <Layout head={<h1>Приложение на чистом JS</h1>} showCart={showCart}>
+        <Controls
+          amountItemsInCart={amountItemsInCart}
+          onToggleCart={callbacks.onToggleCart}
+          uniqueItemsInCart={uniqueItemsInCart}
+        />
+        <ListKatalog items={items} onAddItemInCart={callbacks.onAddItemInCart} />
+      </Layout>
+
+      {showCart && (
+        <Cart
+          items={cart}
+          amountItemsInCart={amountItemsInCart}
+          onToggleCart={callbacks.onToggleCart}
+          onDeleteItemFromCart={callbacks.onDeleteItemFromCart}
+        />
+      )}
+    </>
   );
 }
 

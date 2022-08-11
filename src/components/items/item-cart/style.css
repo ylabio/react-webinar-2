@@ -1,0 +1,26 @@
+/* Пункт списка */
+.ItemCart {
+  display: flex;
+  justify-content: flex-start;
+}
+.ItemCart-title {
+  width: 100%;
+  padding: 20px 10px;
+}
+.ItemCart-actions {
+  padding: 20px 20px 20px 25px;
+  display: flex;
+  justify-content: flex-end;
+}
+.ItemCart-number {
+  padding: 20px 10px 20px 20px;
+}
+.ItemCart-price {
+  white-space: nowrap;
+  padding: 21px 0 21px 0;
+}
+.ItemCart-quantity {
+  white-space: nowrap;
+  padding: 21px 0 21px 0;
+  margin-left: 55px;
+}

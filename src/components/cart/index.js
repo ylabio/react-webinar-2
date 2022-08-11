@@ -18,7 +18,7 @@ function Cart({ items, onItemDelete, onIsShow, countCartItems, sumCart }) {
         </div>
         <div>
           {items.map((item) => (
-            <div key={item.code}>
+            <div key={item.code} className={cn("items")}>
               <CartItem item={item} onDelete={onItemDelete} />
             </div>
           ))}

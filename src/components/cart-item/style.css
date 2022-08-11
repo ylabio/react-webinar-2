@@ -1,6 +1,7 @@
 .Cart-item{
     display: flex;
     align-items: center;
+    border-bottom: 1px dashed #ccc;
 }
 
 .Cart-item-number{
@@ -27,4 +28,9 @@
 .Cart-item-count {
     min-width: 60px;
     padding: 20px 10px 20px 20px;
+}
+
+
+.Cart-item:first-child{
+    border-top: 1px dashed #ccc;
 }

@@ -21,6 +21,7 @@
     height: 80px;
     background: #f5f5f5;
     border-radius: 15px 15px 0px 0px;
+    margin: 0px 0px 80px 0px;
 }
 
 .Cart-head h1 {
@@ -43,4 +44,12 @@
     display: flex;
     justify-content: center;
     
+}
+
+.Cart-items{
+    border-bottom: 1px dashed #ccc;
+}
+
+.Cart-items:first-child{
+    border-top: 1px dashed #ccc;
 }

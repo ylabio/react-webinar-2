@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from 'react';
-import Layout from "../layout";
+import LayoutModal from "../layout-modal";
 import ListModal from "../list-modal";
 import TotalSum from '../total-sum';
 import propTypes from 'prop-types';
@@ -25,7 +25,7 @@ const Modal = ({ isVisible, basket, quantityAndAmountProducts, onDelete, onClose
   return isVisible && (
     <div className={cn()} onClick={callbacks.onClose}>
       <div className={cn('dialog')} onClick={e => e.stopPropagation()}>
-      <Layout 
+      <LayoutModal 
         head={<h1>Корзина</h1>} 
         btn={<button onClick={callbacks.onClose}>Закрыть</button>}
       >
@@ -39,7 +39,7 @@ const Modal = ({ isVisible, basket, quantityAndAmountProducts, onDelete, onClose
         </>
         :
           <h2>Корзина пуста</h2>}
-        </Layout>
+        </LayoutModal>
       </div>
     </div>
   );

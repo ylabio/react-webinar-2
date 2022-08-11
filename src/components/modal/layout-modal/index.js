@@ -6,12 +6,14 @@ import './style.css';
 function LayoutModal({close, children}) {
 
   return (
-    <>
-      <div className='overlay' onClick={close}></div>
-      <div className='Modal'>
-        {children}
-      </div>
-    </>
+    <div className='Modal-wrapper'>
+      <div className='Modal-container'>
+        <div className='overlay' onClick={close}></div>
+        <div className='Modal'>
+            {children}
+        </div>
+    </div>
+    </div>
   )
 }
 

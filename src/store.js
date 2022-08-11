@@ -48,7 +48,7 @@ class Store {
     this.setState({
       ...this.state,
       itemsCart: this.state.itemsCart.filter(item => item.code !== code),
-      quantityUnicItemsCart: this.state.quantityUnicItemsCart -= 1,
+      quantityUnicItemsCart: this.state.quantityUnicItemsCart - 1,
       sumPricesInCart: this.state.sumPricesInCart - price * quantity
     });
   }
@@ -64,7 +64,7 @@ class Store {
           if (itemCart.code === item.code){
             return {
               ...itemCart,
-              quantity: itemCart.quantity += 1,
+              quantity: itemCart.quantity + 1,
             }
           }
           return itemCart;
@@ -75,7 +75,7 @@ class Store {
       this.setState({
         ...this.state,
         itemsCart: this.state.itemsCart.concat({...item, quantity: 1}),
-        quantityUnicItemsCart: this.state.quantityUnicItemsCart += 1,
+        quantityUnicItemsCart: this.state.quantityUnicItemsCart + 1,
         sumPricesInCart: this.state.sumPricesInCart + item.price
       });
     }

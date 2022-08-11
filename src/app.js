@@ -3,7 +3,7 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import LayoutCart from './components/layout-cart';
-import ListCart from './components/list-cart';
+import TotalAmount from './components/totalAmount';
 
 /**
  * Приложение
@@ -45,11 +45,16 @@ function App({store}) {
       <LayoutCart 
         head={<><h1>Корзина</h1><button onClick={callbacks.onCloseCart}>Закрыть</button></>}
       >
-        <ListCart 
+        <List 
           itemsCart={store.state.itemsCart} 
           sumPricesInCart={store.state.sumPricesInCart}
           quantityUnicItemsCart={store.state.quantityUnicItemsCart} 
           onItemCartDelete={callbacks.onDeleteItemsCart}
+          openModal={openModal}
+        />
+        <TotalAmount 
+          quantityUnicItemsCart={store.state.quantityUnicItemsCart}
+          sumPricesInCart={store.state.sumPricesInCart}
         />
       </LayoutCart>
     )}

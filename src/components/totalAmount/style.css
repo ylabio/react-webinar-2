@@ -1,14 +1,4 @@
-.ListCart{
-    margin-top: 74px;
-}
-.ListCart-item{
-    border-bottom: 1px dashed #ccc;
-}
-
-.ListCart-item:first-child{
-    border-top: 1px dashed #ccc;
-}
-.ListCart-sum{
+.TotalAmount-sum{
     display: flex;
     gap: 55.25px;
     justify-content: flex-end;

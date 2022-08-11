@@ -2,36 +2,56 @@ import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Basket from './components/basket';
+import HeaderModal from './components/modal/header-modal';
+import ContentModal from './components/modal/content-modal';
+import Modal from './components/modal';
+import Item from './components/item';
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
+
 function App({store}) {
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAddItem: useCallback((item) => {
+      store.addItem(item);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onDeleteItem: useCallback((item) => {
+      store.deleteItem(item.code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
+    onModal: useCallback(() => {
+      store.toggleModal();
+    }, [])
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <div className='Layout-container'>
+          <Basket count={store.state.basketCount} sumPrice={store.state.sumPrice} />
+          <Controls onModal={callbacks.onModal} textButton={'Перейти'} />
+        </div>
+        <List
+          items={store.getState().items}
+          callback={callbacks.onAddItem}
+          text={'Добавить'}
+          component={Item}
+        />
+      </Layout>
+      <Modal isOpen={store.state.modal} onClose={callbacks.onModal}>
+        <HeaderModal onModal={callbacks.onModal} />
+        <ContentModal
+          basket={store.state.basket}
+          sum={store.state.sumPrice}
+          isOpen={store.state.modal}
+          delete={callbacks.onDeleteItem}
+        />
+      </Modal>
+    </>
   );
 }
 

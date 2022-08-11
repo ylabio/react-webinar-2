@@ -1,3 +1,5 @@
+import { addBasketItem, deleteItemBasket, getSum } from "./utils";
+
 class Store {
 
   constructor(initState) {
@@ -55,9 +57,11 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const basket = deleteItemBasket(this.state.basket, code);
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      basket,
+      ...getSum(basket)
     });
   }
 
@@ -79,6 +83,23 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     });
+  }
+
+  addItem(item) {
+    const basket = addBasketItem(this.state.basket, item)
+    this.setState({
+      ...this.state,
+      basket,
+      ...getSum(basket),
+    })
+  }
+
+
+  toggleModal() {
+    this.setState({
+      ...this.state,
+      modal: !this.state.modal,
+    })
   }
 }
 

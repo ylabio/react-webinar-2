@@ -31,24 +31,27 @@ function App({ store }) {
   };
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <Controls
-        overall={store.getState().overall}
-        quantity={store.getState().basket.length}
-        openToCart={callbacks.openToCart}
-      />
-      <List
-        items={store.getState().items}
-        addItemToCart={callbacks.addItemToCart}
-      />
-      <Basket
-        items={store.getState().basket}
-        modalOpen={modalOpen}
-        closeToCart={callbacks.closeToCart}
-        removeItemToCart={callbacks.removeItemToCart}
-        overall={store.getState().overall}
-      />
-    </Layout>
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls
+          overall={store.getState().overall}
+          quantity={store.getState().basket.length}
+          openToCart={callbacks.openToCart}
+        />
+        <List
+          items={store.getState().items}
+          addItemToCart={callbacks.addItemToCart}
+        />
+        <Basket
+          items={store.getState().basket}
+          modalOpen={modalOpen}
+          closeToCart={callbacks.closeToCart}
+          removeItemToCart={callbacks.removeItemToCart}
+          overall={store.getState().overall}
+        />
+      </Layout>
+      {modalOpen === "baskets" && <Modal onClose={callbacks.closeToCart} />}
+    </>
   );
 }
 

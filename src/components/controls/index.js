@@ -5,7 +5,7 @@ import plural from 'plural-ru';
 import {currency} from '../../utils.js';
 import './style.css';
 
-function Controls({ basket, onClick }){
+function Controls({ quantityAndAmountProducts, onClick }){
   const cn = bem('Controls');
 
   const callbacks = {
@@ -15,13 +15,11 @@ function Controls({ basket, onClick }){
   };
 
   const getQuantityProducts = () => {
-    if (basket.length) {
-      const price = basket.reduce((sum, product) => sum + product.price * product.count, 0);
-      
+    if (quantityAndAmountProducts.quantity) {
       return `${plural(
-        basket.length, 
+        quantityAndAmountProducts.quantity, 
         '%d товар', '%d товара', '%d товаров'
-        )} / ${currency(price)}`
+        )} / ${currency(quantityAndAmountProducts.amount)}`
     }
 
     return 'пусто'
@@ -38,12 +36,12 @@ function Controls({ basket, onClick }){
 }
 
 Controls.propTypes = {
-  basket: propTypes.arrayOf(propTypes.object).isRequired,
+  quantityAndAmountProducts: propTypes.object.isRequired,
   onClick: propTypes.func.isRequired // Обяхательное свойство - функция
 }
 
 Controls.defaultProps = {
-  basket: [],
+  quantityAndAmountProducts: {},
   onClick: () => {} // Значение по умолчанию - функция-заглушка
 }
 

@@ -87,6 +87,19 @@ class Store {
       });
     }
   }
+
+  /**
+   * Получение количество товара и сумма
+   */
+  getQuantityAndAmountProducts() {
+    const amount = this.state.basket.reduce((sum, product) => sum + product.price * product.count, 0);
+    const quantity = this.state.basket.length;
+    
+    return {
+      amount,
+      quantity
+    }
+  }
 }
 
 export default Store;

@@ -6,7 +6,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-const Modal = ({ isVisible, basket, onDelete, onClose }) => {
+const Modal = ({ isVisible, basket, quantityAndAmountProducts, onDelete, onClose }) => {
   const cn = bem('Modal');
 
   const callbacks = {
@@ -29,13 +29,13 @@ const Modal = ({ isVisible, basket, onDelete, onClose }) => {
         head={<h1>Корзина</h1>} 
         btn={<button onClick={callbacks.onClose}>Закрыть</button>}
       >
-        {basket.length ? 
+        {quantityAndAmountProducts.quantity ? 
         <>
           <ListModal 
             basket={basket}
             onItemDelete={onDelete}
           />
-          <TotalSum basket={basket} />
+          <TotalSum amountProducts={quantityAndAmountProducts} />
         </>
         :
           <h2>Корзина пуста</h2>}
@@ -48,12 +48,14 @@ const Modal = ({ isVisible, basket, onDelete, onClose }) => {
 Modal.propTypes = {
   isVisible: propTypes.bool.isRequired,
   basket: propTypes.arrayOf(propTypes.object).isRequired,
+  quantityAndAmountProducts: propTypes.object.isRequired,
   onDelete: propTypes.func.isRequired,
   onClose: propTypes.func.isRequired
 }
 
 Modal.defaultProps = {
   basket: [],
+  quantityAndAmountProducts: {},
   onDelete: () => {},
   onClose: () => {}
 }

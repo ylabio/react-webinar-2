@@ -28,7 +28,7 @@ function App({store}) {
     <>
       <Layout head={<h1>Магазин</h1>}>
         <Controls 
-          basket={store.getState().basket} 
+          quantityAndAmountProducts={store.getQuantityAndAmountProducts()} 
           onClick={callbacks.onButtonModalClick}
         />
         <List 
@@ -39,6 +39,7 @@ function App({store}) {
       <Modal
         isVisible={isModal}
         basket={store.getState().basket}
+        quantityAndAmountProducts={store.getQuantityAndAmountProducts()} 
         onDelete={callbacks.onDeleteItems}
         onClose={callbacks.onButtonModalClick}
       />

@@ -1,38 +1,52 @@
-import React, {useCallback} from 'react';
+import React, { useCallback, useState } from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import { counter } from "./utils";
+import Modal from './components/modal';
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+function App({ store }) {
+
+  const [modalActive, setModalActive] = useState(false)
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAdd: useCallback((code) => {
+      store.createItem({ code });
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
+    summationCart : useCallback(() => {
+     return store.summationCart();
+    }, [store.state.itemsInCart]),
     onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+      console.log('onDeleteItems ==>', code);
+      store.deleteItem(code)
     }, []),
   }
+  console.log(store)
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls setActive={setModalActive} summationCart={callbacks.summationCart} />
+        <List items={store.getState().items}
+          btnAction={callbacks.onAdd}
+          btnActionName={'Добавить'}
+        />
+      </Layout>
+      <Modal active={modalActive} setActive={setModalActive} summationCart={callbacks.summationCart().priceCrat}>
+        <List items={store.getState().itemsInCart}
+          btnAction={callbacks.onDeleteItems}
+          btnActionName={'Удалить'}
+          model={'Modal'}
+        />
+      </Modal>
+    </>
   );
 }
 
 export default App;
+

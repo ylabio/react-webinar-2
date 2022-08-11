@@ -1,7 +1,6 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
+import { cn as bem } from "@bem-react/classname";
 import './style.css';
 
 function Item(props) {
@@ -19,24 +18,31 @@ function Item(props) {
       }
     }, [props.onSelect, props.item, setCount, count]),
 
-    onDelete: useCallback((e) => {
+    btnAction: useCallback((e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
+      props.btnAction(props.item.code)
+    }, [props.onDelete, props.item])
   };
 
+
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
+    <div className={cn()} >
       <div className={cn('number')}>
         {props.item.code}
       </div>
       <div className={cn('title')}>
         {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
       </div>
+      <div className={cn('price')}>
+        <p className={cn('price-p')}>{props.item.price} ₽ </p>
+      </div>
+      {props.model == 'Modal' ?
+        <div className={cn('count')}>
+          <p className={cn('count-p')}>{props.item.count}  шт</p>
+        </div> : ''}
       <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <button onClick={callbacks.btnAction}>
+          {props.btnActionName}
         </button>
       </div>
     </div>
@@ -50,8 +56,8 @@ Item.propTypes = {
 }
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
+  onSelect: () => { },
+  onDeleted: () => { }
 }
 
 export default React.memo(Item);

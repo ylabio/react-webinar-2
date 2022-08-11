@@ -1,6 +1,31 @@
 /* Контрол с общими действиями */
-.Controls{
+.Controls {
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+}
+
+.Controls-title,
+.Controls-content {
+    padding: 0;
+    margin: 0;
+    margin-right: 15px;
+    display: inline-block;
+}
+
+.Controls-title {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.Controls-content {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    margin-right: 20px;
 }

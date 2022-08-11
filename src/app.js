@@ -3,7 +3,6 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Modal from './components/modal';
-import CartList from './components/cart-list/index';
 import {cn as bem} from "@bem-react/classname";
 
 /**
@@ -35,10 +34,14 @@ const cn = bem('Modal');
     <Layout head={<h1>Магазин</h1>}>      
       <Controls setModalActive={setModalActive} cart={store.getState().cart} />
       {modalActive?<Modal head={<h1>Корзина</h1>} setModalActive={setModalActive}>
-            <CartList cart={store.getState().cart} onDeteleCart={callbacks.onDeteleCart}/>
+            <List cart={store.getState().cart} 
+                  onDeteleCart={callbacks.onDeteleCart} 
+                  place={'cart'}
+                  />
             </Modal>:''}
       <List items={store.getState().items}
             onCartItems={callbacks.onCartItems}
+            place={'store'}
       />
     </Layout>
   );

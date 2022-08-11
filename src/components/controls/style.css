@@ -2,5 +2,12 @@
 .Controls{
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
+    align-items: center;
 }
+.Controls-Button{
+    display: flex;
+    padding: 20px  20px 20px 10px;
+    justify-content: flex;
+    width: 76px;
+    flex-direction: column;
+}   

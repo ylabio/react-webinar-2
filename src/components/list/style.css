@@ -9,3 +9,15 @@
 .List-item:first-child{
     border-top: 1px dashed #ccc;
 }
+.List-Summ{
+    display: flex;
+    justify-items: flex-end;
+    font-weight: bold;
+    flex-direction: row-reverse;
+    margin: 20px 100px 0 0;
+
+}
+.List-Total {
+    margin: 0 20px 40px 40px;
+    padding: 10px;
+}

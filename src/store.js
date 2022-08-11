@@ -60,26 +60,50 @@ class Store {
       items: this.state.items.filter(item => item.code !== code)
     });
   }
-
-  /**
-   * Выделение записи по её коду
+/**
+   * Добавление записи в корзину
    * @param code
    */
-  selectItem(code) {
+    addToCart(code) {
+      const totalPrice= this.state.cart.totalPrice+this.state.items[code-1].price
+      if (this.state.cart.itemsCart.some(n=>n.code==code)){
+      this.setState({
+        ...this.state,
+        cart:{itemsCart: this.state.cart.itemsCart.map(m=>m.code==code? {
+          ...m,
+          amount:m.amount+1,
+          }:m),
+        totalPrice,
+        totalItems:this.state.cart.totalItems
+        }
+      })
+    }
+  else{
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+      cart:{
+      itemsCart:[...this.state.cart.itemsCart,{...this.state.items[code-1],amount:1}],
+      totalPrice,
+      totalItems:this.state.cart.totalItems+1
+    }
+    })
   }
+}
+  /**
+   * Удаление записи из корзины
+   * @param code
+   */
+  deleteFromCart(code) {
+    let obj=this.state.cart.itemsCart.find(m=>m.code===code)
+    let totalPrice= this.state.cart.totalPrice-obj.price*obj.amount
+      this.setState({
+        ...this.state,
+        cart:{ 
+        itemsCart:this.state.cart.itemsCart.filter(m=>m.code!=code),
+        totalPrice,
+        totalItems:this.state.cart.totalItems-1}
+      })
+}
 }
 
 export default Store;

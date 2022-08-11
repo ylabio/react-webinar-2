@@ -103,7 +103,16 @@ class Store {
     });
 
   }
+  onAddItemInBasket(item, basket) {
 
+    this.priceProduct(item.price)
+    this.amountInBasket(item.code)
+    if (!(basket.some(elementBasket => elementBasket.code === item.code))) {
+      this.addBasket({ code: item.code, title: item.title, price: item.price })
+      this.counterProduct()
+      this.amountInBasket(item.code)
+    }
+  }
   /**
    * Выделение записи по её коду
    * @param code

@@ -9,20 +9,9 @@ function Item(props) {
 
 
 
-  const callbacks = {
-    onAddItemInBasket: (e) => {
-      e.stopPropagation()
-      props.onPriceProduct(props.item.price)
-      props.onAmountInBasket(props.item.code)
-      if (!(props.basket.some(elementBasket => elementBasket.code === props.item.code))) {
-        props.onAddBasket(props.item.code, props.item.title, props.item.price)
-        props.onAmountProduct(props.item.amountInBasket)
-        props.onAmountInBasket(props.item.code)
-      }
-    },
 
 
-  };
+  // };
   return (
     <div className={cn({ 'selected': props.item.selected })} >
       <div className={cn('number')}>
@@ -35,7 +24,7 @@ function Item(props) {
         <p>{`${props.item.price.toLocaleString()} ₽`} </p>
       </div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onAddItemInBasket}>
+        <button onClickCapture={() => props.onAddItemInBasket(props.item, props.basket,props.copyBasket)}>
           Добавить
         </button>
       </div>
@@ -46,11 +35,12 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   basket: propTypes.array.isRequired,
-  onPriceProduct: propTypes.func.isRequired,
-  onAmountProduct: propTypes.func.isRequired,
-  onAmountInBasket: propTypes.func.isRequired,
-  onAddBasket: propTypes.func.isRequired,
-  priceProduct: propTypes.number.isRequired,
+  
+  onAddItemInBasket: propTypes.func.isRequired,
+  setCopyBasket:propTypes.func
+}
+Item.defaultProps = {
+  setCopyBasket:()=>{},
 }
 
 

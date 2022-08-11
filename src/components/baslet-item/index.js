@@ -2,6 +2,7 @@ import React from 'react'
 import './style.css'
 import propTypes from 'prop-types'
 function BasketItem({ basketItem, onDeleteItems }) {
+    
     return (
         <div className='BasketItem'>
             <div className='BasketItem_info'>
@@ -11,7 +12,7 @@ function BasketItem({ basketItem, onDeleteItems }) {
             </div>
             <div className='Basket_wrapper_info'>
                 <div className='Basket_info_price_amount'>
-                    <p>{basketItem.price} ₽</p>
+                    <p>{basketItem.price.toLocaleString()} ₽</p>
                     <p>{basketItem.amountInBasket} шт</p>
 
                 </div>

@@ -2,8 +2,9 @@ import React, { useCallback, useState } from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import { counter } from "./utils";
-import Basket from './components/basket';
+
+import LayoutModal from './components/layout-modal';
+import BasketProduct from './components/basket-product';
 
 /**
  * Приложение
@@ -13,23 +14,14 @@ import Basket from './components/basket';
 function App({ store }) {
   const [active, setActive] = useState(false);
   const callbacks = {
-    onAddBasket: useCallback((code, title, price) => {
 
-      store.addBasket({ code: code, title: title, price: price });
 
-    }, []),
-    onAmountProduct: useCallback(() => {
-      store.counterProduct()
 
+    onAddItemInBasket: useCallback((item, basket) => {
+      store.onAddItemInBasket(item, basket)
     }, []),
 
 
-    onAmountInBasket: useCallback((item) => {
-      store.amountInBasket(item)
-    }, []),
-    onPriceProduct: useCallback((price) => {
-      store.priceProduct(price)
-    }, []),
 
     onDeleteItems: useCallback((code, amountInBasket, price) => {
       store.deleteItem(code, amountInBasket, price);
@@ -38,13 +30,16 @@ function App({ store }) {
   }
   return (
     <>
-      <Basket
-        basket={store.getState().basket}
-        active={active}
-        setActive={setActive}
-        priceProduct={store.getState().priceProduct}
-        onDeleteItems={callbacks.onDeleteItems}
-      />
+      <LayoutModal active={active}
+        setActive={setActive} head={<p>Корзина</p>}>
+        <BasketProduct
+          basket={store.getState().basket}
+
+          priceProduct={store.getState().priceProduct}
+          onDeleteItems={callbacks.onDeleteItems}
+        />
+      </LayoutModal>
+
       <Layout head={<h1>Магазин</h1>}>
         <Controls
           setActive={setActive}
@@ -53,13 +48,8 @@ function App({ store }) {
         />
 
         <List
-          onAmountProduct={callbacks.onAmountProduct}
-          onPriceProduct={callbacks.onPriceProduct}
-          onAmountInBasket={callbacks.onAmountInBasket}
-          priceProduct={store.getState().priceProduct}
-          amountProduct={store.getState().amountProduct}
+          onAddItemInBasket={callbacks.onAddItemInBasket}
           items={store.getState().items}
-          onAddBasket={callbacks.onAddBasket}
           basket={store.getState().basket}
         />
       </Layout>

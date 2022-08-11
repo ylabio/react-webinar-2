@@ -1,3 +1,5 @@
+import cart from "./components/cart";
+
 class Store {
 
   constructor(initState) {
@@ -54,12 +56,26 @@ class Store {
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code, isCartItem) {
-    this.setState(isCartItem
-      ? {...this.state,
-      cart: this.state.cart.filter(item => item.code !== code)}
-      : {...this.state,
-      item: this.state.item.filter(item => item.code !== code)});
+  deleteItem(code) {
+    this.setState({...this.state,
+      items: this.state.items.filter(item => item.code !== code)});
+  }
+
+  deleteItemCart(code) {
+    const currentPrice = this.state.items
+        .filter(item => item.code === code)[0].price;
+    const currentAmount = this.state.cart
+        .products.filter(item => item.code == code)[0].amount;
+    const currentTotal = currentPrice * currentAmount;
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        products: this.state.cart.products.filter(item => item.code !== code),
+        amount: this.state.cart.amount -= 1,
+        total: this.state.cart.total - currentTotal,
+      }
+    })
   }
 
   /**
@@ -83,24 +99,39 @@ class Store {
   }
 
   addToCart(code) {
-    const newCartItem = this.state.items.filter(item => item.code === code)[0];
-    if (this.state.cart.length === 0) {
+    const isCartEmpty = this.state.cart.amount === 0;
+    const currentItem = this.state.items.filter((item) => item.code === code)[0];
+    if (isCartEmpty) {
       this.setState({
         ...this.state,
-        cart: [{...newCartItem, amount: 1}]
+        cart: {
+          ...this.state.cart,
+          products: [{code: code, amount: 1}],
+          amount: 1,
+          total: currentItem.price,
+        }
       })
     } else {
-      const isItemAlreadyInCart = Boolean(this.state.cart.filter(item => item.code === code).length);
+      const isProductInCart = Boolean(this.state.cart.products.filter(
+          (product) => product.code === code
+        ).length);
       this.setState({
         ...this.state,
-        cart: isItemAlreadyInCart
-          ? this.state.cart.map(item => {
-            if (item.code === code) {
-              return {...item, amount: item.amount += 1}
-            }
-            return item;
-          })
-          : [...this.state.cart, {...newCartItem, amount: 1}]
+        cart: {
+          ...this.state.cart,
+          products: isProductInCart
+            ? this.state.cart.products.map((product) => product.code === code
+                                            ? {
+                                              ...product,
+                                              amount: product.amount += 1,
+                                            }
+                                            : {...product})
+            : [...this.state.cart.products, {code, amount: 1}],
+          amount: isProductInCart
+                  ? this.state.cart.amount
+                  : this.state.cart.amount += 1,
+          total: this.state.cart.total += currentItem.price,
+        }
       })
     }
   }

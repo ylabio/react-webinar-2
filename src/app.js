@@ -13,7 +13,7 @@ import Modal from './components/modal';
  */
 function App({store}) {
   const [isShowModal, setIsShowModal] = useState(false);
-  const [cartState, setCartState] = useState({amount: 0, total: 0});
+  const [cartState, setCartState] = useState({items: [],amount: 0, total: 0});
 
   const callbacks = {
     onAdd: useCallback(() => {
@@ -30,7 +30,7 @@ function App({store}) {
       store.addToCart(code);
     }, []),
     onRemoveFromCart: useCallback((code) => {
-      store.deleteItem(code, true)
+      store.deleteItemCart(code);
     }, []),
     onOpenCart: useCallback(() => {
         setIsShowModal(true);
@@ -41,20 +41,12 @@ function App({store}) {
   }
 
   useEffect(() => {
-    const { cart } = store.getState();
-    if (cart.length) {
-      const amount =  cart.length;
-      const total = cart.length === 1
-        ? Math.round(cart[0].price * cart[0].amount) 
-        : cart.reduce((total, next, index) => (
-          index === 1
-            ? (total.price * total.amount) + (next.price * next.amount)
-            : total + (next.price * next.amount)
-        ))
-      setCartState({amount, total});
-    } else {
-      setCartState({amount: 0, total: 0});
-    }
+    const { amount, total, products } = store.getState().cart;
+    const items = products.map((product) => ({
+      ...store.getState().items.filter((item) => item.code === product.code)[0],
+      amount: product.amount,
+    }))
+    setCartState({items, amount, total});
   }, [store.getState().cart])
 
   return (
@@ -72,7 +64,7 @@ function App({store}) {
       <Modal isShow={isShowModal}
              onClose={callbacks.onCloseModal}
              head={<h1>Корзина</h1>}>
-        <List items={store.getState().cart}
+        <List items={cartState.items}
               isCart
               total={cartState.total}
               onItemDelete={callbacks.onRemoveFromCart}

@@ -4,6 +4,7 @@ import {cn as bem} from "@bem-react/classname";
 import prettyMoney from 'pretty-money';
 import Item from "../item";
 import './style.css';
+import ItemCart from '../item-cart';
 
 function List(props) {
   const cn = bem('List');
@@ -13,13 +14,19 @@ function List(props) {
       props.items.length
         ? props.items.map(item =>
           <div key={item.code} className={cn('item')}>
-            <Item
+            {props.isCart
+             ? (<ItemCart
+                item={item}
+                onSelect={props.onItemSelect}
+                onDelete={props.onItemDelete}
+                />)
+             : (<Item
               item={item}
               isCartItem={props.isCart}
               onSelect={props.onItemSelect}
               onDelete={props.onItemDelete}
               onAddToCart={props.onItemAddToCart}
-            />
+            />)}
           </div>)
         : (<p style={{textAlign: 'center'}}><strong>Пусто</strong></p>)
       }

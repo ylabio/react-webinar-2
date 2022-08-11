@@ -1,29 +1,20 @@
-import React, { useMemo } from "react";
+import React  from "react";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 import plural from "plural-ru";
 import { formatToRUB } from "../../utils";
 
-function Total({ list, isShowAmount }) {
+function Total({ object, isShowAmount }) {
   const cn = bem("Total");
-  const totalPrice = useMemo(() => {
-    return list
-      .map((item) => (item.price && item.amount ? item.price * item.amount : 0))
-      .reduce((prev, value) => prev + value, 0);
-  }, [list]);
-
-  const totalAmount = useMemo(() => {
-    return list.length;
-  }, [list.length]);
   return (
     <div className={cn()}>
-      {totalPrice || totalAmount ? (
+      {object?.total.price || object?.total.amount ? (
         <>
           <div className={cn("amount")}>
             {isShowAmount
-              ? `${totalAmount} ${plural(
-                  totalAmount,
+              ? `${object.total.amount} ${plural(
+                    object.total.amount,
                   "товар",
                   "товара",
                   "товаров"
@@ -31,7 +22,7 @@ function Total({ list, isShowAmount }) {
               : "Итого"}
             {}
           </div>
-          <div className={cn("price")}>{formatToRUB(totalPrice)}</div>
+          <div className={cn("price")}>{formatToRUB(object.total.price)}</div>
         </>
       ) : (
         "пусто"
@@ -41,12 +32,12 @@ function Total({ list, isShowAmount }) {
 }
 
 Total.propTypes = {
-  list: propTypes.array.isRequired,
+  list: propTypes.object.isRequired,
   isShowAmount: propTypes.bool,
 };
 
 Total.defaultProps = {
-  list: [],
+  list: {},
   isShowAmount: false,
 };
 

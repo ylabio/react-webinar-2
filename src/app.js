@@ -38,7 +38,7 @@ function App({ store }) {
       <Layout head={<LayoutHead head={<h1>Магазин</h1>} />}>
         <div className={sm()}>
           <span className={sm("text")}>В корзине: </span>
-          <Total list={store.state.itemsBasket} isShowAmount={true} />
+          <Total object={store.state.itemsBasket} isShowAmount={true} />
           <Controls handlerClick={callbacks.showModal} textButton={"Перейти"} />
         </div>
         <List
@@ -48,15 +48,15 @@ function App({ store }) {
         />
         {store.state.isShowBasket ? (
           <Modal closeModal={callbacks.closeModal}>
-
-            {store.state.itemsBasket.length ? (
+{}
+            {store.state.itemsBasket.total.amount ? (
                 <>
                   <List
-                      items={store.getState().itemsBasket}
+                      items={store.getState().itemsBasket.list}
                       handlerClick={callbacks.onDeleteItem}
                       textButton={"Удалить"}
                   />
-                  <Total list={store.state.itemsBasket} isShowAmount={false} />
+                  <Total object={store.state.itemsBasket} isShowAmount={false} />
                 </>
 
             ) : (

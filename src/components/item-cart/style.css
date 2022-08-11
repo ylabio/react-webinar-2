@@ -1,0 +1,40 @@
+/* Пункт списка */
+.Item{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    transition: background-color 1s;
+}
+
+.Item-title{
+    width: 100%;
+    padding: 20px 10px;
+}
+
+.Item-price{
+    min-width: 100px;
+    padding: 20px 10px;
+
+    text-align: right;
+    
+    justify-self: flex-end;
+    
+}
+
+.Item-quantity{
+    min-width: 100px;
+
+    text-align: right;
+}
+.Item-quantity_hidden{
+    visibility: hidden;
+}
+
+.Item-actions{
+    padding: 20px  20px 20px 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+.Item-number{
+    padding: 20px 10px 20px 20px;
+}

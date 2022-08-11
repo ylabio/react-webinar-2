@@ -40,46 +40,73 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
 
   /**
-   * Удаление записи по её коду
+   * Добавление в корзину
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
+  addToCart(code) {
+      this.state.items.map(item => {
+        if (item.code === code) {
+          if (!this.state.cart.find(el => el.code == code)) {
+            this.setState({
+              ...this.state,
+              cart: this.state.cart.concat([{...item, quantity: 1}])
+            })
+          } else {
+            this.setState({
+              ...this.state,
+              cart: this.state.cart.map(item => {
+                if(item.code === code){
+                  return {
+                    ...item,
+                    quantity: item.quantity + 1
+                  }
+                }
+                return item;
+            })
+          })
         }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+      }
+    })
+    this.calculateCartInfo()
   }
+
+
+  /**
+   * Удаление товаров из корзины
+   * @param code
+   */
+  
+  removeFromCart(code) {
+      this.state.cart.map(item => {
+        if (item.code === code) {
+            this.setState({
+              ...this.state,
+              cart: this.state.cart.filter(item => item.code !== code)
+            })
+        }
+      })
+      this.calculateCartInfo()
+    }
+
+    calculateCartInfo() {
+      let sum = 0
+      this.state.cart.map(item => {
+              sum = sum + (item.quantity * item.price)
+            })
+      this.setState({
+        ...this.state,
+        cartInfo: {
+          itemsCount: this.state.cart.length,
+          cartSum: sum
+        }
+      })
+    }
+
+
+
 }
 
 export default Store;

@@ -4,3 +4,12 @@
     justify-content: flex-end;
     padding: 20px;
 }
+
+.Controls button {
+    margin-left: 20px;
+}
+
+.Controls-data {
+    font-weight: 700;
+    margin-left: 15px;
+}

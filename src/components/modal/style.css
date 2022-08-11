@@ -1,0 +1,108 @@
+/*Модальное окно*/
+
+
+.Modal{
+    
+}
+
+
+.Modal-bg{
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+
+    width: 100%;
+    height: 100%;
+    
+    background: rgba(0, 0, 0, 0.7);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Modal-window {
+    overflow: hidden;
+
+    width: 960px;
+    min-height: 603px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+.Modal-head {
+    width: 100%;
+    height: 80px;
+
+    margin-bottom: 74px;
+}
+
+.Modal-headBg {
+    width: 100%;
+    height: 100%;
+
+    background: #F5F5F5;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Modal-headBg h1{
+    margin: 0;
+    padding: 20px 20px 10px;
+}
+
+.Modal-headBg button{
+    margin: 30px 30px 30px;
+}
+
+.Modal-item{
+    border-bottom: 1px dashed #ccc;
+}
+
+.Modal-item:first-child{
+    border-top: 1px dashed #ccc;
+}
+
+.Modal-bottomText{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    transition: background-color 1s;
+
+    margin: 20px 108px 0 0 ;
+    text-align: right;
+    font-weight: 700;
+}
+
+.Modal-bottomTextSum {
+    padding: 0 10px; 
+}
+
+.Modal-bottomTextData {
+    min-width: 100px;
+}
+
+.Modal-bottomText_hidden{
+    visibility: hidden;
+}
+
+.Modal-emptyCartMessage{
+    display: flex;
+    justify-content: center;
+
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.Modal-emptyCartMessage_hidden{
+    visibility: hidden;
+}

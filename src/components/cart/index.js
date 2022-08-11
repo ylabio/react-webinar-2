@@ -32,7 +32,7 @@ export const Cart = React.memo(({setActive, cartsItems, onDelete, sum, uniqueCar
                         padding: '30px'}}>
                     </div>
                     {uniqueCartItems(cartsItems).map(item => <CartItem cartItem={item} onDelete={onDelete} count={cardItemCount(item)} />)}
-                    <h3 className={cn('allSum')}><span>Итого</span> {sum} ₽</h3>
+                    <h3 className={cn('allSum')}><span>Итого</span> {sum.toLocaleString('Ru-ru')} ₽</h3>
                 </Layout>
             </div>
 

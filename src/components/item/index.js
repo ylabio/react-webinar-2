@@ -22,7 +22,7 @@ function Item(props) {
                 {props.item.title}
             </div>
             <div className={cn('price')}>
-                {props.item.price} ₽
+                {props.item.price.toLocaleString('Ru-ru')} ₽
             </div>
             <div className={cn('actions')}>
                 <button onClick={callbacks.onAdd}>

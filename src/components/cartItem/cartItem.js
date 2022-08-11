@@ -22,7 +22,7 @@ export const CartItem = React.memo((props) => {
                 {props.cartItem.title}
             </div>
             <div className={cn('price')}>
-                {props.cartItem.price} ₽
+                {props.cartItem.price.toLocaleString('Ru-ru')} ₽
             </div>
             <div className={cn('count')}>
                 {props.count} шт

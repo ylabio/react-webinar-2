@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Modal from "./components/modal";
 
 /**
  * Приложение
@@ -12,26 +12,33 @@ import {counter} from "./utils";
 function App({store}) {
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAddItems: useCallback((item) => {
+      store.addToModal(item);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onDeleteItems: useCallback((item) => {
+      store.deleteItem(item.code);
     }, []),
   }
-
+  const [modalOpened, setModalOpened] = React.useState(false);
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+      <div>
+        <Layout head={<h1>Магазин</h1>}>
+          <Controls items={store.getState().itemsModal} onClickModal = { () => setModalOpened(true)}/>
+          <List items={store.getState().items}
+                actionButton={callbacks.onAddItems}
+                textButton={'Добавить'}
+          />
+        </Layout>
+        {modalOpened &&  <Modal onDeleteItems={callbacks.onDeleteItems}
+                                items={store.getState().itemsModal}
+                                onClose = { () => setModalOpened(false)} >
+          <List items={store.getState().itemsModal}
+                actionButton={callbacks.onDeleteItems}
+                textButton={'Удалить'}
+          />
+        </Modal>}
+      </div>
+
   );
 }
 

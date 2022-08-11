@@ -3,13 +3,18 @@
     display: flex;
     justify-content: flex-start;
     transition: background-color 1s;
+    align-items: center;
 }
-.Item_selected{
-    background: #75aaf1;
+.Item-price{
+    display: flex;
+    align-items: center;
 }
-
+.Item-price p{
+    padding: 0 0 0 5px;
+}
 
 .Item-title{
+    display: flex;
     width: 100%;
     padding: 20px 10px;
 }
@@ -20,4 +25,7 @@
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+.Item-amount{
+    padding: 0 5px 0 35px;
 }

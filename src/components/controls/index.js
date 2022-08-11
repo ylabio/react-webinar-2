@@ -9,7 +9,9 @@ function Controls({ totalPrice, showModal, cartLength }) {
     <div className="Controls">
       <div>В корзине:</div>
       <span style={{ fontWeight: "bold" }}>
-        {cartLength ? `  ${cartLength} ${text} / ${totalPrice} ₽` : `пусто`}
+        {cartLength
+          ? `  ${cartLength} ${text} / ${totalPrice.toLocaleString()} ₽`
+          : `пусто`}
       </span>
       <button onClick={() => showModal()}>Перейти</button>
     </div>

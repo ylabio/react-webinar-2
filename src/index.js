@@ -18,6 +18,7 @@ const store = new Store({
   cart: {
     itemsInCart: [],
     totalPrice: 0,
+    totalQuantity: 0,
   },
 });
 

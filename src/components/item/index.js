@@ -13,7 +13,7 @@ function Item({ item, addItemInCart }) {
         <div className={cn("title")}>{item.title}</div>
         <div className={cn("actions")}>
           <div className={cn("actions--price")}>
-            <div>{item.price} </div>
+            <div>{item.price.toLocaleString()} </div>
             <div>₽</div>
           </div>
           <button onClick={() => addItemInCart(item)}>Добавить</button>

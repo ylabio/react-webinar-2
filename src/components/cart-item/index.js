@@ -11,7 +11,7 @@ const CartItem = ({ item, removeItem, code }) => {
         <div>{item.title}</div>
       </div>
       <div className={cn("content--right")}>
-        <div>{item.price}₽</div>
+        <div>{item.price.toLocaleString()}₽</div>
         <div>{item.quantity} шт</div>
         <div onClick={removeItem}>
           <button onClick={() => removeItem(code)}>Удалить</button>

@@ -15,6 +15,8 @@ function App({ store }) {
 
   const { itemsInCart, totalPrice } = store.state.cart;
 
+  console.log(store.state.cart.totalQuantity);
+
   const callbacks = {
     toggleModal: useCallback(() => {
       setModal(!modal);

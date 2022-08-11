@@ -36,7 +36,7 @@ class Store {
         ...this.state,
         cart: {
           ...this.state.cart,
-          itemsInCart: this.state.cart.itemsInCart.map((el) => {
+          itemsInCart: [...this.state.cart.itemsInCart].map((el) => {
             if (el.code === item.code) {
               return { ...el, quantity: ++el.quantity };
             }
@@ -75,6 +75,7 @@ class Store {
       cart: {
         ...this.state.cart,
         totalPrice: getTotalPrice(this.state.cart.itemsInCart),
+        totalQuantity: getItemsQuantity(this.state.cart.itemsInCart),
       },
     });
   }

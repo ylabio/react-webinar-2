@@ -1,57 +1,88 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
+import { cn as bem } from "@bem-react/classname";
 import './style.css';
 
 function Item(props) {
-  const cn = bem('Item');
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
+  const cn = bem('Item');
 
   const callbacks = {
 
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
+    onItemDeleteFromCart: useCallback(() => {
+      props.onItemDeleteFromCart(props.item.code)
+    }, []),
 
-    onDelete: useCallback((e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
+    onAddItemToCard: useCallback(() => {
+      props.onAddItemToCard(props.item.code)
+    }, [])
   };
 
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
-      <div className={cn('number')}>
-        {props.item.code}
-      </div>
-      <div className={cn('title')}>
-        {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
-      </div>
-      <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
-      </div>
-    </div>
+    <>
+      {
+        props.cart
+          ?
+          <div className={cn('cartContainer')}>
+            <div className={cn('numTitle')}>
+              <div className={cn('number')}>
+                {props.item.code}
+              </div>
+              <div className={cn('title')}>
+                {props.item.title}
+              </div>
+            </div>
+            <div className={cn('priceCount')}>
+              <div className={cn('price')}>
+                {props.item.price.toLocaleString("ru-RU", {
+                  style: "currency",
+                  currency: "RUB",
+                })}
+              </div>
+              <div className={cn('count')}>
+                {props.item.count} шт
+              </div>
+              <button onClick={callbacks.onItemDeleteFromCart} >
+                Удалить
+              </button>
+            </div>
+          </div>
+          :
+          <div className={cn({ 'selected': props.item.selected })}>
+            <div className={cn('number')}>
+              {props.item.code}
+            </div>
+            <div className={cn('title')}>
+              {props.item.title}
+            </div>
+            <div className={cn('itemPrice')}>
+              {props.item.price.toLocaleString("ru-RU", {
+                style: "currency",
+                currency: "RUB",
+              })}
+            </div>
+            <div className={cn('actions')}>
+              <button onClick={callbacks.onAddItemToCard}>
+                Добавить
+              </button>
+            </div>
+          </div>
+      }
+    </>
   )
 }
 
 Item.propTypes = {
-  item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
+  cards: propTypes.arrayOf(propTypes.object).isRequired,
+  onItemDeleteFromCart: propTypes.func,
+  onAddItemToCard: propTypes.func,
 }
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
+  cards: [],
+  onItemSelect: () => { },
+  onItemDeleteFromCart: () => { }
 }
+
 
 export default React.memo(Item);

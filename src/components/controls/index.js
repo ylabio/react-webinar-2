@@ -1,21 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import './style.css';
+import { Modal } from './../modal/modal';
+import plural from 'plural-ru'
+import { OpenModalButton } from './open-modal-button/openModalButton';
 
-function Controls({onAdd}){
+function Controls({totalPrice,productsCount, setOpenModal,openModal}) {
+
+
+
   return (
     <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+      {
+        productsCount === 0
+          ?
+          <span>В корзине: <b>Пусто</b> </span>
+          :
+          <span>В корзине: <b>{plural(productsCount, '%d товар', '%d товара', '%d товаров')}</b><b> / {totalPrice.toLocaleString("ru-RU", {
+            style: "currency",
+                        currency: "RUB",
+          })}</b>
+          </span>
+      }
+      <OpenModalButton
+      setOpenModal={setOpenModal}
+      openModal={openModal}
+      />
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  setOpenModal: propTypes.func.isRequired,
+  openModal: propTypes.bool,
+  totalPrice: propTypes.node,
+  productsCount: propTypes.node,
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  onItemDeleteFromCart: () => { },
+  setOpenModal: () => { },
 }
+
 
 export default React.memo(Controls);

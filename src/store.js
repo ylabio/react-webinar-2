@@ -43,43 +43,58 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  createItem({ code, title = 'Новый товар', price = 999, selected = false }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      items: this.state.items.concat({ code, title, price, selected })
     });
   }
-
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
+counter () {
+  const unicProducts = this.state.cart.length;
+    const totalPriceCounter = this.state.cart.reduce((sum, elem) => {
+      return sum + elem.price * elem.count;
+    }, 0);
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
+      totalPrice:totalPriceCounter,
+      productsCount:unicProducts
+    })
+}
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
+
+  addItem(id) {
+    const inCart = this.state.cart.map((item) => item.code);
+
+    if (!inCart.includes(id)) {
+      const [test] = this.state.items.filter((item) => item.code === id);
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, { ...test, count: 1 }],
+      });
+    } else {
+
+      this.setState({
+        ...this.state,
+
+        cart: this.state.cart.map(cartItem => {
+          if (cartItem.code === id) {
+            return { ...cartItem, count: cartItem.count + 1 }
+
+          } else return cartItem
+        })
       })
-    });
+    }
+    this.counter()
   }
+
+  deleteFromCart(code) {
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.filter((item) => item.code !== code),
+    });
+    this.counter()
+  }
+
 }
 
 export default Store;

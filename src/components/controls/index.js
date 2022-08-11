@@ -33,11 +33,9 @@ function Controls({ isShow, countCartItems, sumCart }) {
 }
 
 Controls.propTypes = {
-  isShow: propTypes.func.isRequired, // Обяхательное свойство - функция
-};
-
-Controls.defaultProps = {
-  isShow: () => {}, // Значение по умолчанию - функция-заглушка
+  isShow: propTypes.func.isRequired, // Обяательное свойство - функция
+  countCartItems: propTypes.number.isRequired,
+  sumCart: propTypes.number.isRequired,
 };
 
 export default React.memo(Controls);

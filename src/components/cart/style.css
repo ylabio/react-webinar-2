@@ -1,0 +1,46 @@
+
+ .Cart{
+    position: absolute;
+    top: 20%;
+    left: 26%;
+    width: 80%;
+    max-width: 968px;
+    min-height: 80vh;
+    margin: 0 auto;
+    background: #fff;
+    box-sizing: border-box;
+    box-shadow: 0 0 15px 5px #0000003b;
+    border-radius: 15px ;
+}
+
+
+.Cart-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    background: #f5f5f5;
+    border-radius: 15px 15px 0px 0px;
+}
+
+.Cart-head h1 {
+    margin: 0;
+    padding: 20px 20px 10px;
+}
+
+.Cart-button {
+    margin: 0px 20px 0px;
+    padding: 1px 12px;
+    height: 23px;
+}
+
+.Cart-price {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0px 200px 0px 0px;
+}
+.Cart-price-clear {
+    display: flex;
+    justify-content: center;
+    
+}

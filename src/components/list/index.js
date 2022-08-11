@@ -31,7 +31,6 @@ List.propTypes = {
 };
 
 List.defaultProps = {
-  items: [],
   onItemSelect: () => {},
   onItemDelete: () => {},
 };

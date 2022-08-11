@@ -7,6 +7,12 @@ import './style.css';
 
 function Modal({ active, setActive, children, head = "Корзина", summationCart }) {
     const cn = bem('Modal');
+
+    function divideNumberByPieces(x, delimiter) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, delimiter || " ");
+      }
+      
+
     return (
         <div className={active ? cn('active') : cn()}>
             <div className={cn("content")}>
@@ -30,7 +36,7 @@ function Modal({ active, setActive, children, head = "Корзина", summation
                     > Итого </p>
 
                     <p className={cn('price')}
-                    > {` ${summationCart} ₽`} </p>
+                    > {` ${divideNumberByPieces(summationCart)} ₽`} </p>
                 </div>
 
             </div>

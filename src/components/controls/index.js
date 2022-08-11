@@ -4,7 +4,11 @@ import plural from 'plural-ru';
 import './style.css';
 
 function Controls({ setActive, summationCart }) {
-
+  
+  function divideNumberByPieces(x, delimiter) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, delimiter || " ");
+  }
+  
 
   return (
     <div className='Controls'>
@@ -14,7 +18,7 @@ function Controls({ setActive, summationCart }) {
         {summationCart().quantityP > 0 ?
         `${summationCart().quantityP}
          ${plural(summationCart().quantityP, 'товар', 'товара', 'товарa')} / 
-         ${summationCart().priceCrat} ₽` : 'пусто'}
+         ${divideNumberByPieces(summationCart().priceCrat)} ₽` : 'пусто'}
       </p>
 
 

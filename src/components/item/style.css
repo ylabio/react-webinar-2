@@ -1,0 +1,25 @@
+/* Пункт списка */
+.Item{
+    display: flex;
+    justify-content: flex-start;
+}
+.Item-title{
+    width: 100%;
+    padding: 20px 10px;
+}
+.Item-number{
+    padding: 20px 10px 20px 20px;
+}
+.Item-price{
+    padding: 20px 10px 20px 20px;
+    white-space: nowrap;
+}
+.Item-actions{
+    padding: 20px  20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.Item-actions-button{
+    min-width: 75px;
+    max-width: 100px;
+}

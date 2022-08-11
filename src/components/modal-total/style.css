@@ -1,0 +1,10 @@
+.Modal-total{
+    font-weight: bold;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 100px;
+    margin-bottom: 20px;
+}
+.Modal-total-amount{
+    margin-left: 30px;
+}

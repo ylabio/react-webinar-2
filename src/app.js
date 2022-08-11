@@ -1,6 +1,11 @@
-import React from 'react';
-import {counter} from './utils.js';
-import './style.css';
+import React, {useCallback, useMemo} from 'react';
+import Controls from "./components/controls";
+import List from "./components/list";
+import Layout from "./components/layout";
+import ModalLayout from './components/modal-layout';
+import Modalhead from './components/modalhead';
+import Cart from './components/cart';
+import ModalTotal from './components/modal-total';
 
 /**
  * Приложение
@@ -8,38 +13,36 @@ import './style.css';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
-  // Выбор состояния из store
-  const {items} = store.getState();
+  const { items, cart, totals, isModalOpen, totalAmount } = store.getState();
+
+  const callbacks = {
+    addToCart: useCallback((code) => {
+      store.addToCart(code);
+    }, []),
+    onRemoveItem: useCallback((code) => {
+      store.removeFromCart(code)
+    }, []),
+    onShowCart: useCallback((e) => {
+      e.stopPropagation();
+      store.openModal();
+    }, []),
+    hideCart: useCallback(() => {
+      store.closeModal();
+    }, []),
+  };
 
   return (
-    <div className='App'>
-      <div className='App__head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='Controls'>
-        <button onClick={() => {
-          const code = counter();
-          store.createItem({code, title: `Новая запись ${code}`})
-        }}> Добавить </button>
-      </div>
-      <div className='App__center'>
-        <div className='List'>{items.map(item =>
-          <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
-              <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
-              <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
-                  Удалить
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-        </div>
-      </div>
-    </div>
+    <>
+      <Layout isModalOpen={isModalOpen} head={<h1>Магазин</h1>} onClick={callbacks.hideCart}>
+        <Controls cart={cart} totals={totals} onShowCart={callbacks.onShowCart}/>
+        <List items={items} onItemAdd={callbacks.addToCart}/>
+      </Layout>
+      {isModalOpen && 
+      <ModalLayout head={<Modalhead onClose={callbacks.hideCart} />}>
+        <Cart cart={cart} onRemove={callbacks.onRemoveItem}/>
+        <ModalTotal totalAmount={totalAmount} />
+      </ModalLayout>}
+    </>
   );
 }
 

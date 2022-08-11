@@ -35,23 +35,21 @@ function App({store}) {
     }
   }
 
+  const onDeleteItem = (code) => {
+    setOrder(prev => prev.filter(elem => elem.code !== code))
+  }
+
   useMemo(() => setOrderForModal(order), [order])
 
-  const onDeleteHanlerForModal = useCallback(code => {
-    setOrderForModal(order => order.filter(item => {
-      return (item.code === code)? false : true;         
-    }))
-  }, [orderForModal])
 
-
-let sum = useCallback(orderForModal.reduce((sum, item) => sum + item.price * item.amount, 0));
+let sum = orderForModal.reduce((sum, item) => sum + item.price * item.amount, 0);
 
   return (   
     <>
     {isModalActive
         ? <Modal>  
           <ModalHeader setModalActive={setModalActive}/>
-          <ModalList orderForModal={orderForModal} onDelete={onDeleteHanlerForModal} totalSum={sum}/> 
+          <ModalList orderForModal={orderForModal} onDelete={onDeleteItem} totalSum={sum}/> 
         </Modal>
         : null}
       <Layout head={<h1>Приложение на чистом JS</h1>}>

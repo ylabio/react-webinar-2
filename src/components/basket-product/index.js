@@ -21,7 +21,7 @@ function BasketProduct({ basket, priceProduct, onDeleteItems }) {
                     <div className='Basket_product_wrapper_price'>
 
                         <p>Итог</p>
-                        <p className='Basket_product_price'>{priceProduct} ₽</p>
+                        <p className='Basket_product_price'>{priceProduct.toLocaleString()} ₽</p>
 
                     </div> :
                     <div className='Baket_product_not'>

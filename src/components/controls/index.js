@@ -7,7 +7,7 @@ function Controls({ priceProduct, amountProduct, setActive }) {
     <div className='Controls'>
       <div className='Info_wrapper_items'>
         <p className='Basket_title'>В корзине:</p>
-        <p className='Product_amount_price'>{`${amountProduct > 0 ? plural(amountProduct, '%d товар', '%d товара', '%d товаров') + ' / ' + priceProduct + ' ₽' : 'пусто'}  `}</p>
+        <p className='Product_amount_price'>{`${amountProduct > 0 ? plural(amountProduct, '%d товар', '%d товара', '%d товаров') + ' / ' + priceProduct.toLocaleString() + ' ₽' : 'пусто'}  `}</p>
       </div>
       <div className='Wrapper_bth'>
         <button onClick={() => setActive(true)}>Перейти</button>

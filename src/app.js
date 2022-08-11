@@ -1,37 +1,66 @@
-import React, {useCallback} from 'react';
-import Controls from "./components/controls";
-import List from "./components/list";
-import Layout from "./components/layout";
-import {counter} from "./utils";
+import React, { useCallback, useState } from 'react';
+import Controls from './components/controls';
+import List from './components/list';
+import Layout from './components/layout';
+import Modal from './components/modal';
+import Total from './components/total';
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+function App({ store }) {
+  const [isModal, setIsModal] = useState({
+    modalBasket: false
+  });
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAddItem: useCallback((item) => {
+      store.addToBasket(item.code, item.title, item.price);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onMoveToBasket: useCallback(() => {
+      setIsModal(prevState => ({ ...prevState, modalBasket: !prevState.modalBasket }));
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
-  }
+    onRemoveFromBasket: useCallback((item) => {
+      store.removeFromBasket(item.code);
+    }, [])
+  };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <>
+      <Layout headerTitle="Магазин">
+        <Controls
+          count={store.getState().uniqueGoodsCount}
+          total={store.getState().totalBasketCost}
+          buttonTitle="Перейти"
+          onClick={callbacks.onMoveToBasket}
+        />
+        <List
+          items={store.getState().items}
+          buttonTitle="Добавить"
+          onClick={callbacks.onAddItem}
+        />
+      </Layout>
+      {isModal.modalBasket &&
+        <Modal
+          headerTitle="Корзина"
+          headerButtonTitle="Закрыть"
+          onClick={callbacks.onMoveToBasket}
+        >
+          <List
+            items={store.getState().basket}
+            buttonTitle="Удалить"
+            onClick={callbacks.onRemoveFromBasket}
+          />
+          <Total>
+            <strong>Итого</strong>
+            <strong>
+              {store.getState().totalBasketCost + ' \u20bd'}
+            </strong>
+          </Total>
+        </Modal>}
+    </>
   );
 }
 

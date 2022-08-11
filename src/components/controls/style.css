@@ -1,6 +1,9 @@
 /* Контрол с общими действиями */
 .Controls{
     display: flex;
+    gap: 15px;
     justify-content: flex-end;
     padding: 20px;
+
 }
+

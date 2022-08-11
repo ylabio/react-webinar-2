@@ -14,7 +14,9 @@ const store = new Store({
     { code: counter(), title: 'Товар сюрприз', price: 0 },
     { code: counter(), title: 'Телефон iPhone XIXV', price: 120000 },
   ],
-  itemsBasket: []
+  itemsBasket: [],
+  summBasket: 0,
+  countPositionBasket: 0,
 });
 
 const root = createRoot(document.getElementById('root'));

@@ -5,8 +5,6 @@ class Store {
     this.state = initState;
     // Слушатели изменений state
     this.listeners = [];
-    this.summ = 0;
-    this.counter = 0;
   }
 
   /**
@@ -42,34 +40,59 @@ class Store {
     }
   }
 
+  addSumm(price) {
+    this.setState({
+      ...this.state,
+      summBasket: this.state.summBasket + price
+    })
+  }
+  addCountBasket(price) {
+    this.setState({
+      ...this.state,
+      countPositionBasket: this.state.countPositionBasket + 1
+    })
+  }
+
+  delSumm(amount, price) {
+
+    this.setState({
+      ...this.state,
+      summBasket: this.state.summBasket - amount * price
+    })
+  }
+  delCountBasket() {
+    this.setState({
+      ...this.state,
+      countPositionBasket: this.state.countPositionBasket - 1
+    })
+  }
   /**
    * Добавление товара в корзину
    */
   createItem({ code, title, price, amount = 1 }) {
     if (this.state.itemsBasket.find(id => id.code === code)) {
+      this.addSumm(price)
       this.setState({
         ...this.state,
         itemsBasket: this.state.itemsBasket.map(item => {
           if (item.code == code) {
-            this.summ = this.summ + item.price; // Добавление суммы в корзину
             return {
-              code,
-              title: item.title,
-              price: item.price,
+              ...item,
               amount: item.amount + 1
             }
           }
-          return item
+          return item;
         })
       })
     }
     else (
-      this.summ = this.summ + price,
-      this.counter = this.counter + 1,
       this.setState({
         ...this.state,
-        itemsBasket: this.state.itemsBasket.concat({ code, title, price, amount })
-      })
+        itemsBasket: this.state.itemsBasket.concat({ code, title, price, amount }),
+      }),
+
+      this.addSumm(price),
+      this.addCountBasket()
     )
   }
 
@@ -77,17 +100,14 @@ class Store {
    * Удаление товара из корзины
    * @param code
    */
-  deleteItem(code) {
-    this.counter = this.counter - 1,
+  deleteItem(code, amount, price ) {
+    
+    this.delCountBasket(amount,price)
+    this.delSumm(amount, price)
+
       this.setState({
         ...this.state,
-        itemsBasket: this.state.itemsBasket.filter(item => {
-          if (item.code !== code) {
-            return item
-          } else {
-            this.summ = this.summ - item.amount * item.price
-          }
-        })
+        itemsBasket: this.state.itemsBasket.filter(item => (item.code !== code))
       });
   }
 

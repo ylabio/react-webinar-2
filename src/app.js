@@ -26,8 +26,8 @@ function App({ store }) {
       <Controls onDeleteItems={callbacks.onDeleteItems}
                 priceFormation={callbacks.priceFormation}
                 itemsBasket={store.getState().itemsBasket}
-                counterBasketItemsSumm={store.summ}
-                counterBasketItemsAmount={store.counter}
+                counterBasketItemsSumm={store.state.summBasket}
+                counterBasketItemsAmount={store.state.countPositionBasket}
       />
 
       <List items={store.getState().items}

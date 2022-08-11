@@ -41,44 +41,44 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Удаление записи из корзины по её коду
+   * @param code
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  deleteItemCart(code, price, quantity) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      itemsCart: this.state.itemsCart.filter(item => item.code !== code),
+      quantityUnicItemsCart: this.state.quantityUnicItemsCart - 1,
+      sumPricesInCart: this.state.sumPricesInCart - price * quantity
     });
   }
 
   /**
-   * Удаление записи по её коду
-   * @param code
+   * Добавление товара в корзину
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
-
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
+  addProductToCart({item}) {
+    if (this.state.itemsCart.find(itemsCart => itemsCart.code === item.code)) {
+      this.setState({
+        ...this.state,
+        itemsCart: this.state.itemsCart.map(itemCart => {
+          if (itemCart.code === item.code){
+            return {
+              ...itemCart,
+              quantity: itemCart.quantity + 1,
+            }
           }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
-    });
+          return itemCart;
+        }),
+        sumPricesInCart: this.state.sumPricesInCart + item.price
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        itemsCart: this.state.itemsCart.concat({...item, quantity: 1}),
+        quantityUnicItemsCart: this.state.quantityUnicItemsCart + 1,
+        sumPricesInCart: this.state.sumPricesInCart + item.price
+      });
+    }
   }
 }
 

@@ -1,0 +1,36 @@
+.LayoutCart-over{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    top: 0;
+}
+.LayoutCart{
+    position: absolute;
+    width: 960px;
+    min-height: 603px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    margin: 0 auto;
+    background: #fff;
+    box-sizing: border-box;
+    padding-bottom: 30px;
+}
+.LayoutCart-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    background: #f5f5f5;
+    border-radius: 10px 10px 0 0;
+}
+.LayoutCart-head h1{
+    margin: 20px 20px 23px 20px;
+    padding: 0;
+}
+.LayoutCart-head button{
+    margin: 31px 32px 28px 32px;
+}

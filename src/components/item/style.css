@@ -3,6 +3,7 @@
     display: flex;
     justify-content: flex-start;
     transition: background-color 1s;
+    white-space: nowrap;
 }
 .Item_selected{
     background: #75aaf1;
@@ -20,4 +21,13 @@
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+.Item-price{ 
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: right;
+    color: #404040;
+    padding: 20px 10px;
 }

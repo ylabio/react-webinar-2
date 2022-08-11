@@ -1,9 +1,9 @@
 /*Список*/
-.List{
-
-}
 .List-item{
     border-bottom: 1px dashed #ccc;
+}
+.List_cart{
+    margin-top: 74px;
 }
 
 .List-item:first-child{

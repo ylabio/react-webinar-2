@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import LayoutCart from './components/layout-cart';
+import TotalAmount from './components/totalAmount';
 
 /**
  * Приложение
@@ -10,28 +11,54 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const [openModal, setOpenModal] = useState(false);
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onShowCart: useCallback(() => {
+      setOpenModal(true);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onCloseCart: useCallback(() => {
+      setOpenModal(false);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onDeleteItemsCart: useCallback((code, price, quantity) => {
+      store.deleteItemCart(code, price, quantity);
+    }, []),
+    onAddProductToCart: useCallback((item) => {
+      store.addProductToCart({item});
     }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <>
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls 
+        onShowCart={callbacks.onShowCart} 
+        sumPricesInCart={store.state.sumPricesInCart} 
+        quantityUnicItemsCart={store.state.quantityUnicItemsCart}
+      />
+      <List 
+        items={store.getState().items} 
+        onAddProductToCart={callbacks.onAddProductToCart} 
       />
     </Layout>
+    {openModal && (
+      <LayoutCart 
+        head={<><h1>Корзина</h1><button onClick={callbacks.onCloseCart}>Закрыть</button></>}
+      >
+        <List 
+          itemsCart={store.state.itemsCart} 
+          sumPricesInCart={store.state.sumPricesInCart}
+          quantityUnicItemsCart={store.state.quantityUnicItemsCart} 
+          onItemCartDelete={callbacks.onDeleteItemsCart}
+          openModal={openModal}
+        />
+        <TotalAmount 
+          quantityUnicItemsCart={store.state.quantityUnicItemsCart}
+          sumPricesInCart={store.state.sumPricesInCart}
+        />
+      </LayoutCart>
+    )}
+    </>
   );
 }
 

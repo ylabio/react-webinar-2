@@ -6,12 +6,12 @@ GET http://example.front.ylab.io/api/v1/articles
 ###
 # Список с пагинацией
 
-GET http://example.front.ylab.io/api/v1/articles?limit=20&offset=10
+GET http://example.front.ylab.io/api/v1/articles?limit=10&skip=20
 
 ###
 # Список с пагинацией и возвратом общего количества
 
-GET http://example.front.ylab.io/api/v1/articles?limit=20&offset=10&fields=items(*),count
+GET http://example.front.ylab.io/api/v1/articles?limit=20&skip=10&fields=items(*),count
 
 ###
 # Товар по id

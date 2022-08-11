@@ -1,13 +1,10 @@
 /* Пункт списка */
 .Item{
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
+    align-items: start;
     transition: background-color 1s;
 }
-.Item_selected{
-    background: #75aaf1;
-}
-
 
 .Item-title{
     width: 100%;
@@ -20,4 +17,11 @@
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+
+.Item-price{
+    width: 30%;
+    padding: 20px 14px 20px 20px;
+    text-align: end;
+    color: #404040;
 }

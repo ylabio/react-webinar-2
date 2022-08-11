@@ -1,10 +1,11 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
     // Слушатели изменений state
     this.listeners = [];
+    this.counter = this.counterItemsInBin();
+    this.totalPrice = 0;
   }
 
   /**
@@ -36,28 +37,17 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  createItem({ code, title = 'Новый товар', price = 999 }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      items: this.state.items.concat({ code, title, price }),
     });
   }
 
@@ -65,21 +55,64 @@ class Store {
    * Выделение записи по её коду
    * @param code
    */
-  selectItem(code) {
+  addItemToBin(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
+      items: this.state.items.map((item) => {
+        if (item.code === code) {
           return {
             ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
+            addCounter: item.addCounter + 1,
+          };
         }
-        return item.selected ? {...item, selected: false} : item;
-      })
+        return item;
+      }),
     });
+    this.counterItemsInBin();
+    this.counterTotalPrice();
   }
+
+  DeleteItemFromBin(code) {
+    this.setState({
+      ...this.state,
+      items: this.state.items.map((item) => {
+        if (item.code === code) {
+          return {
+            ...item,
+            addCounter: 0,
+          };
+        }
+        return item;
+      }),
+    });
+    this.counterItemsInBin();
+    this.counterTotalPrice();
+  }
+
+  counterItemsInBin = () => {
+    this.counter = 0;
+    this.state.items.map((item) => {
+      if (item.addCounter > 0) {
+        return this.counter++;
+      }
+      return this.counter;
+    });
+    return this.counter;
+  };
+
+  counterTotalPrice = () => {
+    return (this.totalPrice = this.state.items
+      .map((item) => {
+        return {
+          counter: item.addCounter,
+          price: item.price,
+        };
+      })
+      .map((item) => item.counter * item.price)
+      .reduce(function (sum, elem) {
+        return sum + elem;
+      }, 0));
+  };
 }
 
 export default Store;

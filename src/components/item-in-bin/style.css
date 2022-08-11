@@ -1,0 +1,41 @@
+.Popup-item {
+  border: 1px dashed #cccccc;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Popup-item:first-child {
+    margin-top: 74px;
+  }
+
+.Popup-item-number {
+  text-align: center;
+}
+
+.Popup-item-flex-start {
+  display: flex;
+  padding: 21px 0 22px 18px;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.Popup-item-title {
+  margin-left: 18px;
+}
+
+.Popup-item-flex-end {
+    align-self: end;
+  display: flex;
+  padding: 21px 18px 22px 0;
+  font-size: 18px;
+  line-height: 21px;
+  color: #404040;
+}
+
+.Popup-item-counter {
+  margin-right: 23px;
+}
+
+.Popup-item-price {
+  margin-right: 55px;
+}

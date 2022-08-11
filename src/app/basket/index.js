@@ -10,6 +10,8 @@ function Basket(){
 
   console.log('Basket');
 
+  const test = 0
+
   const store = useStore();
 
   const select = useSelector(state => ({

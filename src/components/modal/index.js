@@ -23,13 +23,10 @@ function Modal({head, children, onClose}) {
 
 Modal.propTypes = {
   onClose: propTypes.func.isRequired,
-  head: propTypes.node,
-  children: propTypes.node,
+  head: propTypes.node.isRequired,
+  children: propTypes.node.isRequired,
 }
-
 Modal.defaultProps = {
-  isShow: false,
-  onClose: () => {}
 }
 
 export default React.memo(Modal);

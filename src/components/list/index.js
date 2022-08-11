@@ -49,7 +49,6 @@ List.propTypes = {
 }
 
 List.defaultProps = {
-  items: [],
   isCart: false,
   total: 0,
   onItemSelect: () => {},

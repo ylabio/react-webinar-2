@@ -20,15 +20,14 @@ function Controls({title, onClick, children}){
 }
 
 Controls.propTypes = {
-  title: propTypes.string.isRequired,
   onClick: propTypes.func.isRequired,
+  title: propTypes.string,
   children: propTypes.node,
 }
 
 Controls.defaultProps = {
   title: 'Перейти',
-  onClick: () => {}, // Значение по умолчанию - функция-заглушка
-  
+  children: null,  
 }
 
 export default React.memo(Controls);

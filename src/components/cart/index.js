@@ -25,8 +25,8 @@ function Cart({amount, total, title}) {
 }
 
 Cart.propTypes = {
-  amount: propTypes.number.isRequired,
-  total: propTypes.number.isRequired,
+  amount: propTypes.number,
+  total: propTypes.number,
   title: propTypes.string
 }
 

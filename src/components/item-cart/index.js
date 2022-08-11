@@ -50,12 +50,11 @@ function ItemCart(props) {
 
 ItemCart.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDelete: propTypes.func.isRequired,
+  onSelect: propTypes.func,
+  onDelete: propTypes.func,
 }
 
 ItemCart.defaultProps = {
-  item: {},
   onSelect: () => {},
   onDelete: () => {},
 }

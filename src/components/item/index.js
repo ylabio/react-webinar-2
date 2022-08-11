@@ -60,7 +60,6 @@ Item.propTypes = {
 }
 
 Item.defaultProps = {
-  item: {},
   onSelect: () => {},
   onDelete: () => {},
   onAddToCart: () => {},

@@ -9,3 +9,11 @@
 .List-item:first-child{
     border-top: 1px dashed #ccc;
 }
+.List-item_empty{
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+}

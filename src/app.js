@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
+import {cn as bem} from '@bem-react/classname';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import ShopCart from "./components/cart";
 
 /**
  * Приложение
@@ -10,27 +11,43 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const [showCart, setShowCart] = useState(false);
+  const cn = bem('Cart');
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAdd: useCallback((code) => {
+      store.addItem(code);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onOpen: useCallback(() => {
+        setShowCart(!showCart);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    onDelete: useCallback((code) => {
+      store.deleteCartItem(code);
     }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout head={<h1>Магазин</h1>} layout='Layout'>
+      <Controls onOpen={callbacks.onOpen}
+                cartQty={store.getState().shoppingCartQty} 
+                cartTotal={store.getState().shoppingCartTotal}
       />
+      <List items={store.getState().items} onItemAdd={callbacks.onAdd} />
+      {showCart && 
+        <ShopCart header='Корзина' onClose={()=> setShowCart(!showCart)}>
+          <List items={store.getState().shoppingCart} onDelete={callbacks.onDelete} />
+          {(store.getState().shoppingCartQty > 0) 
+            && <div className={cn('footer')}>
+                 <span>Итого</span>
+                 <span className={cn('total')}>
+                   {store.getState().shoppingCartTotal
+                                    .toLocaleString('ru-RU') 
+                                    + ' \u20bd'}
+                 </span>
+              </div>
+              }
+        </ShopCart>
+        }
     </Layout>
   );
 }

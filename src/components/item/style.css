@@ -3,6 +3,9 @@
     display: flex;
     justify-content: flex-start;
     transition: background-color 1s;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
 }
 .Item_selected{
     background: #75aaf1;
@@ -12,6 +15,8 @@
 .Item-title{
     width: 100%;
     padding: 20px 10px;
+    font-size: 16px;
+    line-height: 18px;
 }
 .Item-actions{
     padding: 20px  20px 20px 10px;
@@ -20,4 +25,19 @@
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+}
+.Item-price{
+    padding: 20px  14px 20px 10px;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: right;
+    white-space: nowrap;
+    color: #404040;
+}
+.Item-button{
+    background: #EFEFEF;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    width: 76px;
+    height: 21px;
 }

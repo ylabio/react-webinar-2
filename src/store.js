@@ -43,11 +43,33 @@ class Store {
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  addItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      shoppingCart: (this.state.shoppingCart.find(item => item.code == code))
+        ? this.state.shoppingCart.map(item=>{
+          if (item.code == code) {
+            return {
+              ...item,
+              qty: item.qty + 1,
+            };
+          }
+          else return item; 
+          })
+        : this.state.shoppingCart.concat(
+        this.state.items.filter(item => item.code == code).map(item => {
+          return {...item,
+            qty: 1,
+          }
+        })
+        ),
     });
+    this.setState({
+      ...this.state,
+      shoppingCartQty: this.state.shoppingCart.length,
+      shoppingCartTotal: this.state.shoppingCart.map(el => el.price * el.qty)
+                                                .reduce((a,b)=>a+b,0),
+    })
   }
 
   /**
@@ -61,25 +83,19 @@ class Store {
     });
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
+  deleteCartItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      shoppingCart: this.state.shoppingCart.filter(item => item.code !== code),
     });
-  }
+
+    this.setState({
+      ...this.state,
+      shoppingCartQty: this.state.shoppingCart.length,
+      shoppingCartTotal: this.state.shoppingCart.map(el => el.price * el.qty)
+                                                .reduce((a,b)=>a+b,0),
+    })
+}
 }
 
 export default Store;

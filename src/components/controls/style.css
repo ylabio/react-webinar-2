@@ -3,4 +3,25 @@
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.Controls-title{
+    line-height: 21px;
+}
+.Controls-cart{
+    margin: 0px 20px 0px 15px;
+    font-weight: 700;
+    line-height: 21px;
+}
+
+.Controls-button{
+    background: #EFEFEF;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    width: 80px;
+    height: 21px;
 }

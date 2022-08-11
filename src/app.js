@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
-import Controls from "./components/controls";
+import React, {useCallback, useState} from 'react';
+import Cart from "./components/cart";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import {Modal} from "./components/modal";
+import TotalPrice from "./components/total-price";
 
 /**
  * Приложение
@@ -10,28 +11,40 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const [isModalOpen, setModalOpen] = useState(false)
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAddToCart: useCallback((item) => {
+      store.addToCart(item);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
-    }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    deleteFromCart: useCallback((item) => {
+      store.deleteFromCart(item);
     }, []),
   }
 
+  const items = store.getState().items;
+  const cartItems = Object.values(store.getState().cart.items);
+  console.log(cartItems)
+  const totalPrice = store.getState().cart.totalPrice;
+  const uniqueItems = store.getState().cart.uniqueItems;
+
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Cart
+          totalPrice={totalPrice}
+          openCart={setModalOpen}
+          uniqueItems={uniqueItems}
+        />
+        <List items={items} onAddDeleteToCart={callbacks.onAddToCart}/>
+      </Layout>
+      {isModalOpen &&
+        <Modal title='Корзина' closeModal={setModalOpen}>
+          <List isCart={true} items={cartItems} onAddDeleteToCart={callbacks.deleteFromCart}/>
+          {uniqueItems !== 0 && <TotalPrice totalPrice={totalPrice}/>}
+        </Modal>
+      }
+    </>
   );
 }
 

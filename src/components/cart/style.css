@@ -1,0 +1,10 @@
+.Cart-summary {
+  padding: 26px 108px;
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  box-sizing: border-box;
+}
+.Cart-summary .bold-text {
+  margin-left: 50px;
+}

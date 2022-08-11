@@ -1,5 +1,6 @@
-class Store {
+import { cartSummary } from './utils';
 
+class Store {
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -36,17 +37,17 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
   /**
    * Создание записи
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  createItem({ code, title = 'Новый товар', price = 999, selected = false }) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      items: this.state.items.concat({ code, title, price, selected }),
     });
   }
 
@@ -55,9 +56,16 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const cart = this.state.cart;
+    const inCart = cart.inCart.filter((item) => item.code !== code);
+
     this.setState({
       ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
+      cart: {
+        inCart,
+        amount: cartSummary(inCart),
+        count: cart.count - 1,
+      },
     });
   }
 
@@ -66,18 +74,25 @@ class Store {
    * @param code
    */
   selectItem(code) {
+    const cart = this.state.cart;
+    let count = this.state.cart.count;
+    if (!cart.inCart.find((item) => item.code === code)) {
+      cart.inCart.push({ ...this.state.items.find((item) => item.code === code), quantity: 0 });
+      count = count + 1;
+    }
+    const inCart = new Array(...cart.inCart).map((item) => {
+      if (item.code === code) {
+        ++item.quantity;
+      }
+      return item;
+    });
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cart: {
+        inCart,
+        amount: cartSummary(inCart),
+        count,
+      },
     });
   }
 }

@@ -14,10 +14,6 @@ import Modal from './components/modal';
 function App({ store }) {
   //const [totalCount, setTotalCount] = useState(0)
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({ code, title: `Новая запись ${code}` });
-    }, []),
     onShowModal: useCallback(() => {
       store.showModal();
     }, []),
@@ -29,18 +25,16 @@ function App({ store }) {
     }, [store.getState().cartItems]),
     onAddCartItems: useCallback((code) => {
       store.addCartItems(code);
-    }, [store.getState().cartItems])
+    }, [store.getState().cartItems, store.getState().totalCount, store.getState().totalPrice])
   }
-  let totalPrice = store.getState().cartItems.reduce((sum, item) => sum + item.price * item.addCount, 0);
-  let totalCount = store.getState().cartItems.reduce((sum, item) => { return sum + item.addCount }, 0)
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Controls showModal={callbacks.onShowModal} totalCount={totalCount} totalPrice={totalPrice} />
+      <Controls showModal={callbacks.onShowModal} totalCount={store.getState().totalCount} totalPrice={store.getState().totalPrice} />
       <List items={store.getState().items}
         onItemDelete={callbacks.onDeleteItems}
         onItemAddCart={callbacks.onAddCartItems}
       />
-      <Modal store={store} show={store.getState().showModal} hide={callbacks.onHideModal} onDelete={callbacks.onDeleteItems} totalPrice={totalPrice} />
+      <Modal cartItems={store.getState().cartItems} show={store.getState().showModal} hide={callbacks.onHideModal} onDelete={callbacks.onDeleteItems} totalPrice={store.getState().totalPrice} />
     </Layout>
   );
 }

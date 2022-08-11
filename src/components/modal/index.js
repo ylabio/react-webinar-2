@@ -5,7 +5,7 @@ import './style.css';
 import propTypes from "prop-types";
 import CartFooter from '../cart-footer';
 
-function Modal({ store, onDelete, show, hide, totalPrice }) {
+function Modal({ cartItems, onDelete, show, hide, totalPrice }) {
    const cn = bem('Modal');
    if (!show) {
       return null;
@@ -18,7 +18,7 @@ function Modal({ store, onDelete, show, hide, totalPrice }) {
                <button onClick={hide}>Закрыть</button>
             </div>
             <div className={cn('body')}>
-               <Cart items={store.getState().cartItems} onItemDelete={onDelete} />
+               <Cart items={cartItems} onItemDelete={onDelete} />
             </div>
             <div className={cn('footer')}>
                <CartFooter totalPrice={totalPrice} />

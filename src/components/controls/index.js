@@ -12,7 +12,7 @@ function Controls({ showModal, totalCount, totalPrice }) {
       <div className={cn('total')}>
         В корзине:
         <strong>
-          {totalCount ? `  ${totalCount} ${plural(totalCount, 'товар', 'товара', 'товаров')} / ${numeral(totalPrice).format('0,0')} ₽` : `  пусто `}
+          {totalCount ? `  ${totalCount} ${plural(totalCount, 'товар', 'товара', 'товаров')} / ${totalPrice.toLocaleString()} ₽` : `  пусто `}
         </strong>
       </div>
       <button onClick={showModal}> Перейти </button>

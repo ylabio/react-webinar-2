@@ -1,3 +1,5 @@
+import item from "./components/item";
+
 class Store {
 
   constructor(initState) {
@@ -70,8 +72,11 @@ class Store {
           }
           return item
         }),
-      ]
+      ],
+      totalPrice: this.state.totalPrice - delItem.price * delItem.addCount,
+      totalCount: this.state.totalCount - delItem.addCount
     })
+    console.log(this.state)
   }
   /**
    * Добавление товара
@@ -90,7 +95,9 @@ class Store {
         cartItems: [
           ...this.state.cartItems,
           addItem
-        ]
+        ],
+        totalPrice: this.state.totalPrice + addItem.price,
+        totalCount: this.state.totalCount + 1
       })
     }
     else {
@@ -102,9 +109,12 @@ class Store {
             ...addItem,
             addCount: addItem.addCount
           }
-        ]
+        ],
+        totalPrice: this.state.totalPrice + addItem.price,
+        totalCount: this.state.totalCount + 1
       })
     }
+    console.log(this.state)
   }
 
   // Modal show

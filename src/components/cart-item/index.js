@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
 import { cn as bem } from "@bem-react/classname";
-import numeral from 'numeral';
 import './style.css';
 
 function CartItem(props) {
@@ -21,7 +20,7 @@ function CartItem(props) {
             {props.item.title}
          </div>
          <div className={cn('price')}>
-            {numeral(props.item.price).format('0,0')} ₽
+            {(props.item.price).toLocaleString()} ₽
          </div>
          <div className={cn('count')}>
             {props.item.addCount}

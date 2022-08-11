@@ -1,6 +1,5 @@
 import React from "react";
 import { cn as bem } from "@bem-react/classname";
-import numeral from 'numeral';
 import './style.css';
 
 function CartFooter({ totalPrice }) {
@@ -11,7 +10,7 @@ function CartFooter({ totalPrice }) {
    return (
       <div className={cn()}>
          <div className={cn('totalAmount')}>
-            Итого  {numeral(totalPrice).format('0,0')} ₽
+            Итого  {totalPrice.toLocaleString()} ₽
          </div>
       </div>
    )

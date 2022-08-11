@@ -40,46 +40,77 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  addSumm(price) {
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
+      summBasket: this.state.summBasket + price
+    })
+  }
+  addCountBasket(price) {
+    this.setState({
+      ...this.state,
+      countPositionBasket: this.state.countPositionBasket + 1
+    })
   }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
+  delSumm(amount, price) {
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
+      summBasket: this.state.summBasket - amount * price
+    })
+  }
+  delCountBasket() {
+    this.setState({
+      ...this.state,
+      countPositionBasket: this.state.countPositionBasket - 1
+    })
+  }
+  /**
+   * Добавление товара в корзину
+   */
+  createItem({ code, title, price, amount = 1 }) {
+    if (this.state.itemsBasket.find(id => id.code === code)) {
+      this.addSumm(price)
+      this.setState({
+        ...this.state,
+        itemsBasket: this.state.itemsBasket.map(item => {
+          if (item.code == code) {
+            return {
+              ...item,
+              amount: item.amount + 1
+            }
           }
-        }
-        return item.selected ? {...item, selected: false} : item;
+          return item;
+        })
       })
-    });
+    }
+    else (
+      this.setState({
+        ...this.state,
+        itemsBasket: this.state.itemsBasket.concat({ code, title, price, amount }),
+      }),
+
+      this.addSumm(price),
+      this.addCountBasket()
+    )
   }
+
+  /**
+   * Удаление товара из корзины
+   * @param code
+   */
+  deleteItem(code, amount, price ) {
+    
+    this.delCountBasket(amount,price)
+    this.delSumm(amount, price)
+
+      this.setState({
+        ...this.state,
+        itemsBasket: this.state.itemsBasket.filter(item => (item.code !== code))
+      });
+  }
+
 }
 
 export default Store;

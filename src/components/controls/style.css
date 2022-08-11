@@ -1,6 +1,72 @@
 /* Контрол с общими действиями */
-.Controls{
+.Basket {
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+    font-size: 18px;
+}
+
+.Basket-control {
+    margin-right: 20px;
+}
+
+.Basket-header_modal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px 0 20px;
+    height: 80px;
+    background-color: #F5F5F5;
+    position: sticky;
+    top: 0;
+    box-sizing: border-box;
+}
+
+.Basket-modal-h2 {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.Basket-item {
+    border-bottom: 1px dashed #ccc;
+}
+
+.Basket-item:nth-child(2) {
+    margin-top: 74px;
+    border-top: 1px dashed #ccc;
+}
+
+.Basket-total-summa {
+    width: auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Basket-makeBold {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.Basket-summa,
+.Basket-total {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 24px 0;
+}
+
+.Basket-summa {
+    margin-right: 108px;
+}
+
+.Basket-total {
+    margin-right: 49px;
+}
+
+.Basket-is-empty {
+    font-size: 26px;
+    font-weight: 700;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

@@ -1,21 +1,20 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import './style.css';
+import React from "react";
+import propTypes from "prop-types";
+import "./style.css";
 
-function Controls({onAdd}){
+function Controls({ info, onShowModal }) {
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className="Controls">
+      <span> В корзине: </span>
+      <span>{info}</span>
+      <button onClick={onShowModal}>Перейти</button>
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
-
-Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
-}
+  info: propTypes.string.isRequired,
+  onShowModal: propTypes.func.isRequired,
+};
 
 export default React.memo(Controls);

@@ -3,16 +3,17 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import propTypes from "prop-types";
 
-function Layout({head, children}){
+function Layout(props){
   const cn = bem('Layout');
 
   return (
-    <div className={cn()}>
-      <div className={cn('head')}>
-        {head}
+    <div className={props.buttonTitle === "Закрыть" ?  cn("modal") : cn()}>
+      <div className={props.buttonTitle === "Закрыть" ? cn("header") : cn('head')}>
+        {props.head}
+          {props.buttonTitle ? (<button type="button" onClick={props.onClose} className={cn('btn')}>{props.buttonTitle}</button>) : ""}
       </div>
       <div className={cn('content')}>
-        {children}
+        {props.children}
       </div>
     </div>
   )

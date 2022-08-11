@@ -12,6 +12,11 @@
 .Item-title{
     width: 100%;
     padding: 20px 10px;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
 }
 .Item-actions{
     padding: 20px  20px 20px 10px;
@@ -20,4 +25,32 @@
 }
 .Item-number{
     padding: 20px 10px 20px 20px;
+    color: #404040;
+}
+
+.Item-price{
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    margin-top: 19px;
+    width: 100%;
+    text-align: end;
+    margin-right: 24px;
+    color: #404040;
+    color: #404040;
+}
+
+.Item-sum {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    margin-top: 19px;
+    width: 15%;
+    text-align: right;
+    margin-right: 24px;
+    color: #404040;
 }

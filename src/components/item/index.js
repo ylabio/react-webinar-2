@@ -1,57 +1,64 @@
 import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import plural from 'plural-ru';
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
-
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
+  const [count, setCount] = React.useState(props.item.count);
 
   const callbacks = {
+      onAdd: useCallback(() => {
+          props.onAdd(props.item)
+          setCount(props.item.count)
+      }, [props]),
+      onDelete: useCallback(() => {
+          props.onDelete(props.item)
+          setCount(props.item.count)
+      }, [props])
+  }
 
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code);
-      if (!props.item.selected) {
-        setCount(count + 1);
-      }
-    }, [props.onSelect, props.item, setCount, count]),
-
-    onDelete: useCallback((e) => {
-      e.stopPropagation();
-      props.onDelete(props.item.code)
-    }, [props.onDelete,  props.item])
-  };
+  React.useEffect(()=> {
+      setCount(props.item.count)
+  }, [props])
 
   return (
-    <div className={cn({'selected': props.item.selected})} onClick={callbacks.onClick}>
-      <div className={cn('number')}>
-        {props.item.code}
-      </div>
-      <div className={cn('title')}>
-        {props.item.title}
-        {count ? ` | Выделялось ${count} ${plural(count, 'раз', 'раза', 'раз')}` : null}
-      </div>
-      <div className={cn('actions')}>
-        <button onClick={callbacks.onDelete}>
-          Удалить
-        </button>
-      </div>
-    </div>
+      <>{props.isVisible && count === 0 ? "" : (
+          <div className={cn()} >
+              <div className={cn('number')}>
+                  {props.item.code}
+              </div>
+              <div className={cn('title')}>
+                  {props.item.title}
+              </div>
+              <div className={cn('price')}>
+                  {`${props.item.price.toLocaleString('ru-RU')} ₽`}
+              </div>
+              {props.isVisible ? <div className={cn('sum')}>{`${count} шт`}</div> : ""}
+              <div className={cn('actions')}>
+                  {props.isVisible ? <button onClick={callbacks.onDelete}>
+                          Удалить
+                      </button>
+                      :
+                      <button onClick={callbacks.onAdd}>
+                          Добавить
+                      </button> }
+              </div>
+          </div>
+      ) }</>
+
   )
 }
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onSelect: propTypes.func.isRequired,
-  onDeleted: propTypes.func.isRequired
+  onAdd: propTypes.func.isRequired,
+  onDelete: propTypes.func.isRequired
 }
 
 Item.defaultProps = {
-  onSelect: () => {},
-  onDeleted: () => {}
+  onAdd: () => {},
+  onDelete: () => {}
 }
 
 export default React.memo(Item);

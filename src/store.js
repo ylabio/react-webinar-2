@@ -44,7 +44,7 @@ class Store {
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem({code}) {
+  deleteItem(code) {
     this.setState({
       ...this.state,
       shoppingCart: this.state.shoppingCart.filter(item => item.code !== code)
@@ -52,19 +52,18 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Добавление записи в корзину
    */
-  addItem(item) {
-    if (this.state.shoppingCart.find(value => value.code === item.code)) {
+  addItem(code) {
+    const item = this.state.items.find(item => item.code === code);
+    const shoppingCartItem = this.state.shoppingCart.find(item => item.code === code);
+
+    if (shoppingCartItem) {
       this.setState({
         ...this.state,
-        shoppingCart: this.state.shoppingCart.map((value) => {
-          if (value.code === item.code) {
-            return {...value, quantity: value.quantity + 1}
-          } else {
-            return value;
-          }
-        })
+        shoppingCart: this.state.shoppingCart.map((value) => value.code === code ?
+          {...value, quantity: value.quantity + 1}
+          : value)
       })
     } else {
       this.setState({

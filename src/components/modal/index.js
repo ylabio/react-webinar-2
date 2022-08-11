@@ -22,11 +22,11 @@ function Modal({onToggleModal, head, children}) {
 Modal.propTypes = {
   head: propTypes.node,
   children: propTypes.node,
-  onAction: propTypes.func,
+  actionHandler: propTypes.func,
 }
 
 Modal.defaultProps = {
-  onAction: () => {},
+  actionHandler: () => {},
 }
 
 export default React.memo(Modal);

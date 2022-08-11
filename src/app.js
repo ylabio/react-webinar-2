@@ -36,12 +36,12 @@ function App({store}) {
                   store={store}
                   onToggleModal={callbacks.onToggleModal}/>
         <List items={store.getState().items}
-              onAction={callbacks.onAddItem}
+              actionHandler={callbacks.onAddItem}
         />
       </Layout>
       {activeModal &&
       <Modal onToggleModal={callbacks.onToggleModal} head={<h1>Корзина</h1>}>
-        {goods.length ? <List items={goods} onAction={callbacks.onDeleteItem}/> :
+        {goods.length ? <List items={goods} actionHandler={callbacks.onDeleteItem}/> :
           <div className={cn('message')}>Товары не добавлены</div>}
         {goods.length > 0 &&
           <div className={cn('total')}>

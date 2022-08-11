@@ -4,13 +4,13 @@ import {cn as bem} from "@bem-react/classname";
 import Item from "../item";
 import './style.css';
 
-function List({items, onAction}) {
+function List({items, actionHandler}) {
   const cn = bem('List');
 
   return (
     <div className={cn()}>{items.map(item =>
       <div key={item.code} className={cn('item')}>
-        <Item item={item} onAction={onAction}/>
+        <Item item={item} actionHandler={actionHandler}/>
       </div>
     )}
     </div>
@@ -19,12 +19,12 @@ function List({items, onAction}) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onAction: propTypes.func,
+  actionHandler: propTypes.func,
 }
 
 List.defaultProps = {
   items: [],
-  onAction: () => {},
+  actionHandler: () => {},
 }
 
 export default  React.memo(List);

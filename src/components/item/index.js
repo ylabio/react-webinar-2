@@ -4,14 +4,14 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import { numberWithSpaces } from "../../utils";
 
-function Item({onAction, item}) {
+function Item({actionHandler, item}) {
   const cn = bem('Item');
 
   const callbacks = {
-    onAction: useCallback((e) => {
+    onActionHandler: useCallback((e) => {
       e.stopPropagation();
-      onAction(item)
-    }, [onAction, item])
+      actionHandler(item.code)
+    }, [actionHandler, item])
   };
 
   return (
@@ -27,7 +27,7 @@ function Item({onAction, item}) {
       </div>
       {item.quantity && <div className={cn('quantity')}>{item.quantity} шт</div>}
       <div className={cn('actions')}>
-        <button onClick={callbacks.onAction}>
+        <button onClick={callbacks.onActionHandler}>
           {item.quantity ? 'Удалить' : 'Добавить'}
         </button>
       </div>
@@ -37,11 +37,11 @@ function Item({onAction, item}) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onAction: propTypes.func.isRequired
+  actionHandler: propTypes.func.isRequired
 }
 
 Item.defaultProps = {
-  onAction: () => {}
+  actionHandler: () => {}
 }
 
 export default React.memo(Item);

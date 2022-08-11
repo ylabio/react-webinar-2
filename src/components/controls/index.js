@@ -1,31 +1,34 @@
-import React, { useMemo } from 'react';
-import plural from 'plural-ru';
+import React from 'react';
+import propTypes from 'prop-types';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
 
-function orderToString(order){
-  if (!order) return 'пусто'
-  return `${order.amount} ${plural(order.amount, 'товар', 'товара', 'товаров')} / ${Intl.NumberFormat('ru-RU').format(order.cost)} ₽`;
-}
 
 function Controls(props){
   const cn = bem('Controls');
-
-  const {order, setModalActive} = props;
-
-  let strinOrder = useMemo(() => orderToString(order), [order])
+  const {orderResult, setModalActive} = props;
 
   return (
     <div>
       <div className='Controls'>
       <div>В корзине: </div>
         <div className={cn('table')}>
-          {strinOrder}
+          {orderResult}
       </div>
         <button onClick={() => setModalActive(true)}>Перейти</button>
       </div>
     </div>
   )
+}
+
+Controls.propTypes = {
+  orderResult: propTypes.string.isRequired,
+  setModalActive: propTypes.func
+}
+
+Controls.defaultProps = {
+  orderResult: 'пусто',
+  onAddItem: () => {}
 }
 
 export default React.memo(Controls);

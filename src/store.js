@@ -4,7 +4,6 @@ class Store {
     // Состояние приложения (данные)
     this.state = initState;
     this.listeners = [];
-    this.orderList = [];
   }
 
   /**
@@ -39,52 +38,6 @@ class Store {
       this.listeners = this.listeners.filter(item => item !== callback);
     }
   }
-
-  setOrder(newOrderList){
-    this.orderList = newOrderList;
-    for (const listener of this.listeners) {
-      listener();
-    }
-  }
-
-
-  getOrder() {
-    return this.orderList;
-  }
-
-  showOrder() {
-    
-      const amount = this.orderList.length;
-      const cost = this.orderList.reduce((prev, item) => {
-        return prev + item.price * item.amount
-      }, 0)
-      
-      return {cost, amount}
-      
-  }
-
-  addItem(item, amount) {
-
-    let isAddNewItem = true;
-
-    if (this.orderList.length === 0) {
-      isAddNewItem = false;
-      this.setOrder([{...item, amount}])
-    } else { 
-      this.setOrder(this.orderList.map((elem) => {
-        if (elem.code === item.code){
-          isAddNewItem = false;
-          return {...elem, amount};
-        } else {
-          return {...elem}
-        }
-      }))
-      if(isAddNewItem) {
-        this.setOrder([...this.orderList, {...item, amount}])
-      }
-    }
-    console.log(this.orderList)
-    }
 }
 
 export default Store;

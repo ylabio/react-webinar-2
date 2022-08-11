@@ -1,4 +1,5 @@
 import React from "react";
+import propTypes from 'prop-types';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
 
@@ -12,6 +13,13 @@ function Modal({children}){
       </div>
     </div>
     )
+}
+
+Modal.propTypes = {
+  children: propTypes.node,
+}
+
+Modal.defaultProps = {
 }
 
 export default React.memo(Modal);

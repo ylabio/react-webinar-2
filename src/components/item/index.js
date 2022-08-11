@@ -7,12 +7,11 @@ function Item(props) {
   const cn = bem('Item');
 
   const [count, setCount] = useState(1);
-  const {callbacks} = props
 
   const onAddClickHandler = useCallback((item) => {
     setCount(prev => ++prev);
-    callbacks.onAddItem(item, count);
-  }, [count, callbacks])
+    props.onAddItem(item, count);
+  }, [count])
   
   return (
     <div className={cn()}>
@@ -32,6 +31,16 @@ function Item(props) {
       </div>
     </div>
   )
+}
+
+Item.propTypes = {
+  item: propTypes.object.isRequired,
+  onAddItem: propTypes.func
+}
+
+Item.defaultProps = {
+  item: {},
+  onAddItem: () => {}
 }
 
 export default React.memo(Item);

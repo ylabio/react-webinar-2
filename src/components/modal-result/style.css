@@ -1,0 +1,21 @@
+.ModalResult{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.ModalResult-total{
+    font-style: normal;
+    font-weight: 700;
+    justify-content: flex-end;
+    width: 100%;
+    text-align: end;
+    margin-right: 49px;
+}
+
+.ModalResult-result{
+    font-style: normal;
+    font-weight: 700;
+    justify-content:flex-end;
+    width: 16%;
+}

@@ -1,0 +1,14 @@
+.CartStat {
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.CartStat-label {
+  padding-right: 20px;
+}
+
+.CartStat-label span {
+  padding: 0 0 0 10px;
+  font-weight: bold;
+}

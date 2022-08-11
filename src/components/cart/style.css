@@ -1,0 +1,19 @@
+.Cart-total {
+  margin: 25px 0;
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold;
+}
+
+.Cart-total span:first-child {
+  padding-right: 50px;
+}
+
+.Cart-total span:last-child {
+  padding-right: 110px;
+}
+
+.Cart-empty {
+  text-align: center;
+  font-weight: bold;
+}

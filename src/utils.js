@@ -13,6 +13,17 @@ export const calculatePrice = (orders) => {
     }, 0);
   }
 };
+export const calculateCount = (cardItems) => {
+  if (cardItems === undefined) {
+    return 0;
+  } else if (cardItems.length === 0) {
+    return 0;
+  } else {
+    return cardItems.reduce((acc, curr) => {
+      return acc + 1;
+    }, 0);
+  }
+};
 /**
  * преобразует число в строку с пробелами
  * @returns {string|string}

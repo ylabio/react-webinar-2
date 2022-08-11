@@ -1,3 +1,6 @@
+import { calculateCount, calculatePrice, changeNumber } from "./utils";
+import plural from "plural-ru";
+
 class Store {
   constructor(initState) {
     // Состояние приложения (данные)
@@ -65,6 +68,7 @@ class Store {
       const newItem = this.state.items.find((item) => item.code === code);
       this.setState({
         ...this.state,
+
         card: this.state.card.concat({
           code,
           title: newItem.title,
@@ -73,6 +77,19 @@ class Store {
         }),
       });
     }
+    this.setState({
+      ...this.state,
+
+      info:
+        this.state.card.length === 0
+          ? "пусто"
+          : `${calculateCount(this.state.card)} ${plural(
+              calculateCount(this.state.card),
+              "товар",
+              "товара",
+              "товаров"
+            )} / ${changeNumber(calculatePrice(this.state.card))} ₽`,
+    });
   }
 
   onModalClose() {
@@ -99,6 +116,20 @@ class Store {
       ...this.state,
       card: this.state.card.filter((item) => item.code !== code),
     });
+
+    this.setState({
+      ...this.state,
+      info:
+        this.state.card.length == 0
+          ? "пусто"
+          : `${calculateCount(this.state.card)} ${plural(
+              calculateCount(this.state.card),
+              "товар",
+              "товара",
+              "товаров"
+            )} / ${changeNumber(calculatePrice(this.state.card))} ₽`,
+    });
+    console.log(this.state);
   }
 }
 

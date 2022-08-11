@@ -31,6 +31,7 @@ function App({ store }) {
         <Controls
           onShowModal={callbacks.onShowModal}
           cardItems={store.getState().card}
+          info={store.getState().info}
         />
         <List
           items={store.getState().items}
@@ -38,13 +39,15 @@ function App({ store }) {
           onItemAdd={callbacks.onAddItem}
         />
       </Layout>
-      {store.getState().modal && (
-        <Card
-          onCardItemDelete={callbacks.onDeleteCardItem}
-          onModalClose={callbacks.onModalClose}
-          cardItems={store.getState().card}
-        />
-      )}
+      <Layout>
+        {store.getState().modal && (
+          <Card
+            onCardItemDelete={callbacks.onDeleteCardItem}
+            onModalClose={callbacks.onModalClose}
+            cardItems={store.getState().card}
+          />
+        )}
+      </Layout>
     </>
   );
 }

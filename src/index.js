@@ -16,6 +16,7 @@ const store = new Store({
   ],
   card: [],
   modal: false,
+  info: "пусто",
 });
 
 const root = createRoot(document.getElementById("root"));

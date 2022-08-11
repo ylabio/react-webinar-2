@@ -5,6 +5,7 @@ class Store {
     this.state = initState;
     // Слушатели изменений state
     this.listeners = [];
+    
   }
 
   /**
@@ -14,6 +15,7 @@ class Store {
   getState() {
     return this.state;
   }
+
 
   /**
    * Установка state
@@ -26,6 +28,8 @@ class Store {
       listener();
     }
   }
+
+
 
   /**
    * Подписка на изменение state
@@ -50,6 +54,7 @@ class Store {
     });
   }
 
+
   /**
    * Удаление записи по её коду
    * @param code
@@ -61,25 +66,67 @@ class Store {
     });
   }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
+ 
+  addToCart(item){
+    const uniqueItems = this.state.cart.find((element) => element.code === item.code);
+    if(uniqueItems) {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map((element) => {
+        if (element.code === item.code) {
+          return {...uniqueItems, count: ++uniqueItems.count}; 
+        } else{
+          return element;
+        } 
+        })
+      })
+    }else {
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, {...item, count: 1}]
+      });
+    }
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      totalCount: this.state.cart.reduce((counter, item)=>{        
+        return counter+=item.count;        
+      },0),
+      totalPrice: this.state.cart.reduce((counter, item)=>{        
+        return counter +=(item.price * item.count)       
+      },0),
+      uniqueItemsCount: this.state.cart.reduce((counter, item)=>{        
+        if(item){
+          return ++counter;
+        }       
+      },0),
+    });    
+    
+  }
+
+  deleteFromCart(item){
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.filter(element => element.code !== item.code)   
+    });
+    this.setState({
+      ...this.state,
+      totalCount: this.state.cart.reduce((counter, item)=>{        
+        return counter+=item.count;        
+      },0),
+      totalPrice: this.state.cart.reduce((counter, item)=>{        
+        return counter +=(item.price * item.count)       
+      },0),
+      uniqueItemsCount: this.state.cart.reduce((counter, item)=>{        
+        if(item){
+          return ++counter;
+        }       
+      },0),
     });
   }
-}
+
+  }
+ 
+ 
+
 
 export default Store;

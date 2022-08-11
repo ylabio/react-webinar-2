@@ -1,0 +1,20 @@
+.Cart-item{
+  border-top: 1px dashed #ccc;
+}
+
+
+.Cart-sum-wrapper{
+  font-weight: bold;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 100px;
+  padding-top: 10px;
+  font-size: large;
+  border-top: 1px dashed #ccc;
+}
+.Cart-sum-text{
+  margin-right: 40px;
+}
+.Cart-empty-text{ 
+  text-align: center;
+}

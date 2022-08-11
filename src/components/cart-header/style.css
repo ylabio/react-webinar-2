@@ -1,0 +1,12 @@
+.Card-header{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.Card-header-head{
+  margin-right: 20px;
+  font-weight: normal;
+}
+.Card-header-text{
+  font-weight: bold;
+}

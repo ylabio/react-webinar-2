@@ -54,19 +54,25 @@ class Store {
    * @param code
    */
   addToCard(code) {
-    const item = this.state.items.find((item) => item.code === code);
-    if (item) {
       this.setState({
         ...this.state,
-        card: [...this.state.card, item],
+        card: this.state.card.find((item) => item.code === code) ?
+        [...this.state.card.map((item) => item.code === code ? {...item, count: item.count + 1} : item)] :
+        [...this.state.card, {...this.state.items.find((item) => item.code === code), count: 1}]
       });
-    }
   }
 
   deleteCardItem(code) {
     this.setState({
       ...this.state,
-      card: this.state.card.filter(item => item.code !== code)
+      card: this.state.card.filter((item) => item.code !== code),
+    });
+  }
+
+  getTotalPrice() {
+    this.setState({
+      ...this.state,
+      totalPrice: this.state.card.reduce((acc, elem) => acc + elem.price * elem.count, 0),
     });
   }
 }

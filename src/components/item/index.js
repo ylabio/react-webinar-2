@@ -6,6 +6,10 @@ import './style.css';
 function Item(props) {
   const cn = bem('Item');
 
+  function divideNumberByPieces(x, delimiter) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, delimiter || " ");
+  }
+
   // Счётчик выделений
   const [count, setCount] = useState(0);
 
@@ -34,7 +38,7 @@ function Item(props) {
         {props.item.title}
       </div>
       <div className={cn('price')}>
-        <p className={cn('price-p')}>{props.item.price} ₽ </p>
+        <p className={cn('price-p')}>{divideNumberByPieces(props.item.price)} ₽ </p>
       </div>
       {props.model == 'Modal' ?
         <div className={cn('count')}>

@@ -70,6 +70,28 @@ class Store {
     }
 
     /**
+     * Расчет суммы товара в корзине
+     */
+    setTotalPrice() {
+        this.setState({
+            ...this.state,
+            totalPrice: Intl.NumberFormat('ru-RU').format(this.state.cartItems.reduce((sum, item) => {
+                    return item.price * item.count + sum;
+                }, 0)),
+        });
+    }
+
+    /**
+     * Расчет количества товара в корзине
+     */
+    setTotalCount() {
+        this.setState({
+            ...this.state,
+            totalCount: this.state.cartItems.length,
+        });
+    }
+
+    /**
      * Удаление записи по её коду
      * @param code
      */

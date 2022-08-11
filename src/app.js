@@ -1,8 +1,9 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Cart from "./components/cart";
+import Modal from "./components/modal";
 
 /**
  * Приложение
@@ -16,16 +17,12 @@ function App({store}) {
     const openCart = () => setShowCart(true);
     const closeCart = () => setShowCart(false);
 
-    // Расчет общей суммы и общего количества товаров добавленных в корзину
-    const totalPrice = Intl.NumberFormat('ru-RU').format(store.getState().cartItems.reduce((sum, item) => {
-        return item.price * item.count + sum;
-    }, 0));
-    const totalCount = store.getState().cartItems.length;
-
     // Функции добавления и удаления товара
     const callbacks = {
         onAdd: useCallback((code) => {
             store.addCartItem(code);
+            store.setTotalPrice();
+            store.setTotalCount()
         }, []),
         onDeleteItems: useCallback((code) => {
             store.deleteItem(code);
@@ -33,20 +30,24 @@ function App({store}) {
     };
 
     return (
-        <Layout head={<h1>Магазин</h1>}>
-            {showCart && <Cart closeCart={closeCart}
-                               totalPrice={totalPrice}
-                               onDeleteItems={callbacks.onDeleteItems}
-                               itemsCart={store.getState().cartItems}/>}
-            <Controls openCart={openCart}
-                      totalPrice={totalPrice}
-                      totalCount={totalCount}
-                      items={store.getState().items}
-            />
-            <List items={store.getState().items}
-                  onAdd={callbacks.onAdd}
-            />
-        </Layout>
+        <div>
+            <Layout head={<h1>Магазин</h1>}>
+                <Controls openCart={openCart}
+                          totalPrice={store.getState().totalPrice}
+                          totalCount={store.getState().totalCount}
+                          items={store.getState().items}
+                />
+                <List items={store.getState().items}
+                      onAdd={callbacks.onAdd}
+                />
+            </Layout>
+            {showCart && <Modal head={<h1>Корзина</h1>}
+                                closeCart={closeCart}>
+                <Cart totalPrice={store.getState().totalPrice}
+                      onDeleteItems={callbacks.onDeleteItems}
+                      itemsCart={store.getState().cartItems}/>
+            </Modal>}
+        </div>
     );
 }
 

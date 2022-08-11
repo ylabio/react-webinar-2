@@ -17,6 +17,9 @@ const store = new Store({
   ],
   // Добавление массива данных для корзины
   cartItems: [],
+  // Добавление суммы и количества товаров в корзине
+  totalPrice: 0,
+  totalCount: 0,
 });
 
 const root = createRoot(document.getElementById('root'));

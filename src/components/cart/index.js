@@ -8,36 +8,30 @@ function Cart(props) {
     const cn = bem('Cart');
 
     return (
-        <div className={cn()}>
-            <div className={cn('window')}>
-                <div className={cn('head')}>
-                    <h1>Корзина</h1>
-                    <button className={cn('close')} onClick={props.closeCart}>
-                        Закрыть
-                    </button>
-                </div>
-                {props.itemsCart.map(item =>
-                    <div className={cn('item')}>
-                        <CartItem key={item.code}
-                                  item={item}
-                                  onDeleteItems={props.onDeleteItems}/>
-                    </div>)}
-                <div className={cn('total')}>
-                    Итого <span>{props.totalPrice} ₽</span>
-                </div>
+        <div>
+            {props.itemsCart.map(item =>
+                <div className={cn('item')}>
+                    <CartItem key={item.code}
+                              item={item}
+                              onDeleteItems={props.onDeleteItems}/>
+                </div>)}
+            <div className={cn('total')}>
+                Итого <span>{props.totalPrice} ₽</span>
             </div>
         </div>
     )
 }
 
 Cart.propTypes = {
-    head: propTypes.node,
-    children: propTypes.node,
-    onDeleteItems: propTypes.func
+    itemsCart: propTypes.arrayOf(propTypes.object).isRequired,
+    totalPrice: propTypes.number.isRequired,
+    onDeleteItems: propTypes.func,
 }
 
 Cart.defaultProps = {
+    itemsCart: [],
+    totalPrice: 0,
     onDeleteItems: () => {
-    }
+    },
 }
 export default React.memo(Cart);

@@ -1,0 +1,53 @@
+/* Модальное окно*/
+.Modal{
+    position: fixed;
+    display: flex;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 11;
+}
+.Modal-window {
+    width: 960px;
+    min-height: 603px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+.Modal-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    margin-bottom: 74px;
+    background: #f5f5f5;
+    border-radius: 10px 10px 0 0;
+}
+.Modal-head h1{
+    margin: 0;
+    padding: 10px 20px;
+}
+.Modal-close {
+    width: 76px;
+    height: 21px;
+    margin-right: 32px;
+    box-sizing: border-box;
+    background: #EFEFEF;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+    color: #000000;
+}

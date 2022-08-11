@@ -1,0 +1,27 @@
+.Store {
+  height: 100%;
+  max-width: 1024px;
+  margin: auto;
+}
+
+.Summary {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.Summary .Total {
+  margin-right: 0;
+}
+.Summary-text {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  margin-right: 15px;
+}
+.Total {
+  margin-right: 90px;
+}
+
+button {
+  width: 80px;
+}

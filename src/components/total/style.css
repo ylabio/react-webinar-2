@@ -1,0 +1,12 @@
+.Total{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.Total-amount{
+    margin-right: 5px;
+}

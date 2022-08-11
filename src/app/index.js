@@ -1,23 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import Main from "./main";
-import Basket from "./basket";
-import useStore from "../utils/use-store";
-import useSelector from "../utils/use-selector";
+import React from 'react';
+import useSelector from '../utils/use-selector';
+import Basket from './basket';
+import Main from './main';
 
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
-
   console.log('App');
 
   const modal = useSelector(state => state.modals.name);
 
   return (
     <>
-      <Main/>
-      {modal === 'basket' && <Basket/>}
+      <Main />
+      {modal === 'basket' && <Basket />}
     </>
   );
 }

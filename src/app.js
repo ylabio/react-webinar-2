@@ -1,45 +1,57 @@
-import React from 'react';
-import {counter} from './utils.js';
-import './style.css';
+import React, {useCallback} from 'react';
+import Controls from "./components/controls";
+import List from "./components/list";
+import Layout from "./components/layout";
+import Cart from './components/cart';
+import HeaderModal from './components/modal/header';
+import ContentModal from './components/modal/content';
+import Modal from './components/modal';
+import Item from './components/item';
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
+
 function App({store}) {
-  // Выбор состояния из store
-  const {items} = store.getState();
+
+  const callbacks = {
+    onAddItem: useCallback((item) => {
+      store.addItem(item);
+    }, []),
+    onDeleteItem: useCallback((item) => {
+      store.deleteItem(item.code);
+    }, []),
+    onModal: useCallback(() => {
+      store.toggleModal();
+    }, [])
+  }
 
   return (
-    <div className='App'>
-      <div className='App__head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='Controls'>
-        <button onClick={() => {
-          const code = counter();
-          store.createItem({code, title: `Новая запись ${code}`})
-        }}> Добавить </button>
-      </div>
-      <div className='App__center'>
-        <div className='List'>{items.map(item =>
-          <div key={item.code} className='List__item'>
-            <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                 onClick={() => store.selectItem(item.code)}>
-              <div className='Item__number'>{item.code}</div>
-              <div className='Item__title'>{item.title}</div>
-              <div className='Item__actions'>
-                <button onClick={() => store.deleteItem(item.code)}>
-                  Удалить
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <div className='Layout-container'>
+          <Cart count={store.state.cartCount} totalPrice={store.state.totalPrice} />
+          <Controls onModal={callbacks.onModal} textButton={'Перейти'} />
         </div>
-      </div>
-    </div>
+        <List
+          items={store.getState().items}
+          callback={callbacks.onAddItem}
+          text={'Добавить'}
+          component = {Item}
+        />
+      </Layout>
+      <Modal isOpen={store.state.modal} onClose={callbacks.onModal}>
+        <HeaderModal onModal={callbacks.onModal} />
+        <ContentModal
+          cart={store.state.cart}
+          sum={store.state.totalPrice}
+          isOpen={store.state.modal}
+          delete={callbacks.onDeleteItem}
+        />
+      </Modal>
+    </>
   );
 }
 

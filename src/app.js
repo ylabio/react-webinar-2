@@ -61,15 +61,14 @@ function App({store}) {
             onItemDelete={callbacks.onDeleteItems}
             onItemAddToCart={callbacks.onAddToCart}
       />
-      <Modal isShow={isShowModal}
-             onClose={callbacks.onCloseModal}
-             head={<h1>Корзина</h1>}>
-        <List items={cartState.items}
-              isCart
-              total={cartState.total}
-              onItemDelete={callbacks.onRemoveFromCart}
-        />
-      </Modal>
+      {(isShowModal) && (<Modal onClose={callbacks.onCloseModal}
+            head={<h1>Корзина</h1>}>
+            <List items={cartState.items}
+                  isCart
+                  total={cartState.total}
+                  onItemDelete={callbacks.onRemoveFromCart}
+            />
+          </Modal>)}
     </Layout>
   );
 }

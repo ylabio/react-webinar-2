@@ -4,10 +4,10 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
 
-function Modal({head, children, isShow, onClose}) {
+function Modal({head, children, onClose}) {
   const cn = bem('Modal');
   return (
-    <div className={cn({'displayed': isShow})}>
+    <div className={cn()}>
       <div className={cn('container')}>
         <div className={cn('head')}>
           {head}
@@ -22,10 +22,9 @@ function Modal({head, children, isShow, onClose}) {
 }
 
 Modal.propTypes = {
+  onClose: propTypes.func.isRequired,
   head: propTypes.node,
   children: propTypes.node,
-  isShow: propTypes.bool,
-  onClose: propTypes.func,
 }
 
 Modal.defaultProps = {

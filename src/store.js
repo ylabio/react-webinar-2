@@ -129,7 +129,6 @@ class Store {
               "товаров"
             )} / ${changeNumber(calculatePrice(this.state.card))} ₽`,
     });
-    console.log(this.state);
   }
 }
 

@@ -39,15 +39,13 @@ function App({ store }) {
           onItemAdd={callbacks.onAddItem}
         />
       </Layout>
-      <Layout>
-        {store.getState().modal && (
-          <Card
-            onCardItemDelete={callbacks.onDeleteCardItem}
-            onModalClose={callbacks.onModalClose}
-            cardItems={store.getState().card}
-          />
-        )}
-      </Layout>
+      {store.getState().modal && (
+        <Card
+          onCardItemDelete={callbacks.onDeleteCardItem}
+          onModalClose={callbacks.onModalClose}
+          cardItems={store.getState().card}
+        />
+      )}
     </>
   );
 }

@@ -1,36 +1,21 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import './style.css';
-const plural = require('plural-ru');
-import propTypes, { object } from 'prop-types';
 
-function Controls({ cutting, cart, price, cartToggle }) {
+function Controls({onAdd}){
   return (
     <div className='Controls'>
-      <div className='cartInfo'>
-        В корзине:
-        <span className='itemsAndPrice'>
-          {cart.length > 0
-            ? `${plural(cart.length, '%d товар', '%d товара', '%d товаров')} / ${cutting(price)} ₽`
-            : 'пусто'}
-        </span>
-      </div>
-      <button onClick={() => cartToggle()}>Перейти</button>
+      <button onClick={onAdd}>Добавить</button>
     </div>
-  );
+  )
 }
 
 Controls.propTypes = {
-  cutting: propTypes.func.isRequired,
-  cartToggle: propTypes.func.isRequired,
-  cart: propTypes.arrayOf(object).isRequired,
-  price: propTypes.number.isRequired,
-};
+  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+}
 
 Controls.defaultProps = {
-  cutting: () => {},
-  cartToggle: () => {},
-  cart: [],
-  price: null,
-};
+  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+}
 
 export default React.memo(Controls);

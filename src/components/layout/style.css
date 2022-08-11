@@ -9,28 +9,13 @@ body {
 
 /* Страница*/
 .Layout {
+  min-height: 100vh;
   max-height: 1024px;
   max-width: 1024px;
   margin: 0 auto;
   background: #fff;
   box-sizing: border-box;
   box-shadow: 0 0 15px 5px #0000003b;
-  border-radius: 10px;
-}
-
-.Layout_isFullScreen {
-  min-height: 100vh;
-  border-radius: 0px;
-}
-
-.isFullScreen .head {
-  border-radius: 0px;
-}
-
-.Layout-head {
-  border-radius: 10px;
-  height: 80px;
-  background: #f5f5f5;
 }
 
 .Layout-head h1 {

@@ -1,4 +1,4 @@
-import AVAILABLE_ITEMS from "./const/const"
+
 
 class Store {
 
@@ -63,7 +63,7 @@ class Store {
       })
     }
     else {
-      const product = AVAILABLE_ITEMS.find(item => item.code === code)
+      const product = this.state.AVAILABLE_ITEMS.find(item => item.code === code)
       const newRecord = { code, ...product, count: 1 }
       this.setState({ ...this.state, cart: [...this.state.cart, newRecord] })
     }
@@ -77,6 +77,25 @@ class Store {
   setModal(active) {
     this.setState({ ...this.state, isModalActive: (!this.state.isModalActive) })
   }
+
+  /** 
+ *  Функция, считающая сумму товаров их общую стоимость
+ */
+
+  getMeta(cart) {
+    let cartlength = cart.length;
+    let count = 0;
+    let price = 0;
+    for (const item of cart) {
+      count += item.count;
+      price += item.price * item.count;
+    }
+    return (
+      [cartlength, count, price]
+    )
+  }
+
 }
+
 
 export default Store;

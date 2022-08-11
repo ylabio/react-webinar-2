@@ -3,8 +3,7 @@ import propTypes from 'prop-types';
 import { cn as bem } from "@bem-react/classname";
 import './style.css';
 import List from "../list"
-import Layout from '../layout';
-import { getMeta } from "../../utils"
+import LayoutModal from './layout_modal';
 
 function Modal(props) {
   const cn = bem('Modal');
@@ -15,13 +14,13 @@ function Modal(props) {
     }
   }, [props.cart.length, props.active])
 
-  const [cartlength, count, price] = getMeta(props.cart)
+  const [_cartlength, _count, price] = props.getMeta(props.cart)
   return (
 
     (props.active) &&
     <div className={cn()}>
       <div className={cn("container")}>
-        <Layout head={
+        <LayoutModal head={
           <div className={cn('head')}>
             <h1 className={cn('container__title')}>Корзина</h1>
 
@@ -39,7 +38,7 @@ function Modal(props) {
               </div>
             </div>
           </div>
-        </Layout>
+        </LayoutModal>
       </div>
     </div>
   )

@@ -2,8 +2,7 @@ import React, { useCallback } from 'react';
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import Modal from "./components/modal";
-import AVAILABLE_ITEMS from "./const/const"
+import Modal from "./components/modal/index";
 
 /**
  * Приложение
@@ -27,14 +26,13 @@ function App({ store }) {
     }, [])
 
   }
-
   return (
-    <Layout head={<h1>Магазин</h1>} isFullScreen>
-      <Modal active={store.state.isModalActive} onDelete={callbacks.onDelete} onClose={callbacks.onModalToggle} cart={store.state.cart}>
+    <Layout head={<h1>Магазин</h1>}>
+      <Modal active={store.state.isModalActive} onDelete={callbacks.onDelete} onClose={callbacks.onModalToggle} cart={store.state.cart} getMeta={store.getMeta}>
       </Modal>
-      <Controls onClick={callbacks.onModalToggle} cart={store.state.cart} />
+      <Controls onClick={callbacks.onModalToggle} cart={store.state.cart} getMeta={store.getMeta} />
       <List
-        list={AVAILABLE_ITEMS}
+        list={store.state.AVAILABLE_ITEMS}
         onClick={callbacks.onAdd}
       />
     </Layout>

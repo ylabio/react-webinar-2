@@ -1,12 +1,11 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { declOfNum, getMeta } from "../../utils";
+import { declOfNum } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 import './style.css';
 
-export function Controls({ onClick, cart }) {
-  const [cartlength, count, price] = getMeta(cart)
-
+export function Controls({ onClick, cart, getMeta }) {
+  const [cartlength, , price] = getMeta(cart)
   const cn = bem('Controls');
 
   return (

@@ -3,11 +3,11 @@ import { cn as bem } from "@bem-react/classname";
 import './style.css';
 import propTypes from "prop-types";
 
-function Layout({ head, children, isFullScreen }) {
+function Layout({ head, children }) {
   const cn = bem('Layout');
 
   return (
-    <div className={cn({ isFullScreen })}>
+    <div className={cn()}>
       <div className={cn('head')}>
         {head}
       </div>
@@ -21,7 +21,6 @@ function Layout({ head, children, isFullScreen }) {
 Layout.propTypes = {
   head: propTypes.node,
   children: propTypes.node,
-  isFullScreen: propTypes.bool,
 }
 
 Layout.defaultProps = {

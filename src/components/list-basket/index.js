@@ -7,15 +7,6 @@ import "./style.css";
 function ListBasket(props) {
   const cn = bem("List");
 
-  let totalPrice = props.calculationSumPrice(props.stateBasket);
-  
-  totalPrice = new Intl.NumberFormat("ru-RU", {
-    style: "currency",
-    currency: "RUB",
-    currencyDisplay: "symbol",
-    maximumFractionDigits: 0,
-  }).format(totalPrice);
-
   return (
     <div className={cn()}>
       {props.stateBasket.map((good) => (
@@ -24,7 +15,7 @@ function ListBasket(props) {
         </div>
       ))}
       {props.stateBasket.length > 0 ? (
-        <div className={cn('total')}>Итого <span className={cn('totalPrice')}>{totalPrice}</span></div>
+        <div className={cn('total')}>Итого <span className={cn('totalPrice')}>{props.totalPrice}</span></div>
       ) : (
         ""
       )}

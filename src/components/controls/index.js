@@ -7,46 +7,31 @@ import plural from "plural-ru";
 function Controls(props) {
   const cn = bem("Controls");
 
-  let itemInBasket = "пусто";
-  let lengthStateBasket = props.stateBasket.length;
-
-  if (lengthStateBasket) {
-    let price = props.calculationSumPrice(props.stateBasket);
-
-    price = new Intl.NumberFormat("ru-RU", {
-      style: "currency",
-      currency: "RUB",
-      currencyDisplay: "symbol",
-      maximumFractionDigits: 0,
-    }).format(price);
-
-    itemInBasket = `${lengthStateBasket} ${plural(
-      lengthStateBasket,
-      "товар",
-      "товара",
-      "товаров"
-    )} / ${price}`;
-  }
+  const itemInBasket = `${props.totalAmount} ${plural(
+    props.totalAmount,
+    "товар",
+    "товара",
+    "товаров"
+  )} / ${props.totalPrice}`;
 
   return (
     <div className={cn()}>
       <p className={cn("basket")}>
         В корзине:
-        <span className={cn("basketInfo")}>{itemInBasket}</span>
+        <span className={cn("basketInfo")}>
+          {props.totalAmount ? itemInBasket : "пусто"}
+        </span>
       </p>
-      <button className={cn("button")} onClick={props.onOpenModal}>Перейти</button>
+      <button className={cn("button")} onClick={props.onOpenModal}>
+        Перейти
+      </button>
     </div>
   );
 }
 
 Controls.propTypes = {
   stateBasket: propTypes.array.isRequired,
-  onOpenModal: propTypes.func.isRequired
-};
-
-Controls.defaultProps = {
-  stateBasket: [],
-  onOpenModal: () => {}
+  onOpenModal: propTypes.func.isRequired,
 };
 
 export default Controls;

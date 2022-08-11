@@ -4,9 +4,14 @@ class Store {
     this.state = {
       ...initState,
       basket: [],
+      total: {
+        price: 0,
+        amount: 0
+      }
     };
     // Слушатели изменений state
     this.listeners = [];
+
   }
 
   /**
@@ -76,11 +81,19 @@ class Store {
           }
           return {...good};
         }),
+        total: {
+          price: this.state.total.price + itemAdd.price,
+          amount: this.state.total.amount
+        }
       });
     } else {
       this.setState({
         ...this.state,
         basket: [...this.state.basket, { ...itemAdd, count: 1 }],
+        total: {
+          price: this.state.total.price + itemAdd.price,
+          amount: this.state.total.amount + 1
+        }
       });
     }
   }
@@ -89,10 +102,14 @@ class Store {
    * Удаление записи по её коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(item) {
     this.setState({
       ...this.state,
-      basket: this.state.basket.filter((item) => item.code !== code),
+      basket: this.state.basket.filter((good) => good.code !== item.code),
+      total: {
+        price: this.state.total.price - item.price * item.count,
+        amount: this.state.total.amount - 1
+      }
     });
   }
 }

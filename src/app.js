@@ -4,21 +4,24 @@ import List from "./components/list";
 import Layout from "./components/layout";
 import Modal from "./components/modal";
 import ListBasket from "./components/list-basket";
+import {conversionCurrency} from "./utils";
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({ store, calculationSumPrice }) {
+function App({ store }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const totalPrice = conversionCurrency(store.getState().total.price);
 
   const callbacks = {
     onAdd: useCallback((item) => {
       store.addItemInBasket(item);
     }, []),
-    onDeleteOfBasket: useCallback((code) => {
-      store.deleteItem(code);
+    onDeleteOfBasket: useCallback((item) => {
+      store.deleteItem(item);
     }, []),
     onOpenModal: useCallback( () => {
       setIsOpenModal(true);
@@ -34,15 +37,12 @@ function App({ store, calculationSumPrice }) {
         <Modal
           title='Корзина'
           buttonName='Закрыть'
-          stateBasket={store.getState().basket}
           onCloseModal={callbacks.onCloseModal}
-          onDeleteOfBasket={callbacks.onDeleteOfBasket}
-          calculationSumPrice={calculationSumPrice}
         >
           <ListBasket 
             stateBasket={store.getState().basket} 
             onDeleteOfBasket={callbacks.onDeleteOfBasket} 
-            calculationSumPrice={calculationSumPrice}/>
+            totalPrice={totalPrice} />
         </Modal>
       ) : (
         ""
@@ -51,7 +51,8 @@ function App({ store, calculationSumPrice }) {
         <Controls
           stateBasket={store.getState().basket}
           onDeleteOfBasket={callbacks.onDeleteOfBasket}
-          calculationSumPrice={calculationSumPrice}
+          totalPrice={totalPrice} 
+          totalAmount={store.getState().total.amount}
           onOpenModal={callbacks.onOpenModal}
         />
         <List items={store.getState().items} onAdd={callbacks.onAdd} />

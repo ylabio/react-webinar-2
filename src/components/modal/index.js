@@ -20,12 +20,10 @@ function Modal(props) {
 }
 
 Modal.propTypes = {
-  stateBasket: propTypes.array.isRequired,
   onCloseModal: propTypes.func
 };
 
 Modal.defaultProps = {
-  stateBasket: [],
   onCloseModal: () => {}
 };
 

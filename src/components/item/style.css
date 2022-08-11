@@ -4,15 +4,18 @@
     justify-content: flex-start;
     transition: background-color 1s;
 }
-.Item_selected{
-    background: #75aaf1;
-}
-
 
 .Item-title{
     width: 100%;
     padding: 20px 10px;
 }
+
+.Item-price {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
 .Item-actions{
     padding: 20px  20px 20px 10px;
     display: flex;

@@ -4,3 +4,18 @@
     justify-content: flex-end;
     padding: 20px;
 }
+
+.Controls-basket {
+    display: flex;
+    align-items: center;
+    margin: 0 5px;
+}
+
+.Controls-basket_weight_semiBold {
+    font-weight: 600;
+}
+
+.Controls-btnOpenModal {
+    width: 75px;
+    margin-left: 9px;
+}

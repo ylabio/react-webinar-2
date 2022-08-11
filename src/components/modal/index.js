@@ -1,0 +1,63 @@
+import React, {useCallback, useEffect} from 'react';
+import LayoutModal from "../layout-modal";
+import ListModal from "../list-modal";
+import TotalSum from '../total-sum';
+import propTypes from 'prop-types';
+import {cn as bem} from "@bem-react/classname";
+import './style.css';
+
+const Modal = ({ isVisible, basket, quantityAndAmountProducts, onDelete, onClose }) => {
+  const cn = bem('Modal');
+
+  const callbacks = {
+    onClose: useCallback(() => {
+      onClose(false);
+    }, []),
+  };
+
+  const keydownHandler = ({ key }) => key === 'Escape' && callbacks.onClose();
+
+  useEffect(() => {
+    document.addEventListener('keydown', keydownHandler);
+    return () => document.removeEventListener('keydown', keydownHandler);
+  });
+
+  return isVisible && (
+    <div className={cn()} onClick={callbacks.onClose}>
+      <div className={cn('dialog')} onClick={e => e.stopPropagation()}>
+      <LayoutModal 
+        head={<h1>Корзина</h1>} 
+        btn={<button onClick={callbacks.onClose}>Закрыть</button>}
+      >
+        {quantityAndAmountProducts.quantity ? 
+        <>
+          <ListModal 
+            basket={basket}
+            onItemDelete={onDelete}
+          />
+          <TotalSum amountProducts={quantityAndAmountProducts} />
+        </>
+        :
+          <h2>Корзина пуста</h2>}
+        </LayoutModal>
+      </div>
+    </div>
+  );
+};
+
+Modal.propTypes = {
+  isVisible: propTypes.bool.isRequired,
+  basket: propTypes.arrayOf(propTypes.object).isRequired,
+  quantityAndAmountProducts: propTypes.object.isRequired,
+  onDelete: propTypes.func.isRequired,
+  onClose: propTypes.func.isRequired
+}
+
+Modal.defaultProps = {
+  basket: [],
+  quantityAndAmountProducts: {},
+  onDelete: () => {},
+  onClose: () => {}
+}
+
+export default React.memo(Modal);

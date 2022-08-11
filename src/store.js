@@ -1,12 +1,10 @@
 class Store {
-
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
     // Слушатели изменений state
     this.listeners = [];
   }
-
   /**
    * Выбор state
    * @return {Object}
@@ -14,7 +12,6 @@ class Store {
   getState() {
     return this.state;
   }
-
   /**
    * Установка state
    * @param newState {Object}
@@ -26,7 +23,6 @@ class Store {
       listener();
     }
   }
-
   /**
    * Подписка на изменение state
    * @param callback {Function}
@@ -40,46 +36,94 @@ class Store {
     }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
+/**
+   * Добавление товара в корзину
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
+
+ amountIncrease(code) {
+  if (this.state.cartItems.find((item) => item.code === code)) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
+      cartItems: this.state.cartItems.map((item) => {
+        if (item.code === code) {
           return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
+            code,
+            title: item.title,
+            price: item.price,
+            amount: item.amount + 1,
           }
         }
-        return item.selected ? {...item, selected: false} : item;
-      })
+        return item;
+      }),
     });
-  }
+  } else {
+    const chosenItem = this.state.items.find(item => item.code === code);
+
+    this.setState({
+      ...this.state,
+      cartItems:  this.state.cartItems.concat({
+          code,
+          title: chosenItem.title,
+          price: chosenItem.price,
+          amount: 1})
+    });
+  };
 }
 
+getTotalPrice() {
+  return this.state.cartItems.reduce((accum, good) => accum + good.amount * good.price, 0);
+}
+
+
+/**
+* Удаление товара из корзины по его коду
+*/
+deleteItem(code) {
+  this.setState({
+    ...this.state,
+    cartItems: this.state.cartItems.filter(item => item.code !== code)
+  });
+}
+
+/**
+ * Открытие модалки с корзиной
+ */
+openCart() {
+  this.setState({
+    ...this.state,
+    isCartOpen: true,
+  });
+}
+
+
+
+
+/**
+ * Выделение записи по её коду
+ * @param code
+ * Закрытие модалки с корзиной
+ */
+ closeCart() {
+  this.setState({
+    ...this.state,
+    isCartOpen: false,
+  });
+}
+
+
+
+
+
+}
+
+
+
+
 export default Store;
+
+
+
+
+

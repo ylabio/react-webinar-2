@@ -1,6 +1,20 @@
 /* Контрол с общими действиями */
+/* Контрол с общими действиями */
 .Controls{
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
 }
+
+.Controls-title{
+    padding: 20px 5px 20px 10px;
+}
+
+.Controls-info{
+    padding: 20px 10px;
+}
+
+.Controls-actions{
+    padding: 20px 20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
+} 

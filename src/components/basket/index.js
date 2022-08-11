@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, memo } from "react";
 import Layout from "../layout";
 import List from "../list";
 import Item from "../item";
@@ -50,4 +50,4 @@ Basket.propTypes = {
   deleteFromBasket: propTypes.func.isRequired,
 };
 
-export default Basket;
+export default memo(Basket);

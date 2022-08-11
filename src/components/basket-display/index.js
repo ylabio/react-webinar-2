@@ -27,9 +27,4 @@ BasketDisplay.propTypes = {
   price: propTypes.number.isRequired,
 };
 
-BasketDisplay.defaultProp = {
-  amount: 0,
-  price: 0,
-};
-
 export default memo(BasketDisplay);

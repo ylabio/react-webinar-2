@@ -9,10 +9,12 @@ function Controls({ callbacks, basketData }) {
 
   return (
     <div className="Controls">
-      <BasketDisplay
-        amount={basketData.itemsAmount}
-        price={basketData.itemsPrice}
-      />
+      {basketData && (
+        <BasketDisplay
+          amount={basketData.itemsAmount}
+          price={basketData.itemsPrice}
+        />
+      )}
       <Button onClick={openModal} label="Перейти" />
     </div>
   );
@@ -20,6 +22,11 @@ function Controls({ callbacks, basketData }) {
 
 Controls.propTypes = {
   callbacks: propTypes.arrayOf(propTypes.func).isRequired,
+  basketData: propTypes.object,
+};
+
+Controls.defaultProps = {
+  basketData: null,
 };
 
 export default memo(Controls);

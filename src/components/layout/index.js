@@ -22,8 +22,19 @@ function Layout(props) {
 }
 
 Layout.propTypes = {
-  head: propTypes.node,
-  children: propTypes.node,
+  head: propTypes.node.isRequired,
+  children: propTypes.node.isRequired,
+  maxWidth: propTypes.string,
+  minHeight: propTypes.string,
+  width: propTypes.string,
+  height: propTypes.string,
+};
+
+Layout.defaultProps = {
+  maxWidth: "",
+  minHeight: "",
+  width: "",
+  height: "",
 };
 
 export default memo(Layout);

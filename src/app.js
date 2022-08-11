@@ -3,10 +3,10 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Button from "./components/button";
-import BasketDisplay from "./components/basket-display";
 import Item from "./components/item";
 import Basket from "./components/basket";
 import Modal from "./components/modal";
+import propTypes from "prop-types";
 
 /**
  * Приложение
@@ -38,7 +38,13 @@ function App({ store }) {
       <Controls callbacks={[callbacks.openModal]} basketData={basket} />
       {modalIsOpen && (
         <Modal closeModal={callbacks.closeModal}>
-          <Basket />
+          <Basket
+            itemsPrice={basket.itemsPrice}
+            itemsAmount={basket.itemsAmount}
+            basketItems={basket.items}
+            deleteFromBasket={store.deleteFromBasket.bind(store)}
+            getState={store.getState.bind(store)}
+          />
         </Modal>
       )}
       <List
@@ -48,5 +54,9 @@ function App({ store }) {
     </Layout>
   );
 }
+
+App.propTypes = {
+  store: propTypes.object.isRequired,
+};
 
 export default App;

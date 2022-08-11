@@ -2,20 +2,25 @@ import React, { useState, useCallback } from "react";
 import Layout from "../layout";
 import List from "../list";
 import Item from "../item";
-import { store } from "../../index";
 import Button from "../button";
 import "./style.css";
 import { getFormatedPrice } from "../../utils";
+import propTypes from "prop-types";
 
-function Basket() {
-  const [items, setItems] = useState([...store.getState().basket.items]);
-  const { itemsPrice, itemsAmount } = store.getState().basket;
+function Basket({
+  itemsAmount,
+  itemsPrice,
+  basketItems,
+  getState,
+  deleteFromBasket,
+}) {
+  const [items, setItems] = useState(basketItems);
 
   const callbacks = {
     deleteFromBasket: useCallback(
       (code) => {
-        store.deleteFromBasket(code);
-        setItems([...store.getState().basket.items]);
+        deleteFromBasket(code);
+        setItems([...getState().basket.items]);
       },
       [items]
     ),
@@ -36,5 +41,13 @@ function Basket() {
     </Layout>
   );
 }
+
+Basket.propTypes = {
+  itemsAmount: propTypes.number.isRequired,
+  itemsPrice: propTypes.number.isRequired,
+  basketItems: propTypes.array.isRequired,
+  getState: propTypes.func.isRequired,
+  deleteFromBasket: propTypes.func.isRequired,
+};
 
 export default Basket;

@@ -24,8 +24,8 @@ function Modal({ children, closeModal }) {
 }
 
 Modal.propTypes = {
-  children: propTypes.node,
-  closeModal: propTypes.func,
+  children: propTypes.node.isRequired,
+  closeModal: propTypes.func.isRequired,
 };
 
 export default memo(Modal);

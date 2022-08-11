@@ -31,4 +31,8 @@ Item.propTypes = {
   control: propTypes.arrayOf(propTypes.any),
 };
 
+Item.defaultProps = {
+  control: null,
+};
+
 export default memo(Item);

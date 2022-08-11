@@ -10,8 +10,15 @@ function Button({ onClick, label, args }) {
 }
 
 Button.propTypes = {
-  onClick: propTypes.func.isRequired,
+  onClick: propTypes.func,
+  label: propTypes.string,
   args: propTypes.arrayOf(propTypes.any),
+};
+
+Button.defaultProps = {
+  onClick: () => {},
+  label: "Кнопка",
+  args: [],
 };
 
 export default memo(Button);

@@ -3,7 +3,7 @@ import {cn as bem} from '@bem-react/classname';
 import propTypes from 'prop-types';
 import './style.css';
 import plural from 'plural-ru';
-import {getFormattedPrice, getTotalPrice} from '../../utils';
+import {getFormattedPrice} from '../../utils';
 
 function Controls(props){
   const cn = bem('Controls');
@@ -26,7 +26,7 @@ function Controls(props){
             products.length > 0 ?
             `${products.length} 
             ${plural(products.length, 'товар', 'товара', 'товаров')} / 
-            ${getFormattedPrice(getTotalPrice(products))}` :
+            ${getFormattedPrice(props.totalPrice)}` :
             'пусто'
           }
         </b>
@@ -42,11 +42,8 @@ function Controls(props){
 
 Controls.propTypes = {
   cartItems: propTypes.array.isRequired,
+  totalPrice: propTypes.number.isRequired,
   onCartOpen: propTypes.func.isRequired // Обязательное свойство - функция
-}
-
-Controls.defaultProps = {
-  onCartOpen: () => {} // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

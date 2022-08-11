@@ -4,7 +4,8 @@ import App from './app.js';
 import Store from "./store.js";
 import {counter} from './utils.js';
 
-const store = new Store({
+
+const store = new Store({ 
   isCartOpen: false,
   items: [
     {code: counter(), title: 'Название товара', price: 100.0},

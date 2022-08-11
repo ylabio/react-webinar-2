@@ -72,6 +72,11 @@ class Store {
   };
 }
 
+getTotalPrice() {
+  return this.state.cartItems.reduce((accum, good) => accum + good.amount * good.price, 0);
+}
+
+
 /**
 * Удаление товара из корзины по его коду
 */
@@ -92,6 +97,9 @@ openCart() {
   });
 }
 
+
+
+
 /**
  * Выделение записи по её коду
  * @param code
@@ -104,6 +112,18 @@ openCart() {
   });
 }
 
+
+
+
+
 }
 
+
+
+
 export default Store;
+
+
+
+
+

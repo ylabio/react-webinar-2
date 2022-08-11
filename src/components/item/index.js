@@ -4,6 +4,7 @@ import {cn as bem} from '@bem-react/classname';
 import {getFormattedPrice} from '../../utils';
 import './style.css';
 
+
 function Item(props) {
   const cn = bem('Item');
 

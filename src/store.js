@@ -64,7 +64,7 @@ class Store {
       cart: {
         inCart,
         amount: cartSummary(inCart),
-        count: --cart.count,
+        count: cart.count - 1,
       },
     });
   }
@@ -78,9 +78,9 @@ class Store {
     let count = this.state.cart.count;
     if (!cart.inCart.find((item) => item.code === code)) {
       cart.inCart.push({ ...this.state.items.find((item) => item.code === code), quantity: 0 });
-      ++count;
+      count = count + 1;
     }
-    const inCart = cart.inCart.map((item) => {
+    const inCart = new Array(...cart.inCart).map((item) => {
       if (item.code === code) {
         ++item.quantity;
       }

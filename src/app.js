@@ -3,6 +3,7 @@ import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
 import Basket from "./components/basket";
+import Modal from "./components/modal";
 
 /**
  * Приложение

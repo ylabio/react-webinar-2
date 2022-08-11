@@ -1,10 +1,10 @@
-import React, { useCallback,useState } from "react";
+import React, { useCallback, useState } from "react";
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import Modal from "./components/modal";
+import { conversionCurrency } from "./utils";
+import LayoutBasket from "./components/layout-basket";
 import ListBasket from "./components/list-basket";
-import {conversionCurrency} from "./utils";
 
 /**
  * Приложение
@@ -23,27 +23,24 @@ function App({ store }) {
     onDeleteOfBasket: useCallback((item) => {
       store.deleteItem(item);
     }, []),
-    onOpenModal: useCallback( () => {
+    onOpenModal: useCallback(() => {
       setIsOpenModal(true);
     }, [isOpenModal]),
-    onCloseModal: useCallback( () => {
+    onCloseModal: useCallback(() => {
       setIsOpenModal(false);
-    }, [isOpenModal])
+    }, [isOpenModal]),
   };
 
   return (
     <React.Fragment>
       {isOpenModal ? (
-        <Modal
-          title='Корзина'
-          buttonName='Закрыть'
-          onCloseModal={callbacks.onCloseModal}
-        >
-          <ListBasket 
-            stateBasket={store.getState().basket} 
-            onDeleteOfBasket={callbacks.onDeleteOfBasket} 
-            totalPrice={totalPrice} />
-        </Modal>
+        <LayoutBasket onCloseModal={callbacks.onCloseModal}>
+          <ListBasket
+            stateBasket={store.getState().basket}
+            onDeleteOfBasket={callbacks.onDeleteOfBasket}
+            totalPrice={totalPrice}
+          />
+        </LayoutBasket>
       ) : (
         ""
       )}
@@ -51,7 +48,7 @@ function App({ store }) {
         <Controls
           stateBasket={store.getState().basket}
           onDeleteOfBasket={callbacks.onDeleteOfBasket}
-          totalPrice={totalPrice} 
+          totalPrice={totalPrice}
           totalAmount={store.getState().total.amount}
           onOpenModal={callbacks.onOpenModal}
         />

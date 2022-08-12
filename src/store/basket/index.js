@@ -15,6 +15,7 @@ class BasketState extends StateModule{
       sum: 0,
       amount: 0,
       item: {},
+      basketLang: 'ru',
     };
   }
 
@@ -23,6 +24,7 @@ class BasketState extends StateModule{
    * @param _id Код товара
    */
   addToBasket(_id) {
+    this.#setBasketLang();
     let sum = 0;
     // Ищем товар в корзие, чтобы увеличить его количество. Заодно получаем новый массив items
     let exists = false;
@@ -79,13 +81,40 @@ class BasketState extends StateModule{
   }
 
   async getGoodById(id) {
-    const response = await fetch(`/api/v1/articles/${id}?lang=ru&fields=*,maidIn(title,code),category(title)`);
+    const lang = this.store.state.language.language;
+    const response = await fetch(`/api/v1/articles/${id}?lang=${lang}&fields=*,maidIn(title,code),category(title)`);
     const json = await response.json();
 
     this.setState({
       ...this.store.state.basket,
       item: json.result,
     })
+  }
+
+  #setBasketLang() {
+    this.setState({
+      ...this.store.state.basket,
+      basketLang: this.store.state.language.language,
+    })
+  }
+
+  async refreshGoods(ids) {
+      const createRequest = async (id) => {
+        const lang = this.store.state.language.language;
+        const response = await fetch(`/api/v1/articles/${id}?lang=${lang}&fields=*,maidIn(title,code),category(title)`);
+        const json = await response.json();
+        return json.result;
+      };
+
+      const requests = ids.map(id => createRequest(id));
+
+      Promise.all(requests)
+      .then(data => {
+        this.setState({
+          ...this.store.state.basket,
+          items: [...data],
+        })
+      })
   }
 }
 

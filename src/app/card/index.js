@@ -6,6 +6,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import BasketSimple from "../../components/basket-simple";
 import './style.css';
+import Header from "../../components/header";
 
 function Card() {
   const params = useParams();
@@ -14,20 +15,28 @@ function Card() {
   const select = useSelector(state => ({
     item: state.basket.item,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    language: state.language.language,
   }));
 
   useEffect(() => {
     store.get('basket').getGoodById(params.id);
-  } , [params.id])
+  } , [params.id, select.language])
 
   const callbacks = {
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
-    onAdd: useCallback((id) => store.get('basket').addToBasket(id), [])
+    onAdd: useCallback((id) => store.get('basket').addToBasket(id), []),
+    changeLanguage: useCallback(lang => store.get('language').changeLanguage(lang), []),
   };
 
   return (
-    <Layout head={<h1>Название товара</h1>}>
+    <Layout 
+      head={
+        <Header 
+          title='Название товара' 
+          changeLanguage={callbacks.changeLanguage}
+        />
+    }>
       <section className={cn()}>
         <BasketSimple
           onOpen={callbacks.openModalBasket} 

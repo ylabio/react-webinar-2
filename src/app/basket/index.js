@@ -1,5 +1,5 @@
 import List from "../../components/list";
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import BasketTotal from "../../components/basket-total";
 import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
@@ -12,7 +12,9 @@ function Basket(){
   const select = useSelector(state => ({
     items: state.basket.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    basketLang: state.basket.basketLang,
+    language: state.language.language,
   }));
 
   const callbacks = {
@@ -29,6 +31,19 @@ function Basket(){
       closeModal={callbacks.closeModal} />, 
     []),
   }
+
+  useEffect(() => {
+    if (select.basketLang === select.language) {
+      console.log('same')
+    } else {
+      console.log(select.basketLang, select.language)
+      console.log('not same')
+      const ids = select.items.map(item => item._id);
+      console.log({ids})
+      store.get('basket').refreshGoods(ids);
+    }
+   
+  }, [])
 
   return (
     <LayoutModal title='Корзина' onClose={callbacks.closeModal}>

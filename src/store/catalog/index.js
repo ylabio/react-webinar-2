@@ -19,15 +19,6 @@ class CatalogState extends StateModule{
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
-    this.setState({
-      ...this.store.state.catalog,
-      items: json.result.items
-    });
-  }
-
   /**
    * Создание записи
    */
@@ -53,7 +44,8 @@ class CatalogState extends StateModule{
     skip = config.API_SKIP, 
     limit = config.API_LIMIT, 
   ) {
-    const response = await fetch(`/api/v1/articles?lang=ru&limit=${limit}&skip=${skip}&fields=items(*),count`);
+    const lang = this.store.state.language.language;
+    const response = await fetch(`/api/v1/articles?lang=${lang}&limit=${limit}&skip=${skip}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
       ...this.store.state.catalog,

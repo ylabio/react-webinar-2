@@ -4,22 +4,23 @@ import './style.css';
 import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import BaseButton from "../base-button";
+import {divideOnDigits} from "../../utils";
 
-function Controls({cartItems,setActivePopupCart}) {
+function Controls({onClick, buttonName,totalPrice,totalItemCount}) {
     const cn = bem('Controls');
-    const getTotalPrice = cartItems?.reduce((sum, cartItem) => {
-        return sum + cartItem.price * cartItem.count
-    }, 0)
+
 
     return (
         <div className='Controls'>
             <span className={cn('cart')}>В корзине:</span>
             <span className='Controls__cartItem'>
             <h3>
-                {cartItems.length > 0 ? `${cartItems.length} ${plural(cartItems.length,'товар', 'товара', 'товаров')} / ${getTotalPrice} ₽`:'пусто'}
+                {totalItemCount > 0 ?
+                    `${totalItemCount} ${plural(totalItemCount,'товар', 'товара', 'товаров')} / 
+                    ${divideOnDigits(totalPrice)}`:'пусто'}
             </h3>
         </span>
-            <BaseButton onClick={() => setActivePopupCart(true)}>Перейти</BaseButton>
+            <BaseButton onClick={onClick}>{buttonName}</BaseButton>
         </div>
     )
 }

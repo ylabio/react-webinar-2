@@ -4,6 +4,7 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import BaseButton from "../base-button";
 import {AddItemContext, DeleteCartItemContext} from "../../app";
+import {divideOnDigits} from "../../utils";
 
 
 function Item(props) {
@@ -11,9 +12,9 @@ function Item(props) {
     const onDeleteItem = useContext(DeleteCartItemContext)
     const cn = bem('Item');
 
-    const handleOnDelete = () => {
+    const handleOnClick = () => {
         onAddItemToCart(props.item)
-        if (props.buttonName === 'удалить') {
+        if (props.buttonName === 'Удалить') {
             onDeleteItem(props.item)
         }
     }
@@ -26,13 +27,12 @@ function Item(props) {
             <div className={cn('title')}>
                 {props.item.title}
                 <div className={cn('info')}>
-                    <div className={('price')}>{props.item.price} ₽</div>
+                    <div className={('price')}>{divideOnDigits(props.item.price)}</div>
                     {props.item.count ? <div className={('code-cart')}>{props.item.count}{' '}{props.countProductCart}</div>
                         : '' }
-                    <div><BaseButton onClick={handleOnDelete}>{props.buttonName}</BaseButton></div>
+                    <div><BaseButton onClick={handleOnClick}>{props.buttonName}</BaseButton></div>
                 </div>
             </div>
-
         </div>
     )
 }

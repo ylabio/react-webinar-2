@@ -2,13 +2,15 @@ import React from "react";
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css'
+import {divideOnDigits} from "../../utils";
 
-const TotalPriceCart = ({getTotalPrice}) => {
+const TotalPriceCart = ({totalPrice}) => {
+
     const cn = bem('total-price')
     return (
         <div className={cn('')}>
             <div className={cn('text')}>Итого </div>
-            <div className={cn('sum')}>{getTotalPrice}</div>
+            <div className={cn('sum')}>{divideOnDigits(totalPrice)}</div>
         </div>
     )
 }
@@ -16,11 +18,11 @@ const TotalPriceCart = ({getTotalPrice}) => {
 export default React.memo(TotalPriceCart)
 
 TotalPriceCart.propTypes = {
-    getTotalPrice: propTypes.number.isRequired,
+    totalPrice: propTypes.number.isRequired,
 }
 
 TotalPriceCart.defaultProps = {
-    getTotalPrice: 0,
+    totalPrice: 0,
 }
 
 

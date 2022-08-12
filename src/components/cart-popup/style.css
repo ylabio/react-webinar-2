@@ -11,7 +11,7 @@
     background: rgba(0, 0, 0, 0.7);
 }
 
-.Modal-cart-container{
+.Modal-content{
     width: 960px;
     height: 613px;
     background-color: #fff;
@@ -46,13 +46,7 @@
     padding-right: 111px;
 }
 
-.Modal-item {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7);
 
-}
 .Modal-closed-cart {
     margin:10px;
     display: flex;

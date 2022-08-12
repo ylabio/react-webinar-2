@@ -36,7 +36,7 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} link={`/${item._id}`}/>, []),
   };
   //Пора декомпозировать)
   const options = {

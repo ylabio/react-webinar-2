@@ -1,6 +1,6 @@
-import React, {useEffect, useRef} from 'react';
+import {cn as bem} from '@bem-react/classname';
 import PropTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
+import React, {useEffect, useRef} from 'react';
 import './style.css';
 
 function LayoutModal(props) {
@@ -17,21 +17,19 @@ function LayoutModal(props) {
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = 'auto';
-    }
+    };
   });
 
   return (
     <div className={cn()}>
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
-          <h1 className={cn('title')}>
-            {props.title}
-          </h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <h1 className={cn('title')}>{props.title}</h1>
+          <button className={cn('close')} onClick={props.onClose}>
+            Закрыть
+          </button>
         </div>
-        <div className={cn('content')}>
-          {props.children}
-        </div>
+        <div className={cn('content')}>{props.children}</div>
       </div>
     </div>
   );
@@ -40,7 +38,7 @@ function LayoutModal(props) {
 LayoutModal.propTypes = {
   title: PropTypes.string,
   onClose: PropTypes.func,
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 LayoutModal.defaultProps = {

@@ -1,0 +1,16 @@
+.ItemInfo {
+  margin: 40px;
+  font-size: 18px;
+}
+
+.ItemInfo > * {
+  margin: 20px;
+}
+
+.ItemInfo-price {
+  font-size: 24px;
+}
+
+.ItemInfo > button {
+  display: block;
+}

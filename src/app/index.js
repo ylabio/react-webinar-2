@@ -1,5 +1,7 @@
 import React from 'react';
+import {Route, Routes} from 'react-router-dom';
 import useSelector from '../utils/use-selector';
+import ArticleInfo from './article-info';
 import Basket from './basket';
 import Main from './main';
 
@@ -14,7 +16,10 @@ function App() {
 
   return (
     <>
-      <Main />
+      <Routes>
+        <Route path='/' element={<Main />} />
+        <Route path='/article/:id' element={<ArticleInfo />} />
+      </Routes>
       {modal === 'basket' && <Basket />}
     </>
   );

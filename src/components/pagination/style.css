@@ -9,7 +9,7 @@
 .Pagination li {
   width: 18px;
   height: 18px;
-  padding: 1px;
+  margin: 2px;
 }
 
 .Pagination-page {

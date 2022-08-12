@@ -10,14 +10,17 @@ function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <span className={cn('label')}>В корзине:</span>
-      <span className={cn('total')}>
-      {amount
-        ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-        : `пусто`
-      }
-      </span>
-      <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+      <a className={cn('header-link')} href={'#'}>Главная</a>
+        <div>
+          <span className={cn('label')}>В корзине:</span>
+          <span className={cn('total')}>
+          {amount
+            ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
+            : `пусто`
+          }
+          </span>
+          <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+        </div>
     </div>
   )
 }

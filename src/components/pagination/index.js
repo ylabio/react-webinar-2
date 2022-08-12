@@ -31,12 +31,12 @@ function Pagination(props) {
     return (
         <ul className={cn()}>
             {items.map((number, index) => (
-                <li key={index}
-                    className={cn('item', {active: number === props.page, split: !number})}
-                    onClick={()=>props.onChange(number)}
-                >
-                    {number || '...'}
-                </li>
+
+                    number && <li key={index}
+                                   className={cn('item', {active: number === props.page, split: !number})}
+                                   onClick={()=>props.onChange(number)}
+                    >{number}</li> || '...'
+
             ))}
         </ul>
     )

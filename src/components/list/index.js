@@ -1,7 +1,7 @@
+<<<<<<< HEAD
 import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import Item from "../item";
 import './style.css';
 
 function List(props) {
@@ -9,11 +9,8 @@ function List(props) {
 
   return (
     <div className={cn()}>{props.items.map(item =>
-      <div key={item.code} className={cn('item')}>
-        <Item item={item}
-              onItemAction={props.onItemAction}
-              btnTxt={props.btnTxt}
-              />
+      <div key={item._id} className={cn('item')}>
+        {props.renderItem(item)}
       </div>
     )}
     </div>
@@ -22,12 +19,15 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  onItemAction: propTypes.func.isRequired,
-  btnTxt: propTypes.string.isRequired
+  renderItem: propTypes.func
 }
 
 List.defaultProps = {
-
+  items: [],
+  renderItem: (item) => {
+    return item.toString()
+  }
 }
 
 export default React.memo(List);
+>>>>>>> f8010da1be0c1ba68ffc8099302073bd0c25dcd0

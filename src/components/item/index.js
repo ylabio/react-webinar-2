@@ -1,33 +1,27 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+import numberFormat from "../../utils/numberFormat";
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onItemAction: useCallback(() => {
-      props.onItemAction(props.item.code);
-    }, [props.item]),
+    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
 
   return (
     <div className={cn()}>
-      <div className={cn('number')}>
-        {props.item.code}
-      </div>
+      {/*<div className={cn('id')}>*/}
+      {/*  {props.item._id}*/}
+      {/*</div>*/}
       <div className={cn('title')}>
         {props.item.title}
       </div>
-      <div className={cn('info')}>
-        <span className={cn('info-item')}>{props.item.price.toLocaleString('ru-RU') + " ₽"}</span>
-        {props.item.count && <span className={cn('info-item')}>{props.item.count} шт</span>}
-      </div>
-      <div className={cn('actions')}>
-        <button onClick={callbacks.onItemAction}>
-          {props.btnTxt}
-        </button>
+      <div className={cn('right')}>
+        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
+        <button onClick={callbacks.onAdd}>Добавить</button>
       </div>
     </div>
   )
@@ -35,12 +29,12 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onPushItemToCart: propTypes.func.isRequired,
-  btnTxt:propTypes.string.isRequired
+  onAdd: propTypes.func,
 }
 
 Item.defaultProps = {
-  onPushItemToCart: () => {}
+  onAdd: () => {},
 }
 
 export default React.memo(Item);
+>>>>>>> f8010da1be0c1ba68ffc8099302073bd0c25dcd0

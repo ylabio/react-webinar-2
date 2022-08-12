@@ -23,7 +23,7 @@ function ItemOfStore(props) {
         {props.item.title}
       </div>
       <div className={cn('price')}>
-        {`${props.item.price} ₽`}
+        {`${props.item.price.toLocaleString('ru-RU', {currency: 'RUB',style: 'currency',minimumFractionDigits: '0'})}`}
       </div>
       <div className={cn('actions')}>
         <button onClick={callbacks.addItemInBasket}>

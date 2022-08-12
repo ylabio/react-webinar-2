@@ -15,18 +15,21 @@ function Basket(){
   const select = useSelector(state => ({
     items: state.basket.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    _id: state.item_page._id,
   }));
 
   const callbacks = {
     // Закрытие любой модалки
     closeModal: useCallback(() => store.get('modals').close(), []),
     // Удаление из корзины
-    removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), [])
+    removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), []),
+    // Добавление id элемента для запроса
+    addIdForRequest: useCallback(_id => store.get('item_page').getId(_id), []),
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket} onClose={callbacks.closeModal} addId={callbacks.addIdForRequest}/>, []),
   }
 
   return (

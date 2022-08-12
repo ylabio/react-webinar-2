@@ -32,7 +32,7 @@ function ArticleInfo() {
   useEffect(() => {
     callbacks.setInfoId(id);
     callbacks.loadItemInfo(id);
-  }, []);
+  }, [id]);
 
   return (
     <Layout head={<h1>{select.info.title}</h1>}>

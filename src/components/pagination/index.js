@@ -12,9 +12,9 @@ function Pagination({total, active, siblings, onChange, className}) {
 
   return (
     <ul className={joinClasses(className, cn())}>
-      {pages.map(i =>
+      {pages.map((i, index) =>
         i === separator ? (
-          <li key={i} className={cn('separator')}>
+          <li key={`${i}_${index}`} className={cn('separator')}>
             {i}
           </li>
         ) : (

@@ -1,5 +1,6 @@
 import {cn as bem} from '@bem-react/classname';
 import React, {useCallback} from 'react';
+import numberFormat from '../../utils/numberFormat';
 
 function ItemInfo({_id, description, maidIn, category, edition, price, addToBasket}) {
   const cn = bem('ItemInfo');
@@ -20,7 +21,7 @@ function ItemInfo({_id, description, maidIn, category, edition, price, addToBask
       <p className={cn('year')}>
         Год выпуска: <strong>{edition}</strong>
       </p>
-      <strong className={cn('price')}>Цена: {price}</strong>
+      <strong className={cn('price')}>Цена: {numberFormat(price)} ₽</strong>
       <button onClick={callbacks.addToBasket}>Добавить</button>
     </div>
   );

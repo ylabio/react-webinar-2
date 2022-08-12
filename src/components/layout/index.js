@@ -1,6 +1,7 @@
 import React from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
+import LanguagesControl from '../languages-control';
 import './style.css';
 
 function Layout({head, children}){
@@ -10,6 +11,7 @@ function Layout({head, children}){
     <div className={cn()}>
       <div className={cn('head')}>
         {head}
+        <LanguagesControl />
       </div>
       <div className={cn('content')}>
         {children}

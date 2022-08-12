@@ -1,11 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import Translate from '../../components/translate';
 import './style.css';
 
 function Controls({onAdd}){
   return (
     <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+      <button onClick={onAdd}><Translate>Добавить</Translate></button>
     </div>
   )
 }

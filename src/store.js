@@ -81,9 +81,9 @@ class Store {
     });
   }
   onDeleteFromBasket(code){
-    const item = this.getState().items.find(item => item.code === code);
+    const item = this.getState().basket.find(item => item.code === code);
     const amount = this.getState().basket.amount - 1;
-    const price = this.getState().basket.price - item.price;
+    const price = this.getState().basket.price - item.price * item.amount;
 
     this.setState({
       ...this.state,

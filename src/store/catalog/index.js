@@ -1,10 +1,9 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**
  * Состояние каталога
  */
-class CatalogState extends StateModule{
+class CatalogState extends StateModule {
 
   /**
    * Начальное состояние
@@ -12,16 +11,31 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      count: 0
     };
   }
 
-  async load(){
+  async load() {
     const response = await fetch('/api/v1/articles');
     const json = await response.json();
     this.setState({
       items: json.result.items
     });
+  }
+
+  /**
+   * запрос каталога с страницами
+   * @param skip
+   */
+  async loadProducts(skip) {
+    const response = await fetch(`/api/v1/articles?limit=10&skip=${skip}&fields=items(*),count`);
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      items: json.result.items,
+      count: json.result.count
+    },'Запрос страницы товара');
   }
 
   /**

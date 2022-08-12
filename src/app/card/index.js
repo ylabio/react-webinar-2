@@ -17,11 +17,9 @@ function Card() {
     sum: state.basket.sum
   }));
 
-  console.log(select.item)
-
   useEffect(() => {
     store.get('basket').getGoodById(params.id);
-  } , [])
+  } , [params.id])
 
   const callbacks = {
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),

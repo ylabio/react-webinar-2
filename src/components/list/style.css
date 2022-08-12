@@ -9,3 +9,12 @@
 .List-item:first-child{
     border-top: 1px dashed #ccc;
 }
+
+.List-item a {
+    color: #000000;
+    text-decoration: none;
+}
+.List-item a:hover {
+    text-decoration: underline;
+}
+ 

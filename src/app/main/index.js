@@ -18,13 +18,9 @@ function Main(){
 
   const select = useSelector(state => ({
     items: state.catalog.items,
-    amount: state.basket.amount,
-    sum: state.basket.sum
   }));
 
   const callbacks = {
-    // Открытие корзины
-    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
@@ -35,7 +31,6 @@ function Main(){
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
     </Layout>
   )

@@ -44,7 +44,7 @@ function ArticleInfo() {
         amount={select.amount}
         sum={select.sum}
         local={select.local}
-        onHomeClick={setFirstPage}
+        onHomeClick={callbacks.setFirstPage}
       />
       <ItemInfo {...select.info} addToBasket={callbacks.addToBasket} local={select.local} />
     </Layout>

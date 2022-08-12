@@ -44,7 +44,12 @@ function Main(){
         lang={select.language}
       />
     }>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <BasketSimple 
+        onOpen={callbacks.openModalBasket} 
+        amount={select.amount} 
+        sum={select.sum}
+        lang={select.language}
+      />
       <List items={select.items} renderItem={renders.item}/>
       <Pagination />
     </Layout>

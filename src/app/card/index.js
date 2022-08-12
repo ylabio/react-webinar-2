@@ -7,6 +7,7 @@ import useSelector from "../../utils/use-selector";
 import BasketSimple from "../../components/basket-simple";
 import './style.css';
 import Header from "../../components/header";
+import Translate from "../translate";
 
 function Card() {
   const params = useParams();
@@ -48,25 +49,27 @@ function Card() {
         <main className={cn('main')}>
           <div>{select.item?.description}</div>
           <div className={cn('block')}>
-            Страна производитель: 
+            <Translate text={'Страна производитель'} />: 
             <span className={cn('value')}>{select.item?.maidIn?.title} ({select.item?.maidIn?.code})</span>
           </div>
           <div className={cn('block')}>
-            Категория:
+            <Translate text={'Категория'} />:
             <span className={cn('value')}>{select.item?.category?.title}</span>
           </div>
           <div className={cn('block')}>
-            Год выпуска:
+            <Translate text={'Год выпуска'} />:
             <span className={cn('value')}>{select.item?.edition}</span>
           </div>
           <div className={cn('price')}>
-            Цена:
-            <span>{(select.item?.price)?.toLocaleString('ru')} ₽</span>
+            <Translate text={'Цена'} />:
+            <span>{(select.item?.price)?.toLocaleString(select.language)} ₽</span>
           </div>
           <button 
             className={cn('button')}
             onClick={() => callbacks.onAdd(select.item?._id)}
-          >Добавить</button>
+          >
+            <Translate text={'Добавить'} />
+          </button>
         </main>
       </section>
     </Layout>

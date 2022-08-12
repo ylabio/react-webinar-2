@@ -15,3 +15,7 @@
     font-weight: bold;
     margin: 0 15px;
 }
+
+.BasketSimple-cart {
+    display: flex;
+}

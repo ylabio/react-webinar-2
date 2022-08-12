@@ -31,7 +31,6 @@ class ItemInfoState extends StateModule {
       `/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`
     );
     const json = await response.json();
-    console.log(json);
     this.setState({
       info: {
         _id: json.result._id,

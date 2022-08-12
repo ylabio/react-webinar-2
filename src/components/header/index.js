@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function Header({title, changeLanguage}) {
+function Header({title, changeLanguage, lang}) {
   const cn = bem('Header');
 
   const callbacks = {
@@ -16,11 +16,14 @@ function Header({title, changeLanguage}) {
       }
     }, []),
   };
-  
+
   return (
     <header className={cn()}>
       <h1>{title}</h1>
-      <select onChange={callbacks.switchLang}>
+      <select 
+        onChange={callbacks.switchLang}
+        value={lang === 'ru' ? 'Русский' : 'English'}
+      >
         <option>Русский</option>
         <option>English</option>
       </select>

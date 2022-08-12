@@ -33,16 +33,12 @@ function Basket(){
   }
 
   useEffect(() => {
-    if (select.basketLang === select.language) {
-      console.log('same')
-    } else {
-      console.log(select.basketLang, select.language)
-      console.log('not same')
-      const ids = select.items.map(item => item._id);
-      console.log({ids})
-      store.get('basket').refreshGoods(ids);
-    }
-   
+    const ids = select.items.map(item => ({
+      id: item._id,
+      amount: item.amount,
+    }));
+  
+    store.get('basket').refreshGoods(ids);
   }, [])
 
   return (

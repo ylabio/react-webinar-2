@@ -41,6 +41,7 @@ function Main(){
       <Header 
         title='Магазин' 
         changeLanguage={callbacks.changeLanguage} 
+        lang={select.language}
       />
     }>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>

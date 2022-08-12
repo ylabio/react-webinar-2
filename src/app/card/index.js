@@ -35,6 +35,7 @@ function Card() {
         <Header 
           title='Название товара' 
           changeLanguage={callbacks.changeLanguage}
+          lang={select.language}
         />
     }>
       <section className={cn()}>

@@ -7,11 +7,7 @@ class ProductState extends StateModule {
 	 */
 	initState() {
 		return {
-			item: {
-				product: {},
-				maidIn: {},
-				category: {},
-			},
+			item: null,
 		};
 	}
 
@@ -21,28 +17,13 @@ class ProductState extends StateModule {
 		);
 		const json = await response.json();
 		this.setState(
-			{
-				item: {
-					product: json.result,
-					maidIn: json.result.maidIn,
-					category: json.result.category,
-				},
-			},
+			{ item: json.result },
 			`Получение продукта "${json.result.title}"`,
 		);
 	}
 
 	reset() {
-		this.setState(
-			{
-				item: {
-					product: {},
-					maidIn: {},
-					category: {},
-				},
-			},
-			'Сброс продукта',
-		);
+		this.setState({ item: null }, 'Сброс продукта');
 	}
 }
 

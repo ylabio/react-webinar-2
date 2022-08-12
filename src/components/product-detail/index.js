@@ -8,15 +8,12 @@ function ProductDetail({ item, onAdd }) {
 	const cn = bem('ProductDetail');
 
 	const callbacks = {
-		onAdd: useCallback(
-			(e) => onAdd(item.product._id),
-			[onAdd, item.product],
-		),
+		onAdd: useCallback((e) => onAdd(item._id), [onAdd, item]),
 	};
 
 	return (
 		<div className={cn()}>
-			<div className={cn('description')}>{item.product.description}</div>
+			<div className={cn('description')}>{item.description}</div>
 			<ul className={cn('characteristics')}>
 				<li className={cn('characteristicsItem')}>
 					Страна производитель:
@@ -28,10 +25,10 @@ function ProductDetail({ item, onAdd }) {
 					Категория:<span>{item.category.title}</span>
 				</li>
 				<li className={cn('characteristicsItem')}>
-					Год выпуска:<span>{item.product.edition}</span>
+					Год выпуска:<span>{item.edition}</span>
 				</li>
 				<li className={cn('characteristicsItem', { price: true })}>
-					Цена:<span>{numberFormat(item.product.price)} ₽</span>
+					Цена:<span>{numberFormat(item.price)} ₽</span>
 				</li>
 			</ul>
 			<button onClick={callbacks.onAdd}>Добавить</button>

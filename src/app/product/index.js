@@ -11,12 +11,11 @@ function Product() {
 	const store = useStore();
 
 	useEffect(() => {
-		// store.get('')
 		store.get('product').load(id);
 		return () => {
 			store.get('product').reset();
 		};
-	}, []);
+	}, [id]);
 
 	const { item } = useSelector((state) => ({
 		item: state.product.item,
@@ -28,8 +27,8 @@ function Product() {
 	};
 
 	return (
-		<Layout head={<h1>{item.product.title}</h1>}>
-			<ProductDetail item={item} onAdd={callbacks.addToBasket} />
+		<Layout head={<h1>{item && item.title}</h1>}>
+			{item && <ProductDetail item={item} onAdd={callbacks.addToBasket} />}
 		</Layout>
 	);
 }

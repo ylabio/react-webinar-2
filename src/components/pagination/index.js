@@ -2,32 +2,29 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
+import counter from '../../utils/counter';
+import getPages from '../../utils/get-pages';
 import './style.css';
 
-function Pagination(props) {
+function Pagination({pageNumber, amount}) {
   const cn = bem('Pagination');
-
-  const callbacks = {
-    // onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item])
-  };
-
-  const numbers = [];
-
-  for (let i = 1; i <= props.amount; i++) {
-    numbers.push(i);
-  };
+  const pages = getPages(pageNumber, amount);
 
   return (
     <ul className={cn()}>
-      {numbers.map((item) =>
-        <li className={cn('item')} key={item}>
+      {pages.map((item) =>
+        typeof(item) === 'number' ?
+        (<li className={cn('item')} key={counter()}>
           <Link
             to={`/page/${item}`}
-            className={item === props.pageNumber ? cn('link', {active: true}) : cn('link')}
+            className={item === pageNumber ? cn('link', {active: true}) : cn('link')}
           >
             {item}
           </Link>
-        </li>
+        </li>) : 
+        (<li className={cn('item')} key={counter()}>
+          {item}
+        </li>)
       )}
     </ul>
   )

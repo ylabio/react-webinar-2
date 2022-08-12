@@ -42,7 +42,6 @@ class ItemInfoState extends StateModule {
         edition: json.result.edition
       }
     });
-    console.log(this.getState());
   }
 
   /**

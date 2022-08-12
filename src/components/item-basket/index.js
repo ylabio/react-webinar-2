@@ -9,13 +9,18 @@ function ItemBasket(props) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: useCallback(e => props.onRemove(props.item._id), [props.onRemove, props.item])
+    onRemove: useCallback(e => props.onRemove(props.item._id), [props.onRemove, props.item]),
+    onItemOpen: useCallback(() => props.onItemOpen(), [])
   };
 
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
-      <Link to={`/article/${props.item._id}`} className={cn('title')}>
+      <Link
+        to={`/article/${props.item._id}`}
+        className={cn('title')}
+        onClick={callbacks.onItemOpen}
+      >
         {props.item.title}
       </Link>
       <div className={cn('right')}>
@@ -31,7 +36,8 @@ function ItemBasket(props) {
 
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
-  onRemove: propTypes.func
+  onRemove: propTypes.func,
+  onItemOpen: propTypes.func
 };
 
 ItemBasket.defaultProps = {};

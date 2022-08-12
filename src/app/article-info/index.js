@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import BasketSimple from '../../components/basket-simple';
 import ItemInfo from '../../components/item-info';
@@ -23,30 +23,19 @@ function ArticleInfo() {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Назначение id для информации о товаре
-    setInfoId: useCallback(_id => store.get('itemInfo').setId(_id), [])
+    setInfoId: useCallback(_id => store.get('itemInfo').setId(_id), []),
+    loadItemInfo: useCallback(_id => store.get('itemInfo').load(_id), [])
   };
-
-  const isParams = useRef(false);
-  useEffect(() => {
-    callbacks.closeModalBasket();
-  }, []);
 
   const {id} = useParams();
 
   useEffect(() => {
-    callbacks.setInfoId(id.toString());
-    isParams.current = true;
-  }, [id]);
-
-  useEffect(() => {
-    if (!isParams.current) {
-      store.get('itemInfo').load(select.info._id);
-    }
-    isParams.current = false;
-  }, [select.info._id]);
+    callbacks.setInfoId(id);
+    callbacks.loadItemInfo(id);
+  }, []);
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>{select.info.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <ItemInfo {...select.info} addToBasket={callbacks.addToBasket} />
     </Layout>

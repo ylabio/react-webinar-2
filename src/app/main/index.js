@@ -5,15 +5,14 @@ import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import {config} from '../../config';
+import Pagination from "../pagination";
 
 function Main(){
-
-  console.log('Main');
-
   const store = useStore();
 
   useEffect(() => {
-    store.get('catalog').load();
+    store.get('catalog').getGoods();
   }, [])
 
   const select = useSelector(state => ({
@@ -37,6 +36,7 @@ function Main(){
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
+      <Pagination />
     </Layout>
   )
 }

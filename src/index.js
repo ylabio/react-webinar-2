@@ -3,6 +3,7 @@ import {createRoot} from 'react-dom/client';
 import App from './app';
 import Store from "./store";
 import {StoreContext} from "./store/context";
+import './global.css';
 
 // Внешнее состояние
 const store = new Store();

@@ -26,7 +26,8 @@ function ArticleInfo() {
     // Назначение id для информации о товаре
     setInfoId: useCallback(_id => store.get('itemInfo').setId(_id), []),
     loadItemInfo: useCallback(_id => store.get('itemInfo').load(_id), []),
-    setLang: useCallback(lang => store.get('local').setLang(lang), [])
+    setLang: useCallback(lang => store.get('local').setLang(lang), []),
+    setFirstPage: useCallback(() => store.get('catalog').setPage(1), [])
   };
 
   const {id} = useParams();
@@ -43,6 +44,7 @@ function ArticleInfo() {
         amount={select.amount}
         sum={select.sum}
         local={select.local}
+        onHomeClick={setFirstPage}
       />
       <ItemInfo {...select.info} addToBasket={callbacks.addToBasket} local={select.local} />
     </Layout>

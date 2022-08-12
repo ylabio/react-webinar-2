@@ -36,7 +36,9 @@ function Main() {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     setPage: useCallback(page => store.get('catalog').setPage(page), []),
-    setLang: useCallback(lang => store.get('local').setLang(lang), [])
+    setLang: useCallback(lang => store.get('local').setLang(lang), []),
+
+    setFirstPage: useCallback(() => store.get('catalog').setPage(1), [])
   };
 
   const renders = {
@@ -57,6 +59,7 @@ function Main() {
         amount={select.amount}
         sum={select.sum}
         local={select.local}
+        onHomeClick={callbacks.setFirstPage}
       />
       <List items={select.items} renderItem={renders.item} />
       <Pagination

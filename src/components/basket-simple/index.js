@@ -5,11 +5,11 @@ import {Link} from 'react-router-dom';
 import numberFormat from '../../utils/numberFormat';
 import './styles.css';
 
-function BasketSimple({sum, amount, onOpen, local}) {
+function BasketSimple({sum, amount, onOpen, local, onHomeClick}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <Link className={cn('toMain')} to={'/'}>
+      <Link className={cn('toHome')} to={'/'} onClick={onHomeClick}>
         {local.common.homeLink}
       </Link>
       <span className={cn('label')}>{local.common.basketFullnessLabel}:</span>
@@ -29,7 +29,8 @@ BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
   amount: propTypes.number,
-  local: propTypes.object
+  local: propTypes.object,
+  onHomeClick: propTypes.func
 };
 
 BasketSimple.defaultProps = {

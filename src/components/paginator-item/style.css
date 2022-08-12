@@ -1,0 +1,27 @@
+.PaginatorItem {
+  width: 20px;
+  height: 20px;
+  line-height: 22px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.PaginatorItem:hover {
+  background-color: #e1e1e1;
+}
+.dots {
+  width: 20px;
+  height: 20px;
+  line-height: 22px;
+  text-align: center;
+  color: #CCCCCC;
+	cursor: auto;
+}
+
+.PaginatorItem_active{
+  background-color: #0087e9;
+  color: white;
+}
+.PaginatorItem_wide{
+  width: auto
+}

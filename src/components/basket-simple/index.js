@@ -1,26 +1,25 @@
 import {cn as bem} from '@bem-react/classname';
-import plural from 'plural-ru';
 import propTypes from 'prop-types';
 import React from 'react';
 import {Link} from 'react-router-dom';
 import numberFormat from '../../utils/numberFormat';
 import './styles.css';
 
-function BasketSimple({sum, amount, onOpen}) {
+function BasketSimple({sum, amount, onOpen, local}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
       <Link className={cn('toMain')} to={'/'}>
-        Главная
+        {local.common.homeLink}
       </Link>
-      <span className={cn('label')}>В корзине:</span>
+      <span className={cn('label')}>{local.common.basketFullnessLabel}:</span>
       <span className={cn('total')}>
         {amount
-          ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-          : `пусто`}
+          ? `${amount} ${local.common.basketAmount(amount)} / ${numberFormat(sum)} ₽`
+          : local.common.basketEmpty}
       </span>
       <button className='BasketSimple__button' onClick={onOpen}>
-        Перейти
+        {local.common.openCart}
       </button>
     </div>
   );
@@ -29,7 +28,8 @@ function BasketSimple({sum, amount, onOpen}) {
 BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
-  amount: propTypes.number
+  amount: propTypes.number,
+  local: propTypes.object
 };
 
 BasketSimple.defaultProps = {

@@ -29,6 +29,7 @@
     "html-webpack-plugin": "^5.5.0",
     "lodash.range": "^3.2.0",
     "mini-css-extract-plugin": "^2.6.1",
+    "plural": "^1.1.0",
     "plural-ru": "^2.0.2",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",

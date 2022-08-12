@@ -14,7 +14,8 @@ function Basket() {
   const select = useSelector(state => ({
     items: state.basket.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    local: state.local.dict[state.local.lang]
   }));
 
   const callbacks = {
@@ -31,6 +32,7 @@ function Basket() {
           item={item}
           onRemove={callbacks.removeFromBasket}
           onItemOpen={callbacks.closeModal}
+          local={select.local}
         />
       ),
       []
@@ -38,9 +40,13 @@ function Basket() {
   };
 
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+    <LayoutModal
+      title={select.local.basket.header}
+      onClose={callbacks.closeModal}
+      closeButtonLabel={select.local.common.close}
+    >
       <List items={select.items} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+      <BasketTotal sum={select.sum} totalLabel={select.local.basket.totalLabel} />
     </LayoutModal>
   );
 }

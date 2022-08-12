@@ -21,7 +21,9 @@ function Main() {
     sum: state.basket.sum,
     page: state.catalog.page,
     limit: state.catalog.pageLimit,
-    pagesCount: state.catalog.pagesCount
+    pagesCount: state.catalog.pagesCount,
+    local: state.local.dict[state.local.lang],
+    lang: state.local.lang
   }));
 
   useEffect(() => {
@@ -33,16 +35,29 @@ function Main() {
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    setPage: useCallback(page => store.get('catalog').setPage(page), [])
+    setPage: useCallback(page => store.get('catalog').setPage(page), []),
+    setLang: useCallback(lang => store.get('local').setLang(lang), [])
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} />, [])
+    item: useCallback(
+      item => <Item item={item} onAdd={callbacks.addToBasket} addLocal={select.local.common.add} />,
+      [select.local.common.add]
+    )
   };
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+    <Layout
+      head={<h1>{select.local.catalog.header}</h1>}
+      curLang={select.lang}
+      setLang={callbacks.setLang}
+    >
+      <BasketSimple
+        onOpen={callbacks.openModalBasket}
+        amount={select.amount}
+        sum={select.sum}
+        local={select.local}
+      />
       <List items={select.items} renderItem={renders.item} />
       <Pagination
         className={cn('pagination')}

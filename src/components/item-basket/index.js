@@ -25,9 +25,11 @@ function ItemBasket(props) {
       </Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          {numberFormat(props.item.amount || 0)} {props.local.basket.piece}
+        </div>
+        <div className={cn('cell')}>
+          <button onClick={callbacks.onRemove}>{props.local.common.remove}</button>
         </div>
       </div>
     </div>
@@ -37,7 +39,8 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
-  onItemOpen: propTypes.func
+  onItemOpen: propTypes.func,
+  local: propTypes.object
 };
 
 ItemBasket.defaultProps = {};

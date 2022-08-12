@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import Main from "./main";
 import Basket from "./basket";
 import Product from './product'
-import ProductList from './productList'
 import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
@@ -21,13 +20,10 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Main />} >
-            <Route index element={<ProductList/>}/>
-          </Route>
+          <Route path="/" element={<Main />} />
           <Route path="/:id" element={<Product />} />
-
-          {modal === "basket" && <Basket />}
         </Routes>
+          {modal === "basket" && <Basket />}
       </Router>
     </>
   );

@@ -13,6 +13,8 @@
 .Item-title {
     width: 100%;
     padding: 20px 10px;
+    text-decoration: none;
+    color: black;
 }
 
 .Item-right {
@@ -25,4 +27,8 @@
 .Item-price {
     padding: 0 10px;
     white-space: nowrap;
+}
+.Item-title:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }

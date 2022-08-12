@@ -5,6 +5,7 @@ import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import Pagination from "../../components/pagination";
 
 function Main(){
 
@@ -12,21 +13,24 @@ function Main(){
 
   const store = useStore();
 
-  useEffect(() => {
-    store.get('catalog').load();
-  }, [])
-
   const select = useSelector(state => ({
     items: state.catalog.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    count: state.catalog.count,
+    activePage: state.catalog.activePage,
   }));
+
+  useEffect(() => {
+    store.get('catalog').load(select.activePage);
+  }, [select.activePage]);
 
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    setPage: useCallback(activePage => store.get('catalog').setPage(activePage), []),
   };
 
   const renders = {
@@ -37,6 +41,10 @@ function Main(){
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
+      <Pagination count={select.count}                  
+                  paginate={callbacks.setPage}
+                  activePage={select.activePage}
+                  />
     </Layout>
   )
 }

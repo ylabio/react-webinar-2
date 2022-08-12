@@ -12,16 +12,21 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      count: 1,
+      activePage: 1
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+  async load(activePage){
+    const response = await fetch(`/api/v1/articles?limit=10&skip=${(activePage - 1) * 10}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
-      items: json.result.items
-    });
+      ...this.getState(),
+      items: json.result.items,
+      count: Math.ceil(json.result.count / 10),
+      activePage: activePage
+    }, 'Загрузка выбранной страницы');
   }
 
   /**
@@ -41,6 +46,17 @@ class CatalogState extends StateModule{
     this.setState({
       items: this.getState().items.filter(item => item._id !== _id)
     }, 'Удаление товара');
+  }
+
+  /**
+   * Переход на выбранную страницу
+   * @param activePage
+   */
+  setPage(activePage) {
+    this.setState({
+      ...this.getState(),
+      activePage: activePage
+    }, 'Переход на выбранную страницу');
   }
 }
 

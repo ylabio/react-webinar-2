@@ -16,8 +16,8 @@ class CatalogState extends StateModule{
     };
   }
 
-  async load(pageNumber){
-    const response = await fetch(`/api/v1/articles?limit=10&skip=${(pageNumber - 1) * 10}`);
+  async loadProduct(id){
+    const response = await fetch(`/api/v1/articles?search%5Bids%5D=${id}&lang=ru&skip=0`);
     const json = await response.json();
     this.setState({
       ...this.getState(),
@@ -25,13 +25,13 @@ class CatalogState extends StateModule{
     });
   }
 
-  async loadCatalogSize(){
-    const response = await fetch('/api/v1/articles?limit=*&skip=0&fields=_id');
+  async loadPreviews(pageNumber){
+    const response = await fetch(`/api/v1/articles?lang=ru&limit=10&skip=${(pageNumber - 1) * 10}&fields=items%28_id%2C%20title%2C%20price%29%2C%20count`);
     const json = await response.json();
-    console.log(json.result);
     this.setState({
       ...this.getState(),
-      size: json.result.items.length,
+      items: json.result.items,
+      size: json.result.count
     });
   }
 

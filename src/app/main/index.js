@@ -17,8 +17,7 @@ function Main(){
   pageNumber = Number(pageNumber);
 
   useEffect(() => {
-    store.get('catalog').load(pageNumber);
-    store.get('catalog').loadCatalogSize();
+    store.get('catalog').loadPreviews(pageNumber);
   }, [pageNumber])
 
   const select = useSelector(state => ({

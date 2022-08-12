@@ -24,9 +24,8 @@ function App({store}) {
 
   const {totalOfBasket, items} = store.getState().basket;
   const summary = items.length === 0 ? 'пусто' : `${totalOfBasket} ₽`;
-  console.log(items);
   const basket = <List>{store.getState().basket.items.map((item) => <ItemOfBasket key={item.code} item={item} deleteItemInBasket={callbacks.deleteItemInBasket}></ItemOfBasket>)}</List>
-  const myModal = <div><div style={{ display: 'flex', justifyContent: 'space-between',alignItems: 'center',padding:' 0px 20px'}}><h1>Корзина</h1><button onClick={() => setModal(false)}>Закрыть</button></div>{basket} </div>
+  const myModal = <div><div className='dd'> <div style={{ display: 'flex', borderRadius: '10px',background: '#F5F5F5',justifyContent: 'space-between',alignItems: 'center',padding:' 0px 20px'}}><h1>Корзина</h1><button onClick={() => setModal(false)}>Закрыть</button></div><div style={{    height: '80px'}}></div></div>{basket}</div>
 
   return (
     <Layout head={<h1>Магазин</h1>}>

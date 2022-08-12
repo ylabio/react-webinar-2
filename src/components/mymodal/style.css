@@ -10,9 +10,8 @@
 }
 
 .myModalContent{
-  padding: 25px;
   background: white;
-  border-radius: 16px;
+  border-radius: 10px;
   width: 960px;
   height:600px;
 }

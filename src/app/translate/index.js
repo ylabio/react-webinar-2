@@ -1,6 +1,7 @@
 import React from 'react';
 import useSelector from '../../utils/use-selector';
 import translation from './translation';
+import propTypes from 'prop-types';
 
 function Translate({ text }) {
   if (!text) return null;
@@ -30,5 +31,9 @@ function Translate({ text }) {
 
   return <>{translated}</>
 }
+
+Translate.propTypes = {
+  text: propTypes.string.isRequired,
+};
 
 export default Translate;

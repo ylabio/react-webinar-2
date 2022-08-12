@@ -27,9 +27,17 @@ export default {
     ru: 'Перейти',
     en: 'Go to', 
   },
+  button__close: {
+    ru: 'Закрыть',
+    en: 'Close', 
+  },
   link__main: {
     ru: 'Главная',
     en: 'Main', 
+  },
+  BASKET__name: {
+    ru: 'Корзина',
+    en: 'Cart', 
   },
   BASKET_SIMPLE__in_cart: {
     ru: 'В корзине',
@@ -38,6 +46,10 @@ export default {
   BASKET_SIMPLE__empty: {
     ru: 'пусто',
     en: 'empty', 
+  },
+  BASKET_TOTAL__total: {
+    ru: 'Итого',
+    en: 'Total', 
   },
   HEADER__store: {
     ru: 'Магазин',

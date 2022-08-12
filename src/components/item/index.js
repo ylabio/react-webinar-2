@@ -21,7 +21,9 @@ function Item(props) {
         </span>
       </Link>
       <div className={cn('right')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
+        <div className={cn('price')}>
+          {props.item.price.toLocaleString(props.lang)} ₽
+        </div>
         <button onClick={callbacks.onAdd}>
           <Translate text={'Добавить'} />
         </button>
@@ -33,6 +35,7 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
+  lang: propTypes.string.isRequired,
 }
 
 Item.defaultProps = {

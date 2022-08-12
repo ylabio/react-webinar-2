@@ -1,6 +1,6 @@
 import Layout from "../../components/layout";
 import React, { useCallback, useEffect } from "react";
-import {useParams, Link} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {cn as bem} from '@bem-react/classname';
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
@@ -44,6 +44,7 @@ function Card() {
           onOpen={callbacks.openModalBasket} 
           amount={select.amount} 
           sum={select.sum}
+          lang={select.language}
         />
 
         <main className={cn('main')}>

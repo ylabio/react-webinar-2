@@ -12,6 +12,13 @@ function ItemBasket(props) {
   const callbacks = {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
     closeModal: useCallback(() => props.closeModal(), []),
+    multiLangFormater: useCallback(() => {
+      if (props.lang === 'ru') {
+        return ['шт', 'шт'];
+      }
+
+      return ['pc', 'pcs'];
+    }, []),
   };
 
   return (
@@ -25,8 +32,16 @@ function ItemBasket(props) {
         </span>
       </Link>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>
+          {props.item.price.toLocaleString(props.lang)} ₽
+        </div>
+        <div className={cn('cell')}>
+          {numberFormat(props.item.amount || 0)} {
+            props.item.amount > 1 
+              ? callbacks.multiLangFormater()[1]
+              : callbacks.multiLangFormater()[0]
+          }
+        </div>
         <div className={cn('button')}>
           <button onClick={callbacks.onRemove}>
             <Translate text={'Удалить'} />

@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import Translate from "../../app/translate";
+import propTypes from 'prop-types';
 
 function Header({title, changeLanguage, lang}) {
   const cn = bem('Header');
@@ -31,5 +32,11 @@ function Header({title, changeLanguage, lang}) {
     </header>
   );
 }
+
+Header.propTypes = {
+  title: propTypes.string.isRequired, 
+  changeLanguage: propTypes.func.isRequired,
+  lang: propTypes.string.isRequired,
+};
 
 export default React.memo(Header);

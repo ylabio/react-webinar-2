@@ -54,8 +54,8 @@ export function usePagination({
     }
 
     if (currentPage === 12) {
-      range.splice(1, 0, currentPage);  
-      range.splice(2, 0, currentPage + 1);  
+      range.splice(range.length - 1, 0, currentPage);  
+      range.splice(range.length - 2, 0, currentPage - 1);  
     }
 
     range.splice(1, 0, DOTS);

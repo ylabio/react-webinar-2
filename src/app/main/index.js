@@ -33,7 +33,11 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item 
+      item={item} 
+      onAdd={callbacks.addToBasket}
+      lang={select.language}
+    />, [select.language]),
   }
 
   return (

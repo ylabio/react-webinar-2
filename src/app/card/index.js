@@ -14,14 +14,14 @@ function Card() {
   const cn = bem('Card');
   const store = useStore();
   const select = useSelector(state => ({
-    item: state.basket.item,
+    item: state.card.item,
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.language.language,
   }));
 
   useEffect(() => {
-    store.get('basket').getGoodById(params.id);
+    store.get('card').getGoodById(params.id);
   } , [params.id, select.language])
 
   const callbacks = {

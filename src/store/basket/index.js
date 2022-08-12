@@ -14,7 +14,6 @@ class BasketState extends StateModule{
       items: [],
       sum: 0,
       amount: 0,
-      item: {},
     };
   }
 
@@ -76,17 +75,6 @@ class BasketState extends StateModule{
       sum,
       amount: items.length
     }, 'Удаление из корзины')
-  }
-
-  async getGoodById(id) {
-    const lang = this.store.state.language.language;
-    const response = await fetch(`/api/v1/articles/${id}?lang=${lang}&fields=*,maidIn(title,code),category(title)`);
-    const json = await response.json();
-
-    this.setState({
-      ...this.store.state.basket,
-      item: json.result,
-    })
   }
 
   async refreshGoods(ids) {

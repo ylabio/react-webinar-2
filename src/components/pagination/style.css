@@ -3,11 +3,12 @@
   margin: 0;
   padding: 0;
   display: flex;
-  font-size: 18px;
+  font-size: 16px;
+  line-height: 18.4px;
 }
 
 .Pagination li {
-  width: 18px;
+  min-width: 18px;
   height: 18px;
   margin: 2px;
 }

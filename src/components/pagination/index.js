@@ -11,23 +11,25 @@ function Pagination({total, active, siblings, onChange, className}) {
   const pages = generatePaginationSequence(total, active, siblings, separator);
 
   return (
-    <ul className={joinClasses(className, cn())}>
-      {pages.map((i, index) =>
-        i === separator ? (
-          <li key={`${i}_${index}`} className={cn('separator')}>
-            {i}
-          </li>
-        ) : (
-          <li
-            key={i}
-            className={joinClasses(cn('page'), active === i ? cn('page', {active: true}) : '')}
-            onClick={() => onChange(i)}
-          >
-            {i}
-          </li>
-        )
-      )}
-    </ul>
+    <div className={className}>
+      <ul className={cn()}>
+        {pages.map((i, index) =>
+          i === separator ? (
+            <li key={`${i}_${index}`} className={cn('separator')}>
+              {i}
+            </li>
+          ) : (
+            <li
+              key={i}
+              className={joinClasses(cn('page'), active === i ? cn('page', {active: true}) : '')}
+              onClick={() => onChange(i)}
+            >
+              {i}
+            </li>
+          )
+        )}
+      </ul>
+    </div>
   );
 }
 

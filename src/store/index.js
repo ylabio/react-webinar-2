@@ -31,6 +31,7 @@ class Store {
    * @return {Object}
    */
   getState() {
+    (console.log("this.state ==>", this.state)) ;
     return this.state;
   }
 

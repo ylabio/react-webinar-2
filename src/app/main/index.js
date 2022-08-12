@@ -5,10 +5,11 @@ import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import Pagination from "../../components/pagination";
 
 function Main(){
 
-  console.log('Main');
+  // console.log('Main');
 
   const store = useStore();
 
@@ -27,6 +28,8 @@ function Main(){
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Запрашиваем новую страницу
+    loadPage: useCallback(page => store.get('catalog').load(page), []),
   };
 
   const renders = {
@@ -37,6 +40,7 @@ function Main(){
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
+      <Pagination loadPage={callbacks.loadPage}/>
     </Layout>
   )
 }

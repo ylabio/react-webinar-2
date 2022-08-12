@@ -5,6 +5,9 @@ body{
     font-family: sans-serif;
     position: relative;
 }
+li {
+    list-style: none;
+}
 /* Страница*/
 .Layout{
     max-width: 1024px;

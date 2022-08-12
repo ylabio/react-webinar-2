@@ -10,7 +10,7 @@ import useSelector from "../utils/use-selector";
  */
 function App() {
 
-  console.log('App');
+  // console.log('App');
 
   const modal = useSelector(state => state.modals.name);
 

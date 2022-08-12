@@ -14,7 +14,6 @@ function List(props) {
               index={index}
               onBtnItems={props.onBtn}
               btn={props.btn}
-              calcCountAndSumCart={props.calcCountAndSumCart}
         />
       </div>
     )}
@@ -26,14 +25,12 @@ List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
   btn: propTypes.string,
   onBtn: propTypes.func.isRequired,
-  calcCountAndSumCart: propTypes.func.isRequired,
 }
 
 List.defaultProps = {
   items: [],
   btn: '',
   onBtn: () => {},
-  calcCountAndSumCart: () => {},
 }
 
 export default React.memo(List);

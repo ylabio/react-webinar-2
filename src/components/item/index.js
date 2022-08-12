@@ -10,7 +10,6 @@ function Item(props) {
     onBtnItem: useCallback((e) => {
       e.stopPropagation();
       props.onBtnItems(props.item);
-      props.calcCountAndSumCart();
     }, [props.onBtnItems, props.item])
   };
 
@@ -46,7 +45,6 @@ Item.propTypes = {
   index: propTypes.number,
   btn: propTypes.string,
   onBtnItems: propTypes.func.isRequired,
-  calcCountAndSumCart: propTypes.func.isRequired,
 }
 
 Item.defaultProps = {
@@ -54,7 +52,6 @@ Item.defaultProps = {
   index: 0,
   btn: '',
   onBtnItems: () => {},
-  calcCountAndSumCart: () => {},
 }
 
 export default React.memo(Item);

@@ -23,9 +23,6 @@ function App({store}) {
     changePopup: useCallback((value) => {
       return setPopup(value);
     }, []),
-    calcCountAndSumCart : useCallback(() => {
-      return store.calcCountAndSumCart();
-    }, []),
   }
 
   return (
@@ -36,7 +33,6 @@ function App({store}) {
                    />
         <Product items={store.getState().items}
                  onBtn={callbacks.onAddCart}
-                 calcCountAndSumCart={callbacks.calcCountAndSumCart}
                  btn="Добавить"
         />
       </Layout>
@@ -45,7 +41,6 @@ function App({store}) {
           <Popup title={<span>Корзина</span>} closePopup={callbacks.changePopup}>
               <Product items={store.getState().cart}
                        onBtn={callbacks.onDeleteCart}
-                       calcCountAndSumCart={callbacks.calcCountAndSumCart}
                        btn="Удалить"
               >
                 <Footer countAndSum={store.getState().calcInCart}/>

@@ -4,7 +4,7 @@ import './style.css';
 import propTypes from "prop-types";
 import List from "../list";
 
-function Product({ children, items, onBtn, btn, calcCountAndSumCart }){
+function Product({ children, items, onBtn, btn, /*calcCountAndSumCart*/ }){
   const cn = bem('Product');
 
   return (
@@ -12,7 +12,6 @@ function Product({ children, items, onBtn, btn, calcCountAndSumCart }){
       <List items={items}
             onBtn={onBtn}
             btn={btn}
-            calcCountAndSumCart={calcCountAndSumCart}
       />
       {children}
     </div>
@@ -24,14 +23,12 @@ Product.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
   onBtn: propTypes.func.isRequired,
   btn: propTypes.node,
-  calcCountAndSumCart: propTypes.func.isRequired,
 }
 
 Product.defaultProps = {
   items: [],
   onBtn: () => {},
   btn: '',
-  calcCountAndSumCart: () => {},
 }
 
 export default React.memo(Product);

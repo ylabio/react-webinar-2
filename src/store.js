@@ -58,31 +58,23 @@ class Store {
           }
         }
         return item;
-      })
+      }),
+      calcInCart: {
+        ...this.state.calcInCart,
+        sum: this.state.calcInCart.sum + price,
+      }
     });
 
     if (checkItem) {
-      return this.setState({
+      this.setState({
         ...this.state,
-        cart: this.state.cart.concat({code, title, price, count: 1})
+        cart: this.state.cart.concat({code, title, price, count: 1}),
+        calcInCart: {
+          ...this.state.calcInCart,
+          count: this.state.calcInCart.count + 1,
+        }
       });
     }
-  }
-
-  /**
-   * Получение количества и суммы для корзины
-   */
-
-  calcCountAndSumCart() {
-    this.setState({
-      ...this.state,
-      calcInCart: {
-        count: this.state.cart.length,
-        sum: this.state.cart.length
-          ? this.state.cart.reduce((sum, item) => sum + item.price * item.count , 0)
-          : 0,
-      }
-    })
   }
 
   /**
@@ -92,7 +84,16 @@ class Store {
   deleteItemCart(code) {
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code),
+      calcInCart: {
+        count: this.state.calcInCart.count - 1,
+        sum: this.state.cart.reduce((sum, item) => {
+          if (item.code !== code) {
+            return sum + item.price * item.count;
+          }
+          return sum;
+        } , 0),
+      }
     });
   }
 }

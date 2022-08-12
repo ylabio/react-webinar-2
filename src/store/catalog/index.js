@@ -12,15 +12,31 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      count: 0,
+      paramPage: { //обернуто в объект для удобного сравнения
+        page: 1,
+      },
+      limit: 10, //можно закинуть в объект выше, вдруг значение придется менять, чтобы не писать новую функцию
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+  async load(page = {}){
+    //проверка и бновление(если нужно) значения page
+    const newPage = {...this.getState().paramPage, ...page};
     this.setState({
-      items: json.result.items
+      ...this.getState(),
+      paramPage: newPage,
+    });
+
+    const skip = (newPage.page - 1) * (this.getState().limit);
+    const response = await fetch(`/api/v1/articles?limit=${this.getState().limit}&skip=${skip}&fields=items(*),count`);
+    const json = await response.json();
+
+    this.setState({
+      ...this.getState(),
+      items: json.result.items,
+      count: json.result.count,
     });
   }
 

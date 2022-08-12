@@ -28,8 +28,14 @@
   color: #FFFFFF;
 }
 
+.Pagination-item_active:hover{
+  background: #0087E9;
+  color: #FFFFFF;
+  cursor: auto;
+}
 
-.Pagination-dots {
+
+.Pagination-item_dots {
   text-align: center;
   width: 20px;
   height: 20px;
@@ -38,4 +44,8 @@
   font-size: 16px;
   line-height: 18px;
   list-style-type: none;
+}
+
+.Pagination-item_dots:hover {
+  cursor: auto;
 }

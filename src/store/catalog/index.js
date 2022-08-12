@@ -12,16 +12,28 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      currentPage: 1,
+      limitPerPage: 10,
+      totalPages: null
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+ 
+  async load(newPage = 1){
+    const limitPerPage = this.getState().limitPerPage;
+    const skipPages = (newPage - 1) * limitPerPage
+
+    const response = await fetch(`/api/v1/articles?limit=${limitPerPage}&skip=${skipPages}&fields=items(*),count`);
     const json = await response.json();
+    
     this.setState({
-      items: json.result.items
-    });
+      ...this.getState(),
+      items: json.result.items,
+      currentPage: newPage,
+      totalPages: json.result.count
+
+    }, 'Загрузка товаров');
   }
 
   /**

@@ -4,6 +4,7 @@ import App from './app';
 import Store from "./store";
 import {StoreContext} from "./store/context";
 import './global.css';
+import {BrowserRouter} from 'react-router-dom';
 
 // Внешнее состояние
 const store = new Store();
@@ -13,7 +14,9 @@ const root = createRoot(document.getElementById('root'));
 
 // Первый рендер (один раз)
 root.render(
-  <StoreContext.Provider value={store}>
-    <App/>
-  </StoreContext.Provider>
+  <BrowserRouter>
+    <StoreContext.Provider value={store}>
+      <App/>
+    </StoreContext.Provider>
+  </BrowserRouter>
 );

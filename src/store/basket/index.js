@@ -12,8 +12,9 @@ class BasketState extends StateModule{
   initState() {
     return {
       items: [],
-        sum: 0,
-        amount: 0
+      sum: 0,
+      amount: 0,
+      item: {},
     };
   }
 
@@ -49,6 +50,7 @@ class BasketState extends StateModule{
 
     // Установка состояние, basket тоже нужно сделать новым
     this.setState({
+      ...this.store.state.basket,
       items,
       sum,
       amount: items.length
@@ -69,10 +71,23 @@ class BasketState extends StateModule{
       return true;
     });
     this.setState({
+      ...this.store.state.basket,
       items,
       sum,
       amount: items.length
     }, 'Удаление из корзины')
+  }
+
+  async getGoodById(id) {
+    const response = await fetch(`/api/v1/articles/${id}?lang=ru&fields=*,maidIn(title,code),category(title)`);
+    const json = await response.json();
+
+    console.log({json})
+
+    this.setState({
+      ...this.store.state.basket,
+      item: json.result,
+    })
   }
 }
 

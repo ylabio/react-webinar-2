@@ -10,16 +10,17 @@ import Pagination from "../pagination";
 
 function Main(){
   const store = useStore();
-
-  useEffect(() => {
-    store.get('catalog').getGoods();
-  }, [])
-
   const select = useSelector(state => ({
     items: state.catalog.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    currentPage: state.catalog.currentPage,
   }));
+
+  useEffect(() => {
+    const skip = (select.currentPage - 1) * config.API_LIMIT;
+    store.get('catalog').getGoods(skip);
+  }, [])
 
   const callbacks = {
     // Открытие корзины

@@ -33,6 +33,7 @@ class CatalogState extends StateModule{
    */
   createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
     this.setState({
+      ...this.store.state.catalog,
       items: this.getState().items.concat({_id, title, price, selected})
     }, 'Создание товара');
   }
@@ -43,6 +44,7 @@ class CatalogState extends StateModule{
    */
   deleteItem(_id) {
     this.setState({
+      ...this.store.state.catalog,
       items: this.getState().items.filter(item => item._id !== _id)
     }, 'Удаление товара');
   }

@@ -4,6 +4,7 @@ import Basket from "./basket";
 import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
 import Pagination from './pagination';
+import Routing from '../routing';
 
 /**
  * Приложение
@@ -14,7 +15,7 @@ function App() {
 
   return (
     <>
-      <Main/>
+      <Routing />
       {modal === 'basket' && <Basket/>}
     </>
   );

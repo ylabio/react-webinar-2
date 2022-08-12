@@ -1,0 +1,22 @@
+.ItemDescription {
+   margin-top: 20px;
+   padding: 0 20px;
+   font-size: 18px;
+}
+
+.ItemDescription-desc-country {
+   margin: 20px 0;
+}
+
+.ItemDescription-year-of-issue {
+   margin-top: 20px;
+}
+
+.price h3 {
+   font-size: 24px;
+}
+
+.ItemDescription-add-button {
+   cursor: pointer;
+   width: 76px;
+}

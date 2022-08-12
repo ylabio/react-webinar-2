@@ -1,0 +1,27 @@
+.pagination {
+   padding: 23px 20px 20px 10px;
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+}
+
+ul {
+   margin: 0;
+   display: flex;
+   justify-content: space-between;
+}
+
+li {
+   list-style-type: none;
+   width: 18px;
+   height: 18px;
+   text-align: center;
+}
+.activePage {
+   background-color: #0087E9;
+}
+
+.pagination-list:hover {
+   background-color: #E1E1E1;
+   cursor: pointer;
+}

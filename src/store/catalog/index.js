@@ -4,33 +4,39 @@ import StateModule from "../module";
 /**
  * Состояние каталога
  */
-class CatalogState extends StateModule{
-
+class CatalogState extends StateModule {
   /**
    * Начальное состояние
    * @return {Object}
    */
   initState() {
     return {
-      items: []
+      items: [],
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+  async load(page) {
+    let skip = page - 1;
+
+    const response = await fetch(
+      `/api/v1/articles?skip=${skip ? skip : (page = 0)}0`
+    );
     const json = await response.json();
     this.setState({
-      items: json.result.items
+      items: json.result.items,
     });
   }
 
   /**
    * Создание записи
    */
-  createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      items: this.getState().items.concat({_id, title, price, selected})
-    }, 'Создание товара');
+  createItem({ _id, title = "Новый товар", price = 999, selected = false }) {
+    this.setState(
+      {
+        items: this.getState().items.concat({ _id, title, price, selected }),
+      },
+      "Создание товара"
+    );
   }
 
   /**
@@ -38,9 +44,12 @@ class CatalogState extends StateModule{
    * @param _id
    */
   deleteItem(_id) {
-    this.setState({
-      items: this.getState().items.filter(item => item._id !== _id)
-    }, 'Удаление товара');
+    this.setState(
+      {
+        items: this.getState().items.filter((item) => item._id !== _id),
+      },
+      "Удаление товара"
+    );
   }
 }
 

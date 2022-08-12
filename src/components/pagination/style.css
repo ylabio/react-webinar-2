@@ -1,0 +1,36 @@
+.Pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+
+  margin: 0;
+  padding: 22px 20px;
+  list-style: none; 
+
+  font-size: 16px;
+}
+
+.Pagination-link {
+  text-align: center;
+  line-height: 20px;
+  color: #000000;
+}
+
+.Pagination-link:link,
+.Pagination-link:visited,
+.Pagination-link:hover,
+.Pagination-link:active {
+  display: inline-block;
+  text-decoration: none;
+  min-width: 20px;
+  min-height: 20px;
+}
+
+.Pagination-link:hover {
+  background-color: #E1E1E1;
+}
+
+.Pagination-link_active {
+  color: #FFFFFF;
+  background-color: #0087E9;
+}

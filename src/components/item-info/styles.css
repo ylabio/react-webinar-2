@@ -1,10 +1,10 @@
-.ItemPage {
+.ItemInfo {
   padding: 0 40px;
 }
-.ItemPage > div {
+.ItemInfo > div {
   margin: 20px 0px;
   font-size: 18px;
 }
-.ItemPage > div > span {
+.ItemInfo > div > span {
   font-weight: 700;
 }

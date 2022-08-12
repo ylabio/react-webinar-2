@@ -1,22 +1,14 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import propTypes from 'prop-types'
 import { cn } from '@bem-react/classname'
 import './styles.css'
-import useSelector from '../../utils/use-selector'
-import useStore from '../../utils/use-store'
 
-function Pagination() {
+function Pagination({
+  current,
+  total,
+  changePage
+}) {
   const bem = cn("Pagination")
-  const {total, current} = useSelector(state => ({
-    current: state.catalog.current,
-    total: state.catalog.total
-  }));
-
-  const store = useStore()
-
-  useEffect(() => {
-    store.get('catalog').load(current)
-  }, [current])
 
   const elems = useMemo(() => {
     const raw = Array.from({length: total}, (_, x) => x + 1)
@@ -29,6 +21,7 @@ function Pagination() {
 
     return [1, '...', current - 1, current, current + 1, '...', total]
   }, [current, total])
+
   return (
     <div className={bem()}>
       {
@@ -40,9 +33,7 @@ function Pagination() {
         }) } key={idx} 
              onClick={['...', current].includes(el) 
              ? null 
-             : () => {
-               store.get('catalog').setPage(el)
-             }}>
+             : changePage(el)}>
           {el}
         </div>))
       }
@@ -52,12 +43,14 @@ function Pagination() {
 
 Pagination.propTypes = {
   total: propTypes.number,
-  current: propTypes.number
+  current: propTypes.number,
+  changePage: propTypes.func
 }
 
 Pagination.defaultProps = {
   total: 1,
-  current: 1
+  current: 1,
+  changePage: () => {}
 }
 
-export default Pagination
+export default React.memo(Pagination)

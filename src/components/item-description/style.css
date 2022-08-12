@@ -1,0 +1,21 @@
+.ItemDescription {
+    display: flex;
+    flex-direction: column;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 20px;
+    flex-grow: 1;
+    gap: 20px;
+    font-size: 18px;
+}
+.ItemDescription-title {
+    display: flex;
+    gap: 5px;
+}
+.ItemDescription-data {
+    font-weight: 700;
+}
+.ItemDescription-price {
+    font-size: 24px;
+    font-weight: 700;
+}

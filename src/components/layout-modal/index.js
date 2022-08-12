@@ -2,12 +2,14 @@ import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
+import {localization} from '../../utils/translations';
+import useSelector from '../../utils/use-selector';
 
 function LayoutModal(props) {
   const cn = bem('LayoutModal');
 
   const frame = useRef();
-
+  const language = localization[useSelector(state => state.languages).language];
   useEffect(() => {
     let top = 10;
     if (window.innerWidth > frame.current.clientHeight) {
@@ -27,7 +29,7 @@ function LayoutModal(props) {
           <h1 className={cn('title')}>
             {props.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <button className={cn('close')} onClick={props.onClose}>{language.close}</button>
         </div>
         <div className={cn('content')}>
           {props.children}
@@ -45,7 +47,6 @@ LayoutModal.propTypes = {
 
 LayoutModal.defaultProps = {
   title: 'Модалка',
-  onClose: () => {}
 };
 
 export default React.memo(LayoutModal);

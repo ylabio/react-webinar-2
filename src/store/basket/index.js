@@ -45,6 +45,7 @@ class BasketState extends StateModule{
       items.push({...item, amount: 1});
       // Досчитываем сумму
       sum += item.price;
+      console.log(item)
     }
 
     // Установка состояние, basket тоже нужно сделать новым

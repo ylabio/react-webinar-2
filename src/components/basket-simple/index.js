@@ -7,11 +7,11 @@ import './styles.css';
 import {Link} from "react-router-dom";
 
 
-function BasketSimple({sum, amount, onOpen, itemNull}) {
+function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-        <div className={cn('home')} onClick={itemNull}>
+        <div className={cn('home')}>
             <Link to='/'><span >Главная</span></Link>
         </div>
         <div className={cn('wrapper')}>

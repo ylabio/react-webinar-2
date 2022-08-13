@@ -33,8 +33,9 @@ function Main() {
         amount: state.basket.amount,
         sum: state.basket.sum,
         count: state.catalog.count,
-        currentPage: state.catalog.currentPage
+        currentPage: state.catalog.query.page
     }));
+
 
     const callbacks = {
         // Открытие корзины
@@ -42,15 +43,14 @@ function Main() {
         // Добавление в корзину
         addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
         // Пагинация
-        pagination: useCallback(skip => store.get('catalog').pagination(skip), []),
+        pagination: useCallback(({page}) => store.get('catalog').load({page}), []),
         // Выбор конкретного товара по id
-        getId: useCallback(_id => store.get('item_page').getId(_id), []),
+        // getId: useCallback(_id => store.get('item_page').getId(_id), []),
         getItem: useCallback(_id=>store.get('item_page').loadItem(_id),[]),
-        itemNull: useCallback(()=> store.get('item_page').toNull() , [])
     };
 
     const renders = {
-        item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} getId={callbacks.getId}/>, []),
+        item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} getId={callbacks.getItem}/>, []),
     }
     return (
         <Layout head={<h1>{select._id ? 'Название товара' : 'Магазин'}</h1>}>
@@ -68,9 +68,8 @@ function Main() {
                 </Route>
                 <Route path='/:product'  element={
                     <>
-                    <BasketSimple  itemNull={callbacks.itemNull}  onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+                    <BasketSimple   onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
                         <ProductPage onAdd={callbacks.addToBasket} item={select.currentItem} getItem={callbacks.getItem} />
-
                     </>
                 }/>
             </Routes>

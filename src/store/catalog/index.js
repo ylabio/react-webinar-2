@@ -11,20 +11,34 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      count: 0,
+      query: {
+        page: 1,
+        limit: 10,
+
+      }
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles?limit=10&skip=0&fields=items(*),count');
-    const json = await response.json();
-
+  async load(query={}){
+    const newQuery = {...this.getState().query, ...query};
     this.setState({
+      ...this.getState(),
+      query: newQuery
+    });
+    const skip = (newQuery.page - 1) * (newQuery.limit);
+
+    const response = await  fetch(`/api/v1/articles?limit=${newQuery.limit}&skip=${skip}&fields=items(*),count`)
+    const json = await response.json()
+    this.setState({
+      ...this.getState(),
       items: json.result.items,
       count: json.result.count,
-      currentPage: 1
-    });
+    })
   }
+
+
 
   /**
    * Создание записи
@@ -45,16 +59,6 @@ class CatalogState extends StateModule{
     }, 'Удаление товара');
   }
 
-   async pagination(skip) {
-     const response = await fetch(`/api/v1/articles?limit=10&skip=${skip}&fields=items(*),count`);
-     const json = await response.json();
-     skip = skip / 10 + 1
-     this.setState({
-       currentPage: skip,
-       items: json.result.items,
-       count: json.result.count
-     })
-  }
 }
 
 export default CatalogState;

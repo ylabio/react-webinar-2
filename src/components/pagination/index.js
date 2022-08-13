@@ -2,11 +2,13 @@ import React from 'react';
 import {cn as bem} from "@bem-react/classname";
 import './style.css'
 import propTypes from "prop-types";
+import {logPlugin} from "@babel/preset-env/lib/debug";
 
 const Pagination = ({count, pagination, currentPage}) => {
     const cn = bem('pagination');
     const pages = []
-
+    console.log(currentPage)
+    console.log(count)
     // в рамках данного задания нет необходимости выносить переменную limit так как пользователь не может
     // с ней взаимодействовать
 
@@ -54,7 +56,7 @@ if( currentPage === 3) {
                 {pages.map((page, index) => {
                     return(
 
-                    <li key={index}>{page !== '...' ? <button className={cn(currentPage === page ? 'active' : 'not-active')} onClick={()=>pagination(page * 10 - 10)}>{page}</button> : <span>{page}</span>}</li>
+                    <li key={index}>{page !== '...' ? <button className={cn(currentPage === page ? 'active' : 'not-active')} onClick={()=>pagination({page })}>{page}</button> : <span>{page}</span>}</li>
 
                     )
                 })}

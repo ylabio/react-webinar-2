@@ -13,9 +13,11 @@ const root = createRoot(document.getElementById('root'));
 
 // Первый рендер (один раз)
 root.render(
-    <BrowserRouter>
         <StoreContext.Provider value={store}>
+            <BrowserRouter>
+
             <App/>
+            </BrowserRouter>
+
         </StoreContext.Provider>
-    </BrowserRouter>
 );

@@ -8,7 +8,6 @@ import propTypes from "prop-types";
 const ProductPage = ({onAdd, item, getItem}) => {
     const cn = bem('product-page');
     const {product} = useParams()
-
     useEffect(()=>{
        getItem(product)
     }, [])
@@ -17,7 +16,7 @@ const ProductPage = ({onAdd, item, getItem}) => {
             <p>{item.description}</p>
             <p>Страна производитель: <span>{item.maidIn && item.maidIn.title}  ({item.maidIn && item.maidIn.code})</span></p>
             <p>Категория: <span>{item.category && item.category.title}</span></p>
-            <p>Код Выпуска: <span>{item.edition}</span></p>
+            <p>Год Выпуска: <span>{item.edition}</span></p>
             <p>Цена:  <span>{numberFormat(item.price)} ₽</span></p>
             <button onClick={()=>onAdd(item._id)}>Добавить</button>
         </div>

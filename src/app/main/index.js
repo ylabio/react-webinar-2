@@ -21,6 +21,7 @@ function Main() {
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    isLoaded: state.params.isLoaded
   }));
 
   const callbacks = {
@@ -33,9 +34,9 @@ function Main() {
   const renders = {
     item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} />, []),
   }
-  
+  console.log(select.isLoaded)
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>{select.isLoaded ? "Магазин" : "Loading..."}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List items={select.items} renderItem={renders.item} />
       <Pagination contentPerPage={contentPerPage} />

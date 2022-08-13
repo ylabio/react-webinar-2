@@ -26,10 +26,11 @@ function ItemPage() {
     price: state.itemData.price,
   }));
 
-  const { title, sum, amount } = useSelector(state => ({
+  const { title, sum, amount, isLoaded } = useSelector(state => ({
     title: state.itemData.title,
     sum: state.basket.sum,
     amount: state.basket.amount,
+    isLoaded: state.params.isLoaded
   }))
 
   const callbacks = {
@@ -44,7 +45,7 @@ function ItemPage() {
   }
 
   return (
-    <Layout head={<h1>{title}</h1>}>
+    <Layout head={<h1>{isLoaded ? title : "Loading..."}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={amount} sum={sum} />
       <ItemDescription itemData={itemData} />
       <button onClick={() => callbacks.addToBasket(_id)}

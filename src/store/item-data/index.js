@@ -17,9 +17,11 @@ class ItemData extends StateModule {
    * @param _id Код товара
    */
   async loadById(_id) {
+    this.store.get('params').setIsLoaded(false);
     const response = await fetch(`api/v1/articles/${_id}?fields=*,maidIn(title,code),category(title)`);
     const json = await response.json();
     this.setState(json.result, `load ${json.result.title} item data`);
+    this.store.get('params').setIsLoaded(true);
   }
 }
 

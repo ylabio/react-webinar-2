@@ -28,6 +28,7 @@ class CatalogState extends StateModule {
     fields = fields ?? "items(*)",
     count = count || true;
 
+    this.store.get('params').setIsLoaded(false);
     const response = await fetch(`api/v1/articles?limit=${limit}&skip=${skip}&fields=${fields}${count && ", count"}`);
     const json = await response.json();
     if (count === true) {
@@ -42,6 +43,7 @@ class CatalogState extends StateModule {
         items: json.result.items
       }, `load ${limit} items`);
     }
+    this.store.get('params').setIsLoaded(true);
   }
 
   /**

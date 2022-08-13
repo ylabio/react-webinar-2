@@ -1,7 +1,7 @@
 import React from 'react';
 import {Routes, Route} from 'react-router-dom';
-import Card from '../app/card';
-import Main from '../app/main';
+import Card from '../card';
+import Main from '../main';
 
 function Routing() {
 

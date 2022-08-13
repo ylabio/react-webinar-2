@@ -1,10 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import Main from "./main";
+import React from 'react';
 import Basket from "./basket";
-import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
-import Pagination from './pagination';
-import Routing from '../routing';
+import Routing from './routing';
 
 /**
  * Приложение

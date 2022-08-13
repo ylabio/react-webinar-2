@@ -20,5 +20,6 @@ p.ItemInfo-price {
 }
 
 .ItemInfo button {
+    width: 76px;
     margin: 10px;
 }

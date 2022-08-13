@@ -17,4 +17,9 @@
 
 .BasketSimple-toFirstPage {
     margin-right: auto;
+    color: #0087E9;
+}
+
+.BasketSimple__button {
+    width: 80px;
 }

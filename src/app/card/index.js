@@ -5,6 +5,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Header from "../../components/header";
 import CardContent from "../../components/card-content/card-content";
+import BasketSimple from "../../components/basket-simple";
 
 function Card() {
   const params = useParams();
@@ -36,12 +37,16 @@ function Card() {
           flag={true}
         />
     }>
-       <CardContent 
-        item={select.item}
+      <BasketSimple
         amount={select.amount}
         sum={select.sum}
+        onOpen={callbacks.openModalBasket}
+        lang={select.language}
+      />
+
+      <CardContent 
+        item={select.item}
         language={select.language}
-        openModalBasket={callbacks.openModalBasket}
         onAdd={callbacks.onAdd}
       />
     </Layout>

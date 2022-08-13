@@ -1,7 +1,6 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import numberFormat from "../../utils/numberFormat";
 import './style.css';
 import {Link} from 'react-router-dom';
 import Translate from '../../app/translate';
@@ -15,7 +14,7 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      <Link className={cn('title')} to={props.item._id}>
+      <Link className={cn('title')} to={props.to + props.item._id}>
         <span className={cn('titleText')}>
           {props.item.title}
         </span>
@@ -36,6 +35,7 @@ Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
   lang: propTypes.string.isRequired,
+  to: propTypes.string.isRequired,
 }
 
 Item.defaultProps = {

@@ -4,6 +4,7 @@ import useSelector from "../utils/use-selector";
 import { Route, Routes } from 'react-router-dom';
 import Main from './main';
 import Card from './card';
+import { config } from '../config';
 
 /**
  * Приложение
@@ -15,8 +16,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Main />} />
-        <Route path=':id' element={<Card />} />
+        <Route path={config.routes.home_page} element={<Main />} />
+        <Route path={config.routes.product + ':id'} element={<Card />} />
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

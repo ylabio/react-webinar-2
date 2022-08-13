@@ -2,19 +2,19 @@ import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
-import { config } from '../../config';
 import { getRange } from './get-range';
 
 function Pagination({
   total, 
   currentPage,
   changePage,
+  limit,
 }) {
   const cn = bem('Pagination');
 
   const range = useCallback(getRange({
     totalCount: total,
-    pageSize: config.API_LIMIT,
+    pageSize: limit,
     currentPage,
   }), [total, currentPage]);
 
@@ -42,6 +42,7 @@ Pagination.propTypes = {
   total: propTypes.number, 
   currentPage: propTypes.number.isRequired,
   changePage: propTypes.func.isRequired,
+  limit: propTypes.number.isRequired,
 };
 
 Pagination.defaultProps = {

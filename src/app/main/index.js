@@ -49,6 +49,7 @@ function Main(){
       item={item} 
       onAdd={callbacks.addToBasket}
       lang={select.language}
+      to={config.routes.product}
     />, [select.language]),
   }
 
@@ -81,6 +82,7 @@ function Main(){
         total={select.total} 
         currentPage={select.currentPage}
         changePage={callbacks.changePage}
+        limit={config.api.limit}
       />
 
     </Layout>

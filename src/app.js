@@ -6,7 +6,6 @@ import Header from './components/header'
 import ModalFooter from './components/modal-footer'
 import PageHeader from './components/page-header'
 import ModalList from './components/modal-list'
-import item from './components/item'
 
 /**
  * Приложение

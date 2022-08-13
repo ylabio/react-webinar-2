@@ -4,13 +4,13 @@
   padding: 0;
   display: flex;
   font-size: 16px;
-  line-height: 18.4px;
+  line-height: 18px;
 }
 
 .Pagination li {
-  padding: 1px;
-  min-width: 18px;
+  min-width: 14px;
   height: 18px;
+  padding: 1px 3px;
   text-align: center;
 }
 

@@ -56,7 +56,7 @@ class BasketState extends StateModule{
   }
 
   /**
-   * Добавление товара в корзину
+   * Удаление товара из корзины
    * @param _id Код товара
    */
   removeFromBasket(_id) {

@@ -16,7 +16,7 @@ function Pagination({pageNumber, amount}) {
         typeof(item) === 'number' ?
         (<li className={cn('item')} key={counter()}>
           <Link
-            to={`/page/${item}`}
+            to={`/page${item}`}
             className={item === pageNumber ? cn('link', {active: true}) : cn('link')}
           >
             {item}

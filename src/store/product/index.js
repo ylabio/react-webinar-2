@@ -1,0 +1,38 @@
+import StateModule from "../module";
+
+/**
+ * Состояние страницы продукта
+ */
+class ProductState extends StateModule{
+  
+  /**
+   * Начальное состояние
+   * @return {Object}
+   */
+  initState() {
+    return {
+      item: {},
+      madeIn: null,
+
+    };
+  }
+
+  /**
+   * Загрузка товара по его ключу
+   * Ключ товара отображается в адресной строке
+   * @param key Код товара
+   */
+  async loadProduct(key){
+    const response = await fetch(`/api/v1/articles?limit=1&skip=${key - 1}&fields=*,maidIn(title,code),category(title)`);
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      item: json.result.items[0],
+      madeIn: json.result.items[0].maidIn.title,
+      madeInCode: json.result.items[0].maidIn.code,
+      category: json.result.items[0].category.title,
+    }, 'Загрузка подробных данных товара');
+  }
+}
+
+export default ProductState;

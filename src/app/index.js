@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Main from "./main";
 import Basket from "./basket";
+import Product from "./product";
 import useSelector from "../utils/use-selector";
 
 /**
@@ -18,9 +19,9 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Main />}>
-            <Route path="page/:pageNumber" element={<Main />} />
-          </Route>
+          <Route path="/" element={<Main />} />
+          <Route path="page:pageNumber" element={<Main />} />
+          <Route path="product:productNumber" element={<Product />} />
         </Routes>
       </BrowserRouter>
       {modal === 'basket' && <Basket />}

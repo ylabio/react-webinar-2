@@ -16,23 +16,20 @@ class CatalogState extends StateModule{
     };
   }
 
-  async loadProduct(id){
-    const response = await fetch(`/api/v1/articles?search%5Bids%5D=${id}&lang=ru&skip=0`);
-    const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      items: json.result.items
-    });
-  }
-
+  
+  /**
+   * Загрузка превью 10 товаров по номеру страницы
+   * @param pageNumber номер страницы
+   */
   async loadPreviews(pageNumber){
-    const response = await fetch(`/api/v1/articles?lang=ru&limit=10&skip=${(pageNumber - 1) * 10}&fields=items%28_id%2C%20title%2C%20price%29%2C%20count`);
+    const response = await fetch
+      (`/api/v1/articles?limit=10&skip=${(pageNumber - 1) * 10}&fields=items(_id,_key,title,price),count`);
     const json = await response.json();
     this.setState({
       ...this.getState(),
       items: json.result.items,
       size: json.result.count
-    });
+    }, 'Загрузка товаров для страницы');
   }
 
   /**

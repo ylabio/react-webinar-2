@@ -8,7 +8,7 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 
-function Main(){
+function Main() {
   console.log('Main');
 
   const PRODUCTS_PER_PAGE = 10;

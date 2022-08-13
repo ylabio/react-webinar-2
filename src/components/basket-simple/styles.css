@@ -6,8 +6,14 @@
     font-size: 18px;
 }
 
-.BasketSimple-label{
+.BasketSimple-main,
+.BasketSimple-main:visited{
+    margin-right: auto;
+    color: #0087E9;
+}
 
+.BasketSimple-main:hover{
+    color: #55A8E4;
 }
 
 .BasketSimple-total{

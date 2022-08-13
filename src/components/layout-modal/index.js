@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+import useSelector from "../../utils/use-selector";
 import './style.css';
 
 function LayoutModal(props) {

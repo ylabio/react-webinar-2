@@ -15,6 +15,16 @@
     padding: 20px 10px;
 }
 
+.Item-title__pointer {
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+}
+
+.Item-title__pointer:hover {
+    text-decoration: underline;
+}
+
 .Item-right {
     padding: 20px 20px 20px 10px;
     display: flex;

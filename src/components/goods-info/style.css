@@ -1,0 +1,28 @@
+.GoodsInfo {
+    padding: 10px;
+    margin: 0;
+}
+
+.GoodsInfo-text {
+    margin: 0;
+    padding: 10px 30px;
+}
+
+.GoodsInfo-text__normal {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.GoodsInfo-text__bold {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.GoodsInfo-text__large {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.GoodsInfo-button {
+    margin: 10px 30px;
+}

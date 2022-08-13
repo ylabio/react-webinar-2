@@ -12,15 +12,17 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      count: 0
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+  async load(skip){
+    const response = await fetch(`/api/v1/articles?limit=10&skip=${skip}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
-      items: json.result.items
+      items: json.result.items,
+      count: json.result.count
     });
   }
 
@@ -29,7 +31,8 @@ class CatalogState extends StateModule{
    */
   createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
     this.setState({
-      items: this.getState().items.concat({_id, title, price, selected})
+      items: this.getState().items.concat({_id, title, price, selected}),
+      count: 0
     }, 'Создание товара');
   }
 
@@ -39,7 +42,8 @@ class CatalogState extends StateModule{
    */
   deleteItem(_id) {
     this.setState({
-      items: this.getState().items.filter(item => item._id !== _id)
+      items: this.getState().items.filter(item => item._id !== _id),
+      count: count
     }, 'Удаление товара');
   }
 }

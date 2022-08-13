@@ -1,9 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
-import numberFormat from "../../utils/numberFormat";
+import numberFormat from "../../utils/number-format";
 
 function Article(props) {
   const cn = bem("Article");

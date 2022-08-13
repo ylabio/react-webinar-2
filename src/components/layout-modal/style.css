@@ -46,3 +46,7 @@
   min-height: 100px;
   padding: 70px 0;
 }
+
+.LayoutModal .List {
+  min-height: auto;
+}

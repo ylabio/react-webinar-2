@@ -9,6 +9,7 @@ import {config} from '../../config';
 import Pagination from "../../components/pagination";
 import Header from "../../components/header";
 import LayoutSpinner from "../../components/layout-spinner";
+import MainRoute from "../../components/main-route";
 
 function Main(){
   const store = useStore();
@@ -61,13 +62,18 @@ function Main(){
           changeLanguage={callbacks.changeLanguage} 
           lang={select.language}
       />}
+      basket={
+        <BasketSimple 
+          onOpen={callbacks.openModalBasket} 
+          amount={select.amount} 
+          sum={select.sum}
+          lang={select.language}
+        />
+      }
+      nav={
+        <MainRoute to={config.routes.home_page} />
+      }
     >
-      <BasketSimple 
-        onOpen={callbacks.openModalBasket} 
-        amount={select.amount} 
-        sum={select.sum}
-        lang={select.language}
-      />
       <LayoutSpinner
         isFetching={select.isFetching}
         color='orange'

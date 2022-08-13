@@ -6,6 +6,8 @@ import useSelector from "../../utils/use-selector";
 import Header from "../../components/header";
 import CardContent from "../../components/card-content/card-content";
 import BasketSimple from "../../components/basket-simple";
+import { config } from "../../config";
+import MainRoute from "../../components/main-route";
 
 function Card() {
   const params = useParams();
@@ -37,14 +39,19 @@ function Card() {
           lang={select.language}
           flag={true}
         />
-    }>
-      <BasketSimple
-        amount={select.amount}
-        sum={select.sum}
-        onOpen={callbacks.openModalBasket}
-        lang={select.language}
-      />
-
+      }
+      nav={
+        <MainRoute to={config.routes.home_page} />
+      }
+      basket={
+        <BasketSimple
+          amount={select.amount}
+          sum={select.sum}
+          onOpen={callbacks.openModalBasket}
+          lang={select.language}
+        />
+      } 
+    >
       <CardContent 
         item={select.item}
         language={select.language}

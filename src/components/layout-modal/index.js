@@ -32,6 +32,7 @@ function LayoutModal(props) {
             <Translate text='Закрыть' />
           </button>
         </div>
+        
         <div className={cn('content')}>
           {props.children}
         </div>

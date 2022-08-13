@@ -3,9 +3,7 @@ import propTypes from 'prop-types';
 import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import './styles.css';
-import { Link } from 'react-router-dom';
 import Translate from '../../app/translate';
-
 
 function BasketSimple({sum, amount, onOpen, lang}) {
   const callbacks = {
@@ -21,10 +19,6 @@ function BasketSimple({sum, amount, onOpen, lang}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <Link to='/' className={cn('link')}>
-        <Translate text={'Главная'} />
-      </Link>
-      
       <div className={cn('cart')}>
         <span className={cn('label')}>
           <Translate text={'В корзине'} />:

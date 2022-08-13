@@ -20,7 +20,9 @@ function App() {
   return (
     <React.Fragment>
 			<Routes>
-				<Route path='/' element={<Main />} />
+				<Route path='/' element={<Main />}>
+					<Route path='page/:pageIndex' element={<Main />} />
+				</Route>
 				<Route path=':id' element={<Product />} />
 				<Route path='*' element={<NotFound />} />
 			</Routes>

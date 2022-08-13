@@ -1,28 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { cn as bem } from '@bem-react/classname';
 import propTypes from 'prop-types';
 import Page from '../page';
 import './style.css';
 
-function Pagination({ count, skip, limit, setSkip }) {
+function Pagination({ pageCount, limit, setSkip, pageIndexNo }) {
 	const cn = bem('Pagination');
 
-	const pageCount = Math.ceil(count / limit);
-	const currentPage = skip / limit + 1;
+	const navigate = useNavigate();
+
 	const lastPage = limit * (pageCount - 1);
 
 	const arrayItems = [];
 
-	if (currentPage === 1 || currentPage == pageCount - 2) {
+	if (pageIndexNo === 1 || pageIndexNo == pageCount - 2) {
 		arrayItems.push(-1, 0, 1, 2);
-	} else if (currentPage === 3 || currentPage == pageCount) {
+	} else if (pageIndexNo === 3 || pageIndexNo == pageCount) {
 		arrayItems.push(-2, -1, 0, 1);
 	} else {
 		arrayItems.push(-1, 0, 1);
 	}
 
 	const pageArray = arrayItems
-		.map((item) => currentPage + item)
+		.map((item) => pageIndexNo + item)
 		.filter((page) => page > 0 && page <= pageCount);
 
 	return (
@@ -30,9 +31,10 @@ function Pagination({ count, skip, limit, setSkip }) {
 			{!pageArray.includes(1) && (
 				<>
 					<Page
-						isActive={currentPage === 1}
+						isActive={pageIndexNo === 1}
 						onClick={() => {
 							setSkip(0);
+							navigate({ pathname: 'page/1' });
 						}}
 					>
 						1
@@ -44,9 +46,10 @@ function Pagination({ count, skip, limit, setSkip }) {
 				return (
 					<Page
 						key={page}
-						isActive={page === currentPage}
+						isActive={page === pageIndexNo}
 						onClick={() => {
 							setSkip(limit * (page - 1));
+							navigate({ pathname: `page/${page}` });
 						}}
 					>
 						{page}
@@ -57,9 +60,10 @@ function Pagination({ count, skip, limit, setSkip }) {
 				<>
 					<div className={cn('dots')}>...</div>
 					<Page
-						isActive={currentPage === pageCount}
+						isActive={pageIndexNo === pageCount}
 						onClick={() => {
 							setSkip(lastPage);
+							navigate({ pathname: `page/${pageCount}` });
 						}}
 					>
 						{pageCount}
@@ -71,10 +75,10 @@ function Pagination({ count, skip, limit, setSkip }) {
 }
 
 Pagination.propTypes = {
-	count: propTypes.number.isRequired,
-	skip: propTypes.number.isRequired,
+	pageCount: propTypes.number.isRequired,
 	limit: propTypes.number.isRequired,
 	setSkip: propTypes.func.isRequired,
+	pageIndexNo: propTypes.number.isRequired,
 };
 
 Pagination.defaultProps = {

@@ -6,6 +6,7 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
+import { useParams } from "react-router-dom";
 
 function Main(){
 
@@ -13,12 +14,16 @@ function Main(){
 
   const store = useStore();
 
-  const [limit] = useState(10);
-  const [skip, setSkip] = useState(0);
+  const { pageIndex = 1 } = useParams();
+	const pageIndexNo = Number(pageIndex);
 
-  useEffect(() => {
-    store.get('catalog').load(limit, skip);
-  }, [skip])
+	const [limit] = useState(10);
+	const [skip, setSkip] = useState(0);
+
+	useEffect(() => {
+		setSkip(limit * (pageIndexNo - 1));
+		store.get('catalog').load(limit, skip);
+	}, [skip, pageIndexNo]);
 
   const select = useSelector(state => ({
     items: state.catalog.items,
@@ -34,16 +39,22 @@ function Main(){
     item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
   }
 
+  const pageCount = Math.ceil(select.count / limit);
+
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <List items={select.items} renderItem={renders.item}/>
-      <Pagination
-				count={select.count}
-				limit={limit}
-        skip={skip}
-        setSkip={setSkip}
-			/>
-    </Layout>
+			{pageCount >= pageIndex && (
+				<>
+					<List items={select.items} renderItem={renders.item} />
+					<Pagination
+						pageCount={pageCount}
+						limit={limit}
+						setSkip={setSkip}
+						pageIndexNo={pageIndexNo}
+					/>
+				</>
+			)}
+		</Layout>
   )
 }
 

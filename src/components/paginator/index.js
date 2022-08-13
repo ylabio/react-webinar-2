@@ -38,11 +38,11 @@ function Paginator({
   return (
     <div className={cn()}>
       {pagPages().map((p, index) =>
-        p === dots
-          ? <div className={cn('page', {dots: dots === p})}
+        p === dots || p === currentPage
+          ? <div className={cn('page', {selected: currentPage === p, dots: dots === p})}
                  key={index}>{p}</div>
           : <div
-            className={cn('page', {selected: currentPage === p, unselected: currentPage !== p})}
+            className={cn('page', {unselected: currentPage !== p})}
             key={index}
             onClick={() => {
               onPageChanged(p);

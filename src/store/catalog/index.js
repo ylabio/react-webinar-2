@@ -33,6 +33,7 @@ class CatalogState extends StateModule{
 
   /**
    * Изменение страницы каталога
+   * @param pageNumber {number} Номер страницы
    */
   async onPageChanged(pageNumber){
     this.setState({

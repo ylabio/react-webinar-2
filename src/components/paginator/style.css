@@ -20,7 +20,7 @@
 .Paginator-page_selected {
     color: white;
     background-color: dodgerblue;
-    cursor: pointer;
+    cursor: default;
 }
 
 .Paginator-page_unselected {

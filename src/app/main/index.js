@@ -13,10 +13,6 @@ function Main(){
 
   const store = useStore();
 
-  useEffect(() => {
-    store.get('catalog').load();
-  }, [])
-
   const select = useSelector(state => ({
     items: state.catalog.items,
     count: state.catalog.count,

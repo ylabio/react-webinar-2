@@ -25,15 +25,13 @@ function ItemPage() {
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    //Отображение страницы ItemPage
-    loadItemPage: useCallback(_id => store.get('itemPage').load(_id), []),
   };
 
   const {id} = useParams();
 
   useEffect(() => {
-    callbacks.loadItemPage(id);
-  }, [id]);
+    store.get('itemPage').load(id)
+  }, []);
 
   return (
     <Layout head={<h1>{select.itemInfo.title}</h1>}>

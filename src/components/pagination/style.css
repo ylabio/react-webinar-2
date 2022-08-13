@@ -1,0 +1,30 @@
+.Pagination {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-end;
+    margin: 22px 21px 0 0 ;
+}
+
+.Pagination-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    min-width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.Pagination-item:hover {
+    background: #E1E1E1;
+}
+
+.Pagination-item_active {
+    color: #ffffff;
+    background: #0087E9;
+}

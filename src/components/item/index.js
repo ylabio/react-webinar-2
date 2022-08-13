@@ -1,32 +1,26 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+import numberFormat from "../../utils/numberFormat";
+import { Link } from "react-router-dom";
 import './style.css';
+import {withLocale} from "../../contexts/locale.context";
 
-import { formatNumber } from '../../utils';
-
-function Item({item, callback}) {
+function Item(props) {
   const cn = bem('Item');
 
+  const callbacks = {
+    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
+  };
+
   return (
-    <div className={cn({'selected': item.selected})}>
-      <div className={cn('number')}>
-        {item.code}
-        {/* {item.code} */}
-      </div>
-
+    <div className={cn()}>
       <div className={cn('title')}>
-        {item.title}
+        <Link to={`/${props.item._id}`} className={cn('link')}>{props.item.title}</Link>
       </div>
-
-      <div className={cn('price')}>
-        {formatNumber(item.price) + " ₽"}
-      </div>
-
-      <div className={cn('actions')}>
-        <button onClick={() => callback(item)}>
-          Добавить
-        </button>
+      <div className={cn('right')}>
+        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
+        <button onClick={callbacks.onAdd}>{props.lang.handle('add')}</button>
       </div>
     </div>
   )
@@ -34,7 +28,11 @@ function Item({item, callback}) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  callback: propTypes.func.isRequired
+  onAdd: propTypes.func,
 }
 
-export default React.memo(Item);
+Item.defaultProps = {
+  onAdd: () => {},
+}
+
+export default React.memo(withLocale(Item));

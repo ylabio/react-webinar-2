@@ -1,15 +1,19 @@
 import React from 'react';
-import './style.css';
+import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
+import './style.css';
+import LangPanel from "../../app/lang-panel";
 
 function Layout({head, children}){
+  const cn = bem('Layout');
 
   return (
-    <div className='Layout'>
-      <div className='Layout-head'>
+    <div className={cn()}>
+      <div className={cn('head')}>
         {head}
+        <LangPanel/>
       </div>
-      <div className='Layout-content'>
+      <div className={cn('content')}>
         {children}
       </div>
     </div>

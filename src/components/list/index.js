@@ -1,26 +1,31 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import Item from "../item";
 import './style.css';
 
-function List({items, option = false}) {
+function List(props) {
   const cn = bem('List');
 
   return (
-    <ul className={cn()} style={option ? {"margin": "74px 0 0 0"} : null}>
-      {items}
-    </ul>
+    <div className={cn()}>{props.items.map(item =>
+      <div key={item._id} className={cn('item')}>
+        {props.renderItem(item)}
+      </div>
+    )}
+    </div>
   )
 }
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  option: propTypes.bool
+  renderItem: propTypes.func
 }
 
 List.defaultProps = {
-  items: []
+  items: [],
+  renderItem: (item) => {
+    return item.toString()
+  }
 }
 
 export default React.memo(List);

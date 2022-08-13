@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import shallowequal from 'shallowequal';
 import useStore from "./use-store";
 
@@ -14,7 +14,7 @@ export default function useSelector(selector){
 
   useEffect(() => {
     // Подписка на последующие изменения в store
-    return store.subscribe(() => {
+    return store.subscribe(() => {  //то что после return сработает сразу и каждый раз, а тот UnSub чтовернется от store.sub ток 1 раз в конце (подобно той хуйне когда в <button onClick={onClick() делаешь вместо onClick или () => onClick() и он срабатывает мгновенно} />)
       // Новая выборка
       const newState = selector(store.getState());
       // Установка выбранных данных, если они изменились

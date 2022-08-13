@@ -1,16 +1,19 @@
 /* Контрол с общими действиями */
-.BasketSimple{
+.BasketSimple {
     display: flex;
     justify-content: flex-end;
     padding: 20px;
     font-size: 18px;
 }
 
-.BasketSimple-label{
+.BasketSimple-label {}
 
-}
-
-.BasketSimple-total{
+.BasketSimple-total {
     font-weight: bold;
     margin: 0 15px;
+}
+
+.BasketSimple-link {
+    flex-grow: 1;
+    color: #0087E9;
 }

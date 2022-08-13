@@ -12,8 +12,8 @@ class Store {
     this.modules = {};
     for (const name of Object.keys(modules)) {
       // Экземпляр модуля. Передаём ему ссылку на store и навзание модуля.
-      this.modules[name] = new modules[name](this, name);
-      // По названию модля устанавливается свойство с анчальным состоянием от модуля
+      this.modules[name] = new modules[name](this, name);  //создаем новый класс передавая store и имя (смотри ""./module.js)
+      // По названию модля устанавливается свойство с нанчальным состоянием от модуля
       this.state[name] = this.modules[name].initState();
     }
   }
@@ -42,9 +42,8 @@ class Store {
   setState(newState, description = 'setState') {
 
     console.group(
-      `%c${'store.setState'} %c${description}`,
+      `%c${'store.setState'} ${description}`,
       `color: ${'#777'}; font-weight: normal`,
-      `color: ${'#333'}; font-weight: bold`,
     );
     console.log(`%c${'prev:'}`, `color: ${'#d77332'}`, this.state);
     console.log(`%c${'next:'}`, `color: ${'#2fa827'}`, newState);
@@ -66,6 +65,7 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
+      console.log("unSub")
       this.listeners = this.listeners.filter(item => item !== callback);
     }
   }

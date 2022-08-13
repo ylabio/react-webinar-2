@@ -1,0 +1,11 @@
+.TextField{
+    display: block;
+    margin: 20px;
+}
+
+.TextField-number{
+    display: block;
+    width: 10%;
+    margin-t: 20px;
+    padding: 6px;
+}

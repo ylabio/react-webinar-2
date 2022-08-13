@@ -1,0 +1,25 @@
+.Pages {
+    display: flex;
+    padding-bottom: 35px;
+    list-style: none;
+}
+
+.Pages-ellipsis {
+    display: flex;
+    align-items: center;
+}
+
+.Pages-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.Pages-item_selected {
+    color: #ffffff;
+    background: #0087e9;
+}
+
+.Pages-item:hover {
+    color: #000000;
+    background: #e1e1e1;
+}

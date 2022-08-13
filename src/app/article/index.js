@@ -1,8 +1,10 @@
 import React, {useState, useCallback, useEffect} from 'react'
-import {useParams, Link} from 'react-router-dom';
+import {useParams, Link, useLocation} from 'react-router-dom';
 import propTypes from 'prop-types';
+import useStore from "../../utils/use-store";
 import useSelector from '../../utils/use-selector';
 import {cn as bem} from "@bem-react/classname";
+import BasketSimple from "../../components/basket-simple";
 import Controls from '../../components/controls';
 import Translate from '../../components/translate';
 import numberFormat from '../../utils/number-format';
@@ -10,27 +12,39 @@ import ProgressBar from '../../components/ui/progress-bar';
 import './style.css'
 
 function Article(props) {
-  const cn = bem('Article')
-  const {_id} = useParams()
-  const error = useSelector(state => state.catalog.error)
-  const [isloading, setIsLoading] = useState(true)
 
-  useEffect(() => {
-    props.loadArticle(_id).then(() => {
-      setIsLoading(false)
-    })
-  }, [])
+  console.log('Article');
+
+  const cn = bem('Article')
+  const store = useStore()
+  const {_id} = useParams()
+  const location = useLocation()
+  const select = useSelector(state => ({
+    error: state.catalog.error
+  }));
+
+  const [isloading, setIsLoading] = useState(null)
 
   const callbacks = {
-    onAdd: useCallback((e) => props.onAdd(props.article._id), [props.onAdd, props.article])
+    // Добавление товара в корзину со страницы товара
+    onAdd: useCallback((e) => props.onAdd(props.article._id), [props.onAdd, props.article]),
   };
+
+  useEffect(() => {
+    setIsLoading(true)
+    store.get('catalog').loadArticle(_id).then(() => {
+      setIsLoading(false)
+    })
+  // в определенный момент страница товара может быть открытой,
+  // поэтому, чтобы подгрузить новую из корзины, будем отслеживать текущий location
+  }, [location])
 
   return (
     <>
       <Link to='/' className='MainPageLink'><Translate>Главная</Translate></Link>
       {isloading 
         ? <ProgressBar /> 
-        : error
+        : select.error
         ? <div className='errorMsg'>{error}</div>
         : <div className={cn()}>
             <p className={cn('description')}>{props.article.description}</p>
@@ -60,7 +74,7 @@ function Article(props) {
   )
 }
 
-export default Article
+export default React.memo(Article)
 
 Article.propTypes = {
   article: propTypes.object.isRequired,

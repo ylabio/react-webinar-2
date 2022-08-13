@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types';
 import useSelector from '../../utils/use-selector'
 
@@ -18,7 +17,9 @@ const languages = {
     "Цена": "Price",
     "Категория": "Category",
     "Страна производитель": "Made in",
-    "Год выпуска": "Edition year"
+    "Год выпуска": "Edition year",
+    "Вернуться на главную": "Back to main page",
+    "Увы, такой страницы не существует.": "Sorry, page doesn't exist."
   }
 }
 

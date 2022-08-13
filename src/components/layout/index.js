@@ -5,14 +5,14 @@ import propTypes from "prop-types";
 import LanguagesControl from '../languages-control';
 import './style.css';
 
-function Layout({head, children}){
+function Layout(props){
   const cn = bem('Layout');
 
   return (
     <div className={cn()}>
       <div className={cn('head')}>
-        {head}
-        <LanguagesControl />
+        {props.head}
+        <LanguagesControl setLang={props.setLang}/>
       </div>
       <div className={cn('content')}>
         <Outlet />
@@ -23,10 +23,11 @@ function Layout({head, children}){
 
 Layout.propTypes = {
   head: propTypes.node,
-  children: propTypes.node,
+  setLang: propTypes.func
 }
 
 Layout.defaultProps = {
+  setLang: () => {}
 }
 
 export default React.memo(Layout);

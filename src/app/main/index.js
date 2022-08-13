@@ -41,6 +41,8 @@ function Main(){
     loadPage: useCallback((pageNum) => store.get('catalog').loadPage(pageNum), []),
     // Загрузка подробной информации о товаре
     loadArticle: useCallback((_id) => store.get('catalog').loadArticle(_id), []),
+    // Смена языка
+    setLanguage: useCallback((lang) => store.get('lang').setLanguage(lang), []),
   };
 
   const renders = {
@@ -49,7 +51,7 @@ function Main(){
 
   return (
     <Routes>
-      <Route path="/" element={<Layout head={<h1><Translate>Магазин</Translate></h1>} />}>
+      <Route path="/" element={<Layout head={<h1><Translate>Магазин</Translate></h1>} setLang={callbacks.setLanguage}/>}>
         <Route index element={
           <>
             <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
@@ -62,7 +64,7 @@ function Main(){
         }/>
       </Route>
 
-      <Route path="/article" element={<Layout head={<h1>{select.articleTitle}</h1>} />}>
+      <Route path="/article" element={<Layout head={<h1>{select.articleTitle}</h1>} setLang={callbacks.setLanguage}/>}>
         <Route path=":_id" element={
           <>
             <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
@@ -71,7 +73,7 @@ function Main(){
         }/>
       </Route>
 
-      <Route path="*" element={<Layout head={<h1><Translate>Страница не найдена</Translate></h1>}/>}>
+      <Route path="*" element={<Layout head={<h1><Translate>Страница не найдена</Translate></h1>} setLang={callbacks.setLanguage}/>}>
         <Route path="*" element={<NoMatch />} />
       </Route>
     </Routes>

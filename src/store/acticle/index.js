@@ -12,14 +12,14 @@ class ArticleState extends StateModule {
   initState() {
     return {
       article: {},
-      isLoading: false,
+      isLoading: true,
     };
   }
 
   async load(id) {
     this.setState({
       article: {},
-      isLoading: false,
+      isLoading: true,
     });
 
     try {
@@ -29,13 +29,13 @@ class ArticleState extends StateModule {
       const json = await response.json();
       this.setState({
         article: json.result,
-        isLoading: true,
+        isLoading: false,
       });
     } catch (e) {
       console.error(e.message);
       this.setState({
         article: {},
-        isLoading: true,
+        isLoading: false,
       });
     }
   }

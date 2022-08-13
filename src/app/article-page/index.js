@@ -1,12 +1,10 @@
 import React, { useCallback, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Layout from "../../components/layout";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import { useParams } from "react-router-dom";
 import Article from "../../components/article";
-import BasketSimple from "../../components/basket-simple";
 import Spinner from "../../components/spinner";
-import Menu from "../../components/menu";
 import LayoutHeader from "../../components/layout-header";
 
 function ArticlePage() {
@@ -32,7 +30,11 @@ function ArticlePage() {
   return (
     <Layout head={<h1>{select.article.title}</h1>}>
       <LayoutHeader />
-      <Article article={select.article} onAdd={callbacks.addToBasket} />
+      {select.loading ? (
+        <Spinner />
+      ) : (
+        <Article article={select.article} onAdd={callbacks.addToBasket} />
+      )}
     </Layout>
   );
 }

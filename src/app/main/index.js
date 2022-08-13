@@ -3,6 +3,7 @@ import List from "../../components/list";
 import Layout from "../../components/layout";
 import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
+import Pagination from "../../components/pagination";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 
@@ -12,21 +13,26 @@ function Main(){
 
   const store = useStore();
 
-  useEffect(() => {
-    store.get('catalog').load();
-  }, [])
-
   const select = useSelector(state => ({
     items: state.catalog.items,
+		pagesCount: state.catalog.pagesCount,
+		currPage: state.catalog.currPage,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
+
+	useEffect(() => {
+		const skip = select.currPage === 1 ? 0 : (select.currPage - 1) * 10;
+    store.get('catalog').load(10, skip);
+  }, [select.currPage])
 
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+
+		setCurrPage: useCallback(page => store.get('catalog').setCurrPage(page), [])
   };
 
   const renders = {
@@ -37,6 +43,7 @@ function Main(){
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
+			<Pagination pagesCount={select.pagesCount} currPage={select.currPage} setCurrPage={callbacks.setCurrPage}/>
     </Layout>
   )
 }

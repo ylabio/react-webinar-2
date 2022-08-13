@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
-import numberFormat from "../../utils/numberFormat";
+import numberFormat from "../../utils/number-format";
 import {cn as bem} from "@bem-react/classname";
 import { Link } from 'react-router-dom';
 import './styles.css';
@@ -17,7 +17,7 @@ function ItemBasket(props) {
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-				<Link to={`/article/${props.item._id}`} className={cn('link')} onClick={callbacks.onClose}>
+				<Link to={`/article/${props.item._id}`} state={{title: props.item.title, _key: props.item._key}} className={cn('link')} onClick={callbacks.onClose}>
           {props.item.title}
 				</Link>
       </div>

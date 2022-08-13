@@ -2,10 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './app/main';
 import Article from './article';
-
-const PageNotFound = () => {
-	return <h1>Not found</h1>
-};
+import PageNotFound from './app/page-not-found';
 
 function PageRoutes(props) {
 	return (

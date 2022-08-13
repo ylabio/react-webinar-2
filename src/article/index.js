@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Layout from '../components/layout';
 import {cn as bem} from "@bem-react/classname";
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import BasketSimple from '../components/basket-simple';
-import numberFormat from "../utils/numberFormat";
+import numberFormat from "../utils/number-format";
 import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
 import './styles.css';
 
 function Article() {
 	const { id } = useParams();
-	const cn = bem('Article');
+	const { state } = useLocation();
 	
+	const cn = bem('Article');
+	const currPage = Math.ceil(state?._key / 10);
+
 	const [currArticle, setCurrArticle] = useState({});
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -23,7 +26,7 @@ function Article() {
     sum: state.basket.sum
   }));
 
-	const fetchCurrArticle = async () => {
+	const fetchCurrArticle = async (id) => {
 		setIsLoading(true);
 		const resp = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
 		const { result } = await resp.json();
@@ -33,10 +36,11 @@ function Article() {
 
 	useEffect(() => {
 		if(!select.items.length) {
-      store.get('catalog').load();
+			const skip = currPage === 1 ? 0 : (currPage - 1) * 10;
+      store.get('catalog').load(10, skip);
 		}
 		
-		fetchCurrArticle();
+		fetchCurrArticle(id);
 	}, [id]);
 
 	const callbacks = {
@@ -47,7 +51,7 @@ function Article() {
   };
 
 	return (
-		<Layout head={<h1>Название товара</h1>}>
+		<Layout head={<h1>{state?.title ? state.title : 'Неизвестный товар'}</h1>}>
 			<BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
 
 			{!isLoading && currArticle?._id ?
@@ -61,7 +65,7 @@ function Article() {
 				</div> : 
 				!currArticle ? 
 					<div className={cn('info')}>Неверный url товара</div> :
-					''
+					<div className={cn('info')}>Загрузка данных товара...</div>
 			}
 		</Layout>
 	)

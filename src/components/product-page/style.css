@@ -1,0 +1,45 @@
+.ProductPage{
+  margin-top: 20px;
+}
+
+.ProductPage-description{
+  padding: 0 40px;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.ProductPage-group{
+  display: flex;
+  padding: 20px 40px 0;
+}
+
+.ProductPage-name{
+  font-size: 18px;
+  line-height: 21px;
+  margin: 0;
+}
+
+.ProductPage-value{
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  margin: 0;
+}
+
+.ProductPage-price{
+  padding: 20px 40px 0;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.ProductPage-button{
+  margin: 20px 40px 0;
+  font-size: 13px;
+  line-height: 15px;
+  padding: 3px 8px 2px;
+  background: #EFEFEF;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  cursor: pointer;
+}

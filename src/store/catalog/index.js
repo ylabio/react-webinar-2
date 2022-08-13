@@ -20,7 +20,7 @@ class CatalogState extends StateModule{
   }
 
  
-  async load(newPage = 1){
+  async load(newPage){
     const limitPerPage = this.getState().limitPerPage;
     const skipPages = (newPage - 1) * limitPerPage
 

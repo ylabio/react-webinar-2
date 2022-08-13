@@ -1,8 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
+import {Routes, Route} from "react-router-dom"
+import Product from './product';
+import NotFound from '../components/not-found';
+import EmptyPage from './empty-page';
 
 /**
  * Приложение
@@ -16,7 +19,11 @@ function App() {
 
   return (
     <>
-      <Main/>
+      <Routes>
+        <Route path="/" element={<Main/>}/>
+        <Route path="/singlepage/:id" element={<Product/>}/>
+        <Route path="*" element={<EmptyPage/>}/>
+      </Routes>
       {modal === 'basket' && <Basket/>}
     </>
   );

@@ -32,9 +32,9 @@ function Pagination(props) {
 }
 
 Pagination.propTypes = {
-  currentPage: propTypes.number.isRequired,
-  totalPages: propTypes.number.isRequired,
-  limitPerPage: propTypes.number.isRequired,
+  currentPage: propTypes.number,
+  totalPages: propTypes.number,
+  limitPerPage: propTypes.number,
   changeNumberPage: propTypes.func.isRequired
 }
 

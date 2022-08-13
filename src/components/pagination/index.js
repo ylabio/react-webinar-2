@@ -2,7 +2,7 @@ import React, {useCallback, useMemo} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
-import {usePagination} from "../../utils/usePagination";
+import {usePagination} from "../../utils/use-pagination";
 
 function Pagination({count, paginate, activePage}) {
   const cn = bem('Pagination');

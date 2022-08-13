@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
-import numberFormat from "../../utils/numberFormat";
+import numberFormat from "../../utils/number-format";
 import {cn as bem} from "@bem-react/classname";
 import './styles.css';
 import {Link} from 'react-router-dom';

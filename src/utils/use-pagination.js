@@ -22,7 +22,7 @@ export const usePagination = ({
     const rightSiblingIndex = activePage + 1;
     const shouldShowLeftDots = leftSiblingIndex > 2;
     const shouldShowRightDots = rightSiblingIndex < count - 1;
-
+    
     /*
       2 случай:
       Если слева нет многоточия, но справа есть
@@ -54,7 +54,7 @@ export const usePagination = ({
       }
       return [1, '...', ...rightRange];
     }
-     
+
     /*
       4 случай:
       Многоточия с двух сторон

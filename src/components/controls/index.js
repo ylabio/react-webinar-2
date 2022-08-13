@@ -1,21 +1,30 @@
-import React from 'react';
+import {cn as bem} from '@bem-react/classname';
 import propTypes from 'prop-types';
+import React from 'react';
+import {Link} from 'react-router-dom';
+import BasketSimple from '../basket-simple';
 import './style.css';
 
-function Controls({onAdd}){
+function Controls({local, onHomeClick, onBasketOpen, sum, amount}) {
+  const cn = bem('Controls');
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className={cn()}>
+      <Link className={cn('toHome')} to={'/'} onClick={onHomeClick}>
+        {local.common.homeLink}
+      </Link>
+      <BasketSimple sum={sum} amount={amount} onOpen={onBasketOpen} local={local} />
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
+  onHomeClick: propTypes.func.isRequired,
+  onBasketOpen: propTypes.func.isRequired,
+  sum: propTypes.number,
+  amount: propTypes.number,
+  local: propTypes.object
+};
 
-Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
-}
+Controls.defaultProps = {};
 
 export default React.memo(Controls);

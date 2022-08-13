@@ -1,7 +1,6 @@
 import {cn as bem} from '@bem-react/classname';
 import propTypes from 'prop-types';
 import React from 'react';
-import {Link} from 'react-router-dom';
 import numberFormat from '../../utils/numberFormat';
 import './styles.css';
 
@@ -9,9 +8,6 @@ function BasketSimple({sum, amount, onOpen, local, onHomeClick}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <Link className={cn('toHome')} to={'/'} onClick={onHomeClick}>
-        {local.common.homeLink}
-      </Link>
       <span className={cn('label')}>{local.common.basketFullnessLabel}:</span>
       <span className={cn('total')}>
         {amount
@@ -29,8 +25,7 @@ BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
   amount: propTypes.number,
-  local: propTypes.object,
-  onHomeClick: propTypes.func
+  local: propTypes.object
 };
 
 BasketSimple.defaultProps = {

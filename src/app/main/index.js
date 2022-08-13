@@ -1,6 +1,6 @@
 import {cn as bem} from '@bem-react/classname';
 import React, {useCallback, useEffect} from 'react';
-import BasketSimple from '../../components/basket-simple';
+import Controls from '../../components/controls';
 import Item from '../../components/item';
 import Layout from '../../components/layout';
 import List from '../../components/list';
@@ -54,8 +54,8 @@ function Main() {
       curLang={select.lang}
       setLang={callbacks.setLang}
     >
-      <BasketSimple
-        onOpen={callbacks.openModalBasket}
+      <Controls
+        onBasketOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
         local={select.local}

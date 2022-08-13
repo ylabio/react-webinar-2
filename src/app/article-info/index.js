@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
-import BasketSimple from '../../components/basket-simple';
+import Controls from '../../components/controls';
 import ItemInfo from '../../components/item-info';
 import Layout from '../../components/layout';
 import useSelector from '../../utils/use-selector';
@@ -39,8 +39,8 @@ function ArticleInfo() {
 
   return (
     <Layout head={<h1>{select.info.title}</h1>} curLang={select.lang} setLang={callbacks.setLang}>
-      <BasketSimple
-        onOpen={callbacks.openModalBasket}
+      <Controls
+        onBasketOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
         local={select.local}

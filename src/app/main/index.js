@@ -15,7 +15,9 @@ function Main({lang}){
 
   const store = useStore();
   
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  console.log(currentPage);
 
   useEffect(() => {
     store.get('catalog').load(currentPage);
@@ -38,8 +40,8 @@ function Main({lang}){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
 
-  const onSelect = (e) => {
-    setCurrentPage(e.target.value)
+  const onSelect = (value) => {
+    setCurrentPage(value)
   }
 
   const renders = {
@@ -60,7 +62,7 @@ function Main({lang}){
           <List items={select.items} renderItem={renders.item}/>
         }
       </div>
-      <Pagination totalNumberOfPage={select.totalCount / select.limit} currentPage={select.currentPage} onSelect={onSelect}/>
+      <Pagination totalNumberOfPage={Math.ceil(select.totalCount / select.limit)} currentPage={select.currentPage} onSelect={onSelect}/>
     </Layout>
   )
 }

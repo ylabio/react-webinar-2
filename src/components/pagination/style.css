@@ -28,3 +28,8 @@
     color: #ffffff;
     background: #0087E9;
 }
+
+.Pagination-item_slpit:hover {
+    cursor: default;
+    background: transparent;
+}

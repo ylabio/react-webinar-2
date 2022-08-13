@@ -11,6 +11,8 @@ const translations = {
   en
 };
 
+const lang = navigator.language || navigator.userLanguage; //вытаскиеваем из браузера предустановленный язык
+
 function LangPanel() {
     let langCode = localStorage.getItem("langCode") || "ru";
     const store = useStore();
@@ -19,7 +21,9 @@ function LangPanel() {
       langCode = "ru";
     }
 
-    const [codeLanguage, setCodeLanguage] = useState(langCode)
+    console.log(lang.substr(0, 2));
+
+    const [codeLanguage, setCodeLanguage] = useState(lang.substr(0, 2))
     const languages = useSelector(state => state.language.languages);
     console.log(languages);
 

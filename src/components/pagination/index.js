@@ -6,181 +6,36 @@ import {cn as bem} from "@bem-react/classname";
 function Pagination({totalNumberOfPage, currentPage, onSelect}) {
 	const cn = bem('Pagination');
 
+  console.log(totalNumberOfPage);
+
 	const NumberPage = () => {
-		let i = 0;
 		const pages = [];
-		if( totalNumberOfPage <= 6) {
-			while (i < totalNumberOfPage) {
-				pages.push(
-					<li 
-						key={i} 
-						className={cn('item') + ` ${currentPage === i ? cn('item_active') : ''}`}
-						value={i} 
-						onClick={(e) => onSelect(e)}>
-						{i+1}
-					</li>
-				);
-				i++;
-			}
+		const startOfSplit = Math.max(currentPage - 1, 1);
+		const endOfSplit = Math.min(startOfSplit + 2, totalNumberOfPage);
+		
+		if (startOfSplit > 1) {
+      pages.push(1);
+      if (startOfSplit > 2) pages.push(null);
 		}
 
-		if(currentPage < 2 && totalNumberOfPage > 6) {
-			while (i < 3) {
-				pages.push(
-					<li 
-						key={i} 
-						className={cn('item') + ` ${currentPage === i ? cn('item_active') : ''}`}
-						value={i} 
-						onClick={(e) => onSelect(e)}>
-						{i+1}
-					</li>
-				);
-				i++;
-			}
+    for (let i = startOfSplit; i <= endOfSplit; i++) {
+      pages.push(i);
+    }
 
-			pages.push(
-				<li 
-					key={i} 
-					className={cn('item') + ` ${currentPage === i ? cn('item_active') : ''}`}
-					value={i}>
-					...
-				</li>
-			);
+    if (endOfSplit < totalNumberOfPage) {
+      if (endOfSplit < totalNumberOfPage - 1) pages.push(null);
+      pages.push(totalNumberOfPage);
+    }
 
-			pages.push(
-				<li 
-					key={Math.ceil(totalNumberOfPage) - 1} 
-					className={cn('item') + ` ${currentPage === i ? cn('item_active') : ''}`}
-					value={Math.ceil(totalNumberOfPage) -1} 
-					onClick={(e) => onSelect(e)}>
-					{Math.ceil(totalNumberOfPage)}
-				</li>
-			);
-		}
-		//
-		if(currentPage === 2 && totalNumberOfPage > 6) {
-			while (i < 4) {
-				pages.push(
-					<li 
-						key={i} 
-						className={cn('item') + ` ${currentPage === i ? cn('item_active') : ''}`}
-						value={i} 
-						onClick={(e) => onSelect(e)}>
-						{i+1}
-					</li>
-				);
-				i++;
-			}
-
-			pages.push(
-				<li 
-					key={i} 
-					className={cn('item') + ` ${currentPage === i ? cn('item_active') : ''}`}
-					value={i}>
-					...
-				</li>
-			);
-
-			pages.push(
-				<li 
-					key={Math.ceil(totalNumberOfPage) - 1} 
-					className={cn('item') + ` ${currentPage === i ? cn('item_active') : ''}`}
-					value={Math.ceil(totalNumberOfPage) - 1}
-					onClick={(e) => onSelect(e)}>
-					{Math.ceil(totalNumberOfPage)}
-				</li>
-			);
-		}
-
-		if(currentPage > 2 && currentPage < Math.ceil(totalNumberOfPage) - 3 && totalNumberOfPage > 6) {
-			pages.push(
-				<li 
-					key={i} 
-					className={cn('item') + ` ${currentPage === i ? cn('item_active') : ''}`}
-					value={i}
-					onClick={(e) => onSelect(e)}>
-					{i+1}
-				</li>
-			);
-
-			pages.push(
-				<li 
-					key={i+1} 
-					className={cn('item') + ` ${currentPage === i ? cn('item_active') : ''}`}
-					value={i+1}>
-					...
-				</li>
-			);
-
-			i = currentPage - 1;
-			while (i < currentPage + 2) {
-				pages.push(
-					<li 
-						key={i} 
-						className={cn('item') + ` ${currentPage === i ? cn('item_active') : ''}`}
-						value={i}
-						onClick={(e) => onSelect(e)}>
-						{i+1}
-					</li>
-				);
-				i++;
-			}
-
-			pages.push(
-				<li 
-					key={i} 
-					className={cn('item') + ` ${currentPage === i ? cn('item_active') : ''}`}
-					value={i}>
-					...
-				</li>
-			);
-
-			pages.push(
-				<li 
-					key={Math.ceil(totalNumberOfPage) - 1} 
-					className={cn('item') + ` ${currentPage === i ? cn('item_active') : ''}`}
-					value={Math.ceil(totalNumberOfPage) - 1}
-					onClick={(e) => onSelect(e)}>
-					{Math.ceil(totalNumberOfPage)}
-				</li>
-			);
-		}
-
-		if(currentPage >= Math.ceil(totalNumberOfPage) - 3 && totalNumberOfPage > 6) {
-			pages.push(
-				<li 
-					key={i} 
-					className={cn('item') + ` ${currentPage === i ? cn('item_active') : ''}`}
-					value={i}
-					onClick={(e) => onSelect(e)}>
-					{i+1}
-				</li>
-			);
-
-			pages.push(
-				<li 
-					key={i+1} 
-					className={cn('item') + ` ${currentPage === i ? cn('item_active') : ''}`}
-					value={i+1}>
-					...
-				</li>
-			);
-
-			i = Math.ceil(totalNumberOfPage) - 4
-			while (i <= Math.ceil(totalNumberOfPage) - 1) {
-				pages.push(
-					<li 
-						key={i} 
-						className={cn('item') + ` ${currentPage === i ? cn('item_active') : ''}`}
-						value={i}
-						onClick={(e) => onSelect(e)}>
-						{i+1}
-					</li>
-				);
-				i++;
-			}
-		}
-		return pages;
+		return pages.map((num, index) => (
+        <li 
+          key={index} 
+          className={cn('item') + ` ${currentPage === num ? cn('item_active') : ''}` + ` ${!num ? cn('item_split') : ''}`}
+          onClick={num ? () => onSelect(num) : () => {}}>
+          {num || '...'}
+        </li>
+      )
+		)
 	}
 
 	return(
@@ -188,6 +43,12 @@ function Pagination({totalNumberOfPage, currentPage, onSelect}) {
 			<NumberPage/>
 		</ul>
 	)
+}
+
+Pagination.propTypes = {
+  totalNumberOfPage: propTypes.number.isRequired,
+  currentPage: propTypes.number.isRequired,
+  onSelect: propTypes.func.isRequired
 }
 
 export default React.memo(Pagination);

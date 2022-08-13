@@ -28,7 +28,8 @@ function BasketSimple({sum, amount, onOpen, lang}) {
 BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
-  amount: propTypes.number
+  amount: propTypes.number,
+  lang: propTypes.object
 }
 
 BasketSimple.defaultProps = {

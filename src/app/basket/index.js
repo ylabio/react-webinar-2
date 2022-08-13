@@ -5,7 +5,9 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import {withLocale} from "../../contexts/locale.context"
+import {withLocale} from "../../contexts/locale.context";
+import propTypes from 'prop-types';
+
 
 function Basket({lang}){
 
@@ -36,6 +38,10 @@ function Basket({lang}){
       <BasketTotal sum={select.sum}/>
     </LayoutModal>
   )
+}
+
+Basket.propTypes = {
+  lang: propTypes.object
 }
 
 export default React.memo(withLocale(Basket));

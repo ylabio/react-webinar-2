@@ -16,7 +16,7 @@ class CatalogState extends StateModule{
       limit: 10,  //Лимит товаров, которые можно вывести
       totalCount: 0,  //Общее количество товаров
       currentPage: 0,  //Текущая страница (Выбранная пользователем)
-      loading: false  //Состояние для отображения статуса загрузки (Спиннер)
+      loading: true  //Состояние для отображения статуса загрузки (Спиннер)
     };
   }
 
@@ -27,7 +27,7 @@ class CatalogState extends StateModule{
       currentPage: page
     })
     const {limit, currentPage} = this.getState()
-    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${currentPage * limit}&fields=items(*),count`);
+    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${(currentPage - 1) * limit}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
       ...this.getState(),

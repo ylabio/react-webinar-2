@@ -7,6 +7,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import { useParams } from "react-router-dom";
+import { localize } from "../../utils/localize";
 
 function Main(){
 
@@ -28,6 +29,7 @@ function Main(){
   const select = useSelector(state => ({
     items: state.catalog.items,
     count: state.catalog.count,
+		language: state.localization.language,
   }));
 
   const callbacks = {
@@ -42,7 +44,7 @@ function Main(){
   const pageCount = Math.ceil(select.count / limit);
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>{localize['Магазин'][select.language]}</h1>}>
 			{pageCount >= pageIndex && (
 				<>
 					<List items={select.items} renderItem={renders.item} />

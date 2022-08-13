@@ -19,4 +19,5 @@
 .BasketSimple-total{
     font-weight: bold;
     margin: 0 15px;
+    text-transform: lowercase;
 }

@@ -3,6 +3,8 @@ import Main from "./main";
 import Basket from "./basket";
 import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
+import {Routes, Route} from "react-router-dom";
+import Details from "./details";
 
 /**
  * Приложение
@@ -16,7 +18,10 @@ function App() {
 
   return (
     <>
-      <Main/>
+      <Routes>
+        <Route index path="/" element={<Main/>}/>
+        <Route index path="/articles/:id" element={<Details/>}/>
+      </Routes>
       {modal === 'basket' && <Basket/>}
     </>
   );

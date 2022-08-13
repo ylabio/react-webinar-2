@@ -6,6 +6,11 @@
     padding-left: 10px;
 }
 
+.Item span:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .Item-id {
     padding: 20px 10px 20px 20px;
 }

@@ -1,5 +1,6 @@
 /* Контрол с общими действиями */
 .BasketSimple{
+    position: relative;
     display: flex;
     justify-content: flex-end;
     padding: 20px;
@@ -13,4 +14,13 @@
 .BasketSimple-total{
     font-weight: bold;
     margin: 0 15px;
+}
+
+.BasketSimple-home{
+    position: absolute;
+    left: 20px;
+    text-decoration: underline;
+    color: #0087E9;
+    cursor: pointer;
+    z-index: 99;
 }

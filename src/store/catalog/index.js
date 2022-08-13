@@ -12,16 +12,37 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      count: 0,
+      navigationPagesCount: 0,
+      navigationPageSelected: 0,
+      navigationPageSkip: 0,
     };
   }
 
   async load(){
-    const response = await fetch('/api/v1/articles');
+    const response = await fetch('/api/v1/articles?skip='+this.getState().navigationPageSkip+'&limit=10&fields=items(*),count');
     const json = await response.json();
     this.setState({
-      items: json.result.items
+      items: json.result.items,
+      count: json.result.count,
+      navigationPagesCount: this.getState().navigationPagesCount == 0 ? (Math.ceil(json.result.count / 10)) : this.getState().navigationPagesCount,
+      navigationPageSelected: this.getState().navigationPageSelected == 0 ? (json.result.count > 1 ? 1 : 0) : this.getState().navigationPageSelected,
+      navigationPageSkip: this.getState().navigationPageSkip,
     });
+  }
+
+  /**
+   * Обновление
+   */
+  update(){
+    this.setState({
+      items: this.getState().items,
+      count: this.getState().count,
+      navigationPagesCount: this.getState().navigationPagesCount,
+      navigationPageSelected: this.getState().navigationPageSelected,
+      navigationPageSkip: this.getState().navigationPageSelected * 10 - 10
+    })
   }
 
   /**
@@ -41,6 +62,21 @@ class CatalogState extends StateModule{
     this.setState({
       items: this.getState().items.filter(item => item._id !== _id)
     }, 'Удаление товара');
+  }
+
+  /**
+   * Смена страницы
+   */
+   changePage(number = 1) {
+    this.setState({
+      items: this.getState().items,
+      count: this.getState().count,
+      navigationPagesCount: this.getState().navigationPagesCount,
+      navigationPageSelected: number,
+      navigationPageSkip: this.getState().navigationPageSelected * 10
+    })
+    this.update();
+    this.load()
   }
 }
 

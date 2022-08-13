@@ -1,0 +1,21 @@
+.NotFound {
+    display: flex;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background: white;
+    min-height: 100vh;
+}
+
+.NotFound-link {
+    color: blue;
+
+}
+
+.NotFound-link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

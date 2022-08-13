@@ -4,7 +4,7 @@ import StateModule from "../module";
 /**
  * Состояние каталога
  */
-class CatalogState extends StateModule{
+class CatalogState extends StateModule {
 
   /**
    * Начальное состояние
@@ -12,15 +12,28 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      product: {},
+      count: 0
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+  async load(skip = 0, limit = 10) {
+    // if (Number(skip) < 0) skip = 0;
+    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
-      items: json.result.items
+      items: json.result.items,
+      count: json.result.count
+    });
+  }
+
+  async loadProduct(id) {
+    const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      product: json.result,
     });
   }
 

@@ -3,7 +3,7 @@ import StateModule from "../module";
 /**
  * Состояние корзины
  */
-class BasketState extends StateModule{
+class BasketState extends StateModule {
 
   /**
    * Начальное состояние
@@ -12,8 +12,8 @@ class BasketState extends StateModule{
   initState() {
     return {
       items: [],
-        sum: 0,
-        amount: 0
+      sum: 0,
+      amount: 0
     };
   }
 
@@ -34,14 +34,21 @@ class BasketState extends StateModule{
       }
       // Добавляея в общую сумму
       sum += result.price * result.amount;
-      return result
+      return result;
     });
 
-    // Если товар не был найден в корзине, то добавляем его из каталога
+    // Если товар не был найден в корзине, то добавляем его из каталога или из поля product
     if (!exists) {
       // Поиск товара в каталоге, чтобы его в корзину добавить
       // @todo В реальных приложения будет запрос к АПИ на добавление в корзину, и апи выдаст объект товара..
-      const item = this.store.getState().catalog.items.find(item => item._id === _id);
+      let item;
+
+      if (Boolean(this.store.getState().catalog.items.length)) {
+        item = this.store.getState().catalog.items.find(item => item._id === _id);
+      } else {
+        item = this.store.getState().catalog.product;
+      }
+
       items.push({...item, amount: 1});
       // Досчитываем сумму
       sum += item.price;
@@ -63,7 +70,7 @@ class BasketState extends StateModule{
     let sum = 0;
     const items = this.getState().items.filter(item => {
       // Удаляемый товар
-      if (item._id === _id) return false
+      if (item._id === _id) return false;
       // Подсчёт суммы если твоар не удаляем.
       sum += item.price * item.amount;
       return true;
@@ -72,7 +79,7 @@ class BasketState extends StateModule{
       items,
       sum,
       amount: items.length
-    }, 'Удаление из корзины')
+    }, 'Удаление из корзины');
   }
 }
 

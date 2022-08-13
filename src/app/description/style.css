@@ -1,0 +1,20 @@
+
+.Descriptions-content{
+    padding: 20px
+}
+.Descriptions-description{
+    padding: 10px;
+    font-size: 18px;
+}
+.Descriptions-post{
+    font-weight: bold;
+    font-size: 18px;
+}
+.Descriptions-price{
+    font-weight: 700;
+    font-size: 24px;
+}
+div{
+    padding: 10px;    
+    font-size: 18px;
+}

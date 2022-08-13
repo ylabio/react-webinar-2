@@ -14,3 +14,9 @@
     font-weight: bold;
     margin: 0 15px;
 }
+.BasketSimple-navigate{
+    flex:auto;
+}
+.BasketSimple-navigate a{
+    color:#0087E9
+}

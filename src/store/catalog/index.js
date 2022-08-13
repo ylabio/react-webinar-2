@@ -16,6 +16,7 @@ class CatalogState extends StateModule{
       items: [],
       total: null,
       currentPage: 1,
+      isFetching: false,
     };
   }
 
@@ -44,6 +45,7 @@ class CatalogState extends StateModule{
     skip = config.API_SKIP, 
     limit = config.API_LIMIT, 
   ) {
+    this.#setIsFetching(true);
     const lang = this.store.state.language.language;
     const response = await fetch(`/api/v1/articles?lang=${lang}&limit=${limit}&skip=${skip}&fields=items(*),count`);
     const json = await response.json();
@@ -51,6 +53,7 @@ class CatalogState extends StateModule{
       ...this.store.state.catalog,
       items: json.result.items,
       total: json.result.count,
+      isFetching: false,
     });
   }
 
@@ -59,6 +62,13 @@ class CatalogState extends StateModule{
       ...this.store.state.catalog,
       currentPage: page, 
     })
+  }
+
+  #setIsFetching(flag) {
+    this.setState({
+      ...this.store.state.catalog,
+      isFetching: flag, 
+    }) 
   }
 }
 

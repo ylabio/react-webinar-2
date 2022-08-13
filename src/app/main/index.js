@@ -8,12 +8,14 @@ import useSelector from "../../utils/use-selector";
 import {config} from '../../config';
 import Pagination from "../../components/pagination";
 import Header from "../../components/header";
+import LayoutSpinner from "../../components/layout-spinner/inded";
 
 function Main(){
   const store = useStore();
   const select = useSelector(state => ({
     items: state.catalog.items,
     total: state.catalog.total,
+    isFetching: state.catalog.isFetching,
     amount: state.basket.amount,
     sum: state.basket.sum,
     currentPage: state.catalog.currentPage,
@@ -32,12 +34,14 @@ function Main(){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     changeLanguage: useCallback(lang => store.get('language').changeLanguage(lang), []),
     changePage: useCallback((page) => {
-      if (page !== select.currentPage && page !== '...') {
-        const skip = (page - 1) * config.API_LIMIT;
-        store.get('catalog').getGoods(skip);
-        store.get('catalog').changeCurrentPage(page);
+      if (!select.isFetching) {
+        if (page !== select.currentPage && page !== '...') {
+          const skip = (page - 1) * config.API_LIMIT;
+          store.get('catalog').getGoods(skip);
+          store.get('catalog').changeCurrentPage(page);
+        }
       }
-    }, [select.currentPage]),
+    }, [select.currentPage, select.isFetching]),
   };
 
   const renders = {
@@ -63,12 +67,21 @@ function Main(){
         sum={select.sum}
         lang={select.language}
       />
-      <List items={select.items} renderItem={renders.item}/>
+      <LayoutSpinner
+        isFetching={select.isFetching}
+      >
+        <List 
+          items={select.items} 
+          renderItem={renders.item}
+        />
+      </LayoutSpinner>
+      
       <Pagination
         total={select.total} 
         currentPage={select.currentPage}
         changePage={callbacks.changePage}
       />
+
     </Layout>
   )
 }

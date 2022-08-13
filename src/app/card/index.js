@@ -34,7 +34,7 @@ function Card() {
     <Layout 
       head={
         <Header 
-          title='Название товара' 
+          title={select.item?.title}
           changeLanguage={callbacks.changeLanguage}
           lang={select.language}
         />

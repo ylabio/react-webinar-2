@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
-import Translate from "../../app/translate";
 import propTypes from 'prop-types';
 
 function Header({title, changeLanguage, lang}) {
@@ -21,7 +20,7 @@ function Header({title, changeLanguage, lang}) {
 
   return (
     <header className={cn()}>
-      <h1><Translate text={title} /></h1>
+      <h1>{title}</h1>
       <select 
         onChange={callbacks.switchLang}
         value={lang === 'ru' ? 'Русский' : 'English'}

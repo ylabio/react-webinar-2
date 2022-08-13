@@ -33,9 +33,13 @@ function Header({title, changeLanguage, lang}) {
 }
 
 Header.propTypes = {
-  title: propTypes.string.isRequired, 
+  title: propTypes.string, 
   changeLanguage: propTypes.func.isRequired,
   lang: propTypes.string.isRequired,
 };
+
+Header.defaultProps = {
+  title: '',
+}
 
 export default React.memo(Header);

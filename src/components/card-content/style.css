@@ -1,4 +1,4 @@
-.Card-main {
+.CardContent-main {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -6,13 +6,13 @@
   padding-right: 20px;
 }
 
-.Card-block {
+.CardContent-block {
   display: flex;
   align-items: baseline;
   gap: 4px;
 }
 
-.Card-price {
+.CardContent-price {
   display: flex;
   align-items: baseline;
   font-weight: 700;
@@ -21,12 +21,12 @@
   gap: 14px;
 }
 
-.Card-value {
+.CardContent-value {
   font-weight: 700;
   font-size: 18px;
   line-height: 21px;
 }
 
-.Card-button {
+.CardContent-button {
   width: 76px;
 }

@@ -1,0 +1,46 @@
+/* Пункт списка */
+.ItemPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: background-color 1s;
+  padding: 20px 43px;
+}
+
+.ItemPage-description {
+  margin-bottom: 20px;
+}
+
+.ItemPage-country {
+  margin-bottom: 20px;
+}
+
+.ItemPage-category {
+  margin-bottom: 20px;
+}
+
+.ItemPage-year {
+  margin-bottom: 20px;
+}
+
+.ItemPage-price {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.ItemPage-bold {
+  font-weight: 700;
+}
+
+.ItemPage-right {
+  padding: 20px 20px 20px 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.ItemPage-button {
+  margin-top: 23px;
+  align-self: start;
+}

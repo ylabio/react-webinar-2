@@ -4,7 +4,6 @@ import numberFormat from "../../utils/numberFormat";
 import {cn as bem} from "@bem-react/classname";
 import './styles.css';
 import { Link } from 'react-router-dom';
-import Translate from '../../app/translate';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
@@ -44,7 +43,7 @@ function ItemBasket(props) {
         </div>
         <div className={cn('button')}>
           <button onClick={callbacks.onRemove}>
-            <Translate text={'Удалить'} />
+            {props.translationData.remove}
           </button>
         </div>
       </div>
@@ -55,6 +54,7 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
+  translationData: propTypes.object.isRequired,
 }
 
 ItemBasket.defaultProps = {

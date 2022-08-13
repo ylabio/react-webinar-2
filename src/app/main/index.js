@@ -10,6 +10,8 @@ import Pagination from "../../components/pagination";
 import Header from "../../components/header";
 import LayoutSpinner from "../../components/layout-spinner";
 import MainRoute from "../../components/main-route";
+import getTranslation from "../../utils/getTranslation";
+import translations from "../../shared/data/translations";
 
 function Main(){
   const store = useStore();
@@ -51,6 +53,12 @@ function Main(){
       onAdd={callbacks.addToBasket}
       lang={select.language}
       to={config.routes.product}
+      translationData={{
+        add: getTranslation(
+          select.language,
+          translations.html_elements.button.add
+        ),
+      }}
     />, [select.language]),
   }
 
@@ -58,7 +66,10 @@ function Main(){
     <Layout 
       head={
         <Header 
-          title='Магазин' 
+          title={getTranslation(
+            select.language,
+            translations.components.Header.store,
+          )}
           changeLanguage={callbacks.changeLanguage} 
           lang={select.language}
       />}
@@ -68,10 +79,32 @@ function Main(){
           amount={select.amount} 
           sum={select.sum}
           lang={select.language}
+          traslationData={{
+            inCart: getTranslation(
+              select.language,
+              translations.components.BasketSimple.in_cart
+            ),
+            empty: getTranslation(
+              select.language,
+              translations.components.BasketSimple.empty
+            ),
+            go_to: getTranslation(
+              select.language,
+              translations.html_elements.button.go_to
+            ),
+          }}
         />
       }
       nav={
-        <MainRoute to={config.routes.home_page} />
+        <MainRoute 
+          to={config.routes.home_page} 
+          translationData={{
+            name: getTranslation(
+              select.language,
+              translations.components.MainRoute.main
+            ),
+          }}
+        />
       }
     >
       <LayoutSpinner

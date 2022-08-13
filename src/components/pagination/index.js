@@ -12,11 +12,11 @@ function Pagination({
 }) {
   const cn = bem('Pagination');
 
-  const range = useCallback(getRange({
+  const range = getRange({
     totalCount: total,
     pageSize: limit,
     currentPage,
-  }), [total, currentPage]);
+  });
 
   return (
     <ul className={cn()}>

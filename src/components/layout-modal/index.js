@@ -2,7 +2,6 @@ import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
-import Translate from '../../app/translate';
 
 function LayoutModal(props) {
   const cn = bem('LayoutModal');
@@ -26,10 +25,10 @@ function LayoutModal(props) {
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
           <h1 className={cn('title')}>
-            {props.title}
+            {props.translationData.title}
           </h1>
           <button className={cn('close')} onClick={props.onClose}>
-            <Translate text='Закрыть' />
+            {props.translationData.close}
           </button>
         </div>
         
@@ -42,13 +41,12 @@ function LayoutModal(props) {
 }
 
 LayoutModal.propTypes = {
-  title: PropTypes.element,
   onClose: PropTypes.func,
   children: PropTypes.node,
+  translationData: PropTypes.object.isRequired,
 };
 
 LayoutModal.defaultProps = {
-  title: 'Модалка',
   onClose: () => {}
 };
 

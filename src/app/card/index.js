@@ -8,6 +8,8 @@ import CardContent from "../../components/card-content/card-content";
 import BasketSimple from "../../components/basket-simple";
 import { config } from "../../config";
 import MainRoute from "../../components/main-route";
+import getTranslation from "../../utils/getTranslation";
+import translations from "../../shared/data/translations";
 
 function Card() {
   const params = useParams();
@@ -41,7 +43,15 @@ function Card() {
         />
       }
       nav={
-        <MainRoute to={config.routes.home_page} />
+        <MainRoute 
+          to={config.routes.home_page}
+          translationData={{
+            name: getTranslation(
+              select.language,
+              translations.components.MainRoute.main
+            )
+          }} 
+        />
       }
       basket={
         <BasketSimple
@@ -49,6 +59,20 @@ function Card() {
           sum={select.sum}
           onOpen={callbacks.openModalBasket}
           lang={select.language}
+          traslationData={{
+            inCart: getTranslation(
+              select.language,
+              translations.components.BasketSimple.in_cart
+            ),
+            empty: getTranslation(
+              select.language,
+              translations.components.BasketSimple.empty
+            ),
+            go_to: getTranslation(
+              select.language,
+              translations.html_elements.button.go_to
+            ),
+          }}
         />
       } 
     >
@@ -57,6 +81,28 @@ function Card() {
         language={select.language}
         onAdd={callbacks.onAdd}
         isFetching={select.isFetching}
+        translationData={{
+          country: getTranslation(
+            select.language,
+            translations.components.CardContent.country
+          ),
+          category: getTranslation(
+            select.language,
+            translations.components.CardContent.country
+          ),
+          year: getTranslation(
+            select.language,
+            translations.components.CardContent.year
+          ),
+          price: getTranslation(
+            select.language,
+            translations.components.CardContent.price
+          ),
+          add: getTranslation(
+            select.language,
+            translations.html_elements.button.add
+          ),
+        }}
       />
     </Layout>
   )

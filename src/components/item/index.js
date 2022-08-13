@@ -3,7 +3,6 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import {Link} from 'react-router-dom';
-import Translate from '../../app/translate';
 
 function Item(props) {
   const cn = bem('Item');
@@ -24,7 +23,7 @@ function Item(props) {
           {props.item.price.toLocaleString(props.lang)} ₽
         </div>
         <button onClick={callbacks.onAdd}>
-          <Translate text={'Добавить'} />
+          {props.translationData.add}
         </button>
       </div>
     </div>
@@ -36,6 +35,7 @@ Item.propTypes = {
   onAdd: propTypes.func,
   lang: propTypes.string.isRequired,
   to: propTypes.string.isRequired,
+  translationData: propTypes.object.isRequired,
 }
 
 Item.defaultProps = {

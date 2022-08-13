@@ -5,8 +5,9 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import Translate from "../translate";
 import LayoutSpinner from "../../components/layout-spinner";
+import getTranslation from "../../utils/getTranslation";
+import translations from '../../shared/data/translations'
 
 function Basket(){
   const store = useStore();
@@ -33,6 +34,12 @@ function Basket(){
       onRemove={callbacks.removeFromBasket}
       closeModal={callbacks.closeModal} 
       lang={select.language}
+      translationData={{
+        remove: getTranslation(
+          select.language,
+          translations.html_elements.button.remove
+        )
+      }}
     />, 
     []),
   }
@@ -47,16 +54,33 @@ function Basket(){
   }, [])
 
   return ( 
-    <LayoutModal title={
-      <Translate text='Корзина'/>
-    } onClose={callbacks.closeModal}>
+    <LayoutModal 
+      translationData={{
+        title:  getTranslation(
+          select.language,
+          translations.components.Basket.title),
+        close: getTranslation(
+          select.language,
+          translations.html_elements.button.close
+        ),
+      }}
+     onClose={callbacks.closeModal}>
       <LayoutSpinner 
         isFetching={select.isFetching}
         color='#FA2FB5'
       >
         <List items={select.items} renderItem={renders.itemBasket} />
       </LayoutSpinner>
-      <BasketTotal sum={select.sum} lang={select.language} />
+      <BasketTotal 
+        sum={select.sum} 
+        lang={select.language}
+        translationData={{
+          total: getTranslation(
+            select.language,
+            translations.components.BasketTotal.total
+          )
+        }} 
+      />
     </LayoutModal>
   )
 }

@@ -1,6 +1,7 @@
-import item from "../components/item"
-
 const createPagination = (currentPage, totalPages) => {
+  if (totalPages <= 5) {
+    return Array.from({ length: totalPages }, (item, i) =>  i + 1);
+  }
   if (currentPage === 1) {
     return [1, currentPage + 1, currentPage + 2, null, totalPages]
   }

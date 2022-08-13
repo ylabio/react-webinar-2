@@ -31,7 +31,7 @@ function ItemPage() {
 
   useEffect(() => {
     store.get('itemPage').load(id)
-  }, []);
+  }, [id]);
 
   return (
     <Layout head={<h1>{select.itemInfo.title}</h1>}>

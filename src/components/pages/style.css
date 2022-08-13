@@ -1,0 +1,29 @@
+.Pages {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 23px;
+}
+
+.Pages-item {
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  cursor: pointer;
+  margin: 0 2px;
+}
+.Pages-item-choosen {
+  background-color: #0087e9;
+  color: #fff;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  cursor: pointer;
+  padding: 2px;
+  margin: 0 2px;
+}
+
+.Pages-item:last-child {
+  margin-right: 20px;
+}

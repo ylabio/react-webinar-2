@@ -7,8 +7,6 @@ import {logPlugin} from "@babel/preset-env/lib/debug";
 const Pagination = ({count, pagination, currentPage}) => {
     const cn = bem('pagination');
     const pages = []
-    console.log(currentPage)
-    console.log(count)
     // в рамках данного задания нет необходимости выносить переменную limit так как пользователь не может
     // с ней взаимодействовать
 

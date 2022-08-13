@@ -22,3 +22,12 @@ body{
     margin: 0;
     padding: 20px 20px 10px;
 }
+
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}

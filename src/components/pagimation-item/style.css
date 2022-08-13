@@ -1,0 +1,22 @@
+.ItemPaginate{
+    margin: 2px;
+    min-width: 18px;
+    min-height: 18px;
+    text-align: center;
+}
+
+.Selected{
+    background-color: #0087E9;
+    color: #FFFFFF;
+    pointer-events: none;
+}
+
+.ItemPaginate:hover {
+    background-color: #E1E1E1;
+}
+
+.Dots{
+    color: #E1E1E1;
+    pointer-events: none;
+}
+

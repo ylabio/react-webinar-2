@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
@@ -12,9 +12,10 @@ function Paginator({
                    }) {
 
   const cn = bem('Paginator');
+
   const dots = '...';
 
-  const pagPages = () => {
+  const pagPages = useMemo(() => {
     let pagesCount = Math.ceil(totalItemsCount / pageSize);
 
     let pages = [];
@@ -27,7 +28,7 @@ function Paginator({
     if ([pagesCount - 1, pagesCount].includes(currentPage)) return [1, dots, pagesCount - 2, pagesCount - 1, pagesCount]
     if (currentPage === pagesCount - 2) return [1, dots, pagesCount - 3, pagesCount - 2, pagesCount - 1, pagesCount]
     return [1, dots, currentPage - 1, currentPage, currentPage + 1, dots, pagesCount]
-  }
+  }, [currentPage, totalItemsCount])
 
   const store = useStore();
 
@@ -37,7 +38,7 @@ function Paginator({
 
   return (
     <div className={cn()}>
-      {pagPages().map((p, index) =>
+      {pagPages.map((p, index) =>
         p === dots || p === currentPage
           ? <div className={cn('page', {selected: currentPage === p, dots: dots === p})}
                  key={index}>{p}</div>

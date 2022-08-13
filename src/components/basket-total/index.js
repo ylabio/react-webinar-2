@@ -2,11 +2,11 @@ import React from 'react';
 import propTypes from 'prop-types';
 import numberFormat from "../../utils/numberFormat";
 import './styles.css';
-import {localization} from '../../utils/translations';
-import useSelector from '../../utils/use-selector';
+import {getLocalization} from '../../localization';
+import useLanguage from '../../utils/use-language';
 
 function BasketTotal(props) {
-  const language = localization[useSelector(state => state.languages).language];
+  const language = getLocalization(useLanguage())
   return (
     <div className="BasketTotal">
       <span className="BasketTotal-cell">{language.summary}</span>

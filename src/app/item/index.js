@@ -5,54 +5,39 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import {useParams} from 'react-router';
 import ItemDescription from '../../components/item-description';
-import {localization} from '../../utils/translations';
+import {getLocalization} from '../../localization';
+import useLanguage from '../../utils/use-language';
 
 function ItemInfo(){
   let { itemId } = useParams()
-  const language = localization[useSelector(state => state.languages).language];
-  console.log('ItemInfo')
-  const [itemInfo, setItemInfo] = useState({})
-  const [itemCountry, setItemCountry] = useState(language.loading)
-  const [itemCategory, setItemCategory] = useState(language.loading)
-  const store = useStore();
   const select = useSelector(state => ({
     amount: state.basket.amount,
+    items: state.catalog.items,
     sum: state.basket.sum
   }));
+  const language = getLocalization(useLanguage())
+  console.log('ItemInfo')
+  const [itemInfo, setItemInfo] = useState(select.items.find(item => item._id === itemId))
+  const store = useStore();
+
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
-  const getCategory = (_id) => {
-    const requestURL = `/api/v1/categories/${itemInfo.category._id}`
-    fetch(requestURL).then(response => response.json())
-      .then(json => setItemCategory(json.result.title))
-  }
-  const getCountry = (_id) => {
-    const requestURL = `/api/v1/countries/${itemInfo.maidIn._id}`
-    fetch(requestURL).then(response => response.json())
-      .then(json => setItemCountry(json.result.title + ` (${json.result.code})`))
-  }
   useEffect(() => {
-    const requestURL = `/api/v1/articles/${itemId}`
-    fetch(requestURL).then(response => response.json())
+    if(!itemInfo) {
+      const requestURL = `/api/v1/articles/${itemId}?fields=*,maidIn(title),category(title)`
+      fetch(requestURL).then(response => response.json())
         .then(json => setItemInfo(json.result))
+    }
   }, [itemId])
-  useEffect(() => {
-    if(itemInfo.category) {
-      getCategory(itemInfo._id)
-    }
-    if(itemInfo.maidIn) {
-      getCountry(itemInfo._id)
-    }
-  }, [itemInfo._id, itemInfo.category, itemInfo.maidIn])
+
 
   return (
-    <Layout head={<h1>{itemInfo.title ?? language.loading}</h1>}>
+    <Layout head={<h1>{itemInfo?.title ?? language.loading}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} sum={select.sum} amount={select.amount}/>
-      <ItemDescription item={itemInfo} onAddCallback={callbacks.addToBasket} category={itemCategory}
-                       country={itemCountry}/>
+      <ItemDescription item={itemInfo ?? {}} onAddCallback={callbacks.addToBasket}/>
     </Layout>
   )
 }

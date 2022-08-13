@@ -3,34 +3,34 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './style.css';
-import {localization} from '../../utils/translations';
-import useSelector from '../../utils/use-selector';
+import useLanguage from '../../utils/use-language';
+import {getLocalization} from '../../localization';
 
 function ItemDescription(props) {
   const cn = bem('ItemDescription');
   const callbacks = {
     onAdd: useCallback(() => props.onAddCallback(props.item._id), [props.onAdd, props.item])
   };
-  const language = localization[useSelector(state => state.languages).language];
+  const localization = getLocalization(useLanguage())
   return (
     <div className={cn()}>
       <span className={cn('description')}>
         {props.item.description}
       </span>
       <span className={cn('title')}>
-        {language.manufacturer}: <span className={cn('data')}>{props.country}</span>
+        {localization.manufacturer}: <span className={cn('data')}>{props.item.maidIn?.title ?? localization.loading}</span>
       </span>
       <span className={cn('title')}>
-        {language.category}: <span className={cn('data')}>{props.category}</span>
+        {localization.category}: <span className={cn('data')}>{props.item.category?.title ?? localization.loading}</span>
       </span>
       <div className={cn('title')}>
-        {language.productionYear}: <span className={cn('data')}>{props.item.edition ?? language.loading}</span>
+        {localization.productionYear}: <span className={cn('data')}>{props.item.edition ?? localization.loading}</span>
       </div>
       <div className={cn('price')}>
-        {language.price}: <span>{props.item.price ? numberFormat(props.item.price) : language.loading} ₽</span>
+        {localization.price}: <span>{numberFormat(props.item.price) ?? localization.loading} ₽</span>
       </div>
       <div className={cn('addButton')}>
-        <button onClick={callbacks.onAdd}>{language.add}</button>
+        <button onClick={callbacks.onAdd}>{localization.add}</button>
       </div>
       {/*<div className={cn('right')}>*/}
       {/*  <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>*/}
@@ -42,8 +42,6 @@ function ItemDescription(props) {
 
 ItemDescription.propTypes = {
   item: propTypes.object.isRequired,
-  category: propTypes.string.isRequired,
-  country: propTypes.string.isRequired,
   onAddCallback: propTypes.func.isRequired
 }
 

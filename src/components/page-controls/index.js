@@ -13,8 +13,8 @@ function PageControls(props) {
       if(renderingPage === props.minPage
         || renderingPage === props.maxPage
         || renderingPage >= page-1 && renderingPage <= page+1
-        || page < props.minPage+3 && renderingPage <= props.minPage+3
-        || page > props.maxPage-3 && renderingPage >= props.maxPage-3) {
+        || page < props.minPage+3 && renderingPage <= props.minPage+2
+        || page > props.maxPage-3 && renderingPage >= props.maxPage-2) {
         pages.push(<button key={renderingPage}
                            className={renderingPage === page ? cn('page-selected') : cn('page')}
                            onClick={() => {

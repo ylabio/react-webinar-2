@@ -5,14 +5,15 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import {localization} from '../../utils/translations';
+import {getLocalization} from '../../localization';
+import useLanguage from '../../utils/use-language';
 
 function Basket(){
 
   console.log('Basket');
 
   const store = useStore();
-  const language = localization[useSelector(state => state.languages).language];
+  const language = getLocalization(useLanguage())
   const select = useSelector(state => ({
     items: state.basket.items,
     amount: state.basket.amount,

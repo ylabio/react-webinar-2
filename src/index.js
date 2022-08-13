@@ -6,13 +6,14 @@ import {StoreContext} from "./store/context";
 
 // Внешнее состояние
 const store = new Store();
-
 // Корень React приложения
 const root = createRoot(document.getElementById('root'));
 
 // Первый рендер (один раз)
 root.render(
   <StoreContext.Provider value={store}>
-    <App/>
+
+      <App/>
+
   </StoreContext.Provider>
 );

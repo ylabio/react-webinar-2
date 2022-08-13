@@ -19,7 +19,7 @@ class CatalogState extends StateModule{
   }
 
   async load(pagesToSkip, pagesToLoad){
-    const requestURL = `/api/v1/articles?fields=items(*),count&limit=${pagesToLoad * 10}&skip=${pagesToSkip * 10}`
+    const requestURL = `/api/v1/articles?fields=items(*,maidIn(title),category(title)),count&limit=${pagesToLoad * 10}&skip=${pagesToSkip * 10}`
     const response = await fetch(requestURL);
     const json = await response.json();
     this.setState({ ...this.getState(),

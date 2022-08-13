@@ -4,12 +4,12 @@ import numberFormat from "../../utils/numberFormat";
 import {cn as bem} from "@bem-react/classname";
 import './styles.css';
 import {Link} from 'react-router-dom';
-import {localization} from '../../utils/translations';
-import useSelector from '../../utils/use-selector';
+import {getLocalization} from '../../localization';
+import useLanguage from '../../utils/use-language';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
-  const language = localization[useSelector(state => state.languages).language];
+  const language = getLocalization(useLanguage())
   const callbacks = {
     onRemove: useCallback(() => props.onRemove(props.item._id), [props.onRemove,  props.item])
   };

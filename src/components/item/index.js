@@ -4,8 +4,8 @@ import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './style.css';
 import {Link} from 'react-router-dom';
-import {localization} from '../../utils/translations';
-import useSelector from '../../utils/use-selector';
+import {getLocalization} from '../../localization';
+import useLanguage from '../../utils/use-language';
 
 function Item(props) {
   const cn = bem('Item');
@@ -13,7 +13,7 @@ function Item(props) {
   const callbacks = {
     onAdd: useCallback(() => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
-  const language = localization[useSelector(state => state.languages).language];
+  const language = getLocalization(useLanguage())
   return (
     <div className={cn()}>
       <div className={cn('title')}>

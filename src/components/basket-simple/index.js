@@ -4,14 +4,14 @@ import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './styles.css';
 import {Link} from 'react-router-dom';
-import useSelector from '../../utils/use-selector';
-import {localization} from '../../utils/translations';
+import {getLocalization} from '../../localization';
+import useLanguage from '../../utils/use-language';
 
 
 function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
 
-  const language = localization[useSelector(state => state.languages).language];
+  const language = getLocalization(useLanguage())
   return (
     <div className={cn()}>
       <span className={cn('main-page-link')}><Link to={'/'}>{language.mainPage}</Link></span>

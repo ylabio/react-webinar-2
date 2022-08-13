@@ -2,14 +2,14 @@ import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
-import {localization} from '../../utils/translations';
-import useSelector from '../../utils/use-selector';
+import {getLocalization} from '../../localization';
+import useLanguage from '../../utils/use-language';
 
 function LayoutModal(props) {
   const cn = bem('LayoutModal');
 
   const frame = useRef();
-  const language = localization[useSelector(state => state.languages).language];
+  const language = getLocalization(useLanguage())
   useEffect(() => {
     let top = 10;
     if (window.innerWidth > frame.current.clientHeight) {

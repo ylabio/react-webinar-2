@@ -12,7 +12,7 @@ function BasketSimple({ sum, amount, onOpen,onPageChange }) {
   return (
     <div className={cn()}>
       <div>
-        <Link onClick={() => onPageChange(1)} className={cn('link')} to={`/`}>Главная</Link>
+        <Link  className={cn('link')} to={`/`}>Главная</Link>
       </div>
       <div>
         <span className={cn('label')}>В корзине:</span>

@@ -3,46 +3,53 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './style.css';
-import useLanguage from '../../utils/use-language';
-import {getLocalization} from '../../localization';
 
 function ItemDescription(props) {
   const cn = bem('ItemDescription');
   const callbacks = {
-    onAdd: useCallback(() => props.onAddCallback(props.item._id), [props.onAdd, props.item])
+    onAdd: useCallback(() => props.onAddCallback(props._id), [props.onAdd, props._id])
   };
-  const localization = getLocalization(useLanguage())
   return (
     <div className={cn()}>
       <span className={cn('description')}>
-        {props.item.description}
+        {props.description}
       </span>
       <span className={cn('title')}>
-        {localization.manufacturer}: <span className={cn('data')}>{props.item.maidIn?.title ?? localization.loading}</span>
+        {props.words.manufacturer}: <span className={cn('data')}>{props.manufacturer ?? props.words.loading}</span>
       </span>
       <span className={cn('title')}>
-        {localization.category}: <span className={cn('data')}>{props.item.category?.title ?? localization.loading}</span>
+        {props.words.category}: <span className={cn('data')}>{props.category ?? props.words.loading}</span>
       </span>
       <div className={cn('title')}>
-        {localization.productionYear}: <span className={cn('data')}>{props.item.edition ?? localization.loading}</span>
+        {props.words.productionYear}: <span className={cn('data')}>{props.yearOfProduction ?? props.words.loading}</span>
       </div>
       <div className={cn('price')}>
-        {localization.price}: <span>{numberFormat(props.item.price) ?? localization.loading} ₽</span>
+        {props.words.price}: <span>{numberFormat(props.price) ?? props.words.loading} ₽</span>
       </div>
       <div className={cn('addButton')}>
-        <button onClick={callbacks.onAdd}>{localization.add}</button>
+        <button onClick={callbacks.onAdd}>{props.words.add}</button>
       </div>
-      {/*<div className={cn('right')}>*/}
-      {/*  <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>*/}
-      {/*  <button onClick={callbacks.onAdd}>Добавить</button>*/}
-      {/*</div>*/}
     </div>
   )
 }
 
 ItemDescription.propTypes = {
-  item: propTypes.object.isRequired,
+  description: propTypes.string,
+  manufacturer: propTypes.string,
+  yearOfProduction: propTypes.number,
+  category: propTypes.string,
+  price: propTypes.number,
+  words: propTypes.object.isRequired,
+  _id: propTypes.string.isRequired,
   onAddCallback: propTypes.func.isRequired
+}
+
+ItemDescription.defaultProps = {
+  description: "",
+  manufacturer: "",
+  yearOfProduction: 1970,
+  category: "",
+  price: 0
 }
 
 export default React.memo(ItemDescription);

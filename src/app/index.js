@@ -3,6 +3,7 @@ import Main from "./main";
 import Basket from "./basket";
 import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
+import PageRoutes from '../PageRoutes';
 
 /**
  * Приложение
@@ -16,8 +17,11 @@ function App() {
 
   return (
     <>
-      <Main/>
-      {modal === 'basket' && <Basket/>}
+      {/* <Main/> */}
+      
+			<PageRoutes>
+				{modal === 'basket' && <Basket/>}
+			</PageRoutes>
     </>
   );
 }

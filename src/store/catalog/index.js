@@ -17,7 +17,7 @@ class CatalogState extends StateModule{
   }
 
   async load(){
-    const response = await fetch('/api/v1/articles');
+    const response = await fetch('/api/v1/articles?limit=10&skip=0&fields=items(*),count');
     const json = await response.json();
     this.setState({
       items: json.result.items

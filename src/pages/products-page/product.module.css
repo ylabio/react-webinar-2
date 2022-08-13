@@ -2,3 +2,11 @@
 background: #fff;
 box-sizing: border-box;
 }
+.productContainer{
+  margin: 0 40px 0 40px;
+  display: flex;
+  flex-direction: column;
+}
+.productBut {
+  margin: 23px 0 0 40px;
+}

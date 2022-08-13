@@ -7,7 +7,8 @@ const Product = ({ _id, description, maidIn, category, edition, price, addToBask
     addToBasket: useCallback(() => addToBasket(_id), [_id])
   };
   return (
-    <div>
+    <>
+    <div className={cls.productContainer}>
       <p>{description}</p>
       <p>
         Страна производитель: <strong>{maidIn}</strong>
@@ -19,8 +20,9 @@ const Product = ({ _id, description, maidIn, category, edition, price, addToBask
         Год выпуска: <strong>{edition}</strong>
       </p>
       <strong>Цена: {price}</strong>
-      <button onClick={callbacks.addToBasket}>Добавить</button>
     </div>
+      <button className={cls.productBut} onClick={callbacks.addToBasket}>Добавить</button>
+    </>
   );
 }
 

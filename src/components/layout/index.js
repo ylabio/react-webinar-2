@@ -2,8 +2,9 @@ import React from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
+import Header from '../header';
 
-function Layout({head, children}){
+function Layout({head, children, basketControls}){
   const cn = bem('Layout');
 
   return (
@@ -11,6 +12,7 @@ function Layout({head, children}){
       <div className={cn('head')}>
         {head}
       </div>
+      <Header basketControls={basketControls}/>
       <div className={cn('content')}>
         {children}
       </div>

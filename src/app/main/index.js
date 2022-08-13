@@ -5,7 +5,6 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
-import Navbar from "../../components/navbar";
 
 function Main(){
   const store = useStore();
@@ -36,8 +35,14 @@ function Main(){
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <Navbar onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+    <Layout head={<h1>Магазин</h1>}
+            basketControls={
+              {
+                onOpen: callbacks.openModalBasket,
+                amount: select.amount,
+                sum: select.sum
+              }
+            }>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination total={select.total} current={select.current} changePage={callbacks.changePage}/>
     </Layout>

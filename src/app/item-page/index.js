@@ -3,7 +3,6 @@ import useStore from '../../utils/use-store'
 import {useParams} from 'react-router-dom'
 import useSelector from '../../utils/use-selector'
 import Layout from '../../components/layout'
-import Navbar from '../../components/navbar'
 import ItemInfo from '../../components/item-info'
 import Loader from '../../components/loader'
 
@@ -16,7 +15,7 @@ function ItemPage() {
     return () => {
       store.get('item').unmount()
     }
-  }, [])
+  }, [id])
 
   const callbacks = {
     // Открытие корзины
@@ -34,8 +33,15 @@ function ItemPage() {
   return (
     <>
       {item ?
-        <Layout head={<h1>{item.title}</h1>}>
-          <Navbar onOpen={callbacks.openModalBasket} amount={amount} sum={sum}/>
+        <Layout head={<h1>{item.title}</h1>}
+                basketControls={
+                  {
+                    onOpen: callbacks.openModalBasket,
+                    amount: amount,
+                    sum: sum
+                  }
+                }
+        >
           <ItemInfo item={item} onAdd={callbacks.addToBasket} />
         </Layout>
         : <Loader />

@@ -24,7 +24,7 @@ function ArticlePage() {
 
   const callbacks = {
     openModalBasket: useCallback(() => store.get("modals").open("basket"), []),
-    addToBasket: useCallback((_id) => store.basket.add(_id), [store]),
+    addToBasket: useCallback((_id) => store.get("basket").addToBasket(_id), []),
   };
 
   return (

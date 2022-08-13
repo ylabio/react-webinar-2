@@ -8,12 +8,13 @@
 }
 
 .Pagination li {
-  min-width: 20px;
-  height: 20px;
+  padding: 1px;
+  min-width: 18px;
+  height: 18px;
+  text-align: center;
 }
 
 .Pagination-page {
-  text-align: center;
   cursor: pointer;
 }
 

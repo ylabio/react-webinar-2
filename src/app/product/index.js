@@ -16,11 +16,15 @@ function Product() {
 
   useEffect(() => {
     store.get('product').loadProduct(productNumber);
+    return () => {
+      store.get('product').clearProduct();
+    };
   }, [productNumber, store])
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
+    isProductLoaded: state.product.isDataLoaded
   }));
 
   const product = useSelector(state => ({
@@ -43,7 +47,7 @@ function Product() {
   return (
     <Layout head={<h1>Название товара</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <ProductDesc product={product} onAdd={callbacks.addToBasket} />
+      {select.isProductLoaded && <ProductDesc product={product} onAdd={callbacks.addToBasket} />}
     </Layout>
   )
 }

@@ -13,7 +13,9 @@ class ProductState extends StateModule{
     return {
       item: {},
       madeIn: null,
-
+      madeInCode: null,
+      category: null,
+      isDataLoaded: false
     };
   }
 
@@ -31,7 +33,18 @@ class ProductState extends StateModule{
       madeIn: json.result.items[0].maidIn.title,
       madeInCode: json.result.items[0].maidIn.code,
       category: json.result.items[0].category.title,
+      isDataLoaded: true
     }, 'Загрузка подробных данных товара');
+  }
+
+  /**
+   * Удаление данных о готовности товара
+   */
+   async clearProduct(){
+    this.setState({
+      ...this.getState(),
+      isDataLoaded: false
+    }, 'Удаление данных о готовности товара');
   }
 }
 

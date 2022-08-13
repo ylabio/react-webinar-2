@@ -21,7 +21,7 @@ class CardState extends StateModule{
     const json = await response.json();
 
     this.setState({
-      ...this.store.state.basket,
+      ...this.store.state.card,
       item: json.result,
     })
   }

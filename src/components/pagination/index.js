@@ -3,50 +3,33 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import useSelector from "../../utils/use-selector";
 import './style.css';
+import Page from "../item-pagination"
 
 function Pagination(props) {
 
+    console.log("Render Pagination");
+
     const select = useSelector(state => ({
-        totalCount: state.catalog.totalCount,
         currentPage: state.catalog.currentPage,
-        limit: state.catalog.limit
+        pages: state.catalog.paginationList,
     }));
 
     const cn = bem('Pagination');
 
-    const callbacks = {
-        addPage: (id) => pagesWithEllipsis.push(
-            <li onClick={() => props.loadPage(id)} 
-                className={select.currentPage === id ? cn('active') : ''} 
-                key={id}
-            >{id}</li>),
-        addEllipsis: (id) => pagesWithEllipsis.push(
-            <li key={id} className={cn('ellipsis')} >...</li>)
-    };
-
-    const countOfPages = Math.ceil(select.totalCount / select.limit);
-
-    let pages = [];
-    let pagesWithEllipsis = [];
-
     const getPages = () => {
 
-        for (let i = 1; i <= countOfPages; i++) {
+        let pagesWithEllipsis = [];
+ 
+        // если есть разрыв в последовательости страниц - добавляем троеточие
+        for (let i = 0; i < select.pages.length; i++) {
 
-            if (select.currentPage == countOfPages && i >= countOfPages - 2) { pages.push(i) } else
-            if ( i == 1 || i == countOfPages) { pages.push(i) } else
-            if ((select.currentPage == 1 || select.currentPage == 2)  && i <= 3) { pages.push(i) } else
-            if (select.currentPage == 3  && i <= 4) { pages.push(i) } else
-            if (i >= select.currentPage - 1 && i <= select.currentPage + 1) { pages.push(i) }
-
-        }
-
-        for (let i = 0; i < pages.length; i++) {
-
-            if (pages[i] - 1 !== pages[i-1] && pages[i] - 1 !== 0) {
-                callbacks.addEllipsis(`${i}n`);
+            if (select.pages[i] - select.pages[i-1] !== 1 && i !== 0) {
+                pagesWithEllipsis.push(<li key={`${i}n`} className={cn('ellipsis')}>...</li>);
             }
-            callbacks.addPage(pages[i])
+            pagesWithEllipsis.push(<Page key={select.pages[i]} 
+                                         id={select.pages[i]} 
+                                         loadPage={props.loadPage} 
+                                         currentPage={select.currentPage} />)
                     
         }
 
@@ -54,11 +37,11 @@ function Pagination(props) {
     };
 
   return (
-    <div className={cn()}>
+    <ul className={cn()}>
         
         { getPages() }
         
-    </div>
+    </ul>
   )
 }
 
@@ -70,3 +53,4 @@ Pagination.defaultProps = {
 }
 
 export default React.memo(Pagination);
+

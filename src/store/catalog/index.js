@@ -16,6 +16,7 @@ class CatalogState extends StateModule{
       currentPage: 1,
       totalCount: null,
       limit: 1,
+      paginationList: [],
     };
   }
 
@@ -24,12 +25,13 @@ class CatalogState extends StateModule{
     let skip = (page - 1)*limit
     const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(*),count`);
     const json = await response.json();
-    console.log("json: ", json);
+    const paginationList = await this._getPages(page, json.result.count, limit)
     this.setState({
       items: json.result.items,
       currentPage: page,
       totalCount: json.result.count,
       limit,
+      paginationList,
     });
   }
 
@@ -51,6 +53,23 @@ class CatalogState extends StateModule{
       items: this.getState().items.filter(item => item._id !== _id)
     }, 'Удаление товара');
   }
+
+  _getPages(currentPage, totalCount, limit) {
+    const countOfPages = Math.ceil(totalCount / limit);
+    let pages = [];
+
+    for (let i = 1; i <= countOfPages; i++) {
+
+        if (currentPage == countOfPages && i >= countOfPages - 2) { pages.push(i) } else
+        if ( i == 1 || i == countOfPages) { pages.push(i) } else
+        if ((currentPage == 1 || currentPage == 2)  && i <= 3) { pages.push(i) } else
+        if (currentPage == 3  && i <= 4) { pages.push(i) } else
+        if (i >= currentPage - 1 && i <= currentPage + 1) { pages.push(i) }
+
+    }
+
+    return pages;
+  };
 }
 
 export default CatalogState;

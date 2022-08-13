@@ -5,7 +5,7 @@ import useSelector from '../../utils/use-selector'
 const languages = {
   en: {
     "Магазин": "Shop",
-    "В корзине:": "Cart:",
+    "В корзине": "Cart",
     "пусто": "empty",
     "Перейти": "Open cart",
     "Добавить": "Add to cart",
@@ -13,6 +13,12 @@ const languages = {
     "Корзина": "Cart",
     "Закрыть": "Close",
     "Итого": "Subtotal",
+    "Страница не найдена": "Page not found",
+    "Главная": "Main page",
+    "Цена": "Price",
+    "Категория": "Category",
+    "Страна производитель": "Made in",
+    "Год выпуска": "Edition year"
   }
 }
 

@@ -15,7 +15,8 @@ function Basket(){
   const select = useSelector(state => ({
     items: state.basket.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    lang: state.lang.name
   }));
 
   const callbacks = {
@@ -26,7 +27,9 @@ function Basket(){
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item => 
+      <ItemBasket item={item} lang={select.lang} onRemove={callbacks.removeFromBasket} onClose={callbacks.closeModal}/>
+    , []),
   }
 
   return (

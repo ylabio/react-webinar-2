@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import numberFormat from "../../utils/numberFormat";
+import numberFormat from "../../utils/number-format";
 import Translate from '../../components/translate';
 import './styles.css';
 

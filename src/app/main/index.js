@@ -1,3 +1,4 @@
+import {Routes, Route} from 'react-router-dom';
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
@@ -7,6 +8,8 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Translate from '../../components/translate';
 import Pagination from "../../components/pagination";
+import Article from '../../components/article';
+import NoMatch from '../../components/no-match';
 
 function Main(){
 
@@ -21,6 +24,8 @@ function Main(){
   const select = useSelector(state => ({
     items: state.catalog.items,
     count: state.catalog.count,
+    article: state.catalog.currentItem,
+    articleTitle: state.catalog.currentItem?.title,
     activePage: state.catalog.pagination.activePage,
     visiblePages: state.catalog.pagination.visiblePages,
     amount: state.basket.amount,
@@ -34,6 +39,8 @@ function Main(){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Загрузка товара при пагинации
     loadPage: useCallback((pageNum) => store.get('catalog').loadPage(pageNum), []),
+    // Загрузка подробной информации о товаре
+    loadArticle: useCallback((_id) => store.get('catalog').loadArticle(_id), []),
   };
 
   const renders = {
@@ -41,14 +48,33 @@ function Main(){
   }
 
   return (
-    <Layout head={<h1><Translate>Магазин</Translate></h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
-      <Pagination activePage={select.activePage} 
-                  visiblePages={select.visiblePages} 
-                  loadPage={callbacks.loadPage}
-      />
-    </Layout>
+    <Routes>
+      <Route path="/" element={<Layout head={<h1><Translate>Магазин</Translate></h1>} />}>
+        <Route index element={
+          <>
+            <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+            <List items={select.items} renderItem={renders.item}/>
+            <Pagination activePage={select.activePage} 
+                        visiblePages={select.visiblePages} 
+                        loadPage={callbacks.loadPage}
+            />
+          </>
+        }/>
+      </Route>
+
+      <Route path="/article" element={<Layout head={<h1>{select.articleTitle}</h1>} />}>
+        <Route path=":_id" element={
+          <>
+            <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+            <Article article={select.article} loadArticle={callbacks.loadArticle} onAdd={callbacks.addToBasket}/>
+          </>
+        }/>
+      </Route>
+
+      <Route path="*" element={<Layout head={<h1><Translate>Страница не найдена</Translate></h1>}/>}>
+        <Route path="*" element={<NoMatch />} />
+      </Route>
+    </Routes>
   )
 }
 

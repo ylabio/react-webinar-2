@@ -14,34 +14,45 @@ class CatalogState extends StateModule{
     return {
       items: [],
       count: 0,
+      currentItem: {},
       pagination: {
         activePage: 1,
         pageSize: 10,
         totalPages: null,
         visiblePages: null
-      }
+      },
+      error: ''
     };
   }
 
   async load(){
-    const response = await fetch('/api/v1/articles?limit=10&fields=items(*),count');
-    const json = await response.json();
-    const totalPages = Math.round(json.result.count / this.getState().pagination.pageSize)
+    try {
+      const response = await fetch('/api/v1/articles?limit=10&fields=items(*),count');
+      const json = await response.json();
+      const totalPages = Math.round(json.result.count / this.getState().pagination.pageSize)
 
-    this.setState({
-      ...this.getState(),
-      items: json.result.items,
-      count: json.result.count,
-      pagination: {
-        ...this.getState().pagination,
-        totalPages: totalPages,
-        visiblePages: this.getPageNumbers(this.getState().pagination.activePage, totalPages)
-      }
-    }, 'Начальная загрузка товаров');
+      this.setState({
+        ...this.getState(),
+        items: json.result.items,
+        count: json.result.count,
+        pagination: {
+          ...this.getState().pagination,
+          totalPages: totalPages,
+          visiblePages: this.getPageNumbers(this.getState().pagination.activePage, totalPages)
+        }
+      }, 'Начальная загрузка товаров');
+    } catch (err) {
+      console.log(err)
+      this.setState({
+        ...this.getState(),
+        error: 'Ошибка загрузки товаров'
+      })
+    }
+    
   }
 
    /**
-   * Gереключении страниц в пагинации и загрузка данных
+   * Переключение страниц в пагинации и загрузка данных
    * @param pageNum
    */
   async loadPage(pageNum){
@@ -94,6 +105,44 @@ class CatalogState extends StateModule{
         );
     }
   }
+
+     /**
+   * Загрузка подробной страницы товара
+   * @param _id
+   */
+      async loadArticle(_id){
+        try {
+          const response = await fetch(`/api/v1/articles/${_id}`)
+          const json = await response.json()
+          const currentItem = json.result
+  
+          if (currentItem.category._id && currentItem.maidIn._id) {
+            const [res1, res2] = await Promise.all([
+              fetch(`/api/v1/countries/${currentItem.maidIn._id}?fields=title,code`),
+              fetch(`/api/v1/categories/${currentItem.category._id}?fields=title`)
+            ])
+            const country = await res1.json()
+            const category = await res2.json()
+
+            currentItem.maidIn['title'] = country.result.title
+            currentItem.maidIn['code'] = country.result.code
+            currentItem.category['title'] = category.result.title
+          }
+          
+          this.setState({
+            ...this.getState(),
+            currentItem: currentItem,
+            error: ''
+          }, `Загрузка страницы товара`);
+
+        } catch (err) {
+          console.log(err)
+          this.setState({
+            ...this.getState(),
+            error: 'Ошибка загрузки товара'
+          })
+        }
+      }
 
   /**
    * Создание записи

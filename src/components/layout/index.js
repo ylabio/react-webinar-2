@@ -1,4 +1,5 @@
 import React from 'react';
+import {Outlet} from 'react-router-dom';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import LanguagesControl from '../languages-control';
@@ -14,7 +15,7 @@ function Layout({head, children}){
         <LanguagesControl />
       </div>
       <div className={cn('content')}>
-        {children}
+        <Outlet />
       </div>
     </div>
   )

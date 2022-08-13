@@ -31,7 +31,7 @@ export default React.memo(Pagination)
 
 Pagination.propTypes = {
   activePage: propTypes.number.isRequired,
-  visiblePages: propTypes.arrayOf(propTypes.number).isRequired,
+  visiblePages: propTypes.arrayOf(propTypes.number),
   loadPage: propTypes.func,
 }
 

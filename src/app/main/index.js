@@ -5,40 +5,78 @@ import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import Pagination from "../../components/pagination";
+import {Route, Routes} from "react-router-dom";
+import ProductPage from "../../components/product-page";
 
-function Main(){
 
-  console.log('Main');
+function Main() {
 
-  const store = useStore();
+    console.log('Main');
 
-  useEffect(() => {
-    store.get('catalog').load();
-  }, [])
 
-  const select = useSelector(state => ({
-    items: state.catalog.items,
-    amount: state.basket.amount,
-    sum: state.basket.sum
-  }));
 
-  const callbacks = {
-    // Открытие корзины
-    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-  };
 
-  const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
-  }
 
-  return (
-    <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
-    </Layout>
-  )
+    const store = useStore();
+
+    useEffect(() => {
+        store.get('catalog').load();
+
+    }, [store.get('catalog')])
+
+
+    const select = useSelector(state => ({
+        items: state.catalog.items,
+        _id: state.item_page._id,
+        currentItem: state.item_page.item,
+        amount: state.basket.amount,
+        sum: state.basket.sum,
+        count: state.catalog.count,
+        currentPage: state.catalog.currentPage
+    }));
+
+    const callbacks = {
+        // Открытие корзины
+        openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+        // Добавление в корзину
+        addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+        // Пагинация
+        pagination: useCallback(skip => store.get('catalog').pagination(skip), []),
+        // Выбор конкретного товара по id
+        getId: useCallback(_id => store.get('item_page').getId(_id), []),
+        getItem: useCallback(_id=>store.get('item_page').loadItem(_id),[]),
+        itemNull: useCallback(()=> store.get('item_page').toNull() , [])
+    };
+
+    const renders = {
+        item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} getId={callbacks.getId}/>, []),
+    }
+    return (
+        <Layout head={<h1>{select._id ? 'Название товара' : 'Магазин'}</h1>}>
+            <Routes>
+                <Route path='/' element={
+                    <>
+                        <BasketSimple  onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+                        <List items={select.items} renderItem={renders.item}/>
+                        <Pagination currentPage={select.currentPage} count={select.count}
+                                    pagination={callbacks.pagination}/>
+                    </>
+                } >
+
+
+                </Route>
+                <Route path='/:product'  element={
+                    <>
+                    <BasketSimple  itemNull={callbacks.itemNull}  onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+                        <ProductPage onAdd={callbacks.addToBasket} item={select.currentItem} getItem={callbacks.getItem} />
+
+                    </>
+                }/>
+            </Routes>
+
+        </Layout>
+    )
 }
 
 export default React.memo(Main);

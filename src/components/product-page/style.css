@@ -1,0 +1,19 @@
+.product-page {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.product-page p {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.product-page p span {
+    font-weight: 700;
+}
+
+.product-page p:nth-last-child(2) {
+    font-weight: 700;
+    font-size: 20px;
+}

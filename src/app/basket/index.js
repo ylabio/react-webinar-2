@@ -6,7 +6,7 @@ import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Translate from "../translate";
-import LayoutSpinner from "../../components/layout-spinner/inded";
+import LayoutSpinner from "../../components/layout-spinner";
 
 function Basket(){
   const store = useStore();

@@ -1,9 +1,12 @@
+.CardContent {
+  padding-left: 40px;
+  padding-right: 20px;
+}
+
 .CardContent-main {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding-left: 40px;
-  padding-right: 20px;
 }
 
 .CardContent-block {
@@ -29,4 +32,5 @@
 
 .CardContent-button {
   width: 76px;
+  margin-top: 20px;
 }

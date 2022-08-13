@@ -8,7 +8,7 @@ import useSelector from "../../utils/use-selector";
 import {config} from '../../config';
 import Pagination from "../../components/pagination";
 import Header from "../../components/header";
-import LayoutSpinner from "../../components/layout-spinner/inded";
+import LayoutSpinner from "../../components/layout-spinner";
 
 function Main(){
   const store = useStore();

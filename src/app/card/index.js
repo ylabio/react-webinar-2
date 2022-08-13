@@ -12,6 +12,7 @@ function Card() {
   const store = useStore();
   const select = useSelector(state => ({
     item: state.card.item,
+    isFetching: state.card.isFetching,
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.language.language,
@@ -48,6 +49,7 @@ function Card() {
         item={select.item}
         language={select.language}
         onAdd={callbacks.onAdd}
+        isFetching={select.isFetching}
       />
     </Layout>
   )

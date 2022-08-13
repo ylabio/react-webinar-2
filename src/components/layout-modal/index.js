@@ -1,7 +1,7 @@
-import React, {useEffect, useRef} from 'react';
-import PropTypes from 'prop-types';
+import React, {useEffect, useRef} from "react";
+import propTypes from "prop-types";
 import {cn as bem} from "@bem-react/classname";
-import './style.css';
+import "./style.css";
 
 function LayoutModal(props) {
   const cn = bem('LayoutModal');
@@ -38,9 +38,9 @@ function LayoutModal(props) {
 }
 
 LayoutModal.propTypes = {
-  title: PropTypes.string,
-  onClose: PropTypes.func,
-  children: PropTypes.node,
+  title: propTypes.string,
+  onClose: propTypes.func,
+  children: propTypes.node.isRequired,
 };
 
 LayoutModal.defaultProps = {

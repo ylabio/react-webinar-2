@@ -1,5 +1,7 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
+import YLabService from "../../services/ylab-service";
+
+const service = new YLabService();
 
 /**
  * Состояние каталога
@@ -12,35 +14,17 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      total: null
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+  async load(skip = 0, limit = 0){
+    const response = await service.getArticles(skip, limit);
     this.setState({
-      items: json.result.items
+      items: response.items,
+      total: response.total,
     });
-  }
-
-  /**
-   * Создание записи
-   */
-  createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      items: this.getState().items.concat({_id, title, price, selected})
-    }, 'Создание товара');
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param _id
-   */
-  deleteItem(_id) {
-    this.setState({
-      items: this.getState().items.filter(item => item._id !== _id)
-    }, 'Удаление товара');
   }
 }
 

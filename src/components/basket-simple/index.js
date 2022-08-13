@@ -1,10 +1,9 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import React from "react";
+import propTypes from "prop-types";
 import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
-import './styles.css';
-
+import "./styles.css";
 
 function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
@@ -17,7 +16,7 @@ function BasketSimple({sum, amount, onOpen}) {
         : `пусто`
       }
       </span>
-      <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+      <button className={cn('button')} onClick={onOpen}>Перейти</button>
     </div>
   )
 }
@@ -29,7 +28,6 @@ BasketSimple.propTypes = {
 }
 
 BasketSimple.defaultProps = {
-  onOpen: () => {},
   sum: 0,
   amount: 0
 }

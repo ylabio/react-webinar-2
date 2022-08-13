@@ -45,13 +45,13 @@ export function getRange({
     range.splice(1, 0, DOTS);
   } 
 
-  if (currentPage > 11 && currentPage <= 13) {
-    if (currentPage === 13) {
+  if (currentPage > 11 && currentPage <= totalPages) {
+    if (currentPage === totalPages) {
       range.splice(range.length - 1, 0, currentPage - 1);
       range.splice(range.length - 2, 0, currentPage - 2);
     }
 
-    if (currentPage === 12) {
+    if (currentPage === totalPages - 1) {
       range.splice(range.length - 1, 0, currentPage);  
       range.splice(range.length - 2, 0, currentPage - 1);  
     }

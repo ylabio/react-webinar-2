@@ -1,0 +1,39 @@
+.ProfileProduct {
+    padding: 30px;
+}
+
+.ProfileProduct div {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+
+    color: #000000;
+    padding: 10px;
+}
+
+div.ProfileProduct-price {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    color: #000000;
+}
+
+button.ProfileProduct-btn {
+    background: #EFEFEF;
+    border: 1px solid #767676;
+    border-radius: 2px;
+
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+
+    color: #000000;
+    cursor: pointer;
+}

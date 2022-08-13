@@ -22,3 +22,16 @@ body{
     margin: 0;
     padding: 20px 20px 10px;
 }
+.Home-link{
+    font-family: 'Arial';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 21px;
+text-decoration-line: none;
+
+color: #0087E9;
+}
+.Home-link:hover{
+    text-decoration-line: underline;
+}

@@ -7,8 +7,8 @@ import Layout from "../../components/layout";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import Pagination from "./pagination/index"
-import { ProfileProduct } from './profile-product/index'
+import Pagination from "../../components/pagination/index"
+import { ProfileProduct } from '../../components/profile-product/index'
 
 
 
@@ -47,7 +47,7 @@ function Main() {
       <Route path="/:id" element={
         <Layout head={<h1>Название товара</h1>}>
           <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}>
-            <Link variant="link" to="/" >
+            <Link className="Home-link" variant="link" to="/" >
               Главная
             </Link>
           </BasketSimple>

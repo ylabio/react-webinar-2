@@ -1,22 +1,26 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React from "react";
 import {cn as bem} from "@bem-react/classname";
-import useStore from "../../../utils/use-store";
-
-import { Btn } from "./Btn";
-
+import useStore from "../../utils/use-store";
 import './styles.css';
 
  const Pagination = ({numPege, setNumPege}) => {
     const cn = bem('Pagination');
     const store = useStore();
-
-
     const count = store.state.catalog.count
 
     console.log('Pagination ==>')
 
-
-    
+    const Btn = (props) => {
+        return(
+            <>
+            <div
+            className={!!props.bl ? `Btn-active`: 'Btn' } 
+            onClick={()=> props.setNumPege(props.num - 1)}>
+                {props.num}
+            </div>
+            </>
+        )
+    }
 
     return (
         <div className={cn()}>

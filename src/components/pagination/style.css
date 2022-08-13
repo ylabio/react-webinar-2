@@ -1,0 +1,12 @@
+.Pagination {
+  display: flex;
+  list-style-type: none;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 20px 20px 20px 0;
+}
+
+.Pagination-active {
+  background: blue;
+  color: #fff;
+}

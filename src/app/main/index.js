@@ -1,44 +1,63 @@
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect} from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Item from "../../components/item";
+import Pagination from "../../components/pagination";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 
-function Main(){
-
-  console.log('Main');
+function Main() {
+  console.log("Main");
 
   const store = useStore();
 
-  useEffect(() => {
-    store.get('catalog').load();
-  }, [])
+  const [pag, setPag] = useState(0);
 
-  const select = useSelector(state => ({
+  useEffect(() => {
+    store.get("catalog").load();
+  }, []);
+
+  useEffect(() => {
+    if (pag > 0 && !select.items[pag]) {
+      store.get("catalog").loading(pag);
+    }
+  }, [pag]);
+
+  const select = useSelector((state) => ({
     items: state.catalog.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    allPage: state.catalog.count,
   }));
 
   const callbacks = {
     // Открытие корзины
-    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+    openModalBasket: useCallback(() => store.get("modals").open("basket"), []),
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    addToBasket: useCallback((_id) => store.get("basket").addToBasket(_id), []),
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
-  }
+    item: useCallback(
+      (item) => <Item item={item} onAdd={callbacks.addToBasket} />,
+      []
+    ),
+  };
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
+      <BasketSimple
+        onOpen={callbacks.openModalBasket}
+        amount={select.amount}
+        sum={select.sum}
+      />
+      <List items={select.items[pag]} renderItem={renders.item} />
+      {select.allPage && (
+        <Pagination allPage={select.allPage} pag={pag} setPag={setPag} />
+      )}
     </Layout>
-  )
+  );
 }
 
 export default React.memo(Main);

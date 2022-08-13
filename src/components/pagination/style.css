@@ -1,0 +1,42 @@
+.Pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 20px;
+  padding-top: 6px;
+}
+
+.Pagination-item {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: black;
+  padding: 3px;
+}
+
+.Pagination-item:hover {
+  background-color: #E1E1E1;
+}
+
+
+.Pagination-item_selected {
+  background-color: #0087E9;
+  color: white;
+  cursor: default;
+}
+
+.Pagination-item_selected:hover {
+  background-color: #0087E9;
+  color: white;
+}
+
+.Pagination-item_unclickable {
+  cursor: default;
+}
+
+.Pagination-item_unclickable:hover {
+  background-color: transparent;
+}

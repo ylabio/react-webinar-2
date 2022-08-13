@@ -1,8 +1,8 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import numberFormat from "../../utils/numberFormat";
 import './style.css';
+import {Link} from 'react-router-dom';
 
 function Item(props) {
   const cn = bem('Item');
@@ -13,15 +13,18 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('id')}>*/}
-      {/*  {props.item._id}*/}
-      {/*</div>*/}
-      <div className={cn('title')}>
-        {props.item.title}
-      </div>
+      <Link className={cn('title')} to={props.to + props.item._id}>
+        <span className={cn('titleText')}>
+          {props.item.title}
+        </span>
+      </Link>
       <div className={cn('right')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <div className={cn('price')}>
+          {props.item.price.toLocaleString(props.lang)} ₽
+        </div>
+        <button onClick={callbacks.onAdd}>
+          {props.translationData.add}
+        </button>
       </div>
     </div>
   )
@@ -30,6 +33,9 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
+  lang: propTypes.string.isRequired,
+  to: propTypes.string.isRequired,
+  translationData: propTypes.object.isRequired,
 }
 
 Item.defaultProps = {

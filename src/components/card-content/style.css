@@ -1,0 +1,36 @@
+.CardContent {
+  padding-left: 40px;
+  padding-right: 20px;
+}
+
+.CardContent-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.CardContent-block {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.CardContent-price {
+  display: flex;
+  align-items: baseline;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  gap: 14px;
+}
+
+.CardContent-value {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.CardContent-button {
+  width: 76px;
+  margin-top: 20px;
+}

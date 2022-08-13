@@ -1,3 +1,4 @@
+import { config } from "../../config";
 import counter from "../../utils/counter";
 import StateModule from "../module";
 
@@ -12,16 +13,11 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      total: null,
+      currentPage: 1,
+      isFetching: false,
     };
-  }
-
-  async load(){
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
-    this.setState({
-      items: json.result.items
-    });
   }
 
   /**
@@ -29,6 +25,7 @@ class CatalogState extends StateModule{
    */
   createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
     this.setState({
+      ...this.store.state.catalog,
       items: this.getState().items.concat({_id, title, price, selected})
     }, 'Создание товара');
   }
@@ -39,8 +36,39 @@ class CatalogState extends StateModule{
    */
   deleteItem(_id) {
     this.setState({
+      ...this.store.state.catalog,
       items: this.getState().items.filter(item => item._id !== _id)
     }, 'Удаление товара');
+  }
+
+  async getGoods( 
+    skip = config.API_SKIP, 
+    limit = config.API_LIMIT, 
+  ) {
+    this.#setIsFetching(true);
+    const lang = this.store.state.language.language;
+    const response = await fetch(`/api/v1/articles?lang=${lang}&limit=${limit}&skip=${skip}&fields=items(*),count`);
+    const json = await response.json();
+    this.setState({
+      ...this.store.state.catalog,
+      items: json.result.items,
+      total: json.result.count,
+      isFetching: false,
+    });
+  }
+
+  changeCurrentPage(page) {
+    this.setState({
+      ...this.store.state.catalog,
+      currentPage: page, 
+    })
+  }
+
+  #setIsFetching(flag) {
+    this.setState({
+      ...this.store.state.catalog,
+      isFetching: flag, 
+    }) 
   }
 }
 

@@ -1,22 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import Main from "./main";
+import React from 'react';
 import Basket from "./basket";
-import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
+import { Route, Routes } from 'react-router-dom';
+import Main from './main';
+import Card from './card';
+import { config } from '../config';
 
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
-
-  console.log('App');
-
   const modal = useSelector(state => state.modals.name);
 
   return (
     <>
-      <Main/>
+      <Routes>
+        <Route path={config.routes.home_page} element={<Main />} />
+        <Route path={config.routes.product + ':id'} element={<Card />} />
+      </Routes>
       {modal === 'basket' && <Basket/>}
     </>
   );

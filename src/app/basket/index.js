@@ -1,21 +1,24 @@
 import List from "../../components/list";
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import BasketTotal from "../../components/basket-total";
 import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import LayoutSpinner from "../../components/layout-spinner";
+import getTranslation from "../../utils/getTranslation";
+import translations from '../../shared/data/translations'
 
 function Basket(){
-
-  console.log('Basket');
-
   const store = useStore();
 
   const select = useSelector(state => ({
     items: state.basket.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    basketLang: state.basket.basketLang,
+    isFetching: state.basket.isFetching,
+    language: state.language.language,
   }));
 
   const callbacks = {
@@ -26,13 +29,58 @@ function Basket(){
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item => <ItemBasket 
+      item={item} 
+      onRemove={callbacks.removeFromBasket}
+      closeModal={callbacks.closeModal} 
+      lang={select.language}
+      translationData={{
+        remove: getTranslation(
+          select.language,
+          translations.html_elements.button.remove
+        )
+      }}
+    />, 
+    []),
   }
 
-  return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
-      <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+  useEffect(() => {
+    const ids = select.items.map(item => ({
+      id: item._id,
+      amount: item.amount,
+    }));
+  
+    store.get('basket').refreshGoods(ids);
+  }, [])
+
+  return ( 
+    <LayoutModal 
+      translationData={{
+        title:  getTranslation(
+          select.language,
+          translations.components.Basket.title),
+        close: getTranslation(
+          select.language,
+          translations.html_elements.button.close
+        ),
+      }}
+     onClose={callbacks.closeModal}>
+      <LayoutSpinner 
+        isFetching={select.isFetching}
+        color='#FA2FB5'
+      >
+        <List items={select.items} renderItem={renders.itemBasket} />
+      </LayoutSpinner>
+      <BasketTotal 
+        sum={select.sum} 
+        lang={select.language}
+        translationData={{
+          total: getTranslation(
+            select.language,
+            translations.components.BasketTotal.total
+          )
+        }} 
+      />
     </LayoutModal>
   )
 }

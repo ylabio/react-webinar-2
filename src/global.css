@@ -1,0 +1,16 @@
+li {
+  list-style: none;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+button {
+  width: 75px;
+  height: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

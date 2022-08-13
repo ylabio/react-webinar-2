@@ -1,0 +1,20 @@
+.LayoutSpinner_fetching {
+  position: relative;  
+}
+
+.LayoutSpinner-wrapper_fetching::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: white;
+}
+
+.LayoutSpinner-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%);
+}

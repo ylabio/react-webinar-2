@@ -8,8 +8,8 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Translate from '../../components/translate';
 import Pagination from "../../components/pagination";
-import Article from '../../components/article';
-import NoMatch from '../../components/no-match';
+import Article from '../article';
+import NoMatch from '../no-match';
 
 function Main(){
 

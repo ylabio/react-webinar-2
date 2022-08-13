@@ -3,10 +3,10 @@ import {useParams, Link} from 'react-router-dom';
 import propTypes from 'prop-types';
 import useSelector from '../../utils/use-selector';
 import {cn as bem} from "@bem-react/classname";
-import Controls from '../controls';
-import Translate from '../translate';
+import Controls from '../../components/controls';
+import Translate from '../../components/translate';
 import numberFormat from '../../utils/number-format';
-import ProgressBar from '../ui/progress-bar';
+import ProgressBar from '../../components/ui/progress-bar';
 import './style.css'
 
 function Article(props) {

@@ -1,7 +1,7 @@
 import {cn as bem} from '@bem-react/classname';
 import propTypes from 'prop-types';
 import React, {useCallback} from 'react';
-import numberFormat from '../../utils/numberFormat';
+import numberFormat from '../../utils/number-format';
 import './style.css';
 
 function ItemInfo({_id, description, maidIn, category, edition, price, addToBasket, local}) {

@@ -1,6 +1,6 @@
 import propTypes from 'prop-types';
 import React from 'react';
-import numberFormat from '../../utils/numberFormat';
+import numberFormat from '../../utils/number-format';
 import './styles.css';
 
 function BasketTotal(props) {

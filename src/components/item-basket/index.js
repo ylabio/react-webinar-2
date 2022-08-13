@@ -2,7 +2,7 @@ import {cn as bem} from '@bem-react/classname';
 import propTypes from 'prop-types';
 import React, {useCallback} from 'react';
 import {Link} from 'react-router-dom';
-import numberFormat from '../../utils/numberFormat';
+import numberFormat from '../../utils/number-format';
 import './styles.css';
 
 function ItemBasket(props) {

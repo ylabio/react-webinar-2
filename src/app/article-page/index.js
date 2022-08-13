@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom";
 import Article from "../../components/article";
 import BasketSimple from "../../components/basket-simple";
 import Spinner from "../../components/spinner";
+import Menu from "../../components/menu";
+import LayoutHeader from "../../components/layout-header";
 
 function ArticlePage() {
   const store = useStore();
@@ -29,11 +31,7 @@ function ArticlePage() {
 
   return (
     <Layout head={<h1>{select.article.title}</h1>}>
-      <BasketSimple
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-      />
+      <LayoutHeader />
       <Article article={select.article} onAdd={callbacks.addToBasket} />
       {/* {select.isLoading ? (
         <Article article={select.article} onAdd={callbacks.addToBasket} />

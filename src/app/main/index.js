@@ -1,11 +1,11 @@
-import BasketSimple from "../../components/basket-simple";
-import List from "../../components/list";
-import Layout from "../../components/layout";
 import React, { useCallback, useEffect } from "react";
-import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import List from "../../components/list";
+import Layout from "../../components/layout";
+import Item from "../../components/item";
 import Pagination from "../../components/pagination";
+import LayoutHeader from "../../components/layout-header";
 
 function Main() {
   console.log("Main");
@@ -21,15 +21,9 @@ function Main() {
     count: state.catalog.count,
     page: state.catalog.requestParameters?.page,
     limit: state.catalog.requestParameters?.limit,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
   }));
 
   const callbacks = {
-    // Открытие корзины
-    openModalBasket: useCallback(() => store.get("modals").open("basket"), []),
-    // Добавление в корзину
-    addToBasket: useCallback((_id) => store.get("basket").addToBasket(_id), []),
     onChangePage: useCallback(
       (page) => store.get("catalog").load(page),
       [store]
@@ -51,11 +45,7 @@ function Main() {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-      />
+      <LayoutHeader />
       <List items={select.items} renderItem={renders.item} />
       <Pagination
         count={select.count}

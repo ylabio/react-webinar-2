@@ -1,4 +1,3 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**
@@ -12,15 +11,34 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      currentArticle: null,
     };
+  }
+
+  clearCurrArticle() {
+    this.setState(
+      {
+        ...this.getState(),
+        currentArticle: null,
+      })
   }
 
   async load(){
     const response = await fetch('/api/v1/articles');
     const json = await response.json();
     this.setState({
+      ...this.getState(),
       items: json.result.items
+    });
+  }
+
+  async loadArticle(id){
+    const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      currentArticle: json.result
     });
   }
 
@@ -29,6 +47,7 @@ class CatalogState extends StateModule{
    */
   createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
     this.setState({
+      ...this.getState(),
       items: this.getState().items.concat({_id, title, price, selected})
     }, 'Создание товара');
   }
@@ -39,6 +58,7 @@ class CatalogState extends StateModule{
    */
   deleteItem(_id) {
     this.setState({
+      ...this.getState(),
       items: this.getState().items.filter(item => item._id !== _id)
     }, 'Удаление товара');
   }

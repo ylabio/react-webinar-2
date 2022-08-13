@@ -2,8 +2,9 @@ import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
+import propTypes from "prop-types";
 
-function LayoutModal(props) {
+function LayoutModal({children, onClose, ln = {}}) {
   const cn = bem('LayoutModal');
 
   const frame = useRef();
@@ -25,12 +26,12 @@ function LayoutModal(props) {
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
           <h1 className={cn('title')}>
-            {props.title}
+            {ln.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <button className={cn('close')} onClick={onClose}>{ln.close}</button>
         </div>
         <div className={cn('content')}>
-          {props.children}
+          {children}
         </div>
       </div>
     </div>
@@ -38,13 +39,12 @@ function LayoutModal(props) {
 }
 
 LayoutModal.propTypes = {
-  title: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
+  ln: propTypes.objectOf(propTypes.string).isRequired,
 };
 
 LayoutModal.defaultProps = {
-  title: 'Модалка',
   onClose: () => {}
 };
 

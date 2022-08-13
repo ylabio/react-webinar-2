@@ -6,28 +6,29 @@ import { Btn } from "./Btn";
 
 import './styles.css';
 
-export const Pagination = () => {
+ const Pagination = ({numPege, setNumPege}) => {
     const cn = bem('Pagination');
     const store = useStore();
-    const [numPege, setNumPege] = useState(0)
+
 
     const count = store.state.catalog.count
 
-    useEffect( () => {
-        store.get('catalog').load( numPege * 10, 10)
+    console.log('Pagination ==>')
 
-    },[numPege])
+
+    
 
     return (
         <div className={cn()}>
-            {store.state.catalog.items.length !== 0 &&
+
+            {
                 numPege < 2 ?
                 (<>
                     <Btn num={1} bl={numPege == 0} setNumPege={setNumPege} />
                     <Btn num={2} bl={numPege == 1} setNumPege={setNumPege} />
                     <Btn num={3} bl={numPege == 2} setNumPege={setNumPege} />
                     <div className={cn("offset")} >...</div>
-                    <Btn num={4} bl={numPege == 3} setNumPege={setNumPege} />
+                    <Btn num={Math.ceil(count * 0.1)} bl={numPege == 3} setNumPege={setNumPege} />
                 </>) :
                 numPege < 3 ?
                 (<>
@@ -36,10 +37,10 @@ export const Pagination = () => {
                     <Btn num={numPege + 1} bl={true} setNumPege={setNumPege} />
                     <Btn num={numPege + 2} bl={false} setNumPege={setNumPege} />
                     <div className={cn("offset")} >...</div>
-                    <Btn num={5} bl={false} setNumPege={setNumPege} />
+                    <Btn num={Math.ceil(count * 0.1)} bl={false} setNumPege={setNumPege} />
                 </>)
                 :
-                numPege ?
+                numPege  ?
                 (<>
                     <Btn num={1} bl={false} setNumPege={setNumPege} />
                     <div className={cn("offset")} >...</div>
@@ -48,9 +49,7 @@ export const Pagination = () => {
                     <Btn num={numPege + 2} bl={false} setNumPege={setNumPege} />
                     <div className={cn("offset")} >...</div>
                     <Btn num={ Math.ceil(count * 0.1)} bl={false} setNumPege={setNumPege} />
-
-                    
-                </>) : ''
+                </>) : '' 
             }
 
         </div>
@@ -59,3 +58,4 @@ export const Pagination = () => {
 
 
 
+export default React.memo(Pagination);

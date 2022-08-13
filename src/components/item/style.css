@@ -26,3 +26,10 @@
     padding: 0 10px;
     white-space: nowrap;
 }
+.Item-link{ 
+    color: #000;
+    text-decoration: none;
+}
+.Item-link:hover{ 
+    text-decoration: underline;
+}

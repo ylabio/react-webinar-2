@@ -6,10 +6,13 @@ import numberFormat from "../../utils/numberFormat";
 import './styles.css';
 
 
-function BasketSimple({sum, amount, onOpen}) {
+function BasketSimple({sum, amount, onOpen, children}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
+      <div style={{marginRight: 'auto'}}>
+      {children}
+      </div>      
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
       {amount
@@ -18,6 +21,7 @@ function BasketSimple({sum, amount, onOpen}) {
       }
       </span>
       <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+
     </div>
   )
 }

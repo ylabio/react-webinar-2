@@ -6,13 +6,14 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import {config} from '../../config';
-import Pagination from "../pagination";
+import Pagination from "../../components/pagination";
 import Header from "../../components/header";
 
 function Main(){
   const store = useStore();
   const select = useSelector(state => ({
     items: state.catalog.items,
+    total: state.catalog.total,
     amount: state.basket.amount,
     sum: state.basket.sum,
     currentPage: state.catalog.currentPage,
@@ -55,7 +56,12 @@ function Main(){
         lang={select.language}
       />
       <List items={select.items} renderItem={renders.item}/>
-      <Pagination />
+      <Pagination
+         total={select.total} 
+         currentPage={select.currentPage}
+         getGoods={store.get('catalog').getGoods.bind(store.get('catalog'))}
+         changeCurrentPage={store.get('catalog').changeCurrentPage.bind(store.get('catalog'))} 
+      />
     </Layout>
   )
 }

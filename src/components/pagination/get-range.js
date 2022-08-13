@@ -1,14 +1,12 @@
-import React from 'react';
-
 const DOTS = '...';
 
-export function usePagination({
+export function getRange({
   totalCount,
   pageSize,
   currentPage
 }) {
   const totalPages = Math.ceil(totalCount / pageSize);
-  const range = []
+  const range = [];
 
   for (let i = 0; i < 3; i++) {
     if (currentPage >= 3 && currentPage <= 11) {

@@ -1,7 +1,7 @@
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import Item from "../../components/item";
 import Pagination from "../../components/pagination";
 import useStore from "../../utils/use-store";
@@ -12,30 +12,33 @@ function Main() {
 
   const store = useStore();
 
-  const [pag, setPag] = useState(0);
+  const select = useSelector((state) => ({
+    items: state.catalog.items,
+    amount: state.basket.amount,
+    sum: state.basket.sum,
+    allPage: state.catalog.count,
+    num: state.numpag.num,
+  }));
 
   useEffect(() => {
     store.get("catalog").load();
   }, []);
 
   useEffect(() => {
-    if (pag > 0 && !select.items[pag]) {
-      store.get("catalog").loading(pag);
+    if (select.num > 0 && !select.items[select.num]) {
+      store.get("catalog").loading(select.num);
     }
-  }, [pag]);
+  }, [select.num]);
 
-  const select = useSelector((state) => ({
-    items: state.catalog.items,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
-    allPage: state.catalog.count,
-  }));
+  console.log("num", select.num);
 
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get("modals").open("basket"), []),
     // Добавление в корзину
     addToBasket: useCallback((_id) => store.get("basket").addToBasket(_id), []),
+    // Смена страницы
+    newPage: useCallback((n) => store.get("numpag").newPage(n), []),
   };
 
   const renders = {
@@ -52,9 +55,13 @@ function Main() {
         amount={select.amount}
         sum={select.sum}
       />
-      <List items={select.items[pag]} renderItem={renders.item} />
+      <List items={select.items[select.num]} renderItem={renders.item} />
       {select.allPage && (
-        <Pagination allPage={select.allPage} pag={pag} setPag={setPag} />
+        <Pagination
+          allPage={select.allPage}
+          pag={select.num}
+          newPage={callbacks.newPage}
+        />
       )}
     </Layout>
   );

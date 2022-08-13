@@ -28,7 +28,7 @@ class CatalogState extends StateModule {
     });
     this.setState({
       ...this.store.state.catalog,
-      items: { 0: json.result.items },
+      items: { ...this.store.state.catalog.items, 0: json.result.items },
     });
   }
 

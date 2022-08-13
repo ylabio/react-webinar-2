@@ -13,11 +13,21 @@ function Info({ item, onAdd }) {
   return (
     <div className={cn()}>
       <div>{item.description}</div>
-      <div>{{ ...item.maidIn }.title}</div>
-      <div>{{ ...item.category }.title}</div>
-      <div>{item.edition}</div>
-      <div>{item.price} ₽</div>
-      <Controls onAdd={callbacks.onAdd} />
+      <div>
+        Страна производитель:&ensp;<h5>{{ ...item.maidIn }.title}</h5>
+      </div>
+      <div>
+        Категория:&ensp;<h5>{{ ...item.category }.title}</h5>
+      </div>
+      <div>
+        Год выпуска:&ensp;<h5>{item.edition}</h5>
+      </div>
+      <div>
+        <h4>Цена:&ensp;{item.price} ₽</h4>
+      </div>
+      <div>
+        <Controls onAdd={callbacks.onAdd} />
+      </div>
     </div>
   );
 }

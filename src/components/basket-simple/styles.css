@@ -10,10 +10,12 @@
 }
 .BasketSimple-link {
   text-decoration: none;
-  color: black;
+  color: #0087e9;
   margin-right: auto;
   margin-left: 0;
+  text-decoration-line: underline;
 }
+
 .BasketSimple-total {
   font-weight: bold;
   margin: 0 15px;

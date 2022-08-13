@@ -6,7 +6,17 @@
   padding: 20px 20px 20px 0;
 }
 
+.Pagination-pages > button {
+  width: 30px;
+  height: 30px;
+  font-size: 17px;
+  line-height: 18.4px;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+}
+
 .Pagination-active {
-  background: blue;
+  background: #0087e9 !important;
   color: #fff;
 }

@@ -1,7 +1,7 @@
 import StateModule from "../module";
 
 /**
- * Состояние корзины
+ * Состояние детальной информации об элементе
  */
 class DetailsState extends StateModule {
   /**

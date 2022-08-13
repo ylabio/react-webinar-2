@@ -15,7 +15,9 @@ class DetailsState extends StateModule {
   }
 
   async loadDetails(id) {
-    const response = await fetch(`/api/v1/articles/${id}`);
+    const response = await fetch(
+      `/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`
+    );
     const json = await response.json();
     this.setState({ item: json.result });
   }

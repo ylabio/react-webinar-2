@@ -1,9 +1,9 @@
 import React, { useEffect, useCallback } from "react";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Layout from "../../components/layout";
+import Info from "../../components/info";
 import BasketSimple from "../../components/basket-simple";
 
 function Page() {
@@ -35,8 +35,7 @@ function Page() {
         amount={select.amount}
         onOpen={callbacks.openModalBasket}
       />
-      <Link to={"/"}>back</Link>
-      <div>{select.item.title}</div>
+      <Info item={select.item} onAdd={callbacks.addToBasket} />
     </Layout>
   );
 }

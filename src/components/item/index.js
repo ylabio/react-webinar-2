@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
+import useSelector from '../../utils/use-selector';
 import './style.css';
 
 function Item(props) {
@@ -11,6 +12,10 @@ function Item(props) {
   const callbacks = {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
+
+  const select = useSelector(state => ({
+    lang: state.language.value,
+  }));
 
   return (
     <div className={cn()}>
@@ -21,7 +26,8 @@ function Item(props) {
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button className={cn('add')} onClick={callbacks.onAdd}>
+          {select.lang === 'rus' ? 'Добавить': 'Add'}</button>
       </div>
     </div>
   )

@@ -36,3 +36,7 @@
     padding: 0 10px;
     white-space: nowrap;
 }
+
+.Item-add {
+    min-width: 75px;
+}

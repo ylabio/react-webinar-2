@@ -18,7 +18,7 @@ function ItemPage() {
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
-    item: state.item.item
+    item: state.item
   }));
 
   const callbacks = {
@@ -28,6 +28,8 @@ function ItemPage() {
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
 
+
+  
   return (
     <Layout head={<h1>{select.item.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>

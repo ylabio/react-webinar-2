@@ -10,7 +10,13 @@ class ItemState extends StateModule {
    */
   initState() {
     return {
-      item: []
+      _id: 0,
+      title: 'title',
+      description: 'description',
+      price: 0,
+      maidIn: `${'maidIn'} (${''})`,
+      edition: 0,
+      category: 'category'
     };
   }
 
@@ -23,7 +29,6 @@ class ItemState extends StateModule {
     const json = await response.json();
     this.setState({
       ...this.getState(),
-      item: {
         _id: json.result._id,
         title: json.result.title,
         description: json.result.description,
@@ -31,9 +36,13 @@ class ItemState extends StateModule {
         maidIn: `${json.result.maidIn.title} (${json.result.maidIn.code})`,
         edition: json.result.edition,
         category: json.result.category.title
-      }
     }, 'Загрузка выбранного товара');
   }
+
+  clearState() {
+    this.setState({ ...initState() });
+  };
+
 
 }
 

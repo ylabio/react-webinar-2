@@ -6,7 +6,7 @@ import './style.css';
 
 function ItemDescription(props) {
   const cn = bem('ItemDescription');
-  
+
   const callbacks = {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
   };
@@ -31,4 +31,3 @@ ItemDescription.defaultProps = {
 }
 
 export default React.memo(ItemDescription);
-  

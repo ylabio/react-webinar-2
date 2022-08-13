@@ -1,4 +1,3 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**
@@ -12,15 +11,26 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      count: 0,
+      loading: true
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+  async load(page){
+    this.setState({
+      ...this.getState(),
+      loading: true
+    });
+    const limit = 10
+    if (page > 0) page--
+    const response = await fetch(`/api/v1/articles?fields=items(*),count&limit=${limit}&skip=${limit * page}`);
     const json = await response.json();
     this.setState({
-      items: json.result.items
+      ...this.getState(),
+      items: json.result.items,
+      count: Math.round(json.result.count / limit),
+      loading: false
     });
   }
 

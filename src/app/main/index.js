@@ -31,6 +31,13 @@ function Main(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     changeLanguage: useCallback(lang => store.get('language').changeLanguage(lang), []),
+    changePage: useCallback((page) => {
+      if (page !== select.currentPage && page !== '...') {
+        const skip = (page - 1) * config.API_LIMIT;
+        store.get('catalog').getGoods(skip);
+        store.get('catalog').changeCurrentPage(page);
+      }
+    }, [select.currentPage]),
   };
 
   const renders = {
@@ -42,13 +49,14 @@ function Main(){
   }
 
   return (
-    <Layout head={
-      <Header 
-        title='Магазин' 
-        changeLanguage={callbacks.changeLanguage} 
-        lang={select.language}
-      />
-    }>
+    <Layout 
+      head={
+        <Header 
+          title='Магазин' 
+          changeLanguage={callbacks.changeLanguage} 
+          lang={select.language}
+      />}
+    >
       <BasketSimple 
         onOpen={callbacks.openModalBasket} 
         amount={select.amount} 
@@ -57,10 +65,9 @@ function Main(){
       />
       <List items={select.items} renderItem={renders.item}/>
       <Pagination
-         total={select.total} 
-         currentPage={select.currentPage}
-         getGoods={store.get('catalog').getGoods.bind(store.get('catalog'))}
-         changeCurrentPage={store.get('catalog').changeCurrentPage.bind(store.get('catalog'))} 
+        total={select.total} 
+        currentPage={select.currentPage}
+        changePage={callbacks.changePage}
       />
     </Layout>
   )

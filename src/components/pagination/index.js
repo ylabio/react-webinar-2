@@ -8,8 +8,7 @@ import { getRange } from './get-range';
 function Pagination({
   total, 
   currentPage,
-  getGoods,
-  changeCurrentPage, 
+  changePage,
 }) {
   const cn = bem('Pagination');
 
@@ -18,16 +17,6 @@ function Pagination({
     pageSize: config.API_LIMIT,
     currentPage,
   }), [total, currentPage]);
-
-  const callbacks = {
-    changePage: useCallback((page) => {
-      if (page !== currentPage && page !== '...') {
-        const skip = (page - 1) * config.API_LIMIT;
-        getGoods(skip);
-        changeCurrentPage(page);
-      }
-    }, [currentPage]),
-  };
 
   return (
     <ul className={cn()}>
@@ -39,7 +28,7 @@ function Pagination({
               selected: currentPage === item,
               unclickable: item === '...',
             })}
-            onClick={() => callbacks.changePage(item)}
+            onClick={() => changePage(item)}
           >
             {item}
           </li>
@@ -52,8 +41,7 @@ function Pagination({
 Pagination.propTypes = {
   total: propTypes.number, 
   currentPage: propTypes.number.isRequired,
-  getGoods: propTypes.func.isRequired,
-  changeCurrentPage: propTypes.func.isRequired,
+  changePage: propTypes.func.isRequired,
 };
 
 Pagination.defaultProps = {

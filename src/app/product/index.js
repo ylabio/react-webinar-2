@@ -4,6 +4,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
+import Language from "../../components/language";
 import ProductDesc from "../../components/product-desc";
 
 function Product() {
@@ -25,7 +26,8 @@ function Product() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     title: state.product.item.title,
-    isProductLoaded: state.product.isDataLoaded
+    isProductLoaded: state.product.isDataLoaded,
+    language: state.language.value,
   }));
 
   const product = useSelector(state => ({
@@ -35,7 +37,7 @@ function Product() {
     madeIn: state.product.madeIn,
     madeInCode: state.product.madeInCode,
     category: state.product.category,
-    price: state.product.item.price,
+    price: state.product.item.price
   }));
 
   const callbacks = {
@@ -43,11 +45,18 @@ function Product() {
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Переключение языка
+    toggleLanguage: useCallback(() => store.get('language').toggleLanguage(), []),
   };
 
   return (
-    <Layout head={<h1>{select.title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+    <Layout
+      head={<>
+        <h1>{select.title}</h1>
+        <Language onToggle={callbacks.toggleLanguage} lang={select.language} />
+      </>}
+    >
+      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.language} />
       {select.isProductLoaded && <ProductDesc product={product} onAdd={callbacks.addToBasket} />}
     </Layout>
   )

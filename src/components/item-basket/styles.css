@@ -20,6 +20,11 @@
     text-decoration: none;
 }
 
+.ItemBasket-titleLink:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
 .ItemBasket-right {
     padding: 20px 20px 20px 10px;
     display: flex;

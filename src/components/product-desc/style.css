@@ -9,3 +9,7 @@
 .ProductDesc-price {
   font-size: 24px;
 }
+
+.ProductDesc-add {
+  min-width: 75px;
+}

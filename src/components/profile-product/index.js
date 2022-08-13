@@ -3,6 +3,8 @@ import {cn as bem} from "@bem-react/classname";
 import { useParams } from "react-router-dom";
 import './styles.css';
 import useStore from '../../utils/use-store';
+import {GridLoader}from "react-spinners";
+
 
 export const ProfileProduct = () => {
 
@@ -55,6 +57,7 @@ export const ProfileProduct = () => {
          : (
             <div className={cn()}>
             <strong>Loading...</strong>
+            <GridLoader />
             </div>
          )}
         </>

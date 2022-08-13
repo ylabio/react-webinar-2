@@ -20,6 +20,10 @@ function Basket() {
   const callbacks = {
     // Закрытие любой модалки
     closeModal: useCallback(() => store.get("modals").close(), []),
+    removeFromBasket: useCallback(
+      (_id) => store.get("basket").removeFromBasket(_id),
+      []
+    ),
   };
 
   const renders = {
@@ -28,6 +32,7 @@ function Basket() {
         <ItemBasket
           item={item}
           link={`/article/${item._id}`}
+          onRemove={callbacks.removeFromBasket}
           click={callbacks.closeModal}
         />
       ),

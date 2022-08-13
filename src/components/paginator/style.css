@@ -1,0 +1,36 @@
+.Paginator {
+    font-size: 16px;
+    color: black;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 22px 22px 22px 22px;
+}
+
+.Paginator-page {
+    box-sizing: border-box;
+    min-width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1px;
+}
+
+.Paginator-page_selected {
+    color: white;
+    background-color: dodgerblue;
+    cursor: pointer;
+}
+
+.Paginator-page_unselected {
+    cursor: pointer;
+}
+
+.Paginator-page_unselected:hover {
+    background-color: #e1e1e1;
+}
+
+.Paginator-page_dots {
+    cursor: default;
+}

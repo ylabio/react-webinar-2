@@ -1,0 +1,53 @@
+import BasketSimple from "../../components/basket-simple";
+import Layout from "../../components/layout";
+import React, {useCallback, useEffect, useRef} from "react";
+import useStore from "../../utils/use-store";
+import useSelector from "../../utils/use-selector";
+import ItemInfo from "../../components/item-info";
+import {useParams} from "react-router-dom";
+
+function ItemPage() {
+
+  console.log('ItemPage');
+
+  const store = useStore();
+
+  useEffect(() => {
+    store.get('catalog').load();
+  }, [])
+
+  const select = useSelector(state => ({
+    itemInfo: state.itemPage.itemInfo,
+    amount: state.basket.amount,
+    sum: state.basket.sum
+  }));
+
+  const callbacks = {
+    // Закрытие корзины
+    closeModalBasket: useCallback(() => store.get('modals').close(), []),
+    // Открытие корзины
+    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+    // Добавление в корзину
+    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    //Выбор id товара
+    setInfoId: useCallback(_id => store.get('itemPage').setId(_id), []),
+    //Отображение страницы ItemPage
+    loadItemPage: useCallback(_id => store.get('itemPage').load(_id), []),
+  };
+
+  const {id} = useParams();
+
+  useEffect(() => {
+    callbacks.setInfoId(id);
+    callbacks.loadItemPage(id);
+  }, [id]);
+
+  return (
+    <Layout head={<h1>{select.itemInfo.title}</h1>}>
+      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <ItemInfo {...select.itemInfo} addToBasket={callbacks.addToBasket}/>
+    </Layout>
+  )
+}
+
+export default React.memo(ItemPage);

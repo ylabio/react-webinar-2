@@ -1,7 +1,9 @@
 import React from 'react';
 import Basket from "./basket";
 import useSelector from "../utils/use-selector";
-import Routing from './routing';
+import { Route, Routes } from 'react-router-dom';
+import Main from './main';
+import Card from './card';
 
 /**
  * Приложение
@@ -12,7 +14,10 @@ function App() {
 
   return (
     <>
-      <Routing />
+      <Routes>
+        <Route path='/' element={<Main />} />
+        <Route path=':id' element={<Card />} />
+      </Routes>
       {modal === 'basket' && <Basket/>}
     </>
   );

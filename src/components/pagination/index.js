@@ -11,7 +11,7 @@ function Pagination({total, active, siblings, onChange, className}) {
   const pages = generatePaginationSequence(total, active, siblings, separator);
 
   return (
-    <div className={className}>
+    <div className={cn('wrapper')}>
       <ul className={cn()}>
         {pages.map((i, index) =>
           i === separator ? (

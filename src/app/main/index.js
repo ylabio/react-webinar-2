@@ -1,4 +1,3 @@
-import {cn as bem} from '@bem-react/classname';
 import React, {useCallback, useEffect} from 'react';
 import Controls from '../../components/controls';
 import Item from '../../components/item';
@@ -7,11 +6,9 @@ import List from '../../components/list';
 import Pagination from '../../components/pagination';
 import useSelector from '../../utils/use-selector';
 import useStore from '../../utils/use-store';
-import './style.css';
 
 function Main() {
   console.log('Main');
-  const cn = bem('Main');
 
   const store = useStore();
 
@@ -62,12 +59,7 @@ function Main() {
         onHomeClick={callbacks.setFirstPage}
       />
       <List items={select.items} renderItem={renders.item} />
-      <Pagination
-        className={cn('pagination')}
-        total={select.pagesCount}
-        active={select.page}
-        onChange={callbacks.setPage}
-      />
+      <Pagination total={select.pagesCount} active={select.page} onChange={callbacks.setPage} />
     </Layout>
   );
 }

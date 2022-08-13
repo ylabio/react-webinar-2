@@ -18,6 +18,9 @@ class CatalogState extends StateModule{
     };
   }
 
+  /**
+   * Загрузка порции данных с сервера для одной страницы
+   */
   async load(){
     const response = await fetch(`/api/v1/articles?limit=${this.getState().pageSize}&skip=${(this.getState().currentPage - 1) * this.getState().pageSize}&fields=items(*),count`);
     const json = await response.json();
@@ -25,14 +28,17 @@ class CatalogState extends StateModule{
       ...this.getState(),
       items: json.result.items,
       count: json.result.count
-    });
+    }, 'Загрузка порции данных с сервера для одной страницы');
   }
 
+  /**
+   * Изменение страницы каталога
+   */
   async onPageChanged(pageNumber){
     this.setState({
       ...this.getState(),
       currentPage: pageNumber
-    });
+    }, 'Изменение страницы каталога');
   }
 
   /**

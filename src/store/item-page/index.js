@@ -23,6 +23,9 @@ class ItemPageState extends StateModule{
     };
   }
 
+  /**
+   * Загрузка подробной информации о товар
+   */
   async load(id){
     const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
     const json = await response.json();
@@ -36,16 +39,7 @@ class ItemPageState extends StateModule{
         edition: json.result.edition,
         price: json.result.price
       }
-    });
-  }
-
-  setId(id) {
-    this.setState({
-      itemInfo: {
-        ...this.getState().itemInfo,
-        _id: id
-      }
-    });
+    }, 'Загрузка подробной информации о товаре');
   }
 }
 

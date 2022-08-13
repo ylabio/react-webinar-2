@@ -12,10 +12,6 @@ function ItemPage() {
 
   const store = useStore();
 
-  useEffect(() => {
-    store.get('catalog').load();
-  }, [])
-
   const select = useSelector(state => ({
     itemInfo: state.itemPage.itemInfo,
     amount: state.basket.amount,
@@ -29,8 +25,6 @@ function ItemPage() {
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    //Выбор id товара
-    setInfoId: useCallback(_id => store.get('itemPage').setId(_id), []),
     //Отображение страницы ItemPage
     loadItemPage: useCallback(_id => store.get('itemPage').load(_id), []),
   };
@@ -38,7 +32,6 @@ function ItemPage() {
   const {id} = useParams();
 
   useEffect(() => {
-    callbacks.setInfoId(id);
     callbacks.loadItemPage(id);
   }, [id]);
 

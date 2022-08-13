@@ -6,7 +6,7 @@ import './styles.css';
  const Pagination = ({numPege, setNumPege}) => {
     const cn = bem('Pagination');
     const store = useStore();
-    const count = store.state.catalog.count
+    const count =  Math.ceil(store.state.catalog.count* 0.1)
 
     console.log('Pagination ==>')
 
@@ -32,7 +32,7 @@ import './styles.css';
                     <Btn num={2} bl={numPege == 1} setNumPege={setNumPege} />
                     <Btn num={3} bl={numPege == 2} setNumPege={setNumPege} />
                     <div className={cn("offset")} >...</div>
-                    <Btn num={Math.ceil(count * 0.1)} bl={numPege == 3} setNumPege={setNumPege} />
+                    <Btn num={count} bl={false} setNumPege={setNumPege} />
                 </>) :
                 numPege < 3 ?
                 (<>
@@ -41,10 +41,10 @@ import './styles.css';
                     <Btn num={numPege + 1} bl={true} setNumPege={setNumPege} />
                     <Btn num={numPege + 2} bl={false} setNumPege={setNumPege} />
                     <div className={cn("offset")} >...</div>
-                    <Btn num={Math.ceil(count * 0.1)} bl={false} setNumPege={setNumPege} />
+                    <Btn num={count} bl={false} setNumPege={setNumPege} />
                 </>)
                 :
-                numPege  ?
+                numPege < count - 3  ?
                 (<>
                     <Btn num={1} bl={false} setNumPege={setNumPege} />
                     <div className={cn("offset")} >...</div>
@@ -52,8 +52,17 @@ import './styles.css';
                     <Btn num={numPege + 1} bl={true} setNumPege={setNumPege} />
                     <Btn num={numPege + 2} bl={false} setNumPege={setNumPege} />
                     <div className={cn("offset")} >...</div>
-                    <Btn num={ Math.ceil(count * 0.1)} bl={false} setNumPege={setNumPege} />
-                </>) : '' 
+                    <Btn num={count} bl={false} setNumPege={setNumPege} />
+                </>) :
+                  numPege >= count - 3  ?
+                (<>
+                    <Btn num={1} bl={false} setNumPege={setNumPege} />
+                    <div className={cn("offset")} >...</div>
+                    <Btn num={count - 3 } bl={numPege == count - 4 } setNumPege={setNumPege} />
+                    <Btn num={count - 2} bl={numPege == count - 3 } setNumPege={setNumPege} />
+                    <Btn num={count - 1 } bl={numPege == count - 2 } setNumPege={setNumPege} />
+                    <Btn num={count} bl={numPege == count - 1 } setNumPege={setNumPege} />
+                </>) : ''  
             }
 
         </div>

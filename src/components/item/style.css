@@ -13,6 +13,10 @@
 .Item-title {
     width: 100%;
     padding: 20px 10px;
+    cursor: pointer;
+}
+.Item-title:hover {
+    text-decoration: underline;
 }
 
 .Item-right {

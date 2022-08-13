@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
+import {Navigate, Route, Routes} from "react-router-dom";
+import Article from "./article";
 
 /**
  * Приложение
@@ -16,7 +17,11 @@ function App() {
 
   return (
     <>
-      <Main/>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/articles/:id" element={<Article />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
       {modal === 'basket' && <Basket/>}
     </>
   );

@@ -5,6 +5,8 @@ import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import Pagination from "../../components/pagination";
+import Translate from "../../components/translate";
 
 function Main(){
 
@@ -13,13 +15,18 @@ function Main(){
   const store = useStore();
 
   useEffect(() => {
-    store.get('catalog').load();
+    store.get('catalog').load(select.page, select.limit);
   }, [])
 
   const select = useSelector(state => ({
     items: state.catalog.items,
+    page: state.catalog.page,
+    pages: state.catalog.pages,
+    limit: state.catalog.limit,
+    pagination: state.catalog.pagination,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    lang: state.languages,
   }));
 
   const callbacks = {
@@ -27,16 +34,42 @@ function Main(){
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Переключение страницы пагинации
+    selectPage: useCallback((skip, limit) => store.get('catalog').load(skip, limit), []),
+    // Отрисовка пагинации
+    renderPagination: useCallback((allPages, currentPage) =>
+      store.get('catalog').renderPagination(allPages, currentPage), []),
+    // Переводы
+    translateRu: useCallback(() => store.get('languages').translateRu(), []),
+    translateEn: useCallback(() => store.get('languages').translateEn(), []),
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item =>
+      <Item lang={select.lang}
+            item={item}
+            onAdd={callbacks.addToBasket}
+      />, [select.lang]),
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+    <Layout head={
+      <>
+        <h1>{select.lang.store}</h1>
+        <Translate translateRu={callbacks.translateRu}
+                   translateEn={callbacks.translateEn}
+                   lang={select.lang}
+        />
+      </>
+    }>
+      <BasketSimple lang={select.lang} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
+      <Pagination selectPage={callbacks.selectPage}
+                  currentPage={select.page}
+                  allPages={select.pages}
+                  limit={select.limit}
+                  pagesPagination={select.pagination}
+      />
     </Layout>
   )
 }

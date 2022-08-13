@@ -29,7 +29,7 @@ function Description() {
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
-    // Добавить в корзину
+    // Добавить товар в корзину
     addToBasket: useCallback((_id) => store.get('basket').addToBasket(_id), []),
   };
 

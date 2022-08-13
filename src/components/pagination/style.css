@@ -1,0 +1,42 @@
+.Pagination {
+    align-self: flex-end;
+    margin: 20px;
+}
+
+.Pagination-list {
+    display: flex;
+    list-style: none;
+}
+
+.Pagination-item {
+
+}
+
+.Pagination-button {
+    font-size: 16px;
+    line-height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.Pagination-button.active, .Pagination-button:hover {
+    color: #ffffff;
+    background: #0087E9;
+}
+
+.Pagination-button:hover {
+    background: #E1E1E1;
+    color: #000000;
+}
+
+.Pagination-gap {
+    font-size: 16px;
+    line-height: 20px;
+    background: transparent;
+    border: none;
+    pointer-events: none;
+    color: #CCCCCC;
+}
+
+

@@ -35,7 +35,7 @@ function Product() {
   };
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>{select.product?.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <ProductCard item={select.product} onAdd={callbacks.addToBasket}/>
     </Layout>

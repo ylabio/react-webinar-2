@@ -14,7 +14,7 @@ function BasketSimple({sum, amount, onOpen, language}) {
       <span className={cn('label')}>{changeLanguage(language, 'IN_BASKET')}</span>
       <span className={cn('total')}>
       {amount
-        ? `${amount} ${language === 'ru'? plural(amount, 'товар', 'товара', 'товаров') : plural(amount, 'product', 'goods', 'goods')} / ${numberFormat(sum)} ₽`
+        ? `${amount} ${language === 'ru' ? plural(amount, 'товар', 'товара', 'товаров') : plural(amount, 'product', 'goods', 'goods')} / ${numberFormat(sum)} ₽`
         : `${language === 'ru'? 'пусто' : 'empty'}`
       }
       </span>
@@ -25,14 +25,15 @@ function BasketSimple({sum, amount, onOpen, language}) {
 
 BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
-  sum: propTypes.number,
-  amount: propTypes.number
+  sum: propTypes.number.isRequired,
+  amount: propTypes.number.isRequired,
+  language: propTypes.string.isRequired,
 }
 
 BasketSimple.defaultProps = {
   onOpen: () => {},
   sum: 0,
-  amount: 0
+  amount: 0,
 }
 
 export default React.memo(BasketSimple);

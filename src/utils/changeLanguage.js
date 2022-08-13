@@ -6,7 +6,7 @@ const languages = {
     ADD: 'Добавить',
     RUS: 'Рус',
     ENG: 'Англ',
-    EMPTY_PAGE: 'пусто',
+    EMPTY_PAGE: 'Такой страницы не существует',
     BASKET: 'Корзина',
     IN_BASKET: 'В корзине:',
     CLOSE: 'Закрыть',
@@ -16,7 +16,6 @@ const languages = {
     CATEGORY: 'Категория:',
     YEAR_MANUFACTURER: 'Год выпуска:',
     PRICE: 'Цена:',
-    EMPTYPAGE: 'Такой страницы не существует',
     MODAL: 'Модалка',
   },
   eng: {
@@ -26,7 +25,7 @@ const languages = {
     ADD: 'Add in cart',
     RUS: 'Rus',
     ENG: 'Eng',
-    EMPTY_PAGE: 'empty',
+    EMPTY_PAGE: 'Page does not exist',
     BASKET: 'Basket',
     IN_BASKET: 'In basket:',
     CLOSE: 'Close',
@@ -36,7 +35,6 @@ const languages = {
     CATEGORY: 'Category:',
     YEAR_MANUFACTURER: 'Year of manufacture:',
     PRICE: 'Price:',
-    EMPTYPAGE: 'Page does not exist',
     MODAL: 'Modal'
   }
 }

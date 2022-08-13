@@ -18,7 +18,7 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  renderItem: propTypes.func
+  renderItem: propTypes.func.isRequired
 }
 
 List.defaultProps = {

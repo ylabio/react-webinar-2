@@ -10,7 +10,6 @@ import {useParams} from "react-router-dom"
 import NotFound from "../../components/not-found";
 import Head from "../../components/head";
 
-
 function Product() {
   const store = useStore();
 
@@ -37,15 +36,15 @@ function Product() {
     changeLanguage: useCallback(language => store.get('localization').changeLanguage(language), [])
   };
 
+  const title=select.item.title ? select.item.title : 'Пусто'
+
   return (
-    <Layout head={<Head language={select.language} changeLanguage={callbacks.changeLanguage} title={select.item.title}/>}>
+    <Layout head={<Head language={select.language} changeLanguage={callbacks.changeLanguage} title={title}/>}>
       <Wrapper>
         <Menu language={select.language}/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language}/>
       </Wrapper>
-      {select.item ? 
-        <ProductPage onAdd={callbacks.addToBasket} item={select.item} language={select.language}/> : <NotFound/>
-      }
+      <ProductPage onAdd={callbacks.addToBasket} product={select.item} language={select.language}/>
     </Layout>
   )
 }

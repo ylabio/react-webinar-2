@@ -29,7 +29,8 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onAdd: propTypes.func,
+  onAdd: propTypes.func.isRequired,
+  language: propTypes.string.isRequired
 }
 
 Item.defaultProps = {

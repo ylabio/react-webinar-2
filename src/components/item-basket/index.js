@@ -31,7 +31,8 @@ function ItemBasket(props) {
 
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
-  onRemove: propTypes.func,
+  onRemove: propTypes.func.isRequired,
+  language: propTypes.string.isRequired
 }
 
 ItemBasket.defaultProps = {

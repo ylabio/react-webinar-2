@@ -14,14 +14,22 @@ function Pagination(props) {
 
     const cn = bem('Pagination');
 
-//   const callbacks = {
-//     clickPageHandler: useCallback((e) => props.loadPage(props.item._id), [props.onAdd, props.item])
-//   };
+    const callbacks = {
+        addPage: (id) => pagesWithEllipsis.push(
+            <li onClick={() => props.loadPage(id)} 
+                className={select.currentPage === id ? cn('active') : ''} 
+                key={id}
+            >{id}</li>),
+        addEllipsis: (id) => pagesWithEllipsis.push(
+            <li key={id} className={cn('ellipsis')} >...</li>)
+    };
 
     const countOfPages = Math.ceil(select.totalCount / select.limit);
 
+    let pages = [];
+    let pagesWithEllipsis = [];
+
     const getPages = () => {
-        let pages = [];
 
         for (let i = 1; i <= countOfPages; i++) {
 
@@ -33,30 +41,14 @@ function Pagination(props) {
 
         }
 
-        let pagesWithEllipsis = [];
-
-        const addPage = (id) => pagesWithEllipsis.push(
-            <li onClick={() => props.loadPage(id)} 
-                className={select.currentPage === id ? cn('active') : ''} 
-                key={id}
-            >{id}</li>);
-        
-
-        const addEllipsis = (id) => pagesWithEllipsis.push(
-            <li key={id}
-                className={cn('ellipsis')} >...</li>);
-
-        
         for (let i = 0; i < pages.length; i++) {
 
             if (pages[i] - 1 !== pages[i-1] && pages[i] - 1 !== 0) {
-                addEllipsis(`${i}n`);
+                callbacks.addEllipsis(`${i}n`);
             }
-            addPage(pages[i])
+            callbacks.addPage(pages[i])
                     
         }
-
-        console.log("pagesWithEllipsis: ", pagesWithEllipsis);
 
         return pagesWithEllipsis;
     };
@@ -71,7 +63,7 @@ function Pagination(props) {
 }
 
 Pagination.propTypes = {
-//   onAdd: propTypes.func,
+    loadPage: propTypes.func.isRequired,
 }
 
 Pagination.defaultProps = {

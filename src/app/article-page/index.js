@@ -33,11 +33,6 @@ function ArticlePage() {
     <Layout head={<h1>{select.article.title}</h1>}>
       <LayoutHeader />
       <Article article={select.article} onAdd={callbacks.addToBasket} />
-      {/* {select.isLoading ? (
-        <Article article={select.article} onAdd={callbacks.addToBasket} />
-      ) : (
-        <Spinner />
-      )} */}
     </Layout>
   );
 }

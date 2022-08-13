@@ -33,10 +33,9 @@ class ArticleState extends StateModule {
       });
     } catch (e) {
       console.error(e.message);
-
       this.setState({
         article: {},
-        isLoading: false,
+        isLoading: true,
       });
     }
   }

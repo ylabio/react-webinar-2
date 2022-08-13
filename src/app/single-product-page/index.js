@@ -12,15 +12,12 @@ function SingleProductPage() {
   const store = useStore();
 
   useEffect(() => {
-    store.get('product').clear()
-    store.get('product').load(id)
-  }, [id]);
+    return () => store.get('product').clear()
+  }, []);
 
   useEffect(() => {
-    return () => {
-      store.get('product').clear()
-    }
-  }, []);
+    store.get('product').load(id)
+  }, [id]);
 
   const select = useSelector(state => ({
     item: state.product.item,
@@ -30,9 +27,9 @@ function SingleProductPage() {
 
   const callbacks = {
     // Открытие корзины
-    openModalBasket: useCallback(() => store.get('modals').open('basket'), [store]),
+    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), [store]),
+    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
 
   return(

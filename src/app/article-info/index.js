@@ -23,18 +23,16 @@ function ArticleInfo() {
     closeModalBasket: useCallback(() => store.get('modals').close(), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    // Назначение id для информации о товаре
-    setInfoId: useCallback(_id => store.get('itemInfo').setId(_id), []),
-    loadItemInfo: useCallback(_id => store.get('itemInfo').load(_id), []),
+    // Назначение языка интерфейса
     setLang: useCallback(lang => store.get('local').setLang(lang), []),
+    // Возврат на первую страницу
     setFirstPage: useCallback(() => store.get('catalog').setPage(1), [])
   };
 
   const {id} = useParams();
 
   useEffect(() => {
-    callbacks.setInfoId(id);
-    callbacks.loadItemInfo(id);
+    store.get('itemInfo').load(id);
   }, [id]);
 
   return (

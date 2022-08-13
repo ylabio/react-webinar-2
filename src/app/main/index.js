@@ -32,10 +32,11 @@ function Main() {
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Установка страницы
     setPage: useCallback(page => store.get('catalog').setPage(page), []),
-    setLang: useCallback(lang => store.get('local').setLang(lang), []),
-
-    setFirstPage: useCallback(() => store.get('catalog').setPage(1), [])
+    setFirstPage: useCallback(() => store.get('catalog').setPage(1), []),
+    // Установка языка
+    setLang: useCallback(lang => store.get('local').setLang(lang), [])
   };
 
   const renders = {

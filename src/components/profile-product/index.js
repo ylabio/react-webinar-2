@@ -52,7 +52,11 @@ export const ProfileProduct = () => {
                 onClick={() => callbacks.onAdd(id)}
                 >Добавить</button>
         </div>)
-         : ''}
+         : (
+            <div className={cn()}>
+            <strong>Loading...</strong>
+            </div>
+         )}
         </>
     )
 }

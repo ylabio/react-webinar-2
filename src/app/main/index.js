@@ -9,6 +9,8 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination/index"
 import { ProfileProduct } from '../../components/profile-product/index'
+import { GridLoader } from "react-spinners";
+import { ErrorBoundary } from "../ErrorBoundary";
 
 
 
@@ -42,33 +44,33 @@ function Main() {
   }
 
   return (
-    <Routes>
 
-      <Route path="/:id" element={
-        <Layout head={<h1>Название товара</h1>}>
-          <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}>
-            <Link className="Home-link" variant="link" to="/" >
-              Главная
-            </Link>
-          </BasketSimple>
-          <ProfileProduct />
-        </Layout>
-      } />
+    <ErrorBoundary>
+      <Routes>
+        <Route path="/:id" element={
+          <Layout head={<h1>Название товара</h1>}>
+            <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}>
+              <Link className="Home-link" variant="link" to="/" >
+                Главная
+              </Link>
+            </BasketSimple>
+            <ProfileProduct />
+          </Layout>
+        } />
 
-      <Route exact path="/" element={
+        <Route exact path="/" element={
+          <Layout head={<h1>Магазин</h1>}>
+            <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+            <List items={select.items} renderItem={renders.item} />
+            {(store.state.catalog.items.length > 0)
+              ? <Pagination numPege={numPege} setNumPege={setNumPege} />
+              : <GridLoader />}
+          </Layout>
 
-        <Layout head={<h1>Магазин</h1>}>
-          <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-          <List items={select.items} renderItem={renders.item} />
-          {(store.state.catalog.items.length > 0) ?
-            <Pagination numPege={numPege} setNumPege={setNumPege} />
-            : ''}
+        } />
+      </Routes>
+    </ErrorBoundary>
 
-        </Layout>
-
-      } />
-
-    </Routes>
   )
 }
 

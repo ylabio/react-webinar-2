@@ -38,12 +38,6 @@ class ItemState extends StateModule {
         category: json.result.category.title
     }, 'Загрузка выбранного товара');
   }
-
-  clearState() {
-    this.setState({ ...initState() });
-  };
-
-
 }
 
 export default ItemState;

@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import Main from "./main";
-import Basket from "./basket";
-import useStore from "../utils/use-store";
+import React from 'react';
+import {Routers} from "src/app/routers";
 import useSelector from "../utils/use-selector";
+import Basket from "./basket";
 
 /**
  * Приложение
@@ -16,7 +15,7 @@ function App() {
 
   return (
     <>
-      <Main/>
+      <Routers />
       {modal === 'basket' && <Basket/>}
     </>
   );

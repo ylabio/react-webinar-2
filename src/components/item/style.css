@@ -15,6 +15,14 @@
     padding: 20px 10px;
 }
 
+.Item-link {
+    cursor: pointer;
+}
+
+.Item-link:hover {
+    text-decoration: underline;
+}
+
 .Item-right {
     padding: 20px 20px 20px 10px;
     display: flex;

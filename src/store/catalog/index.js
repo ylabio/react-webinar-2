@@ -12,6 +12,7 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
+      item: {},
       count: 0
     };
   }
@@ -35,7 +36,20 @@ class CatalogState extends StateModule {
       ...this.getState(),
       items: json.result.items,
       count: json.result.count
-    },'Запрос страницы товара');
+    }, 'Запрос страницы товара');
+  }
+
+  /**
+   * запрос каталога с страницами
+   * @param id
+   */
+  async loadProduct(id) {
+    const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      item: json.result,
+    }, 'Запрос страницы товара');
   }
 
   /**

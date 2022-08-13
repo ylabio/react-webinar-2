@@ -15,7 +15,7 @@ function Main() {
 
   useEffect(() => {
     store.get('catalog').loadProducts(0);
-  }, [])
+  }, []);
 
   const select = useSelector(state => ({
     items: state.catalog.items,
@@ -35,7 +35,7 @@ function Main() {
 
   const renders = {
     item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
-  }
+  };
 
   return (
     <Layout head={<h1>Магазин</h1>}>
@@ -44,7 +44,7 @@ function Main() {
       <List items={select.items} renderItem={renders.item}/>
       <Pagination count={select.count} onPage={callbacks.getProducts} />
     </Layout>
-  )
+  );
 }
 
 export default React.memo(Main);

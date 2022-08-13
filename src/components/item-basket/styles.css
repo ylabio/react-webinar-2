@@ -15,6 +15,14 @@
     padding: 20px 10px;
 }
 
+.ItemBasket-link {
+    cursor: pointer;
+}
+
+.ItemBasket-link:hover {
+    text-decoration: underline;
+}
+
 .ItemBasket-right {
     padding: 20px 20px 20px 10px;
     display: flex;

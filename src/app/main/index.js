@@ -19,7 +19,6 @@ function Main() {
     page: state.catalog.page,
     limit: state.catalog.pageLimit,
     pagesCount: state.catalog.pagesCount,
-    local: state.local.dict[state.local.lang],
     lang: state.local.lang
   }));
 
@@ -39,24 +38,29 @@ function Main() {
     setLang: useCallback(lang => store.get('local').setLang(lang), [])
   };
 
+  // Переводчик статического текста
+  const t = (path, amount = null) => store.get('local').translate(path, amount);
+
   const renders = {
     item: useCallback(
-      item => <Item item={item} onAdd={callbacks.addToBasket} addLocal={select.local.common.add} />,
-      [select.local.common.add]
+      item => <Item item={item} onAdd={callbacks.addToBasket} text={{add: t('common.add')}} />,
+      [select.lang]
     )
   };
 
   return (
-    <Layout
-      head={<h1>{select.local.catalog.header}</h1>}
-      curLang={select.lang}
-      setLang={callbacks.setLang}
-    >
+    <Layout head={<h1>{t('catalog.header')}</h1>} curLang={select.lang} setLang={callbacks.setLang}>
       <Controls
         onBasketOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
-        local={select.local}
+        text={{
+          home: t('common.homeLink'),
+          empty: t('common.basketEmpty'),
+          amount: t('common.basketAmount', select.amount),
+          open: t('common.openCart'),
+          fullness: t('common.basketFullnessLabel')
+        }}
         onHomeClick={callbacks.setFirstPage}
       />
       <List items={select.items} renderItem={renders.item} />

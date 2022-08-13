@@ -5,31 +5,27 @@ import {Link} from 'react-router-dom';
 import numberFormat from '../../utils/number-format';
 import './styles.css';
 
-function ItemBasket(props) {
+function ItemBasket({item, text, onRemove, onItemOpen}) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: useCallback(e => props.onRemove(props.item._id), [props.onRemove, props.item]),
-    onItemOpen: useCallback(() => props.onItemOpen(), [])
+    onRemove: useCallback(e => onRemove(item._id), [onRemove, item]),
+    onItemOpen: useCallback(() => onItemOpen(), [])
   };
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('id')}>{props.item._id}</div>*/}
-      <Link
-        to={`/article/${props.item._id}`}
-        className={cn('title')}
-        onClick={callbacks.onItemOpen}
-      >
-        {props.item.title}
+      {/*<div className={cn('id')}>{item._id}</div>*/}
+      <Link to={`/article/${item._id}`} className={cn('title')} onClick={callbacks.onItemOpen}>
+        {item.title}
       </Link>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
+        <div className={cn('cell')}>{numberFormat(item.price)} ₽</div>
         <div className={cn('cell')}>
-          {numberFormat(props.item.amount || 0)} {props.local.basket.piece}
+          {numberFormat(item.amount || 0)} {text.piece}
         </div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>{props.local.common.remove}</button>
+          <button onClick={callbacks.onRemove}>{text.remove}</button>
         </div>
       </div>
     </div>
@@ -38,9 +34,9 @@ function ItemBasket(props) {
 
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
+  text: propTypes.object.isRequired,
   onRemove: propTypes.func,
-  onItemOpen: propTypes.func,
-  local: propTypes.object
+  onItemOpen: propTypes.func
 };
 
 ItemBasket.defaultProps = {};

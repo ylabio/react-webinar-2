@@ -13,7 +13,6 @@ function ArticleInfo() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     info: state.itemInfo.info,
-    local: state.local.dict[state.local.lang],
     lang: state.local.lang
   }));
 
@@ -28,6 +27,8 @@ function ArticleInfo() {
     // Возврат на первую страницу
     setFirstPage: useCallback(() => store.get('catalog').setPage(1), [])
   };
+  // Переводчик статического текста
+  const t = (path, amount = null) => store.get('local').translate(path, amount);
 
   const {id} = useParams();
 
@@ -41,10 +42,26 @@ function ArticleInfo() {
         onBasketOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
-        local={select.local}
+        text={{
+          home: t('common.homeLink'),
+          empty: t('common.basketEmpty'),
+          amount: t('common.basketAmount', select.amount),
+          open: t('common.openCart'),
+          fullness: t('common.basketFullnessLabel')
+        }}
         onHomeClick={callbacks.setFirstPage}
       />
-      <ItemInfo {...select.info} addToBasket={callbacks.addToBasket} local={select.local} />
+      <ItemInfo
+        {...select.info}
+        addToBasket={callbacks.addToBasket}
+        text={{
+          country: t('itemInfo.country'),
+          edition: t('itemInfo.edition'),
+          category: t('itemInfo.category'),
+          price: t('itemInfo.price'),
+          add: t('common.add')
+        }}
+      />
     </Layout>
   );
 }

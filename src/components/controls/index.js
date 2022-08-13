@@ -5,14 +5,14 @@ import {Link} from 'react-router-dom';
 import BasketSimple from '../basket-simple';
 import './style.css';
 
-function Controls({local, onHomeClick, onBasketOpen, sum, amount}) {
+function Controls({onHomeClick, onBasketOpen, sum, amount, text}) {
   const cn = bem('Controls');
   return (
     <div className={cn()}>
       <Link className={cn('toHome')} to={'/'} onClick={onHomeClick}>
-        {local.common.homeLink}
+        {text.home}
       </Link>
-      <BasketSimple sum={sum} amount={amount} onOpen={onBasketOpen} local={local} />
+      <BasketSimple sum={sum} amount={amount} onOpen={onBasketOpen} text={text} />
     </div>
   );
 }
@@ -20,9 +20,9 @@ function Controls({local, onHomeClick, onBasketOpen, sum, amount}) {
 Controls.propTypes = {
   onHomeClick: propTypes.func.isRequired,
   onBasketOpen: propTypes.func.isRequired,
+  text: propTypes.object.isRequired,
   sum: propTypes.number,
-  amount: propTypes.number,
-  local: propTypes.object
+  amount: propTypes.number
 };
 
 Controls.defaultProps = {};

@@ -1,0 +1,26 @@
+{
+  "catalog": {
+    "header": "Shop"
+  },
+  "basket": {
+    "header": "Basket",
+    "totalLabel": "Total",
+    "piece": "pc"
+  },
+  "itemInfo": {
+    "country": "Country of origin",
+    "category": "Category",
+    "edition": "Edition",
+    "price": "Price"
+  },
+  "common": {
+    "homeLink": "Home",
+    "openCart": "Open",
+    "basketFullnessLabel": "Cart",
+    "basketEmpty": "Is empty",
+    "basketAmount": ["item"],
+    "close": "Close",
+    "add": "Add",
+    "remove": "Remove"
+  }
+}

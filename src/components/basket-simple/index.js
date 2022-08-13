@@ -4,18 +4,16 @@ import React from 'react';
 import numberFormat from '../../utils/number-format';
 import './styles.css';
 
-function BasketSimple({sum, amount, onOpen, local, onHomeClick}) {
+function BasketSimple({sum, amount, onOpen, text}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <span className={cn('label')}>{local.common.basketFullnessLabel}:</span>
+      <span className={cn('label')}>{text.fullness}:</span>
       <span className={cn('total')}>
-        {amount
-          ? `${amount} ${local.common.basketAmount(amount)} / ${numberFormat(sum)} ₽`
-          : local.common.basketEmpty}
+        {amount ? `${amount} ${text.amount} / ${numberFormat(sum)} ₽` : text.empty}
       </span>
       <button className='BasketSimple__button' onClick={onOpen}>
-        {local.common.openCart}
+        {text.open}
       </button>
     </div>
   );
@@ -23,9 +21,9 @@ function BasketSimple({sum, amount, onOpen, local, onHomeClick}) {
 
 BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
+  text: propTypes.object.isRequired,
   sum: propTypes.number,
-  amount: propTypes.number,
-  local: propTypes.object
+  amount: propTypes.number
 };
 
 BasketSimple.defaultProps = {

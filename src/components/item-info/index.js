@@ -4,7 +4,7 @@ import React, {useCallback} from 'react';
 import numberFormat from '../../utils/number-format';
 import './style.css';
 
-function ItemInfo({_id, description, maidIn, category, edition, price, addToBasket, local}) {
+function ItemInfo({_id, description, maidIn, category, edition, price, addToBasket, text}) {
   const cn = bem('ItemInfo');
 
   const callbacks = {
@@ -15,18 +15,18 @@ function ItemInfo({_id, description, maidIn, category, edition, price, addToBask
     <div className={cn()}>
       <p className={cn('description')}>{description}</p>
       <p className={cn('country')}>
-        {local.itemInfo.country}: <strong>{maidIn}</strong>
+        {text.country}: <strong>{maidIn}</strong>
       </p>
       <p className={cn('category')}>
-        {local.itemInfo.category}: <strong>{category}</strong>
+        {text.category}: <strong>{category}</strong>
       </p>
       <p className={cn('year')}>
-        {local.itemInfo.edition}: <strong>{edition}</strong>
+        {text.edition}: <strong>{edition}</strong>
       </p>
       <strong className={cn('price')}>
-        {local.itemInfo.price}: {numberFormat(price)} ₽
+        {text.price}: {numberFormat(price)} ₽
       </strong>
-      <button onClick={callbacks.addToBasket}>{local.common.add}</button>
+      <button onClick={callbacks.addToBasket}>{text.add}</button>
     </div>
   );
 }
@@ -38,7 +38,7 @@ ItemInfo.propTypes = {
   category: propTypes.string.isRequired,
   edition: propTypes.number.isRequired,
   price: propTypes.number.isRequired,
-  local: propTypes.object.isRequired
+  text: propTypes.object.isRequired
 };
 
 export default React.memo(ItemInfo);

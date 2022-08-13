@@ -4,20 +4,21 @@ import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './styles.css';
+import changeLanguage from "../../utils/changeLanguage";
 
 
-function BasketSimple({sum, amount, onOpen}) {
+function BasketSimple({sum, amount, onOpen, language}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <span className={cn('label')}>В корзине:</span>
+      <span className={cn('label')}>{changeLanguage(language, 'IN_BASKET')}</span>
       <span className={cn('total')}>
       {amount
-        ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-        : `пусто`
+        ? `${amount} ${language === 'ru'? plural(amount, 'товар', 'товара', 'товаров') : plural(amount, 'product', 'goods', 'goods')} / ${numberFormat(sum)} ₽`
+        : `${language === 'ru'? 'пусто' : 'empty'}`
       }
       </span>
-      <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+      <button className='BasketSimple__button' onClick={onOpen}>{changeLanguage(language, 'GO_TO_CART')}</button>
     </div>
   )
 }

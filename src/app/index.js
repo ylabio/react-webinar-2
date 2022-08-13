@@ -4,7 +4,6 @@ import Basket from "./basket";
 import useSelector from "../utils/use-selector";
 import {Routes, Route} from "react-router-dom"
 import Product from './product';
-import NotFound from '../components/not-found';
 import EmptyPage from './empty-page';
 
 /**

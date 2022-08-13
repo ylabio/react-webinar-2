@@ -6,7 +6,6 @@ import createPagination from '../../utils/createPagination';
 
 function Pagination(props) {
   const cn = bem('Pagination');
-  
 
   const limitPerPage = props.limitPerPage;
   const totalPages = Math.ceil(props.totalPages / limitPerPage);

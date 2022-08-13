@@ -1,10 +1,11 @@
 import React from "react"
 import './styles.css';
+import changeLanguage from "../../utils/changeLanguage";
 
-function NotFound() {
+function NotFound(props) {
 
   return (
-    <div className="NotFound">Такой страницы не существует</div>
+    <div className="NotFound">{changeLanguage(props.language, 'EMPTY_PAGE')}</div>
   )
 }
 

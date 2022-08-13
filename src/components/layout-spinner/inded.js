@@ -4,7 +4,7 @@ import './style.css';
 import {cn as bem} from '@bem-react/classname';
 import propTypes from 'prop-types';
 
-function LayoutSpinner({ children, isFetching }) {
+function LayoutSpinner({ children, isFetching, color }) {
   const cn = bem('LayoutSpinner')
 
   return (
@@ -13,7 +13,7 @@ function LayoutSpinner({ children, isFetching }) {
         {children}
       </div>
       <div className={cn('spinner')}>
-          <GridLoader color='orange'
+          <GridLoader color={color}
                       loading={isFetching}
           />
       </div>
@@ -24,6 +24,7 @@ function LayoutSpinner({ children, isFetching }) {
 LayoutSpinner.propTypes = {
   children: propTypes.node.isRequired,
   isFetching: propTypes.bool.isRequired,
+  color: propTypes.string.isRequired,
 };
 
 export default React.memo(LayoutSpinner);

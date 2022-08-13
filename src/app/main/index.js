@@ -69,6 +69,7 @@ function Main(){
       />
       <LayoutSpinner
         isFetching={select.isFetching}
+        color='orange'
       >
         <List 
           items={select.items} 

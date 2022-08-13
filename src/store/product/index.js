@@ -38,13 +38,17 @@ class ProductState extends StateModule{
   }
 
   /**
-   * Удаление данных о готовности товара
+   * Удаление данных о товаре из стора
    */
    async clearProduct(){
     this.setState({
       ...this.getState(),
+      item: {},
+      madeIn: null,
+      madeInCode: null,
+      category: null,
       isDataLoaded: false
-    }, 'Удаление данных о готовности товара');
+    }, 'Удаление данных о товаре из стора');
   }
 }
 

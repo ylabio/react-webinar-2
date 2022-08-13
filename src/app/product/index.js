@@ -24,6 +24,7 @@ function Product() {
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
+    title: state.product.item.title,
     isProductLoaded: state.product.isDataLoaded
   }));
 
@@ -45,7 +46,7 @@ function Product() {
   };
 
   return (
-    <Layout head={<h1>Название товара</h1>}>
+    <Layout head={<h1>{select.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       {select.isProductLoaded && <ProductDesc product={product} onAdd={callbacks.addToBasket} />}
     </Layout>

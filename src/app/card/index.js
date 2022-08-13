@@ -33,6 +33,7 @@ function Card() {
           title={select.item?.title}
           changeLanguage={callbacks.changeLanguage}
           lang={select.language}
+          flag={true}
         />
     }>
        <CardContent 

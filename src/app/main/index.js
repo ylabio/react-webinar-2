@@ -24,6 +24,7 @@ function Main() {
   }));
 
   const callbacks = {
+    addToBasket: useCallback((_id) => store.get("basket").addToBasket(_id), []),
     onChangePage: useCallback(
       (page) => store.get("catalog").load(page),
       [store]

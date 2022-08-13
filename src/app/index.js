@@ -23,8 +23,8 @@ function App() {
           <Route path="page:pageNumber" element={<Main />} />
           <Route path="product:productNumber" element={<Product />} />
         </Routes>
+        {modal === 'basket' && <Basket />}
       </BrowserRouter>
-      {modal === 'basket' && <Basket />}
     </>
   );
 }

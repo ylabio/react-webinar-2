@@ -33,11 +33,12 @@
   padding: 0 30px 0 20px;
 }
 
-.LayoutModal-close{
+.LayoutModal-close {
+  width: 76px;
   align-self: center;
 }
 
-.LayoutModal-title{
+.LayoutModal-title {
   margin: 0;
   padding: 20px 0 10px;
 }

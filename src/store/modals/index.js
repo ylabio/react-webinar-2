@@ -3,11 +3,10 @@ import StateModule from "../module";
 /**
  * Управление модальными окнами
  */
-class ModalsState extends StateModule{
-
+class ModalsState extends StateModule {
   initState() {
     return {
-      name: null
+      name: null,
     };
   }
 
@@ -15,19 +14,25 @@ class ModalsState extends StateModule{
    * Открытие модального окна по названию
    * @param name {String} Название модалки
    */
-  open(name){
-    this.setState({
-      name
-    }, `Открытие модалки ${name}`);
+  open(name) {
+    this.setState(
+      {
+        name,
+      },
+      `Открытие модалки ${name}`
+    );
   }
 
   /**
    * Закрытие модального окна
    */
-  close(){
-    this.setState({
-      name: false
-    }, `Закрытие модалки`);
+  close() {
+    this.setState(
+      {
+        name: false,
+      },
+      `Закрытие модалки`
+    );
   }
 }
 

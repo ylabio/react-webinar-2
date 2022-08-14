@@ -1,0 +1,36 @@
+.Pagination {
+  font-size: 16px;
+  color: black;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 22px 22px 22px 22px;
+}
+
+.Pagination-page {
+  box-sizing: border-box;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1px;
+}
+
+.Pagination-page_selected {
+  color: white;
+  background-color: dodgerblue;
+  cursor: default;
+}
+
+.Pagination-page_unselected {
+  cursor: pointer;
+}
+
+.Pagination-page_unselected:hover {
+  background-color: #e1e1e1;
+}
+
+.Pagination-page_dots {
+  cursor: default;
+}

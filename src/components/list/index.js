@@ -9,7 +9,7 @@ function List(props) {
 
   return (
     <>
-    {props.items.length ?
+    {props.items.length ?a 
     <div className={cn()}>
       {props.items.map(item =>
       <div key={item.code} className={cn('item')}>

@@ -1,4 +1,3 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**
@@ -17,7 +16,7 @@ class CatalogState extends StateModule{
   }
 
   async load(){
-    const response = await fetch('/api/v1/articles');
+    const response = await fetch('/api/v1/articles?limit=100&skip=10&fields=items(*),count');
     const json = await response.json();
     this.setState({
       items: json.result.items

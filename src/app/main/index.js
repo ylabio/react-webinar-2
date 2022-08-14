@@ -1,44 +1,55 @@
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect} from "react";
+import Pagination from "../../components/pagination";
+import React, {useState, useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 
-function Main(){
+function Main({setIdProduct}) {
 
-  console.log('Main');
+    console.log('Main');
 
-  const store = useStore();
+    const store = useStore();
 
-  useEffect(() => {
-    store.get('catalog').load();
-  }, [])
+    useEffect(() => {
+        store.get('catalog').load();
+    }, [])
 
-  const select = useSelector(state => ({
-    items: state.catalog.items,
-    amount: state.basket.amount,
-    sum: state.basket.sum
-  }));
+    const select = useSelector(state => ({
+        items: state.catalog.items,
+        amount: state.basket.amount,
+        sum: state.basket.sum
+    }));
 
-  const callbacks = {
-    // Открытие корзины
-    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-  };
+    const callbacks = {
+        // Открытие корзины
+        openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+        // Добавление в корзину
+        addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    };
 
-  const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
-  }
+    const renders = {
+        item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} setIdProduct={setIdProduct}/>, []),
+    }
 
-  return (
-    <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
-    </Layout>
-  )
+    // Вычисляем количество страниц
+    const pageCount = Math.ceil((select.items.length) / 10);
+
+    // Номер активной страницы
+    const [activePage, setActivePage] = useState(1);
+
+    // Выводим товар на страницу
+    const showItems = select.items.slice([(activePage - 1)*10], [activePage*10]);
+
+    return (
+        <Layout head={<h1>Магазин</h1>}>
+            <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+            <List items={showItems} renderItem={renders.item}/>
+            <Pagination pageCount={pageCount} activePage={activePage} setActivePage={setActivePage}/>
+        </Layout>
+    )
 }
 
-export default React.memo(Main);
+export default  React.memo(Main);

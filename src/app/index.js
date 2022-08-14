@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Main from "./main";
+import Product from "./product";
 import Basket from "./basket";
-import useStore from "../utils/use-store";
+import {Routes, Route, BrowserRouter} from "react-router-dom";
 import useSelector from "../utils/use-selector";
 
 /**
@@ -10,16 +11,20 @@ import useSelector from "../utils/use-selector";
  */
 function App() {
 
-  console.log('App');
+    console.log('App');
 
-  const modal = useSelector(state => state.modals.name);
+    const modal = useSelector(state => state.modals.name);
+    const [idProduct, setIdProduct] = useState('61fcfeae56709c3cee6c408d')
 
-  return (
-    <>
-      <Main/>
-      {modal === 'basket' && <Basket/>}
-    </>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route exact={true} path="/" element={<Main setIdProduct={setIdProduct}/>}/>
+                <Route path="/product/:id" element={<Product idProduct={idProduct}/>}/>
+            </Routes>
+            {modal === 'basket' && <Basket setIdProduct={setIdProduct}/>}
+        </BrowserRouter>
+    );
 }
 
 export default React.memo(App);

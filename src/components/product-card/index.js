@@ -6,6 +6,7 @@ import {useParams} from 'react-router-dom';
 import numberFormat from '../../utils/number-format';
 import Layout from '../layout';
 import BasketSimple from '../basket-simple';
+import Loader from '../loader'
 import './style.css';
 
 function ProductCard() {
@@ -52,7 +53,7 @@ function ProductCard() {
   return (
    <>
       {!product 
-      ?  <h4>Загрузка...</h4> 
+      ?  <Loader />
       :
       <Layout head={<h1>{product.title}</h1>}>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>

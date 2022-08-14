@@ -4,9 +4,9 @@ import { cn as bem } from '@bem-react/classname';
 import paginator from '../../utils/paginator';
 import './style.css';
 
-function Pagination(props) {
-  const cn = bem('Pagination');
+function Pagination(props) {  
   const {currentPage, lastPage} = props;
+  const cn = bem('Pagination');
   // Получем пагинацию страниц
   const pages = paginator(currentPage, lastPage);
 

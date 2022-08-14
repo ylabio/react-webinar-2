@@ -20,11 +20,11 @@ function Main() {
 
   useEffect(() => {
     store.get('catalog').load(limit, page);
-    amountAllBaskets()
+    amountAllItems()
   }, [page])
 
-  async function amountAllBaskets() {
-    const amount = await store.get('catalog').getAmountBaskets();
+  async function amountAllItems() {
+    const amount = await store.get('catalog').getAmountItems();
     setAmountBaskets(amount);
   }
 

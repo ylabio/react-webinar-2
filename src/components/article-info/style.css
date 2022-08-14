@@ -1,0 +1,14 @@
+.ArticleInfo>*:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.ArticleInfo {
+  margin-top: 20px;
+  font-size: 18px;
+  padding: 0 40px;
+}
+
+.ArticleInfo-price {
+  font-size: 24px;
+  font-weight: 700;
+}

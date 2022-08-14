@@ -1,13 +1,21 @@
 /* Контрол с общими действиями */
 .BasketSimple{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding: 20px;
     font-size: 18px;
 }
 
+.BasketSimple a {
+    color: #0087E9;
+}
+
 .BasketSimple-label{
 
+}
+
+.BasketSimple-container{
+    display: flex;
 }
 
 .BasketSimple-total{

@@ -6,6 +6,16 @@
     padding-left: 10px;
 }
 
+.Item a {
+    color: black;
+    text-decoration: none;
+}
+
+.Item a:hover {
+    color: black;
+    text-decoration: revert;
+}
+
 .Item-id {
     padding: 20px 10px 20px 20px;
 }

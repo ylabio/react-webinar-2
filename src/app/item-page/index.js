@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useParams } from "react-router";
 import useSelector from "../../utils/use-selector";
 import useStore from "../../utils/use-store";
@@ -10,15 +10,15 @@ function ItemPage() {
   const store = useStore();
   const params = useParams();
 
-  const { amount, sum, item, items } = useSelector((state) => ({
+  const { amount, sum, item } = useSelector((state) => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
-    items: state.catalog.items,
     item: state.catalog.item,
   }));
 
   useEffect(() => {
     store.get("catalog").setItem(params.id);
+    store.get("modals").close();
   }, []);
 
   const callbacks = {

@@ -35,4 +35,4 @@ function ItemDetails(props) {
   );
 }
 
-export default ItemDetails;
+export default React.memo(ItemDetails);

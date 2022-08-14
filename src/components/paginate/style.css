@@ -1,0 +1,48 @@
+.pagination {
+  display: flex;
+  gap: 0.5px;
+  position: absolute;
+  width: 144px;
+  height: 20px;
+  left: 1067px;
+  top: 775px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+li {
+  display: block;
+}
+
+.pagination-list {
+  display: block;
+  cursor: pointer;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  text-align: center;
+  list-style: none;
+  min-width: 20px;
+  min-height: 20px;
+  padding: 0.5px;
+}
+
+.selected {
+  background-color: #0077b6;
+  color: #fff;
+}
+
+li:hover {
+  background-color: grey;
+}
+
+.previous {
+  display: none;
+}
+.next {
+  display: none;
+}

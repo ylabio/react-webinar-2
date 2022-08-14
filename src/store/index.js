@@ -22,7 +22,7 @@ class Store {
    * Доступ к модулю состояния
    * @param name {String} Название модуля
    */
-  get(name){
+  get(name) {
     return this.modules[name];
   }
 

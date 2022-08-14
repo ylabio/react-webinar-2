@@ -1,8 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, { useCallback } from 'react';
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../utils/use-store";
+import Product from "./product";
 import useSelector from "../utils/use-selector";
+import { Routes, Route } from 'react-router-dom';
+
+
+
+
 
 /**
  * Приложение
@@ -10,14 +15,21 @@ import useSelector from "../utils/use-selector";
  */
 function App() {
 
+  const modal = useSelector(state => state.modals.name);
+
   console.log('App');
 
-  const modal = useSelector(state => state.modals.name);
+  const reRand = useCallback()
+
 
   return (
     <>
-      <Main/>
-      {modal === 'basket' && <Basket/>}
+      <Routes>
+        <Route path='/' element={<Main />} />
+        <Route path='product' element={<Product />} />
+        {/* Было не так долго, как попытка написать свою собственную пагинацию */}
+        {modal === 'basket' && <Route index element={<Basket />} />}
+      </Routes>
     </>
   );
 }

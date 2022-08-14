@@ -44,7 +44,7 @@ LayoutModal.propTypes = {
 };
 
 LayoutModal.defaultProps = {
-  title: 'Модалка',
+  title: 'Модальное окно',
   onClose: () => {}
 };
 

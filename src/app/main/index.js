@@ -7,7 +7,7 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 
-function Main({setIdProduct}) {
+function Main(props) {
 
     console.log('Main');
 
@@ -31,7 +31,8 @@ function Main({setIdProduct}) {
     };
 
     const renders = {
-        item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} setIdProduct={setIdProduct}/>, []),
+        item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} setIdProduct={props.setIdProduct}
+                                        lang={props.lang}/>, []),
     }
 
     // Вычисляем количество страниц
@@ -41,15 +42,15 @@ function Main({setIdProduct}) {
     const [activePage, setActivePage] = useState(1);
 
     // Выводим товар на страницу
-    const showItems = select.items.slice([(activePage - 1)*10], [activePage*10]);
+    const showItems = select.items.slice([(activePage - 1) * 10], [activePage * 10]);
 
     return (
-        <Layout head={<h1>Магазин</h1>}>
-            <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+        <Layout head={<h1>{props.lang.header}</h1>} setChangeLang={props.setChangeLang} changeLang={props.changeLang}>
+            <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={props.lang}/>
             <List items={showItems} renderItem={renders.item}/>
             <Pagination pageCount={pageCount} activePage={activePage} setActivePage={setActivePage}/>
         </Layout>
     )
 }
 
-export default  React.memo(Main);
+export default React.memo(Main);

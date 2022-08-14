@@ -17,19 +17,19 @@ function ProductInfo(props) {
                 {props.item?.description}
             </div>
             <div className={cn('text')}>
-                Код товара: <b>{props.item?.name}</b>
+                {props.lang.info.code}: <b>{props.item?.name}</b>
             </div>
             <div className={cn('text')}>
-                Категория: <b>{props.item?.category._id}</b>
+                {props.lang.info.category}: <b>{props.item?.category._id}</b>
             </div>
             <div className={cn('text')}>
-                Год выпуска: <b>{props.item?.edition}</b>
+                {props.lang.info.year}: <b>{props.item?.edition}</b>
             </div>
             <div className={cn('price')}>
-                <b>Цена: {numberFormat(props.item?.price)} ₽</b>
+                <b>{props.lang.info.price}: {numberFormat(props.item?.price)} ₽</b>
             </div>
             <div className={cn('button')}>
-                <button onClick={callbacks.onAdd}>Добавить</button>
+                <button onClick={callbacks.onAdd}>{props.lang.button.add}</button>
             </div>
         </div>
     )
@@ -37,6 +37,7 @@ function ProductInfo(props) {
 
 ProductInfo.propTypes = {
     item: propTypes.object.isRequired,
+    lang: propTypes.object.isRequired,
     onAdd: propTypes.func,
 }
 

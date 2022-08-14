@@ -6,7 +6,7 @@ import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 
-function Basket({setIdProduct}) {
+function Basket({setIdProduct, lang}) {
 
     console.log('Basket');
 
@@ -29,13 +29,14 @@ function Basket({setIdProduct}) {
         itemBasket: useCallback(item => <ItemBasket item={item}
                                                     onRemove={callbacks.removeFromBasket}
                                                     onClose={callbacks.closeModal}
-                                                    setIdProduct={setIdProduct}/>, []),
+                                                    setIdProduct={setIdProduct}
+                                                    lang={lang}/>, []),
     }
 
     return (
-        <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+        <LayoutModal title={lang.header} onClose={callbacks.closeModal} lang={lang}>
             <List items={select.items} renderItem={renders.itemBasket}/>
-            <BasketTotal sum={select.sum}/>
+            <BasketTotal sum={select.sum} lang={lang}/>
         </LayoutModal>
     )
 }

@@ -6,7 +6,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import axios from 'axios';
 
-function Product({idProduct}) {
+function Product(props) {
 
     const store = useStore();
 
@@ -29,13 +29,13 @@ function Product({idProduct}) {
     })
 
     useEffect(() => {
-        const apiUrl = `http://example.front.ylab.io/api/v1/articles?search%5Bids%5D=${idProduct}`;
+        const apiUrl = `http://example.front.ylab.io/api/v1/articles?search%5Bids%5D=${props.idProduct}`;
         axios.get(apiUrl).then((resp) => resp.data)
             .then((data) => {
                 const item = data.result.items[0];
                 setProductInfo(item);
             })
-    }, [idProduct]);
+    }, [props.idProduct]);
 
     const callbacks = {
         // Открытие корзины
@@ -45,9 +45,9 @@ function Product({idProduct}) {
     };
 
     return (
-        <Layout head={<h1>Название товара</h1>}>
-            <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-            <ProductInfo onAdd={callbacks.addToBasket} item={productInfo}/>
+        <Layout head={<h1>{props.lang.header}</h1>} changeLang={props.changeLang} setChangeLang={props.setChangeLang}>
+            <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={props.lang}/>
+            <ProductInfo onAdd={callbacks.addToBasket} item={productInfo} lang={props.lang}/>
         </Layout>
     )
 }

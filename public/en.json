@@ -1,0 +1,44 @@
+{
+  "main": {
+    "name": "Main",
+    "header": "Shop",
+    "link": "Main",
+    "label": "In the basket",
+    "total": "empty",
+    "button": {
+      "add": "Add",
+      "remove": "Remove",
+      "move": "Move"
+    }
+  },
+  "product": {
+    "name": "Product",
+    "header": "Product name",
+    "link": "Main",
+    "label": "In the basket",
+    "total": "empty",
+    "button": {
+      "add": "Add",
+      "remove": "Remove",
+      "move": "Move"
+    },
+    "info": {
+      "code": "Product code",
+      "category": "Category",
+      "year": "Year of release",
+      "price": "Price"
+    }
+  },
+  "basket": {
+    "name": "Basket",
+    "header": "Basket",
+    "link": "",
+    "total": "total",
+    "button": {
+      "add": "Add",
+      "remove": "Remove",
+      "move": "Move",
+      "close": "close"
+    }
+  }
+}

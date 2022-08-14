@@ -13,4 +13,6 @@
     padding-left: 10px;
     white-space: nowrap;
 }
-
+.BasketTotal-cell:first-letter {
+    text-transform: uppercase;
+}

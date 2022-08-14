@@ -1,0 +1,32 @@
+[
+  {
+    "page": "Main",
+    "header": "Shop",
+    "link": "Main",
+    "button": {
+      "add": "Add",
+      "remove": "Remove",
+      "move": "Move"
+    }
+  },
+  {
+    "page": "Catalog",
+    "header": "Product name",
+    "link": "Main",
+    "button": {
+      "add": "Add",
+      "remove": "Remove",
+      "move": "Move"
+    }
+  },
+  {
+    "page": "Basket",
+    "header": "Basket",
+    "link": "",
+    "button": {
+      "add": "Add",
+      "remove": "Remove",
+      "move": "Move"
+    }
+  }
+]

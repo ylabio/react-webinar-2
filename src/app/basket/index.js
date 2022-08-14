@@ -9,7 +9,6 @@ import useLang from '../../utils/hooks/use-lang';
 
 function Basket(){
 const { layoutModal, itemBasket, basketTotal } = useLang();
-  // console.log('Basket');
 
   const store = useStore();
 

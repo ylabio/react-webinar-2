@@ -1,6 +1,7 @@
 import React, {useCallback} from "react";
 import propTypes from "prop-types";
 import {cn as bem} from "@bem-react/classname";
+import './style.css';
 
 const ArticleInfo = ({onAdd, article, ln = {}}) => {
   const cn = bem('Article-info');
@@ -24,7 +25,7 @@ const ArticleInfo = ({onAdd, article, ln = {}}) => {
       <div>
         {ln.edition}: <strong>{article.edition}</strong>
       </div>
-      <div>
+      <div className={cn('price')}>
         <strong>{ln.price}: {article.price} ₽</strong>
       </div>
       <button onClick={callbacks.onAdd}>{ln.action}</button>

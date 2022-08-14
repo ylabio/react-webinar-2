@@ -6,8 +6,6 @@ import numberFormat from '../../utils/numberFormat';
 import './styles.css';
 
 function BasketSimple({ sum, amount, onOpen, ln = {} }) {
-  // console.log(amount)
-  // const productText = bs.total.product;
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>

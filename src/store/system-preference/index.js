@@ -9,7 +9,7 @@ class SystemPreferenceState extends StateModule {
   }
 
   setLanguage(str) {
-    this.setState({...this.getState(), language: str})
+    this.setState({...this.getState(), language: str}, 'Изменение языка')
   }
 }
 

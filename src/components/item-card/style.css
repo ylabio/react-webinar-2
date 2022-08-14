@@ -1,0 +1,8 @@
+/* Пункт списка */
+.ItemCard {
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 1s;
+    padding-left: 10px;
+}
+

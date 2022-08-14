@@ -3,6 +3,8 @@ import Main from "./main";
 import Basket from "./basket";
 import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
+import {BrowserRouter} from "react-router-dom";
+import AppRouter from "../router";
 
 /**
  * Приложение
@@ -15,10 +17,12 @@ function App() {
   const modal = useSelector(state => state.modals.name);
 
   return (
-    <>
-      <Main/>
-      {modal === 'basket' && <Basket/>}
-    </>
+      <BrowserRouter>
+
+          <AppRouter/>
+          {modal === 'basket' && <Basket/>}
+
+      </BrowserRouter>
   );
 }
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
+
 function LayoutModal(props) {
   const cn = bem('LayoutModal');
 
@@ -24,14 +25,17 @@ function LayoutModal(props) {
     <div className={cn()}>
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
-          <h1 className={cn('title')}>
-            {props.title}
-          </h1>
+
+            <h1 className={cn('title')}>
+              {props.title}
+            </h1>
           <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
         </div>
-        <div className={cn('content')}>
+
+        <div className={cn('content')} >
           {props.children}
         </div>
+
       </div>
     </div>
   );

@@ -1,0 +1,51 @@
+/* Карточка товара */
+.Card {
+    padding: 20px 40px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.Card-description {
+    margin-bottom: 20px;
+
+}
+.Card-made {
+    display: flex;
+    align-items: center;
+    height: 21px;
+    margin-bottom: 20px;
+}
+.Card-made p{
+    font-weight: 700;
+    margin-left: 8px;
+}
+
+.Card-category {
+    display: flex;
+    align-items: center;
+    height: 21px;
+    margin-bottom: 20px;
+}
+.Card-category p{
+    font-weight: 700;
+    margin-left: 8px;
+}
+
+.Card-edition{
+    display: flex;
+    align-items: center;
+    height: 21px;
+    margin-bottom: 20px;
+}
+.Card-edition p{
+    font-weight: 700;
+    margin-left: 8px;
+}
+.Card-price {
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+}

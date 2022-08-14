@@ -10,8 +10,6 @@ import changeLanguage from "../../utils/changeLanguage";
 function ProductPage({product, onAdd, language}) {
   const cn = bem('ProductPage');
 
-  console.log(typeof product._id)
-
   const callbacks = {
     onAddProduct: useCallback((e) => onAdd(product._id), [onAdd, product._id])
   };

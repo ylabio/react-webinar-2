@@ -17,7 +17,7 @@ function Pagination() {
   const [pages, setPages] = useState([1, 2, 3, dots, select.numOfPages]);
 
   const callbacks = {
-    // Добавление в корзину
+    // Смена страницы
     changePage: useCallback(nPage => {
         store.get('catalog').load(nPage);
 

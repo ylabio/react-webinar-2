@@ -1,0 +1,17 @@
+.Loader {
+  margin: auto auto;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 20px outset #0087e9;
+  animation: rotate 1s infinite linear;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg) scale(1);
+  }
+  to {
+    transform: rotate(360deg) scale(1);
+  }
+}

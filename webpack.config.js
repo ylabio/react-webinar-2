@@ -13,11 +13,9 @@ let config = {
     path: path.join(__dirname, 'dist'), // Куда и как делать сборку
     filename: '[name].js',
     clean: true, // Очистить ./dist от предыдущей сборки
-    publicPath: '/'
+
   },
-  devServer: {
-    historyApiFallback: true
-  },
+
   plugins: [
     new MiniCssExtractPlugin(), // Сборка стилей в отдельный файл
     new HtmlWebPackPlugin({ // Создание dist/index.html с подключенной сборкой

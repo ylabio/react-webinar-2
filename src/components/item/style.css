@@ -13,6 +13,12 @@
 .Item-title {
     width: 100%;
     padding: 20px 10px;
+    color: black;
+    text-decoration: none;
+}
+
+.Item-title:hover {
+  text-decoration: underline;
 }
 
 .Item-right {

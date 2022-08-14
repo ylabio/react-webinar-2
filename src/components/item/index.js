@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './style.css';
+import {Link} from 'react-router-dom'
 
 function Item(props) {
   const cn = bem('Item');
@@ -16,9 +17,9 @@ function Item(props) {
       {/*<div className={cn('id')}>*/}
       {/*  {props.item._id}*/}
       {/*</div>*/}
-      <div className={cn('title')}>
+      <Link className={cn('title')} to={`/${props.item._id}`}>
         {props.item.title}
-      </div>
+      </Link>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
         <button onClick={callbacks.onAdd}>Добавить</button>

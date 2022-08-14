@@ -3,6 +3,7 @@ import React, {useCallback} from "react";
 import BasketTotal from "../../components/basket-total";
 import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
+import { dictionaryEnum } from '../../enums/dictionaryEnum';
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 
@@ -15,7 +16,8 @@ function Basket(){
   const select = useSelector(state => ({
     items: state.basket.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+		lang: state.common.language
   }));
 
   const callbacks = {
@@ -29,8 +31,10 @@ function Basket(){
     itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
   }
 
+  console.log(select.items);
+
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+    <LayoutModal title={dictionaryEnum.basket[select.lang]} onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>
       <BasketTotal sum={select.sum}/>
     </LayoutModal>

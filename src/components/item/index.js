@@ -2,8 +2,10 @@ import React, {useCallback} from 'react';
 import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+import { dictionaryEnum } from '../../enums/dictionaryEnum';
 import numberFormat from "../../utils/numberFormat";
 import './style.css';
+import useSelector from '../../utils/use-selector';
 
 function Item(props) {
   const cn = bem('Item');
@@ -12,17 +14,21 @@ function Item(props) {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
 
+	const select = useSelector(state => ({
+		lang: state.common.language
+	}));
+
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>*/}
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <Link to={`product/${props.item._id}`} className={cn('title')}>
-        {props.item.title}
+        {props.item.title[select.lang]}
       </Link>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{dictionaryEnum.add[select.lang]}</button>
       </div>
     </div>
   )

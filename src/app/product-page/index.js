@@ -11,15 +11,16 @@ function ProductPage(){
 	const store = useStore();
 	const {id} = useParams();
 
-	useEffect(() => {
-		store.get('product').load(id);
-	}, []);
-
 	const select = useSelector(state => ({
 		title: state.product.product.title,
 		amount: state.basket.amount,
-		sum: state.basket.sum
+		sum: state.basket.sum,
+		lang: state.common.language
 	}));
+
+	useEffect(() => {
+		store.get('product').load(id);
+	}, [select.lang]);
 
 	const callbacks = {
 		// Открытие корзины

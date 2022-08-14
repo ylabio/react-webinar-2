@@ -22,8 +22,9 @@ class CatalogState extends StateModule{
 
   async load(){
   	const pagination = this.getState().pagination;
+  	const lang = this.store.getState().common.language;
   	const limit = 10;
-    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${(pagination.page-1)*limit}&fields=items(*),count`);
+    const response = await fetch(`/api/v1/articles?lang=all&limit=${limit}&skip=${(pagination.page-1)*limit}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
       items: json.result.items,

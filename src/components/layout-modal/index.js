@@ -2,9 +2,15 @@ import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
+import { dictionaryEnum } from '../../enums/dictionaryEnum';
+import useSelector from '../../utils/use-selector';
 
 function LayoutModal(props) {
   const cn = bem('LayoutModal');
+
+	const select = useSelector(state => ({
+		lang: state.common.language
+	}));
 
   const frame = useRef();
 
@@ -27,7 +33,7 @@ function LayoutModal(props) {
           <h1 className={cn('title')}>
             {props.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <button className={cn('close')} onClick={props.onClose}>{dictionaryEnum.close[select.lang]}</button>
         </div>
         <div className={cn('content')}>
           {props.children}

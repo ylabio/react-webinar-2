@@ -22,7 +22,6 @@ List.propTypes = {
 }
 
 List.defaultProps = {
-  items: [],
   renderItem: (item) => {
     return item.toString()
   }

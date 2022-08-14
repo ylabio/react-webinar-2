@@ -15,22 +15,31 @@ function Basket(){
   const select = useSelector(state => ({
     items: state.basket.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    basketHead: state.names.names.basketHead,
+    closeButtonName: state.names.names.closeButtonName
   }));
 
   const callbacks = {
     // Закрытие любой модалки
     closeModal: useCallback(() => store.get('modals').close(), []),
     // Удаление из корзины
-    removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), [])
+    removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), []),
+    // Открытие страницы товара
+    pageLoad: useCallback((_id) => store.get('page').pageLoad(_id), []),
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item => <ItemBasket item={item}
+                                                onRemove={callbacks.removeFromBasket}
+                                                onClose={callbacks.closeModal}
+                                                pageLoad={callbacks.pageLoad}
+                                                />
+                                                , []),
   }
 
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+    <LayoutModal title={select.basketHead} onClose={callbacks.closeModal} closeButtonName={select.closeButtonName}>
       <List items={select.items} renderItem={renders.itemBasket}/>
       <BasketTotal sum={select.sum}/>
     </LayoutModal>

@@ -23,7 +23,7 @@ class BasketState extends StateModule{
    */
   addToBasket(_id) {
     let sum = 0;
-    // Ищем товар в корзие, чтобы увеличить его количество. Заодно получаем новый массив items
+    // Ищем товар в корзине, чтобы увеличить его количество. Заодно получаем новый массив items
     let exists = false;
     const items = this.getState().items.map(item => {
       let result = item;
@@ -32,22 +32,32 @@ class BasketState extends StateModule{
         exists = true;
         result = {...item, amount: item.amount + 1};
       }
-      // Добавляея в общую сумму
+      // Добавляем в общую сумму
       sum += result.price * result.amount;
       return result
     });
-
+   
     // Если товар не был найден в корзине, то добавляем его из каталога
+  
     if (!exists) {
       // Поиск товара в каталоге, чтобы его в корзину добавить
-      // @todo В реальных приложения будет запрос к АПИ на добавление в корзину, и апи выдаст объект товара..
+      // @todo В реальных приложениях будет запрос к АПИ на добавление в корзину, и апи выдаст объект товара..
       const item = this.store.getState().catalog.items.find(item => item._id === _id);
-      items.push({...item, amount: 1});
-      // Досчитываем сумму
-      sum += item.price;
+      if (item) {
+        items.push({...item, amount: 1});
+        // Досчитываем сумму
+        sum += item.price;
+      } else {
+        // Если item отсутствует в каталоге при перезагрузке страницы, берём его из sessionStorage
+        let itemFromSessionStorage = JSON.parse(sessionStorage.getItem('item'));
+        items.push({...itemFromSessionStorage, amount: 1});
+        // Досчитываем сумму
+        sum += itemFromSessionStorage.price; 
+      }
+     
     }
 
-    // Установка состояние, basket тоже нужно сделать новым
+    // Установка состояния, basket тоже нужно сделать новым
     this.setState({
       items,
       sum,

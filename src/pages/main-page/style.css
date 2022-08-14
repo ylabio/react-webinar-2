@@ -1,0 +1,9 @@
+.Main {}
+
+.Main-pagination {
+    display: flex;
+    max-width: 980px;
+    margin: 0 auto;
+    justify-content: flex-end;
+    margin-top: 23px;
+}

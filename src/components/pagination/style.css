@@ -1,0 +1,9 @@
+.Pagination {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.Pagination li {
+    list-style-type: none;
+}

@@ -1,7 +1,8 @@
 /* Пункт списка */
 .ItemBasket {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
+    align-items: center;
     transition: background-color 1s;
     padding-left: 10px;
 }
@@ -11,8 +12,14 @@
 }
 
 .ItemBasket-title {
-    width: 100%;
-    padding: 20px 10px;
+    text-decoration: none;
+    color: black;
+    border: none;
+    cursor: pointer;
+}
+
+.ItemBasket-title:hover {
+    text-decoration: underline;
 }
 
 .ItemBasket-right {

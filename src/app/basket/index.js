@@ -29,6 +29,7 @@ function Basket(){
     itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
   }
 
+
   return (
     <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>

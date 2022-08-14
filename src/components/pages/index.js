@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from 'prop-types';
+import ItemPagination from "../../components/item-pagination";
 import './style.css';
 
 function Pages({ selected, limit, count, onClick }) {
@@ -62,18 +63,7 @@ function Pages({ selected, limit, count, onClick }) {
             </span>
           }
           
-          return <li
-            className={cn('item', {'selected': selected === page})} 
-            key={`${i}-${page}`}
-            onClick={() => {
-              onClick({
-                skip: limit * (page - 1),
-                selected: page
-              })
-            }}
-          >
-            {page}
-          </li>
+          return <ItemPagination key={`${i}-${page}`} limit={limit} selected={selected} page={page} onClick={onClick}/>
         }
         ) :
         null

@@ -1,9 +1,10 @@
 import React, {useCallback} from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from 'prop-types';
+import titleLang from "../../utils/titleLang";
 import './style.css';
 
-function TextField({ limit, count, onChange }) {
+function TextField({ lang, limit, count, onChange }) {
   const cn = bem('TextField');
 
   const callbacks = {
@@ -13,7 +14,7 @@ function TextField({ limit, count, onChange }) {
   return (
     <>
       {count ? (
-        <label className={cn()}> Ограничение количества
+        <label className={cn()}> {titleLang(lang, 'limitedQuantitie')}
           <input 
             className={cn('number')} 
             type="number" 
@@ -31,6 +32,7 @@ function TextField({ limit, count, onChange }) {
 };
 
 TextField.propTypes = {
+  lang: propTypes.string.isRequired,
   count: propTypes.number.isRequired,
   onChange: propTypes.func.isRequired
 }

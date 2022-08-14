@@ -22,13 +22,13 @@ function Product(){
     countryJson: state.product.countryJson,
     categoryJson: state.product.categoryJson,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    lang: state.language.lang
   }));
 
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => {
-      store.get('product').deleteItem();
       store.get('modals').open('basket');
     }, []),
     // Добавление в корзину
@@ -37,8 +37,8 @@ function Product(){
 
   return (
     <Layout head={<h1>{select.dataJson ? select.dataJson.title : ''}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <Description item={select} onAdd={callbacks.addToBasket}/>
+      <BasketSimple lang={select.lang} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <Description lang={select.lang} item={select} onAdd={callbacks.addToBasket}/>
     </Layout>
   )
 }

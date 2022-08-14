@@ -29,13 +29,13 @@ function Pagination(props) {
       <li className={cn("page", { active: currentPage === 1 })} onClick={handleClickPage}>
         {1}
       </li>
-      {currentPage > 3 && maxPages >= 6 && <span>{` ... `}</span>}
+      {currentPage > 3 && maxPages >= 6 && <span className={cn("dot")}>{` ... `}</span>}
       {pagesList.map((page) => (
         <li key={page} className={cn("page", { active: currentPage === page })} onClick={handleClickPage}>
           {page}
         </li>
       ))}
-      {currentPage < maxPages - 2 && maxPages >= 6 && <span>{` ... `}</span>}
+      {currentPage < maxPages - 2 && maxPages >= 6 && <span className={cn("dot")}>{` ... `}</span>}
       {maxPages !== 1 && (
         <li className={cn("page", { active: currentPage === maxPages })} onClick={handleClickPage}>
           {maxPages}

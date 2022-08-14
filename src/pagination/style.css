@@ -1,0 +1,36 @@
+/* Пагинация */
+.Pagination-button-list{
+    list-style: none;
+    display: flex;
+    max-width: fit-content;
+    margin: 23px 22px 0 auto;
+}
+
+.Pagination-button-list li button{
+    min-width: 20px;
+    min-height: 20px;
+    font-size: 16px;
+    border: none;
+    font-weight: 400;
+    font-family: Arial, serif;
+}
+
+.Pagination-button{
+    transition: 0.2s ease-in-out;
+    background: #ffffff;
+}
+
+.Pagination-button:hover{
+    background: #E1E1E1;
+}
+
+.Pagination-button-list li span{
+    color: #CCCCCC;
+    padding: 0 2px;
+}
+
+.Pagination-button_active{
+    background: #0087E9;
+    color: #ffffff;
+    pointer-events: none;
+}

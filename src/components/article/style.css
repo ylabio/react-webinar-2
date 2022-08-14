@@ -1,0 +1,17 @@
+.Article {
+    width: 90%;
+    margin: 0 auto;
+    
+}
+
+.Arctile-info{
+  padding: 10px 0px 10px 0px;
+}
+
+.Article span {
+    font-weight: bold;
+}
+
+.Article-price{
+    font-size: 24px;
+}

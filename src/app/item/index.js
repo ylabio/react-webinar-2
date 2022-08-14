@@ -19,11 +19,10 @@ function ItemInfo(){
   console.log('ItemInfo')
   const [itemInfo, setItemInfo] = useState(select.items.find(item => item._id === itemId))
   const store = useStore();
-
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
-    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    addToBasket: useCallback((_id, item = itemInfo) => store.get('basket').addToBasket(_id, item), [itemInfo]),
     setLanguage: useCallback(lang => store.get('localizations').setLang(lang), [])
   };
   useEffect(() => {

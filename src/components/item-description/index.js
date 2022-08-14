@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
@@ -6,9 +6,6 @@ import './style.css';
 
 function ItemDescription(props) {
   const cn = bem('ItemDescription');
-  const callbacks = {
-    onAdd: useCallback(() => props.onAddCallback(props._id), [props.onAdd, props._id])
-  };
   return (
     <div className={cn()}>
       <span className={cn('description')}>
@@ -27,7 +24,7 @@ function ItemDescription(props) {
         {props.words.price}: <span>{numberFormat(props.price) ?? props.words.loading} ₽</span>
       </div>
       <div className={cn('addButton')}>
-        <button onClick={callbacks.onAdd}>{props.words.add}</button>
+        <button onClick={() => props.onAddCallback(props._id)}>{props.words.add}</button>
       </div>
     </div>
   )

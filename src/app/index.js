@@ -5,6 +5,7 @@ import {Routes, Route} from "react-router-dom"
 import useSelector from "../utils/use-selector";
 import {BrowserRouter} from "react-router-dom"
 import ItemPage from './item-page';
+import { routes } from '../utils/routes';
 
 /**
  * Приложение
@@ -17,7 +18,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='item/:id' element={<ItemPage/>}/>
+        <Route path={`${routes.ItemPage}/:id`} element={<ItemPage/>}/>
         <Route path='/' element={<Main/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}

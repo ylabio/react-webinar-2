@@ -11,7 +11,7 @@ function Item(props) {
 
   const callbacks = {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
-    onNav: useCallback(() => navigate(`item/${props.item._id}`, {replace: true}), [props.item])
+    onNav: useCallback(() => navigate(`${props.redirectTo}/${props.item._id}`, {replace: true}), [props.item])
   };
 
   return (
@@ -34,10 +34,12 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
+  redirectTo: propTypes.string
 }
 
 Item.defaultProps = {
   onAdd: () => {},
+  redirectTo: '/'
 }
 
 export default React.memo(Item);

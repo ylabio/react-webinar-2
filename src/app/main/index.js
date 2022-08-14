@@ -5,6 +5,7 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
+import { routes } from "../../utils/routes";
 
 function Main(){
   const store = useStore();
@@ -31,7 +32,7 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} redirectTo={routes.ItemPage}/>, []),
   }
 
   return (

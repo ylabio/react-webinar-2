@@ -11,7 +11,7 @@ function ItemBasket(props) {
 
   const callbacks = {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
-    onNav: useCallback(() => navigate(`item/${props.item._id}`, {replace: true}), [props.item])
+    onNav: useCallback(() => navigate(`${props.redirectTo}/${props.item._id}`, {replace: true}), [props.item])
   };
 
   return (
@@ -30,10 +30,11 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
+  redirectTo: propTypes.string
 }
 
 ItemBasket.defaultProps = {
-
+  redirectTo: '/'
 }
 
 export default React.memo(ItemBasket);

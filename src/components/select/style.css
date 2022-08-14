@@ -1,0 +1,6 @@
+.Select{
+    display: flex;
+    align-self: flex-start;
+    height: 30px;
+    margin: 15px;    
+}

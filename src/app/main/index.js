@@ -12,16 +12,16 @@ function Main() {
 
   const store = useStore();
 
-  useEffect(() => {
-    store.get("catalog").load();
-  }, [store]);
-
   const select = useSelector((state) => ({
     items: state.catalog.items,
     count: state.catalog.count,
     page: state.catalog.requestParameters?.page,
     limit: state.catalog.requestParameters?.limit,
   }));
+
+  useEffect(() => {
+    store.get("catalog").load(select.page);
+  }, [store]);
 
   const callbacks = {
     addToBasket: useCallback((_id) => store.get("basket").addToBasket(_id), []),

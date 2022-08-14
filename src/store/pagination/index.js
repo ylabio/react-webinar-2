@@ -24,7 +24,7 @@ class PaginationState extends StateModule {
         ...this.getState(),
         totalPages: total
       },
-      'назначение всего страниц'
+      'назначение общего количества страниц'
     );
   }
 }

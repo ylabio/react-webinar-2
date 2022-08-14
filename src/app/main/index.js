@@ -12,15 +12,16 @@ function Main() {
 
   const store = useStore();
 
-  useEffect(() => {
-    store.get('catalog').load();
-  }, []);
-
   const select = useSelector(state => ({
     items: state.catalog.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    currentPage: state.pagination.currentPage
   }));
+
+  useEffect(() => {
+    store.get('catalog').loadWithPagination();
+  }, [select.currentPage]);
 
   const callbacks = {
     // Открытие корзины

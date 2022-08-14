@@ -3,6 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import Main from './main';
 import Basket from './basket';
 import useSelector from '../utils/use-selector';
+import ArticlePage from '../components/article-page';
+import PageNotFound from '../components/page-not-found';
 
 /**
  * Приложение
@@ -17,14 +19,8 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<Main />} />
-        <Route
-          path='*'
-          element={
-            <main style={{ padding: '1rem', background: '#fff', minHeight: '100vh'}}>
-              <p>There's nothing here!</p>
-            </main>
-          }
-        />
+        <Route path="article/:id" element={<ArticlePage />} />
+        <Route path='*' element={<PageNotFound />} />
       </Routes>
       {modal === 'basket' && <Basket />}
     </>

@@ -13,16 +13,18 @@ function Main(){
   const store = useStore();
 
   useEffect(() => {
-    store.get('catalog').load();
+    const skip = 10;
+    store.get('catalog').load(10, skip);
   }, [])
 
   const select = useSelector(state => ({
     items: state.catalog.items,
-    amount: state.basket.amount,
+    amount: state.basket.amount, 
     sum: state.basket.sum,
     count: state.catalog.count,   
   }));
 
+ 
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),

@@ -1,0 +1,32 @@
+/* Страница с товаром */
+.ArticleInfo {
+  padding: 40px;
+  margin: 0;
+}
+
+.ArticleInfo-text {
+  margin: 0;
+  padding: 10px 0;
+}
+
+.ArticleInfo-text__small {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.ArticleInfo-text__bold {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.ArticleInfo-text__large {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.ArticleInfo-button {
+  margin: 10px 0;
+  height: 21px;
+  width: 76px;
+  cursor: pointer;
+}

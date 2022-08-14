@@ -1,0 +1,34 @@
+.pagination {
+  display: flex;
+  flex-direction: row;
+  font-family: Arial;
+  margin-top: 23px;
+  justify-content: flex-end;
+  margin-right: 22px;
+}
+
+.page {
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.currentPage {
+  background: #0087e9;
+  color: white;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.otherPage {
+  width: 18px;
+  height: 18px;
+  text-align: center;
+}
+
+.page:hover {
+  background: #e1e1e1;
+}

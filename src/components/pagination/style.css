@@ -1,0 +1,22 @@
+.Pagination{
+    padding: 22px;
+    text-align: end;
+    font-size: 16px;
+}
+
+.Pagination-page{
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 20px;
+    height: 20px;
+    background: #fff;
+    text-align: center;
+    padding: 1px;
+    cursor: pointer;
+}
+.Pagination-page:hover{
+    background: #E1E1E1;    
+}
+.Pagination-page-current{
+    background: #0087E9;    
+}

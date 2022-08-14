@@ -6,11 +6,19 @@
     font-size: 18px;
 }
 
-.BasketSimple-label{
+.BasketSimple-link{
+    flex-grow: 2;
+}
 
+.BasketSimple-link a{
+    color: #0087E9;
 }
 
 .BasketSimple-total{
     font-weight: bold;
     margin: 0 15px;
+}
+
+.BasketSimple__button{
+    width: 80px;
 }

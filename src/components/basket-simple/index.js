@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import propTypes from 'prop-types';
 import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
@@ -8,8 +9,10 @@ import './styles.css';
 
 function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
+  
   return (
     <div className={cn()}>
+      <span className={cn('link')}><Link to="/">Главная</Link></span>
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
       {amount
@@ -23,7 +26,7 @@ function BasketSimple({sum, amount, onOpen}) {
 }
 
 BasketSimple.propTypes = {
-  onOpen: propTypes.func.isRequired,
+  onOpen: propTypes.func,
   sum: propTypes.number,
   amount: propTypes.number
 }

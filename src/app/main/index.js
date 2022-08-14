@@ -1,43 +1,38 @@
-import BasketSimple from "../../components/basket-simple";
-import List from "../../components/list";
-import Layout from "../../components/layout";
-import React, {useCallback, useEffect} from "react";
-import Item from "../../components/item";
+import React, { useState, useEffect } from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import MainPage from "../../pages/main-page";
+import ItemPage from "../../pages/item-page/item-page";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 function Main(){
 
   console.log('Main');
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
   const store = useStore();
 
-  useEffect(() => {
-    store.get('catalog').load();
-  }, [])
-
   const select = useSelector(state => ({
-    items: state.catalog.items,
-    amount: state.basket.amount,
-    sum: state.basket.sum
+    page: state.paging.currentPage
   }));
 
-  const callbacks = {
-    // Открытие корзины
-    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-  };
-
-  const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
-  }
+  useEffect(() => {
+    setLoading(true);
+    store.get('catalog').loadItems()
+         .then(
+           () => setLoading(false),
+           () => setError(true)
+         );
+  }, [select.page]);
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
-    </Layout>
+    <Routes>
+      <Route path="/" element={<MainPage loading={loading} error={error}/>}/>
+      <Route path="/item/:id" element={<ItemPage/>}/>
+      <Route path="/*" element={<Navigate to={"/"}/>}/>
+    </Routes>
   )
 }
 

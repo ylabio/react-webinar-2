@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../utils/use-store";
+import { BrowserRouter } from "react-router-dom";
 import useSelector from "../utils/use-selector";
 
 /**
@@ -15,10 +15,10 @@ function App() {
   const modal = useSelector(state => state.modals.name);
 
   return (
-    <>
+    <BrowserRouter>
       <Main/>
       {modal === 'basket' && <Basket/>}
-    </>
+    </BrowserRouter>
   );
 }
 

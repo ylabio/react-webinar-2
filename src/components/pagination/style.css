@@ -1,0 +1,42 @@
+.Pagination {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin-top: 22px;
+}
+.Pagination-item {
+  display: block;
+  text-align: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 1px;
+  box-sizing: border-box;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  text-align: center;
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.Pagination-item:last-child {
+  margin-right: 22px;
+}
+
+.Pagination a:hover {
+  background: #e1e1e1;
+}
+.Pagination-end {
+  margin-right: 22px;
+}
+.Pagination-item_active {
+  background: #0087e9;
+  color: #ffffff;
+  cursor: default;
+}
+.Pagination-item_dots {
+  cursor: default;
+}

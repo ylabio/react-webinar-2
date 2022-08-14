@@ -1,0 +1,14 @@
+.Item_info {
+  padding: 20px 40px;
+}
+.Item_info div {
+  margin-top: 20px;
+}
+.Item_info button {
+  margin-top: 23px;
+}
+
+.Item_info span,
+.Item_info-price {
+  font-weight: 700;
+}

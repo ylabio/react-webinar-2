@@ -17,8 +17,8 @@ function Main() {
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    maxPages: Math.ceil(state.catalog.maxItems / state.catalog.limit),
-    currentPage: state.catalog.skip / state.catalog.limit + 1,
+    maxPages: state.catalog.maxPages,
+    currentPage: state.catalog.page,
     request: state.catalog.request,
   }));
 
@@ -42,14 +42,8 @@ function Main() {
   return (
     <Layout head={<h1 lang="ru">Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      {select.request ? (
-        <Preloader />
-      ) : (
-        <>
-          <List items={select.items} renderItem={renders.item} />
-          <Pagination maxPages={select.maxPages} onSetPage={callbacks.setPage} currentPage={select.currentPage} />
-        </>
-      )}
+      <List items={select.items} renderItem={renders.item} />
+      <Pagination maxPages={select.maxPages} onSetPage={callbacks.setPage} currentPage={select.currentPage} />
     </Layout>
   );
 }

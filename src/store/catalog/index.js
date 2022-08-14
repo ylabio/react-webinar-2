@@ -13,11 +13,13 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
-      item: {},
+      item: null,
       limit: 10,
       skip: 0,
+      page: 1,
+      maxPages: 0,
       maxItems: 0,
-      request: false,
+      request: true,
     };
   }
 
@@ -36,7 +38,9 @@ class CatalogState extends StateModule {
       {
         ...state,
         items: response.result.items,
+        item: null,
         maxItems: response.result.count,
+        maxPages: Math.ceil(response.result.count / state.limit),
         request: false,
       },
       "Загрузить данные"
@@ -72,10 +76,12 @@ class CatalogState extends StateModule {
 
   setPage(page) {
     const state = this.getState();
+    const skip = page * state.limit;
     this.setState(
       {
         ...state,
-        skip: page * state.limit,
+        skip,
+        page: Math.ceil(skip / state.limit) + 1,
       },
       "Установить страницу"
     );

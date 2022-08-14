@@ -6,11 +6,14 @@ function Pagination(props) {
   const { maxPages, currentPage, onSetPage } = props;
   const cn = bem("Pagination");
 
-  const handleClickPage = useCallback((e) => {
-    const page = e.target.textContent;
-    if (page == currentPage) return;
-    onSetPage(page - 1);
-  }, []);
+  const handleClickPage = useCallback(
+    (e) => {
+      const page = e.target.textContent;
+      if (page == currentPage) return;
+      onSetPage(page - 1);
+    },
+    [currentPage]
+  );
 
   const pagesList = useMemo(() => {
     const array = Array.from({ length: maxPages }, (_, i) => i + 1).slice(1, maxPages - 1);

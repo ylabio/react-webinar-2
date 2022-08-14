@@ -27,11 +27,11 @@ function ItemPage() {
   };
 
   return (
-    <Layout head={<h1>{item.title}</h1>}>
+    <Layout head={<h1>{item && item.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={amount} sum={sum} />
-      <ItemDetails item={item} onAdd={callbacks.addToBasket} />
+      {item && <ItemDetails item={item} onAdd={callbacks.addToBasket} />}
     </Layout>
   );
 }
 
-export default ItemPage;
+export default React.memo(ItemPage);

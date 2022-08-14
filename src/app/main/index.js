@@ -10,6 +10,7 @@ import Head from "../../components/head";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import changeLanguage from "../../utils/changeLanguage";
+import Loader from "../../components/loader";
 
 
 function Main(){
@@ -26,6 +27,7 @@ function Main(){
     currentPage: state.catalog.currentPage,
     totalPages: state.catalog.totalPages,
     limitPerPage: state.catalog.limitPerPage,
+    isLoading: state.catalog.isLoading,
 
     language: state.localization.language
   }));
@@ -56,7 +58,9 @@ function Main(){
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language}/>
       </Wrapper>
       <List items={select.items} renderItem={renders.item}/>
+      {select.isLoading ? <Loader/> :
       <Pagination currentPage={select.currentPage} totalPages={select.totalPages} limitPerPage={select.limitPerPage} changeNumberPage={callbacks.changeNumberPage}/>
+      }
     </Layout>
   )
 }

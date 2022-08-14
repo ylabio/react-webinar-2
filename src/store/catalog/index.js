@@ -12,27 +12,46 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
+      isLoading: true,
       currentPage: 1,
       limitPerPage: 10,
-      totalPages: null
+      totalPages: 0
     };
   }
 
  
   async load(newPage){
+    this.setState({
+      ...this.getState(),
+      isLoading: true,
+    }, 'Смена пагинации');
+
     const limitPerPage = this.getState().limitPerPage;
     const skipPages = (newPage - 1) * limitPerPage
 
+    let result;
+    try {
     const response = await fetch(`/api/v1/articles?limit=${limitPerPage}&skip=${skipPages}&fields=items(*),count`);
     const json = await response.json();
+    result = json.result
+    } catch (error) {
+      console.error(error);
+    }
     
     this.setState({
       ...this.getState(),
-      items: json.result.items,
+      items: result.items,
+      isLoading: false,
       currentPage: newPage,
-      totalPages: json.result.count
-
+      totalPages: result.count,
     }, 'Загрузка товаров');
+  }
+
+  resetLoader() {
+    this.setState({
+      ...this.getState(),
+      isLoading: true
+    }, 'Смена страницы пагинации');
   }
 
   /**

@@ -12,10 +12,12 @@ class ProductState extends StateModule{
   initState() {
     return {
       item: {},
+      isLoading: true
     };
   }
 
   async load(id){
+    
     let result;
 
     try {
@@ -29,7 +31,16 @@ class ProductState extends StateModule{
     this.setState({
       ...this.getState(),
       item: result,
+      isLoading: false
+      
     }, 'Загрузка товара');
+  }
+
+  resetLoader() {
+    this.setState({
+      ...this.getState(),
+      isLoading: true
+    }, 'Выход из товара');
   }
 }
 

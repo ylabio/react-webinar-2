@@ -1,5 +1,5 @@
 import React from "react"
-import './styles.css';
+import './style.css';
 import changeLanguage from "../../utils/changeLanguage";
 import propTypes from 'prop-types';
 

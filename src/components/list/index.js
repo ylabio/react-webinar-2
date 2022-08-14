@@ -9,7 +9,7 @@ function List(props) {
 
   return (
     <>
-    {props.items.length ?a 
+    {props.items.length ? 
     <div className={cn()}>
       {props.items.map(item =>
       <div key={item.code} className={cn('item')}>
@@ -19,7 +19,7 @@ function List(props) {
     </div>
     :
     <div className={cn('note')}>
-    <p className={cn('text')}>Сейчас в корзине ничего нет...</p>
+    <p className={cn('text')}>Сейчас в корзине ничего нет....</p>
     </div>
 }
     </>

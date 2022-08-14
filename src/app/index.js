@@ -12,24 +12,19 @@ import ProductCard from "./product-card";
  */
 function App() {
 
-  console.log('App');
-
   const modal = useSelector(state => state.modals.name);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/">
-          <Main/>
-        </Route>
-        <Route path="/card">
-          <ProductCard/>
-        </Route>
-      </Routes>
-    </Router>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Main/>}>
+          </Route>
+          <Route path="/:id" element={<ProductCard/>} />
+        </Routes>
+          {modal === 'basket' && <Basket/>}
+      </Router>
   );
 }
 
 export default React.memo(App);
 
-// {modal === 'basket' && <Basket/>}

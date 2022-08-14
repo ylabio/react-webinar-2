@@ -8,8 +8,6 @@ import useSelector from "../../utils/use-selector";
 
 function Basket(){
 
-  console.log('Basket');
-
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -25,8 +23,13 @@ function Basket(){
     removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), [])
   };
 
+  // const renders = {
+  //   itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
+  // }
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item => (
+        <ItemBasket item={item} onRemove={callbacks.removeFromBasket} onSelect={callbacks.closeModal}/>
+    ), []),
   }
 
   return (

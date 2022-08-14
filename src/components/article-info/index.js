@@ -42,7 +42,7 @@ function ArticleInfo(props) {
       <div className={cn('text')}>
         <span className={cn('text__large')}>Цена: </span>
         <span className={cn('text__large')}>
-          {numberFormat(props.data.price)} ₽
+          {numberFormat(props.data.price,{maximumFractionDigits: 0})} ₽
         </span>
       </div>
       <button className={cn('button')} onClick={callbacks.onAdd}>

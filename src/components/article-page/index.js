@@ -36,7 +36,7 @@ function ArticlePage() {
   };
 
   if (!articleInfo) {
-    return <div>Loading...</div>;
+    return <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px'}}>Идет загрузка...</div>;
   }
 
   return (

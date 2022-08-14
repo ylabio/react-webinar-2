@@ -4,10 +4,26 @@
     justify-content: flex-end;
     padding: 20px;
     font-size: 18px;
+    position: relative;
 }
 
 .BasketSimple-label{
 
+}
+
+.BasketSimple > a {
+	color: #0087E9;
+}
+
+.BasketSimple__button {
+    cursor: pointer;
+    width: 80px;
+    height: 21px;
+}
+
+.BasketSimple-text{
+ position: absolute;
+ left: 20px;
 }
 
 .BasketSimple-total{

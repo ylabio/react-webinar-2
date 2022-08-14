@@ -4,19 +4,23 @@ import numberFormat from "../../utils/number-format";
 import {cn as bem} from "@bem-react/classname";
 import './styles.css';
 import {Link} from "react-router-dom";
+import useStore from "../../utils/use-store";
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
+  const store = useStore();
 
   const callbacks = {
-    onRemove: useCallback(() => props.onRemove(props.item._id), [props.onRemove,  props.item])
+    onRemove: useCallback(() => props.onRemove(props.item._id), [props.onRemove,  props.item]),
+    // Закрытие любой модалки
+    closeModal: useCallback(() => store.get('modals').close(), []),
   };
 
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.description._id}</div>*/}
       <div className={cn('title')}>
-        <Link to={`/description/${props.item._id}`}>
+        <Link to={`/description/${props.item._id}`} onClick={callbacks.closeModal} >
           {props.item.title}
         </Link>
       </div>

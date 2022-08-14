@@ -91,4 +91,4 @@ Pages.propTypes = {
 Pages.defaultProps = {
 }
 
-export default Pages;
+export default React.memo(Pages);

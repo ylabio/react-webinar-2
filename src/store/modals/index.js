@@ -1,9 +1,9 @@
-import StateModule from "../module";
+import ModuleState from '../module';
 
 /**
  * Управление модальными окнами
  */
-class ModalsState extends StateModule{
+class ModalsState extends ModuleState {
 
   initState() {
     return {
@@ -15,7 +15,7 @@ class ModalsState extends StateModule{
    * Открытие модального окна по названию
    * @param name {String} Название модалки
    */
-  open(name){
+  open(name) {
     this.setState({
       name
     }, `Открытие модалки ${name}`);
@@ -24,7 +24,7 @@ class ModalsState extends StateModule{
   /**
    * Закрытие модального окна
    */
-  close(){
+  close() {
     this.setState({
       name: false
     }, `Закрытие модалки`);

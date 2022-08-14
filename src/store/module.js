@@ -1,5 +1,4 @@
-class StateModule {
-
+class ModuleState {
   constructor(store, name) {
     this.store = store;
     this.name = name;
@@ -17,13 +16,12 @@ class StateModule {
     return this.store.getState()[this.name];
   }
 
-  setState(newState, description = 'setState'){
+  setState(newState, description = 'setState') {
     this.store.setState({
       ...this.store.getState(),
       [this.name]: newState
-    }, description)
+    }, description);
   }
-
 }
 
-export default StateModule;
+export default ModuleState;

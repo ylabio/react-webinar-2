@@ -1,7 +1,8 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import numberFormat from "../../utils/numberFormat";
+import { cn as bem } from '@bem-react/classname';
+import { Link } from 'react-router-dom';
+import numberFormat from '../../utils/number-format';
 import './style.css';
 
 function Item(props) {
@@ -13,27 +14,26 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('id')}>*/}
-      {/*  {props.item._id}*/}
-      {/*</div>*/}
       <div className={cn('title')}>
-        {props.item.title}
+        <Link to={`card/${props.item._id}`}>{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
+        <div className={cn('price')}>
+          {numberFormat(props.item.price)} ₽
+        </div>
         <button onClick={callbacks.onAdd}>Добавить</button>
       </div>
     </div>
-  )
+  );
 }
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
-}
+};
 
 Item.defaultProps = {
   onAdd: () => {},
-}
+};
 
 export default React.memo(Item);

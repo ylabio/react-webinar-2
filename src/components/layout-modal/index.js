@@ -1,6 +1,6 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
+import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 function LayoutModal(props) {
@@ -17,7 +17,7 @@ function LayoutModal(props) {
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = 'auto';
-    }
+    };
   });
 
   return (
@@ -44,7 +44,7 @@ LayoutModal.propTypes = {
 };
 
 LayoutModal.defaultProps = {
-  title: 'Модалка',
+  title: 'Modal title',
   onClose: () => {}
 };
 

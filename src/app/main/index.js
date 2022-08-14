@@ -2,6 +2,7 @@ import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
 import React, { useCallback, useEffect } from "react";
+import Spinner from "../../components/spinner";
 import Item from "../../components/item";
 import Pagination from "../../components/pagination";
 import useStore from "../../utils/use-store";
@@ -14,6 +15,8 @@ function Main() {
 
   const select = useSelector((state) => ({
     items: state.catalog.items,
+    loading: state.catalog.loading,
+    error: state.catalog.error,
     amount: state.basket.amount,
     sum: state.basket.sum,
     allPage: state.catalog.count,
@@ -30,8 +33,6 @@ function Main() {
     }
   }, [select.num]);
 
-  console.log("num", select.num);
-
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get("modals").open("basket"), []),
@@ -47,6 +48,10 @@ function Main() {
       []
     ),
   };
+
+  if (select.loading) {
+    return <Spinner />;
+  }
 
   return (
     <Layout head={<h1>Магазин</h1>}>

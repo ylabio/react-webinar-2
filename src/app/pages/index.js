@@ -4,6 +4,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Layout from "../../components/layout";
 import Info from "../../components/info";
+import Spinner from "../../components/spinner";
 import BasketSimple from "../../components/basket-simple";
 
 function Page() {
@@ -13,6 +14,8 @@ function Page() {
 
   const select = useSelector((state) => ({
     item: state.details.item,
+    loading: state.details.loading,
+    error: state.details.error,
     amount: state.basket.amount,
     sum: state.basket.sum,
     modal: state.modals.name,
@@ -33,6 +36,10 @@ function Page() {
       callbacks.closeModal();
     }
   }, [id]);
+
+  if (select.loading) {
+    return <Spinner />;
+  }
 
   return (
     <Layout head={<h1>{select.item.title}</h1>}>

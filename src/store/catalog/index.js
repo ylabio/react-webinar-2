@@ -14,31 +14,56 @@ class CatalogState extends StateModule {
     return {
       items: {},
       count: 0,
+      loading: false,
+      error: "",
     };
   }
 
   async load() {
-    const response = await fetch(
-      `/api/v1/articles?limit=10&skip=0&fields=items(*),count`
-    );
-    const json = await response.json();
-    this.setState({
-      ...this.store.state.catalog,
-      count: Math.ceil(json.result.count / 10),
-    });
-    this.setState({
-      ...this.store.state.catalog,
-      items: { ...this.store.state.catalog.items, 0: json.result.items },
-    });
+    try {
+      this.setState({
+        ...this.store.state.catalog,
+        loading: true,
+      });
+      const response = await fetch(
+        `/api/v1/articles?limit=10&skip=0&fields=items(*),count`
+      );
+      const json = await response.json();
+      this.setState({
+        ...this.store.state.catalog,
+        loading: false,
+        count: Math.ceil(json.result.count / 10),
+        items: { ...this.store.state.catalog.items, 0: json.result.items },
+      });
+    } catch (e) {
+      this.setState({
+        ...this.store.state.catalog,
+        loading: false,
+        error: e.message,
+      });
+    }
   }
 
   async loading(n) {
-    const response = await fetch(`/api/v1/articles?limit=10&skip=${n}0`);
-    const json = await response.json();
-    this.setState({
-      ...this.store.state.catalog,
-      items: { ...this.store.state.catalog.items, [n]: json.result.items },
-    });
+    try {
+      this.setState({
+        ...this.store.state.catalog,
+        loading: true,
+      });
+      const response = await fetch(`/api/v1/articles?limit=10&skip=${n}0`);
+      const json = await response.json();
+      this.setState({
+        ...this.store.state.catalog,
+        loading: false,
+        items: { ...this.store.state.catalog.items, [n]: json.result.items },
+      });
+    } catch (e) {
+      this.setState({
+        ...this.store.state.catalog,
+        loading: false,
+        error: e.message,
+      });
+    }
   }
 
   /**

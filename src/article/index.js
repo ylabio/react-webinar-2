@@ -1,18 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Layout from '../components/layout';
-import {cn as bem} from "@bem-react/classname";
 import { useParams, useLocation } from 'react-router-dom';
+import Layout from '../components/layout';
 import BasketSimple from '../components/basket-simple';
-import numberFormat from "../utils/number-format";
 import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
-import './styles.css';
+import ArticleInfo from '../components/article-info';
 
 function Article() {
 	const { id } = useParams();
 	const { state } = useLocation();
 	
-	const cn = bem('Article');
 	const currPage = Math.ceil(state?._key / 10);
 
 	const [currArticle, setCurrArticle] = useState({});
@@ -53,20 +50,7 @@ function Article() {
 	return (
 		<Layout head={<h1>{state?.title ? state.title : 'Неизвестный товар'}</h1>}>
 			<BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-
-			{!isLoading && currArticle?._id ?
-				<div className={cn('info')}>
-					<div className={`${cn('description')} ${cn('item')}`}>{currArticle.description}</div>
-					<div className={`${cn('madein')} ${cn('item')}`}>Страна производитель: <strong>{currArticle.maidIn?.title} ({currArticle.maidIn?.code})</strong></div>
-					<div className={`${cn('category')} ${cn('item')}`}>Категория: <strong>{currArticle.category?.title}</strong></div>
-					<div className={`${cn('edition')} ${cn('item')}`}>Год выпуска: <strong>{currArticle.edition}</strong></div>
-					<div className={`${cn('price')} ${cn('item')}`}><strong>Цена: {numberFormat(currArticle.price)} ₽</strong></div>
-					<button onClick={() => callbacks.addToBasket(currArticle._id)}>Добавить</button>
-				</div> : 
-				!currArticle ? 
-					<div className={cn('info')}>Неверный url товара</div> :
-					<div className={cn('info')}>Загрузка данных товара...</div>
-			}
+			<ArticleInfo isLoading={isLoading} currArticle={currArticle} onAdd={callbacks.addToBasket}/>
 		</Layout>
 	)
 }

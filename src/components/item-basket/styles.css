@@ -26,5 +26,14 @@
     min-width: 95px;
     text-align: right;
     font-size: 18px;
-    white-space: nowrap;
+   white-space: nowrap; 
+}
+
+.ItemBasket-link {
+    text-decoration: none;
+    color: #000
+}
+
+.ItemBasket-link:hover {
+    text-decoration: underline;
 }

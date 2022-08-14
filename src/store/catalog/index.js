@@ -1,10 +1,9 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**
  * Состояние каталога
  */
-class CatalogState extends StateModule{
+class CatalogState extends StateModule {
 
   /**
    * Начальное состояние
@@ -12,24 +11,47 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      count: 0
     };
   }
+  /**
+   * Загрузка товаров
+   * @param limit {String}
+   * @param skip {String}
+   * @param fields {String}
+   * @param count {Boolean}
+   */
+  async load({ limit, skip, fields, count } = { limit: 10, skip: 0, fields: "items(*)", count: true }) {
+    limit = limit ?? 10;
+    skip = skip ?? 0;
+    fields = fields ?? "items(*)",
+    count = count || true;
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+    this.store.get('params').setIsLoaded(false);
+    const response = await fetch(`api/v1/articles?limit=${limit}&skip=${skip}&fields=${fields}${count && ", count"}`);
     const json = await response.json();
-    this.setState({
-      items: json.result.items
-    });
+    if (count === true) {
+      this.setState({
+        items: json.result.items,
+        count: json.result.count
+      }, `load ${limit} items`);
+    }
+    if (count === false) {
+      this.setState({
+        ...this.getState(),
+        items: json.result.items
+      }, `load ${limit} items`);
+    }
+    this.store.get('params').setIsLoaded(true);
   }
 
   /**
    * Создание записи
    */
-  createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
+  createItem({ _id, title = 'Новый товар', price = 999, selected = false }) {
     this.setState({
-      items: this.getState().items.concat({_id, title, price, selected})
+      items: this.getState().items.concat({ _id, title, price, selected })
     }, 'Создание товара');
   }
 

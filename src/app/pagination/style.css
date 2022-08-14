@@ -1,0 +1,33 @@
+.Pagination {
+    display: flex;
+    justify-content: end;
+    padding: 20px;
+}
+
+.Pagination-rockButton {
+    
+}
+
+.Pagination-button {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Pagination-button_active {
+    color: #fff;
+    background: #0087E9;
+}
+
+.Pagination-button:hover:not(.Pagination-button_active) {
+    background: #E1E1E1;
+}
+
+.Pagination-gaps {
+    width: 18px;
+    height: 18px;
+    color: #CCCCCC;
+}

@@ -40,10 +40,9 @@ class BasketState extends StateModule{
     // Если товар не был найден в корзине, то добавляем его из каталога
     if (!exists) {
       // Поиск товара в каталоге, чтобы его в корзину добавить
-      // @todo В реальных приложения будет запрос к АПИ на добавление в корзину, и апи выдаст объект товара..
       const item = this.store.getState().catalog.items.find(item => item._id === _id);
       items.push({...item, amount: 1});
-      // Досчитываем сумму
+      // Считаем сумму
       sum += item.price;
     }
 
@@ -64,7 +63,7 @@ class BasketState extends StateModule{
     const items = this.getState().items.filter(item => {
       // Удаляемый товар
       if (item._id === _id) return false
-      // Подсчёт суммы если твоар не удаляем.
+      // Подсчёт суммы, если товар не удаляем.
       sum += item.price * item.amount;
       return true;
     });

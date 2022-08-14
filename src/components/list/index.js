@@ -7,12 +7,22 @@ function List(props) {
   const cn = bem('List');
 
   return (
-    <div className={cn()}>{props.items.map(item =>
+    <>
+    {props.items.length ?
+      <div className={cn()}>{props.items.map(item =>
       <div key={item._id} className={cn('item')}>
         {props.renderItem(item)}
       </div>
+      
     )}
     </div>
+    :
+    <div className={cn('nothing')}> 
+    <p className={cn('text')}>Сейчас в корзине ничего нет...</p>
+    </div>
+    }
+    
+    </>
   )
 }
 

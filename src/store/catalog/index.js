@@ -1,4 +1,3 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**
@@ -12,25 +11,39 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      page: 1,
+      itemCount: 0,
+      pageCount: 0,
+      contentPerPage: 10,
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+  async load(limit, page) {
+    const response = await fetch(
+      `/api/v1/articles?lang=ru?limit=${limit}&skip=${
+        limit * (page - 1)
+      }&fields=items(*),count`
+    );
     const json = await response.json();
     this.setState({
-      items: json.result.items
+      ...this.getState(),
+      items: json.result.items,
+      itemCount: json.result.count,
+      pageCount: Math.ceil(json.result.count / this.getState().contentPerPage),
     });
   }
-
-  /**
+ 
+ /**
    * Создание записи
    */
-  createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      items: this.getState().items.concat({_id, title, price, selected})
-    }, 'Создание товара');
+  createItem({ _id, title = 'Новый товар', price = 999, selected = false }) {
+    this.setState(
+      {
+        items: this.getState().items.concat({ _id, title, price, selected }),
+      },
+      'Создание товара'
+    );
   }
 
   /**
@@ -38,10 +51,22 @@ class CatalogState extends StateModule{
    * @param _id
    */
   deleteItem(_id) {
+       this.setState(
+      {
+        items: this.getState().items.filter((item) => item._id !== _id),
+      },
+      'Удаление товара'
+    );
+  }
+
+  /**
+   * Переключение страницы
+   */
+   setPage(page) {
     this.setState({
-      items: this.getState().items.filter(item => item._id !== _id)
-    }, 'Удаление товара');
+      ...this.getState(),
+      page: page,
+    });
   }
 }
-
 export default CatalogState;

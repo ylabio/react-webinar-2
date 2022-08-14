@@ -14,7 +14,13 @@
     width: 100%;
     padding: 20px 10px;
 }
-
+.ItemBasket-title a {
+  color: black;
+  text-decoration: none;
+}
+.ItemBasket-title a:hover {
+    border-bottom: 1px solid black;
+  }
 .ItemBasket-right {
     padding: 20px 20px 20px 10px;
     display: flex;

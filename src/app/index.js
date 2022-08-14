@@ -19,9 +19,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Main />}>
-          <Route path="/page/:page" element={<Main />}/>
-        </Route>
+        <Route path="/" element={<Main />}/>
+        <Route path="/page/:page" element={<Main />}/>
         <Route path="/description/:_id" element={<Description />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

@@ -28,4 +28,10 @@ function Paginator({pagesCount, page, load}) {
   );
 }
 
+Paginator.propTypes = {
+  pagesCount: propTypes.number,
+  page: propTypes.number,
+  load: propTypes.func.isRequired
+}
+
 export default React.memo(Paginator);

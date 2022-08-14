@@ -3,11 +3,8 @@ import propTypes from 'prop-types';
 import numberFormat from "../../utils/number-format";
 import './styles.css';
 import useSelector from '../../utils/use-selector';
-import useStore from '../../utils/use-store';
 
 function BasketTotal(props) {
-
-  const store = useStore();
 
   const select = useSelector(state => ({
     totalText: state.names.names.totalText,

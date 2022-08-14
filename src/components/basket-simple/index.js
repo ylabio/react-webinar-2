@@ -5,13 +5,10 @@ import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
 import { Link } from 'react-router-dom';
 import './style.css';
-import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
 
 function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
-
-  const store = useStore();
 
   const select = useSelector(state => ({
     main: state.names.names.main,
@@ -21,7 +18,6 @@ function BasketSimple({sum, amount, onOpen}) {
     item2Name: state.names.names.item2Name,
     item3Name: state.names.names.item3Name,
     goButtonName: state.names.names.goButtonName,
-   
   }));
 
   return (

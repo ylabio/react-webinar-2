@@ -8,15 +8,15 @@ import useSelector from '../../utils/use-selector';
 function Page({addToBasket}) {
   const cn = bem('Page');
  
-const item = JSON.parse(sessionStorage.getItem('item'));
+  const item = JSON.parse(sessionStorage.getItem('item'));
 
-const select = useSelector(state => ({
-  addButtonName: state.names.names.addButtonName,
-}));
+  const select = useSelector(state => ({
+    addButtonName: state.names.names.addButtonName,
+  }));
 
-const callbacks = {
-  addToBasket: useCallback((e) => addToBasket(item._id), [addToBasket, item])
-};
+  const callbacks = {
+    addToBasket: useCallback((e) => addToBasket(item._id), [addToBasket, item])
+  };
 
   return (
     <div className={cn()}>
@@ -43,6 +43,10 @@ const callbacks = {
       }
     </div>
   )
+}
+
+Page.propTypes = {
+  addToBasket: propTypes.func.isRequired
 }
 
 export default React.memo(Page);

@@ -1,5 +1,7 @@
 import counter from "../../utils/counter";
 import StateModule from "../module";
+import axios from "axios";
+import CatalogApi from "../../api/catalog";
 
 /**
  * Состояние каталога
@@ -12,17 +14,23 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      totalPages: 1,
+      currentPage: 1,
+      totalCount: 10,
+      count: 0
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+
+  async load(limit=10, skip= 0) {
+    const response = await CatalogApi.getArticles(limit,skip)
     this.setState({
-      items: json.result.items
-    });
+      items: response
+    })
   }
+
+
 
   /**
    * Создание записи

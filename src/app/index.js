@@ -3,6 +3,7 @@ import Main from "./main";
 import Basket from "./basket";
 import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
+import axios from "axios";
 
 /**
  * Приложение
@@ -10,7 +11,7 @@ import useSelector from "../utils/use-selector";
  */
 function App() {
 
-  console.log('App');
+  // console.log('App');
 
   const modal = useSelector(state => state.modals.name);
 

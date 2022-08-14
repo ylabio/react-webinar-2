@@ -2,7 +2,7 @@ import React from "react";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import numberFormat from "../../../utils/number-format";
-
+import propTypes from 'prop-types';
 
 function Product(props) {
   const cn = bem('Product');
@@ -31,6 +31,15 @@ function Product(props) {
       <button onClick={props.addToBasket}>Добавить</button>
     </section>
   )
+}
+
+Product.propTypes = {
+  description: propTypes.string,
+  edition: propTypes.number,
+  category: propTypes.string,
+  maidIn: propTypes.object,
+  price: propTypes.number,
+  addToBasket: propTypes.func,
 }
 
 export default React.memo(Product);

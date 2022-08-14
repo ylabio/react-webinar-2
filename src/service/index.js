@@ -7,3 +7,11 @@ export async function getInfoById(id) {
   const data = await response.json();
   return data.result;
 }
+
+export async function getItems(limit, skip) {
+  const response = await fetch(
+    `${api}?limit=${limit}&skip=${skip}&fields=items(*),count`
+  );
+  const data = await response.json();
+  return data.result;
+}

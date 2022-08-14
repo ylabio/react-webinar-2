@@ -1,4 +1,4 @@
-import { getInfoById } from "../../service";
+import { getInfoById, getItems } from "../../service";
 import counter from "../../utils/counter";
 import StateModule from "../module";
 
@@ -17,23 +17,24 @@ class CatalogState extends StateModule{
       productInfo: {
         _id: '',
         description: '',
-        edition: '',
+        edition: 0,
         category: {title: ''},
         maidIn: {
           title: '',
           code: '',
         },
-        price: '',
-      }
+        price: 0,
+      },
+      count: 0,
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+  async load(limit, skip){
+    const data = await getItems(limit, skip);
     this.setState({
       ...this.store.getState().catalog,
-      items: json.result.items
+      items: data.items,
+      count: data.count
     });
   }
 

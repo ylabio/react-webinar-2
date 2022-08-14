@@ -16,6 +16,7 @@ function Page() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     modal: state.modals.name,
+    items: state.catalog.items,
   }));
 
   const callbacks = {
@@ -33,6 +34,9 @@ function Page() {
       callbacks.closeModal();
     }
   }, [id]);
+
+  console.log(Object.values(select.items).flat(), "items");
+  console.log([select.item], "item");
 
   return (
     <Layout head={<h1>{select.item.title}</h1>}>

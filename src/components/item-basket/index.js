@@ -15,6 +15,8 @@ function ItemBasket(props) {
     ),
   };
 
+  console.log(props);
+
   return (
     <div className={cn()}>
       <Link to={props.item._id} className={cn("title")}>

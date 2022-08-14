@@ -5,3 +5,7 @@
 export function counter(){
   return counter.value ? ++counter.value : counter.value = 1;
 }
+
+export function divideOnDigits(price) {
+  return `${new Intl.NumberFormat('ru-RU').format(price)} ₽`;
+}

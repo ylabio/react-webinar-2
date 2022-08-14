@@ -1,0 +1,43 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: #535353;
+    font-family: sans-serif;
+}
+/* Страница*/
+.Layout{
+    position: relative;
+    max-width: 1024px;
+    height: 100vh;
+    margin: 0 auto;
+    box-sizing: border-box;
+    box-shadow: 0 0 15px 5px #0000003b;
+    background: #fff;
+}
+
+.Modal .Layout {
+    max-width: 960px;
+    max-height: 613px;
+    box-shadow:none;
+    border-radius: 10px;
+}
+
+.Layout-head{
+    background: #f5f5f5;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 32px;
+    align-items: center;
+    border-radius: 10px;
+}
+.Layout-head h1{
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 37px;
+    padding: 20px 20px 20px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.Modal .Layout-head {
+    margin-bottom: 74px;
+}

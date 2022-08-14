@@ -26,7 +26,7 @@ body{
 .Controls{
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
+
 }
 
 /*Список*/
@@ -55,6 +55,9 @@ body{
 .Item__title{
     width: 100%;
     padding: 20px 10px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
 }
 .Item__actions{
     padding: 20px  20px 20px 10px;
@@ -62,8 +65,9 @@ body{
     justify-content: flex-end;
 }
 .Item__number{
-    padding: 20px 10px 20px 20px;
+    padding: 21px 20px 22px 19px
 }
+
 
 
 

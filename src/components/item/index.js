@@ -22,7 +22,7 @@ function Item(props) {
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{props.add}</button>
       </div>
     </div>
   )
@@ -32,11 +32,13 @@ Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
   openArticle: propTypes.func,
+  add: propTypes.string
 }
 
 Item.defaultProps = {
   onAdd: () => {},
   openArticle: () => {},
+  add: 'Добавить'
 }
 
 export default React.memo(Item);

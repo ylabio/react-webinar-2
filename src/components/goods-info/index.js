@@ -19,28 +19,30 @@ function GoodsInfo(props) {
         <span className={cn('text__normal')}>{props.info.description}</span>
       </div>
       <div className={cn('text')}>
-        <span className={cn('text__normal')}>Страна производитель: </span>
+        <span className={cn('text__normal')}>{props.dictionary.countryOforigin[props.lang]}</span>
         <span className={cn('text__bold')}>{props.country}</span>
       </div>
       <div className={cn('text')}>
-        <span className={cn('text__normal')}>Категория: </span>
+        <span className={cn('text__normal')}>{props.dictionary.category[props.lang]}</span>
         <span className={cn('text__bold')}>{props.category}</span>
       </div>
       <div className={cn('text')}>
-        <span className={cn('text__normal')}>Год выпуска: </span>
+        <span className={cn('text__normal')}>{props.dictionary.yearOfRelease[props.lang]}</span>
         <span className={cn('text__bold')}>{props.info.edition}</span>
       </div>
       <div className={cn('text')}>
-        <span className={cn('text__large')}>Цена: </span>
+        <span className={cn('text__large')}>{props.dictionary.price[props.lang]}</span>
         <span className={cn('text__large')}>{numberFormat(props.info.price)} ₽</span>
       </div>
-      <button className={cn('button')} onClick={callbacks.onAdd}>Добавить</button>
+      <button className={cn('button')} onClick={callbacks.onAdd}>{props.dictionary.add[props.lang]}</button>
     </div>
   )
 }
 
 GoodsInfo.propTypes = {
     info: propTypes.object.isRequired,
+    lang: propTypes.number.isRequired,
+    dictionary: propTypes.object.isRequired,
     country: propTypes.string.isRequired,
     category: propTypes.string.isRequired,
     onAdd: propTypes.func,

@@ -21,7 +21,9 @@ function Main(){
     skipPage: state.pages.skip,
     page: state.pages.page,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    dictionary: state.language.items,
+    lang: state.language.lang
   }));
   
   //получаем номер страницы при переходе
@@ -46,20 +48,38 @@ function Main(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Смена страницы
-    setPage: useCallback(page => store.get('pages').setPage(page), [])
+    setPage: useCallback(page => store.get('pages').setPage(page), []),
+    // Смена языка
+    setLang: useCallback(lang => store.get('language').setLang(lang), [])
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} openArticle={callbacks.openModalArticle} />, []),
+    item: useCallback(item => <Item item={item} 
+                                    onAdd={callbacks.addToBasket} 
+                                    openArticle={callbacks.openModalArticle}
+                                    add={select.dictionary.add[select.lang]}
+    />, [select.lang]),
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+    <Layout head={<h1>{select.dictionary.shop[select.lang]}</h1>} 
+            setLang={callbacks.setLang}
+            change={select.dictionary.change[select.lang]}
+            >
+      <BasketSimple onOpen={callbacks.openModalBasket} 
+                    amount={select.amount} sum={select.sum} 
+                    lang={select.lang} 
+                    dictionary={select.dictionary}
+                    skipPage={0}
+      />
       <div className='list-container'>
-        <List items={select.items} renderItem={renders.item}/>
+        <List items={select.items} 
+              renderItem={renders.item}
+        />
       </div>
-      <Pagination page={select.page} count={select.count}/>
+      <Pagination page={select.page} 
+                  count={select.count}
+      />
     </Layout>
   )
 }

@@ -17,6 +17,8 @@
 
 .ItemBasket-title__pointer {
     cursor: pointer;
+    text-decoration: none;
+    color: #000;
 }
 
 .ItemBasket-title__pointer:hover {

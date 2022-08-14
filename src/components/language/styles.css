@@ -1,0 +1,16 @@
+.Language {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 20px 0 0;
+    padding: 0;
+}
+.Language > p {
+    margin: 0 10px;
+}
+.Language-switcher{
+    height: 20px;
+    width: 40px;
+    margin: 0 5px;
+    cursor: pointer;
+}

@@ -15,7 +15,9 @@ function Basket(){
   const select = useSelector(state => ({
     items: state.basket.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    dictionary: state.language.items,
+    lang: state.language.lang
   }));
 
   const callbacks = {
@@ -24,17 +26,27 @@ function Basket(){
     // Удаление из корзины
     removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), []),
     // Открытие описания товара
-    openModalArticle: useCallback(() => store.get('modals').open('article'), []),
+    openModalArticle: useCallback((_id) => {store.get('article').setId(_id);
+    store.get('modals').close();
+    }, []),
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket} openArticle={callbacks.openModalArticle}/>, []),
+    itemBasket: useCallback(item => <ItemBasket item={item} 
+                                                onRemove={callbacks.removeFromBasket} 
+                                                openArticle={callbacks.openModalArticle}
+                                                buttonText={select.dictionary.del[select.lang]}
+                                                pcs={select.dictionary.pcs[select.lang]}
+    />, []),
   }
 
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+    <LayoutModal title={select.dictionary.cart[select.lang]} 
+                 onClose={callbacks.closeModal}
+                 close={select.dictionary.close[select.lang]}>
       <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum} 
+                   total={select.dictionary.total[select.lang]}/>
     </LayoutModal>
   )
 }

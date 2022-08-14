@@ -3,8 +3,9 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
 import './style.css';
+import { translate } from '../../utils/translate';
 
-function ItemArticle({item, onAdd}) {
+function ItemArticle({item, onAdd, language}) {
   const cn = bem('ItemArticle');
 
   const callbacks = {
@@ -17,30 +18,32 @@ function ItemArticle({item, onAdd}) {
         {item.description}
       </div>}
       {item && item.maidIn && item.maidIn.title && <div className={cn('cell')}>
-        Страна производитель: <span>{item.maidIn.title}</span>
+        {translate(language, 'Made_in')}: <span>{item.maidIn.title}</span>
       </div>}
       {item && item.category && item.category.title && <div className={cn('cell')}>
-        Категория: <span>{item.category.title}</span>
+        {translate(language, 'Category')}: <span>{item.category.title}</span>
       </div>}
       {item && item.edition && <div className={cn('cell')}>
-        Год выпуска: <span>{item.edition}</span>
+        {translate(language, 'Year_issue')}: <span>{item.edition}</span>
       </div>}
       {item && item.price && <div className={cn('price')}>
-        Цена: <span>{numberFormat(item.price)} ₽</span>
+        {translate(language, 'Price')}: <span>{numberFormat(item.price)} ₽</span>
       </div>}
       {item && callbacks.onAdd && <div className={cn('cell')}>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{translate(language, 'Add')}</button>
       </div>}
     </div>
   )
 }
 
 ItemArticle.propTypes = {
+  language: propTypes.string,
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
 }
 
 ItemArticle.defaultProps = {
+  language: 'RU',
   onAdd: () => {},
 }
 

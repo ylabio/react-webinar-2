@@ -8,6 +8,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import Spinner from "../../components/spinner";
+import { translate } from "../../utils/translate";
 
 function Main(){
 
@@ -24,6 +25,7 @@ function Main(){
   }, [page])
 
   const select = useSelector(state => ({
+    language: state.language.language,
     items: state.catalog.items,
     count: state.catalog.count,
     amount: state.basket.amount,
@@ -31,22 +33,26 @@ function Main(){
     loading: state.catalog.loading
   }));
 
+  console.log(select.language)
+
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => navigate("/basket", { state: { modal: location } }), [location]),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Переход на страницу каталог
-    onPageChange: useCallback(page => navigate(`/page/${page}`), [])
+    onPageChange: useCallback(page => navigate(`/page/${page}`), []),
+    // Смена языка
+    selectLanguage: useCallback(language => store.get('language').selectLanguage(language), [])
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item language={select.language} item={item} onAdd={callbacks.addToBasket}/>, [select.language]),
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+    <Layout head={<h1>{translate(select.language, 'Title')}</h1>} language={select.language} selectLanguage={callbacks.selectLanguage}>
+      <BasketSimple language={select.language} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       {select.loading ? 
         <Spinner /> : 
         <List items={select.items} renderItem={renders.item}/>}

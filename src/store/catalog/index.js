@@ -13,6 +13,7 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
+			limit: 10,
 			pagesCount: 0,
 			currPage: 1
     };

@@ -9,19 +9,20 @@ import ArticleInfo from '../components/article-info';
 function Article() {
 	const { id } = useParams();
 	const { state } = useLocation();
-	
-	const currPage = Math.ceil(state?._key / 10);
 
 	const [currArticle, setCurrArticle] = useState({});
 	const [isLoading, setIsLoading] = useState(false);
-
+	
 	const store = useStore();
 
 	const select = useSelector(state => ({
     items: state.catalog.items,
+		limit: state.catalog.limit,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
+
+	const articleCurrPage = Math.ceil(state?._key / select.limit);
 
 	const fetchCurrArticle = async (id) => {
 		setIsLoading(true);
@@ -33,8 +34,9 @@ function Article() {
 
 	useEffect(() => {
 		if(!select.items.length) {
-			const skip = currPage === 1 ? 0 : (currPage - 1) * 10;
-      store.get('catalog').load(10, skip);
+			const skip = articleCurrPage === 1 ? 0 : (articleCurrPage - 1) * select.limit;
+      store.get('catalog').load(select.limit, skip);
+			store.get('catalog').setCurrPage(articleCurrPage);
 		}
 		
 		fetchCurrArticle(id);

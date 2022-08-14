@@ -15,15 +15,16 @@ function Main(){
 
   const select = useSelector(state => ({
     items: state.catalog.items,
+		limit: state.catalog.limit,
 		pagesCount: state.catalog.pagesCount,
 		currPage: state.catalog.currPage,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
-
+	console.log(select);
 	useEffect(() => {
-		const skip = select.currPage === 1 ? 0 : (select.currPage - 1) * 10;
-    store.get('catalog').load(10, skip);
+		const skip = select.currPage === 1 ? 0 : (select.currPage - 1) * select.limit;
+    store.get('catalog').load(select.limit, skip);
   }, [select.currPage])
 
   const callbacks = {

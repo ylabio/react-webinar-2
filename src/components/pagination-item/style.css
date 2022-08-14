@@ -1,0 +1,63 @@
+.Pagination-wrapper {
+  margin-top: 22px;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 21px;
+  
+}
+.Pagination-wrapper a {
+  text-decoration: none;
+}
+.Pagination-item {
+  position: relative;
+  display: none;
+  padding: 1px;
+  cursor: pointer;
+  min-width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  text-align: center;
+  color: #000000;
+}
+
+.Pagination-item.active {
+  background-color: #0087E9;
+  color: white;
+}
+.Pagination-item.static {
+  display: flex
+}
+.Pagination-item.prev::before {
+  pointer-events: none;
+  content: "...";
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: -20px;
+  font-weight: 400;
+  color: #CCCCCC;
+}
+.Pagination-item.next::after {
+  pointer-events: none;
+  content: "...";
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 20px;
+  color: #CCCCCC;
+}
+.Pagination-item.prev {
+  margin-left: 20px;
+}
+.Pagination-item.next {
+  margin-right: 20px;
+}
+
+.Pagination-item:hover {
+  background: #E1E1E1;
+}

@@ -28,3 +28,14 @@
     font-size: 18px;
     white-space: nowrap;
 }
+
+.ItemBasket a {
+    text-decoration: none;
+}
+.ItemBasket a:visited {
+color: #000000;
+}
+
+.ItemBasket-title:hover {
+    text-decoration: revert;
+}

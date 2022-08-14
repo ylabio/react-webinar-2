@@ -6,8 +6,12 @@
     font-size: 18px;
 }
 
-.BasketSimple-label{
-
+.BasketSimple a {
+    margin-right: auto;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #0087E9;
 }
 
 .BasketSimple-total{

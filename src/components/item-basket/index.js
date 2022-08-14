@@ -1,12 +1,18 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useContext} from 'react';
 import propTypes from 'prop-types';
 import numberFormat from "../../utils/numberFormat";
 import {cn as bem} from "@bem-react/classname";
 import {NavLink} from "react-router-dom";
+import {LocalisationContext} from "l10n/localisationProvider";
+import {l10n} from "l10n/strings";
 import './styles.css';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
+
+  const {lang} = useContext(LocalisationContext);
+
+  const button = l10n.buttons.remove[lang];
 
   const callbacks = {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove, props.item]),
@@ -22,7 +28,7 @@ function ItemBasket(props) {
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{button}</button>
         </div>
       </div>
     </div>

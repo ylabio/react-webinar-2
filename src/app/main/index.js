@@ -1,27 +1,30 @@
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useContext, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "components/pagination";
 import {useSearchParams} from "react-router-dom";
+import {LocalisationContext} from "l10n/localisationProvider";
+import {l10n} from "l10n/strings";
 
 function Main() {
-
   console.log('Main');
+
   const store = useStore();
   const [params, setParams] = useSearchParams();
+  const {lang} = useContext(LocalisationContext);
 
+  const heading = l10n.title[lang];
   const skip = params.get("skip") || 0;
   const limit = 10;
   const initPage = (skip / limit) + 1 || 1;
 
-
   useEffect(() => {
-    store.get('catalog').load(skip, limit);
-  }, [params]);
+    store.get('catalog').load(skip, limit, lang);
+  }, [params, lang]);
 
   const select = useSelector(state => ({
     items: state.catalog.items,
@@ -29,7 +32,6 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
-
 
   const lastPage = Math.ceil((select.count / limit));
 
@@ -59,7 +61,7 @@ function Main() {
   };
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>{heading}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination

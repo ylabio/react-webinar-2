@@ -1,22 +1,22 @@
 import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useContext, useEffect} from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import {useParams} from "react-router-dom";
 import {ProductCard} from "components/product-card";
+import {LocalisationContext} from "l10n/localisationProvider";
 
 function Product() {
-
   console.log('Product');
 
   const store = useStore();
-
   const {id} = useParams();
+  const {lang} = useContext(LocalisationContext);
 
   useEffect(() => {
-    store.get('catalog').loadProduct(id);
-  }, [id]);
+    store.get('catalog').loadProduct(id, lang);
+  }, [id, lang]);
 
   const select = useSelector(state => ({
     items: state.catalog.items,
@@ -24,8 +24,6 @@ function Product() {
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
-
-  console.log(select.product);
 
   const callbacks = {
     // Открытие корзины

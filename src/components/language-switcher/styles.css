@@ -1,0 +1,31 @@
+.LanguageSwitcher {
+    height: 80px;
+    width: 90px;
+    padding: 0 10px;
+    position: fixed;
+    top: 0;
+    right: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    background: #E5E5E5;
+}
+
+.LanguageSwitcher-heading {
+    margin: 0;
+    font-size: 16px;
+}
+
+.LanguageSwitcher-list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+    list-style: none;
+}
+
+.LanguageSwitcher-button {
+    cursor: pointer
+}

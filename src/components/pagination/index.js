@@ -7,6 +7,7 @@ function Pagination({initPage, lastPage, onFirstClick, onLastClick, onPageClick}
   const cn = bem('Pagination');
 
   const [active, setActive] = useState(initPage);
+
   const clickHandler = (e) => {
     const value = Number(e.target.value);
     setActive(value);
@@ -24,9 +25,7 @@ function Pagination({initPage, lastPage, onFirstClick, onLastClick, onPageClick}
       }
     }
   };
-
   // Welcome to hell buddy :)
-
   return (<div className={cn()}>
     <ul className={cn('list')}>
       <li key="firstPage" className={cn('item')}>

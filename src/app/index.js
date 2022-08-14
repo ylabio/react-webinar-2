@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import Main from "./main";
+import React from 'react';
 import Basket from "./basket";
-import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
 import {Routing} from "pages";
+import {languages} from "l10n/languages";
+import LanguageSwitcher from "components/language-switcher";
 
 /**
  * Приложение
@@ -17,6 +17,7 @@ function App() {
 
   return (
     <>
+      <LanguageSwitcher languages={languages}/>
       <Routing/>
       {modal === 'basket' && <Basket/>}
     </>

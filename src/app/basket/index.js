@@ -1,16 +1,20 @@
 import List from "../../components/list";
-import React, {useCallback} from "react";
+import React, {useCallback, useContext} from "react";
 import BasketTotal from "../../components/basket-total";
 import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import {LocalisationContext} from "l10n/localisationProvider";
+import {l10n} from "l10n/strings";
 
 function Basket(){
-
   console.log('Basket');
 
   const store = useStore();
+  const {lang} = useContext(LocalisationContext);
+
+  const heading = l10n.cart.title[lang];
 
   const select = useSelector(state => ({
     items: state.basket.items,
@@ -30,7 +34,7 @@ function Basket(){
   }
 
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+    <LayoutModal title={heading} onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>
       <BasketTotal sum={select.sum}/>
     </LayoutModal>

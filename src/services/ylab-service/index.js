@@ -25,6 +25,11 @@ export default class YLabService {
     return this._transformArticleFull(response.result);
   }
 
+  async getArticlePartial(id) {
+    const response = await this.getResource(`/articles/${id}`);
+    return this._transformArticlePartial(response.result);
+  }
+
   _transformArticlePartial(article) {
     return {
       id: article._id,

@@ -6,10 +6,17 @@ import './style.css';
 function Paginator(props) {
   const cn = bem('Paginator');
 
+  const pagesNumberArr = Array.from(
+    {length: props.pagesTotal},
+    (_, idx) => idx + 1
+  );
+
   return (
     <div className={cn()}>
-      {props.pagesTotal.map((page, idx) => (
-        <button>{idx + 1}</button>
+      {pagesNumberArr.map(num => (
+        <button key={num} onClick={() => props.onPageClick(num)}>
+          {num}
+        </button>
       ))}
     </div>
   );

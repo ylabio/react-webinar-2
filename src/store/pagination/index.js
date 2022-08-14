@@ -3,7 +3,7 @@ import StateModule from '../module';
 class PaginationState extends StateModule {
   initState() {
     return {
-      totalPages: 0,
+      totalPages: 1,
       currentPage: 1
     };
   }

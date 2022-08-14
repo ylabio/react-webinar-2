@@ -1,0 +1,30 @@
+.Details {
+    margin: 41px 40px 0;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.Details-desc {
+    margin-bottom: 20px;
+}
+
+.Details-info {
+    margin-bottom: 20px;
+}
+
+.Details-info span {
+    font-weight: 700;
+    margin-left: 5px;
+}
+
+.Details-price {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    margin-bottom: 20px;
+}
+
+.Details-price span {
+    margin-left: 5px;
+}

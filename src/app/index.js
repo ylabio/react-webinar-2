@@ -39,7 +39,7 @@ function App() {
 
   return (
     <>
-    {select.modal === 'basket' && <Basket/>}
+    {select.modal === 'basket' && <Basket />}
     <Routes>
       <Route path='/' element={<Main callbacks={callbacks} select={select}/>} />
       <Route path=":id" element={<ItemPage callbacks={callbacks} select={select}/>} />

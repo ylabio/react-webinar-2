@@ -40,7 +40,7 @@ function ItemPage({callbacks, select}){
             <button onClick={()=>callbacks.addToBasket(id)}>Добавить</button>
             </div>
         </Layout>
-        : <h1>Загрузка</h1>
+        : <div className='Loader'><h1>↻ Загрузка...</h1></div>
         }
         </>
     )

@@ -1,18 +1,21 @@
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useContext, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import Loader from "../../components/loader";
+import {LanguageContext} from "../../services/locale/context";
+import Translation from "../../services/locale";
 
 function Main(){
 
   console.log('Main');
 
   const store = useStore();
+  const {language} = useContext(LanguageContext);
   const select = useSelector(state => ({
     items: state.catalog.items,
     total: state.catalog.total,
@@ -40,7 +43,7 @@ function Main(){
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>{Translation[language].main.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       {select.items.length ?
       <>

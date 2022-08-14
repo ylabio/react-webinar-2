@@ -1,24 +1,27 @@
-import React from "react";
+import React, {useContext} from "react";
 import propTypes from "prop-types";
-import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
 import "./styles.css";
 import {Link} from "react-router-dom";
+import {LanguageContext} from "../../services/locale/context";
+import Translation from "../../services/locale";
 
 function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
+  const {language} = useContext(LanguageContext);
+
   return (
     <div className={cn()}>
       <Link className={cn('link')}
-            to={`/`}>Главная</Link>
+            to={`/`}>{Translation[language].actions.home}</Link>
       <div className={cn('right')}>
-        <span className={cn('label')}>В корзине:</span>
+        <span className={cn('label')}>{Translation[language].basket.simple}</span>
         <span className={cn('total')}>
           {amount ?
-            `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽` :
+            `${amount} ${Translation[language].basket.piece(amount)} / ${numberFormat(sum)} ₽` :
             `пусто`}</span>
-        <button className={cn('button')} onClick={onOpen}>Перейти</button>
+        <button className={cn('button')} onClick={onOpen}>{Translation[language].actions.open}</button>
       </div>
     </div>
   )

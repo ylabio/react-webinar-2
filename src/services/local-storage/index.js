@@ -33,4 +33,12 @@ export default class LocalStorage {
   getCurrentSkip() {
     return localStorage.getItem('skip') ? parseInt(localStorage.getItem('skip'), 10) : 0;
   }
+
+  setLanguage(value) {
+    localStorage.setItem('lang', value);
+  }
+
+  getLanguage() {
+    return localStorage.getItem('lang') ? localStorage.getItem('lang') : 'ru';
+  }
 }

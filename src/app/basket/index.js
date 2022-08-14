@@ -5,6 +5,7 @@ import LayoutModal from '../../components/layout-modal';
 import ItemBasket from '../../components/item-basket';
 import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
+import translator from '../../utils/translator';
 
 function Basket() {
   console.log('Basket');
@@ -15,7 +16,10 @@ function Basket() {
     items: state.basket.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    currentLanguage: state.language.lang,
   }));
+
+  const dictionary = translator(select.currentLanguage);
 
   const callbacks = {
     // Закрытие любой модалки
@@ -34,6 +38,7 @@ function Basket() {
           item={item}
           onRemove={callbacks.removeFromBasket}
           onClose={callbacks.closeModal}
+          dictionary={dictionary}
         />
       ),
       []
@@ -41,13 +46,13 @@ function Basket() {
   };
 
   return (
-    <LayoutModal title="Корзина" onClose={callbacks.closeModal}>
-      <List
-        items={select.items}
-        renderItem={renders.itemBasket}
-        // onClose={callbacks.closeModal}
-      />
-      <BasketTotal sum={select.sum} />
+    <LayoutModal
+      title={`${dictionary.cart}`}
+      onClose={callbacks.closeModal}
+      dictionary={dictionary}
+    >
+      <List items={select.items} renderItem={renders.itemBasket} />
+      <BasketTotal sum={select.sum} dictionary={dictionary} />
     </LayoutModal>
   );
 }

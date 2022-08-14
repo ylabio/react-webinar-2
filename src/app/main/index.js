@@ -1,11 +1,12 @@
 import BasketSimple from '../../components/basket-simple';
 import List from '../../components/list';
 import Layout from '../../components/layout';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import Item from '../../components/item';
 import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
 import Pages from '../../components/pages';
+import translator from '../../utils/translator';
 
 function Main() {
   console.log('Main');
@@ -18,7 +19,9 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     currentPage: state.catalog.currentPage,
+    currentLanguage: state.language.lang,
   }));
+  const dictionary = translator(select.currentLanguage);
 
   const callbacks = {
     // Открытие корзины
@@ -36,18 +39,25 @@ function Main() {
 
   const renders = {
     item: useCallback(
-      (item) => <Item item={item} onAdd={callbacks.addToBasket} />,
-      []
+      (item) => (
+        <Item
+          item={item}
+          onAdd={callbacks.addToBasket}
+          dictionary={dictionary}
+        />
+      ),
+      [select.currentLanguage]
     ),
   };
 
   return (
     <>
-      <Layout head={<h1>Магазин</h1>}>
+      <Layout head={<h1>{dictionary.store}</h1>}>
         <BasketSimple
           onOpen={callbacks.openModalBasket}
           amount={select.amount}
           sum={select.sum}
+          dictionary={dictionary}
         />
 
         <List items={select.items} renderItem={renders.item} />

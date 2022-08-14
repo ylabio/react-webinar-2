@@ -4,9 +4,10 @@ import Layout from '../../components/layout';
 import { useParams } from 'react-router-dom';
 import useSelector from '../../utils/use-selector';
 import useStore from '../../utils/use-store';
-import numberFormat from '../../utils/numberFormat';
+import numberFormat from '../../utils/number-format';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import translator from '../../utils/translator';
 
 function Description() {
   console.log('Description');
@@ -18,7 +19,10 @@ function Description() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     item: state.description.item,
+    currentLanguage: state.language.lang,
   }));
+
+  const dictionary = translator(select.currentLanguage);
 
   const store = useStore();
 
@@ -39,6 +43,7 @@ function Description() {
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
+        dictionary={dictionary}
       />
       <div className={cn()}>
         <div>{select.item.description}</div>
@@ -58,7 +63,9 @@ function Description() {
         <div className={cn('price')}>
           Цена: {numberFormat(select.item.price)} ₽
         </div>
-        <button onClick={() => callbacks.addToBasket(id)}>Добавить</button>
+        <button onClick={() => callbacks.addToBasket(id)}>
+          {dictionary.add}
+        </button>
       </div>
     </Layout>
   );

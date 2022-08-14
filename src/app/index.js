@@ -10,8 +10,6 @@ import Description from './description';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
-  console.log('App');
-
   const modal = useSelector((state) => state.modals.name);
 
   return (

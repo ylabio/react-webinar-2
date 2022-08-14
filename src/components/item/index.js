@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import numberFormat from '../../utils/numberFormat';
+import numberFormat from '../../utils/number-format';
 import './style.css';
 import { Link } from 'react-router-dom';
 
@@ -27,7 +27,7 @@ function Item(props) {
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{props.dictionary.add}</button>
       </div>
     </div>
   );
@@ -36,6 +36,7 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
+  currentLang: propTypes.string,
 };
 
 Item.defaultProps = {

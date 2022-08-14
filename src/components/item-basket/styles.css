@@ -15,6 +15,27 @@
     padding: 20px 10px;
 }
 
+.ItemBasket-link {
+    text-decoration: none;
+    color: #000000;
+    display: inline-block;
+    line-height: 1;
+}
+
+.ItemBasket-link:after {
+    display: block;
+    content: "";
+    height: 1px;
+    width: 0%;
+    background-color: #000000;
+    transition: width 0.3s ease-in-out;
+}
+
+.ItemBasket-link:hover:after,
+.ItemBasket-link:focus:after {
+    width: 100%;
+}
+
 .ItemBasket-right {
     padding: 20px 20px 20px 10px;
     display: flex;

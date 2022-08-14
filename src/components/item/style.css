@@ -15,6 +15,27 @@
     padding: 20px 10px;
 }
 
+.Item-link {
+    text-decoration: none;
+    color: #000000;
+    display: inline-block;
+    line-height: 1;
+}
+
+.Item-link:after {
+    display: block;
+    content: "";
+    height: 1px;
+    width: 0%;
+    background-color: #000000;
+    transition: width 0.3s ease-in-out;
+}
+
+.Item-link:hover:after,
+.Item-link:focus:after {
+    width: 100%;
+}
+
 .Item-right {
     padding: 20px 20px 20px 10px;
     display: flex;

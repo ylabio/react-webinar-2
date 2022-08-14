@@ -1,0 +1,33 @@
+/* Пункт списка */
+.Product {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 0 40px 40px 40px;
+}
+
+.Product-description {
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+.Product-maidIn {
+    padding-bottom: 20px;
+}
+
+.Product-category {
+    padding-bottom: 20px;
+}
+
+.Product-edition {
+    padding-bottom: 20px;
+}
+
+.Product-price {
+    font-size: 24px;
+    padding-bottom: 20px;
+}
+
+.Product-button {
+   width: fit-content;
+}

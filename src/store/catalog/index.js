@@ -12,16 +12,49 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      limit: 10,
+      lastPage: 1,
+      currentPage: 1,
     };
   }
 
+  /**
+   * Загрузка данных с сервера(Тут можно передать номер страницы)
+   */
   async load(){
-    const response = await fetch('/api/v1/articles');
+    const response = await fetch(`/api/v1/articles?fields=items(*),count`);
     const json = await response.json();
+    const {result} = json;
+    const lastPage = Math.ceil(result.count / this.getState().limit);
     this.setState({
-      items: json.result.items
+      ...this.getState(),
+      items: result.items.slice(0, this.getState().limit),
+      lastPage,
+      currentPage: 1,
     });
+  }
+  
+  /**
+   * Загрузка одной страницы
+   * @param {*} page - номер страницы
+   */
+  async loadPages(page) {
+    const {limit} = this.getState();
+    const url = `/api/v1/articles?limit=${limit}&skip=${limit * (page - 1)}`;
+    try {
+      const response = await fetch(url);
+      if (response.status >= 200 && response.status < 300) {
+        const json = await response.json();
+        this.setState({
+          ...this.getState(),
+          items: json.result.items,
+          currentPage: page,
+        });
+      }      
+     } catch(err) {
+        console.log('loadPages', err);
+     }    
   }
 
   /**

@@ -3,6 +3,8 @@ import Main from "./main";
 import Basket from "./basket";
 import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import ProductCard from '../components/product-card'
 
 /**
  * Приложение
@@ -16,8 +18,14 @@ function App() {
 
   return (
     <>
-      <Main/>
-      {modal === 'basket' && <Basket/>}
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Main/>}/>
+          <Route path='api/v1/articles/:id' element={<ProductCard />}/>
+        </Routes>
+        {modal === 'basket' && <Basket/>}
+      </BrowserRouter>
+      
     </>
   );
 }

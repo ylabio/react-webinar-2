@@ -42,7 +42,7 @@ function Article() {
 
 
   return (
-    <Layout head={<h1>{select.article.title}</h1>}>
+    <Layout head={<h1>{!isloading && select.article.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       {isloading 
         ? <ProgressBar /> 

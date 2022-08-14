@@ -16,11 +16,15 @@ class CatalogState extends StateModule{
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+  async load(skip){
+    const articles = await fetch(`api/v1/articles?limit=10&skip=${skip * 10}`);
+    const count = await fetch("/api/v1/articles?limit=1&fields=items(*),count");
+    const jsonArticles = await articles.json();
+    const jsonCount = await count.json();
+
     this.setState({
-      items: json.result.items
+      items: jsonArticles.result.items,
+      count: jsonCount.result.count
     });
   }
 

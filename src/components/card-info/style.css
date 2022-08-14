@@ -1,0 +1,27 @@
+.CardInfo {
+	padding: 40px;
+}
+
+.CardInfo-main {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.CardInfo-block {
+	display: inline-block;
+}
+
+.CardInfo-price {
+	font-weight: bold;
+	font-size: 24px;
+}
+
+.CardInfo-value {
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.CardInfo-button {
+	margin-top: 20px;
+}

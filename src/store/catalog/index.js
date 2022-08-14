@@ -1,10 +1,5 @@
 import StateModule from '../module';
 import { getArticleById, getArticles } from '../../utils/axios/requests';
-/* создание axiosInstance и реквестов в отдельных файлах и импорт сюда 
-  ломает инициализацию StateModule 
-  с ошибкой cannot access '__webpack_default_export__' before initialization 
-  решить это не смог, буду рад если подскажете в чём дело
-*/
 
 /**
  * Состояние каталога

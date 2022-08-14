@@ -37,6 +37,7 @@ class CatalogState extends StateModule{
         count: json.result.count,
         pagination: {
           ...this.getState().pagination,
+          activePage: 1,
           totalPages: totalPages,
           visiblePages: this.getPageNumbers(this.getState().pagination.activePage, totalPages)
         }

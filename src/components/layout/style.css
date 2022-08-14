@@ -25,3 +25,23 @@ body{
     margin: 0;
     padding: 20px 20px 10px;
 }
+.Layout-content {
+    position: relative;
+}
+.Layout-link {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 16px;
+    padding: 0;
+    text-decoration: none;
+    border-bottom: 1px solid #0087E9;
+    color: #0087E9;
+  }
+  
+  .Layout-link:hover {
+    border-bottom: 1px solid #1c9af5;
+    color: #1c9af5;
+  }
+  
+  

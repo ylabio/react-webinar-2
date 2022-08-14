@@ -1,0 +1,27 @@
+.Pagination-ul {
+  margin-right: 21px;
+  display: flex;
+  justify-content: flex-end;
+  list-style: none;
+}
+
+.Pagination-li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  cursor: pointer;
+  color: black;
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+}
+.Pagination-li:hover {
+  transition: all 0.3s ease;
+  background-color: lightgray;
+}
+
+.Pagination-active {
+  background-color: #0087e9;
+  color: white;
+}

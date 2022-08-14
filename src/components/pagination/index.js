@@ -20,7 +20,7 @@ function Pagination(props) {
 
         let pagesWithEllipsis = [];
  
-        // если есть разрыв в последовательости страниц - добавляем троеточие
+        // если прерывается последовательность страниц - добавляем троеточие
         for (let i = 0; i < select.pages.length; i++) {
 
             if (select.pages[i] - select.pages[i-1] !== 1 && i !== 0) {

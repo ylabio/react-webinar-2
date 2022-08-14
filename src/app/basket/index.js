@@ -18,8 +18,6 @@ function Basket(){
     sum: state.basket.sum
   }));
 
-  console.log('Basket: ', select.items);
-
   const callbacks = {
     // Закрытие любой модалки
     closeModal: useCallback(() => store.get('modals').close(), []),

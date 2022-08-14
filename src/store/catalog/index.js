@@ -15,8 +15,10 @@ class CatalogState extends StateModule{
       items: [],
       currentPage: 1,
       totalCount: null,
-      limit: 1,
+      limit: 5,
       paginationList: [],
+      product: null,
+      isError: '',
     };
   }
 
@@ -27,11 +29,49 @@ class CatalogState extends StateModule{
     const json = await response.json();
     const paginationList = await this._getPages(page, json.result.count, limit)
     this.setState({
+      ...this.getState(),
       items: json.result.items,
       currentPage: page,
       totalCount: json.result.count,
       limit,
       paginationList,
+    });
+  }
+
+  async getProduct(id){
+    try {
+      const response = await fetch(`api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
+      const json = await response.json();
+      const { title, description, maidIn, category, price, edition  } = json.result
+      let items = [...this.getState().items];
+      if (!this.getState().items.find(item => item._id === id)) {
+        items.push(json.result)
+      }
+      this.setState({
+        ...this.getState(),
+        items,
+        product: {
+          title,
+          description,
+          country: maidIn.title,
+          category: category.title,
+          edition,
+          price,
+          id, 
+        },
+      });
+    } catch (err) {
+      this.setState({
+        ...this.getState(),
+        isError: "Something went wrong",
+      });
+    }
+  }
+
+  removeProduct() {
+    this.setState({
+      ...this.getState(),
+      product: null,
     });
   }
 

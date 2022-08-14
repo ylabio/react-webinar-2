@@ -9,8 +9,6 @@ import Pagination from "../../components/pagination";
 
 function Main(){
 
-  // console.log('Main');
-
   const store = useStore();
 
   useEffect(() => {

@@ -12,17 +12,34 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      currentPage: 1,
+      totalItems: 0,
     };
   }
 
   async load(){
-    const response = await fetch('/api/v1/articles');
+    const skip = (this.getState().currentPage-1)*10
+    const response = await fetch(`/api/v1/articles?limit=10&skip=${skip}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
-      items: json.result.items
+      items: json.result.items,
+      totalItems: json.result.count,
+      currentPage: this.getState().currentPage
     });
   }
+  
+  /**
+   * Переключение страницы
+   * @param page
+   */
+  
+  switchPage(page){
+    this.setState({
+      currentPage: page
+    }, ['Переключение страницы'])
+  }
+
 
   /**
    * Создание записи

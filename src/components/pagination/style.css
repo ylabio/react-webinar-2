@@ -33,4 +33,6 @@
 
 .Pagination-dot {
   color: rgba(204, 204, 204, 1);
+  width: 20px;
+  height: 20px;
 }

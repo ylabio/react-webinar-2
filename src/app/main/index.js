@@ -19,7 +19,8 @@ function Main(){
   const select = useSelector(state => ({
     items: state.catalog.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    count: state.catalog.count,   
   }));
 
   const callbacks = {

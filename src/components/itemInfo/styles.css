@@ -1,0 +1,53 @@
+.ItemInfo {
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: 21px;
+}
+
+.ItemInfo-description {
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.ItemInfo-country {
+    padding-top: 20px;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.ItemInfo-country span {
+    font-weight: 700;
+}
+
+.ItemInfo-category {
+    padding-top: 20px;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.ItemInfo-category span {
+    font-weight: 700;
+}
+
+.ItemInfo-year {
+    padding-top: 20px;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.ItemInfo-year span {
+    font-weight: 700;
+}
+
+.ItemInfo-price {
+    padding-top: 20px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+}
+
+.ItemInfo-button {
+    margin-top: 20px;
+    width: 76px;
+    height: 21px;
+}

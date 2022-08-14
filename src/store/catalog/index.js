@@ -4,33 +4,77 @@ import StateModule from "../module";
 /**
  * Состояние каталога
  */
-class CatalogState extends StateModule{
-
+class CatalogState extends StateModule {
+  #mainUrl = "/api/v1/articles/";
   /**
    * Начальное состояние
    * @return {Object}
    */
   initState() {
     return {
-      items: []
+      items: [],
+      item: {},
+      limit: 10,
+      skip: 0,
+      maxItems: 0,
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
-    this.setState({
-      items: json.result.items
-    });
+  #handleResponse(response) {
+    return response.ok ? response.json() : Promise.reject("Error");
+  }
+
+  async load() {
+    const state = this.getState();
+    const { limit, skip } = state;
+    const response = await fetch(`${this.#mainUrl}?limit=${limit}&skip=${skip}&fields=items(*),count`).then(
+      this.#handleResponse
+    );
+    this.setState(
+      {
+        ...state,
+        items: response.result.items,
+        maxItems: response.result.count,
+      },
+      "Загрузить данные"
+    );
+  }
+
+  async setItem(id) {
+    const state = this.getState();
+    const response = await fetch(`${this.#mainUrl}${id}?fields=*,maidIn(title,code),category(title)`).then(
+      this.#handleResponse
+    );
+    this.setState(
+      {
+        ...state,
+        item: response.result,
+      },
+      "Установить товар"
+    );
+  }
+
+  setPage(page) {
+    const state = this.getState();
+    this.setState(
+      {
+        ...state,
+        skip: page * state.limit,
+      },
+      "Установить страницу"
+    );
   }
 
   /**
    * Создание записи
    */
-  createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      items: this.getState().items.concat({_id, title, price, selected})
-    }, 'Создание товара');
+  createItem({ _id, title = "Новый товар", price = 999, selected = false }) {
+    this.setState(
+      {
+        items: this.getState().items.concat({ _id, title, price, selected }),
+      },
+      "Создание товара"
+    );
   }
 
   /**
@@ -38,9 +82,12 @@ class CatalogState extends StateModule{
    * @param _id
    */
   deleteItem(_id) {
-    this.setState({
-      items: this.getState().items.filter(item => item._id !== _id)
-    }, 'Удаление товара');
+    this.setState(
+      {
+        items: this.getState().items.filter((item) => item._id !== _id),
+      },
+      "Удаление товара"
+    );
   }
 }
 

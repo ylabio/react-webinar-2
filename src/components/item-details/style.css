@@ -1,0 +1,18 @@
+.ItemDetails {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 40px 0 40px;
+  gap: 20px;
+  font-size: 18px;
+  line-height: calc(21 / 18);
+}
+
+.ItemDetails div:last-child {
+  font-size: 24px;
+  line-height: calc(27 / 24);
+  font-weight: bold;
+}
+
+.ItemDetails button {
+  width: max-content;
+}

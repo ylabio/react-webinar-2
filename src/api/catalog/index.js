@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 export default class CatalogApi {
 
     static async getTotalCount() {
@@ -13,4 +12,8 @@ export default class CatalogApi {
         return response.data.result.items
     }
 
+   static async getArticleById(id) {
+        const response = await axios.get(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`)
+       return response.data.result
+   }
 }

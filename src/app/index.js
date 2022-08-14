@@ -1,9 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
+import {
+    Routes,
+    Route,
+} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
-import axios from "axios";
+import ArticleById from "./article-by-id";
 
 /**
  * Приложение
@@ -11,13 +14,16 @@ import axios from "axios";
  */
 function App() {
 
-  // console.log('App');
-
   const modal = useSelector(state => state.modals.name);
 
   return (
     <>
-      <Main/>
+        <Routes>
+            <Route path={'/article/:id'} element={<ArticleById/>}/>
+            <Route path={'/main'} element={<Main/>}/>
+            <Route path={'*'} element={<Main/>}/> /* чтобы при неправильном пути рендерился Main */
+        </Routes>
+      {/*<Main/>*/}
       {modal === 'basket' && <Basket/>}
     </>
   );

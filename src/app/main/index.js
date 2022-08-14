@@ -16,7 +16,8 @@ function Main() {
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    currentPage: state.pagination.currentPage
+    currentPage: state.pagination.currentPage,
+    totalItems: state.pagination.totalItems
   }));
 
   useEffect(() => {
@@ -50,7 +51,11 @@ function Main() {
         sum={select.sum}
       />
       <List items={select.items} renderItem={renders.item} />
-      <Paginator pagesTotal={10} onPageClick={callbacks.setCurrentPage} />
+      <Paginator
+        currentPage={select.currentPage}
+        totalItems={select.totalItems}
+        onPageClick={callbacks.setCurrentPage}
+      />
     </Layout>
   );
 }

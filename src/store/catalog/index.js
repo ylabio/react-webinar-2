@@ -16,7 +16,6 @@ class CatalogState extends StateModule {
   }
 
   async load() {
-    //this.store.getState().pagination
     const response = await fetch('/api/v1/articles');
     const json = await response.json();
     this.setState({
@@ -31,13 +30,15 @@ class CatalogState extends StateModule {
       `/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(*),count`
     );
     const json = await response.json();
-    console.log(json);
     const items = json.result.items;
-    pagination.setTotalPages(json.result.count);
+    pagination.setTotalItems(json.result.count);
 
-    this.setState({
-      items
-    });
+    this.setState(
+      {
+        items
+      },
+      'загрузка элементов с пагинацией из API'
+    );
   }
 
   /**

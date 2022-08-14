@@ -3,7 +3,7 @@ import StateModule from '../module';
 class PaginationState extends StateModule {
   initState() {
     return {
-      totalPages: 1,
+      totalItems: 0,
       currentPage: 1
     };
   }
@@ -18,11 +18,11 @@ class PaginationState extends StateModule {
     );
   }
 
-  setTotalPages(total) {
+  setTotalItems(total) {
     this.setState(
       {
         ...this.getState(),
-        totalPages: total
+        totalItems: total
       },
       'назначение общего количества страниц'
     );

@@ -21,7 +21,7 @@ function Main(){
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
-	console.log(select);
+	
 	useEffect(() => {
 		const skip = select.currPage === 1 ? 0 : (select.currPage - 1) * select.limit;
     store.get('catalog').load(select.limit, skip);

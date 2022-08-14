@@ -2,12 +2,13 @@ import React, { useCallback } from "react";
 import numberFormat from "../../utils/numberFormat";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
+import Preloader from "../preloader";
 
 function ItemDetails(props) {
   const cn = bem("ItemDetails");
   const { onAdd, item } = props;
   if (!item._id) {
-    return <>Loading</>;
+    return <Preloader />;
   }
 
   const callbacks = {

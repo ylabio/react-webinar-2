@@ -17,6 +17,7 @@ class CatalogState extends StateModule {
       limit: 10,
       skip: 0,
       maxItems: 0,
+      request: false,
     };
   }
 
@@ -26,6 +27,7 @@ class CatalogState extends StateModule {
 
   async load() {
     const state = this.getState();
+    this.setRequest();
     const { limit, skip } = state;
     const response = await fetch(`${this.#mainUrl}?limit=${limit}&skip=${skip}&fields=items(*),count`).then(
       this.#handleResponse
@@ -35,6 +37,7 @@ class CatalogState extends StateModule {
         ...state,
         items: response.result.items,
         maxItems: response.result.count,
+        request: false,
       },
       "Загрузить данные"
     );
@@ -42,6 +45,7 @@ class CatalogState extends StateModule {
 
   async setItem(id) {
     const state = this.getState();
+    this.setRequest();
     const response = await fetch(`${this.#mainUrl}${id}?fields=*,maidIn(title,code),category(title)`).then(
       this.#handleResponse
     );
@@ -49,8 +53,20 @@ class CatalogState extends StateModule {
       {
         ...state,
         item: response.result,
+        request: false,
       },
       "Установить товар"
+    );
+  }
+
+  setRequest() {
+    const state = this.getState();
+    this.setState(
+      {
+        ...state,
+        request: true,
+      },
+      "Выполнение запроса"
     );
   }
 

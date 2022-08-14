@@ -6,6 +6,7 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
+import Preloader from "../../components/preloader";
 
 function Main() {
   console.log("Main");
@@ -18,6 +19,7 @@ function Main() {
     sum: state.basket.sum,
     maxPages: Math.ceil(state.catalog.maxItems / state.catalog.limit),
     currentPage: state.catalog.skip / state.catalog.limit + 1,
+    request: state.catalog.request,
   }));
 
   useEffect(() => {
@@ -40,8 +42,14 @@ function Main() {
   return (
     <Layout head={<h1 lang="ru">Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      <List items={select.items} renderItem={renders.item} />
-      <Pagination maxPages={select.maxPages} onSetPage={callbacks.setPage} currentPage={select.currentPage} />
+      {select.request ? (
+        <Preloader />
+      ) : (
+        <>
+          <List items={select.items} renderItem={renders.item} />
+          <Pagination maxPages={select.maxPages} onSetPage={callbacks.setPage} currentPage={select.currentPage} />
+        </>
+      )}
     </Layout>
   );
 }

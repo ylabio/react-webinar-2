@@ -3,7 +3,7 @@ import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
 
-function Layout({head, children}){
+function Layout({head, children, nav}){
   const cn = bem('Layout');
 
   return (
@@ -14,6 +14,7 @@ function Layout({head, children}){
       <div className={cn('content')}>
         {children}
       </div>
+      {nav}
     </div>
   )
 }

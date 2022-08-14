@@ -1,0 +1,40 @@
+.Pages{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 22px;
+    margin: 2px;
+}
+.Pages-item_active{
+    height: 18px;
+    width: 18px;
+    padding: 1px;
+    background: #0087E9;
+    font-family: Arial;
+    text-align: center;
+    text-decoration: none;
+    color: #FFFFFF;
+
+}
+.Pages-item{
+    height: 18px;
+    width: 18px; 
+    font-family: Arial;
+    padding: 1px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+.Pages-item:hover{
+    height: 18px;
+    width: 18px;    
+    font-family: Arial;
+    background: #E1E1E1;
+    padding: 1px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+.Pages-item_none{
+    display: none;
+}

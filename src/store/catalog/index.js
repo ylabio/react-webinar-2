@@ -1,4 +1,3 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**
@@ -16,11 +15,15 @@ class CatalogState extends StateModule{
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+  async load(params){
+    const response = await fetch(`/api/v1/articles${(params) 
+      ? '?' + params + '&fields=items(*),count' 
+      : '?limit=10&skip=0&fields=items(*),count'}`);
     const json = await response.json();
+    
     this.setState({
-      items: json.result.items
+      items: json.result.items,
+      itemsCount: json.result.count,
     });
   }
 

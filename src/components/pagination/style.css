@@ -1,0 +1,33 @@
+.Pagination {
+  display: flex;
+  margin-top: 22px;
+  width: 100%;
+  justify-content: flex-end;
+  padding-right: 22px;
+  box-sizing: border-box;
+}
+
+.Pagination div {
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+.Pagination-page {
+  cursor: pointer;
+  color: #000000;
+  transition: all 0.1s;
+}
+.Pagination-page:hover {
+  background: #e1e1e1;
+}
+.Pagination-delimeter {
+  color: #cccccc;
+}
+
+.isActive {
+  background: #0087e9;
+  color: #ffffff;
+}

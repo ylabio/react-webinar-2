@@ -1,0 +1,23 @@
+.Itempage {
+  width: 100%;
+  padding: 0px 40px;
+  box-sizing: border-box;
+}
+.Itempage > * {
+  margin-top: 20px;
+}
+.Itempage-info-wrapper {
+  display: flex;
+  align-items: flex-end;
+}
+
+.Itempage-info {
+  font-size: 18px;
+  font-weight: 700;
+  white-space: pre;
+}
+.Itempage-price {
+  font-size: 24px;
+  font-weight: 700;
+  white-space: pre;
+}

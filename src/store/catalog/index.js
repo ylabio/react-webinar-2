@@ -27,7 +27,7 @@ class CatalogState extends StateModule{
 
   async load(){
     try {
-      const response = await fetch(`/api/v1/articles?limit=${this.getState().pagination.pageSize}&fields=items(*),count`);
+      const response = await fetch(`/api/v1/articles?limit=${this.getState().pagination.pageSize}&fields=items(*),count&lang=ru`);
       const json = await response.json();
       const totalPages = Math.round(json.result.count / this.getState().pagination.pageSize)
 
@@ -59,7 +59,7 @@ class CatalogState extends StateModule{
   async loadPage(pageNum){
     const limit = this.getState().pagination.pageSize
     const skip = pageNum * limit - limit
-    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}`);
+    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&lang=ru`);
     const json = await response.json();
     
     const pageNumbers = this.getPageNumbers(pageNum, this.getState().pagination.totalPages)
@@ -115,7 +115,7 @@ class CatalogState extends StateModule{
    */
       async loadArticle(_id){
         try {
-          const response = await fetch(`/api/v1/articles/${_id}`)
+          const response = await fetch(`/api/v1/articles/${_id}?lang=ru`)
           const json = await response.json()
           const currentItem = json.result
   

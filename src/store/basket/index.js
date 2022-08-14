@@ -12,8 +12,8 @@ class BasketState extends StateModule{
   initState() {
     return {
       items: [],
-        sum: 0,
-        amount: 0
+      sum: 0,
+      amount: 0
     };
   }
 
@@ -23,6 +23,7 @@ class BasketState extends StateModule{
    */
   addToBasket(id) {
     let sum = 0;
+    console.log('ADD');
     // Ищем товар в корзие, чтобы увеличить его количество. Заодно получаем новый массив items
     let exists = false;
     const items = this.getState().items.map(item => {

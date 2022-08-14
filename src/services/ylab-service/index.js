@@ -20,10 +20,28 @@ export default class YLabService {
     }
   }
 
+  async getArticle(id) {
+    const response = await this.getResource(`/articles/${id}?fields=*,maidIn(title,code),category(title)`);
+    return this._transformArticleFull(response.result);
+  }
+
   _transformArticlePartial(article) {
     return {
       id: article._id,
       title: article.title,
+      price: article.price,
+    };
+  }
+
+  _transformArticleFull(article) {
+    return {
+      id: article._id,
+      title: article.title,
+      description: article.description,
+      country: article.maidIn.title,
+      countryCode: article.maidIn.code,
+      category: article.category.title,
+      editionYear: article.edition,
       price: article.price,
     };
   }

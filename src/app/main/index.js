@@ -31,7 +31,7 @@ function Main(){
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    addToBasket: useCallback(id => store.get('basket').addToBasket(id), []),
     changePage: useCallback(page => store.get('pagination').changePage(page), []),
   };
 

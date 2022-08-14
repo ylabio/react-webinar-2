@@ -5,6 +5,7 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import MLText from "../../components/multi-lang/mul-lang-text";
 
 function Basket(){
 
@@ -34,7 +35,7 @@ function Basket(){
   }
 
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+    <LayoutModal title={<MLText item={'basket'}/>} onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket} />
       <BasketTotal sum={select.sum}/>
     </LayoutModal>

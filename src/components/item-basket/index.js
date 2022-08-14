@@ -4,6 +4,7 @@ import numberFormat from "../../utils/number-format";
 import {cn as bem} from "@bem-react/classname";
 import './styles.css';
 import { Link } from 'react-router-dom';
+import MLText from '../multi-lang/mul-lang-text';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
@@ -22,8 +23,8 @@ function ItemBasket(props) {
         </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}>Удалить</button></div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} <MLText item={'units'}/> </div>
+        <div className={cn('cell')}><button onClick={callbacks.onRemove}><MLText item={'delBtn'}/></button></div>
       </div>
     </div>
   )

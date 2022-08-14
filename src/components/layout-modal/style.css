@@ -46,3 +46,6 @@
   min-height: 100px;
   padding: 70px 0;
 }
+.LayoutModal button {
+  min-width: 67px;
+}

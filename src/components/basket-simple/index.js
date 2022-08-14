@@ -1,25 +1,25 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
 import './styles.css';
 import { Link } from 'react-router-dom';
+import MLText from '../multi-lang/mul-lang-text';
+import MlProd from '../multi-lang/mul-lang-prod';
 
 
 function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <span className={cn('navigate')}><Link to='/'>Главная</Link></span>
-      <span className={cn('label')}>В корзине:</span>
+      <span className={cn('navigate')}><Link to='/'><MLText item={'main'}/></Link></span>
+      <span className={cn('label')}><MLText item={'inBasket'}/>:</span>
       <span className={cn('total')}>
-      {amount
-        ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-        : `пусто`
+      {amount?<>{amount} <MlProd amount={amount}/> / {numberFormat(sum)} ₽</>
+        : <MLText item={'empty'}/>
       }
       </span>
-      <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+      <button className='BasketSimple__button' onClick={onOpen}><MLText item={'go'}/></button>
     </div>
   )
 }

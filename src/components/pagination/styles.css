@@ -11,7 +11,7 @@
     width: 15px;
 }
 .Pagination-pageButton_active{
-    background-color:rgba(0, 0, 255, 0.61);
+    background-color:rgba(0, 135, 233, 1);
     color:aliceblue;
     pointer-events:none
 }

@@ -7,6 +7,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import Loader from "../../components/loader";
+import MLText from "../../components/multi-lang/mul-lang-text";
 
 function Main(){
 
@@ -30,7 +31,9 @@ function Main(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Изменение активной страницы
-    changePage:useCallback(nPage=>store.get('catalog').changePage(nPage),[])
+    changePage:useCallback(nPage=>store.get('catalog').changePage(nPage),[]),
+    // Cмена языка
+    changeLang: useCallback((lang) => store.get('lang').changeLang(lang), []),
   };
 
   const renders = {
@@ -39,7 +42,7 @@ function Main(){
 
   return (
     <>
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1><MLText item={'head'}/></h1>} ChangeLang={callbacks.changeLang}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination activePage={select.activePage} numOfPages={select.numOfPages} changePage={callbacks.changePage} />

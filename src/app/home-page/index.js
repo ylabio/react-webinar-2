@@ -12,21 +12,21 @@ function HomePage(){
 	const store = useStore();
 
   const select = useSelector(state => ({
-		amount: state.basket.amount,
-		sum: state.basket.sum,
+	  amount: state.basket.amount,
+	  sum: state.basket.sum,
     items: state.catalog.items,
     page: state.catalog.pagination.page,
     lang: state.common.language
   }));
 
-	useEffect(() => {
-		store.get('catalog').load();
-	}, [select.page, select.lang])
+  useEffect(() => {
+    store.get('catalog').load();
+  }, [select.page, select.lang])
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-		openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
   };
 
   const renders = {
@@ -34,11 +34,11 @@ function HomePage(){
   }
 
   return (
-			<Layout head={<h1>{dictionaryEnum.store[select.lang]}</h1>}>
-				<BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-				<List items={select.items} renderItem={renders.item}/>
-				<Pagination />
-			</Layout>
+	  <Layout head={<h1>{dictionaryEnum.store[select.lang]}</h1>}>
+		  <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+		  <List items={select.items} renderItem={renders.item}/>
+		  <Pagination />
+	  </Layout>
   )
 }
 

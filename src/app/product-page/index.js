@@ -8,30 +8,30 @@ import useStore from '../../utils/use-store';
 import style from '../../components/product-card/style.css';
 
 function ProductPage(){
-	const store = useStore();
-	const {id} = useParams();
+  const store = useStore();
+  const {id} = useParams();
 
 	const select = useSelector(state => ({
-		title: state.product.product.title,
-		amount: state.basket.amount,
-		sum: state.basket.sum,
-		lang: state.common.language
+	  title: state.product.product.title,
+	  amount: state.basket.amount,
+	  sum: state.basket.sum,
+	  lang: state.common.language
 	}));
 
-	useEffect(() => {
-		store.get('product').load(id);
-	}, [select.lang]);
+  useEffect(() => {
+    store.get('product').load(id);
+  }, [select.lang]);
 
-	const callbacks = {
-		// Открытие корзины
-		openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
-	};
+  const callbacks = {
+    // Открытие корзины
+    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+  };
 
 	return (
-			<Layout head={<h1>{select.title}</h1>}>
-				<BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-				<ProductCard />
-			</Layout>
+    <Layout head={<h1>{select.title}</h1>}>
+		  <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+		  <ProductCard />
+		</Layout>
 	)
 }
 

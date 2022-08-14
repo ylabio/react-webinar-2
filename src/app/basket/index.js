@@ -17,7 +17,7 @@ function Basket(){
     items: state.basket.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
-		lang: state.common.language
+	  lang: state.common.language
   }));
 
   const callbacks = {

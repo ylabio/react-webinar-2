@@ -10,15 +10,15 @@ class CommonState extends StateModule {
 	 * @return {Object}
 	 */
 	initState() {
-		return {
-			language: 'ru'
-		};
+	  return {
+		  language: 'ru'
+	  };
 	}
 
 	setLanguage() {
-		this.setState({
-			language: this.getState().language === 'ru' ? 'en' : 'ru'
-		});
+	  this.setState({
+		  language: this.getState().language === 'ru' ? 'en' : 'ru'
+	  });
 	}
 }
 

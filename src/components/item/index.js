@@ -14,9 +14,9 @@ function Item(props) {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
 
-	const select = useSelector(state => ({
-		lang: state.common.language
-	}));
+  const select = useSelector(state => ({
+	  lang: state.common.language
+  }));
 
   return (
     <div className={cn()}>

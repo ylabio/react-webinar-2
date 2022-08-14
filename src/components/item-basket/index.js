@@ -10,9 +10,9 @@ import useSelector from '../../utils/use-selector';
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
 
-	const select = useSelector(state => ({
-		lang: state.common.language
-	}));
+  const select = useSelector(state => ({
+	  lang: state.common.language
+  }));
 
   const callbacks = {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item])
@@ -21,9 +21,9 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
-			<Link to={`product/${props.item._id}`} className={cn('title')}>
-				{props.item.title[select.lang]}
-			</Link>
+		  <Link to={`product/${props.item._id}`} className={cn('title')}>
+			  {props.item.title[select.lang]}
+		  </Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {dictionaryEnum.thing[select.lang]}</div>

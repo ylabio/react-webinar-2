@@ -9,31 +9,31 @@ import './style.css';
 const cn = bem('Pagination');
 
 function Pagination(){
-	const store = useStore();
+  const store = useStore();
 
-	const select = useSelector(state => ({
-		page: state.catalog.pagination.page,
-		total: state.catalog.pagination.total
-	}));
+  const select = useSelector(state => ({
+	  page: state.catalog.pagination.page,
+	  total: state.catalog.pagination.total
+  }));
 
-	const contentForPagination = getPaginationContent(select.page, select.total);
+  const contentForPagination = getPaginationContent(select.page, select.total);
 
-	const callbacks = {
-		setPage: useCallback(e => {store.get('catalog').setPage(e.target.getAttribute('data-number'))}, []),
-	};
+  const callbacks = {
+	  setPage: useCallback(e => {store.get('catalog').setPage(e.target.getAttribute('data-number'))}, []),
+  };
 
   return (
     <div className={cn()}>
-			<div className={cn('container')}>
-				{contentForPagination.map((el, id) => (
-						<div key={id}>{+el ? <Number
-								className={el===+select.page ? 'active' : ''}
-								number={el}
-								setPage={callbacks.setPage}
-						/> : <div>{el}</div>}
-					</div>)
-				)}
-			</div>
+		  <div className={cn('container')}>
+			  {contentForPagination.map((el, id) => (
+				  <div key={id}>{+el ? <Number
+					  className={el===+select.page ? 'active' : ''}
+					  number={el}
+					  setPage={callbacks.setPage}
+					  /> : <div>{el}</div>}
+				  </div>)
+			  )}
+		  </div>
 	  </div>
 	)
 }

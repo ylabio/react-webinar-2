@@ -4,12 +4,12 @@ import useSelector from "../../utils/use-selector";
 import Basket from '../basket';
 
 function Main(){
-	const modal = useSelector(state => state.modals.name);
+  const modal = useSelector(state => state.modals.name);
 
   return (
     <>
-			<Outlet />
-			{modal === 'basket' && <Basket/>}
+		  <Outlet />
+		  {modal === 'basket' && <Basket/>}
 	  </>
   )
 }

@@ -8,9 +8,9 @@ import useSelector from '../../utils/use-selector';
 function LayoutModal(props) {
   const cn = bem('LayoutModal');
 
-	const select = useSelector(state => ({
-		lang: state.common.language
-	}));
+  const select = useSelector(state => ({
+	  lang: state.common.language
+  }));
 
   const frame = useRef();
 

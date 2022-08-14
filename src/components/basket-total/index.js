@@ -6,9 +6,9 @@ import './styles.css';
 import useSelector from '../../utils/use-selector';
 
 function BasketTotal(props) {
-	const select = useSelector(state => ({
-		lang: state.common.language
-	}));
+  const select = useSelector(state => ({
+	  lang: state.common.language
+  }));
 
   return (
     <div className="BasketTotal">

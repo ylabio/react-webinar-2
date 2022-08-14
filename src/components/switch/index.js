@@ -7,24 +7,24 @@ import style from './style.css';
 const cn = bem('Switch');
 
 function Switch(){
-	const store = useStore();
+  const store = useStore();
 
-	const select = useSelector(state => ({
-		lang: state.common.language
-	}));
+  const select = useSelector(state => ({
+	  lang: state.common.language
+  }));
 
-	const callbacks = {
-		setLanguage: useCallback(() => {store.get('common').setLanguage()}, []),
-	};
+  const callbacks = {
+	  setLanguage: useCallback(() => {store.get('common').setLanguage()}, []),
+  };
 
 	return (
 	  <div className={cn()}>
-			<span>Ру</span>
+		  <span>Ру</span>
 		  <label className={cn('container')}>
 			  <input type="checkbox" onClick={callbacks.setLanguage} checked={select.lang === 'en'}/>
-				<span className={cn('slider round')} />
+			  <span className={cn('slider round')} />
 		  </label>
-			<span>En</span>
+		  <span>En</span>
 	  </div>
   );
 }

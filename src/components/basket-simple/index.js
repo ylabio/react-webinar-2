@@ -11,25 +11,25 @@ import useSelector from '../../utils/use-selector';
 function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
 
-	const select = useSelector(state => ({
-		lang: state.common.language
-	}));
+  const select = useSelector(state => ({
+	  lang: state.common.language
+  }));
 
   return (
     <div className={cn()}>
-			<Link to="/" className={cn('title')}>
-				{dictionaryEnum.home[select.lang]}
-			</Link>
-			<div className={cn('container')}>
-				<span className={cn('label')}>{dictionaryEnum.inBasket[select.lang]}:</span>
-				<span className={cn('total')}>
+		  <Link to="/" className={cn('title')}>
+			  {dictionaryEnum.home[select.lang]}
+		  </Link>
+		  <div className={cn('container')}>
+			  <span className={cn('label')}>{dictionaryEnum.inBasket[select.lang]}:</span>
+			  <span className={cn('total')}>
       {amount
-					? `${amount} ${plural(amount, dictionaryEnum.item[select.lang], dictionaryEnum.goods[select.lang],dictionaryEnum.goods[select.lang])} / ${numberFormat(sum)} ₽`
-					: dictionaryEnum.empty[select.lang]
-			}
+			  ? `${amount} ${plural(amount, dictionaryEnum.item[select.lang], dictionaryEnum.goods[select.lang],dictionaryEnum.goods[select.lang])} / ${numberFormat(sum)} ₽`
+			  : dictionaryEnum.empty[select.lang]
+		  }
         </span>
-				<button className='BasketSimple__button' onClick={onOpen}>{dictionaryEnum.go[select.lang]}</button>
-			</div>
+			  <button className='BasketSimple__button' onClick={onOpen}>{dictionaryEnum.go[select.lang]}</button>
+		  </div>
     </div>
   )
 }

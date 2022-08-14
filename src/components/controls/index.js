@@ -5,9 +5,9 @@ import { dictionaryEnum } from '../../enums/dictionaryEnum';
 import useSelector from '../../utils/use-selector';
 
 function Controls({onAdd}){
-	const select = useSelector(state => ({
-		lang: state.common.language
-	}));
+  const select = useSelector(state => ({
+	  lang: state.common.language
+  }));
 
   return (
     <div className='Controls'>

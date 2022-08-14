@@ -15,7 +15,7 @@ function Product(){
   useEffect(() => {
     store.get('catalog').getProduct(id);
     return () => store.get('catalog').removeProduct();
-  }, [id, store])
+  }, [id])
 
   const select = useSelector(state => ({
     product: state.catalog.product,
@@ -24,20 +24,12 @@ function Product(){
     sum: state.basket.sum,
   }));
 
-  console.log("product: ", select.product);
-
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    // Запрашиваем новую страницу
-    loadPage: useCallback(page => store.get('catalog').load(page), []),
   };
-
-  // const renders = {
-  //   item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
-  // }
 
   if (select.isError) return <h1>{select.isError}</h1>
 
@@ -46,7 +38,7 @@ function Product(){
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       { 
         !select.product 
-        ? <h1>Loading...</h1>
+        ? <h1 style={{textAlign: "center", width: "100%"}}>Loading...</h1>
         : <ItemProduct product={select.product} onAdd={callbacks.addToBasket}/>
       }
     </Layout>

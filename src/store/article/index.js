@@ -25,8 +25,8 @@ class ArticleState extends StateModule {
         category: response.category,
         country: response.maidIn,
       });
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
     }
   }
 }

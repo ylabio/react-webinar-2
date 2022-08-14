@@ -20,15 +20,19 @@ class CatalogState extends StateModule {
   }
 
   async load(page) {
-    const skip = (page - 1) * this.getState().limit;
-    const response = await Api.getAll(this.getState().limit, skip);
-    this.setState({
-      items: response.items,
-      pagesCount: Math.ceil(response.count / this.getState().limit),
-      limit: this.getState().limit,
-      currentPage: page,
-      skip: skip,
-    });
+    try {
+      const skip = (page - 1) * this.getState().limit;
+      const response = await Api.getAll(this.getState().limit, skip);
+      this.setState({
+        items: response.items,
+        pagesCount: Math.ceil(response.count / this.getState().limit),
+        limit: this.getState().limit,
+        currentPage: page,
+        skip: skip,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   /**

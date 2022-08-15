@@ -6,6 +6,7 @@ import useSelector from "../../utils/use-selector";
 import {useParams} from "react-router-dom";
 import ItemDetails from "../../components/item-details";
 import Preload from "../../components/preload";
+import Breadcrumbs from "../../components/breadcrumbs";
 
 function ProductPage() {
 
@@ -38,8 +39,8 @@ function ProductPage() {
 
     return (
         <Layout head={<h1 style={{opacity: select.isLoading && '0.5'}}>{select.item.title}{select.isLoading && ' ...'}</h1>}>
-            <BasketSimple crumbs={'Главная'} onOpen={callbacks.openModalBasket}
-                          amount={select.amount} sum={select.sum}/>
+            <Breadcrumbs crumbs={'Главная'}/>
+            <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
             {select.isLoading ? <Preload/> : <ItemDetails item={select.item} onAdd={callbacks.addToBasket}/>}
         </Layout>
     )

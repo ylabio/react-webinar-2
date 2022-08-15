@@ -15,9 +15,3 @@
     margin: 0 15px;
 }
 
-.BasketSimple-main {
-    cursor: url("../../images/cursor.svg"), pointer;
-    text-decoration-line: underline;
-    margin-right: auto;
-    color: #0087E9;
-}

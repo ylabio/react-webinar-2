@@ -1,0 +1,38 @@
+.Pagination {
+    display: flex;
+    justify-content: end;
+    padding: 20px;
+}
+.Pagination-page {
+    display: flex;
+    padding-left: 0;
+}
+.Pagination-page-number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    min-width: 20px;
+    cursor: pointer;
+}
+.Pagination-page-number:hover {
+    background: #E1E1E1;
+}
+.Pagination-page-number-active{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    min-width: 20px;
+    cursor: pointer;
+    background: #0087E9;
+    color: white;
+}
+.Pagination-page-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #E1E1E1;
+    height: 20px;
+    min-width: 20px;
+}

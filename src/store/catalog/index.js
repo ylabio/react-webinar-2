@@ -12,16 +12,22 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      pagesCount: 1,
+      currentPage: 1,
+      itemsOnPage: 9,
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+  async load(currentPage = 1){
+    const response = await fetch(`/api/v1/articles?limit=${this.getState().itemsOnPage}&skip=${(currentPage - 1) * this.getState().itemsOnPage}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
-      items: json.result.items
-    });
+      ...this.getState(),
+      items: json.result.items,
+      pagesCount: Math.ceil(json.result.count / this.getState().itemsOnPage),
+      currentPage: currentPage
+    }, 'Загрузка выбранной страницы');
   }
 
   /**

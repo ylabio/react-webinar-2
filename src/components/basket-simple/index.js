@@ -9,9 +9,8 @@ import useSelector from '../../utils/use-selector';
 import './styles.css';
 
 
-function BasketSimple({sum, amount, onOpen}) {
+function BasketSimple({sum, amount, onOpen, lang}) {
   const cn = bem('BasketSimple');
-  const lang = useSelector(state => state.lang.name)
   const text = lang === 'en' 
     ? plural_en("item", amount)
     : plural_ru(amount, 'товар', 'товара', 'товаров')
@@ -35,13 +34,15 @@ function BasketSimple({sum, amount, onOpen}) {
 BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
-  amount: propTypes.number
+  amount: propTypes.number,
+  lang: propTypes.string
 }
 
 BasketSimple.defaultProps = {
   onOpen: () => {},
   sum: 0,
-  amount: 0
+  amount: 0,
+  lang: 'ru'
 }
 
 export default React.memo(BasketSimple);

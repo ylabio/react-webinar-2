@@ -24,7 +24,8 @@ function Main(){
     pagination: state.catalog.pagination,
     amount: state.basket.amount,
     loading: state.catalog.loading,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    lang: state.lang.name
   }));
 
   const callbacks = {
@@ -42,7 +43,7 @@ function Main(){
 
   return (
     <Layout head={<h1><Translate>Магазин</Translate></h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang}/>
       {select.loading ? <ProgressBar /> :
         <>
           <List items={select.items} renderItem={renders.item}/>

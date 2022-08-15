@@ -52,6 +52,7 @@ ItemBasket.propTypes = {
 }
 
 ItemBasket.defaultProps = {
+  lang: 'ru'
 }
 
 export default React.memo(ItemBasket);

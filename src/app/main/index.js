@@ -1,7 +1,9 @@
 import Layout from '../../components/layout';
 import React, { useCallback, useState } from 'react';
-import Router from '../../router';
+import { Routes, Route } from 'react-router-dom';
 import Controls from '../../components/controls';
+import Shop from '../shop';
+import ItemPage from '../itempage';
 
 function Main() {
   console.log('Main');
@@ -15,7 +17,10 @@ function Main() {
   return (
     <Layout head={<h1>{title}</h1>}>
       <Controls />
-      <Router setTitle={callbacks.setTitle} />
+      <Routes>
+        <Route path='/' element={<Shop setTitle={callbacks.setTitle} />} />
+        <Route path='/:id' element={<ItemPage setTitle={callbacks.setTitle} />} />
+      </Routes>
     </Layout>
   );
 }

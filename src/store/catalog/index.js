@@ -25,7 +25,7 @@ class CatalogState extends StateModule {
   }
 
   async getItemById(id) {
-    const item = this.store.state.catalog.items.find((item) => item._id === id);
+    let item = this.store.getstate().catalog.items.find((item) => item._id === id);
     if (item) {
       return item;
     } else {

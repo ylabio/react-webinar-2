@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import BasketSimple from '../../components/basket-simple';
 import List from '../../components/list';
-import Layout from '../../components/layout';
 import Item from '../../components/item';
 import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
 import Pagination from '../../components/pagination';
+import propTypes from 'prop-types';
 
 function Shop({ setTitle }) {
   const store = useStore();
@@ -27,7 +26,10 @@ function Shop({ setTitle }) {
   };
 
   const renders = {
-    item: useCallback((item) => <Item item={item} onAdd={callbacks.addToBasket} />, []),
+    item: useCallback(
+      (item) => <Item item={item} onAdd={callbacks.addToBasket} link={item._id} />,
+      []
+    ),
   };
 
   return (
@@ -37,5 +39,9 @@ function Shop({ setTitle }) {
     </>
   );
 }
+
+Shop.propTypes = {
+  setTitle: propTypes.func.isRequired,
+};
 
 export default React.memo(Shop);

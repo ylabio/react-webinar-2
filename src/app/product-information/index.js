@@ -4,6 +4,7 @@ import React, {useCallback, useEffect} from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import ProductCard from "../../components/product-card";
+import Select from "../../components/language-select";
 
 function ProductInformation() {
   
@@ -21,6 +22,8 @@ function ProductInformation() {
     price: state.product.price,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    language: state.translation.language,
+    words: state.translation.words
   }));
 
   const callbacks = {
@@ -30,11 +33,14 @@ function ProductInformation() {
     getProductInformation: useCallback(() => store.get('product').getProductInformation(), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Получение данных товара
+    changeLanguage: useCallback((language) => store.get('translation').changeLanguage(language), [])
   };
 
   return (
-    <Layout head={<h1>{select.title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+    <Layout head={<><h1>{select.title}</h1><Select changeLanguage={callbacks.changeLanguage} language={select.language}/></>}>
+      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={
+        {main: select.words.main, inCart: select.words.inCart, empty: select.words.empty, item: select.words.item, goTo: select.words.goTo}}/>
       <ProductCard
         id={select.id}
         description={select.description}
@@ -43,7 +49,13 @@ function ProductInformation() {
         year={select.year}
         price={select.price}
         addToBasket={callbacks.addToBasket}
-      />
+        words={{
+          country: select.words.country,
+          category: select.words.category,
+          year: select.words.year,
+          price: select.words.price,
+          add: select.words.add
+        }}/>
     </Layout>
   )
 }

@@ -6,6 +6,7 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import ListPagination from "../../components/list-pagination";
+import Select from "../../components/language-select";
 
 function Main() {
   
@@ -19,8 +20,10 @@ function Main() {
     totalItems: state.catalog.totalItems,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    language: state.translation.language,
+    words: state.translation.words
   }));
-  
+
   useEffect(() => {
     store.get('catalog').load();
   }, [select.currentPage])
@@ -33,16 +36,25 @@ function Main() {
     // Переключение страницы
     switchPage: useCallback((page) => store.get('catalog').switchPage(page), []),
     // Получение данных товара
-    getProductInformation: useCallback((id) => store.get('product').getProductInformation(id), [])
+    getProductInformation: useCallback((id) => store.get('product').getProductInformation(id), []),
+    // Получение данных товара
+    changeLanguage: useCallback((language) => store.get('translation').changeLanguage(language), [])
   };
-  
-  const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} getProductInformation={callbacks.getProductInformation}/>, []),
-  }
 
+  const renders = {
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} getProductInformation={callbacks.getProductInformation} words={{add: select.words.add}}/>, [select.language]),
+  }
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+    <Layout head={<><h1>{select.words.shop}</h1><Select changeLanguage={callbacks.changeLanguage} language={select.language}/></>}>
+      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={
+        {
+          main: select.words.main,
+          inCart: select.words.inCart,
+          empty: select.words.empty,
+          item: select.words.item,
+          goTo: select.words.goTo
+        }
+      }/>
         <>
           <List items={select.items} renderItem={renders.item} paginationData={{
             totalItems: select.totalItems,

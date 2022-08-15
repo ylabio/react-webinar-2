@@ -7,20 +7,24 @@ import './styles.css';
 import {Link} from "react-router-dom";
 
 
-function BasketSimple({sum, amount, onOpen}) {
+function BasketSimple({sum, amount, onOpen, words}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <Link to='/' className={cn('navigate')}>Главная</Link>
+      <Link to='/' className={cn('navigate')}>{words.main}</Link>
       <div>
-        <span className={cn('label')}>В корзине:</span>
+        <span className={cn('label')}>{words.inCart}</span>
         <span className={cn('total')}>
-      {amount
-        ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-        : `пусто`
+      {words.item === 'товар' ?
+      amount ?
+        `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
+        : words.empty
+      :
+        amount ?
+        `${amount} ${words.item}${amount !== 1 ? 's': ''} / ${numberFormat(sum)} ₽`: words.empty
       }
       </span>
-        <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+        <button className='BasketSimple__button' onClick={onOpen}>{words.goTo}</button>
       </div>
     </div>
   )

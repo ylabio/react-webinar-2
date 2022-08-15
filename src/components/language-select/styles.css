@@ -1,0 +1,10 @@
+/* Выпадающее меню */
+.Select {
+    display: block;
+    height: 80px;
+}
+
+.Select-menu {
+    margin: 30px 20px 0 0;
+    cursor: pointer;
+}

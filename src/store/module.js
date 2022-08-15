@@ -10,7 +10,8 @@ class StateModule {
    * @return {Object}
    */
   initState() {
-    return {};
+    return {
+    };
   }
 
   getState() {

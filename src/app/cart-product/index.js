@@ -49,4 +49,4 @@ function CartProduct() {
   );
 }
 
-export default CartProduct;
+export default React.memo(CartProduct);

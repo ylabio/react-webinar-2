@@ -19,7 +19,7 @@ function ItemPage() {
   useEffect(() => {
     store.get("catalog").setItem(params.id);
     store.get("modals").close();
-  }, []);
+  }, [params.id]);
 
   const callbacks = {
     openModalBasket: useCallback(() => store.get("modals").open("basket"), []),

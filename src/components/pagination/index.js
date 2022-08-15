@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import { cn as bem } from "@bem-react/classname";
+import propTypes from "prop-types";
 import "./style.css";
 
 function Pagination(props) {
@@ -44,5 +45,16 @@ function Pagination(props) {
     </ul>
   );
 }
+
+Pagination.propTypes = {
+  maxPages: propTypes.number,
+  currentPage: propTypes.number,
+  onSetPage: propTypes.func.isRequired,
+};
+
+Pagination.defaultProps = {
+  maxPages: 1,
+  currentPage: 1,
+};
 
 export default React.memo(Pagination);

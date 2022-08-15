@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import numberFormat from "../../utils/numberFormat";
 import { cn as bem } from "@bem-react/classname";
+import propTypes from "prop-types";
 import "./style.css";
 
 function ItemDetails(props) {
@@ -31,5 +32,14 @@ function ItemDetails(props) {
     </div>
   );
 }
+
+ItemDetails.propTypes = {
+  item: propTypes.object.isRequired,
+  onAdd: propTypes.func,
+};
+
+ItemDetails.defaultProps = {
+  onAdd: () => {},
+};
 
 export default React.memo(ItemDetails);

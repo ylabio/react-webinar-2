@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import propTypes from 'prop-types';
 import pluralize from 'pluralize';
 import numberFormat from "../../utils/number-format";

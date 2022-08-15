@@ -1,11 +1,11 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import {useParams, useLocation} from 'react-router-dom';
 import useStore from "../../utils/use-store";
 import useSelector from '../../utils/use-selector';
 import Layout from '../../components/layout';
 import ItemDetailed from '../../components/item-detailed';
-import BasketSimple from "../../components/basket-simple";
 import ProgressBar from '../../components/ui/progress-bar';
+import Controls from '../../components/controls';
 
 function Article() {
 
@@ -38,7 +38,7 @@ function Article() {
 
   return (
     <Layout head={<h1>{!select.loading && select.article.title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <Controls onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       {select.loading 
         ? <ProgressBar /> 
         : <ItemDetailed article={select.article} onAdd={callbacks.addToBasket} error={select.error}/>

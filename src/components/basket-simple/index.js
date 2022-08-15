@@ -5,9 +5,7 @@ import plural_en from 'pluralize';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
 import Translate from '../../components/translate';
-import useSelector from '../../utils/use-selector';
 import './styles.css';
-
 
 function BasketSimple({sum, amount, onOpen, lang}) {
   const cn = bem('BasketSimple');

@@ -37,7 +37,6 @@ class CatalogState extends StateModule {
     const response = await fetch(
       `/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`
     )
-    // const response = await fetch(`/api/v1/articles/${id}`)
     const json = await response.json()
     this.setState({
       item: json.result,

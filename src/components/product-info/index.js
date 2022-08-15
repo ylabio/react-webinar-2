@@ -1,8 +1,6 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 import propTypes from 'prop-types'
 import { cn as bem } from '@bem-react/classname'
-import { Link } from 'react-router-dom'
-import plural from 'plural-ru'
 import './style.css'
 import numberFormat from '../../utils/numberFormat'
 
@@ -15,7 +13,6 @@ function ProductInfo(props) {
   const callbacks = {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
   }
-  console.log(maidIn.title)
 
   return (
     <div className={cn()}>
@@ -41,8 +38,7 @@ function ProductInfo(props) {
 }
 
 ProductInfo.propTypes = {
-  item: propTypes.oneOfType([propTypes.string, propTypes.number, propTypes.object]),
-  // item: propTypes.object.isRequired,
+  item: propTypes.object.isRequired,
   onAdd: propTypes.func,
 }
 

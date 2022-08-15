@@ -20,11 +20,9 @@ function Main() {
     items: state.catalog.items,
     count: state.catalog.count,
     limit: state.catalog.limit,
-    // currentPage: state.catalog.currentPage,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }))
-  console.log(select.count, select.limit)
 
   const callbacks = {
     // Открытие корзины

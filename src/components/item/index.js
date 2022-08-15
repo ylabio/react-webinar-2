@@ -1,8 +1,7 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 import propTypes from 'prop-types'
 import { cn as bem } from '@bem-react/classname'
 import { Link } from 'react-router-dom'
-import plural from 'plural-ru'
 import './style.css'
 import numberFormat from '../../utils/numberFormat'
 
@@ -15,12 +14,6 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('id')}>*/}
-      {/*  {props.item._id}*/}
-      {/*</div>*/}
-      {/* <div>
-
-      </div> */}
       <Link to={`product/${props.item._id}`} className={cn('title')}>
         {props.item.title}
       </Link>

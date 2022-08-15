@@ -11,10 +11,14 @@ function BasketSimple({sum, amount, onOpen, toNull}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <Link 
-        onClick={toNull}
-        to="/"
-      >Главная</Link>
+      <div
+      onClick={toNull}
+      >
+        <Link 
+          to="/"
+        >Главная</Link>
+      </div>
+     
       <div>
         <span className={cn('label')}>В корзине:</span>
         <span className={cn('total')}>

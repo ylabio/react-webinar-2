@@ -4,9 +4,8 @@
     margin: 20px;
 }
 
-.PaginationBlock div {
-    padding: 3px 7px;
-    cursor: pointer;
+.PaginationBlock span {
+    
 }
 
 .PaginationBlock div:hover {
@@ -16,9 +15,13 @@
 
 .PaginationBlock-active {
     background: rgb(0, 153, 255);
-    color: #fff
+    color: #fff;
+    padding: 2px 5px;
+    cursor: pointer;
+    margin: 3px;
 }
 
 .PaginationBlock-start {
-    
+    cursor: pointer;
+    margin: 3px;
 }

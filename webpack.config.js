@@ -11,6 +11,7 @@ let config = {
   entry: `index.js`, // Главный файл приложения
   output: {
     path: path.join(__dirname, 'dist'), // Куда и как делать сборку
+    publicPath: '/',
     filename: '[name].js',
     clean: true, // Очистить ./dist от предыдущей сборки
   },

@@ -16,17 +16,12 @@ function Item(props) {
   return (
    
       <div className={cn()}>
-        {/*<div className={cn('id')}>*/}
-        {/*  {props.item._id}*/}
-        {/*</div>*/}
-         
           <div
           className={cn('title')}
-          onClick={() => callbacks.addId()}
           >
-            
           <Link 
-          to={props.item._id}
+           onClick={() => callbacks.addId()}
+          to={`/articles/${props.item._id}`}
           >
           {props.item.title}</Link>
           </div>

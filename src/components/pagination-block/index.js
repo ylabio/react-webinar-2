@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes, { array } from 'prop-types';
 import './style.css';
-function PaginationBlock({paginate, count}) {
+function PaginationBlock({paginate, count, num, getNum}) {
 
   const cn = bem('PaginationBlock');
 
-    const [number, setNum] = useState(1)
+    const [number, setNum] = useState(num)
 
     const arr = []
     
@@ -19,83 +19,38 @@ function PaginationBlock({paginate, count}) {
     const cons = (num) => {
         setNum(num)
         paginate(`${num-1}0`)
+        getNum(num)
     }
+
+    const pagNum = (item) => (<span className={cn(item === number ? 'active' : 'start')}onClick={() => cons(item)}>{item}</span>)
 
     return (
         <div className={cn()}>
             {
-                number === 1 || number === 2
-                    ? arr.map(item => {
-                        if(item < 4) {
-                                return (
-                                <div className={cn(item === number ? 'active' : 'start')} onClick={() => cons(item)} key={item.toString()}>{item}</div>
-                            )
-                        } else if(item === arr.length){
-                            return (
-                                <>
-                                    {dots}
-                                    <div className={cn(item === number ? 'active' : 'start')}onClick={() => cons(item)} key={item.toString()}>{item}</div>
-                                </>
-                            )
-                        }
-                        })
-                    : null
-            }
-            {
-                number === 3
-                ? arr.map(item => {
-                    if(item <= 4 ) {
-                            return (
-                            <div className={cn(item === number ? 'active' : 'start')} onClick={() => cons(item)} key={item.toString()}>{item}</div>
-                        )
-                    } else if(item === arr.length){
-                        return (
-                            <>
-                                {dots}
-                                <div className={cn(item === number ? 'active' : 'start')}onClick={() => cons(item)} key={item.toString()}>{item}</div>
-                            </>
-                        )
-                    }
-                    })
-                : null   
-            }
-            {
-                number >=4 && number < arr.length && number - 1 < arr.length
-                ? arr.map(item => {
-                    if(item === 1 ) {
-                        return (
-                            <>
-                                <div className={cn(item === number ? 'active' : 'start')} onClick={() => cons(item)} key={item.toString()}>{item}</div>{dots}
-                            </>
-                        )
-                    } else if(item === number || (item + 1) === number || (item - 1) === number){
-                        return <div className={cn(item === number ? 'active' : 'start')}onClick={() => cons(item)} key={item.toString()}>{item}</div>
-                    }else if(item === arr.length){
-                        return (
-                            <> 
-                                {dots}<div className={cn(item === number ? 'active' : 'start')}onClick={() => cons(item)} key={item.toString()}>{item}</div>
-                            </>
-                        )
-                    }
-                    })
-                : null   
-            }
-            {
-                number === arr.length 
-                ? arr.map(item => {
-                    if(item === 1 ) {
-                        return (
-                            <>
-                                <div className={cn(item === number ? 'active' : 'start')} onClick={() => cons(item)} key={item.toString()}>{item}</div>{dots}
-                            </>
-                        )
-                    } else if(item === number || (item + 1) === number || (item + 2) === number){
-                        return (
-                            <div className={cn(item === number ? 'active' : 'start')}onClick={() => cons(item)} key={item.toString()}>{item}</div>
-                        )
-                    }
-                    })
-                : null   
+                arr && arr.map(item => {
+                    return (
+                        <span key={item}>
+
+                            {item === 1 ? pagNum(item) : null}
+
+                            {number === 1 && item === 3? <>{pagNum(item)} {dots}</>  : null}
+
+                            {number === 3 && item === 4? <>{pagNum(item)} {dots}</> : null}
+
+                            {(number - 1) === item && item !== 1 && item !== 13 && number !== 1? number  !==3 &&  number !== arr.length  ? <>{dots} {pagNum(item)}</>  : pagNum(item) : null}
+
+                            {number === item && item !== 1 && item !== arr.length ? pagNum(item) : null}
+
+                            {(number + 1) === item && item !== 1 && item !== 4 && item !== 13 ? number  !==1 ? <>{pagNum(item)} {dots}</>: pagNum(item) : null}
+
+                            {number === arr.length && item === number - 2 ? <>{dots} {pagNum(item)}</> : null}
+
+                            {item === arr.length ? pagNum(item) : null}
+
+                        </span>
+                       
+                    )
+                })
             }
         </div>
     )
@@ -103,11 +58,13 @@ function PaginationBlock({paginate, count}) {
 
 PaginationBlock.propTypes = {
    count: propTypes.number.isRequired,
-   paginate: propTypes.func.isRequired
+   paginate: propTypes.func.isRequired,
+   num: propTypes.number
 }
 
 PaginationBlock.defaultProps = {
     count: 0,
+    num: 1,
     paginate: () => {}
 }
 

@@ -12,16 +12,24 @@ class ItemPageState extends StateModule{
   initState() {
     return {
         _id: '',
-       item: {}
+       item: {},
+       load: false
     };
   }
  
   async loadItem(_id){
+
+    this.setState({
+      _id,
+      item: {},
+      load: true
+    });
     const response = await fetch(`/api/v1/articles/${_id}?fields=*,maidIn(title,code),category(title)`);
     const json = await response.json();
     this.setState({
       _id,
       item: json.result,
+      load: false
     });
   }
 
@@ -45,7 +53,7 @@ class ItemPageState extends StateModule{
    toNull() {
     this.setState({
       _id: '',
-      item: {}
+      item: {},
     })
    }
  

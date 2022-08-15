@@ -20,13 +20,11 @@ class CatalogState extends StateModule{
   async load(){
     const response = await fetch('/api/v1/articles?limit=10&skip=0&fields=items(*),count');
     const json = await response.json();
-    console.log(json)
     this.setState({
       items: json.result.items,
       count: json.result.count
     });
   }
-  //http://example.front.ylab.io/api/v1/articles?limit=20&skip=10&fields=items(*),count
 
   async paginate(skip) {
     const response = await fetch(`/api/v1/articles?limit=10&skip=${skip}&fields=items(*),count`);

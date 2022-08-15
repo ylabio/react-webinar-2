@@ -23,6 +23,7 @@ function Main(){
 
   useEffect(() => {
     store.get('catalog').load();
+    // callbacks.toNullForItemState()
   }, [])
 
   const select = useSelector(state => ({
@@ -31,7 +32,9 @@ function Main(){
     sum: state.basket.sum,
     _id: state.item_page._id,
     item: state.item_page.item,
-    count: state.catalog.count
+    count: state.catalog.count,
+    load: state.item_page.load,
+    num: state.pagination.num
   }));
 
   const callbacks = {
@@ -41,12 +44,16 @@ function Main(){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Добавление id элемента для запроса
     addIdForRequest: useCallback(_id => store.get('item_page').getId(_id), []),
+     // Добавление id элемента для запроса
+    toLoadItem: useCallback(_id => store.get('item_page').loadItem(_id), []),
     // обнуление состояния
     toNullForItemState: useCallback(() => store.get('item_page').toNull(), []),
     // загрузка всего списка
     toPaginate: useCallback((skip) => store.get('catalog').paginate(skip), []),
+    // получение номера страницы
+    paginNum: useCallback((num) => store.get('pagination').paginationNumber(num), []), 
   };
-
+  // callbacks.toNullForItemState()
 
 
   const renders = {
@@ -54,7 +61,7 @@ function Main(){
   }
 
   return (
-    <Layout head={<h1>{select.item.title ? select.item.title : 'Магазин'}</h1>}>
+    <Layout head={<h1>{select.item?.title ? select.item.title : 'Магазин'}</h1>}>
       <Routes> 
         <Route path="/" element={
           <>
@@ -70,10 +77,12 @@ function Main(){
             <PaginationBlock 
               count={select.count} 
               paginate={callbacks.toPaginate} 
+              num={select.num}
+              getNum={callbacks.paginNum}
             />
           </>
           }/> 
-        <Route path={select._id} element={
+        <Route path='/articles/:id' element={
           <>
             <BasketSimple 
               onOpen={callbacks.openModalBasket} 
@@ -85,6 +94,8 @@ function Main(){
             <Product_page 
               onAdd={callbacks.addToBasket} 
               item={select.item}
+              load={select.load}
+              loadItem={callbacks.toLoadItem}
             />
           </>
         }/>

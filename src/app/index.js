@@ -5,6 +5,7 @@ import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
 import { Route, Routes } from 'react-router-dom';
 import InfoPage from '../pages/info-page';
+import NotFound from '../pages/not-found';
 
 /**
  * Приложение
@@ -21,6 +22,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='product/:id' element={<InfoPage />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

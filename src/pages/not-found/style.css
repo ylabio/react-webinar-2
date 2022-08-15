@@ -1,0 +1,19 @@
+.NotfFound-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+}
+
+.NotfFound-title {
+  display: flex;
+  flex-direction: column;
+  font-size: 52px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.NotfFound-title span:first-child {
+  font-size: 82px;
+  text-align: center;
+}

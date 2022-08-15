@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
+import {Link} from 'react-router-dom';
 import numberFormat from '../../utils/numberFormat';
 import './style.css';
 
@@ -20,7 +21,7 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')}>
-        <span>{props.item.title}</span>
+        <Link to={`/items/${props.item['_id']}`}>{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>

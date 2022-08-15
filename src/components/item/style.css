@@ -15,7 +15,14 @@
   padding: 20px 10px;
 }
 
-.Item-title > span:hover {
+.Item-title > a:link,
+.Item-title > a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+.Item-title > a:hover,
+.Item-title > a:active {
   text-decoration: underline;
   cursor: pointer;
 }

@@ -5,6 +5,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import Description from "../../components/description";
 import {
   Routes,
   Route,
@@ -15,10 +16,9 @@ import Pages from "../../components/pages";
 function Main(){
 
   console.log('Main');
-  const {query} = useParams();
   const store = useStore();
   const [itemsPerPage] = useState(10);
-
+  
   useEffect(() => {
     store.get('catalog').load();
   }, [])
@@ -38,19 +38,30 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} />, []),
   }
 
   return (
-      <Layout head={<h1>Магазин</h1>} 
-              nav={<Pages count={Math.ceil(select.itemsCount/itemsPerPage)} 
-              perPage={itemsPerPage} />}>
-        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
         <Routes>
-          <Route path="/" element={<List items={select.items} renderItem={renders.item}/>} />
-          <Route path="/:query" element={<List items={select.items} renderItem={renders.item}/>} />
+          <Route path ="/" element={
+            <Layout head={<h1>Магазин</h1>} 
+                    nav={<Pages count={Math.ceil(select.itemsCount/itemsPerPage)} 
+                    perPage={itemsPerPage} />}>
+            <BasketSimple onOpen={callbacks.openModalBasket} 
+                          amount={select.amount} 
+                          sum={select.sum}/>
+            </Layout>}>
+            <Route index element={<List items={select.items} renderItem={renders.item}/>} />
+            <Route path=":query" element={<List items={select.items} renderItem={renders.item}/>} />
+          </Route>
+          <Route path="/articles/:id" 
+                 element={<Layout head={<h1>Название товара</h1>}>
+            <BasketSimple onOpen={callbacks.openModalBasket} 
+                          amount={select.amount} 
+                          sum={select.sum}/>
+            <Description onAdd={callbacks.addToBasket} />
+            </Layout>} />
         </Routes>
-      </Layout>
   )
 }
 

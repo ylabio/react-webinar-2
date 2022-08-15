@@ -6,7 +6,6 @@ import {StoreContext} from "./store/context";
 import {
   BrowserRouter,
 } from "react-router-dom";
-import Layout from './components/layout';
 
 // Внешнее состояние
 const store = new Store();

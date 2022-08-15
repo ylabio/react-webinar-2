@@ -38,3 +38,13 @@
 .Pages-item_none{
     display: none;
 }
+
+.Pages-spread{
+    height: 18px;
+    width: 18px; 
+    font-family: Arial;
+    padding: 1px;
+    text-align: center;
+    text-decoration: none;
+    color: #CCCCCC;
+}

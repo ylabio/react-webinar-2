@@ -28,7 +28,7 @@ return (
         </NavLink>
         )}
 
-        {(active > 2) && <span className={cn('item')}>...</span>}
+        {(active > 2) && <span className={cn('spread')}>...</span>}
 
       {pagesList.map((item, index) =>
       <NavLink key={item}
@@ -48,7 +48,7 @@ return (
         {item}
       </NavLink>)}
 
-      {(active < (props.count - 3)) && <span className={cn('item')}>...</span>}
+      {(active < (props.count - 3)) && <span className={cn('spread')}>...</span>}
 
       {pagesList.map((item, index) =>
         <NavLink key={item}

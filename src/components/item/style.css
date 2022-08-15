@@ -10,7 +10,7 @@
     padding: 20px 10px 20px 20px;
 }
 
-.Item-title {
+.Item-title{
     width: 100%;
     padding: 20px 10px;
 }
@@ -25,4 +25,31 @@
 .Item-price {
     padding: 0 10px;
     white-space: nowrap;
+}
+
+.Item-link {
+    text-decoration: none;
+    color: #000000;
+}
+
+
+.Item-link:link {
+
+}
+
+.Item-link:visited {
+    color: #000000;
+}
+
+.Item-link:focus {
+
+}
+
+.Item-link:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+.Item-link:active {
+    color: #000000;
 }

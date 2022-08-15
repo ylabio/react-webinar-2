@@ -12,10 +12,10 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
+      item: {},
       skip: 0,
       count: 0,
       limit: 10,
-      // currentPage: 1,
     }
   }
 
@@ -27,9 +27,23 @@ class CatalogState extends StateModule {
     this.setState({
       items: json.result.items,
       count: json.result.count,
+      item: {},
       skip,
       limit,
-      // currentPage,
+    })
+  }
+
+  async loadItem(id) {
+    const response = await fetch(
+      `/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`
+    )
+    // const response = await fetch(`/api/v1/articles/${id}`)
+    const json = await response.json()
+    this.setState({
+      item: json.result,
+      items: this.getState().items,
+      limit: this.getState().limit,
+      count: this.getState().count,
     })
   }
 
@@ -43,6 +57,12 @@ class CatalogState extends StateModule {
       },
       'Создание товара'
     )
+  }
+
+  setCurrentPage(currentPage) {
+    this.setState({
+      currentPage: currentPage,
+    })
   }
 
   /**

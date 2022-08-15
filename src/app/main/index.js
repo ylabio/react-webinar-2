@@ -42,12 +42,7 @@ function Main() {
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List items={select.items} renderItem={renders.item} />
-      <Pagination
-        limit={select.limit}
-        count={select.count}
-        // currentPage={select.currentPage}
-        changeNumber={callbacks.changeNumber}
-      />
+      <Pagination limit={select.limit} count={select.count} changeNumber={callbacks.changeNumber} />
     </Layout>
   )
 }

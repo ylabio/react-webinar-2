@@ -17,11 +17,13 @@ function Layout({head, children, curLang, setLang}) {
         {head}
         {curLang === 'en' ? (
           <button  onClick={callbacks.setRuLang}>
-            <img src='src\assets\ru.png'/>
+            RUS
+            {/* <img src='src\assets\ru.png'/> */}
             </button>
         ) : (
           <button onClick={callbacks.setEnLang}>
-            <img src="src\assets\eng.png" />
+            ENG
+            {/* <img src="src\assets\eng.png" /> */}
           </button>
         )}
       </div>

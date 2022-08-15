@@ -3,10 +3,11 @@ import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 import numberFormat from "../../utils/number-format";
+import translation from "../../utils/translation";
 
 function Article(props) {
   const cn = bem("Article");
-  const { article, onAdd } = props;
+  const { article, onAdd, lng } = props;
 
   return (
     <div className={cn()}>
@@ -29,7 +30,9 @@ function Article(props) {
         <div className={cn("title")}>Цена:</div>
         <div className={cn("value")}>{numberFormat(article.price)} ₽</div>
       </div>
-      <button onClick={() => onAdd(article._id)}>Добавить</button>
+      <button onClick={() => onAdd(article._id)}>
+        {translation(lng, "add")}
+      </button>
     </div>
   );
 }

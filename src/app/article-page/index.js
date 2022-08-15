@@ -16,6 +16,7 @@ function ArticlePage() {
     sum: state.basket.sum,
     article: state.article.article,
     loading: state.article.isLoading,
+    current: state.localization.current,
   }));
 
   useEffect(() => {
@@ -33,7 +34,11 @@ function ArticlePage() {
       {select.loading ? (
         <Spinner />
       ) : (
-        <Article article={select.article} onAdd={callbacks.addToBasket} />
+        <Article
+          article={select.article}
+          onAdd={callbacks.addToBasket}
+          lng={select.current}
+        />
       )}
     </Layout>
   );

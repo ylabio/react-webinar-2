@@ -17,6 +17,7 @@ function LayoutHeader() {
     sum: state.basket.sum,
     current: state.localization.current,
     lang: state.localization.lang,
+    current: state.localization.current,
   }));
 
   const callbacks = {
@@ -26,7 +27,7 @@ function LayoutHeader() {
 
   return (
     <div className={cn()}>
-      <Menu />
+      <Menu lng={select.current} />
       <Select
         value={select.current}
         options={select.lang}
@@ -36,6 +37,7 @@ function LayoutHeader() {
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
+        lng={select.current}
       />
     </div>
   );

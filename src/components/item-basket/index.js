@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { Link } from "react-router-dom";
 import propTypes from "prop-types";
 import numberFormat from "../../utils/number-format";
+import translation from "../../utils/translation";
 import { cn as bem } from "@bem-react/classname";
 import "./styles.css";
 
@@ -27,7 +28,9 @@ function ItemBasket(props) {
           {numberFormat(props.item.amount || 0)} шт
         </div>
         <div className={cn("cell")}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>
+            {translation(props.lng, "delete")}
+          </button>
         </div>
       </div>
     </div>

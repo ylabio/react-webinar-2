@@ -8,12 +8,10 @@ function Select(props) {
 
   const onSelect = useCallback(
     (e) => {
-      console.log(e.target.value);
       props.onChange(e.target.value);
     },
     [props.onChange]
   );
-  console.log(props);
   return (
     <select className={cn()} onChange={onSelect} value={props.value}>
       {props.options.map((item, index) => (

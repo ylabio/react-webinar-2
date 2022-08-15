@@ -6,6 +6,7 @@ import Layout from "../../components/layout";
 import Item from "../../components/item";
 import Pagination from "../../components/pagination";
 import LayoutHeader from "../../components/layout-header";
+import translation from "../../utils/translation";
 
 function Main() {
   console.log("Main");
@@ -17,6 +18,7 @@ function Main() {
     count: state.catalog.count,
     page: state.catalog.requestParameters?.page,
     limit: state.catalog.requestParameters?.limit,
+    current: state.localization.current,
   }));
 
   useEffect(() => {
@@ -38,14 +40,15 @@ function Main() {
           item={item}
           onAdd={callbacks.addToBasket}
           link={`/article/${item._id}`}
+          lng={select.current}
         />
       ),
-      []
+      [select.current]
     ),
   };
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>{translation(select.current, "title")}</h1>}>
       <LayoutHeader />
       <List items={select.items} renderItem={renders.item} />
       <Pagination

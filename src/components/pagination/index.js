@@ -5,10 +5,8 @@ import propTypes from 'prop-types';
 
 
 function Pagination({ gapsStyle, onClick, page, gaps, totalPages }) {
-  console.log('Pagination');
-
   const cn = bem('Pagination');
-
+  
   return (
     <div className={cn()}>
       <div className={cn('rockButton', [cn('button', { ['active']: page === 1 })])}
@@ -42,13 +40,15 @@ function Pagination({ gapsStyle, onClick, page, gaps, totalPages }) {
 }
 
 Pagination.propTypes = {
-  contentPerPage: propTypes.number,
-  gapsStyle: propTypes.string
+  gapsStyle: propTypes.string.isRequired,
+  onClick: propTypes.func.isRequired,
+  page: propTypes.number.isRequired,
+  gaps: propTypes.object.isRequired,
+  totalPages: propTypes.number.isRequired
 }
 
 Pagination.defaultProps = {
-  contentPerPage: 10,
-  gapsStyle: "..."
+
 }
 
 export default React.memo(Pagination);

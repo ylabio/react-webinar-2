@@ -66,7 +66,7 @@ const usePagination = ({ contentPerPage, count }) => {
           after = true;
         }
       }
-      console.log("paginationGroup: ", paginationGroup)
+
       setGaps({ paginationGroup, before, after });
     }, [page, pagesInBetween, pageCount])
   

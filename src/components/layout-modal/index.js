@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+import LangArr from '../lang-array';
 import './style.css';
 
 function LayoutModal(props) {
@@ -27,7 +28,7 @@ function LayoutModal(props) {
           <h1 className={cn('title')}>
             {props.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <button className={cn('close')} onClick={props.onClose}>{LangArr.basket.headButton[props.lang]}</button>
         </div>
         <div className={cn('content')}>
           {props.children}

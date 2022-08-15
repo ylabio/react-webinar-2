@@ -2,11 +2,17 @@ import React, {useCallback} from 'react';
 import { NavLink } from 'react-router-dom';
 import propTypes from 'prop-types';
 import numberFormat from "../../utils/numberFormat";
+import useSelector from '../../utils/use-selector';
+import LangArr from '../lang-array';
 import {cn as bem} from "@bem-react/classname";
 import './styles.css';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
+
+  const select = useSelector(state => ({
+    language: state.language.language
+  }));
 
   const callbacks = {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item])
@@ -21,8 +27,8 @@ function ItemBasket(props) {
         </NavLink></div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}>Удалить</button></div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {LangArr.basketItem.pcs[select.language]}</div>
+        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{LangArr.basketItem.button[select.language]}</button></div>
       </div>
     </div>
   )

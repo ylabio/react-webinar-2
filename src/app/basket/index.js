@@ -3,6 +3,7 @@ import React, {useCallback} from "react";
 import BasketTotal from "../../components/basket-total";
 import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
+import LangArr from "../../components/lang-array";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 
@@ -15,7 +16,8 @@ function Basket(){
   const select = useSelector(state => ({
     items: state.basket.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    language: state.language.language
   }));
 
   const callbacks = {
@@ -30,9 +32,9 @@ function Basket(){
   }
 
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+    <LayoutModal title={LangArr.basket.title[select.language]} onClose={callbacks.closeModal} lang={select.language}>
       <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum} lang={select.language}/>
     </LayoutModal>
   )
 }

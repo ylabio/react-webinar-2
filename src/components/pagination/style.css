@@ -15,8 +15,21 @@
     cursor: pointer;
 }
 .Pagination-page:hover{
-    background: #E1E1E1;    
+    background: #E1E1E1;
+    color: #000;    
 }
-.Pagination-page-current{
-    background: #0087E9;    
+.Pagination-page-current,
+.Pagination-page-current:hover{
+    background: #0087E9;
+    color: #fff;
+    cursor: auto;    
+}
+.Pagination-dotted{
+    box-sizing: border-box;
+    display: inline-block;
+    text-align: center;
+    padding: 1px;
+    min-width: 20px;
+    height: 20px;
+    color: #ccc;
 }

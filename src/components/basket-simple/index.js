@@ -3,24 +3,34 @@ import { Link } from "react-router-dom";
 import propTypes from 'prop-types';
 import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
-import numberFormat from "../../utils/numberFormat";
+import numberFormat from "../../utils/number-format";
+import useSelector from "../../utils/use-selector";
+import localization from './localization';
 import './styles.css';
 
 
 function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
+
+  const select = useSelector(state => ({
+    lang: state.localization.lang
+  }));
   
   return (
     <div className={cn()}>
-      <span className={cn('link')}><Link to="/">Главная</Link></span>
-      <span className={cn('label')}>В корзине:</span>
+      <span className={cn('link')}><Link to="/">{localization[select.lang].link}</Link></span>
+      <span className={cn('label')}>{localization[select.lang].inBasket}</span>
       <span className={cn('total')}>
-      {amount
-        ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-        : `пусто`
+      {amount ? 
+        `${amount} ${select.lang === "RU" ? plural(amount, 'товар', 'товара', 'товаров') :
+                     amount === 1 ? 'item' : 'items'} / 
+                   ${numberFormat(sum)} ₽` : 
+        `${localization[select.lang].empty}`
       }
       </span>
-      <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+      <button className='BasketSimple__button' onClick={onOpen}>
+        {localization[select.lang].openModal}
+      </button>
     </div>
   )
 }

@@ -33,3 +33,7 @@
     font-size: 18px;
     white-space: nowrap;
 }
+
+.ItemBasket button {
+    width: 71px;
+}

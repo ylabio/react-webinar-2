@@ -6,6 +6,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import ItemDescription from "../../components/item-description";
 import ErrorMessage from "../../components/error-message";
+import localization from "./localization";
 
 function ItemPage() {
   const [loading, setLoading] = useState(true);
@@ -17,7 +18,8 @@ function ItemPage() {
   const select = useSelector(state => ({
     item: state.catalog.item,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    lang: state.localization.lang
   }));
 
   useEffect(() => {
@@ -38,7 +40,11 @@ function ItemPage() {
   };
   
   return (
-    <Layout head={<h1>{error ? "Ошибка" : loading ? "Загрузка..." : select.item.title}</h1>}>
+    <Layout head={<h1>{error ? localization[select.lang].headError : 
+                       loading ? localization[select.lang].headLoad : 
+                       select.item.title}
+                  </h1>}
+    >
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/> 
       {
         error ? <ErrorMessage message={"Не удалось загрузить данные о товаре"}/> : 

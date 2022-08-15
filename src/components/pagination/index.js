@@ -15,7 +15,8 @@ function Pagination (props) {
         {pagesArray.map((elem) => (
             <span
                 key={counter()}
-                className={elem === props.page ? cn('page') + ' ' + cn('page-current') : cn('page')}
+                className={elem === props.page ? cn('page') + ' ' + cn('page-current') : 
+                           elem === "..." ? cn('dotted') : cn('page')}
                 onClick={elem !== props.page && elem !== "..." ? () => props.changePage(elem) : null}
             >
               {elem}

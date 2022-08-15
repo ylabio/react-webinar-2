@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import MainPage from "../../pages/main-page";
-import ItemPage from "../../pages/item-page/item-page";
+import ItemPage from "../../pages/item-page/";
 import { Route, Routes, Navigate } from "react-router-dom";
 
 function Main(){

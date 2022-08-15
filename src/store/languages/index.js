@@ -24,6 +24,7 @@ class LanguageState extends StateModule{
       category: 'Категория',
       edition: 'Год выпуска',
       price: 'Цена',
+      pcs: "шт"
     };
   }
 

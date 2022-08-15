@@ -14,7 +14,8 @@
     "maidIn": "Страна производитель",
     "category": "Категория",
     "edition": "Год выпуска",
-    "price": "Цена"
+    "price": "Цена",
+    "pcs": "шт"
   },
   "english": {
     "languageName": "English",
@@ -31,6 +32,7 @@
     "maidIn": "Producing country",
     "category": "Category",
     "edition": "Year of release",
-    "price": "Price"
+    "price": "Price",
+    "pcs": "pcs"
   }
 }

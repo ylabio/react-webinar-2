@@ -5,21 +5,21 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import {Link} from "react-router-dom";
 
-function ItemBasket(props) {
+function ItemBasket({item, onRemove, onClose, itemPageLink}) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
-    onClose: useCallback((e) => props.onClose(), [])
+    onRemove: useCallback((e) => onRemove(item._id), [onRemove, item]),
+    onClose: useCallback((e) => onClose(), [])
 
   };
 
   return (
     <div className={cn()}>
-      <Link to={props.itemPageLink} className={cn('title')} onClick={callbacks.onClose}>{props.item.title}</Link>
+      <Link to={itemPageLink} className={cn('title')} onClick={callbacks.onClose}>{item.title}</Link>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>{numberFormat(item.price)} ₽</div>
+        <div className={cn('cell')}>{numberFormat(item.amount || 0)} шт</div>
         <div className={cn('cell')}><button onClick={callbacks.onRemove}>Удалить</button></div>
       </div>
     </div>

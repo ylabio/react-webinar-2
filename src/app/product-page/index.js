@@ -24,7 +24,7 @@ function ProductPage(){
             console.log(err);
             alert('Что-то пошло не так , обновите страницу.');
         })
-    },[])
+    },[params])
     
     return(
         <>

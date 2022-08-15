@@ -12,21 +12,23 @@ function ProductContent({productInfo}){
 
     return (
         <div className={cn()}>
-            <p className={cn('title')}>{productInfo.description}</p>
+            <span className={cn('main-description')}>{productInfo.description}</span>
             <div className={cn("category")}>
-              <p className={cn('title')}>Страна производитель:</p>
-              <p className={cn("description")}>{productInfo.maidIn.title}</p>
+              <span className={cn('title')}>Страна производитель:</span>
+              <span className={cn("description")}>{productInfo.maidIn.title}</span>
             </div>
             <div className={cn("category")}>
-              <p className={cn('title')}>Категория:</p>
-              <p className={cn("description")}>{productInfo.category.title}</p>
+              <span className={cn('title')}>Категория:</span>
+              <span className={cn("description")}>{productInfo.category.title}</span>
             </div>
             <div className={cn("category")}>
-              <p className={cn('title')}>Год выпуска:</p>
-              <p className={cn("description")}>{productInfo.edition}</p>
+              <span className={cn('title')}>Год выпуска:</span>
+              <span className={cn("description")}>{productInfo.edition}</span>
             </div>
-              <p className={cn('price')}>{'Цена:   ' + String(productInfo.price).replace(/\./g,',') + ' ₽'}</p>
+            <div className={cn("price-container")}>
+            <span className={cn('price')}>{'Цена:   ' + String(productInfo.price).replace(/\./g,',') + ' ₽'}</span>
             <button onClick={() => {store.get('basket').addProductToBasket(productInfo)}}>Добавить</button>
+            </div>
         </div>
     )
 }

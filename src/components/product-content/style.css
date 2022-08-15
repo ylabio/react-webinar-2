@@ -1,15 +1,20 @@
 .ProductContent{
     padding: 40px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.ProductContent-title{
+
+.ProductContent-main-description{
     font-size: 18px;
     font-weight: 400;
+    display: block;
+    margin-bottom: 20px;
 }
 
 .ProductContent-category{
     display: flex;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .ProductContent-description{
@@ -19,6 +24,9 @@
 }
 
 .ProductContent-price{
+    display: block;
     font-size: 24px;
     font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 23px;
 }

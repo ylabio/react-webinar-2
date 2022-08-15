@@ -3,7 +3,7 @@ import {createRoot} from 'react-dom/client';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import App from './app';
 import Main from './app/main';
-import ItemDetails from './components/item-details';
+import ItemDetails from './app/item-details';
 import Store from './store';
 import {StoreContext} from './store/context';
 

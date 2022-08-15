@@ -12,6 +12,7 @@ function ItemPage() {
 
   useEffect(() => {
     store.get('item').load(id);
+    store.get('modals').close();
   }, [id]
   );
 

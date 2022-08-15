@@ -4,11 +4,12 @@ import React, {useState, useEffect} from "react";
  * Хук пагинации
  * @param contentPerPage
  * @param count
+ * @param currentPage
  * @return
  */
 
-const usePagination = (contentPerPage, count) => {
-  const [page, setPage] = useState(1);
+const usePagination = (contentPerPage, count, currentPage=1) => {
+  const [page, setPage] = useState(currentPage);
   const [gaps, setGaps] = useState({
     before: false,
     paginationGroup: [],

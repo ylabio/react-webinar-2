@@ -5,15 +5,20 @@ import usePagination from "src/utils/use-pagination";
 
 import './style.css'
 
-function Pagination({count, contentPerPage, onPage}) {
+function Pagination({count, contentPerPage, currentPage, setCurrentPage}) {
   const cn = bem('Pagination');
 
-  const {totalPages, page, setPage, gaps,} = usePagination(contentPerPage, count);
+  const {
+    totalPages,
+    page,
+    setPage,
+    gaps,
+  } = usePagination(contentPerPage, count, currentPage);
   const {after, before, paginationGroup} = gaps;
 
   const onPageClick = (numberPage) => {
     setPage(numberPage);
-    onPage(numberPage * contentPerPage - contentPerPage);
+    setCurrentPage(numberPage)
   };
 
   return (
@@ -37,11 +42,13 @@ function Pagination({count, contentPerPage, onPage}) {
 Pagination.propTypes = {
   count: propTypes.number.isRequired, // Обяхательное свойство - функция
   contentPerPage: propTypes.number,
-  onPage: propTypes.func.isRequired
+  setCurrentPage: propTypes.func.isRequired,
+  currentPage: propTypes.number,
 }
 
 Pagination.defaultProps = {
-  contentPerPage: 10// Значение по умолчанию
+  contentPerPage: 10,// Значение по умолчанию
+  currentPage: 1,
 }
 
 export default React.memo(Pagination);

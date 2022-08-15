@@ -17,9 +17,6 @@ function Main() {
 
   const translation = useLanguage()
 
-  useEffect(() => {
-    store.get('catalog').loadProducts(0);
-  }, []);
 
   const select = useSelector(state => ({
     items: state.catalog.items,
@@ -27,15 +24,23 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     count: state.catalog.count,
+    currentPage: state.catalog.page,
+    contentPerPage: state.catalog.contentPerPage,
   }));
+
+  const skip = select.currentPage * select.contentPerPage - select.contentPerPage
+
+  useEffect(() => {
+    store.get('catalog').loadProducts(skip);
+  }, [select.contentPerPage, select.currentPage]);
 
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    // запрос страницы товара
-    getProducts: useCallback(skip => store.get('catalog').loadProducts(skip), []),
+    //сохранение текущей страницы
+    setCurrentPage: useCallback(page => store.get('catalog').setPage(page), []),
   };
 
   const renders = {
@@ -48,7 +53,8 @@ function Main() {
                     sum={select.sum}/>
       {select.isLoading ? <Loading/> :
         <List items={select.items} renderItem={renders.item}/>}
-      <Pagination count={select.count} onPage={callbacks.getProducts}/>
+      <Pagination count={select.count} setCurrentPage={callbacks.setCurrentPage}
+                  currentPage={select.currentPage}/>
     </Layout>
   );
 }

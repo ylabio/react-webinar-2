@@ -14,8 +14,9 @@ class CatalogState extends StateModule {
       items: [],
       item: null,
       count: 0,
-      errorMessage: null,
       isLoading: true,
+      page: 1,
+      contentPerPage: 10,
     };
   }
 
@@ -24,6 +25,32 @@ class CatalogState extends StateModule {
     const json = await response.json();
     this.setState({
       items: json.result.items
+    });
+  }
+
+  /**
+   * сохранение страницы
+   * @param page
+   */
+
+  setPage(page) {
+
+    this.setState({
+      ...this.getState(),
+      page
+    });
+  }
+
+  /**
+   * сохранение количества записей
+   * @param contentPerPage
+   */
+
+  setContentPerPage(contentPerPage) {
+
+    this.setState({
+      ...this.getState(),
+      contentPerPage
     });
   }
 

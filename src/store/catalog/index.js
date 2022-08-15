@@ -21,11 +21,13 @@ class CatalogState extends StateModule{
         totalPages: null,
         visiblePages: null
       },
+      loading: true,
       error: ''
     };
   }
 
   async load(){
+    this.setState({...this.getState(), loading: true}, 'Лоадер')
     try {
       const response = await fetch(`/api/v1/articles?limit=${this.getState().pagination.pageSize}&fields=items(*),count&lang=ru`);
       const json = await response.json();
@@ -35,6 +37,7 @@ class CatalogState extends StateModule{
         ...this.getState(),
         items: json.result.items,
         count: json.result.count,
+        loading: false,
         pagination: {
           ...this.getState().pagination,
           activePage: 1,
@@ -46,6 +49,7 @@ class CatalogState extends StateModule{
       console.log(err)
       this.setState({
         ...this.getState(),
+        loading: false,
         error: 'Ошибка загрузки товаров'
       })
     }
@@ -57,6 +61,7 @@ class CatalogState extends StateModule{
    * @param pageNum
    */
   async loadPage(pageNum){
+    this.setState({...this.getState(), loading: true}, 'Лоадер')
     const limit = this.getState().pagination.pageSize
     const skip = pageNum * limit - limit
     const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&lang=ru`);
@@ -67,6 +72,7 @@ class CatalogState extends StateModule{
     this.setState({
       ...this.getState(),
       items: json.result.items,
+      loading: false,
       pagination: {
         ...this.getState().pagination, 
         activePage: pageNum,
@@ -114,6 +120,7 @@ class CatalogState extends StateModule{
    * @param _id
    */
       async loadArticle(_id){
+        this.setState({...this.getState(), loading: true}, 'Лоадер')
         try {
           const response = await fetch(`/api/v1/articles/${_id}?lang=ru`)
           const json = await response.json()
@@ -135,6 +142,7 @@ class CatalogState extends StateModule{
           this.setState({
             ...this.getState(),
             currentItem: currentItem,
+            loading: false,
             error: ''
           }, `Загрузка страницы товара`);
 
@@ -142,6 +150,7 @@ class CatalogState extends StateModule{
           console.log(err)
           this.setState({
             ...this.getState(),
+            loading: false,
             error: 'Ошибка загрузки товара'
           })
         }

@@ -19,10 +19,9 @@ function Article() {
     article: state.catalog.currentItem,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    loading: state.catalog.loading,
     error: state.catalog.error
   }));
-
-  const [isloading, setIsLoading] = useState(null)
 
   const callbacks = {
     // Открытие корзины
@@ -32,19 +31,15 @@ function Article() {
   };
 
   useEffect(() => {
-    setIsLoading(true)
-    store.get('catalog').loadArticle(_id).then(() => {
-      setIsLoading(false)
-    })
+    store.get('catalog').loadArticle(_id)
   // пользователь может находиться на странице товара,
   // поэтому, чтобы перейти на новый товар из корзины, будем отслеживать текущий location
   }, [location.pathname])
 
-
   return (
-    <Layout head={<h1>{!isloading && select.article.title}</h1>}>
+    <Layout head={<h1>{!select.loading && select.article.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      {isloading 
+      {select.loading 
         ? <ProgressBar /> 
         : <ItemDetailed article={select.article} onAdd={callbacks.addToBasket} error={select.error}/>
       }

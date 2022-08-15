@@ -7,6 +7,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Translate from '../../components/translate';
 import Pagination from "../../components/pagination";
+import ProgressBar from "../../components/ui/progress-bar";
 
 function Main(){
 
@@ -23,6 +24,7 @@ function Main(){
     activePage: state.catalog.pagination.activePage,
     visiblePages: state.catalog.pagination.visiblePages,
     amount: state.basket.amount,
+    loading: state.catalog.loading,
     sum: state.basket.sum
   }));
 
@@ -42,11 +44,15 @@ function Main(){
   return (
     <Layout head={<h1><Translate>Магазин</Translate></h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
-      <Pagination activePage={select.activePage} 
-                  visiblePages={select.visiblePages} 
-                  loadPage={callbacks.loadPage}
-      />
+      {select.loading ? <ProgressBar /> :
+        <>
+          <List items={select.items} renderItem={renders.item}/>
+          <Pagination activePage={select.activePage} 
+                      visiblePages={select.visiblePages} 
+                      loadPage={callbacks.loadPage}
+          />
+        </>
+      }
     </Layout>
   )
 }

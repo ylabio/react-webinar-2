@@ -36,7 +36,7 @@ function HomePage(){
 	};
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} translate={translate} />, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} translate={translate} />, [select.lang]),
   }
 
   return (

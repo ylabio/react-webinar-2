@@ -36,10 +36,12 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
+	translate: propTypes.func
 }
 
 Item.defaultProps = {
   onAdd: () => {},
+  translate: () => {},
 }
 
 export default React.memo(Item);

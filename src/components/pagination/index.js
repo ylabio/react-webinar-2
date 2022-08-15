@@ -37,4 +37,4 @@ Pagination.defaultProps = {
 	page: 1
 }
 
-export default Pagination;
+export default React.memo(Pagination);

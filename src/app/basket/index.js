@@ -32,7 +32,7 @@ function Basket(){
 	};
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket} translate={translate} />, []),
+    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket} translate={translate} />, [select.lang]),
   };
 
   return (

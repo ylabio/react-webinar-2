@@ -10,7 +10,7 @@ import useSelector from "../../utils/use-selector";
 
 const Catalog = () => {
   const store = useStore();
-  const currentPage = useParams().page;
+  const currentPage = useParams().page || '1';
 
   useEffect(() => {
     store.get('catalog').fetchPageItems(currentPage);
@@ -37,7 +37,7 @@ const Catalog = () => {
       : select.fetchState === 'ok'
         ? <>
           <List items={select.pageItems} renderItem={renders.item} />
-          <Pagination pagesCount={select.pagesCount} />
+          <Pagination current={+currentPage} last={select.pagesCount} route='/catalog/' />
         </>
         : <Error />
   );

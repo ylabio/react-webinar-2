@@ -1,27 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import propTypes from 'prop-types';
 import getPaginationPages from '../../utils/getPaginationPages';
 import './style.css';
 
-const Pagination = ({ pagesCount }) => {
-  const currentPage = +useParams().page || 1;
-
-  const [pages, setPages] = useState(['l', 'o', 'a', 'd', '...', 1]);
+const Pagination = ({ current, last, route }) => {
+  const [pages, setPages] = useState(false); // чтобы map срабатывал когда посчитаются страницы
 
   useEffect(() => {
-    setPages(getPaginationPages(currentPage, pagesCount))
-  }, [currentPage, pagesCount]);
+    setPages(getPaginationPages(current, last))
+  }, [current, last]);
 
   return (
     <div className='pagination'>
-      {pages.map(item => item === '...'
-        ? <p key={item} className='pagination__separator'>...</p>
-        : item === currentPage
-          ? <p key={item} className='pagination__active-link'>{item}</p>
-          : <Link to={'/catalog/' + item} key={item} className='pagination__link'>{item}</Link>
+      {pages && pages.map(item =>
+        (item.type === 'current')
+        ? <p key={item.key} className='pagination__active-link'>{item.value}</p>
+          : (item.type === 'space') 
+          ? <p key={item.key} className='pagination__separator'>...</p>
+            : <Link to={route + item.value} key={item.key} className='pagination__link'>{item.value}</Link>
       )}
     </div>
   )
 }
+
+Pagination.propTypes = {
+  current: propTypes.number,
+  last: propTypes.number,
+  route: propTypes.string
+};
 
 export default React.memo(Pagination);

@@ -9,14 +9,8 @@ class CatalogState extends StateModule{
     };
   }
 
-  // вызывается в в компоненте pages/catalog
-  // на роутах '/catalog/:page' и '/'
-  // page === useParams().page
-  //
+  // вызывается в компоненте pages/catalog
   async fetchPageItems (page) {
-    // при вызове из роута '/' передаётся undefined
-    page = (page === undefined) ? 1 : +page;
-
     const errorState = {
       fetchState: 'error',
       pageItems: [],
@@ -24,7 +18,7 @@ class CatalogState extends StateModule{
     };
 
     // отсеивает неправильные роуты
-    if (Number.isNaN(page) || page < 1) {
+    if (Number.isNaN(+page) || page < 1) {
       console.error('store.catalog.fetchPageItems - неправильный url');
       setTimeout(() => this.setState(errorState), 1000); // без задержки не срабатывало
     }

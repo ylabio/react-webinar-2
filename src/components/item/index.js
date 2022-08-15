@@ -17,7 +17,7 @@ function Item(props) {
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-       <Link to={`/singlepage/${props.item._id}`}>{props.item.title}</Link>
+       <Link to={props.link}>{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>

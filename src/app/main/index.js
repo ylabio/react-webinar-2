@@ -47,10 +47,9 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} language={select.language}/>, [select.language]),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} language={select.language} link={`/singlepage/${item._id}`}/>, [select.language]),
   }
 
-  
   return (
     <Layout head={<Head language={select.language} changeLanguage={callbacks.changeLanguage} title={changeLanguage(select.language, 'SHOP')}/>}>
       <Wrapper>

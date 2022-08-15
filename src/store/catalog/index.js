@@ -4,7 +4,7 @@ import StateModule from "../module";
 /**
  * Состояние каталога
  */
-class CatalogState extends StateModule{
+class CatalogState extends StateModule {
 
   /**
    * Начальное состояние
@@ -21,7 +21,7 @@ class CatalogState extends StateModule{
     };
   }
 
-  async load(page = {}){
+  async load(page = {}) {
     //проверка и бновление(если нужно) значения page
     const newPage = {...this.getState().paramPage, ...page};
     this.setState({

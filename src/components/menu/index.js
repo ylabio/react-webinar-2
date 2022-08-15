@@ -5,22 +5,24 @@ import {Link} from "react-router-dom";
 import './styles.css'
 
 function Menu(props) {
-    const cn = bem('Menu');
-    return (
-        <ul className={cn()}>
-            {props.items.map(item => (
-                <li key={item.key} className={cn('item')}>
-                    <Link to={item.link}>{item.title}</Link>
-                </li>
-            ))}
-        </ul>
-    )
+  const cn = bem('Menu');
+  return (
+    <ul className={cn()}>
+      {props.items.map(item => (
+        <li key={item.key} className={cn('item')}>
+          <Link to={item.link}>{item.title}</Link>
+        </li>
+      ))}
+    </ul>
+  )
 }
+
 Menu.propTypes = {
-    items: propTypes.arrayOf(propTypes.object)
+  items: propTypes.arrayOf(propTypes.object)
 };
 Menu.defaultProps = {
-    onChange: () => {},
+  onChange: () => {
+  },
 
 };
 export default React.memo(Menu)

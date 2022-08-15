@@ -50,10 +50,10 @@ function Main(){
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} options={options.menuItems}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination
-          page={select.page}
-          limit={select.limit}
-          count={select.count}
-          onChange={callbacks.onPaginate}
+        page={select.page}
+        limit={select.limit}
+        count={select.count}
+        onChange={callbacks.onPaginate}
       />
     </Layout>
   )

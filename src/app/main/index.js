@@ -44,6 +44,7 @@ function Main() {
     item: useCallback(item =>
       <Item
         item={item}
+        itemLink={`card/${item._id}`}
         onAdd={callbacks.addToBasket}
         langPack={select.langPack.item}
       />, [select.currentLang])

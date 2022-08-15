@@ -36,7 +36,7 @@ function Pagination(props) {
   }, [props.count, props.limit, props.currentPage]);
 
   const callbacks = {
-    setSkip: useCallback((e) => {
+    setCurrentPage: useCallback((e) => {
       const target = e.target.innerText === '...' ? props.currentPage : +e.target.innerText;
       if (!(target === props.currentPage)) {
         props.setCurrentPage(target);
@@ -50,7 +50,7 @@ function Pagination(props) {
         <li
           key={index}
           className={cn(item === props.currentPage ? 'item_current' : item === '...' ? 'item_dots' : 'item')}
-          onClick={callbacks.setSkip}
+          onClick={callbacks.setCurrentPage}
         >
           {item}
         </li>

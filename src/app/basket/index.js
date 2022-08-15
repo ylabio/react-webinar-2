@@ -29,6 +29,7 @@ function Basket() {
     itemBasket: useCallback(item =>
       <ItemBasket
         item={item}
+        itemLink={`card/${item._id}`}
         onRemove={callbacks.removeFromBasket}
         closeModal={callbacks.closeModal}
         langPack={select.langPack.basket}

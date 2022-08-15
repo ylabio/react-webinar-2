@@ -5,7 +5,7 @@ import numberFormat from '../../utils/number-format';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function ItemBasket({ item, onRemove, closeModal, langPack }) {
+function ItemBasket({ item, itemLink, onRemove, closeModal, langPack }) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
@@ -16,7 +16,7 @@ function ItemBasket({ item, onRemove, closeModal, langPack }) {
     <div className={cn()}>
       <div className={cn('title')}>
         <Link
-          to={`card/${item._id}`}
+          to={itemLink}
           onClick={closeModal}
         >
           {item.title}
@@ -39,12 +39,14 @@ function ItemBasket({ item, onRemove, closeModal, langPack }) {
 
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
+  itemLink: propTypes.string,
   onRemove: propTypes.func,
   closeModal: propTypes.func,
   langPack: propTypes.object.isRequired
 };
 
 ItemBasket.defaultProps = {
+  itemLink: '/',
   onRemove: () => {},
   closeModal: () => {}
 };

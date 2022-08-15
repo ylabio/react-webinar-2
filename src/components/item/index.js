@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import numberFormat from '../../utils/number-format';
 import './style.css';
 
-function Item({ item, onAdd, langPack }) {
+function Item({ item, itemLink, onAdd, langPack }) {
   const cn = bem('Item');
 
   const callbacks = {
@@ -15,7 +15,7 @@ function Item({ item, onAdd, langPack }) {
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-        <Link to={`card/${item._id}`}>{item.title}</Link>
+        <Link to={itemLink}>{item.title}</Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>
@@ -29,11 +29,13 @@ function Item({ item, onAdd, langPack }) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
+  itemLink: propTypes.string,
   onAdd: propTypes.func,
   langPack: propTypes.object.isRequired
 };
 
 Item.defaultProps = {
+  itemLink: '/',
   onAdd: () => {},
 };
 

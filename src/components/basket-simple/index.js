@@ -7,7 +7,7 @@ import numberFormat from "../../utils/numberFormat";
 import routes from '../../API/routes';
 import './styles.css';
 
-function BasketSimple({sum, amount, onOpen}) {
+function BasketSimple({text, sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
@@ -19,7 +19,7 @@ function BasketSimple({sum, amount, onOpen}) {
         : `пусто`
       }
       </span>
-      <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+      <button className='BasketSimple__button' onClick={onOpen}>{text}</button>
     </div>
   )
 }

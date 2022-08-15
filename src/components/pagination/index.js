@@ -45,12 +45,11 @@ PaginationLayout.propTypes = {
     itemsNuberPerPage: propTypes.number.isRequired,
     totalItemsQuantity: propTypes.number.isRequired, 
     activePage: propTypes.number, 
-    renderItem: propTypes.node
+    renderItem: propTypes.func.isRequired
 }
   
 PaginationLayout.defaultProps = {
-    activePage: 0, 
-    renderItem: () => {},
+    activePage: 0,
 }
 
 

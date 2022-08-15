@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { string } from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
@@ -27,7 +27,7 @@ function LayoutModal(props) {
           <h1 className={cn('title')}>
             {props.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <button className={cn('close')} onClick={props.onClose}>{props.text}</button>
         </div>
         <div className={cn('content')}>
           {props.children}
@@ -38,12 +38,14 @@ function LayoutModal(props) {
 }
 
 LayoutModal.propTypes = {
+  text: PropTypes.string,
   title: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
 };
 
 LayoutModal.defaultProps = {
+  text: 'Удалить',
   title: 'Модалка',
   onClose: () => {}
 };

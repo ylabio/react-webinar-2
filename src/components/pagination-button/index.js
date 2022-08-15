@@ -11,8 +11,8 @@ function PaginationButton(props){
       };
 
     return (
-        <li key={indexNumber} >
-            <button 
+        <li>
+            <button
                 type="submit"
                 className={cn({'selected': isActive})} 
                 onClick={callbacks.moveToPage}>

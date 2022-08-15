@@ -38,6 +38,7 @@
     "webpack-dev-server": "^4.9.3"
   },
   "devDependencies": {
-    "axios": "^0.27.2"
+    "axios": "^0.27.2",
+    "lodash": "^4.17.21"
   }
 }

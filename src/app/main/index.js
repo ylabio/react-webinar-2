@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import routes from '../../API/routes';
 import List from "../../components/list";
 import Layout from "../../components/layout";
+import Header from "../../components/header";
 import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import Pagination from "../../components/pagination";
 import PaginationButton from "../../components/pagination-button";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import { uniqueId } from 'lodash';
 
 function Main(){
 
@@ -29,6 +31,7 @@ function Main(){
     itemsQuantity: state.pagination.itemsQuantity,
     itemsNuberPerPage: state.pagination.itemsNuberPerPage,
     activePage: state.pagination.activePage,
+    locales: state.locales,
   }));
 
   const callbacks = {
@@ -48,26 +51,34 @@ function Main(){
     showDescription: useCallback(id => {
       navigate(routes.item(id))
     }, []),
+    // Смена языка
+    changeLng: useCallback((lng) => store.get('locales').changeLng(lng), [])
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onShowDescription={callbacks.showDescription} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => 
+      <Item
+        text={select.locales[select.locales.lng].ADD_TO_BASKET}
+        item={item} 
+        onShowDescription={callbacks.showDescription} 
+        onAdd={callbacks.addToBasket}/>, [select.locales.lng]),
     paginationButton: useCallback((indexNumber, activePage) => 
-    <PaginationButton 
-      indexNumber={indexNumber} 
-      moveToPage={callbacks.moveToPage}
-      activePage={activePage} />, []),
+      <PaginationButton
+        indexNumber={indexNumber} 
+        moveToPage={callbacks.moveToPage}
+        activePage={activePage}
+        key={uniqueId(indexNumber)} />, []),
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+    <Layout head={<Header text={select.locales[select.locales.lng].HEADER} onChangeLng={callbacks.changeLng} />}>
+      <BasketSimple text={select.locales[select.locales.lng].BASCKET_SHOW} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
-      <Pagination 
+      {select.itemsQuantity !== 'idle' && <Pagination 
         itemsNuberPerPage={select.itemsNuberPerPage}
         totalItemsQuantity={select.itemsQuantity}
         activePage={select.activePage}
-        renderItem={renders.paginationButton}/>
+        renderItem={renders.paginationButton}/>}
     </Layout>
   )
 }

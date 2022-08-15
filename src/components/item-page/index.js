@@ -34,7 +34,7 @@ function ItemPage(){
         // Добавление в корзину
         addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
       };
-console.log(select.isLoading)
+
     return (
         <Layout head={<h1>{select.depiction.title}</h1>}>
             <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>

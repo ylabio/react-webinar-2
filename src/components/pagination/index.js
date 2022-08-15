@@ -11,7 +11,7 @@ function Pagination({count, itemLimit, selectPage, currentPage}) {
     //     pageNumbers.push(i)
     // }
 
-    const pageCount = Math.ceil(count / itemLimit) - 1
+    const pageCount = Math.ceil(count / itemLimit) 
     const dots = '...'
 
     

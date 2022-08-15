@@ -15,11 +15,19 @@
     padding: 20px 10px;
 }
 
+.Item-title:hover{
+    cursor: pointer;
+    text-decoration-line: underline;
+}
+
 .Item-right {
     padding: 20px 20px 20px 10px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+}
+.Item-right button{
+    width: max-content;
 }
 
 .Item-price {

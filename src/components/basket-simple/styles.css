@@ -1,14 +1,22 @@
 /* Контрол с общими действиями */
 .BasketSimple{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding: 20px;
     font-size: 18px;
 }
 
-.BasketSimple-label{
-
+.BasketSimple-main{
+    text-decoration-line: underline;
+    color: #0087E9;
 }
+.BasketSimple-main:hover{
+    cursor: pointer;
+}
+
+/* .BasketSimple-label{
+
+} */
 
 .BasketSimple-total{
     font-weight: bold;

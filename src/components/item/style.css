@@ -24,7 +24,6 @@
 .Item-title > a:hover,
 .Item-title > a:active {
   text-decoration: underline;
-  cursor: pointer;
 }
 
 .Item-right {

@@ -7,14 +7,15 @@ function ItemCard(props) {
   const cn = bem('ItemCard');
   return (
     <div className={cn()}>
-      <div className={cn('description')}>
-        Описание товара из множества букв. Описание товара из букв. В АПИ может
-        быть меньше букв. Описание товара из множества букв.
+      <div className={cn('description')}>{props.description}</div>
+      <div className={cn('origin')}>
+        Страна производитель: {props.originCountry}{' '}
       </div>
-      <div className={cn('origin')}>Страна производитель: </div>
-      <div className={cn('category')}>Категория: </div>
-      <div className={cn('yearOfProd')}>Год выпуска: </div>
-      <div className={cn('price')}>Цена: </div>
+      <div className={cn('category')}>Категория: {props.category} </div>
+      <div className={cn('yearOfProd')}>
+        Год выпуска: {props.yearOfProduction}
+      </div>
+      <div className={cn('price')}>Цена: {props.price} </div>
       <div>
         <button>Добавить</button>
       </div>
@@ -26,7 +27,7 @@ ItemCard.propTypes = {
   description: propTypes.string,
   originCountry: propTypes.string,
   category: propTypes.string,
-  yearOfProduction: propTypes.string,
+  yearOfProduction: propTypes.number,
   price: propTypes.number,
   onAdd: propTypes.func
 };

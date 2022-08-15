@@ -20,7 +20,8 @@ function ItemDetails(props) {
   }, [params.itemId]);
 
   const select = useSelector(state => ({
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    selectedItem: state.itemDetails.selectedItem
   }));
 
   const callbacks = {
@@ -30,15 +31,24 @@ function ItemDetails(props) {
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), [])
   };
 
+  console.log(select.selectedItem);
+
   return (
     <div className={cn()}>
-      <Layout head={<h1>Название товара</h1>}>
+      <Layout head={<h1>{select.selectedItem?.title}</h1>}>
         <BasketSimple
           onOpen={callbacks.openModalBasket}
           amount={select.amount}
           sum={select.sum}
         />
-        <ItemCard />
+        <ItemCard
+          description={select.selectedItem.description}
+          originCountry={select.selectedItem?.maidIn?.title}
+          category={select.selectedItem?.category?.title}
+          yearOfProduction={select.selectedItem?.edition}
+          price={select.selectedItem?.price}
+          onAdd={() => {}}
+        />
       </Layout>
     </div>
   );

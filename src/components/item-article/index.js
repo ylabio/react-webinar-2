@@ -1,16 +1,19 @@
 import React from 'react';
 import Controls from "../controls";
+import './style.css'
+import {cn as bem} from "@bem-react/classname";
 
 const ItemActicle = ({article, onAdd }) => {
+    const cn = bem('Article');
     return (
-        <div style={{display: 'flex', flexDirection: 'column',width: '94%', margin: '0 auto', marginTop: '20px', gap: '20px' }}>
-            <div>
+        <div className={cn()} >
+            <div className={cn('description')}>
                 {article.description}
             </div>
-            <div>Страна производитель:  <strong>{article.maidIn?.title}</strong></div>
-            <div>Категория: <strong>{article.category?.title}</strong></div>
-            <div>Год выпуска: <strong>{article?.edition}</strong> </div>
-            <div> <strong>Цена:  {article.price} ₽</strong></div>
+            <div>Страна производитель:<span> {article.maidIn?.title}</span></div>
+            <div>Категория: <span>{article.category?.title}</span></div>
+            <div>Год выпуска: <span>{article?.edition}</span> </div>
+            <div className={cn('price')}> <span>Цена: {article.price} ₽</span></div>
             <Controls onAdd={onAdd}/>
         </div>
     );

@@ -15,10 +15,6 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      totalPages: 1,
-      currentPage: 1,
-      totalCount: 10,
-      count: 0
     };
   }
 

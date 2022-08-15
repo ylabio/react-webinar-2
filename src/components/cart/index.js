@@ -16,11 +16,17 @@ function Cart(props) {
   return (
     <div className={cn()}>
       <p className={cn('description')}>{props.item.description}</p>
-      <p className={cn('description')}>{translation('producingCountry')}: <span>{props.item.maidIn.title}</span></p>
-      <p className={cn('description')}>{translation('category')}: <span>{props.item.category.title}</span>
+      <p
+        className={cn('description')}>{translation('producingCountry')}: <span>{props.item.maidIn.title}</span>
       </p>
-      <p className={cn('description')}>{translation('yearOfIssue')}: <span>{props.item.edition}</span></p>
-      <p className={cn('price')}>{translation('price')}: {numberFormat(props.item.price)} ₽</p>
+      <p
+        className={cn('description')}>{translation('category')}: <span>{props.item.category.title}</span>
+      </p>
+      <p
+        className={cn('description')}>{translation('yearOfIssue')}: <span>{props.item.edition}</span>
+      </p>
+      <p
+        className={cn('price')}>{translation('price')}: {numberFormat(props.item.price)} ₽</p>
       <button onClick={callbacks.onAdd}>{translation('add')}</button>
     </div>
   );
@@ -32,7 +38,7 @@ Cart.propTypes = {
 };
 
 Cart.defaultProps = {
-  item: {},
+  item: {maidIn: {}, edition: '', description: '', category: {}, price: 0},
 };
 
 export default React.memo(Cart);

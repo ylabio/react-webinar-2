@@ -12,7 +12,6 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
-      item: null,
       count: 0,
       isLoading: true,
       page: 1,
@@ -70,29 +69,6 @@ class CatalogState extends StateModule {
     }, 'Запрос страницы товара');
   }
 
-  /**
-   * запрос каталога с страницами
-   * @param id
-   */
-  async loadProduct(id) {
-    this.setState({...this.getState(), isLoading: true})
-    const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
-    console.log(response)
-    if (response.status === 200) {
-      const json = await response.json();
-      this.setState({
-        ...this.getState(),
-        item: json.result,
-        isLoading: false,
-      }, 'Запрос страницы товара');
-    } else {
-      this.setState({
-        ...this.getState(), errorMessage: 'такого товара нету',
-        isLoading: false,
-      })
-    }
-
-  }
 
   /**
    * Создание записи

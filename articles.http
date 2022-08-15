@@ -22,3 +22,45 @@ GET http://example.front.ylab.io/api/v1/articles/5ecba930b6b0b01fd3dd35de
 # Товар по id с кучей свойств
 
 GET http://example.front.ylab.io/api/v1/articles/5ecba930b6b0b01fd3dd35de?fields=*,maidIn(title,code),category(title)
+
+
+http://example.front.ylab.io/api/v1/articles/61fcfeae56709c3cee6c407e?fields=title%2Cdescription%2CmaidIn%2Cprice%2Ccategory%2Cedition&lang=ru
+title,description,maidIn,price,category,edition
+{
+  "result": {
+    "title": "Трактор",
+    "description": "Домашняя аудиосистема Denn DBS808 – это функциональная колонка типа All-in-One формата 1.0 с черным корпусом из металла и пластика. Устройство действует с мощностью 20 Вт, гарантируя четкое воспроизведение звуков в частотном диапазоне 100 Гц – 20 кГц. Прибор весит 3 кг, обладает размерами 21.5x40.6x25.8 см, а поставляется вместе с пультом ДУ, адаптером питания и аудиокабелем.",
+    "maidIn": {
+      "_id": "61fcfe9e56709c3cee6c3530"
+    },
+    "price": 442.41,
+    "category": {
+      "_id": "61fcfeae56709c3cee6c4077"
+    },
+    "edition": 2016,
+    "_id": "61fcfeae56709c3cee6c407f"
+  }
+}
+
+
+strana
+http://example.front.ylab.io/api/v1/countries/61fcfe9e56709c3cee6c3530?lang=ru&fields=title%2Ccode
+	
+Response body
+Download
+{
+  "result": {
+    "title": "Сирия",
+    "code": "SY",
+    "_id": "61fcfe9e56709c3cee6c3530"
+  }
+}
+
+cat
+http://example.front.ylab.io/api/v1/categories/61fcfeae56709c3cee6c4077?lang=ru&fields=title
+{
+  "result": {
+    "title": "Телевизоры",
+    "_id": "61fcfeae56709c3cee6c4077"
+  }
+}

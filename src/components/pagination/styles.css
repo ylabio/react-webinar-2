@@ -1,0 +1,43 @@
+/* Пункт списка */
+.Pagination-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.Pagination-page {
+    /* padding: 0 5px; */
+    width: 20px;
+    height: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Pagination-page:hover {
+    background: #E1E1E1;
+    cursor: pointer;
+}
+
+.Pagination-page__active {
+    width: 20px;
+    height: 20px;
+    
+    background: #0087E9;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.BasketTotal-cell {
+    min-width: 85px;
+    text-align: right;
+    font-weight: bold;
+    font-size: 18px;
+    padding-left: 10px;
+    white-space: nowrap;
+}
+

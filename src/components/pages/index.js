@@ -11,17 +11,15 @@ function Pages({ selected, limit, count, onClick }) {
 
   const getRange = (start, end) => Array(end - start + 1).fill().map((v, i) => i + start);
 
-  const pagination = (currentPage, pagesCount, count = 0) => {
+  const pagination = (currentPage, pagesCount) => {
     const isFirst = currentPage === 1;
     const isLast = currentPage === pagesCount;
 
     let delta;
-    if (pagesCount <= 7 + count) {
-      delta = 7 + count;
+    if (pagesCount <= 7) {
+      delta = 7;
     } else {
-      delta = currentPage > count + 1 && currentPage < pagesCount - (count - 1) ? 4 : 3;
-      delta += count;
-      delta -= (!isFirst + !isLast);
+      delta = currentPage === 3 || currentPage === (pagesCount - 2) ? 3 : 2
     }
     const range = {
       start: Math.round(currentPage - delta / 2),

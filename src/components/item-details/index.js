@@ -23,7 +23,7 @@ function ItemDetails(props) {
       <div className={cn('block')}>{locText("country")} <b>{props.info.maidIn?.title} ({props.info.maidIn?.code})</b></div>
       <div className={cn('block')}>{locText("category")} <b>{props.info.category?.title}</b></div>
       <div className={cn('block')}>{locText("year")} <b>{props.info.edition}</b></div>
-      <div className={cn('block')}>{locText("price")} <b>{numberFormat(props.info.price)} ₽</b></div>
+      <div className={cn('block')}><b>{locText("price")} {numberFormat(props.info.price)} ₽</b></div>
       <button className={cn('button')} onClick={callbacks.onAdd}>{locText("buttonAdd")}</button>
     </div>
   )

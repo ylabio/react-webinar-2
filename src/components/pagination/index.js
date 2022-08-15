@@ -40,7 +40,7 @@ function Pagination({ gapsStyle, onClick, page, gaps, totalPages }) {
 }
 
 Pagination.propTypes = {
-  gapsStyle: propTypes.string.isRequired,
+  gapsStyle: propTypes.string,
   onClick: propTypes.func.isRequired,
   page: propTypes.number.isRequired,
   gaps: propTypes.object.isRequired,
@@ -48,7 +48,7 @@ Pagination.propTypes = {
 }
 
 Pagination.defaultProps = {
-
+  gapsStyle: "..."
 }
 
 export default React.memo(Pagination);

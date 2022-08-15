@@ -3,25 +3,13 @@ import propTypes from 'prop-types'
 import { cn as bem } from '@bem-react/classname'
 import plural from 'plural-ru'
 import './style.css'
+import numberFormat from '../../utils/numberFormat'
 
 function Item(props) {
   const cn = bem('Item')
 
   const callbacks = {
-    onClick: useCallback(() => {
-      props.onSelect(props.item.code)
-      if (!props.item.selected) {
-        setCount(count + 1)
-      }
-    }, [props.onSelect, props.item, setCount, count]),
-
-    onDelete: useCallback(
-      (e) => {
-        e.stopPropagation()
-        props.onDelete(props.item.code)
-      },
-      [props.onDelete, props.item]
-    ),
+    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
   }
 
   return (

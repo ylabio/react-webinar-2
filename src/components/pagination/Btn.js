@@ -2,7 +2,7 @@ import React from "react";
 import propTypes from 'prop-types';
 
 
-const Btn = ({ num, bl, setNumPege }) => {
+function Btn ({ num, bl, setNumPege }) {
     return (
         <>
             <div

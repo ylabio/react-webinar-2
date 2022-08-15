@@ -63,7 +63,7 @@ function Main() {
             <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
             <List items={select.items} renderItem={renders.item} />
             {(store.state.catalog.items.length > 0)
-              ? <Pagination numPege={numPege} setNumPege={setNumPege} />
+              ? <Pagination numPege={numPege} setNumPege={setNumPege} count={Math.ceil(store.state.catalog.count * 0.1)} />
               : <GridLoader />}
           </Layout>
 

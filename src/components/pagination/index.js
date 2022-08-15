@@ -1,14 +1,14 @@
 import React from "react";
 import { cn as bem } from "@bem-react/classname";
 import propTypes from 'prop-types';
-import useStore from "../../utils/use-store";
+// import useStore from "../../utils/use-store";
 import Btn from "./Btn";
 import './styles.css';
 
-const Pagination = ({ numPege, setNumPege }) => {
+function Pagination ({ numPege, setNumPege, count }) {
     const cn = bem('Pagination');
-    const store = useStore();
-    const count = Math.ceil(store.state.catalog.count * 0.1)
+    // const store = useStore();
+    // const count = React.memo(Math.ceil(store.state.catalog.count * 0.1))
 
     console.log('Pagination ==>')
 
@@ -60,6 +60,7 @@ const Pagination = ({ numPege, setNumPege }) => {
 }
 
 Pagination.propTypes = {
+    count: propTypes.number,
     numPege: propTypes.number,
     setNumPege: propTypes.func,
 };

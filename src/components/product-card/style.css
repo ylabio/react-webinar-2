@@ -1,0 +1,22 @@
+/*Карточка продукта*/
+.ProductCard{
+    font-size: 18px;
+    line-height: 21px;
+    padding: 0 20px;
+    max-width: 943px;
+    margin: 20px auto 0 auto;
+}
+
+.ProductCard span{
+    font-weight: bold;
+}
+
+.ProductCard div {
+    margin-bottom: 20px;
+}
+
+.ProductCard-price {
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: 700;
+}

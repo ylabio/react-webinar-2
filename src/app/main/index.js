@@ -5,6 +5,7 @@ import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import ListPagination from "../../components/list-pagination";
 
 function Main() {
   
@@ -23,24 +24,36 @@ function Main() {
   useEffect(() => {
     store.get('catalog').load();
   }, [select.currentPage])
-  
+
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Переключение страницы
-    switchPage: useCallback((page) => store.get('catalog').switchPage(page), [])
+    switchPage: useCallback((page) => store.get('catalog').switchPage(page), []),
+    // Получение данных товара
+    getProductInformation: useCallback((id) => store.get('product').getProductInformation(id), [])
   };
   
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} getProductInformation={callbacks.getProductInformation}/>, []),
   }
-  
+  console.log(store.getState())
   return (
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item} paginationData={{totalItems: select.totalItems, currentPage: select.currentPage, switchPage: callbacks.switchPage}}/>
+        <>
+          <List items={select.items} renderItem={renders.item} paginationData={{
+            totalItems: select.totalItems,
+            currentPage: select.currentPage,
+            switchPage: callbacks.switchPage
+          }}/>
+          <ListPagination
+            currentPage={select.currentPage}
+            switchPage={callbacks.switchPage}
+            totalItems={select.totalItems}/>
+        </>
     </Layout>
   )
 }

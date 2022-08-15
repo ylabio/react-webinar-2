@@ -1,3 +1,7 @@
+/**
+ * Заполняет массив страниц для отображения в пагинации
+ */
+
 export function createPages(pages, pagesCount, currentPage) {
   pagesCount = Math.ceil(pagesCount / 10)
   //заполняет массив страниц

@@ -2,7 +2,6 @@ import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
-import ListPagination from "../list-pagination";
 
 function List({items, renderItem, paginationData}) {
   const cn = bem('List');
@@ -14,7 +13,6 @@ function List({items, renderItem, paginationData}) {
         </div>
       )}
       </div>
-      <ListPagination currentPage={paginationData.currentPage} switchPage={paginationData.switchPage} totalItems={paginationData.totalItems}/>
     </>
   )
 }

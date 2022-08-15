@@ -23,9 +23,9 @@ class CatalogState extends StateModule{
     const response = await fetch(`/api/v1/articles?limit=10&skip=${skip}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
+      ...this.getState(),
       items: json.result.items,
       totalItems: json.result.count,
-      currentPage: this.getState().currentPage
     });
   }
   
@@ -36,10 +36,10 @@ class CatalogState extends StateModule{
   
   switchPage(page){
     this.setState({
+      ...this.getState(),
       currentPage: page
     }, ['Переключение страницы'])
   }
-
 
   /**
    * Создание записи

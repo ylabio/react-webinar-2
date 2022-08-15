@@ -11,14 +11,23 @@
 
 .ListPagination-number {
     display: inline-block;
-    width: 20px;
-    height: 20px;
+    line-height: 20px;
+    padding: 0 6px;
     font-size: 16px;
     cursor: pointer;
-    line-height: 20px;
+}
+.ListPagination-number:hover {
+    background: #E1E1E1;
 }
 
 .ListPagination-number_active {
     background-color: #0087E9;
     color: white;
+}
+.ListPagination-number_active:hover {
+    background-color: #0087E9;
+}
+
+.ListPagination-dotted {
+    margin: 0 2px;
 }

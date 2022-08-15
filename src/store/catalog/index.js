@@ -1,4 +1,4 @@
-import counter from "../../utils/counter";
+import { getSingleItem,getItems } from "../../services/api";
 import StateModule from "../module";
 
 /**
@@ -12,15 +12,36 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      productInfo: {
+        _id: '',
+        description: '',
+        edition: 0,
+        category: {title: ''},
+        maidIn: {
+          title: '',
+          code: '',
+        },
+        price: 0,
+      },
+      count: 0,
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+  async load(limit, skip){
+    const data = await getItems(limit, skip);
     this.setState({
-      items: json.result.items
+      ...this.store.getState().catalog,
+      items: data.items,
+      count: data.count
+    });
+  }
+
+  async getInfo(id) {
+    const data = await getSingleItem(id);
+    this.setState({
+      ...this.store.getState().catalog,
+      productInfo: data
     });
   }
 

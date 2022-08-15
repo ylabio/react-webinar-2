@@ -12,31 +12,30 @@ class CatalogState extends StateModule {
    */
   initState() {
     return {
-      items: []
+      items: [],
+      count: 0,
+      page: 0
     };
   }
 
   async load(limit, page) {
     let skip = (page - 1) * limit;
-    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}`);
+    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
       items: json.result.items,
+      count: json.result.count,
+      page: page || 1
     });
   }
 
   async loadItemById(id) {
-    const response = await fetch(`/api/v1/articles/${id}`);
+    const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
     const json = await response.json();
     this.setState({
+      ...this.getState,
       items: [json.result],
     });
-  }
-
-  async getAmountItems() {
-    const response = await fetch(`/api/v1/articles?fields=items(*),count`);
-    const json = await response.json();
-    return json.result.count;
   }
 
   async getItemById(id) {

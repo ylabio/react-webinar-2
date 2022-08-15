@@ -8,17 +8,16 @@ import useStore from '../../utils/use-store';
 
 function Article() {
 
+  const select = useSelector(state => ({
+    amount: state.basket.amount,
+    sum: state.basket.sum
+  }));
+
   const [item, setItem] = useState({})
   const params = useParams();
   const store = useStore();
   const madeIn = { ...item.maidIn };
   const category = { ...item.category };
-
-  const select = useSelector(state => ({
-    items: state.catalog.items,
-    amount: state.basket.amount,
-    sum: state.basket.sum
-  }));
 
   useEffect(() => {
     getItemById(params.id);
@@ -33,12 +32,14 @@ function Article() {
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+    // Добавление в корзину
+    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
 
   return (
     <Layout head={<h1>{item.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      <ArticleInfo item={item} madeIn={madeIn} category={category}></ArticleInfo>
+      <ArticleInfo item={item} madeIn={madeIn} category={category} addToBasket={callbacks.addToBasket}></ArticleInfo>
     </Layout>
   )
 }

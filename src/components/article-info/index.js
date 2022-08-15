@@ -5,14 +5,8 @@ import './style.css';
 import useStore from '../../utils/use-store';
 import numberFormat from '../../utils/number-format';
 
-function ArticleInfo({ item, madeIn, category }) {
+function ArticleInfo({ item, madeIn, category, addToBasket }) {
   const cn = bem('ArticleInfo');
-  const store = useStore();
-
-  const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-  };
 
   return (
     <div className={cn()}>
@@ -21,7 +15,7 @@ function ArticleInfo({ item, madeIn, category }) {
       <div className={cn('category')}>Категория: <strong>{category.title}</strong></div>
       <div className={cn('edition')}>Год выпуска: <strong>{item.edition}</strong></div>
       <div className={cn('price')}>Цена: {numberFormat(item.price)} ₽</div>
-      <button onClick={() => callbacks.addToBasket(item._id)}>Добавить</button>
+      <button onClick={() => addToBasket(item._id)}>Добавить</button>
     </div>
   )
 }

@@ -1,5 +1,5 @@
-import List from "../../components/list";
 import React, {useCallback} from "react";
+import List from "../../components/list";
 import BasketTotal from "../../components/basket-total";
 import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
@@ -26,7 +26,7 @@ function Basket(){
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item => <ItemBasket item={item} onClose={callbacks.closeModal} onRemove={callbacks.removeFromBasket}/>, []),
   }
 
   return (

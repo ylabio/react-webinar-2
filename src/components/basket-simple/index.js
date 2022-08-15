@@ -6,19 +6,19 @@ import numberFormat from "../../utils/number-format";
 import './styles.css';
 import {Link} from 'react-router-dom';
 
-function BasketSimple({sum, amount, onOpen}) {
+function BasketSimple({sum, amount, onOpen, language}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <Link to={`/`} className={cn('home') }>Главная</Link>
-      <span className={cn('label')}>В корзине:</span>
+      <Link to={`/`} className={cn('home') }>{language.mainPage}</Link>
+      <span className={cn('label')}>{language.inBasket}:</span>
       <span className={cn('total')}>
       {amount
         ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-        : `пусто`
+        : `${language.empty}`
       }
       </span>
-      <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+      <button className='BasketSimple__button' onClick={onOpen}>{language.goBasket}</button>
     </div>
   )
 }
@@ -26,7 +26,8 @@ function BasketSimple({sum, amount, onOpen}) {
 BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
-  amount: propTypes.number
+  amount: propTypes.number,
+  language: propTypes.object.isRequired
 }
 
 BasketSimple.defaultProps = {

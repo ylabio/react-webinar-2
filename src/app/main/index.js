@@ -19,6 +19,7 @@ function Main(){
     sum: state.basket.sum,
     count: state.catalog.count,
     activePage: state.catalog.activePage,
+    language: state.languages,
   }));
 
   useEffect(() => {
@@ -31,15 +32,16 @@ function Main(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     setPage: useCallback(activePage => store.get('catalog').setPage(activePage), []),
+    changeLanguage: useCallback(() => store.get('languages').changeLanguage(), [])
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} language={select.language}/>, [select.language]),
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+    <Layout head={<h1>{select.language.shop}</h1>} language={select.language.languageName} changeLanguage={callbacks.changeLanguage}>
+      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination count={select.count}                  
                   paginate={callbacks.setPage}

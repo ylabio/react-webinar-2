@@ -14,16 +14,17 @@ function ItemDescription(props) {
   return (
     <div className={cn()}>
       <div className={cn('description')}>{props.item.description}</div>
-      <div className={cn('maidIn')}>Страна производитель: <strong>{props.item.maidIn}</strong></div>
-      <div className={cn('category')}>Категория: <strong>{props.item.category}</strong></div>
-      <div className={cn('edition')}>Год выпуска: <strong>{props.item.edition}</strong></div>
-      <h2 className={cn('price')}>Цена: {numberFormat(props.item.price)}</h2>
-      <button onClick={callbacks.onAdd}>Добавить</button>
+      <div className={cn('maidIn')}>{props.language.maidIn}: <strong>{props.item.maidIn}</strong></div>
+      <div className={cn('category')}>{props.language.category}: <strong>{props.item.category}</strong></div>
+      <div className={cn('edition')}>{props.language.edition}: <strong>{props.item.edition}</strong></div>
+      <h2 className={cn('price')}>{props.language.price}: {numberFormat(props.item.price)}</h2>
+      <button onClick={callbacks.onAdd}>{props.language.add}</button>
     </div>
   )
 }
 
 ItemDescription.propTypes = {
+  language: propTypes.object.isRequired
 }
 
 ItemDescription.defaultProps = {

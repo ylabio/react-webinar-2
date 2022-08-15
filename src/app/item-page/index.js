@@ -19,7 +19,8 @@ function ItemPage() {
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
-    item: state.item
+    item: state.item,
+    language: state.languages,
   }));
 
   const callbacks = {
@@ -27,14 +28,15 @@ function ItemPage() {
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    changeLanguage: useCallback(() => store.get('languages').changeLanguage(), [])
   };
 
 
   
   return (
-    <Layout head={<h1>{select.item.title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <ItemDescription item={select.item} onAdd={callbacks.addToBasket}/>
+    <Layout head={<h1>{select.item.title}</h1>} language={select.language.languageName} changeLanguage={callbacks.changeLanguage}>
+      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language}/>
+      <ItemDescription item={select.item} onAdd={callbacks.addToBasket} language={select.language}/>
     </Layout>
   );
 }

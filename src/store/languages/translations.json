@@ -1,0 +1,36 @@
+{
+  "russian": {
+    "languageName": "Русский",
+    "shop": "Магазин",
+    "mainPage": "Главная",
+    "inBasket": "В корзине",
+    "empty": "Пусто",
+    "goBasket": "Перейти",
+    "basket": "Корзина",
+    "add": "Добавить",
+    "remove": "Удалить",
+    "total": "Итого",
+    "close": "Закрыть",
+    "maidIn": "Страна производитель",
+    "category": "Категория",
+    "edition": "Год выпуска",
+    "price": "Цена"
+  },
+  "english": {
+    "languageName": "English",
+    "shop": "Shop",
+    "mainPage": "Main",
+    "inBasket": "In basket",
+    "empty": "Empty",
+    "goBasket": "Open",
+    "basket": "Basket",
+    "add": "Add",
+    "remove": "Remove",
+    "total": "Total",
+    "close": "Close",
+    "maidIn": "Producing country",
+    "category": "Category",
+    "edition": "Year of release",
+    "price": "Price"
+  }
+}

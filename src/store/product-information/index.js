@@ -26,18 +26,8 @@ class ProductState extends StateModule {
    */
   
   async getProductInformation(id) {
-    this.setState({
-      ...this.getState(),
-      title: '',
-      description: '',
-      country: '',
-      category: '',
-      year: 0,
-      price: 0,
-    })
     const response = await fetch(`/api/v1/articles/${id}`);
     const {result} = await response.json();
-    console.log(result)
     this.setState({
       ...this.getState(),
       id: id,

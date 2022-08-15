@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function List({items, renderItem, paginationData}) {
+function List({items, renderItem}) {
   const cn = bem('List');
   return (
     <>

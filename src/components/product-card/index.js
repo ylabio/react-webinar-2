@@ -4,7 +4,6 @@ import './style.css';
 
 function ProductCard({id, description, country, category, year, price, addToBasket}) {
   const cn = bem('ProductCard');
-  console.log(id)
   return (
     <div className={cn()}>
       <div className={cn('description')}>{description}

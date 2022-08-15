@@ -22,7 +22,6 @@ function ProductInformation() {
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
-  console.log(select.title)
 
   const callbacks = {
     // Открытие корзины

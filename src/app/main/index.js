@@ -39,7 +39,7 @@ function Main() {
   const renders = {
     item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} getProductInformation={callbacks.getProductInformation}/>, []),
   }
-  console.log(store.getState())
+
   return (
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>

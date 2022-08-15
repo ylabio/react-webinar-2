@@ -7,6 +7,10 @@
 .Pagination-btn{
     background-color: white;
     border: 0ch;
+    width: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .Pagination-btn:hover{
@@ -19,6 +23,7 @@
 }
 
 .Pagination-ellipsis{
+    margin: 0 2px;
     color:#CCCCCC;
 }
 

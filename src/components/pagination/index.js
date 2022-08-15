@@ -22,7 +22,10 @@ function Pagination(){
         }  
         setNumberArr(arr);          
         }
-      )
+      ).catch(err => {
+        console.log(err);
+        alert('Что-то пошло не так , обновите страницу.');
+    })
     },[]);
 
     const cn = bem('Pagination');

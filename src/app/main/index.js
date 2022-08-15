@@ -27,7 +27,7 @@ function Main() {
 
   useEffect(() => {
     store.get('catalog').load(select.currentPage, select.pageSize)
-  }, [select.currentPage]);
+  }, [select.currentPage, select.pageSize]);
 
   const callbacks = {
     // Открытие корзины

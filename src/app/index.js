@@ -12,13 +12,12 @@ import ProductInformation from "./product-information";
 function App() {
   
   console.log('App');
-  // console.log(window.location.pathname.includes('productInformation/') && window.location.pathname.split('productInformation/')[1])
-  const modal = useSelector(state => state.modals.name);
   
-  const {id, isLoading} = useSelector(state => {
+  const {modal} = useSelector(state => {
     return {
       id: state.product.id,
-      isLoading: state.product.isLoading
+      isLoading: state.product.isLoading,
+      modal: state.modals.name
     }
   })
   
@@ -26,7 +25,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main/>}/>
-        <Route path="/productInformation/*" element={id || isLoading ? <ProductInformation/> : <Navigate to='/'/>}/>
+        <Route path="/productInformation/*" element={<ProductInformation/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}
     </BrowserRouter>

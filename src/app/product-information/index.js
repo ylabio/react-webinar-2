@@ -1,6 +1,6 @@
 import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import ProductCard from "../../components/product-card";
@@ -11,6 +11,8 @@ function ProductInformation() {
   console.log('ProductInformation');
   
   const store = useStore();
+  
+  // console.log(window.location.pathname.includes('productInformation/') && window.location.pathname.split('productInformation/')[1])
 
   const select = useSelector(state => ({
     id: state.product.id,
@@ -31,12 +33,19 @@ function ProductInformation() {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Получение данных о выбранном товаре
-    getProductInformation: useCallback(() => store.get('product').getProductInformation(), []),
+    getProductInformation: useCallback((_id) => store.get('product').getProductInformation(_id), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Получение данных товара
     changeLanguage: useCallback((language) => store.get('translation').changeLanguage(language), [])
   };
+  
+  useEffect(() => {
+    if(window.location.pathname.includes('productInformation/')){
+      console.log(window.location.pathname.split('productInformation/')[1])
+      callbacks.getProductInformation(window.location.pathname.split('productInformation/')[1])
+    }
+  }, []);
   
   return (
     <Layout

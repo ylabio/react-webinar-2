@@ -32,6 +32,7 @@ class PageStore extends StoreModule {
       loading: false
     });
   }
+  
 }
 
 export default PageStore;

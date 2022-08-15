@@ -5,10 +5,8 @@ import {cn as bem} from "@bem-react/classname";
 import 'style.css';
 import useSelector from '../../utils/use-selector';
 
-function Page({addToBasket}) {
+function Page({addToBasket, item}) {
   const cn = bem('Page');
- 
-  const item = JSON.parse(sessionStorage.getItem('item'));
 
   const select = useSelector(state => ({
     addButtonName: state.names.names.addButtonName,
@@ -46,7 +44,8 @@ function Page({addToBasket}) {
 }
 
 Page.propTypes = {
-  addToBasket: propTypes.func.isRequired
+  addToBasket: propTypes.func.isRequired,
+  item: propTypes.object.isRequired
 }
 
 export default React.memo(Page);

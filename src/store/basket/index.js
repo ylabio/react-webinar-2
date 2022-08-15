@@ -84,6 +84,7 @@ class BasketState extends StateModule{
       amount: items.length
     }, 'Удаление из корзины')
   }
+  
 }
 
 export default BasketState;

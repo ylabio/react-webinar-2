@@ -32,10 +32,12 @@ function Article(){
     // Изменение языка
     changeLanguage: useCallback((value) => store.get('names').changeLanguage(value), [])
   };
-  const i = JSON.parse(sessionStorage.getItem('item'));
+  
+  const item = JSON.parse(sessionStorage.getItem('item'));
+
   return (
     <>  
-      <Layout head={!select.loading&&<h1>{i.title}</h1>} changeLanguage={callbacks.changeLanguage}>
+      <Layout head={!select.loading&&<h1>{item.title}</h1>} changeLanguage={callbacks.changeLanguage}>
         <BasketSimple onOpen={callbacks.openModalBasket} 
                       amount={select.amount}
                       sum={select.sum}
@@ -43,7 +45,7 @@ function Article(){
         {select.loading ? 
           <Preloader/>
           :
-          <Page addToBasket={callbacks.addToBasket}/>
+          <Page addToBasket={callbacks.addToBasket} item={item}/>
         }
       </Layout>
     </>

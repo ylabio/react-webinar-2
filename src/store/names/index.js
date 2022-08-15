@@ -29,6 +29,7 @@ class NamesStore extends StoreModule {
        });
      }
   }
+  
 }
 
 export default NamesStore;

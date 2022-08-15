@@ -21,7 +21,7 @@ function Product() {
     return () => {
       store.get('product').resetLoader()
     };
-  }, []);
+  }, [id]);
 
   const select = useSelector(state => ({
     amount: state.basket.amount,

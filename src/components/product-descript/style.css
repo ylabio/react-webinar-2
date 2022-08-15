@@ -1,0 +1,11 @@
+.ProductDesc {
+    padding: 4px 40px;
+    margin: 20px 0px;
+  
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .ProductDesc-price {
+    font-size: 24px;
+  }

@@ -5,14 +5,22 @@
     transition: background-color 1s;
     padding-left: 10px;
 }
-
 .ItemBasket-id {
     padding: 20px 10px 20px 20px;
 }
-
 .ItemBasket-title {
     width: 100%;
     padding: 20px 10px;
+}
+
+.ItemBasket-titleLink {
+    color: #000000;
+    text-decoration: none;
+}
+
+.ItemBasket-titleLink:hover {
+    color: #000000;
+    text-decoration: underline;
 }
 
 .ItemBasket-right {
@@ -21,7 +29,6 @@
     justify-content: flex-end;
     align-items: center;
 }
-
 .ItemBasket-cell {
     min-width: 95px;
     text-align: right;

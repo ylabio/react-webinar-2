@@ -1,10 +1,8 @@
 import StateModule from "../module";
-
 /**
  * Состояние корзины
  */
 class BasketState extends StateModule{
-
   /**
    * Начальное состояние
    * @return {Object}
@@ -16,7 +14,6 @@ class BasketState extends StateModule{
         amount: 0
     };
   }
-
   /**
    * Добавление товара в корзину
    * @param _id Код товара
@@ -36,7 +33,6 @@ class BasketState extends StateModule{
       sum += result.price * result.amount;
       return result
     });
-
     // Если товар не был найден в корзине, то добавляем его из каталога
     if (!exists) {
       // Поиск товара в каталоге, чтобы его в корзину добавить
@@ -46,7 +42,6 @@ class BasketState extends StateModule{
       // Досчитываем сумму
       sum += item.price;
     }
-
     // Установка состояние, basket тоже нужно сделать новым
     this.setState({
       items,
@@ -56,7 +51,7 @@ class BasketState extends StateModule{
   }
 
   /**
-   * Добавление товара в корзину
+   * Удаление товара из корзины
    * @param _id Код товара
    */
   removeFromBasket(_id) {
@@ -75,5 +70,4 @@ class BasketState extends StateModule{
     }, 'Удаление из корзины')
   }
 }
-
 export default BasketState;

@@ -5,14 +5,22 @@
     transition: background-color 1s;
     padding-left: 10px;
 }
-
 .Item-id {
     padding: 20px 10px 20px 20px;
 }
-
 .Item-title {
     width: 100%;
     padding: 20px 10px;
+}
+
+.Item-link {
+    color: #000000;
+    text-decoration: none;
+}
+
+.Item-link:hover {
+    color: #000000;
+    text-decoration: underline;
 }
 
 .Item-right {
@@ -21,7 +29,6 @@
     justify-content: flex-end;
     align-items: center;
 }
-
 .Item-price {
     padding: 0 10px;
     white-space: nowrap;

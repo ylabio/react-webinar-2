@@ -9,7 +9,7 @@ function ProductContent({productInfo}){
     const cn = bem('ProductContent');
 
     const store = useStore();
-    
+
     return (
         <div className={cn()}>
             <p className={cn('title')}>{productInfo.description}</p>
@@ -25,7 +25,7 @@ function ProductContent({productInfo}){
               <p className={cn('title')}>Год выпуска:</p>
               <p className={cn("description")}>{productInfo.edition}</p>
             </div>
-              <p className={cn('price')}>{'Цена:   ' + productInfo.price + ' ₽'}</p>
+              <p className={cn('price')}>{'Цена:   ' + String(productInfo.price).replace(/\./g,',') + ' ₽'}</p>
             <button onClick={() => {store.get('basket').addProductToBasket(productInfo)}}>Добавить</button>
         </div>
     )

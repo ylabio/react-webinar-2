@@ -86,17 +86,4 @@ function Pagination(){
     
 }
 
-export default React.memo(Pagination)
-
-/*
-return(
-        <div className={cn()}>
-            {numberArr.map((item , index) => {
-                if(item == params.pageNumber){
-                    return <button className={cn('btn selected')} value={item} onClick={(e)=>handleClick(e)} key={index}>{item}</button>
-                }
-               return <button className={cn('btn')} value={item} onClick={(e)=>handleClick(e)} key={index}>{item}</button>
-            })}
-        </div>
-    )
-    */
+export default React.memo(Pagination);

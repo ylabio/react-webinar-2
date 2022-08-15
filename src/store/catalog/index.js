@@ -12,7 +12,8 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      scope: {total: 0, current: 1, maxItems: 10} // параметры пачки итемов
     };
   }
 
@@ -21,6 +22,56 @@ class CatalogState extends StateModule{
     const json = await response.json();
     this.setState({
       items: json.result.items
+    });
+  }
+
+  /**
+   * Подгрузить выбранную пачку итемов. 
+   */
+  async loadScope(scopeNumber) {
+    if (!scopeNumber)
+      scopeNumber = 1;
+
+    const max = this.getState().scope.maxItems;
+    const response = await fetch(`/api/v1/articles?limit=${max}&skip=${(scopeNumber - 1) * max}&fields=items(*),count`);
+    const json = await response.json();
+    this.setState({
+      items: json.result.items,
+      scope: {
+        ...this.getState().scope,
+        total: Math.ceil(json.result.count / this.getState().scope.maxItems),
+        current: scopeNumber
+      }
+    });
+  }
+
+  /**
+   * Задать номер текущей пачки итемов (страницы)
+   */
+  setCurrentScope(current) {
+    const scope = this.getState().scope;
+    if (current < 1)
+      current = 1;
+    if (current > scope.total)
+      current = scope.total;
+    this.setState({
+      scope: {
+        ...scope,
+        current
+      }
+    });
+  }
+
+  /**
+   * Задать размер пачки итемов
+   */
+  setMaxItems(maxItems) {
+    const scope = this.getState().scope;
+    this.setState({
+      scope: {
+        ...scope,
+        maxItems
+      }
     });
   }
 

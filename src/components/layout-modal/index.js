@@ -1,6 +1,7 @@
-import React, {useEffect, useRef} from 'react';
+import { cn as bem } from "@bem-react/classname";
 import PropTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
+import React, { useEffect, useRef } from 'react';
+import locText from "../../utils/localization";
 import './style.css';
 
 function LayoutModal(props) {
@@ -9,6 +10,14 @@ function LayoutModal(props) {
   const frame = useRef();
 
   useEffect(() => {
+    align();
+  });
+
+  window.onresize = () => { // проверим корректность отображения корзины после ресайза
+    align();
+  }
+
+  const align = () => {
     let top = 10;
     if (window.innerWidth > frame.current.clientHeight) {
       top = Math.max(top, (window.innerHeight - frame.current.clientHeight) / 2 - top);
@@ -18,7 +27,7 @@ function LayoutModal(props) {
     return () => {
       document.body.style.overflow = 'auto';
     }
-  });
+  }
 
   return (
     <div className={cn()}>
@@ -27,7 +36,7 @@ function LayoutModal(props) {
           <h1 className={cn('title')}>
             {props.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <button className={cn('close')} onClick={props.onClose}>{locText("buttonClose")}</button>
         </div>
         <div className={cn('content')}>
           {props.children}

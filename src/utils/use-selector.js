@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import shallowequal from 'shallowequal';
 import useStore from "./use-store";
 

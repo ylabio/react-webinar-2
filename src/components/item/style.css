@@ -15,6 +15,11 @@
     padding: 20px 10px;
 }
 
+.Item-title:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .Item-right {
     padding: 20px 20px 20px 10px;
     display: flex;
@@ -25,4 +30,12 @@
 .Item-price {
     padding: 0 10px;
     white-space: nowrap;
+}
+
+.Item-add {
+    width: 76px;
+    height: 21px;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    cursor: pointer;
 }

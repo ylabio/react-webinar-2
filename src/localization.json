@@ -1,0 +1,181 @@
+{
+  "version": "1.0",
+  "languages": {
+    "ru": {
+      "mainLabel": "Магазин",
+      "topStatsLabel": "В корзине:",
+      "topStatsGoods": [
+        "товар",
+        "товара",
+        "товаров"
+      ],
+      "empty": "пусто",
+      "topToBasket": "Перейти",
+      "basketLabel": "Корзина",
+      "basketStatsLabel": "Итого",
+      "things": "шт",
+      "buttonClose": "Закрыть",
+      "buttonAdd": "Добавить",
+      "buttonRemove": "Удалить",
+      "toMain": "Главная",
+      "country": "Страна производитель:",
+      "category": "Категория:",
+      "year": "Год выпуска:",
+      "price": "Цена:"
+    },
+    "en": {
+      "mainLabel": "Market",
+      "topStatsLabel": "In basket:",
+      "topStatsGoods": [
+        "good",
+        "goods",
+        "goods"
+      ],
+      "empty": "empty",
+      "topToBasket": "Go",
+      "basketLabel": "Basket",
+      "basketStatsLabel": "Total",
+      "things": "pcs",
+      "buttonClose": "Close",
+      "buttonAdd": "Add",
+      "buttonRemove": "Remove",
+      "toMain": "Main page",
+      "country": "Producing country:",
+      "category": "Category:",
+      "year": "Year:",
+      "price": "Price:"
+    },
+    "ch": {
+      "mainLabel": "分数",
+      "topStatsLabel": "在篮子里：",
+      "topStatsGoods": [
+        "商品",
+        "商品",
+        "商品"
+      ],
+      "empty": "空的",
+      "topToBasket": "跳",
+      "basketLabel": "篮子",
+      "basketStatsLabel": "全部的",
+      "things": "件",
+      "buttonClose": "关",
+      "buttonAdd": "添加",
+      "buttonRemove": "删除",
+      "toMain": "家",
+      "country": "生产国：",
+      "category": "类别：",
+      "year": "发行年份：",
+      "price": "价格："
+    },
+    "fr": {
+      "mainLabel": "Score",
+      "topStatsLabel": "Dans le panier:",
+      "topStatsGoods": [
+        "marchandises",
+        "marchandises",
+        "marchandises"
+      ],
+      "empty": "vide",
+      "topToBasket": "Saut",
+      "basketLabel": "Corbeille",
+      "basketStatsLabel": "Total",
+      "things": "pc",
+      "buttonClose": "Proche",
+      "buttonAdd": "Ajouter",
+      "buttonRemove": "Effacer",
+      "toMain": "Maison",
+      "country": "Pays producteur :",
+      "category": "Catégorie:",
+      "year": "Année d'émission :",
+      "price": "Prix:"
+    },
+    "sp": {
+      "mainLabel": "Puntaje",
+      "topStatsLabel": "En la cesta:",
+      "topStatsGoods": [
+        "bienes",
+        "bienes",
+        "bienes"
+      ],
+      "empty": "vacío",
+      "topToBasket": "Vamos",
+      "basketLabel": "Cesta",
+      "basketStatsLabel": "Total",
+      "things": "pc",
+      "buttonClose": "Cerca",
+      "buttonAdd": "Agregar",
+      "buttonRemove": "Borrar",
+      "toMain": "Hogar",
+      "country": "País productor:",
+      "category": "Categoría:",
+      "year": "Año de emisión:",
+      "price": "Precio:"
+    },
+    "du": {
+      "mainLabel": "Punktzahl",
+      "topStatsLabel": "Im Korb:",
+      "topStatsGoods": [
+        "ware",
+        "ware",
+        "ware"
+      ],
+      "empty": "leer",
+      "topToBasket": "Gehen",
+      "basketLabel": "Korb",
+      "basketStatsLabel": "Gesamt",
+      "things": "stck",
+      "buttonClose": "Nah dran",
+      "buttonAdd": "Hinzufügen",
+      "buttonRemove": "Löschen",
+      "toMain": "Heimat",
+      "country": "Herstellungsland:",
+      "category": "Kategorie:",
+      "year": "Baujahr:",
+      "price": "Preis:"
+    },
+    "it": {
+      "mainLabel": "Punto",
+      "topStatsLabel": "Nel cestino:",
+      "topStatsGoods": [
+        "merci",
+        "merci",
+        "merci"
+      ],
+      "empty": "vuoto",
+      "topToBasket": "Andare",
+      "basketLabel": "Cestino",
+      "basketStatsLabel": "Totale",
+      "things": "pz",
+      "buttonClose": "Chiudere",
+      "buttonAdd": "Aggiungere",
+      "buttonRemove": "Elimina",
+      "toMain": "Casa",
+      "country": "Paese produttore:",
+      "category": "Categoria:",
+      "year": "Anno di emissione:",
+      "price": "Prezzo:"
+    },
+    "tr": {
+      "mainLabel": "Puan",
+      "topStatsLabel": "Sepette:",
+      "topStatsGoods": [
+        "mallar",
+        "mallar",
+        "mallar"
+      ],
+      "empty": "boş",
+      "topToBasket": "Gitmek",
+      "basketLabel": "Sepet",
+      "basketStatsLabel": "Toplam",
+      "things": "pc'ler",
+      "buttonClose": "Kapat",
+      "buttonAdd": "Ekle",
+      "buttonRemove": "Silmek",
+      "toMain": "Ev",
+      "country": "üreten ülke:",
+      "category": "Kategori:",
+      "year": "Yayın yılı:",
+      "price": "Fiyat:"
+    }
+  }
+}

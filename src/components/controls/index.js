@@ -1,11 +1,17 @@
-import React from 'react';
 import propTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import locText from "../../utils/localization";
+import useSelector from "../../utils/use-selector";
 import './style.css';
 
 function Controls({onAdd}){
+
+  const language = useSelector(state => state.localization.lang);
+  useEffect(() => {}, [language]);
+
   return (
     <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+      <button onClick={onAdd}>{locText("buttonAdd")}</button>
     </div>
   )
 }

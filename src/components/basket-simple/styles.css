@@ -1,7 +1,7 @@
 /* Контрол с общими действиями */
 .BasketSimple{
     display: flex;
-    justify-content: flex-end;
+    justify-content:space-between;
     padding: 20px;
     font-size: 18px;
 }
@@ -14,3 +14,19 @@
     font-weight: bold;
     margin: 0 15px;
 }
+
+.BasketSimple-go {
+    width: 80px;
+    height: 21px;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    cursor: pointer;
+} 
+
+.LinkToMain {
+    height: 17px;
+    font-size: 16px;
+    border-bottom: 1px solid #0087E9;
+    color: #0087E9;
+    text-decoration: none;
+  }

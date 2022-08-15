@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
@@ -9,7 +9,7 @@ function Pagination(props) {
 
   console.log('Pagination');
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const pageCount = Math.ceil(props.count / props.limit);
     let pages;
 

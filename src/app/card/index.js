@@ -7,7 +7,6 @@ import LangSwitcher from '../../components/lang-switcher';
 import Layout from '../../components/layout';
 import Navbar from '../../components/navbar';
 import Preloader from '../../components/preloader';
-import numberFormat from '../../utils/number-format';
 import useSelector from '../../utils/use-selector';
 import useStore from '../../utils/use-store';
 

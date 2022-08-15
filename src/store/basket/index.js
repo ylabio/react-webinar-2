@@ -49,7 +49,7 @@ class BasketState extends StateModule{
 
     // Установка состояние, basket тоже нужно сделать новым
     this.setState({
-      ...this.getState(),
+      ...this.store.getState(),
       items,
       sum,
       amount: items.length

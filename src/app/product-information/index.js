@@ -29,6 +29,8 @@ function ProductInformation() {
   
   const callbacks = {
     // Открытие корзины
+    load: useCallback(() => store.get('catalog').load(), []),
+    // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Получение данных о выбранном товаре
     getProductInformation: useCallback((_id) => store.get('product').getProductInformation(_id), []),
@@ -42,6 +44,7 @@ function ProductInformation() {
     if(window.location.pathname.includes('productInformation/')){
       console.log(window.location.pathname.split('productInformation/')[1])
       callbacks.getProductInformation(window.location.pathname.split('productInformation/')[1])
+      callbacks.load()
     }
   }, []);
   

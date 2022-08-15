@@ -5,7 +5,7 @@ import langs from "./langs";
  * @returns {string}
  */
  export default function titleLang (selectLang, value) {
-  for (const lang in langs) {
-    if (langs[lang].lang === selectLang) return langs[lang][value];
+  for (const elem of langs) {
+    if (elem.lang === selectLang) return elem[value];
   }
 }

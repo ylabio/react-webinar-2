@@ -14,3 +14,11 @@
     font-weight: bold;
     margin: 0 15px;
 }
+
+.BasketSimple-nav {
+    text-decoration: none;
+}
+
+.BasketSimple-nav:hover {
+    text-decoration: underline ;
+}

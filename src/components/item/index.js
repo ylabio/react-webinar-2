@@ -19,7 +19,7 @@ function Item(props) {
       {/*<div className={cn('id')}>*/}
       {/*  {props.item._id}*/}
       {/*</div>*/}
-      <div onClick={(event) => {
+      <div  onClick={(event) => {
           navigate(`/article/${props.item._id}`)
       }} className={cn('title')}>
         {props.item.title}

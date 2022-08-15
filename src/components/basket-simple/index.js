@@ -11,7 +11,7 @@ function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-        <NavLink to={'/main'}>
+        <NavLink className={cn('nav')} to={'/main'}>
             Главная
         </NavLink>
         <div>

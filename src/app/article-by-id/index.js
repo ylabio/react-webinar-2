@@ -6,9 +6,12 @@ import CatalogApi from "../../api/catalog";
 import useSelector from "../../utils/use-selector";
 import useStore from "../../utils/use-store";
 import Controls from "../../components/controls";
+import ItemActicle from "../../components/item-article";
 
 const ArticleById = () => {
     const store = useStore();
+    const [article, setArticle] = useState({})
+    const params = useParams()
 
     const select = useSelector(state => ({
         amount: state.basket.amount,
@@ -21,10 +24,6 @@ const ArticleById = () => {
         addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     };
 
-    const params = useParams()
-
-    const [article, setArticle] = useState({})
-
     const fetchArticleById = async () => {
         const response = await CatalogApi.getArticleById(params.id)
         setArticle(response)
@@ -35,19 +34,13 @@ const ArticleById = () => {
 
     },[])
 
-
     return (
-        <Layout head={<div>{article.title}</div>} >
-            <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-            <div>
-                {article.description}
-            </div>
-            <div>{article.maidIn?.title}</div>
-            <div>{article.category?.title}</div>
-            <div>{article?.edition}</div>
-            <div>Цена:  {article.price} ₽</div>
-            <Controls onAdd={() => callbacks.addToBasket(params.id)}/>
-        </Layout>
+            <Layout head={<h1 style={{fontSize: '32px'}}>{article.title}</h1>} >
+                <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+                <ItemActicle article={article} onAdd={() => callbacks.addToBasket(params.id)}/>
+            </Layout>
+
+
     );
 };
 

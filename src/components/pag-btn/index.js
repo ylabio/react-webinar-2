@@ -2,8 +2,9 @@ import React from "react";
 import {cn as bem} from "@bem-react/classname";
 import {Link} from "react-router-dom";
 import 'style.css';
+import propTypes from "prop-types";
 
-const PagBtn = ({ page, to = '', active, ...props }) => {
+const PagBtn = ({ page, to, active, ...props }) => {
   const cn = bem('Pag-button');
 
   return (
@@ -14,5 +15,14 @@ const PagBtn = ({ page, to = '', active, ...props }) => {
     </button>
   );
 };
+
+PagBtn.propTypes = {
+  page: propTypes.number.isRequired,
+  to: propTypes.string,
+}
+
+PagBtn.defaultProps = {
+  to: '',
+}
 
 export default React.memo(PagBtn);

@@ -2,8 +2,9 @@ import React, { useMemo } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import PagBtn from '../pag-btn';
+import propTypes from "prop-types";
 
-const Pagination = ({ pages, activePage = 1 }) => {
+const Pagination = ({ pages, activePage }) => {
   const cn = bem('Pagination');
 
   const type = useMemo(() => {
@@ -94,5 +95,14 @@ const LessStartPagBtns = React.memo(({ activePage, pages }) => {
     </>
   );
 });
+
+Pagination.propTypes = {
+  pages: propTypes.number.isRequired,
+  activePage: propTypes.number,
+}
+
+Pagination.defaultProps = {
+  activePage: 1,
+}
 
 export default React.memo(Pagination);

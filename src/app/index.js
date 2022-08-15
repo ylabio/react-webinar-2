@@ -4,7 +4,7 @@ import Main from "./main";
 import Basket from "./basket";
 import Product from "./product";
 import useSelector from "../utils/use-selector";
-import {AppRoute} from "../const";
+import {appRoute} from "../const";
 
 /**
  * Приложение
@@ -20,9 +20,9 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path={AppRoute.Main} element={<Main />} />
-          <Route path={AppRoute.Catalog} element={<Main />} />
-          <Route path={AppRoute.Product} element={<Product />} />
+          <Route path={appRoute.Main} element={<Main />} />
+          <Route path={appRoute.Catalog} element={<Main />} />
+          <Route path={appRoute.Product} element={<Product />} />
         </Routes>
         {modal === 'basket' && <Basket />}
       </BrowserRouter>

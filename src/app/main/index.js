@@ -9,8 +9,7 @@ import Language from "../../components/language";
 import Navigation from "../../components/navigation";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import {AppRoute} from "../../const";
-import {PRODUCTS_PER_PAGE} from "../../const";
+import {appRoute, textBasketSimple, textItem, textNavigation, productsPerPage} from "../../const";
 
 function Main() {
   console.log('Main');
@@ -22,7 +21,7 @@ function Main() {
   useEffect(() => {
     store.get('catalog').loadPreviews(pageNumber);
   }, [pageNumber])
-
+  
   const select = useSelector(state => ({
     items: state.catalog.items,
     amount: state.basket.amount,
@@ -30,7 +29,7 @@ function Main() {
     catalogSize: state.catalog.size,
     language: state.language.value,
   }));
-
+  
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
@@ -42,25 +41,38 @@ function Main() {
 
   const renders = {
     item: useCallback(item =>
-      <Item item={item} onAdd={callbacks.addToBasket} address={AppRoute.Product} />, []),
+      <Item
+        item={item}
+        onAdd={callbacks.addToBasket}
+        address={appRoute.Product}
+        text={{add: textItem.add[select.language]}}
+      />, [{add: textItem.add[select.language]}]),
   }
-
-  const pageHeader = select.language === 'rus' ? 'Магазин' : 'Shop';
 
   return (
     <Layout
       head={<>
-        <h1>{pageHeader}</h1>
+        <h1>{select.language === 'rus' ? 'Магазин' : 'Shop'}</h1>
         <Language onToggle={callbacks.toggleLanguage} lang={select.language} />
       </>}
       menu={<>
-        <Navigation lang={select.language} />
-        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.language} />
+        <Navigation text={{main: textNavigation.main[select.language]}} />
+        <BasketSimple
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+          text={{
+            inCart: textBasketSimple.inCart[select.language],
+            itemsPlural: textBasketSimple.itemsPlural[select.language],
+            empty: textBasketSimple.empty[select.language],
+            enter: textBasketSimple.enter[select.language],
+          }}
+        />
       </>}
     >
       <List items={select.items} renderItem={renders.item}/>
       <Pagination
-        amount={Math.round(select.catalogSize / PRODUCTS_PER_PAGE)}
+        amount={Math.round(select.catalogSize / productsPerPage)}
         pageNumber={pageNumber || 1}
       />
     </Layout>

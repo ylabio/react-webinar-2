@@ -1,42 +1,37 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import useSelector from '../../utils/use-selector';
 import numberFormat from "../../utils/number-format";
 import './style.css';
 
-function ProductDesc({product, onAdd}) {
+function ProductDesc({product, onAdd, text}) {
   const cn = bem('ProductDesc');
 
   const callbacks = {
     onAdd: useCallback(() => onAdd(product._id), [onAdd, product])
   };
 
-  const select = useSelector(state => ({
-    lang: state.language.value,
-  }));
-
   return (
     <div className={cn()}>
       <p>{product.description}</p>
       <p>
-        {select.lang === 'rus' ? 'Страна производитель: ': 'Producing country: '}
+        {text.madeIn}
         <b>{product.madeIn} ({product.madeInCode})</b>
       </p>
       <p>
-        {select.lang === 'rus' ? 'Категория: ': 'Category: '}
+        {text.category}
         <b>{product.category}</b>
       </p>
       <p>
-        {select.lang === 'rus' ? 'Год выпуска: ': 'Manufacturing year: '}
+        {text.edition}
         <b>{product.edition}</b>
       </p>
       <h2 className={cn('price')}>
-        {select.lang === 'rus' ? 'Цена: ': 'Price: '}
+        {text.price}
         {numberFormat(product.price)}
       </h2>
       <button className={cn('add')} onClick={callbacks.onAdd}>
-        {select.lang === 'rus' ? 'Добавить': 'Add'}
+        {text.add}
       </button>
     </div>
   )
@@ -45,10 +40,12 @@ function ProductDesc({product, onAdd}) {
 ProductDesc.propTypes = {
   product: propTypes.object.isRequired,
   onAdd: propTypes.func,
+  text: propTypes.object,
 }
 
 ProductDesc.defaultProps = {
   onAdd: () => {},
+  text: {},
 }
 
 export default React.memo(ProductDesc);

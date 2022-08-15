@@ -7,6 +7,7 @@ import Layout from "../../components/layout";
 import Language from "../../components/language";
 import ProductDesc from "../../components/product-desc";
 import Navigation from "../../components/navigation";
+import {textNavigation, textBasketSimple, textProductDesc} from "../../const";
 
 function Product() {
 
@@ -57,11 +58,32 @@ function Product() {
         <Language onToggle={callbacks.toggleLanguage} lang={select.language} />
       </>}
       menu={<>
-        <Navigation lang={select.language} />
-        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.language} />
+        <Navigation text={{main: textNavigation.main[select.language]}} />
+        <BasketSimple
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+          text={{
+            inCart: textBasketSimple.inCart[select.language],
+            itemsPlural: textBasketSimple.itemsPlural[select.language],
+            empty: textBasketSimple.empty[select.language],
+            enter: textBasketSimple.enter[select.language],
+          }}
+        />
       </>}
     >
-      {select.isProductLoaded && <ProductDesc product={product} onAdd={callbacks.addToBasket} />}
+      {select.isProductLoaded &&
+      <ProductDesc
+        product={product}
+        onAdd={callbacks.addToBasket}
+        text={{
+          madeIn: textProductDesc.madeIn[select.language],
+          category: textProductDesc.category[select.language],
+          edition: textProductDesc.edition[select.language],
+          price: textProductDesc.price[select.language],
+          add: textProductDesc.add[select.language],
+        }}
+      />}
     </Layout>
   )
 }

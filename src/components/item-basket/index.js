@@ -2,7 +2,6 @@ import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import numberFormat from "../../utils/number-format";
 import {cn as bem} from "@bem-react/classname";
-import useSelector from '../../utils/use-selector';
 import {Link} from 'react-router-dom';
 import './styles.css';
 
@@ -13,10 +12,6 @@ function ItemBasket(props) {
     onRemove: useCallback(() => props.onRemove(props.item._id), [props.onRemove,  props.item]),
     onClose: useCallback(() => props.onClose(props.item._id), [props.onClose, props.item])
   };
-
-  const select = useSelector(state => ({
-    lang: state.language.value,
-  }));
 
   return (
     <div className={cn()}>
@@ -32,11 +27,11 @@ function ItemBasket(props) {
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)}
-          {select.lang === 'rus' ? ' шт': ' pcs'}
+          {props.text.pcs}
         </div>
         <div className={cn('cell')}>
           <button onClick={callbacks.onRemove}>
-            {select.lang === 'rus' ? 'Удалить': 'Remove'}
+            {props.text.remove}
           </button>
         </div>
       </div>
@@ -48,12 +43,14 @@ ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   address: propTypes.string.isRequired,
   onRemove: propTypes.func,
-  onClose: propTypes.func
+  onClose: propTypes.func,
+  text: propTypes.object,
 }
 
 ItemBasket.defaultProps = {
   onRemove: () => {},
-  onClose: () => {}
+  onClose: () => {},
+  text: {},
 }
 
 export default React.memo(ItemBasket);

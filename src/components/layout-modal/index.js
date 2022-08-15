@@ -28,7 +28,7 @@ function LayoutModal(props) {
             {props.title}
           </h1>
           <button className={cn('close')} onClick={props.onClose}>
-            {props.lang === 'rus' ? 'Закрыть' : 'Close'}
+            {props.text.close}
           </button>
         </div>
         <div className={cn('content')}>
@@ -43,13 +43,13 @@ LayoutModal.propTypes = {
   title: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
-  lang: PropTypes.string
+  text: PropTypes.object,
 };
 
 LayoutModal.defaultProps = {
   title: 'Модалка',
-  lang: 'rus',
-  onClose: () => {}
+  text: {close: 'Закрыть'},
+  onClose: () => {},
 };
 
 export default React.memo(LayoutModal);

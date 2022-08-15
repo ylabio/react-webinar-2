@@ -36,10 +36,6 @@ function Article() {
     addToBasket: useCallback(_id => store.get('basket').addToBasket(articleId), [])
   };
 
-  const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket(articleId)}/>, []),
-  }
-
   return (
     <div className={cn()}>
       <Layout head={<h1>{select.article?.title}</h1>}>

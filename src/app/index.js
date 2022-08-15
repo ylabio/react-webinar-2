@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import Main from "./main";
+import React from 'react';
+import Main from '../app/main'
 import Basket from "./basket";
-import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
+import { BrowserRouter, Route,Routes} from 'react-router-dom';
+import ItemPage from './item-page';
 
 /**
  * Приложение
@@ -10,14 +11,27 @@ import useSelector from "../utils/use-selector";
  */
 function App() {
 
-  console.log('App');
 
   const modal = useSelector(state => state.modals.name);
 
   return (
     <>
-      <Main/>
-      {modal === 'basket' && <Basket/>}
+      <BrowserRouter>
+      <Routes>
+      <Route path='/' element={ 
+        <>
+          <Main />
+          {modal === 'basket' && <Basket/>}
+        </>
+      } />
+      <Route path='/item' element={
+        <>
+         <ItemPage />
+          {modal === 'basket' && <Basket/>}
+        </>
+      } />
+      </Routes>
+      </BrowserRouter>
     </>
   );
 }

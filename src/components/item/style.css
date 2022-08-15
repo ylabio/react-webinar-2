@@ -1,7 +1,7 @@
 /* Пункт списка */
 .Item {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-between;
     transition: background-color 1s;
     padding-left: 10px;
 }
@@ -9,10 +9,13 @@
 .Item-id {
     padding: 20px 10px 20px 20px;
 }
-
 .Item-title {
     width: 100%;
     padding: 20px 10px;
+}
+.Item-title a {
+    color: #000;
+    text-decoration: none;
 }
 
 .Item-right {

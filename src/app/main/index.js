@@ -1,26 +1,31 @@
+import React, {useCallback, useEffect, useState} from "react";
+import useSelector from "../../utils/use-selector";
+import useStore from "../../utils/use-store";
+import Layout from "../../components/layout";
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
-import Layout from "../../components/layout";
-import React, {useCallback, useEffect} from "react";
+import Pagination from "../../components/pagination";
 import Item from "../../components/item";
-import useStore from "../../utils/use-store";
-import useSelector from "../../utils/use-selector";
+
 
 function Main(){
-
-  console.log('Main');
-
   const store = useStore();
-
   useEffect(() => {
     store.get('catalog').load();
-  }, [])
+  }, []);
 
-  const select = useSelector(state => ({
+  const select = useSelector(state => {
+    return {
     items: state.catalog.items,
+    allPages: state.catalog.allPages,
     amount: state.basket.amount,
-    sum: state.basket.sum
-  }));
+    sum: state.basket.sum,
+    currentPage: state.catalog.currentPage,
+  }});
+  const [currentPage, setCurrentPage] = useState(select.currentPage);
+  useEffect(() => {
+    store.get('catalog').getPage(currentPage);
+  }, [currentPage]);
 
   const callbacks = {
     // Открытие корзины
@@ -32,11 +37,15 @@ function Main(){
   const renders = {
     item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
   }
+  
+
 
   return (
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
+       <List   items={select.items}  renderItem={renders.item}/>
+       <Pagination currentPage={currentPage}  setCurrentPage={setCurrentPage} allPages={select.allPages}  />
+
     </Layout>
   )
 }

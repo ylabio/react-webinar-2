@@ -16,7 +16,7 @@ function SingleProductPage() {
   }, []);
 
   useEffect(() => {
-    store.get('product').load(id)
+    store.get('product').load(id);
   }, [id]);
 
   const select = useSelector(state => ({

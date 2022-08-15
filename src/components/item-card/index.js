@@ -13,24 +13,19 @@ function ItemCard({ item, onAdd, langPack }) {
 
   return (
     <div className={cn()}>
-      {item?._id
-        ? <>
-          <p className={cn('desc')}>{item.description}</p>
-          <span className={cn('desc')}>
+      <p className={cn('desc')}>{item.description}</p>
+      <span className={cn('desc')}>
             {langPack.country} <b>{item.maidIn.title} ({item.maidIn.code})</b>
           </span>
-          <span className={cn('desc')}>{langPack.category} <b>{item.category.title}</b></span>
-          <span className={cn('desc')}>{langPack.year} <b>{item.edition}</b></span>
-          <strong
-            className={cn('price')}>{langPack.price}&nbsp; {numberFormat(item.price)} {langPack.currencySymbol}
-          </strong>
-          <button className={cn('button')} onClick={callbacks.onAdd}>{langPack.addButton}</button>
-        </>
-        : <h2 style={{ textAlign: 'center' }}>Loading...</h2>
-      }
+      <span className={cn('desc')}>{langPack.category} <b>{item.category.title}</b></span>
+      <span className={cn('desc')}>{langPack.year} <b>{item.edition}</b></span>
+      <strong
+        className={cn('price')}>{langPack.price}&nbsp; {numberFormat(item.price)} {langPack.currencySymbol}
+      </strong>
+      <button className={cn('button')} onClick={callbacks.onAdd}>{langPack.addButton}</button>
     </div>
   );
-};
+}
 
 ItemCard.propTypes = {
   item: propTypes.object,

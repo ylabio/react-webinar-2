@@ -1,10 +1,14 @@
 import React, { useCallback, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import BasketSimple from '../../components/basket-simple';
+import Controls from '../../components/controls';
 import LangSwitcher from '../../components/lang-switcher';
 import List from '../../components/list';
 import Layout from '../../components/layout';
 import Item from '../../components/item';
+import Navbar from '../../components/navbar';
 import Pagination from '../../components/pagination';
+import Preloader from '../../components/preloader';
 import { language } from '../../store/exports';
 import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
@@ -57,13 +61,22 @@ function Main() {
         <LangSwitcher currentLang={select.currentLang} switchLang={callbacks.switchLang} />
       </>
     }>
-      <BasketSimple
-        langPack={select.langPack.simpleBasket}
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-      />
-      <List items={select.items} renderItem={renders.item} />
+      <Controls>
+        <Navbar>
+          <Link to="/">{select.langPack.navbar.mainPage}</Link>
+        </Navbar>
+        <BasketSimple
+          langPack={select.langPack.simpleBasket}
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+        />
+      </Controls>
+      {select.items.length
+        ? <List items={select.items} renderItem={renders.item} />
+        : <Preloader>
+          <h2>Loading...</h2>
+        </Preloader>}
       {select.count > select.limit &&
         <Pagination
           setCurrentPage={callbacks.setCurrentPage}

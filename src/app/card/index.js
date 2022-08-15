@@ -1,9 +1,13 @@
 import React, { useCallback, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import BasketSimple from '../../components/basket-simple';
+import Controls from '../../components/controls';
 import ItemCard from '../../components/item-card';
 import LangSwitcher from '../../components/lang-switcher';
 import Layout from '../../components/layout';
+import Navbar from '../../components/navbar';
+import Preloader from '../../components/preloader';
+import numberFormat from '../../utils/number-format';
 import useSelector from '../../utils/use-selector';
 import useStore from '../../utils/use-store';
 
@@ -40,17 +44,26 @@ function Card() {
         <LangSwitcher currentLang={select.currentLang} switchLang={callbacks.switchLang} />
       </>
     }>
-      <BasketSimple
-        langPack={select.langPack.simpleBasket}
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-      />
-      <ItemCard
-        item={select.item}
-        onAdd={callbacks.addToBasket}
-        langPack={select.langPack.cardItem}
-      />
+      <Controls>
+        <Navbar>
+          <Link to="/">{select.langPack.navbar.mainPage}</Link>
+        </Navbar>
+        <BasketSimple
+          langPack={select.langPack.simpleBasket}
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+        />
+      </Controls>
+      {select.item._id
+        ? <ItemCard
+          item={select.item}
+          onAdd={callbacks.addToBasket}
+          langPack={select.langPack.cardItem}
+        />
+        : <Preloader>
+          <h2>Loading...</h2>
+        </Preloader>}
     </Layout>
   );
 }

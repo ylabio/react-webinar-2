@@ -57,7 +57,7 @@ function Pagination(props) {
       )}
     </ul>
   );
-};
+}
 
 Pagination.propTypes = {
   setCurrentPage: propTypes.func.isRequired,

@@ -24,7 +24,6 @@
       "removeButton": "Удалить"
     },
     "simpleBasket": {
-      "mainPage": "Главная",
       "cart": "В корзине:",
       "emptySubtotal": "пусто",
       "subtotal": [
@@ -34,6 +33,9 @@
       ],
       "currencySymbol": "₽",
       "openButton": "Перейти"
+    },
+    "navbar": {
+      "mainPage": "Главная"
     }
   },
   "en": {
@@ -61,7 +63,6 @@
       "removeButton": "Delete"
     },
     "simpleBasket": {
-      "mainPage": "Home",
       "cart": "Shopping cart:",
       "emptySubtotal": "is empty",
       "subtotal": [
@@ -70,6 +71,9 @@
       ],
       "currencySymbol": "$",
       "openButton": "View cart"
+    },
+    "navbar": {
+      "mainPage": "Home"
     }
   }
 }

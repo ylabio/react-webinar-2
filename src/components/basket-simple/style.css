@@ -1,12 +1,7 @@
-/* Контрол с общими действиями */
+/* Упрощенная корзина */
 .BasketSimple {
 	display: flex;
-	padding: 20px;
 	font-size: 18px;
-}
-
-.BasketSimple > a {
-	color: #0087E9;
 }
 
 .BasketSimple-label {

@@ -2,7 +2,6 @@ import React from 'react';
 import propTypes from 'prop-types';
 import plural from 'plural-ru';
 import { cn as bem } from '@bem-react/classname';
-import { Link } from 'react-router-dom';
 import numberFormat from '../../utils/number-format';
 import './style.css';
 
@@ -12,7 +11,6 @@ function BasketSimple({ onOpen, sum, amount, langPack }) {
 
   return (
     <div className={cn()}>
-      <Link to="/">{langPack.mainPage}</Link>
       <span className={cn('label')}>{langPack.cart}</span>
       <span className={cn('total')}>
       {amount

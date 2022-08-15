@@ -1,0 +1,9 @@
+/* Меню */
+.Navbar {
+	display: flex;
+}
+
+.Navbar > a {
+	font-size: 18px;
+	color: #0087E9;
+}

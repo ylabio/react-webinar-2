@@ -4,13 +4,14 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import useSelector from '../../utils/use-selector';
+
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
+    onAdd: useCallback(() => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
 
   const select = useSelector(state => ({
@@ -20,7 +21,7 @@ function Item(props) {
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-        <Link to={`/product${props.item._key}`} className={cn('link')}>
+        <Link to={`${props.address.replace(':productNumber', props.item._key)}`} className={cn('link')}>
           {props.item.title}
         </Link>
       </div>
@@ -35,6 +36,7 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
+  address: propTypes.string.isRequired,
   onAdd: propTypes.func,
 }
 

@@ -10,7 +10,7 @@ function ItemBasket(props) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
+    onRemove: useCallback(() => props.onRemove(props.item._id), [props.onRemove,  props.item]),
     onClose: useCallback(() => props.onClose(props.item._id), [props.onClose, props.item])
   };
 
@@ -21,7 +21,11 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-        <Link to={`product${props.item._key}`} className={cn('titleLink')} onClick={callbacks.onClose} >
+        <Link
+          to={`${props.address.replace(':productNumber', props.item._key)}`}
+          className={cn('titleLink')}
+          onClick={callbacks.onClose}
+        >
           {props.item.title}
         </Link>
       </div>
@@ -42,6 +46,7 @@ function ItemBasket(props) {
 
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
+  address: propTypes.string.isRequired,
   onRemove: propTypes.func,
   onClose: propTypes.func
 }

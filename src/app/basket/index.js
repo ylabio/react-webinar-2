@@ -5,6 +5,7 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import { AppRoute } from "../../const";
 
 function Basket(){
 
@@ -32,6 +33,7 @@ function Basket(){
         item={item}
         onRemove={callbacks.removeFromBasket}
         onClose={callbacks.closeModal}
+        address={AppRoute.Product}
       />, []),
   }
 

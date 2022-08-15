@@ -4,10 +4,11 @@ import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import {Link} from 'react-router-dom';
 import numberFormat from "../../utils/numberFormat";
+import {AppRoute} from '../../const';
 import './styles.css';
 
 
-function BasketSimple({sum, amount, onOpen, lang}) {
+function BasketSimple({sum, amount, onOpen, lang, address}) {
   const cn = bem('BasketSimple');
 
   const basketStatus = lang === 'rus' ? 'Пусто' : 'Empty';
@@ -15,7 +16,7 @@ function BasketSimple({sum, amount, onOpen, lang}) {
 
   return (
     <div className={cn()}>
-      <Link to="/" className={cn('main')}>
+      <Link to={address} className={cn('main')}>
         {lang === 'rus' ? 'Главная' : 'Main'}
       </Link>
       <span className={cn('label')}>{lang === 'rus' ? 'В корзине' : 'In Cart'}:</span>
@@ -36,14 +37,16 @@ BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
   amount: propTypes.number,
-  lang: propTypes.string
+  lang: propTypes.string,
+  address: propTypes.string,
 }
 
 BasketSimple.defaultProps = {
   onOpen: () => {},
   sum: 0,
   amount: 0,
-  lang: 'rus'
+  lang: 'rus',
+  address: AppRoute.Main,
 }
 
 export default React.memo(BasketSimple);

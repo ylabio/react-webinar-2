@@ -8,11 +8,12 @@ import Item from "../../components/item";
 import Language from "../../components/language";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import {AppRoute} from "../../const";
+import {PRODUCTS_PER_PAGE} from "../../const";
 
 function Main() {
   console.log('Main');
 
-  const PRODUCTS_PER_PAGE = 10;
   const store = useStore();
   let { pageNumber } = useParams();
   pageNumber = Number(pageNumber);
@@ -39,7 +40,8 @@ function Main() {
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item =>
+      <Item item={item} onAdd={callbacks.addToBasket} address={AppRoute.Product} />, []),
   }
 
   const pageHeader = select.language === 'rus' ? 'Магазин' : 'Shop';

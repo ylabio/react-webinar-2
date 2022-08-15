@@ -5,7 +5,6 @@ import {useParams} from "react-router-dom";
 import CatalogApi from "../../api/catalog";
 import useSelector from "../../utils/use-selector";
 import useStore from "../../utils/use-store";
-import Controls from "../../components/controls";
 import ItemActicle from "../../components/item-article";
 
 const ArticleById = () => {
@@ -31,8 +30,8 @@ const ArticleById = () => {
 
     useEffect(() => {
         fetchArticleById()
+    },[article])
 
-    },[])
 
     return (
             <Layout head={<h1 style={{fontSize: '32px'}}>{article.title}</h1>} >

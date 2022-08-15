@@ -9,11 +9,7 @@ import Pagination from "../../components/pagination";
 import CatalogApi from "../../api/catalog";
 import {getPageCount} from "../../utils/getPageCount";
 import {getPagesArray} from "../../utils/getPagesArray";
-import ArticleById from "../article-by-id";
-import {
-  Routes,
-  Route,
-} from "react-router-dom";
+
 function Main(){
 
   const [totalPages, setTotalPages] = useState(1)
@@ -26,11 +22,9 @@ function Main(){
   }
   const pagesArray = getPagesArray(totalPages)
 
-  useEffect(() => {
-    fetchTotalCount()
-  },[])
 
   useEffect(() => {
+    fetchTotalCount()
     store.get('catalog').load()
   }, [])
 
@@ -58,9 +52,6 @@ function Main(){
 
   return (
       <>
-        {/*<Routes>*/}
-        {/*  <Route path={'/article/:id'} element={<ArticleById amount={select.amount} openModalBasket={callbacks.openModalBasket} sum={select.sum}/>}/>*/}
-        {/*</Routes>*/}
         <Layout head={<h1>Магазин</h1>}>
           <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
           <List items={select.items} renderItem={renders.item}/>

@@ -3,9 +3,13 @@ import propTypes from 'prop-types';
 import numberFormat from "../../utils/numberFormat";
 import {cn as bem} from "@bem-react/classname";
 import './styles.css';
+import {useNavigate} from "react-router-dom";
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
+
+  const navigate = useNavigate()
+
 
   const callbacks = {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item])
@@ -14,7 +18,7 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>{props.item.title}</div>
+      <div onClick={() => navigate(`/article/${props.item._id}`)} className={cn('title')}>{props.item.title}</div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>

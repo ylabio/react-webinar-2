@@ -2,6 +2,7 @@ import React from 'react';
 import Controls from "../controls";
 import './style.css'
 import {cn as bem} from "@bem-react/classname";
+import propTypes from "prop-types";
 
 const ItemActicle = ({article, onAdd }) => {
     const cn = bem('Article');
@@ -18,5 +19,10 @@ const ItemActicle = ({article, onAdd }) => {
         </div>
     );
 };
+
+ItemActicle.propTypes = {
+    article: propTypes.object.isRequired,
+    onAdd: propTypes.func,
+}
 
 export default React.memo(ItemActicle);

@@ -1,4 +1,4 @@
-/* Пункт списка */
+/* Итоговая сумма всех товаров в корзине */
 .BasketTotal {
     display: flex;
     justify-content: flex-end;

@@ -1,4 +1,4 @@
-/* Пункт списка */
+/* Пункт списка в каталоге */
 .Item {
     display: flex;
     justify-content: space-between;

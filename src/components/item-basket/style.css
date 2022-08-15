@@ -1,4 +1,4 @@
-/* Пункт списка */
+/* Пункт списка в корзине */
 .ItemBasket {
     display: flex;
     justify-content: space-between;

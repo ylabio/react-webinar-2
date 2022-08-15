@@ -1,0 +1,16 @@
+/* Меню навигации */
+.Navbar{
+
+}
+
+.Navbar-links{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.Navbar-links a{
+    margin: 20px;
+    font-size: 18px;
+    color: #0087E9;
+}

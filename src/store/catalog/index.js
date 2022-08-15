@@ -1,4 +1,3 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**
@@ -12,16 +11,37 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      count: 0,
+      pageSize: 10,
+      currentPage: 1
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+  /**
+   * Загрузка порции данных с сервера для одной страницы
+   * @param currentPage {number} Текущая страница
+   * @param pageSize {number} Количество отображаемых товаров на странице
+   */
+  async load(currentPage, pageSize){
+    const response = await fetch(`/api/v1/articles?limit=${pageSize}&skip=${(currentPage - 1) * pageSize}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
-      items: json.result.items
-    });
+      ...this.getState(),
+      items: json.result.items,
+      count: json.result.count
+    }, 'Загрузка порции данных с сервера для одной страницы');
+  }
+
+  /**
+   * Изменение страницы каталога
+   * @param pageNumber {number} Номер страницы
+   */
+  async onPageChanged(pageNumber){
+    this.setState({
+      ...this.getState(),
+      currentPage: pageNumber
+    }, 'Изменение страницы каталога');
   }
 
   /**

@@ -1,0 +1,16 @@
+/* Предварительный упрощенный показ корзины с кнопкой-переходом в неё */
+.BasketSimple{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.BasketSimple-total{
+    font-weight: bold;
+    margin: 0 14px 0 15px;
+}
+
+.BasketSimple__button {
+    width: 80px;
+}

@@ -1,0 +1,25 @@
+/* Информация о товаре */
+.ItemInfo {
+    margin: 10px 30px 10px 30px;
+}
+
+.ItemInfo > p {
+    font-size: 18px;
+    margin: 0;
+    padding: 10px;
+}
+
+.ItemInfo > p {
+    font-size: 18px;
+    margin: 0;
+    padding: 10px;
+}
+
+p.ItemInfo-price {
+    font-size: 24px;
+}
+
+.ItemInfo button {
+    width: 76px;
+    margin: 10px;
+}

@@ -7,9 +7,13 @@
 }
 
 .BasketSimple-main{
-
+    color: #0087E9;
+    text-decoration: underline;
 }
 
+.BasketSimple-main:visited{
+    color: #0087E9;
+}
 
 .BasketSimple-label{
 

@@ -1,4 +1,4 @@
-.ItemDescription {
+.ItemDescription-wrapper {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -17,4 +17,8 @@
 .ItemDescription-price {
     font-weight: 700;
     font-size: 24px;
+}
+
+.ItemDescription-add {
+    margin-left: 40px;
 }

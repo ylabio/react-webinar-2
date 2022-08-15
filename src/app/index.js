@@ -13,7 +13,7 @@ function App() {
   console.log('App');
 
   const modal = useSelector(state => state.modals.name);
-  
+
   return (
     <Routes>
       <Route path="/" element={
@@ -22,7 +22,7 @@ function App() {
           {modal === 'basket' && <Basket />}
         </>
       } />
-      <Route path="/:_id" element={
+      <Route path="/item/:_id" element={
         <>
           <ItemPage />
           {modal === 'basket' && <Basket />}

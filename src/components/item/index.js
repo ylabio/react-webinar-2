@@ -1,6 +1,6 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
+import { cn as bem } from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import { Link } from 'react-router-dom';
 import './style.css';
@@ -18,7 +18,9 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')}>
-        <Link to={props.item._id} className={cn('link')}>
+        <Link className={cn('link')}
+          to={`${props.linkTo}/${props.item._id}`}
+        >
           {props.item.title}
         </Link>
       </div>
@@ -33,10 +35,12 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
+  linkTo: propTypes.string
 }
 
 Item.defaultProps = {
-  onAdd: () => {},
+  onAdd: () => { },
+  linkTo: "/"
 }
 
 export default React.memo(Item);

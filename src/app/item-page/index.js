@@ -6,6 +6,8 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import { useParams } from "react-router";
 import ItemDescription from "../../components/item-description";
+import Controls from "../../components/controls";
+import Menu from "../../components/Menu";
 
 function ItemPage() {
   console.log('ItemPage');
@@ -40,18 +42,11 @@ function ItemPage() {
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
 
-  const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} />, []),
-  }
-
   return (
     <Layout head={<h1>{isLoaded ? title : "Loading..."}</h1>}>
+      <Menu />
       <BasketSimple onOpen={callbacks.openModalBasket} amount={amount} sum={sum} />
-      <ItemDescription itemData={itemData} />
-      <button onClick={() => callbacks.addToBasket(_id)}
-        style={{ marginLeft: "40px" }}>
-        Добавить
-      </button>
+      <ItemDescription itemData={itemData} onAdd={callbacks.addToBasket} _id={_id} />
     </Layout>
   )
 }

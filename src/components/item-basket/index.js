@@ -16,9 +16,9 @@ function ItemBasket(props) {
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <Link to={"/" + props.item._id} 
-        className={cn('link')}
-        onClick={props.closeModal}>
+        <Link to={`${props.linkTo}/${props.item._id}`}
+          className={cn('link')}
+          onClick={props.closeModal}>
           {props.item.title}
         </Link>
       </div>
@@ -34,12 +34,14 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
-  closeModal: propTypes.func
+  closeModal: propTypes.func,
+  linkTo: propTypes.string
 }
 
 ItemBasket.defaultProps = {
-  onRemove: () => {},
-  closeModal: () => {}
+  onRemove: () => { },
+  closeModal: () => { },
+  linkTo: "/"
 }
 
 export default React.memo(ItemBasket);

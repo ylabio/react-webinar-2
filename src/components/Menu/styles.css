@@ -1,0 +1,12 @@
+/* Пункт списка */
+.Menu {
+    display: block;
+    justify-content: flex-start;
+    padding: 20px;
+    float: left;
+}
+
+.Menu-link {
+    flex-grow: 1;
+    color: #0087E9;
+}

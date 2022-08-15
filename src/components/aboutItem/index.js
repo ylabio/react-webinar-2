@@ -1,24 +1,30 @@
 import React from 'react';
 import './style.css';
 
-function AboutItem({ select, add, id }) {
+function AboutItem({ select, add, id, words, language }) {
   return (
     <div className='aboutItem'>
       <div className='itemInfo'>{select.description}</div>
       <div className='category'>
-        Страна производитель:{' '}
+        {language === 'ru' ? words.ru.country : words.eng.country}
         <span className='thisInfo'>
           {select.madeInTitle}({select.madeInCode})
         </span>
       </div>
       <div className='category'>
-        Категория: <span className='thisInfo'>{select.category}</span>
+        {language === 'ru' ? words.ru.category : words.eng.category}{' '}
+        <span className='thisInfo'>{select.category}</span>
       </div>
       <div className='category'>
-        Год выпуска: <span className='thisInfo'>{select.edition}</span>
+        {language === 'ru' ? words.ru.year : words.eng.year}{' '}
+        <span className='thisInfo'>{select.edition}</span>
       </div>
-      <div className='price'>Цена: {select.price} ₽</div>
-      <button onClick={() => add(id)}>Добавить</button>
+      <div className='price'>
+        {language === 'ru' ? words.ru.price : words.eng.price} {select.price} ₽
+      </div>
+      <button onClick={() => add(id)}>
+        {language === 'ru' ? words.ru.buttonAdd : words.eng.buttonAdd}
+      </button>
     </div>
   );
 }

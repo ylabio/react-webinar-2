@@ -6,22 +6,26 @@ import numberFormat from '../../utils/numberFormat';
 import './styles.css';
 import { Link } from 'react-router-dom';
 
-function BasketSimple({ sum, amount, onOpen }) {
+function BasketSimple({ sum, amount, onOpen, words, language }) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
       <Link className='Link' to='/'>
-        Главная
+        {language == 'ru' ? words.ru.buttonToMain : words.eng.buttonToMain}
       </Link>
 
-      <span className={cn('label')}>В корзине:</span>
+      <span className={cn('label')}>{language == 'ru' ? words.ru.inCart : words.eng.inCart}</span>
       <span className={cn('total')}>
-        {amount
-          ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-          : `пусто`}
+        {language == 'ru'
+          ? amount
+            ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
+            : `пусто`
+          : amount
+          ? `${amount} ${plural(amount, 'item', 'items')} / ${numberFormat(sum)} ₽`
+          : `empty`}
       </span>
       <button className='BasketSimple__button' onClick={onOpen}>
-        Перейти
+        {language == 'ru' ? words.ru.openCart : words.eng.openCart}
       </button>
     </div>
   );

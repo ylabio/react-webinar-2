@@ -26,6 +26,7 @@ class Description extends StateModule {
       category: json.result.category.title,
       edition: json.result.edition,
       price: json.result.price,
+      id: json.result._id,
     });
   }
 }

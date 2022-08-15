@@ -4,6 +4,7 @@ import Basket from './basket';
 import useSelector from '../utils/use-selector';
 import { Routes, Route } from 'react-router-dom';
 import ItemInfo from './itemInfo';
+import translates from '../utils/translates';
 
 /**
  * Приложение
@@ -11,15 +12,34 @@ import ItemInfo from './itemInfo';
  */
 function App() {
   const modal = useSelector((state) => state.modals.name);
+  const [language, setLanguage] = React.useState('ru');
 
   return (
     <>
       <Routes>
-        <Route path='/' element={<Main />} />
-        <Route path='/:id' element={<ItemInfo />} />
+        <Route
+          path='/'
+          element={
+            <Main
+              words={translates}
+              language={language}
+              setLanguage={(lang) => setLanguage(lang)}
+            />
+          }
+        />
+        <Route
+          path='/:id'
+          element={
+            <ItemInfo
+              words={translates}
+              language={language}
+              setLanguage={(lang) => setLanguage(lang)}
+            />
+          }
+        />
       </Routes>
 
-      {modal === 'basket' && <Basket />}
+      {modal === 'basket' && <Basket words={translates} language={language} />}
     </>
   );
 }

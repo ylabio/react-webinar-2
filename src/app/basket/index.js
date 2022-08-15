@@ -5,8 +5,9 @@ import LayoutModal from '../../components/layout-modal';
 import ItemBasket from '../../components/item-basket';
 import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
+import { Link } from 'react-router-dom';
 
-function Basket() {
+function Basket({ words, language }) {
   const store = useStore();
 
   const select = useSelector((state) => ({
@@ -24,15 +25,25 @@ function Basket() {
 
   const renders = {
     itemBasket: useCallback(
-      (item) => <ItemBasket item={item} onRemove={callbacks.removeFromBasket} />,
+      (item) => (
+        <ItemBasket
+          words={words}
+          language={language}
+          close={callbacks.closeModal}
+          item={item}
+          onRemove={callbacks.removeFromBasket}
+        />
+      ),
       [],
     ),
   };
 
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+    <LayoutModal
+      title={language === 'ru' ? words.ru.cart : words.eng.cart}
+      onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+      <BasketTotal words={words} language={language} sum={select.sum} />
     </LayoutModal>
   );
 }

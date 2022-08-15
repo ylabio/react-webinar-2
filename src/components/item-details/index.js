@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect} from 'react';
-import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {useParams} from 'react-router-dom';
 import './style.css';
@@ -9,7 +8,8 @@ import Layout from '../layout';
 import BasketSimple from '../basket-simple';
 import useStore from '../../utils/use-store';
 
-function ItemDetails(props) {
+function ItemDetails() {
+  console.log('ItemDetails');
   const cn = bem('ItemDetails');
 
   const params = useParams();
@@ -21,6 +21,7 @@ function ItemDetails(props) {
 
   const select = useSelector(state => ({
     sum: state.basket.sum,
+    amount: state.basket.amount,
     selectedItem: state.itemDetails.selectedItem
   }));
 
@@ -30,8 +31,6 @@ function ItemDetails(props) {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), [])
   };
-
-  console.log(select.selectedItem);
 
   return (
     <div className={cn()}>
@@ -48,13 +47,13 @@ function ItemDetails(props) {
           category={select.selectedItem?.category?.title}
           yearOfProduction={select.selectedItem?.edition}
           price={select.selectedItem?.price}
-          onAdd={() => {}}
+          onAdd={() => {
+            callbacks.addToBasket(select.selectedItem['_id']);
+          }}
         />
       </Layout>
     </div>
   );
 }
-
-ItemDetails.propTypes = {};
 
 export default React.memo(ItemDetails);

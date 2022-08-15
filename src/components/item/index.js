@@ -14,7 +14,6 @@ function Item(props) {
       [props.onAdd, props.item]
     )
   };
-  console.log(props.item);
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>*/}

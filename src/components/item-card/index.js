@@ -23,7 +23,7 @@ function ItemCard(props) {
       </div>
       <div className={cn('price')}>Цена: {numberFormat(props.price)} ₽ </div>
       <div>
-        <button>Добавить</button>
+        <button onClick={props.onAdd}>Добавить</button>
       </div>
     </div>
   );
@@ -37,6 +37,10 @@ ItemCard.propTypes = {
   yearOfProduction: propTypes.number,
   price: propTypes.number,
   onAdd: propTypes.func
+};
+
+ItemCard.defaultProps = {
+  onAdd: () => {}
 };
 
 export default React.memo(ItemCard);

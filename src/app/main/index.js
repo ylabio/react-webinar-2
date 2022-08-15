@@ -1,19 +1,29 @@
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import Select from "../../components/select";
+import LoaderComponent from "../../components/loader-component";
 
 function Main() {
   console.log("Main");
 
   const store = useStore();
-  useEffect(() => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const load = async function () {
     store.get("catalog").load(select.currentPage);
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    load().then(() => {
+      setIsLoading(false);
+    });
   }, []);
 
   const select = useSelector((state) => ({
@@ -70,12 +80,18 @@ function Main() {
         amount={select.amount}
         sum={select.sum}
       />
-      <List items={select.items} renderItem={renders.item} />
-      <Pagination
-        totalPages={select.pagesCount}
-        currentPage={select.currentPage}
-        changePage={callbacks.changePage}
-      />
+      {isLoading ? (
+        <LoaderComponent />
+      ) : (
+        <>
+          <List items={select.items} renderItem={renders.item} />
+          <Pagination
+            totalPages={select.pagesCount}
+            currentPage={select.currentPage}
+            changePage={callbacks.changePage}
+          />
+        </>
+      )}
     </Layout>
   );
 }

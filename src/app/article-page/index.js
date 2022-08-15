@@ -21,6 +21,7 @@ function ArticlePage() {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     load().then(() => {
       setIsLoading(false);
     });

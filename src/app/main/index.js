@@ -8,8 +8,9 @@ import useSelector from "../../utils/use-selector";
 import Paginator from "../../components/paginator";
 import Header from "../../components/header";
 import Navbar from "../../components/navbar";
+import {routes} from "../../utils/routes";
 
-function Main(){
+function Main() {
 
   console.log('Main');
 
@@ -40,7 +41,8 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}
+                                    itemPageLink={`${routes.itemPage}/${item._id}`}/>, []),
   }
 
   return (

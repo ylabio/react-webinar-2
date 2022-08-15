@@ -11,6 +11,7 @@
 }
 
 .Item-title {
+    color: #000000;
     width: 100%;
     padding: 20px 10px;
 }
@@ -25,4 +26,13 @@
 .Item-price {
     padding: 0 10px;
     white-space: nowrap;
+}
+
+.Item-link {
+    color: #000000;
+    text-decoration: none;
+}
+
+.Item-link:hover{
+    text-decoration: underline;
 }

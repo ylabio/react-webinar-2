@@ -3,18 +3,19 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import propTypes from 'prop-types';
 import ProdInfoItem from '../product-info-item'
+import { langVars } from '../../utils/localisation';
 
-function ProductInfo({item, callback}) {
+function ProductInfo({item, callback, lang}) {
   const cn = bem('Product');
 
 	return (
 		<div className={cn()}>
 			<p>{item.description}</p>
-			<ProdInfoItem param={'Страна производитель: '} value={`${item.madeInTitle} (${item.madeInCode})`}/>
-			<ProdInfoItem param={'Категория: '} value={item.category}/>
-			<ProdInfoItem param={'Год выпуска: '} value={item.edition}/>
-			<h2>{`Цена: ${(item.price)}`}</h2>
-			<button onClick={callback}>Добавить</button>
+			<ProdInfoItem param={langVars.productInfo.country[lang]} value={`${item.madeInTitle} (${item.madeInCode})`}/>
+			<ProdInfoItem param={langVars.productInfo.category[lang]} value={item.category}/>
+			<ProdInfoItem param={langVars.productInfo.year[lang]} value={item.edition}/>
+			<h2>{`${langVars.productInfo.price[lang]}${(item.price)}`}</h2>
+			<button onClick={callback}>{langVars.item.addBtn[lang]}</button>
 		</div>
 	)
 }
@@ -22,6 +23,7 @@ function ProductInfo({item, callback}) {
 ProductInfo.propTypes = {
   item: propTypes.object.isRequired,
   callback: propTypes.func.isRequired,
+	lang: propTypes.number
 };
 
 ProductInfo.defaultProps = {

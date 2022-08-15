@@ -4,6 +4,7 @@ import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './style.css';
 import {Link} from 'react-router-dom'
+import { langVars } from '../../utils/localisation';
 
 function Item(props) {
   const cn = bem('Item');
@@ -21,7 +22,7 @@ function Item(props) {
       </Link>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{langVars.item.addBtn[props.lang]}</button>
       </div>
     </div>
   )

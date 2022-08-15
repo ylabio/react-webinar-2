@@ -15,7 +15,8 @@ class CatalogState extends StateModule{
       totalCount: 0,
       pageSize: 10,
       currentPage: 1,
-      isLoading: false
+      isLoading: false,
+      language: 0,
     };
   }
 
@@ -64,6 +65,13 @@ class CatalogState extends StateModule{
       pageSize: 10,
       currentPage: page
     }, 'Изменение номера страницы');
+  }
+
+  changeLanguage(id){
+    this.setState({
+      ...this.getState(),
+      language: id,
+    });
   }
 }
 

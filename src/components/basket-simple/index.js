@@ -5,22 +5,23 @@ import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './styles.css';
 import { Link } from 'react-router-dom';
+import { langVars } from './../../utils/localisation';
 
 
-function BasketSimple({sum, amount, onOpen}) {
+function BasketSimple({sum, amount, onOpen, lang}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <Link to='/'>Главная</Link>
+      <Link to='/'>{langVars.basketSimple.main[lang]}</Link>
       <div>
-      <span className={cn('label')}>В корзине:</span>
+      <span className={cn('label')}>{langVars.basketSimple.inCart[lang]}</span>
       <span className={cn('total')}>
       {amount
         ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-        : `пусто`
+        : `${langVars.basketSimple.empty[lang]}`
       }
       </span>
-      <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+      <button className='BasketSimple__button' onClick={onOpen}>{langVars.basketSimple.moveTo[lang]}</button>
       </div>
     </div>
   )
@@ -29,7 +30,8 @@ function BasketSimple({sum, amount, onOpen}) {
 BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
-  amount: propTypes.number
+  amount: propTypes.number,
+  lang: propTypes.number
 }
 
 BasketSimple.defaultProps = {

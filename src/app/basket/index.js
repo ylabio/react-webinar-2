@@ -5,6 +5,7 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import { langVars } from "../../utils/localisation";
 
 function Basket(){
 
@@ -15,7 +16,8 @@ function Basket(){
   const select = useSelector(state => ({
     items: state.basket.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    language: state.catalog.language,
   }));
 
   const callbacks = {
@@ -26,13 +28,13 @@ function Basket(){
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket} closeModal={callbacks.closeModal} link={`articles/${item._id}`}/>, []),
+    itemBasket: useCallback(item => <ItemBasket lang={select.language} item={item} onRemove={callbacks.removeFromBasket} closeModal={callbacks.closeModal} link={`articles/${item._id}`}/>, [select.language]),
   }
 
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+    <LayoutModal lang={select.language} title={langVars.cart.cart[select.language]} onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal lang={select.language} sum={select.sum}/>
     </LayoutModal>
   )
 }

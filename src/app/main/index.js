@@ -6,6 +6,8 @@ import Item from "../../components/item";
 import Paginator from "../../components/paginator";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import {langVars} from '../../utils/localisation'
+import Header from './../../components/header';
 
 function Main(){
 
@@ -18,6 +20,7 @@ function Main(){
     totalCount: state.catalog.totalCount,
     currentPage: state.catalog.currentPage,
     pageSize: state.catalog.pageSize,
+    language: state.catalog.language,
     
     amount: state.basket.amount,
     sum: state.basket.sum
@@ -36,12 +39,12 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} link={`articles/${item._id}`}/>, []),
+    item: useCallback(item => <Item lang={select.language} item={item} onAdd={callbacks.addToBasket} link={`articles/${item._id}`}/>, [ select.language]),
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+    <Layout head={<Header title={langVars.main.heading[select.language]}/>}>
+      <BasketSimple lang={select.language} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
       <Paginator 
       itemsAmount={select.totalCount}

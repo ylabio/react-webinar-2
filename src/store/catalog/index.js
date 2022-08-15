@@ -53,9 +53,11 @@ class CatalogState extends StateModule {
     const response = await fetch(`${this.#mainUrl}${id}?fields=*,maidIn(title,code),category(title)`).then(
       this.#handleResponse
     );
+
     this.setState(
       {
         ...state,
+        items: state.items.length === 0 ? [response.result] : state.items,
         item: response.result,
         request: false,
       },

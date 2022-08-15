@@ -8,9 +8,9 @@ import useStore from "./use-store";
  */
 export default function useSelector(selector){
 
-  const store = useStore();
+  const store = useStore();//достает store
 
-  const [state, setState] = useState(() => selector(store.getState()));
+  const [state, setState] = useState(() => selector(store.getState()));//в состояние хука кладет текущее состояние store
 
   useEffect(() => {
     // Подписка на последующие изменения в store
@@ -23,7 +23,7 @@ export default function useSelector(selector){
         return shallowequal(prevState, newState) ? prevState : newState
       });
     });
-  }, []);
+  }, []);//вызывается 1 при вызове хука
 
   return state;
 }

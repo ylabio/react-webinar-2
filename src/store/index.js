@@ -71,4 +71,15 @@ class Store {
   }
 }
 
+
+// return store.subscribe (() => {
+//   // Новая выборка
+//   const newState = selector(store.getState());
+//   // Установка выбранных данных, если они изменились
+//   setState(prevState => {
+//     // Сравнение с предыдущей выборкой
+//     return shallowequal(prevState, newState) ? prevState : newState
+//   });
+// });
+
 export default Store;

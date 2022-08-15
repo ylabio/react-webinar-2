@@ -2,7 +2,7 @@ import React from "react";
 import propTypes from 'prop-types';
 import './style.css'
 import {cn as bem} from "@bem-react/classname";
-import PaginationItem from "../pagimation-item";
+import PaginationItem from "../pagination-item";
 
 function PaginationBar(props){
     const cn = bem('PagimationBar');

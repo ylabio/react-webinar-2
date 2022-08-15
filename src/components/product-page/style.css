@@ -1,0 +1,22 @@
+.ItemPage {
+    margin: 40px;
+    max-width: 1024px;
+}
+
+.ItemPage-char{
+    margin: 20px 0 20px 0;
+    display: flex;
+    justify-content:flex-start ;
+}
+
+.ItemPage-prop{
+    font-weight: 700;
+}
+
+.Loader{
+    position: absolute;
+    top: 50vh;
+    left: 45vw;
+    margin: 0;
+    color: #0087E9;
+}

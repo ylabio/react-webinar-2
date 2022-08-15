@@ -1,4 +1,5 @@
 import React, { useCallback, memo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
 import List from '../../components/list';
@@ -10,6 +11,8 @@ function Basket() {
   console.log('Basket');
 
   const store = useStore();
+
+  let navigate = useNavigate();
 
   const select = useSelector((state) => ({
     items: state.basket.items,
@@ -25,7 +28,18 @@ function Basket() {
   };
 
   const renders = {
-    itemBasket: useCallback((item) => <ItemBasket item={item} onRemove={callbacks.removeFromBasket} />, []),
+    itemBasket: useCallback(
+      (item) => (
+        <ItemBasket
+          navigate={navigate}
+          item={item}
+          onRemove={callbacks.removeFromBasket}
+          onClose={callbacks.closeModal}
+          path={'/item'}
+        />
+      ),
+      []
+    ),
   };
 
   return (

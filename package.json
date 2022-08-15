@@ -1,6 +1,7 @@
 {
   "name": "react-webinar-2",
   "version": "1.0.0",
+  "homepage": "/",
   "description": "Example project for webinar",
   "main": "index.js",
   "scripts": {

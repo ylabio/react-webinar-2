@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import useStore from '../utils/use-store';
 import Main from './main';
 import Basket from './basket';
 import SingleItemPage from './single-item/index';
-import useStore from '../utils/use-store';
 import useSelector from '../utils/use-selector';
 
 /**
@@ -13,12 +13,14 @@ import useSelector from '../utils/use-selector';
 function App() {
   console.log('App');
 
+  const store = useStore();
+
   const modal = useSelector((state) => state.modals.name);
 
   return (
     <Router>
       <Routes>
-        <Route exact path="/item/:id" element={<SingleItemPage />}></Route>
+        <Route exact path="/item:id" element={<SingleItemPage />}></Route>
         <Route
           exact
           path="/"

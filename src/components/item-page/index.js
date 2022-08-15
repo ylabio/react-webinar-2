@@ -10,7 +10,7 @@ function ItemPage(props) {
   const product = item.product;
 
   const callbacks = {
-    onAdd: useCallback(() => props.onAdd(product._id), [props.onAdd, product]),
+    onAdd: useCallback(() => props.onAdd(product._id, product), [props.onAdd, product]),
   };
 
   return (

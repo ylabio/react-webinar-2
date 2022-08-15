@@ -6,6 +6,7 @@ import BasketSimple from '../../components/basket-simple';
 import Layout from '../../components/layout';
 import SingleItemWrapper from '../../components/single-item-wrapper';
 import ItemPage from '../../components/item-page/index';
+import LinkToMain from '../../components/link-to-main';
 
 function SingleItemPage() {
   console.log('single item');
@@ -28,7 +29,8 @@ function SingleItemPage() {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
-    addToBasket: useCallback((_id) => store.get('basket').addToBasket(_id), []),
+    /* addToBasket: useCallback((_id) => store.get('basket').addToBasket(_id), []), */
+    addToBasket: useCallback((_id, item) => store.get('basket').addToBasket(_id, item), []),
   };
 
   const renders = {
@@ -37,6 +39,7 @@ function SingleItemPage() {
 
   return (
     <Layout head={<h1>{select.product.product.title}</h1>}>
+      <LinkToMain />
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <SingleItemWrapper item={select.product} renderItem={renders.item} />
     </Layout>

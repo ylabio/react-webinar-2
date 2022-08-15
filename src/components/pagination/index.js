@@ -1,19 +1,13 @@
 import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import useSelector from '../../utils/use-selector';
 import './style.css';
 
 function Pagination(props) {
   const cn = bem('Pagination');
 
-  const select = useSelector((state) => ({
-    totalPagesCounter: state.catalog.totalPagesCounter,
-    currentPage: state.catalog.currentPage,
-  }));
-
-  const currentPage = select.currentPage;
-  const totalPagesCounter = select.totalPagesCounter;
+  const currentPage = props.currentPage;
+  const totalPagesCounter = props.totalPagesCounter;
 
   const callbacks = {
     onSetPage: useCallback((page) => props.onSetPage(page), []),

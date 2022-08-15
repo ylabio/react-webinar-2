@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import numberFormat from '../../utils/numberFormat';
@@ -8,11 +7,9 @@ import './style.css';
 function Item(props) {
   const cn = bem('Item');
 
-  let navigate = useNavigate();
-
   const callbacks = {
     onAdd: useCallback(() => props.onAdd(props.item._id), [props.onAdd, props.item]),
-    onOpenItem: useCallback((id) => navigate(`/item/${id}`), []),
+    onOpenItem: useCallback((id) => props.navigate(`${props.path}${id}`), []),
   };
 
   return (

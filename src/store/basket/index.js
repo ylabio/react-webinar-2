@@ -13,7 +13,7 @@ class BasketState extends StateModule{
     return {
       items: [],
         sum: 0,
-        amount: 0
+        amount: 0,
     };
   }
 

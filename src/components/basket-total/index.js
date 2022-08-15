@@ -3,16 +3,11 @@ import propTypes from 'prop-types';
 import { dictionaryEnum } from '../../enums/dictionaryEnum';
 import numberFormat from "../../utils/numberFormat";
 import './styles.css';
-import useSelector from '../../utils/use-selector';
 
 function BasketTotal(props) {
-  const select = useSelector(state => ({
-	  lang: state.common.language
-  }));
-
   return (
     <div className="BasketTotal">
-      <span className="BasketTotal-cell">{dictionaryEnum.add[select.lang]}</span>
+      <span className="BasketTotal-cell">{dictionaryEnum.add[props.lang]}</span>
       <span className="BasketTotal-cell"> {numberFormat(props.sum)} ₽</span>
       <span className="BasketTotal-cell"/>
     </div>
@@ -20,7 +15,8 @@ function BasketTotal(props) {
 }
 
 BasketTotal.propTypes = {
-  sum: propTypes.number
+  sum: propTypes.number,
+	lang: propTypes.string
 }
 
 BasketTotal.defaultProps = {

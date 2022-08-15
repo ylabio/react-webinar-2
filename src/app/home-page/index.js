@@ -16,7 +16,8 @@ function HomePage(){
 	  sum: state.basket.sum,
     items: state.catalog.items,
     page: state.catalog.pagination.page,
-    lang: state.common.language
+    lang: state.common.language,
+		total: state.catalog.pagination.total
   }));
 
   useEffect(() => {
@@ -27,6 +28,7 @@ function HomePage(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+		setPage: useCallback(e => {store.get('catalog').setPage(e.target.getAttribute('data-number'))}, []),
   };
 
   const renders = {
@@ -35,9 +37,9 @@ function HomePage(){
 
   return (
 	  <Layout head={<h1>{dictionaryEnum.store[select.lang]}</h1>}>
-		  <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-		  <List items={select.items} renderItem={renders.item}/>
-		  <Pagination />
+		  <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang} />
+		  <List items={select.items} renderItem={renders.item} />
+		  <Pagination page={select.page} total={select.total} setPage={callbacks.setPage} />
 	  </Layout>
   )
 }

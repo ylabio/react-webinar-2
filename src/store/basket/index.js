@@ -22,7 +22,6 @@ class BasketState extends StateModule{
    * @param _id Код товара
    */
   addToBasket(_id) {
-  	console.log(_id);
     let sum = 0;
     // Ищем товар в корзие, чтобы увеличить его количество. Заодно получаем новый массив items
     let exists = false;

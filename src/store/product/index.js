@@ -11,7 +11,7 @@ class ProductState extends StateModule{
    */
   initState() {
     return {
-      product: []
+      product: {}
     };
   }
 

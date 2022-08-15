@@ -15,22 +15,24 @@ function ProductPage(){
 	  title: state.product.product.title,
 	  amount: state.basket.amount,
 	  sum: state.basket.sum,
-	  lang: state.common.language
+	  lang: state.common.language,
+		product: state.product.product
 	}));
 
   useEffect(() => {
     store.get('product').load(id);
-  }, [select.lang]);
+  }, [select.lang, id]);
 
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+		addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
 
 	return (
     <Layout head={<h1>{select.title}</h1>}>
-		  <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-		  <ProductCard />
+		  <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang} />
+		  <ProductCard lang={select.lang} product={select.product} addToBasket={callbacks.addToBasket}/>
 		</Layout>
 	)
 }

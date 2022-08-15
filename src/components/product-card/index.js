@@ -1,33 +1,31 @@
-import React, {useCallback} from "react";
+import propTypes from 'prop-types';
+import React from "react";
 import {cn as bem} from "@bem-react/classname";
 import { dictionaryEnum } from '../../enums/dictionaryEnum';
-import useSelector from '../../utils/use-selector';
-import useStore from '../../utils/use-store';
-import style from './style.css';
 
 const cn = bem('Product');
 
-function ProductCard(){
-  const store = useStore();
-  const select = useSelector(state => ({
-	  product: state.product.product,
-	  lang: state.common.language
-  }));
-
-  const callbacks = {
-	  addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-  };
-
+function ProductCard({lang, product, addToBasket}){
 	return (
 	  <div className={cn()}>
-		  <div>{select.product.description}</div>
-		  <div>{dictionaryEnum.add[select.lang]}: <span>{select.product.maidIn?.title} ({select.product.maidIn?.code})</span></div>
-	    <div>{dictionaryEnum.category[select.lang]}: <span>{select.product.category?.title}</span></div>
-		  <div>{dictionaryEnum.yearOfIssue[select.lang]}: <span>{select.product.edition}</span></div>
-		  <div className={cn('price')}>{dictionaryEnum.price[select.lang]}: <span>{select.product.price} {'\u20bd'}</span></div>
-		  <button onClick={() => callbacks.addToBasket(select.product._id)}>{dictionaryEnum.add[select.lang]}</button>
+		  <div>{product.description}</div>
+		  <div>{dictionaryEnum.add[lang]}: <span>{product.maidIn?.title} ({product.maidIn?.code})</span></div>
+	    <div>{dictionaryEnum.category[lang]}: <span>{product.category?.title}</span></div>
+		  <div>{dictionaryEnum.yearOfIssue[lang]}: <span>{product.edition}</span></div>
+		  <div className={cn('price')}>{dictionaryEnum.price[lang]}: <span>{product.price} {'\u20bd'}</span></div>
+		  <button onClick={() => addToBasket(product._id)}>{dictionaryEnum.add[lang]}</button>
 	  </div>
 	)
+}
+
+ProductCard.propTypes = {
+	lang: propTypes.string,
+	product: propTypes.object,
+	addToBasket: propTypes.func
+}
+
+ProductCard.defaultProps = {
+	addToBasket: ()=>{}
 }
 
 export default React.memo(ProductCard);

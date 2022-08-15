@@ -21,7 +21,7 @@ function Switch(){
 	  <div className={cn()}>
 		  <span>Ру</span>
 		  <label className={cn('container')}>
-			  <input type="checkbox" onClick={callbacks.setLanguage} checked={select.lang === 'en'}/>
+			  <input type="checkbox" onChange={callbacks.setLanguage} checked={select.lang === 'en'}/>
 			  <span className={cn('slider round')} />
 		  </label>
 		  <span>En</span>

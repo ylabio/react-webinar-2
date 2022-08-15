@@ -31,12 +31,10 @@ function Basket(){
     itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
   }
 
-  console.log(select.items);
-
   return (
     <LayoutModal title={dictionaryEnum.basket[select.lang]} onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum} lang={select.lang} />
     </LayoutModal>
   )
 }

@@ -22,6 +22,10 @@ function Main(){
     sum: state.basket.sum
   }));
 
+  useEffect(() => {
+    store.get('catalog').load(select.currentPage, select.pageSize)
+  }, [select.currentPage]);
+
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),

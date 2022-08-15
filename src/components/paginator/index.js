@@ -1,8 +1,7 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useMemo} from 'react';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
-import useStore from "../../utils/use-store";
 
 function Paginator({
                      totalItemsCount,
@@ -29,12 +28,6 @@ function Paginator({
     if (currentPage === pagesCount - 2) return [1, dots, pagesCount - 3, pagesCount - 2, pagesCount - 1, pagesCount]
     return [1, dots, currentPage - 1, currentPage, currentPage + 1, dots, pagesCount]
   }, [currentPage, totalItemsCount])
-
-  const store = useStore();
-
-  useEffect(() => {
-    store.get('catalog').load()
-  }, [currentPage]);
 
   return (
     <div className={cn()}>

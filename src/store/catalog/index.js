@@ -21,8 +21,8 @@ class CatalogState extends StateModule{
   /**
    * Загрузка порции данных с сервера для одной страницы
    */
-  async load(){
-    const response = await fetch(`/api/v1/articles?limit=${this.getState().pageSize}&skip=${(this.getState().currentPage - 1) * this.getState().pageSize}&fields=items(*),count`);
+  async load(currentPage, pageSize){
+    const response = await fetch(`/api/v1/articles?limit=${pageSize}&skip=${(currentPage - 1) * pageSize}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
       ...this.getState(),

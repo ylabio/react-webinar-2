@@ -6,6 +6,7 @@ import Layout from "../../components/layout";
 import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import Language from "../../components/language";
+import Navigation from "../../components/navigation";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import {AppRoute} from "../../const";
@@ -52,8 +53,11 @@ function Main() {
         <h1>{pageHeader}</h1>
         <Language onToggle={callbacks.toggleLanguage} lang={select.language} />
       </>}
+      menu={<>
+        <Navigation lang={select.language} />
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.language} />
+      </>}
     >
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.language} />
       <List items={select.items} renderItem={renders.item}/>
       <Pagination
         amount={Math.round(select.catalogSize / PRODUCTS_PER_PAGE)}

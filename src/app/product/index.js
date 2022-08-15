@@ -6,6 +6,7 @@ import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
 import Language from "../../components/language";
 import ProductDesc from "../../components/product-desc";
+import Navigation from "../../components/navigation";
 
 function Product() {
 
@@ -55,8 +56,11 @@ function Product() {
         <h1>{select.title}</h1>
         <Language onToggle={callbacks.toggleLanguage} lang={select.language} />
       </>}
+      menu={<>
+        <Navigation lang={select.language} />
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.language} />
+      </>}
     >
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.language} />
       {select.isProductLoaded && <ProductDesc product={product} onAdd={callbacks.addToBasket} />}
     </Layout>
   )

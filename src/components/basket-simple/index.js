@@ -2,13 +2,11 @@ import React from 'react';
 import propTypes from 'prop-types';
 import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
-import {Link} from 'react-router-dom';
-import numberFormat from "../../utils/numberFormat";
-import {AppRoute} from '../../const';
-import './styles.css';
+import numberFormat from "../../utils/number-format";
+import './style.css';
 
 
-function BasketSimple({sum, amount, onOpen, lang, address}) {
+function BasketSimple({sum, amount, onOpen, lang}) {
   const cn = bem('BasketSimple');
 
   const basketStatus = lang === 'rus' ? 'Пусто' : 'Empty';
@@ -16,9 +14,6 @@ function BasketSimple({sum, amount, onOpen, lang, address}) {
 
   return (
     <div className={cn()}>
-      <Link to={address} className={cn('main')}>
-        {lang === 'rus' ? 'Главная' : 'Main'}
-      </Link>
       <span className={cn('label')}>{lang === 'rus' ? 'В корзине' : 'In Cart'}:</span>
       <span className={cn('total')}>
       {amount
@@ -27,7 +22,7 @@ function BasketSimple({sum, amount, onOpen, lang, address}) {
       }
       </span>
       <button className='BasketSimple__button' onClick={onOpen}>
-        {lang === 'rus' ? 'Перейти' : 'Go'}
+        {lang === 'rus' ? 'Перейти' : 'Enter'}
       </button>
     </div>
   )
@@ -38,7 +33,6 @@ BasketSimple.propTypes = {
   sum: propTypes.number,
   amount: propTypes.number,
   lang: propTypes.string,
-  address: propTypes.string,
 }
 
 BasketSimple.defaultProps = {
@@ -46,7 +40,6 @@ BasketSimple.defaultProps = {
   sum: 0,
   amount: 0,
   lang: 'rus',
-  address: AppRoute.Main,
 }
 
 export default React.memo(BasketSimple);

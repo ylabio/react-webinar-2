@@ -1,14 +1,23 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
+import {useParams} from 'react-router-dom';
 import './style.css';
 import useSelector from '../../utils/use-selector';
 import ItemCard from '../item-card';
 import Layout from '../layout';
 import BasketSimple from '../basket-simple';
+import useStore from '../../utils/use-store';
 
 function ItemDetails(props) {
   const cn = bem('ItemDetails');
+
+  const params = useParams();
+  const store = useStore();
+
+  useEffect(() => {
+    store.get('itemDetails').loadItem(params.itemId);
+  }, [params.itemId]);
 
   const select = useSelector(state => ({
     sum: state.basket.sum

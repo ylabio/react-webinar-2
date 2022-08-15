@@ -51,7 +51,6 @@ function Main() {
         sum={select.sum}
       />
 
-      {BasketSimpleShortcut}
       <List items={select.items} renderItem={renders.item} />
       <Paginator
         currentPage={select.currentPage}

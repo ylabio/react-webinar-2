@@ -22,7 +22,7 @@ class ArticleState extends StateModule {
     // console.log(json.result);
     this.setState({
       ...this.getState(),
-      id: result ? result.id : "",
+      id: result ? result._id : "",
       title: result ? result.title : "",
       description: result ? result.description : "",
       price: result ? result.price : "",

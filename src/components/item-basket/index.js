@@ -14,7 +14,8 @@ function ItemBasket(props) {
 
     const onHandle = () => {
         store.get('modals').close();
-        navigate(`/articles/${props.item._id}`);
+        navigate(`/articles/${props.item._id}`, { replace: true });
+        console.log(props.item._id);
     }
 
 

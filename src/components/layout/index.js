@@ -1,20 +1,33 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
-import {Outlet} from "react-router";
+import {Outlet, useParams} from "react-router";
 import BasketSimple from "../basket-simple";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import {getItemById} from "../../api/api";
 
 function Layout({head}) {
     const cn = bem('Layout');
 
     const store = useStore();
+    const [title, setTitle] = useState('');
+    const params = useParams();
 
     useEffect(() => {
         store.get('catalog').loadInit();
     }, [])
+
+    useEffect(() => {
+        const changeTitle = async () => {
+            if (!(Object.keys(params).length === 0)) {
+                const json = await getItemById(params.id);
+                setTitle(json.data.result.title);
+            }
+        }
+        changeTitle();
+    }, [params])
 
     const select = useSelector(state => ({
         items: state.catalog.items,
@@ -31,7 +44,7 @@ function Layout({head}) {
         <div className={cn()}>
             <div className={cn('head')}>
                 <h1>
-                    {head}
+                    {Object.keys(params).length === 0 ? 'Магазин' : title}
                 </h1>
             </div>
             <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
@@ -42,11 +55,4 @@ function Layout({head}) {
     )
 }
 
-Layout.propTypes = {
-    head: propTypes.node,
-    children: propTypes.node,
-}
-
-Layout.defaultProps = {}
-
-export default React.memo(Layout);
+export default Layout;

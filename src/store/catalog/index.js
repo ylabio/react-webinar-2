@@ -14,7 +14,8 @@ class CatalogState extends StateModule {
     initState() {
         return {
             items: [],
-            amount: 0
+            amount: 0,
+            isLoading: true
         };
     }
 
@@ -32,6 +33,13 @@ class CatalogState extends StateModule {
             amount: this.getState().amount,
             items: obj.items
         });
+    }
+
+    setIsLoading() {
+        this.setState({
+            ...this.getState(),
+            isLoading: !this.getState().isLoading
+        })
     }
 
     /**

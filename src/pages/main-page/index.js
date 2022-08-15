@@ -3,7 +3,6 @@ import React, {useCallback, useEffect, useState} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import {getCountList, getItemList} from "../../api/api";
 import {Pagination} from "../../components/pagination";
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
@@ -16,16 +15,17 @@ function Main() {
 
     const select = useSelector(state => ({
         amount: state.catalog.amount,
-        items: state.catalog.items
+        items: state.catalog.items,
+        isLoading: state.catalog.isLoading
     }));
 
     useEffect(() => {
-        console.log(page);
         if (page === 0) {
             store.get('catalog').load(10, 0);
         } else {
             store.get('catalog').load(limit, (page - 1) * limit);
         }
+        store.get('catalog').setIsLoading();
     }, [page]);
 
     const callbacks = {
@@ -34,6 +34,12 @@ function Main() {
 
     const renders = {
         item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    }
+
+    if (select.isLoading) {
+        return (<div>
+            Загрузка
+        </div>)
     }
 
     return (

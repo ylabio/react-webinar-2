@@ -8,7 +8,6 @@ export const Pagination = ({itemsPerPage, totalItems, setPage, activeIndex}) => 
     const cn = bem('Pagination');
     const array = [];
     const amount = Math.ceil(totalItems / itemsPerPage);
-    console.log(amount);
 
     function createPages(pages, pagesCount, currentPage) {
         if (pagesCount >= 10) {
@@ -54,9 +53,6 @@ export const Pagination = ({itemsPerPage, totalItems, setPage, activeIndex}) => 
     }
 
     createPages(array, totalItems, activeIndex);
-    console.log(array);
-
-
     return (
         <div className={cn()}>
             {array.map((value, index) => {
@@ -64,7 +60,6 @@ export const Pagination = ({itemsPerPage, totalItems, setPage, activeIndex}) => 
                     <li key={index} className={cn('item')}>
                         {value === '...' ? <div>...</div> :
                             <PaginationButton activeIndex={activeIndex} setPage={setPage} index={value}/>}
-
                     </li>
                 )
             })}

@@ -12,7 +12,7 @@ function BasketSimple({sum, amount, onOpen}) {
     return (
         <div className={cn()}>
 
-            <Link to={'/'}>
+            <Link to={''}>
                 Главная
             </Link>
 

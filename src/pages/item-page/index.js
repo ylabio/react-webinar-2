@@ -4,7 +4,6 @@ import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import {getCategoryById, getCountryById, getItemById} from "../../api/api";
 import Controls from "../../components/controls";
-import propTypes from "prop-types";
 import useStore from "../../utils/use-store";
 
 export const ItemPage = () => {
@@ -23,37 +22,40 @@ export const ItemPage = () => {
 
     const getInfo = async () => {
         getItemById(params.id).then(async (r) => {
-            setData(r.data.result);
+            let obj = r.data.result;
             const result = await getCountryById(r.data.result.maidIn._id);
             const category = await getCategoryById(r.data.result.category._id);
             if (category !== true) {
-                setData(data => ({
-                    ...data,
+                obj = {
+                    ...obj,
                     ...{
                         category: category.title
                     }
-                }))
+                }
             }
-
             if (result === true) {
-                setData(data => ({
-                    ...data,
+
+                obj = {
+                    ...obj,
                     ...{
                         country: 'Нет информации',
                         countryCode: ''
                     }
-                }));
+                }
                 setIsLoading(false);
             } else {
-                setData(data => ({
-                    ...data,
+                obj = {
+                    ...obj,
                     ...{
                         country: result.title,
                         countryCode: result.code
                     }
-                }));
+                }
                 setIsLoading(false);
             }
+
+            setData(obj);
+            console.log(obj);
         }).catch(() => {
             setError(true);
         })
@@ -61,7 +63,7 @@ export const ItemPage = () => {
 
     useEffect(() => {
         getInfo();
-    }, [])
+    }, [params.id])
 
     if (isLoading) {
         return <p className={cn('wrapper')}>Загрузка</p>
@@ -90,7 +92,7 @@ export const ItemPage = () => {
             </p>
 
             <div className={cn('price')}>
-                Цена: {data.price}
+                Цена: {data.price} ₽
             </div>
             <div className={cn('button-wrapper')}>
                 <Controls onAdd={callbacks.addToBasket}/>

@@ -16,12 +16,11 @@ function ItemBasket(props) {
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
       <div
-        className={cn('title')}
-        onClick={() => {
+        className={cn('title')}>
+        <Link to={`/productInformation/${props.item._id}`} onClick={() => {
           props.getProductInformation(props.item._id)
           props.closeModal()
         }}>
-        <Link to={`/productInformation/${props.item._id}`}>
           {props.item.title}
         </Link>
       </div>

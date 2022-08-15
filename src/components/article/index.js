@@ -6,7 +6,6 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Layout from '../layout';
 import BasketSimple from '../basket-simple';
-import Item from "../item";
 import ArticleCountry from "../article-country/article-country";
 import ArticleCategory from "../article-category/article-category";
 import './style.css';

@@ -1,0 +1,24 @@
+.Number {
+    display: flex;
+    cursor: pointer;
+    font-size: 16px;
+    min-height: 20px;
+    min-width: 20px;
+    color: black;
+    background: none;
+    border: none;
+    border-radius: 0;
+}
+
+.Number:hover {
+    background-color: #E1E1E1;
+}
+
+.Number-active {
+    background-color: #0087E9;
+    color: white;
+    border: none;
+    font-size: 16px;
+    min-height: 20px;
+    min-width: 20px;
+}

@@ -1,0 +1,13 @@
+.Pagination {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.Pagination-container {
+    display: flex;
+}
+
+.Pagination-container div {
+    color: #CCCCCC;
+}

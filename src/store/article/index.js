@@ -22,13 +22,13 @@ class ArticleState extends StateModule {
     // console.log(json.result);
     this.setState({
       ...this.getState(),
-      id,
-      title: result.title,
-      description: result.description,
-      price: result.price,
-      country: result.maidIn.title,
-      edition: result.edition,
-      category: result.category.title,
+      id: result ? result.id : "",
+      title: result ? result.title : "",
+      description: result ? result.description : "",
+      price: result ? result.price : "",
+      country: result ? result.maidIn.title : "",
+      edition: result ? result.edition : "",
+      category: result ? result.category.title : "",
     });
   }
 }

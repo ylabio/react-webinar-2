@@ -27,6 +27,7 @@ function Article() {
   useEffect(() => {
     store.get("article").load(params.id);
   }, [params.id]);
+
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get("modals").open("basket"), []),
@@ -37,14 +38,26 @@ function Article() {
     ),
   };
 
+  console.log(profile.id);
+  const title = profile.id ? (
+    <h1>{select.title}</h1>
+  ) : (
+    <h1>Такой товар не найден</h1>
+  );
+
   return (
-    <Layout head={<h1>{select.title}</h1>}>
+    <Layout head={title}>
       <BasketSimple
         sum={sum}
         amount={amount}
         onOpen={callbacks.openModalBasket}
       ></BasketSimple>
-      <ArticleProfile onAddToBasket={callbacks.addToBasket} profile={profile} />
+      {profile.id && (
+        <ArticleProfile
+          onAddToBasket={callbacks.addToBasket}
+          profile={profile}
+        />
+      )}
     </Layout>
   );
 }

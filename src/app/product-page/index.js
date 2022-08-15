@@ -37,7 +37,7 @@ function ProductPage() {
     };
 
     return (
-        <Layout head={<h1>{select.isLoading ? 'loading' : select.item.title}</h1>}>
+        <Layout head={<h1 style={{opacity: select.isLoading && '0.5'}}>{select.item.title}{select.isLoading && ' ...'}</h1>}>
             <BasketSimple crumbs={'Главная'} onOpen={callbacks.openModalBasket}
                           amount={select.amount} sum={select.sum}/>
             {select.isLoading ? <Preload/> : <ItemDetails item={select.item} onAdd={callbacks.addToBasket}/>}

@@ -15,7 +15,7 @@ function Main(){
   const store = useStore();
 
   useEffect(() => {
-    store.get('catalog').load(1, select.perPage);
+    store.get('catalog').load(select.currentPage, select.perPage);
   }, [])
 
   const select = useSelector(state => ({
@@ -24,7 +24,8 @@ function Main(){
     sum: state.basket.sum,
     totalCount: state.catalog.totalCount,
     isLoading: state.catalog.isLoading,
-    perPage: state.catalog.perPage
+    perPage: state.catalog.perPage,
+    currentPage: state.catalog.currentPage
   }));
 
   const callbacks = {

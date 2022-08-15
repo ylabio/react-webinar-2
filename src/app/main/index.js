@@ -7,6 +7,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import ListPagination from "../../components/list-pagination";
 import Select from "../../components/language-select";
+import MainMenu from "../../components/main-menu";
 
 function Main() {
   
@@ -49,17 +50,24 @@ function Main() {
   return (
     <Layout head={<><h1>{select.words.shop}</h1><Select changeLanguage={callbacks.changeLanguage}
                                                         language={select.language}/></>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={
-        {
-          main: select.words.main,
-          inCart: select.words.inCart,
-          empty: select.words.empty,
-          item: select.words.item,
-          goTo: select.words.goTo
-        }
-      }/>
+      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+        <MainMenu words={
+          {
+            main: select.words.main,
+          }
+        }/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={
+          {
+            main: select.words.main,
+            inCart: select.words.inCart,
+            empty: select.words.empty,
+            item: select.words.item,
+            goTo: select.words.goTo
+          }
+        }/>
+      </div>
       <>
-        <List items={select.items} renderItem={renders.item} />
+        <List items={select.items} renderItem={renders.item}/>
         <ListPagination
           currentPage={select.currentPage}
           switchPage={callbacks.switchPage}

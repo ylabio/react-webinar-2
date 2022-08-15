@@ -1,3 +1,11 @@
 /* Главное меню */
 .MainMenu {
+    padding: 20px 0 0 20px;
+
+}
+
+.MainMenu-navigate{
+    font-size: 18px;
+    text-decoration-line: underline;
+    color: #0087E9;
 }

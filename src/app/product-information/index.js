@@ -5,13 +5,14 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import ProductCard from "../../components/product-card";
 import Select from "../../components/language-select";
+import MainMenu from "../../components/main-menu";
 
 function ProductInformation() {
   
   console.log('ProductInformation');
   
   const store = useStore();
-
+  
   const select = useSelector(state => ({
     id: state.product.id,
     title: state.product.title,
@@ -41,7 +42,7 @@ function ProductInformation() {
   };
   
   useEffect(() => {
-    if(window.location.pathname.includes('productInformation/')){
+    if (window.location.pathname.includes('productInformation/')) {
       console.log(window.location.pathname.split('productInformation/')[1])
       callbacks.getProductInformation(window.location.pathname.split('productInformation/')[1])
       callbacks.load()
@@ -51,14 +52,21 @@ function ProductInformation() {
   return (
     <Layout
       head={<><h1>{select.title}</h1><Select changeLanguage={callbacks.changeLanguage} language={select.language}/></>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={
-        {
-          main: select.words.main,
-          inCart: select.words.inCart,
-          empty: select.words.empty,
-          item: select.words.item,
-          goTo: select.words.goTo
-        }}/>
+      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+        <MainMenu words={
+          {
+            main: select.words.main,
+          }
+        }/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={
+          {
+            main: select.words.main,
+            inCart: select.words.inCart,
+            empty: select.words.empty,
+            item: select.words.item,
+            goTo: select.words.goTo
+          }}/>
+      </div>
       {!select.isLoading ?
         <ProductCard
           id={select.id}

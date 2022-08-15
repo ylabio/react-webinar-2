@@ -15,7 +15,7 @@ function Article(){
 
   useEffect(() => {
     store.get('product').getArticle(params.articleID);
-  }, [])
+  }, [params.articleID])
 
   const select = useSelector(state => ({
     count: state.catalog.count,

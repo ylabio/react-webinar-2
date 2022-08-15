@@ -1,10 +1,14 @@
 .Pages {
     display: flex;
-    padding-bottom: 35px;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 20px;
     list-style: none;
 }
 
 .Pages-ellipsis {
     display: flex;
+    justify-content: center;
     align-items: center;
+    min-width: 18px;
 }

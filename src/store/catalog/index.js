@@ -50,17 +50,6 @@ class CatalogState extends StateModule{
   }
 
   /**
-   * Ограничение количества
-   * @param number
-   */
-  setLimit(num) {
-    this.setState({
-      ...this.getState(), 
-      limit: num
-    }, 'Ограничение количества');
-  }
-
-  /**
    * Смещение выборки и пагинация
    * @param object
    */

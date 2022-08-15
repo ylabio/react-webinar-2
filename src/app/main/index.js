@@ -3,7 +3,6 @@ import List from "../../components/list";
 import Layout from "../../components/layout";
 import Pages from "../../components/pages";
 import Language from "../../components/language";
-import TextField from "../../components/text-field";
 import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
@@ -39,8 +38,6 @@ function Main(){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Смещение выборки
     onClick: useCallback(obj => store.get('catalog').setSkip(obj), []),
-    // Ограничение количества
-    onChange: useCallback(num => num && store.get('catalog').setLimit(num), []),
     // Выбран язык
     onSelectChange: useCallback(lang => {
       localStorage.setItem('lang', lang);
@@ -62,7 +59,6 @@ function Main(){
       {select.count ? 
         <>
           <List items={select.items} renderItem={renders.item}/>
-          <TextField lang={select.lang} limit={select.limit} count={select.count} onChange={callbacks.onChange} />
           <Pages limit={select.limit} count={select.count} selected={select.selected} onClick={callbacks.onClick}/>
         </> : 
         <h2 style={{textAlign: 'center'}}>Loading...</h2>

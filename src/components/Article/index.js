@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import propTypes from 'prop-types';
+import numberFormat from '../../utils/numberFormat';
 
 import 'style.css';
 
@@ -13,13 +14,17 @@ function Article({ description, price, edition, onAdd, category, country }) {
   return (
     <div className='article'>
       <p>{description}</p>
-      <p>Страна производитель: {country}</p>
-      <p>Категория: {category}</p>
+      <p>
+        Страна производитель: <b>{country}</b>
+      </p>
+      <p>
+        Категория: <b>{category}</b>
+      </p>
       <p>
         Год выпуска: <b>{edition}</b>
       </p>
       <p>
-        <b>Цена: {price}</b>
+        <b>Цена: {numberFormat(price)} ₽</b>
       </p>
       <button onClick={callbacks.onAdd}>Добавить</button>
     </div>

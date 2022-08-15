@@ -32,16 +32,16 @@ class CatalogState extends StateModule {
   async loadItem(_id) {
     const response = await fetch(`/api/v1/articles/${_id}`);
     const json = await response.json();
-    // const response2 = await fetch(`/api/v1/categories/${json.result.category._id}`);
-    // const json2 = await response2.json();
-    // const response3 = await fetch(`/api/v1//countries/${json.result.countries._id}`);
-    // const json3 = await response3.json();
+    const response2 = await fetch(`/api/v1/categories/${json.result.category._id}`);
+    const json2 = await response2.json();
+    const response3 = await fetch(`/api/v1//countries/${json.result.maidIn._id}`);
+    const json3 = await response3.json();
 
     this.setState({
       items: this.getState().items,
       selectItem: json.result,
-      // country: json3.result,
-      // category: json2.result,
+      category: json2.result,
+      country: json3.result,
     });
   }
 

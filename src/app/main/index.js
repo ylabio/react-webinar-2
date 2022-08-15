@@ -29,7 +29,6 @@ function Main() {
     country: state.catalog.country,
     category: state.catalog.category,
   }));
-  console.log('1', select.items);
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
@@ -88,7 +87,6 @@ function Main() {
                   style={{ textDecoration: 'underline', color: '#0087E9', cursor: 'pointer' }}
                   onClick={() => {
                     navigate('/');
-                    store.get('catalog').load(currentPage);
                   }}>
                   Главная
                 </span>

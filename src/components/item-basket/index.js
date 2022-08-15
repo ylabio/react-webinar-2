@@ -11,7 +11,7 @@ function ItemBasket(props) {
 
   const callbacks = {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
-    onNavigate: useCallback(() => navigate(`item/${props.item._id}`, {replace: true}), [props.item])
+    onNavigate: useCallback(() => navigate(`item/${props.item._id}`, {replace: true}), [props.item]),
   };
 
   return (

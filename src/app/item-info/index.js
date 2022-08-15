@@ -23,7 +23,7 @@ function ItemInfo() {
        return () => {
            store.get('item').unmount()
        }
-   }, []);
+   }, [id]);
 
 
     const select = useSelector(state => ({

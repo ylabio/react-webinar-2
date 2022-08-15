@@ -21,8 +21,7 @@ function Main(){
 
   const select = useSelector(state => ({
     items: state.catalog.items,
-    activePage: state.catalog.pagination.activePage,
-    visiblePages: state.catalog.pagination.visiblePages,
+    pagination: state.catalog.pagination,
     amount: state.basket.amount,
     loading: state.catalog.loading,
     sum: state.basket.sum
@@ -47,10 +46,7 @@ function Main(){
       {select.loading ? <ProgressBar /> :
         <>
           <List items={select.items} renderItem={renders.item}/>
-          <Pagination activePage={select.activePage} 
-                      visiblePages={select.visiblePages} 
-                      loadPage={callbacks.loadPage}
-          />
+          <Pagination pagination={select.pagination} loadPage={callbacks.loadPage}/>
         </>
       }
     </Layout>

@@ -18,8 +18,7 @@ class CatalogState extends StateModule{
       pagination: {
         activePage: 1,
         pageSize: 10,
-        totalPages: null,
-        visiblePages: null
+        totalPages: null
       },
       loading: true,
       error: ''
@@ -41,8 +40,7 @@ class CatalogState extends StateModule{
         pagination: {
           ...this.getState().pagination,
           activePage: 1,
-          totalPages: totalPages,
-          visiblePages: this.getPageNumbers(this.getState().pagination.activePage, totalPages)
+          totalPages: totalPages
         }
       }, 'Начальная загрузка товаров');
     } catch (err) {
@@ -53,7 +51,6 @@ class CatalogState extends StateModule{
         error: 'Ошибка загрузки товаров'
       })
     }
-    
   }
 
    /**
@@ -66,8 +63,6 @@ class CatalogState extends StateModule{
     const skip = pageNum * limit - limit
     const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&lang=ru`);
     const json = await response.json();
-    
-    const pageNumbers = this.getPageNumbers(pageNum, this.getState().pagination.totalPages)
 
     this.setState({
       ...this.getState(),
@@ -76,43 +71,8 @@ class CatalogState extends StateModule{
       pagination: {
         ...this.getState().pagination, 
         activePage: pageNum,
-        visiblePages: pageNumbers
       }
     }, `Переключение между страницами пагинации, текущая ${pageNum}`);
-  }
-
-  // Возвращает массив из необходимых для рендера номеров страниц на основе активной страницы
-  // отрицательные значения соответствуют "..."
-  getPageNumbers(activePage, totalPages){
-    
-    // сюда складываем кусочки от общего массива + разделяем многоточиями
-    let paginationItems = []
-    // массив всех номеров страниц от 0 до totalPages 
-    let arr = Array.from(Array(totalPages).keys())
-    // возвращаем цельный массив, если страниц 5 или меньше
-    if (totalPages < 6) {
-      return arr.slice(0, 5)
-    }
-    switch (activePage) {
-      case 1:
-      case 2: 
-        return paginationItems.concat(arr.slice(0, 3), -1, arr.slice(-1));
-      case 3: 
-        return paginationItems.concat(arr.slice(0, 4), -1, arr.slice(-1));
-      case totalPages - 2: 
-        return paginationItems.concat(arr[0], -1, arr.slice(-4));
-      case totalPages - 1:
-      case totalPages: 
-        return paginationItems.concat(arr[0], -1, arr.slice(-3)); break;
-      default: 
-        return paginationItems.concat(
-          arr[0],
-          -1,
-          arr.slice(activePage - 2, activePage + 1),
-          -2,
-          arr[totalPages - 1]
-        );
-    }
   }
 
      /**

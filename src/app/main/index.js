@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Link, Route, Routes } from "react-router-dom";
 
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
@@ -8,9 +7,8 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination/index"
-import { ProfileProduct } from '../../components/profile-product/index'
 import { GridLoader } from "react-spinners";
-import { ErrorBoundary } from "../ErrorBoundary";
+
 
 
 
@@ -47,32 +45,14 @@ function Main() {
 
   return (
 
-    <ErrorBoundary>
-      <Routes>
-        <Route path="/:id" element={
-          <Layout head={<h1>Название товара</h1>}>
-            <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}>
-              <Link className="Home-link" variant="link" to="/" >
-                Главная
-              </Link>
-            </BasketSimple>
-            <ProfileProduct />
-          </Layout>
-        } />
-
-        <Route exact path="/" element={
           <Layout head={<h1>Магазин</h1>}>
             <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
             <List items={select.items} renderItem={renders.item} />
             {(store.state.catalog.items.length > 0)
-              ? <Pagination {...{numPege , setNumPege , count}} />
+              ? <Pagination {...{numPege , setNumPege , count }} />
               : <GridLoader />}
           </Layout>
-
-        } />
-      </Routes>
-    </ErrorBoundary>
-
+      
   )
 }
 

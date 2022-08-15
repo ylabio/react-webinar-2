@@ -3,27 +3,34 @@ import propTypes from 'prop-types';
 import numberFormat from "../../utils/numberFormat";
 import { cn as bem } from "@bem-react/classname";
 import './styles.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
+  let navigate = useNavigate()
 
   const callbacks = {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove, props.item]),
-    closeModal: useCallback(( ) => props.closeModal(), [props.onRemove, props.item, props.closeModal]) 
+    closeModal: useCallback(() => props.closeModal(), [props.onRemove, props.item, props.closeModal])
   };
+
+  const hendleNavigate = () => {
+    navigate(`ProfileProduct/${props.item._id}`)
+    callbacks.closeModal()
+  }
+
 
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <Link
+        <section
           className={cn('link')}
-          to={`${props.item._id}`}
-          onClick={() => callbacks.closeModal()}
-          >
+          onClick={() => hendleNavigate()}
+        >
           {props.item.title}
-        </Link></div>
+        </section>
+      </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>

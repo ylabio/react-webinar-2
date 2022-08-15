@@ -1,8 +1,8 @@
-.ProfileProduct {
+
+div.ProductById {
     padding: 30px;
 }
-
-.ProfileProduct div {
+.ProductById div {
     font-family: 'Arial';
     font-style: normal;
     font-weight: 400;
@@ -13,7 +13,7 @@
     padding: 10px;
 }
 
-div.ProfileProduct-price {
+div.ProductById-price {
     font-family: 'Arial';
     font-style: normal;
     font-weight: 700;
@@ -22,7 +22,7 @@ div.ProfileProduct-price {
     color: #000000;
 }
 
-button.ProfileProduct-btn {
+button.ProductById-btn {
     background: #EFEFEF;
     border: 1px solid #767676;
     border-radius: 2px;

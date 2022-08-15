@@ -1,0 +1,22 @@
+section.ProfileProduct-home-link {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    text-decoration-line: none;
+
+    padding: 20px;
+    cursor: pointer;
+    color: #0087E9;
+}
+
+section.ProfileProduct-home-link:hover {
+    text-decoration-line: underline;
+}
+
+div.ProfileProduct-hader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

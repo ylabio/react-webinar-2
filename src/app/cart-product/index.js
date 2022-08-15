@@ -1,3 +1,4 @@
+import Loading from "components/loading";
 import React, {useCallback, useEffect} from "react";
 import Cart from "components/cart";
 import {useParams} from "react-router-dom";
@@ -9,17 +10,19 @@ import useStore from "../../utils/use-store";
 function CartProduct() {
   console.log('CartProduct');
 
-  const { id } = useParams();
+  const {id} = useParams();
   const store = useStore();
 
-  useEffect(()=> {
+  useEffect(() => {
     store.get('catalog').loadProduct(id);
-  },[]);
+  }, []);
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
-    item: state.catalog.item
+    item: state.catalog.item,
+    isLoading: state.catalog.isLoading,
+    errorMessage: state.catalog.errorMessage,
   }));
 
   const callbacks = {
@@ -29,11 +32,20 @@ function CartProduct() {
     addToBasket: useCallback(id => store.get('basket').addToBasket(id), []),
   };
 
+  if (select.isLoading) {
+    return (
+      <Layout head={''}>
+        <Loading/>
+      </Layout>
+    )
+  }
+
   return (
-    <Layout head={<h1>{select.item.title}</h1>}>
+    <Layout head={<h1>{select.item === null ? '' : select.item.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount}
                     sum={select.sum}/>
-      <Cart item={select.item} onAdd={callbacks.addToBasket} />
+      {select.item !== null ? <Cart item={select.item} onAdd={callbacks.addToBasket}/> :
+        <div>{select.errorMessage}</div>}
     </Layout>
   );
 }

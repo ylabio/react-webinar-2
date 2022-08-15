@@ -1,3 +1,4 @@
+import Loading from "components/loading";
 import Pagination from "src/components/pagination";
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
@@ -19,6 +20,7 @@ function Main() {
 
   const select = useSelector(state => ({
     items: state.catalog.items,
+    isLoading: state.catalog.isLoading,
     amount: state.basket.amount,
     sum: state.basket.sum,
     count: state.catalog.count,
@@ -41,8 +43,9 @@ function Main() {
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount}
                     sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
-      <Pagination count={select.count} onPage={callbacks.getProducts} />
+      {select.isLoading ? <Loading/> :
+        <List items={select.items} renderItem={renders.item}/>}
+      <Pagination count={select.count} onPage={callbacks.getProducts}/>
     </Layout>
   );
 }

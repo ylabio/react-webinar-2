@@ -12,8 +12,10 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
-      item: {},
-      count: 0
+      item: null,
+      count: 0,
+      errorMessage: null,
+      isLoading: true,
     };
   }
 
@@ -30,12 +32,14 @@ class CatalogState extends StateModule {
    * @param skip
    */
   async loadProducts(skip) {
+    this.setState({...this.getState(), isLoading: true})
     const response = await fetch(`/api/v1/articles?limit=10&skip=${skip}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
       ...this.getState(),
       items: json.result.items,
-      count: json.result.count
+      count: json.result.count,
+      isLoading: false,
     }, 'Запрос страницы товара');
   }
 
@@ -44,12 +48,23 @@ class CatalogState extends StateModule {
    * @param id
    */
   async loadProduct(id) {
+    this.setState({...this.getState(), isLoading: true})
     const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
-    const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      item: json.result,
-    }, 'Запрос страницы товара');
+    console.log(response)
+    if (response.status === 200) {
+      const json = await response.json();
+      this.setState({
+        ...this.getState(),
+        item: json.result,
+        isLoading: false,
+      }, 'Запрос страницы товара');
+    } else {
+      this.setState({
+        ...this.getState(), errorMessage: 'такого товара нету',
+        isLoading: false,
+      })
+    }
+
   }
 
   /**

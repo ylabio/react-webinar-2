@@ -2,6 +2,7 @@ import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
 import React, {useCallback, useEffect} from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
@@ -10,10 +11,15 @@ import Pagination from "../../components/pagination";
 function Main(){
 
   const store = useStore();
+  const page = useParams().page;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    store.get('catalog').load();
-  }, [])
+    if ( !page ) {
+      navigate("/1");
+      store.get('catalog').load();
+    } else store.get('catalog').load(+page);
+  }, [page])
 
   const select = useSelector(state => ({
     items: state.catalog.items,

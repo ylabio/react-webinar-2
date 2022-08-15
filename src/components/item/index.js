@@ -11,7 +11,7 @@ function Item(props) {
 
   const callbacks = {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
-    viewProduct: useCallback(() => navigate(`product/${props.item._id}`), [props.item])
+    viewProduct: useCallback(() => navigate(`/product/${props.item._id}`), [props.item])
   };
 
   return (

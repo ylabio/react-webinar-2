@@ -1,24 +1,18 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
+import { Link } from "react-router-dom";
 
-function ItmPagination({ id, loadPage, currentPage }) {
-
-    const callbacks = {
-        clickPageHandler: useCallback(() => loadPage(id), [loadPage, id])
-    };
-
+function ItmPagination({ id, currentPage }) {
     return (
-        <li onClick={callbacks.clickPageHandler} 
-            className={currentPage === id ? 'Pagination-active' : ''}>
-                { id }
-        </li>
+        <Link to={`/${id}`} className={currentPage === id ? 'Pagination-active' : ''}>
+            { id }
+        </Link>
     )
 };
 
 ItmPagination.propTypes = {
     id: propTypes.number.isRequired,
     currentPage: propTypes.number.isRequired,
-    loadPage: propTypes.func.isRequired,
 }
 
 ItmPagination.defaultProps = {

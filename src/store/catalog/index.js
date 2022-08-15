@@ -43,7 +43,7 @@ class CatalogState extends StateModule{
       const response = await fetch(`api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
       const json = await response.json();
       const { title, description, maidIn, category, price, edition  } = json.result
-      let items = [...this.getState().items];
+      let items = [...this.getState().items]; // если переходиш по прямой ссылке на продукт то его нужно добавить в state.items 
       if (!this.getState().items.find(item => item._id === id)) {
         items.push(json.result)
       }

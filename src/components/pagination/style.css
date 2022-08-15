@@ -3,7 +3,7 @@
     justify-content: flex-end;
     margin: 22px;
 }
-.Pagination li {
+.Pagination a {
     min-width: 20px;
     min-height: 28px;
     padding: 0 4px;
@@ -17,14 +17,14 @@
     text-decoration: none;
     cursor: pointer;
 }
-.Pagination li.Pagination-active {
+.Pagination a.Pagination-active {
     background-color: #0087E9;
     color: #FFFFFF;
     pointer-events: none;
 }
-.Pagination li:hover:not(.Pagination-active) {
+.Pagination a:hover:not(.Pagination-active) {
     background-color:  #E1E1E1;
 }
-.Pagination li.Pagination-ellipsis {
+.Pagination a.Pagination-ellipsis {
     pointer-events: none;
 }

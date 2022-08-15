@@ -15,7 +15,7 @@ function ItemBasket(props) {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
     viewProduct: useCallback(() => {
       store.get('modals').close();
-      navigate(`product/${props.item._id}`)
+      navigate(`/product/${props.item._id}`)
     }, [props.item])
   };
 

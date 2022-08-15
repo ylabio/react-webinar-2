@@ -6,6 +6,8 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Paginator from "../../components/paginator";
+import Header from "../../components/header";
+import Navbar from "../../components/navbar";
 
 function Main(){
 
@@ -43,7 +45,10 @@ function Main(){
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} toFirstPage={callbacks.toFirstPage}/>
+      <Header>
+        <Navbar toFirstPage={callbacks.toFirstPage}/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      </Header>
       <List items={select.items} renderItem={renders.item}/>
       <Paginator totalItemsCount={select.count}
                  pageSize={select.pageSize}

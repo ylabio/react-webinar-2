@@ -5,6 +5,8 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import ItemInfo from "../../components/item-info";
 import {useParams} from "react-router-dom";
+import Navbar from "../../components/navbar";
+import Header from "../../components/header";
 
 function ItemPage() {
 
@@ -19,8 +21,6 @@ function ItemPage() {
   }));
 
   const callbacks = {
-    // Закрытие корзины
-    closeModalBasket: useCallback(() => store.get('modals').close(), []),
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
@@ -35,7 +35,10 @@ function ItemPage() {
 
   return (
     <Layout head={<h1>{select.itemInfo.title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <Header>
+        <Navbar />
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      </Header>
       <ItemInfo {...select.itemInfo} addToBasket={callbacks.addToBasket}/>
     </Layout>
   )

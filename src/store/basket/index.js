@@ -12,8 +12,8 @@ class BasketState extends StateModule{
   initState() {
     return {
       items: [],
-        sum: 0,
-        amount: 0
+      sum: 0,
+      amount: 0
     };
   }
 
@@ -41,7 +41,7 @@ class BasketState extends StateModule{
     if (!exists) {
       // Поиск товара в каталоге, чтобы его в корзину добавить
       // @todo В реальных приложения будет запрос к АПИ на добавление в корзину, и апи выдаст объект товара..
-      const item = this.store.getState().catalog.items.find(item => item._id === _id);
+      const item = this.store.getState().catalog.pageItems.find(item => item._id === _id);
       items.push({...item, amount: 1});
       // Досчитываем сумму
       sum += item.price;
@@ -73,6 +73,22 @@ class BasketState extends StateModule{
       sum,
       amount: items.length
     }, 'Удаление из корзины')
+  }
+
+  // вызывается из pages/product, data - объект со всей информацией о товаре
+  addToCart(data) {
+    const s = this.getState();
+    const cartIndex = s.items.findIndex(item => item._id === data._id);
+
+    const items = (cartIndex === -1)
+      ? s.items.concat({ ...data, amount: 1 })
+      : s.items.map((item, index) => index === cartIndex ? { ...item, amount: item.amount + 1 } : item)
+
+    this.setState({
+      items,
+      sum: items.reduce((sum, item) => sum + item.price * item.amount, 0),
+      amount: items.length
+    }, 'Добавление в корзину')
   }
 }
 

@@ -6,8 +6,14 @@
     font-size: 18px;
 }
 
-.BasketSimple-label{
+.BasketSimple-link {
+    color: dodgerblue;
+    text-decoration: underline;
+}
 
+.BasketSimple-label{
+    flex-grow: 1;
+    text-align: right;
 }
 
 .BasketSimple-total{

@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Main from "./main";
 import Basket from "./basket";
 import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
+import { ContextTitle } from '../store/contextTitle';
 
 /**
  * Приложение
@@ -10,15 +11,15 @@ import useSelector from "../utils/use-selector";
  */
 function App() {
 
-  console.log('App');
 
   const modal = useSelector(state => state.modals.name);
-
+  const [title, setTitle] = useState('Магазин');
   return (
-    <>
-      <Main/>
-      {modal === 'basket' && <Basket/>}
-    </>
+
+    <ContextTitle.Provider value={{title, setTitle}}>
+      <Main />
+      {modal === 'basket' && <Basket />}
+    </ContextTitle.Provider>
   );
 }
 

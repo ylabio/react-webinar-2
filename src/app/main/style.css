@@ -1,0 +1,26 @@
+.Pagination-none {
+    display: none;
+}
+
+.Main {
+    display: none;
+}
+
+
+
+.Loading {
+    height: 10em;
+    position: relative;
+}
+
+.Loading p {
+    margin: 0;
+    position: absolute;
+    top: 35%;
+    color :rgba(0, 0, 0,0.65);
+    left: 50%;
+    font-size: 34px;
+    font-weight: 700;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}

@@ -7,7 +7,7 @@ function BasketTotal(props) {
   return (
     <div className="BasketTotal">
       <span className="BasketTotal-cell">Итого</span>
-      <span className="BasketTotal-cell"> {numberFormat(props.sum)} ₽</span>
+      <span className="BasketTotal-cell"> {numberFormat(props.sum)||2} ₽</span>
       <span className="BasketTotal-cell"></span>
     </div>
   )

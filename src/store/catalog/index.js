@@ -1,10 +1,11 @@
 import counter from "../../utils/counter";
 import StateModule from "../module";
+import axios from "axios";
 
 /**
  * Состояние каталога
  */
-class CatalogState extends StateModule{
+class CatalogState extends StateModule {
 
   /**
    * Начальное состояние
@@ -12,24 +13,48 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      lengthPages: 0,
+      cuurentItem:{},
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+  async getItems(nextList = 0) {
+
+    const result = await axios(`/api/v1/articles?limit=10&skip=${nextList}&fields=items(*),count`);
+   
     this.setState({
-      items: json.result.items
+      
+      items: result.data.result.items,
+      lengthItems:result.data.result.count
+
     });
+    
+
   }
 
+  async getItemById(id) {
+    
+    const result = await axios(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`)
+    const data  = result.data.result
+    this.setState({
+      ...this.getState(),
+      cuurentItem:{...data}
+    })
+ 
+  }   
+  cuurentItemDefaultValue() {
+    this.setState({
+      ...this.getState(),
+      cuurentItem:{}
+    })  
+  }
   /**
    * Создание записи
    */
-  createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
+  createItem({ _id, title = 'Новый товар', price = 999, selected = false }) {
     this.setState({
-      items: this.getState().items.concat({_id, title, price, selected})
+      items: this.getState().items.concat({ _id, title, price, selected })
     }, 'Создание товара');
   }
 

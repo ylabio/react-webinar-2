@@ -1,0 +1,13 @@
+.InfoItem{
+    margin: 41px 41px 0px 40px;
+}
+.price {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+p span {
+    font-weight: 700;
+    font-size: 18px;
+}

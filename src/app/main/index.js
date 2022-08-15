@@ -15,7 +15,7 @@ function Main(){
   const store = useStore();
 
   useEffect(() => {
-    store.get('catalog').load();
+    store.get('catalog').load(1, select.perPage);
   }, [])
 
   const select = useSelector(state => ({
@@ -23,7 +23,8 @@ function Main(){
     amount: state.basket.amount,
     sum: state.basket.sum,
     totalCount: state.catalog.totalCount,
-    isLoading: state.catalog.isLoading
+    isLoading: state.catalog.isLoading,
+    perPage: state.catalog.perPage
   }));
 
   const callbacks = {
@@ -32,7 +33,7 @@ function Main(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Смена страницы
-    changePage: useCallback(page => store.get('catalog').load(page), []),
+    changePage: useCallback((page, perPage) => store.get('catalog').load(page, perPage), []),
   };
 
   const renders = {
@@ -43,7 +44,7 @@ function Main(){
       <Layout head={<h1>Магазин</h1>}>
         <BasketSimple crumbs={'Главная'} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
         {select.isLoading ? <Preload/>:<List items={select.items} renderItem={renders.item}/>}
-        <Pagination totalCount={select.totalCount} perPage={10} onChangePage={callbacks.changePage}/>
+        <Pagination totalCount={select.totalCount} perPage={select.perPage} onChangePage={callbacks.changePage}/>
       </Layout>
   )
 }

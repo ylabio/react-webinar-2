@@ -14,14 +14,17 @@ class CatalogState extends StateModule{
     return {
       items: [],
       totalCount: null,
-      isLoading: true
+      isLoading: true,
+      perPage: 10,
+      currentPage: 1
     };
   }
 
-  async load(page=1) {
+  async load(page=1, perPage) {
     this.setLoading(true)
-    const pageNumber = (page * 10) - 10
-    const response = await fetch(`/api/v1/articles?limit=10&skip=${pageNumber}&fields=items(*),count`);
+    this.setCurrentPage(page)
+    const pageNumber = (page * perPage) - perPage
+    const response = await fetch(`/api/v1/articles?limit=${perPage}&skip=${pageNumber}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
       ...this.getState(),
@@ -35,6 +38,13 @@ class CatalogState extends StateModule{
     this.setState({
       ...this.getState(),
       isLoading: isLoading
+    })
+  }
+
+  setCurrentPage(page){
+    this.setState({
+      ...this.getState(),
+      currentPage: page
     })
   }
 

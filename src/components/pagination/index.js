@@ -52,7 +52,7 @@ function Pagination({totalCount, perPage, onChangePage}) {
         }
 
         setActivePages(tempPages)
-        onChangePage(currentPage)
+        onChangePage(currentPage, perPage)
     }, [pageCount, currentPage])
 
     const showPages = activePages.map((item, index) => {

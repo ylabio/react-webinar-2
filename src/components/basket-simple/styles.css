@@ -1,0 +1,16 @@
+/* Контрол с общими действиями */
+.BasketSimple{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.BasketSimple-link {
+    color: #0087E9;
+    text-decoration: underline;
+}
+.BasketSimple-total{
+    font-weight: bold;
+    margin: 0 15px;
+}

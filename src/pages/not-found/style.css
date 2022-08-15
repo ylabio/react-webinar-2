@@ -1,0 +1,19 @@
+.NotFound { 
+  max-width: 1024px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #fff;
+  box-sizing: border-box;
+  box-shadow: 0 0 15px 5px #0000003b;
+}
+
+.NotFound-error {
+  text-align: center;
+  margin-top: 300px;
+}
+
+.NotFound-link {
+  color:#000;
+  font-size: 22px;
+  margin-left: 30px
+}

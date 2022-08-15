@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect } from 'react';
 import BasketSimple from '../../components/basket-simple';
+import LangSwitcher from '../../components/lang-switcher';
 import List from '../../components/list';
 import Layout from '../../components/layout';
 import Item from '../../components/item';
 import Pagination from '../../components/pagination';
+import { language } from '../../store/exports';
 import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
 
@@ -16,7 +18,9 @@ function Main() {
     skip: state.pagination.skip,
     currentPage: state.pagination.currentPage,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    currentLang: state.language.currentLang,
+    langPack: state.language.langPack
   }));
 
   console.log('Main');
@@ -31,16 +35,33 @@ function Main() {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Установка текущей страницы
-    setCurrentPage: useCallback(page => store.get('pagination').setCurrentPage(page), [])
+    setCurrentPage: useCallback(page => store.get('pagination').setCurrentPage(page), []),
+    // Переключение языка страницы
+    switchLang: useCallback(event => store.get('language').switch(event.target.checked), [])
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} />, [])
+    item: useCallback(item =>
+      <Item
+        item={item}
+        onAdd={callbacks.addToBasket}
+        langPack={select.langPack.item}
+      />, [select.currentLang])
   };
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+    <Layout head={
+      <>
+        <h1>{select.langPack.main.title}</h1>
+        <LangSwitcher currentLang={select.currentLang} switchLang={callbacks.switchLang} />
+      </>
+    }>
+      <BasketSimple
+        langPack={select.langPack.simpleBasket}
+        onOpen={callbacks.openModalBasket}
+        amount={select.amount}
+        sum={select.sum}
+      />
       <List items={select.items} renderItem={renders.item} />
       {select.count > select.limit &&
         <Pagination

@@ -23,6 +23,8 @@ Layout.propTypes = {
   children: propTypes.node,
 };
 
-Layout.defaultProps = {};
+Layout.defaultProps = {
+  title: 'Main title'
+};
 
 export default React.memo(Layout);

@@ -1,0 +1,75 @@
+{
+  "RU": {
+    "main": {
+      "title": "Магазин"
+    },
+    "item": {
+      "addButton": "Добавить",
+      "currencySymbol": "₽"
+    },
+    "cardItem": {
+      "country": "Страна производитель:",
+      "category": "Категория:",
+      "year": "Год выпуска:",
+      "price": "Цена:",
+      "currencySymbol": "₽",
+      "addButton": "Добавить"
+    },
+    "basket": {
+      "title": "Корзина",
+      "closeButton": "Закрыть",
+      "quantity": "шт",
+      "subtotal": "Итого",
+      "currencySymbol": "₽",
+      "removeButton": "Удалить"
+    },
+    "simpleBasket": {
+      "mainPage": "Главная",
+      "cart": "В корзине:",
+      "emptySubtotal": "пусто",
+      "subtotal": [
+        "товар",
+        "товара",
+        "товаров"
+      ],
+      "currencySymbol": "₽",
+      "openButton": "Перейти"
+    }
+  },
+  "EN": {
+    "main": {
+      "title": "Store"
+    },
+    "item": {
+      "addButton": "Add",
+      "currencySymbol": "$"
+    },
+    "cardItem": {
+      "country": "Country of manufacture:",
+      "category": "Category:",
+      "year": "Year of manufacture:",
+      "price": "Price:",
+      "currencySymbol": "$",
+      "addButton": "Add"
+    },
+    "basket": {
+      "title": "Shopping cart",
+      "closeButton": "Close",
+      "quantity": "qty",
+      "subtotal": "Subtotal",
+      "currencySymbol": "$",
+      "removeButton": "Delete"
+    },
+    "simpleBasket": {
+      "mainPage": "Home",
+      "cart": "Shopping cart:",
+      "emptySubtotal": "is empty",
+      "subtotal": [
+        "item",
+        "items"
+      ],
+      "currencySymbol": "$",
+      "openButton": "View cart"
+    }
+  }
+}

@@ -5,28 +5,32 @@ import numberFormat from '../../utils/number-format';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function ItemBasket(props) {
+function ItemBasket({ item, onRemove, closeModal, langPack }) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove, props.item])
+    onRemove: useCallback((e) => onRemove(item._id), [onRemove, item])
   };
 
   return (
     <div className={cn()}>
       <div className={cn('title')}>
         <Link
-          to={`card/${props.item._id}`}
-          onClick={props.closeModal}
+          to={`card/${item._id}`}
+          onClick={closeModal}
         >
-          {props.item.title}
+          {item.title}
         </Link>
       </div>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          {numberFormat(item.price)} {langPack.currencySymbol}
+        </div>
+        <div className={cn('cell')}>
+          {numberFormat(item.amount || 0)} {langPack.quantity}
+        </div>
+        <div className={cn('cell')}>
+          <button onClick={callbacks.onRemove}>{langPack.removeButton}</button>
         </div>
       </div>
     </div>
@@ -36,7 +40,8 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
-  onClose: propTypes.func
+  closeModal: propTypes.func,
+  langPack: propTypes.object.isRequired
 };
 
 ItemBasket.defaultProps = {

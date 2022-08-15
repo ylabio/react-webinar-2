@@ -4,25 +4,27 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import numberFormat from '../../utils/number-format';
 
-function ItemCard(props) {
+function ItemCard({ item, onAdd, langPack }) {
   const cn = bem('ItemCard');
 
   const callbacks = {
-    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
+    onAdd: useCallback((e) => onAdd(item._id), [onAdd, item])
   };
 
   return (
     <div className={cn()}>
-      {props.item?._id
+      {item?._id
         ? <>
-          <p className={cn('desc')}>{props.item.description}</p>
+          <p className={cn('desc')}>{item.description}</p>
           <span className={cn('desc')}>
-        Страна производитель: <b>{props.item.maidIn.title} ({props.item.maidIn.code})</b>
-      </span>
-          <span className={cn('desc')}>Категория: <b>{props.item.category.title}</b></span>
-          <span className={cn('desc')}>Год выпуска: <b>{props.item.edition}</b></span>
-          <strong className={cn('price')}>Цена:&nbsp; {numberFormat(props.item.price)} ₽</strong>
-          <button className={cn('button')} onClick={callbacks.onAdd}>Добавить</button>
+            {langPack.country} <b>{item.maidIn.title} ({item.maidIn.code})</b>
+          </span>
+          <span className={cn('desc')}>{langPack.category} <b>{item.category.title}</b></span>
+          <span className={cn('desc')}>{langPack.year} <b>{item.edition}</b></span>
+          <strong
+            className={cn('price')}>{langPack.price}&nbsp; {numberFormat(item.price)} {langPack.currencySymbol}
+          </strong>
+          <button className={cn('button')} onClick={callbacks.onAdd}>{langPack.addButton}</button>
         </>
         : <h2 style={{ textAlign: 'center' }}>Loading...</h2>
       }
@@ -33,6 +35,7 @@ function ItemCard(props) {
 ItemCard.propTypes = {
   item: propTypes.object,
   onAdd: propTypes.func,
+  langPack: propTypes.object.isRequired
 };
 
 ItemCard.defaultProps = {

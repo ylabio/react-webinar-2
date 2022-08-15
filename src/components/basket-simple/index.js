@@ -7,20 +7,21 @@ import numberFormat from '../../utils/number-format';
 import './style.css';
 
 
-function BasketSimple({ onOpen, sum, amount }) {
+function BasketSimple({ onOpen, sum, amount, langPack }) {
   const cn = bem('BasketSimple');
 
   return (
     <div className={cn()}>
-      <Link to="/">Главная</Link>
-      <span className={cn('label')}>В корзине:</span>
+      <Link to="/">{langPack.mainPage}</Link>
+      <span className={cn('label')}>{langPack.cart}</span>
       <span className={cn('total')}>
       {amount
-        ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-        : `пусто`
+        ? `${amount} ${plural(amount, ...langPack.subtotal)} 
+        / ${numberFormat(sum)} ${langPack.currencySymbol}`
+        : langPack.emptySubtotal
       }
       </span>
-      <button onClick={onOpen}>Перейти</button>
+      <button onClick={onOpen}>{langPack.openButton}</button>
     </div>
   );
 }
@@ -28,7 +29,8 @@ function BasketSimple({ onOpen, sum, amount }) {
 BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
-  amount: propTypes.number
+  amount: propTypes.number,
+  langPack: propTypes.object.isRequired
 };
 
 BasketSimple.defaultProps = {

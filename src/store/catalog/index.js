@@ -12,7 +12,7 @@ class CatalogState extends ModuleState {
   initState() {
     return {
       items: [],
-      count: 0
+      count: 0,
     };
   }
 

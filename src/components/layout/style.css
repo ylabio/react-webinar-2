@@ -16,9 +16,12 @@ body{
 }
 .Layout-head{
     height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
     background: #f5f5f5;
 }
 .Layout-head h1{
     margin: 0;
-    padding: 20px 20px 10px;
 }

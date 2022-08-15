@@ -30,7 +30,7 @@ function Details(props) {
       .then(response => response.json()
         .then(json => setInfo(json.result))
       )
-  }, []);
+  }, [id]);
 
   //console.log("Deatails for item " + id + " :", info);
   //if (!info) return null;

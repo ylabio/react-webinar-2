@@ -17,23 +17,22 @@ class ProductState extends StateModule{
   }
 
   async load(id){
-    
-    let result;
-
-    try {
     const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
     const json = await response.json();
-    result = json.result
-    } catch (error) {
-      console.error(error);
+  
+    if (!json.result) {
+      console.error(`В JSON файле ошибка`)
+      this.setState({
+        item: {},
+        isLoading: false
+      })
+    } else {
+      this.setState({
+          ...this.getState(),
+          item: json.result,
+          isLoading: false
+      }, 'Загрузка товара');
     }
-    
-    this.setState({
-      ...this.getState(),
-      item: result,
-      isLoading: false
-      
-    }, 'Загрузка товара');
   }
 
   resetLoader() {

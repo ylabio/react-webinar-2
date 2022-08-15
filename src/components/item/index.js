@@ -16,7 +16,7 @@ function Item(props) {
       {/*<div className={cn('id')}>*/}
       {/*  {props.item._id}*/}
       {/*</div>*/}
-      <Link className={cn('title')} to={`/${props.item._id}`}>
+      <Link className={cn('title')} to={props.link}>
         {props.item.title}
       </Link>
       <div className={cn('right')}>
@@ -29,10 +29,12 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
+  link: propTypes.string,
   onAdd: propTypes.func,
 }
 
 Item.defaultProps = {
+  item:{},
   onAdd: () => {},
 }
 

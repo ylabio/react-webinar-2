@@ -6,8 +6,8 @@ import pagesNumber from '../../utils/pagesNumber';
 import PaginatorItem from '../paginator-item';
 
 function Paginator(props) {
+  console.log(props);
   const cn = bem('Paginator');
-  console.log(props.currentPage);
   const pagesArray = pagesNumber(props.itemsAmount, props.itemsOnPage);
   const halfRange = Math.floor(props.range / 2);
 
@@ -55,7 +55,7 @@ Paginator.propTypes = {
 
 Paginator.defaultProps = {
   itemsAmount: 100,
-  currentPage: 0,
+  currentPage: 1,
   itemsOnPage: 10,
   callback: () => {},
 };

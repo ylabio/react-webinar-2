@@ -1,4 +1,3 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**
@@ -15,14 +14,23 @@ class CatalogState extends StateModule{
       items: [],
       totalCount: 0,
       pageSize: 10,
-      currentPage: 0
+      currentPage: 1,
+      isLoading: false
     };
   }
 
-  async load(limit, skip){
+ /**
+   * Загрузка списка товаров на страницу
+   */
+  async load(){
+    const limit = this.getState().pageSize;
+    const skip = (this.getState().currentPage - 1) * this.getState().pageSize;
+    
     const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(*),count`);
+   
     const json = await response.json();
     this.setState({
+      ...this.getState(),
       items: json.result.items,
       totalCount: json.result.count
     });
@@ -47,12 +55,14 @@ class CatalogState extends StateModule{
     }, 'Удаление товара');
   }
 
+ /**
+   * Смена страницы
+   */
   changePage(page){
     this.setState({
-      items,
-      totalCount,
-      pageSize,
-      currnetPage: page
+      ...this.getState(),
+      pageSize: 10,
+      currentPage: page
     }, 'Изменение номера страницы');
   }
 }

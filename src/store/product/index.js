@@ -10,12 +10,13 @@ class ProductState extends StateModule {
    */
   initState() {
     return {
-      name: null,
-      title: null,
-      description: null,
-      price: 0,
-      maidIn: null,
-      category: null,
+      item: {},
+      // name: null,
+      // title: null,
+      // description: null,
+      // price: 0,
+      // maidIn: null,
+      // category: null,
     };
   }
 
@@ -25,15 +26,16 @@ class ProductState extends StateModule {
     );
     const json = await response.json();
     this.setState({
-      item: json.result,
-      title: json.result.title,
-      description: json.result.description,
-      madeInTitle: json.result.maidIn.title,
-      madeInCode: json.result.maidIn.code,
-      category:json.result.category.title,
-      edition: json.result.edition,
-      price: json.result.price
-    });
+      item: {
+        title: json.result.title,
+        description: json.result.description,
+        madeInTitle: json.result.maidIn.title,
+        madeInCode: json.result.maidIn.code,
+        category:json.result.category.title,
+        edition: json.result.edition,
+        price: (json.result.price).toLocaleString('ru-RU', {style: 'currency', currency: 'RUB'})
+      }
+    }, 'Получение данных товара');
   }
 }
 

@@ -1,7 +1,7 @@
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import Paginator from "../../components/paginator";
 import useStore from "../../utils/use-store";
@@ -12,30 +12,31 @@ function Main(){
   console.log('Main');
 
   const store = useStore();
-  const [pageNumber, setPageNumber] = useState(1);
-  const itemsOnPage = 10;
-
-  useEffect(() => {
-    store.get('catalog').load(itemsOnPage,((pageNumber - 1) * itemsOnPage));
-  }, [pageNumber])
-
+  
   const select = useSelector(state => ({
     items: state.catalog.items,
     totalCount: state.catalog.totalCount,
+    currentPage: state.catalog.currentPage,
+    pageSize: state.catalog.pageSize,
+    
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
 
-
+  useEffect(() => {
+    store.get('catalog').load();
+  }, [select.pageSize, select.currentPage]);
+  
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    changePage: useCallback(page => store.get('catalog').changePage(page), [])
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} link={`articles/${item._id}`}/>, []),
   }
 
   return (
@@ -44,10 +45,10 @@ function Main(){
       <List items={select.items} renderItem={renders.item}/>
       <Paginator 
       itemsAmount={select.totalCount}
-      currentPage={pageNumber}
-      callback={setPageNumber}
+      currentPage={select.currentPage}
+      callback={callbacks.changePage}
       range={3}
-      itemsOnPage={itemsOnPage}/>
+      itemsOnPage={select.pageSize}/>
     </Layout>
   )
 }

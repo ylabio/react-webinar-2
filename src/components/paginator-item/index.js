@@ -18,7 +18,6 @@ function PaginatorItem({value, active, callback, className, ...props}) {
 }
 
 PaginatorItem.propTypes = {
-  value: propTypes.number,
   active: propTypes.bool,
   callback: propTypes.func.isRequired,
 };

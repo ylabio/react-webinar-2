@@ -36,12 +36,12 @@ function Main() {
   };
 
   const renders = {
-    item: useCallback(item => <Item setTitle={setTitle} item={item} onAdd={callbacks.addToBasket} />, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} />, []),
   }
   return select.items.length > 0 ? (<>
 
     <Layout head={<h1>{title}</h1>}>
-      <BasketSimple setTitle={setTitle} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <BasketSimple  onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
 
       <Routes>
         <Route path="/" element={

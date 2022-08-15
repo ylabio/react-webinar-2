@@ -12,23 +12,19 @@ function InfoItem(props) {
     const { id } = useParams()
     const select = useSelector(state => ({
         cuurentItem: state.catalog.cuurentItem,
-
+        
     }));
     const callbacks = {
-        addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),       
+        addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+        isEmpty: useCallback(obj=> store.get('catalog').isEmpty(obj),[]),       
       };
-    function isEmpty(obj) {
-        for (var key in obj) {
-            return true;
-        }
-        return false;
-    }
+
     useEffect(() => {
         store.get('catalog').getItemById(id)
     }, [id])
 
 
-    return isEmpty(select.cuurentItem) ? (
+    return callbacks.isEmpty(select.cuurentItem) ? (
         <div className='InfoItem'>
 
 

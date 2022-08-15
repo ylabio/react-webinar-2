@@ -15,39 +15,44 @@ class CatalogState extends StateModule {
     return {
       items: [],
       lengthPages: 0,
-      cuurentItem:{},
+      cuurentItem: {},
     };
   }
 
   async getItems(nextList = 0) {
 
     const result = await axios(`/api/v1/articles?limit=10&skip=${nextList}&fields=items(*),count`);
-   
+
     this.setState({
-      
+
       items: result.data.result.items,
-      lengthItems:result.data.result.count
+      lengthItems: result.data.result.count
 
     });
-    
+
 
   }
-
+  isEmpty(obj) {
+    for (var key in obj) {
+      return true;
+    }
+    return false;
+  }
   async getItemById(id) {
-    
+
     const result = await axios(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`)
-    const data  = result.data.result
+    const data = result.data.result
     this.setState({
       ...this.getState(),
-      cuurentItem:{...data}
+      cuurentItem: { ...data }
     })
- 
-  }   
+
+  }
   cuurentItemDefaultValue() {
     this.setState({
       ...this.getState(),
-      cuurentItem:{}
-    })  
+      cuurentItem: {}
+    })
   }
   /**
    * Создание записи

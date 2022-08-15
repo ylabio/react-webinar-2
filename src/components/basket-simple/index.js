@@ -1,4 +1,4 @@
-import React, { useCallback,useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import propTypes from 'prop-types';
 import plural from "plural-ru";
 import { cn as bem } from "@bem-react/classname";
@@ -13,22 +13,21 @@ function BasketSimple({ sum, amount, onOpen }) {
   const store = useStore()
   const callbacks = {
     cuurentItemDefaultValue: useCallback(() => store.get('catalog').cuurentItemDefaultValue(), []),
-    
-      getItems: useCallback((nextList) => {
-          store.get('catalog').getItems(nextList)
-      }, [])
-      
-  
+
+    getItems: useCallback((nextList) => {
+      store.get('catalog').getItems(nextList)
+    }, [])
+
+
   };
-  const {setTitle} = useContext(ContextTitle)
+  const { setTitle } = useContext(ContextTitle)
   return (
     <>
       <div className={cn()}>
-        <div className={cn('home')} onClick={()=>{
+        <div className={cn('home')} >
+          <Link to='/' onClick={() => {
             setTitle('Магазин')
-            callbacks.getItems()
-          }}>
-          <Link to='/' >Главная</Link>
+          }} >Главная</Link>
         </div>
         <div className={cn('wrapperBasket')}>
           <span className={cn('label')}>В корзине:</span>

@@ -6,12 +6,13 @@ import './style.css'
 function Pagination({ lengthItems }) {
     const store = useStore();
     const [selectedNumber, setSelectedNumber] = useState(0)
-
     const [itemsSkipPages, setItemsSkipPages] = useState(10);
+    
     const callbacks = {
         getItems: useCallback((nextList, selectedNum) => {
             store.get('catalog').getItems(nextList)
             setSelectedNumber(selectedNum)
+
         }, [])
         
     }
@@ -28,7 +29,7 @@ function Pagination({ lengthItems }) {
                 {
                     pageNumber.map(number => (
                         <p key={number} className={`Pagination-bth 
-                            ${((selectedNumber === 0 && number <= 2)
+                            ${((selectedNumber === 0 && number <=2)
                                 || (selectedNumber === (pageNumber.length + 1)
                                     && number >= (pageNumber.length - 1)))
                                 || number === selectedNumber - 1

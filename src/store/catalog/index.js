@@ -17,6 +17,7 @@ class CatalogState extends StateModule {
         limit: 10,
       },
       count: 0,
+      isLoading: true,
     };
   }
 
@@ -33,6 +34,7 @@ class CatalogState extends StateModule {
       items: json.result.items,
       count: json.result.count,
       requestParameters: { ...this.getState().requestParameters, page: page },
+      isLoading: false,
     });
   }
 

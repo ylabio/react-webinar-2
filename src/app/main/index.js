@@ -6,6 +6,7 @@ import Layout from "../../components/layout";
 import Item from "../../components/item";
 import Pagination from "../../components/pagination";
 import LayoutHeader from "../../components/layout-header";
+import Spinner from "../../components/spinner";
 import translation from "../../utils/translation";
 
 function Main() {
@@ -19,6 +20,7 @@ function Main() {
     page: state.catalog.requestParameters?.page,
     limit: state.catalog.requestParameters?.limit,
     current: state.localization.current,
+    loading: state.catalog.isLoading,
   }));
 
   useEffect(() => {
@@ -50,7 +52,11 @@ function Main() {
   return (
     <Layout head={<h1>{translation(select.current, "title")}</h1>}>
       <LayoutHeader />
-      <List items={select.items} renderItem={renders.item} />
+      {select.loading ? (
+        <Spinner />
+      ) : (
+        <List items={select.items} renderItem={renders.item} />
+      )}
       <Pagination
         count={select.count}
         page={select.page}

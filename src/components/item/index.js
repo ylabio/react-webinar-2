@@ -1,4 +1,6 @@
 import React, {useCallback} from 'react';
+import { Link } from 'react-router-dom';
+import routes from '../../API/routes';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
@@ -8,7 +10,8 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
+    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
+    onShowDescription: useCallback((e) => props.onShowDescription(props.item._id), [props.item])
   };
 
   return (
@@ -17,7 +20,7 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')}>
-        {props.item.title}
+        <Link className={cn('title_link')} to={routes.itemPage(props.item._id)}>{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>

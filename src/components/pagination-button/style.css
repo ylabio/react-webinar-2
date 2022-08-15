@@ -2,7 +2,8 @@
     border: none;
     background: transparent;
 
-    font-size: 18px;
+    font-size: 16px;
+    line-height: 18px;
     cursor: pointer;
 }
 .Pagination-button:hover{

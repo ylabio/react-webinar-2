@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import { cn as bem } from '@bem-react/classname';
+import propTypes from 'prop-types';
 import './style.css';
 
 function PaginationLayout(props){
@@ -39,5 +40,18 @@ function PaginationLayout(props){
 
     return totalItemsQuantity === 'idle' ? null : <Paginator />
 }
+
+PaginationLayout.propTypes = {
+    itemsNuberPerPage: propTypes.number.isRequired,
+    totalItemsQuantity: propTypes.number.isRequired, 
+    activePage: propTypes.number, 
+    renderItem: propTypes.node
+}
+  
+PaginationLayout.defaultProps = {
+    activePage: 0, 
+    renderItem: () => {},
+}
+
 
 export default React.memo(PaginationLayout);

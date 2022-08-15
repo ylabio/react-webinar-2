@@ -1,7 +1,7 @@
 import StateModule from "../module";
 
 /**
- * Состояние каталога
+ * Состояние пагинации
  */
 class PaginationState extends StateModule{
   /**

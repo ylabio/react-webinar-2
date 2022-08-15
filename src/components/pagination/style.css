@@ -4,7 +4,6 @@
     display: flex;
     align-items: baseline;
     justify-content: flex-end;
-    gap: 8px;
 }
 .Pagination-dotes{
     font-size: 16px;

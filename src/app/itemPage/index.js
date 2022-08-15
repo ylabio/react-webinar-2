@@ -17,7 +17,7 @@ function ItemPage(){
 
   useEffect(() => {
     store.get('catalog').loadItem(location.search.split("=")[1]);
-  }, []);
+  }, [location]);
 
   const select = useSelector(state => {
     return {

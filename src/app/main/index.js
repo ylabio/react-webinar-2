@@ -1,5 +1,6 @@
 import Loading from "components/loading";
 import Pagination from "src/components/pagination";
+import useLanguage from "utils/use-language";
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
@@ -13,6 +14,8 @@ function Main() {
   console.log('Main');
 
   const store = useStore();
+
+  const translation = useLanguage()
 
   useEffect(() => {
     store.get('catalog').loadProducts(0);
@@ -40,7 +43,7 @@ function Main() {
   };
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>{translation('shop')}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount}
                     sum={select.sum}/>
       {select.isLoading ? <Loading/> :

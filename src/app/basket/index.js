@@ -1,3 +1,4 @@
+import useLanguage from "utils/use-language";
 import List from "../../components/list";
 import React, {useCallback} from "react";
 import BasketTotal from "../../components/basket-total";
@@ -11,6 +12,7 @@ function Basket(){
   console.log('Basket');
 
   const store = useStore();
+  const translation = useLanguage()
 
   const select = useSelector(state => ({
     items: state.basket.items,
@@ -30,7 +32,7 @@ function Basket(){
   };
 
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+    <LayoutModal title={translation('basket')} onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>
       <BasketTotal sum={select.sum}/>
     </LayoutModal>

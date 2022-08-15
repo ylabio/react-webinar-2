@@ -1,4 +1,5 @@
 import Loading from "components/loading";
+import NotFounts from "components/not-founts";
 import React, {useCallback, useEffect} from "react";
 import Cart from "components/cart";
 import {useParams} from "react-router-dom";
@@ -45,7 +46,7 @@ function CartProduct() {
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount}
                     sum={select.sum}/>
       {select.item !== null ? <Cart item={select.item} onAdd={callbacks.addToBasket}/> :
-        <div>{select.errorMessage}</div>}
+        <NotFounts/>}
     </Layout>
   );
 }

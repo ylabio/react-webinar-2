@@ -5,11 +5,13 @@ import {cn as bem} from "@bem-react/classname";
 import {useNavigate} from "react-router-dom";
 import numberFormat from "utils/number-format";
 import './styles.css';
+import useLanguage from "utils/use-language";
 
 
 function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
   const navigate = useNavigate();
+  const translation = useLanguage()
 
   const onNavigateMainPage = () => {
     navigate(`/`)
@@ -17,16 +19,16 @@ function BasketSimple({sum, amount, onOpen}) {
 
   return (
     <div className={cn()}>
-      <div className={cn('link')} onClick={onNavigateMainPage}>Главная</div>
+      <div className={cn('link')} onClick={onNavigateMainPage}>{translation('home')}</div>
       <div>
-        <span className={cn('label')}>В корзине:</span>
+        <span className={cn('label')}>{translation('inBasket')}:</span>
         <span className={cn('total')}>
       {amount
-        ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-        : `пусто`
+        ? `${amount} ${plural(amount, translation('product'), translation('product2'), translation('product5'))} / ${numberFormat(sum)} ₽`
+        : translation('empty')
       }
       </span>
-        <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+        <button className='BasketSimple__button' onClick={onOpen}>{translation('go')}</button>
       </div>
     </div>
   )

@@ -14,7 +14,7 @@
 }
 
 .Pagination-active {
-  background-color:blue;
+  background-color: #0087E9;
   color: white
 }
 
@@ -23,3 +23,4 @@
   color:black;
   cursor: pointer;
 }
+

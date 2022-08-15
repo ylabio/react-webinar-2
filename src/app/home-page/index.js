@@ -31,13 +31,17 @@ function HomePage(){
 		setPage: useCallback(e => {store.get('catalog').setPage(e.target.getAttribute('data-number'))}, []),
   };
 
+	const translate = word => {
+		return dictionaryEnum[word][select.lang];
+	};
+
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} translate={translate} />, []),
   }
 
   return (
-	  <Layout head={<h1>{dictionaryEnum.store[select.lang]}</h1>}>
-		  <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang} />
+	  <Layout head={<h1>{translate('store')}</h1>}>
+		  <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} translate={translate} />
 		  <List items={select.items} renderItem={renders.item} />
 		  <Pagination page={select.page} total={select.total} setPage={callbacks.setPage} />
 	  </Layout>

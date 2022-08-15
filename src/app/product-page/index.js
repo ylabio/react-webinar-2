@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 import BasketSimple from '../../components/basket-simple';
 import Layout from '../../components/layout';
 import ProductCard from '../../components/product-card';
+import { dictionaryEnum } from '../../enums/dictionaryEnum';
 import useSelector from '../../utils/use-selector';
 import useStore from '../../utils/use-store';
 import style from '../../components/product-card/style.css';
@@ -29,10 +30,14 @@ function ProductPage(){
 		addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
 
+	const translate = word => {
+		return dictionaryEnum[word][select.lang];
+	};
+
 	return (
     <Layout head={<h1>{select.title}</h1>}>
-		  <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang} />
-		  <ProductCard lang={select.lang} product={select.product} addToBasket={callbacks.addToBasket}/>
+		  <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} translate={translate} />
+		  <ProductCard translate={translate} product={select.product} addToBasket={callbacks.addToBasket}/>
 		</Layout>
 	)
 }

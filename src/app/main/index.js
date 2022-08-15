@@ -9,7 +9,8 @@ function Main(){
   const modal = useSelector(state => state.modals.name);
 
 	const select = useSelector(state => ({
-		product: state.product.product
+		product: state.product.product,
+		lang: state.common.language
 	}));
 
 	const callbacks = {
@@ -23,7 +24,7 @@ function Main(){
   return (
     <>
 		  <Outlet />
-		  {modal === 'basket' && <Basket/>}
+		  {modal === 'basket' && <Basket />}
 	  </>
   )
 }

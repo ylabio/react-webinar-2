@@ -1,13 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { dictionaryEnum } from '../../enums/dictionaryEnum';
 import numberFormat from "../../utils/numberFormat";
 import './styles.css';
 
 function BasketTotal(props) {
   return (
     <div className="BasketTotal">
-      <span className="BasketTotal-cell">{dictionaryEnum.add[props.lang]}</span>
+      <span className="BasketTotal-cell">{props.translate('add')}</span>
       <span className="BasketTotal-cell"> {numberFormat(props.sum)} ₽</span>
       <span className="BasketTotal-cell"/>
     </div>
@@ -20,7 +19,8 @@ BasketTotal.propTypes = {
 }
 
 BasketTotal.defaultProps = {
-  sum: 0
+  sum: 0,
+	translate: ()=>{}
 }
 
 export default React.memo(BasketTotal);

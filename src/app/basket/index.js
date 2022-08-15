@@ -27,14 +27,18 @@ function Basket(){
     removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), [])
   };
 
+	const translate = word => {
+		return dictionaryEnum[word][select.lang];
+	};
+
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
-  }
+    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket} translate={translate} />, []),
+  };
 
   return (
-    <LayoutModal title={dictionaryEnum.basket[select.lang]} onClose={callbacks.closeModal}>
+    <LayoutModal translate={translate} onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum} lang={select.lang} />
+      <BasketTotal sum={select.sum} translate={translate} />
     </LayoutModal>
   )
 }

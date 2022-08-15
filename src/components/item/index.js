@@ -2,7 +2,6 @@ import React, {useCallback} from 'react';
 import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import { dictionaryEnum } from '../../enums/dictionaryEnum';
 import numberFormat from "../../utils/numberFormat";
 import './style.css';
 import useSelector from '../../utils/use-selector';
@@ -28,7 +27,7 @@ function Item(props) {
       </Link>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>{dictionaryEnum.add[select.lang]}</button>
+        <button onClick={callbacks.onAdd}>{props.translate('add')}</button>
       </div>
     </div>
   )

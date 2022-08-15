@@ -1,17 +1,11 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
-import { dictionaryEnum } from '../../enums/dictionaryEnum';
-import useSelector from '../../utils/use-selector';
 
 function Controls({onAdd}){
-  const select = useSelector(state => ({
-	  lang: state.common.language
-  }));
-
   return (
     <div className='Controls'>
-      <button onClick={onAdd}>{dictionaryEnum.add[select.lang]}</button>
+      <button onClick={onAdd}>Добавить</button>
     </div>
   )
 }

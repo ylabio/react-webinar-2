@@ -5,7 +5,7 @@ import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import Pagination from "../../components/Pagination"
+import Pagination from "../../components/pagination";
 
 function Main(){
 
@@ -14,15 +14,11 @@ function Main(){
   const store = useStore();
 
   useEffect(() => {
-    store.get('catalog').load();
+    store.get('catalog').loadStart();
   }, [])
 
-  useEffect(() => {
-    store.get('paging').paginate(store.getState().paging.curentPage);
-  }, [store.getState().catalog.items]);
-
   const select = useSelector(state => ({
-    items: state.paging.curentItems,
+    items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
     pageNumber: state.paging.pageNumber,

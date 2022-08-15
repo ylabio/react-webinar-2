@@ -4,13 +4,16 @@
     justify-content: flex-end;
     padding: 20px;
     font-size: 18px;
+    flex-direction: row;
 }
 
-.BasketSimple-label{
-
-}
 
 .BasketSimple-total{
     font-weight: bold;
     margin: 0 15px;
+}
+.BasketSimple-tomain{
+    align-self: center;
+    margin-right: auto;
+    color: #0087E9;
 }

@@ -46,6 +46,11 @@ class BasketState extends StateModule{
       items.push({...item, amount: 1});
       // Досчитываем сумму
       sum += item.price;
+      
+      // Если зашли на несуществующий товар, то он не будет добавляться в корзину
+      } else if (Object.keys(this.store.getState().product.item).length == 0){
+        return
+      // Если перезагрузили страницу на странице товара, то будет брать данные о нем из самого товара, а не из каталога
       } else {
         const item = this.store.getState().product.item;
         items.push({...item, amount: 1})

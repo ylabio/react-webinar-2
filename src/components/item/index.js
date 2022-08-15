@@ -1,14 +1,15 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import numberFormat from "../../utils/numberFormat";
+import { cn as bem } from '@bem-react/classname';
+import numberFormat from '../../utils/numberFormat';
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
+    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
+    openItem: useCallback((e) => props.openItem(props.item._id), [props.openItem, props.item]),
   };
 
   return (
@@ -16,7 +17,7 @@ function Item(props) {
       {/*<div className={cn('id')}>*/}
       {/*  {props.item._id}*/}
       {/*</div>*/}
-      <div className={cn('title')}>
+      <div onClick={callbacks.openItem} className={cn('title')}>
         {props.item.title}
       </div>
       <div className={cn('right')}>
@@ -24,16 +25,18 @@ function Item(props) {
         <button onClick={callbacks.onAdd}>Добавить</button>
       </div>
     </div>
-  )
+  );
 }
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
-}
+  onItem: propTypes.func,
+};
 
 Item.defaultProps = {
   onAdd: () => {},
-}
+  openItem: () => {},
+};
 
 export default React.memo(Item);

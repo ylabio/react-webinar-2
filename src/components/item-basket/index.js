@@ -39,8 +39,14 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
+  getProductInformation: propTypes.func,
+  closeModal: propTypes.func
 }
 
-ItemBasket.defaultProps = {}
+ItemBasket.defaultProps = {
+  onRemove: () => {},
+  getProductInformation: () => {},
+  closeModal: () => {}
+}
 
 export default React.memo(ItemBasket);

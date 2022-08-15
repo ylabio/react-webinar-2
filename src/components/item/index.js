@@ -35,11 +35,12 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
+  getProductInformation: propTypes.func
 }
 
 Item.defaultProps = {
-  onAdd: () => {
-  },
+  onAdd: () => {},
+  getProductInformation: () => {},
 }
 
 export default React.memo(Item);

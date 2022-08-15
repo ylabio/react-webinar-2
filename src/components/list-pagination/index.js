@@ -2,9 +2,11 @@ import React from 'react';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import {createPages} from "../../utils/create-pages";
+import propTypes from "prop-types";
 
 const ListPagination = ({currentPage, totalItems, switchPage}) => {
   const cn = bem('ListPagination');
+  
   // массив наполняется числами, в зависимости от общего количества товаров
   const pagesArray = []
   
@@ -35,5 +37,14 @@ const ListPagination = ({currentPage, totalItems, switchPage}) => {
     </div>
   );
 };
+
+ListPagination.propTypes = {
+  currentPage: propTypes.number,
+  totalItems: propTypes.number,
+  switchPage: propTypes.func
+}
+
+ListPagination.defaultProps = {
+}
 
 export default ListPagination;

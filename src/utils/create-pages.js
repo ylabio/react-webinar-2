@@ -8,6 +8,7 @@ export function createPages(pages, pagesCount, currentPage) {
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i)
   }
+  //обрезает этот массив в зависимости от того, какая страница, чтобы вывести его в компоненте
   if (currentPage === 1) {
     pages.splice(currentPage + 3)
     pages.splice(0, 1)

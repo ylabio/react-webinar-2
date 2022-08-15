@@ -1,4 +1,3 @@
-import counter from '../../utils/counter';
 import StateModule from '../module';
 
 /**
@@ -12,26 +11,21 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
-      count: 0,
-      limit: 10,
+      count: 0,      
     };
   }
 
-  async load({ limit = 10, skip = 0 }) {
+  async load( limit, skip ) {
     const response = await fetch(
-      // `/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(*),count`
-      `/api/v1/articles?lang=ru&limit=10&skip=0&fields=%2A`
-
+      `/api/v1/articles?lang=ru&limit=${limit}&skip=${skip}&fields=items(*),count`
     );
     const json = await response.json();
   
     this.setState({    
       items: json.result.items,
       count: json.result.count,
-    });
+    }, 'Получение данных с сервера');
   }
-
-
 
   /**
    * Создание записи

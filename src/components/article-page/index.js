@@ -14,7 +14,7 @@ function ArticlePage() {
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
-    sum: state.basket.sum,
+    sum: state.basket.sum,  
   }));
 
   console.log('ArticlePage');

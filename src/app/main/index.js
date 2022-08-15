@@ -17,7 +17,7 @@ function Main() {
   const select = useSelector(state => ({
     items: state.catalog.items,
     currentPage: state.catalog.currentPage,
-    totalItems: state.catalog.totalItems,
+    totalPages: state.catalog.totalPages,
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.translation.language,
@@ -59,15 +59,11 @@ function Main() {
         }
       }/>
       <>
-        <List items={select.items} renderItem={renders.item} paginationData={{
-          totalItems: select.totalItems,
-          currentPage: select.currentPage,
-          switchPage: callbacks.switchPage
-        }}/>
+        <List items={select.items} renderItem={renders.item} />
         <ListPagination
           currentPage={select.currentPage}
           switchPage={callbacks.switchPage}
-          totalItems={select.totalItems}/>
+          totalPages={select.totalPages}/>
       </>
     </Layout>
   )

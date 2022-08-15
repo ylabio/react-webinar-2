@@ -4,16 +4,13 @@ import './style.css';
 import {createPages} from "../../utils/create-pages";
 import propTypes from "prop-types";
 
-const ListPagination = ({currentPage, totalItems, switchPage}) => {
+const ListPagination = ({currentPage, totalPages, switchPage}) => {
   const cn = bem('ListPagination');
   
   // массив наполняется числами, в зависимости от общего количества товаров
   const pagesArray = []
   
-  createPages(pagesArray, totalItems, currentPage)
-  
-  // высчитывается общее количество страниц при выводе по 10 товаров на странице
-  const pagesCount = Math.ceil(totalItems / 10)
+  createPages(pagesArray, totalPages, currentPage)
   
   return (
     <div className={cn()}>
@@ -28,11 +25,11 @@ const ListPagination = ({currentPage, totalItems, switchPage}) => {
               onClick={() => switchPage(page)}>
           {page}
         </span>)}
-      {currentPage < pagesCount - 2 && <span className={cn('dotted')}>...</span>}
-      {currentPage < pagesCount - 2 &&
+      {currentPage < totalPages - 2 && <span className={cn('dotted')}>...</span>}
+      {currentPage < totalPages - 2 &&
         <span
-          className={cn('number', {active: currentPage === pagesCount})}
-          onClick={() => switchPage(pagesCount)}>{pagesCount}
+          className={cn('number', {active: currentPage === totalPages})}
+          onClick={() => switchPage(totalPages)}>{totalPages}
         </span>}
     </div>
   );
@@ -40,7 +37,7 @@ const ListPagination = ({currentPage, totalItems, switchPage}) => {
 
 ListPagination.propTypes = {
   currentPage: propTypes.number,
-  totalItems: propTypes.number,
+  totalPages: propTypes.number,
   switchPage: propTypes.func
 }
 

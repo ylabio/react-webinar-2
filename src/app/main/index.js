@@ -59,9 +59,14 @@ function Main(){
       </>
     }>
       <BasketSimple lang={select.lang} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
-      <TextField lang={select.lang} limit={select.limit} count={select.count} onChange={callbacks.onChange} />
-      <Pages limit={select.limit} count={select.count} selected={select.selected} onClick={callbacks.onClick}/>
+      {select.count ? 
+        <>
+          <List items={select.items} renderItem={renders.item}/>
+          <TextField lang={select.lang} limit={select.limit} count={select.count} onChange={callbacks.onChange} />
+          <Pages limit={select.limit} count={select.count} selected={select.selected} onClick={callbacks.onClick}/>
+        </> : 
+        <h2 style={{textAlign: 'center'}}>Loading...</h2>
+      }
     </Layout>
   )
 }

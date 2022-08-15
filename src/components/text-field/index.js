@@ -12,22 +12,16 @@ function TextField({ lang, limit, count, onChange }) {
   };
 
   return (
-    <>
-      {count ? (
-        <label className={cn()}> {titleLang(lang, 'limitedQuantitie')}
-          <input 
-            className={cn('number')} 
-            type="number" 
-            min={1} 
-            max={count} 
-            value={limit} 
-            onChange={callbacks.onChange}
-          />
-        </label>
-      ) :
-      null
-      }
-    </>
+    <label className={cn()}> {titleLang(lang, 'limitedQuantitie')}
+      <input 
+        className={cn('number')} 
+        type="number" 
+        min={1} 
+        max={count} 
+        value={limit} 
+        onChange={callbacks.onChange}
+      />
+    </label>
   );
 };
 

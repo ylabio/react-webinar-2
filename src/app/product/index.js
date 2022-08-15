@@ -38,7 +38,10 @@ function Product(){
   return (
     <Layout head={<h1>{select.dataJson ? select.dataJson.title : ''}</h1>}>
       <BasketSimple lang={select.lang} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <Description lang={select.lang} item={select} onAdd={callbacks.addToBasket}/>
+      {select.dataJson ?
+        <Description lang={select.lang} item={select} onAdd={callbacks.addToBasket}/> :
+        <h2 style={{textAlign: 'center'}}>Loading...</h2>
+      }
     </Layout>
   )
 }

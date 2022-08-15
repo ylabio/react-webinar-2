@@ -1,7 +1,7 @@
 import StateModule from "../module";
 
 /**
- * Состояние каталога
+ * Состояние страницы товара
  */
 class ItemPageState extends StateModule{
 
@@ -25,6 +25,7 @@ class ItemPageState extends StateModule{
 
   /**
    * Загрузка подробной информации о товар
+   * @param id {String} Код товара
    */
   async load(id){
     const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);

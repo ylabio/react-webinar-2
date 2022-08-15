@@ -20,6 +20,8 @@ class CatalogState extends StateModule{
 
   /**
    * Загрузка порции данных с сервера для одной страницы
+   * @param currentPage {number} Текущая страница
+   * @param pageSize {number} Количество отображаемых товаров на странице
    */
   async load(currentPage, pageSize){
     const response = await fetch(`/api/v1/articles?limit=${pageSize}&skip=${(currentPage - 1) * pageSize}&fields=items(*),count`);

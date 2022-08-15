@@ -1,6 +1,6 @@
 import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback} from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import ProductCard from "../../components/product-card";
@@ -23,9 +23,11 @@ function ProductInformation() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.translation.language,
-    words: state.translation.words
+    words: state.translation.words,
+    isLoading: state.product.isLoading
+  
   }));
-
+  
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
@@ -36,26 +38,34 @@ function ProductInformation() {
     // Получение данных товара
     changeLanguage: useCallback((language) => store.get('translation').changeLanguage(language), [])
   };
-
+  
   return (
-    <Layout head={<><h1>{select.title}</h1><Select changeLanguage={callbacks.changeLanguage} language={select.language}/></>}>
+    <Layout
+      head={<><h1>{select.title}</h1><Select changeLanguage={callbacks.changeLanguage} language={select.language}/></>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={
-        {main: select.words.main, inCart: select.words.inCart, empty: select.words.empty, item: select.words.item, goTo: select.words.goTo}}/>
-      <ProductCard
-        id={select.id}
-        description={select.description}
-        country={select.country}
-        category={select.category}
-        year={select.year}
-        price={select.price}
-        addToBasket={callbacks.addToBasket}
-        words={{
-          country: select.words.country,
-          category: select.words.category,
-          year: select.words.year,
-          price: select.words.price,
-          add: select.words.add
+        {
+          main: select.words.main,
+          inCart: select.words.inCart,
+          empty: select.words.empty,
+          item: select.words.item,
+          goTo: select.words.goTo
         }}/>
+      {!select.isLoading ?
+        <ProductCard
+          id={select.id}
+          description={select.description}
+          country={select.country}
+          category={select.category}
+          year={select.year}
+          price={select.price}
+          addToBasket={callbacks.addToBasket}
+          words={{
+            country: select.words.country,
+            category: select.words.category,
+            year: select.words.year,
+            price: select.words.price,
+            add: select.words.add
+          }}/> : <div style={{marginLeft: 20}}>Идет загрузка...</div>}
     </Layout>
   )
 }

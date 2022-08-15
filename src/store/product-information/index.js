@@ -18,6 +18,7 @@ class ProductState extends StateModule {
       category: '',
       year: 0,
       price: 0,
+      isLoading: true
     };
   }
   
@@ -26,18 +27,39 @@ class ProductState extends StateModule {
    */
   
   async getProductInformation(id) {
-    const response = await fetch(`/api/v1/articles/${id}`);
-    const {result} = await response.json();
-    console.log(result)
+    this.setState({
+      ...this.getState(),
+      id: null,
+      title: null,
+      description: null,
+      country: null,
+      category: null,
+      year: null,
+      price: null,
+      isLoading: true
+    })
+    // Запрос товара
+    const itemResponse = await fetch(`/api/v1/articles/${id}`);
+    const {result} = await itemResponse.json();
+    
+    // Запрос страны
+    const countryResponse = await fetch(`/api/v1/countries/${result.maidIn._id}`);
+    const country = await countryResponse.json();
+    
+    // Запрос категории
+    const categoryResponse = await fetch(`/api/v1/categories/${result.category._id}`);
+    const category = await categoryResponse.json();
+
     this.setState({
       ...this.getState(),
       id: id,
       title: result.title,
       description: result.description,
-      country: result.maidIn._id,
-      category: result.category._id,
+      country: country.result.title,
+      category: category.result.title,
       year: result.edition,
       price: result.price,
+      isLoading: false
     })
   }
 }

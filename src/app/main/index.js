@@ -21,13 +21,13 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.translation.language,
-    words: state.translation.words
+    words: state.translation.words,
   }));
-
+  
   useEffect(() => {
     store.get('catalog').load();
   }, [select.currentPage])
-
+  
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
@@ -40,12 +40,15 @@ function Main() {
     // Получение данных товара
     changeLanguage: useCallback((language) => store.get('translation').changeLanguage(language), [])
   };
-
+  
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} getProductInformation={callbacks.getProductInformation} words={{add: select.words.add}}/>, [select.language]),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}
+                                    getProductInformation={callbacks.getProductInformation}
+                                    words={{add: select.words.add}}/>, [select.language]),
   }
   return (
-    <Layout head={<><h1>{select.words.shop}</h1><Select changeLanguage={callbacks.changeLanguage} language={select.language}/></>}>
+    <Layout head={<><h1>{select.words.shop}</h1><Select changeLanguage={callbacks.changeLanguage}
+                                                        language={select.language}/></>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={
         {
           main: select.words.main,
@@ -55,17 +58,17 @@ function Main() {
           goTo: select.words.goTo
         }
       }/>
-        <>
-          <List items={select.items} renderItem={renders.item} paginationData={{
-            totalItems: select.totalItems,
-            currentPage: select.currentPage,
-            switchPage: callbacks.switchPage
-          }}/>
-          <ListPagination
-            currentPage={select.currentPage}
-            switchPage={callbacks.switchPage}
-            totalItems={select.totalItems}/>
-        </>
+      <>
+        <List items={select.items} renderItem={renders.item} paginationData={{
+          totalItems: select.totalItems,
+          currentPage: select.currentPage,
+          switchPage: callbacks.switchPage
+        }}/>
+        <ListPagination
+          currentPage={select.currentPage}
+          switchPage={callbacks.switchPage}
+          totalItems={select.totalItems}/>
+      </>
     </Layout>
   )
 }

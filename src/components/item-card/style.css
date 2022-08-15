@@ -12,3 +12,9 @@
   font-size: 24px;
   font-weight: 700;
 }
+
+.ItemCard-origin span,
+.ItemCard-category span,
+.ItemCard-yearOfProd span {
+  font-weight: 700;
+}

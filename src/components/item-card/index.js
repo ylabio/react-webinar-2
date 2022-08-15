@@ -2,6 +2,7 @@ import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
+import numberFormat from '../../utils/numberFormat';
 
 function ItemCard(props) {
   const cn = bem('ItemCard');
@@ -9,13 +10,18 @@ function ItemCard(props) {
     <div className={cn()}>
       <div className={cn('description')}>{props.description}</div>
       <div className={cn('origin')}>
-        Страна производитель: {props.originCountry}{' '}
+        Страна производитель:{' '}
+        <span>
+          {props.originCountry} ({props.countryCode})
+        </span>{' '}
       </div>
-      <div className={cn('category')}>Категория: {props.category} </div>
+      <div className={cn('category')}>
+        Категория: <span>{props.category}</span>{' '}
+      </div>
       <div className={cn('yearOfProd')}>
-        Год выпуска: {props.yearOfProduction}
+        Год выпуска: <span>{props.yearOfProduction}</span>
       </div>
-      <div className={cn('price')}>Цена: {props.price} </div>
+      <div className={cn('price')}>Цена: {numberFormat(props.price)} ₽ </div>
       <div>
         <button>Добавить</button>
       </div>
@@ -26,6 +32,7 @@ function ItemCard(props) {
 ItemCard.propTypes = {
   description: propTypes.string,
   originCountry: propTypes.string,
+  countryCode: propTypes.string,
   category: propTypes.string,
   yearOfProduction: propTypes.number,
   price: propTypes.number,

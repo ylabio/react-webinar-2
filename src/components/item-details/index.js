@@ -44,6 +44,7 @@ function ItemDetails(props) {
         <ItemCard
           description={select.selectedItem.description}
           originCountry={select.selectedItem?.maidIn?.title}
+          countryCode={select.selectedItem?.maidIn?.code}
           category={select.selectedItem?.category?.title}
           yearOfProduction={select.selectedItem?.edition}
           price={select.selectedItem?.price}

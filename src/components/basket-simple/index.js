@@ -7,7 +7,6 @@ import numberFormat from "../../utils/number-format";
 import './style.css';
 import useTranslation from '../../utils/use-translation';
 
-
 function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
   const translation = useTranslation();
@@ -19,7 +18,7 @@ function BasketSimple({sum, amount, onOpen}) {
         <span className={cn('label')}>{translation.main.at_cart}:</span>
         <span className={cn('total')}>
         {amount
-          ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
+          ? `${amount} ${plural(amount, ...translation.main.product)} / ${numberFormat(sum)} ₽`
           : `${translation.main.empty}`
         }
         </span>

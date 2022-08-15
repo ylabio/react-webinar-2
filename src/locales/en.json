@@ -5,7 +5,8 @@
         "at_cart": "At cart",
         "empty": "empty",
         "go_to": "Go to",
-        "add": "Add"
+        "add": "Add",
+        "product": ["product", "products"]
     },
     "basket": {
         "title": "Cart",

@@ -43,15 +43,11 @@ function ProductPage() {
         addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     };
 
-    if (select.isLoading === true) {
-        return <Preload/>
-    }
-
     return (
-        <Layout head={<h1>{select.item.title}</h1>}>
+        <Layout head={<h1>{select.isLoading ? 'loading' : select.item.title}</h1>}>
             <BasketSimple crumbs={'Главная'} onOpen={callbacks.openModalBasket}
                           amount={select.amount} sum={select.sum}/>
-            <ItemDetails item={select.item} onAdd={callbacks.addToBasket}/>
+            {select.isLoading ? <Preload/> : <ItemDetails item={select.item} onAdd={callbacks.addToBasket}/>}
         </Layout>
     )
 }

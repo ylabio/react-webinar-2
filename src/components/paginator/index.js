@@ -3,12 +3,7 @@ import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 
-function Paginator({
-                     totalItemsCount,
-                     pageSize,
-                     currentPage,
-                     onPageChanged
-                   }) {
+function Paginator({totalItemsCount, pageSize, currentPage, onPageChanged}) {
 
   const cn = bem('Paginator');
 

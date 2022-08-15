@@ -1,9 +1,8 @@
 import { cn as bem } from "@bem-react/classname";
 import propTypes from 'prop-types';
-import React, { useCallback, useEffect } from 'react';
-import locText from "../../utils/localization";
+import React, { useCallback } from 'react';
 import numberFormat from '../../utils/number-format';
-import useSelector from "../../utils/use-selector";
+import useLanguage from "../../utils/use-language";
 import './style.css';
 
 function ItemDetails(props) {
@@ -14,17 +13,16 @@ function ItemDetails(props) {
     onAdd: useCallback((e) => props.onAdd(props.info._id), [props.onAdd, props.info])
   };
 
-  const language = useSelector(state => state.localization.lang);
-  useEffect(() => {}, [language]);
+  const lng = useLanguage();
 
   return (
     <div className={cn()}>
       <div className={cn('block')}>{props.info.description}</div>
-      <div className={cn('block')}>{locText("country")} <b>{props.info.maidIn?.title} ({props.info.maidIn?.code})</b></div>
-      <div className={cn('block')}>{locText("category")} <b>{props.info.category?.title}</b></div>
-      <div className={cn('block')}>{locText("year")} <b>{props.info.edition}</b></div>
-      <div className={cn('price')}><b>{locText("price")} {numberFormat(props.info.price)} ₽</b></div>
-      <button className={cn('button')} onClick={callbacks.onAdd}>{locText("buttonAdd")}</button>
+      <div className={cn('block')}>{lng("country")} <b>{props.info.maidIn?.title} ({props.info.maidIn?.code})</b></div>
+      <div className={cn('block')}>{lng("category")} <b>{props.info.category?.title}</b></div>
+      <div className={cn('block')}>{lng("year")} <b>{props.info.edition}</b></div>
+      <div className={cn('price')}><b>{lng("price")} {numberFormat(props.info.price)} ₽</b></div>
+      <button className={cn('button')} onClick={callbacks.onAdd}>{lng("buttonAdd")}</button>
     </div>
   )
 }

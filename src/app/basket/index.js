@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import BasketTotal from "../../components/basket-total";
 import ItemBasket from "../../components/item-basket";
 import LayoutModal from "../../components/layout-modal";
 import List from "../../components/list";
-import locText from "../../utils/localization";
+import useLanguage from "../../utils/use-language";
 import useSelector from "../../utils/use-selector";
 import useStore from "../../utils/use-store";
 
@@ -18,8 +18,7 @@ function Basket(){
   const select = useSelector(state => ({
     items: state.basket.items,
     amount: state.basket.amount,
-    sum: state.basket.sum,
-    language: state.localization.lang
+    sum: state.basket.sum
   }));
 
   const callbacks = {
@@ -42,10 +41,10 @@ function Basket(){
     />, []),
   }
 
-  useEffect(() => {}, [select.language]);
+  const lng = useLanguage();
 
   return (
-    <LayoutModal title={locText("basketLabel")} onClose={callbacks.closeModal}>
+    <LayoutModal title={lng("basketLabel")} onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>
       <BasketTotal sum={select.sum}/>
     </LayoutModal>

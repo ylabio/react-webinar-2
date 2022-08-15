@@ -1,13 +1,15 @@
 import { cn as bem } from "@bem-react/classname";
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef } from 'react';
-import locText from "../../utils/localization";
+import useLanguage from "../../utils/use-language";
 import './style.css';
 
 function LayoutModal(props) {
   const cn = bem('LayoutModal');
 
   const frame = useRef();
+
+  const lng = useLanguage();
 
   useEffect(() => {
     align();
@@ -36,7 +38,7 @@ function LayoutModal(props) {
           <h1 className={cn('title')}>
             {props.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>{locText("buttonClose")}</button>
+          <button className={cn('close')} onClick={props.onClose}>{lng("buttonClose")}</button>
         </div>
         <div className={cn('content')}>
           {props.children}

@@ -5,7 +5,7 @@ import Item from "../../components/item";
 import Layout from "../../components/layout";
 import List from "../../components/list";
 import Paginator from "../../components/paginator";
-import locText from "../../utils/localization";
+import useLanguage from "../../utils/use-language";
 import useSelector from "../../utils/use-selector";
 import useStore from "../../utils/use-store";
 
@@ -20,9 +20,10 @@ function Main(){
     items: state.catalog.items,
     scope: state.catalog.scope,
     amount: state.basket.amount,
-    sum: state.basket.sum,
-    language: state.localization.lang
+    sum: state.basket.sum
   }));
+
+  const lng = useLanguage();
 
   // перезагружаемся, если изменили страницу или число итемов на странице
   useEffect(() => {
@@ -30,7 +31,7 @@ function Main(){
     store.get('catalog').loadScope(select.scope.current);
     // костыль, чтоб не прыгал пагинатор из-за перерисовки листа
     document.getElementsByClassName('List')[0].style.height = select.scope.maxItems * 62 + "px";
-  }, [select.scope.current, select.scope.maxItems, select.language])
+  }, [select.scope.current, select.scope.maxItems])
 
   const callbacks = {
     // Открытие корзины
@@ -49,7 +50,7 @@ function Main(){
 
   return (
     
-    <Layout head={<h1>{locText("mainLabel")}</h1>}>
+    <Layout head={<h1>{lng("mainLabel")}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
       <Paginator props={{...select.scope, onClick: callbacks.switchPage}}/>

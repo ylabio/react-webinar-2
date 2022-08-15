@@ -1,9 +1,8 @@
 import { cn as bem } from "@bem-react/classname";
 import propTypes from 'prop-types';
-import React, { useCallback, useEffect } from 'react';
-import locText from "../../utils/localization";
+import React, { useCallback } from 'react';
 import numberFormat from "../../utils/number-format";
-import useSelector from "../../utils/use-selector";
+import useLanguage from "../../utils/use-language";
 import './styles.css';
 
 function ItemBasket(props) {
@@ -14,8 +13,7 @@ function ItemBasket(props) {
     onTitleClick: useCallback((e) => props.onTitleClick(props.item._id), [props.onTitleClick, props.item])
   };
 
-  const language = useSelector(state => state.localization.lang);
-  useEffect(() => {}, [language]);
+  const lng = useLanguage();
 
   return (
     <div className={cn()}>
@@ -25,9 +23,9 @@ function ItemBasket(props) {
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {locText("things")}</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {lng("things")}</div>
         <div className={cn('cell')}>
-          <button className={cn('remove')} onClick={callbacks.onRemove}>{locText("buttonRemove")}</button>
+          <button className={cn('remove')} onClick={callbacks.onRemove}>{lng("buttonRemove")}</button>
         </div>
       </div>
     </div>

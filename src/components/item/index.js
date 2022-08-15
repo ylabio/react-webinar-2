@@ -1,9 +1,8 @@
 import { cn as bem } from "@bem-react/classname";
 import propTypes from 'prop-types';
-import React, { useCallback, useEffect } from 'react';
-import locText from "../../utils/localization";
+import React, { useCallback } from 'react';
 import numberFormat from "../../utils/number-format";
-import useSelector from "../../utils/use-selector";
+import useLanguage from "../../utils/use-language";
 import './style.css';
 
 function Item(props) {
@@ -14,8 +13,7 @@ function Item(props) {
     onTitleClick: useCallback((e) => props.onTitleClick(props.item._id), [props.onTitleClick, props.item])
   };
 
-  const language = useSelector(state => state.localization.lang);
-  useEffect(() => {}, [language]);
+  const lng = useLanguage();
 
   return (
     <div className={cn()}>
@@ -27,7 +25,7 @@ function Item(props) {
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button className={cn('add')} onClick={callbacks.onAdd}>{locText("buttonAdd")}</button>
+        <button className={cn('add')} onClick={callbacks.onAdd}>{lng("buttonAdd")}</button>
       </div>
     </div>
   )

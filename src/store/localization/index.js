@@ -1,3 +1,4 @@
+import json from "../../localization.json";
 import StateModule from "../module";
 
 /**
@@ -13,7 +14,7 @@ class LocalizationState extends StateModule {
 
   /**
    * Задать язык интерфейса
-   * @param lang {String} - ru_RU, en_EN, ch_CH и т.п...
+   * @param lang {String} - ru, en, ch и т.п...
    */
   setLanguage(lang) {
     //lang = lang || "" ? lang : "ru";
@@ -24,10 +25,22 @@ class LocalizationState extends StateModule {
 
   /**
    * Возвращает текущий язык интерфейса
-   * @return {String} - ru_RU, en_EN, ch_CH и т.п...
+   * @return {String} - ru, en, ch и т.п...
    */
   getLanguage() {
     return this.getState().lang;
+  }
+
+  /**
+   * Возвращает локализованный текст
+   * @param keyword {string} - ключ в jsone, по которому берем текст
+   * @return {String}
+   */
+  getLocalizedTextFor(keyword) {
+    const words = json.languages[this.getLanguage()];
+    if (!words)
+      return '';
+    return words[keyword];
   }
 }
 

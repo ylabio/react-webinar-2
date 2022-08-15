@@ -32,8 +32,8 @@ class CatalogState extends StateModule{
       items: json.result.items,
       page: skip,
       limit: limit,
-      pages: Math.ceil(json.result.count / limit) - 1,
-      pagination: renderPagination(Math.ceil(json.result.count / limit) - 1, skip),
+      pages: Math.ceil(json.result.count / limit),
+      pagination: renderPagination(Math.ceil(json.result.count / limit), skip),
     });
   }
 

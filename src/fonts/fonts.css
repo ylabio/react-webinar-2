@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'Arial';
+    src: url('ARIAL.TTF');
+    src: local('./fonts/ARIAL.TTF'), local('./fonts/ARIAL.TTF'),
+    url('ARIAL.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Arial';
+    src: url('ARIALBD.TTF');
+    src: local('./fonts/ARIALBD.TTF'), local('./fonts/ARIALBD.TTF'),
+    url('ARIALBD.TTF') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}

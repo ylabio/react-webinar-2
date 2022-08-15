@@ -23,7 +23,7 @@ function ItemDetails({onAdd, item}) {
                 Год выпуска: <span>{item.edition}</span>
             </div>
             <div className={cn('price')}>
-                Цена: <span>{item.price.toString().replace('.', ',')}</span>
+                Цена: <span>{item.price.toString().replace('.', ',')} ₽</span>
             </div>
             <button onClick={callbacks.onAdd}>Добавить</button>
         </div>

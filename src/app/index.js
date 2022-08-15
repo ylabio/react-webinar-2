@@ -4,6 +4,7 @@ import Basket from "./basket";
 import useSelector from "../utils/use-selector";
 import {Route, Routes} from "react-router-dom";
 import ProductPage from "./product-page";
+import './style.css'
 
 /**
  * Приложение

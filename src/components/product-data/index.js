@@ -1,7 +1,7 @@
 import React, {useCallback} from "react";
-import {useParams} from 'react-router-dom';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
+import propTypes from "prop-types";
 
 function ProductData(props) {
     const cn = bem('Product-data');
@@ -21,5 +21,17 @@ function ProductData(props) {
         </div>
     )
 }
+
+
+ProductData.propTypes = {
+    item: propTypes.object.isRequired,
+    onAdd: propTypes.func,
+    itemCategory: propTypes.object.isRequired,
+}
+
+ProductData.defaultProps = {
+    onAdd: () => {},
+}
+
 
 export default React.memo(ProductData);

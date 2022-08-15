@@ -1,8 +1,8 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import item from "../item";
+import propTypes from "prop-types";
 
 const getPageNumbers = (pageCount, currentPage) => {
     const pageNumbers = [];
@@ -22,7 +22,7 @@ function Pagination ({onChange, pageCount, currentPage}) {
         <ul className={cn()}>
             {getPageNumbers(pageCount, currentPage).map((pageNumber, index, allPages) => {
                 return (
-                  <>
+                    <React.Fragment key={pageNumber}>
                       <li>
                           <a
                             className={cn('item', {active: pageNumber === currentPage})}
@@ -31,13 +31,20 @@ function Pagination ({onChange, pageCount, currentPage}) {
                           >{pageNumber + 1}</a>
                       </li>
                       {index < allPages.length && allPages[index + 1] > (pageNumber + 1) && (
-                        <li className={cn('three-dots')}>...</li>
+                        <li className={cn('three-dots')} key={'dots-' + pageNumber}>...</li>
                       )}
-                  </>
+                  </React.Fragment>
                 )
             })}
         </ul>
     )
 }
+
+Pagination.propTypes = {
+    onChange: propTypes.func.isRequired,
+    pageCount: propTypes.number.isRequired,
+    currentPage: propTypes.number.isRequired
+}
+
 
 export default React.memo(Pagination);

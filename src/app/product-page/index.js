@@ -17,9 +17,6 @@ function ProductPage() {
 
     useEffect(() => {
         store.get('details').load(params.id);
-        return () => {
-            store.get('details').setLoading(true);
-        }
     }, [])
 
     useEffect(() => {

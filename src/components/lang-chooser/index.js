@@ -1,6 +1,6 @@
 import { cn as bem } from "@bem-react/classname";
-import React, { useCallback, useState } from 'react';
-import localization from '../../localization.json';
+import React, { useCallback, useMemo, useState } from 'react';
+import json from '../../localization.json';
 import useStore from '../../utils/use-store';
 import './style.css';
 
@@ -17,10 +17,13 @@ function LanguageChooser() {
     }, []),
   }
 
-  const array = [];
-  Object.keys(localization.languages).forEach((key, index) => {
-    array.push(key);
-  });
+  const array = useMemo(() => { // достаточно посчитать всего 1 раз
+    const tmp = [];
+    Object.keys(json.languages).forEach((key, index) => {
+      tmp.push(key);
+    });
+    return tmp;
+  }, []);
   
   return (
     <div className={cn()}>

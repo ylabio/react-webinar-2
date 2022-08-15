@@ -18,7 +18,7 @@ function Pagination({itemsCount, pageSize, onPageChange, currentPage}) {
         return pages.map(page => {
             if (page === 1 && currentPage > 2) {
                 return (
-                    <div  key={page}>
+                    <div key={page}>
                         <button
                             className={cn('btn') + ' ' + (page === currentPage ? cn('active') : "")}
                             onClick={() => onPageChange(page)}
@@ -40,7 +40,7 @@ function Pagination({itemsCount, pageSize, onPageChange, currentPage}) {
                 )
             } else if (page === pages.length) {
                 return (
-                    <div  key={page}>
+                    <div key={page}>
                         <span>...</span>
                         <button
                             className={cn('btn') + ' ' + (page === currentPage ? cn('active') : "")}

@@ -5,3 +5,5 @@ import React from 'react';
  * @type {React.Context<{}>}
  */
 export const StoreContext = React.createContext({});
+
+export const LangContext = React.createContext({});

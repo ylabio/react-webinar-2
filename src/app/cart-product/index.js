@@ -16,14 +16,12 @@ function CartProduct() {
 
   useEffect(() => {
     store.get('catalog').loadProduct(id);
-  }, []);
+  }, [id]);
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
     item: state.catalog.item,
-    isLoading: state.catalog.isLoading,
-    errorMessage: state.catalog.errorMessage,
   }));
 
   const callbacks = {
@@ -51,4 +49,4 @@ function CartProduct() {
   );
 }
 
-export default React.memo(CartProduct);
+export default CartProduct;

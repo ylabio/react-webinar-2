@@ -19,7 +19,7 @@ function ItemBasket(props) {
   // При нажатии на продукт в корзине делаем переход и закрываем модалку
   const onClickItemBasket = (e) => {
     e.preventDefault()
-    navigate(`/article/${props.item._id}`)
+    navigate(props.link)
     props.onClose()
   }
 
@@ -47,11 +47,11 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   lang: propTypes.string,
+  link: propTypes.string.isRequired,
   onRemove: propTypes.func,
 }
 
 ItemBasket.defaultProps = {
-
 }
 
 export default React.memo(ItemBasket);

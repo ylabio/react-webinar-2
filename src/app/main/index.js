@@ -1,4 +1,5 @@
 import Loading from "components/loading";
+import {useNavigate} from "react-router-dom";
 import Pagination from "src/components/pagination";
 import useLanguage from "utils/use-language";
 import BasketSimple from "../../components/basket-simple";
@@ -15,8 +16,8 @@ function Main() {
 
   const store = useStore();
 
-  const translation = useLanguage()
-
+  const translation = useLanguage();
+  const navigate = useNavigate();
 
   const select = useSelector(state => ({
     items: state.catalog.items,
@@ -41,10 +42,15 @@ function Main() {
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     //сохранение текущей страницы
     setCurrentPage: useCallback(page => store.get('catalog').setPage(page), []),
+    //навигация на катру товара
+    onPageProduct: useCallback(id => navigate(`/${id}`), []),
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => {
+      return <Item item={item} onAdd={callbacks.addToBasket}
+            onName={() => callbacks.onPageProduct(item._id)}/>
+    }, []),
   };
 
   return (

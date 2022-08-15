@@ -23,7 +23,7 @@ class CartState extends StateModule {
   async loadProduct(id) {
     this.setState({...this.getState(), isLoading: true})
     const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
-    console.log(response)
+
     if (response.status === 200) {
       const json = await response.json();
       this.setState({

@@ -1,10 +1,11 @@
-import BasketSimple from "../../components/basket-simple";
-import List from "../../components/list";
-import Layout from "../../components/layout";
 import React, {useCallback, useEffect} from "react";
-import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import BasketSimple from "../../components/basket-simple";
+import Item from "../../components/item";
+import List from "../../components/list";
+import Layout from "../../components/layout";
+import Pagination from "../../components/pagination";
 
 function Main(){
 
@@ -17,7 +18,9 @@ function Main(){
   }, [])
 
   const select = useSelector(state => ({
-    items: state.catalog.items,
+    artQty: state.catalog.items.length,
+    pagItems: state.catalog.pagItems,
+    pagSel: state.catalog.pagSel,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -27,6 +30,8 @@ function Main(){
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Переход по элементу пагинации
+    pagSurf: useCallback(pagSel => store.get('catalog').pagSurf(pagSel), [])
   };
 
   const renders = {
@@ -36,7 +41,8 @@ function Main(){
   return (
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
+      <List items={select.pagItems} renderItem={renders.item}/>
+      <Pagination artQty={select.artQty} pagSel={select.pagSel} pagSurf={callbacks.pagSurf}/>
     </Layout>
   )
 }

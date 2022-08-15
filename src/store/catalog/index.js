@@ -12,16 +12,78 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      pagItems: [],
+      pagSel: 0,
+      article: {},
+      category: {},
+      country: {}
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+  /**
+   * Загрузка данных каталога
+   */
+  async load() {
+    const response = await fetch('/api/v1/articles?lang=ru&limit=130&skip=0&fields=%2A');
+    const json = await response.json();
+    if (this.getState().pagSel <= 1) {
+      /**
+       * Для первоначальной загрузки данных
+       * Для возврата на первую страницу пагинации из подробного описания товара
+       */
+      this.setState({
+        items: json.result.items,
+        pagItems: json.result.items.slice(0, 10),
+        pagSel: 1
+      });
+      /**
+       * Для возврата на выбранную страницу пагинации из подробного описания товара
+       */
+    } else {
+      this.setState({
+        ...this.getState(),
+      })
+    }
+  }
+
+  async loadArticle(articleId) {
+    const response = await fetch('/api/v1/articles/' + articleId + '?fields=%2A&lang=ru');
     const json = await response.json();
     this.setState({
-      items: json.result.items
-    });
+      ...this.getState(),
+      article: json.result
+    })
+  }
+
+  async loadCategory(categoryId) {
+    const response = await fetch('/api/v1/categories/' + categoryId + '?lang=ru&fields=%2A');
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      category: json.result,
+    })
+  }
+
+  async loadCountry(countryId) {
+    const response = await fetch('/api/v1/countries/' + countryId + '?lang=ru&fields=%2A');
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      country: json.result,
+    })
+  }
+
+  /**
+   * Переход к просмотру других товаров после клика по элементу пагинации
+   * @param pagSel {number}
+   */
+  pagSurf(pagSel) {
+    this.setState({
+      ...this.getState(),
+      pagItems: this.getState().items.slice((pagSel - 1) * 10, pagSel * 10),
+      pagSel: pagSel
+    })
   }
 
   /**

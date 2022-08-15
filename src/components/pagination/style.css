@@ -1,0 +1,13 @@
+.Pagination {
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 22px;
+    margin-top: 20px;
+}
+.pag-selected {
+    background-color: #00BFFF;
+    color: white;
+}

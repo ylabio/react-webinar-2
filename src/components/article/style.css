@@ -1,0 +1,46 @@
+.Article {
+    width: auto;
+    height: auto;
+}
+
+.Article-basket-simple {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Article-link-to-main {
+    color: blue;
+    font-size: 1.1em;
+    margin-left: 20px;
+    text-decoration: underline;
+}
+
+.Article-description {
+    text-align: justify;
+    text-indent: 20px;
+    margin-right: 80px;
+}
+
+.Article-link-to-main:hover {
+   cursor: pointer;
+}
+.Article-ul {
+    list-style-type: none;
+    margin: 0;
+    margin-left: 40px;
+    padding: 0;
+}
+
+.Article-li {
+    margin-bottom: 15px;
+}
+
+.Article-li-bold {
+    font-weight: 700;
+}
+
+.Article-add-button {
+    margin-top: 15px;
+    margin-left: 40px;
+}

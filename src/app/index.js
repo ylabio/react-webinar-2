@@ -1,5 +1,5 @@
 import React from "react";
-import {HashRouter, Routes, Route} from "react-router-dom";
+import {HashRouter, Routes, Route, Navigate} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import useSelector from "../utils/use-selector";
@@ -19,8 +19,9 @@ function App() {
     <>
       <HashRouter>
         <Routes>
-          <Route path="/" element={<Main/>} />
+          <Route path="/catalog/:page" element={<Main/>} />
           <Route path="/article/:id" element={<Article />} />
+          <Route path="/" element={<Navigate replace to="/catalog/1"/>} />
         </Routes>
         {modal === 'basket' && <Basket/>}
       </HashRouter>

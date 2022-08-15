@@ -21,6 +21,7 @@ function Article(){
     amount: state.basket.amount,
     sum: state.basket.sum,
     item: state.article.item,
+    current: state.pagination.current,
   }));
 
   const {id} = useParams();
@@ -40,7 +41,10 @@ function Article(){
 
   return (
     <Layout head={<h1>{select.item.title ? select.item.title : Translation[language].loading}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <BasketSimple onOpen={callbacks.openModalBasket}
+                    amount={select.amount}
+                    sum={select.sum}
+                    currentLink={`/catalog/${select.current}`}/>
       {select.item.id ?
         <ArticleDetails item={select.item} onAdd={callbacks.addToBasket}/> :
         <Loader />}

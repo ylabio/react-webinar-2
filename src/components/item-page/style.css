@@ -1,0 +1,12 @@
+.item-page {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.item-page span {
+    font-weight: bold;
+}
+
+.item-page p:nth-child(5) {
+    font-size: 20px;
+} 

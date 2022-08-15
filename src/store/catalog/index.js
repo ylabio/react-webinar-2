@@ -13,18 +13,29 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      totalCount: null
+      totalCount: null,
+      isLoading: true
     };
   }
 
-  async load(page = 1) {
+  async load(page=1) {
+    this.setLoading(true)
     const pageNumber = (page * 10) - 10
     const response = await fetch(`/api/v1/articles?limit=10&skip=${pageNumber}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
+      ...this.getState(),
       items: json.result.items,
-      totalCount: json.result.count
+      totalCount: json.result.count,
+      isLoading: false
     });
+  }
+
+  setLoading(isLoading) {
+    this.setState({
+      ...this.getState(),
+      isLoading: isLoading
+    })
   }
 
   /**

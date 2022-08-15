@@ -27,11 +27,13 @@ class DetailsState extends StateModule {
     }
 
     async load(id) {
+        this.setLoading(true)
         const response = await fetch(`/api/v1/articles/${id}`);
         const json = await response.json();
         const country = await this.countryLoad(json.result.maidIn._id)
         const category = await this.categoryLoad(json.result.category._id)
         this.setState({
+            ...this.getState(),
             item: {
                 ...json.result,
                 category: category.result.title,
@@ -44,6 +46,7 @@ class DetailsState extends StateModule {
 
     setLoading(isLoading) {
         this.setState({
+            ...this.getState(),
             isLoading: isLoading
         })
     }

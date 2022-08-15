@@ -1,10 +1,10 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
 import './styles.css';
 import {Link} from 'react-router-dom';
+import plural from '../../utils/plural'
 
 function BasketSimple({sum, amount, onOpen, language}) {
   const cn = bem('BasketSimple');
@@ -14,7 +14,7 @@ function BasketSimple({sum, amount, onOpen, language}) {
       <span className={cn('label')}>{language.inBasket}:</span>
       <span className={cn('total')}>
       {amount
-        ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
+        ? `${amount} ${plural(amount, language.languageName)} / ${numberFormat(sum)} ₽`
         : `${language.empty}`
       }
       </span>

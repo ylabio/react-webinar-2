@@ -1,8 +1,9 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
-import numberFormat from "../../utils/numberFormat";
+import numberFormat from "../../utils/number-format";
 import './styles.css';
 
 
@@ -10,6 +11,7 @@ function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
+      <NavLink to='/' className={cn('onMain')}>Главная</NavLink>
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
       {amount

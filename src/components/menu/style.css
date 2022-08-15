@@ -1,13 +1,15 @@
 .Menu {
   margin: 0;
   padding: 20px;
-  font-size: 18px;
-  line-height: 21px;
-  color: #0087E9;
   list-style-type: none;
-  
 }
 
 .Menu-item:hover {
-  cursor: pointer;
+}
+
+.Menu-item a{
+  font-size: 18px;
+  line-height: 21px;
+
+  color: #0087E9;
 }

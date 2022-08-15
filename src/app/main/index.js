@@ -7,17 +7,19 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
+import useTranslation from "../../utils/use-translation";
 
 function Main(){
 
   const store = useStore();
   const page = useParams().page;
   const navigate = useNavigate();
+  const translation = useTranslation();
 
   useEffect(() => {
     if ( !page ) {
       navigate("/1");
-      store.get('catalog').load();
+      store.get('catalog').load();   
     } else store.get('catalog').load(+page);
   }, [page])
 
@@ -25,7 +27,7 @@ function Main(){
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum
-  }));
+  })); 
 
   const callbacks = {
     // Открытие корзины
@@ -41,7 +43,7 @@ function Main(){
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>{translation.main.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination loadPage={callbacks.loadPage}/>

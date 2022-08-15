@@ -1,0 +1,16 @@
+{
+    "main": {
+        "title": "Shop",
+        "home_link": "Main",
+        "at_cart": "At cart",
+        "empty": "empty",
+        "go_to": "Go to",
+        "add": "Add"
+    },
+    "basket": {
+        "title": "Cart",
+        "close": "Close",
+        "remove": "Remove",
+        "total": "Total"
+    }
+}

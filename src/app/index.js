@@ -4,6 +4,7 @@ import Main from "./main";
 import Basket from "./basket";
 import useSelector from "../utils/use-selector";
 import Product from './product';
+import useStore from '../utils/use-store';
 
 /**
  * Приложение
@@ -11,7 +12,10 @@ import Product from './product';
  */
 function App() {
 
+  const store = useStore();
   const modal = useSelector(state => state.modals.name);
+
+  useEffect(() => store.get('app').initLocale(), [])
 
   return (
     <>

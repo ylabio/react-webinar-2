@@ -38,25 +38,17 @@ class ProductState extends StateModule {
       price: null,
       isLoading: true
     })
-    // Запрос товара
-    const itemResponse = await fetch(`/api/v1/articles/${id}`);
-    const {result} = await itemResponse.json();
     
-    // Запрос страны
-    const countryResponse = await fetch(`/api/v1/countries/${result.maidIn._id}`);
-    const country = await countryResponse.json();
-    
-    // Запрос категории
-    const categoryResponse = await fetch(`/api/v1/categories/${result.category._id}`);
-    const category = await categoryResponse.json();
+    const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title),category(title)`);
+    const {result} = await response.json();
 
     this.setState({
       ...this.getState(),
       id: id,
       title: result.title,
       description: result.description,
-      country: country.result.title,
-      category: category.result.title,
+      country: result.maidIn.title,
+      category: result.category.title,
       year: result.edition,
       price: result.price,
       isLoading: false

@@ -11,8 +11,6 @@ function ProductInformation() {
   console.log('ProductInformation');
   
   const store = useStore();
-  
-  // console.log(window.location.pathname.includes('productInformation/') && window.location.pathname.split('productInformation/')[1])
 
   const select = useSelector(state => ({
     id: state.product.id,

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
@@ -30,4 +29,3 @@ List.defaultProps = {
 }
 
 export default React.memo(List);
->>>>>>> f8010da1be0c1ba68ffc8099302073bd0c25dcd0

@@ -1,37 +1,43 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import React , {useCallback} from 'react';
 import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './styles.css';
+import useSelector from "../../utils/use-selector";
+import useStore from "../../utils/use-store";
+import { Link } from 'react-router-dom';
 
+function BasketSimple() {
 
-function BasketSimple({sum, amount, onOpen}) {
+  const select = useSelector(state => ({
+    amount: state.basket.amount,
+    sum: state.basket.sum
+  }));
+
+  const store = useStore();
+
+  const callbacks = {
+    openModal: useCallback(() => store.get('modals').open('basket'), []),
+  };
+
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
+      <Link to={'/'}>
+        <span>Главная</span>
+      </Link>
+      <div>
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
-      {amount
-        ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
+      {select.amount
+        ? `${select.amount} ${plural(select.amount, 'товар', 'товара', 'товаров')} / ${numberFormat(select.sum)} ₽`
         : `пусто`
       }
       </span>
-      <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+      <button className='BasketSimple__button' onClick={callbacks.openModal}>Перейти</button>
+      </div>
     </div>
   )
 }
 
-BasketSimple.propTypes = {
-  onOpen: propTypes.func.isRequired,
-  sum: propTypes.number,
-  amount: propTypes.number
-}
-
-BasketSimple.defaultProps = {
-  onOpen: () => {},
-  sum: 0,
-  amount: 0
-}
-
-export default React.memo(BasketSimple);
+export default BasketSimple;

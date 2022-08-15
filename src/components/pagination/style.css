@@ -1,0 +1,24 @@
+.Pagination{
+    display: flex;
+    justify-content: end;
+    padding: 22px
+}
+
+.Pagination-btn{
+    background-color: white;
+    border: 0ch;
+}
+
+.Pagination-btn:hover{
+    background-color: lightgray;
+    transition: 0.5s;
+}
+
+.Pagination-btn.selected{
+    background-color: #0087E9;
+}
+
+.Pagination-ellipsis{
+    color:#CCCCCC;
+}
+

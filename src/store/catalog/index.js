@@ -16,12 +16,27 @@ class CatalogState extends StateModule{
     };
   }
 
-  async load(){
+  async load(openLoadingScreen , closeLoadingScreen){
+    openLoadingScreen();
     const response = await fetch('/api/v1/articles');
     const json = await response.json();
     this.setState({
       items: json.result.items
     });
+    closeLoadingScreen();
+  }
+
+  async loadPage(pageNumber , openLoadingScreen, closeLoadingScreen){
+    openLoadingScreen();
+    const response = await fetch
+      (`/api/v1/articles?limit=10&skip=${(pageNumber - 1) * 10}&fields=items(_id,_key,title,price),count`);
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      items: json.result.items,
+      size: json.result.count
+    }) 
+    closeLoadingScreen();
   }
 
   /**

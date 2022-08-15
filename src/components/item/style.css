@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* Пункт списка */
 .Item {
     display: flex;
@@ -43,4 +42,13 @@
 .Item-price {
     padding: 0 10px;
     white-space: nowrap;
+}
+
+.Item a{
+    text-decoration: none;
+    color: black;
+}
+
+.Item a:hover{
+    text-decoration: underline;
 }

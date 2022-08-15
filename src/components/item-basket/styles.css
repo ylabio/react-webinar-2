@@ -28,3 +28,12 @@
     font-size: 18px;
     white-space: nowrap;
 }
+
+.ItemBasket a{
+    text-decoration: none;
+    color: black;
+}
+
+.ItemBasket a:hover{
+    text-decoration: underline;
+}

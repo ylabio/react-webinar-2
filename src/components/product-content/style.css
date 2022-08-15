@@ -1,0 +1,24 @@
+.ProductContent{
+    padding: 40px;
+}
+
+.ProductContent-title{
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.ProductContent-category{
+    display: flex;
+    align-items: center;
+}
+
+.ProductContent-description{
+    margin-left: 5px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.ProductContent-price{
+    font-size: 24px;
+    font-weight: 700;
+}

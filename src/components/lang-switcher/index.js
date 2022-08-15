@@ -8,7 +8,7 @@ function LangSwitcher(props) {
       <input
         type="checkbox"
         onChange={props.switchLang}
-        checked={props.currentLang !== 'RU'}
+        checked={props.currentLang !== 'ru'}
       />
       <span className="slider round"></span>
       <span className="select-ru">RU</span>
@@ -24,7 +24,7 @@ LangSwitcher.propTypes = {
 };
 
 LangSwitcher.defaultProps = {
-  currentLang: 'RU',
+  currentLang: 'ru',
   switchLang: () => {}
 };
 

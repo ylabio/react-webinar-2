@@ -1,4 +1,5 @@
 import ModuleState from '../module';
+import getBrowserLang from '../../utils/get-browser-lang';
 import langPack from '../../utils/lang-pack.json';
 
 /**
@@ -12,8 +13,8 @@ class LanguageState extends ModuleState {
    */
   initState() {
     return {
-      currentLang: 'RU',
-      langPack: langPack.RU
+      currentLang: getBrowserLang(),
+      langPack: langPack[getBrowserLang()]
     };
   }
 
@@ -23,8 +24,8 @@ class LanguageState extends ModuleState {
    */
   switch(checked) {
     this.setState({
-      currentLang: checked ? 'EN' : 'RU',
-      langPack: checked ? langPack.EN : langPack.RU
+      currentLang: checked ? 'en' : 'ru',
+      langPack: checked ? langPack.en : langPack.ru
     }, 'Изменение текущего языка');
   }
 }

@@ -1,5 +1,5 @@
 {
-  "RU": {
+  "ru": {
     "main": {
       "title": "Магазин"
     },
@@ -36,7 +36,7 @@
       "openButton": "Перейти"
     }
   },
-  "EN": {
+  "en": {
     "main": {
       "title": "Store"
     },

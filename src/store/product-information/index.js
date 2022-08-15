@@ -18,7 +18,7 @@ class ProductState extends StateModule {
       category: '',
       year: 0,
       price: 0,
-      isLoading: true
+      isLoading: false
     };
   }
   

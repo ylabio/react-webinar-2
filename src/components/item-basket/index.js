@@ -21,7 +21,7 @@ function ItemBasket(props) {
           props.getProductInformation(props.item._id)
           props.closeModal()
         }}>
-        <Link to='/productInformation'>
+        <Link to={`/productInformation/${props.item._id}`}>
           {props.item.title}
         </Link>
       </div>
@@ -44,9 +44,12 @@ ItemBasket.propTypes = {
 }
 
 ItemBasket.defaultProps = {
-  onRemove: () => {},
-  getProductInformation: () => {},
-  closeModal: () => {}
+  onRemove: () => {
+  },
+  getProductInformation: () => {
+  },
+  closeModal: () => {
+  }
 }
 
 export default React.memo(ItemBasket);

@@ -11,6 +11,7 @@ function Item(props) {
   const callbacks = {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
+  
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>*/}
@@ -19,7 +20,7 @@ function Item(props) {
       <div
         className={cn('title')}
         onClick={() => props.getProductInformation(props.item._id)}>
-        <Link to='/productInformation'>
+        <Link to={`/productInformation/${props.item._id}`}>
           {props.item.title}
         </Link>
       </div>

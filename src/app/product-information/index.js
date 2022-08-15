@@ -11,7 +11,7 @@ function ProductInformation() {
   console.log('ProductInformation');
   
   const store = useStore();
-  
+
   const select = useSelector(state => ({
     id: state.product.id,
     title: state.product.title,
@@ -25,7 +25,6 @@ function ProductInformation() {
     language: state.translation.language,
     words: state.translation.words,
     isLoading: state.product.isLoading
-  
   }));
   
   const callbacks = {

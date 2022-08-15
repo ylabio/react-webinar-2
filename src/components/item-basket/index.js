@@ -5,14 +5,9 @@ import {cn as bem} from "@bem-react/classname";
 import { Link } from 'react-router-dom';
 import './styles.css';
 import { localize } from '../../utils/localize';
-import useSelector from '../../utils/use-selector';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
-
-  const select = useSelector(state => ({
-    language: state.localization.language,
-  }));
 
   const callbacks = {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item])
@@ -28,8 +23,8 @@ function ItemBasket(props) {
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {localize['шт'][select.language]}</div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{localize['Удалить'][select.language]}</button></div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {localize['шт'][props.language]}</div>
+        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{localize['Удалить'][props.language]}</button></div>
       </div>
     </div>
   )
@@ -39,6 +34,7 @@ ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   closeModal: propTypes.func,
   onRemove: propTypes.func,
+  language: propTypes.string.isRequired,
 }
 
 ItemBasket.defaultProps = {

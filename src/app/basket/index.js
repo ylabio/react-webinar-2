@@ -28,13 +28,13 @@ function Basket(){
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} closeModal={callbacks.closeModal} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item => <ItemBasket item={item} closeModal={callbacks.closeModal} onRemove={callbacks.removeFromBasket} language={select.language} />, [select.language]),
   }
 
   return (
-    <LayoutModal title={localize['Корзина'][select.language]} onClose={callbacks.closeModal}>
+    <LayoutModal title={localize['Корзина'][select.language]} onClose={callbacks.closeModal} language={select.language}>
       <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum} language={select.language} />
     </LayoutModal>
   )
 }

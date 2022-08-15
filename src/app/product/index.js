@@ -17,8 +17,9 @@ function Product() {
 		};
 	}, [id]);
 
-	const { item } = useSelector((state) => ({
+	const { item, language } = useSelector((state) => ({
 		item: state.product.item,
+		language: state.localization.language
 	}));
 
 	const callbacks = {
@@ -28,7 +29,7 @@ function Product() {
 
 	return (
 		<Layout head={<h1>{item && item.title}</h1>}>
-			{item && <ProductDetail item={item} onAdd={callbacks.addToBasket} />}
+			{item && <ProductDetail item={item} onAdd={callbacks.addToBasket} language={language} />}
 		</Layout>
 	);
 }

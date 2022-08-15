@@ -60,7 +60,7 @@ function Layout({head, children}){
         </div>
       </div>
       <div className={cn('content')}>
-        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language} />
         {children}
       </div>
     </div>

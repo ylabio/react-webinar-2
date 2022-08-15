@@ -6,37 +6,31 @@ import numberFormat from "../../utils/number-format";
 import './styles.css';
 import { Link } from 'react-router-dom';
 import { localize } from '../../utils/localize';
-import useSelector from '../../utils/use-selector';
 
-
-function BasketSimple({sum, amount, onOpen}) {
+function BasketSimple({sum, amount, onOpen, language}) {
   const cn = bem('BasketSimple');
-
-  const select = useSelector(state => ({
-		language: state.localization.language,
-  }));
 
   return (
     <div className={cn()}>
       <Link className={cn('homeLink')} to='/'>
-        {localize['Главная'][select.language]}
+        {localize['Главная'][language]}
       </Link>
       <div>
         <span className={cn('label')}>
-					{localize['В корзине'][select.language]}:
+					{localize['В корзине'][language]}:
 				</span>
         <span className={cn('total')}>
 					{amount
 						? `${amount} ${plural(
 								amount,
-								`${localize['Товар'][select.language]}`,
-								`${localize['Товара'][select.language]}`,
-								`${localize['Товаров'][select.language]}`,
+								`${localize['Товар'][language]}`,
+								`${localize['Товара'][language]}`,
+								`${localize['Товаров'][language]}`,
 						  )} / ${numberFormat(sum)} ₽`
-						: `${localize['Пусто'][select.language]}`}
+						: `${localize['Пусто'][language]}`}
 				</span>
         <button className='BasketSimple__button' onClick={onOpen}>
-					{localize['Перейти'][select.language]}
+					{localize['Перейти'][language]}
 				</button>
       </div>
     </div>
@@ -46,7 +40,8 @@ function BasketSimple({sum, amount, onOpen}) {
 BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
-  amount: propTypes.number
+  amount: propTypes.number,
+  language: propTypes.string.isRequired,
 }
 
 BasketSimple.defaultProps = {

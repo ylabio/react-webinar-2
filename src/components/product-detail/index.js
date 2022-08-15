@@ -1,17 +1,12 @@
 import React, { useCallback } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import numberFormat from '../../utils/number-format';
 import './style.css';
 import { localize } from '../../utils/localize';
-import useSelector from '../../utils/use-selector';
 
-function ProductDetail({ item, onAdd }) {
+function ProductDetail({ item, onAdd, language }) {
 	const cn = bem('ProductDetail');
-
-	const select = useSelector((state) => ({
-		language: state.localization.language,
-	}));
 
 	const callbacks = {
 		onAdd: useCallback((e) => onAdd(item._id), [onAdd, item]),
@@ -22,33 +17,34 @@ function ProductDetail({ item, onAdd }) {
 			<div className={cn('description')}>{item.description}</div>
 			<ul className={cn('characteristics')}>
 				<li className={cn('characteristicsItem')}>
-					{localize['Страна производитель'][select.language]}:
+					{localize['Страна производитель'][language]}:
 					<span>
 						{item.maidIn.title} ({item.maidIn.code})
 					</span>
 				</li>
 				<li className={cn('characteristicsItem')}>
-					{localize['Категория'][select.language]}:
+					{localize['Категория'][language]}:
 					<span>{item.category.title}</span>
 				</li>
 				<li className={cn('characteristicsItem')}>
-					{localize['Год выпуска'][select.language]}:<span>{item.edition}</span>
+					{localize['Год выпуска'][language]}:<span>{item.edition}</span>
 				</li>
 				<li className={cn('characteristicsItem', { price: true })}>
-					{localize['Цена'][select.language]}:
+					{localize['Цена'][language]}:
 					<span>{numberFormat(item.price)} ₽</span>
 				</li>
 			</ul>
 			<button onClick={callbacks.onAdd}>
-				{localize['Добавить'][select.language]}
+				{localize['Добавить'][language]}
 			</button>
 		</div>
 	);
 }
 
 ProductDetail.propTypes = {
-	item: propTypes.object.isRequired,
-	onAdd: propTypes.func,
+	item: PropTypes.object.isRequired,
+	onAdd: PropTypes.func,
+	language: PropTypes.string.isRequired,
 };
 
 ProductDetail.defaultProps = {

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import Layout from '../layout';
@@ -8,6 +7,7 @@ import BasketSimple from '../basket-simple';
 import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
 import propTypes from 'prop-types';
+import numberFormat from '../../utils/number-format';
 
 
 function ItemPage({ onOpen, amount, sum, addToBasket }) {
@@ -44,14 +44,12 @@ function ItemPage({ onOpen, amount, sum, addToBasket }) {
         <div>
           Год выпуска: <span>{select.item?.edition}</span>
         </div>
-        <div className={cn('price')}>Цена: {select.item?.price}</div>
+        <div className={cn('price')}>Цена: {numberFormat(select.item?.price)} ₽</div>
       </div>
       <button className={cn('button')} onClick={() => addToBasket(id)}>
         Добавить
       </button>
     </Layout>
-
-
   );
 }
 

@@ -10,6 +10,7 @@
   color: white;
   align-items: center;
   justify-content: center;
+  opacity: 15%;
 }
 .loading-text {
     margin-bottom: 300px;

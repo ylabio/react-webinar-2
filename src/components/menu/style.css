@@ -1,0 +1,21 @@
+.Menu-link {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    text-decoration-line: underline;
+    color: #0087E9;
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    max-width: 200px;
+}
+
+.Menu-link:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}

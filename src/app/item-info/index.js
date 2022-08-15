@@ -8,7 +8,9 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
-import "./style.css"
+import ItemPage from "../../components/item-page";
+import Menu from "../../components/menu";
+import "./style.css";
 
 function ItemInfo() {
 
@@ -44,17 +46,9 @@ function ItemInfo() {
         <>
             {select.item.item ? (
                 <Layout head={<h1>{select.item.item.title}</h1>}>
+                    <Menu />
                     <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-                    <div className={cn()}>
-                        <p>{select.item.item.description}</p>
-                        <p>Страна производитель: <span className={cn("span")}>
-                            {select.item.item.country}<span className={cn("span")}>({select.item.item.countryCode})</span>
-                        </span></p>
-                        <p>Категория: <span className={cn("span")}>{select.item.item.category}</span></p>
-                        <p>Год выпуска: <span className={cn("span")}>{select.item.item.edition}</span></p>
-                        <span className={cn("price")}>Цена: <span className={cn("price")}>{select.item.item.price}</span></span>
-                        <button type="button" onClick={callbacks.addToBasket} className={cn("btn")}>Добавить</button>
-                    </div>
+                   <ItemPage item={ select.item } onAdd={callbacks.addToBasket}/>
                 </Layout>
             ) : ""}
         </>

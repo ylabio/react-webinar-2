@@ -1,0 +1,8 @@
+.Language span {
+  cursor: pointer;
+  font-family: Cambria, Cochin, serif;
+}
+
+.Language-active {
+  color: blue;
+}

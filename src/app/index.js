@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
-import Page from "./pages";
+import Page from "./cards";
 import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
 
@@ -19,7 +19,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/:id" element={<Page />} />
+        <Route path="article/:id" element={<Page />} />
       </Routes>
       {modal === "basket" && <Basket />}
     </BrowserRouter>

@@ -4,9 +4,11 @@ import Layout from "../../components/layout";
 import React, { useCallback, useEffect } from "react";
 import Spinner from "../../components/spinner";
 import Item from "../../components/item";
+import PanelLanguage from "../../components/panel-language";
 import Pagination from "../../components/pagination";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import { lang } from "../../utils/language-array";
 
 function Main() {
   console.log("Main");
@@ -20,7 +22,8 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     allPage: state.catalog.count,
-    num: state.numpag.num,
+    num: state.catalog.num,
+    language: state.language.num,
   }));
 
   useEffect(() => {
@@ -33,13 +36,20 @@ function Main() {
     }
   }, [select.num]);
 
+  console.log("language", select.language);
+
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get("modals").open("basket"), []),
     // Добавление в корзину
     addToBasket: useCallback((_id) => store.get("basket").addToBasket(_id), []),
     // Смена страницы
-    newPage: useCallback((n) => store.get("numpag").newPage(n), []),
+    newPage: useCallback((n) => store.get("catalog").newPage(n), []),
+    // Смена языка
+    changeLanguage: useCallback(
+      () => store.get("language").changeLanguage(),
+      []
+    ),
   };
 
   const renders = {
@@ -53,13 +63,20 @@ function Main() {
     return <Spinner />;
   }
 
+  console.log(lang[select.language].shop);
+
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>{lang[select.language].shop}</h1>}>
       <BasketSimple
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
-      />
+      >
+        <PanelLanguage
+          changeLanguage={callbacks.changeLanguage}
+          language={select.language}
+        />
+      </BasketSimple>
       <List items={select.items[select.num]} renderItem={renders.item} />
       {select.allPage && (
         <Pagination

@@ -4,8 +4,10 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Layout from "../../components/layout";
 import Info from "../../components/info";
+import MainLink from "../../components/main-link";
 import Spinner from "../../components/spinner";
 import BasketSimple from "../../components/basket-simple";
+import { lang } from "../../utils/language-array";
 
 function Page() {
   let { id = "none" } = useParams();
@@ -19,6 +21,7 @@ function Page() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     modal: state.modals.name,
+    language: state.language.num,
   }));
 
   const callbacks = {
@@ -47,7 +50,9 @@ function Page() {
         sum={select.sum}
         amount={select.amount}
         onOpen={callbacks.openModalBasket}
-      />
+      >
+        <MainLink link="/" title={lang[select.language].main} />
+      </BasketSimple>
       <Info item={select.item} onAdd={callbacks.addToBasket} />
     </Layout>
   );

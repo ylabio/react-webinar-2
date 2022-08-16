@@ -19,7 +19,7 @@ function ItemBasket(props) {
 
   return (
     <div className={cn()}>
-      <Link to={props.item._id} className={cn("title")}>
+      <Link to={`article/${props.item._id}`} className={cn("title")}>
         {props.item.title}
       </Link>
       <div className={cn("right")}>

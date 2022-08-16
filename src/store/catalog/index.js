@@ -16,6 +16,7 @@ class CatalogState extends StateModule {
       count: 0,
       loading: false,
       error: "",
+      num: 0,
     };
   }
 
@@ -64,6 +65,14 @@ class CatalogState extends StateModule {
         error: e.message,
       });
     }
+  }
+
+  newPage(n) {
+    this.setState(
+      { ...this.store.state.catalog, num: n },
+
+      `Новая страница`
+    );
   }
 
   /**

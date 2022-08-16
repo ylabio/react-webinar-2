@@ -4,7 +4,7 @@ import useStore from "../../utils/use-store";
 import useSelector from '../../utils/use-selector';
 import Layout from '../../components/layout';
 import ItemDetailed from '../../components/item-detailed';
-import ProgressBar from '../../components/ui/progress-bar';
+import ProgressBar from '../../ui/progress-bar';
 import Controls from '../../components/controls';
 import useTranslate from '../../utils/use-translate';
 

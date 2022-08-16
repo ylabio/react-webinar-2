@@ -6,7 +6,7 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
-import ProgressBar from "../../components/ui/progress-bar";
+import ProgressBar from "../../ui/progress-bar";
 import useTranslate from "../../utils/use-translate";
 
 function Main(){

@@ -3,6 +3,9 @@ import Main from "./main";
 import Basket from "./basket";
 import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
+import { Route, Routes } from 'react-router-dom';
+import Product from './product';
+import NotFound from './not-found'
 
 /**
  * Приложение
@@ -15,10 +18,16 @@ function App() {
   const modal = useSelector(state => state.modals.name);
 
   return (
-    <>
-      <Main/>
-      {modal === 'basket' && <Basket/>}
-    </>
+    <React.Fragment>
+			<Routes>
+				<Route path='/' element={<Main />}>
+					<Route path='page/:pageIndex' element={<Main />} />
+				</Route>
+				<Route path='articles/:id' element={<Product />} />
+				<Route path='*' element={<NotFound />} />
+			</Routes>
+			{modal === 'basket' && <Basket />}
+		</React.Fragment>
   );
 }
 

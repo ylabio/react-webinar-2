@@ -1,0 +1,14 @@
+.Navbar-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.Navbar-listItem a {
+	font-size: 18px;
+	line-height: 21px;
+	text-decoration: underline;
+	color: #0087e9;
+}
+.Navbar-listItem a:hover {
+	text-decoration: none;
+}

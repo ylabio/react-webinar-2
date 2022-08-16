@@ -1,0 +1,26 @@
+.ProductDetail {
+	padding: 25px 40px;
+	font-size: 18px;
+	line-height: 21px;
+}
+.ProductDetail-description {
+	margin-bottom: 20px;
+}
+.ProductDetail-characteristics {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	list-style: none;
+	padding: 0;
+	margin: 0 0 20px;
+}
+.ProductDetail-characteristics span {
+	display: inline-block;
+	font-weight: 700;
+	margin-left: 8px;
+}
+.ProductDetail-characteristicsItem_price {
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 28px;
+}

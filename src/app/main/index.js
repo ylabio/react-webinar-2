@@ -9,6 +9,9 @@ import Pagination from "components/pagination";
 import {useSearchParams} from "react-router-dom";
 import {l10n} from "l10n/strings";
 import {LocalisationContext} from "l10n";
+import Controls from "components/controls";
+import Navigation from "components/navigation";
+import {navigation} from "utils/constants/navigation";
 
 function Main() {
   console.log('Main');
@@ -62,7 +65,11 @@ function Main() {
 
   return (
     <Layout head={<h1>{heading}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <Controls>
+        <Navigation items={navigation}/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      </Controls>
+
       <List items={select.items} renderItem={renders.item}/>
       <Pagination
         initPage={initPage}

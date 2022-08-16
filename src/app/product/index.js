@@ -6,11 +6,15 @@ import useSelector from "../../utils/use-selector";
 import {useParams} from "react-router-dom";
 import {ProductCard} from "components/product-card";
 import {LocalisationContext} from "l10n";
+import Navigation from "components/navigation";
+import Controls from "components/controls";
+import {navigation} from "utils/constants/navigation";
 
 function Product() {
   console.log('Product');
 
   const store = useStore();
+
   const {id} = useParams();
   const {lang} = useContext(LocalisationContext);
 
@@ -34,7 +38,10 @@ function Product() {
 
   return (
     <Layout head={<h1>{select.product?.title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <Controls>
+        <Navigation items={navigation}/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      </Controls>
       <ProductCard item={select.product} onAdd={callbacks.addToBasket}/>
     </Layout>
   );

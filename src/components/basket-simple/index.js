@@ -3,7 +3,6 @@ import propTypes from 'prop-types';
 import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
-import {NavLink} from "react-router-dom";
 import {LocalisationContext} from "l10n";
 import {l10n} from "l10n/strings";
 import './styles.css';
@@ -20,8 +19,6 @@ function BasketSimple({sum, amount, onOpen}) {
 
   return (
     <div className={cn()}>
-      <NavLink to={'/'} className={cn('heading')}>{navigation}</NavLink>
-      <div>
         <span className={cn('label')}>{heading}:</span>
         <span className={cn('total')}>
           {amount
@@ -30,7 +27,6 @@ function BasketSimple({sum, amount, onOpen}) {
           }
           </span>
         <button className="BasketSimple__button" onClick={onOpen}>{button}</button>
-      </div>
     </div>
   );
 }

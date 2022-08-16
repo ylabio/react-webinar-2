@@ -1,13 +1,14 @@
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import ListPagination from "../../components/list-pagination";
 import Select from "../../components/language-select";
 import MainMenu from "../../components/main-menu";
+import {translateLanguage} from "../../utils/translateLanguage";
 
 function Main() {
   
@@ -22,12 +23,9 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.translation.language,
-    words: state.translation.words,
   }));
   
-  useEffect(() => {
-    store.get('catalog').load();
-  }, [select.currentPage])
+  const [words, setWords] = useState({});
   
   const callbacks = {
     // Открытие корзины
@@ -45,24 +43,33 @@ function Main() {
   const renders = {
     item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}
                                     getProductInformation={callbacks.getProductInformation}
-                                    words={{add: select.words.add}} path='/productInformation/'/>, [select.language]),
+                                    words={{add: words.add}} path='/productInformation/'/>, [words]),
   }
+  
+  useEffect(() => {
+    setWords(translateLanguage(select.language))
+  }, [select.language]);
+  
+  useEffect(() => {
+    store.get('catalog').load();
+  }, [select.currentPage])
+  
   return (
-    <Layout head={<><h1>{select.words.shop}</h1><Select changeLanguage={callbacks.changeLanguage}
+    <Layout head={<><h1>{words.shop}</h1><Select changeLanguage={callbacks.changeLanguage}
                                                         language={select.language}/></>}>
       <div style={{display: 'flex', justifyContent: 'space-between'}}>
         <MainMenu words={
           {
-            main: select.words.main,
+            main: words.main,
           }
         }/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={
           {
-            main: select.words.main,
-            inCart: select.words.inCart,
-            empty: select.words.empty,
-            item: select.words.item,
-            goTo: select.words.goTo
+            main: words.main,
+            inCart: words.inCart,
+            empty: words.empty,
+            item: words.item,
+            goTo: words.goTo
           }
         }/>
       </div>

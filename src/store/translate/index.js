@@ -13,7 +13,6 @@ class TranslateState extends StateModule {
   initState() {
     return {
       language: 'ru',
-      words: translateLanguage('ru')
     };
   }
   
@@ -25,7 +24,6 @@ class TranslateState extends StateModule {
     this.setState({
       ...this.getState(),
       language: lang,
-      words: translateLanguage(lang)
     })
   }
 }

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Main from "./main";
 import Basket from "./basket";
 import useSelector from "../utils/use-selector";
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import ProductInformation from "./product-information";
+import {translateLanguage} from "../utils/translateLanguage";
 
 /**
  * Приложение
@@ -13,11 +14,10 @@ function App() {
   
   console.log('App');
   
-  const {modal} = useSelector(state => {
+  const {modal, language} = useSelector(state => {
     return {
-      id: state.product.id,
-      isLoading: state.product.isLoading,
-      modal: state.modals.name
+      modal: state.modals.name,
+      language: state.translation.language,
     }
   })
   

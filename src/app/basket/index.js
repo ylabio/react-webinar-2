@@ -1,10 +1,11 @@
 import List from "../../components/list";
-import React, {useCallback} from "react";
+import React, {useCallback, useState, useEffect} from "react";
 import BasketTotal from "../../components/basket-total";
 import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import {translateLanguage} from "../../utils/translateLanguage";
 
 function Basket() {
   
@@ -17,8 +18,9 @@ function Basket() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.translation.language,
-    words: state.translation.words
   }));
+  
+  const [words, setWords] = useState({});
   
   const callbacks = {
     // Закрытие любой модалки
@@ -33,16 +35,20 @@ function Basket() {
     itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}
                                                 getProductInformation={callbacks.getProductInformation}
                                                 closeModal={callbacks.closeModal} words={{
-      pcs: select.words.pcs,
-      delete: select.words.delete,
+      pcs: words.pcs,
+      delete: words.delete,
     }
-    } path='/productInformation/'/>, []),
+    } path='/productInformation/'/>, [words]),
   }
+
+  useEffect(() => {
+    setWords(translateLanguage(select.language))
+  }, [select.language]);
   
   return (
-    <LayoutModal title={select.words.cart} onClose={callbacks.closeModal}>
+    <LayoutModal title={words.cart} onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum} words={{total: select.words.total}}/>
+      <BasketTotal sum={select.sum} words={{total: words.total}}/>
     </LayoutModal>
   )
 }

@@ -1,11 +1,12 @@
 import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import ProductCard from "../../components/product-card";
 import Select from "../../components/language-select";
 import MainMenu from "../../components/main-menu";
+import {translateLanguage} from "../../utils/translateLanguage";
 
 function ProductInformation() {
   
@@ -24,7 +25,6 @@ function ProductInformation() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.translation.language,
-    words: state.translation.words,
     isLoading: state.product.isLoading
   }));
   
@@ -41,6 +41,12 @@ function ProductInformation() {
     changeLanguage: useCallback((language) => store.get('translation').changeLanguage(language), [])
   };
   
+  const [words, setWords] = useState({});
+  
+  useEffect(() => {
+    setWords(translateLanguage(select.language))
+  }, [select.language]);
+  
   useEffect(() => {
     if (window.location.pathname.includes('productInformation/')) {
       console.log(window.location.pathname.split('productInformation/')[1])
@@ -55,16 +61,16 @@ function ProductInformation() {
       <div style={{display: 'flex', justifyContent: 'space-between'}}>
         <MainMenu words={
           {
-            main: select.words.main,
+            main: words.main,
           }
         }/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={
           {
-            main: select.words.main,
-            inCart: select.words.inCart,
-            empty: select.words.empty,
-            item: select.words.item,
-            goTo: select.words.goTo
+            main: words.main,
+            inCart: words.inCart,
+            empty: words.empty,
+            item: words.item,
+            goTo: words.goTo
           }}/>
       </div>
       {!select.isLoading ?
@@ -77,11 +83,11 @@ function ProductInformation() {
           price={select.price}
           addToBasket={callbacks.addToBasket}
           words={{
-            country: select.words.country,
-            category: select.words.category,
-            year: select.words.year,
-            price: select.words.price,
-            add: select.words.add
+            country: words.country,
+            category: words.category,
+            year: words.year,
+            price: words.price,
+            add: words.add
           }}/> : <div style={{marginLeft: 20}}>Идет загрузка...</div>}
     </Layout>
   )

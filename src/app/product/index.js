@@ -7,6 +7,7 @@ import {cn as bem} from "@bem-react/classname";
 import BasketSimple from "../../components/basket-simple";
 import ProductInfo from '../../components/product-info'
 import Header from './../../components/header/index';
+import Subheader from '../../components/subheader';
 
 
 function ProductPage() {
@@ -34,7 +35,7 @@ function ProductPage() {
   return (
 		// <Layout head={<h1>{select.item.title}</h1>}>
 		<Layout head={<Header title={select.item.title}/>}>
-			<BasketSimple lang={select.language} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+			<Subheader amount={select.amount} sum={select.sum} callback={callbacks.openModalBasket} lang={select.language} link={'/'}/>
 			<ProductInfo lang={select.language} item={select.item} callback={()=>callbacks.addToBasket(params.id)}/>
 		</Layout>
 		);

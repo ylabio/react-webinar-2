@@ -8,6 +8,8 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import {langVars} from '../../utils/localisation'
 import Header from './../../components/header';
+import { Link } from 'react-router-dom';
+import Subheader from "../../components/subheader";
 
 function Main(){
 
@@ -44,7 +46,7 @@ function Main(){
 
   return (
     <Layout head={<Header title={langVars.main.heading[select.language]}/>}>
-      <BasketSimple lang={select.language} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <Subheader callback={callbacks.openModalBasket} link={'/'} amount={select.amount} sum={select.sum} lang={select.language}/>
       <List items={select.items} renderItem={renders.item}/>
       <Paginator 
       itemsAmount={select.totalCount}

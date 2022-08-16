@@ -56,6 +56,7 @@ class CatalogState extends StateModule{
   setSkip({skip, selected}) {
     this.setState({
       ...this.getState(), 
+      count: 0,
       skip: skip,
       selected: selected,
     }, 'Смещение выборки и пагинация');

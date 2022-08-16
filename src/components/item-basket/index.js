@@ -33,7 +33,8 @@ ItemBasket.propTypes = {
   onRemove: propTypes.func.isRequired,
   onClose: propTypes.func.isRequired,
   pcsText: propTypes.string,
-  deleteButtonName: propTypes.string
+  deleteButtonName: propTypes.string,
+  link: propTypes.string.isRequired
 }
 
 ItemBasket.defaultProps = {

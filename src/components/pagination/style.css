@@ -1,0 +1,37 @@
+.Pagination {
+  background-color: #fff;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Pagination-wrapper {
+  display: flex;
+  margin: 21px;
+  background-color: #fff;
+}
+
+.Pagination-select {
+  padding-top: 1px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.Pagination-select:hover {
+  background: #e1e1e1;
+}
+
+.Pagination-selected {
+  padding-top: 1px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  background: #0087e9;
+  color: #fff;
+}
+
+.Pagination-divider {
+  color: #cccccc;
+}

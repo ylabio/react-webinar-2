@@ -5,6 +5,7 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import {PATH} from "../index";
 
 function Basket(){
 
@@ -15,7 +16,7 @@ function Basket(){
   const select = useSelector(state => ({
     items: state.basket.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
   }));
 
   const callbacks = {
@@ -26,7 +27,10 @@ function Basket(){
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item => <ItemBasket item={item}
+                                                onRemove={callbacks.removeFromBasket}
+                                                onClose={callbacks.closeModal}
+                                                itemLink={`${PATH.DESCRIPTION}/${item._id}`}/>, []),
   }
 
   return (

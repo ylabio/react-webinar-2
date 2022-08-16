@@ -1,0 +1,9 @@
+/* Контрол с общими действиями */
+.Navigation{
+    margin: 0;
+    padding:  0 0 0 20px;
+    position: absolute;
+    top: 100px;
+    max-width: 200px;
+}
+

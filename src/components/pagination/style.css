@@ -1,0 +1,27 @@
+/*Список*/
+.Pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin: 22px 22px 0 0;
+}
+
+.Pagination-value {
+}
+
+.Pagination-link {
+    text-decoration: none;
+    color: #000000;
+    padding: 1px 6px;
+}
+
+.Pagination-link:hover {
+    background-color: #E1E1E1;
+    padding: 1px 6px;
+}
+
+.Pagination-link-active {
+    background-color: #0087E9;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 1px 6px;
+}

@@ -28,11 +28,11 @@ function Main(){
 
   useEffect(() => {
     store.get('pagination').calculatePagesCount(select.itemsOnPage);
-  }, [])
+  })
 
   useEffect(() => {
     store.get('pagination').goToPage(params.pageNumber);
-  }, [])
+  })
 
   useEffect(() => {
     store.get('catalog').loadPage(select.itemsOnPage, select.currentPage);

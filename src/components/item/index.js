@@ -18,7 +18,7 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
         {/* <Link to="/item/:props.item._id"> */}
-        <Link to={`/item/${props.item._id}`} key={props.item._id}>
+        <Link onClick={props.closeModal ? props.closeModal : null} to={`/item/${props.item._id}`} key={props.item._id}>
           <div className={cn('title')}>
           {props.item.title}</div>
         </Link>

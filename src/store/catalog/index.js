@@ -45,44 +45,32 @@ class CatalogState extends StateModule{
     const response = await fetch(`/api/v1/articles/${itemId}?fields=title%2Cdescription%2CmaidIn%2Cprice%2Ccategory%2Cedition&lang=ru`);
     const json = await response.json();
 
-    const countryResponse = await fetch(`/api/v1/countries/${json.result.maidIn._id}?lang=ru&fields=title%2Ccode`);
-    const countryJson = countryResponse.json();
-    console.log(countryResponse.json())
-
-    const categoryResponse = await fetch(`/api/v1/categories/${json.result.category._id}?lang=ru&fields=title`);
-    const categoryJson = categoryResponse.json();
-    console.log(categoryResponse.json())
+    const country = await this.loadCountryById(json.result.maidIn._id)
+    const category = await this.loadCategoryById(json.result.category._id)
+    console.log(country)
+    console.log(category)
     this.setState({
       ...this.store.state.catalog,
       currentItem: json.result,
-      currentItemCountry: countryJson.title,
-      currentItemCountryCode: countryJson.code,
-      currentItemCountryCategory: categoryJson.title,
+      currentItemCountry: country.title,
+      currentItemCountryCode: country.code,
+      currentItemCountryCategory: category,
     },'this item');
   }
 
-  // async loadCountryById(){
-  //   const response = await fetch(`/api/v1/countries/${this.store.state.catalog}?lang=ru&fields=title%2Ccode`);
-  //   const json = await response.json();
-  //   console.log('this item')
-
-  //   const response = await fetch(`/api/v1/countries/${this.store.state.catalog}?lang=ru&fields=title%2Ccode`);
-  //   console.log(this)
-  //   this.setState({
-  //     ...this.store.state.catalog,
-  //     currentItemCountry: json.result.title,
-  //     currentItemCountryCode: json.result.code
-  //   },'this item');
-  // }
-  async loadCategoryById(categoryId){
-    const response = await fetch(`/api/v1/categories/${this.store.state.catalog.currentItem.maidIn._id}?lang=ru&fields=title`);
+  async loadCountryById(id){
+    const response = await fetch(`/api/v1/countries/${id}?lang=ru&fields=title%2Ccode`);
     const json = await response.json();
-    console.log('this item')
-    console.log(this)
-    this.setState({
-      ...this.store.state.catalog,
-      currentItemCategory: json.result.title
-    },'this item');
+    let country = json.result
+
+    return country
+  }
+  async loadCategoryById(id){
+    const response = await fetch(`/api/v1/categories/${id}?lang=ru&fields=title`);
+    const json = await response.json();
+    let category = json.result.title
+    
+    return category
   }
 
   /**

@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import numberFormat from '../../utils/numberFormat';
 import Nav from '../nav';
@@ -45,10 +45,10 @@ function LayoutArticle({article, addToBasket, onNavigate, children}) {
 }
 
 LayoutArticle.propTypes = {
-  article: PropTypes.object,
-  addToBasket: PropTypes.func.isRequired,
-  onNavigate: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
+  article: propTypes.object,
+  addToBasket: propTypes.func.isRequired,
+  onNavigate: propTypes.func.isRequired,
+  children: propTypes.node.isRequired,
 };
 
 LayoutArticle.defaultProps = {

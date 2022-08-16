@@ -14,7 +14,7 @@ class CatalogState extends StateModule{
     return {
       items: [],
       page: 0,
-      limit: 10,
+      limit: 25,
       _pages: 0,
     };
   }

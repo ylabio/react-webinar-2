@@ -7,6 +7,7 @@ import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
 import Pages from '../../components/pages';
 import translator from '../../utils/translator';
+import LinkTo from '../../components/link-to';
 
 function Main() {
   console.log('Main');
@@ -49,6 +50,10 @@ function Main() {
       ),
       [select.currentLanguage]
     ),
+    toMain: useCallback(
+      () => <LinkTo linkTo="/" name={dictionary.main} />,
+      [select.currentLanguage]
+    ),
   };
 
   return (
@@ -59,6 +64,7 @@ function Main() {
           amount={select.amount}
           sum={select.sum}
           dictionary={dictionary}
+          renderLink={renders.toMain}
         />
 
         <List items={select.items} renderItem={renders.item} />

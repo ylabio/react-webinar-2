@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import useSelector from '../../utils/use-selector';
 import useStore from '../../utils/use-store';
 import translator from '../../utils/translator';
+import LinkTo from '../../components/link-to';
 import DescriptionLayout from '../../components/description-layout';
 
 function Description() {
@@ -33,6 +34,13 @@ function Description() {
     addToBasket: useCallback((_id) => store.get('basket').addToBasket(_id), []),
   };
 
+  const renders = {
+    toMain: useCallback(
+      () => <LinkTo linkTo="/" name={dictionary.main} />,
+      [select.currentLanguage]
+    ),
+  };
+
   return (
     <Layout head={<h1>{select.item.title}</h1>}>
       <BasketSimple
@@ -40,6 +48,7 @@ function Description() {
         amount={select.amount}
         sum={select.sum}
         dictionary={dictionary}
+        renderLink={renders.toMain}
       />
       <DescriptionLayout
         item={select.item}

@@ -1,50 +1,39 @@
 import React from "react";
-import propTypes from 'prop-types'
-import { cn as bem} from '@bem-react/classname'
-import './style.css'
-import useSelector from '../../utils/use-selector'
-import useStore from '../../utils/use-store'
+import propTypes from 'prop-types';
+import { cn as bem} from '@bem-react/classname';
+import './style.css';
 
-function Pagination() {
+function Pagination(props) {
 
     const cn = bem("Pagination");
-    const store = useStore();
-    const { totalPages, currentPage } = useSelector(state => ({
-        currentPage: state.catalog.currentPage,
-        totalPages: state.catalog.totalPages
-    }));
-
-    React.useEffect(()=>{
-        store.get('catalog').load(currentPage)
-    }, [currentPage]);
 
     const list = React.useMemo(() => {
-        if ([1,2].includes(currentPage)) {
-            return [1, 2, 3, "...", totalPages]
+        if ([1,2].includes(props.currentPage)) {
+            return [1, 2, 3, "...", props.totalPages]
         }
-        if (currentPage === 3) {
-            return [1, 2, 3, 4, "...", totalPages]
+        if (props.currentPage === 3) {
+            return [1, 2, 3, 4, "...", props.totalPages]
         }
-        if ([totalPages-1, totalPages].includes(currentPage)) {
-            return [1, "...", totalPages-2, totalPages-1, totalPages]
+        if ([props.totalPages-1, props.totalPages].includes(props.currentPage)) {
+            return [1, "...", props.totalPages-2, props.totalPages-1, props.totalPages]
         }
-        if (currentPage === totalPages-2) {
-            return [1, "...", totalPages-3, totalPages-2, totalPages-1, totalPages]
+        if (props.currentPage === props.totalPages-2) {
+            return [1, "...", props.totalPages-3, props.totalPages-2, props.totalPages-1, props.totalPages]
         }
 
-        return [1, "...", currentPage-1, currentPage, currentPage+1, "...", totalPages ]
-    }, [currentPage, totalPages])
+        return [1, "...", props.currentPage-1, props.currentPage, props.currentPage+1, "...", props.totalPages ]
+    }, [props.currentPage, props.totalPages])
 
     return(
         <div className={cn()}>
             {
                 list.map((page, id) => (
-                    <div className={page === currentPage
+                    <div className={page === props.currentPage
                         ? cn("selected")
                         : page === "..."
                         ? cn("spacer") : cn('page')} key={id}
                     onClick={page === "..." ? null : () => {
-                        store.get('catalog').setPage(page)
+                        props.onPageChange(page)
                     }
                     }
                     >

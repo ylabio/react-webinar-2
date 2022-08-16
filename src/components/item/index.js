@@ -1,17 +1,17 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
+import { useParams } from "react-router-dom"
 import {cn as bem} from "@bem-react/classname";
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import numberFormat from "../../utils/number-format";
 import './style.css';
 
 function Item(props) {
+
   const cn = bem('Item');
-  const navigate = useNavigate()
 
   const callbacks = {
-    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
-      onNavigate: useCallback(() => navigate(`item/${props.item._id}`, {replace: true}), [props.item])
+    onAdd: useCallback((e) => props.onAdd(props.item), [props.onAdd, props.item]),
   };
 
   return (
@@ -19,9 +19,9 @@ function Item(props) {
       {/*<div className={cn('id')}>*/}
       {/*  {props.item._id}*/}
       {/*</div>*/}
-      <div className={cn('title')} onClick={callbacks.onNavigate}>
+      <Link className={cn('title')} to={props.link}>
         {props.item.title}
-      </div>
+      </Link>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
         <button onClick={callbacks.onAdd}>Добавить</button>

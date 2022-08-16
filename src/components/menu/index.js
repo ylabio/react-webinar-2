@@ -1,25 +1,16 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {cn as bem} from "@bem-react/classname";
-import useStore from "../../utils/use-store";
 import "./style.css";
 
-function Menu() {
+function Menu(props) {
 
     const cn = bem('Menu');
-    const navigate = useNavigate();
-    const currentPath = useLocation();
-    const store = useStore();
-
 
     return(
-        <p className={cn('link')} onClick={()=> {
-            if (currentPath.pathname === "/") {
-                store.get('catalog').load(1)
-            } else {
-                navigate("/")
-            }
-        }}>Главная</p>
+        <Link to={"/"} className={cn('link')} onClick={()=> {
+            props.onNavigate()
+        }} >Главная</Link>
     )
 }
 

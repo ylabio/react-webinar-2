@@ -1,14 +1,17 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import BasketSimple from "../../components/basket-simple";
-import NavLink from '../nav-link';
+import Menu from '../menu';
 import './style.css';
 
 function Controls(props){
   return (
     <div className='Controls'>
-      <NavLink link={'/'} text={'Главная'}/>
-      <BasketSimple onOpen={props.onOpen} amount={props.amount} sum={props.sum} translate={props.translate}/>
+      <Menu translate={props.translate}/>
+      <BasketSimple onOpen={props.onOpen} 
+                    amount={props.amount} 
+                    sum={props.sum} 
+                    translate={props.translate}/>
     </div>
   )
 }

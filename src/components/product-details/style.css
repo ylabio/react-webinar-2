@@ -1,4 +1,4 @@
-.product {
+.product-details {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -6,7 +6,7 @@
   row-gap: 20px;
 }
 
-.product__price {
+.product-details__price {
   font-size: 1.25em;
   font-weight: bold;
 }

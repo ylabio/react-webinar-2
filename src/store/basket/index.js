@@ -17,42 +17,25 @@ class BasketState extends StateModule{
     };
   }
 
-  /**
-   * Добавление товара в корзину
-   * @param _id Код товара
-   */
+  // добавление в корзину
+  // вызывается со страницы товара и из каталога
+  //
   addToBasket(_id) {
-    let sum = 0;
-    // Ищем товар в корзие, чтобы увеличить его количество. Заодно получаем новый массив items
-    let exists = false;
-    const items = this.getState().items.map(item => {
-      let result = item;
-      // Искомый товар для увеличения его количества
-      if (item._id === _id) {
-        exists = true;
-        result = {...item, amount: item.amount + 1};
-      }
-      // Добавляея в общую сумму
-      sum += result.price * result.amount;
-      return result
-    });
+    let items = this.getState().items;
+    const index = items.findIndex(item => _id === item._id);
 
-    // Если товар не был найден в корзине, то добавляем его из каталога
-    if (!exists) {
-      // Поиск товара в каталоге, чтобы его в корзину добавить
-      // @todo В реальных приложения будет запрос к АПИ на добавление в корзину, и апи выдаст объект товара..
-      const item = this.store.getState().catalog.pageItems.find(item => item._id === _id);
-      items.push({...item, amount: 1});
-      // Досчитываем сумму
-      sum += item.price;
+    if (index === -1) {
+      let item = this.store.getState().catalog.pageItems.find(item => _id === item._id); // найден в сторе каталога
+      if (!item) item = this.store.getState().product.details; // или в сторе страницы товара
+      items.push({ ...item, amount: 1 });
     }
+    else items[index].amount += 1;
 
-    // Установка состояние, basket тоже нужно сделать новым
     this.setState({
       items,
-      sum,
+      sum: items.reduce((sum, item) => sum + item.price * item.amount, 0),
       amount: items.length
-    }, 'Добавление в корзину');
+    }, 'Добавление в корзину')
   }
 
   /**
@@ -73,22 +56,6 @@ class BasketState extends StateModule{
       sum,
       amount: items.length
     }, 'Удаление из корзины')
-  }
-
-  // вызывается из pages/product, data - объект со всей информацией о товаре
-  addToCart(data) {
-    const s = this.getState();
-    const cartIndex = s.items.findIndex(item => item._id === data._id);
-
-    const items = (cartIndex === -1)
-      ? s.items.concat({ ...data, amount: 1 })
-      : s.items.map((item, index) => index === cartIndex ? { ...item, amount: item.amount + 1 } : item)
-
-    this.setState({
-      items,
-      sum: items.reduce((sum, item) => sum + item.price * item.amount, 0),
-      amount: items.length
-    }, 'Добавление в корзину')
   }
 }
 

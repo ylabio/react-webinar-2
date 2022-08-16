@@ -14,7 +14,7 @@ function Header(props) {
 	}
 	return (
 		<div className={cn()}>
-			<h1>{langVars.main.heading[props.lang]}</h1>
+			<h1>{props.title}</h1>
 			<SwitcherLang lang={props.lang} className={cn('item')} callback={callbacks.changeLanguage}/>
 		</div>
 		

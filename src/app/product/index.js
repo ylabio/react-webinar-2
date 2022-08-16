@@ -31,7 +31,7 @@ function ProductPage() {
 		addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
 	};
   return (
-		<Layout head={<Header lang={select.language}/>}>
+		<Layout head={<Header title={select.item.title} lang={select.language}/>}>
 			<Subheader amount={select.amount} sum={select.sum} callback={callbacks.openModalBasket} lang={select.language} link={'/'}/>
 			<ProductInfo lang={select.language} item={select.item} callback={()=>callbacks.addToBasket(params.id)}/>
 		</Layout>

@@ -18,7 +18,8 @@ function Pagination({selectPage, currentPage, allPages}) {
   return (
     <div className={cn()} >
       <ul className={cn('list')}>
-        <li className={currentPage === 0 ? cn('active') : ''} onClick={() => cb.selectPage(0)} >1</li>
+        <li className={currentPage === 0 ? cn('active') : ''}
+            onClick={() => cb.selectPage(0)} >1</li>
         {
           firstDots && <li className={cn('dotted')}>...</li>
         }

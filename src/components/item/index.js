@@ -18,7 +18,7 @@ function Item(props) {
       {/*<div className={cn('id')}>*/}
       {/*  {props.item._id}*/}
       {/*</div>*/}
-      <div className={cn('title')} onClick={() => navigate(`/articles/${props.item._id}`, { replace: true })}>
+      <div className={cn('title')} onClick={() => navigate(props.pathLink, { replace: true })}>
         {props.item.title}
       </div>
       <div className={cn('right')}>
@@ -33,11 +33,13 @@ Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
   lang: propTypes.object,
+  pathLink: propTypes.string,
 }
 
 Item.defaultProps = {
   onAdd: () => {},
   lang: {},
+  pathLink: '',
 }
 
 export default React.memo(Item);

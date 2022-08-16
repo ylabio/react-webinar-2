@@ -11,7 +11,7 @@ function ItemBasket(props) {
 
   const callbacks = {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
-    onClose: useCallback((e) => props.onClose(), []),
+    onClose: useCallback(() => props.onClose(), []),
   };
 
   return (
@@ -20,7 +20,7 @@ function ItemBasket(props) {
       <div className={cn('title')}
            onClick={() => {
              callbacks.onClose();
-             navigate(`/articles/${props.item._id}`, {replace: true});
+             navigate(props.pathLink, {replace: true});
            }}
       >
         {props.item.title}
@@ -38,11 +38,13 @@ ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
   onClose: propTypes.func,
-  lang: propTypes.object
+  lang: propTypes.object,
+  pathLink: propTypes.string,
 }
 
 ItemBasket.defaultProps = {
   lang: {},
+  pathLink: '',
 }
 
 export default React.memo(ItemBasket);

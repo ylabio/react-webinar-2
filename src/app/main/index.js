@@ -45,6 +45,7 @@ function Main(){
       <Item lang={select.lang}
             item={item}
             onAdd={callbacks.addToBasket}
+            pathLink={`/articles/${item._id}`}
       />, [select.lang]),
   }
 

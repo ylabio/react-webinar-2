@@ -20,7 +20,7 @@ function Main(){
 
   const select = useSelector(state => ({
     items: state.catalog.items,
-    navigationPagesCount: state.catalog.navigationPagesCount,
+    count: state.catalog.count,
     navigationPageSelected: state.catalog.navigationPageSelected,
     amount: state.basket.amount,
     sum: state.basket.sum
@@ -43,7 +43,7 @@ function Main(){
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
-      <Navigation onChangePage={callbacks.changePage}/>
+      <Navigation onChangePage={callbacks.changePage} totalCount={select.count} selectedPage={select.navigationPageSelected}/>
     </Layout>
   )
 }

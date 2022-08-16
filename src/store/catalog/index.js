@@ -14,7 +14,6 @@ class CatalogState extends StateModule{
     return {
       items: [],
       count: 0,
-      navigationPagesCount: 0,
       navigationPageSelected: 0,
       navigationPageSkip: 0,
     };
@@ -26,7 +25,6 @@ class CatalogState extends StateModule{
     this.setState({
       items: json.result.items,
       count: json.result.count,
-      navigationPagesCount: this.getState().navigationPagesCount == 0 ? (Math.ceil(json.result.count / 10)) : this.getState().navigationPagesCount,
       navigationPageSelected: this.getState().navigationPageSelected == 0 ? (json.result.count > 1 ? 1 : 0) : this.getState().navigationPageSelected,
       navigationPageSkip: this.getState().navigationPageSkip,
     });
@@ -37,10 +35,7 @@ class CatalogState extends StateModule{
    */
   update(){
     this.setState({
-      items: this.getState().items,
-      count: this.getState().count,
-      navigationPagesCount: this.getState().navigationPagesCount,
-      navigationPageSelected: this.getState().navigationPageSelected,
+      ...this.getState(),
       navigationPageSkip: this.getState().navigationPageSelected * 10 - 10
     })
   }
@@ -69,9 +64,7 @@ class CatalogState extends StateModule{
    */
    changePage(number = 1) {
     this.setState({
-      items: this.getState().items,
-      count: this.getState().count,
-      navigationPagesCount: this.getState().navigationPagesCount,
+      ...this.getState(),
       navigationPageSelected: number,
       navigationPageSkip: this.getState().navigationPageSelected * 10
     })

@@ -3,21 +3,13 @@ import propTypes from 'prop-types';
 import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
-import { useNavigate } from "react-router-dom";
 import './styles.css';
-
 
 function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
-  let navigate = useNavigate();
-
-  function goHome(){
-    navigate("../");
-  }
 
   return (
     <div className={cn()}>
-      <span className={cn('home')} onClick={goHome}>Главная</span>
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
       {amount

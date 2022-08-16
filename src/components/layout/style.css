@@ -22,3 +22,12 @@ body{
     margin: 0;
     padding: 20px 20px 10px;
 }
+
+.Layout-subheader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 982px;
+    margin: 0 auto;
+}

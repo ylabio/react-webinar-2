@@ -2,7 +2,7 @@
 .BasketSimple{
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    padding: 20px 0 20px 20px;
     font-size: 18px;
 }
 

@@ -3,6 +3,7 @@ import {cn as bem} from "@bem-react/classname";
 import {Link} from "react-router-dom";
 import {PaginationButton} from "../ui/pagination-button";
 import './style.css'
+import propTypes from "prop-types";
 
 export const Pagination = ({itemsPerPage, totalItems, setPage, activeIndex}) => {
     const cn = bem('Pagination');
@@ -74,4 +75,10 @@ export const Pagination = ({itemsPerPage, totalItems, setPage, activeIndex}) => 
             })}
         </div>
     )
+}
+Pagination.propTypes = {
+    itemsPerPage: propTypes.number,
+    totalItems: propTypes.number,
+    setPage: propTypes.func,
+    activeIndex: propTypes.number
 }

@@ -7,6 +7,7 @@ import BasketSimple from "../basket-simple";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import {getItemById} from "../../api/api";
+import Menu from "../menu";
 
 function Layout({head}) {
     const cn = bem('Layout');
@@ -47,7 +48,10 @@ function Layout({head}) {
                     {Object.keys(params).length === 0 ? 'Магазин' : title}
                 </h1>
             </div>
-            <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+            <div className={cn('subheader')}>
+                <Menu title={'Главная'} url={'/'} />
+                <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+            </div>
             <div className={cn('content')}>
                 <Outlet/>
             </div>

@@ -15,9 +15,10 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/home" element={<Main />} />
           <Route path="/page/:pageId" element={<Main />} />
-          <Route path="/item" element={<ItemPage />} />
-          <Route path="*" element={<Navigate to="/page/1" replace />} />
+          <Route path="/item/:pageId" element={<ItemPage />} />
+          <Route path="*" element={<Navigate to="/home" replace />} />
         </Routes>
       </BrowserRouter>
     </>

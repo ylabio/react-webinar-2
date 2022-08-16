@@ -18,25 +18,19 @@ function ItemInfo(props) {
     addToBasket: useCallback((_id) => store.get('basket').addToBasket(_id), []),
   };
   if (props.item) {
-    if (select.items.length) {
-      const { category, description, maidIn, edition, price, _id } = props.item
-      return (
-        <>
-          <div className={cn()}>
-            <p>{description}</p>
-            <p>Страна производитель: <span>{maidIn.title} ({maidIn.code})</span></p>
-            <p>Категория: <span>{category.title}</span></p>
-            <p>Год выпуска: <span>{edition}</span></p>
-            <div className={cn("price")}>Цена: {numberFormat(price)} ₽</div>
-          </div>
-          <button className={cn("button")} onClick={() => { callbacks.addToBasket(_id) }}>Добавить</button>
-        </>
-      )
-    } else {
-      return (
-        <Navigate to="/page/1" replace />
-      )
-    }
+    const { category, description, maidIn, edition, price, _id } = props.item
+    return (
+      <>
+        <div className={cn()}>
+          <p>{description}</p>
+          <p>Страна производитель: <span>{maidIn.title} ({maidIn.code})</span></p>
+          <p>Категория: <span>{category.title}</span></p>
+          <p>Год выпуска: <span>{edition}</span></p>
+          <div className={cn("price")}>Цена: {numberFormat(price)} ₽</div>
+        </div>
+        <button className={cn("button")} onClick={() => { callbacks.addToBasket(_id) }}>Добавить</button>
+      </>
+    )
   }
 
   ItemInfo.propTypes = {

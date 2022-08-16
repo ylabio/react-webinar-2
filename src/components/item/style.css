@@ -31,6 +31,7 @@
 
 .Item a {
     text-decoration: none;
+    color: #000000;
 }
 .Item a:visited {
 color: #000000;

@@ -8,6 +8,7 @@ import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import { useParams } from "react-router-dom";
 import Basket from "../basket";
+import Navigation from "../../components/navigation";
 
 function Main() {
   console.log('Main');
@@ -39,9 +40,10 @@ function Main() {
   return (
     <>
       <Layout head={<h1>Магазин</h1>}>
+        <Navigation />
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
         <List items={select.items} renderItem={renders.item} />
-        <Pagination totalItems={select.totalItems} />
+        <Pagination totalItems={select.totalItems} pageId={pageId} />
       </Layout>
       {select.modal === 'basket' && <Basket />}
     </>

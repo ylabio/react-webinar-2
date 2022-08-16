@@ -1,0 +1,20 @@
+.Navigation-list {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.Navigation-link a {
+  margin-right: auto;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #0087E9;
+}
+
+.Navigation-link a:visited {
+  color: #0087E9;
+}

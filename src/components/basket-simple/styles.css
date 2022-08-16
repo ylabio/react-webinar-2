@@ -6,13 +6,6 @@
     font-size: 18px;
 }
 
-.BasketSimple a {
-    margin-right: auto;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 21px;
-    color: #0087E9;
-}
 
 .BasketSimple-total{
     font-weight: bold;

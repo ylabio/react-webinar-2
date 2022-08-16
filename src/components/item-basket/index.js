@@ -9,14 +9,15 @@ function ItemBasket(props) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item])
+    onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
+    onCloseBasket: useCallback((e) => props.onCloseModal(props.item._id), [props.onRemove,  props.item])
   };
 
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <Link to={'/products/' + props.item._id}>
+        <Link to={'/products/' + props.item._id} onClick={callbacks.onCloseBasket}>
           {props.item.title}
         </Link>
       </div>

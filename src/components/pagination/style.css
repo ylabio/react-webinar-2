@@ -1,4 +1,4 @@
-.Pages {
+.Pagination {
     display: flex;
     justify-content: flex-end;
     margin: 0;
@@ -6,7 +6,7 @@
     list-style: none;
 }
 
-.Pages-ellipsis {
+.Pagination-ellipsis {
     display: flex;
     justify-content: center;
     align-items: center;

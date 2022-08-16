@@ -1,7 +1,7 @@
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import Pages from "../../components/pages";
+import Pagination from "../../components/pagination";
 import Language from "../../components/language";
 import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
@@ -59,7 +59,7 @@ function Main(){
       {select.count ? 
         <>
           <List items={select.items} renderItem={renders.item}/>
-          <Pages limit={select.limit} count={select.count} selected={select.selected} onClick={callbacks.onClick}/>
+          <Pagination limit={select.limit} count={select.count} selected={select.selected} onClick={callbacks.onClick}/>
         </> : 
         <h2 style={{textAlign: 'center'}}>Loading...</h2>
       }

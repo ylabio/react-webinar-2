@@ -1,20 +1,17 @@
 import React, { useCallback } from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from 'prop-types';
-import ItemPagination from "../../components/item-pagination";
+import ItemPagination from "../item-pagination";
 import './style.css';
 
-function Pages({ selected, limit, count, onClick }) {
-  const cn = bem('Pages');
+function Pagination({ selected, limit, count, onClick }) {
+  const cn = bem('Pagination');
 
   const pageCount = Math.ceil(count / limit);
 
   const getRange = (start, end) => Array(end - start + 1).fill().map((v, i) => i + start);
 
   const pagination = (currentPage, pagesCount) => {
-    const isFirst = currentPage === 1;
-    const isLast = currentPage === pagesCount;
-
     let delta;
     if (pagesCount <= 7) {
       delta = 7;
@@ -70,13 +67,13 @@ function Pages({ selected, limit, count, onClick }) {
   );
 };
 
-Pages.propTypes = {
+Pagination.propTypes = {
   selected: propTypes.number.isRequired,
   count: propTypes.number.isRequired,
   onClick: propTypes.func.isRequired
 }
 
-Pages.defaultProps = {
+Pagination.defaultProps = {
 }
 
-export default React.memo(Pages);
+export default React.memo(Pagination);

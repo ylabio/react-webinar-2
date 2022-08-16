@@ -8,6 +8,8 @@ import Pagination from "../../components/pagination";
 import { localize } from "../../utils/localize";
 import { useNavigate, useParams } from "react-router-dom";
 import PageMessage from "../../components/page-message";
+import Header from "../../components/header";
+import Language from "../../components/language";
 
 function Main(){
 
@@ -30,6 +32,8 @@ function Main(){
 	}, [skip]);
 
   const select = useSelector(state => ({
+		amount: state.basket.amount,
+		sum: state.basket.sum,
     items: state.catalog.items,
     count: state.catalog.count,
     pageCount: state.catalog.pageCount,
@@ -41,6 +45,19 @@ function Main(){
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+		openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+		onLanguageRu: useCallback(
+			() => store.get('localization').changeLanguage('ru'),
+			[],
+		),
+    onLanguageEn: useCallback(
+			() => store.get('localization').changeLanguage('en'),
+			[],
+		),
+    onLanguageIt: useCallback(
+			() => store.get('localization').changeLanguage('it'),
+			[],
+		),
   };
 
   const renders = {
@@ -48,7 +65,23 @@ function Main(){
   }
 
   return (
-    <Layout head={<h1>{localize['Магазин'][select.language]}</h1>}>
+    <Layout
+			head={<h1>{localize['Магазин'][select.language]}</h1>}
+			language={
+				<Language
+					onLanguageRu={callbacks.onLanguageRu}
+					onLanguageEn={callbacks.onLanguageEn}
+					onLanguageIt={callbacks.onLanguageIt}
+					currentLanguage={select.language}
+				/>
+			}
+		>
+			<Header
+				language={select.language}
+				onOpen={callbacks.openModalBasket}
+				amount={select.amount}
+				sum={select.sum} 
+			/>
 			{select.loading ? (
 				<PageMessage>{localize['Загрузка'][select.language]}...</PageMessage>
 			) : select.items.length > 0 ? (

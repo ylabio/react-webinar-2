@@ -17,6 +17,7 @@ class CatalogState extends StateModule{
         page: 1,
         limit: 10,
         sort: 'order',
+        query: ''
       },
       waiting: false
     };
@@ -33,7 +34,7 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}`);
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
     const json = await response.json();
 
     // Установка полученных данных и сброс признака загрузки

@@ -10,6 +10,7 @@ import LayoutFlex from "../../components/layout-flex";
 import Pagination from "../../components/pagination";
 import Spinner from "../../components/spinner";
 import Select from "../../components/select";
+import Input from "../../components/input";
 
 function Main() {
   const store = useStore();
@@ -23,6 +24,7 @@ function Main() {
     page: state.catalog.params.page,
     limit: state.catalog.params.limit,
     sort: state.catalog.params.sort,
+    query: state.catalog.params.query,
     count: state.catalog.count,
     amount: state.basket.amount,
     sum: state.basket.sum,
@@ -37,7 +39,9 @@ function Main() {
     // Пагианция
     onPaginate: useCallback(page => store.get('catalog').setParams({page}), []),
     // Сортировка
-    onSort: useCallback(sort => store.get('catalog').setParams({sort}), [store]),
+    onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
+    // Поиск
+    onSearch: useCallback(query => store.get('catalog').setParams({query, page: 1}), []),
   };
 
   const renders = {
@@ -64,10 +68,11 @@ function Main() {
         <Menu items={options.menu}/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       </LayoutFlex>
+      <LayoutFlex flex="start">
+        <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
+        <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
+      </LayoutFlex>
       <Spinner active={select.waiting}>
-        <LayoutFlex flex="start">
-          <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
-        </LayoutFlex>
         <List items={select.items} renderItem={renders.item}/>
         <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
       </Spinner>

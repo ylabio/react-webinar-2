@@ -1,0 +1,26 @@
+.Pag-button {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.Pag-button-link {
+  display: inline-block;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: #000000;
+  text-decoration: none;
+}
+
+.Pag-button_active .Pag-button-link {
+  color: white;;
+  text-decoration: none;
+}
+
+.Pag-button_active {
+  background: #0087E9;
+}
+
+.Pag-button:not(.Pag-button_active):hover {
+  background: #E1E1E1;
+}

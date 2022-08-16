@@ -1,0 +1,13 @@
+.Pagination{
+  display: flex;
+  justify-content: end;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 20px 0;
+}
+
+.Pagination-controls > span {
+  color: #CCCCCC;
+  margin-left: 2px;
+  margin-right: 2px;
+}

@@ -1,0 +1,7 @@
+.Common-layout-head {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+}

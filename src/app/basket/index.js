@@ -1,14 +1,14 @@
-import List from "../../components/list";
-import React, {useCallback} from "react";
-import BasketTotal from "../../components/basket-total";
-import LayoutModal from "../../components/layout-modal";
-import ItemBasket from "../../components/item-basket";
-import useStore from "../../utils/use-store";
-import useSelector from "../../utils/use-selector";
+import List from '../../components/list';
+import React, { useCallback } from 'react';
+import BasketTotal from '../../components/basket-total';
+import LayoutModal from '../../components/layout-modal';
+import ItemBasket from '../../components/item-basket';
+import useStore from '../../utils/hooks/use-store';
+import useSelector from '../../utils/hooks/use-selector';
+import useLang from '../../utils/hooks/use-lang';
 
 function Basket(){
-
-  console.log('Basket');
+const { layoutModal, itemBasket, basketTotal } = useLang();
 
   const store = useStore();
 
@@ -26,13 +26,13 @@ function Basket(){
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item => <ItemBasket item={item} onClose={callbacks.closeModal} onRemove={callbacks.removeFromBasket} ln={itemBasket}/>, [itemBasket]),
   }
 
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+    <LayoutModal onClose={callbacks.closeModal} ln={layoutModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      {!!select.items.length && <BasketTotal sum={select.sum} ln={basketTotal}/>}
     </LayoutModal>
   )
 }

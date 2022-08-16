@@ -3,18 +3,19 @@ import propTypes from 'prop-types';
 import numberFormat from "../../utils/numberFormat";
 import './styles.css';
 
-function BasketTotal(props) {
+function BasketTotal({sum, ln = {}}) {
   return (
     <div className="BasketTotal">
-      <span className="BasketTotal-cell">Итого</span>
-      <span className="BasketTotal-cell"> {numberFormat(props.sum)} ₽</span>
+      <span className="BasketTotal-cell">{ln.total}</span>
+      <span className="BasketTotal-cell"> {numberFormat(sum)} ₽</span>
       <span className="BasketTotal-cell"></span>
     </div>
   )
 }
 
 BasketTotal.propTypes = {
-  sum: propTypes.number
+  sum: propTypes.number,
+  ln: propTypes.objectOf(propTypes.string).isRequired,
 }
 
 BasketTotal.defaultProps = {

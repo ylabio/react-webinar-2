@@ -25,7 +25,7 @@ export const localize = {
 		it: 'Anno di produzione',
 	},
 	Цена: { ru: 'Цена', en: 'Price', it: 'Prezzo' },
-	Загрузка: { ru: 'Цена', en: 'Loading', it: 'Caricamento' },
+	Загрузка: { ru: 'Загрузка', en: 'Loading', it: 'Caricamento' },
 	'Не найдено': {
 		ru: 'По данному адресу товаров на сайте не найдено',
 		en: 'No products were found on the site at this address',

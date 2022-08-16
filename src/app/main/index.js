@@ -10,8 +10,6 @@ import { useSearchParams } from 'react-router-dom';
 import { cn as bem } from '@bem-react/classname';
 import 'style.css';
 
-//TODO Для страницы товара нужно создать новый модуль внешнего состояния. В нём объект товара и методы для его загрузки из апи. Метод загрузки вызывается со страницы товара с передачей идентификатора товара. Недопустимо делать запросы к апи напрямую из компонента. Все сведения о товаре можно получить одним запросом. Примеры запросов в файле articles.http.
-
 function Main() {
   const { item: itemLn } = useLang();
   const cn = bem('Catalog');

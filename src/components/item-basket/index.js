@@ -15,7 +15,7 @@ function ItemBasket(props) {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
     onClose: useCallback(() => {
       props.onClose(),
-      navigate('/' + props.item._id);
+      navigate(`/product/${props.item._id}`);
     }, [props.onClose, props.item])
   };
 

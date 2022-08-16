@@ -29,7 +29,7 @@ function App() {
         exact
       />
       <Route 
-        path='/:id' 
+        path='/product/:id' 
         element={
           <>
             <Product/>

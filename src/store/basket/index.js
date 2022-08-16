@@ -50,7 +50,6 @@ class BasketState extends StateModule{
       } else {
         const response = await fetch(`/api/v1/articles/${_id}?fields=*,maidIn(title,code),category(title)`);
         const json = await response.json();
-        console.log(json.result)
         items.push({...json.result, amount: 1});
         sum = json.result.price;
       }

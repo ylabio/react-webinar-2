@@ -51,15 +51,16 @@ function Main(){
 
 
   const renders = {
-    item: useCallback(item => <Item item={item} addId={callbacks.addIdForRequest} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} link={`/articles/${item._id}`} addId={callbacks.addIdForRequest} onAdd={callbacks.addToBasket}/>, []),
   }
 
   return (
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple 
         onOpen={callbacks.openModalBasket} 
+        toNull={callbacks.toNullForItemState} 
         amount={select.amount} 
-        sum={select.sum}
+        sum={select.sum} 
       />
       <List 
         items={select.items} 

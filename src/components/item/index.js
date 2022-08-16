@@ -21,7 +21,7 @@ function Item(props) {
           >
           <Link 
            onClick={() => callbacks.addId()}
-          to={`/${props.item._type}/${props.item._id}`}
+          to={props.link}
           >
           {props.item.title}</Link>
           </div>

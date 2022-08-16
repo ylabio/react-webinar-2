@@ -1,0 +1,8 @@
+.LanguagesControl {
+  padding: 20px 20px 10px;
+}
+
+.LanguagesControl span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

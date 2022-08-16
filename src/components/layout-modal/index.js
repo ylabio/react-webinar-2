@@ -25,9 +25,11 @@ function LayoutModal(props) {
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
           <h1 className={cn('title')}>
-            {props.title}
+            {props.translate(props.title)}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <button className={cn('close')} onClick={props.onClose}>
+            {props.translate('Закрыть')}
+          </button>
         </div>
         <div className={cn('content')}>
           {props.children}
@@ -41,11 +43,13 @@ LayoutModal.propTypes = {
   title: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
+  translate: PropTypes.func
 };
 
 LayoutModal.defaultProps = {
   title: 'Модалка',
-  onClose: () => {}
+  onClose: () => {},
+  translate: () => {}
 };
 
 export default React.memo(LayoutModal);

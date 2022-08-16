@@ -15,11 +15,21 @@
     padding: 20px 10px;
 }
 
+.Item-link {
+    color: #000;
+    text-decoration: none;
+}
+
+.Item-link:hover {
+    border-bottom: 1px solid #000;
+}
+
 .Item-right {
     padding: 20px 20px 20px 10px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .Item-price {

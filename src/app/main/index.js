@@ -14,6 +14,7 @@ function Main() {
   const store = useStore();
 
   const select = useSelector((state) => ({
+    lang: state.lang.lang,
     items: state.catalog.items,
     isLoading: state.catalog.isLoading,
     amount: state.basket.amount,
@@ -31,6 +32,11 @@ function Main() {
     // Добавление в корзину
     addToBasket: useCallback((_id) => store.get("basket").addToBasket(_id), []),
 
+    changelang: useCallback(
+      (lang) => () => store.get("lang").changelang(lang),
+      []
+    ),
+
     changePage: useCallback(
       (page) => () => store.get("catalog").changePage(page),
       []
@@ -41,6 +47,9 @@ function Main() {
     ),
   };
 
+  const changelang = (e) => {
+    console.log(e);
+  };
   const renders = {
     item: useCallback(
       (item) => (
@@ -53,9 +62,8 @@ function Main() {
       []
     ),
   };
-  console.log();
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>Магазин</h1>} lang={select.lang} changelang={changelang}>
       <BasketSimple
         onOpen={callbacks.openModalBasket}
         amount={select.amount}

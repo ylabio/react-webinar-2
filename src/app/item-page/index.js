@@ -15,12 +15,12 @@ function ItemPage() {
 
   useEffect(() => {
     store.get("item").loadOne(articleId);
-  }, []);
-
+  }, [articleId]);
   const select = useSelector((state) => ({
     isLoading: state.item.isLoading,
     description: state.item.description,
     id: state.item._id,
+    name: state.item.name,
     edition: state.item.edition,
     price: state.item.price,
     country: state.item.country,
@@ -37,7 +37,7 @@ function ItemPage() {
   };
 
   return (
-    <Layout head={<h1>Название товара</h1>}>
+    <Layout head={<h1>{select.name}</h1>}>
       <BasketSimple
         onOpen={callbacks.openModalBasket}
         amount={select.amount}

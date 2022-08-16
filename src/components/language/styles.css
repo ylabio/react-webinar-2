@@ -1,0 +1,21 @@
+.Language {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0 0 0 0;
+    padding: 0 20px 0 0;
+    width: 40%;
+    min-height: 80px;
+    background: #f5f5f5;
+    box-sizing: border-box;
+}
+.Language > p {
+    margin: 0 10px;
+}
+.Language-switcher{
+    height: 20px;
+    width: 40px;
+    margin: 0 5px;
+    cursor: pointer;
+}

@@ -21,7 +21,6 @@
   overflow: hidden;
   max-width: 720px;
   box-shadow: 2px 5px 10px rgb(0 0 0 / 5%);
-  min-width: 960px;
 }
 
 .LayoutModal-head {
@@ -44,5 +43,8 @@
 
 .LayoutModal-content {
   min-height: 100px;
-  padding: 70px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
 }

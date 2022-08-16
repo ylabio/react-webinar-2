@@ -14,9 +14,26 @@ body{
     box-sizing: border-box;
     box-shadow: 0 0 15px 5px #0000003b;
 }
+.Layout-header{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 143px;
+}
 .Layout-head{
-    height: 80px;
+    width: 60%;
+    min-height: 80px;
     background: #f5f5f5;
+    box-sizing: border-box;
+}    
+.Layout-menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
 }
 .Layout-head h1{
     margin: 0;

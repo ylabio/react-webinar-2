@@ -1,0 +1,40 @@
+.Pagination {
+    height: 63px;
+    margin: 0;
+    padding: 0 22px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.Pagination-button {
+    width: auto;
+    height: 20px;
+    padding: 0 5.5px;
+    margin: 0;
+    text-decoration: none;
+    color: #000;
+}
+
+.Pagination-button-touched {
+    width: auto;
+    height: 20px;
+    padding: 0 5.5px;
+    margin: 0;
+    background-color: #0087E9;
+    color: #fff;
+    text-decoration: none;
+}
+
+.Pagination-button:hover {
+    background-color: #E1E1E1;
+}
+
+.Pagination-dots {
+    width: auto;
+    height: 20px;
+    padding: 0 5.5px;
+    margin: 0;
+}

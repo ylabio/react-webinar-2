@@ -13,18 +13,18 @@ function Main(){
 
   const store = useStore();
 
-  useEffect(() => {
-    store.get('catalog').load();
-  }, [])
-
   const select = useSelector(state => ({
     articleRoute: state.article.articleRoute,
-    artQty: state.catalog.items.length,
-    pagItems: state.catalog.pagItems,
+    items: state.catalog.items,
+    itemsQty: state.catalog.itemsQty,
     pagSel: state.catalog.pagSel,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
+
+  useEffect(() => {
+    store.get('catalog').load();
+  }, [])
 
   const callbacks = {
     // Открытие корзины
@@ -43,8 +43,8 @@ function Main(){
   return (
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.pagItems} renderItem={renders.item}/>
-      <Pagination artQty={select.artQty} pagSel={select.pagSel} pagSurf={callbacks.pagSurf}/>
+      <List items={select.items} renderItem={renders.item}/>
+      <Pagination artQty={select.itemsQty} pagSel={select.pagSel} pagSurf={callbacks.pagSurf}/>
     </Layout>
   )
 }

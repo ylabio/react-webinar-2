@@ -13,26 +13,27 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      pagItems: [],
-      pagSel: 0,
+      itemsQty: 0,
+      pagSel: 1,
     };
   }
 
   /**
-   * Загрузка данных каталога
+   * Загрузка данных о товарах из каталога
    */
   async load() {
-    const response = await fetch('/api/v1/articles?lang=ru&limit=130&skip=0&fields=%2A');
+    const response = await fetch(
+      '/api/v1/articles?limit=10&skip=&fields=items(*),count');
     const json = await response.json();
-    if (this.getState().pagSel <= 1) {
+    if (this.getState().pagSel === 1) {
       /**
        * Для первоначальной загрузки данных
        * Для возврата на первую страницу пагинации из подробного описания товара
        */
       this.setState({
+        ...this.getState(),
         items: json.result.items,
-        pagItems: json.result.items.slice(0, 10),
-        pagSel: 1
+        itemsQty: json.result.count
       });
       /**
        * Для возврата на выбранную страницу пагинации из подробного описания товара
@@ -45,13 +46,16 @@ class CatalogState extends StateModule{
   }
 
   /**
-   * Переход к просмотру других товаров после клика по элементу пагинации
+   * Переход к просмотру других товаров из каталога после клика по элементу пагинации
    * @param pagSel {number}
    */
-  pagSurf(pagSel) {
+  async pagSurf(pagSel) {
+    const response = await fetch(
+      '/api/v1/articles?limit=10&skip=' + ((pagSel - 1) * 10) + '&fields=items(*),count');
+    const json = await response.json();
     this.setState({
       ...this.getState(),
-      pagItems: this.getState().items.slice((pagSel - 1) * 10, pagSel * 10),
+      items: json.result.items,
       pagSel: pagSel
     })
   }

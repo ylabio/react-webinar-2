@@ -1,43 +1,26 @@
 import React, { useCallback } from "react";
-import useStore from "../../utils/use-store";
-import useSelector from "../../utils/use-selector";
 import { cn as bem } from "@bem-react/classname";
 import BasketSimple from "../../components/basket-simple";
 import Menu from "../../components/menu";
 import "./style.css";
 import Select from "../select";
 
-function LayoutHeader() {
+function LayoutHeader(props) {
   const cn = bem("LayoutHeader");
-
-  const store = useStore();
-
-  const select = useSelector((state) => ({
-    amount: state.basket.amount,
-    sum: state.basket.sum,
-    current: state.localization.current,
-    lang: state.localization.lang,
-    current: state.localization.current,
-  }));
-
-  const callbacks = {
-    openModalBasket: useCallback(() => store.get("modals").open("basket"), []),
-    changeLng: useCallback((lng) => store.get("localization").select(lng), []),
-  };
 
   return (
     <div className={cn()}>
-      <Menu lng={select.current} />
+      <Menu lng={props.current} />
       <Select
-        value={select.current}
-        options={select.lang}
-        onChange={callbacks.changeLng}
+        value={props.current}
+        options={props.lang}
+        onChange={props.onChange}
       />
       <BasketSimple
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-        lng={select.current}
+        onOpen={props.onOpen}
+        amount={props.amount}
+        sum={props.sum}
+        lng={props.current}
       />
     </div>
   );

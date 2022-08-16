@@ -21,6 +21,9 @@ function Main() {
     limit: state.catalog.requestParameters?.limit,
     current: state.localization.current,
     loading: state.catalog.isLoading,
+    amount: state.basket.amount,
+    sum: state.basket.sum,
+    lang: state.localization.lang,
   }));
 
   useEffect(() => {
@@ -33,6 +36,11 @@ function Main() {
       (page) => store.get("catalog").load(page),
       [store]
     ),
+    openModalBasket: useCallback(() => store.get("modals").open("basket"), []),
+    changeLng: useCallback(
+      (lng) => store.get("localization").select(lng),
+      [store]
+    ),
   };
 
   const renders = {
@@ -42,7 +50,7 @@ function Main() {
           item={item}
           onAdd={callbacks.addToBasket}
           link={`/article/${item._id}`}
-          lng={select.current}
+          lang={select.current}
         />
       ),
       [select.current]
@@ -51,7 +59,14 @@ function Main() {
 
   return (
     <Layout head={<h1>{translation(select.current, "title")}</h1>}>
-      <LayoutHeader />
+      <LayoutHeader
+        amount={select.amount}
+        sum={select.sum}
+        lang={select.lang}
+        current={select.current}
+        onChange={callbacks.changeLng}
+        onOpen={callbacks.openModalBasket}
+      />
       {select.loading ? (
         <Spinner />
       ) : (

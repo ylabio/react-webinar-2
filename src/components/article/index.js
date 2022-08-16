@@ -7,7 +7,7 @@ import translation from "../../utils/translation";
 
 function Article(props) {
   const cn = bem("Article");
-  const { article, onAdd, lng } = props;
+  const { article, onAdd, lang } = props;
 
   return (
     <div className={cn()}>
@@ -31,7 +31,7 @@ function Article(props) {
         <div className={cn("value")}>{numberFormat(article.price)} ₽</div>
       </div>
       <button onClick={() => onAdd(article._id)}>
-        {translation(lng, "add")}
+        {translation(lang, "add")}
       </button>
     </div>
   );

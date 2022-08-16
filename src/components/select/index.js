@@ -5,12 +5,13 @@ import "./style.css";
 
 function Select(props) {
   const cn = bem("Select");
+  console.log(props);
 
   const onSelect = useCallback(
     (e) => {
       props.onChange(e.target.value);
     },
-    [props.onChange]
+    [props.onChange, props.value]
   );
   return (
     <select className={cn()} onChange={onSelect} value={props.value}>

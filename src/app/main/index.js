@@ -25,8 +25,8 @@ function Main(){
     total: state.catalog.total,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    current: state.pagination.current,
-    limit: state.pagination.limit,
+    current: state.catalog.current,
+    limit: state.catalog.limit,
     isLoading: state.catalog.isLoading,
   }));
 
@@ -44,7 +44,7 @@ function Main(){
     // 3) Перейти по ссылке "Главная" в каталог
     // Иначе сброс на первую страницу
     if (select.current === 1) {
-      store.get('pagination').changePage(currentPage, 10);
+      store.get('catalog').changePage(page, 10);
     }
   }, []);
 
@@ -55,7 +55,7 @@ function Main(){
     addToBasket: useCallback(id => store.get('basket').addToBasket(id), []),
     changePage: useCallback(page => {
       navigate(`/catalog/${page}`, { replace: true });
-      store.get('pagination').changePage(page);
+      store.get('catalog').changePage(page);
       store.get('catalog').setLoadingTrue();
     }, []),
     onHomeClick:  useCallback(evt => {

@@ -1,5 +1,6 @@
 import StateModule from "../module";
 import YLabService from "../../services/ylab-service";
+import skip from "../../utils/skip";
 
 const service = new YLabService();
 
@@ -17,6 +18,9 @@ class CatalogState extends StateModule{
       items: [],
       total: null,
       isLoading: true,
+      limit: 10,
+      current: 1,
+      skip: 0,
     };
   }
 
@@ -24,6 +28,7 @@ class CatalogState extends StateModule{
     const response = await service.getArticles(skip, limit);
 
     this.setState({
+      ...this.store.getState().catalog,
       items: response.items,
       total: response.total,
       isLoading: false,
@@ -35,7 +40,18 @@ class CatalogState extends StateModule{
       ...this.store.getState().catalog,
       isLoading: true,
     }, 'Лоадер');
+  }
 
+  changePage(page) {
+    if (page) {
+      const newSkipValue = skip(page, this.store.getState().catalog.limit);
+
+      this.setState({
+        ...this.store.getState().catalog,
+        current: page,
+        skip: newSkipValue,
+      }, 'Изменение текущей страницы')
+    }
   }
 }
 

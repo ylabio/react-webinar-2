@@ -5,7 +5,8 @@ class ParamsState extends StateModule {
     initState() {
         return {
             isLoaded: false,
-            lang: localStorage.getItem("lang") || "ru"
+            lang: localStorage.getItem("lang") || "ru",
+            paginationPage: 1
         };
     }
 
@@ -31,6 +32,17 @@ class ParamsState extends StateModule {
             ...this.getState(),
             lang
         }, 'переключение языка страницы')
+    }
+
+    /**
+   * Установка количества товаров
+   * @param count {Number}
+   */
+    setPaginationPage(paginationPage) {
+        this.setState({
+            ...this.getState(),
+            paginationPage
+        })
     }
 }
 

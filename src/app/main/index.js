@@ -10,16 +10,13 @@ import Pagination from "../../components/pagination";
 import Menu from "../../components/Menu";
 import { translate } from "../../utils/translate";
 import { dBasketSimple, dItem, dLayout, dMenu } from "../../utils/dictionary";
+import MultiLang from "../../components/multiLang";
 
 function Main() {
   console.log('Main');
 
   const contentPerPage = 10;
   const store = useStore();
-
-  useEffect(() => {
-    store.get('catalog').load({ limit: contentPerPage });
-  }, [])
 
   const select = useSelector(state => ({
     items: state.catalog.items,
@@ -29,6 +26,20 @@ function Main() {
     count: state.catalog.count,
     lang: state.params.lang
   }));
+  
+  const {
+    page,
+    gaps,
+    setPage,
+    totalPages,
+  } = usePagination({
+    contentPerPage,
+    count: select.count
+  });
+
+  useEffect(() => {
+    store.get('catalog').load({ limit: contentPerPage, skip: (page - 1) * contentPerPage });
+  }, [])
 
   const callbacks = {
     // Открытие корзины
@@ -44,16 +55,6 @@ function Main() {
     setLang: useCallback((l) => store.get('params').setLang(l), [select.lang])
   };
 
-  const {
-    page,
-    gaps,
-    setPage,
-    totalPages,
-  } = usePagination({
-    contentPerPage,
-    count: select.count
-  });
-
   const menuText = translate(dMenu),
     basketSimpleText = translate(dBasketSimple),
     layoutText = translate(dLayout),
@@ -61,11 +62,17 @@ function Main() {
 
   const renders = {
     item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} linkTo={"/item"} text={itemText} />, [select.lang]),
+    head: <>
+      <h1>
+      {select.isLoaded ? layoutText.title : "Loading..."}
+      <MultiLang langArr={["RU", "ENG"]} setLang={callbacks.setLang} />
+      </h1>
+    </>
   }
 
   return (
-    <Layout head={<h1>{select.isLoaded ? layoutText.title : "Loading..."}</h1>}>
-      <Menu setLang={callbacks.setLang} text={menuText} />
+    <Layout head={renders.head}>
+      <Menu text={menuText} />
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} text={basketSimpleText} />
       <List items={select.items} renderItem={renders.item} />
       <Pagination page={page} gaps={gaps} totalPages={totalPages} onClick={callbacks.onClick} />

@@ -8,6 +8,7 @@ import ItemDescription from "../../components/item-description";
 import Menu from "../../components/Menu";
 import { translate } from "../../utils/translate";
 import { dBasketSimple, dItemDescription, dMenu } from "../../utils/dictionary";
+import MultiLang from "../../components/multiLang";
 
 function ItemPage() {
   console.log('ItemPage');
@@ -49,8 +50,17 @@ function ItemPage() {
     basketSimpleText = translate(dBasketSimple),
     itemDescriptionText = translate(dItemDescription);
 
+    const renders = {
+      head: <>
+        <h1>
+        {isLoaded ? title : "Loading..."}
+        <MultiLang langArr={["RU", "ENG"]} setLang={callbacks.setLang} />
+        </h1>
+      </>
+    }
+
   return (
-    <Layout head={<h1>{isLoaded ? title : "Loading..."}</h1>}>
+    <Layout head={renders.head}>
       <Menu setLang={callbacks.setLang} text={menuText} />
       <BasketSimple onOpen={callbacks.openModalBasket} amount={amount} sum={sum} text={basketSimpleText} />
       <ItemDescription itemData={itemData} onAdd={callbacks.addToBasket} _id={_id} text={itemDescriptionText} />

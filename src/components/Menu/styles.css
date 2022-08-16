@@ -12,13 +12,3 @@
     flex-grow: 1;
     color: #0087E9;
 }
-
-.Menu-lang {
-    color: #0087E9;
-    font-size: 17px;
-}
-
-.Menu-lang > :hover {
-    cursor: pointer;
-    color:#7bc5fa
-}

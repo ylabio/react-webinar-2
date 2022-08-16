@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import useSelector from "./use-selector";
+import useStore from "./use-store";
 
 /**
  * Хук возращает данные необходимые для пагинации, идея и основа взята с https://github.com/damiisdandy/use-pagination
@@ -7,7 +9,10 @@ import React, { useState, useEffect } from "react";
  * @return {Object}
  */
 const usePagination = ({ contentPerPage, count }) => {
-  const [page, setPage] = useState(1);
+  //const [page, setPage] = useState(1);
+  const store = useStore();
+  const setPage = (page) => store.get('params').setPaginationPage(page);
+  const page = useSelector(state => state.params.paginationPage);
   // like 3 dots that surrounds the immediate pages
   const [gaps, setGaps] = useState({
     before: false,

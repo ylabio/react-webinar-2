@@ -4,6 +4,7 @@ import Basket from "./basket";
 import useSelector from "../utils/use-selector";
 import ItemPage from './item-page';
 import { Routes, Route } from 'react-router-dom';
+import MultiLang from '../components/multiLang';
 
 /**
  * Приложение
@@ -15,20 +16,23 @@ function App() {
   const modal = useSelector(state => state.modals.name);
 
   return (
-    <Routes>
-      <Route path="/" element={
-        <>
-          <Main />
-          {modal === 'basket' && <Basket />}
-        </>
-      } />
-      <Route path="/item/:_id" element={
-        <>
-          <ItemPage />
-          {modal === 'basket' && <Basket />}
-        </>
-      } />
-    </Routes>
+    <>
+      {modal === 'basket' && <Basket />}
+      <Routes>
+        <Route path="/" element={
+          <>
+            <Main />
+          </>
+        } />
+        <Route path="/item/:_id" element={
+          <>
+            <ItemPage />
+            {modal === 'basket' && <Basket />}
+          </>
+        } />
+      </Routes>
+    </>
+
   );
 }
 

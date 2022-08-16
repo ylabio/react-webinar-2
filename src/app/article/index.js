@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import BasketSimple from '../../components/basket-simple';
 import Layout from '../../components/layout';
 import ArticleInfo from '../../components/article-info';
 import useSelector from '../../utils/use-selector';
 import useStore from '../../utils/use-store';
+import MenuBasket from '../../components/menu-basket';
 
 function Article() {
 
@@ -34,7 +34,7 @@ function Article() {
 
   return (
     <Layout head={<h1>{select.article.title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <MenuBasket openModal={callbacks.openModalBasket} items={select} />
       <ArticleInfo article={select.article} addToBasket={callbacks.addToBasket}></ArticleInfo>
     </Layout>
   )

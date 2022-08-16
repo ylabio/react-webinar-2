@@ -1,0 +1,17 @@
+.Menu-link {
+  font-size: 18px;
+  color: #0087E9;
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+  padding: 0;
+}
+
+.Menu-link:hover,
+.Menu-link:focus {
+  color: #065a96;
+}

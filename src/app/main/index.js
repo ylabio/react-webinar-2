@@ -1,4 +1,3 @@
-import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
 import React, { useCallback, useEffect, useState } from "react";
@@ -8,6 +7,7 @@ import useSelector from "../../utils/use-selector";
 import getAmountOfPage from "../../utils/amount-pages";
 import Pagination from "../../components/pagination";
 import getPaginationArray from "../../utils/pagination-array";
+import MenuBasket from "../../components/menu-basket";
 
 function Main() {
 
@@ -47,7 +47,7 @@ function Main() {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <MenuBasket openModal={callbacks.openModalBasket} items={select} />
       <List items={select.items} renderItem={renders.item} />
       <Pagination currentPage={page} pages={paginationArray} setPage={callbacks.setPagePagination} />
     </Layout>

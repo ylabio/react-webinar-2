@@ -10,13 +10,11 @@ import { useNavigate, useSearchParams  } from "react-router-dom";
 import Navigation from "../../components/navigation";
 import './style.css';
 
-const limit = 10;
-
 function Main(){
   const [searchParams] = useSearchParams();
   const currentPage = +searchParams.get('page') || 1;
 
-  console.log('Main', currentPage);
+  console.log('Main');
 
   const store = useStore();
 
@@ -25,6 +23,7 @@ function Main(){
     amount: state.basket.amount,
     sum: state.basket.sum,
     count: state.catalog.count,
+    limit: state.catalog.limit,
   }));
 
   const navigate = useNavigate();
@@ -34,11 +33,16 @@ function Main(){
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    
     getItem: useCallback(() => {
-      const skip = (currentPage - 1) * limit;
-      store.get('catalog').load(limit, skip)
+      const skip = (currentPage - 1) * select.limit;
+      store.get('catalog').load(select.limit, skip)
     }, [currentPage]),
-    goToPage: useCallback((currentPage) => navigate({search: `?page=${currentPage}`}), []),
+
+    goToPage: useCallback((currentPage) => {
+      store.get('catalog').setCurrentPage(currentPage);
+      navigate({search: `?page=${currentPage}`});
+    }, []),
   };
 
   const renders = {
@@ -59,7 +63,7 @@ function Main(){
       <Pagination
         currentPage={currentPage}
         totalCount={select.count}
-        limit={limit}
+        limit={select.limit}
         onPageChange={callbacks.goToPage}
       />
     </Layout>

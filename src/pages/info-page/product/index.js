@@ -9,24 +9,24 @@ function Product(props) {
 
   return (
     <section className={cn()}>
-      <p>{props.description}</p>
+      <p>{props.info.description}</p>
       <div className={cn('container')}>
         <div className={cn('subtitle')}>
           <span>Страна производитель: </span>
-          <span>{`${props.maidIn.title} (${props.maidIn.code})`}</span>
+          <span>{`${props.info.maidIn.title} (${props.info.maidIn.code})`}</span>
         </div>
         <div className={cn('subtitle')}>
           <span>Категория: </span>
-          <span>{props.category}</span>
+          <span>{props.info.category.title}</span>
         </div>
         <div className={cn('subtitle')}>
           <span>Год выпуска: </span>
-          <span>{props.edition}</span>
+          <span>{props.info.edition}</span>
         </div>
       </div>
       <div className={cn('price')}>
         <span>Цена: </span>
-        <span>{numberFormat(props.price)} ₽</span>
+        <span>{numberFormat(props.info.price)} ₽</span>
       </div>
       <button onClick={props.addToBasket}>Добавить</button>
     </section>

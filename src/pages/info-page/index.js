@@ -15,16 +15,7 @@ function PageInfo() {
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
-    title: state.product.info.title,
-    description: state.product.info.description,
-    edition: state.product.info.edition,
-    category: state.product.info.category.title,
-    maidIn: {
-      title: state.product.info.maidIn.title,
-      code: state.product.info.maidIn.code,
-    },
-    price: state.product.info.price,
-
+    info: state.product.info,
   }));
 
   const callbacks = {
@@ -37,19 +28,12 @@ function PageInfo() {
   }, [id]);
 
   return (
-    <Layout head={<h1>{select.title}</h1>}>
+    <Layout head={<h1>{select.info.title}</h1>}>
       <div className='Main-container'>
         <Navigation />
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       </div>
-      <Product
-        description={select.description}
-        edition={select.edition}
-        category={select.category}
-        maidIn={select.maidIn}
-        price={select.price}
-        addToBasket={callbacks.addToBasket}
-      />
+      <Product info={select.info} addToBasket={callbacks.addToBasket} />
     </Layout>
   )
 }

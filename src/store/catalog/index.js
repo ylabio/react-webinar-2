@@ -14,6 +14,8 @@ class CatalogState extends StateModule{
     return {
       items: [],
       count: 0,
+      limit: 10,
+      currentPage: 1,
     };
   }
 
@@ -26,6 +28,12 @@ class CatalogState extends StateModule{
     });
   }
 
+  setCurrentPage(page) {
+    this.setState({
+      ...this.store.getState().catalog,
+      currentPage: page,
+    });
+  }
   /**
    * Создание записи
    */

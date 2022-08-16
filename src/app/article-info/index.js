@@ -1,10 +1,10 @@
 import React, {useCallback, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
-import Controls from '../../components/controls';
 import ItemInfo from '../../components/item-info';
 import Layout from '../../components/layout';
 import useSelector from '../../utils/use-selector';
 import useStore from '../../utils/use-store';
+import Controls from '../controls';
 
 function ArticleInfo() {
   const store = useStore();
@@ -38,19 +38,7 @@ function ArticleInfo() {
 
   return (
     <Layout head={<h1>{select.info.title}</h1>} curLang={select.lang} setLang={callbacks.setLang}>
-      <Controls
-        onBasketOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-        text={{
-          home: t('common.homeLink'),
-          empty: t('common.basketEmpty'),
-          amount: t('common.basketAmount', select.amount),
-          open: t('common.openCart'),
-          fullness: t('common.basketFullnessLabel')
-        }}
-        onHomeClick={callbacks.setFirstPage}
-      />
+      <Controls />
       <ItemInfo
         info={select.info}
         addToBasket={callbacks.addToBasket}

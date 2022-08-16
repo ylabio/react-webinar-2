@@ -1,11 +1,11 @@
 import React, {useCallback, useEffect} from 'react';
-import Controls from '../../components/controls';
 import Item from '../../components/item';
 import Layout from '../../components/layout';
 import List from '../../components/list';
 import Pagination from '../../components/pagination';
 import useSelector from '../../utils/use-selector';
 import useStore from '../../utils/use-store';
+import Controls from '../controls';
 
 function Main() {
   console.log('Main');
@@ -14,8 +14,6 @@ function Main() {
 
   const select = useSelector(state => ({
     items: state.catalog.items,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
     page: state.catalog.page,
     limit: state.catalog.pageLimit,
     pagesCount: state.catalog.pagesCount,
@@ -50,19 +48,7 @@ function Main() {
 
   return (
     <Layout head={<h1>{t('catalog.header')}</h1>} curLang={select.lang} setLang={callbacks.setLang}>
-      <Controls
-        onBasketOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-        text={{
-          home: t('common.homeLink'),
-          empty: t('common.basketEmpty'),
-          amount: t('common.basketAmount', select.amount),
-          open: t('common.openCart'),
-          fullness: t('common.basketFullnessLabel')
-        }}
-        onHomeClick={callbacks.setFirstPage}
-      />
+      <Controls />
       <List items={select.items} renderItem={renders.item} />
       <Pagination total={select.pagesCount} active={select.page} onChange={callbacks.setPage} />
     </Layout>

@@ -6,12 +6,12 @@ import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 
-function Basket(){
-
+function Basket() {
+  
   console.log('Basket');
-
+  
   const store = useStore();
-
+  
   const select = useSelector(state => ({
     items: state.basket.items,
     amount: state.basket.amount,
@@ -19,7 +19,7 @@ function Basket(){
     language: state.translation.language,
     words: state.translation.words
   }));
-
+  
   const callbacks = {
     // Закрытие любой модалки
     closeModal: useCallback(() => store.get('modals').close(), []),
@@ -28,15 +28,17 @@ function Basket(){
     // Получение данных товара
     getProductInformation: useCallback((id) => store.get('product').getProductInformation(id), [])
   };
-
+  
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket} getProductInformation={callbacks.getProductInformation} closeModal={callbacks.closeModal} words={{
+    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}
+                                                getProductInformation={callbacks.getProductInformation}
+                                                closeModal={callbacks.closeModal} words={{
       pcs: select.words.pcs,
       delete: select.words.delete,
     }
-    }/>, []),
+    } path='/productInformation/'/>, []),
   }
-
+  
   return (
     <LayoutModal title={select.words.cart} onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>

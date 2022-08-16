@@ -17,7 +17,7 @@ function ItemBasket(props) {
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
       <div
         className={cn('title')}>
-        <Link to={`/productInformation/${props.item._id}`} onClick={() => {
+        <Link to={`${props.path}${props.item._id}`} onClick={() => {
           props.getProductInformation(props.item._id)
           props.closeModal()
         }}>

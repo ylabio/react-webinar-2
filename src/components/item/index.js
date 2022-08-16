@@ -19,7 +19,7 @@ function Item(props) {
       {/*</div>*/}
       <div
         className={cn('title')}>
-        <Link to={`/productInformation/${props.item._id}`} onClick={() => props.getProductInformation(props.item._id)}>
+        <Link to={`${props.path}${props.item._id}`} onClick={() => props.getProductInformation(props.item._id)}>
           {props.item.title}
         </Link>
       </div>

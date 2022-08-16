@@ -45,7 +45,7 @@ function Main() {
   const renders = {
     item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}
                                     getProductInformation={callbacks.getProductInformation}
-                                    words={{add: select.words.add}}/>, [select.language]),
+                                    words={{add: select.words.add}} path='/productInformation/'/>, [select.language]),
   }
   return (
     <Layout head={<><h1>{select.words.shop}</h1><Select changeLanguage={callbacks.changeLanguage}

@@ -1,0 +1,16 @@
+{
+  "basket-simple-home": "Home",
+  "basket-simple-label": "In the basket:",
+  "basket-simple-total-nominative": "product",
+  "basket-simple-total-genitive": "products",
+  "basket-simple-total-genitive-plural": "products",
+  "basket-simple-total-empty": "empty",
+  "basket-simple-button": "To basket",
+  "main-header-title": "Shop",
+  "item-button": "Add",
+  "item-basket-button": "Delete",
+  "item-basket-piece": "pcs",
+  "basket-title": "Basket",
+  "layout-modal-button": "Close",
+  "basket-total-total": "Total"
+}

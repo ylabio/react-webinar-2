@@ -14,3 +14,8 @@
     font-weight: bold;
     margin: 0 15px;
 }
+
+.BasketSimple > a{
+    text-decoration: underline;
+    color: #0087E9;
+}

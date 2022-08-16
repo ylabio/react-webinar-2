@@ -13,21 +13,17 @@
 	justify-content: center;
 	cursor: pointer;
 	color: black;
+	padding: 2px;
 }
-
-.Pagination-item:hover {
-	background-color: white;
-}
-
 
 .Pagination-item_current {
-	background-color: #4040ff;
+	background-color: #0087E9;
 	color: white;
 	cursor: default;
 }
 
 .Pagination-item_current:hover {
-	background-color: #4040ff;
+	background-color: #0087E9;
 	color: white;
 }
 

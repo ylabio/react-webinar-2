@@ -1,11 +1,11 @@
 /* Пункт списка */
-.BasketTotal {
+.BasketTotal{
     display: flex;
     justify-content: flex-end;
     padding: 20px;
 }
 
-.BasketTotal-cell {
+.BasketTotal-cell{
     min-width: 85px;
     text-align: right;
     font-weight: bold;

@@ -16,7 +16,7 @@ class CatalogState extends StateModule{
     };
   }
 
-  async load(skip){
+  async getArticles(skip){
     const articles = await fetch(`api/v1/articles?limit=10&skip=${skip * 10}`);
     const count = await fetch("/api/v1/articles?limit=1&fields=items(*),count");
     const jsonArticles = await articles.json();

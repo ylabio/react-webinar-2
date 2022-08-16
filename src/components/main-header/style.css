@@ -1,0 +1,16 @@
+.MainHeader {
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+}
+
+.MainHeader-control {
+    padding: 20px;
+    align-self: center;
+}
+
+.MainHeader-language{
+    margin: 0 10px;
+    cursor: pointer;
+
+}

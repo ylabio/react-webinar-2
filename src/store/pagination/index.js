@@ -5,18 +5,18 @@ import StateModule from "../module";
  */
 class PaginationState extends StateModule{
 
-	initState() {
-		return {
-			skip: 0
-		};
-	}
+  initState() {
+    return {
+      skip: 0
+    };
+  }
 
-	/**
-	 * Установить сдвиг
-	 */
-	setSkip(skip){
-		this.setState({skip: skip-1});
-	}
+  /**
+   * Установить сдвиг
+   */
+  setSkip(skip){
+    this.setState({skip: skip-1});
+  }
 }
 
 export default PaginationState;

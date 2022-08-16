@@ -4,6 +4,7 @@ import App from './app';
 import Store from "./store";
 import {StoreContext} from "./store/context";
 
+
 // Внешнее состояние
 const store = new Store();
 

@@ -17,8 +17,7 @@ function Product() {
     useEffect(() => {
         store.get('product').load(prodId);
         setLoading(false);
-        console.log('ищу')
-    }, [])
+    }, [params])
 
     const select = useSelector(state => ({
         item: state.product.item,
@@ -37,10 +36,12 @@ function Product() {
       };
 
     return (
-        <Layout head={<h1>Название товара</h1>} onChangeLanguage={callbacks.changeLanguage}>
+        <>
+        {select.item && <Layout head={<h1>{select.item.title}</h1>} onChangeLanguage={callbacks.changeLanguage}>
             <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.language}/>
             <ProductDescription item={select.item} loading={loading} onAdd={callbacks.addToBasket} lang={select.language}/> 
-        </Layout>
+        </Layout>}
+        </>
     )
 }
 

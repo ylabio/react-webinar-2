@@ -1,19 +1,4 @@
 /* Контрол с общими действиями */
-.BasketSimple{
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    font-size: 18px;
-}
-
-.BasketSimple-link{
-    text-decoration-line: underline;
-    color: #0087E9;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 21px;
-}
-
 .BasketSimple-total{
     font-weight: bold;
     margin: 0 15px;

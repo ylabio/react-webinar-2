@@ -6,6 +6,7 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
+import BasketHead from "../../components/basket-head";
 
 function Main(){
 
@@ -40,7 +41,7 @@ useEffect(() => {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <BasketHead onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination pages={pages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
     </Layout>

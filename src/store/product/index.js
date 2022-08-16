@@ -8,7 +8,7 @@ class ProductState extends StateModule {
    */
   initState() {
     return {
-      item: null,
+      item: {},
     };
   }
 

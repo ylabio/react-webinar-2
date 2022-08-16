@@ -22,6 +22,10 @@ class CatalogState extends StateModule {
   }
 
   async load(page) {
+    this.setState({
+      ...this.getState(),
+      isLoading: true,
+    });
     const limitPage = this.getState().requestParameters.limit;
     const response = await fetch(
       `/api/v1/articles?limit=${limitPage}&skip=${

@@ -1,9 +1,11 @@
 import React from 'react';
 import Basket from "./basket";
 import useSelector from "../utils/use-selector";
-import {Routing} from "pages";
 import {languages} from "l10n/languages";
 import LanguageSwitcher from "components/language-switcher";
+import {Route, Routes} from "react-router-dom";
+import Main from "main";
+import Product from "product";
 
 /**
  * Приложение
@@ -18,7 +20,11 @@ function App() {
   return (
     <>
       <LanguageSwitcher languages={languages}/>
-      <Routing/>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/product-info" element={<Product />} />
+        <Route path="/product-info/:id" element={<Product />} />
+      </Routes>
       {modal === 'basket' && <Basket/>}
     </>
   );

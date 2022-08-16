@@ -13,6 +13,7 @@ function Basket(){
   const store = useStore();
 
   const select = useSelector(state => ({
+    articleRoute: state.article.articleRoute,
     items: state.basket.items,
     amount: state.basket.amount,
     sum: state.basket.sum
@@ -27,7 +28,12 @@ function Basket(){
 
   const renders = {
     itemBasket: useCallback(item =>
-      <ItemBasket item={item} onRemove={callbacks.removeFromBasket} onClose={callbacks.closeModal}/>, []),
+      <ItemBasket
+        item={item}
+        articleRoute={select.articleRoute}
+        onRemove={callbacks.removeFromBasket}
+        onClose={callbacks.closeModal}
+      />, []),
   }
 
   return (

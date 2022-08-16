@@ -18,6 +18,7 @@ function Main(){
   }, [])
 
   const select = useSelector(state => ({
+    articleRoute: state.article.articleRoute,
     artQty: state.catalog.items.length,
     pagItems: state.catalog.pagItems,
     pagSel: state.catalog.pagSel,
@@ -35,7 +36,8 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item =>
+      <Item item={item} onAdd={callbacks.addToBasket} articleRoute={select.articleRoute}/>, []),
   }
 
   return (

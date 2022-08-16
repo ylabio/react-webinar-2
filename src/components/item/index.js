@@ -4,16 +4,17 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './style.css';
+import PropTypes from "prop-types";
 
-function Item(props) {
+function Item({articleRoute, item, onAdd}) {
   const cn = bem('Item');
   const navigate = useNavigate();
 
   const callbacks = {
     // Добавляет товар в корзину
-    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
+    onAdd: useCallback((e) => onAdd(item._id), [onAdd, item]),
     // Для перехода к просмотру подробного описания товара из каталога
-    onArticle: useCallback((e) => navigate(`/article/${props.item._id}`), [])
+    onArticle: useCallback((e) => navigate(`${articleRoute}${item._id}`), [])
   };
 
   return (
@@ -22,10 +23,10 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')} onClick={callbacks.onArticle}>
-        {props.item.title}
+        {item.title}
       </div>
       <div className={cn('right')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
+        <div className={cn('price')}>{numberFormat(item.price)}&nbsp;&#8381;</div>
         <button onClick={callbacks.onAdd}>Добавить</button>
       </div>
     </div>
@@ -33,6 +34,7 @@ function Item(props) {
 }
 
 Item.propTypes = {
+  articleRoute: propTypes.string.isRequired,
   item: propTypes.object.isRequired,
   onAdd: propTypes.func.isRequired,
 }

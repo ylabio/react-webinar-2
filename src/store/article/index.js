@@ -11,7 +11,8 @@ class ArticleState extends StateModule {
    */
   initState() {
     return {
-      article: {}
+      article: {},
+      articleRoute: '/article/'
     };
   }
 
@@ -23,6 +24,7 @@ class ArticleState extends StateModule {
       '/api/v1/articles/' + articleId + '?fields=*,maidIn(title,code),category(title)');
     const json = await response.json();
     this.setState({
+      ...this.getState(),
       article: json.result
     })
   }

@@ -1,0 +1,11 @@
+/* Контрол с общими действиями */
+.BasketSimple {
+}
+
+.BasketSimple-label {
+}
+
+.BasketSimple-total {
+  font-weight: bold;
+  margin: 0 15px;
+}

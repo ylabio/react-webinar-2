@@ -1,0 +1,19 @@
+.PaginationItem > * {
+  color: black;
+  text-decoration: none;
+  padding: 3px 6px;
+}
+
+.PaginationItem > *:hover {
+  background-color: #e1e1e1;
+}
+
+.PaginationItem_active > * {
+  color: white;
+  background-color: #0087e9 !important;
+}
+
+.PaginationItem_dots > * {
+  pointer-events: none;
+  color: #cccccc;
+}

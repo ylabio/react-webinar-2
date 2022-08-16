@@ -1,0 +1,13 @@
+.ArticleProfile {
+  padding: 20px 40px;
+}
+
+.ArticleProfile > * {
+  display: block;
+  margin: 0px 0px 20px 0px;
+}
+
+.ArticleProfile-price {
+  font-size: 24px;
+  font-weight: bold;
+}

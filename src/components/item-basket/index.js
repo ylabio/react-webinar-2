@@ -9,7 +9,9 @@ import {useNavigate} from "react-router";
 
 function ItemBasket(props) {
     const cn = bem('ItemBasket');
+
     const callbacks = {
+        onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove, props.item]),
         onRedirect: useCallback((e) => {
             props.onRedirect(props.item._id)
         }, [props.onAdd, props.item])
@@ -17,7 +19,6 @@ function ItemBasket(props) {
 
     return (
         <div className={cn()}>
-            {/*<div className={cn('id')}>{props.item._id}</div>*/}
             <p onClick={callbacks.onRedirect} className={cn('title')}>
                 {props.item.title}
             </p>

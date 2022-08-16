@@ -8,6 +8,8 @@ import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import Select from "../../components/select";
 import LoaderComponent from "../../components/loader-component";
+import LayoutMenu from "../../components/layout-menu";
+import Navbar from "../../components/navbar";
 
 function Main() {
   console.log("Main");
@@ -65,7 +67,7 @@ function Main() {
     <Layout
       head={
         <>
-          <h1>Магазин</h1>
+          <h1>{select.lang.translate.main.storeHead}</h1>
           <Select
             currentValue={select.lang.translate.lang}
             options={select.lang.langs}
@@ -74,12 +76,15 @@ function Main() {
         </>
       }
     >
-      <BasketSimple
-        translate={select.lang.translate}
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-      />
+      <LayoutMenu>
+        <Navbar translate={select.lang.translate} />
+        <BasketSimple
+          translate={select.lang.translate}
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+        />
+      </LayoutMenu>
       {isLoading ? (
         <LoaderComponent />
       ) : (

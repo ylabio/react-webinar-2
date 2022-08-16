@@ -10,25 +10,20 @@ function BasketSimple({ sum, amount, onOpen, translate }) {
   const cn = bem("BasketSimple");
   return (
     <div className={cn()}>
-      <Link to="/catalog" className={cn("link")}>
-        {translate.main.mainPage}
-      </Link>
-      <div>
-        <span className={cn("label")}>{translate.main.inBasket}</span>
-        <span className={cn("total")}>
-          {amount
-            ? `${amount} ${plural(
-                amount,
-                `${translate.main.product1}`,
-                `${translate.main.product2}`,
-                `${translate.main.product3}`
-              )} / ${numberFormat(sum)} ₽`
-            : `${translate.main.empty}`}
-        </span>
-        <button className="BasketSimple__button" onClick={onOpen}>
-          {translate.basket.openModal}
-        </button>
-      </div>
+      <span className={cn("label")}>{translate.main.inBasket}</span>
+      <span className={cn("total")}>
+        {amount
+          ? `${amount} ${plural(
+              amount,
+              `${translate.main.product1}`,
+              `${translate.main.product2}`,
+              `${translate.main.product3}`
+            )} / ${numberFormat(sum)} ₽`
+          : `${translate.main.empty}`}
+      </span>
+      <button className={cn("button")} onClick={onOpen}>
+        {translate.basket.openModal}
+      </button>
     </div>
   );
 }

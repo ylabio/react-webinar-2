@@ -7,6 +7,8 @@ import { useParams } from "react-router-dom";
 import ArticleContent from "../../components/article-content";
 import Select from "../../components/select";
 import LoaderComponent from "../../components/loader-component";
+import Navbar from "../../components/navbar";
+import LayoutMenu from "../../components/layout-menu";
 
 function ArticlePage() {
   console.log("ArticlePage");
@@ -17,7 +19,6 @@ function ArticlePage() {
 
   const load = async function () {
     await store.get("article").loadArticle(params.id);
-    await store.get("catalog").load(select.currentPage);
   };
 
   useEffect(() => {
@@ -33,7 +34,6 @@ function ArticlePage() {
     country: state.article.country,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    currentPage: state.catalog.currentPage,
     lang: state.language,
   }));
 
@@ -60,12 +60,15 @@ function ArticlePage() {
         )
       }
     >
-      <BasketSimple
-        translate={select.lang.translate}
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-      />
+      <LayoutMenu>
+        <Navbar translate={select.lang.translate} />
+        <BasketSimple
+          translate={select.lang.translate}
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+        />
+      </LayoutMenu>
       {isLoading ? (
         <LoaderComponent />
       ) : (

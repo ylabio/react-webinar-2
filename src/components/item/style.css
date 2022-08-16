@@ -29,6 +29,10 @@
 }
 
 .Item-price {
-  padding: 0 10px;
+  padding: 0 18px;
   white-space: nowrap;
+}
+
+.Item-button {
+  width: 76px;
 }

@@ -33,4 +33,14 @@ function ProductCart({ product, addToBasket, id }) {
   }
 }
 
+ProductCart.propTypes = {
+  addToBasket: propTypes.func.isRequired,
+  product: propTypes.object.isRequired,
+  id: propTypes.string.isRequired,
+};
+
+ProductCart.defaultProps = {
+  addToBasket: () => {},
+};
+
 export default React.memo(ProductCart);

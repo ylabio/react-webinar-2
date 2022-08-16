@@ -1,7 +1,6 @@
-import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
@@ -14,13 +13,13 @@ function Main(){
 
   const store = useStore();
 
-  const select = useSelector((state) => ({
+  const select = useSelector(state => ({
     items: state.catalog.items,
     totalCount: state.catalog.totalCount,
     limit: state.catalog.limit,
     currentPage: state.catalog.currentPage,
     amount: state.basket.amount,
-    sum: state.basket.sum,
+    sum: state.basket.sum
   }));
 
   const pages = Math.ceil(select.totalCount / select.limit);
@@ -33,10 +32,10 @@ function Main(){
 
   const callbacks = {
     // Открытие корзины
-    openModalBasket: useCallback(() => store.get("modals").open("basket"), []),
+    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
-    addToBasket: useCallback((_id) => store.get("basket").addToBasket(_id), []),
-    changePage: useCallback((page) => store.get("catalog").changePage(page), []),
+    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    changePage: useCallback(page => store.get('catalog').changePage(page), []),
   };
 
   const renders = {

@@ -5,13 +5,7 @@
     padding: 20px;
     font-size: 18px;
 }
-.BasketSimple-link{
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 21px;
-    text-decoration-line: underline;
-    color: #0087E9;
-}
+
 .BasketSimple-content{
     display: flex;
     justify-content: flex-end;

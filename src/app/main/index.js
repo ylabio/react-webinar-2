@@ -26,7 +26,8 @@ function Main(){
     totalCount: state.catalog.totalCount,
     isLoading: state.catalog.isLoading,
     perPage: state.catalog.perPage,
-    currentPage: state.catalog.currentPage
+    currentPage: state.catalog.currentPage,
+    addInProgress: state.basket.addInProgress
   }));
 
   const callbacks = {
@@ -47,7 +48,7 @@ function Main(){
         <Breadcrumbs crumbs={'Главная'}/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
         {select.isLoading ? <Preload/>:<List items={select.items} renderItem={renders.item}/>}
-        <Pagination totalCount={select.totalCount} perPage={select.perPage} onChangePage={callbacks.changePage}/>
+        <Pagination totalCount={select.totalCount} perPage={select.perPage} currentPage={select.currentPage} onChangePage={callbacks.changePage}/>
       </Layout>
   )
 }

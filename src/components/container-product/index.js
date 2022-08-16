@@ -14,18 +14,19 @@ function ContainerProduct(props) {
         addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), [])
     }
 
-    const { selectItem, amount, sum } = props
+    const { language, selectItem, amount, sum } = props
+    console.log(selectItem);
 
 
 
     return (<div className="container-product">
         <BasketSimple sum={sum} amount={amount} onOpen={callbacks.openModalBasket}></BasketSimple>
         <p className="description">{selectItem.description}</p>
-        <p className="country">Страна производитель:{'\u00A0'} <strong>{selectItem.maidIn.title}</strong></p>
-        <p className="category">Категория:{'\u00A0'}<strong>{selectItem.category.title} </strong> </p>
-        <p className="year">Год выпуска:{'\u00A0'}<strong>{selectItem.edition}</strong></p>
-        <p className="price"><strong>Цена:{'\u00A0'}{numberFormat(selectItem.price) + " ₽"}</strong></p>
-        <button onClick={() => callbacks.addToBasket(selectItem._id)}>Добавить</button>
+        <p className="country">{language.productCountry}:{'\u00A0'} <strong>{selectItem.maidIn.title}</strong></p>
+        <p className="category">{language.category}:{'\u00A0'}<strong>{selectItem.category.title} </strong> </p>
+        <p className="year">{language.yearOfIssue}:{'\u00A0'}<strong>{selectItem.edition}</strong></p>
+        <p className="price"><strong>{language.price}:{'\u00A0'}{numberFormat(selectItem.price) + " ₽"}</strong></p>
+        <button onClick={() => callbacks.addToBasket(selectItem._id)}>{language.add}</button>
     </div>)
 }
 

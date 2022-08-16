@@ -17,17 +17,17 @@ class CatalogState extends StateModule {
   }
 
   async load(data = 0, limit = 10) {
-    const response = await fetch(`/api/v1/articles?limit=10&skip=${data.selected * limit}&fields=items(*),count`);
+    const response = await fetch(`/api/v1/articles?limit=10&skip=${data * limit}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
       items: json.result.items,
-      totalSum: json.result.count
+      totalSum: json.result.count,
+      position: data * limit
     });
-
   }
 
   async loadProduct(id) {
-    const response = await fetch(`http://example.front.ylab.io/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
+    const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
     const json = await response.json();
     this.setState({
       ...this.store.state.catalog,

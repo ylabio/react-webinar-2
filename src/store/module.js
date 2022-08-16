@@ -18,13 +18,11 @@ class StateModule {
   }
 
   setState(newState, description = 'setState') {
-    console.log('я сработал');
     this.store.setState({
       ...this.store.getState(),
       [this.name]: newState
     }, description)
   }
-
 }
 
 export default StateModule;

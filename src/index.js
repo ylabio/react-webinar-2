@@ -6,7 +6,12 @@ import { BrowserRouter } from 'react-router-dom';
 import { StoreContext } from "./store/context";
 
 // Внешнее состояние
-const store = new Store();
+
+const store = new Store({});
+
+
+
+
 
 // Корень React приложения
 const root = createRoot(document.getElementById('root'));

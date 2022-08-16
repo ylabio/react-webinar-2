@@ -9,6 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 
 
 
+
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
@@ -19,7 +20,6 @@ function App() {
 
   console.log('App');
 
-  const reRand = useCallback()
 
 
   return (

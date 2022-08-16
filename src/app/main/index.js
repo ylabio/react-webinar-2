@@ -23,10 +23,13 @@ function Main() {
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    totalSum: state.catalog.totalSum
+    totalSum: state.catalog.totalSum,
+    language: state.multilang.CurrentLang,
+    position: state.catalog.position
   }));
 
 
+  console.log(select.language);
 
 
   const callbacks = {
@@ -35,18 +38,24 @@ function Main() {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Загрузка каталога
-    catalogLoad: useCallback(data => store.get('catalog').load(data), [])
+    catalogLoad: useCallback(data => store.get('catalog').load(data), []),
+
+    switchLang: useCallback(name => store.get('multilang').switchLang(name), [])
   };
+
+
 
   const renders = {
     item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} />, []),
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>{select.language.mainTitle}</h1>}>
+      <button onClick={() => callbacks.switchLang("RU")}>RU</button>
+      <button onClick={() => callbacks.switchLang("ENG")}>ENG</button>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List items={select.items} renderItem={renders.item} catalogLoad={callbacks.catalogLoad} />
-      <Paginate totalSum={select.totalSum} catalogLoad={callbacks.catalogLoad} />
+      <Paginate position={select.position} totalSum={select.totalSum} catalogLoad={callbacks.catalogLoad} />
     </Layout>
 
 

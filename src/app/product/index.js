@@ -20,21 +20,22 @@ function Product(props) {
         store.get('catalog').loadProduct(productId);
     }, [])
 
-    const { selectItem, amount, sum } = useSelector(state => ({
+    const { language, selectItem, amount, sum } = useSelector(state => ({
         selectItem: state.catalog.selectItem,
         amount: state.basket.amount,
         sum: state.basket.sum,
+        language: state.multilang.CurrentLang
     }));
 
 
-
+    console.log(language);
 
     return (
-        <Layout head={<h1>Название товара</h1>}>
+        <Layout head={<h1>{language.productTitle}</h1>}>
             <Link className="Main" to="/">
-                Главная
+                {language.productLink}
             </Link>
-            <ContainerProduct sum={sum} amount={amount} selectItem={selectItem} />
+            <ContainerProduct language={language} sum={sum} amount={amount} selectItem={selectItem} />
 
         </Layout>
 

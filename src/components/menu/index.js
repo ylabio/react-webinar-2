@@ -1,28 +1,27 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import propTypes, { arrayOf } from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import { Link } from 'react-router-dom';
 import './style.css';
 
-
-function Menu({main, link}) {
+function Menu({menuItems}) {
   const cn = bem('Menu');
 
   return (
     <div className={cn()}>
-      <Link to={link}>{main}</Link>
+      {menuItems.map(item =>
+        <div className={cn('menuItem')} key={item.id}>
+          <Link to={item.link}>
+            {item.title}
+          </Link>
+        </div>
+      )}
     </div>
   )
 }
 
 Menu.propTypes = {
-  main: propTypes.string,
-  link: propTypes.string
-}
-
-Menu.defaultProps = {
-  main: 'Главная',
-  link: '/'
+  menuItems: arrayOf(propTypes.object).isRequired
 }
 
 export default React.memo(Menu);

@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
@@ -16,6 +16,7 @@ function LanguageSwitch({changeLanguage, val}) {
 
 LanguageSwitch.propTypes = {
   changeLanguage: propTypes.func.isRequired,
+  val: propTypes.string.isRequired
 }
 
 export default React.memo(LanguageSwitch);

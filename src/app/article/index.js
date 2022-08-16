@@ -5,9 +5,9 @@ import useSelector from "../../utils/use-selector";
 import Page from "../../components/page";
 import Preloader from "../../components/preloader";
 import { useParams } from "react-router";
-import Header from "../../components/header";
 import { translate } from "../../utils/translate";
 import LanguageSwitch from "../../components/language-switch";
+import ContainerMenuBasketSimple from "../../containers/container-menu-basket-simple";
 
 function Article(){
 
@@ -47,7 +47,7 @@ function Article(){
     <>  
       <Layout head={!select.loading?<h1>{select.item.title}</h1>:''} 
               right={<LanguageSwitch changeLanguage={callbacks.changeLanguage} val={select.valLang}/>}>
-        <Header/>
+        <ContainerMenuBasketSimple/>
         {select.loading ? 
           <Preloader/>
           :

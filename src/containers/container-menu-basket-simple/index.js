@@ -2,11 +2,11 @@ import BasketSimple from "../../components/basket-simple";
 import React, {useCallback} from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import Menu from "../menu";
-import LayoutHeader from "../layout-header";
+import Menu from "../../components/menu";
+import LayoutHeader from "../../components/layout-menu-basket-simple";
 import { translate } from "../../utils/translate";
 
-function Header(){
+function ContainerMenuBasketSimple(){
   const store = useStore();
   
   const select = useSelector(state => ({
@@ -30,8 +30,10 @@ function Header(){
     emptyText: translate(select.valLang, 'emptyText')
   }
 
+  const menuItems = [{id: 1, title: translations.main, link: '/'}];
+
   return (
-    <LayoutHeader menu={<Menu main={translations.main} link='/'/>}
+    <LayoutHeader menu={<Menu menuItems={menuItems}/>}
                   basketSimple={<BasketSimple onOpen={callbacks.openModalBasket}
                                               amount={select.amount}
                                               sum={select.sum}
@@ -47,4 +49,4 @@ function Header(){
   )
 }
 
-export default React.memo(Header);
+export default React.memo(ContainerMenuBasketSimple);

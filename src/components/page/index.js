@@ -13,26 +13,28 @@ function Page({addToBasket, item, addButtonName, producingCountry, category, rel
 
   return (
     <div className={cn()}>
-      {item.title&&<>
-               <div className={cn('description')}>
-                 {item.description}
-               </div>
-               <div className={cn('country')}>
-                 {producingCountry}:<strong> {item.maidIn.title} ({item.maidIn.code})</strong>
-               </div>
-               <div className={cn('category')}>
-                 {category}:<strong> {item.category.title}</strong>
-               </div>
-               <div className={cn('edition')}>
-                {releaseYear}:<strong> {item.edition}</strong>
-               </div>
-               <div className={cn('price')}><strong>
-                 {price}: {numberFormat(item.price || 0)} ₽</strong>
-               </div>
-               <div className={cn('actions')}>
-                 <button onClick={callbacks.addToBasket}>{addButtonName}</button>
-               </div>
-             </>       
+      {
+        item.title&&
+          <>
+            <div className={cn('description')}>
+              {item.description}
+            </div>
+            <div className={cn('country')}>
+              {producingCountry}:<strong> {item.maidIn.title} ({item.maidIn.code})</strong>
+            </div>
+            <div className={cn('category')}>
+              {category}:<strong> {item.category.title}</strong>
+            </div>
+            <div className={cn('edition')}>
+              {releaseYear}:<strong> {item.edition}</strong>
+            </div>
+            <div className={cn('price')}><strong>
+              {price}: {numberFormat(item.price || 0)} ₽</strong>
+            </div>
+            <div className={cn('actions')}>
+              <button onClick={callbacks.addToBasket}>{addButtonName}</button>
+            </div>
+         </>       
       }
     </div>
   )

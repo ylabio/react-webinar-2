@@ -20,17 +20,16 @@ class PageStore extends StoreModule {
   async pageLoad(_id){
 
     this.setState({
-      ...this.state,
+      ...this.getState(),
       loading: true
     }, `Начало загрузки страницы товара`);
 
     const response = await fetch(`/api/v1/articles/${_id}?fields=*,maidIn(title,code),category(title)`);
     const json = await response.json();
-    console.log(json)
     const page = json.result;
     
     this.setState({
-      page: page,
+      page,
       loading: false
     }, `Завершение загрузки страницы товара`);
   }

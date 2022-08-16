@@ -1,14 +1,14 @@
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Paginator from "../../components/paginator";
 import Preloader from "../../components/preloader";
-import Header from "../../components/header";
 import { translate } from "../../utils/translate";
 import LanguageSwitch from "../../components/language-switch";
+import ContainerMenuBasketSimple from "../../containers/container-menu-basket-simple";
 
 function Main(){
 
@@ -30,19 +30,19 @@ function Main(){
     // Загрузка списка товаров
     load: useCallback((page) => store.get('catalog').load(page), []),
     // Изменение языка
-    changeLanguage: useCallback((value) => store.get('names').changeLanguage(value), [])
+    changeLanguage: useCallback((value) => store.get('names').changeLanguage(value), []),
+    // Изменение номера текущей страницы
+    changeCurrentPage: useCallback((page) => store.get('catalog').changeCurrentPage(page), [])
   };
 
    const translations = {
-    addButtonName: translate(select.valLang, 'addButtonName'),
-    mainHead: translate(select.valLang, 'mainHead')
+     addButtonName: translate(select.valLang, 'addButtonName'),
+     mainHead: translate(select.valLang, 'mainHead')
    }
 
-  const [pageNumber, changePageNumber] = useState(select.page);
-
   useEffect(() => {
-    store.get('catalog').load(pageNumber);
-  }, [pageNumber])
+    store.get('catalog').load();
+  }, [select.page])
 
   const renders = {
     item: useCallback(item => <Item item={item}
@@ -55,14 +55,14 @@ function Main(){
   return (
     <Layout head={<h1>{translations.mainHead}</h1>} 
             right={<LanguageSwitch changeLanguage={callbacks.changeLanguage} val={select.valLang}/>}>
-      <Header/>
+      <ContainerMenuBasketSimple/>
         {select.loading ?
           <Preloader/>
         :
           <List items={select.items} renderItem={renders.item}/>}
       <Paginator pagesCount={select.pagesCount}
                  page={select.page}
-                 changePageNumber={changePageNumber}
+                 changeCurrentPage={callbacks.changeCurrentPage}
       />
     </Layout>
   )

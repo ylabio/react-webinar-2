@@ -1,7 +1,5 @@
 import StateModule from "../module";
 
-const limit = 10;
-
 /**
  * Состояние каталога
  */
@@ -15,32 +13,41 @@ class CatalogState extends StateModule{
     return {
       items: [],
       loading: false,
-      page: 1
+      page: 1,
+      limit: 10,
+      pagesCount: 0
     };
   }
 
-  /**
-   * Загрузка списка товаров
-   * @param page
-   */
-   async load(page) {
+  //Загрузка списка товаров
+   async load() {
 
-    this.setState({
-      ...this.state,
-      loading: true
-    }, `Начало загрузки списка товаров на странице ${page}`)
+     this.setState({
+       ...this.getState(),
+       loading: true
+     }, `Начало загрузки списка товаров на странице`)
 
-    const skip = (page - 1) * limit;
-    const response = await fetch(`/api/v1/articles/?&limit=${limit}&skip=${skip}&fields=items(*),count`);
-    const json = await response.json();
-    const items = json.result.items;
+     const limit = this.getState().limit;
+     const skip = (this.getState().page - 1) * limit;
+     const response = await fetch(`/api/v1/articles/?&limit=${limit}&skip=${skip}&fields=items(*),count`);
+     const json = await response.json();
   
+     this.setState({
+       ...this.getState(),
+       items: json.result.items,
+       pagesCount: Math.ceil(json.result.count / limit),
+       loading: false
+      }, `Завершение загрузки списка товаров на странице`); 
+    }
+  
+  /**
+   * Изменение текущей страницы
+   */
+  changeCurrentPage(page){
     this.setState({
-      items: items,
-      page,
-      pagesCount: Math.ceil(json.result.count/limit),
-      loading: false
-    }, `Завершение загрузки списка товаров на странице ${page}`); 
+      ...this.getState(),
+      page
+    })
   }
 
 }

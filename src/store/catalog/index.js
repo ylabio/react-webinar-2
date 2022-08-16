@@ -14,6 +14,8 @@ class CatalogState extends StateModule{
     return {
       items: [],
       count: 0,
+      pageCount: 0,
+      currentPage: 0,
     };
   }
 
@@ -25,6 +27,8 @@ class CatalogState extends StateModule{
 		this.setState({
 			items: json.result.items,
 			count: json.result.count,
+      pageCount: Math.ceil(json.result.count / limit),
+      currentPage: skip / limit + 1,
 		});
 	}
 

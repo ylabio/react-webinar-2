@@ -1,13 +1,12 @@
-import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
-import { useParams } from "react-router-dom";
 import { localize } from "../../utils/localize";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Main(){
 
@@ -15,20 +14,25 @@ function Main(){
 
   const store = useStore();
 
-  const { pageIndex = 1 } = useParams();
-	const pageIndexNo = Number(pageIndex);
+	const { pageIndex = 1 } = useParams();
+	const navigate = useNavigate();
 
 	const [limit] = useState(10);
 	const [skip, setSkip] = useState(0);
 
 	useEffect(() => {
-		setSkip(limit * (pageIndexNo - 1));
+		setSkip(limit * (Number(pageIndex) - 1))
+	}, [pageIndex])
+
+	useMemo(() => {
 		store.get('catalog').load(limit, skip);
-	}, [skip, pageIndexNo]);
+	}, [skip]);
 
   const select = useSelector(state => ({
     items: state.catalog.items,
     count: state.catalog.count,
+    pageCount: state.catalog.pageCount,
+    currentPage: state.catalog.currentPage,
 		language: state.localization.language,
   }));
 
@@ -41,18 +45,17 @@ function Main(){
     item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} language={select.language} />, [select.language]),
   }
 
-  const pageCount = Math.ceil(select.count / limit);
-
   return (
     <Layout head={<h1>{localize['Магазин'][select.language]}</h1>}>
-			{pageCount >= pageIndex && (
+			{select.items.length > 0 && (
 				<>
 					<List items={select.items} renderItem={renders.item} />
 					<Pagination
-						pageCount={pageCount}
 						limit={limit}
+						pageCount={select.pageCount}
+						currentPage={select.currentPage}
 						setSkip={setSkip}
-						pageIndexNo={pageIndexNo}
+						navigate={navigate}
 					/>
 				</>
 			)}

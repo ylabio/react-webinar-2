@@ -28,8 +28,8 @@ function Main(){
   //получаем номер страницы при переходе
   const param = useParams();
   let pageParam = select.page;
-  if (param.page)
-    pageParam = Number(param.page);  
+  if (Number(param.page) > 0)
+    pageParam = Number(param.page); 
   
   //получаем данные из localStorage, если они есть  
   useEffect(() => {

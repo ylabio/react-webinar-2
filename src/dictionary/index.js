@@ -17,7 +17,8 @@ const dictionary = {
     countryOforigin: ['Country of origin: ', 'Страна производитель: ', 'Tuottajamaa: '],
     category: ['Category: ', 'Категория: ', 'Kategoria: '],
     yearOfRelease: ['Year of release: ', 'Год выпуска: ', 'Julkaisuvuosi: '],
-    price: ['Price: ', 'Цена: ', 'Hinta: ']
+    price: ['Price: ', 'Цена: ', 'Hinta: '],
+    error404: ['...page is not fined, error 404', '...упс. Такой страницы не существует', '...tätä sivua ei ole olemassa']
 };
 
 export default dictionary

@@ -1,15 +1,22 @@
-import {cn as bem} from "@bem-react/classname";
 import React from 'react';
-import './style.css';
+import LayoutError from '../../components/layout-error';
+import dictionary from '../../dictionary';
 
-function Page404() {
-  const cn = bem('page404');
+function Error404() {
+
+  let lang = 1;
+  switch(navigator.language){
+    case 'ru-RU': lang = 1;
+      break;
+    case 'fn-FN': lang = 2;
+      break;
+    default: lang = 0;
+  }
 
   return (
-    <div className={cn()}>
-      <h1>...упс. Такой страницы не существует</h1>
-    </div>
+    <LayoutError errorText={dictionary.error404[lang]}>
+    </LayoutError>
   )
 }
 
-export default React.memo(Page404);
+export default React.memo(Error404);

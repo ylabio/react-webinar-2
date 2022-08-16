@@ -1,9 +1,6 @@
 /* Контрол с общими действиями */
 .BasketSimple{
-    display: flex;
-    justify-content: flex-end;
-    padding: 20px;
-    font-size: 18px;
+
 }
 
 .BasketSimple-label{
@@ -13,8 +10,4 @@
 .BasketSimple-total{
     font-weight: bold;
     margin: 0 15px;
-}
-
-.BasketSimple-home{
-    margin-right: auto;
 }

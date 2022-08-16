@@ -6,6 +6,8 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
+import HomeButton from "../../components/home-button";
+import Navigation from "../../components/navigation";
 
 function Main(){
 
@@ -41,7 +43,10 @@ function Main(){
 
   return (
     <Layout head={<h1>{select.language.shop}</h1>} language={select.language.languageName} changeLanguage={callbacks.changeLanguage}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language}/>
+      <Navigation>
+        <HomeButton language={select.language}/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language}/>
+      </Navigation>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination count={select.count}                  
                   paginate={callbacks.setPage}

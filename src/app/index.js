@@ -4,7 +4,6 @@ import Basket from "./basket";
 import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
 import {Route, Routes} from "react-router-dom";
-// import {BrowserRouter} from "react-router-dom"
 import ItemPage from "./item-page";
 
 /**

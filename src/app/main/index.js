@@ -30,7 +30,9 @@ function Main() {
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback((_id) => store.get('basket').addToBasket(_id), []),
+
     changeNumber: useCallback((skip) => store.get('catalog').load(skip), []),
+
     setCurrentPage: useCallback(
       (currentPage) => store.get('catalog').setCurrentPage(currentPage),
       []

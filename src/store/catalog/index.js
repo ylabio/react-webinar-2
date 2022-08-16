@@ -51,7 +51,6 @@ class CatalogState extends StateModule {
       items: this.getState().items,
       limit: this.getState().limit,
       count: this.getState().count,
-      // currentPage: this.getState().currentPage,
     })
   }
 

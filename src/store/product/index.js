@@ -19,7 +19,7 @@ class ProductState extends StateModule {
 
   async loadItem(id) {
     const response = await fetch(
-      `/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`
+      `api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`
     )
     const json = await response.json()
     this.setState({

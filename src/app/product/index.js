@@ -10,13 +10,12 @@ import ProductInfo from '../../components/product-info'
 function Product() {
   console.log('Product')
 
+  const store = useStore()
   const { id } = useParams()
 
   useEffect(() => {
     store.get('product').loadItem(id)
   }, [id])
-
-  const store = useStore()
 
   const select = useSelector((state) => ({
     item: state.product.item,

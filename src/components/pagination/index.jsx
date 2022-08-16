@@ -5,7 +5,7 @@ import getPaginationPages from '../../utils/getPaginationPages';
 import './style.css';
 
 const Pagination = ({ current, last, route }) => {
-  const [pages, setPages] = useState(false); // чтобы map срабатывал когда посчитаются страницы
+  const [pages, setPages] = useState([1, 2, 3]);
 
   useEffect(() => {
     setPages(getPaginationPages(current, last))
@@ -13,12 +13,10 @@ const Pagination = ({ current, last, route }) => {
 
   return (
     <div className='pagination'>
-      {pages && pages.map(item =>
-        (item.type === 'current')
-        ? <p key={item.key} className='pagination__active-link'>{item.value}</p>
-          : (item.type === 'space') 
-          ? <p key={item.key} className='pagination__separator'>...</p>
-            : <Link to={route + item.value} key={item.key} className='pagination__link'>{item.value}</Link>
+      {pages.map((item, index) =>
+        (item === current) ? <p key={index} className='pagination__active-link'>{item}</p>
+          : (item === null) ? <p key={index} className='pagination__separator'>...</p>
+            : <Link key={index} to={route + item} className='pagination__link'>{item}</Link>
       )}
     </div>
   )

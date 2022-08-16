@@ -9,6 +9,7 @@ export const langVars = {
 		inCart: ['В корзине:', 'In cart:'],
 		moveTo: ['Перейти', 'To cart'],
 		empty: ['пусто', 'empty'],
+		goodsPlural: [['товар', 'товара', 'товаров'], ['item', 'items', 'items']]
 	},
 	item: {
 		addBtn: ['Добавить', 'Add'],
@@ -18,7 +19,8 @@ export const langVars = {
 	cart: {
 		cart: ['Корзина', 'Cart'],
 		total: ['Итого', 'Total'],
-		closeBtn: ['Закрыть', 'Close'] 
+		closeBtn: ['Закрыть', 'Close'],
+		
 	},
 	productInfo: {
 		country: ['Страна производитель: ', 'Made in: '],

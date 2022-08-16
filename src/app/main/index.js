@@ -4,6 +4,7 @@ import Layout from "../../components/layout";
 import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import Pagination from "../../components/pagination";
+import Loader from "../../components/loader";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 
@@ -15,13 +16,14 @@ function Main(){
 
   const select = useSelector(state => ({
     items: state.catalog.items,
+		isLoading: state.catalog.isLoading,
 		limit: state.catalog.limit,
 		pagesCount: state.catalog.pagesCount,
 		currPage: state.catalog.currPage,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
-	
+
 	useEffect(() => {
 		const skip = select.currPage === 1 ? 0 : (select.currPage - 1) * select.limit;
     store.get('catalog').load(select.limit, skip);
@@ -43,8 +45,13 @@ function Main(){
   return (
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
-			<Pagination pagesCount={select.pagesCount} currPage={select.currPage} setCurrPage={callbacks.setCurrPage}/>
+			{select.isLoading ? 
+				<Loader /> : 
+				<>
+          <List items={select.items} renderItem={renders.item}/>
+          <Pagination pagesCount={select.pagesCount} currPage={select.currPage} setCurrPage={callbacks.setCurrPage}/>
+				</>
+			}
     </Layout>
   )
 }

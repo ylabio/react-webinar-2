@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from 'prop-types';
 import numberFormat from "../../utils/number-format";
+import Loader from './../loader/index';
 import './styles.css';
 
 function ArticleInfo(props) {
@@ -14,7 +15,10 @@ function ArticleInfo(props) {
 
 	return (
 		<>
-			{!props.isLoading && props.currArticle?._id ?
+			{props.isLoading ?
+				<Loader /> :
+			!props.isLoading && !props.currArticle._id ?
+				<div className={cn('info')}>Неверный url</div> :
 				<div className={cn('info')}>
 					<div className={`${cn('description')} ${cn('item')}`}>{props.currArticle.description}</div>
 					<div className={`${cn('madein')} ${cn('item')}`}>Страна производитель: <strong>{props.currArticle.maidIn?.title} ({props.currArticle.maidIn?.code})</strong></div>
@@ -22,10 +26,7 @@ function ArticleInfo(props) {
 					<div className={`${cn('edition')} ${cn('item')}`}>Год выпуска: <strong>{props.currArticle.edition}</strong></div>
 					<div className={`${cn('price')} ${cn('item')}`}><strong>Цена: {numberFormat(props.currArticle.price)} ₽</strong></div>
 					<button onClick={callbacks.onAdd}>Добавить</button>
-				</div> : 
-				!props.currArticle ? 
-					<div className={cn('info')}>Неверный url товара</div> :
-					<div className={cn('info')}>Загрузка данных товара...</div>
+				</div>
 			}
 		</>
 	)

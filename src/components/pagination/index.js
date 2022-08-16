@@ -6,8 +6,7 @@ import './styles.css';
 
 function Pagination(props) {
 	const cn = bem('Pagination');
-	const pages = Array.from(Array(props.pagesCount), (_,i) => i + 1);
-	const buttonsPagination = props.pagesCount && createButtonsPagination(pages, props.currPage);
+	const buttonsPagination = props.pagesCount && createButtonsPagination(props.currPage, props.pagesCount);
 
 	const callbacks = {
     setCurrPage: useCallback((page) => props.setCurrPage(page), [props.currPage])

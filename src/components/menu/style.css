@@ -1,11 +1,11 @@
-.Breadcrumbs {
+.Menu {
     color: #0087E9;
     padding: 20px;
     font-size: 18px;
     position: absolute;
 }
 
-.Breadcrumbs-link {
+.Menu-link {
     cursor: url("../../images/cursor.svg"), pointer;
     text-decoration-line: underline;
     color: inherit;

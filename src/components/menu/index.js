@@ -4,21 +4,21 @@ import {cn as bem} from "@bem-react/classname";
 import {Link} from "react-router-dom";
 import './style.css'
 
-function Breadcrumbs({crumbs}) {
-    const cn = bem('Breadcrumbs');
+function Menu({children}) {
+    const cn = bem('Menu');
     return (
         <div className={cn()}>
-            <Link className={cn('link')} to='/'>{crumbs}</Link>
+            <Link className={cn('link')} to='/'>{children}</Link>
         </div>
     )
 }
 
-Breadcrumbs.propTypes = {
+Menu.propTypes = {
     crumbs: propTypes.string
 }
 
-Breadcrumbs.defaultProps = {
+Menu.defaultProps = {
     crumbs: ''
 }
 
-export default React.memo(Breadcrumbs);
+export default React.memo(Menu);

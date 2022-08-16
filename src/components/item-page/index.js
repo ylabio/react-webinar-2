@@ -26,7 +26,7 @@ function ItemPage({ onOpen, amount, sum, addToBasket }) {
   }));
 
   return (
-    <Layout head={<h1>Наименование товара</h1>}>
+    <Layout head={<h1>{select.item?.title}</h1>}>
       <BasketSimple onOpen={onOpen} amount={amount} sum={sum} />
       <div className={cn()}>
         <div>{select.item?.description}</div>

@@ -18,13 +18,14 @@ function Main(){
   const select = useSelector(state => ({
     items: state.catalog.items,
     count: state.catalog.count,
-    skipPage: state.pages.skip,
-    page: state.pages.page,
+    page: state.catalog.page,
     amount: state.basket.amount,
     sum: state.basket.sum,
     lang: state.language.lang
   }));
   
+  const skipPage = (select.page * 10) - 10;
+
   //получаем номер страницы при переходе
   const param = useParams();
   let pageParam = select.page;
@@ -39,13 +40,9 @@ function Main(){
 
   //обновление информации в зависимости от номера страницы
   useEffect(() => {
-    store.get('pages').setPage(pageParam);
+    store.get('catalog').setPage(pageParam);
+    store.get('catalog').load((pageParam*10)-10);
   }, [pageParam])
- 
-  //получаем данные для каталога из API
-  useEffect(() => {
-    store.get('catalog').load(select.skipPage);
-  }, [select.skipPage])
 
   const callbacks = {
     // Открытие корзины
@@ -60,9 +57,9 @@ function Main(){
     item: useCallback(item => <Item item={item} 
                                     onAdd={callbacks.addToBasket}
                                     add={dictionary.add[select.lang]}
-                                    skipPage={select.skipPage}
+                                    skipPage={skipPage}
                                     urlTo={'/article/'+item._id}
-    />, [select.lang, select.skipPage]),
+    />, [select.lang, skipPage]),
   }
 
   return (

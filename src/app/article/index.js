@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import Layout from "../../components/layout";
-import BasketSimple from "../../components/basket-simple";
 import GoodsInfo from "../../components/goods-info";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
@@ -21,8 +20,7 @@ function Article(){
     category: state.article.category,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    lang: state.language.lang,
-    skipPage: state.pages.skip
+    lang: state.language.lang
   }));
 
   const callbacks = {

@@ -10,7 +10,7 @@ function Pagination(props) {
   const cn = bem('Pagination');
 
   const pagination = PaginationUtility(props.page, props.count);
-  
+
   return (
     <div className={cn()}>
       {pagination.map((i, index) => 

@@ -13,7 +13,8 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      count: 0
+      count: 0,
+      page: 1
     };
   }
 
@@ -22,7 +23,8 @@ class CatalogState extends StateModule{
     const json = await response.json();
     this.setState({
       items: json.result.items,
-      count: json.result.count
+      count: json.result.count,
+      page: this.getState().page
     });
   }
 
@@ -32,7 +34,8 @@ class CatalogState extends StateModule{
   createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
     this.setState({
       items: this.getState().items.concat({_id, title, price, selected}),
-      count: 0
+      count: 0,
+      page: 1
     }, 'Создание товара');
   }
 
@@ -43,8 +46,21 @@ class CatalogState extends StateModule{
   deleteItem(_id) {
     this.setState({
       items: this.getState().items.filter(item => item._id !== _id),
-      count: count
+      count: count,
+      page: page
     }, 'Удаление товара');
+  }
+
+   /**
+   * устанвока страницы
+   * @param page номер страницы @param skip поиска
+   */
+  setPage(page){
+    this.setState({
+      items: this.getState().items,
+      count: this.getState().count,
+      page
+    }, `Открытие страницы номер ${page}`);
   }
 }
 

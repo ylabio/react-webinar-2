@@ -48,11 +48,11 @@ class BasketState extends StateModule{
         // Досчитываем сумму
         sum += item.price;
       } else {
-        // Если item отсутствует в каталоге при перезагрузке страницы, берём его из sessionStorage
-        let itemFromSessionStorage = JSON.parse(sessionStorage.getItem('item'));
-        items.push({...itemFromSessionStorage, amount: 1});
+        // Если item отсутствует в каталоге при перезагрузке страницы, берём его из PageStore
+        let itemFromPageStore = this.store.getState().page.page;
+        items.push({...itemFromPageStore, amount: 1});
         // Досчитываем сумму
-        sum += itemFromSessionStorage.price; 
+        sum += itemFromPageStore.price; 
       }
      
     }

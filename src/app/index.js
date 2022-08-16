@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Main from "./main";
 import Basket from "./basket";
 import useSelector from "../utils/use-selector";
 import { BrowserRouter } from 'react-router-dom';
 import { Routes, Route } from 'react-router';
 import Article from './article';
-import Preloader from '../components/preloader';
 
 /**
  * Приложение
@@ -21,8 +20,8 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route exact path='/:id' element={<Article/>}  />
-          <Route exact path='/' element={<Main/>}/>
+          <Route path='/' element={<Main/>}/>
+          <Route path='articles/:id' element={<Article/>}/>
         </Routes>
         {modal === 'basket' && <Basket/>}
       </BrowserRouter>

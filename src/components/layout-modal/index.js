@@ -41,11 +41,13 @@ LayoutModal.propTypes = {
   title: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
+  closeButtonName: PropTypes.string
 };
 
 LayoutModal.defaultProps = {
   title: 'Модалка',
-  onClose: () => {}
+  onClose: () => {},
+  closeButtonName: 'Закрыть'
 };
 
 export default React.memo(LayoutModal);

@@ -14,21 +14,23 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      loading: false
+      loading: false,
+      page: 1
     };
   }
 
   /**
    * Загрузка списка товаров
+   * @param page
    */
-   async load(page = 0) {
+   async load(page) {
 
     this.setState({
       ...this.state,
       loading: true
-    })
+    }, `Начало загрузки списка товаров на странице ${page}`)
 
-    const skip = page * limit;
+    const skip = (page - 1) * limit;
     const response = await fetch(`/api/v1/articles/?&limit=${limit}&skip=${skip}&fields=items(*),count`);
     const json = await response.json();
     const items = json.result.items;
@@ -38,7 +40,7 @@ class CatalogState extends StateModule{
       page,
       pagesCount: Math.ceil(json.result.count/limit),
       loading: false
-    }); 
+    }, `Завершение загрузки списка товаров на странице ${page}`); 
   }
 
 }

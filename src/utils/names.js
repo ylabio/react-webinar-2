@@ -14,6 +14,10 @@ export const ruNames = {
   item3Name: 'товаров',
   goButtonName: 'Перейти',
   pcsText: 'шт',
+  producingCountry: 'Страна производитель',
+  category: 'Категория',
+  releaseYear: 'Год выпуска',
+  price: 'Цена'
 }
 
 export const enNames = {
@@ -30,5 +34,9 @@ export const enNames = {
   item2Name: 'items',
   item3Name: 'items',
   goButtonName: 'Go',
-  pcsText: 'pcs'
+  pcsText: 'pcs',
+  producingCountry: 'Producing country',
+  category: 'Category',
+  price: 'Price',
+  releaseYear: 'Release year'
 }

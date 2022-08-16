@@ -2,22 +2,12 @@
 .BasketSimple{
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
     font-size: 18px;
 }
 
 .BasketSimple-total{
     font-weight: bold;
     margin: 0 15px;
-}
-
-.BasketSimple-main{
-    justify-self: flex-start;
-    margin-right: auto;
-}
-
-.BasketSimple-main a{
-    color: #0087E9;
 }
 
 .BasketSimple__button {

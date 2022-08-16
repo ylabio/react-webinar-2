@@ -4,19 +4,12 @@ import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
 import { Link } from "react-router-dom";
 import './style.css';
-import useSelector from '../../utils/use-selector';
 
 function Item(props) {
   const cn = bem('Item');
   
-  const select = useSelector(state => ({
-    addButtonName: state.names.names.addButtonName,
-    pcsText: state.names.names.pcsText
-  }));
-
   const callbacks = {
-    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
-    pageLoad: useCallback((e) => props.pageLoad(props.item._id), [props.pageLoad, props.item]),
+    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
 
   return (
@@ -24,13 +17,13 @@ function Item(props) {
       {/*<div className={cn('id')}>*/}
       {/*  {props.item._id}*/}
       {/*</div>*/}
-       <div className={cn('title')} onClick={callbacks.pageLoad}>
-       <Link to={`/${props.item._id}`}>{props.item.title}</Link>
-      </div>
+       <div className={cn('title')}>
+         <Link to={props.link}>{props.item.title}</Link>
+       </div>
       
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button className={cn('button')} onClick={callbacks.onAdd}>{select.addButtonName}</button>
+        <button className={cn('button')} onClick={callbacks.onAdd}>{props.addButtonName}</button>
       </div>
     </div>
   )
@@ -39,7 +32,12 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func.isRequired,
-  pageLoad: propTypes.func.isRequired
+  addButtonName: propTypes.string,
+  link: propTypes.string.isRequired
+}
+
+Item.defaultProps = {
+  addButtonName: 'Добавить'
 }
 
 export default React.memo(Item);

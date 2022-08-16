@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import StoreModule from "../module";
 
 class PageStore extends StoreModule {
@@ -14,23 +15,24 @@ class PageStore extends StoreModule {
 
   /**
    * Загрузка страницы товара
+   * @param _id Код товара
    */
-  async pageLoad(id){
+  async pageLoad(_id){
+
     this.setState({
       ...this.state,
       loading: true
-    });
-    const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
-   
+    }, `Начало загрузки страницы товара`);
+
+    const response = await fetch(`/api/v1/articles/${_id}?fields=*,maidIn(title,code),category(title)`);
     const json = await response.json();
+    console.log(json)
     const page = json.result;
-    sessionStorage.setItem('item', JSON.stringify(page));
-    const savePage = JSON.parse(sessionStorage.getItem('item'));
     
     this.setState({
-      page: savePage,
+      page: page,
       loading: false
-    });
+    }, `Завершение загрузки страницы товара`);
   }
   
 }

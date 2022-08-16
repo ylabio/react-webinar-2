@@ -1,10 +1,13 @@
-import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Page from "../../components/page";
 import Preloader from "../../components/preloader";
+import { useParams } from "react-router";
+import Header from "../../components/header";
+import { translate } from "../../utils/translate";
+import LanguageSwitch from "../../components/language-switch";
 
 function Article(){
 
@@ -13,39 +16,49 @@ function Article(){
   const store = useStore();
 
   const select = useSelector(state => ({
-    items: state.catalog.items,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
-    pagesCount: state.catalog.pagesCount,
-    page: state.catalog.page,
     loading: state.page.loading,
-    addButtonName: state.names.names.addButtonName,
+    item: state.page.page,
+    valLang: state.names.val
   }));
+
+  const translations = {
+    addButtonName: translate(select.valLang, 'addButtonName'),
+    producingCountry: translate(select.valLang, 'producingCountry'),
+    category: translate(select.valLang, 'category'),
+    releaseYear: translate(select.valLang, 'releaseYear'),
+    price: translate(select.valLang, 'price')
+  }
 
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback((_id) => store.get('basket').addToBasket(_id), []),
-    // Открытие страницы товара
-    pageLoad: useCallback((_id) => store.get('page').pageLoad(_id), []),
     // Изменение языка
     changeLanguage: useCallback((value) => store.get('names').changeLanguage(value), [])
   };
-  
-  const item = JSON.parse(sessionStorage.getItem('item'));
+  const { id } = useParams();
+ 
+  useEffect(() => {
+    store.get('page').pageLoad(id);
+  }, [id]);
 
   return (
     <>  
-      <Layout head={!select.loading&&<h1>{item.title}</h1>} changeLanguage={callbacks.changeLanguage}>
-        <BasketSimple onOpen={callbacks.openModalBasket} 
-                      amount={select.amount}
-                      sum={select.sum}
-        />
+      <Layout head={!select.loading?<h1>{select.item.title}</h1>:''} 
+              right={<LanguageSwitch changeLanguage={callbacks.changeLanguage} val={select.valLang}/>}>
+        <Header/>
         {select.loading ? 
           <Preloader/>
           :
-          <Page addToBasket={callbacks.addToBasket} item={item}/>
+          <Page addToBasket={callbacks.addToBasket}
+                item={select.item}
+                addButtonName={translations.addButtonName}
+                producingCountry={translations.producingCountry}
+                category={translations.category}
+                releaseYear={translations.releaseYear}
+                price={translations.price}
+          />
         }
       </Layout>
     </>

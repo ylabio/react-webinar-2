@@ -1,4 +1,3 @@
-import { enNames, ruNames } from "../../utils/names";
 import StoreModule from "../module";
 
 class NamesStore extends StoreModule {
@@ -8,23 +7,21 @@ class NamesStore extends StoreModule {
    */
    initState() {
     return {
-      names: ruNames,
       val: 'ru'
     };
   }
 
   /**
    * Изменение языка сайта
+   * @param value Код языка сайта
    */
    changeLanguage (value) {
    if (value === 'ru') {
      this.setState({
-       names: ruNames,
        val: 'ru'
      });
    } else if (value === 'en') {
        this.setState({
-         names: enNames,
          val: 'en'
        });
      }

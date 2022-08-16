@@ -35,9 +35,8 @@ function Main(){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Переключение страницы пагинации
     selectPage: useCallback((skip) => store.get('catalog').load(skip, select.limit), []),
-    // Переводы
-    translateRu: useCallback(() => store.get('languages').translateRu(), []),
-    translateEn: useCallback(() => store.get('languages').translateEn(), []),
+    // Перевод
+    translate: useCallback((language) => store.get('languages').translate(language), []),
   };
 
   const renders = {
@@ -53,8 +52,7 @@ function Main(){
     <Layout head={
       <>
         <h1>{select.lang.store}</h1>
-        <Translate translateRu={callbacks.translateRu}
-                   translateEn={callbacks.translateEn}
+        <Translate translate={callbacks.translate}
                    lang={select.lang}
         />
       </>

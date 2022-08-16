@@ -35,9 +35,8 @@ function Article(){
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(id => store.get('article').addToBasket(id), []),
-    // Переводы
-    translateRu: useCallback(() => store.get('languages').translateRu(), []),
-    translateEn: useCallback(() => store.get('languages').translateEn(), []),
+    // Перевод
+    translate: useCallback((language) => store.get('languages').translate(language), []),
   };
 
   const renders = {
@@ -54,8 +53,7 @@ function Article(){
     <Layout head={
       <>
         <h1>{select.item.title}</h1>
-        <Translate translateRu={callbacks.translateRu}
-                   translateEn={callbacks.translateEn}
+        <Translate translate={callbacks.translate}
                    lang={select.lang}
         />
       </>

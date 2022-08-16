@@ -1,19 +1,15 @@
 import React, {useCallback} from 'react';
-import propTypes, {number} from 'prop-types';
+import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function Translate({translateRu, translateEn, lang}) {
+function Translate({translate, lang}) {
   const cn = bem('Translate');
 
   const cb = {
     translate: useCallback((e) => {
-      e.target.value === 'Ru' && translateRu();
-      e.target.value === 'En' && translateEn();
+       translate(e.target.value);
     }, []),
-    translateEn: useCallback((item) => {
-
-    }, [])
   }
 
   return (
@@ -28,12 +24,12 @@ function Translate({translateRu, translateEn, lang}) {
 }
 
 Translate.propTypes = {
-  translateRu: propTypes.func.isRequired,
-  translateEn: propTypes.func.isRequired,
+  translate: propTypes.func,
   lang: propTypes.object,
 }
 
 Translate.defaultProps = {
+  translate: () => {},
   lang: {},
 }
 

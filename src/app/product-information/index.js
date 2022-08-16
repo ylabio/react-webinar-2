@@ -6,7 +6,7 @@ import useSelector from "../../utils/use-selector";
 import ProductCard from "../../components/product-card";
 import Select from "../../components/language-select";
 import MainMenu from "../../components/main-menu";
-import {translateLanguage} from "../../utils/translateLanguage";
+import {translateLanguage} from "../../utils/translate-language";
 
 function ProductInformation() {
   
@@ -59,11 +59,7 @@ function ProductInformation() {
     <Layout
       head={<><h1>{select.title}</h1><Select changeLanguage={callbacks.changeLanguage} language={select.language}/></>}>
       <div style={{display: 'flex', justifyContent: 'space-between'}}>
-        <MainMenu words={
-          {
-            main: words.main,
-          }
-        }/>
+        <MainMenu words={{main: words.main}}/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={
           {
             main: words.main,

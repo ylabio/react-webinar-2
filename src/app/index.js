@@ -4,7 +4,7 @@ import Basket from "./basket";
 import useSelector from "../utils/use-selector";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import ProductInformation from "./product-information";
-import {translateLanguage} from "../utils/translateLanguage";
+import {translateLanguage} from "../utils/translate-language";
 
 /**
  * Приложение
@@ -14,10 +14,9 @@ function App() {
   
   console.log('App');
   
-  const {modal, language} = useSelector(state => {
+  const {modal} = useSelector(state => {
     return {
       modal: state.modals.name,
-      language: state.translation.language,
     }
   })
   

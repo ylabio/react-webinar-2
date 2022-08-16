@@ -5,7 +5,7 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import {translateLanguage} from "../../utils/translateLanguage";
+import {translateLanguage} from "../../utils/translate-language";
 
 function Basket() {
   

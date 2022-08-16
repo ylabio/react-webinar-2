@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles.css';
+import propTypes from "prop-types";
 
 function Select(props) {
   return (
@@ -12,7 +13,10 @@ function Select(props) {
   )
 }
 
-Select.propTypes = {}
+Select.propTypes = {
+  language: propTypes.string,
+  changeLanguage: propTypes.func
+}
 
 Select.defaultProps = {}
 

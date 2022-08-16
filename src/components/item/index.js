@@ -34,7 +34,9 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
-  getProductInformation: propTypes.func
+  getProductInformation: propTypes.func,
+  path: propTypes.string,
+  words: propTypes.objectOf(propTypes.string)
 }
 
 Item.defaultProps = {

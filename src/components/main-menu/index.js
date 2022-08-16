@@ -2,6 +2,7 @@ import React from 'react';
 import {cn as bem} from "@bem-react/classname";
 import './styles.css';
 import {Link} from "react-router-dom";
+import propTypes from "prop-types";
 
 
 function MainMenu({words}) {
@@ -14,9 +15,9 @@ function MainMenu({words}) {
 }
 
 MainMenu.propTypes = {
+  words: propTypes.objectOf(propTypes.string)
 }
 
-MainMenu.defaultProps = {
-}
+MainMenu.defaultProps = {}
 
 export default React.memo(MainMenu);

@@ -25,7 +25,8 @@ ProductCard.propTypes = {
   category: propTypes.string,
   year: propTypes.number,
   price: propTypes.number,
-  addToBasket: propTypes.func
+  addToBasket: propTypes.func,
+  words: propTypes.objectOf(propTypes.string)
 }
 
 ProductCard.defaultProps = {}

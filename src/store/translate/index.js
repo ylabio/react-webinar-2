@@ -1,5 +1,5 @@
 import StateModule from "../module";
-import {translateLanguage} from "../../utils/translateLanguage";
+import {translateLanguage} from "../../utils/translate-language";
 
 /**
  * Состояние страницы информации о товаре

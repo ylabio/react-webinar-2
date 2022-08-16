@@ -29,7 +29,8 @@ function BasketSimple({sum, amount, onOpen, words}) {
 BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
-  amount: propTypes.number
+  amount: propTypes.number,
+  words: propTypes.objectOf(propTypes.string)
 }
 
 BasketSimple.defaultProps = {

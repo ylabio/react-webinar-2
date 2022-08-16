@@ -8,7 +8,7 @@ import useSelector from "../../utils/use-selector";
 import ListPagination from "../../components/list-pagination";
 import Select from "../../components/language-select";
 import MainMenu from "../../components/main-menu";
-import {translateLanguage} from "../../utils/translateLanguage";
+import {translateLanguage} from "../../utils/translate-language";
 
 function Main() {
   

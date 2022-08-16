@@ -35,7 +35,7 @@ class ParamsState extends StateModule {
     }
 
     /**
-   * Установка количества товаров
+   * Установка страницы пагинации
    * @param count {Number}
    */
     setPaginationPage(paginationPage) {

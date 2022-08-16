@@ -27,6 +27,7 @@ ProductInfo.propTypes = {
 };
 
 ProductInfo.defaultProps = {
+	item: {},
   callback: () => {},
 };
 

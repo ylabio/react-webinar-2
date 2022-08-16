@@ -11,7 +11,7 @@ function Controls({onAdd}){
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  onAdd: propTypes.func.isRequired // Обязательное свойство - функция
 }
 
 Controls.defaultProps = {

@@ -3,7 +3,7 @@ import {languages} from './../../utils/localisation';
 
 function SwitcherLang(props) {
 	const handleChange = (e) =>{
-		props.callback(e.target.value)}
+		props.callback(Number(e.target.value))}
   return (
     <select
       className={props.className}

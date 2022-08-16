@@ -3,7 +3,7 @@ import useStore from "../../utils/use-store";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import SwitcherLang from '../switcher-lang'
-import {langVars} from '../../utils/localisation'
+import propTypes from 'prop-types';
 
 function Header(props) {
   const cn = bem('Header');
@@ -20,5 +20,12 @@ function Header(props) {
 		
 	)
 }
+Header.propTypes = {
+  title: propTypes.string,
+  lang: propTypes.number,
+}
 
-export default Header;
+Header.defaultProps = {
+}
+
+export default React.memo(Header);

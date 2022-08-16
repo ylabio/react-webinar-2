@@ -4,6 +4,7 @@ import BasketSimple from "../../components/basket-simple";
 import Item from "../../components/item";
 import Layout from "../../components/layout";
 import List from "../../components/list";
+import Menu from "../../components/menu";
 import Paginator from "../../components/paginator";
 import useLanguage from "../../utils/use-language";
 import useSelector from "../../utils/use-selector";
@@ -51,6 +52,7 @@ function Main(){
   return (
     
     <Layout head={<h1>{lng("mainLabel")}</h1>}>
+      <Menu/>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
       <Paginator props={{...select.scope, onClick: callbacks.switchPage}}/>

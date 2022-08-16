@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import BasketSimple from "../../components/basket-simple";
 import ItemDetails from '../../components/item-details';
 import Layout from "../../components/layout";
+import Menu from "../../components/menu";
 import useSelector from "../../utils/use-selector";
 import useStore from "../../utils/use-store";
 
@@ -38,6 +39,7 @@ function Details(props) {
 
   return (
     <Layout head={<h1>{select.info?.title}</h1>}>
+      <Menu/>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       {select.info?.title ? <ItemDetails onAdd={callbacks.addToBasket} info={select.info} /> : null}
     </Layout>

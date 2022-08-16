@@ -1,84 +1,23 @@
-import BasketSimple from "../../components/basket-simple";
-import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect, useMemo} from "react";
-import Item from "../../components/item";
+import React from "react";
 import useStore from "../../utils/use-store";
-import useSelector from "../../utils/use-selector";
-import Menu from "../../components/menu";
-import LayoutFlex from "../../components/layout-flex";
-import Pagination from "../../components/pagination";
-import Spinner from "../../components/spinner";
-import Select from "../../components/select";
-import Input from "../../components/input";
+import useInit from "../../utils/use-init";
+import CatalogFilter from "../../containers/catalog-filter";
+import CatalogList from "../../containers/catalog-list";
+import Tools from "../../containers/tools";
 
 function Main() {
   const store = useStore();
 
-  useEffect(() => {
-    store.get('catalog').setParams({page: 1});
-  }, [])
-
-  const select = useSelector(state => ({
-    items: state.catalog.items,
-    page: state.catalog.params.page,
-    limit: state.catalog.params.limit,
-    sort: state.catalog.params.sort,
-    query: state.catalog.params.query,
-    count: state.catalog.count,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
-    waiting: state.catalog.waiting
-  }));
-
-  const callbacks = {
-    // Открытие корзины
-    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
-    // Добавление в корзину
-    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    // Пагианция
-    onPaginate: useCallback(page => store.get('catalog').setParams({page}), []),
-    // Сортировка
-    onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
-    // Поиск
-    onSearch: useCallback(query => store.get('catalog').setParams({query, page: 1}), []),
-    // Сброс
-    onReset: useCallback(() => store.get('catalog').resetParams(), [])
-  };
-
-  const renders = {
-    item: useCallback(item => (
-      <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`}/>
-    ), []),
-  }
-
-  const options = {
-    menu: useMemo(() => ([
-      {key: 1, title: 'Главная', link: '/'},
-    ]), []),
-    sort: useMemo(() => ([
-      {value:'order', title: 'По порядку'},
-      {value:'title.ru', title: 'По именованию'},
-      {value:'-price', title: 'Сначала дорогие'},
-      {value:'edition', title: 'Древние'},
-    ]), [])
-  }
+  useInit(async () => {
+    await store.get('catalog').initParams();
+  }, [], {backForward: true});
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <LayoutFlex flex="between">
-        <Menu items={options.menu}/>
-        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      </LayoutFlex>
-      <LayoutFlex flex="start">
-        <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
-        <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
-        <button onClick={callbacks.onReset}>Сбросить</button>
-      </LayoutFlex>
-      <Spinner active={select.waiting}>
-        <List items={select.items} renderItem={renders.item}/>
-        <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
-      </Spinner>
+      <Tools/>
+      <CatalogFilter/>
+      <CatalogList/>
     </Layout>
   )
 }

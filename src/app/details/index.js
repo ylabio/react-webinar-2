@@ -5,6 +5,7 @@ import useStore from '../../utils/use-store';
 import ItemDetails from '../../components/item-details';
 import Layout from '../../components/layout';
 import BasketSimple from '../../components/basket-simple';
+import NavBar from '../../components/navbar';
 
 const Details = () => {
   const { _id } = useParams();
@@ -33,7 +34,9 @@ const Details = () => {
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
-      />
+      >
+        <NavBar />
+      </BasketSimple>
       <ItemDetails item={select.item} onAdd={callbacks.addToBasket} />
     </Layout>
   );

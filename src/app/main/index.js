@@ -6,6 +6,7 @@ import Item from '../../components/item';
 import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
 import Pagination from '../../components/pagination';
+import NavBar from '../../components/navbar';
 
 function Main() {
   console.log('Main');
@@ -48,7 +49,9 @@ function Main() {
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
-      />
+      >
+        <NavBar />
+      </BasketSimple>
       <List items={select.items} renderItem={renders.item} />
       <Pagination
         totalPages={select.pageCount}

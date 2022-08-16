@@ -15,7 +15,7 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
-      <Link to={`/item/${props.item._id}`} className={cn('title')}>{props.item.title}</Link>
+      <Link to={`/${props.onLink}`} className={cn('title')}>{props.item.title}</Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
@@ -26,6 +26,7 @@ function ItemBasket(props) {
 }
 
 ItemBasket.propTypes = {
+  onLink: propTypes.string.isRequired,
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
 }

@@ -15,7 +15,7 @@ class CatalogState extends StateModule{
       items: [],
       pagesCount: 1,
       currentPage: 1,
-      itemsOnPage: 9,
+      itemsOnPage: 10,
     };
   }
 

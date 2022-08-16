@@ -1,0 +1,11 @@
+.NavMenu{
+    float: left;
+    display: flex;
+    justify-content: flex-start;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.NavMenu-link{
+    margin-right: 20px;
+}

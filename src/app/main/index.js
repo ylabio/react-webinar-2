@@ -7,6 +7,8 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import { useNavigate, useSearchParams  } from "react-router-dom";
+import Navigation from "../../components/navigation";
+import './style.css';
 
 const limit = 10;
 
@@ -40,7 +42,7 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} path={`product/${item._id}`} onAdd={callbacks.addToBasket}/>, []),
   }
 
   useEffect(() => {
@@ -49,8 +51,11 @@ function Main(){
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
+      <div className='Main-container'>
+        <Navigation />
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      </div>
+      <List items={select.items} renderItem={renders.item} />
       <Pagination
         currentPage={currentPage}
         totalCount={select.count}

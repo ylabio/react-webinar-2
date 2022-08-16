@@ -17,7 +17,7 @@ function ItemBasket(props) {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
     closeModal: useCallback(() => store.get('modals').close(), []),
     redirect: useCallback(() => {
-      navigate(`product/${props.item._id}`);
+      navigate(props.path);
       callbacks.closeModal();
     }, [])
   };
@@ -39,6 +39,7 @@ function ItemBasket(props) {
 
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
+  path: propTypes.string,
   onRemove: propTypes.func,
 }
 

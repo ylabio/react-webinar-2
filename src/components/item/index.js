@@ -18,7 +18,7 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')}>
-        <Link to={`product/${props.item._id}`}>{props.item.title}</Link>
+        <Link to={props.path}>{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
@@ -30,6 +30,7 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
+  path: propTypes.string,
   onAdd: propTypes.func,
 }
 

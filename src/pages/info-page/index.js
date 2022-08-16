@@ -5,6 +5,7 @@ import useSelector from "../../utils/use-selector";
 import useStore from "../../utils/use-store";
 import Product from "./product";
 import { useParams } from 'react-router-dom';
+import Navigation from "../../components/navigation";
 
 function PageInfo() {
   const { id } = useParams();
@@ -14,29 +15,33 @@ function PageInfo() {
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
-    title: state.catalog.productInfo.title,
-    description: state.catalog.productInfo.description,
-    edition: state.catalog.productInfo.edition,
-    category: state.catalog.productInfo.category.title,
+    title: state.product.info.title,
+    description: state.product.info.description,
+    edition: state.product.info.edition,
+    category: state.product.info.category.title,
     maidIn: {
-      title: state.catalog.productInfo.maidIn.title,
-      code: state.catalog.productInfo.maidIn.code,
+      title: state.product.info.maidIn.title,
+      code: state.product.info.maidIn.code,
     },
-    price: state.catalog.productInfo.price,
+    price: state.product.info.price,
+
   }));
 
   const callbacks = {
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
-    addToBasket: useCallback(() => store.get('basket').addToBasket(id), []),
+    addToBasket: useCallback(() => store.get('basket').addToBasket(id), [id]),
   };
 
   useEffect(() => {
-    store.get('catalog').getInfo(id);
+    store.get('product').getInfo(id);
   }, [id]);
 
   return (
     <Layout head={<h1>{select.title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <div className='Main-container'>
+        <Navigation />
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      </div>
       <Product
         description={select.description}
         edition={select.edition}

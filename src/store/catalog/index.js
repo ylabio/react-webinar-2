@@ -14,17 +14,17 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      productInfo: {
-        _id: '',
-        description: '',
-        edition: 0,
-        category: {title: ''},
-        maidIn: {
-          title: '',
-          code: '',
-        },
-        price: 0,
-      },
+      // productInfo: {
+      //   _id: '',
+      //   description: '',
+      //   edition: 0,
+      //   category: {title: ''},
+      //   maidIn: {
+      //     title: '',
+      //     code: '',
+      //   },
+      //   price: 0,
+      // },
       count: 0,
     };
   }
@@ -38,13 +38,13 @@ class CatalogState extends StateModule{
     });
   }
 
-  async getInfo(id) {
-    const data = await getInfoById(id);
-    this.setState({
-      ...this.store.getState().catalog,
-      productInfo: data
-    });
-  }
+  // async getInfo(id) {
+  //   const data = await getInfoById(id);
+  //   this.setState({
+  //     ...this.store.getState().catalog,
+  //     productInfo: data
+  //   });
+  // }
 
   /**
    * Создание записи

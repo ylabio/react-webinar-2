@@ -16,18 +16,17 @@ function ItemBasket(props) {
   const callbacks = {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
     closeModal: useCallback(() => store.get('modals').close(), []),
+    redirect: useCallback(() => {
+      navigate(`product/${props.item._id}`);
+      callbacks.closeModal();
+    }, [])
   };
-
-  const redirect = () => {
-    navigate(`product/${props.item._id}`);
-    callbacks.closeModal();
-  }
 
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <span onClick={redirect}>{props.item.title}</span>
+        <span onClick={callbacks.redirect}>{props.item.title}</span>
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>

@@ -14,6 +14,7 @@ function PageInfo() {
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
+    title: state.catalog.productInfo.title,
     description: state.catalog.productInfo.description,
     edition: state.catalog.productInfo.edition,
     category: state.catalog.productInfo.category.title,
@@ -31,10 +32,10 @@ function PageInfo() {
 
   useEffect(() => {
     store.get('catalog').getInfo(id);
-  }, []);
+  }, [id]);
 
   return (
-    <Layout head={<h1>Название товара</h1>}>
+    <Layout head={<h1>{select.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <Product
         description={select.description}

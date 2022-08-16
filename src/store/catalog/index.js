@@ -23,6 +23,23 @@ class CatalogState extends StateModule{
     };
   }
 
+  /**
+   * Сброс параметров к начальным
+   * @param params
+   * @return {Promise<void>}
+   */
+  async resetParams(params = {}){
+    // Итоговые параметры из начальных, из URL и из переданных явно
+    const newParams = {...this.initState().params, ...params};
+    // Установк параметров и подгрузка данных
+    await this.setParams(newParams);
+  }
+
+  /**
+   * Устанвока параметров и загрузка списка товаров
+   * @param params
+   * @returns {Promise<void>}
+   */
   async setParams(params = {}){
     const newParams = {...this.getState().params, ...params};
 

@@ -42,6 +42,8 @@ function Main() {
     onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
     // Поиск
     onSearch: useCallback(query => store.get('catalog').setParams({query, page: 1}), []),
+    // Сброс
+    onReset: useCallback(() => store.get('catalog').resetParams(), [])
   };
 
   const renders = {
@@ -71,6 +73,7 @@ function Main() {
       <LayoutFlex flex="start">
         <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
         <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
+        <button onClick={callbacks.onReset}>Сбросить</button>
       </LayoutFlex>
       <Spinner active={select.waiting}>
         <List items={select.items} renderItem={renders.item}/>

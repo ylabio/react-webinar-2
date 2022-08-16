@@ -10,7 +10,7 @@ function Item(props) {
 
   const callbacks = {
     onAdd: useCallback(
-      (e) => props.onAdd(props.item._id),
+      (e) => props.onAdd(props.item),
       [props.onAdd, props.item]
     ),
   };

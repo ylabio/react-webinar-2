@@ -1,19 +1,22 @@
 import StateModule from "../module";
 
+const emptyState = {
+  id: "",
+  title: "",
+  descripcion: "",
+  price: 0,
+  country: "",
+  edition: 0,
+  category: "",
+};
+
 class ArticleState extends StateModule {
   initState() {
-    return {
-      id: "",
-      title: "",
-      descripcion: "",
-      price: 0,
-      country: "",
-      edition: 0,
-      category: "",
-    };
+    return emptyState;
   }
 
   async load(id) {
+    // this.setState(emptyState);
     const response = await fetch(
       `/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`
     );

@@ -29,7 +29,6 @@ function Main() {
   }));
 
 
-  console.log(select.language);
 
 
   const callbacks = {

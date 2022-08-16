@@ -27,7 +27,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='product' element={<Product />} />
-        {/* Было не так долго, как попытка написать свою собственную пагинацию */}
+        {/* Было не так долго, как написать свою собственную пагинацию */}
         {modal === 'basket' && <Route index element={<Basket />} />}
       </Routes>
     </>

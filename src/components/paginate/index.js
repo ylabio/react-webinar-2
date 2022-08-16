@@ -12,8 +12,6 @@ function Pagination(props) {
 
     const pages = [];
 
-    console.log(props);
-
 
     const pageTransfer = useCallback(e => counterBtn(e, props.catalogLoad), [])
 

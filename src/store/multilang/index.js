@@ -9,15 +9,19 @@ class MultilangState extends StateModule {
             RU: {
                 mainTitle: "Магазин", productTitle: "Название товара", productLink: "Главная",
                 productCountry: "Страна производитель", category: "Категория", yearOfIssue: "Год выпуска",
-                price: "Цена", add: "Добавить"
+                price: "Цена", add: "Добавить", inTheBasket: "В корзине", commodityDeclensions: ["товар", "товара", "товаров"], empty: "пусто", go: "Перейти",
+                basket: "Корзина", total: "Итого", remove: "Удалить", close: "Закрыть", pc: "шт"
             },
             ENG: {
                 mainTitle: "Shop", productTitle: "Product Name", productLink: "Home"
-                , productCountry: "Producing country", category: "Category", yearOfIssue: "Year of Issue", price: "Price", add: "Add"
+                , productCountry: "Producing country", category: "Category", yearOfIssue: "Year of Issue", price: "Price", add: "Add", inTheBasket: "In the basket",
+                commodityDeclensions: ["product", "goods", "goods"], empty: "empty", go: 'Go', basket: "Basket", total: "Total", remove: "Remove", close: "Close", pc: "pc"
             },
             CurrentLang: {
                 mainTitle: "Магазин", productTitle: "Название товара", productLink: "Главная",
-                productCountry: "Страна производитель", category: "Категория", yearOfIssue: "Год выпуска", price: "Цена", add: "Добавить"
+                productCountry: "Страна производитель", category: "Категория", yearOfIssue: "Год выпуска", price: "Цена", add: "Добавить", inTheBasket: "В корзине",
+                commodityDeclensions: ["товар", "товара", "товаров"], empty: "пусто", go: "Перейти", basket: "Корзина", total: "Итого", remove: "Удалить", close: "Закрыть",
+                pc: "шт"
             }
         }
     }

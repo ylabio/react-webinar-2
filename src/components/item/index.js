@@ -12,6 +12,7 @@ function Item(props) {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
   };
 
+
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>*/}
@@ -19,7 +20,7 @@ function Item(props) {
       {/*</div>*/}
 
       <div className={cn('title')} >
-          <Link to={`/${props.item._id}`}  >
+          <Link to={props.url} id={props.item._id} >
               {props.item.title}
           </Link>
       </div>
@@ -35,6 +36,7 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
+    linkTo:propTypes.string
 }
 
 Item.defaultProps = {

@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import propTypes from 'prop-types';
 import numberFormat from "../../utils/numberFormat";
 import {cn as bem} from "@bem-react/classname";
@@ -10,16 +10,14 @@ function ItemBasket(props) {
   const cn = bem('ItemBasket');
     const store = useStore();
   const callbacks = {
-    onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
-      closeModal: useCallback(() => store.get('modals').close(), []),
+        onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
+        closeModal: useCallback(() => store.get('modals').close(), []),
   };
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('id')}>{props.item._id}</div>*/}
-
         <div className={cn('title')} onClick={callbacks.closeModal}>
-            <Link to={`/${props.item._id}`} key={props.item._id} >
+            <Link to={props.url} key={props.item._id} >
                 {props.item.title}
             </Link>
         </div>

@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
-import {BrowserRouter} from "react-router-dom";
-import AppRouter from "../router";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import ItemCard from "../components/item-card";
 
 /**
  * Приложение
@@ -18,10 +17,11 @@ function App() {
 
   return (
       <BrowserRouter>
-
-          <AppRouter/>
+          <Routes >
+              <Route exact path="/" element={<Main/>} />
+              <Route exact path="/:id" element={<ItemCard/>} />
+          </Routes>
           {modal === 'basket' && <Basket/>}
-
       </BrowserRouter>
   );
 }

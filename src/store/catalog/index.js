@@ -23,7 +23,8 @@ class CatalogState extends StateModule{
 
   async load(){
 
-    const response = await fetch('/api/v1/articles?limit=10&skip=0&fields=items(*),count');
+    const response = await fetch('/api/v1/articles?limit=0&skip=0&fields=items(*),count');
+
 
     const json = await response.json();
 
@@ -33,6 +34,7 @@ class CatalogState extends StateModule{
       limit:this.getState().limit,
       countPages: Math.ceil(json.result.count / this.getState().limit)
     });
+
   }
   async switchPage(skip) {
     const response = await fetch(`/api/v1/articles?limit=10&skip=${skip}&fields=items(*),count`);

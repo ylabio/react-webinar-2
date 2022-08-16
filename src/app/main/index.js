@@ -6,6 +6,7 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Footer from "../../components/footer";
+import Menu from "../../components/menu"
 
 function Main(){
 
@@ -36,12 +37,14 @@ function Main(){
     getItemsForPage: useCallback((skip)=>store.get('catalog').switchPage(skip),[]),
   };
 
+
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} url={`/${item._id}`}/>, []),
   }
 
   return (
     <Layout head={<h1>Магазин</h1>}>
+      <Menu/>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item} />
       <Footer countPages={select.countPages} getItems={callbacks.getItemsForPage}/>

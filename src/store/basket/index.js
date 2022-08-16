@@ -1,5 +1,6 @@
 import StateModule from "../module";
 
+
 /**
  * Состояние корзины
  */
@@ -21,7 +22,7 @@ class BasketState extends StateModule{
    * Добавление товара в корзину
    * @param _id Код товара
    */
-  addToBasket(_id) {
+   async addToBasket(_id) {
     let sum = 0;
     // Ищем товар в корзие, чтобы увеличить его количество. Заодно получаем новый массив items
     let exists = false;
@@ -37,14 +38,23 @@ class BasketState extends StateModule{
       return result
     });
 
+
+
+
     // Если товар не был найден в корзине, то добавляем его из каталога
     if (!exists) {
       // Поиск товара в каталоге, чтобы его в корзину добавить
       // @todo В реальных приложения будет запрос к АПИ на добавление в корзину, и апи выдаст объект товара..
-      const item = this.store.getState().catalog.items.find(item => item._id === _id);
-      items.push({...item, amount: 1});
-      // Досчитываем сумму
-      sum += item.price;
+      const  response = await fetch(`api/v1/articles/${_id}?fields=*,maidIn(title,code),category(title)`);
+      const json = await response.json();
+      const item=json.result
+        items.push({...item, amount: 1});
+        // Досчитываем сумму
+        sum += item.price;
+      // }
+      // const item = this.store.getState().catalog.items.find(item => item._id === this.store.getState().card.itemById._id);
+
+
     }
 
     // Установка состояние, basket тоже нужно сделать новым

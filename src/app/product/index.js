@@ -5,7 +5,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import {useParams} from "react-router-dom";
 import {ProductCard} from "components/product-card";
-import {LocalisationContext} from "l10n/localisationProvider";
+import {LocalisationContext} from "l10n";
 
 function Product() {
   console.log('Product');

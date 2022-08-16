@@ -2,7 +2,7 @@ import React, {useCallback, useContext} from "react";
 import propTypes from "prop-types";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "utils/numberFormat";
-import {LocalisationContext} from "l10n/localisationProvider";
+import {LocalisationContext} from "l10n";
 import {l10n} from "l10n/strings";
 import './style.css';
 

@@ -7,8 +7,8 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "components/pagination";
 import {useSearchParams} from "react-router-dom";
-import {LocalisationContext} from "l10n/localisationProvider";
 import {l10n} from "l10n/strings";
+import {LocalisationContext} from "l10n";
 
 function Main() {
   console.log('Main');

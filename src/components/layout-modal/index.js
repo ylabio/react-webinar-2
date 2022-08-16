@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import {LocalisationContext} from "l10n/localisationProvider";
+import {LocalisationContext} from "l10n";
 import {l10n} from "l10n/strings";
 import './style.css';
 

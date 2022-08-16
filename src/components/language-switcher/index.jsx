@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {cn as bem} from "@bem-react/classname";
-import {LocalisationContext} from "l10n/localisationProvider";
+import {LocalisationContext} from "l10n";
 import {l10n} from "l10n/strings";
 import propTypes from "prop-types";
 import './styles.css';

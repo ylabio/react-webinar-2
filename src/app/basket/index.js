@@ -5,8 +5,8 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import {LocalisationContext} from "l10n/localisationProvider";
 import {l10n} from "l10n/strings";
+import {LocalisationContext} from "l10n";
 
 function Basket(){
   console.log('Basket');

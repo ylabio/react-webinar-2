@@ -4,7 +4,7 @@ import App from './app';
 import Store from "./store";
 import {StoreContext} from "./store/context";
 import {BrowserRouter} from "react-router-dom";
-import {LocalisationProvider} from "l10n/localisationProvider";
+import {LocalisationProvider} from "l10n";
 
 // Внешнее состояние
 const store = new Store();

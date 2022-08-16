@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import numberFormat from "../../utils/numberFormat";
 import {cn as bem} from "@bem-react/classname";
 import {NavLink} from "react-router-dom";
-import {LocalisationContext} from "l10n/localisationProvider";
+import {LocalisationContext} from "l10n";
 import {l10n} from "l10n/strings";
 import './styles.css';
 

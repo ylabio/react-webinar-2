@@ -5,6 +5,8 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import getText from "../../utils/get-text";
+import {appRoute, textBasketTotal, textItemBasket, textLayoutModal} from "../../const";
 
 function Basket(){
 
@@ -15,7 +17,8 @@ function Basket(){
   const select = useSelector(state => ({
     items: state.basket.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    language: state.language.value,
   }));
 
   const callbacks = {
@@ -26,13 +29,26 @@ function Basket(){
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item =>
+      <ItemBasket
+        item={item}
+        onRemove={callbacks.removeFromBasket}
+        onClose={callbacks.closeModal}
+        address={appRoute.Product}
+        text={getText(textItemBasket, select.language)}
+      />, []),
   }
 
+  const basketTitle = select.language === 'rus' ? 'Корзина' : 'Cart';
+
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
-      <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+    <LayoutModal
+      title={basketTitle}
+      onClose={callbacks.closeModal}
+      text={getText(textLayoutModal, select.language)}
+    >
+      <List items={select.items} renderItem={renders.itemBasket} />
+      <BasketTotal sum={select.sum} text={getText(textBasketTotal, select.language)} />
     </LayoutModal>
   )
 }

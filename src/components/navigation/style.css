@@ -1,0 +1,14 @@
+.Navigation {
+    font-size: 18px;
+    font-weight: 400;
+    padding: 20px;
+}
+
+.Navigation-main,
+.Navigation-main:visited{
+    color: #0087E9;
+}
+
+.Navigation-main:hover{
+    color: #0060A5;
+}

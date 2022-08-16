@@ -15,10 +15,36 @@ body{
     box-shadow: 0 0 15px 5px #0000003b;
 }
 .Layout-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     height: 80px;
     background: #f5f5f5;
 }
 .Layout-head h1{
     margin: 0;
-    padding: 20px 20px 10px;
+    padding: 0 20px;
+}
+.Layout-menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.Layout-content{
+    display: grid;
+}
+.Layout-content > *{
+    box-sizing: border-box;
+    min-width: 100%;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+.Layout-content > :nth-child(1){
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+.Layout-content > :nth-child(2){
+    grid-column-start: 2;
+    grid-column-end: 3;
 }

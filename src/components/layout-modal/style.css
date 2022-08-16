@@ -34,6 +34,7 @@
 }
 
 .LayoutModal-close{
+  min-width: 70px;
   align-self: center;
 }
 

@@ -1,27 +1,35 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**
  * Состояние каталога
  */
 class CatalogState extends StateModule{
-
+  
   /**
    * Начальное состояние
    * @return {Object}
    */
   initState() {
     return {
-      items: []
+      items: [],
+      size: 0
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+  
+  /**
+   * Загрузка превью 10 товаров по номеру страницы
+   * @param pageNumber номер страницы
+   */
+  async loadPreviews(pageNumber){
+    const response = await fetch
+      (`/api/v1/articles?limit=10&skip=${(pageNumber - 1) * 10}&fields=items(_id,_key,title,price),count`);
     const json = await response.json();
     this.setState({
-      items: json.result.items
-    });
+      ...this.getState(),
+      items: json.result.items,
+      size: json.result.count
+    }, 'Загрузка товаров для страницы');
   }
 
   /**

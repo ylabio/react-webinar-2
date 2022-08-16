@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Main from "./main";
 import Basket from "./basket";
-import Article from '../components/article';
+import Article from './article';
 import useSelector from "../utils/use-selector";
 
 /**

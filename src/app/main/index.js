@@ -23,7 +23,6 @@ function Main(){
     page: state.catalog.page,
     pages: state.catalog.pages,
     limit: state.catalog.limit,
-    pagination: state.catalog.pagination,
     amount: state.basket.amount,
     sum: state.basket.sum,
     lang: state.languages,
@@ -35,10 +34,7 @@ function Main(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Переключение страницы пагинации
-    selectPage: useCallback((skip, limit) => store.get('catalog').load(skip, limit), []),
-    // Отрисовка пагинации
-    renderPagination: useCallback((allPages, currentPage) =>
-      store.get('catalog').renderPagination(allPages, currentPage), []),
+    selectPage: useCallback((skip) => store.get('catalog').load(skip, select.limit), []),
     // Переводы
     translateRu: useCallback(() => store.get('languages').translateRu(), []),
     translateEn: useCallback(() => store.get('languages').translateEn(), []),
@@ -67,8 +63,6 @@ function Main(){
       <Pagination selectPage={callbacks.selectPage}
                   currentPage={select.page}
                   allPages={select.pages}
-                  limit={select.limit}
-                  pagesPagination={select.pagination}
       />
     </Layout>
   )

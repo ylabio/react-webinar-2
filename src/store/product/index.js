@@ -8,13 +8,7 @@ class ProductState extends StateModule {
    */
   initState() {
     return {
-      title: null,
-      description: null,
-      country: null,
-      countryCode: null,
-      category: null,
-      edition: null,
-      price: 0,
+      item: null,
     };
   }
 
@@ -23,13 +17,15 @@ class ProductState extends StateModule {
     category(title)`);
     const json = await response.json();
     this.setState({
-      title: json.result.title,
-      description: json.result.description,
-      country: json.result.maidIn.title,
-      countryCode: json.result.maidIn.code,
-      category:json.result.category.title,
-      edition: json.result.edition,
-      price: json.result.price
+      item: {
+        title: json.result.title,
+        description: json.result.description,
+        country: json.result.maidIn.title,
+        countryCode: json.result.maidIn.code,
+        category: json.result.category.title,
+        edition: json.result.edition,
+        price: json.result.price,
+      },
     });
   }
 }

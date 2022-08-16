@@ -7,6 +7,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import {LanguageContext} from "../../services/locale/context";
 import Translation from "../../services/locale";
+import {useNavigate} from "react-router-dom";
 
 function Basket(){
 
@@ -14,6 +15,7 @@ function Basket(){
 
   const store = useStore();
   const {language} = useContext(LanguageContext);
+  const navigate = useNavigate();
 
   const select = useSelector(state => ({
     items: state.basket.items,
@@ -25,11 +27,16 @@ function Basket(){
     // Закрытие любой модалки
     closeModal: useCallback(() => store.get('modals').close(), []),
     // Удаление из корзины
-    removeFromBasket: useCallback(id => store.get('basket').removeFromBasket(id), [])
+    removeFromBasket: useCallback(id => store.get('basket').removeFromBasket(id), []),
+    onItemClick: useCallback(id => {
+      navigate(`/article/${id}`, { replace: true });
+    }, []),
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item => <ItemBasket item={item}
+                                                        onRemove={callbacks.removeFromBasket}
+                                                        onItemClick={callbacks.onItemClick}/>, []),
   }
 
   return (

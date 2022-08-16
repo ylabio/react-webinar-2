@@ -41,7 +41,7 @@ function Main(){
     // 1) Обновить каталог при нахождении не на первой странице
     // 2) Перейти на карточку товара
     // 3) Перейти по ссылке "Главная" в каталог
-    // Иначе сброс не первую страницу
+    // Иначе сброс на первую страницу
     if (select.current === 1) {
       store.get('pagination').changePage(currentPage, 10);
     }
@@ -60,10 +60,15 @@ function Main(){
       evt.preventDefault();
       navigate(`/catalog/${currentPage}`, { replace: true });
     }, []),
+    onItemClick: useCallback(id => {
+      navigate(`/article/${id}`, { replace: true });
+    }, []),
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item}
+                                            onAdd={callbacks.addToBasket}
+                                            onItemClick={callbacks.onItemClick}/>, []),
   }
 
   return (

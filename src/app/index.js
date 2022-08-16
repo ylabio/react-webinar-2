@@ -20,7 +20,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path="/item:id" element={<SingleItemPage />}></Route>
+        <Route path="/item/:id" element={<SingleItemPage />}></Route>
         <Route
           exact
           path="/"

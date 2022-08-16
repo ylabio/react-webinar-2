@@ -9,7 +9,7 @@ function Item(props) {
 
   const callbacks = {
     onAdd: useCallback(() => props.onAdd(props.item._id), [props.onAdd, props.item]),
-    onOpenItem: useCallback((id) => props.navigate(`${props.path}${id}`), []),
+    onOpenItem: useCallback(() => props.navigate(`${props.path}/${props.item._id}`), []),
   };
 
   return (
@@ -17,9 +17,7 @@ function Item(props) {
       <div className={cn('wrapper')}>
         <span
           className={cn('title')}
-          onClick={() => {
-            callbacks.onOpenItem(props.item._id);
-          }}
+          onClick={callbacks.onOpenItem}
         >
           {props.item.title}
         </span>

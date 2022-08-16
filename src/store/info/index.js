@@ -9,7 +9,7 @@ class InfoState extends StateModule{
    */
   initState() {
     return {
-      item: [],
+      item: {},
     };
   }
 

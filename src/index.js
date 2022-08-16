@@ -3,8 +3,7 @@ import {createRoot} from 'react-dom/client';
 import App from './app';
 import Store from "./store";
 import {StoreContext} from "./store/context";
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import ItemPage from "./app/item-page";
+import { BrowserRouter } from 'react-router-dom';
 
 // Внешнее состояние
 const store = new Store();

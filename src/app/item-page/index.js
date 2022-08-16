@@ -9,14 +9,12 @@ import ItemDescription from "../../components/item-description";
 
 function ItemPage(){
 
-  const { id } = useParams();
+  let { id } = useParams();
   const store = useStore();
-
-  console.log(id);
 
   useEffect(() => {
     store.get('itemInfo').load(id);
-  }, [])
+  }, [id])
 
 
   const callbacks = {

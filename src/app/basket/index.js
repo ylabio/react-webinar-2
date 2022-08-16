@@ -5,7 +5,7 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import titleLang from "../../utils/titleLang";
+import words from "../../utils/words";
 
 function Basket(){
 
@@ -28,13 +28,13 @@ function Basket(){
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket lang={select.lang} item={item} onRemove={callbacks.removeFromBasket} onClose={callbacks.closeModal}/>, []),
+    itemBasket: useCallback(item => <ItemBasket words={words[select.lang]} item={item} onRemove={callbacks.removeFromBasket} onClose={callbacks.closeModal}/>, []),
   }
 
   return (
-    <LayoutModal lang={select.lang} title={titleLang(select.lang, 'basket')} onClose={callbacks.closeModal}>
+    <LayoutModal words={words[select.lang]} title={words[select.lang].basket} onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal lang={select.lang} sum={select.sum}/>
+      <BasketTotal words={words[select.lang]} sum={select.sum}/>
     </LayoutModal>
   )
 }

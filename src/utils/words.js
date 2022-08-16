@@ -1,6 +1,5 @@
-export default [
-  {
-    lang: 'ru',
+export default {
+  ru: {
     title: 'Магазин',
     btnAdd: 'Добавить',
     btnDelete: 'Удалить',
@@ -20,8 +19,7 @@ export default [
     category: 'Категория:',
     year: 'Год выпуска:'
   },
-  {
-    lang: 'en',
+  en: {
     title: 'Shop',
     btnAdd: 'Add',
     openModal: 'Go',
@@ -41,4 +39,4 @@ export default [
     category: 'Category:',
     year: 'Year of release:'
   }
-]
+};

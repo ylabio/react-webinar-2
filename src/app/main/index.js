@@ -7,7 +7,7 @@ import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import titleLang from "../../utils/titleLang";
+import words from "../../utils/words";
 
 function Main(){
 
@@ -46,16 +46,16 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} lang={select.lang} onAdd={callbacks.addToBasket}/>, [select.lang]),
+    item: useCallback(item => <Item item={item} words={words[select.lang]} onAdd={callbacks.addToBasket}/>, [select.lang]),
   }
   return (
     <Layout head={
       <>
-        <h1>{titleLang(select.lang, 'title')}</h1>
+        <h1>{words[select.lang].title}</h1>
         <Language lang={select.lang} onSelectChange={callbacks.onSelectChange} />
       </>
     }>
-      <BasketSimple lang={select.lang} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <BasketSimple words={words[select.lang]} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       {select.count ? 
         <>
           <List items={select.items} renderItem={renders.item}/>

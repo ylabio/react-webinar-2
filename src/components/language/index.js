@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
-import langs from "../../utils/langs";
+import words from "../../utils/words";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
@@ -13,7 +13,7 @@ function Language({ lang, onSelectChange }) {
 
   return (
     <select className={cn()} value={lang} onChange={callbacks.onChange}>
-			{langs.map((elem) => <option key={elem.lang} value={elem.lang}>{elem.lang}</option>)}
+			{Object.keys(words).map((elem) => <option key={elem} value={elem}>{elem}</option>)}
 		</select>
   )
 }

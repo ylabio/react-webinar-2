@@ -5,6 +5,7 @@ import {useParams} from 'react-router-dom';
 import Description from "../../components/description";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import words from "../../utils/words";
 
 function Product({ item }){
   console.log('Product');
@@ -39,9 +40,9 @@ function Product({ item }){
 
   return (
     <Layout head={<h1>{select.dataJson ? select.dataJson.title : ''}</h1>}>
-      <BasketSimple lang={select.lang} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <BasketSimple words={words[select.lang]} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       {select.dataJson ?
-        <Description lang={select.lang} item={select} onAdd={callbacks.addToBasket}/> :
+        <Description words={words[select.lang]} item={select} onAdd={callbacks.addToBasket}/> :
         <h2 style={{textAlign: 'center'}}>Loading...</h2>
       }
     </Layout>

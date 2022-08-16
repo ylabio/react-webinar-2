@@ -4,11 +4,10 @@ import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import Link from "../link";
 import numberFormat from "../../utils/numberFormat";
-import titleLang from "../../utils/titleLang";
 import './styles.css';
 
 
-function BasketSimple({lang, sum, amount, onOpen}) {
+function BasketSimple({words, sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
@@ -16,24 +15,24 @@ function BasketSimple({lang, sum, amount, onOpen}) {
         link='/' 
         color='blue'
       >
-        {titleLang(lang, 'homeLink')}
+        {words.homeLink}
       </Link>
       <div className={cn('basket')}>
-        <span className={cn('label')}>{titleLang(lang, 'inBasket')}</span>
+        <span className={cn('label')}>{words.inBasket}</span>
         <span className={cn('total')}>
         {amount
-          ? `${amount} ${plural(amount, titleLang(lang, 'product'), titleLang(lang, 'twoProduct'), titleLang(lang, 'products'))} / ${numberFormat(sum)} ₽`
-          : titleLang(lang, 'empty')
+          ? `${amount} ${plural(amount, words.product, words.twoProduct, words.products)} / ${numberFormat(sum)} ₽`
+          : words.empty
         }
         </span>
-        <button className='BasketSimple__button' onClick={onOpen}>{titleLang(lang, 'openModal')}</button>
+        <button className='BasketSimple__button' onClick={onOpen}>{words.openModal}</button>
       </div>
     </div>
   )
 }
 
 BasketSimple.propTypes = {
-  lang: propTypes.string.isRequired,
+  words: propTypes.object.isRequired,
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
   amount: propTypes.number

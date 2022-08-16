@@ -3,7 +3,6 @@ import {useNavigate} from "react-router-dom";
 import propTypes from 'prop-types';
 import numberFormat from "../../utils/numberFormat";
 import {cn as bem} from "@bem-react/classname";
-import titleLang from "../../utils/titleLang";
 import './styles.css';
 
 function ItemBasket(props) {
@@ -27,15 +26,15 @@ function ItemBasket(props) {
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {titleLang(props.lang, 'pc')}</div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{titleLang(props.lang, 'btnDelete')}</button></div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {props.words.pc}</div>
+        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{props.words.btnDelete}</button></div>
       </div>
     </div>
   )
 }
 
 ItemBasket.propTypes = {
-  lang: propTypes.string.isRequired,
+  words: propTypes.object.isRequired,
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
 }

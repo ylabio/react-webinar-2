@@ -12,9 +12,8 @@ class CatalogState extends StateModule{
   // вызывается в компоненте pages/catalog
   async fetchPageItems (page) {
     const errorState = {
+      ...this.initState(),
       fetchState: 'error',
-      pageItems: [],
-      pagesCount: 0,
     };
 
     // отсеивает неправильные роуты
@@ -44,6 +43,10 @@ class CatalogState extends StateModule{
           this.setState(errorState);
         })
     }
+  }
+
+  clear () {
+    this.setState(this.initState());
   }
 }
 

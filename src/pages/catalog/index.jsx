@@ -14,6 +14,7 @@ const Catalog = () => {
 
   useEffect(() => {
     store.get('catalog').fetchPageItems(currentPage);
+    return () => store.get('catalog').clear();
   }, [currentPage])
 
   const select = useSelector(state => ({

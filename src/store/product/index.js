@@ -4,7 +4,8 @@ class ProductState extends StateModule {
   initState() {
     return {
       fetchState: 'pending', // 'error' || 'ok'
-      details: {}
+      details: {},
+      name: undefined,
     };
   }
 
@@ -18,15 +19,20 @@ class ProductState extends StateModule {
         this.setState({
           fetchState: 'ok',
           details: json.result,
+          name: json.result.title,
         })
       })
       .catch(err => {
         console.error('store.catalog.fetchProduct', err);
         this.setState({
+          ...this.initState(),
           fetchState: 'error',
-          details: {}
         })
       });
+  }
+
+  clear () {
+    this.setState(this.initState())
   }
 }
 

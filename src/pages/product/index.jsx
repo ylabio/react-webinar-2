@@ -18,6 +18,7 @@ const Product = () => {
   useEffect(() => {
     store.get('product').fetchDetails(productId);
     store.get('modals').close();
+    return () => store.get('product').clear();
   }, [productId]);
 
   const callbacks = {

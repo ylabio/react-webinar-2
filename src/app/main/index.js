@@ -5,13 +5,13 @@ import BasketSimple from "../../components/basket-simple";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 
-function Main(){
-  // console.log('Main');
+function Main() {
   const store = useStore();
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    name: state.product.name,
   }));
 
   const callbacks = {
@@ -20,7 +20,7 @@ function Main(){
   };
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>{select.name || 'Магазин'}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <Outlet />
     </Layout>

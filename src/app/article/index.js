@@ -38,7 +38,6 @@ function Article() {
     ),
   };
 
-  console.log(profile.id);
   const title = profile.id ? (
     <h1>{select.title}</h1>
   ) : (

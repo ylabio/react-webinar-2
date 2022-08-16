@@ -34,6 +34,7 @@ function Basket() {
           item={item}
           onRemove={callbacks.removeFromBasket}
           onCloseModal={callbacks.closeModal}
+          articleUrl={`article/${item._id}`}
         />
       ),
       []

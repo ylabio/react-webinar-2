@@ -2,10 +2,10 @@ import React from "react";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-function PaginationItem({ children, current_page, loadPage }) {
+function PaginationItem({ children, current_page, onLoadNewPage }) {
   const clickPage = (event) => {
     event.preventDefault();
-    loadPage(children);
+    onLoadNewPage(children);
   };
 
   const cn = bem("PaginationItem");

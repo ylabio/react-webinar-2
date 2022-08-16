@@ -1,28 +1,17 @@
-import React, { useCallback } from "react";
-import useStore from "../../utils/use-store";
-import useSelector from "../../utils/use-selector";
+import React from "react";
 import PaginationItem from "../pagination-item";
 import { formPaginationArray } from "../../utils/form-pagination-array";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-function Pagination(props) {
-  const store = useStore();
-
-  const select = useSelector((state) => ({
-    current_page: state.catalog.current_page,
-    last_page: state.catalog.pages,
-  }));
-
-  const pages = formPaginationArray(select.current_page, select.last_page);
-
-  const loadPage = useCallback((page) => store.get("catalog").load(page));
+function Pagination({ onLoadNewPage, current_page, last_page }) {
+  const pages = formPaginationArray(current_page, last_page);
 
   const content = pages.map((item, index) => (
     <PaginationItem
       key={index}
-      current_page={select.current_page}
-      loadPage={loadPage}
+      current_page={current_page}
+      onLoadNewPage={onLoadNewPage}
     >
       {item}
     </PaginationItem>

@@ -20,6 +20,8 @@ function Main() {
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    current_page: state.catalog.current_page,
+    last_page: state.catalog.pages,
   }));
 
   const callbacks = {
@@ -27,11 +29,18 @@ function Main() {
     openModalBasket: useCallback(() => store.get("modals").open("basket"), []),
     // Добавление в корзину
     addToBasket: useCallback((_id) => store.get("basket").addToBasket(_id), []),
+    loadNewPage: useCallback((numb) => store.get("catalog").load(numb)),
   };
 
   const renders = {
     item: useCallback(
-      (item) => <Item item={item} onAdd={callbacks.addToBasket} />,
+      (item) => (
+        <Item
+          item={item}
+          onAdd={callbacks.addToBasket}
+          articleUrl={`/article/${item._id}`}
+        />
+      ),
       []
     ),
   };
@@ -44,7 +53,11 @@ function Main() {
         sum={select.sum}
       />
       <List items={select.items} renderItem={renders.item} />
-      <Pagination />
+      <Pagination
+        onLoadNewPage={callbacks.loadNewPage}
+        current_page={select.current_page}
+        last_page={select.last_page}
+      />
     </Layout>
   );
 }

@@ -12,7 +12,7 @@ class Store {
     this.modules = {};
     for (const name of Object.keys(modules)) {
       // Экземпляр модуля. Передаём ему ссылку на store и навзание модуля.
-      this.modules[name] = new modules[name](this, name);  //создаем новый класс передавая store и имя (смотри ""./module.js)
+      this.modules[name] = new modules[name](this, name);
       // По названию модля устанавливается свойство с нанчальным состоянием от модуля
       this.state[name] = this.modules[name].initState();
     }

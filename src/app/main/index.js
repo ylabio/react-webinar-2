@@ -8,6 +8,8 @@ import useSelector from "../../utils/use-selector";
 import usePagination from "../../utils/use-pagination";
 import Pagination from "../../components/pagination";
 import Menu from "../../components/Menu";
+import { translate } from "../../utils/translate";
+import { dBasketSimple, dItem, dLayout, dMenu } from "../../utils/dictionary";
 
 function Main() {
   console.log('Main');
@@ -25,6 +27,7 @@ function Main() {
     sum: state.basket.sum,
     isLoaded: state.params.isLoaded,
     count: state.catalog.count,
+    lang: state.params.lang
   }));
 
   const callbacks = {
@@ -36,7 +39,9 @@ function Main() {
     onClick: useCallback(async (page) => {
       setPage(page);
       await store.get('catalog').load({ limit: contentPerPage, skip: (page - 1) * contentPerPage });
-    }, [page, select.count])
+    }, [page, select.count]),
+    // Установить язык страницы
+    setLang: useCallback((l) => store.get('params').setLang(l), [select.lang])
   };
 
   const {
@@ -49,14 +54,19 @@ function Main() {
     count: select.count
   });
 
+  const menuText = translate(dMenu),
+    basketSimpleText = translate(dBasketSimple),
+    layoutText = translate(dLayout),
+    itemText = translate(dItem);
+
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} linkTo={"/item"} />, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} linkTo={"/item"} text={itemText} />, [select.lang]),
   }
 
   return (
-    <Layout head={<h1>{select.isLoaded ? "Магазин" : "Loading..."}</h1>}>
-      <Menu />
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+    <Layout head={<h1>{select.isLoaded ? layoutText.title : "Loading..."}</h1>}>
+      <Menu setLang={callbacks.setLang} text={menuText} />
+      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} text={basketSimpleText} />
       <List items={select.items} renderItem={renders.item} />
       <Pagination page={page} gaps={gaps} totalPages={totalPages} onClick={callbacks.onClick} />
     </Layout>

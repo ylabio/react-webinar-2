@@ -12,3 +12,7 @@
     font-weight: bold;
     margin: 0 15px;
 }
+
+.BasketSimple__button {
+    min-width: 80px;
+}

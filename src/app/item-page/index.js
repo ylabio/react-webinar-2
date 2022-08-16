@@ -1,13 +1,13 @@
 import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
 import React, { useCallback, useEffect } from "react";
-import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import { useParams } from "react-router";
 import ItemDescription from "../../components/item-description";
-import Controls from "../../components/controls";
 import Menu from "../../components/Menu";
+import { translate } from "../../utils/translate";
+import { dBasketSimple, dItemDescription, dMenu } from "../../utils/dictionary";
 
 function ItemPage() {
   console.log('ItemPage');
@@ -28,25 +28,32 @@ function ItemPage() {
     price: state.itemData.price,
   }));
 
-  const { title, sum, amount, isLoaded } = useSelector(state => ({
+  const { title, sum, amount, isLoaded, lang } = useSelector(state => ({
     title: state.itemData.title,
     sum: state.basket.sum,
     amount: state.basket.amount,
-    isLoaded: state.params.isLoaded
+    isLoaded: state.params.isLoaded,
+    lang: state.params.lang
   }))
 
   const callbacks = {
     // Открытие корзины
-    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),  //без разницы useCallback(() => ... || () => {...})
+    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Установить язык страницы
+    setLang: useCallback((l) => store.get('params').setLang(l), [lang])
   };
+
+  const menuText = translate(dMenu),
+    basketSimpleText = translate(dBasketSimple),
+    itemDescriptionText = translate(dItemDescription);
 
   return (
     <Layout head={<h1>{isLoaded ? title : "Loading..."}</h1>}>
-      <Menu />
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={amount} sum={sum} />
-      <ItemDescription itemData={itemData} onAdd={callbacks.addToBasket} _id={_id} />
+      <Menu setLang={callbacks.setLang} text={menuText} />
+      <BasketSimple onOpen={callbacks.openModalBasket} amount={amount} sum={sum} text={basketSimpleText} />
+      <ItemDescription itemData={itemData} onAdd={callbacks.addToBasket} _id={_id} text={itemDescriptionText} />
     </Layout>
   )
 }

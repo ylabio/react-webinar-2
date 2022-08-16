@@ -6,7 +6,7 @@ import propTypes from 'prop-types';
 
 function Pagination({ gapsStyle, onClick, page, gaps, totalPages }) {
   const cn = bem('Pagination');
-  
+
   return (
     <div className={cn()}>
       <div className={cn('rockButton', [cn('button', { ['active']: page === 1 })])}

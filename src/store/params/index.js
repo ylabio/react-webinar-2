@@ -1,23 +1,37 @@
 import StateModule from "../module";
 
-/**
- * Управление модальными окнами
- */
 class ParamsState extends StateModule {
 
     initState() {
         return {
-            isLoaded: false
+            isLoaded: false,
+            lang: localStorage.getItem("lang") || "ru"
         };
     }
 
+    /**
+   * Установка значения загрузилась ли страница
+   * @param bool {Boolean}
+   */
     setIsLoaded(bool) {
         this.setState({
-            ...this.getState,
+            ...this.getState(),
             isLoaded: bool
         }, 'переключение isLoaded странцы');
     }
 
+    /**
+   * Установка языка страницы
+   * @param lang {String}
+   */
+    setLang(lang) {
+        lang = lang.toLowerCase();
+        localStorage.setItem("lang", lang);
+        this.setState({
+            ...this.getState(),
+            lang
+        }, 'переключение языка страницы')
+    }
 }
 
 export default ParamsState;

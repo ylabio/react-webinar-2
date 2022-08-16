@@ -1,6 +1,6 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
+import { cn as bem } from "@bem-react/classname";
 import './style.css';
 
 function LayoutModal(props) {
@@ -25,9 +25,9 @@ function LayoutModal(props) {
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
           <h1 className={cn('title')}>
-            {props.title}
+            {props.text.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <button className={cn('close')} onClick={props.onClose}>{props.text.close}</button>
         </div>
         <div className={cn('content')}>
           {props.children}
@@ -38,14 +38,14 @@ function LayoutModal(props) {
 }
 
 LayoutModal.propTypes = {
-  title: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
+  text: PropTypes.object
 };
 
 LayoutModal.defaultProps = {
-  title: 'Модалка',
-  onClose: () => {}
+  onClose: () => { },
+  text: {}
 };
 
 export default React.memo(LayoutModal);

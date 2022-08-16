@@ -1,12 +1,24 @@
 /* Пункт списка */
 .Menu {
-    display: block;
+    display: flex;
     justify-content: flex-start;
     padding: 20px;
     float: left;
+    gap: 15px;
+    font-size: 18px;
 }
 
 .Menu-link {
     flex-grow: 1;
     color: #0087E9;
+}
+
+.Menu-lang {
+    color: #0087E9;
+    font-size: 17px;
+}
+
+.Menu-lang > :hover {
+    cursor: pointer;
+    color:#7bc5fa
 }

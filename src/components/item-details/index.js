@@ -5,7 +5,7 @@ import { cn as bem } from '@bem-react/classname';
 import { useCallback } from 'react';
 import propTypes from 'prop-types';
 
-function ItemDetails({ detail, category, country, addToBasket }) {
+function ItemDetails({ detail, addToBasket, content }) {
   const cn = bem('Details');
 
   const callbacks = {
@@ -18,25 +18,24 @@ function ItemDetails({ detail, category, country, addToBasket }) {
       <div>
         Страна производитель:{' '}
         <b>
-          {country.title} ({country.code})
+          {detail?.maidIn?.title} ({detail?.maidIn?.code})
         </b>
       </div>
       <div>
-        Категория: <b>{category.title}</b>
+        Категория: <b>{detail?.category?.title}</b>
       </div>
       <div>
         Год выпуска: <b>{detail.edition}</b>
       </div>
       <div className={cn('price')}>Цена: {numberFormat(detail.price)} ₽</div>
-      <button onClick={callbacks.onAdd}>Добавить</button>
+      <button onClick={callbacks.onAdd}>{content.addToCart}</button>
     </div>
   );
 }
 
 ItemDetails.propTypes = {
+  content: propTypes.object.isRequired,
   detail: propTypes.object.isRequired,
-  category: propTypes.object.isRequired,
-  country: propTypes.object.isRequired,
   addToBasket: propTypes.func,
 };
 

@@ -4,38 +4,31 @@ import plural from 'plural-ru';
 import { cn as bem } from '@bem-react/classname';
 import numberFormat from '../../utils/number-format';
 import './styles.css';
-import { Link } from 'react-router-dom';
-import useLanguage from '../../utils/use-language';
 
-function BasketSimple({ sum, amount, onOpen }) {
+function BasketSimple({ sum, amount, onOpen, content }) {
   const cn = bem('BasketSimple');
-  const { content } = useLanguage();
   return (
     <div className={cn()}>
-      <Link to='/' className={cn('link')}>
-        {content.main}
-      </Link>
-      <div>
-        <span className={cn('label')}>{content.inCart}</span>
-        <span className={cn('total')}>
-          {amount
-            ? `${amount} ${plural(
-                amount,
-                content.items[0],
-                content.items[1],
-                content.items[2]
-              )} / ${numberFormat(sum)} ₽`
-            : content.empty}
-        </span>
-        <button className='BasketSimple__button' onClick={onOpen}>
-          {content.openCart}
-        </button>
-      </div>
+      <span className={cn('label')}>{content.inCart}</span>
+      <span className={cn('total')}>
+        {amount
+          ? `${amount} ${plural(
+              amount,
+              content.items[0],
+              content.items[1],
+              content.items[2]
+            )} / ${numberFormat(sum)} ₽`
+          : content.empty}
+      </span>
+      <button className='BasketSimple__button' onClick={onOpen}>
+        {content.openCart}
+      </button>
     </div>
   );
 }
 
 BasketSimple.propTypes = {
+  content: propTypes.object.isRequired,
   onOpen: propTypes.func,
   sum: propTypes.number,
   amount: propTypes.number,

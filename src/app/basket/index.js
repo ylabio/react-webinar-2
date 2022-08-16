@@ -36,16 +36,21 @@ function Basket() {
           item={item}
           onRemove={callbacks.removeFromBasket}
           onClose={callbacks.closeModal}
+          content={content}
+          path='/products/'
         />
       ),
-      []
+      [content]
     ),
   };
 
   return (
-    <LayoutModal title={content.cart} onClose={callbacks.closeModal}>
+    <LayoutModal
+      title={content.cart}
+      onClose={callbacks.closeModal}
+      closeCart={content.closeCart}>
       <List items={select.items} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+      <BasketTotal content={content} sum={select.sum} />
     </LayoutModal>
   );
 }

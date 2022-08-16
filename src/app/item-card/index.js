@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Layout from '../../components/layout';
 import useSelector from '../../utils/use-selector';
 import useStore from '../../utils/use-store';
@@ -6,10 +6,13 @@ import { useCallback, useEffect } from 'react';
 import BasketSimple from '../../components/basket-simple';
 import { useParams } from 'react-router-dom';
 import ItemDetails from '../../components/item-details';
+import useLanguage from '../../utils/use-language';
+import Menu from '../../components/menu';
 
 function ItemCard() {
   const store = useStore();
   const params = useParams();
+  const { content } = useLanguage();
 
   useEffect(() => {
     store.get('details').loadDetails(params.id);
@@ -17,8 +20,6 @@ function ItemCard() {
 
   const select = useSelector((state) => ({
     details: state.details.details,
-    country: state.details.country,
-    category: state.details.category,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
@@ -33,16 +34,17 @@ function ItemCard() {
   return (
     <>
       <Layout head={<h1>{select.details.title}</h1>}>
+        <Menu content={content} />
         <BasketSimple
+          content={content}
           onOpen={callbacks.openModalBasket}
           amount={select.amount}
           sum={select.sum}
         />
         <ItemDetails
           detail={select.details}
-          country={select.country}
-          category={select.category}
           addToBasket={callbacks.addToBasket}
+          content={content}
         />
       </Layout>
     </>

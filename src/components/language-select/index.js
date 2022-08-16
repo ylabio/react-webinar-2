@@ -1,7 +1,7 @@
 import React from 'react';
 import useLanguage from '../../utils/use-language';
 
-function SelectBar() {
+function SelectBar(props) {
   const { handleSetLanguage, language } = useLanguage();
   return (
     <div>

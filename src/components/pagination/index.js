@@ -5,7 +5,7 @@ import './style.css';
 import { filterArray, mapArray } from '../../utils/handle-pagination';
 import propTypes from 'prop-types';
 
-function Pagination({ totalPages, changePage, currentPage, limit }) {
+function Pagination({ totalPages, changePage, currentPage }) {
   const cn = bem('Page');
 
   let pagesArray = getPagesArray(totalPages);
@@ -17,7 +17,6 @@ function Pagination({ totalPages, changePage, currentPage, limit }) {
           return filterArray(page, pagesArray, currentPage, true, false);
         })
         .map((page) => {
-          const listPage = page * limit - limit;
           const pageDigit = (
             <span
               className={
@@ -26,7 +25,7 @@ function Pagination({ totalPages, changePage, currentPage, limit }) {
                   : cn('number')
               }
               key={page}
-              onClick={() => changePage(listPage)}>
+              onClick={() => changePage(page)}>
               {page}
             </span>
           );
@@ -43,7 +42,7 @@ function Pagination({ totalPages, changePage, currentPage, limit }) {
 
 Pagination.propTypes = {
   totalPages: propTypes.number.isRequired,
-  limit: propTypes.number.isRequired,
+  // limit: propTypes.number.isRequired,
   currentPage: propTypes.number.isRequired,
   changePage: propTypes.func,
 };

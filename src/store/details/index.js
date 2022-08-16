@@ -12,8 +12,6 @@ class DetailsState extends StateModule {
   initState() {
     return {
       details: {},
-      country: {},
-      category: {},
     };
   }
 
@@ -24,8 +22,6 @@ class DetailsState extends StateModule {
     const json = await response.data.result;
     this.setState({
       details: json,
-      country: json.maidIn,
-      category: json.category,
     });
   }
 }

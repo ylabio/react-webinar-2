@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 
 import BasketSimple from '../../components/basket-simple';
 import List from '../../components/list';
@@ -8,23 +8,17 @@ import Pagination from '../../components/pagination';
 
 import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
-
 import useLanguage from '../../utils/use-language';
+import Menu from '../../components/menu';
 
 function Main() {
   console.log('Main');
 
   const store = useStore();
-
-  // получение контекста для перевода слов
   const { content } = useLanguage();
 
-  // состояния для limit и skip из АПИ
-  const [limit, setLimit] = useState(10);
-  const [skip, setSkip] = useState(0);
-
   useEffect(() => {
-    store.get('catalog').load(limit, skip);
+    store.get('catalog').load();
   }, []);
 
   const select = useSelector((state) => ({
@@ -40,24 +34,32 @@ function Main() {
     // Добавление в корзину
     addToBasket: useCallback((_id) => store.get('basket').addToBasket(_id), []),
     // Изменение страницы
-    changePage: useCallback((skipAmount) => {
-      store.get('catalog').load(limit, skipAmount);
-      setSkip(skipAmount);
+    changePage: useCallback((page) => {
+      store.get('catalog').changePage(page);
     }, []),
   };
 
-  const currentPage = (skip + limit) / limit;
+  const currentPage = store.get('catalog').getCurrentPage();
 
   const renders = {
     item: useCallback(
-      (item) => <Item item={item} onAdd={callbacks.addToBasket} />,
-      []
+      (item) => (
+        <Item
+          item={item}
+          onAdd={callbacks.addToBasket}
+          content={content}
+          path='/products/'
+        />
+      ),
+      [content]
     ),
   };
 
   return (
     <Layout head={<h1>{content.title}</h1>}>
+      <Menu content={content} />
       <BasketSimple
+        content={content}
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
@@ -67,7 +69,6 @@ function Main() {
         totalPages={select.pages}
         changePage={callbacks.changePage}
         currentPage={currentPage}
-        limit={limit}
       />
     </Layout>
   );

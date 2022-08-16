@@ -2,12 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
-import useLanguage from '../../utils/use-language';
 
 function LayoutModal(props) {
   const cn = bem('LayoutModal');
-
-  const { content } = useLanguage();
 
   const frame = useRef();
 
@@ -32,7 +29,7 @@ function LayoutModal(props) {
         <div className={cn('head')}>
           <h1 className={cn('title')}>{props.title}</h1>
           <button className={cn('close')} onClick={props.onClose}>
-            {content.closeCart}
+            {props.closeCart}
           </button>
         </div>
         <div className={cn('content')}>{props.children}</div>
@@ -43,12 +40,14 @@ function LayoutModal(props) {
 
 LayoutModal.propTypes = {
   title: PropTypes.string,
+  closeCart: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
 };
 
 LayoutModal.defaultProps = {
   title: 'Модалка',
+  closeCart: 'Закрыть',
   onClose: () => {},
 };
 

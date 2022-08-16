@@ -2,13 +2,11 @@ import React from 'react';
 import propTypes from 'prop-types';
 import numberFormat from '../../utils/number-format';
 import './styles.css';
-import useLanguage from '../../utils/use-language';
 
 function BasketTotal(props) {
-  const { content } = useLanguage();
   return (
     <div className='BasketTotal'>
-      <span className='BasketTotal-cell'>{content.total}</span>
+      <span className='BasketTotal-cell'>{props.content.total}</span>
       <span className='BasketTotal-cell'> {numberFormat(props.sum)} ₽</span>
       <span className='BasketTotal-cell'></span>
     </div>
@@ -16,6 +14,7 @@ function BasketTotal(props) {
 }
 
 BasketTotal.propTypes = {
+  content: propTypes.object.isRequired,
   sum: propTypes.number,
 };
 

@@ -20,11 +20,8 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('id')}>*/}
-      {/*  {props.item._id}*/}
-      {/*</div>*/}
       <div className={cn('title')}>
-        <NavLink to={`/product-info/${props.item._id}`}>{props.item.title}</NavLink>
+        <NavLink to={`/${props.navLink}/${props.item._id}`}>{props.item.title}</NavLink>
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
@@ -36,6 +33,7 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
+  navLink: propTypes.string.isRequired,
   onAdd: propTypes.func,
 };
 

@@ -11,7 +11,7 @@ function Controls({children}){
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.node.isRequired
+  children: propTypes.node.isRequired
 }
 
 export default React.memo(Controls);

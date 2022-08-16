@@ -12,6 +12,7 @@ import {LocalisationContext} from "l10n";
 import Controls from "components/controls";
 import Navigation from "components/navigation";
 import {navigation} from "utils/constants/navigation";
+import {routes} from "utils/constants/routes";
 
 function Main() {
   console.log('Main');
@@ -60,7 +61,7 @@ function Main() {
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} navLink={routes.productInfo} onAdd={callbacks.addToBasket}/>, []),
   };
 
   return (

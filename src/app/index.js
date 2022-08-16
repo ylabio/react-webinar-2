@@ -6,6 +6,7 @@ import LanguageSwitcher from "components/language-switcher";
 import {Route, Routes} from "react-router-dom";
 import Main from "main";
 import Product from "product";
+import {routes} from "utils/constants/routes";
 
 /**
  * Приложение
@@ -21,9 +22,9 @@ function App() {
     <>
       <LanguageSwitcher languages={languages}/>
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/product-info" element={<Product />} />
-        <Route path="/product-info/:id" element={<Product />} />
+        <Route path={`/${routes.home}`} element={<Main/>}/>
+        <Route path={`/${routes.productInfo}`} element={<Product/>}/>
+        <Route path={`/${routes.productInfo}/:id`} element={<Product/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

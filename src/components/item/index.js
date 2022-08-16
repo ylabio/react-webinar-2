@@ -10,7 +10,9 @@ function Item(props) {
   const navigate = useNavigate();
 
   const callbacks = {
+    // Добавляет товар в корзину
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
+    // Для перехода к просмотру подробного описания товара из каталога
     onArticle: useCallback((e) => navigate(`/article/${props.item._id}`), [])
   };
 

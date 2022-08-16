@@ -10,8 +10,11 @@ function ItemBasket(props) {
   const navigate = useNavigate();
 
   const callbacks = {
+    // Удаляет товар из корзины
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
+    // Для перехода к просмотру подробного описания товара из корзины
     onArticle: useCallback((e) => navigate(`/article/${props.item?._id}`), []),
+    // Закрывает модальное окно корзины при переходе к подробному описанию товара
     onArticleClose: useCallback(() => props.onClose(), []),
   };
 

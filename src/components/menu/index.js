@@ -14,7 +14,7 @@ const Menu = ({url, title}) => {
     );
 };
 
-Pagination.propTypes = {
+Menu.propTypes = {
     url: propTypes.string.isRequired,
     title: propTypes.string.isRequired
 }

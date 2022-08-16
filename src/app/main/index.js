@@ -24,6 +24,8 @@ function Main(){
     sum: state.basket.sum,
     count: state.catalog.count
   }));
+  
+  console.log(select.items)
 
   const callbacks = {
     // Открытие корзины

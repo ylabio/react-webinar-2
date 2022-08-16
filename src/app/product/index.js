@@ -13,7 +13,7 @@ function Product() {
 
 	useEffect(() => {
     store.get('product').loadItem(id);
-  }, []);
+  }, [id]);
 
 	const select = useSelector((state) => ({
     sum: state.basket.sum,

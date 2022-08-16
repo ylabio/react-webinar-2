@@ -51,7 +51,6 @@ function ProductInformation() {
     if (window.location.pathname.includes('productInformation/')) {
       console.log(window.location.pathname.split('productInformation/')[1])
       callbacks.getProductInformation(window.location.pathname.split('productInformation/')[1])
-      callbacks.load()
     }
   }, []);
   

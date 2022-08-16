@@ -24,7 +24,7 @@ class CatalogState extends StateModule{
     this.setState({
       items: response.items,
       total: response.total,
-    });
+    }, 'Загрузка каталога');
   }
 }
 

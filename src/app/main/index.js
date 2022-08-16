@@ -35,6 +35,17 @@ function Main(){
     store.get('catalog').load(skip(currentPage, select.limit), select.limit);
   }, [select.current]);
 
+  useEffect(() => {
+    // Для сохранения страницы при следующей последовательности действий:
+    // 1) Обновить каталог при нахождении не на первой странице
+    // 2) Перейти на карточку товара
+    // 3) Перейти по ссылке "Главная" в каталог
+    // Иначе сброс не первую страницу
+    if (select.current === 1) {
+      store.get('pagination').changePage(currentPage, 10);
+    }
+  }, []);
+
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),

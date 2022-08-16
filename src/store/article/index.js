@@ -33,7 +33,7 @@ class ArticleState extends StateModule{
       item: {
         ...response
       }
-    });
+    },`Загрузка текущего товара`);
   }
 
   clearData() {
@@ -48,7 +48,7 @@ class ArticleState extends StateModule{
         editionYear: '',
         price: '',
       }
-    });
+    }, `Сброс данных текущего товара`);
   }
 }
 

@@ -9,6 +9,7 @@ import Language from "../../components/language";
 import Navigation from "../../components/navigation";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import getText from "../../utils/get-text";
 import {appRoute, textBasketSimple, textItem, textNavigation, productsPerPage} from "../../const";
 
 function Main() {
@@ -45,8 +46,8 @@ function Main() {
         item={item}
         onAdd={callbacks.addToBasket}
         address={appRoute.Product}
-        text={{add: textItem.add[select.language]}}
-      />, [{add: textItem.add[select.language]}]),
+        text={getText(textItem, select.language)}
+      />, [textItem, select.language]),
   }
 
   return (
@@ -56,17 +57,12 @@ function Main() {
         <Language onToggle={callbacks.toggleLanguage} lang={select.language} />
       </>}
     >
-      <Navigation text={{main: textNavigation.main[select.language]}} />
+      <Navigation text={getText(textNavigation, select.language)} />
       <BasketSimple
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
-        text={{
-          inCart: textBasketSimple.inCart[select.language],
-          itemsPlural: textBasketSimple.itemsPlural[select.language],
-          empty: textBasketSimple.empty[select.language],
-          enter: textBasketSimple.enter[select.language],
-        }}
+        text={getText(textBasketSimple, select.language)}
       />
       <List items={select.items} renderItem={renders.item}/>
       <Pagination

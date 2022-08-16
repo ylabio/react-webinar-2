@@ -2,6 +2,7 @@ import React, {useEffect, useCallback} from "react";
 import {useParams} from "react-router-dom";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import getText from "../../utils/get-text";
 import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
 import Language from "../../components/language";
@@ -58,29 +59,18 @@ function Product() {
         <Language onToggle={callbacks.toggleLanguage} lang={select.language} />
       </>}
     >
-      <Navigation text={{main: textNavigation.main[select.language]}} />
+      <Navigation text={getText(textNavigation, select.language)} />
       <BasketSimple
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
-        text={{
-          inCart: textBasketSimple.inCart[select.language],
-          itemsPlural: textBasketSimple.itemsPlural[select.language],
-          empty: textBasketSimple.empty[select.language],
-          enter: textBasketSimple.enter[select.language],
-        }}
+        text={getText(textBasketSimple, select.language)}
       />
       {select.isProductLoaded &&
       <ProductDesc
         product={product}
         onAdd={callbacks.addToBasket}
-        text={{
-          madeIn: textProductDesc.madeIn[select.language],
-          category: textProductDesc.category[select.language],
-          edition: textProductDesc.edition[select.language],
-          price: textProductDesc.price[select.language],
-          add: textProductDesc.add[select.language],
-        }}
+        text={getText(textProductDesc, select.language)}
       />}
     </Layout>
   )

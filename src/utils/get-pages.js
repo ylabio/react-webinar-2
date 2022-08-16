@@ -6,7 +6,7 @@
  * 
  * @returns {array}
  */
- export default function getPages(pageNumber, amount) {
+export default function getPages(pageNumber, amount) {
   let flag = 0;
   let pages = [];
   for (let i = 1; i <= amount; i++) {

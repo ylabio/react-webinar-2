@@ -5,6 +5,7 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import getText from "../../utils/get-text";
 import {appRoute, textBasketTotal, textItemBasket, textLayoutModal} from "../../const";
 
 function Basket(){
@@ -34,10 +35,7 @@ function Basket(){
         onRemove={callbacks.removeFromBasket}
         onClose={callbacks.closeModal}
         address={appRoute.Product}
-        text={{
-          pcs: textItemBasket.pcs[select.language],
-          remove: textItemBasket.remove[select.language],
-        }}
+        text={getText(textItemBasket, select.language)}
       />, []),
   }
 
@@ -47,10 +45,10 @@ function Basket(){
     <LayoutModal
       title={basketTitle}
       onClose={callbacks.closeModal}
-      text={{close: textLayoutModal.close[select.language]}}
+      text={getText(textLayoutModal, select.language)}
     >
       <List items={select.items} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} text={{total: textBasketTotal.total[select.language]}} />
+      <BasketTotal sum={select.sum} text={getText(textBasketTotal, select.language)} />
     </LayoutModal>
   )
 }

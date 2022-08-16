@@ -7,6 +7,7 @@ import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import { localize } from "../../utils/localize";
 import { useNavigate, useParams } from "react-router-dom";
+import PageMessage from "../../components/page-message";
 
 function Main(){
 
@@ -34,6 +35,7 @@ function Main(){
     pageCount: state.catalog.pageCount,
     currentPage: state.catalog.currentPage,
 		language: state.localization.language,
+		loading: state.catalog.loading,
   }));
 
   const callbacks = {
@@ -47,7 +49,9 @@ function Main(){
 
   return (
     <Layout head={<h1>{localize['Магазин'][select.language]}</h1>}>
-			{select.items.length > 0 && (
+			{select.loading ? (
+				<PageMessage>{localize['Загрузка'][select.language]}...</PageMessage>
+			) : select.items.length > 0 ? (
 				<>
 					<List items={select.items} renderItem={renders.item} />
 					<Pagination
@@ -58,6 +62,8 @@ function Main(){
 						navigate={navigate}
 					/>
 				</>
+			) : (
+				<PageMessage>{localize['Не найдено'][select.language]}</PageMessage>
 			)}
 		</Layout>
   )

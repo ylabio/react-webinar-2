@@ -3,8 +3,8 @@ import {cn as bem} from "@bem-react/classname";
 import propTypes from 'prop-types';
 import './style.css';
 
-function ErrorPage(props) {
-	const cn = bem('ErrorPage');
+function PageMessage(props) {
+	const cn = bem('PageMessage');
 
 	return (
 		<div className={cn()}>
@@ -13,8 +13,8 @@ function ErrorPage(props) {
 	);
 }
 
-ErrorPage.propTypes = {
+PageMessage.propTypes = {
 	children: propTypes.node,
 };
 
-export default React.memo(ErrorPage);
+export default React.memo(PageMessage);

@@ -16,6 +16,7 @@ class CatalogState extends StateModule{
       count: 0,
       pageCount: 0,
       currentPage: 0,
+      loading: true,
     };
   }
 
@@ -29,6 +30,7 @@ class CatalogState extends StateModule{
 			count: json.result.count,
       pageCount: Math.ceil(json.result.count / limit),
       currentPage: skip / limit + 1,
+      loading: false,
 		});
 	}
 

@@ -40,13 +40,12 @@ function Article(){
   };
 
   const renders = {
-    article: useCallback((id, lang, item, content, onAdd) =>
-      <ArticleContent id={id}
-                      lang={lang}
-                      item={item}
-                      content={content}
-                      onAdd={onAdd}/>,
-      [select.lang]),
+    article: useCallback(() =>
+      <ArticleContent lang={select.lang}
+                      item={select.item}
+                      content={select.content}
+                      onAdd={callbacks.addToBasket}/>,
+      [select.lang, select.item]),
   }
 
   return (
@@ -59,7 +58,7 @@ function Article(){
       </>
     }>
       <BasketSimple lang={select.lang} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      {renders.article(params.id, select.lang, select.item, select.content, callbacks.addToBasket)}
+      {renders.article()}
     </Layout>
   )
 }

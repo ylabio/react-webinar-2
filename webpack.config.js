@@ -24,7 +24,7 @@ let config = {
   ],
   //
   resolve: {
-    extensions: ['.js', '.jsx', '.json'], // Расширения по умолчанию, если не указаны в import
+    extensions: ['.js', '.jsx'], // Расширения по умолчанию, если не указаны в import
     modules: ['./', 'node_modules'], // Где искать файлы подключаемых модулей
   },
   module: {

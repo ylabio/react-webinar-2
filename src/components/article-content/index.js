@@ -9,7 +9,7 @@ function ArticleContent(props) {
   const cn = bem('ArticleContent');
 
   const callbacks = {
-    onAdd: useCallback((e) => props.onAdd(props.id), [props.onAdd, props.id])
+    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
 
   return (
@@ -53,13 +53,11 @@ ArticleContent.propTypes = {
   item: propTypes.object.isRequired,
   content: propTypes.object.isRequired,
   onAdd: propTypes.func,
-  id: propTypes.string,
   lang: propTypes.object,
 }
 
 ArticleContent.defaultProps = {
   onAdd: () => {},
-  id: '',
   lang: {},
 }
 

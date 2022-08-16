@@ -1,5 +1,5 @@
 import StateModule from "../module";
-import languages from "../../languages";
+import languages from "../../languages/index.json";
 
 /**
  * Состояние каталога

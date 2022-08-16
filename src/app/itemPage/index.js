@@ -4,20 +4,19 @@ import ItemInfo from "../../components/itemInfo";
 import React, {useCallback, useEffect} from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import {useLocation} from "react-router-dom";
 
-function ItemPage(){
+function ItemPage(props){
 
   console.log('ItemPage');
 
   const store = useStore();
   window.store = store
 
-  const location = useLocation();
-
   useEffect(() => {
-    store.get('catalog').loadItem(location.search.split("=")[1]);
-  }, [location]);
+    if(props.itemId !== undefined) {
+      store.get('catalog').loadItem(props.itemId);
+    }
+  }, [props]);
 
   const select = useSelector(state => {
     return {

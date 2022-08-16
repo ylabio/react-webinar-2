@@ -4,16 +4,15 @@ import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './styles.css';
-import {Link} from "react-router-dom";
+import MainLink from '../main-link';
+
 
 function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
       <div>
-        <span className={cn("link")}>
-          <Link to={"/"}>Главная</Link>
-        </span>
+        <MainLink />
       </div>
       <div>
         <span className={cn('label')}>В корзине:</span>

@@ -15,12 +15,13 @@ class CatalogState extends StateModule{
       items: [],
       currentPage: 1,
       totalPages: 1,
-      item: {}
+      item: {},
+      limit: 10,
     };
   }
 
   async load(){
-    const response = await fetch('/api/v1/articles?limit=10&skip=0&fields=items(*),count');
+    const response = await fetch(`/api/v1/articles?limit=${this.store.state.catalog.limit}&skip=0&fields=items(*),count`);
     const json = await response.json();
     const totalPages = (json.result.count/10)%1 !== 0 ? Math.trunc(json.result.count/10) + 1: (json.result.count/10);
     this.setState({
@@ -32,7 +33,8 @@ class CatalogState extends StateModule{
   }
 
   async loadPage(page) {
-    const response = await fetch('/api/v1/articles?limit=10&skip=' + `${10*(page-1)}`);
+    console.log(page)
+    const response = await fetch(`/api/v1/articles?limit=${this.store.state.catalog.limit}&skip=` + `${10*(page-1)}`);
     const json = await response.json();
     this.setState({
       items: json.result.items,
@@ -43,7 +45,7 @@ class CatalogState extends StateModule{
   }
 
   async loadItem(id) {
-    const response = await fetch('/api/v1/articles/' + `${id}` + "?fields=*,maidIn(title,code),category(title)");
+    const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
     const json = await response.json();
     this.setState({
       item: json.result,

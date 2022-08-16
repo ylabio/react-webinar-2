@@ -14,7 +14,9 @@ function Main(){
   const store = useStore();
 
   useEffect(() => {
-    store.get('catalog').load();
+    if(!store.getState().catalog.items.length) {
+      store.get('catalog').load();
+    }
   }, []);
 
   let curPage = useSelector(state => state.catalog.currentPage)

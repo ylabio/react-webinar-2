@@ -1,6 +1,5 @@
 import counter from "../../utils/counter";
 import StateModule from "../module";
-import {renderPagination} from "../../utils/render-pagination";
 
 /**
  * Состояние каталога
@@ -24,12 +23,12 @@ class CatalogState extends StateModule{
    * Пагинация
    */
 
-  async load(skip, limit){
-    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip * limit}&fields=items(*),count`);
+  async load(skip = 1, limit){
+    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${(skip - 1) * limit}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
       items: json.result.items,
-      page: skip,
+      page: +skip,
       limit: limit,
       pages: Math.ceil(json.result.count / limit),
     });

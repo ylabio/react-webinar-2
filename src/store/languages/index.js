@@ -39,7 +39,7 @@ class Languages extends StateModule{
    * Перевод
    */
 
-  async translate(language) {
+  translate(language) {
     this.setState({
       ...languages[language]
     });

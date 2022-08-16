@@ -7,16 +7,18 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import Translate from "../../components/translate";
+import {useParams} from "react-router-dom";
 
 function Main(){
 
   console.log('Main');
 
   const store = useStore();
+  const params = useParams();
 
   useEffect(() => {
-    store.get('catalog').load(select.page, select.limit);
-  }, [])
+    store.get('catalog').load(params.id, select.limit);
+  }, [params.id])
 
   const select = useSelector(state => ({
     items: state.catalog.items,
@@ -33,8 +35,6 @@ function Main(){
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    // Переключение страницы пагинации
-    selectPage: useCallback((skip) => store.get('catalog').load(skip, select.limit), []),
     // Перевод
     translate: useCallback((language) => store.get('languages').translate(language), []),
   };
@@ -59,8 +59,7 @@ function Main(){
     }>
       <BasketSimple lang={select.lang} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
-      <Pagination selectPage={callbacks.selectPage}
-                  currentPage={select.page}
+      <Pagination currentPage={select.page}
                   allPages={select.pages}
       />
     </Layout>

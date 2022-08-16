@@ -1,40 +1,36 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import propTypes, {number} from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import {renderPagination} from "../../utils/render-pagination";
+import {useNavigate} from "react-router-dom";
 
-function Pagination({selectPage, currentPage, allPages}) {
+function Pagination({currentPage, allPages}) {
   const cn = bem('Pagination');
+  const navigate = useNavigate();
 
   const {arrPage, firstDots, lastDots} = renderPagination(allPages, currentPage);
-
-  const cb = {
-    selectPage: useCallback((item) => {
-      selectPage(item);
-    }, [])
-  }
 
   return (
     <div className={cn()} >
       <ul className={cn('list')}>
-        <li className={currentPage === 0 ? cn('active') : ''}
-            onClick={() => cb.selectPage(0)} >1</li>
+        <li className={currentPage === 1 ? cn('active') : ''}
+            onClick={() => navigate(`/page/1`, { replace: true })} >1</li>
         {
           firstDots && <li className={cn('dotted')}>...</li>
         }
         {
           arrPage.map(item =>
             <li className={currentPage === item ? cn('active') : ''}
-                onClick={() => cb.selectPage(item)}
-                key={item}>{item + 1}
+                onClick={() => navigate(`/page/${item}`, { replace: true })}
+                key={item}>{item}
             </li>)
         }
         {
           lastDots && <li className={cn('dotted')}>...</li>
         }
-        <li className={currentPage === allPages - 1 ? cn('active') : ''}
-            onClick={() => cb.selectPage(allPages - 1)}
+        <li className={currentPage === allPages ? cn('active') : ''}
+            onClick={() => navigate(`/page/${allPages}`, { replace: true })}
         >
           {allPages}
         </li>
@@ -44,7 +40,6 @@ function Pagination({selectPage, currentPage, allPages}) {
 }
 
 Pagination.propTypes = {
-  selectPage: propTypes.func.isRequired,
   currentPage: number,
   allPages: number,
 }

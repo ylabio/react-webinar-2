@@ -18,7 +18,9 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Main />} >
+          <Route path="/page/:id" element={<Main />} />
+        </Route>
         <Route path="/articles/:id" element={<Article />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

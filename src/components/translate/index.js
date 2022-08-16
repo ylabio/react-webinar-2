@@ -15,7 +15,7 @@ function Translate({translate, lang}) {
   return (
     <div className={cn()} >
       <span>{lang.select}:&nbsp;</span>
-      <select onChange={(e) => cb.translate(e)} value={lang.lang}>
+      <select onChange={cb.translate} value={lang.lang}>
         <option value="Ru" >Ru</option>
         <option value="En" >En</option>
       </select>

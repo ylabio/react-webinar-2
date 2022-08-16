@@ -17,14 +17,14 @@ function ProductInfo(props) {
       <div className={cn('country')}>
         Cтрана производитель:{' '}
         <span>
-          {props.maidIn.title} ({props.maidIn.code})
+          {props.maidIn.title || ''} ({props.maidIn.code || ''})
         </span>
       </div>
       <div className={cn('category')}>
-        Категория: <span>{props.category.title}</span>
+        Категория: <span>{props.category.title || ''}</span>
       </div>
       <div className={cn('edition')}>
-        Год выпуска: <span>{props.item.edition}</span>
+        Год выпуска: <span>{props.item.edition || ''}</span>
       </div>
       <div className={cn('price')}>Цена: {numberFormat(props.item.price)}</div>
       <button className={cn('btn')} onClick={callbacks.onAdd}>
@@ -37,11 +37,14 @@ function ProductInfo(props) {
 ProductInfo.propTypes = {
   item: propTypes.object.isRequired,
   maidIn: propTypes.object,
+  category: propTypes.object,
   onAdd: propTypes.func,
 }
 
 ProductInfo.defaultProps = {
   onAdd: () => {},
+  maidIn: {},
+  category: {},
 }
 
 export default React.memo(ProductInfo)

@@ -13,15 +13,15 @@ function Product() {
   const { id } = useParams()
 
   useEffect(() => {
-    store.get('catalog').loadItem(id)
+    store.get('product').loadItem(id)
   }, [id])
 
   const store = useStore()
 
   const select = useSelector((state) => ({
-    item: state.catalog.item,
-    maidIn: state.catalog.maidIn,
-    category: state.catalog.category,
+    item: state.product.item,
+    maidIn: state.product.maidIn,
+    category: state.product.category,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }))

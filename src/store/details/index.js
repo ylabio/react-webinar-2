@@ -10,7 +10,7 @@ class DetailsState extends StateModule {
    */
   initState() {
     return {
-      item: [],
+      item: {},
       loading: false,
       error: "",
     };

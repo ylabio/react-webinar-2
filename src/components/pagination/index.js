@@ -1,5 +1,6 @@
 import React from "react";
 import { cn as bem } from "@bem-react/classname";
+import propTypes from "prop-types";
 import "./style.css";
 
 function Pagination({ allPage, pag, newPage }) {
@@ -36,5 +37,11 @@ function Pagination({ allPage, pag, newPage }) {
     </ul>
   );
 }
+
+Pagination.propTypes = {
+  allPage: propTypes.number,
+  pag: propTypes.number,
+  newPage: propTypes.func,
+};
 
 export default React.memo(Pagination);

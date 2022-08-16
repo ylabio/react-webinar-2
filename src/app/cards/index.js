@@ -7,7 +7,7 @@ import Info from "../../components/info";
 import MainLink from "../../components/main-link";
 import Spinner from "../../components/spinner";
 import BasketSimple from "../../components/basket-simple";
-import { lang } from "../../utils/language-array";
+import { translation } from "../../utils/language-array";
 
 function Page() {
   let { id = "none" } = useParams();
@@ -40,6 +40,10 @@ function Page() {
     }
   }, [id]);
 
+  const text = (n) => {
+    return translation(select.language, n);
+  };
+
   if (select.loading) {
     return <Spinner />;
   }
@@ -50,8 +54,9 @@ function Page() {
         sum={select.sum}
         amount={select.amount}
         onOpen={callbacks.openModalBasket}
+        text={[text("go"), text("in_the_basket"), text("empty")]}
       >
-        <MainLink link="/" title={lang[select.language].main} />
+        <MainLink link="/" title={text("main")} />
       </BasketSimple>
       <Info item={select.item} onAdd={callbacks.addToBasket} />
     </Layout>

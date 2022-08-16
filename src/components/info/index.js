@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import Controls from "../controls";
+import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
@@ -31,5 +32,10 @@ function Info({ item, onAdd }) {
     </div>
   );
 }
+
+Info.propTypes = {
+  item: propTypes.object,
+  onAdd: propTypes.func,
+};
 
 export default React.memo(Info);

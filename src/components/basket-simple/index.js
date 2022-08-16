@@ -5,12 +5,12 @@ import { cn as bem } from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import "./styles.css";
 
-function BasketSimple({ sum, amount, onOpen, children }) {
+function BasketSimple({ sum, amount, onOpen, children, text }) {
   const cn = bem("BasketSimple");
   return (
     <div className={cn()}>
       <div className={cn("link")}>{children}</div>
-      <span className={cn("label")}>В корзине:</span>
+      <span className={cn("label")}>{text[1]}:</span>
       <span className={cn("total")}>
         {amount
           ? `${amount} ${plural(
@@ -19,10 +19,10 @@ function BasketSimple({ sum, amount, onOpen, children }) {
               "товара",
               "товаров"
             )} / ${numberFormat(sum)} ₽`
-          : `пусто`}
+          : text[2]}
       </span>
-      <button className="BasketSimple__button" onClick={onOpen}>
-        Перейти
+      <button className={cn("button")} onClick={onOpen}>
+        {text[0]}
       </button>
     </div>
   );

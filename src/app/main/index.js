@@ -8,7 +8,7 @@ import PanelLanguage from "../../components/panel-language";
 import Pagination from "../../components/pagination";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import { lang } from "../../utils/language-array";
+import { translation } from "../../utils/language-array";
 
 function Main() {
   console.log("Main");
@@ -59,18 +59,21 @@ function Main() {
     ),
   };
 
+  const text = (n) => {
+    return translation(select.language, n);
+  };
+
   if (select.loading) {
     return <Spinner />;
   }
 
-  console.log(lang[select.language].shop);
-
   return (
-    <Layout head={<h1>{lang[select.language].shop}</h1>}>
+    <Layout head={<h1>{translation(select.language, "shop")}</h1>}>
       <BasketSimple
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
+        text={[text("go"), text("in_the_basket"), text("empty")]}
       >
         <PanelLanguage
           changeLanguage={callbacks.changeLanguage}

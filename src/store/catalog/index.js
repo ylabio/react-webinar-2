@@ -11,7 +11,6 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
-      currentArticle: null,
       limit: 10,
       skip: 0,
       currPage: null,
@@ -38,16 +37,6 @@ class CatalogState extends StateModule {
         skip: (this.getState().currPage - 1) * this.getState().limit,
       },
       'calcSkip'
-    );
-  }
-
-  clearCurrArticle() {
-    this.setState(
-      {
-        ...this.getState(),
-        currentArticle: null,
-      },
-      'clearCurrArticle'
     );
   }
 
@@ -107,17 +96,6 @@ class CatalogState extends StateModule {
         skip: 0,
       }, 'Восстановление доступной страницы каталога')
     } else this.setLoadLoading(false);
-  }
-
-  async loadArticle(id) {
-    const response = await fetch(
-      `/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`
-    );
-    const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      currentArticle: json.result,
-    });
   }
 
   /**

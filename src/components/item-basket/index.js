@@ -5,7 +5,7 @@ import {cn as bem} from "@bem-react/classname";
 import './styles.css';
 import {Link} from "react-router-dom";
 
-function ItemBasket({item, onRemove, onClose, ln = {}}) {
+function ItemBasket({item, onRemove, onClose, ln = {}, link = `/catalog/${item._id}`}) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
@@ -14,9 +14,8 @@ function ItemBasket({item, onRemove, onClose, ln = {}}) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('id')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <Link to={`/catalog/${item._id}`} onClick={onClose}>
+        <Link to={link} onClick={onClose}>
           {item.title}
         </Link>
       </div>
@@ -31,6 +30,7 @@ function ItemBasket({item, onRemove, onClose, ln = {}}) {
 
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
+  link: propTypes.string,
   onRemove: propTypes.func,
   ln: propTypes.objectOf(propTypes.string).isRequired,
   onClose: propTypes.func

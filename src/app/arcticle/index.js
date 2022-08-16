@@ -13,30 +13,28 @@ const Article = () => {
   const store = useStore();
   const { articleId } = useParams();
   const cn = bem('Article');
-  const { currentArticle } = useSelector((state) => state.catalog);
+  const { data, loading } = useSelector((state) => state.article);
 
   const callbacks = {
     addToBasket: useCallback((_id) => store.get('basket').addToBasket(_id), []),
   };
 
   useEffect(() => {
-    store.get('catalog').loadArticle(articleId);
+    store.get('article').loadArticle(articleId);
     return () => {
-      store.get('catalog').clearCurrArticle();
+      store.get('article').clearArticle();
     };
-  }, []);
+  }, [articleId]);
 
   return (
     <CommonLayout>
       <div className={cn()}>
-        {!currentArticle ? (
+        {loading ? (
           <div>loading...</div>
         ) : (
-          <ArticleInfo
-            article={currentArticle}
-            ln={articleInfo}
-            onAdd={callbacks.addToBasket}
-          />
+          <>
+            {data && <ArticleInfo article={data} ln={articleInfo} onAdd={callbacks.addToBasket} />}
+          </>
         )}
       </div>
     </CommonLayout>

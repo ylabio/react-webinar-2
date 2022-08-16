@@ -39,7 +39,7 @@ class BasketState extends StateModule{
 
     // Если товар не был найден в корзине, то добавляем его из каталога
     if (!exists) {
-      const singleProduct = this.store.state.catalog.currentArticle;
+      const singleProduct = this.store.state.article.data;
       if (singleProduct) {
         items.push({...singleProduct, amount: 1});
         sum += singleProduct.price;

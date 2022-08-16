@@ -5,7 +5,7 @@ import numberFormat from "../../utils/numberFormat";
 import './style.css';
 import {Link} from "react-router-dom";
 
-function Item({onAdd, item, ln = {}}) {
+function Item({onAdd, item, ln = {}, link = `/catalog/${item._id}`}) {
   const cn = bem('Item');
 
   const callbacks = {
@@ -15,7 +15,7 @@ function Item({onAdd, item, ln = {}}) {
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-        <Link to={`/catalog/${item._id}`}>
+        <Link to={link}>
           {item.title}
         </Link>
       </div>
@@ -29,12 +29,13 @@ function Item({onAdd, item, ln = {}}) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
+  link: propTypes.string,
   onAdd: propTypes.func,
   ln: propTypes.objectOf(propTypes.string).isRequired,
 }
 
 Item.defaultProps = {
-  onAdd: () => {},
+  onAdd: () => {}
 }
 
 export default React.memo(Item);

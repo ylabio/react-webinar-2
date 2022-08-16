@@ -20,7 +20,7 @@ function Main(){
   const select = useSelector(state => ({
     items: state.catalog.items,
     lastPage : state.catalog.lastPage,
-    currentPage: state.catalog.currentPage,
+    currentPage: state.catalog.currentPage,    
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -38,12 +38,12 @@ function Main(){
 
   const renders = {
     item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
-  }
+  }  
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
+      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <List items={select.items} renderItem={renders.item} />
       <Pagination lastPage={select.lastPage} loadPage={callbacks.loadPage} currentPage={select.currentPage}/>
     </Layout>
   )

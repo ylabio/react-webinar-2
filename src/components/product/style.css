@@ -1,19 +1,19 @@
-.ProductCard {
+.Product {
   font-size: 18px;
   line-height: 21px;
   padding: 20px 40px;
 }
 
-.ProductCard-description {
+.Product-description {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-.ProductCard-description > li:nth-child(n+2) {
+.Product-description > li:nth-child(n+2) {
   margin-top: 20px;
 }
 
-.ProductCard-price {
+.Product-price {
   font-size: 24px;
 }

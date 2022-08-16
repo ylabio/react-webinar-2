@@ -3,7 +3,7 @@ import Main from "./main";
 import Basket from "./basket";
 import useSelector from "../utils/use-selector";
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import ProductCard from '../components/product-card'
+import Product from './product'
 
 /**
  * Приложение
@@ -20,7 +20,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Main/>}/>
-          <Route path='api/v1/articles/:id' element={<ProductCard />}/>
+          <Route path='product/:id' element={<Product/>}/>
         </Routes>
         {modal === 'basket' && <Basket/>}
       </BrowserRouter>

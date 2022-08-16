@@ -1,0 +1,32 @@
+{
+  "content": {
+    "English": {
+      "title": "Shop",
+      "main": "Main",
+      "empty": "empty",
+      "cart": "Cart",
+      "inCart": "In cart:",
+      "openCart": "Open",
+      "closeCart": "Close",
+      "addToCart": "Add",
+      "deleteFromCart": "Delete",
+      "items": ["item", "items", "items"],
+      "pieces": "pcs",
+      "total": "In total"
+    },
+    "Russian": {
+      "title": "Магазин",
+      "main": "Главная",
+      "empty": "пусто",
+      "cart": "Корзина",
+      "inCart": "В корзине:",
+      "openCart": "Перейти",
+      "closeCart": "Закрыть",
+      "addToCart": "Добавить",
+      "deleteFromCart": "Удалить",
+      "items": ["товар", "товара", "товаров"],
+      "pieces": "штук",
+      "total": "Итого"
+    }
+  }
+}

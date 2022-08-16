@@ -1,0 +1,32 @@
+.Page {
+  padding: 22px 20px 90px 0px;
+  text-align: end;
+}
+
+.Page-number {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 20px;
+  min-height: 20px;
+  cursor: pointer;
+}
+
+.Page-number:hover {
+  background-color: #e1e1e1;
+}
+
+.Page-number_active {
+  background-color: #0087e9;
+  color: #ffffff;
+}
+
+.Page-dots {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 20px;
+  min-height: 20px;
+
+  color: #cccccc;
+}

@@ -14,10 +14,12 @@ function Pagination(props) {
   return (
     <div className={cn()}>
       {pagination.map((i, index) => 
-        <Link key={index} to={i==='...'? '' :
-          '/'+i} className={(i == props.page)? cn('button-touched') : 
-          cn('button')}>{i}
-        </Link>
+        ( i==='...' ? 
+          <div key={index} className={cn('button')}>...</div> :
+          <Link key={index} to={'/'+i} className={(i == props.page)? cn('button-touched') : cn('button')}>
+            {i}
+          </Link>
+        )
       )}
     </div>
   )

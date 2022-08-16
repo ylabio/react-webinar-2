@@ -44,7 +44,7 @@ let config = {
           { loader: MiniCssExtractPlugin.loader, options: {} },
           {
             loader: 'css-loader',
-            options: { url: true, import: true, modules: true },
+            options: { url: true, import: true /*, modules: true*/ },
           },
         ],
       },

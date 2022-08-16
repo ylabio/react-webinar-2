@@ -1,56 +1,72 @@
-import React, {useEffect, useCallback, useState} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from 'prop-types';
-import numberFormat from '../../utils/numberFormat'
-import './style.css';
 import useStore from '../../utils/use-store';
 import { useParams } from 'react-router-dom';
+import ProductItem from '../product_item'
+import useSelector from "../../utils/use-selector";
+import BasketSimple from "../../components/basket-simple";
+import Layout from '../layout';
 
 
 
-function ProductPage(props) {
+function ProductPage() {
   const cn = bem('product_page');
 
   const {id} = useParams()
-
-
+  const store = useStore();
   console.log('Product_Page');
   
-  const item = props.item
+  // const item = props.item
+
+  const select = useSelector(state => ({
+    items: state.catalog.items,
+    amount: state.basket.amount,
+    sum: state.basket.sum,
+    _id: state.item_page._id,
+    item: state.item_page.item,
+    count: state.catalog.count,
+    load: state.item_page.load,
+    num: state.pagination.num
+  }));
 
   const callbacks = {
-    onAdd: useCallback((e) => props.onAdd(id), [props.onAdd, props.item]),
-    load: useCallback((e) => props.loadItem(id), [props.loadItem, props.item])
+    // Открытие корзины
+    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+    // Добавление в корзину
+    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Добавление id элемента для запроса
+    addIdForRequest: useCallback(_id => store.get('item_page').getId(_id), []),
+     // Добавление id элемента для запроса
+    toLoadItem: useCallback(_id => store.get('item_page').loadItem(_id), []),
+    // обнуление состояния
+    toNullForItemState: useCallback(() => store.get('item_page').toNull(), []),
+    // загрузка всего списка
+    toPaginate: useCallback((skip) => store.get('catalog').paginate(skip), []),
+    // получение номера страницы
+    paginNum: useCallback((num) => store.get('pagination').paginationNumber(num), []), 
   };
-  const store = useStore();
-
+  console.log(select.num)
 
   useEffect(() => {
     store.get('item_page').loadItem(id)
   }, [id])
 
-  const loader = () => (
-    <div className={cn('loader')}>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  )
-
-
   return (
-      props.load 
-      ? loader()
-      :<div className={cn()}> 
-        <p> {item?.description}</p> 
-        <p> Страна производитель: <span>{item?.maidIn?.title}</span></p>
-        <p> Категория: <span>{item?.category?.title}</span></p>
-        <p> Год выпуска: <span>{item?.edition}</span></p> 
-        <p> <span>Цена: {numberFormat(item?.price)} ₽</span> </p> 
-        <button onClick={callbacks.onAdd}>Добавить</button>
-      </div>
+    <Layout head={<h1>{select.item?.title}</h1>}>
+      <BasketSimple 
+        onOpen={callbacks.openModalBasket} 
+        toNull={callbacks.toNullForItemState} 
+        amount={select.amount} 
+        sum={select.sum} 
+      />
+      <ProductItem
+        item={select.item}
+        onAdd={callbacks.addToBasket}
+        id={id}
+        loader={select.load}
+      /> 
+    </Layout>
   )
 
 }

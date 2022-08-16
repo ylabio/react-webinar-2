@@ -1,0 +1,13 @@
+.product_item {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.product_item span {
+    font-weight: bold;
+}
+
+.product_item p:nth-child(5) {
+    font-size: 20px;
+}
+

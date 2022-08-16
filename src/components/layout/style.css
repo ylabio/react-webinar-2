@@ -17,6 +17,8 @@ body{
 .Layout-head{
     height: 80px;
     background: #f5f5f5;
+    display: flex;
+    justify-content: space-between;
 }
 .Layout-head h1{
     margin: 0;

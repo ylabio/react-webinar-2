@@ -3,7 +3,12 @@ import Main from "./main";
 import Basket from "./basket";
 import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
-
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+} from "react-router-dom";
+import Product_page from '../components/product_page';
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
@@ -16,7 +21,11 @@ function App() {
 
   return (
     <>
-      <Main/>
+    <Routes>
+      <Route path="/" element={<Main/>}/>
+      <Route path="/article/:id" element={<Product_page/>}/>
+    </Routes>
+     
       {modal === 'basket' && <Basket/>}
     </>
   );

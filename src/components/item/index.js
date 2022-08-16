@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './style.css';
-import {Link} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 
 function Item(props) {
   const cn = bem('Item');
@@ -21,7 +21,7 @@ function Item(props) {
           >
           <Link 
            onClick={() => callbacks.addId()}
-          to={`/articles/${props.item._id}`}
+          to={`/${props.item._type}/${props.item._id}`}
           >
           {props.item.title}</Link>
           </div>

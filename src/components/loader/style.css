@@ -1,0 +1,22 @@
+.Loader {
+    width: 100%;
+    min-height: 300px;
+    
+}
+.Loader div:first-child {
+    height: 70px;
+}
+.Loader div {
+    width: 90%;
+    height: 30px;
+    margin: 20px;
+    /* background: rgb(148, 148, 148); */
+    background: linear-gradient(0.25turn, rgb(148, 148, 148),  rgb(230, 229, 229));
+    animation: loadAnim 1s ease-in-out infinite;
+}
+
+@keyframes loadAnim {
+    0% {background: rgb(230, 229, 229)}
+    50% {background:  rgb(187, 187, 187)}
+    100% {background:  rgb(230, 229, 229)}
+}

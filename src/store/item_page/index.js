@@ -16,7 +16,7 @@ class ItemPageState extends StateModule{
        load: false
     };
   }
- 
+
   async loadItem(_id){
 
     this.setState({

@@ -8,40 +8,33 @@ function Pagination(props) {
   const cn = bem('Pagination')
   const {activePage, totalPages} = props.pagination
 
-  // массив всех номеров страниц от 0 до totalPages 
-  let arr = Array.from(Array(totalPages).keys())
-  // сюда будем складывать кусочки от общего массива с разделениями на многоточие
-  let paginationItems = []
+  // сюда будем складывать номера страниц для отображения
+  // отрицательные значения соответствуют '...'
+  const paginationItems = []
 
   if (totalPages < 6) {
-    paginationItems = [].concat(arr.slice(0, 5))
+    paginationItems.push(1,2,3,4)
   } else if (activePage === 1 || activePage === 2) {
-    paginationItems = [].concat(arr.slice(0, 3), -1, arr.slice(-1));
+    paginationItems.push(1,2,3,-1,totalPages);
   } else if (activePage === 3) {
-    paginationItems = [].concat(arr.slice(0, 4), -1, arr.slice(-1));
+    paginationItems.push(1,2,3,4,-1,totalPages);
   } else if (activePage === totalPages - 2) {
-    paginationItems = [].concat(arr[0], -1, arr.slice(-4));
+    paginationItems.push(1,-1,totalPages - 3,totalPages - 2,totalPages - 1,totalPages - 2);
   } else if (activePage === totalPages - 1 || activePage === totalPages) {
-    paginationItems = [].concat(arr[0], -1, arr.slice(-3))
+    paginationItems.push(1,-1,totalPages - 2,totalPages - 1,totalPages)
   } else {
-    paginationItems = [].concat(
-      arr[0], 
-      -1, 
-      arr.slice(activePage - 2, activePage + 1), 
-      -2, 
-      arr[totalPages - 1]
-    );
+    paginationItems.push(1,-1,activePage - 1,activePage,activePage + 1,-2,totalPages)
   }
 
   return (
     <div className={cn()}>
-      {paginationItems && paginationItems.map((pageNum) => {
+      {paginationItems.map((pageNum) => {
         // Номера страниц в массиве имеют уникальные положительные значения, '...' - отрицательные
-        if (pageNum >= 0) {
+        if (pageNum > 0) {
           return (
             <PaginationItem key={pageNum} 
                             activePage={activePage} 
-                            pageNum={pageNum+1} 
+                            pageNum={pageNum} 
                             loadPage={props.loadPage} 
             />
           )

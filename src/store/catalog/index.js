@@ -28,7 +28,7 @@ class CatalogState extends StateModule{
   async load(){
     this.setState({...this.getState(), loading: true}, 'Лоадер')
     try {
-      const response = await fetch(`/api/v1/articles?limit=${this.getState().pagination.pageSize}&fields=items(*),count&lang=ru`);
+      const response = await fetch(`/api/v1/articles?limit=${this.getState().pagination.pageSize}&fields=items(title, price),count&lang=ru`);
       const json = await response.json();
       const totalPages = Math.round(json.result.count / this.getState().pagination.pageSize)
 
@@ -59,20 +59,30 @@ class CatalogState extends StateModule{
    */
   async loadPage(pageNum){
     this.setState({...this.getState(), loading: true}, 'Лоадер')
-    const limit = this.getState().pagination.pageSize
-    const skip = pageNum * limit - limit
-    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&lang=ru`);
-    const json = await response.json();
+    try {
+      const limit = this.getState().pagination.pageSize
+      const skip = pageNum * limit - limit
+      const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&lang=ru`);
+      const json = await response.json();
 
-    this.setState({
-      ...this.getState(),
-      items: json.result.items,
-      loading: false,
-      pagination: {
-        ...this.getState().pagination, 
-        activePage: pageNum,
-      }
-    }, `Переключение между страницами пагинации, текущая ${pageNum}`);
+      this.setState({
+        ...this.getState(),
+        items: json.result.items,
+        loading: false,
+        pagination: {
+          ...this.getState().pagination, 
+          activePage: pageNum,
+        }
+      }, `Переключение между страницами пагинации, текущая ${pageNum}`);
+    } catch (err) {
+      console.log(err)
+      this.setState({
+        ...this.getState(),
+        loading: false,
+        error: 'Ошибка загрузки товаров'
+      })
+    }
+    
   }
 
      /**

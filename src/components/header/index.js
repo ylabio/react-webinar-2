@@ -3,8 +3,9 @@ import useStore from "../../utils/use-store";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import SwitcherLang from '../switcher-lang'
+import {langVars} from '../../utils/localisation'
 
-function Header({title}) {
+function Header(props) {
   const cn = bem('Header');
   const store = useStore();
 
@@ -13,8 +14,8 @@ function Header({title}) {
 	}
 	return (
 		<div className={cn()}>
-			<h1>{title}</h1>
-			<SwitcherLang className={cn('item')} callback={callbacks.changeLanguage}/>
+			<h1>{langVars.main.heading[props.lang]}</h1>
+			<SwitcherLang lang={props.lang} className={cn('item')} callback={callbacks.changeLanguage}/>
 		</div>
 		
 	)

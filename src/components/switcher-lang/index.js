@@ -10,9 +10,11 @@ function SwitcherLang(props) {
       onChange={handleChange}
       name='language'
       id='lang-select'
+      value={props.lang}
+      
     >
       {languages.map((lang, index) => (
-        <option value={index}>{lang}</option>
+        <option key={index} value={index}>{lang}</option>
       ))}
     </select>
   );

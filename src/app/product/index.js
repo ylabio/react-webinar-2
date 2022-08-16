@@ -3,8 +3,6 @@ import Layout from '../../components/layout'
 import {useParams} from 'react-router-dom'
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import {cn as bem} from "@bem-react/classname";
-import BasketSimple from "../../components/basket-simple";
 import ProductInfo from '../../components/product-info'
 import Header from './../../components/header/index';
 import Subheader from '../../components/subheader';
@@ -33,8 +31,7 @@ function ProductPage() {
 		addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
 	};
   return (
-		// <Layout head={<h1>{select.item.title}</h1>}>
-		<Layout head={<Header title={select.item.title}/>}>
+		<Layout head={<Header lang={select.language}/>}>
 			<Subheader amount={select.amount} sum={select.sum} callback={callbacks.openModalBasket} lang={select.language} link={'/'}/>
 			<ProductInfo lang={select.language} item={select.item} callback={()=>callbacks.addToBasket(params.id)}/>
 		</Layout>

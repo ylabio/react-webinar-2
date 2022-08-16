@@ -45,7 +45,7 @@ function Main(){
   }
 
   return (
-    <Layout head={<Header title={langVars.main.heading[select.language]}/>}>
+    <Layout head={<Header lang={select.language} title={langVars.main.heading[select.language]}/>}>
       <Subheader callback={callbacks.openModalBasket} link={'/'} amount={select.amount} sum={select.sum} lang={select.language}/>
       <List items={select.items} renderItem={renders.item}/>
       <Paginator 

@@ -1,15 +1,6 @@
 /* Контрол с общими действиями */
 .BasketSimple{
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
     font-size: 18px;
-}
-.BasketSimple-homeLink {
-    color: #0087E9;
-}
-.BasketSimple-homeLink:hover {
-    text-decoration: none;
 }
 
 .BasketSimple-label{

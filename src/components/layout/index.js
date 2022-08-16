@@ -5,6 +5,7 @@ import './style.css';
 import BasketSimple from '../basket-simple';
 import useSelector from '../../utils/use-selector';
 import useStore from '../../utils/use-store';
+import Navbar from '../navbar';
 
 function Layout({head, children}){
   const cn = bem('Layout');
@@ -60,7 +61,10 @@ function Layout({head, children}){
         </div>
       </div>
       <div className={cn('content')}>
-        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language} />
+        <div className={cn('contentHead')}>
+          <Navbar language={select.language} />
+          <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language} />
+        </div>
         {children}
       </div>
     </div>

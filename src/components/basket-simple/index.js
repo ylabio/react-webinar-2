@@ -3,8 +3,7 @@ import propTypes from 'prop-types';
 import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
-import './styles.css';
-import { Link } from 'react-router-dom';
+import './style.css';
 import { localize } from '../../utils/localize';
 
 function BasketSimple({sum, amount, onOpen, language}) {
@@ -12,28 +11,21 @@ function BasketSimple({sum, amount, onOpen, language}) {
 
   return (
     <div className={cn()}>
-      <Link className={cn('homeLink')} to='/'>
-        {localize['Главная'][language]}
-      </Link>
-      <div>
-        <span className={cn('label')}>
-					{localize['В корзине'][language]}:
-				</span>
-        <span className={cn('total')}>
-					{amount
-						? `${amount} ${plural(
-								amount,
-								`${localize['Товар'][language]}`,
-								`${localize['Товара'][language]}`,
-								`${localize['Товаров'][language]}`,
-						  )} / ${numberFormat(sum)} ₽`
-						: `${localize['Пусто'][language]}`}
-				</span>
-        <button className='BasketSimple__button' onClick={onOpen}>
-					{localize['Перейти'][language]}
-				</button>
-      </div>
-    </div>
+			<span className={cn('label')}>{localize['В корзине'][language]}:</span>
+			<span className={cn('total')}>
+				{amount
+					? `${amount} ${plural(
+							amount,
+							`${localize['Товар'][language]}`,
+							`${localize['Товара'][language]}`,
+							`${localize['Товаров'][language]}`,
+					  )} / ${numberFormat(sum)} ₽`
+					: `${localize['Пусто'][language]}`}
+			</span>
+			<button className='BasketSimple__button' onClick={onOpen}>
+				{localize['Перейти'][language]}
+			</button>
+		</div>
   )
 }
 

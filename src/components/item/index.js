@@ -1,10 +1,8 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import {Link} from 'react-router-dom'
 import numberFormat from "../../utils/number-format";
 import './style.css';
-import { translate } from '../../utils/translate';
 
 function Item(props) {
   const cn = bem('Item');
@@ -19,13 +17,11 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')}>
-        <Link to={`/article/${props.item._id}`}>
-          {props.item.title}
-        </Link>
+        {props.link}
       </div>      
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>{translate(props.language, 'Add')}</button>
+        <button onClick={callbacks.onAdd}>{props.translate(props.language, 'Add')}</button>
       </div>
     </div>
   )
@@ -33,12 +29,15 @@ function Item(props) {
 
 Item.propTypes = {
   language: propTypes.string,
+  translate: propTypes.func,
   item: propTypes.object.isRequired,
+  link: propTypes.node.isRequired,
   onAdd: propTypes.func,
 }
 
 Item.defaultProps = {
   language: 'RU',
+  translate: (langugage, key) => key,
   onAdd: () => {},
 }
 

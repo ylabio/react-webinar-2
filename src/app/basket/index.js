@@ -1,6 +1,6 @@
 import List from "../../components/list";
 import React, {useCallback} from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BasketTotal from "../../components/basket-total";
 import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
@@ -19,7 +19,8 @@ function Basket(){
     language: state.language.language,
     items: state.basket.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    baseUrlArticle: state.article.baseUrlArticle
   }));
 
   const callbacks = {
@@ -30,13 +31,19 @@ function Basket(){
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket language={select.language} item={item} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item => <ItemBasket 
+        language={select.language} 
+        translate={translate}
+        item={item} 
+        link={<Link to={`${select.baseUrlArticle}/${item._id}`}>{item.title}</Link>}
+        onRemove={callbacks.removeFromBasket}
+      />, []),
   }
 
   return (
     <LayoutModal title={translate(select.language, 'Basket')} language={select.language} onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal language={select.language} sum={select.sum}/>
+      <BasketTotal language={select.language} translate={translate} sum={select.sum}/>
     </LayoutModal>
   )
 }

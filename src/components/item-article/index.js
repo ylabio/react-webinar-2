@@ -3,9 +3,8 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
 import './style.css';
-import { translate } from '../../utils/translate';
 
-function ItemArticle({item, onAdd, language}) {
+function ItemArticle({item, onAdd, language, translate}) {
   const cn = bem('ItemArticle');
 
   const callbacks = {
@@ -38,12 +37,14 @@ function ItemArticle({item, onAdd, language}) {
 
 ItemArticle.propTypes = {
   language: propTypes.string,
+  translate: propTypes.func,
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
 }
 
 ItemArticle.defaultProps = {
   language: 'RU',
+  translate: (langugage, key) => key,
   onAdd: () => {},
 }
 

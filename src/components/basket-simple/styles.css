@@ -1,9 +1,10 @@
 /* Контрол с общими действиями */
 .BasketSimple{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding: 20px;
     font-size: 18px;
+    width: 100%;
 }
 
 .BasketSimple-label{

@@ -13,6 +13,7 @@ class ArticleState extends StateModule{
     return {
       item: null,
       loading: true,
+      baseUrlArticle: '/article'
     };
   }
 

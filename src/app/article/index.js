@@ -1,12 +1,14 @@
 import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
 import React, {useCallback, useEffect} from "react";
-import {useLocation, useParams, useNavigate} from 'react-router-dom'
+import {Link, useLocation, useParams, useNavigate} from 'react-router-dom'
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import ItemArticle from "../../components/item-article";
 import Spinner from "../../components/spinner";
 import { translate } from "../../utils/translate";
+import LayoutFlex from "../../components/layout-flex";
+import Menu from "../../components/menu";
 
 function Article(){
 
@@ -43,10 +45,15 @@ function Article(){
 
   return (
     <Layout head={select.loading ? <h1>{translate(select.language, 'Loading')}</h1> : <h1>{select.item && select.item.title}</h1>} language={select.language} selectLanguage={callbacks.selectLanguage}>
-      <BasketSimple language={select.language} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <LayoutFlex>
+        <Menu>
+          <Link to='/'>{translate(select.language, 'Home')}</Link>
+        </Menu>
+        <BasketSimple language={select.language} translate={translate} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      </LayoutFlex>
       {select.loading ? 
         <Spinner /> :
-        <ItemArticle language={select.language} item={select.item} onAdd={callbacks.addToBasket} />}
+        <ItemArticle language={select.language} translate={translate} item={select.item} onAdd={callbacks.addToBasket} />}
     </Layout>
   )
 }

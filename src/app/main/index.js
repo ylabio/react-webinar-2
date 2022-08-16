@@ -7,7 +7,8 @@ import List from '../../components/list';
 import Layout from '../../components/layout';
 import Item from '../../components/item';
 import Pagination from '../../components/pagination';
-import LinkToMain from '../../components/link-to-main'
+import Menu from '../../components/menu';
+import LinkToMain from '../../components/link-to-main';
 
 function Main() {
   console.log('Main');
@@ -15,7 +16,7 @@ function Main() {
 
   let navigate = useNavigate();
 
-    useEffect(() => {
+  useEffect(() => {
     store.get('catalog').load();
   }, []);
 
@@ -44,7 +45,9 @@ function Main() {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <LinkToMain />
+      <Menu>
+        <LinkToMain />
+      </Menu>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List items={select.items} renderItem={renders.item} />
       <Pagination

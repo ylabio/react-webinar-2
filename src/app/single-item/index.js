@@ -6,6 +6,7 @@ import BasketSimple from '../../components/basket-simple';
 import Layout from '../../components/layout';
 import SingleItemWrapper from '../../components/single-item-wrapper';
 import ItemPage from '../../components/item-page/index';
+import Menu from '../../components/menu';
 import LinkToMain from '../../components/link-to-main';
 
 function SingleItemPage() {
@@ -39,7 +40,9 @@ function SingleItemPage() {
 
   return (
     <Layout head={<h1>{select.product.product.title}</h1>}>
-      <LinkToMain />
+      <Menu>
+        <LinkToMain />
+      </Menu>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <SingleItemWrapper item={select.product} renderItem={renders.item} />
     </Layout>

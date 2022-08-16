@@ -1,14 +1,14 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 const LinkToMain = () => {
   const cn = bem('LinkToMain');
   return (
-    <NavLink className={cn()} to="/">
+    <Link className={cn()} to="/">
       Главная
-    </NavLink>
+    </Link>
   );
 };
 

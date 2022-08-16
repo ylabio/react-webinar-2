@@ -4,6 +4,7 @@ import { cn as bem } from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './style.css';
 import { Link } from 'react-router-dom'
+import { productPageLink } from '../../path/path';
 
 function Item(props) {
   const cn = bem('Item');
@@ -18,7 +19,7 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
 
-      <Link to={`product/${props.item._id}`} className={cn('title')}>
+      <Link to={`${productPageLink}${props.item._id}`} className={cn('title')}>
         {props.item.title}
       </Link>
 

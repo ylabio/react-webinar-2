@@ -6,13 +6,6 @@
   text-align: center;
 }
 .selected {
-  margin: 0 2px 0 2px;
-  cursor: pointer;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 18px;
-  text-align: center;
   color: #ffffff;
   width: 20px;
   background: #0087e9;
@@ -25,6 +18,4 @@
   font-size: 16px;
   line-height: 18px;
   text-align: center;
-  color: #000000;
 }
-

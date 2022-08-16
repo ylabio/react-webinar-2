@@ -5,6 +5,7 @@ import { cn as bem } from "@bem-react/classname";
 import './styles.css';
 import { Link } from 'react-router-dom';
 import useStore from '../../utils/use-store';
+import { productPageLink } from '../../path/path';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
@@ -18,7 +19,7 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
-      <Link to={`product/${props.item._id}`} className={cn('title')}>
+      <Link to={`${productPageLink}${props.item._id}`} className={cn('title')}>
         {props.item.title}
       </Link>
       <div className={cn('right')}>

@@ -20,8 +20,8 @@ class CatalogState extends StateModule {
     };
   }
 
-  async load(limit) {
-    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${this.getState().pageForSkip}&fields=items(*),count`);
+  async load() {
+    const response = await fetch(`/api/v1/articles?limit=${10}&skip=${this.getState().pageForSkip}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
       items: json.result.items,

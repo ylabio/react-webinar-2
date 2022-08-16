@@ -4,6 +4,7 @@ import Basket from "./basket";
 import useSelector from "../utils/use-selector";
 import { Routes, Route } from 'react-router-dom';
 import ProductsPage from './../pages/products-page/products-page';
+import { mainPage } from '../path/path';
 
 /**
  * Приложение
@@ -14,11 +15,10 @@ function App() {
   console.log('App');
 
   const modal = useSelector(state => state.modals.name);
-
   return (
     <>
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path={mainPage} element={<Main />} />
           <Route path="product/:_id" element={<ProductsPage />} />
         </Routes>
         {modal === 'basket' && <Basket />}

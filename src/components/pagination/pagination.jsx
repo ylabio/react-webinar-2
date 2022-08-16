@@ -1,37 +1,39 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
-import useSelector from "../../utils/use-selector";
-import cls from './pagination.module.css'
-import PaginationLogic from './pagination-logic';
-const Pagination = (props) => {
+import {PaginationRender} from './pagination-render';
+import { paginationCounter } from './../../utils/pagination';
+import { useEffect } from 'react';
+const Pagination = ({ currentPage, pagesCount, onPageChange }) => {
 
-
-  const select = useSelector(state => ({
-    pagesCount: state.catalog.pagesCount,
-    page: state.catalog.pageSelected,
-  }));
 
   const changePage = (p) => {
-    props.onPageChange(p)
+    onPageChange(p)
   }
+  const [paginationRange, setPaginationRange] = useState([])
+
+  useEffect(() => {
+    setPaginationRange(paginationCounter(pagesCount, currentPage))
+  }, [pagesCount, currentPage])
 
   return (
     <>
-      <PaginationLogic
-      pagesCount={select.pagesCount}
-      page={select.page}
-      changePage={changePage}
-      />
+      <div>
+        <PaginationRender
+        currentPage={currentPage}
+        paginationRange={paginationRange}
+        changePage={changePage}
+        />
+      </div>
     </>
   )
 }
 
-Navigation.propTypes = {
+Pagination.propTypes = {
   page: propTypes.number.isRequired,
   pagesCount: propTypes.number.isRequired,
 }
 
-Navigation.defaultProps = {
+Pagination.defaultProps = {
   page: 1,
   pagesCount: 1,
 }

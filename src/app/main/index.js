@@ -7,7 +7,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination/pagination";
 
-function Main(){
+function Main({}){
 
   console.log('Main');
 
@@ -17,13 +17,12 @@ function Main(){
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    page: state.catalog.page,
-    limit: state.catalog.pageLimit,
-    pagesCount: state.catalog.pagesCount
+    page: state.catalog.pageSelected,
+    pagesCount: state.catalog.pagesCount,
   }));
 
   useEffect(() => {
-    store.get('catalog').load(select.page, select.limit);
+    store.get('catalog').load();
   }, [])
 
   const callbacks = {
@@ -43,6 +42,8 @@ function Main(){
       <BasketSimple onPageChange={callbacks.onPageChange} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination
+      currentPage={select.page}
+      pagesCount={select.pagesCount}
       onPageChange={callbacks.onPageChange}
       />
     </Layout>

@@ -1,4 +1,4 @@
-section.ProfileProduct-home-link {
+section.ProfileHeader-home-link {
     font-family: 'Arial';
     font-style: normal;
     font-weight: 400;
@@ -11,11 +11,11 @@ section.ProfileProduct-home-link {
     color: #0087E9;
 }
 
-section.ProfileProduct-home-link:hover {
+section.ProfileHeader-home-link:hover {
     text-decoration-line: underline;
 }
 
-div.ProfileProduct-hader {
+div.ProfileHeader-header {
     display: flex;
     justify-content: space-between;
     align-items: center;

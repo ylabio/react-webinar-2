@@ -31,17 +31,6 @@ class ProfileProductState extends StateModule {
 
 }
 
-//   async load(skip = 0, limit = 10) {
-//     const response = await fetch(`api/v1/articles?limit=${limit}&skip=${skip}&fields=items(*),count`);
-//     const json = await response.json();
-//     this.setState({
-//       items: json.result.items,
-//       count: json.result.count
-//     });
-//   }
-
-
-
 }
 
 export default ProfileProductState;

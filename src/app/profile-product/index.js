@@ -1,19 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { cn as bem } from "@bem-react/classname";
-import { Outlet, useNavigate } from "react-router-dom";
-import './styles.css';
+import { Outlet } from "react-router-dom";
 
 import useStore from '../../utils/use-store';
 
 import Layout from '../../components/layout';
 import BasketSimple from '../../components/basket-simple';
 import useSelector from '../../utils/use-selector';
+import ProfileHeader from '../../components/profile-peader';
 
 
 export const ProfileProduct = () => {
 
     const store = useStore();
-    const cn = bem('ProfileProduct');
+
 
     const [id, setId] = useState(false)
 
@@ -39,24 +38,17 @@ export const ProfileProduct = () => {
         onAdd: useCallback(id => store.get('basket').addToBasket(id), []),
     };
 
-    let navigate = useNavigate()
 
     return (
 
         <>
 
-            <Layout head={<h1>{ select.item.title}</h1>}>
-                <div className={cn('hader')} >
-                    <section
-                        className={cn('home-link')}
-                        onClick={() => navigate(`/`)}
-                    >
-                        Главная
-                    </section>
+            <Layout head={<h1>{select.item.title}</h1>}>
+                <ProfileHeader>
                     <BasketSimple onOpen={callbacks.openModalBasket}
                         amount={select.amount} sum={select.sum} />
-                </div>
-                
+                </ProfileHeader>
+
                 <Outlet context={{
                     setId: setId,
                     onAdd: callbacks.onAdd,

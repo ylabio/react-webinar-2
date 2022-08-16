@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import numberFormat from '../../utils/numberFormat';
+import Nav from '../nav';
 import './style.css';
 
 
@@ -15,8 +16,7 @@ function LayoutArticle({article, addToBasket, onNavigate, children}) {
     <div className={cn()}>
       <div>
         <div className={cn('basket-simple')}>
-            <span className={cn('link-to-main')}
-                  onClick={onNavigate}>Главная</span>
+          <Nav onClick={onNavigate}/>
           {children}
         </div>
       </div>

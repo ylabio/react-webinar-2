@@ -1,19 +1,7 @@
-.LayoutArticle {
-    width: auto;
-    height: auto;
-}
-
 .LayoutArticle-basket-simple {
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.LayoutArticle-link-to-main {
-    color: blue;
-    font-size: 1.1em;
-    margin-left: 20px;
-    text-decoration: underline;
 }
 
 .LayoutArticle-description {
@@ -22,9 +10,6 @@
     margin-right: 80px;
 }
 
-.LayoutArticle-link-to-main:hover {
-   cursor: pointer;
-}
 .LayoutArticle-ul {
     list-style-type: none;
     margin: 0;

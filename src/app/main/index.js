@@ -1,4 +1,3 @@
-import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
 import React, {useCallback, useEffect} from "react";
@@ -8,6 +7,7 @@ import Pagination from "../../components/pagination";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import './style.css';
+import dictionary from '../../dictionary';
 
 function Main(){
   
@@ -22,7 +22,6 @@ function Main(){
     page: state.pages.page,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    dictionary: state.language.items,
     lang: state.language.lang
   }));
   
@@ -32,10 +31,18 @@ function Main(){
   if (param.page)
     pageParam = Number(param.page);  
   
+  //получаем данные из localStorage, если они есть  
+  useEffect(() => {
+    if ( localStorage.getItem("basket"))
+      store.get('basket').setFromStorage(localStorage.getItem("basket"))
+  }, [])
+
+  //обновление информации в зависимости от номера страницы
   useEffect(() => {
     store.get('pages').setPage(pageParam);
   }, [pageParam])
  
+  //получаем данные для каталога из API
   useEffect(() => {
     store.get('catalog').load(select.skipPage);
   }, [select.skipPage])
@@ -43,40 +50,40 @@ function Main(){
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
-    // Открытие описания товара
-    openModalArticle: useCallback((_id) => store.get('article').setId(_id), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    // Смена страницы
-    setPage: useCallback(page => store.get('pages').setPage(page), []),
     // Смена языка
     setLang: useCallback(lang => store.get('language').setLang(lang), [])
   };
 
   const renders = {
     item: useCallback(item => <Item item={item} 
-                                    onAdd={callbacks.addToBasket} 
-                                    openArticle={callbacks.openModalArticle}
-                                    add={select.dictionary.add[select.lang]}
-    />, [select.lang]),
+                                    onAdd={callbacks.addToBasket}
+                                    add={dictionary.add[select.lang]}
+                                    skipPage={select.skipPage}
+                                    urlTo={'/article/'+item._id}
+    />, [select.lang, select.skipPage]),
   }
 
   return (
-    <Layout head={<h1>{select.dictionary.shop[select.lang]}</h1>} 
+    <Layout head={<h1>{dictionary.shop[select.lang]}</h1>} 
             setLang={callbacks.setLang}
-            change={select.dictionary.change[select.lang]}
-            >
-      <BasketSimple onOpen={callbacks.openModalBasket} 
-                    amount={select.amount} sum={select.sum} 
-                    lang={select.lang} 
-                    dictionary={select.dictionary}
-                    skipPage={0}
+            urlToPage={'/1'}
+            onOpen={callbacks.openModalBasket} 
+            amount={select.amount} 
+            sum={select.sum} 
+            lang={select.lang} 
+            dictionary={dictionary}
+            openText={dictionary.move[select.lang]}
+            cartInText={dictionary.cartIn[select.lang]}
+            item0={dictionary.item0[select.lang]}
+            item1={dictionary.item1[select.lang]}
+            item2={dictionary.item2[select.lang]}
+            empty={dictionary.empty[select.lang]}
+            change={dictionary.change[select.lang]}>
+      <List items={select.items} 
+            renderItem={renders.item}
       />
-      <div className='list-container'>
-        <List items={select.items} 
-              renderItem={renders.item}
-        />
-      </div>
       <Pagination page={select.page} 
                   count={select.count}
       />

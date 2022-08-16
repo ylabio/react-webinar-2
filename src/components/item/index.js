@@ -9,16 +9,14 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: useCallback((e) => {props.onAdd(props.item._id);
-    }, [props.onAdd, props.item]),
-    openArticle: useCallback((e) => {props.openArticle(props.item._id);
-    }, [props.openArticle, props.item])
+    onAdd: useCallback(() => {props.onAdd(props.item._id);
+    }, [props.onAdd, props.item])
   };
 
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-        <Link to={'/article/'+props.item._id} className={cn('title__pointer')} onClick={callbacks.openArticle}>{props.item.title}</Link>
+        <Link to={props.urlTo} className={cn('title__pointer')}>{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
@@ -31,13 +29,13 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
-  openArticle: propTypes.func,
-  add: propTypes.string
+  add: propTypes.string,
+  skipPage: propTypes.number.isRequired,
+  urlTo: propTypes.string.isRequired
 }
 
 Item.defaultProps = {
   onAdd: () => {},
-  openArticle: () => {},
   add: 'Добавить'
 }
 

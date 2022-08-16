@@ -23,7 +23,7 @@ function App() {
         <Route path="/goods" element={<Page404 />}/>
         <Route path="/:page" element={<Main />}/>
         <Route path="/article" element={<Page404 />}/>
-        <Route path="/article/:_id" element={<Article />}/>
+        <Route path="/article/:numb" element={<Article />}/>
       </Routes>
       {modal === 'basket' && <Basket/>}
     </BrowserRouter>

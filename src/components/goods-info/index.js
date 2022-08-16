@@ -10,7 +10,7 @@ function GoodsInfo(props) {
 
   const callbacks = {
     onAdd: useCallback((e) => {props.onAdd(props.info._id);
-    }, [props.onAdd, props.item])
+    }, [props.onAdd, props.info])
   };
 
   return (
@@ -19,22 +19,22 @@ function GoodsInfo(props) {
         <span className={cn('text__normal')}>{props.info.description}</span>
       </div>
       <div className={cn('text')}>
-        <span className={cn('text__normal')}>{props.dictionary.countryOforigin[props.lang]}</span>
+        <span className={cn('text__normal')}>{props.countryText}</span>
         <span className={cn('text__bold')}>{props.country}</span>
       </div>
       <div className={cn('text')}>
-        <span className={cn('text__normal')}>{props.dictionary.category[props.lang]}</span>
+        <span className={cn('text__normal')}>{props.categoryText}</span>
         <span className={cn('text__bold')}>{props.category}</span>
       </div>
       <div className={cn('text')}>
-        <span className={cn('text__normal')}>{props.dictionary.yearOfRelease[props.lang]}</span>
+        <span className={cn('text__normal')}>{props.yearText}</span>
         <span className={cn('text__bold')}>{props.info.edition}</span>
       </div>
       <div className={cn('text')}>
-        <span className={cn('text__large')}>{props.dictionary.price[props.lang]}</span>
+        <span className={cn('text__large')}>{props.priceText}</span>
         <span className={cn('text__large')}>{numberFormat(props.info.price)} ₽</span>
       </div>
-      <button className={cn('button')} onClick={callbacks.onAdd}>{props.dictionary.add[props.lang]}</button>
+      <button className={cn('button')} onClick={callbacks.onAdd}>{props.addText}</button>
     </div>
   )
 }
@@ -42,14 +42,23 @@ function GoodsInfo(props) {
 GoodsInfo.propTypes = {
     info: propTypes.object.isRequired,
     lang: propTypes.number.isRequired,
-    dictionary: propTypes.object.isRequired,
     country: propTypes.string.isRequired,
     category: propTypes.string.isRequired,
     onAdd: propTypes.func,
+    countryText: propTypes.string,
+    categoryText: propTypes.string,
+    yearText: propTypes.string,
+    priceText: propTypes.string,
+    addText: propTypes.string
 }
   
 GoodsInfo.defaultProps = {
     onAdd: () => {},
+    countryText: 'Страна производитель: ',
+    categoryText: 'Категория: ',
+    yearText: 'Год :',
+    priceText: 'Цена :',
+    addText: 'Добавить :'
 }
 
 export default React.memo(GoodsInfo);

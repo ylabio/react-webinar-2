@@ -35,4 +35,6 @@
 .Item-price {
     padding: 0 10px;
     white-space: nowrap;
+    font-size: 18px;
+    font-weight: 400;
 }

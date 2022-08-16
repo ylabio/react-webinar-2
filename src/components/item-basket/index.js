@@ -9,16 +9,15 @@ function ItemBasket(props) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: useCallback((e) => props.onRemove(props.item._id), 
+    onRemove: useCallback(() => props.onRemove(props.item._id), 
     [props.onRemove,  props.item]),
-    openArticle: useCallback((e) => {props.openArticle(props.item._id);
-    }, [props.openArticle, props.item])
+    onClose: useCallback(() => props.onClose(), [props.onClose, props.item])
   };
 
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-        <Link to={'/article/'+props.item._id}  className={cn('title__pointer')} onClick={callbacks.openArticle}>{props.item.title}</Link>
+        <Link to={props.urlTo}  className={cn('title__pointer')} onClick={callbacks.onClose}>{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
@@ -32,14 +31,16 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
-  openArticle: propTypes.func,
+  onClose: propTypes.func,
   pcs: propTypes.string,
-  buttonText: propTypes.string
+  buttonText: propTypes.string,
+  urlTo: propTypes.string.isRequired
 }
 
 ItemBasket.defaultProps = {
   pcs: 'шт',
-  buttonText: 'Удалить'
+  buttonText: 'Удалить',
+  onClose: () => {}
 }
 
 export default React.memo(ItemBasket);

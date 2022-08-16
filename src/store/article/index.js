@@ -7,7 +7,7 @@ class ArticleState extends StateModule{
 
   initState() {
     return {
-      goods: [],
+      goods: {},
       country: '',
       category: ''
     };
@@ -28,15 +28,13 @@ class ArticleState extends StateModule{
     }, `Описание товара с id: ${goods._id}`);
   }
 
-  async load(){
-    const responseCountry = await fetch(`/api/v1/countries/${this.store.getState().article.goods.maidIn._id}`);
-    const responseCategory = await fetch(`/api/v1//categories/${this.store.getState().article.goods.category._id}`);
-    const country = await responseCountry.json();
-    const category = await responseCategory.json();
+  async load(number){
+    const responseGoods = await fetch(`/api/v1/articles/${number}?fields=*,maidIn(title,code),category(title,_id)`);
+    const goods = await responseGoods.json();
     this.setState({
-        goods: this.store.getState().article.goods,
-        country: country.result.title,
-        category: category.result.title
+        goods: goods.result,
+        country: goods.result.maidIn.title,
+        category: goods.result.category.title
     });
   }
 }

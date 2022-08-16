@@ -41,10 +41,18 @@ class BasketState extends StateModule{
     if (!exists) {
       // Поиск товара в каталоге, чтобы его в корзину добавить
       // @todo В реальных приложения будет запрос к АПИ на добавление в корзину, и апи выдаст объект товара..
-      const item = this.store.getState().catalog.items.find(item => item._id === _id);
-      items.push({...item, amount: 1});
-      // Досчитываем сумму
-      sum += item.price;
+      if(this.store.getState().catalog.items.length !== 0) {
+        const item = this.store.getState().catalog.items.find(item => item._id === _id);
+        items.push({...item, amount: 1});
+        // Досчитываем сумму
+        sum += item.price;
+      }
+      else {
+        const item = this.store.getState().article.goods;
+        items.push({...item, amount: 1});
+        // Досчитываем сумму
+        sum += item.price;
+      }
     }
 
     // Установка состояние, basket тоже нужно сделать новым
@@ -53,6 +61,7 @@ class BasketState extends StateModule{
       sum,
       amount: items.length
     }, 'Добавление в корзину');
+    localStorage.setItem("basket", JSON.stringify(this.store.getState().basket.items));
   }
 
   /**
@@ -72,7 +81,22 @@ class BasketState extends StateModule{
       items,
       sum,
       amount: items.length
-    }, 'Удаление из корзины')
+    }, 'Удаление из корзины');
+    localStorage.setItem("basket", JSON.stringify(this.store.getState().basket.items));
+  }
+
+  //обновление корзины из localStorage
+  setFromStorage(json) {
+    const items = JSON.parse(json);
+    let sum = 0;
+    items.map(item => {
+      sum += item.price * item.amount;
+    });
+    this.setState({
+      items,
+      sum,
+      amount: items.length
+    }, 'Получение корзины из localStorage')
   }
 }
 

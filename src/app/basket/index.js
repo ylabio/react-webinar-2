@@ -5,6 +5,7 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import dictionary from '../../dictionary';
 
 function Basket(){
 
@@ -16,7 +17,6 @@ function Basket(){
     items: state.basket.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    dictionary: state.language.items,
     lang: state.language.lang
   }));
 
@@ -24,29 +24,26 @@ function Basket(){
     // Закрытие любой модалки
     closeModal: useCallback(() => store.get('modals').close(), []),
     // Удаление из корзины
-    removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), []),
-    // Открытие описания товара
-    openModalArticle: useCallback((_id) => {store.get('article').setId(_id);
-    store.get('modals').close();
-    }, []),
+    removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), [])
   };
 
   const renders = {
     itemBasket: useCallback(item => <ItemBasket item={item} 
                                                 onRemove={callbacks.removeFromBasket} 
-                                                openArticle={callbacks.openModalArticle}
-                                                buttonText={select.dictionary.del[select.lang]}
-                                                pcs={select.dictionary.pcs[select.lang]}
+                                                onClose={callbacks.closeModal}
+                                                buttonText={dictionary.del[select.lang]}
+                                                pcs={dictionary.pcs[select.lang]}
+                                                urlTo={'/article/'+item._id}
     />, []),
   }
 
   return (
-    <LayoutModal title={select.dictionary.cart[select.lang]} 
+    <LayoutModal title={dictionary.cart[select.lang]} 
                  onClose={callbacks.closeModal}
-                 close={select.dictionary.close[select.lang]}>
+                 close={dictionary.close[select.lang]}>
       <List items={select.items} renderItem={renders.itemBasket}/>
       <BasketTotal sum={select.sum} 
-                   total={select.dictionary.total[select.lang]}/>
+                   total={dictionary.total[select.lang]}/>
     </LayoutModal>
   )
 }

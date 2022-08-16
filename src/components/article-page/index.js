@@ -5,6 +5,8 @@ import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
 import ArticleInfo from '../article-info';
 import { useParams } from 'react-router-dom';
+import Preloader from '../preloader'
+
 
 function ArticlePage() {
   const store = useStore();
@@ -19,6 +21,11 @@ function ArticlePage() {
 
   console.log('ArticlePage');
 
+  const callbacks = {
+    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -30,14 +37,11 @@ function ArticlePage() {
     fetchData();    
   }, []);
 
-  const callbacks = {
-    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
-    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-  };
 
   if (!articleInfo) {
-    return <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px'}}>Идет загрузка...</div>;
+    return <Preloader/>
   }
+
 
   return (
     <Layout head={<h1>{articleInfo.title}</h1>}>

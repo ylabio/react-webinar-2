@@ -3,9 +3,8 @@ import propTypes from 'prop-types'
 import { cn as bem } from '@bem-react/classname'
 import './style.css'
 
-function Pagination({ limit, count, changeNumber }) {
+function Pagination({ limit, count, changeNumber, currentPage = 1, setCurrentPage }) {
   const cn = bem('Pagination')
-  const [currentPage, setCurrentPage] = useState(1)
 
   const callbacks = {
     changeNumberPage: useCallback((number) => {
@@ -68,6 +67,8 @@ Pagination.propTypes = {
   limit: propTypes.number.isRequired,
   count: propTypes.number.isRequired,
   changeNumber: propTypes.func,
+  setCurrentPage: propTypes.func,
+  currentPage: propTypes.number,
 }
 
 Pagination.defaultProps = {

@@ -20,6 +20,7 @@ function Main() {
     items: state.catalog.items,
     count: state.catalog.count,
     limit: state.catalog.limit,
+    currentPage: state.catalog.currentPage,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }))
@@ -30,6 +31,10 @@ function Main() {
     // Добавление в корзину
     addToBasket: useCallback((_id) => store.get('basket').addToBasket(_id), []),
     changeNumber: useCallback((skip) => store.get('catalog').load(skip), []),
+    setCurrentPage: useCallback(
+      (currentPage) => store.get('catalog').setCurrentPage(currentPage),
+      []
+    ),
   }
 
   const renders = {
@@ -40,7 +45,13 @@ function Main() {
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List items={select.items} renderItem={renders.item} />
-      <Pagination limit={select.limit} count={select.count} changeNumber={callbacks.changeNumber} />
+      <Pagination
+        limit={select.limit}
+        count={select.count}
+        changeNumber={callbacks.changeNumber}
+        currentPage={select.currentPage}
+        setCurrentPage={callbacks.setCurrentPage}
+      />
     </Layout>
   )
 }

@@ -18,6 +18,7 @@ class CatalogState extends StateModule {
       skip: 0,
       count: 0,
       limit: 10,
+      currentPage: 1,
     }
   }
 
@@ -32,6 +33,7 @@ class CatalogState extends StateModule {
       item: this.getState().item,
       maidIn: this.getState().maidIn,
       category: this.getState().category,
+      currentPage: this.getState().currentPage,
       skip,
       limit,
     })
@@ -49,6 +51,7 @@ class CatalogState extends StateModule {
       items: this.getState().items,
       limit: this.getState().limit,
       count: this.getState().count,
+      // currentPage: this.getState().currentPage,
     })
   }
 
@@ -67,6 +70,9 @@ class CatalogState extends StateModule {
   setCurrentPage(currentPage) {
     this.setState({
       currentPage: currentPage,
+      limit: this.getState().limit,
+      count: this.getState().count,
+      item: this.getState().item,
     })
   }
 

@@ -1,11 +1,8 @@
 import React from 'react';
-import { cn as bem } from '@bem-react/classname';
-import './style.css';
 import useStore from '../../utils/use-store';
+import LanguageLayout from '../../components/language-layout';
 
 function Language() {
-  const cn = bem('Lang');
-
   const store = useStore();
 
   const callbacks = {
@@ -18,15 +15,10 @@ function Language() {
   };
 
   return (
-    <div className={cn()}>
-      <div className={cn('item')} onClick={callbacks.changeToRu}>
-        RU
-      </div>{' '}
-      |{' '}
-      <div className={cn('item')} onClick={callbacks.changeToEng}>
-        ENG
-      </div>
-    </div>
+    <LanguageLayout
+      changeToRu={callbacks.changeToRu}
+      changeToEng={callbacks.changeToEng}
+    />
   );
 }
 

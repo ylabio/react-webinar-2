@@ -44,6 +44,7 @@ function Main() {
           item={item}
           onAdd={callbacks.addToBasket}
           dictionary={dictionary}
+          link={`articles/${item._id}`}
         />
       ),
       [select.currentLanguage]

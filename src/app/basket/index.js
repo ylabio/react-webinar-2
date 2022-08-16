@@ -39,6 +39,7 @@ function Basket() {
           onRemove={callbacks.removeFromBasket}
           onClose={callbacks.closeModal}
           dictionary={dictionary}
+          link={`articles/${item._id}`}
         />
       ),
       []

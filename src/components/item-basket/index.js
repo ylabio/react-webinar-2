@@ -21,7 +21,7 @@ function ItemBasket(props) {
       <div className={cn('title')}>
         <Link
           className={cn('title-text')}
-          to={`/${props.item._id}`}
+          to={props.link}
           onClick={props.onClose}
         >
           {props.item.title}
@@ -45,6 +45,7 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
+  link: propTypes.func,
 };
 
 ItemBasket.defaultProps = {};

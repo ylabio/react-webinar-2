@@ -5,7 +5,7 @@ import NotFound from "../../components/not-found";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Head from "../../components/head";
-import changeLanguage from "../../utils/changeLanguage";
+import translate from "../../utils/translate";
 
 function EmptyPage() {
 
@@ -21,8 +21,8 @@ function EmptyPage() {
   };
 
   return (
-    <Layout head={<Head language={select.language} changeLanguage={callbacks.changeLanguage} title={changeLanguage(select.language, 'SHOP')}/>}>
-      <Menu language={select.language}/>
+    <Layout head={<Head language={select.language} changeLanguage={callbacks.changeLanguage} title={translate(select.language, 'SHOP')} translate={translate}/>}>
+      <Menu language={select.language}  translate={translate}/>
       <NotFound language={select.language}/>
     </Layout>
   )

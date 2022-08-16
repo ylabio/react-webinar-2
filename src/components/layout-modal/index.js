@@ -2,7 +2,6 @@ import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
-import changeLanguage from "../../utils/changeLanguage";
 
 
 function LayoutModal(props) {
@@ -29,7 +28,7 @@ function LayoutModal(props) {
           <h1 className={cn('title')}>
             {props.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>{changeLanguage(props.language, 'CLOSE')}</button>
+          <button className={cn('close')} onClick={props.onClose}>{props.translate(props.language, 'CLOSE') || 'Закрыть'}</button>
         </div>
         <div className={cn('content')}>
           {props.children}
@@ -40,6 +39,7 @@ function LayoutModal(props) {
 }
 
 LayoutModal.propTypes = {
+  translate: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
@@ -47,6 +47,7 @@ LayoutModal.propTypes = {
 };
 
 LayoutModal.defaultProps = {
+  translate: () => {},
   title: 'Модалка',
   onClose: () => {}
 };

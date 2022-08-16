@@ -1,17 +1,21 @@
 import React from "react"
 import './style.css';
-import changeLanguage from "../../utils/changeLanguage";
 import propTypes from 'prop-types';
 
 function NotFound(props) {
 
   return (
-    <div className="NotFound">{changeLanguage(props.language, 'EMPTY_PAGE')}</div>
+    <div className="NotFound">{props.translate(props.language, 'EMPTY_PAGE') || 'Такой страницы не существует'}</div>
   )
 }
 
 NotFound.propTypes = {
+  translate: propTypes.func.isRequired,
   language: propTypes.string.isRequired
 }
+
+NotFound.defaultProps = {
+  translate: () => {},
+};
 
 export default React.memo(NotFound)

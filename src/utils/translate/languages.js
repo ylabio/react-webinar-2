@@ -9,6 +9,7 @@ const languages = {
     EMPTY_PAGE: 'Такой страницы не существует',
     BASKET: 'Корзина',
     IN_BASKET: 'В корзине:',
+    EMPTY: 'пусто',
     CLOSE: 'Закрыть',
     DELETE: 'Удалить',
     TOTAL: 'Итого',
@@ -28,6 +29,7 @@ const languages = {
     EMPTY_PAGE: 'Page does not exist',
     BASKET: 'Basket',
     IN_BASKET: 'In basket:',
+    EMPTY: 'empty',
     CLOSE: 'Close',
     DELETE: 'Delete',
     TOTAL: 'Total',
@@ -39,8 +41,4 @@ const languages = {
   }
 }
 
-const changeLanguage = (language, text) => {
-  return languages[language][text]
-}
-
-export default changeLanguage;
+export default languages

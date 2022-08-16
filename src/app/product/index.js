@@ -9,6 +9,7 @@ import Menu from "../../components/menu";
 import {useParams} from "react-router-dom"
 import Head from "../../components/head";
 import Loader from "../../components/loader";
+import translate from "../../utils/translate";
 
 function Product() {
   const store = useStore();
@@ -45,11 +46,11 @@ function Product() {
   return (
     <Layout head={<Head language={select.language} changeLanguage={callbacks.changeLanguage} title={select.item.title}/>}>
       <Wrapper>
-        <Menu language={select.language}/>
-        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language}/>
+        <Menu language={select.language} translate={translate}/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language} translate={translate}/>
       </Wrapper>
       {select.isLoading ? <Loader/> :
-      <ProductPage onAdd={callbacks.addToBasket} product={select.item} language={select.language}/>
+      <ProductPage onAdd={callbacks.addToBasket} product={select.item} language={select.language} translate={translate}/>
       }
     </Layout>
   )

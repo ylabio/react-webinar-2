@@ -9,8 +9,8 @@ import Wrapper from "../../components/wrapper";
 import Head from "../../components/head";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import changeLanguage from "../../utils/changeLanguage";
 import Loader from "../../components/loader";
+import translate from "../../utils/translate";
 
 
 function Main(){
@@ -47,14 +47,14 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} language={select.language} link={`/singlepage/${item._id}`}/>, [select.language]),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} language={select.language} link={`/singlepage/${item._id}`} translate={translate}/>, [select.language]),
   }
 
   return (
-    <Layout head={<Head language={select.language} changeLanguage={callbacks.changeLanguage} title={changeLanguage(select.language, 'SHOP')}/>}>
+    <Layout head={<Head language={select.language} changeLanguage={callbacks.changeLanguage} title={translate(select.language, 'SHOP')} translate={translate}/>}>
       <Wrapper>
-        <Menu language={select.language}/>
-        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language}/>
+        <Menu language={select.language} translate={translate}/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language} translate={translate}/>
       </Wrapper>
       <List items={select.items} renderItem={renders.item}/>
       {select.isLoading ? <Loader/> :

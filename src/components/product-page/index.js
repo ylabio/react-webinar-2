@@ -3,11 +3,8 @@ import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import propTypes from 'prop-types';
 import './style.css';
-import changeLanguage from "../../utils/changeLanguage";
 
-
-
-function ProductPage({product, onAdd, language}) {
+function ProductPage({product, onAdd, language, translate}) {
   const cn = bem('ProductPage');
 
   const callbacks = {
@@ -33,15 +30,20 @@ function ProductPage({product, onAdd, language}) {
         </p>
       </div>
       <div className={cn('price')}>Цена: {numberFormat(product.price)} ₽</div>
-      <button className={cn('button')} onClick={callbacks.onAddProduct}>{changeLanguage(language, 'ADD')}</button>
+      <button className={cn('button')} onClick={callbacks.onAddProduct}>{translate(language, 'ADD') || 'Добавить'}</button>
     </div>
   )
 }
 
 ProductPage.propTypes = {
+  translate: propTypes.func.isRequired,
   product: propTypes.object.isRequired,
   onAdd: propTypes.func.isRequired,
   language: propTypes.string.isRequired
 }
+
+ProductPage.defaultProps = {
+  translate: () => {},
+};
 
 export default React.memo(ProductPage)

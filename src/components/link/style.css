@@ -1,0 +1,19 @@
+.Link {
+
+}
+
+.Link_color_blue {
+    color: #0087E9;
+}
+
+.Link_color_black {
+    color: #000000;
+}
+
+.Link_noUnderline {
+    text-decoration: none;
+}
+
+.Link_noUnderline:hover {
+    text-decoration: underline;
+}

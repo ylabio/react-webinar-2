@@ -1,8 +1,8 @@
 import React from 'react';
-import {Link} from "react-router-dom";
 import propTypes from 'prop-types';
 import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
+import Link from "../link";
 import numberFormat from "../../utils/numberFormat";
 import titleLang from "../../utils/titleLang";
 import './styles.css';
@@ -12,7 +12,12 @@ function BasketSimple({lang, sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <Link className={cn('link')} to='/'>{titleLang(lang, 'homeLink')}</Link>
+      <Link 
+        link='/' 
+        color='blue'
+      >
+        {titleLang(lang, 'homeLink')}
+      </Link>
       <div className={cn('basket')}>
         <span className={cn('label')}>{titleLang(lang, 'inBasket')}</span>
         <span className={cn('total')}>

@@ -6,10 +6,6 @@
     padding: 20px;
 }
 
-.BasketSimple-link{
-    color: #0087E9;
-}
-
 .BasketSimple-basket{
     display: flex;
     justify-content: flex-end;

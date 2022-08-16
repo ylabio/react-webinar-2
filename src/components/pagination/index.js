@@ -3,7 +3,7 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css'
 import propTypes from "prop-types";
 
-function Pagination({totalCount, perPage, onChangePage}) {
+function Pagination({totalCount, perPage, onChangePage, currentPage}) {
 
     const cn = bem('Paginator');
 
@@ -14,8 +14,6 @@ function Pagination({totalCount, perPage, onChangePage}) {
     for (let i = 1; i <= pageCount; i++) {
         pages.push(i)
     }
-
-    const [currentPage, setCurrentPage] = useState(1) //текущая страница
 
     const [activePages, setActivePages] = useState([]) //номера доступных страниц
 
@@ -52,7 +50,6 @@ function Pagination({totalCount, perPage, onChangePage}) {
         }
 
         setActivePages(tempPages)
-        onChangePage(currentPage, perPage)
     }, [pageCount, currentPage])
 
     const showPages = activePages.map((item, index) => {
@@ -60,7 +57,7 @@ function Pagination({totalCount, perPage, onChangePage}) {
             return <li className={cn('dots')} key={index}>{item}</li>
         }
         return <li className={item === currentPage ? 'selected' : ''} key={index}
-                   onClick={() => setCurrentPage(item)}>{item}</li>
+                   onClick={() => onChangePage(item, perPage)}>{item}</li>
     })
 
     return (

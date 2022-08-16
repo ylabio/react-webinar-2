@@ -22,8 +22,8 @@ function App() {
           <Route path='/' element={<Main/>}/>
           <Route path='/:id' element={<Item/>}/>
         </Routes>
+        {modal === 'basket' && <Basket/>}
       </ BrowserRouter>
-      {modal === 'basket' && <Basket/>}
     </>
   );
 }

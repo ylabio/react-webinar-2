@@ -4,14 +4,14 @@ import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './styles.css';
-import {Link} from 'react-router-dom'
+import ToHomePage from '../home';
 
 
-function BasketSimple({sum, amount, callbacks}) {
+function BasketSimple({sum, amount, onOpenModal}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <div className={cn('mainpage')}><Link to='/'>Главная</Link></div>
+      <ToHomePage />
       <div>
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
@@ -20,7 +20,7 @@ function BasketSimple({sum, amount, callbacks}) {
         : `пусто`
       }
       </span>
-      <button className='BasketSimple__button' onClick={callbacks.openModalBasket}>Перейти</button>
+      <button className='BasketSimple__button' onClick={onOpenModal}>Перейти</button>
       </div>
     </div>
   )

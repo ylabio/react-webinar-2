@@ -46,7 +46,7 @@ function Main(){
   return (
     <> {!!select.items 
     ?<Layout head={<h1>Магазин</h1>}>
-        <BasketSimple callbacks={callbacks} amount={select.amount} sum={select.sum} />
+        <BasketSimple amount={select.amount} sum={select.sum} onOpenModal={callbacks.openModalBasket}/>
         <List items={select.items} renderItem={renders.item}/>
         <PaginationBar 
           pagination={select.pagination.paginationArray}

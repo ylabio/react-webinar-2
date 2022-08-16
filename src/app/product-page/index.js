@@ -8,11 +8,11 @@ import useStore from "../../utils/use-store";
 
 function PropductPage(){
 
-    const {id} = useParams()
-
+    const {id} = useParams();
     const store = useStore();
 
     useEffect(() => {
+      
         store.get('product').getProduct(id);
       }, [id]);
       
@@ -31,7 +31,14 @@ function PropductPage(){
       }));
 
     return(
-        <ProductPage callbacks={callbacks} select={select}/>
+        <ProductPage
+          addToBasket={callbacks.addToBasket}
+          onOpenModal={callbacks.openModalBasket}
+          basketAmount={select.amount} 
+          basketSum={select.sum} 
+          product={select.product}
+          currentId={select.id}  
+        />
     )
         
     

@@ -4,40 +4,38 @@ import BasketSimple from "../basket-simple";
 import {cn as bem} from "@bem-react/classname";
 import './style.css'
 
-function ProductPage({callbacks, select}){
-    const cn = bem('ItemPage')
-
-    // console.log(select.product._id)
+function ProductPage({basketAmount, basketSum, product, currentId, onOpenModal, addToBasket}){
+    const cn = bem('ItemPage');
 
     return(
-        <>{!!select.product
-        ? <Layout head={<h1>{select.product.title}</h1>}>
-            <BasketSimple callbacks={callbacks} sum={select.sum} amount={select.amount}/>
+        <>{!!product
+        ? <Layout head={<h1>{product.title}</h1>}>
+            <BasketSimple onOpenModal={onOpenModal} sum={basketSum} amount={basketAmount}/>
             <div className={cn()}>
-            <div className={cn('char')}>{`${select.product.description}`}</div>
+            <div className={cn('char')}>{`${product.description}`}</div>
             <div className={cn('char')}>
                 Старана производитель:&nbsp;
                 <div className={cn('prop')}>
-                        {`${select.product.maidIn.title} (${select.product.maidIn.code})`}
+                        {`${product.maidIn.title} (${product.maidIn.code})`}
                 </div>
             </div>
             <div className={cn('char')}>Категория:&nbsp;
                 <div className={cn('prop')}>
-                    {select.product.category.title}
+                    {product.category.title}
                 </div>
             </div>
             <div className={cn('char')}>
                 Год выпуска:&nbsp;
                 <div className={cn('prop')}>
-                    {select.product.edition}
+                    {product.edition}
                 </div>
             </div>
             <div className={cn('char')}>
                 <div className={cn('prop')}>
-                    Цена:&nbsp; {select.product.price}
+                    Цена:&nbsp; {product.price}
                 </div>
             </div>
-            <button onClick={() => callbacks.addToBasket(select.id)}>Добавить</button>
+            <button onClick={() => addToBasket(currentId)}>Добавить</button>
             </div>
         </Layout>
         : <div className='Loader'><h1>↻ Загрузка...</h1></div>

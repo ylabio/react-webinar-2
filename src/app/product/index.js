@@ -49,7 +49,7 @@ function Product() {
   };
 
   return (
-    <Layout head={<Head language={select.language} changeLanguage={callbacks.changeLanguage} title={select.item.title} codesHead={codes.head}/>}>
+    <Layout head={<Head language={select.language} changeLanguage={callbacks.changeLanguage} title={select.item.title} translate={translate} codesHead={codes.head}/>}>
       <Wrapper>
         <Menu language={select.language} translate={translate} codesMenu={codes.menu}/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language} translate={translate} codesBasketSimple={codes.basketSimple}/>

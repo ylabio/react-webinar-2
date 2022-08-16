@@ -52,7 +52,7 @@ function ArticleInfo() {
         onHomeClick={callbacks.setFirstPage}
       />
       <ItemInfo
-        {...select.info}
+        info={select.info}
         addToBasket={callbacks.addToBasket}
         text={{
           country: t('itemInfo.country'),

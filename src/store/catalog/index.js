@@ -20,7 +20,7 @@ class CatalogState extends StateModule {
 
   async load(page, limit) {
     const response = await fetch(
-      `/api/v1/articles?limit=${limit}&skip=${limit * (page - 1)}&fields=items(*),count`
+      `/api/v1/articles?limit=${limit}&skip=${limit * (page - 1)}&fields=items(*),count&lang=ru`
     );
     const json = await response.json();
     this.setState({

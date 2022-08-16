@@ -28,7 +28,7 @@ class ItemInfoState extends StateModule {
    */
   async load(id) {
     const response = await fetch(
-      `/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`
+      `/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)&lang=ru`
     );
     const json = await response.json();
     this.setState(

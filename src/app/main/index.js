@@ -18,9 +18,10 @@ function Main() {
   const select = useSelector(state => ({
     items: state.catalog.items,
     count: state.catalog.count,
-    limit: state.pagination.limit,
-    skip: state.pagination.skip,
-    currentPage: state.pagination.currentPage,
+    limit: state.catalog.limit,
+    skip: state.catalog.skip,
+    currentPage: state.catalog.currentPage,
+    pages: state.catalog.pages,
     amount: state.basket.amount,
     sum: state.basket.sum,
     currentLang: state.language.currentLang,
@@ -38,8 +39,10 @@ function Main() {
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    // Установка текущей страницы
-    setCurrentPage: useCallback(page => store.get('pagination').setCurrentPage(page), []),
+    // Установка пагинации
+    setPagination: useCallback(page => store.get('catalog').setPagination(page), []),
+    // Установка начального массива страниц для пагинации
+    setInitialPages: useCallback(() => store.get('catalog').setInitialPages(), []),
     // Переключение языка страницы
     switchLang: useCallback(event => store.get('language').switch(event.target.checked), [])
   };
@@ -79,10 +82,10 @@ function Main() {
         </Preloader>}
       {select.count > select.limit &&
         <Pagination
-          setCurrentPage={callbacks.setCurrentPage}
-          count={select.count}
-          limit={select.limit}
-          currentPage={select.currentPage} />}
+          setInitialPages={callbacks.setInitialPages}
+          setPagination={callbacks.setPagination}
+          currentPage={select.currentPage}
+          pages={select.pages} />}
     </Layout>
   );
 }

@@ -32,7 +32,9 @@ function Main(){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     //Загрузка одной страницы
     loadPage: useCallback((pageNumber) => {
-      store.get('catalog').loadPages(pageNumber);
+      store.get('loader').viewLoader();
+      store.get('catalog').loadPages(pageNumber)
+        .then(()=> store.get('loader').hideLoader());
     }, [])
   };
 

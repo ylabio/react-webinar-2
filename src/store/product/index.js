@@ -23,16 +23,15 @@ class ProductState extends StateModule {
         ...this.getState(),
         description: result,
       });
-    return false;
     }          
   }
-
-  // isLoading(value) {
-  //   this.setState({
-  //     ...this.getState(),
-  //     loading: value,
-  //   });
-  // }
+  
+  clearDescription() {
+    this.setState({
+      ...this.getState(),
+      description: null,
+    });
+  }
 }
 
 

@@ -11,14 +11,18 @@ import Loader from '../../components/loader'
 function ProductCard() {
   const { id } = useParams();
   const store = useStore();
-  const [isLoading, setIsLoading] = useState(true);
+    
   /**
    * Запрос на получение данных товара
    */
   useEffect(() => {
-    const test = store.get('product').load(id);
-    console.log('test', test.then(test=> setIsLoading(test)));
-    return ()=> console.log('Сброс')
+    store.get('loader').viewLoader();
+    store.get('product').load(id).then(() => {
+      store.get('loader').hideLoader();
+    });
+    return ()=> {
+      store.get('product').clearDescription();
+    };
   }, [id]);
 
   const callbacks = {
@@ -36,7 +40,7 @@ function ProductCard() {
 
   return (
    <>
-      {isLoading
+      {!select.product
       ?  <Loader />
       :
       <Layout head={<h1>{select.product.title}</h1>}>

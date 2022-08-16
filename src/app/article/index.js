@@ -15,11 +15,11 @@ function Article(){
   const navigate = useNavigate();
 
   useEffect(() => {
-    store.get('catalog').loadArticle(articleId);
+    store.get('article').loadArticle(articleId);
   }, [articleId]);
 
   const select = useSelector(state => ({
-    article: state.catalog.article,
+    article: state.article.article,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));

@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import numberFormat from '../../utils/numberFormat';
-import ArticleCountry from "../article-country/article-country";
-import ArticleCategory from "../article-category/article-category";
 import './style.css';
 
 
@@ -28,10 +26,10 @@ function LayoutArticle({article, addToBasket, onNavigate, children}) {
             <p className={cn('description')}>{article.description}</p>
           </li>
           <li className={cn('li')}>Страна производитель:&nbsp;
-            <ArticleCountry/>
+            <span className={cn('li-bold')}>{article.maidIn?.title}</span>
           </li>
           <li className={cn('li')}>Категория:&nbsp;
-            <ArticleCategory/>
+            <span className={cn('li-bold')}>{article.category?.title}</span>
           </li>
           <li className={cn('li')}>Год выпуска:&nbsp;<span
             className={cn('li-bold')}>{article.edition}</span>
@@ -55,11 +53,12 @@ LayoutArticle.propTypes = {
 
 LayoutArticle.defaultProps = {
   article: {
-    description: 'описание товара отсутствует',
+    description: 'описание товара дорабатывается',
+    maidIn: {title: 'данные о стране происхождения уточняются'},
+    category: {title: 'данные о категории товара уточняются'},
     edition: 0,
     price: 0
   },
 };
-
 
 export default React.memo(LayoutArticle);

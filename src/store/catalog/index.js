@@ -15,9 +15,6 @@ class CatalogState extends StateModule{
       items: [],
       pagItems: [],
       pagSel: 0,
-      article: {},
-      category: {},
-      country: {}
     };
   }
 
@@ -45,33 +42,6 @@ class CatalogState extends StateModule{
         ...this.getState(),
       })
     }
-  }
-
-  async loadArticle(articleId) {
-    const response = await fetch('/api/v1/articles/' + articleId + '?fields=%2A&lang=ru');
-    const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      article: json.result
-    })
-  }
-
-  async loadCategory(categoryId) {
-    const response = await fetch('/api/v1/categories/' + categoryId + '?lang=ru&fields=%2A');
-    const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      category: json.result,
-    })
-  }
-
-  async loadCountry(countryId) {
-    const response = await fetch('/api/v1/countries/' + countryId + '?lang=ru&fields=%2A');
-    const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      country: json.result,
-    })
   }
 
   /**

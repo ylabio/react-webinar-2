@@ -1,23 +1,24 @@
 import BasketSimple from "../../components/basket-simple";
-import List from "../../components/list";
 import Layout from "../../components/layout";
 import React, {useCallback, useEffect} from "react";
-import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import {useParams} from "react-router-dom";
+import ArticleCard from "../../components/article-card";
 
-function Main(){
-
-  console.log('Main');
+function Article(){
 
   const store = useStore();
 
+  // Параметры из пути /articles/:id
+  const params = useParams();
+
   useEffect(() => {
-    store.get('catalog').load();
-  }, [])
+    store.get('article').load(params.id);
+  }, [params.id])
 
   const select = useSelector(state => ({
-    items: state.catalog.items,
+    article: state.article.data,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -29,18 +30,12 @@ function Main(){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
 
-  const renders = {
-    item: useCallback(item => (
-      <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`}/>
-    ), []),
-  }
-
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>{select.article.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
+      <ArticleCard article={select.article} onAdd={callbacks.addToBasket}/>
     </Layout>
   )
 }
 
-export default React.memo(Main);
+export default React.memo(Article);

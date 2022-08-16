@@ -1,7 +1,6 @@
 import React, {useCallback} from 'react'
 import {cn as bem} from "@bem-react/classname";
 import propTypes from 'prop-types';
-import Translate from '../../components/translate';
 import numberFormat from '../../utils/number-format';
 import './style.css'
 
@@ -21,24 +20,24 @@ function ItemDetailed(props) {
       <p className={cn('description')}>{props.article.description}</p>
       <ul className={cn('specGroup')}>
         <li className={cn('spec')}>
-          <Translate>Страна производитель</Translate>:{" "}
+          {props.translate('Страна производитель')}:{" "}
           <span className={cn('spec', {value: true})}>
             {props.article.maidIn?.title} [{props.article.maidIn?.code}]
           </span>
         </li>
         <li className={cn('spec')}>
-          <Translate>Категория</Translate>: {" "}
+          {props.translate('Категория')}: {" "}
           <span className={cn('spec', {value: true})}>{props.article.category?.title}</span>
           </li>
         <li className={cn('spec')}>
-          <Translate>Год выпуска</Translate>: {" "}
+          {props.translate('Год выпуска')}: {" "}
           <span className={cn('spec', {value: true})}>{props.article.edition}</span>
         </li>
         <li className={cn('spec', {price: true})}>
-          <Translate>Цена</Translate>: {numberFormat(props.article.price)} ₽
+          {props.translate('Цена')}: {numberFormat(props.article.price)} ₽
         </li>
       </ul>
-      <button onClick={callbacks.onAdd}><Translate>Добавить</Translate></button>
+      <button onClick={callbacks.onAdd}>{props.translate('Добавить')}</button>
     </div>
   )
 }
@@ -47,5 +46,10 @@ export default React.memo(ItemDetailed)
 
 ItemDetailed.propTypes = {
   article: propTypes.object.isRequired,
-  onAdd: propTypes.func
+  onAdd: propTypes.func,
+  translate: propTypes.func
+}
+ItemDetailed.defaultProps = {
+  onAdd: () => {},
+  translate: () => {}
 }

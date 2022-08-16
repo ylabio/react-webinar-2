@@ -4,7 +4,6 @@ import propTypes from 'prop-types';
 import pluralize from 'pluralize';
 import numberFormat from "../../utils/number-format";
 import {cn as bem} from "@bem-react/classname";
-import Translate from '../../components/translate';
 import './styles.css';
 
 
@@ -36,7 +35,7 @@ function ItemBasket(props) {
         </div>
         <div className={cn('cell')}>
           <button onClick={callbacks.onRemove}>
-            <Translate>Удалить</Translate>
+            {props.translate('Удалить')}
           </button>
         </div>
       </div>
@@ -49,10 +48,13 @@ ItemBasket.propTypes = {
   lang: propTypes.string,
   link: propTypes.string.isRequired,
   onRemove: propTypes.func,
+  translate: propTypes.func
 }
 
 ItemBasket.defaultProps = {
-  lang: 'ru'
+  lang: 'ru',
+  onRemove: () => {},
+  translate: () => {}
 }
 
 export default React.memo(ItemBasket);

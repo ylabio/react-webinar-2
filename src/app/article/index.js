@@ -6,6 +6,7 @@ import Layout from '../../components/layout';
 import ItemDetailed from '../../components/item-detailed';
 import ProgressBar from '../../components/ui/progress-bar';
 import Controls from '../../components/controls';
+import useTranslate from '../../utils/use-translate';
 
 function Article() {
 
@@ -14,6 +15,7 @@ function Article() {
   const store = useStore()
   const {_id} = useParams()
   const location = useLocation()
+  const translate = useTranslate()
 
   const select = useSelector(state => ({
     article: state.catalog.currentItem,
@@ -38,10 +40,14 @@ function Article() {
 
   return (
     <Layout head={<h1>{!select.loading && select.article.title}</h1>}>
-      <Controls onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <Controls onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} translate={translate}/>
       {select.loading 
         ? <ProgressBar /> 
-        : <ItemDetailed article={select.article} onAdd={callbacks.addToBasket} error={select.error}/>
+        : <ItemDetailed article={select.article} 
+                        onAdd={callbacks.addToBasket} 
+                        error={select.error}
+                        translate={translate}
+          />
       }
     </Layout>
   )

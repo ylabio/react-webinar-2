@@ -5,15 +5,16 @@ import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import Translate from '../../components/translate';
 import Pagination from "../../components/pagination";
 import ProgressBar from "../../components/ui/progress-bar";
+import useTranslate from "../../utils/use-translate";
 
 function Main(){
 
   console.log('Main');
 
   const store = useStore();
+  const translate = useTranslate()
 
   useEffect(() => {
     store.get('catalog').load();
@@ -38,12 +39,19 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} link={`/article/${item._id}`} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => 
+      <Item item={item} link={`/article/${item._id}`} onAdd={callbacks.addToBasket} translate={translate}/>
+    , []),
   }
 
   return (
-    <Layout head={<h1><Translate>Магазин</Translate></h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang}/>
+    <Layout head={<h1>{translate('Магазин')}</h1>}>
+      <BasketSimple onOpen={callbacks.openModalBasket} 
+                    amount={select.amount} 
+                    sum={select.sum} 
+                    lang={select.lang}
+                    translate={translate}
+        />
       {select.loading ? <ProgressBar /> :
         <>
           <List items={select.items} renderItem={renders.item}/>

@@ -18,7 +18,7 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')}>
-				<Link to={`/article/${props.item._id}`} state={{title: props.item.title, _key: props.item._key}} className={cn('link')}>
+				<Link to={`/${props.pathLink}/${props.item._id}`} state={{title: props.item.title, _key: props.item._key}} className={cn('link')}>
           {props.item.title}
 				</Link>
       </div>
@@ -33,6 +33,7 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
+	pathLink: propTypes.string.isRequired
 }
 
 Item.defaultProps = {

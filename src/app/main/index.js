@@ -7,6 +7,7 @@ import Pagination from "../../components/pagination";
 import Loader from "../../components/loader";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import Controls from "../../components/controls";
 
 function Main(){
 
@@ -39,12 +40,14 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} pathLink="article"/>, []),
   }
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+			<Controls>
+				<BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+			</Controls>
 			{select.isLoading ? 
 				<Loader /> : 
 				<>

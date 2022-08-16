@@ -1,6 +1,14 @@
 /* Контрол с общими действиями */
 .Controls{
     display: flex;
-    justify-content: flex-end;
-    padding: 20px;
+    justify-content: space-between;
+		align-items: center;
+}
+
+.Controls-link{
+	padding: 20px;
+}
+
+.Controls-link a{
+    color: #0087E9;
 }

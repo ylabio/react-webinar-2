@@ -17,7 +17,7 @@ function ItemBasket(props) {
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-				<Link to={`/article/${props.item._id}`} state={{title: props.item.title, _key: props.item._key}} className={cn('link')} onClick={callbacks.onClose}>
+				<Link to={`/${props.pathLink}/${props.item._id}`} state={{title: props.item.title, _key: props.item._key}} className={cn('link')} onClick={callbacks.onClose}>
           {props.item.title}
 				</Link>
       </div>
@@ -33,7 +33,8 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
-	onClose: propTypes.func
+	onClose: propTypes.func,
+	pathLink: propTypes.string.isRequired
 }
 
 ItemBasket.defaultProps = {

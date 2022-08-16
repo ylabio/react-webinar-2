@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import Layout from '../components/layout';
+import Controls from '../components/controls';
 import BasketSimple from '../components/basket-simple';
 import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
@@ -34,7 +35,9 @@ function Article() {
 
 	return (
 		<Layout head={<h1>{state?.title ? state.title : select.currArticle.title ? select.currArticle?.title : ''}</h1>}>
-			<BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+			<Controls>
+				<BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+			</Controls>
 			<ArticleInfo isLoading={select.isLoading} currArticle={select.currArticle} onAdd={callbacks.addToBasket}/>
 		</Layout>
 	)

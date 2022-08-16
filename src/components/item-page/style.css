@@ -1,0 +1,27 @@
+.ItemPage{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 40px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+    padding-bottom: 20px;
+}
+
+span{
+    font-weight: 700;
+}
+
+.ItemPage-price{
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    color: #000000;
+}
+
+.ItemPage-button{
+    margin-left: 40px;
+    cursor: pointer;
+}

@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './style.css';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Item(props) {
   const cn = bem('Item');
@@ -11,13 +12,20 @@ function Item(props) {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
 
+  let navigate = useNavigate()
+
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>*/}
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')}>
-        {props.item.title}
+      <section
+        className={cn('link')}
+        onClick={() => navigate(`${'ProfileProduct/'+props.item._id || props.href }`)} 
+        >
+         {props.item.title}
+      </section>
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>

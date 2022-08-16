@@ -1,0 +1,22 @@
+section.ProfileHeader-home-link {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    text-decoration-line: none;
+
+    padding: 20px;
+    cursor: pointer;
+    color: #0087E9;
+}
+
+section.ProfileHeader-home-link:hover {
+    text-decoration-line: underline;
+}
+
+div.ProfileHeader-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

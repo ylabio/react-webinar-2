@@ -5,6 +5,7 @@ import {useParams} from 'react-router-dom'
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import ItemDescription from "../../components/item-description";
+import Menu from "../../components/menu";
 
 function Description(){
   console.log('Description');
@@ -36,8 +37,9 @@ function Description(){
 
   return (
     <Layout head={select.loading ? <h1>Загрузка...</h1> : <h1>{select.item && select.item.title}</h1>}>
+      <Menu/>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-        <ItemDescription item={select.item} onAdd={callbacks.addToBasket} />
+      <ItemDescription item={select.item} onAdd={callbacks.addToBasket} />
     </Layout>
   )
 }

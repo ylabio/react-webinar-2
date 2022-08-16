@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
@@ -7,9 +7,6 @@ import './style.css';
 function ItemDescription({item, onAdd}) {
   const cn = bem('ItemDescription');
 
-  useEffect(() =>{
-
-  },[])
   const callbacks = {
     onAdd: useCallback(() => onAdd(item._id), [onAdd, item])
   };

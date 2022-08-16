@@ -12,11 +12,10 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      count:0,
-      loaded: true,
-      pageSize:10,
-      numOfPages:25,
-      activePage:1
+      loading: true,
+      pageSize: 10,
+      numOfPages: 0,
+      activePage: 1
     };
   }
 
@@ -34,7 +33,7 @@ class CatalogState extends StateModule{
     this.setState({
       ...this.getState(),
       items: json.result.items,
-      count: Math.round(json.result.count / limit),
+      numOfPages: Math.floor((json.result.count) / limit),
       loading: false
     });
   }

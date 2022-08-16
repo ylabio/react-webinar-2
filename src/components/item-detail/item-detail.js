@@ -3,9 +3,11 @@ import "./styles.css";
 import PropTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
+import {useParams} from "react-router-dom";
 
 function ItemDetail({item, onAdd}) {
     const cn = bem('ItemDetail');
+    const {id} = useParams();
 
     return (
         <div className={cn('content')}>
@@ -26,7 +28,7 @@ function ItemDetail({item, onAdd}) {
                 <span>Цена:</span>
                 <span className={cn('cell')}>{`${numberFormat(item?.price)} ₽`}</span>
             </div>
-            <button onClick={() => onAdd(item._id)}>Добавить</button>
+            <button onClick={() => onAdd(id)}>Добавить</button>
         </div>
     );
 }

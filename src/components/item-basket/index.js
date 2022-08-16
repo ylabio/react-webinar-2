@@ -19,7 +19,7 @@ function ItemBasket(props) {
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
       <Link
-          to={`/articles/${props.item._id}`}
+          to={props.link}
           className={cn('title')}
           onClick={callbacks.closeModalBasket}
       >
@@ -37,6 +37,7 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
+  link: propTypes.string
 }
 
 ItemBasket.defaultProps = {

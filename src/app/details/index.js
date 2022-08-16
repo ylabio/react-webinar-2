@@ -2,35 +2,16 @@ import React, {useCallback, useLayoutEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import ItemDetail from "../../components/item-detail/item-detail";
 import BasketSimple from "../../components/basket-simple";
-import useStore from "../../utils/use-store";
 import Layout from "../../components/layout";
-import useSelector from "../../utils/use-selector";
+import PropTypes from 'prop-types';
 
 
-function Details() {
+function Details({store, amount, sum}) {
     const {id} = useParams();
-    const store = useStore();
     const [item, setItem] = useState(null);
 
-    const select = useSelector(state => ({
-        amount: state.basket.amount,
-        sum: state.basket.sum
-    }));
-
-    async function getItem(id) {
-        try {
-            const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`)
-            const json = await response.json()
-            setItem(json.result)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
     useLayoutEffect(() => {
-        if (id) {
-            getItem(id)
-        }
+        store.get('catalog').getItem(id).then(res => setItem( res))
     }, [id]);
 
     const callbacks = {
@@ -41,10 +22,16 @@ function Details() {
 
     return (
         <Layout head={<h1>{item?.title}</h1>}>
-            <BasketSimple onOpen={callbacks.openModalBasket} sum={select.sum} amount={select.amount}/>
+            <BasketSimple onOpen={callbacks.openModalBasket} sum={sum} amount={amount}/>
             <ItemDetail item={item} onAdd={callbacks.addToBasket}/>
         </Layout>
     );
+}
+
+Details.propTypes = {
+    store: PropTypes.object,
+    amount: PropTypes.number,
+    sum: PropTypes.number
 }
 
 export default React.memo(Details)

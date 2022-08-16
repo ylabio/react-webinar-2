@@ -42,6 +42,31 @@ class CatalogState extends StateModule{
       items: this.getState().items.filter(item => item._id !== _id)
     }, 'Удаление товара');
   }
+
+  async getItem(_id){
+    const response = await fetch(`/api/v1/articles/${_id}?fields=*,maidIn(title,code),category(title)`)
+    const json = await response.json()
+    return json.result
+  }
+
+  async getItemsForPage(pageSize, skip, pageNumber = 1){
+    const response = await fetch(`/api/v1/articles?limit=${pageSize}&skip=${skip}&fields=items(*),count`);
+    const json = await response.json();
+    this.store.setState({
+      ...this.store.state,
+      catalog: {items: json.result.items, count: json.result.count, currentPage: pageNumber}
+    })
+  }
+
+  setCurrentPage(number){
+    console.log('setCurrentPage', this.store.state.catalog)
+    console.log('ID', number)
+    this.store.setState({
+      ...this.store.state,
+      catalog: {items: [...this.store.state.catalog.items], count: this.store.state.catalog.count, currentPage: number}
+    })
+  }
+
 }
 
 export default CatalogState;

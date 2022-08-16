@@ -23,7 +23,7 @@ function App() {
 				<Route path='/' element={<Main />}>
 					<Route path='page/:pageIndex' element={<Main />} />
 				</Route>
-				<Route path=':id' element={<Product />} />
+				<Route path='articles/:id' element={<Product />} />
 				<Route path='*' element={<NotFound />} />
 			</Routes>
 			{modal === 'basket' && <Basket />}

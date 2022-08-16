@@ -1,7 +1,8 @@
 import BasketSimple from "../../components/basket-simple";
+import Controls from "../../components/controls";
 import Layout from "../../components/layout";
 import React, {useState, useEffect, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import ItemDescription from "../../components/item-description";
@@ -16,7 +17,7 @@ function ItemPage() {
   const store = useStore();  
   
   const select = useSelector(state => ({
-    item: state.catalog.item,
+    item: state.item.item,
     amount: state.basket.amount,
     sum: state.basket.sum,
     lang: state.localization.lang
@@ -25,7 +26,7 @@ function ItemPage() {
   useEffect(() => {
     setLoading(true);
     setError(false);
-    store.get('catalog').loadItem(params.id)
+    store.get('item').loadItem(params.id)
          .then(
            () => setLoading(false),
            () => setError(true)
@@ -37,6 +38,12 @@ function ItemPage() {
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    //Изменение языка
+    setLang: useCallback(() => store.get('localization').setLang(), []),
+  };
+
+  const renders = {
+    link: useCallback((text) => <Link to="/">{text}</Link>, [])
   };
   
   return (
@@ -44,12 +51,20 @@ function ItemPage() {
                        loading ? localization[select.lang].headLoad : 
                        select.item.title}
                   </h1>}
+            setLang={callbacks.setLang}
+            lang={select.lang}
     >
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/> 
+      <Controls lang={select.lang} linkRender={renders.link}>
+        <BasketSimple onOpen={callbacks.openModalBasket} 
+                      amount={select.amount} 
+                      sum={select.sum}
+                      lang={select.lang}
+        />
+      </Controls> 
       {
-        error ? <ErrorMessage message={"Не удалось загрузить данные о товаре"}/> : 
+        error ? <ErrorMessage message={localization[select.lang].errorMessage}/> : 
         loading ? <></> : 
-        <ItemDescription item={select.item} onAdd={callbacks.addToBasket}/>
+        <ItemDescription item={select.item} onAdd={callbacks.addToBasket} lang={select.lang}/>
       }
     </Layout>
   );

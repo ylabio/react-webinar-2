@@ -11,11 +11,7 @@ function ErrorMessage(props) {
   }
   
   ErrorMessage.propTypes = {
-    message: propTypes.string
-  }
-  
-  ErrorMessage.defaultProps = {
-    message: "Ошибка!"
+    message: propTypes.string.isRequired
   }
   
   export default React.memo(ErrorMessage);

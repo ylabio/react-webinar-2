@@ -13,8 +13,10 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      item: {},
       count: 0,
+      currentPage: 1,
+      totalPages: 0,
+      limit: 10
     };
   }
 
@@ -22,19 +24,17 @@ class CatalogState extends StateModule{
    * Загрузка списка товаров
    */
   async loadItems() {
-    const paging = this.store.getState().paging;
-    const skip = (paging.currentPage - 1) * paging.limit;
-    const response = await ApiService.getAll(paging.limit, skip);
-
+    const oldState = this.getState();
+    const skip = (oldState.currentPage - 1) * oldState.limit;
+    const response = await ApiService.getAll(oldState.limit, skip);
     /* Если количество товаров, пришедшее с сервера, отличается от хранимого в store,
        то запускаем пересчет количества страниц для пагинации */
-    const oldState = this.getState();
     if (oldState.count !== response.result.count) {
-      this.store.get('paging').setTotalPages(response.result.count);
       this.setState({
         ...oldState,
         items: response.result.items,
-        count: response.result.count
+        count: response.result.count,
+        ...this.checkTotalPages(response.result.count)
       },'Загрузка страницы товаров с сервера и установка общего числа товаров');
     } else {
       this.setState({
@@ -42,17 +42,6 @@ class CatalogState extends StateModule{
         items: response.result.items
       },'Загрузка страницы товаров с сервера');
     }
-  }
-  
-  /**
-   * Загрузка товара
-   */
-  async loadItem(_id) {
-    const response = await ApiService.getOne(_id);
-    this.setState({
-      ...this.getState(),
-      item: response.result
-    },'Загрузка информации о товаре с сервера');
   }
 
   /**
@@ -62,12 +51,11 @@ class CatalogState extends StateModule{
     const oldState = this.getState();
     // Пересчет количества страниц для пагинации при добавлении товара
     const newCount = oldState.count + 1;
-    this.store.get('paging').setTotalPages(newCount);
-
     this.setState({
       ...oldState,
       items: oldState.items.concat({_id, title, price, selected}),
-      count: newCount
+      count: newCount,
+      ...this.checkTotalPages(newCount)
     }, 'Создание товара');
   }
 
@@ -79,13 +67,42 @@ class CatalogState extends StateModule{
     const oldState = this.getState();
     // Пересчет количества страниц для пагинации при удалении товара
     const newCount = oldState.count - 1;
-    this.store.get('paging').setTotalPages(newCount);
-
     this.setState({
       ...oldState,
       items: oldState.items.filter(item => item._id !== _id),
-      count: newCount
+      count: newCount,
+      ...this.checkTotalPages(newCount)
     }, 'Удаление товара');
+  }
+
+  /**
+   * Установка текущей страницы
+   */
+   setPage(pageNumber) {
+    this.setState({
+      ...this.getState(),
+      currentPage: pageNumber
+    },'Установка номера страницы');
+  }
+
+  /**
+   * Расчет и проверка общего количества страниц
+   */
+   checkTotalPages(itemsCount) {
+    const oldState = this.getState();
+    const newTotalPages = Math.ceil(itemsCount / oldState.limit)
+
+    // Если общее число страниц текущей, устанавливаем текущую в начальное значение
+    if (oldState.currentPage > newTotalPages) {
+      return {
+        currentPage: 1,
+        totalPages: newTotalPages
+      };
+    } else {
+      return {
+        totalPages: newTotalPages
+      };
+    };
   }
 }
 

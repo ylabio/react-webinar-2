@@ -9,6 +9,7 @@ import Layout from '../../components/layout';
 import ItemInfo from '../../components/item-info';
 
 import './style.css';
+import Loader from '../../components/loader';
 
 function ItemDetails() {
 	const store = useStore();
@@ -24,7 +25,7 @@ function ItemDetails() {
 	useEffect(() => {
 		store.get('catalog').selectItem(id);
 		store.get('modals').close();
-	}, []);
+	}, [id]);
 
 	const callbacks = {
 		openModalBasket: useCallback(
@@ -37,17 +38,22 @@ function ItemDetails() {
 		),
 	};
 
-	if (isLoading) return <span className="loading">Loading...</span>;
-
 	return (
 		<Layout head={<h1>{item && item.title}</h1>}>
-			<BasketSimple
-				onOpen={callbacks.openModalBasket}
-				amount={amount}
-				sum={sum}
-				isLinked
-			/>
-			{item && <ItemInfo item={item} onAdd={callbacks.addToBasket} />}
+			{isLoading && <Loader />}
+			{!isLoading && (
+				<>
+					<BasketSimple
+						onOpen={callbacks.openModalBasket}
+						amount={amount}
+						sum={sum}
+						isLinked
+					/>
+					{item && (
+						<ItemInfo item={item} onAdd={callbacks.addToBasket} />
+					)}
+				</>
+			)}
 		</Layout>
 	);
 }

@@ -8,6 +8,7 @@ import List from '../../components/list';
 import Layout from '../../components/layout';
 import Item from '../../components/item';
 import Pagination from '../../components/pagination';
+import Loader from '../../components/loader';
 
 function Main() {
 	console.log('Main');
@@ -18,6 +19,7 @@ function Main() {
 		totalPages: state.catalog.totalPages,
 		currPage: state.catalog.currPage,
 		items: state.catalog.items,
+		isLoading: state.catalog.isLoading,
 		amount: state.basket.amount,
 		sum: state.basket.sum,
 	}));
@@ -58,12 +60,17 @@ function Main() {
 				amount={select.amount}
 				sum={select.sum}
 			/>
-			<List items={select.items} renderItem={renders.item} />
-			<Pagination
-				currPage={select.currPage}
-				totalPages={select.totalPages}
-				onSelectPage={callbacks.selectPage}
-			/>
+			{select.isLoading && <Loader />}
+			{!select.isLoading && (
+				<>
+					<List items={select.items} renderItem={renders.item} />
+					<Pagination
+						currPage={select.currPage}
+						totalPages={select.totalPages}
+						onSelectPage={callbacks.selectPage}
+					/>
+				</>
+			)}
 		</Layout>
 	);
 }

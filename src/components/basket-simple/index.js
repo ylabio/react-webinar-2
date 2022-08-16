@@ -38,7 +38,6 @@ BasketSimple.propTypes = {
 	onOpen: propTypes.func.isRequired,
 	sum: propTypes.number,
 	amount: propTypes.number,
-	isLinked: propTypes.boolean,
 };
 
 BasketSimple.defaultProps = {

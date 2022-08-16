@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {cn as bem} from "@bem-react/classname";
 import './style.css'
 import propTypes from "prop-types";
@@ -73,6 +73,7 @@ Pagination.propTypes = {
     onChangePage: propTypes.func.isRequired,
     totalCount: propTypes.number,
     perPage: propTypes.number.isRequired,
+    currentPage: propTypes.number.isRequired,
 }
 
 Pagination.defaultProps = {

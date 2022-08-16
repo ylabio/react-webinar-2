@@ -13,10 +13,12 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      totalCount: null,
       isLoading: true,
-      perPage: 10,
-      currentPage: 1
+      paginator: {
+        totalCount: null,
+        perPage: 10,
+        currentPage: 1
+      }
     };
   }
 
@@ -29,8 +31,11 @@ class CatalogState extends StateModule{
     this.setState({
       ...this.getState(),
       items: json.result.items,
-      totalCount: json.result.count,
-      isLoading: false
+      isLoading: false,
+      paginator: {
+        ...this.getState().paginator,
+        totalCount: json.result.count,
+      }
     });
   }
 
@@ -44,7 +49,10 @@ class CatalogState extends StateModule{
   setCurrentPage(page){
     this.setState({
       ...this.getState(),
-      currentPage: page
+      paginator: {
+        ...this.getState().paginator,
+        currentPage: page
+      }
     })
   }
 

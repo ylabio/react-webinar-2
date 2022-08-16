@@ -23,11 +23,10 @@ function Main(){
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    totalCount: state.catalog.totalCount,
+    totalCount: state.catalog.paginator.totalCount,
     isLoading: state.catalog.isLoading,
-    perPage: state.catalog.perPage,
-    currentPage: state.catalog.currentPage,
-    addInProgress: state.basket.addInProgress
+    perPage: state.catalog.paginator.perPage,
+    currentPage: state.catalog.paginator.currentPage,
   }));
 
   const callbacks = {

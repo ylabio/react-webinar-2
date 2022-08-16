@@ -1,21 +1,29 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import "./style.css";
 import {cn as bem} from "@bem-react/classname";
-import {LanguageContext} from "../../services/locale/context";
+import propTypes from "prop-types";
 
-function LanguageSelect() {
+function LanguageSelect(props) {
   const cn = bem('LanguageSelect');
-  const {language, toggleLanguage} = useContext(LanguageContext);
 
   return (
     <select
       className={cn()}
-      value={language}
-      onChange={(evt) => toggleLanguage(evt.target.value)}>
+      value={props.currentLanguage}
+      onChange={(evt) => props.onChange(evt.target.value)}>
       <option value="ru">RU</option>
       <option value="en">EN</option>
     </select>
   );
+}
+
+LanguageSelect.propTypes = {
+  onLanguageChange: propTypes.func,
+  currentLanguage: propTypes.string.isRequired,
+}
+
+LanguageSelect.defaultProps = {
+  onLanguageChange: () => {},
 }
 
 export default React.memo(LanguageSelect);

@@ -4,14 +4,15 @@ import propTypes from "prop-types";
 import "./style.css";
 import LanguageSelect from "../language-select";
 
-function Layout({head, children}){
+function Layout({head, onLanguageChange, currentLanguage, children}){
   const cn = bem('Layout');
 
   return (
     <div className={cn()}>
       <div className={cn('head')}>
         {head}
-        <LanguageSelect />
+        <LanguageSelect onChange={onLanguageChange}
+                        currentLanguage={currentLanguage}/>
       </div>
       <div className={cn('content')}>
         {children}
@@ -23,6 +24,13 @@ function Layout({head, children}){
 Layout.propTypes = {
   head: propTypes.node.isRequired,
   children: propTypes.node.isRequired,
+  onLanguageChange: propTypes.func,
+  currentLanguage: propTypes.string,
+}
+
+Layout.defaultProps = {
+  onLanguageChange: () => {},
+  currentLanguage: 'ru',
 }
 
 export default React.memo(Layout);

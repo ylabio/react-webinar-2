@@ -1,13 +1,12 @@
 import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
-import React, {useCallback, useContext, useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Loader from "../../components/loader";
 import {useNavigate, useParams} from "react-router-dom";
 import ArticleDetails from "../../components/article-details";
-import {LanguageContext} from "../../services/locale/context";
-import Translation from "../../services/locale";
+import getTranslation from "../../services/locale";
 import Navigation from "../../components/navigation";
 
 function Article(){
@@ -15,7 +14,6 @@ function Article(){
   console.log('Article');
 
   const store = useStore();
-  const {language} = useContext(LanguageContext);
   const navigate = useNavigate();
   const {id} = useParams();
 
@@ -25,6 +23,7 @@ function Article(){
     sum: state.basket.sum,
     item: state.article.item,
     current: state.catalog.current,
+    language: state.language.value,
   }));
 
   useEffect(() => {
@@ -42,16 +41,29 @@ function Article(){
       evt.preventDefault();
       navigate(`/catalog/${select.current}`, { replace: true });
     }, []),
+    getTranslation: useCallback(code => {
+      return getTranslation(select.language, code);
+    }, [select.language]),
+    changeLanguage: useCallback(value => {
+      console.log('CALLBACK');
+      store.get('language').changeLanguage(value);
+    }, [select.language]),
   };
 
   return (
-    <Layout head={<h1>{select.item.title ? select.item.title : Translation[language].loading}</h1>}>
-      <Navigation onClick={callbacks.onHomeClick}/>
+    <Layout head={<h1>{select.item.title ? select.item.title : (callbacks.getTranslation('loading') || 'Данные загружаются...')}</h1>}
+            onLanguageChange={callbacks.changeLanguage}
+            currentLanguage={select.language}>
+      <Navigation onClick={callbacks.onHomeClick}
+                  getTranslation={callbacks.getTranslation}/>
       <BasketSimple onOpen={callbacks.openModalBasket}
                     amount={select.amount}
-                    sum={select.sum}/>
+                    sum={select.sum}
+                    getTranslation={callbacks.getTranslation}/>
       {select.item.id ?
-        <ArticleDetails item={select.item} onAdd={callbacks.addToBasket}/> :
+        <ArticleDetails item={select.item}
+                        onAdd={callbacks.addToBasket}
+                        getTranslation={callbacks.getTranslation}/> :
         <Loader />}
     </Layout>
   )

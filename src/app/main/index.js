@@ -1,14 +1,13 @@
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback, useContext, useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import Loader from "../../components/loader";
-import {LanguageContext} from "../../services/locale/context";
-import Translation from "../../services/locale";
+import getTranslation from "../../services/locale";
 import {useNavigate, useParams} from "react-router-dom";
 import skip from "../../utils/skip";
 import Navigation from "../../components/navigation";
@@ -18,7 +17,6 @@ function Main(){
   console.log('Main');
 
   const store = useStore();
-  const {language} = useContext(LanguageContext);
   const navigate = useNavigate();
   const select = useSelector(state => ({
     items: state.catalog.items,
@@ -28,6 +26,7 @@ function Main(){
     current: state.catalog.current,
     limit: state.catalog.limit,
     isLoading: state.catalog.isLoading,
+    language: state.language.value,
   }));
 
   const {page} = useParams();
@@ -55,22 +54,34 @@ function Main(){
     onItemClick: useCallback(id => {
       navigate(`/article/${id}`, { replace: true });
     }, []),
+    getTranslation: useCallback(code => {
+      return getTranslation(select.language, code);
+    }, [select.language]),
+    changeLanguage: useCallback(value => {
+      console.log('CALLBACK');
+      store.get('language').changeLanguage(value);
+    }, [select.language]),
   };
 
   const renders = {
     item: useCallback(item => (
-    <Item item={item}
-          onAdd={callbacks.addToBasket}
-          onItemClick={callbacks.onItemClick}/>
-    ), []),
+      <Item item={item}
+            onAdd={callbacks.addToBasket}
+            onItemClick={callbacks.onItemClick}
+            getTranslation={callbacks.getTranslation}/>
+    ), [select.language]),
   }
 
   return (
-    <Layout head={<h1>{Translation[language].main.title}</h1>}>
-      <Navigation onClick={callbacks.onHomeClick}/>
+    <Layout head={<h1>{callbacks.getTranslation('shop') || 'Магазин'}</h1>}
+            onLanguageChange={callbacks.changeLanguage}
+            currentLanguage={select.language}>
+      <Navigation onClick={callbacks.onHomeClick}
+                  getTranslation={callbacks.getTranslation}/>
       <BasketSimple onOpen={callbacks.openModalBasket}
                     amount={select.amount}
-                    sum={select.sum}/>
+                    sum={select.sum}
+                    getTranslation={callbacks.getTranslation}/>
       {!select.isLoading ?
       <>
         <List items={select.items} renderItem={renders.item}/>

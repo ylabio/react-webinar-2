@@ -4,20 +4,26 @@ import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './styles.css';
+import { langVars } from './../../utils/localisation';
 
 
-function BasketSimple({sum, amount, onOpen}) {
+function BasketSimple({sum, amount, onOpen, lang}) {
   const cn = bem('BasketSimple');
+  const pluralValue1 = langVars.basketSimple.goodsPlural[lang][0];
+  const pluralValue2 = langVars.basketSimple.goodsPlural[lang][1];
+  const pluralValue3 = langVars.basketSimple.goodsPlural[lang][2];
   return (
     <div className={cn()}>
-      <span className={cn('label')}>В корзине:</span>
+      <div>
+      <span className={cn('label')}>{langVars.basketSimple.inCart[lang]}</span>
       <span className={cn('total')}>
       {amount
-        ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-        : `пусто`
+        ? `${amount} ${plural(amount,`${pluralValue1}`, `${pluralValue2}`, `${pluralValue3}`)} / ${numberFormat(sum)} ₽`
+        : `${langVars.basketSimple.empty[lang]}`
       }
       </span>
-      <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+      <button className='BasketSimple__button' onClick={onOpen}>{langVars.basketSimple.moveTo[lang]}</button>
+      </div>
     </div>
   )
 }
@@ -25,7 +31,8 @@ function BasketSimple({sum, amount, onOpen}) {
 BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
-  amount: propTypes.number
+  amount: propTypes.number,
+  lang: propTypes.number
 }
 
 BasketSimple.defaultProps = {

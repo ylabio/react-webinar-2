@@ -1,4 +1,3 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**
@@ -12,15 +11,29 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      totalCount: 0,
+      pageSize: 10,
+      currentPage: 1,
+      isLoading: false,
+      language: 0,
     };
   }
 
+ /**
+   * Загрузка списка товаров на страницу
+   */
   async load(){
-    const response = await fetch('/api/v1/articles');
+    const limit = this.getState().pageSize;
+    const skip = (this.getState().currentPage - 1) * this.getState().pageSize;
+    
+    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(*),count`);
+   
     const json = await response.json();
     this.setState({
-      items: json.result.items
+      ...this.getState(),
+      items: json.result.items,
+      totalCount: json.result.count
     });
   }
 
@@ -41,6 +54,24 @@ class CatalogState extends StateModule{
     this.setState({
       items: this.getState().items.filter(item => item._id !== _id)
     }, 'Удаление товара');
+  }
+
+ /**
+   * Смена страницы
+   */
+  changePage(page){
+    this.setState({
+      ...this.getState(),
+      pageSize: 10,
+      currentPage: page
+    }, 'Изменение номера страницы');
+  }
+
+  changeLanguage(id){
+    this.setState({
+      ...this.getState(),
+      language: id,
+    });
   }
 }
 

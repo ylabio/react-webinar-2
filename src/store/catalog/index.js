@@ -14,6 +14,8 @@ class CatalogState extends StateModule{
     return {
       items: [],
       totalCount: 0,
+      limit: 10,
+      currentPage: 1,
     };
   }
 
@@ -21,11 +23,18 @@ class CatalogState extends StateModule{
     const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
+      ...this.store.state.catalog,
       items: json.result.items,
       totalCount: json.result.count,
     });
   }
 
+  changePage(page) {
+    this.setState({
+      ...this.store.state.catalog,
+      currentPage: page,
+    });
+  }
   /**
    * Создание записи
    */

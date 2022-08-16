@@ -1,0 +1,18 @@
+/* Упрощенная корзина */
+.BasketSimple {
+	display: flex;
+	font-size: 18px;
+}
+
+.BasketSimple-label {
+	margin-left: auto;
+}
+
+.BasketSimple-total {
+	font-weight: bold;
+	margin: 0 15px;
+}
+
+.BasketSimple > button {
+	width: 80px;
+}

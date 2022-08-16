@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import Main from "./main";
-import Basket from "./basket";
-import useStore from "../utils/use-store";
-import useSelector from "../utils/use-selector";
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Basket from './basket';
+import useSelector from '../utils/use-selector';
+import Card from './card';
+import Main from './main';
 
 /**
  * Приложение
@@ -16,8 +17,13 @@ function App() {
 
   return (
     <>
-      <Main/>
-      {modal === 'basket' && <Basket/>}
+      <Routes>
+        <Route path="/*">
+          <Route index element={<Main />} />
+          <Route path="card/:id" element={<Card />} />
+        </Route>
+      </Routes>
+      {modal === 'basket' && <Basket />}
     </>
   );
 }

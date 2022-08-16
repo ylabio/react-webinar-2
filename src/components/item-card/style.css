@@ -1,0 +1,27 @@
+/* Описание товара */
+.ItemCard {
+	display: flex;
+	flex-direction: column;
+	padding: 0 40px;
+}
+
+.ItemCard-desc, .ItemCard-price, .ItemCard-button {
+	margin: 20px 0 0;
+}
+
+.ItemCard-desc {
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 21px;
+}
+
+.ItemCard-price {
+	font-style: normal;
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 28px;
+}
+
+.ItemCard-button {
+	width: 76px;
+}

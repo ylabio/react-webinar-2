@@ -10,18 +10,19 @@ function ItemBasket(props) {
 
   const callbacks = {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove, props.item]),
+    closeModal: useCallback((e) => props.closeModal(), []),
   }
 
   return (
     <div className={cn()}>
-      <Link to={`product/${props.item._id}`} className={cn('title')}>
+      <Link onClick={callbacks.closeModal} to={`product/${props.item._id}`} className={cn('title')}>
         {props.item.title}
       </Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>Удалить!!!</button>
         </div>
       </div>
     </div>
@@ -31,6 +32,7 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
+  closeModal: propTypes.func,
 }
 
 ItemBasket.defaultProps = {}

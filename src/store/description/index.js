@@ -31,11 +31,13 @@ class DescriptionState extends StateModule {
     const json = await response.json();
     this.setState({
       product: {
+        ...this.getState(),
         _id: json.result._id,
         item: json.result,
         title: json.result.title,
         description: json.result.description,
         maidIn: {
+          ...this.getState().maidIn,
           title: json.result.maidIn.title,
           code: json.result.maidIn.code,
         },

@@ -10,15 +10,17 @@ import Product from "../components/product";
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
+
+export const PATH = {
+  MAIN: ':page',
+  DESCRIPTION: '/description',
+  PRODUCT: ':id'
+}
+
 function App() {
 
   console.log('App');
 
-   const PATH = {
-    MAIN: ':page',
-    DESCRIPTION: 'description',
-    PRODUCT: ':id'
-  }
 
   const modal = useSelector(state => state.modals.name);
 

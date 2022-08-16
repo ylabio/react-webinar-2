@@ -8,6 +8,7 @@ import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import {useParams} from "react-router";
 import Navigation from "../../components/navigation";
+import {PATH} from "../index";
 
 function Main() {
 
@@ -25,6 +26,7 @@ function Main() {
     sum: state.basket.sum,
     totalPage: state.catalog.totalPage,
     page: state.catalog.page,
+    pageSize: state.catalog.pageSize
   }));
 
   const callbacks = {
@@ -35,7 +37,10 @@ function Main() {
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item
+      item={item}
+      onAdd={callbacks.addToBasket}
+      itemLink={`${PATH.DESCRIPTION}/${item._id}`}/>, []),
   }
 
   return (

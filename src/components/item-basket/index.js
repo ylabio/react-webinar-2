@@ -17,7 +17,7 @@ function ItemBasket(props) {
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
       <div className={cn('title')} onClick={callbacks.onClose}>
-        <NavLink className={cn('link')}  to={`/description/${props.item._id}`}>{props.item.title}</NavLink>
+        <NavLink className={cn('link')}  to={props.itemLink}>{props.item.title}</NavLink>
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
@@ -32,6 +32,7 @@ ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
   onClose: propTypes.func,
+  itemLink: propTypes.string
 }
 
 ItemBasket.defaultProps = {

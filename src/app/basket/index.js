@@ -35,6 +35,7 @@ function Basket() {
           onRemove={callbacks.removeFromBasket}
           onItemOpen={callbacks.closeModal}
           text={{piece: t('basket.piece'), remove: t('common.remove')}}
+          baseUrl={'/article'}
         />
       ),
       []

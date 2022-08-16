@@ -41,7 +41,14 @@ function Main() {
 
   const renders = {
     item: useCallback(
-      item => <Item item={item} onAdd={callbacks.addToBasket} text={{add: t('common.add')}} />,
+      item => (
+        <Item
+          item={item}
+          onAdd={callbacks.addToBasket}
+          text={{add: t('common.add')}}
+          baseUrl={'/article'}
+        />
+      ),
       [select.lang]
     )
   };

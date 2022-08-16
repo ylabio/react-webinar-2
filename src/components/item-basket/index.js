@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import numberFormat from '../../utils/number-format';
 import './styles.css';
 
-function ItemBasket({item, text, onRemove, onItemOpen}) {
+function ItemBasket({item, text, onRemove, onItemOpen, baseUrl}) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
@@ -16,7 +16,7 @@ function ItemBasket({item, text, onRemove, onItemOpen}) {
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>{item._id}</div>*/}
-      <Link to={`/article/${item._id}`} className={cn('title')} onClick={callbacks.onItemOpen}>
+      <Link to={`${baseUrl}/${item._id}`} className={cn('title')} onClick={callbacks.onItemOpen}>
         {item.title}
       </Link>
       <div className={cn('right')}>
@@ -35,10 +35,9 @@ function ItemBasket({item, text, onRemove, onItemOpen}) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   text: propTypes.object.isRequired,
-  onRemove: propTypes.func,
-  onItemOpen: propTypes.func
+  baseUrl: propTypes.string.isRequired,
+  onRemove: propTypes.func.isRequired,
+  onItemOpen: propTypes.func.isRequired
 };
-
-ItemBasket.defaultProps = {};
 
 export default React.memo(ItemBasket);

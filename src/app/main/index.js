@@ -9,7 +9,6 @@ import Description from "../../components/description";
 import {
   Routes,
   Route,
-  useParams
 } from "react-router-dom";
 import Pages from "../../components/pages";
 
@@ -55,12 +54,7 @@ function Main(){
             <Route path=":query" element={<List items={select.items} renderItem={renders.item}/>} />
           </Route>
           <Route path="/articles/:id" 
-                 element={<Layout head={<h1>Название товара</h1>}>
-            <BasketSimple onOpen={callbacks.openModalBasket} 
-                          amount={select.amount} 
-                          sum={select.sum}/>
-            <Description onAdd={callbacks.addToBasket} />
-            </Layout>} />
+                 element={<Description onAdd={callbacks.addToBasket} />} />
         </Routes>
   )
 }

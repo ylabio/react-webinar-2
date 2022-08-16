@@ -4,6 +4,7 @@ import useSelector from "../../utils/use-selector";
 import {
   useParams
 } from "react-router-dom";
+import BasketSimple from '../basket-simple';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
@@ -48,6 +49,14 @@ function Description (props){
 
     return(
        !isLoading && <div className={(cn())}>
+        <div className={cn('head')}><h1>
+          {currentItem.title}
+          </h1>
+          </div>
+        <BasketSimple onOpen={callbacks.openModalBasket} 
+                          amount={select.amount} 
+                          sum={select.sum}/>
+      <div className={cn('content')}>
       <div className={cn('string')}>{currentItem.description}</div>
       <span className={cn('string')}>
         {'Страна производитель: '}</span> 
@@ -64,6 +73,7 @@ function Description (props){
         <h2>{`Цена: ${currentItem.price.toLocaleString('ru-RU')+' \u20bd'}`}</h2>
       </div>
       <button onClick={callbacks.onAdd}>Добавить</button>
+        </div>
         </div>
     )
 }

@@ -9,6 +9,7 @@ import Menu from "../../components/menu";
 import LayoutFlex from "../../components/layout-flex";
 import Pagination from "../../components/pagination";
 import Spinner from "../../components/spinner";
+import Select from "../../components/select";
 
 function Main() {
   const store = useStore();
@@ -21,6 +22,7 @@ function Main() {
     items: state.catalog.items,
     page: state.catalog.params.page,
     limit: state.catalog.params.limit,
+    sort: state.catalog.params.sort,
     count: state.catalog.count,
     amount: state.basket.amount,
     sum: state.basket.sum,
@@ -34,6 +36,8 @@ function Main() {
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Пагианция
     onPaginate: useCallback(page => store.get('catalog').setParams({page}), []),
+    // Сортировка
+    onSort: useCallback(sort => store.get('catalog').setParams({sort}), [store]),
   };
 
   const renders = {
@@ -45,6 +49,12 @@ function Main() {
   const options = {
     menu: useMemo(() => ([
       {key: 1, title: 'Главная', link: '/'},
+    ]), []),
+    sort: useMemo(() => ([
+      {value:'order', title: 'По порядку'},
+      {value:'title.ru', title: 'По именованию'},
+      {value:'-price', title: 'Сначала дорогие'},
+      {value:'edition', title: 'Древние'},
     ]), [])
   }
 
@@ -55,6 +65,9 @@ function Main() {
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       </LayoutFlex>
       <Spinner active={select.waiting}>
+        <LayoutFlex flex="start">
+          <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
+        </LayoutFlex>
         <List items={select.items} renderItem={renders.item}/>
         <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
       </Spinner>

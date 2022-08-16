@@ -2,9 +2,9 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: flex-start;
-    /*padding: 20px;*/
-    /*margin-left: -5px;*/
-    /*margin-right: -5px;*/
+    padding: 20px 20px;
+    margin-left: -5px;
+    margin-right: -5px;
     align-items: center;
 }
 .LayoutFlex_flex_start{
@@ -19,6 +19,6 @@
     justify-content: space-between;
 }
 
-.LayoutTools-item{
+.LayoutFlex-item{
     margin: 0 5px;
 }

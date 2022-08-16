@@ -31,3 +31,20 @@ body{
     justify-content: space-between;
     align-items: center;
 }
+.Layout-content{
+    display: grid;
+}
+.Layout-content > *{
+    box-sizing: border-box;
+    min-width: 100%;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+.Layout-content > :nth-child(1){
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+.Layout-content > :nth-child(2){
+    grid-column-start: 2;
+    grid-column-end: 3;
+}

@@ -55,21 +55,19 @@ function Main() {
         <h1>{select.language === 'rus' ? 'Магазин' : 'Shop'}</h1>
         <Language onToggle={callbacks.toggleLanguage} lang={select.language} />
       </>}
-      menu={<>
-        <Navigation text={{main: textNavigation.main[select.language]}} />
-        <BasketSimple
-          onOpen={callbacks.openModalBasket}
-          amount={select.amount}
-          sum={select.sum}
-          text={{
-            inCart: textBasketSimple.inCart[select.language],
-            itemsPlural: textBasketSimple.itemsPlural[select.language],
-            empty: textBasketSimple.empty[select.language],
-            enter: textBasketSimple.enter[select.language],
-          }}
-        />
-      </>}
     >
+      <Navigation text={{main: textNavigation.main[select.language]}} />
+      <BasketSimple
+        onOpen={callbacks.openModalBasket}
+        amount={select.amount}
+        sum={select.sum}
+        text={{
+          inCart: textBasketSimple.inCart[select.language],
+          itemsPlural: textBasketSimple.itemsPlural[select.language],
+          empty: textBasketSimple.empty[select.language],
+          enter: textBasketSimple.enter[select.language],
+        }}
+      />
       <List items={select.items} renderItem={renders.item}/>
       <Pagination
         amount={Math.round(select.catalogSize / productsPerPage)}

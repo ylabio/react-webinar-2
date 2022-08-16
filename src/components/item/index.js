@@ -19,7 +19,7 @@ function Item(props) {
       {/*<div className={cn('id')}>*/}
       {/*  {props.item._id}*/}
       {/*</div>*/}
-      <div className={cn('title')} onClick={() => navigate(`/article/${props.item._id}`)}>
+      <div className={cn('title')} onClick={() => navigate(`/${props.addsQuery}/${props.item._id}`)}>
         {props.item.title}
       </div>
       <div className={cn('right')}>

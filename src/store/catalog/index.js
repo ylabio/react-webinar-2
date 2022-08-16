@@ -30,18 +30,12 @@ class CatalogState extends StateModule {
   }
 
   async loadItemById(id) {
-    const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
+    const response = await fetch(`/api/v1/articles/${id}`);
     const json = await response.json();
     this.setState({
       ...this.getState,
       items: [json.result],
     });
-  }
-
-  async getItemById(id) {
-    const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`)
-    const json = await response.json();
-    return json;
   }
 
   /**

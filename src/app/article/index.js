@@ -10,24 +10,20 @@ function Article() {
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    article: state.article
   }));
 
-  const [item, setItem] = useState({})
   const params = useParams();
   const store = useStore();
-  const madeIn = { ...item.maidIn };
-  const category = { ...item.category };
 
   useEffect(() => {
-    getItemById(params.id);
-    store.get('catalog').loadItemById(params.id)
+    store.get('catalog').loadItemById(params.id);
+    store.get('article').load(params.id)
+    return function cleanArticle() {
+      store.get('article').clean();
+    }
   }, [params.id])
-
-  async function getItemById(id) {
-    const item = await store.get('catalog').getItemById(id);
-    setItem(item.result);
-  }
 
   const callbacks = {
     // Открытие корзины
@@ -37,9 +33,9 @@ function Article() {
   };
 
   return (
-    <Layout head={<h1>{item.title}</h1>}>
+    <Layout head={<h1>{select.article.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      <ArticleInfo item={item} madeIn={madeIn} category={category} addToBasket={callbacks.addToBasket}></ArticleInfo>
+      <ArticleInfo article={select.article} addToBasket={callbacks.addToBasket}></ArticleInfo>
     </Layout>
   )
 }

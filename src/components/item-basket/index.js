@@ -20,7 +20,7 @@ function ItemBasket(props) {
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
       <div className={cn('title')} onClick={() => {
-        navigate(`/article/${props.item._id}`)
+        navigate(`/${props.addsQuery}/${props.item._id}`)
         callbacks.closeModal()
       }}>{props.item.title}</div>
       <div className={cn('right')}>

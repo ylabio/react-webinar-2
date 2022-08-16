@@ -3,16 +3,12 @@ import propTypes from "prop-types";
 import plural from "plural-ru";
 import { cn as bem } from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
-import { Link } from "react-router-dom";
-import "./styles.css";
+import "./style.css";
 
-function BasketSimple({ sum, amount, onOpen, firstPage }) {
+function BasketSimple({ sum, amount, onOpen }) {
   const cn = bem("BasketSimple");
   return (
     <div className={cn()}>
-      <Link className={cn("firstPage")} to={"/"} onClick={firstPage}>
-        Главная
-      </Link>
       <span className={cn("label")}>В корзине:</span>
       <span className={cn("total")}>
         {amount
@@ -33,13 +29,11 @@ function BasketSimple({ sum, amount, onOpen, firstPage }) {
 
 BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
-  firstPage: propTypes.func,
   sum: propTypes.number,
   amount: propTypes.number,
 };
 
 BasketSimple.defaultProps = {
-  firstPage: () => {},
   sum: 0,
   amount: 0,
 };

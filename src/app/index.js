@@ -4,6 +4,8 @@ import Basket from "./basket";
 import useSelector from "../utils/use-selector";
 import ProductPage from "./product-page";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { routes } from "../utils/routes";
+
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
@@ -17,7 +19,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/article/:id" element={<ProductPage />} />
+        <Route path={`${routes.productPage}/:id`} element={<ProductPage />} />
       </Routes>
       {modal === "basket" && <Basket />}
     </BrowserRouter>

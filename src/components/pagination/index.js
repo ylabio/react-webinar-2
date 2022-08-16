@@ -1,8 +1,7 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import "./style.css";
 import { cn as bem } from "@bem-react/classname";
 import propTypes from "prop-types";
-import useStore from "../../utils/use-store";
 
 function Pagination({ countTotal, pageSize, pageCurrent, pageChanged }) {
   const cn = bem("Pagination");
@@ -41,12 +40,6 @@ function Pagination({ countTotal, pageSize, pageCurrent, pageChanged }) {
       pagesCount,
     ];
   }, [pageCurrent, countTotal]);
-
-  const store = useStore();
-
-  useEffect(() => {
-    store.get("catalog").load();
-  }, [pageCurrent]);
 
   return (
     <div className={cn()}>

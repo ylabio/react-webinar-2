@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-function LayoutModal(props) {
+function LayoutModal({ title, onClose, children }) {
   const cn = bem("LayoutModal");
 
   const frame = useRef();
@@ -27,12 +27,12 @@ function LayoutModal(props) {
     <div className={cn()}>
       <div className={cn("frame")} ref={frame}>
         <div className={cn("head")}>
-          <h1 className={cn("title")}>{props.title}</h1>
-          <button className={cn("close")} onClick={props.onClose}>
+          <h1 className={cn("title")}>{title}</h1>
+          <button className={cn("close")} onClick={onClose}>
             Закрыть
           </button>
         </div>
-        <div className={cn("content")}>{props.children}</div>
+        <div className={cn("content")}>{children}</div>
       </div>
     </div>
   );
@@ -47,6 +47,7 @@ LayoutModal.propTypes = {
 LayoutModal.defaultProps = {
   title: "Модалка",
   onClose: () => {},
+  children: "",
 };
 
 export default React.memo(LayoutModal);

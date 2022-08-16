@@ -5,6 +5,7 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import { routes } from "../../utils/routes";
 
 function Basket() {
   console.log("Basket");
@@ -34,6 +35,7 @@ function Basket() {
           item={item}
           onRemove={callbacks.removeFromBasket}
           onClose={callbacks.closeModal}
+          productPageLink={`${routes.productPage}/${item._id}`}
         />
       ),
       []

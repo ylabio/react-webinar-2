@@ -17,10 +17,10 @@ class CatalogState extends StateModule {
     };
   }
 
-  async load() {
+  async load(pageCurrent, pageSize) {
     const response = await fetch(
-      `/api/v1/articles?limit=${this.getState().pageSize}&skip=${
-        (this.getState().pageCurrent - 1) * this.getState().pageSize
+      `/api/v1/articles?limit=${pageSize}&skip=${
+        (pageCurrent - 1) * pageSize
       }&fields=items(*),count`
     );
     const json = await response.json();

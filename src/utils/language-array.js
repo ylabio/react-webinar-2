@@ -16,5 +16,5 @@ const lang = [
 ];
 
 export const translation = (n, text) => {
-  return lang[n][`${text}`] ? lang[n][`${text}`] : "111";
+  return lang[n][`${text}`] ? lang[n][`${text}`] : "";
 };

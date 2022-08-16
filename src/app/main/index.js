@@ -36,8 +36,6 @@ function Main() {
     }
   }, [select.num]);
 
-  console.log("language", select.language);
-
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get("modals").open("basket"), []),
@@ -68,7 +66,7 @@ function Main() {
   }
 
   return (
-    <Layout head={<h1>{translation(select.language, "shop")}</h1>}>
+    <Layout head={<h1>{text("shop")}</h1>}>
       <BasketSimple
         onOpen={callbacks.openModalBasket}
         amount={select.amount}

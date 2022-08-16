@@ -52,6 +52,9 @@ function Main() {
     <Layout head={<h1>{select.language.mainTitle}</h1>}>
       <button onClick={() => callbacks.switchLang("RU")}>RU</button>
       <button onClick={() => callbacks.switchLang("ENG")}>ENG</button>
+      <button onClick={() => callbacks.switchLang("FR")}>FR</button>
+      <button onClick={() => callbacks.switchLang("JP")}>JP</button>
+      <button onClick={() => callbacks.switchLang("DE")}>DE</button>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List items={select.items} renderItem={renders.item} catalogLoad={callbacks.catalogLoad} />
       <Paginate position={select.position} totalSum={select.totalSum} catalogLoad={callbacks.catalogLoad} />

@@ -20,13 +20,14 @@ function Item(props) {
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button className={cn('button')} onClick={callbacks.onAdd}>{props.translate(props.language, 'ADD') || 'Добавить'}</button>
+        <button className={cn('button')} onClick={callbacks.onAdd}>{props.translate(props.language, props.codesItem.CODE_8) || 'Добавить'}</button>
       </div>
     </div>
   )
 }
 
 Item.propTypes = {
+  codesItem: propTypes.object.isRequired,
   translate: propTypes.func.isRequired,
   item: propTypes.object.isRequired,
   onAdd: propTypes.func.isRequired,
@@ -34,6 +35,7 @@ Item.propTypes = {
 }
 
 Item.defaultProps = {
+  codesItem: {},
   translate: () => {},
   onAdd: () => {},
 }

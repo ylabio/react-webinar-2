@@ -10,18 +10,20 @@ function Menu(props) {
   return (
   <ul className={cn()}>
     <li className={cn('item')}>
-      <Link to='/'>{props.translate(props.language, 'MAIN_PAGE') || 'Главная'}</Link>
+      <Link to='/'>{props.translate(props.language, props.codesMenu.CODE_7) || 'Главная'}</Link>
     </li>
   </ul>
   )
 }
 
 Menu.propTypes = {
+  codesMenu: propTypes.object.isRequired,
   translate: propTypes.func.isRequired,
-  language: propTypes.string.isRequired
+  language: propTypes.string.isRequired,
 }
 
 Menu.defaultProps = {
+  codesMenu: {},
   translate: () => {},
 };
 

@@ -28,7 +28,7 @@ function LayoutModal(props) {
           <h1 className={cn('title')}>
             {props.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>{props.translate(props.language, 'CLOSE') || 'Закрыть'}</button>
+          <button className={cn('close')} onClick={props.onClose}>{props.translate(props.language, props.codesLayoutModal.CODE_16) || 'Закрыть'}</button>
         </div>
         <div className={cn('content')}>
           {props.children}
@@ -39,14 +39,16 @@ function LayoutModal(props) {
 }
 
 LayoutModal.propTypes = {
+  codesLayoutModal: PropTypes.object.isRequired,
   translate: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
-  language: PropTypes.string.isRequired
+  language: PropTypes.string.isRequired,
 };
 
 LayoutModal.defaultProps = {
+  codesLayoutModal: {},
   translate: () => {},
   title: 'Модалка',
   onClose: () => {}

@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useEffect, useMemo} from "react";
 import Layout from "../../components/layout";
 import BasketSimple from "../../components/basket-simple";
 import ProductPage from "../../components/product-page";
@@ -10,8 +10,13 @@ import {useParams} from "react-router-dom"
 import Head from "../../components/head";
 import Loader from "../../components/loader";
 import translate from "../../utils/translate";
+import allCodes from "../../utils/translate/codes";
 
 function Product() {
+
+  // коды для мультиязычности которые передаются через пропсы для глупых компонентов
+  const codes = useMemo(() => JSON.parse(JSON.stringify(allCodes)), []);
+
   const store = useStore();
 
   const {id} = useParams();
@@ -44,13 +49,13 @@ function Product() {
   };
 
   return (
-    <Layout head={<Head language={select.language} changeLanguage={callbacks.changeLanguage} title={select.item.title}/>}>
+    <Layout head={<Head language={select.language} changeLanguage={callbacks.changeLanguage} title={select.item.title} codesHead={codes.head}/>}>
       <Wrapper>
-        <Menu language={select.language} translate={translate}/>
-        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language} translate={translate}/>
+        <Menu language={select.language} translate={translate} codesMenu={codes.menu}/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language} translate={translate} codesBasketSimple={codes.basketSimple}/>
       </Wrapper>
       {select.isLoading ? <Loader/> :
-      <ProductPage onAdd={callbacks.addToBasket} product={select.item} language={select.language} translate={translate}/>
+      <ProductPage onAdd={callbacks.addToBasket} product={select.item} language={select.language} translate={translate} codesProductPage={codes.productPage}/>
       }
     </Layout>
   )

@@ -18,6 +18,9 @@ const languages = {
     YEAR_MANUFACTURER: 'Год выпуска:',
     PRICE: 'Цена:',
     MODAL: 'Модалка',
+    GOODS: [
+      'товар', 'товара', 'товаров'
+    ],
   },
   eng: {
     SHOP: 'Shop',
@@ -37,7 +40,10 @@ const languages = {
     CATEGORY: 'Category:',
     YEAR_MANUFACTURER: 'Year of manufacture:',
     PRICE: 'Price:',
-    MODAL: 'Modal'
+    MODAL: 'Modal',
+    GOODS: [
+      'goods', 'goods', 'goods'
+    ]
   }
 }
 

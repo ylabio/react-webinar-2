@@ -11,7 +11,7 @@ function BasketSimple({ sum, amount, onOpen }) {
   return (
     <div className={cn()}>
       <div>
-        <Link className="homeLink" to="/">
+        <Link className={cn("homeLink")} to="/">
           Главная
         </Link>
       </div>
@@ -27,7 +27,7 @@ function BasketSimple({ sum, amount, onOpen }) {
               )} / ${numberFormat(sum)} ₽`
             : `пусто`}
         </span>
-        <button className="BasketSimple__button" onClick={onOpen}>
+        <button className={cn("button")} onClick={onOpen}>
           Перейти
         </button>
       </div>

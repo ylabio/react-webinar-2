@@ -29,11 +29,7 @@ const ItemDescription = ({ item, setItem, onAdd }) => {
     }
 
     fetchItemDescription();
-
-    return () => {
-      setItem({});
-    };
-  }, [id]);
+  }, []);
 
   if (loading) {
     return (
@@ -56,7 +52,7 @@ const ItemDescription = ({ item, setItem, onAdd }) => {
         Год выпуска: <b>{item.edition}</b>
       </div>
       <div className={cn("price")}>
-        <h3>Цена: {item.price}</h3>
+        <h3>Цена: {item.price} ₽</h3>
       </div>
       <div>
         <button onClick={callbacks.onAdd} className={cn("add-button")}>

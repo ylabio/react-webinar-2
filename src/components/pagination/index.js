@@ -2,10 +2,28 @@ import React from "react";
 import "./style.css";
 
 const Pagination = ({ pagination, setPagination }) => {
-  const pages = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-    22, 23, 24, 25,
-  ];
+  const pages = [];
+  const [catalog, setCatalog] = React.useState([]);
+
+  // не знаю насколько адекватное это решение
+  React.useEffect(() => {
+    async function fetchFullCatalog() {
+      try {
+        const response = await fetch(`/api/v1/articles?limit=*`);
+        const json = await response.json();
+
+        setCatalog(json.result.items);
+      } catch (error) {
+        alert("Ошибка при получении товара!");
+      }
+    }
+
+    fetchFullCatalog();
+  }, []);
+
+  for (let i = 1; i < Math.ceil(catalog.length / 10) + 1; i++) {
+    pages.push(i);
+  }
 
   const newPages = () => {
     if (pagination === pages[0] || pagination === pages[1]) {
@@ -36,8 +54,6 @@ const Pagination = ({ pagination, setPagination }) => {
 
     return [pages[0], "...", ...arr, "...", pages[pages.length - 1]];
   };
-
-  console.log();
 
   return (
     <div className="pagination">

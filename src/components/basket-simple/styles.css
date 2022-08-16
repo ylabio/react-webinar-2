@@ -6,15 +6,15 @@
     font-size: 18px;
 }
 
-.BasketSimple-label{
-
-}
-
 .BasketSimple-total{
     font-weight: bold;
     margin: 0 15px;
 }
 
-.homeLink {
+.BasketSimple-homeLink {
    color: #0087E9;
+}
+
+.BasketSimple-button {
+   width: 80px;
 }

@@ -1,4 +1,3 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**
@@ -12,35 +11,37 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      count: 0,
+      params: {
+        page: 1,
+        limit: 10,
+      },
+      waiting: false
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+  async setParams(params = {}){
+    const newParams = {...this.getState().params, ...params};
+
+    // Установка новых параметров и признака загрузки
     this.setState({
-      items: json.result.items
+      ...this.getState(),
+      params: newParams,
+      waiting: true
     });
-  }
 
-  /**
-   * Создание записи
-   */
-  createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      items: this.getState().items.concat({_id, title, price, selected})
-    }, 'Создание товара');
-  }
+    const skip = (newParams.page - 1) * newParams.limit;
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count`);
+    const json = await response.json();
 
-  /**
-   * Удаление записи по её коду
-   * @param _id
-   */
-  deleteItem(_id) {
+    // Установка полученных данных и сброс признака загрузки
     this.setState({
-      items: this.getState().items.filter(item => item._id !== _id)
-    }, 'Удаление товара');
+      ...this.getState(),
+      items: json.result.items,
+      count: json.result.count,
+      waiting: false
+    });
   }
 }
 

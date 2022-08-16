@@ -7,21 +7,22 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Menu from "../../components/menu";
 import LayoutFlex from "../../components/layout-flex";
+import Pagination from "../../components/pagination";
 
 function Main() {
-
-  console.log('Main');
-
   const store = useStore();
 
   useEffect(() => {
-    store.get('catalog').load();
+    store.get('catalog').setParams({page: 1});
   }, [])
 
   const select = useSelector(state => ({
     items: state.catalog.items,
+    page: state.catalog.params.page,
+    limit: state.catalog.params.limit,
+    count: state.catalog.count,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
   }));
 
   const callbacks = {
@@ -29,6 +30,8 @@ function Main() {
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Пагианция
+    onPaginate: useCallback(page => store.get('catalog').setParams({page}), []),
   };
 
   const renders = {
@@ -50,6 +53,7 @@ function Main() {
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       </LayoutFlex>
       <List items={select.items} renderItem={renders.item}/>
+      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
     </Layout>
   )
 }

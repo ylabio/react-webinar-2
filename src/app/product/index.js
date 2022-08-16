@@ -1,8 +1,4 @@
-import List from '../../components/list'
 import React, { useCallback } from 'react'
-import BasketTotal from '../../components/basket-total'
-import LayoutModal from '../../components/layout-modal'
-import ItemBasket from '../../components/item-basket'
 import useStore from '../../utils/use-store'
 import useSelector from '../../utils/use-selector'
 import Layout from '../../components/layout'
@@ -24,6 +20,8 @@ function Product() {
 
   const select = useSelector((state) => ({
     item: state.catalog.item,
+    maidIn: state.catalog.maidIn,
+    category: state.catalog.category,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }))
@@ -38,7 +36,12 @@ function Product() {
   return (
     <Layout head={<h1>{select.item.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      <ProductInfo onAdd={callbacks.addToBasket} item={select.item} />
+      <ProductInfo
+        onAdd={callbacks.addToBasket}
+        item={select.item}
+        maidIn={select.maidIn}
+        category={select.category}
+      />
     </Layout>
   )
 }

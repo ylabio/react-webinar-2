@@ -4,13 +4,17 @@
   flex-direction: row;
   justify-content: flex-end;
 }
-.Pagination-item, .Pagination-item-active {
+
+.Pagination-item,
+.Pagination-item-active {
   width: 20px;
   height: 20px;
   font-size: 16px;
   line-height: 18px;
   text-align: center;
+
 }
+
 .Pagination-item:hover {
   cursor: pointer;
   background-color: #E1E1E1;
@@ -18,9 +22,11 @@
 
 .Pagination-item-active {
   background-color: #0087E9;
+  color: #fff;
 }
+
 .Pagination-item-ellipsis {
   padding: 0 2px;
-  color:#CCCCCC;
+  color: #CCCCCC;
 
 }

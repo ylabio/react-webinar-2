@@ -7,9 +7,6 @@ import numberFormat from '../../utils/numberFormat'
 function ProductInfo(props) {
   const cn = bem('ProductInfo')
 
-  const maidIn = { ...props.item.maidIn }
-  const category = { ...props.item.category }
-
   const callbacks = {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
   }
@@ -20,11 +17,11 @@ function ProductInfo(props) {
       <div className={cn('country')}>
         Cтрана производитель:{' '}
         <span>
-          {maidIn.title} ({maidIn.code})
+          {props.maidIn.title} ({props.maidIn.code})
         </span>
       </div>
       <div className={cn('category')}>
-        Категория: <span>{category.title}</span>
+        Категория: <span>{props.category.title}</span>
       </div>
       <div className={cn('edition')}>
         Год выпуска: <span>{props.item.edition}</span>
@@ -39,6 +36,7 @@ function ProductInfo(props) {
 
 ProductInfo.propTypes = {
   item: propTypes.object.isRequired,
+  maidIn: propTypes.object,
   onAdd: propTypes.func,
 }
 

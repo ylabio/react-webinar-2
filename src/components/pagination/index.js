@@ -67,9 +67,11 @@ function Pagination({ limit, count, changeNumber }) {
 Pagination.propTypes = {
   limit: propTypes.number.isRequired,
   count: propTypes.number.isRequired,
-  changeNumber: propTypes.func.isRequired,
+  changeNumber: propTypes.func,
 }
 
-Pagination.defaultProps = {}
+Pagination.defaultProps = {
+  changeNumber: () => {},
+}
 
 export default React.memo(Pagination)

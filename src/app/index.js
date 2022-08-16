@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Main from './main';
 import Basket from './basket';
-import useStore from '../utils/use-store';
 import useSelector from '../utils/use-selector';
 import Article from './article';
 import NotFound from './not-found';

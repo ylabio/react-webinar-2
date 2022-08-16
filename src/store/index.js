@@ -3,7 +3,10 @@ import * as modules from './exports.js';
 class Store {
   constructor() {
     // Состояние приложения (данные)
-    this.state = { loading: false };
+    this.state = {
+      loading: false,
+      language: 'ru',
+    };
     // Слушатели изменений state
     this.listeners = [];
 
@@ -66,6 +69,14 @@ class Store {
     return () => {
       this.listeners = this.listeners.filter((item) => item !== callback);
     };
+  }
+
+  /**
+   * Изменение языка приложения
+   * @param {string} language
+   */
+  changeLanguage(language) {
+    this.setState({ ...this.getState(), language }, `Изменение языка на ${language}`);
   }
 }
 

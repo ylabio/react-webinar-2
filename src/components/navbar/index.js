@@ -21,16 +21,9 @@ function Navbar({ links }) {
 }
 
 Navbar.propTypes = {
-  links: propTypes.arrayOf(propTypes.object),
+  links: propTypes.arrayOf(propTypes.object).isRequired,
 };
 
-Navbar.defaultProps = {
-  links: [
-    {
-      title: 'Главная',
-      link: '/',
-    },
-  ],
-};
+Navbar.defaultProps = {};
 
 export default React.memo(Navbar);

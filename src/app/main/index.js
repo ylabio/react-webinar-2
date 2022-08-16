@@ -1,4 +1,3 @@
-import BasketSimple from '../../components/basket-simple';
 import List from '../../components/list';
 import Layout from '../../components/layout';
 import React, { useCallback, useEffect } from 'react';
@@ -8,6 +7,7 @@ import useSelector from '../../utils/use-selector';
 import LayoutLoader from '../layout-loader';
 import Pagination from '../../components/pagination';
 import Header from '../../components/header';
+import translate from '../../utils/translate';
 
 function Main() {
   console.log('Main');
@@ -20,6 +20,7 @@ function Main() {
     sum: state.basket.sum,
     amountPages: state.catalog.amountPages,
     currentPage: state.catalog.currentPage,
+    language: state.language,
   }));
 
   useEffect(() => {
@@ -34,18 +35,35 @@ function Main() {
     setCurrentPage: useCallback((pageNumber) => {
       store.get('catalog').setCurrentPage(pageNumber);
     }, []),
+    changeLanguage: useCallback((language) => store.changeLanguage(language), []),
   };
 
   const renders = {
     item: useCallback(
-      (item) => <Item item={item} onAdd={callbacks.addToBasket} address={`/article/${item._id}`} />,
-      []
+      (item) => (
+        <Item
+          item={item}
+          onAdd={callbacks.addToBasket}
+          address={`/article/${item._id}`}
+          language={select.language}
+        />
+      ),
+      [select.language, callbacks.addToBasket]
     ),
   };
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <Header openModalBasket={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+    <Layout
+      head={<h1>{translate(select.language, 'shop')}</h1>}
+      changeLanguage={callbacks.changeLanguage}
+      language={select.language}
+    >
+      <Header
+        openModalBasket={callbacks.openModalBasket}
+        amount={select.amount}
+        sum={select.sum}
+        language={select.language}
+      />
       <LayoutLoader>
         <List items={select.items} renderItem={renders.item} />
       </LayoutLoader>

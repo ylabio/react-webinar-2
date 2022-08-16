@@ -1,24 +1,24 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import plural from 'plural-ru';
 import { cn as bem } from '@bem-react/classname';
 import numberFormat from '../../utils/numberFormat';
 import './styles.css';
+import translate from '../../utils/translate';
 
-function BasketSimple({ sum, amount, onOpen }) {
+function BasketSimple({ sum, amount, onOpen, language }) {
   const cn = bem('BasketSimple');
 
   return (
     <div className={cn()}>
       <div className={cn('cart')}>
-        <span className={cn('label')}>В корзине:</span>
+        <span className={cn('label')}>{`${translate(language, 'inBasket')}:`}</span>
         <span className={cn('total')}>
           {amount
-            ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-            : `пусто`}
+            ? `${amount} ${translate(language, 'product', amount)} / ${numberFormat(sum)} ₽`
+            : `${translate(language, 'empty')}`}
         </span>
         <button className="BasketSimple__button" onClick={onOpen}>
-          Перейти
+          {translate(language, 'go')}
         </button>
       </div>
     </div>
@@ -29,6 +29,7 @@ BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
   amount: propTypes.number,
+  language: propTypes.string.isRequired,
 };
 
 BasketSimple.defaultProps = {

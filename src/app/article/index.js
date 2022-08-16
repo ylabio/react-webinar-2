@@ -22,6 +22,7 @@ function Article() {
     article: state.article,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    language: state.language,
   }));
 
   const callbacks = {
@@ -29,13 +30,27 @@ function Article() {
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback((_id) => store.get('basket').addToBasket(_id), []),
+    changeLanguage: useCallback((language) => store.changeLanguage(language), []),
   };
 
   return (
-    <Layout head={<h1>{select.article.title}</h1>}>
-      <Header openModalBasket={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+    <Layout
+      head={<h1>{select.article.title}</h1>}
+      changeLanguage={callbacks.changeLanguage}
+      language={select.language}
+    >
+      <Header
+        openModalBasket={callbacks.openModalBasket}
+        amount={select.amount}
+        sum={select.sum}
+        language={select.language}
+      />
       <LayoutLoader>
-        <ArticleInfo onAdd={callbacks.addToBasket} article={select.article} />
+        <ArticleInfo
+          onAdd={callbacks.addToBasket}
+          article={select.article}
+          language={select.language}
+        />
       </LayoutLoader>
     </Layout>
   );

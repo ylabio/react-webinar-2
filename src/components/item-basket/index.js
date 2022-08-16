@@ -34,11 +34,11 @@ ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
 	onClose: propTypes.func,
-	pathLink: propTypes.string.isRequired
+	pathLink: propTypes.string
 }
 
 ItemBasket.defaultProps = {
-
+	pathLink: "article"
 }
 
 export default React.memo(ItemBasket);

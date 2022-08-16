@@ -2,16 +2,14 @@ import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
-import {useNavigate} from "react-router-dom"
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
-  const navigate = useNavigate()
 
   const callbacks = {
-    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
-    onNav: useCallback(() => navigate(`${props.redirectTo}/${props.item._id}`, {replace: true}), [props.item])
+    onAdd: useCallback(() => props.onAdd(props.item._id), [props.onAdd, props.item]),
+    onNav: useCallback(() => props.redirectTo(props.item._id), [props.redirectTo, props.item])
   };
 
   return (
@@ -34,12 +32,12 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
-  redirectTo: propTypes.string
+  redirectTo: propTypes.func
 }
 
 Item.defaultProps = {
   onAdd: () => {},
-  redirectTo: '/'
+  redirectTo: () => {}
 }
 
 export default React.memo(Item);

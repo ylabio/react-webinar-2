@@ -6,12 +6,11 @@ import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import { routes } from "../../utils/routes";
+import { useNavigate } from "react-router-dom";
 
 function Basket(){
-
-  console.log('Basket');
-
   const store = useStore();
+  const nav = useNavigate()
 
   const select = useSelector(state => ({
     items: state.basket.items,
@@ -23,11 +22,13 @@ function Basket(){
     // Закрытие любой модалки
     closeModal: useCallback(() => store.get('modals').close(), []),
     // Удаление из корзины
-    removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), [])
+    removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), []),
+    // Редирект при нажатии на тайтл айтема
+    redirectTo: useCallback(_id => nav(`${routes.ItemPage}/${_id}`), [])
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket} redirectTo={routes.ItemPage}/>, []),
+    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket} redirectTo={callbacks.redirectTo}/>, []),
   }
 
   return (

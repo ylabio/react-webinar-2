@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react'
 import useStore from '../../utils/use-store'
 import {useParams} from 'react-router-dom'
 import useSelector from '../../utils/use-selector'
-import Layout from '../../components/layout'
+import LayoutWithHeader from '../../components/layout-with-header'
 import ItemInfo from '../../components/item-info'
 import Loader from '../../components/loader'
 
@@ -33,7 +33,7 @@ function ItemPage() {
   return (
     <>
       {item ?
-        <Layout head={<h1>{item.title}</h1>}
+        <LayoutWithHeader head={<h1>{item.title}</h1>}
                 basketControls={
                   {
                     onOpen: callbacks.openModalBasket,
@@ -43,7 +43,7 @@ function ItemPage() {
                 }
         >
           <ItemInfo item={item} onAdd={callbacks.addToBasket} />
-        </Layout>
+        </LayoutWithHeader>
         : <Loader />
       }
     </>

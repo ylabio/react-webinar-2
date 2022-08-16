@@ -3,15 +3,13 @@ import propTypes from 'prop-types';
 import numberFormat from "../../utils/numberFormat";
 import {cn as bem} from "@bem-react/classname";
 import './styles.css';
-import {useNavigate} from 'react-router-dom'
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
-  const navigate = useNavigate()
 
   const callbacks = {
-    onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
-    onNav: useCallback(() => navigate(`${props.redirectTo}/${props.item._id}`, {replace: true}), [props.item])
+    onRemove: useCallback(() => props.onRemove(props.item._id), [props.onRemove,  props.item]),
+    onNav: useCallback(() => props.redirectTo(props.item._id), [props.redirectTo, props.item])
   };
 
   return (
@@ -30,11 +28,12 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
-  redirectTo: propTypes.string
+  redirectTo: propTypes.func
 }
 
 ItemBasket.defaultProps = {
-  redirectTo: '/'
+  redirectTo: () => {},
+  onRemove: () => {}
 }
 
 export default React.memo(ItemBasket);

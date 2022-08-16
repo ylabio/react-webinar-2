@@ -1,14 +1,16 @@
 import List from "../../components/list";
-import Layout from "../../components/layout";
 import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import { routes } from "../../utils/routes";
+import LayoutWithHeader from "../../components/layout-with-header";
+import { useNavigate } from "react-router-dom";
 
 function Main(){
   const store = useStore();
+  const nav = useNavigate();
 
   const select = useSelector(state => ({
     items: state.catalog.items,
@@ -28,15 +30,17 @@ function Main(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Кнопки пагинации
-    changePage: useCallback(page => () => store.get('catalog').setPage(page), [])
+    changePage: useCallback(page => () => store.get('catalog').setPage(page), []),
+    // Редирект при нажатии на тайтл айтема
+    redirectTo: useCallback(_id => nav(`${routes.ItemPage}/${_id}`), [])
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} redirectTo={routes.ItemPage}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} redirectTo={callbacks.redirectTo}/>, []),
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}
+    <LayoutWithHeader head={<h1>Магазин</h1>}
             basketControls={
               {
                 onOpen: callbacks.openModalBasket,
@@ -46,7 +50,7 @@ function Main(){
             }>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination total={select.total} current={select.current} changePage={callbacks.changePage}/>
-    </Layout>
+    </LayoutWithHeader>
   )
 }
 

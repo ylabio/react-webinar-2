@@ -6,6 +6,8 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Paginate from "../../components/paginate";
+import { Link } from "react-router-dom";
+import SwitcherLanguage from "../../components/switcher-language";
 
 function Main() {
 
@@ -25,6 +27,7 @@ function Main() {
     sum: state.basket.sum,
     totalSum: state.catalog.totalSum,
     language: state.multilang.CurrentLang,
+    alllanguage: state.multilang,
     position: state.catalog.position
   }));
 
@@ -50,11 +53,7 @@ function Main() {
 
   return (
     <Layout head={<h1>{select.language.mainTitle}</h1>}>
-      <button onClick={() => callbacks.switchLang("RU")}>RU</button>
-      <button onClick={() => callbacks.switchLang("ENG")}>ENG</button>
-      <button onClick={() => callbacks.switchLang("FR")}>FR</button>
-      <button onClick={() => callbacks.switchLang("JP")}>JP</button>
-      <button onClick={() => callbacks.switchLang("DE")}>DE</button>
+      <SwitcherLanguage langKey={Object.keys(select.alllanguage)} switchFn={callbacks.switchLang} />
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List items={select.items} renderItem={renders.item} catalogLoad={callbacks.catalogLoad} />
       <Paginate position={select.position} totalSum={select.totalSum} catalogLoad={callbacks.catalogLoad} />

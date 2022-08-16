@@ -8,6 +8,7 @@ import { useCallback } from 'react';
 
 function Pagination(props) {
 
+
     const totalCount = Math.round(props.totalSum / 10);
 
     const pages = [];

@@ -5,13 +5,11 @@ import { cn as bem } from '@bem-react/classname';
 import numberFormat from '../../utils/number-format';
 import './styles.css';
 
-function BasketSimple({ sum, amount, onOpen, dictionary, renderLink }) {
+function BasketSimple({ sum, amount, onOpen, dictionary }) {
   const cn = bem('BasketSimple');
 
   return (
     <div className={cn()}>
-      <div>{renderLink()}</div>
-
       <div className={cn('head')}>
         <span className={cn('label')}>{dictionary.inCart}:</span>
         <span className={cn('total')}>
@@ -34,7 +32,6 @@ function BasketSimple({ sum, amount, onOpen, dictionary, renderLink }) {
 
 BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
-  renderLink: propTypes.func,
   sum: propTypes.number,
   amount: propTypes.number,
   dictionary: propTypes.object,

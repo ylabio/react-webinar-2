@@ -15,16 +15,27 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      total: null
+      total: null,
+      isLoading: true,
     };
   }
 
   async load(skip = 0, limit = 0){
     const response = await service.getArticles(skip, limit);
+
     this.setState({
       items: response.items,
       total: response.total,
+      isLoading: false,
     }, 'Загрузка каталога');
+  }
+
+  setLoadingTrue() {
+    this.setState({
+      ...this.store.getState().catalog,
+      isLoading: true,
+    }, 'Лоадер');
+
   }
 }
 

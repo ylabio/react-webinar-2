@@ -22,9 +22,13 @@ function Pagination(props) {
 }
 
 Pagination.propTypes = {
-  itemsNumber: propTypes.number.isRequired,
+  itemsNumber: propTypes.number,
   currentPage: propTypes.number.isRequired,
   itemsPerPage: propTypes.number.isRequired,
+}
+
+Pagination.defaultProps = {
+  itemsNumber: 0,
 }
 
 export default React.memo(Pagination);

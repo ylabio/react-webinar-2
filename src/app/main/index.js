@@ -27,6 +27,7 @@ function Main(){
     sum: state.basket.sum,
     current: state.pagination.current,
     limit: state.pagination.limit,
+    isLoading: state.catalog.isLoading,
   }));
 
   const {page} = useParams();
@@ -55,10 +56,11 @@ function Main(){
     changePage: useCallback(page => {
       navigate(`/catalog/${page}`, { replace: true });
       store.get('pagination').changePage(page);
+      store.get('catalog').setLoadingTrue();
     }, []),
     onHomeClick:  useCallback(evt => {
       evt.preventDefault();
-      navigate(`/catalog/${currentPage}`, { replace: true });
+      navigate(`/catalog/${page}`, { replace: true });
     }, []),
     onItemClick: useCallback(id => {
       navigate(`/article/${id}`, { replace: true });
@@ -77,7 +79,7 @@ function Main(){
       <BasketSimple onOpen={callbacks.openModalBasket}
                     amount={select.amount}
                     sum={select.sum}/>
-      {select.items.length ?
+      {!select.isLoading ?
       <>
         <List items={select.items} renderItem={renders.item}/>
         <Pagination itemsNumber={select.total}

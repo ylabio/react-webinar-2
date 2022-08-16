@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 

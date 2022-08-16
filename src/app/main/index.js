@@ -44,7 +44,7 @@ function Main(){
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
-      <Pagination artQty={select.itemsQty} pagSel={select.pagSel} pagSurf={callbacks.pagSurf}/>
+      <Pagination itemsQty={select.itemsQty} pagSel={select.pagSel} pagSurf={callbacks.pagSurf}/>
     </Layout>
   )
 }

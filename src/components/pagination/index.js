@@ -5,12 +5,12 @@ import usePaginate from "../../utils/use-paginate";
 import './style.css';
 
 
-function Pagination({artQty, pagSel, pagSurf}) {
+function Pagination({itemsQty, pagSel, pagSurf}) {
   const cn = bem('Pagination');
 
   console.log('Pagination');
 
-  const pagArr = usePaginate(artQty, pagSel);
+  const pagArr = usePaginate(itemsQty, pagSel);
 
   const pagCurr = pagArr.map((item, idx) =>
     <div
@@ -29,7 +29,7 @@ function Pagination({artQty, pagSel, pagSurf}) {
 }
 
 Pagination.propTypes = {
-  artQty: propTypes.number.isRequired,
+  itemsQty: propTypes.number.isRequired,
   pagSel: propTypes.number.isRequired,
   pagSurf: propTypes.func.isRequired
 }

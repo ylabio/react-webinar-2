@@ -3,13 +3,13 @@ import PagItem, {dots} from "../components/pagination-item";
 
 /**
  * Возвращает массив с объектами элементов пагинации
- * @param artQty {number} количество товаров в каталоге
+ * @param itemsQty {number} количество товаров в каталоге
  * @param pagSel {number} номер страницы со списком товаров из каталога
  * @returns {Array.<{sel: bool, pag: number, pagEl: JSX}>}
  */
-const usePaginate = (artQty, pagSel) => {
+const usePaginate = (itemsQty, pagSel) => {
   const pagArr = [];
-  const pagNum = Math.ceil(artQty / 10);
+  const pagNum = Math.ceil(itemsQty / 10);
   const pagEl = (idx) => <PagItem idx={idx}/>;
   const pagCheckSel = (i) => (i + 1) === pagSel;
 
@@ -77,7 +77,7 @@ const usePaginate = (artQty, pagSel) => {
     }
     console.log('pagArr', pagArr);
     return pagArr;
-  }, [artQty, pagSel])
+  }, [itemsQty, pagSel])
 }
 
 export default usePaginate;

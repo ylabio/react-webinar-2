@@ -2,7 +2,6 @@ import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
-import PropTypes from "prop-types";
 
 function Nav({onClick}) {
   const cn = bem('Nav');
@@ -15,7 +14,7 @@ function Nav({onClick}) {
 }
 
 Nav.propTypes = {
-  onClick: PropTypes.func.isRequired
+  onClick: propTypes.func.isRequired
 }
 
 export default React.memo(Nav);

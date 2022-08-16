@@ -1,7 +1,8 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import propTypes from 'prop-types'
 import { cn } from '@bem-react/classname'
 import './styles.css'
+import usePagination from '../../utils/use-pagination'
 
 function Pagination({
   current,
@@ -9,18 +10,7 @@ function Pagination({
   changePage
 }) {
   const bem = cn("Pagination")
-
-  const elems = useMemo(() => {
-    const raw = Array.from({length: total}, (_, x) => x + 1)
-
-    if (raw.length < 5 || current === 3 && raw.length === 5) return raw
-    if ([1, 2].includes(current)) return [1, 2, 3, '...', total]
-    if (current === 3) return [1, 2, 3, 4, '...', total]
-    if ([total - 1, total].includes(current)) return [1, '...', total - 2, total - 1, total]
-    if (current === total - 2) return [1, '...', total - 3, total - 2, total - 1, total]
-
-    return [1, '...', current - 1, current, current + 1, '...', total]
-  }, [current, total])
+  const elems = usePagination(current, total)
 
   return (
     <div className={bem()}>
@@ -30,7 +20,7 @@ function Pagination({
           selected: el === current, 
           dots: el === '...', 
           unselected: !['...', current].includes(el)
-        }) } key={idx} 
+        }) } key={idx} /* Можем вот так забить на key, всё равно всё ререндериться кроме первого и иногда последнего с точками будет */ 
              onClick={['...', current].includes(el) 
              ? null 
              : changePage(el)}>

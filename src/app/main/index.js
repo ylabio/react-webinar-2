@@ -8,6 +8,7 @@ import useSelector from "../../utils/use-selector";
 import Menu from "../../components/menu";
 import LayoutFlex from "../../components/layout-flex";
 import Pagination from "../../components/pagination";
+import Spinner from "../../components/spinner";
 
 function Main() {
   const store = useStore();
@@ -23,6 +24,7 @@ function Main() {
     count: state.catalog.count,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    waiting: state.catalog.waiting
   }));
 
   const callbacks = {
@@ -52,8 +54,10 @@ function Main() {
         <Menu items={options.menu}/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       </LayoutFlex>
-      <List items={select.items} renderItem={renders.item}/>
-      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
+      <Spinner active={select.waiting}>
+        <List items={select.items} renderItem={renders.item}/>
+        <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
+      </Spinner>
     </Layout>
   )
 }

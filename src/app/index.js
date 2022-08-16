@@ -25,7 +25,6 @@ function App() {
 
         </BrowserRouter>
     )
-        ;
 }
 
 export default React.memo(App);

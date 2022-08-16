@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 function Item(props) {
     const cn = bem('Item');
-
     const navigate = useNavigate();
 
     const callbacks = {

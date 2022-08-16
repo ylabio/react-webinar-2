@@ -21,7 +21,7 @@ class BasketState extends ModuleState {
    * Получение записи с сервера по ее коду
    * @param id
    */
-  async load(id) {
+  async #load(id) {
     const response = await fetch(`/api/v1/articles/${id}`);
     const json = await response.json();
     return json.result;
@@ -50,7 +50,7 @@ class BasketState extends ModuleState {
     // Если товар не был найден в корзине, то добавляем его из каталога
     if (!exists) {
       // Поиск товара в каталоге, чтобы его в корзину добавить
-      const item = await this.load(_id);
+      const item = await this.#load(_id);
       items.push({ ...item, amount: 1 });
       // Досчитываем сумму
       sum += item.price;

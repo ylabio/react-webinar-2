@@ -25,6 +25,10 @@ function Card() {
 
   useEffect(() => {
     store.get('card').load(id);
+
+    return () => {
+      store.get('card').clearState();
+    };
   }, [id]);
 
   const callbacks = {

@@ -26,6 +26,15 @@ class CardState extends ModuleState {
       item: json.result
     }, 'Получение записи с сервера по ее коду');
   }
+
+  /**
+   * Очистка состояния
+   */
+  clearState() {
+    this.setState({
+      item: {}
+    }, 'Очистка состояния');
+  }
 }
 
 export default CardState;

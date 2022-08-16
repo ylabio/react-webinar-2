@@ -14,7 +14,7 @@ function Product() {
 
   useEffect(() => {
     store.get('catalog').loadItem(id)
-  }, [])
+  }, [id])
 
   const store = useStore()
 

@@ -22,7 +22,7 @@ function Item(props) {
       <div className={cn('title')}>
       <section
         className={cn('link')}
-        onClick={() => navigate(`ProfileProduct/${props.item._id}`)} 
+        onClick={() => navigate(`${'ProfileProduct/'+props.item._id || props.href }`)} 
         >
          {props.item.title}
       </section>

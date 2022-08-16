@@ -1,5 +1,7 @@
+import CartProduct from "cart-product";
+import Main from "main";
 import React from 'react';
-import {Routers} from "src/app/routers";
+import {Route, Routes} from "react-router-dom";
 import useSelector from "../utils/use-selector";
 import Basket from "./basket";
 
@@ -15,7 +17,10 @@ function App() {
 
   return (
     <>
-      <Routers />
+      <Routes>
+        <Route path={'/'} element={<Main/>}/>
+        <Route path={'/:id'} element={<CartProduct/>}/>
+      </Routes>
       {modal === 'basket' && <Basket/>}
     </>
   );

@@ -1,9 +1,9 @@
+import Controls from "components/controls";
 import Loading from "components/loading";
 import NotFounts from "components/not-founts";
 import React, {useCallback, useEffect} from "react";
 import Cart from "components/cart";
 import {useParams} from "react-router-dom";
-import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
 import useSelector from "../../utils/use-selector";
 import useStore from "../../utils/use-store";
@@ -41,8 +41,7 @@ function CartProduct() {
 
   return (
     <Layout head={<h1>{select.item === null ? '' : select.item.title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount}
-                    sum={select.sum}/>
+      <Controls amount={select.amount} sum={select.sum} onOpen={callbacks.openModalBasket}/>
       {select.item !== null ? <Cart item={select.item} onAdd={callbacks.addToBasket}/> :
         <NotFounts/>}
     </Layout>

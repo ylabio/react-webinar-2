@@ -1,8 +1,8 @@
+import Controls from "components/controls";
 import Loading from "components/loading";
 import {useNavigate} from "react-router-dom";
 import Pagination from "src/components/pagination";
 import useLanguage from "utils/use-language";
-import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
 import React, {useCallback, useEffect} from "react";
@@ -49,14 +49,13 @@ function Main() {
   const renders = {
     item: useCallback(item => {
       return <Item item={item} onAdd={callbacks.addToBasket}
-            onName={() => callbacks.onPageProduct(item._id)}/>
+                   onName={() => callbacks.onPageProduct(item._id)}/>
     }, []),
   };
 
   return (
     <Layout head={<h1>{translation('shop')}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount}
-                    sum={select.sum}/>
+      <Controls amount={select.amount} sum={select.sum} onOpen={callbacks.openModalBasket}/>
       {select.isLoading ? <Loading/> :
         <List items={select.items} renderItem={renders.item}/>}
       <Pagination count={select.count} setCurrentPage={callbacks.setCurrentPage}

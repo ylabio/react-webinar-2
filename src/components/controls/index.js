@@ -1,21 +1,35 @@
-import React from 'react';
+import BasketSimple from "basket-simple";
+import Menu from "menu";
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 
-function Controls({onAdd}){
+function Controls({sum, amount, onOpen}) {
+
+  const callbacks = {
+    // Открытие корзины
+    openModalBasket: useCallback(() => onOpen(), []),
+  };
+
   return (
     <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+      <Menu/>
+      <BasketSimple onOpen={callbacks.openModalBasket} amount={amount} sum={sum}/>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  onOpen: propTypes.func.isRequired,
+  sum: propTypes.number,
+  amount: propTypes.number
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  onOpen: () => {
+  },
+  sum: 0,
+  amount: 0
 }
 
 export default React.memo(Controls);

@@ -9,14 +9,19 @@ function Controls() {
   const store = useStore();
   const select = useSelector(state => ({
     sum: state.basket.sum,
-    amount: state.basket.amount
+    amount: state.basket.amount,
+    lang: state.local.lang
   }));
   const callbacks = {
     setFirstPage: useCallback(() => store.get('catalog').setPage(1), []),
     openModalBasket: useCallback(() => store.get('modals').open('basket'), [])
   };
   // Переводчик статического текста
-  const t = (path, amount = null) => store.get('local').translate(path, amount);
+  const t = useCallback(
+    (path, amount = null) => store.get('local').translate(path, amount),
+    [select.lang]
+  );
+
   const text = {
     home: t('common.homeLink'),
     empty: t('common.basketEmpty'),

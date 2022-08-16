@@ -32,7 +32,7 @@ function Pagination(props) {
             if (page === 2 && props.position < 40) className = "showAlways ";
 
             if (props.position > 20 && page === 1) return (<span className='points'>...</span>)
-            if (props.position < 90 && page === 11) return (<span className='points'>...</span>)
+            if (props.position < 100 && page === 12) return (<><span className='points'>...</span><button className={`page- ${className}`} onClick={pageTransfer} key={page} data-selected={page}>{page + 1}</button></>)
             return (<button className={`page- ${className}`} onClick={pageTransfer} key={page} data-selected={page}>{page + 1}</button>)
         })}
     </div>)

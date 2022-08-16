@@ -12,9 +12,6 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
-      // item: {},
-      // maidIn: {},
-      // category: {},
       skip: 0,
       count: 0,
       limit: 10,
@@ -30,29 +27,11 @@ class CatalogState extends StateModule {
     this.setState({
       items: json.result.items,
       count: json.result.count,
-      // item: this.getState().item,
-      // maidIn: this.getState().maidIn,
-      // category: this.getState().category,
       currentPage: this.getState().currentPage,
       skip,
       limit,
     })
   }
-
-  // async loadItem(id) {
-  //   const response = await fetch(
-  //     `/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`
-  //   )
-  //   const json = await response.json()
-  //   this.setState({
-  //     item: json.result,
-  //     maidIn: json.result.maidIn,
-  //     category: json.result.category,
-  //     items: this.getState().items,
-  //     limit: this.getState().limit,
-  //     count: this.getState().count,
-  //   })
-  // }
 
   /**
    * Создание записи

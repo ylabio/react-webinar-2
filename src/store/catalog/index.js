@@ -1,5 +1,4 @@
-import { getInfoById, getItems } from "../../service";
-import counter from "../../utils/counter";
+import { getItems } from "../../service";
 import StateModule from "../module";
 
 /**
@@ -14,17 +13,6 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      // productInfo: {
-      //   _id: '',
-      //   description: '',
-      //   edition: 0,
-      //   category: {title: ''},
-      //   maidIn: {
-      //     title: '',
-      //     code: '',
-      //   },
-      //   price: 0,
-      // },
       count: 0,
     };
   }
@@ -37,14 +25,6 @@ class CatalogState extends StateModule{
       count: data.count
     });
   }
-
-  // async getInfo(id) {
-  //   const data = await getInfoById(id);
-  //   this.setState({
-  //     ...this.store.getState().catalog,
-  //     productInfo: data
-  //   });
-  // }
 
   /**
    * Создание записи

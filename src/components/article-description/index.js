@@ -2,10 +2,9 @@ import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
-import { NavLink } from 'react-router-dom';
 import './style.css';
 
-function ItemDescription(props) {
+function ArticleDescription(props) {
   const cn = bem('Info');
 
   const callbacks = {
@@ -34,13 +33,13 @@ function ItemDescription(props) {
   )
 }
 
-ItemDescription.propTypes = {
+ArticleDescription.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
 }
 
-ItemDescription.defaultProps = {
+ArticleDescription.defaultProps = {
   onAdd: () => {},
 }
 
-export default React.memo(ItemDescription);
+export default React.memo(ArticleDescription);

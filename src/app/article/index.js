@@ -4,21 +4,21 @@ import React, {useCallback, useEffect} from "react";
 import { useParams } from 'react-router-dom';
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import ItemDescription from "../../components/item-description";
+import ArticleDescription from "../../components/article-description";
 
 
-function Description(){
+function Article(){
 
   const { id } = useParams();
 
   const store = useStore();
 
   useEffect(() => {
-    store.get('description').loadById(id);
+    store.get('article').loadById(id);
   }, [id])
 
   const select = useSelector(state => ({
-    item: state.description.item,
+    item: state.article.item,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -33,9 +33,9 @@ function Description(){
   return (
     <Layout head={<h1>{select.item.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <ItemDescription item={select.item} onAdd={callbacks.addToBasket}/>
+      <ArticleDescription item={select.item} onAdd={callbacks.addToBasket}/>
     </Layout>
   )
 }
 
-export default React.memo(Description);
+export default React.memo(Article);

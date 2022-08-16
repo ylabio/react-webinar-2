@@ -3,7 +3,7 @@ import StateModule from "../module";
 /**
  * Состояние каталога
  */
-class DescriptionState extends StateModule{
+class ArticleState extends StateModule{
 
   /**
    * Начальное состояние
@@ -25,4 +25,4 @@ class DescriptionState extends StateModule{
 
 }
 
-export default DescriptionState;
+export default ArticleState;

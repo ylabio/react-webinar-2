@@ -1,11 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
-import Description from './description';
-
+import Article from './article';
 
 /**
  * Приложение
@@ -22,7 +20,7 @@ function App() {
       {modal === 'basket' && <Basket/>}
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/:id" element={<Description />} />
+        <Route path="/:id" element={<Article />} />
       </Routes>
     </>
   );

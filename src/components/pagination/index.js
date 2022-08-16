@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
@@ -6,7 +6,7 @@ import './style.css';
 function Pagination({count, currentPage, load, changePage}) {
   const cn = bem('Pagination');
 
-  const limit = 5;
+  const limit = 10;
 
   const pages = [];
 
@@ -15,8 +15,8 @@ function Pagination({count, currentPage, load, changePage}) {
   }
 
   function toShow () {
-    const pagesToShow = []
-
+    const pagesToShow = [];
+  
     for (let i = 0; i < pages.length; i++){
       if (pages[i] === pages[0] && currentPage === pages[i]) {
         pagesToShow.push(pages[i], pages[i + 1], pages[i + 2], 0);
@@ -44,13 +44,13 @@ function Pagination({count, currentPage, load, changePage}) {
         pagesToShow.push(pages[0], 0, pages[i - 1], pages[i], pages[i + 1], 0);
       }
     }
-
+  
     pagesToShow.push(pages[pages.length - 1]);
-
+  
     return pagesToShow;
     }
 
-  React.useEffect(() => {
+  useEffect(() => {
     load(limit, limit * (currentPage - 1));
   }, [currentPage, count]);
 
@@ -91,8 +91,11 @@ function Pagination({count, currentPage, load, changePage}) {
 }
 
 Pagination.propTypes = {
+  count: propTypes.number,
+  currentPage: propTypes.number,
+  load: propTypes.func,
+  changePage: propTypes.func
 }
-
 
 Pagination.defaultProps = {
 }

@@ -10,11 +10,9 @@ function Pagination({artQty, pagSel, pagSurf}) {
 
   console.log('Pagination');
 
-  // Количество страниц для элемента пагинации
-  const pagNum = Math.ceil(artQty / 10);
-  const pagArr = usePaginate(pagNum, pagSel);
+  const pagArr = usePaginate(artQty, pagSel);
 
-  const pagCurrent = pagArr.map((item, idx) =>
+  const pagCurr = pagArr.map((item, idx) =>
     <div
       key={idx}
       className={cn(`pag-item ${item.sel ? 'pag-selected' : null}`)}
@@ -25,7 +23,7 @@ function Pagination({artQty, pagSel, pagSurf}) {
 
   return (
     <div className={cn()}>
-      {pagCurrent}
+      {pagCurr}
     </div>
   )
 }

@@ -8,16 +8,18 @@ import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import Spinner from "../../components/spinner";
 import {withLocale} from "../../contexts/locale.context";
+import {useSearchParams} from "react-router-dom"
 
 function Main({lang}){
 
   console.log('Main');
 
   const store = useStore();
-  
-  const [currentPage, setCurrentPage] = useState(1);
 
-  console.log(currentPage);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = searchParams.get('page') || '1';
+
+  const [currentPage, setCurrentPage] = useState(Number(page));
 
   useEffect(() => {
     store.get('catalog').load(currentPage);
@@ -41,7 +43,8 @@ function Main({lang}){
   };
 
   const onSelect = (value) => {
-    setCurrentPage(value)
+    setCurrentPage(value);
+    setSearchParams({page: value});
   }
 
   const renders = {
@@ -50,12 +53,10 @@ function Main({lang}){
     ), []),
   }
 
-  console.log(select.items)
-
   return (
     <Layout head={<h1>{lang.handle('store')}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <div style={{"maxWidth": "1024px", "minHeight": "621px"}}>
+      <div style={{"maxWidth": "1024px", "height": "621px"}}>
         {
           select.loading ? 
           <Spinner/> :

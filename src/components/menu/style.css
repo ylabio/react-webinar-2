@@ -1,0 +1,9 @@
+.Menu {
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.Menu-nav {
+    margin-right: 10px;
+}

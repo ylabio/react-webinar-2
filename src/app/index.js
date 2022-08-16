@@ -5,7 +5,7 @@ import Basket from "./basket";
 import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
 import SingleProductPage from './single-product-page';
-import { Locale } from "../hoc/locale"
+import { Locale } from "../hoc/locale";
 
 /**
  * Приложение
@@ -22,7 +22,8 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Main/>}/>
-          <Route path='/:id' element={<SingleProductPage/>}/>
+          <Route path="/product/:id" element={<SingleProductPage/>}/>
+          <Route path="/*" element={<h1>Такой страницы не существует</h1>}/>
         </Routes>
         {modal === 'basket' && <Basket/>}
       </Router>

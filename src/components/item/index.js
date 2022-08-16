@@ -16,7 +16,7 @@ function Item(props) {
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-        <Link to={`/${props.item._id}`} className={cn('link')}>{props.item.title}</Link>
+        <Link to={`/${props.path}/${props.item._id}`} className={cn('link')}>{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
@@ -29,10 +29,12 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
+  path: propTypes.string
 }
 
 Item.defaultProps = {
   onAdd: () => {},
+  path: "product"
 }
 
 export default React.memo(withLocale(Item));

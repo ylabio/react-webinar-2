@@ -6,8 +6,6 @@ import {cn as bem} from "@bem-react/classname";
 function Pagination({totalNumberOfPage, currentPage, onSelect}) {
 	const cn = bem('Pagination');
 
-  console.log(totalNumberOfPage);
-
 	const NumberPage = () => {
 		const pages = [];
 		const startOfSplit = Math.max(currentPage - 1, 1);

@@ -21,11 +21,8 @@ function LangPanel() {
       langCode = "ru";
     }
 
-    console.log(lang.substr(0, 2));
-
     const [codeLanguage, setCodeLanguage] = useState(lang.substr(0, 2))
     const languages = useSelector(state => state.language.languages);
-    console.log(languages);
 
     useEffect(() => {
         store.get('language').changeLang(codeLanguage);

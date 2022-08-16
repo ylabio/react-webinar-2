@@ -7,7 +7,6 @@ import propTypes from 'prop-types';
 
 function SingleProductLayout({item, onAdd, lang}) {
     const cn = bem('Info');
-    console.log(item._id);
     return(
         <div className={cn()}>
             <p className={cn("description")}>{item.description}</p>

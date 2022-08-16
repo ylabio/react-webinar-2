@@ -1,24 +1,17 @@
 /* Контрол с общими действиями */
 .BasketSimple{
+  box-sizing: border-box;
+  width: 50%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 20px;
   font-size: 18px;
-}
-
-.BasketSimple-link{
-  color: #0087E9;
-}
-
-.BasketSimple-link:hover{
-  opacity: 0.7;
 }
 
 .BasketSimple-right{
   display: flex;
   justify-content: flex-end;
 }
-
 
 .BasketSimple-total{
   font-weight: bold;

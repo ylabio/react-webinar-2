@@ -11,6 +11,7 @@ import {LanguageContext} from "../../services/locale/context";
 import Translation from "../../services/locale";
 import {useNavigate, useParams} from "react-router-dom";
 import skip from "../../utils/skip";
+import Navigation from "../../components/navigation";
 
 function Main(){
 
@@ -55,6 +56,10 @@ function Main(){
       navigate(`/catalog/${page}`, { replace: true });
       store.get('pagination').changePage(page);
     }, []),
+    onHomeClick:  useCallback(evt => {
+      evt.preventDefault();
+      navigate(`/catalog/${currentPage}`, { replace: true });
+    }, []),
   };
 
   const renders = {
@@ -63,10 +68,10 @@ function Main(){
 
   return (
     <Layout head={<h1>{Translation[language].main.title}</h1>}>
+      <Navigation onClick={callbacks.onHomeClick}/>
       <BasketSimple onOpen={callbacks.openModalBasket}
                     amount={select.amount}
-                    sum={select.sum}
-                    currentLink={`/catalog/${currentPage}`}/>
+                    sum={select.sum}/>
       {select.items.length ?
       <>
         <List items={select.items} renderItem={renders.item}/>

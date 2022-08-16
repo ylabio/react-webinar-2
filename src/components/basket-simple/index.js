@@ -3,18 +3,15 @@ import propTypes from "prop-types";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
 import "./styles.css";
-import {Link} from "react-router-dom";
 import {LanguageContext} from "../../services/locale/context";
 import Translation from "../../services/locale";
 
-function BasketSimple({sum, amount, onOpen, currentLink}) {
+function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
   const {language} = useContext(LanguageContext);
 
   return (
     <div className={cn()}>
-      <Link className={cn('link')}
-            to={currentLink}>{Translation[language].actions.home}</Link>
       <div className={cn('right')}>
         <span className={cn('label')}>{Translation[language].basket.simple}</span>
         <span className={cn('total')}>

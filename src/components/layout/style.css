@@ -27,3 +27,8 @@ body{
 .Layout-head h1{
   margin: 0;
 }
+
+.Layout-content {
+  display: flex;
+  flex-wrap: wrap;
+}

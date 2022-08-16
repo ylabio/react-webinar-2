@@ -6,10 +6,13 @@ import Item from '../../components/item'
 import useStore from '../../utils/use-store'
 import useSelector from '../../utils/use-selector'
 import Pagination from '../../components/pagination'
+// import { useParams } from 'react-router-dom'
 
 function Main() {
   console.log('Main')
 
+  // const params = useParams()
+  // console.log(params)
   const store = useStore()
 
   useEffect(() => {
@@ -20,6 +23,7 @@ function Main() {
     items: state.catalog.items,
     count: state.catalog.count,
     limit: state.catalog.limit,
+    path: state.catalog.path,
     currentPage: state.catalog.currentPage,
     amount: state.basket.amount,
     sum: state.basket.sum,
@@ -40,7 +44,10 @@ function Main() {
   }
 
   const renders = {
-    item: useCallback((item) => <Item item={item} onAdd={callbacks.addToBasket} />, []),
+    item: useCallback(
+      (item) => <Item item={item} onAdd={callbacks.addToBasket} path={select.path} />,
+      []
+    ),
   }
 
   return (

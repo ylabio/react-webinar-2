@@ -16,6 +16,7 @@ class CatalogState extends StateModule {
       count: 0,
       limit: 10,
       currentPage: 1,
+      path: 'product/',
     }
   }
 
@@ -28,6 +29,7 @@ class CatalogState extends StateModule {
       items: json.result.items,
       count: json.result.count,
       currentPage: this.getState().currentPage,
+      path: this.getState().path,
       skip,
       limit,
     })

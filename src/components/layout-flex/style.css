@@ -1,0 +1,24 @@
+.LayoutFlex{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    /*padding: 20px;*/
+    /*margin-left: -5px;*/
+    /*margin-right: -5px;*/
+    align-items: center;
+}
+.LayoutFlex_flex_start{
+    justify-content: flex-start;
+}
+
+.LayoutFlex_flex_end{
+    justify-content: flex-end;
+}
+
+.LayoutFlex_flex_between{
+    justify-content: space-between;
+}
+
+.LayoutTools-item{
+    margin: 0 5px;
+}

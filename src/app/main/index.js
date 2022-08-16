@@ -1,12 +1,14 @@
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useEffect, useMemo} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import Menu from "../../components/menu";
+import LayoutFlex from "../../components/layout-flex";
 
-function Main(){
+function Main() {
 
   console.log('Main');
 
@@ -35,9 +37,18 @@ function Main(){
     ), []),
   }
 
+  const options = {
+    menu: useMemo(() => ([
+      {key: 1, title: 'Главная', link: '/'},
+    ]), [])
+  }
+
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <LayoutFlex flex="between">
+        <Menu items={options.menu}/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      </LayoutFlex>
       <List items={select.items} renderItem={renders.item}/>
     </Layout>
   )

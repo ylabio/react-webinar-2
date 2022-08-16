@@ -1,10 +1,12 @@
 import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useEffect, useMemo} from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import {useParams} from "react-router-dom";
 import ArticleCard from "../../components/article-card";
+import Menu from "../../components/menu";
+import LayoutFlex from "../../components/layout-flex";
 
 function Article(){
 
@@ -30,9 +32,18 @@ function Article(){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
 
+  const options = {
+    menu: useMemo(() => ([
+      {key: 1, title: 'Главная', link: '/'},
+    ]), [])
+  }
+
   return (
     <Layout head={<h1>{select.article.title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <LayoutFlex flex="between">
+        <Menu items={options.menu}/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      </LayoutFlex>
       <ArticleCard article={select.article} onAdd={callbacks.addToBasket}/>
     </Layout>
   )

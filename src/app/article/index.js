@@ -17,16 +17,15 @@ function Article(){
   const store = useStore();
   const {language} = useContext(LanguageContext);
   const navigate = useNavigate();
+  const {id} = useParams();
 
   const select = useSelector(state => ({
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
     item: state.article.item,
-    current: state.pagination.current,
+    current: state.catalog.current,
   }));
-
-  const {id} = useParams();
 
   useEffect(() => {
     store.get('modals').close();

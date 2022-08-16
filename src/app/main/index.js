@@ -34,19 +34,9 @@ function Main(){
   const currentPage = page ? parseInt(page, 10) : select.current;
 
   useEffect(() => {
+    if (parseInt(page, 10) !== select.current) store.get('catalog').changePage(parseInt(page, 10));
     store.get('catalog').load(skip(currentPage, select.limit), select.limit);
-  }, [select.current]);
-
-  useEffect(() => {
-    // Для сохранения страницы при следующей последовательности действий:
-    // 1) Обновить каталог при нахождении не на первой странице
-    // 2) Перейти на карточку товара
-    // 3) Перейти по ссылке "Главная" в каталог
-    // Иначе сброс на первую страницу
-    if (select.current === 1) {
-      store.get('catalog').changePage(page, 10);
-    }
-  }, []);
+  }, [currentPage]);
 
   const callbacks = {
     // Открытие корзины
@@ -60,17 +50,19 @@ function Main(){
     }, []),
     onHomeClick:  useCallback(evt => {
       evt.preventDefault();
-      navigate(`/catalog/${page}`, { replace: true });
-    }, []),
+      navigate(`/catalog/${select.current}`, { replace: true });
+    }, [select.current]),
     onItemClick: useCallback(id => {
       navigate(`/article/${id}`, { replace: true });
     }, []),
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item}
-                                            onAdd={callbacks.addToBasket}
-                                            onItemClick={callbacks.onItemClick}/>, []),
+    item: useCallback(item => (
+    <Item item={item}
+          onAdd={callbacks.addToBasket}
+          onItemClick={callbacks.onItemClick}/>
+    ), []),
   }
 
   return (

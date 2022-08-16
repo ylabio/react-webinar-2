@@ -34,9 +34,11 @@ function Basket(){
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item}
-                                                        onRemove={callbacks.removeFromBasket}
-                                                        onItemClick={callbacks.onItemClick}/>, []),
+    itemBasket: useCallback(item => (
+    <ItemBasket item={item}
+                onRemove={callbacks.removeFromBasket}
+                onItemClick={callbacks.onItemClick}/>)
+    , []),
   }
 
   return (

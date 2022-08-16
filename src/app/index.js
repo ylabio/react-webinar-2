@@ -19,11 +19,11 @@ function App() {
     <>
       <HashRouter>
         <Routes>
-          <Route path="/catalog/:page" element={<Main/>} />
+          <Route path="/catalog/:page" element={<Main />} />
           <Route path="/article/:id" element={<Article />} />
           <Route path="/" element={<Navigate replace to="/catalog/1"/>} />
         </Routes>
-        {modal === 'basket' && <Basket/>}
+        {modal === 'basket' && <Basket />}
       </HashRouter>
     </>
   );

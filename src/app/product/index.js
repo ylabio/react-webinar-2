@@ -6,16 +6,18 @@ import Description from "../../components/description";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 
-function Product(){
+function Product({ item }){
   console.log('Product');
 
   const store = useStore();
   const {id} = useParams();
 
   useEffect(() => {
-    store.get('product').load(id);
+    const idFinal = item ? item : id;
+
+    store.get('product').load(idFinal);
     return () => store.get('product').deleteItem();
-  }, [id])
+  }, [item, id])
   
   const select = useSelector(state => ({
     dataJson: state.product.dataJson,

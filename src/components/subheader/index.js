@@ -2,15 +2,14 @@ import React from 'react'
 import {cn as bem} from "@bem-react/classname";
 import './styles.css';
 import propTypes from 'prop-types';
-import { langVars } from '../../utils/localisation';
 import BasketSimple from "../../components/basket-simple";
-import { Link } from 'react-router-dom';
+import Menu from '../menu'
 
 function Subheader(props) {
 	const cn = bem('Subheader');
 	return (
 		<div className={cn()}>
-			<Link className={cn('link')} to={props.link}>{langVars.basketSimple.main[props.lang]}</Link>
+			<Menu lang={props.lang} link={props.link}/>
 			<BasketSimple lang={props.lang} onOpen={props.callback} amount={props.amount} sum={props.sum}/>
 		</div>
 	)

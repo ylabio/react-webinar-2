@@ -28,12 +28,14 @@ function ProductPage() {
 	const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
-		addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+		// Добавление в корзину
+		addToBasket: useCallback(_id => {
+			store.get('basket').addToBasket(_id)}, []),
 	};
   return (
 		<Layout head={<Header title={select.item.title} lang={select.language}/>}>
 			<Subheader amount={select.amount} sum={select.sum} callback={callbacks.openModalBasket} lang={select.language} link={'/'}/>
-			<ProductInfo lang={select.language} item={select.item} callback={()=>callbacks.addToBasket(params.id)}/>
+			<ProductInfo lang={select.language} id={params.id} item={select.item} callback={callbacks.addToBasket}/>
 		</Layout>
 		);
 }

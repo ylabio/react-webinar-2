@@ -11,12 +11,6 @@ class ProductState extends StateModule {
   initState() {
     return {
       item: {},
-      // name: null,
-      // title: null,
-      // description: null,
-      // price: 0,
-      // maidIn: null,
-      // category: null,
     };
   }
 
@@ -27,13 +21,14 @@ class ProductState extends StateModule {
     const json = await response.json();
     this.setState({
       item: {
+        _id: json.result._id,
         title: json.result.title,
         description: json.result.description,
         madeInTitle: json.result.maidIn.title,
         madeInCode: json.result.maidIn.code,
         category:json.result.category.title,
         edition: json.result.edition,
-        price: (json.result.price).toLocaleString('ru-RU', {style: 'currency', currency: 'RUB'})
+        price: json.result.price
       }
     }, 'Получение данных товара');
   }

@@ -44,7 +44,7 @@ function Main(){
 
   return (
       <Layout head={<h1>Магазин</h1>}>
-        <Menu>Главная</Menu>
+        <Menu linkTo={'/'} nav={'Главная'}/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
         {select.isLoading ? <Preload/>:<List items={select.items} renderItem={renders.item}/>}
         <Pagination totalCount={select.totalCount} perPage={select.perPage} currentPage={select.currentPage} onChangePage={callbacks.changePage}/>

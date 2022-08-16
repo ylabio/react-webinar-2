@@ -46,7 +46,7 @@ function ProductPage() {
 
     return (
         <Layout head={<h1 style={{opacity: select.isLoading && '0.5'}}>{select.item.title}{select.isLoading && ' ...'}</h1>}>
-            <Menu>Главная</Menu>
+            <Menu linkTo={'/'} nav={'Главная'}/>
             <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
             {select.isLoading ? <Preload/> : <ItemDetails item={select.item} onAdd={callbacks.addToBasket}/>}
         </Layout>

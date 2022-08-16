@@ -4,11 +4,11 @@ import {cn as bem} from "@bem-react/classname";
 import {Link} from "react-router-dom";
 import './style.css'
 
-function Menu({children}) {
+function Menu({nav, linkTo}) {
     const cn = bem('Menu');
     return (
         <div className={cn()}>
-            <Link className={cn('link')} to='/'>{children}</Link>
+            <Link className={cn('link')} to={linkTo}>{nav}</Link>
         </div>
     )
 }

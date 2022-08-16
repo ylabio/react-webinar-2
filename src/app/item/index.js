@@ -6,10 +6,12 @@ import {useParams} from 'react-router';
 import ItemDescription from '../../components/item-description';
 import LayoutHead from '../../components/layout-head';
 import BasketWithLink from '../../components/basket-with-link';
+import propTypes from 'prop-types';
 
 
-function ItemInfo(){
-  let { itemId } = useParams()
+function ItemInfo(props){
+  let itemId
+  props.itemId ? itemId = props.itemId : { itemId } = useParams()
   const select = useSelector(state => ({
     amount: state.basket.amount,
     items: state.catalog.items,
@@ -54,5 +56,10 @@ function ItemInfo(){
     </Layout>
   )
 }
+
+ItemInfo.propTypes = {
+  itemId: propTypes.string,
+}
+
 
 export default React.memo(ItemInfo);

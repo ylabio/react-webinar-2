@@ -5,7 +5,8 @@ import { useParams } from 'react-router-dom';
 import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
 import ArticleInfo from '../../components/article-info';
-import LayoutLoader from '../../components/layout-loader';
+import LayoutLoader from '../layout-loader';
+import Header from '../../components/header';
 
 function Article() {
   console.log('Article');
@@ -32,7 +33,7 @@ function Article() {
 
   return (
     <Layout head={<h1>{select.article.title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <Header openModalBasket={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <LayoutLoader>
         <ArticleInfo onAdd={callbacks.addToBasket} article={select.article} />
       </LayoutLoader>

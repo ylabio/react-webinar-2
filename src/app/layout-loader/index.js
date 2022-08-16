@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import Loader from '../loader';
+import Loader from '../../components/loader';
 import useSelector from '../../utils/use-selector';
 
 function LayoutLoader({ children }) {

@@ -12,6 +12,8 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
+      currentPage: 1,
+      amountPages: 0,
     };
   }
 
@@ -23,11 +25,10 @@ class CatalogState extends StateModule {
     );
     const json = await response.json();
 
-    console.log(json);
-
     this.store.setState({ ...this.store.getState(), loading: false });
 
     this.setState({
+      ...this.store.getState().catalog,
       items: json.result.items,
       amountPages: Math.ceil(json.result.count / 10),
     });
@@ -56,6 +57,10 @@ class CatalogState extends StateModule {
       },
       'Удаление товара'
     );
+  }
+
+  setCurrentPage(pageNumber) {
+    this.setState({ currentPage: pageNumber });
   }
 }
 

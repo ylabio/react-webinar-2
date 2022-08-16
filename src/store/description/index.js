@@ -12,6 +12,7 @@ class DescriptionState extends StateModule {
   initState() {
     return {
       product: {
+        _id: null,
         name: null,
         title: null,
         description: null,
@@ -30,6 +31,7 @@ class DescriptionState extends StateModule {
     const json = await response.json();
     this.setState({
       product: {
+        _id: json.result._id,
         item: json.result,
         title: json.result.title,
         description: json.result.description,

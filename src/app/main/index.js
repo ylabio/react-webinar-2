@@ -7,6 +7,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import {useParams} from "react-router";
+import Navigation from "../../components/navigation";
 
 function Main() {
 
@@ -39,13 +40,14 @@ function Main() {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
+      <Navigation page={select.page}/>
       <BasketSimple onOpen={callbacks.openModalBasket}
                     amount={select.amount}
-                    sum={select.sum}
-                    page={select.page}/>
+                    sum={select.sum}/>
       <List items={select.items}
             renderItem={renders.item}/>
-      <Pagination totalPage={select.totalPage}/>
+      <Pagination totalPage={select.totalPage}
+                  page={page}/>
     </Layout>
   )
 }

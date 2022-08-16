@@ -3,7 +3,7 @@
     display: flex;
     padding: 20px;
     font-size: 18px;
-    justify-content: space-between;
+    justify-content: end;
 }
 
 .BasketSimple-label{

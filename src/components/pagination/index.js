@@ -4,14 +4,12 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import pages from "../../utils/pages";
 import {NavLink} from "react-router-dom";
-import {useParams} from "react-router";
 
 function Pagination(props) {
   const cn = bem('Pagination');
   const pagesArr = pages(props.totalPage)
-  const {page} = useParams()
   let pagination = []
-  let [pagePagination, setPagePagination] = useState(+page)
+  let [pagePagination, setPagePagination] = useState(+props.page)
   if (props.totalPage > 5) {
     if (pagePagination <= 2) {
       pagination = [...pagesArr.slice(0, 3), '...', props.totalPage]
@@ -53,6 +51,7 @@ function Pagination(props) {
 
 Pagination.propTypes = {
   totalPage: propTypes.number,
+  page: propTypes.string
 }
 
 export default React.memo(Pagination);

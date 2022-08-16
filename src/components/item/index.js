@@ -6,35 +6,34 @@ import './style.css';
 import {Link} from "react-router-dom";
 
 function Item(props) {
-  const cn = bem('Item');
+    const cn = bem('Item');
 
-  const callbacks = {
-    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
-  };
+    const callbacks = {
+        onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
+    };
 
-  return (
-    <div className={cn()}>
-      {/*<div className={cn('id')}>*/}
-      {/*  {props.item._id}*/}
-      {/*</div>*/}
-      <Link to={`/articles/${props.item._id}`}  className={cn('title')}>
-        {props.item.title}
-      </Link>
-      <div className={cn('right')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
-      </div>
-    </div>
-  )
+    return (
+        <div className={cn()}>
+            <Link to={props.link} className={cn('title')}>
+                {props.item.title}
+            </Link>
+            <div className={cn('right')}>
+                <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
+                <button onClick={callbacks.onAdd}>Добавить</button>
+            </div>
+        </div>
+    )
 }
 
 Item.propTypes = {
-  item: propTypes.object.isRequired,
-  onAdd: propTypes.func,
+    item: propTypes.object.isRequired,
+    onAdd: propTypes.func,
+    link: propTypes.string.isRequired
 }
 
 Item.defaultProps = {
-  onAdd: () => {},
+    onAdd: () => {
+    },
 }
 
 export default React.memo(Item);

@@ -9,26 +9,16 @@ import {useNavigate} from "react-router";
 
 function ItemBasket(props) {
     const cn = bem('ItemBasket');
-    const store = useStore();
-    const navigate = useNavigate();
-
-    const onHandle = () => {
-        store.get('modals').close();
-        navigate(`/articles/${props.item._id}`, { replace: true });
-        console.log(props.item._id);
-    }
-
-
-
     const callbacks = {
-        onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove, props.item]),
-        closeModal: useCallback(() => onHandle(), [])
+        onRedirect: useCallback((e) => {
+            props.onRedirect(props.item._id)
+        }, [props.onAdd, props.item])
     };
 
     return (
         <div className={cn()}>
             {/*<div className={cn('id')}>{props.item._id}</div>*/}
-            <p onClick={callbacks.closeModal} className={cn('title')}>
+            <p onClick={callbacks.onRedirect} className={cn('title')}>
                 {props.item.title}
             </p>
             <div className={cn('right')}>
@@ -45,6 +35,7 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
     item: propTypes.object.isRequired,
     onRemove: propTypes.func,
+    onRedirect: propTypes.func
 }
 
 ItemBasket.defaultProps = {}

@@ -9,6 +9,8 @@ export const Pagination = ({itemsPerPage, totalItems, setPage, activeIndex}) => 
     const array = [];
     const amount = Math.ceil(totalItems / itemsPerPage);
 
+    // createPages(array, totalItems, activeIndex, amount);
+
     function createPages(pages, pagesCount, currentPage) {
         if (pagesCount >= 10) {
             pages[0] = 1;
@@ -32,9 +34,11 @@ export const Pagination = ({itemsPerPage, totalItems, setPage, activeIndex}) => 
                     if (i == pagesCount) break
                 }
                 if (activeIndex + 2 < amount) {
-
                     pages[activeIndex + 2] = '...';
+                    console.log(pages);
                 }
+
+
             } else {
                 for (let i = currentPage - 1; i <= currentPage + 2; i++) {
                     if (i >= 2) {
@@ -43,8 +47,13 @@ export const Pagination = ({itemsPerPage, totalItems, setPage, activeIndex}) => 
                     if (i == pagesCount) break
                 }
                 pages[currentPage + 3] = '...';
+
             }
-            pages[amount - 1] = amount;
+            if (activeIndex + 3 === amount) {
+                pages[activeIndex + 2] = '...';
+                console.log(pages);
+            }
+            pages[amount] = amount;
         } else {
             for (let i = 1; i <= pagesCount; i++) {
                 pages.push(i)

@@ -6,16 +6,14 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
-import {Route, Routes} from "react-router-dom";
-import ProductPage from "../../components/product-page";
+import Navigation from "../../components/navigation";
+import HeaderWrapper from "../../components/header-wrapper";
 
 
 function Main() {
 
+
     console.log('Main');
-
-
-
 
 
     const store = useStore();
@@ -46,34 +44,21 @@ function Main() {
         pagination: useCallback(({page}) => store.get('catalog').load({page}), []),
         // Выбор конкретного товара по id
         // getId: useCallback(_id => store.get('item_page').getId(_id), []),
-        getItem: useCallback(_id=>store.get('item_page').loadItem(_id),[]),
+        getItem: useCallback(_id => store.get('item_page').loadItem(_id), []),
     };
 
     const renders = {
-        item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} getId={callbacks.getItem}/>, []),
+        item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} getId={callbacks.getItem} link={`articles/${item._id}`}/>, []),
     }
     return (
-        <Layout head={<h1>{select._id ? 'Название товара' : 'Магазин'}</h1>}>
-            <Routes>
-                <Route path='/' element={
-                    <>
-                        <BasketSimple  onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+        <Layout head={<h1>Магазин</h1>}>
+            <HeaderWrapper>
+                <Navigation/>
+                <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+            </HeaderWrapper>
                         <List items={select.items} renderItem={renders.item}/>
                         <Pagination currentPage={select.currentPage} count={select.count}
                                     pagination={callbacks.pagination}/>
-                    </>
-                } >
-
-
-                </Route>
-                <Route path='/:product'  element={
-                    <>
-                    <BasketSimple   onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-                        <ProductPage onAdd={callbacks.addToBasket} item={select.currentItem} getItem={callbacks.getItem} />
-                    </>
-                }/>
-            </Routes>
-
         </Layout>
     )
 }

@@ -2,6 +2,8 @@ import React from 'react';
 import Main from "./main";
 import Basket from "./basket";
 import useSelector from "../utils/use-selector";
+import {Route, Routes} from "react-router-dom";
+import ProductPage from "./product-page";
 
 
 /**
@@ -17,10 +19,18 @@ function App() {
   const modal = useSelector(state => state.modals.name);
 
   return (
-          <>
-          <Main/>
-        {modal === 'basket' && <Basket/>}
-          </>
+      <>
+          <Routes>
+              <Route path='/' element={
+                  <Main/>
+              } />
+              <Route path='articles/:product'  element={
+                  <ProductPage/>
+              }/>
+          </Routes>
+          {modal === 'basket' && <Basket/>}
+      </>
+
 
   );
 }

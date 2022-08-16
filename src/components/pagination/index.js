@@ -2,7 +2,6 @@ import React from 'react';
 import {cn as bem} from "@bem-react/classname";
 import './style.css'
 import propTypes from "prop-types";
-import {logPlugin} from "@babel/preset-env/lib/debug";
 
 const Pagination = ({count, pagination, currentPage}) => {
     const cn = bem('pagination');

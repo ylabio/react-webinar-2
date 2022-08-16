@@ -10,7 +10,6 @@ function Item(props) {
 
     const callbacks = {
         onAdd: useCallback(() => props.onAdd(props.item._id), [props.onAdd, props.item]),
-        getId: useCallback(() => props.getId(props.item._id), [props.getId])
     };
     return (
         <div className={cn()}>
@@ -18,7 +17,7 @@ function Item(props) {
             {/*  {props.item._id}*/}
             {/*</div>*/}
             <div className={cn('title')}>
-                <Link to={props.item._id} onClick={() => callbacks.getId()}>
+                <Link to={props.link} >
                     {props.item.title}
                 </Link>
             </div>
@@ -33,11 +32,13 @@ function Item(props) {
 Item.propTypes = {
     item: propTypes.object.isRequired,
     onAdd: propTypes.func,
+    link: propTypes.string,
 }
 
 Item.defaultProps = {
     onAdd: () => {
     },
+    link: ''
 }
 
 export default React.memo(Item);

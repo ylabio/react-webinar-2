@@ -14,7 +14,6 @@ class ItemPageState extends StateModule{
     async loadItem(_id){
         const response = await fetch(`/api/v1/articles/${_id}?fields=*,maidIn(title,code),category(title)`);
         const json = await response.json();
-
         this.setState({
             _id: _id,
             item: json.result,

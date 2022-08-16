@@ -23,6 +23,13 @@ function ProductPage() {
         }
     }, [])
 
+    useEffect(() => {
+        store.get('details').load(params.id);
+        return () => {
+            store.get('details').setLoading(true)
+        }
+    }, [params.id])
+
     const select = useSelector(state => ({
         item: state.details.item,
         amount: state.basket.amount,

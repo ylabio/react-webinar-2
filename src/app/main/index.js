@@ -18,7 +18,7 @@ function Main() {
   const store = useStore();
 
   useEffect(() => {
-    store.get('catalog').load(currentPage);
+    store.get('catalog').load((currentPage - 1) * 10);
   }, [currentPage]);
 
   const select = useSelector((state) => ({

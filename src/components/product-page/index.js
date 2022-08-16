@@ -15,8 +15,8 @@ function ProductPage({product, onAdd, language, translate}) {
     <div className={cn()}>
       <div className={cn('description')}> {product.description}</div>
       <div className={cn('group')}>
-        <div className={cn('name')}>Страна производитель:
-          <span className={cn('value')}> {product.maidIn?.title}</span>
+        <div className={cn('name')}>Страна производитель
+          <span className={cn('value')}> {product.maidIn?.title} ({product.maidIn?.code})</span>
         </div>
       </div>
       <div className={cn('group')}>

@@ -14,7 +14,6 @@ function ContainerProduct(props) {
     }
 
     const { language, selectItem } = props
-    console.log(selectItem);
 
 
 

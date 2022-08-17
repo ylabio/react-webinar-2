@@ -14,7 +14,6 @@ function BasketSimple({ sum, amount, onOpen }) {
     modalName: state.modals.name
   }));
   const [open, close] = onOpen;
-  console.log(close);
   const cn = bem('BasketSimple');
   const [a, b, c] = state.language.commodityDeclensions
   return (

@@ -4,7 +4,7 @@ import numberFormat from "../../utils/number-format";
 import {cn as bem} from "@bem-react/classname";
 import './styles.css';
 import { Link } from 'react-router-dom';
-import MLText from '../multi-lang/mul-lang-text';
+import MLText from '../../utils/mul-lang-text';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
@@ -17,14 +17,14 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-      <Link to={`/discription/${props.item._id}`} className={cn('link')} onClick={callbacks.onClose}>
+      <Link to={props.URL+props.item._id} className={cn('link')} onClick={callbacks.onClose}>
         {props.item.title}
         </Link>
         </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} <MLText item={'units'}/> </div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}><MLText item={'delBtn'}/></button></div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {MLText('units')} </div>
+        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{MLText('delBtn')}</button></div>
       </div>
     </div>
   )
@@ -34,10 +34,12 @@ ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
   onClose: propTypes.func,
+  URL:propTypes.string
 }
 
 ItemBasket.defaultProps = {
-item:{}
+item:{},
+URL:'/discription/'
 }
 
 export default React.memo(ItemBasket);

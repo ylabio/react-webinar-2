@@ -1,29 +1,37 @@
-import React, {useCallback} from 'react';
-import {cn as bem} from "@bem-react/classname";
-import './style.css';
+import React, {useCallback, useEffect} from 'react';
 import Layout from '../../components/layout';
 import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
 import BasketSimple from '../../components/basket-simple';
 import { useParams } from 'react-router-dom';
-import numberFormat from '../../utils/number-format';
-import MLText from '../../components/multi-lang/mul-lang-text';
+import DiscriptionContent from '../../components/discription-content';
+import Loader from '../../components/loader';
+import Menu from "../../components/main-menu";
 
 function Descriptions() {
 
-  const cn = bem('Descriptions');
   
   console.log('Descriptions');
-  
   const store = useStore();
-
+  
   const select = useSelector(state => ({
-    items: [...state.catalog.items, ...state.basket.items,],
-    amount: state.basket.amount,
-    sum: state.basket.sum
+      name: state.product.name,
+      description:state.product.description,
+      madeIn: state.product.madeIn,
+      madeInCode: state.product.madeInCode,
+      category: state.product.category,
+      edition: state.product.edition,
+      price: state.product.price,
+      amount: state.basket.amount,
+      sum: state.basket.sum,
+      loaded:state.product.loaded
   }));
   const id=useParams().id
-  const item=select.items.find(n=>n._id==id)
+
+  useEffect(() => {
+    store.get('product').loadItem(id)
+  },[id])
+
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
@@ -31,19 +39,18 @@ function Descriptions() {
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Cмена языка
     changeLang: useCallback((lang) => store.get('lang').changeLang(lang), []),
+    
   };
   return (
-    <Layout head={<h1>{item.title}</h1>} ChangeLang={callbacks.changeLang}>
+    <>
+    <Layout head={<h1>{select.name}</h1>} ChangeLang={callbacks.changeLang}>
+      <Menu link='/'/>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <div className={cn('content')}>
-      <div className={cn('description')}>{item.description}</div>
-      <div><MLText item='made'/>: <span className={cn('post')}>{item.maidIn.title} ({item.maidIn.code})</span></div>
-      <div><MLText item='type'/>: <span className={cn('post')}>{item.category.title}</span></div>
-      <div><MLText item='date'/>: <span className={cn('post')}>{item.edition}</span></div>
-      <div> <span className={cn('price')}><MLText item='price'/>: {numberFormat(item.price)} ₽</span></div>
-      <div><button onClick={()=>{callbacks.addToBasket(id)}}><MLText item={'addBtn'}/></button></div>
-      </div>
+      <DiscriptionContent id={id} select={select} changeLang={callbacks.changeLang} 
+      addToBasket={callbacks.addToBasket} />
     </Layout>
+    {!select.loaded?<Loader/>:''}
+    </>
   )
 }
 

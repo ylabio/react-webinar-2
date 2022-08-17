@@ -9,3 +9,6 @@
 .List-item:first-child{
     border-top: 1px dashed #ccc;
 }
+.List button{
+min-width: 75px;
+}

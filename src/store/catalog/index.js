@@ -21,9 +21,7 @@ class CatalogState extends StateModule{
   }
 
   async load(nPage){
-    setTimeout(this.setState({
-      ...this.getState(),
-      loaded:false}),10000)
+    this.setState({...this.getState(),loaded:false})
     const response = await fetch(`/api/v1/articles?limit=${this.getState().pageSize}&skip=${((nPage||this.getState().activePage)-1)*
       this.getState().pageSize}&fields=items(*,maidIn(title,code),category(title)),count`);
     const json = await response.json();

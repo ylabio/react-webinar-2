@@ -15,7 +15,6 @@ function App() {
   console.log('App');
 
   const store = useStore();
-
   useEffect(() => {
     store.get('catalog').load();
   }, [])
@@ -26,7 +25,7 @@ function App() {
     <>
     <Routes>
       <Route path="/" element={<Main/>}/>
-      <Route path='/discription/:id' element={<Discription/>}/>
+      <Route path='/discription/:id/*' element={<Discription/>}/>
     </Routes>
       {modal === 'basket' && <Basket/>}
     </>

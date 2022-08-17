@@ -1,10 +1,11 @@
 import React from "react";
 import propTypes from 'prop-types';
+import './styles.css'
 
 
 const SelectLang = ({ChangeLang}) => {
     return (
-          <div>
+          <div className="SelectLang">
             <select onChange={(e)=>ChangeLang(e.target.value)}>
               <option>Сhange language</option>
               <option value="english">english</option>

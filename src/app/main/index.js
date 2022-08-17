@@ -7,7 +7,8 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import Loader from "../../components/loader";
-import MLText from "../../components/multi-lang/mul-lang-text";
+import MLText from "../../utils/mul-lang-text";
+import Menu from "../../components/main-menu";
 
 function Main(){
 
@@ -37,12 +38,13 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} URL={`/discription/`}/>, []),
   }
 
   return (
     <>
-    <Layout head={<h1><MLText item={'head'}/></h1>} ChangeLang={callbacks.changeLang}>
+    <Layout head={<h1>{MLText('head')}</h1>} ChangeLang={callbacks.changeLang}>
+      <Menu link='/'/>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination activePage={select.activePage} numOfPages={select.numOfPages} changePage={callbacks.changePage} />

@@ -51,11 +51,11 @@ function Pagination(props) {
 }
 
 Pagination.propTypes = {
-  sum: propTypes.number
+  sum: propTypes.number,
+  activePage: propTypes.number,
+  changePage: propTypes.func,
+  numOfPages: propTypes.number
 }
 
-Pagination.defaultProps = {
-  sum: 0
-}
 
 export default React.memo(Pagination);

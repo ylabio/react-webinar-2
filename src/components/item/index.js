@@ -18,7 +18,7 @@ function Item(props) {
   return (
     <div className={cn()}>
       <div className={cn("title")}>
-        <Link to={"/item?id=" + props.item._id}>
+        <Link to={props.url}>
           <p>{props.item.title}</p>
         </Link>
       </div>

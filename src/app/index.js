@@ -20,6 +20,12 @@ function App() {
   useEffect(() => {
     setItemId(location.search.split("=")[1]);
   }, [location]);
+  
+  const renderBasket = 
+  <>
+    {modal === "basket" && <Basket />};
+  </>
+
   return (
     <>
       <Routes>
@@ -28,7 +34,7 @@ function App() {
           element={
             <>
               <Main />
-              {modal === "basket" && <Basket />}
+             {renderBasket}
             </>
           }
         />
@@ -37,7 +43,7 @@ function App() {
           element={
             <>
               <ItemPage itemId={itemId} />
-              {modal === "basket" && <Basket />}
+           {renderBasket}
             </>
           }
         />

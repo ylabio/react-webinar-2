@@ -11,11 +11,6 @@ function BasketSimple({ sum, amount, onOpen }) {
   return (
     <div className={cn()}>
       <div>
-        <p className={cn("main")}>
-          <Link to={"/"}>Главная</Link>
-        </p>
-      </div>
-      <div>
         <span className={cn("label")}>В корзине:</span>
         <span className={cn("total")}>
           {amount

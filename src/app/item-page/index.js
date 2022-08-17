@@ -4,6 +4,7 @@ import useSelector from "../../utils/use-selector";
 import Layout from "../../components/layout";
 import BasketSimple from "../../components/basket-simple";
 import ItemData from "../../components/item-data";
+import Menu from "../../components/Menu";
 
 function ItemPage({ itemId }) {
   const store = useStore();
@@ -32,11 +33,11 @@ function ItemPage({ itemId }) {
 
   return (
     <Layout head={<h1>{select.item.title}</h1>}>
-      <BasketSimple
+      <Menu
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
-      />
+      />    
       <ItemData item={select.item} onAdd={callbacks.addToBasket} />
     </Layout>
   );

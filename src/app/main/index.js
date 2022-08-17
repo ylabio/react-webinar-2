@@ -6,6 +6,7 @@ import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
 import Item from "../../components/item";
+import Menu from "../../components/Menu";
 
 function Main() {
   const store = useStore();
@@ -36,18 +37,23 @@ function Main() {
 
   const renders = {
     item: useCallback(
-      (item) => <Item item={item} onAdd={callbacks.addToBasket} />,
+      (item) => <Item item={item} onAdd={callbacks.addToBasket} url={`/item?id=${item._id}`}/>,
       []
     ),
   };
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple
+      <Menu
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
       />
+      {/* <BasketSimple
+        onOpen={callbacks.openModalBasket}
+        amount={select.amount}
+        sum={select.sum}
+      /> */}
       <List items={select.items} renderItem={renders.item} />
       <Pagination
         currentPage={currentPage}

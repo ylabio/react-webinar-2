@@ -28,7 +28,7 @@ function ProductPage(){
 
     const callbacks = {
         // Добавление товара в корзину
-        addToBasket: useCallback(_id => store.get('basket').addProductToBasket(_id), []),
+        addToBasket: useCallback(product => store.get('basket').addProductToBasket(product), []),
       };
     
     return(

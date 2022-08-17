@@ -2,6 +2,7 @@ import React from "react";
 import ru from "../../locales/ru.locale.json";
 import en from "../../locales/en.locale.json";
 import { useState, useEffect } from "react";
+import propTypes from 'prop-types';
 import "./style.css"
 
 const translations = {
@@ -34,5 +35,10 @@ function LangPanel({changeLang, language}) {
         </div>
     )
 }
+
+LangPanel.propTypes = {
+  changeLang: propTypes.func.isRequired,
+  language: propTypes.string.isRequired
+} 
 
 export default LangPanel;

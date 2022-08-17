@@ -1,5 +1,6 @@
 import React from "react"
 import {cn as bem} from "@bem-react/classname";
+import propTypes from 'prop-types';
 
 import BasketSimple from "../basket-simple";
 import Menu from "../menu";
@@ -15,6 +16,12 @@ function Header({sum, amount, onOpen}) {
         <BasketSimple sum={sum} amount={amount} onOpen={onOpen}/>
       </div>
   )
+}
+
+Header.propTypes = {
+  sum: propTypes.number,
+  amount: propTypes.number,
+  onOpen: propTypes.func
 }
 
 export default React.memo(Header)

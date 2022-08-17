@@ -8,7 +8,7 @@ import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import Loader from "../../components/loader";
 import getTranslation from "../../services/locale";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import skip from "../../utils/skip";
 import Navigation from "../../components/navigation";
 
@@ -17,7 +17,6 @@ function Main(){
   console.log('Main');
 
   const store = useStore();
-  const navigate = useNavigate();
   const select = useSelector(state => ({
     items: state.catalog.items,
     total: state.catalog.total,
@@ -43,22 +42,13 @@ function Main(){
     // Добавление в корзину
     addToBasket: useCallback(id => store.get('basket').addToBasket(id), []),
     changePage: useCallback(page => {
-      navigate(`/catalog/${page}`, { replace: true });
       store.get('catalog').changePage(page);
       store.get('catalog').setLoadingTrue();
-    }, []),
-    onHomeClick:  useCallback(evt => {
-      evt.preventDefault();
-      navigate(`/catalog/${select.current}`, { replace: true });
-    }, [select.current]),
-    onItemClick: useCallback(id => {
-      navigate(`/article/${id}`, { replace: true });
     }, []),
     getTranslation: useCallback(code => {
       return getTranslation(select.language, code);
     }, [select.language]),
     changeLanguage: useCallback(value => {
-      console.log('CALLBACK');
       store.get('language').changeLanguage(value);
     }, [select.language]),
   };
@@ -67,7 +57,7 @@ function Main(){
     item: useCallback(item => (
       <Item item={item}
             onAdd={callbacks.addToBasket}
-            onItemClick={callbacks.onItemClick}
+            link={`/article/${item.id}`}
             getTranslation={callbacks.getTranslation}/>
     ), [select.language]),
   }
@@ -76,7 +66,7 @@ function Main(){
     <Layout head={<h1>{callbacks.getTranslation('shop') || 'Магазин'}</h1>}
             onLanguageChange={callbacks.changeLanguage}
             currentLanguage={select.language}>
-      <Navigation onClick={callbacks.onHomeClick}
+      <Navigation link={`/catalog/${select.current}`}
                   getTranslation={callbacks.getTranslation}/>
       <BasketSimple onOpen={callbacks.openModalBasket}
                     amount={select.amount}
@@ -88,6 +78,7 @@ function Main(){
         <Pagination itemsNumber={select.total}
                     currentPage={currentPage}
                     itemsPerPage={select.limit}
+                    baseLink={`/catalog/`}
                     onChange={callbacks.changePage} />
       </> : <Loader />}
     </Layout>

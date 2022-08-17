@@ -8,7 +8,7 @@ import Basket from "./basket";
 import List from "../components/list";
 import Item from "../components/item";
 import useStore from "../utils/use-store";
-import Description from "../components/description";
+import Product from "../app/product";
 import useSelector from "../utils/use-selector";
 
 /**
@@ -35,19 +35,20 @@ function App() {
   }
 
   return (
-    <Routes>
-      <Route path ="/" element={
-        <>
+    <>
+      <Routes>
+        <Route path ="/" element={
           <Main/>
-          {modal === 'basket' && <Basket/>}
-        </>
-      }>
-        <Route index element={<List items={select.items} renderItem={renders.item}/>} />
-        <Route path=":query" element={<List items={select.items} renderItem={renders.item}/>} />
-      </Route>
-      <Route path="/articles/:id" 
-             element={<Description onAdd={callbacks.addToBasket} />} />
-    </Routes>
+        }>
+          <Route index element={<List items={select.items} renderItem={renders.item}/>} />
+          <Route path=":query" element={<List items={select.items} renderItem={renders.item}/>} />
+        </Route>
+        <Route path="/articles/:id" 
+               element={<Product onAdd={callbacks.addToBasket} />} />
+      </Routes>
+
+      {modal === 'basket' && <Basket/>}
+    </>
   );
 }
 

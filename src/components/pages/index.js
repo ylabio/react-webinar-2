@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import useStore from '../../utils/use-store';
 import {NavLink, useParams} from "react-router-dom";
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
 function Pages(props){
+const store = useStore();
 const pagesList = [];
 const cn = bem('Pages');
 const {query} = useParams();
@@ -13,6 +15,10 @@ const [active, setActive] = useState((query) ? query.split('=')[2]/10 : 0);
 for (let n = 1; n <= props.count; n++) {
     pagesList.push(n);
 }
+
+useEffect(()=>{
+    store.get('catalog').load(query);
+  },[query]);
 
 return (
     <div className={cn()}>

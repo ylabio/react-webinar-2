@@ -1,7 +1,7 @@
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useState} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
@@ -17,10 +17,6 @@ function Main(){
   console.log('Main');
   const store = useStore();
   const [itemsPerPage] = useState(10);
-  
-  useEffect(() => {
-    store.get('catalog').load();
-  }, [])
 
   const select = useSelector(state => ({
     itemsCount: state.catalog.itemsCount,

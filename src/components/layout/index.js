@@ -10,11 +10,7 @@ function Layout(props){
     <div className={cn()}>
       <div className={cn('head')}>
         {props.head}
-        {props.setLang &&
-          <button className={cn('langBtn')} onClick={props.setLang}>
-            {props.lang}
-          </button>
-        }
+        {props.setLang && <button className={cn('langBtn')} onClick={props.setLang}>{props.lang}</button>}
       </div>
       <div className={cn('content')}>
         {props.children}

@@ -19,9 +19,7 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')}>
-        <span className={props.linkFunc ? cn('link') : ""} 
-              onClick={props.linkFunc ? callbacks.linkFunc : null}
-        >
+        <span className={props.linkFunc ? cn('link') : ""} onClick={props.linkFunc ? callbacks.linkFunc : null}>
           {props.item.title}
         </span>
       </div>

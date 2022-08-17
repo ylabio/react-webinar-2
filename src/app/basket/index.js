@@ -36,19 +36,13 @@ function Basket(){
   };
 
   const renders = {
-    itemBasket: useCallback(item => 
-                  <ItemBasket item={item}
-                              onRemove={callbacks.removeFromBasket}
-                              lang={select.lang}
-                              linkFunc={callbacks.goToItemPage}
-                  />, [select.lang]),
+    itemBasket: useCallback(item => (
+      <ItemBasket item={item} onRemove={callbacks.removeFromBasket} lang={select.lang} linkFunc={callbacks.goToItemPage}/>
+    ), [select.lang])
   }
 
   return (
-    <LayoutModal title={localization[select.lang].title} 
-                 onClose={callbacks.closeModal} 
-                 lang={select.lang}
-    >
+    <LayoutModal title={localization[select.lang].title} onClose={callbacks.closeModal} lang={select.lang}>
       <List items={select.items} renderItem={renders.itemBasket}/>
       <BasketTotal sum={select.sum} lang={select.lang}/>
     </LayoutModal>

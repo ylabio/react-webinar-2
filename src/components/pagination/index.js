@@ -12,16 +12,14 @@ function Pagination (props) {
 
   return (
     <div className={cn()}>
-        {pagesArray.map((elem) => (
-            <span
-                key={counter()}
-                className={elem === props.page ? cn('page') + ' ' + cn('page-current') : 
-                           elem === "..." ? cn('dotted') : cn('page')}
-                onClick={elem !== props.page && elem !== "..." ? () => props.changePage(elem) : null}
-            >
-              {elem}
-            </span>
-        ))}
+      {pagesArray.map((elem) => (
+        <span key={counter()}
+              className={elem === props.page ? cn('page') + ' ' + cn('page-current') : elem === "..." ? cn('dotted') : cn('page')}
+              onClick={elem !== props.page && elem !== "..." ? () => props.changePage(elem) : null}
+        >
+          {elem}
+        </span>
+      ))}
     </div>
   );
 };

@@ -3,15 +3,15 @@ import propTypes from 'prop-types';
 import './style.css';
 
 function ErrorMessage(props) {
-    return (
-      <div className="ErrorMessage">
-        {props.message}
-      </div>
-    )
-  }
+  return (
+    <div className="ErrorMessage">
+      {props.message}
+    </div>
+  )
+}
   
-  ErrorMessage.propTypes = {
-    message: propTypes.string.isRequired
-  }
+ErrorMessage.propTypes = {
+  message: propTypes.string.isRequired
+}
   
-  export default React.memo(ErrorMessage);
+export default React.memo(ErrorMessage);

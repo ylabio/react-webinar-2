@@ -4,6 +4,7 @@ import useSelector from "../../utils/use-selector";
 import { useNavigate, Link } from "react-router-dom";
 import BasketSimple from "../../components/basket-simple";
 import Controls from "../../components/controls";
+import Menu from "../../components/menu";
 import List from "../../components/list";
 import Layout from "../../components/layout";
 import Item from "../../components/item";
@@ -32,11 +33,7 @@ function Main(){
 
   useEffect(() => {
     setLoading(true);
-    store.get('catalog').loadItems()
-         .then(
-           () => setLoading(false),
-           () => setError(true)
-         );
+    store.get('catalog').loadItems().then(() => setLoading(false), () => setError(true));
   }, [select.page]);
 
   const callbacks = {
@@ -53,38 +50,34 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} 
-                                    onAdd={callbacks.addToBasket} 
-                                    lang={select.lang}
-                                    linkFunc={callbacks.goToItemPage}
-                              />, [select.lang]),
-    link: useCallback((text) => <Link to="/">{text}</Link>, [])
+    item: useCallback(item => (
+      <Item item={item} onAdd={callbacks.addToBasket} lang={select.lang} linkFunc={callbacks.goToItemPage}/>
+    ), [select.lang]),
+    link: useCallback(() => <Link to="/">{localization[select.lang].linkMain}</Link>, [select.lang])
   };
 
+  const head = (
+    <h1>
+      {error 
+        ? localization[select.lang].headError 
+        : loading ? localization[select.lang].headLoad : localization[select.lang].headDefault
+      }
+    </h1>
+  );
+
   return (
-    <Layout head={<h1>{error ? localization[select.lang].headError : 
-                       loading ? localization[select.lang].headLoad : 
-                       localization[select.lang].headDefault}
-                  </h1>}
-            setLang={callbacks.setLang}
-            lang={select.lang}
-    >
-      <Controls lang={select.lang} linkRender={renders.link}>
-        <BasketSimple onOpen={callbacks.openModalBasket} 
-                      amount={select.amount} 
-                      sum={select.sum}
-                      lang={select.lang}
-        />
+    <Layout head={head} setLang={callbacks.setLang} lang={select.lang}>
+      <Controls>
+        <Menu linksRender={renders.link} />
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.lang}/>
       </Controls>
       {
-        error ? <ErrorMessage message={localization[select.lang].errorMessage}/> :
-        <>
-          <List items={select.items} renderItem={renders.item}/>
-          <Pagination page={select.page} 
-                      totalPages={select.totalPages} 
-                      changePage={callbacks.changePage}
-          />
-        </>
+        error 
+        ? <ErrorMessage message={localization[select.lang].errorMessage}/> 
+        : <>
+            <List items={select.items} renderItem={renders.item}/>
+            <Pagination page={select.page} totalPages={select.totalPages} changePage={callbacks.changePage}/>
+          </>
       } 
     </Layout>
   )

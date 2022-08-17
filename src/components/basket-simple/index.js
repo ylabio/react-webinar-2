@@ -14,11 +14,9 @@ function BasketSimple({sum, amount, onOpen, lang}) {
     <div className={cn()}>
       <span className={cn('label')}>{localization[lang].inBasket}</span>
       <span className={cn('total')}>
-      {amount ? 
-        `${amount} ${lang === "RU" ? plural(amount, 'товар', 'товара', 'товаров') :
-                     amount === 1 ? 'item' : 'items'} / 
-                   ${numberFormat(sum)} ₽` : 
-        `${localization[lang].empty}`
+      {amount 
+        ? `${amount} ${lang === "RU" ? plural(amount, 'товар', 'товара', 'товаров') : amount === 1 ? 'item' : 'items'} / ${numberFormat(sum)} ₽` 
+        : `${localization[lang].empty}`
       }
       </span>
       <button className='BasketSimple__button' onClick={onOpen}>

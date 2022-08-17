@@ -18,7 +18,7 @@ function ItemDescription(props) {
         {localization[props.lang].category} <span>{props.item.category.title}</span>
       </div>
       <div className={cn('element')}>
-      {localization[props.lang].year} <span>{props.item.edition}</span>
+        {localization[props.lang].year} <span>{props.item.edition}</span>
       </div>
       <div className={cn('element')}>
         <span className={cn('price')}>{localization[props.lang].price}&nbsp;&nbsp;{numberFormat(props.item.price)} ₽</span>

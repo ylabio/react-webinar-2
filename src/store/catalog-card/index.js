@@ -39,6 +39,10 @@ class CatalogCardState extends StateModule{
     this.setState({
       item: json.result,
     });
+
+    if (this.store.get('catalog').getState().items.find((item) => item._id === json.result._id) === undefined) {
+      this.store.get('catalog').setItem(json.result)
+    }
   }
 }
 

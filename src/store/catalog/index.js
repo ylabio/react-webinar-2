@@ -24,6 +24,13 @@ class CatalogState extends StateModule{
       totalCount: json.result.count,
     });
   }
+
+  setItem(item) {
+    this.setState({
+      items: [item],
+      totalCount: 1,
+    })
+  }
 }
 
 export default CatalogState;

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import InfoPage from './info-page/index.js'
+import InfoPage from './info-page'
 import Main from "./main";
+import Basket from "./basket";
+import useSelector from "../utils/use-selector";
 
 /**
  * Приложение
@@ -9,6 +11,8 @@ import Main from "./main";
  */
 
 function App() {
+
+const modal = useSelector(state => state.modals.name);
 
   console.log('App');
 
@@ -18,6 +22,7 @@ function App() {
         <Route path='/' element={<Main />}/>
         <Route path='/info/:id' element={<InfoPage />}/>
       </Routes>
+      {modal === 'basket' && <Basket/>}
     </>
   );
 }

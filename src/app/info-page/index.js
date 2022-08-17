@@ -5,16 +5,17 @@ import useSelector from "../../utils/use-selector";
 import Layout from "../../components/layout";
 import ItemInfo from '../../components/item-info';
 import BasketSimple from "../../components/basket-simple";
-import Basket from ".././basket";
+import Menu from "../../components/menu";
+import Controls from "../../components/controls";
 
 function InfoPage() {
 
   const store = useStore();
-  const modal = useSelector(state => state.modals.name);
   const {id} = useParams();
 
   useEffect(() => {
     store.get('itemInfo').loadInfo(id);
+    store.get('catalog').loadFromId(id);
   }, [id])
 
   const select = useSelector(state => ({
@@ -31,8 +32,10 @@ function InfoPage() {
   return (
     <div>
       <Layout head={<h1>{select.itemInfo.item.title}</h1>}>
-        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-        {modal === 'basket' && <Basket/>}
+        <Controls>
+          <Menu main={'Главная'}/>
+          <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+        </Controls>
         <ItemInfo itemInfo={select.itemInfo} onAdd={callbacks.addToBasket}/>
       </Layout>
     </div>

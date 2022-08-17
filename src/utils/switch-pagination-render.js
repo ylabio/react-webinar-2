@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 
 /**
  * Возвращает jsx разметку для пагинации в зависимости от входящих данных
@@ -11,27 +11,6 @@ import React, { useState } from "react"
  */
 
 export default function switchPaginationRender(page, nextPage, lastPage, func, btnClass) {
-  // пока не придумал, как выделять текущую страницу, когда число страниц меньше 6
-  // в интернете советуют держать значение в state, но я не понял, как это можно реализовать,
-  // когда я перебираю массив через map
-  // (возможно вообще стоит отказаться от map и сделать через switch, но тогда добавится ещё штук 100 строк кода)
-  if (lastPage < 6) {
-    let arrayOfPages = [];
-    for (let i = 1; i < lastPage + 1; i++) {
-      arrayOfPages.push(i)
-    }
-    return(
-    <>
-      {arrayOfPages.map(num =>
-        <button
-          onClick={() => func(num)}
-          className={btnClass}
-          key={num}
-        >
-          {num}
-        </button>)}
-    </>
-  )}
   switch (page) {
     case 1:
       return (

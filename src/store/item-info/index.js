@@ -24,7 +24,7 @@ class ItemInfoState extends StateModule{
       item: json.result,
       itemMadeIn: [json.result.maidIn.title, json.result.maidIn.code],
       itemCategory: json.result.category.title
-    }, 'Запрос информации по id');
+    }, 'Запрос информации через API по id');
   }
 
 // этот метод добавил лишь потому, что сначала всегда отрисовывается старое содержимое страницы с детализацей, а с помощью него, хотя бы этого нет

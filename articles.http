@@ -15,7 +15,6 @@ GET http://example.front.ylab.io/api/v1/articles?limit=20&skip=10&fields=items(*
 
 ###
 # Товар по id
-# ! id работает через раз, хз от чего зависит, наверно дело в серваке
 GET http://example.front.ylab.io/api/v1/articles/61fcfeae56709c3cee6c408b
 
 ###

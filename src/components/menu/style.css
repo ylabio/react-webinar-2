@@ -1,0 +1,13 @@
+.Menu-main{
+  color: #0087E9;
+  text-decoration: underline;
+}
+
+.Menu-main:visited{
+  color: #0087E9;
+}
+
+.Menu{
+  display: flex;
+  justify-content: space-between;
+}

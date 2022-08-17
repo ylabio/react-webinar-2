@@ -19,7 +19,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path={`:lang/`} element={<Main/>}/>
+        <Route path={`/`} element={<Main/>}/>
         <Route path={`:lang/:id`} element={<Article/>}/>
       </Routes>
       <Main/>

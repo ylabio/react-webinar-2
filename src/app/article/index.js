@@ -38,7 +38,7 @@ function Article() {
   //Пора декомпозировать)
   const options = {
     menuItems: [
-      {key: 1, title: `${callbacks.translate(params.lang, 'Main')}`, link: `/${params.lang? params.lang : 'ru' }/`},
+      {key: 1, title: `${callbacks.translate(params.lang, 'Main')}`, link: `/`},
     ]
   };
 

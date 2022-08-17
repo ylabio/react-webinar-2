@@ -43,7 +43,7 @@ function Main(){
   //Пора декомпозировать)
   const options = {
     menuItems: [
-      {key: 1, title: 'Главная', link: `/${useParams().lang || 'ru' }/`},
+      {key: 1, title: 'Главная', link: `/`},
     ]
   };
 

@@ -1,0 +1,35 @@
+/* Контрол с общими действиями */
+.Controls{
+    display: flex;
+    justify-content: flex-end;
+    padding: 0px 20px;
+    align-items:center;
+    background:#fff;
+}
+
+.Controls-content{
+ 
+}
+.Controls-info-bold{
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+}
+
+.Controls-info{
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  padding-right: 20px;
+}
+
+.Controls-button{
+  padding: 0px 10px;
+  max-height: 21px;
+}

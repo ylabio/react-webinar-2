@@ -1,0 +1,41 @@
+/* Пункт списка */
+.ItemOfStore{
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 1s;
+    border-bottom:'1px dashed #CCCCCC';
+}
+
+.ItemOfStore{
+  border-bottom: 1px dashed #ccc;
+}
+
+.ItemOfStore:first-child{
+  border-top: 1px dashed #ccc;
+}
+
+.ItemOfStore-title{
+    width: 100%;
+    padding: 20px 10px;
+}
+
+.ItemOfStore-price{
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: right;
+  color: #404040;
+  padding: 20px 10px;
+  white-space: nowrap;
+}
+
+.ItemOfStore-actions{
+    padding: 20px  20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.ItemOfStore-number{
+    padding: 20px 10px 20px 20px;
+}

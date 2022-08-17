@@ -1,23 +1,30 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import { cn as bem } from "@bem-react/classname";
 import plural from "plural-ru";
-import {cn as bem} from "@bem-react/classname";
-import numberFormat from "../../utils/numberFormat";
+import propTypes from 'prop-types';
+import React from 'react';
+import numberFormat from "../../utils/number-format";
+import useLanguage from "../../utils/use-language";
 import './styles.css';
 
 
 function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
+
+  const lng = useLanguage();
+  const words = lng("topStatsGoods");
+
   return (
     <div className={cn()}>
-      <span className={cn('label')}>В корзине:</span>
-      <span className={cn('total')}>
-      {amount
-        ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-        : `пусто`
-      }
-      </span>
-      <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+      <div>
+        <span className={cn('label')}>{lng("topStatsLabel")}</span>
+        <span className={cn('total')}>
+        {amount
+          ? `${amount} ${plural(amount, words[0], words[1], words[2])} / ${numberFormat(sum)} ₽`
+          : lng("empty")
+        }
+        </span>
+        <button className={cn('go')} onClick={onOpen}>{lng("topToBasket")}</button>
+      </div>
     </div>
   )
 }

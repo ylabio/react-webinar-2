@@ -1,0 +1,33 @@
+.Paginator {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  display: flex;
+  justify-content: flex-end;
+  margin: 22px;
+  background-color: #FFFFFF;
+}
+
+.Paginator-normal {
+  padding: 1px 5px;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.Paginator-normal:hover {
+  background-color: #E1E1E1;
+  pointer-events: all;
+}
+
+.Paginator-selected {
+  padding: 1px 5px;
+  color: #FFFFFF;
+  background-color: #0087E9;
+  pointer-events: none;
+}
+
+.Paginator-dots {
+  padding: 1px 2px;
+  color: #CCCCCC;
+  pointer-events: none;
+}

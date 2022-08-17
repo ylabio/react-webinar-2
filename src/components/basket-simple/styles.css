@@ -1,7 +1,8 @@
 /* Контрол с общими действиями */
 .BasketSimple{
+    margin-top: -60px;
     display: flex;
-    justify-content: flex-end;
+    justify-content:flex-end;
     padding: 20px;
     font-size: 18px;
 }
@@ -13,4 +14,12 @@
 .BasketSimple-total{
     font-weight: bold;
     margin: 0 15px;
+}
+
+.BasketSimple-go {
+    width: 80px;
+    height: 21px;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    cursor: pointer;
 }

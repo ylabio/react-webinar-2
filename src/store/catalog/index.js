@@ -19,7 +19,10 @@ class CatalogState extends StateModule{
     };
   }
 
-  async load(limit, skip){
+  async load(){
+    const {limit, currentPage} = this.getState();
+    const skip = (currentPage - 1) * limit;
+
     const data = await getItems(limit, skip);
     this.setState({
       ...this.store.getState().catalog,

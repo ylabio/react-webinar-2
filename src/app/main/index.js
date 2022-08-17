@@ -25,7 +25,6 @@ function Main(){
     sum: state.basket.sum,
     count: state.catalog.count,
     limit: state.catalog.limit,
-    currentPage: state.catalog.currentPage
   }));
 
   const navigate = useNavigate();
@@ -37,12 +36,10 @@ function Main(){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
 
     getItem: useCallback(() => {
-      const skip = (currentPage - 1) * select.limit;
-      store.get('catalog').load(select.limit, skip)
+      store.get('catalog').load();
     }, [currentPage]),
 
     goToPage: useCallback((currentPage) => {
-      store.get('catalog').setCurrentPage(currentPage);
       navigate({search: `?page=${currentPage}`});
     }, []),
   };
@@ -50,8 +47,9 @@ function Main(){
   const renders = {
     item: useCallback(item => <Item item={item} path={`product/${item._id}`} onAdd={callbacks.addToBasket}/>, []),
   }
-// ?page=${select.currentPage}
+
   useEffect(() => {
+    store.get('catalog').setCurrentPage(currentPage);
     callbacks.getItem();
   }, [currentPage])
 

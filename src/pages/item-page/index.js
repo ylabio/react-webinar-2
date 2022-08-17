@@ -1,16 +1,12 @@
 import {useParams} from "react-router";
 import React, {useCallback, useEffect, useState} from 'react';
-import './style.css';
-import {cn as bem} from "@bem-react/classname";
 import {getCategoryById, getCountryById, getItemById} from "../../api/api";
-import Controls from "../../components/controls";
 import useStore from "../../utils/use-store";
 import Loading from "../../components/loading";
 import PageContent from "../../components/page-content";
 
 export const ItemPage = () => {
     let params = useParams();
-    const cn = bem('ItemPage');
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState(null);
     const [error, setError] = useState(false);
@@ -54,9 +50,7 @@ export const ItemPage = () => {
                 }
                 setIsLoading(false);
             }
-
             setData(obj);
-            console.log(obj);
         }).catch(() => {
             setError(true);
         })

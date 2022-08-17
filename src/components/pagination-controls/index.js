@@ -1,42 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import {cn as bem} from "@bem-react/classname";
+import React from "react";
 import "./style.css"
-import { getPagesLength } from "../../api";
+import {cn as bem} from "@bem-react/classname";
 
-function Pagination(){
-
-    const [numberArr , setNumberArr] = useState([]);
-
-    useEffect(() => {
-      getPagesLength().then((data) =>{
-        let count = 0;
-        if(data.result.count % 10){
-          count = parseInt(data.result.count/10 + 1)
-        }else{
-          count = data.result.count/10
-        }
-        const arr = []
-        for(let i = 1 ; i <= count ; i++){
-        arr.push(i)
-        }  
-        setNumberArr(arr);          
-        }
-      ).catch(err => {
-        console.log(err);
-        alert('Что-то пошло не так , обновите страницу.');
-    })
-    },[]);
-
+function PaginationControls({pageNumber , callback , numberArr}){
+  
     const cn = bem('Pagination');
-    const navigate = useNavigate();
-    const params = useParams();
 
     const handleClick = (e) => {
-        navigate(`/${e.target.value}`)
+        callback(`/${e.target.value}`)
     }
 
-    if(!params.pageNumber || params.pageNumber == 1){
+    if(!pageNumber || pageNumber == 1){
         return(
             <div className={cn()}>
               <button className={cn('btn selected')} value={1} onClick={(e)=>handleClick(e)}>1</button>
@@ -46,7 +20,7 @@ function Pagination(){
               <button className={cn('btn')} value={numberArr[numberArr.length-1]} onClick={(e)=>handleClick(e)}>{numberArr.length}</button>
             </div>
         )
-    }else if(params.pageNumber == 2){
+    }else if(pageNumber == 2){
         return(
             <div className={cn()}>
               <button className={cn('btn')} value={1} onClick={(e)=>handleClick(e)}>1</button>
@@ -56,7 +30,7 @@ function Pagination(){
               <button className={cn('btn')} value={numberArr[numberArr.length-1]} onClick={(e)=>handleClick(e)}>{numberArr.length}</button>
             </div>
         )
-    }else if(params.pageNumber == 3){
+    }else if(pageNumber == 3){
         return(
             <div className={cn()}>
               <button className={cn('btn')} value={1} onClick={(e)=>handleClick(e)}>1</button>
@@ -72,21 +46,21 @@ function Pagination(){
                 <button className={cn('btn')} value={1} onClick={(e)=>handleClick(e)}>1</button>
                 <span className={cn('ellipsis')}>...</span>
               {numberArr.map((item) => {
-                if(item == Number(params.pageNumber)-1 || item == params.pageNumber || item == Number(params.pageNumber)+1 ){
-                    if(item == params.pageNumber){
+                if(item == Number(pageNumber)-1 || item == pageNumber || item == Number(pageNumber)+1 ){
+                    if(item == pageNumber){
                         return <button className={cn('btn selected')} value={item} onClick={(e)=>handleClick(e)} key={item}>{item}</button>
                     }else {
                         return <button className={cn('btn')} value={item} onClick={(e)=>handleClick(e)} key={item}>{item}</button>
                     }
                 }
               })}
-              {params.pageNumber != numberArr.length-1 && params.pageNumber != numberArr.length && <span className={cn('ellipsis')}>...</span>}
-              {params.pageNumber != numberArr.length-1 && params.pageNumber != numberArr.length &&<button className={cn('btn')} value={numberArr[numberArr.length-1]} onClick={(e)=>handleClick(e)}>{numberArr.length}</button>}
+              {pageNumber != numberArr.length-1 && pageNumber != numberArr.length && <span className={cn('ellipsis')}>...</span>}
+              {pageNumber != numberArr.length-1 && pageNumber != numberArr.length &&<button className={cn('btn')} value={numberArr[numberArr.length-1]} onClick={(e)=>handleClick(e)}>{numberArr.length}</button>}
             </div>
 
             )
         }
-    
+
 }
 
-export default React.memo(Pagination);
+export default React.memo(PaginationControls)

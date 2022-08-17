@@ -6,7 +6,7 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import { useParams } from "react-router-dom";
-import Pagination from "../../components/pagination";
+import Pagination from "../pagination";
 import LoadingScreen from '../../components/loading-screen';
 
 function Main(){

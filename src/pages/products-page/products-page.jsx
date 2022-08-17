@@ -7,6 +7,7 @@ import Product from './product';
 import { useRef } from 'react';
 import Layout from '../../components/layout';
 import BasketSimple from '../../components/basket-simple';
+import { MenuBasker } from './../../components/menu-basker';
 
 const ProductsPage = () => {
 
@@ -37,7 +38,8 @@ const ProductsPage = () => {
 
   return (
     <Layout head={<h1>{select.oneProduct.title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <MenuBasker onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}
+      />
       <Product
         {...select.oneProduct}
         addToBasket={callbacks.addToBasket}

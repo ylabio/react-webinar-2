@@ -1,13 +1,13 @@
-import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect} from "react";
+import React, { useCallback, useEffect } from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination/pagination";
+import { MenuBasker } from "../../components/menu-basker";
 
-function Main({}){
+function Main({ }) {
 
   console.log('Main');
 
@@ -34,17 +34,18 @@ function Main({}){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} />, []),
   }
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onPageChange={callbacks.onPageChange} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
+      <MenuBasker onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}
+      />
+      <List items={select.items} renderItem={renders.item} />
       <Pagination
-      currentPage={select.page}
-      pagesCount={select.pagesCount}
-      onPageChange={callbacks.onPageChange}
+        currentPage={select.page}
+        pagesCount={select.pagesCount}
+        onPageChange={callbacks.onPageChange}
       />
     </Layout>
   )

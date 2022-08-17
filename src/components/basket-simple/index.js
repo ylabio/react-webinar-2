@@ -4,14 +4,12 @@ import plural from "plural-ru";
 import numberFormat from "../../utils/numberFormat";
 import { cn as bem } from "@bem-react/classname";
 import './styles.css';
-import { LinkToMain } from './link-to-main';
 
 
 function BasketSimple({ sum, amount, onOpen, }) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <LinkToMain />
       <div>
         <span className={cn('label')}>В корзине:</span>
         <span className={cn('total')}>

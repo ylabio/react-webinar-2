@@ -6,7 +6,7 @@ import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 
-function Basket(){
+function Basket() {
 
   console.log('Basket');
 
@@ -22,11 +22,20 @@ function Basket(){
     // Закрытие любой модалки
     closeModal: useCallback(() => store.get('modals').close(), []),
     // Удаление из корзины
-    removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), [])
+    removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), []),
+    openItem: useCallback((_id) => {
+      callbacks.closeModal();
+      store.get('item').load(_id);
+    }, []),
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item =>
+      <ItemBasket
+        item={item}
+        onRemove={callbacks.removeFromBasket}
+        openItem={callbacks.openItem}
+      />, []),
   }
 
   return (

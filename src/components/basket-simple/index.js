@@ -29,7 +29,8 @@ BasketSimple.propTypes = {
 }
 
 BasketSimple.defaultProps = {
-  onOpen: () => {},
+  onOpen: () => {
+  },
   sum: 0,
   amount: 0
 }

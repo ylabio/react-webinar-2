@@ -1,0 +1,32 @@
+.ItemInfo {
+    margin: 23px 40px 0 40px;
+    font-family: Arial, serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21px;
+    letter-spacing: 0;
+    text-align: left;
+}
+.ItemInfo-description {
+    margin-bottom: 20px;
+}
+.ItemInfo-category {
+    margin-bottom: 20px;
+}
+.ItemInfo-info {
+    font-family: Arial, serif;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 21px;
+    letter-spacing: 0;
+    text-align: left;
+}
+.ItemInfo-price {
+    font-family: Arial, serif;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 27.6px;
+    letter-spacing: 0;
+    text-align: left;
+}

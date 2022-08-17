@@ -28,3 +28,12 @@
     font-size: 18px;
     white-space: nowrap;
 }
+
+.ItemBasket-link {
+    text-decoration: none;
+    color: black;
+}
+
+.ItemBasket-link:hover {
+    text-decoration: underline;
+}

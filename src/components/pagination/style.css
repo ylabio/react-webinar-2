@@ -1,0 +1,39 @@
+.Pagination {
+    display: flex;
+    flex-direction: row;
+    font-family: Arial, serif;
+    margin-top: 23px;
+    justify-content: flex-end;
+    margin-right: 22px;
+}
+
+.Pagination-page {
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.Pagination-currentPage {
+    background: #0087e9;
+    color: white;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.Pagination-otherPage {
+    width: 18px;
+    height: 18px;
+    text-align: center;
+}
+
+.Pagination-page:hover {
+    background: #e1e1e1;
+}
+
+.Pagination-lastPage:hover {
+    background: #e1e1e1;
+    cursor: pointer;
+}

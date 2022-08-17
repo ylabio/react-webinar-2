@@ -4,6 +4,7 @@
     justify-content: flex-start;
     transition: background-color 1s;
     padding-left: 10px;
+
 }
 
 .Item-id {
@@ -11,6 +12,7 @@
 }
 
 .Item-title {
+    cursor: pointer;
     width: 100%;
     padding: 20px 10px;
 }
@@ -25,4 +27,16 @@
 .Item-price {
     padding: 0 10px;
     white-space: nowrap;
+}
+
+.Item a {
+    text-decoration: none;
+    color: #000000;
+}
+.Item a:visited {
+color: #000000;
+}
+
+.Item-title:hover {
+    text-decoration: revert;
 }

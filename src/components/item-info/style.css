@@ -1,0 +1,30 @@
+.Item-info {
+  margin-top: 21px;
+  margin-bottom: 20px;
+  display: grid;
+  row-gap: 20px;
+  padding: 0 40px;
+  font-weight: 400;
+font-size: 18px;
+line-height: 21px;
+color: #000000;
+}
+
+.Item-info p {
+  margin: 0;
+}
+
+.Item-info span {
+  font-weight: 700;
+}
+
+.Item-info-price {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  color: #000000;
+}
+
+.Item-info-button{
+  margin-left: 40px;
+}

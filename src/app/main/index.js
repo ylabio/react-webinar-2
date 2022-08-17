@@ -55,18 +55,20 @@ function Main() {
 
   return (
     <>
-      <Layout head={<h1>{dictionary.store}</h1>}>
-        <Menu>
-          <Link to="/">{dictionary.main}</Link>
-          <BasketSimple
-            onOpen={callbacks.openModalBasket}
-            amount={select.amount}
-            sum={select.sum}
-            dictionary={dictionary}
-            renderLink={renders.toMain}
-          />
-        </Menu>
-
+      <Layout
+        head={<h1>{dictionary.store}</h1>}
+        menu={
+          <>
+            <Menu to="/">{dictionary.main}</Menu>
+            <BasketSimple
+              onOpen={callbacks.openModalBasket}
+              amount={select.amount}
+              sum={select.sum}
+              dictionary={dictionary}
+            />
+          </>
+        }
+      >
         <List items={select.items} renderItem={renders.item} />
 
         <Pages

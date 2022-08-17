@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 import './style.css';
 import Language from '../../app/language';
 
-function Layout({ head, children }) {
+function Layout({ head, children, menu }) {
   const cn = bem('Layout');
 
   return (
@@ -12,6 +12,7 @@ function Layout({ head, children }) {
       <div className={cn('head')}>
         {head} <Language />
       </div>
+      <div className={cn('menu')}>{menu}</div>
       <div className={cn('content')}>{children}</div>
     </div>
   );

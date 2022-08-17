@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import BasketSimple from '../../components/basket-simple';
 import Layout from '../../components/layout';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import useSelector from '../../utils/use-selector';
 import useStore from '../../utils/use-store';
 import translator from '../../utils/translator';
@@ -35,17 +35,20 @@ function Description() {
   };
 
   return (
-    <Layout head={<h1>{select.item.title}</h1>}>
-      <Menu>
-        <Link to="/">{dictionary.main}</Link>
-        <BasketSimple
-          onOpen={callbacks.openModalBasket}
-          amount={select.amount}
-          sum={select.sum}
-          dictionary={dictionary}
-        />
-      </Menu>
-
+    <Layout
+      head={<h1>{dictionary.store}</h1>}
+      menu={
+        <>
+          <Menu to="/">{dictionary.main}</Menu>
+          <BasketSimple
+            onOpen={callbacks.openModalBasket}
+            amount={select.amount}
+            sum={select.sum}
+            dictionary={dictionary}
+          />
+        </>
+      }
+    >
       <DescriptionLayout
         item={select.item}
         dictionary={dictionary}

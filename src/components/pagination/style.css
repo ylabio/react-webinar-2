@@ -1,0 +1,32 @@
+.Pagination {
+  display: flex;
+  justify-content: flex-end;
+  padding: 22px 21px;
+}
+
+.Pagination div {
+  min-height: 20px;
+  min-width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Pagination-separator {
+  color: #cccccc;
+}
+
+.Pagination-page {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.Pagination-page:hover {
+  background-color: #e1e1e1;
+}
+
+.Pagination-page_isActive,
+.Pagination-page_isActive:hover {
+  background-color: #0087e9;
+  color: #fff;
+}

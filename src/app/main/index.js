@@ -19,6 +19,9 @@ function Main(props) {
 
     const select = useSelector(state => ({
         items: state.catalog.items,
+        count: state.catalog.count,
+        limit: state.catalog.limit,
+        skip: state.catalog.skip,
         amount: state.basket.amount,
         sum: state.basket.sum
     }));
@@ -35,14 +38,17 @@ function Main(props) {
                                         lang={props.lang}/>, []),
     }
 
+    // Количество товара выводимого на страницу
+    const limitPage = 10;
     // Вычисляем количество страниц
-    const pageCount = Math.ceil((select.items.length) / 10);
+    const pageCount = Math.ceil(select.limit > (select.count - select.skip) ?
+        ((select.count - select.skip) / limitPage) : (select.limit / limitPage));
 
     // Номер активной страницы
     const [activePage, setActivePage] = useState(1);
 
     // Выводим товар на страницу
-    const showItems = select.items.slice([(activePage - 1) * 10], [activePage * 10]);
+    const showItems = select.items.slice([(activePage - 1) * limitPage], [activePage * limitPage]);
 
     return (
         <Layout head={<h1>{props.lang.header}</h1>} setChangeLang={props.setChangeLang} changeLang={props.changeLang}>

@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
-import langRu from "../../../public/ru.json";
-import langEn from "../../../public/en.json";
 
 function Layout(props) {
     const cn = bem('Layout');

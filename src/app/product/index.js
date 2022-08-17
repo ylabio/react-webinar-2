@@ -23,13 +23,15 @@ function Product(props) {
     const [productInfo, setProductInfo] = useState({
         description: '',
         name: '',
-        category: '',
-        edition: null,
-        price: null,
+        category: {
+            _id: '',
+        },
+        edition: 0,
+        price: 0,
     })
 
     useEffect(() => {
-        const apiUrl = `http://example.front.ylab.io/api/v1/articles?search%5Bids%5D=${props.idProduct}`;
+        const apiUrl = `/api/v1/articles?search%5Bids%5D=${props.idProduct}`;
         axios.get(apiUrl).then((resp) => resp.data)
             .then((data) => {
                 const item = data.result.items[0];

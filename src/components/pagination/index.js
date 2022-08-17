@@ -14,8 +14,10 @@ function Pagination(props) {
         try {
             if (props.activePage != e.target.id) {
                 document.getElementById(`${props.activePage}`).style.backgroundColor = '#FFFFFF';
+                document.getElementById(`${props.activePage}`).style.color = '#000000';
             } else {
                 document.getElementById(`${idItem}`).style.backgroundColor = '#0087E9';
+                document.getElementById(`${props.activePage}`).style.color = '#FFFFFF';
             }
         } catch (e) {
         }
@@ -80,12 +82,14 @@ function Pagination(props) {
     useEffect(() => {
         try {
             document.getElementById(`${idItem}`).style.backgroundColor = '#0087E9';
+            document.getElementById(`${props.activePage}`).style.color = '#FFFFFF';
         } catch (e) {
         }
     })
     useEffect(() => {
         try {
             document.getElementById(`${idItem}`).style.backgroundColor = '#0087E9';
+            document.getElementById(`${props.activePage}`).style.color = '#FFFFFF';
         } catch (e) {
         }
     }, [idItem])

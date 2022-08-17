@@ -1,0 +1,8 @@
+.pagination {
+  border: none;
+  background: none;
+  margin-top: 22px;
+}
+.pagination:hover {
+  cursor: pointer;
+}

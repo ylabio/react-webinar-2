@@ -1,0 +1,17 @@
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+.btn {
+  text-decoration: underline;
+  color: #0087e9;
+}
+
+.btn:hover {
+  cursor: pointer;
+}

@@ -15,49 +15,24 @@ class CatalogState extends StateModule{
       items: [],
       itemsQty: 0,
       pagSel: 1,
+      limit: 10
     };
   }
 
   /**
    * Загрузка данных о товарах из каталога
-   */
-  async load() {
-    const response = await fetch(
-      '/api/v1/articles?limit=10&skip=&fields=items(*),count');
-    const json = await response.json();
-    if (this.getState().pagSel === 1) {
-      /**
-       * Для первоначальной загрузки данных
-       * Для возврата на первую страницу пагинации из подробного описания товара
-       */
-      this.setState({
-        ...this.getState(),
-        items: json.result.items,
-        itemsQty: json.result.count
-      });
-      /**
-       * Для возврата на выбранную страницу пагинации из подробного описания товара
-       */
-    } else {
-      this.setState({
-        ...this.getState(),
-      })
-    }
-  }
-
-  /**
-   * Переход к просмотру других товаров из каталога после клика по элементу пагинации
    * @param pagSel {number}
    */
-  async pagSurf(pagSel) {
-    const response = await fetch(
-      '/api/v1/articles?limit=10&skip=' + ((pagSel - 1) * 10) + '&fields=items(*),count');
+  async load(pagSel) {
+    const response = await fetch('/api/v1/articles?limit=' + this.getState().limit +
+      '&skip=' + ((pagSel - 1) * 10) + '&fields=items(*),count');
     const json = await response.json();
     this.setState({
       ...this.getState(),
       items: json.result.items,
+      itemsQty: json.result.count,
       pagSel: pagSel
-    })
+    });
   }
 
   /**

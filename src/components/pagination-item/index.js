@@ -4,7 +4,8 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
 export const dots = {
-  pagEl: <span>&nbsp;&#8230;&nbsp;</span>
+  pagEl: <span>&nbsp;&#8230;&nbsp;</span>,
+  clickable: false
 };
 
 function PagItem({idx}) {

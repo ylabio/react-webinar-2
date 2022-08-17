@@ -16,7 +16,7 @@ function Pagination({itemsQty, pagSel, pagSurf}) {
     <div
       key={idx}
       className={cn(`pag-item ${item.sel ? 'pag-selected' : null}`)}
-      onClick={() => pagSurf(item.pag)}
+      onClick={() => {item.clickable ? pagSurf(item.pag) : null}}
     >
       {item.pagEl}
     </div>)

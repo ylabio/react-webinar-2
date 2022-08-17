@@ -17,6 +17,7 @@ const usePaginate = (itemsQty, pagSel) => {
     this.sel = pagCheckSel(idx);
     this.pag = idx + 1;
     this.pagEl = pagEl(idx + 1);
+    this.clickable = true;
   }
 
   return useMemo(() => {

@@ -26,7 +26,7 @@ function Main(){
   }));
 
   useEffect(() => {
-    store.get('catalog').load();
+    store.get('catalog').load(select.pagSel);
   }, [])
 
   const callbacks = {
@@ -35,7 +35,7 @@ function Main(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Переход по элементу пагинации
-    pagSurf: useCallback(pagSel => store.get('catalog').pagSurf(pagSel), [])
+    pagSurf: useCallback(pagSel => store.get('catalog').load(pagSel), [])
   };
 
   const renders = {

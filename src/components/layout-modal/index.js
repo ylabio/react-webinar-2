@@ -1,11 +1,12 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useContext} from 'react';
 import PropTypes, { string } from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
+import TextContentContext from '../../store/textcontext';
 
 function LayoutModal(props) {
   const cn = bem('LayoutModal');
-
+  const { CLOSE_BASKET } = useContext(TextContentContext)
   const frame = useRef();
 
   useEffect(() => {
@@ -27,7 +28,7 @@ function LayoutModal(props) {
           <h1 className={cn('title')}>
             {props.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>{props.text}</button>
+          <button className={cn('close')} onClick={props.onClose}>{CLOSE_BASKET}</button>
         </div>
         <div className={cn('content')}>
           {props.children}

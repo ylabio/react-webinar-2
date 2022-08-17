@@ -1,17 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
-import routes from '../../API/routes';
 import './styles.css';
+import NavigationPanel from '../navigation-panel';
+import TextContext from '../../store/textcontext';
 
-function BasketSimple({text, sum, amount, onOpen}) {
+function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
+  const { BASCKET_SHOW } =  React.useContext(TextContext)
+  
   return (
     <div className={cn()}>
-      <Link className={cn('link')} to={routes.main()}>Главная</Link>
+      <NavigationPanel />      
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
       {amount
@@ -19,7 +21,7 @@ function BasketSimple({text, sum, amount, onOpen}) {
         : `пусто`
       }
       </span>
-      <button className='BasketSimple__button' onClick={onOpen}>{text}</button>
+      <button className='BasketSimple__button' onClick={onOpen}>{BASCKET_SHOW}</button>
     </div>
   )
 }

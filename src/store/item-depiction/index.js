@@ -11,15 +11,21 @@ class ItemDepictionState extends StateModule{
    */
   initState() {
     return {
+        status: 'idle',
         item: {}, 
     };
   }
 
   async load(itemId){
+    this.setState({
+      ...this.store.state.itemDepiction,
+      status: 'in process',
+    });
     const pathToQuantity = routes.itemDepiction(itemId)
     const resposne = await fetch(pathToQuantity)
     const itemDesciption = await resposne.json()
     this.setState({
+      status: `${itemId} finished`,
       item: itemDesciption.result
     });
   }

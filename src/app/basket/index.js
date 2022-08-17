@@ -1,19 +1,17 @@
 import List from "../../components/list";
 import React, {useCallback} from "react";
-import { useNavigate } from 'react-router-dom';
-import routes from '../../API/routes';
 import BasketTotal from "../../components/basket-total";
 import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import TextContentContext from "../../store/textcontext";
 
 function Basket(){
 
   console.log('Basket');
 
   const store = useStore();
-  const navigate = useNavigate();
 
   const select = useSelector(state => ({
     items: state.basket.items,
@@ -25,15 +23,12 @@ function Basket(){
   const callbacks = {
     // Закрытие любой модалки
     closeModal: useCallback(() => {
-      navigate(routes.main())
       store.get('modals').close()
     }, []),
     // Удаление из корзины
     removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), []),
     // Показать товара
-    showDescription: useCallback(id => {
-      navigate(routes.item(id))
-    }, [])
+    showDescription: useCallback(() => store.get('modals').close(), [])
   };
 
   const renders = {
@@ -45,10 +40,12 @@ function Basket(){
   }
 
   return (
-    <LayoutModal text={select.locales[select.locales.lng].CLOSE_BASKET} title='Корзина' onClose={callbacks.closeModal}>
-      <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
-    </LayoutModal>
+    <TextContentContext.Provider value={select.locales[select.locales.lng]}>
+        <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+        <List items={select.items} renderItem={renders.itemBasket}/>
+        <BasketTotal sum={select.sum}/>
+      </LayoutModal>
+    </TextContentContext.Provider>
   )
 }
 

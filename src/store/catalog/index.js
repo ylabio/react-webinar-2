@@ -1,4 +1,5 @@
 import StateModule from "../module";
+import routes from '../../API/routes';
 
 /**
  * Состояние каталога
@@ -15,7 +16,7 @@ class CatalogState extends StateModule{
   }
 
   async load(){
-    const query = `/api/v1/articles?limit=0&skip=0`;
+    const query = routes.initialLoad();
     const response = await fetch(query);
     const json = await response.json();
     this.setState({
@@ -25,7 +26,7 @@ class CatalogState extends StateModule{
 
   async loadPage(_indexNumber, itemsNuberPerPage){
     const skip = _indexNumber * itemsNuberPerPage;
-    const query = `/api/v1/articles?limit=${itemsNuberPerPage}&skip=${skip}`;
+    const query = routes.pagination(itemsNuberPerPage, skip);
     const response = await fetch(query);
     const json = await response.json();
     this.setState({

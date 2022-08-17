@@ -1,6 +1,4 @@
 import BasketSimple from "../../components/basket-simple";
-import { useNavigate } from 'react-router-dom';
-import routes from '../../API/routes';
 import List from "../../components/list";
 import Layout from "../../components/layout";
 import Header from "../../components/header";
@@ -11,13 +9,13 @@ import PaginationButton from "../../components/pagination-button";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import { uniqueId } from 'lodash';
+import TextContentContext from "../../store/textcontext";
 
 function Main(){
 
   console.log('Main');
 
   const store = useStore();
-  const navigate = useNavigate();
 
   useEffect(() => {
     store.get('catalog').load();
@@ -37,7 +35,6 @@ function Main(){
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => {
-      navigate(routes.basket());
       store.get('modals').open('basket')
     }, []),
     // Добавление в корзину
@@ -48,17 +45,14 @@ function Main(){
       store.get('catalog').loadPage(_indexNumber, select.itemsNuberPerPage)
     }, [select.itemsNuberPerPage, select.activePage]),
     // Просмотр информации о товаре
-    showDescription: useCallback(id => {
-      navigate(routes.item(id))
-    }, []),
+    showDescription: useCallback(() => store.get('modals').close(), []),
     // Смена языка
     changeLng: useCallback((lng) => store.get('locales').changeLng(lng), [])
   };
 
   const renders = {
     item: useCallback(item => 
-      <Item
-        text={select.locales[select.locales.lng].ADD_TO_BASKET}
+      <Item 
         item={item} 
         onShowDescription={callbacks.showDescription} 
         onAdd={callbacks.addToBasket}/>, [select.locales.lng]),
@@ -71,15 +65,17 @@ function Main(){
   }
 
   return (
-    <Layout head={<Header text={select.locales[select.locales.lng].HEADER} onChangeLng={callbacks.changeLng} />}>
-      <BasketSimple text={select.locales[select.locales.lng].BASCKET_SHOW} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
-      {select.itemsQuantity !== 'idle' && <Pagination 
-        itemsNuberPerPage={select.itemsNuberPerPage}
-        totalItemsQuantity={select.itemsQuantity}
-        activePage={select.activePage}
-        renderItem={renders.paginationButton}/>}
-    </Layout>
+    <TextContentContext.Provider value={select.locales[select.locales.lng]}>
+      <Layout head={<Header onChangeLng={callbacks.changeLng} />}>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+        <List items={select.items} renderItem={renders.item}/>
+        {select.itemsQuantity !== 'idle' && <Pagination 
+          itemsNuberPerPage={select.itemsNuberPerPage}
+          totalItemsQuantity={select.itemsQuantity}
+          activePage={select.activePage}
+          renderItem={renders.paginationButton}/>}
+      </Layout>
+    </TextContentContext.Provider>
   )
 }
 

@@ -13,7 +13,8 @@ function Product(){
   const { id } = useParams()
 
   const store = useStore();
-  const translation = useTranslation();
+  const translationMain = useTranslation('main');
+  const translationProduct = useTranslation('product');
 
   useEffect(() => {
     store.get('product').getProduct(id);
@@ -35,6 +36,8 @@ function Product(){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Смена языка интерфейса
     changeLocaleHandler: useCallback((value) => store.get('app').changeLocale(value), []),
+    translationMain: useCallback(translationMain, [select.locale]),
+    translationProduct: useCallback(translationProduct, [select.locale]),
   };
 
   if (select.isError) return <h1>{select.isError}</h1>
@@ -43,12 +46,17 @@ function Product(){
     <Layout head={<h1>{select.product?.title}</h1>}
             locale={select.locale}
             changeLocaleHandler={callbacks.changeLocaleHandler}>
-      <Nav translation={translation}/>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <Nav translation={callbacks.translationMain}/>
+      <BasketSimple translation={callbacks.translationMain} 
+                    onOpen={callbacks.openModalBasket} 
+                    amount={select.amount} 
+                    sum={select.sum}/>
       { 
         !select.product 
         ? <h1 style={{textAlign: "center", width: "100%"}}>Loading...</h1>
-        : <ItemProduct product={select.product} onAdd={callbacks.addToBasket} translation={translation}/>
+        : <ItemProduct product={select.product} 
+                       onAdd={callbacks.addToBasket} 
+                       translation={callbacks.translationProduct}/>
       }
     </Layout>
   )

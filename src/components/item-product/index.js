@@ -14,11 +14,11 @@ function ItemProduct({ product, onAdd, translation }) {
   return (
     <div className={cn()}>
         <div>{product.description}</div>
-        <div>{translation.product.country}: <span>{product.country}</span></div>
-        <div>{translation.product.category}: <span>{product.category}</span></div>
-        <div>{translation.product.year}: <span>{product.edition}</span></div>
-        <div className={cn('price')}>{translation.product.price}: <span>{numberFormat(product.price)} ₽</span></div>
-        <button className={cn('btn')} onClick={callbacks.onAdd}>{translation.product.add}</button>
+        <div>{translation('country')}: <span>{product.country}</span></div>
+        <div>{translation('category')}: <span>{product.category}</span></div>
+        <div>{translation('year')}: <span>{product.edition}</span></div>
+        <div className={cn('price')}>{translation('price')}: <span>{numberFormat(product.price)} ₽</span></div>
+        <button className={cn('btn')} onClick={callbacks.onAdd}>{translation('add')}</button>
     </div>
   )
 }
@@ -26,12 +26,12 @@ function ItemProduct({ product, onAdd, translation }) {
 ItemProduct.propTypes = {
     product: propTypes.object.isRequired,
     onAdd: propTypes.func,
-    translation: propTypes.object,
+    translation: propTypes.func,
 }
 
 ItemProduct.defaultProps = {
     onAdd: () => {},
-    translation: {},
+    translation: () => {},
 }
 
 export default React.memo(ItemProduct);

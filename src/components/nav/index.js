@@ -8,17 +8,17 @@ function Nav({ translation }) {
     const cn = bem('Nav');
     return (
         <div className={cn()}>
-            <NavLink className={cn('link')} to="/1">{translation.main.home_link}</NavLink>
+            <NavLink className={cn('link')} to="/1">{translation("home_link")}</NavLink>
         </div>
     )
 };
 
 Nav.propTypes = {
-    translation: propTypes.object,
+    translation: propTypes.func,
 }
 
 Nav.defaultProps = {
-    translation: {},
+    translation: () => {},
 }
 
 export default React.memo(Nav);

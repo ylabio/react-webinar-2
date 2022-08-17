@@ -6,7 +6,6 @@ import useTranslation from '../../utils/use-translation';
 
 function LayoutModal(props) {
   const cn = bem('LayoutModal');
-  const translation = useTranslation();
 
   const frame = useRef();
 
@@ -29,7 +28,7 @@ function LayoutModal(props) {
           <h1 className={cn('title')}>
             {props.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>{translation.basket.close}</button>
+          <button className={cn('close')} onClick={props.onClose}>{props.actionName}</button>
         </div>
         <div className={cn('content')}>
           {props.children}
@@ -41,12 +40,14 @@ function LayoutModal(props) {
 
 LayoutModal.propTypes = {
   title: PropTypes.string,
+  actionName: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
 };
 
 LayoutModal.defaultProps = {
   title: 'Модалка',
+  actionName: 'Закрыть',
   onClose: () => {}
 };
 

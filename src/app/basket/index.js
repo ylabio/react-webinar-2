@@ -10,14 +10,15 @@ import useTranslation from "../../utils/use-translation";
 
 function Basket(){
   
-  const translation = useTranslation();
+  const translationBasket = useTranslation('basket');
   const store = useStore();
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
     items: state.basket.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    locale: state.app.locale,
   }));
 
   const callbacks = {
@@ -29,20 +30,25 @@ function Basket(){
     viewProduct: useCallback((id) => {
       store.get('modals').close();
       navigate(`/product/${id}`)
-    }, [])
+    }, []),
+    translationBasket: useCallback(translationBasket, [select.locale]),
   };
 
   const renders = {
     itemBasket: useCallback(item => <ItemBasket item={item} 
                                                 viewProduct={callbacks.viewProduct}
                                                 onRemove={callbacks.removeFromBasket}
-                                                translation={translation}/>, [translation]),
+                                                translation={translationBasket}/>, [translationBasket]),
   }
 
   return (
-    <LayoutModal title={translation.basket.title} onClose={callbacks.closeModal}>
+    <LayoutModal actionName={callbacks.translationBasket("close")} 
+                 title={callbacks.translationBasket('title')} 
+                 onClose={callbacks.closeModal}>
+
       <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal translation={callbacks.translationBasket} sum={select.sum}/>
+
     </LayoutModal>
   )
 }

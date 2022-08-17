@@ -6,24 +6,6 @@
   font-size: 18px;
 }
 
-.BasketSimple-home {
-  flex-grow: 1;
-  display: block;
-}
-.BasketSimple-home a {
-  width: 69px;
-  height: 21px;
-
-  font-family: "Arial";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 21px;
-  text-decoration-line: underline;
-
-  color: #0087e9;
-}
-
 .BasketSimple-total {
   font-weight: bold;
   margin: 0 15px;

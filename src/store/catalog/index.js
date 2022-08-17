@@ -14,6 +14,7 @@ class CatalogState extends StateModule {
       isLoading: false,
       items: [],
       currentPage: 1,
+      limit: 10,
       pageCount: 14,
       selectedItem: null,
       lang: "ru",
@@ -26,9 +27,9 @@ class CatalogState extends StateModule {
       isLoading: true,
     });
     const response = await fetch(
-      `/api/v1/articles?limit=10&skip=${
-        this.getState().currentPage - 1
-      }0&fields=items(*),count`
+      `/api/v1/articles?limit=${this.getState().limit}&skip=${
+        (this.getState().currentPage - 1) * this.getState().limit
+      }&fields=items(*),count`
     );
     const json = await response.json();
     console.log(json);
@@ -36,7 +37,7 @@ class CatalogState extends StateModule {
       ...this.getState(),
       items: json.result.items,
       isLoading: false,
-      pageCount: Math.ceil((json.result.count - 1) / 10),
+      pageCount: Math.ceil((json.result.count - 1) / this.getState().limit),
     });
   }
   /**

@@ -1,4 +1,3 @@
-import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
 import React, { useCallback, useEffect } from "react";
 import useStore from "../../utils/use-store";
@@ -6,6 +5,7 @@ import useSelector from "../../utils/use-selector";
 import { useParams } from "react-router-dom";
 import ItemInfo from "../../components/item-info";
 import Spinner from "../../components/spinner";
+import Header from "../../components/header";
 
 function ItemPage() {
   console.log("ItemPage");
@@ -38,7 +38,7 @@ function ItemPage() {
 
   return (
     <Layout head={<h1>{select.title}</h1>}>
-      <BasketSimple
+      <Header
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}

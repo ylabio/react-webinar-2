@@ -1,4 +1,3 @@
-import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
 import React, { useCallback, useEffect } from "react";
@@ -7,6 +6,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import Spinner from "../../components/spinner";
+import Header from "../../components/header";
 
 function Main() {
   console.log("Main");
@@ -66,7 +66,7 @@ function Main() {
       lang={select.lang}
       changelang={callbacks.changelang}
     >
-      <BasketSimple
+      <Header
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}

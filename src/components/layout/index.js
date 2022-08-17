@@ -8,16 +8,7 @@ function Layout({ head, children, lang, changelang }) {
 
   return (
     <div className={cn()}>
-      <div className={cn("head")}>
-        {head}
-
-        <form>
-          <select name="languages" onChange={(e) => changelang(e.target.value)}>
-            <option value="en">English</option>
-            <option value="ru">Русский</option>
-          </select>
-        </form>
-      </div>
+      <div className={cn("head")}>{head}</div>
       <div className={cn("content")}>{children}</div>
     </div>
   );

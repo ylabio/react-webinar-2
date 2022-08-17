@@ -14,13 +14,14 @@ function App() {
   console.log('App');
 
   const modal = useSelector(state => state.modals.name);
+  const url = useSelector(state => state.catalog.url)
 
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main/>} />
-          <Route path="/:id" element={<Product />} />
+          <Route path={`/${url}:id`} element={<Product />} />
         </Routes>
         {modal === 'basket' && <Basket/>}
       </BrowserRouter>

@@ -19,7 +19,8 @@ function Main(){
     limit: state.catalog.limit,
     currentPage: state.catalog.currentPage,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    url: state.catalog.url,
   }));
 
   const pages = Math.ceil(select.totalCount / select.limit);
@@ -39,7 +40,7 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} url={`${select.url}${item._id}`} onAdd={callbacks.addToBasket}/>, []),
   }
 
   return (

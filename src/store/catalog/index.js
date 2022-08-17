@@ -16,6 +16,7 @@ class CatalogState extends StateModule{
       totalCount: 0,
       limit: 10,
       currentPage: 1,
+      url: "article/",
     };
   }
 

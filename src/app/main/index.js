@@ -1,13 +1,15 @@
 import TopPanel from "../../components/top-panel"
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useEffect , useState} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import { useParams } from "react-router-dom";
 import Pagination from "../pagination";
 import LoadingScreen from '../../components/loading-screen';
+import { getPagesLength } from "../../api";
+import getArrWithPagesNumbers from "../../utils/getArrWithPagesNumbers";
 
 function Main(){
 
@@ -15,10 +17,15 @@ function Main(){
 
   const store = useStore();
   const params = useParams();
+ 
 
   const loadingScreen = useSelector(state => state.loadingScreen.status);
+  const [numberArr , setNumberArr] = useState([]);
 
   useEffect(() => {
+    getPagesLength().then(count => {
+        setNumberArr(getArrWithPagesNumbers(count));
+      })
     if(params.pageNumber){ 
       store.get('catalog').loadPage(params.pageNumber , callbacks.openLoadingScreen , callbacks.closeLoadingScreen)
     }else{
@@ -44,7 +51,7 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} itemLink='/products/'/>, []),
   }
 
   return (
@@ -52,7 +59,7 @@ function Main(){
     <Layout head={<h1>Магазин</h1>}>
       <TopPanel onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
-      <Pagination />
+      <Pagination numberArr={numberArr}/>
     </Layout>
     {loadingScreen  && <LoadingScreen/>}
     </>

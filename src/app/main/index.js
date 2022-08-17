@@ -28,7 +28,7 @@ function Main(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Загрузка списка товаров
-    load: useCallback((page) => store.get('catalog').load(page), []),
+    load: useCallback(() => store.get('catalog').load(), []),
     // Изменение языка
     changeLanguage: useCallback((value) => store.get('names').changeLanguage(value), []),
     // Изменение номера текущей страницы

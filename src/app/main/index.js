@@ -11,6 +11,7 @@ import MainMenu from "../../components/main-menu";
 import {translateLanguage} from "../../utils/translate-language";
 import Loader from "../../components/loader";
 import MenuWrapper from "../../components/menu-wrapper";
+import PageHead from "../../components/page-head";
 
 function Main() {
   
@@ -58,7 +59,7 @@ function Main() {
   }, [select.currentPage])
   
   return (
-    <Layout head={<><h1>{words.shop}</h1><Select changeLanguage={callbacks.changeLanguage} language={select.language}/></>}>
+    <Layout head={<PageHead title='Корзина' changeLanguage={callbacks.changeLanguage} language={select.language}/>}>
       <MenuWrapper>
         <MainMenu words={
           {main: words.main,}

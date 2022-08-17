@@ -9,6 +9,7 @@ import MainMenu from "../../components/main-menu";
 import {translateLanguage} from "../../utils/translate-language";
 import Loader from "../../components/loader";
 import MenuWrapper from "../../components/menu-wrapper";
+import PageHead from "../../components/page-head";
 
 function ProductInformation() {
   
@@ -57,7 +58,7 @@ function ProductInformation() {
   
   return (
     <Layout
-      head={<><h1>{select.title}</h1><Select changeLanguage={callbacks.changeLanguage} language={select.language}/></>}>
+      head={<PageHead title={select.title} changeLanguage={callbacks.changeLanguage} language={select.language}/>}>
       <MenuWrapper>
         <MainMenu words={{main: words.main}}/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={

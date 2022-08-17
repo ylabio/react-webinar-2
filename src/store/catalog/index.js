@@ -14,20 +14,24 @@ class CatalogState extends StateModule {
             items: [],
             count: 0,
             limit: 0,
-            skip: 0
+            skip: 0,
+            limitPage: 0
         };
     }
 
     async load() {
-        const limit = 120;
-        const skip = 29;
+        const limit = 130;
+        const skip = 0;
+        const limitPage = 10;
+
         const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(*),count`);
         const json = await response.json();
         this.setState({
             items: json.result.items,
             count: json.result.count,
             limit: limit,
-            skip: skip
+            skip: skip,
+            limitPage: limitPage,
         });
     }
 

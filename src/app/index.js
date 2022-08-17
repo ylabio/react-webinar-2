@@ -18,7 +18,7 @@ function App() {
     const modal = useSelector(state => state.modals.name);
     const [idProduct, setIdProduct] = useState('');
     const [lang, setLang] = useState(langEn)
-    const [changeLang, setChangeLang] = useState('en')
+    const [changeLang, setChangeLang] = useState('ru')
 
     useEffect(() => {
         switch (changeLang) {

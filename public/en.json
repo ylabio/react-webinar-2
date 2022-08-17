@@ -13,7 +13,6 @@
   },
   "product": {
     "name": "Product",
-    "header": "Product name",
     "link": "Main",
     "label": "In the basket",
     "total": "empty",
@@ -23,7 +22,7 @@
       "move": "Move"
     },
     "info": {
-      "code": "Product code",
+      "country": "Producing country",
       "category": "Category",
       "year": "Year of release",
       "price": "Price"

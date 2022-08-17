@@ -22,6 +22,7 @@ function Main(props) {
         count: state.catalog.count,
         limit: state.catalog.limit,
         skip: state.catalog.skip,
+        limitPage: state.catalog.limitPage,
         amount: state.basket.amount,
         sum: state.basket.sum
     }));
@@ -35,23 +36,21 @@ function Main(props) {
 
     const renders = {
         item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} setIdProduct={props.setIdProduct}
-                                        lang={props.lang}/>, []),
+                                        lang={props.lang}/>, [props.lang]),
     }
 
-    // Количество товара выводимого на страницу
-    const limitPage = 10;
     // Вычисляем количество страниц
     const pageCount = Math.ceil(select.limit > (select.count - select.skip) ?
-        ((select.count - select.skip) / limitPage) : (select.limit / limitPage));
+        ((select.count - select.skip) / select.limitPage) : (select.limit / select.limitPage));
 
     // Номер активной страницы
     const [activePage, setActivePage] = useState(1);
 
     // Выводим товар на страницу
-    const showItems = select.items.slice([(activePage - 1) * limitPage], [activePage * limitPage]);
+    const showItems = select.items.slice([(activePage - 1) * select.limitPage], [activePage * select.limitPage]);
 
     return (
-        <Layout head={<h1>{props.lang.header}</h1>} setChangeLang={props.setChangeLang} changeLang={props.changeLang}>
+        <Layout head={<h1>{props.lang.header}</h1>} changeLang={props.changeLang} setChangeLang={props.setChangeLang}>
             <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={props.lang}/>
             <List items={showItems} renderItem={renders.item}/>
             <Pagination pageCount={pageCount} activePage={activePage} setActivePage={setActivePage}/>

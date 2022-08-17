@@ -2,16 +2,16 @@
 .BasketTotal {
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
+    padding: 20px 20px 20px 10px;
+    align-items: center;
 }
 
 .BasketTotal-cell {
-    min-width: 85px;
-    text-align: right;
-    font-weight: bold;
+    min-width: 95px;
+    text-align: center;
     font-size: 18px;
-    padding-left: 10px;
     white-space: nowrap;
+    font-weight: bold;
 }
 .BasketTotal-cell:first-letter {
     text-transform: uppercase;

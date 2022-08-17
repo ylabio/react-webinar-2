@@ -22,7 +22,9 @@ function Product(props) {
 
     const [productInfo, setProductInfo] = useState({
         description: '',
-        name: '',
+        maidIn: {
+            _id: '',
+        },
         category: {
             _id: '',
         },
@@ -47,7 +49,7 @@ function Product(props) {
     };
 
     return (
-        <Layout head={<h1>{props.lang.header}</h1>} changeLang={props.changeLang} setChangeLang={props.setChangeLang}>
+        <Layout head={<h1>{productInfo.title}</h1>} changeLang={props.changeLang} setChangeLang={props.setChangeLang}>
             <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={props.lang}/>
             <ProductInfo onAdd={callbacks.addToBasket} item={productInfo} lang={props.lang}/>
         </Layout>

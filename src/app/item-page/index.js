@@ -7,6 +7,7 @@ import useSelector from "../../utils/use-selector";
 import {useParams} from 'react-router-dom';
 import HomeButton from "../../components/home-button";
 import Navigation from "../../components/navigation";
+import Language from "../../components/language";
 
 function ItemPage() {
   const store = useStore()
@@ -36,9 +37,10 @@ function ItemPage() {
 
   
   return (
-    <Layout head={<h1>{select.item.title}</h1>} language={select.language.languageName} changeLanguage={callbacks.changeLanguage}>
+    <Layout head={<h1>{select.item.title}</h1>}>
       <Navigation>
         <HomeButton language={select.language}/>
+        <Language language={select.language.languageName} changeLanguage={callbacks.changeLanguage}/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language}/>
       </Navigation>
       <ItemDescription item={select.item} onAdd={callbacks.addToBasket} language={select.language}/>

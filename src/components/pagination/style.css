@@ -1,0 +1,39 @@
+/*Страницы*/
+.Pagination{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 20px;
+}
+.Pagination-item {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 1px;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    color: #000000;
+    box-sizing: border-box;
+    border: 1px;
+    background-color: #FFFFFF;;
+    cursor: pointer;
+}
+.Pagination-item:hover,
+.Pagination-item:focus {
+    background-color: #E1E1E1;
+}
+.Pagination-ellipsis {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    text-align: center;
+    color: #CCCCCC
+}

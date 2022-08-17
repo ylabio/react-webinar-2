@@ -15,10 +15,37 @@ body{
     box-shadow: 0 0 15px 5px #0000003b;
 }
 .Layout-head{
+    position: relative;
     height: 80px;
     background: #f5f5f5;
 }
 .Layout-head h1{
     margin: 0;
     padding: 20px 20px 10px;
+}
+.Layout-lang_ru {
+    position: absolute;
+    text-align: center;
+    top: 10px;
+    right: 30px;
+    width: 20px;
+    height: 20px;
+    background-color: paleturquoise;
+    cursor: pointer;
+}
+.Layout-lang_en {
+    position: absolute;
+    text-align: center;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background-color: #11ffee00;
+    cursor: pointer;
+}
+.Layout-lang_ru:hover,
+.Layout-lang_ru:focus,
+.Layout-lang_en:hover,
+.Layout-lang_en:focus {
+    background-color: #E1E1E1;
 }

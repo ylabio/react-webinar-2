@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
+import ProductCard from "./product-card";
 
 /**
  * Приложение
@@ -10,16 +11,19 @@ import useSelector from "../utils/use-selector";
  */
 function App() {
 
-  console.log('App');
-
   const modal = useSelector(state => state.modals.name);
 
   return (
-    <>
-      <Main/>
-      {modal === 'basket' && <Basket/>}
-    </>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Main/>}>
+          </Route>
+          <Route path="articles/:id" element={<ProductCard/>} />
+        </Routes>
+          {modal === 'basket' && <Basket/>}
+      </Router>
   );
 }
 
 export default React.memo(App);
+

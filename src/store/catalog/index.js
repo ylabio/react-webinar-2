@@ -1,4 +1,3 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**
@@ -12,35 +11,25 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      totalCount: 0,
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+  async load(limit, skip){
+    const response = await fetch(`/api/v1/articles?lang=ru&limit=${limit}&skip=${skip}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
-      items: json.result.items
+      items: json.result.items,
+      totalCount: json.result.count,
     });
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
+  setItem(item) {
     this.setState({
-      items: this.getState().items.concat({_id, title, price, selected})
-    }, 'Создание товара');
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param _id
-   */
-  deleteItem(_id) {
-    this.setState({
-      items: this.getState().items.filter(item => item._id !== _id)
-    }, 'Удаление товара');
+      items: [item],
+      totalCount: 1,
+    })
   }
 }
 

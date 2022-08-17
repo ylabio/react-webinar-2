@@ -1,0 +1,37 @@
+
+.Pagination {
+    text-align: right;
+    padding: 23px 22px;
+    margin: 0;
+    font-size: 16px;
+    list-style: none;
+    display: flex;
+    justify-content: right;
+}
+
+.Pagination-item {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    height: 20px;
+    width: 20px;
+    color: #000000;
+    text-decoration: none;
+    text-align: center;
+}
+
+.Pagination-item_active {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #0087E9;
+}
+
+.Pagination-item:hover {
+    background-color: #E1E1E1;
+    width: 20px;
+}
+
+.Pagination-three-dots {
+    color: #CCCCCC;
+    padding: 0 2px;
+}

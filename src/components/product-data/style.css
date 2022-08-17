@@ -1,0 +1,13 @@
+.Product-data {
+    font-size: 18px;
+    padding: 0 0 0 40px;
+}
+
+.Product-data-price {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.Product-data-value {
+    font-weight: 700;
+}

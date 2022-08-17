@@ -4,7 +4,7 @@ import propTypes from "prop-types";
 import './style.css';
 
 function LayoutMenuBasketSimple({menu, basketSimple}){
-  const cn = bem('LayoutHeader');
+  const cn = bem('LayoutMenuBasketSimple');
 
   return (
     <div className={cn()}>

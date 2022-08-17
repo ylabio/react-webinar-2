@@ -7,6 +7,8 @@ import Product from "./product";
 import { useParams } from 'react-router-dom';
 import Navigation from "../../components/navigation";
 import Container from "../../components/container";
+import { Translate, useTranslation } from "../../utils/translate";
+import SelectLang from "../../components/select-lang";
 
 function PageInfo() {
   const { id } = useParams();
@@ -24,17 +26,19 @@ function PageInfo() {
     addToBasket: useCallback(() => store.get('basket').addToBasket(id), [id]),
   };
 
+  const [ t, setLocale ] = useTranslation();
+
   useEffect(() => {
     store.get('product').getInfo(id);
   }, [id]);
 
   return (
-    <Layout head={<h1>{select.info.title}</h1>}>
+    <Layout head={<Container><h1>{select.info.title}</h1><SelectLang onChange={setLocale} /></Container>}>
       <Container>
-        <Navigation />
-        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+        <Navigation t={t} />
+        <BasketSimple t={t} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       </Container>
-      <Product info={select.info} addToBasket={callbacks.addToBasket} />
+      <Product t={t} info={select.info} addToBasket={callbacks.addToBasket} />
     </Layout>
   )
 }

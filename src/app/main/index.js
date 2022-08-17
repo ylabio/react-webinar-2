@@ -1,7 +1,7 @@
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
@@ -10,12 +10,14 @@ import { useNavigate, useSearchParams  } from "react-router-dom";
 import Navigation from "../../components/navigation";
 import './style.css';
 import Container from "../../components/container";
+import SelectLang from "../../components/select-lang";
+import { Translate, useTranslation } from "../../utils/translate";
 
 function Main(){
   const [searchParams] = useSearchParams();
   const currentPage = +searchParams.get('page') || 1;
 
-  console.log('Main');
+  const [ t, setLocale ] = useTranslation();
 
   const store = useStore();
 
@@ -45,7 +47,7 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} path={`product/${item._id}`} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item t={t} item={item} path={`product/${item._id}`} onAdd={callbacks.addToBasket}/>, [t]),
   }
 
   useEffect(() => {
@@ -54,18 +56,18 @@ function Main(){
   }, [currentPage])
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <Container>
-        <Navigation />
-        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      </Container>
-      <List items={select.items} renderItem={renders.item} />
-      <Pagination
-        currentPage={currentPage}
-        totalCount={select.count}
-        limit={select.limit}
-        onPageChange={callbacks.goToPage}
-      />
+    <Layout head={<Container><h1>{t('store')}</h1><SelectLang onChange={setLocale} /></Container>}>
+        <Container>
+          <Navigation t={t} />
+          <BasketSimple t={t} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+        </Container>
+        <List items={select.items} renderItem={renders.item} />
+        <Pagination
+          currentPage={currentPage}
+          totalCount={select.count}
+          limit={select.limit}
+          onPageChange={callbacks.goToPage}
+        />
     </Layout>
   )
 }

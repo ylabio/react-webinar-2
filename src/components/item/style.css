@@ -34,6 +34,10 @@ a {
     align-items: center;
 }
 
+.Item-right button {
+    width: 70px;
+}
+
 .Item-price {
     padding: 0 10px;
     white-space: nowrap;

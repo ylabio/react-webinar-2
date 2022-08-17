@@ -3,6 +3,10 @@
   padding: 20px 40px;
 }
 
+.Product button {
+  width: 70px;
+}
+
 .Product > *,
 .Product-container > * {
   margin-bottom: 20px;

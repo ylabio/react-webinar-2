@@ -20,7 +20,6 @@ class ArticleState extends StateModule {
   async load(id) {
     const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
     const json = await response.json();
-    console.log(json)
     this.setState({
       _id: json.result._id,
       title: json.result.title,

@@ -11,7 +11,8 @@ function Article() {
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
-    article: state.article
+    article: state.article,
+    language: state.language.lang
   }));
 
   const params = useParams();
@@ -34,8 +35,8 @@ function Article() {
 
   return (
     <Layout head={<h1>{select.article.title}</h1>}>
-      <MenuBasket openModal={callbacks.openModalBasket} items={select} />
-      <ArticleInfo article={select.article} addToBasket={callbacks.addToBasket}></ArticleInfo>
+      <MenuBasket openModal={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.language} />
+      <ArticleInfo article={select.article} addToBasket={callbacks.addToBasket} lang={select.language}></ArticleInfo>
     </Layout>
   )
 }

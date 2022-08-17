@@ -5,20 +5,22 @@ import propTypes from 'prop-types';
 import Menu from '../menu';
 import BasketSimple from "../basket-simple";
 
-function MenuBasket(props) {
+function MenuBasket({ openModal, amount, sum, lang }) {
   const cn = bem('MenuBasket');
 
   return (
     <div className={cn()}>
-      <Menu />
-      <BasketSimple onOpen={props.openModal} amount={props.items.amount} sum={props.items.sum} />
+      <Menu lang={lang} />
+      <BasketSimple onOpen={openModal} amount={amount} sum={sum} lang={lang} />
     </div>
   )
 }
 
 MenuBasket.propTypes = {
-  items: propTypes.object.isRequired,
-  openModal: propTypes.func
+  amount: propTypes.number.isRequired,
+  sum: propTypes.number.isRequired,
+  lang: propTypes.string.isRequired,
+  openModal: propTypes.func,
 }
 
 MenuBasket.defaultProps = {

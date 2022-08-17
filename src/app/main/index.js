@@ -7,7 +7,9 @@ import useSelector from "../../utils/use-selector";
 import getAmountOfPage from "../../utils/amount-pages";
 import Pagination from "../../components/pagination";
 import getPaginationArray from "../../utils/pagination-array";
+import translate from "../../utils/translate";
 import MenuBasket from "../../components/menu-basket";
+import Header from "../../components/header";
 
 function Main() {
 
@@ -16,18 +18,19 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     count: state.catalog.count,
-    page: state.catalog.page
+    page: state.catalog.page,
+    limit: state.catalog.limit,
+    language: state.language.lang
   }));
 
-  const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
-  const pagePagination = getAmountOfPage(select.count, limit);
+  const pagePagination = getAmountOfPage(select.count, select.limit);
   const paginationArray = getPaginationArray(pagePagination);
 
   const store = useStore();
 
   useEffect(() => {
-    store.get('catalog').load(limit, page);
+    store.get('catalog').load(page);
   }, [page])
 
   const callbacks = {
@@ -38,16 +41,20 @@ function Main() {
     // Изменение страницы
     setPagePagination: useCallback(page => {
       setPage(page)
-    }, [])
+    }, []),
+    // Изменение языка
+    setLanguage: useCallback(lang => store.get('language').setLang(lang), [])
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} addsQuery='article' />, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} addsQuery='article' closeModal={callbacks.closeModal} lang={select.language} />, [select.language]),
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <MenuBasket openModal={callbacks.openModalBasket} items={select} />
+    <Layout head={
+      <Header title={translate(select.language, 'Магазин')} changeLang={callbacks.setLanguage} lang={select.language} />
+    }>
+      <MenuBasket openModal={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.language} />
       <List items={select.items} renderItem={renders.item} />
       <Pagination currentPage={page} pages={paginationArray} setPage={callbacks.setPagePagination} />
     </Layout>

@@ -1,0 +1,13 @@
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Header-languages {
+  padding-right: 20px;
+}
+
+.Header-languages>*:not(:last-child) {
+  margin-right: 10px;
+}

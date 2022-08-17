@@ -12,6 +12,12 @@
     color: inherit;
 }
 
-.Menu a + .Menu a {
-    margin-left: 5px;
+.Menu a + a {
+    margin-left: 15px;
+}
+
+.Menu a + a:before {
+    position: absolute;
+    content: '/';
+    left: -8px;
 }

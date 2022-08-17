@@ -1,6 +1,14 @@
-import React from 'react';
+import React, {useCallback} from 'react';
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
+import List from "../components/list";
+import Item from "../components/item";
+import useStore from "../utils/use-store";
+import Description from "../components/description";
 import useSelector from "../utils/use-selector";
 
 /**
@@ -11,13 +19,35 @@ function App() {
 
   console.log('App');
 
+  const store = useStore();
   const modal = useSelector(state => state.modals.name);
+  const select = useSelector(state => ({
+    items: state.catalog.items,
+  }));
+  
+  const callbacks = {
+    // Добавление в корзину
+    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+  };
+
+  const renders = {
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} />, []),
+  }
 
   return (
-    <>
-      <Main/>
-      {modal === 'basket' && <Basket/>}
-    </>
+    <Routes>
+      <Route path ="/" element={
+        <>
+          <Main/>
+          {modal === 'basket' && <Basket/>}
+        </>
+      }>
+        <Route index element={<List items={select.items} renderItem={renders.item}/>} />
+        <Route path=":query" element={<List items={select.items} renderItem={renders.item}/>} />
+      </Route>
+      <Route path="/articles/:id" 
+             element={<Description onAdd={callbacks.addToBasket} />} />
+    </Routes>
   );
 }
 

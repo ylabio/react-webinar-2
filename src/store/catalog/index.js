@@ -27,6 +27,16 @@ class CatalogState extends StateModule{
     });
   }
 
+  async loadId(id){
+    const response = await fetch(`/api/v1/articles/${id}?fields=%2A&lang=ru`);
+    const json = await response.json();
+  
+    this.setState({
+      items: [json.result],
+    });
+
+  }
+
   /**
    * Создание записи
    */

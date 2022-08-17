@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import {useParams} from "react-router-dom";
@@ -10,66 +10,67 @@ import './style.css';
 function Description (props){
     console.log('Description');
     const store = useStore();
-    const [isLoading, setIsLoading] = useState(true);
-    const [maidIn, setMaidIn] = useState({});
-    const [category, setCategory] = useState({})
-    const{id} = useParams();
+    const {id} = useParams();
     const cn = bem('Description');
 
     const select = useSelector(state => ({
-        itemsCount: state.catalog.itemsCount,
-        items: state.catalog.items,
-        amount: state.basket.amount,
-        sum: state.basket.sum
-      }));
-
-      const currentItem = select
-        .items
-        .filter((item)=>item._id === id)[0];
+      items: state.catalog.items,
+      amount: state.basket.amount,
+      sum: state.basket.sum,
+      _id: state.product._id,
+      title: state.product.title,
+      description: state.product.description,
+      country: state.product.maidIn.country,
+      countryCode: state.product.maidIn.code,
+      edition: state.product.edition,
+      price: state.product.price,
+      category: state.product.category
+    }));
+    
+    const item = select.items.filter((item)=> item._id === id)[0];
 
       const callbacks = {
         // Открытие корзины
         openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
-        onAdd: useCallback((e) => props.onAdd(currentItem._id), [props.onAdd, currentItem]),
+        onAdd: useCallback((e) => props.onAdd(item._id), [props.onAdd, item]),
       };
 
       useEffect(()=>{
-        fetch(`/api/v1/countries/${currentItem.maidIn._id}?fields=title%2Ccode`)
-        .then(res=>res.json())
-        .then(data=>setMaidIn(data.result))
-        .then(
-        fetch(`/api/v1/categories/${currentItem.category._id}?fields=title`)
-        .then(res=>res.json())
-        .then(data=>setCategory(data.result))
-        )
-        .then(()=>setIsLoading(!isLoading));
+        if (select.items.length > 0) {
+          store.get('product').load(id);
+        }
+        else {
+          store.get('catalog').loadId(id);
+          store.get('product').load(id);
+        }
+        
         },[]
     )
 
     return(
-       !isLoading && <div className={(cn())}>
+      <div className={(cn())}>
         <div className={cn('head')}><h1>
-          {currentItem.title}
+          {select.title}
           </h1>
           </div>
         <BasketSimple onOpen={callbacks.openModalBasket} 
                           amount={select.amount} 
                           sum={select.sum}/>
       <div className={cn('content')}>
-      <div className={cn('string')}>{currentItem.description}</div>
+      <div className={cn('string')}>{select.description}</div>
       <span className={cn('string')}>
         {'Страна производитель: '}</span> 
-        <span><b>{maidIn.title} ({maidIn.code})</b></span>
+        <span><b>{select.country} ({select.countryCode})</b></span>
       <div className={cn('string')}>
         <span>{`Категория: `}</span>
-        <span><b>{category.title}</b></span>
+        <span><b>{select.category}</b></span>
       </div>
       <div className={cn('string')}>
         <span>{`Год выпуска: `}</span> 
-        <span><b>{currentItem.edition}</b></span>
+        <span><b>{select.edition}</b></span>
       </div>
       <div className={cn('string')}>
-        <h2>{`Цена: ${numberFormat(currentItem.price)+' \u20bd'}`}</h2>
+        <h2>{`Цена: ${numberFormat(select.price)+' \u20bd'}`}</h2>
       </div>
       <button onClick={callbacks.onAdd}>Добавить</button>
         </div>

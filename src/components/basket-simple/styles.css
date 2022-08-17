@@ -1,11 +1,20 @@
 /* Контрол с общими действиями */
 .BasketSimple{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding: 20px;
     font-size: 18px;
 }
-
+.BasketSimple-link {
+    text-decoration: none;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;    
+    text-decoration-line: underline;
+    color: #0087E9;
+}
 .BasketSimple-label{
 
 }

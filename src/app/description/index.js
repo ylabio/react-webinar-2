@@ -34,12 +34,14 @@ function Description() {
     addToBasket: useCallback((_id) => store.get('basket').addToBasket(_id), []),
   };
 
+  const links = [{ to: '/', name: dictionary.main }];
+
   return (
     <Layout
       head={<h1>{dictionary.store}</h1>}
       menu={
         <>
-          <Menu to="/">{dictionary.main}</Menu>
+          <Menu links={links} />
           <BasketSimple
             onOpen={callbacks.openModalBasket}
             amount={select.amount}

@@ -6,18 +6,20 @@ import { Link } from 'react-router-dom';
 
 function Menu(props) {
   const cn = bem('Menu');
-  console.log(props.children);
 
   return (
     <div className={cn()}>
-      <Link to={`${props.to}`}>{props.children}</Link>
+      {props.links.map((link) => (
+        <Link to={`${link.to}`} className={cn('link')}>
+          {link.name}
+        </Link>
+      ))}
     </div>
   );
 }
 
 Menu.propTypes = {
-  children: propTypes.string,
-  to: propTypes.string,
+  links: propTypes.array,
 };
 
 Menu.defaultProps = {};

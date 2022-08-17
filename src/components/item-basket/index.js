@@ -4,6 +4,7 @@ import numberFormat from "../../utils/number-format";
 import { cn as bem } from "@bem-react/classname";
 import "./styles.css";
 import { Link } from "react-router-dom";
+import url from "../../configs/url.json";
 
 function ItemBasket(props) {
   const cn = bem("ItemBasket");
@@ -19,7 +20,7 @@ function ItemBasket(props) {
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
       <Link
-        to={`/catalog/${props.item._id}`}
+        to={`${url.BASE_CATALOG_URL}/${props.item._id}`}
         className={cn("title")}
         onClick={props.onClose}
       >

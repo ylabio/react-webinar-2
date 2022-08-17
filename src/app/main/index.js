@@ -17,15 +17,19 @@ function Main() {
   const store = useStore();
   const [isLoading, setIsLoading] = useState(true);
 
-  const load = async function () {
-    store.get("catalog").load(select.currentPage);
+  const load = async function (page) {
+    console.log("123");
+    setIsLoading(true);
+    await store
+      .get("catalog")
+      .load(page)
+      .then(() => {
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
-    setIsLoading(true);
-    load().then(() => {
-      setIsLoading(false);
-    });
+    load(select.currentPage);
   }, []);
 
   const select = useSelector((state) => ({
@@ -44,7 +48,7 @@ function Main() {
     // Добавление в корзину
     addToBasket: useCallback((_id) => store.get("basket").addToBasket(_id), []),
     // Переключение страницы
-    changePage: useCallback((page) => store.get("catalog").load(page), []),
+    changePage: useCallback((page) => load(page), []),
     changeLang: useCallback((lang) => {
       store.get("language").loadLang(lang);
     }, []),

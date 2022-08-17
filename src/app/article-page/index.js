@@ -18,14 +18,17 @@ function ArticlePage() {
   const [isLoading, setIsLoading] = useState(true);
 
   const load = async function () {
-    await store.get("article").loadArticle(params.id);
+    setIsLoading(true);
+    await store
+      .get("article")
+      .loadArticle(params.id)
+      .then(() => {
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
-    setIsLoading(true);
-    load().then(() => {
-      setIsLoading(false);
-    });
+    load();
   }, [params.id]);
 
   const select = useSelector((state) => ({

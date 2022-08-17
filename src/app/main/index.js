@@ -8,12 +8,14 @@ import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import lang  from "../../utils/dictionary";
 import {useParams} from "react-router-dom";
+import ChangeLang from "../../components/change-lang";
 
 function Main(){
 
   console.log('Main');
 
   const store = useStore();
+  const params = useParams();
 
   useEffect(() => {
     store.get('catalog').load();
@@ -34,23 +36,24 @@ function Main(){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Переход по страницам
     onPaginate: useCallback(page => store.get('catalog').load({page}), []),
-
+    translate: useCallback((language, word) => lang(language, word), [params.lang])
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} link={`/${useParams().lang || 'ru'}/${item._id}`}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} link={`/${params.lang || 'ru'}/${item._id}`}/>, []),
   };
   //Пора декомпозировать)
   const options = {
     menuItems: [
-      {key: 1, title: 'Главная', link: `/${useParams().lang || 'ru' }/`},
+      {key: 1, title: `${callbacks.translate(params.lang, 'Main')}`, link: `/${params.lang || 'ru' }/`},
     ]
   };
 
   return (
-    <Layout
-      head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} options={options.menuItems}/>
+    <Layout head={<h1>{callbacks.translate(params.lang, 'store')}</h1>}>
+      <ChangeLang />
+      <BasketSimple lang={params.lang} onOpen={callbacks.openModalBasket} amount={select.amount}
+                    sum={select.sum} options={options.menuItems} tnslt={callbacks.translate}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination
         page={select.params.page}

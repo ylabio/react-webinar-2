@@ -19,7 +19,7 @@ function ChoseLang(props) {
   return (
     <ul className={cn()}>
       {array.map((value, index) => (
-          <Link key={index} to={`/${value}/${useParams().id}`}><li
+          <Link key={index} to={`/${value}/${useParams().id || ''}`}><li
             className={cn('item', {active: value === props.lang, split: !value})}
           >{value}</li></Link>
       ))}

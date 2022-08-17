@@ -3,11 +3,6 @@
     "ru": {
       "store": "Магазин",
       "inCart": "В корзине:",
-      "goods": [
-        "товар",
-        "товара",
-        "товаров"
-      ],
       "empty": "пусто",
       "openCart": "Перейти",
       "basket": "Корзина",
@@ -25,11 +20,6 @@
     "en": {
       "store": "Market",
       "inCart": "In basket:",
-      "goods": [
-        "good",
-        "goods",
-        "goods"
-      ],
       "empty": "empty",
       "openCart": "Go",
       "basket": "Basket",

@@ -38,7 +38,7 @@ function Article() {
   //Пора декомпозировать)
   const options = {
     menuItems: [
-      {key: 1, title: `${callbacks.translate(params.lang, 'Main')}`, link: `/${useParams().lang || 'ru' }/`},
+      {key: 1, title: `${callbacks.translate(params.lang, 'Main')}`, link: `/${params.lang || 'ru' }/`},
     ]
   };
 
@@ -46,8 +46,8 @@ function Article() {
     <Layout head={<h1>{select.article.title}</h1>}>
       <ChangeLang />
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}
-                    options={options.menuItems}/>
-      <ArticleCard article={select.article} onAdd={callbacks.addToBasket} tnslt={callbacks.translate} lang={useParams().lang}/>
+                    options={options.menuItems} lang={params.lang} tnslt={callbacks.translate}/>
+      <ArticleCard article={select.article} onAdd={callbacks.addToBasket} tnslt={callbacks.translate} lang={params.lang}/>
     </Layout>
   )
 }

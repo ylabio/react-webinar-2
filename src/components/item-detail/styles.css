@@ -1,0 +1,13 @@
+.ItemDetail-content{
+    padding: 0 20px;
+}
+
+.ItemDetail-block{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.ItemDetail-cell{
+    font-weight: bold;
+}

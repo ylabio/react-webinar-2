@@ -1,16 +1,11 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {cn as bem} from "@bem-react/classname";
-import {LocalisationContext} from "l10n";
-import {l10n} from "l10n/strings";
 import propTypes from "prop-types";
 import './styles.css';
 
-function LanguageSwitcher({languages}) {
+function LanguageSwitcher({languages, heading, onClick}) {
   const cn = bem('LanguageSwitcher');
 
-  const {lang, switchLanguage} = useContext(LocalisationContext);
-
-  const heading = l10n.layout.languageSwitcher.heading[lang];
 
   return (
     <div className={cn()}>
@@ -18,7 +13,7 @@ function LanguageSwitcher({languages}) {
       <ul className={cn('list')}>
         {languages.map((el,id) =>
           <li key={id} className={cn('item')}>
-            <button onClick={() => switchLanguage(el)} className={cn('button')}>{el}</button>
+            <button onClick={() => onClick(el)} className={cn('button')}>{el}</button>
           </li>)}
       </ul>
     </div>
@@ -27,6 +22,8 @@ function LanguageSwitcher({languages}) {
 
 LanguageSwitcher.propTypes = {
   languages: propTypes.arrayOf(propTypes.string).isRequired,
+  heading: propTypes.string.isRequired,
+  onClick: propTypes.func.isRequired,
 };
 
 export default React.memo(LanguageSwitcher);

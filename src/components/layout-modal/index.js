@@ -1,16 +1,10 @@
 import React, {useContext, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import {LocalisationContext} from "l10n";
-import {l10n} from "l10n/strings";
 import './style.css';
 
 function LayoutModal(props) {
   const cn = bem('LayoutModal');
-
-  const {lang} = useContext(LocalisationContext);
-
-  const button = l10n.buttons.close[lang];
   const frame = useRef();
 
   useEffect(() => {
@@ -32,7 +26,7 @@ function LayoutModal(props) {
           <h1 className={cn('title')}>
             {props.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>{button}</button>
+          <button className={cn('close')} onClick={props.onClose}>{props.button}</button>
         </div>
         <div className={cn('content')}>
           {props.children}
@@ -44,6 +38,7 @@ function LayoutModal(props) {
 
 LayoutModal.propTypes = {
   title: PropTypes.string,
+  button: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
 };

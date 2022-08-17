@@ -7,12 +7,11 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "components/pagination";
 import {useSearchParams} from "react-router-dom";
-import {l10n} from "l10n/strings";
 import {LocalisationContext} from "l10n";
 import Controls from "components/controls";
 import Navigation from "components/navigation";
-import {navigation} from "utils/constants/navigation";
 import {routes} from "utils/constants/routes";
+import {translation} from "l10n/strings/translation";
 
 function Main() {
   console.log('Main');
@@ -21,7 +20,12 @@ function Main() {
   const [params, setParams] = useSearchParams();
   const {lang} = useContext(LocalisationContext);
 
-  const heading = l10n.title[lang];
+  const heading = translation[lang].title;
+  const addButton = translation[lang].layout.buttons.add;
+  const cartStrings = translation[lang].cart;
+  const navigationHeading = translation[lang].layout.navigation.home;
+  const navigationPath = routes.home;
+  const itemNavLink = routes.productInfo;
   const skip = params.get("skip") || 0;
   const limit = 10;
   const initPage = (skip / limit) + 1 || 1;
@@ -61,14 +65,15 @@ function Main() {
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} navLink={routes.productInfo} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} button={addButton} navLink={itemNavLink}
+                                    onAdd={callbacks.addToBasket}/>, [lang]),
   };
 
   return (
     <Layout head={<h1>{heading}</h1>}>
       <Controls>
-        <Navigation items={navigation}/>
-        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+        <Navigation title={navigationHeading} path={navigationPath}/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} strings={cartStrings}/>
       </Controls>
 
       <List items={select.items} renderItem={renders.item}/>

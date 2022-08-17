@@ -1,14 +1,6 @@
 .Navigation {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-.Navigation-item {
-
-}
-.Navigation-item a {
-     font-size: 18px;
-     line-height: 21px;
-     text-decoration-line: underline;
-     color: #0087E9;
+    font-size: 18px;
+    line-height: 21px;
+    text-decoration-line: underline;
+    color: #0087E9;
 }

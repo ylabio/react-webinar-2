@@ -8,19 +8,14 @@ function Navigation(props) {
   const cn = bem('Navigation');
 
   return (
-    <ul className={cn()}>{props.items.map(item =>
-      <li key={item._id} className={cn('item')}>
-        <NavLink to={item.path}>{item.title}</NavLink>
-      </li>
-    )}
-    </ul>
-  )
+    <NavLink className={cn()} to={props.path}>{props.title}</NavLink>
+  );
 }
 
 Navigation.propTypes = {
-  items: propTypes.arrayOf(propTypes.object).isRequired,
-}
-
+  path: propTypes.PropTypes.string,
+  title: propTypes.PropTypes.string,
+};
 
 
 export default React.memo(Navigation);

@@ -1,21 +1,13 @@
-import React, {useCallback, useContext} from "react";
+import React, {useCallback} from "react";
 import propTypes from "prop-types";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "utils/numberFormat";
-import {LocalisationContext} from "l10n";
-import {l10n} from "l10n/strings";
 import './style.css';
 
-function ProductCard({item, onAdd}) {
+function ProductCard({item, onAdd, strings}) {
   const cn = bem('ProductCard');
 
-  const {lang} = useContext(LocalisationContext);
-
-  const button = l10n.buttons.add[lang];
-  const madeIn = l10n.product.card.madeIn[lang];
-  const category = l10n.product.card.category[lang];
-  const edition = l10n.product.card.edition[lang];
-  const price = l10n.product.card.price[lang];
+  const {madeIn, category, edition, price,button} = strings;
 
   const callbacks = {
     onAdd: useCallback(() => onAdd(item._id), [onAdd, item])
@@ -43,7 +35,14 @@ function ProductCard({item, onAdd}) {
 
 ProductCard.prototypes = {
   item: propTypes.object.isRequired,
-  onAdd: propTypes.func.isRequired
+  onAdd: propTypes.func.isRequired,
+  strings: propTypes.exact({
+    madeIn: propTypes.string,
+    category: propTypes.string,
+    edition: propTypes.string,
+    price: propTypes.string,
+    button: propTypes.string,
+  }).isRequired
 };
 
 

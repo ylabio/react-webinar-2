@@ -8,7 +8,8 @@ import {ProductCard} from "components/product-card";
 import {LocalisationContext} from "l10n";
 import Navigation from "components/navigation";
 import Controls from "components/controls";
-import {navigation} from "utils/constants/navigation";
+import {translation} from "l10n/strings/translation";
+import {routes} from "utils/constants/routes";
 
 function Product() {
   console.log('Product');
@@ -17,6 +18,11 @@ function Product() {
 
   const {id} = useParams();
   const {lang} = useContext(LocalisationContext);
+  const navigationHeading = translation[lang].layout.navigation.home;
+  const navigationPath = routes.home;
+  const cartStrings = translation[lang].cart;
+  const productCardStrings = translation[lang].product.card;
+
 
   useEffect(() => {
     store.get('catalog').loadProduct(id, lang);
@@ -36,13 +42,14 @@ function Product() {
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
 
+
   return (
     <Layout head={<h1>{select.product?.title}</h1>}>
       <Controls>
-        <Navigation items={navigation}/>
-        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+        <Navigation title={navigationHeading} path={navigationPath}/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} strings={cartStrings}/>
       </Controls>
-      <ProductCard item={select.product} onAdd={callbacks.addToBasket}/>
+      <ProductCard item={select.product} onAdd={callbacks.addToBasket} strings={productCardStrings}/>
     </Layout>
   );
 }

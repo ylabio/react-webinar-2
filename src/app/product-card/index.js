@@ -20,8 +20,8 @@ function ProductCard() {
         amount: state.basket.amount,
         sum: state.basket.sum,
         item: state.catalogCard.item,
-        itemCountry: state.catalogCard.itemCountry,
-        itemCategory: state.catalogCard.itemCategory,
+        // itemCountry: state.catalogCard.itemCountry,
+        // itemCategory: state.catalogCard.itemCategory,
     }));
 
     const callbacks = {
@@ -34,11 +34,12 @@ function ProductCard() {
     return (
         <Layout head={<h1>{select.item.title}</h1>}>
             <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-            { select.item && select.itemCountry && (
+            {/*{ select.item && select.itemCountry && (*/}
+                { select.item && (
               <ProductData
                   item={select.item}
-                  itemCountry={select.itemCountry}
-                  itemCategory={select.itemCategory}
+                  // itemCountry={select.itemCountry}
+                  // itemCategory={select.itemCategory}
                   onAdd={callbacks.addToBasket}
                 />
             )}

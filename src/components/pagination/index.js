@@ -57,7 +57,7 @@ function Pagination({totalCount, perPage, onChangePage, currentPage}) {
             return <li className={cn('dots')} key={index}>{item}</li>
         }
         return <li className={item === currentPage ? 'selected' : ''} key={index}
-                   onClick={() => onChangePage(item, perPage)}>{item}</li>
+                   onClick={() => onChangePage(item)}>{item}</li>
     })
 
     return (

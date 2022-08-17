@@ -22,9 +22,10 @@ class CatalogState extends StateModule{
     };
   }
 
-  async load(page=1, perPage) {
+  async load() {
     this.setLoading(true)
-    this.setCurrentPage(page)
+    const page = this.getState().paginator.currentPage
+    const perPage = this.getState().paginator.perPage
     const pageNumber = (page * perPage) - perPage
     const response = await fetch(`/api/v1/articles?limit=${perPage}&skip=${pageNumber}&fields=items(*),count`);
     const json = await response.json();

@@ -15,19 +15,18 @@ function Main(){
 
   const store = useStore();
 
-  useEffect(() => {
-    store.get('catalog').load(select.currentPage, select.perPage);
-  }, [])
-
   const select = useSelector(state => ({
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
     totalCount: state.catalog.paginator.totalCount,
     isLoading: state.catalog.isLoading,
-    perPage: state.catalog.paginator.perPage,
-    currentPage: state.catalog.paginator.currentPage,
+    currentPage: state.catalog.paginator.currentPage
   }));
+
+  useEffect(() => {
+    store.get('catalog').load();
+  }, [select.currentPage])
 
   const callbacks = {
     // Открытие корзины
@@ -35,7 +34,7 @@ function Main(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Смена страницы
-    changePage: useCallback((page, perPage) => store.get('catalog').load(page, perPage), []),
+    changePage: useCallback((page) => store.get('catalog').setCurrentPage(page), []),
   };
 
   const renders = {
@@ -47,7 +46,7 @@ function Main(){
         <Menu linkTo={'/'} nav={'Главная'}/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
         {select.isLoading ? <Preload/>:<List items={select.items} renderItem={renders.item}/>}
-        <Pagination totalCount={select.totalCount} perPage={select.perPage} currentPage={select.currentPage} onChangePage={callbacks.changePage}/>
+        <Pagination perPage={10} totalCount={select.totalCount} currentPage={select.currentPage} onChangePage={callbacks.changePage}/>
       </Layout>
   )
 }

@@ -1,14 +1,13 @@
 import React from "react";
-import counter from "../../utils/counter";
 
 function SwitcherLang(props) {
 
     const { langKey, switchFn } = props;
 
     return (<div>
-        {langKey.map(lang => {
+        {langKey.map((lang, index) => {
             if (lang === "CurrentLang") return;
-            return <button key={counter()} onClick={() => switchFn(lang)}>{lang}</button>
+            return <button key={index} onClick={() => switchFn(lang)}>{lang}</button>
         })}
     </div>
     )

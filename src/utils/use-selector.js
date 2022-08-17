@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useState } from "react";
 import shallowequal from 'shallowequal';
 import useStore from "./use-store";
 
@@ -6,7 +6,7 @@ import useStore from "./use-store";
  * Хук для доступа к объекту хранилища
  * @return {Store|{}}
  */
-export default function useSelector(selector){
+export default function useSelector(selector) {
 
   const store = useStore();
 

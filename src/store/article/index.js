@@ -1,45 +1,55 @@
 import StateModule from "../module";
+import Api from "../../services/API";
+
+const service = new Api();
 
 /**
- * Состояние корзины
+ * Состояние товара на странице
  */
 class ArticleState extends StateModule {
 
-
+    /**
+     * Начальное состояние
+     * @return {Object}
+     */
     initState() {
         return {
-            _id: '',
-            item: {}
+            item: {
+                id: '',
+                title: '',
+                description: '',
+                country: '',
+                countryCode: '',
+                category: '',
+                editionYear: '',
+                price: '',
+            }
         };
     }
 
-    toReset() {
+    async load(id) {
+        const response = await service.getArticle(id);
         this.setState({
-            _id: '',
-            item: {}
-        })
-    }
-
-    async loadItem(_id) {
-        const response = await fetch(`/api/v1/articles/${_id}?fields=*,maidIn(title,code),category(title)`);
-        const json = await response.json();
-        this.setState({
-            _id,
-            item: json.result,
+            item: {
+                ...response
+            }
         });
     }
 
-    /**
-     * получение id продукта
-     * @param _id Код товара
-     */
-    getId(_id) {
+    clearData() {
         this.setState({
-            _id,
-            item: {}
-        })
+            item: {
+                id: '',
+                title: '',
+                description: '',
+                country: '',
+                countryCode: '',
+                category: '',
+                editionYear: '',
+                price: '',
+            }
+        });
     }
-
 }
 
 export default ArticleState;

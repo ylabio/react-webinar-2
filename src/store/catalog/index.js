@@ -1,5 +1,7 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
+import Api from "../../services/API";
+
+const service = new Api();
 
 /**
  * Состояние каталога
@@ -17,13 +19,12 @@ class CatalogState extends StateModule {
     };
   }
 
-  async load() {
-    const response = await fetch('/api/v1/articles?limit=10&skip=0&fields=items(*),count');
-    const json = await response.json();
-    console.log(json)
+  async load(skip = 0, limit = 0) {
+    const response = await service.getArticles(skip, limit);
+
     this.setState({
-      items: json.result.items,
-      count: json.result.count
+      items: response.items,
+      total: response.total,
     });
   }
 
@@ -36,26 +37,6 @@ class CatalogState extends StateModule {
       items: json.result.items,
       count: json.result.count
     });
-  }
-
-  /**
-   * Создание записи
-   */
-  createItem({ _id, title = 'Новый товар', price = 999, selected = false }) {
-    this.setState({
-      items: this.getState().items.concat({ _id, title, price, selected }),
-    }, 'Создание товара');
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param _id
-   */
-  deleteItem(_id) {
-    this.setState({
-      items: this.getState().items.filter(item => item._id !== _id), skip
-    },
-      'Удаление товара');
   }
 }
 

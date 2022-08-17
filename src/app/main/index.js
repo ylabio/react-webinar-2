@@ -6,13 +6,11 @@ import Item from '../../components/item'
 import useStore from '../../utils/use-store'
 import useSelector from '../../utils/use-selector'
 import Pagination from '../../components/pagination'
-// import { useParams } from 'react-router-dom'
+import Menu from '../../components/menu'
 
 function Main() {
   console.log('Main')
 
-  // const params = useParams()
-  // console.log(params)
   const store = useStore()
 
   useEffect(() => {
@@ -53,6 +51,7 @@ function Main() {
   return (
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <Menu />
       <List items={select.items} renderItem={renders.item} />
       <Pagination
         limit={select.limit}

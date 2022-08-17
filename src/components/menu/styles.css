@@ -1,0 +1,15 @@
+/* Контрол с общими действиями */
+.Menu {
+    position: absolute;
+    top: 78px;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.Menu-link a {
+    color: #0087E9;
+
+}

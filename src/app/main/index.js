@@ -24,7 +24,6 @@ function Main(){
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    totalCount: state.catalog.paginator.totalCount,
     isLoading: state.catalog.isLoading,
     currentPage: state.catalog.paginator.currentPage,
     totalPages: state.catalog.paginator.totalPages

@@ -1,46 +1,54 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
-/**
- * Состояние каталога
- */
 class CatalogState extends StateModule{
-
-  /**
-   * Начальное состояние
-   * @return {Object}
-   */
   initState() {
     return {
-      items: []
+      fetchState: 'pending', // 'error' || 'ok'
+      pageItems: [],
+      pagesCount: 0,
+      currentPage: 1,
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
-    this.setState({
-      items: json.result.items
-    });
+  // вызывается в компоненте pages/catalog
+  async fetchPageItems (page) {
+    const errorState = {
+      ...this.initState(),
+      fetchState: 'error',
+    };
+
+    // отсеивает неправильные роуты
+    if (Number.isNaN(+page) || page < 1) {
+      console.error('store.catalog.fetchPageItems - неправильный url');
+      setTimeout(() => this.setState(errorState), 1000); // без задержки не срабатывало
+    }
+    else {
+      await fetch(`/api/v1/articles?limit=10&skip=${page * 10 - 10}&fields=items(*),count`)
+        .then(res => {
+          if (res.ok) return res.json()
+          else throw new Error(res.status + ' ' + res.statusText);
+        })
+        .then(json => {
+          if (json.result.items.length) {
+            this.setState({
+              fetchState: 'ok',
+              pageItems: json.result.items,
+              pagesCount: Math.ceil(json.result.count / 10),
+              currentPage: +page,
+            })
+          } else {
+            throw new Error('запрашиваемая страница больше последней');
+          }
+        })
+        .catch(err => {
+          console.error('store.catalog.fetchPageItems:', err);
+          this.setState(errorState);
+        })
+    }
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      items: this.getState().items.concat({_id, title, price, selected})
-    }, 'Создание товара');
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param _id
-   */
-  deleteItem(_id) {
-    this.setState({
-      items: this.getState().items.filter(item => item._id !== _id)
-    }, 'Удаление товара');
+  clear () {
+    this.setState(this.initState());
   }
 }
 

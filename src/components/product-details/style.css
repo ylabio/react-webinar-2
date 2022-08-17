@@ -1,0 +1,12 @@
+.product-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 40px;
+  row-gap: 20px;
+}
+
+.product-details__price {
+  font-size: 1.25em;
+  font-weight: bold;
+}

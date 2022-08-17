@@ -1,0 +1,23 @@
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.pagination__link,
+.pagination__active-link,
+.pagination__separator {
+  min-width: 25px;
+  padding: 0 3px;
+  line-height: 25px;
+  text-align: center;
+}
+
+.pagination__active-link {
+  background: dodgerblue;
+  color: white;
+}
+
+.pagination__link:hover {
+  background: lightgrey;
+}

@@ -6,10 +6,7 @@ import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 
-function Basket(){
-
-  console.log('Basket');
-
+function Basket() {
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -26,7 +23,7 @@ function Basket(){
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket} linkPrefix='/product/'/>, []),
   }
 
   return (

@@ -11,12 +11,9 @@ function BasketSimple({sum, amount, onOpen}) {
   return (
     <div className={cn()}>
       <span className={cn('label')}>В корзине:</span>
-      <span className={cn('total')}>
-      {amount
-        ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-        : `пусто`
-      }
-      </span>
+      <span className={cn('total')}><b>{
+        amount ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽` : `пусто`
+      }</b></span>
       <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
     </div>
   )

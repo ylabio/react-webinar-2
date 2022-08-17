@@ -1,0 +1,12 @@
+.header-nav {
+  display: inline-flex;
+  align-items: center;
+  width: 50%;
+  padding: 20px;
+  column-gap: 15px;
+}
+
+.header-nav__link {
+  color: dodgerblue;
+  text-decoration: underline;
+}

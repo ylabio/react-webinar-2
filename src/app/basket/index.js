@@ -26,8 +26,18 @@ function Basket(){
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket} closeModal={callbacks.closeModal}/>, []),
-  }
+    itemBasket: useCallback(
+      item => (
+        <ItemBasket
+          item={item}
+          onRemove={callbacks.removeFromBasket}
+          closeModal={callbacks.closeModal}
+          itemLink={`article/${item._id}`}
+        />
+      ),
+      []
+    ),
+  };
 
   return (
     <LayoutModal title='Корзина' onClose={callbacks.closeModal}>

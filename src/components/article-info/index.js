@@ -58,6 +58,7 @@ ArticleInfo.propTypes = {
 };
 
 ArticleInfo.defaultProps = {
+  data: {},
   onAdd: () => {},
 };
 

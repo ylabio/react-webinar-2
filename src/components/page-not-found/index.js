@@ -1,11 +1,12 @@
 import React from 'react';
 import Layout from '../../components/layout';
+import './style.css';
 
 function PageNotFound() {
   return (
     <Layout
       children={
-        <h1 style={{ display: 'flex', justifyContent: 'center' }}>
+        <h1 className='PageNotFound'>
           Страница не найдена
         </h1>
       }

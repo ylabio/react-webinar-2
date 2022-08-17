@@ -16,7 +16,7 @@ function ItemBasket(props) {
     <div className={cn()}> 
       <div className={cn('title')}>
       <Link
-          to={`article/${props.item._id}`}   
+          to={props.itemLink}
           onClick={props.closeModal}
         >
           {props.item.title}
@@ -33,11 +33,15 @@ function ItemBasket(props) {
 
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
+  itemLink: propTypes.string,
   onRemove: propTypes.func,
+  closeModal: propTypes.func,
 }
 
 ItemBasket.defaultProps = {
-
+  itemLink: '/',
+  onRemove: () => {},
+  closeModal: () => {}
 }
 
 export default React.memo(ItemBasket);

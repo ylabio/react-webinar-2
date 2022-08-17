@@ -1,0 +1,10 @@
+/* Меню */
+.Menu {
+	display: flex;
+}
+
+.Menu > a {
+	font-size: 18px;
+	color: #0087E9;
+  cursor: pointer;
+}

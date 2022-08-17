@@ -1,24 +1,24 @@
 /* Контрол с общими действиями */
-.BasketSimple {
+.LinkedBasket {
   display: flex;
   justify-content: flex-end;
   padding: 20px;
   font-size: 18px;
 }
 
-.BasketSimple-label {
+.LinkedBasket-label {
 }
 
-.BasketSimple-total {
+.LinkedBasket-total {
   font-weight: bold;
   margin: 0 15px;
 }
 
-.BasketSimple-link {
+.LinkedBasket-link {
   flex: 1;
 }
 
-.BasketSimple-link a {
+.LinkedBasket-link a {
   color: #0087E9;
   font-size: 18px;
 }

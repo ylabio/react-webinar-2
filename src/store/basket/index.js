@@ -21,7 +21,8 @@ class BasketState extends StateModule{
    * Добавление товара в корзину
    * @param _id Код товара
    */
-  addToBasket(_id) {
+  async addToBasket(_id) {
+    !this.store.getState().catalog.items.some((id) => typeof id === 'number') && await this.store.get('catalog').load();
     let sum = 0;
     // Ищем товар в корзие, чтобы увеличить его количество. Заодно получаем новый массив items
     let exists = false;

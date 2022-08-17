@@ -29,16 +29,13 @@ function ItemPage(){
           store.get('modals').open('basket')
         }, []),
         // Добавление в корзину
-        addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+        addToBasket: useCallback(() => store.get('basket').addToBasket(itemId), []),
       };
 
     return (
         <TextContentContext.Provider value={select.locales[select.locales.lng]}>
             <Layout head={<h1>{select.depiction.title}</h1>}>
-                <BasketSimple
-                    text={select.locales[select.locales.lng].BASCKET_SHOW}
-                    onOpen={callbacks.openModalBasket}
-                    amount={select.amount} sum={select.sum}/>
+                <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
                 {select.isLoading === `${itemId} finished` && <ItemCard item={select.depiction} onAdd={callbacks.addToBasket} />}
             </Layout>
         </TextContentContext.Provider>)

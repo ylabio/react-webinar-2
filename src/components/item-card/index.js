@@ -6,10 +6,7 @@ import './style.css';
 
 function ItemCard(props) {
     const cn = bem('Item-card');
-    const { item: { _id, description, price, maidIn, category, edition }, onAdd } = props
-    const callbacks = {
-        addToBasket: useCallback((e) => onAdd(_id), [_id])
-    }
+    const { item: { description, price, maidIn, category, edition }, onAdd } = props
 
     return (
         <div className={cn()}>
@@ -18,7 +15,7 @@ function ItemCard(props) {
             <p>Категория: <span className={cn('category_styled')}>{category.title}</span></p>
             <p>Год выпуска: <span className={cn('edition_styled')}>{edition}</span></p>
             <p className={cn('price_styled')}>Цена: {numberFormat(price)} ₽</p>
-            <button onClick={callbacks.addToBasket}>Добавить</button>
+            <button onClick={onAdd}>Добавить</button>
         </div>
     )
 }

@@ -1,29 +1,22 @@
 import React from 'react';
-import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
 
-function Layout({head, children}){
-  const cn = bem('Layout');
-
+function Layout({ title, nav, actions, content }) {
   return (
-    <div className={cn()}>
-      <div className={cn('head')}>
-        {head}
-      </div>
-      <div className={cn('content')}>
-        {children}
-      </div>
+    <div className='layout'>
+      <h1 className='layout__title'>{title}</h1>
+      <header className='layout__header'>{nav}{actions}</header>
+      <main className='layout__content'>{content}</main>
     </div>
   )
 }
 
 Layout.propTypes = {
-  head: propTypes.node,
-  children: propTypes.node,
-}
-
-Layout.defaultProps = {
-}
+  title: propTypes.string,
+  nav: propTypes.node,
+  actions: propTypes.node,
+  content: propTypes.node,
+};
 
 export default React.memo(Layout);

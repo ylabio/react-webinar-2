@@ -15,7 +15,7 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-        <Link to={'/product/' + props.item._id} className={cn('title-link')}>{props.item.title}</Link>
+        <Link to={props.linkPrefix + props.item._id} className={cn('title-link')}>{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
@@ -28,11 +28,12 @@ function ItemBasket(props) {
 
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
+  linkPrefix: propTypes.string,
   onRemove: propTypes.func,
 }
 
 ItemBasket.defaultProps = {
-
+  linkPrefix: '/product/',
 }
 
 export default React.memo(ItemBasket);

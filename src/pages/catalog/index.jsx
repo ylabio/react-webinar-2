@@ -21,10 +21,11 @@ const Catalog = () => {
     pageItems: state.catalog.pageItems,
     fetchState: state.catalog.fetchState,
     pagesCount: state.catalog.pagesCount,
+    currentPage: state.catalog.currentPage,
   }));
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} />, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} linkPrefix='/product/'/>, []),
   };
 
   const callbacks = {
@@ -38,7 +39,7 @@ const Catalog = () => {
       : select.fetchState === 'ok'
         ? <>
           <List items={select.pageItems} renderItem={renders.item} />
-          <Pagination current={+currentPage} last={select.pagesCount} route='/catalog/' />
+          <Pagination current={select.currentPage} last={select.pagesCount} route='/catalog/' />
         </>
         : <Error />
   );

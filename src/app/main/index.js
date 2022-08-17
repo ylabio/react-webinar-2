@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { Outlet } from 'react-router-dom';
 import Layout from "../../components/layout";
 import BasketSimple from "../../components/basket-simple";
+import HeaderNav from "../../components/header-nav";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 
@@ -20,10 +21,12 @@ function Main() {
   };
 
   return (
-    <Layout head={<h1>{select.name || 'Магазин'}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <Outlet />
-    </Layout>
+    <Layout
+      title={select.name || 'Магазин'}
+      nav={<HeaderNav />}
+      actions={<BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />}
+      content={<Outlet />}
+    />
   )
 }
 

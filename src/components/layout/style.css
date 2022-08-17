@@ -1,24 +1,29 @@
-body{
-    margin: 0;
-    padding: 0;
-    background: #535353;
-    font-family: sans-serif;
-    position: relative;
+body {
+  background: #535353;
+  font-family: sans-serif;
+  position: relative;
+  padding: 0;
 }
-/* Страница*/
-.Layout{
-    max-width: 1024px;
-    min-height: 100vh;
-    margin: 0 auto;
-    background: #fff;
-    box-sizing: border-box;
-    box-shadow: 0 0 15px 5px #0000003b;
+
+.layout {
+  box-shadow: 0 0 15px 5px #0000003b;
+  background: #fff;
+  width: 90%;
+  max-width: 1024px;
+  min-height: 100vh;
+  margin: 0 auto;
 }
-.Layout-head{
-    height: 80px;
-    background: #f5f5f5;
+
+.layout__title {
+  background: #f5f5f5;
+  line-height: 80px;
+  padding: 0 20px;
 }
-.Layout-head h1{
-    margin: 0;
-    padding: 20px 20px 10px;
+
+.layout__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 60px;
+  padding: 20px;
 }

@@ -6,6 +6,7 @@ class CatalogState extends StateModule{
       fetchState: 'pending', // 'error' || 'ok'
       pageItems: [],
       pagesCount: 0,
+      currentPage: 1,
     };
   }
 
@@ -33,6 +34,7 @@ class CatalogState extends StateModule{
               fetchState: 'ok',
               pageItems: json.result.items,
               pagesCount: Math.ceil(json.result.count / 10),
+              currentPage: +page,
             })
           } else {
             throw new Error('запрашиваемая страница больше последней');

@@ -1,22 +1,7 @@
 /* Контрол с общими действиями */
 .BasketSimple{
     display: flex;
-    justify-content: flex-end;
-    padding: 20px;
+    align-items: center;
+    column-gap: 15px;
     font-size: 18px;
-}
-
-.BasketSimple-link {
-    color: dodgerblue;
-    text-decoration: underline;
-}
-
-.BasketSimple-label{
-    flex-grow: 1;
-    text-align: right;
-}
-
-.BasketSimple-total{
-    font-weight: bold;
-    margin: 0 15px;
 }

@@ -6,7 +6,7 @@ import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './style.css';
 
-function Item({articleRoute, item, onAdd, onTranslate}) {
+function Item({articleRoute, item, onAdd}) {
   const cn = bem('Item');
   const navigate = useNavigate();
   const { t } = useTranslation();

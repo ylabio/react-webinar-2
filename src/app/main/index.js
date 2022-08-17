@@ -40,11 +40,7 @@ function Main(){
 
   const renders = {
     item: useCallback(item =>
-      <Item
-        item={item}
-        onAdd={callbacks.addToBasket}
-        onTranslate={callbacks.onTranslate}
-        articleRoute={select.articleRoute}/>, []),
+      <Item item={item} onAdd={callbacks.addToBasket} articleRoute={select.articleRoute}/>, []),
   }
 
   return (

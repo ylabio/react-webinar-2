@@ -7,9 +7,14 @@ import './style.css';
 function ProductDesc({product, onAdd}) {
   const cn = bem('ProductDesc');
 
+  
   const callbacks = {
     onAdd: useCallback(() => onAdd(product._id), [onAdd, product])
   };
+
+
+
+
 
   return (
     <div className={cn()}>

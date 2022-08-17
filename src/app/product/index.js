@@ -6,6 +6,8 @@ import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
 import ProductDesc from "../../components/product-descript";
 
+import Menu from "../../components/main-link";
+
 function Product() {
 
   console.log('Product');
@@ -47,6 +49,7 @@ function Product() {
 
   return (
     <Layout head={<h1>{select.title}</h1>}>
+      <Menu />
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       {select.isProductLoaded && <ProductDesc product={product} onAdd={callbacks.addToBasket} />}
     </Layout>

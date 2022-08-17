@@ -7,6 +7,8 @@ import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import Menu from "../../components/main-link";
+
 function Main(){
   console.log('Main');
   const PRODUCTS_PER_PAGE = 10;
@@ -35,6 +37,7 @@ function Main(){
   }
   return (
     <Layout head={<h1>Магазин</h1>}>
+      <Menu />
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination

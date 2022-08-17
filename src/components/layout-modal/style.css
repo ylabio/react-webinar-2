@@ -11,6 +11,7 @@
   min-height: 100%;
   box-sizing: border-box;
   transition: background-color 2s;
+
 }
 
 .LayoutModal-frame {
@@ -22,6 +23,8 @@
   max-width: 720px;
   box-shadow: 2px 5px 10px rgb(0 0 0 / 5%);
   min-width: 960px;
+  min-height:300px;
+  justify-content: flex-start;
 }
 
 .LayoutModal-head {

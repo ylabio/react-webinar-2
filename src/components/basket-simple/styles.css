@@ -1,9 +1,13 @@
 /* Контрол с общими действиями */
 .BasketSimple{
     display: flex;
-    justify-content: flex-end;
-    padding: 20px;
+    justify-content: flex-end; 
     font-size: 18px;
+    float:right;
+    padding-top:30px;
+    padding-right:20px;
+    
+    
 }
 
 .BasketSimple-main,

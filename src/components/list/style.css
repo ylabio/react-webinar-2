@@ -1,7 +1,6 @@
 /*Список*/
 .List{
-
-    min-height: 631px;
+padding-top: 70px;   
 }
 .List-item{
     border-bottom: 1px dashed #ccc;

@@ -13,3 +13,15 @@
   font-weight: bold;
   margin: 0 15px;
 }
+
+.main-link-basket {
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  border: none;
+  background-color: unset;
+  color: #0087e9;
+  text-decoration: underline;
+  cursor: pointer;
+}

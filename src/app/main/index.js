@@ -35,8 +35,8 @@ function Main() {
 
 
   const callbacks = {
-    // Открытие корзины
-    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+    // Открытие корзины и её закрытие
+    openAndCloseModalBasket: [useCallback(() => store.get('modals').open('basket'), []), useCallback(() => store.get('modals').close('basket'), [])],
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Загрузка каталога
@@ -54,7 +54,7 @@ function Main() {
   return (
     <Layout head={<h1>{select.language.mainTitle}</h1>}>
       <SwitcherLanguage langKey={Object.keys(select.alllanguage)} switchFn={callbacks.switchLang} />
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <BasketSimple onOpen={callbacks.openAndCloseModalBasket} amount={select.amount} sum={select.sum} />
       <List items={select.items} renderItem={renders.item} catalogLoad={callbacks.catalogLoad} />
       <Paginate position={select.position} totalSum={select.totalSum} catalogLoad={callbacks.catalogLoad} />
     </Layout>

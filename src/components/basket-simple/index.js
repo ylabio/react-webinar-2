@@ -9,36 +9,41 @@ import './styles.css';
 
 
 function BasketSimple({ sum, amount, onOpen }) {
-  const language = useSelector(state => state.multilang.CurrentLang);
+  const state = useSelector(state => ({
+    language: state.multilang.CurrentLang,
+    modalName: state.modals.name
+  }));
+  const [open, close] = onOpen;
+  console.log(close);
   const cn = bem('BasketSimple');
-  const [a, b, c] = language.commodityDeclensions
+  const [a, b, c] = state.language.commodityDeclensions
   return (
     <div className={cn()}>
       <Link className="Main" to="/">
-        {language.productLink}
+        <button onClick={() => { state.modalName ? close(false) : "" }} className='main-link-basket'>{state.language.productLink}</button>
       </Link>
       <div>
-        <span className={cn('label')}>{language.inTheBasket}:</span>
+        <span className={cn('label')}>{state.language.inTheBasket}:</span>
         <span className={cn('total')}>
           {amount
             ? `${amount} ${plural(amount, a, b, c)} / ${numberFormat(sum)} ₽`
-            : language.empty
+            : state.language.empty
           }
         </span>
-        <Link to="/"><button className='BasketSimple__button' onClick={onOpen}>{language.go}</button></Link>
+        <Link to="/"><button className='BasketSimple__button' onClick={open}>{state.language.go}</button></Link>
       </div>
     </div>
   )
 }
 
 BasketSimple.propTypes = {
-  onOpen: propTypes.func.isRequired,
+  onOpen: propTypes.array.isRequired,
   sum: propTypes.number,
   amount: propTypes.number
 }
 
 BasketSimple.defaultProps = {
-  onOpen: () => { },
+  onOpen: [() => { }, () => { }],
   sum: 0,
   amount: 0
 }

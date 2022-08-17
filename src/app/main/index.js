@@ -7,6 +7,7 @@ import useStore from '../../utils/use-store'
 import useSelector from '../../utils/use-selector'
 import Pagination from '../../components/pagination'
 import Menu from '../../components/menu'
+import HeaderWrapper from '../../components/header-wrapper'
 
 function Main() {
   console.log('Main')
@@ -50,8 +51,10 @@ function Main() {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      <Menu />
+      <HeaderWrapper>
+        <Menu />
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      </HeaderWrapper>
       <List items={select.items} renderItem={renders.item} />
       <Pagination
         limit={select.limit}

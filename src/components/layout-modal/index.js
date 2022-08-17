@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
+import MLText from '../../utils/mul-lang-text';
 
 function LayoutModal(props) {
   const cn = bem('LayoutModal');
@@ -19,7 +20,6 @@ function LayoutModal(props) {
       document.body.style.overflow = 'auto';
     }
   });
-
   return (
     <div className={cn()}>
       <div className={cn('frame')} ref={frame}>
@@ -27,7 +27,7 @@ function LayoutModal(props) {
           <h1 className={cn('title')}>
             {props.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <button className={cn('close')} onClick={props.onClose}>{MLText('cls')}</button>
         </div>
         <div className={cn('content')}>
           {props.children}
@@ -44,7 +44,7 @@ LayoutModal.propTypes = {
 };
 
 LayoutModal.defaultProps = {
-  title: 'Модалка',
+  title:'модалка',
   onClose: () => {}
 };
 

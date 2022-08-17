@@ -1,0 +1,21 @@
+/* Пункт списка */
+.Pagination {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}
+.Pagination-pageButton {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    width: 15px;
+}
+.Pagination-pageButton_active{
+    background-color:rgba(0, 135, 233, 1);
+    color:aliceblue;
+    pointer-events:none
+}
+.Pagination-pageButton:hover {
+    background-color:rgb(213, 219, 219);
+    cursor:pointer;
+}

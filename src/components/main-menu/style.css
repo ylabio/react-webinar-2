@@ -1,0 +1,7 @@
+/* Контрол с общими действиями */
+.MainMenu{
+    display: inline-flex;
+    justify-content: flex-start;
+    padding: 20px;
+    font-size: 18px;
+}

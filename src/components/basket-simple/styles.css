@@ -1,16 +1,26 @@
 /* Контрол с общими действиями */
-.BasketSimple{
-    display: flex;
-    justify-content: flex-end;
-    padding: 20px;
-    font-size: 18px;
+.BasketSimple {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  font-size: 18px;
 }
 
-.BasketSimple-label{
-
+.BasketSimple-label {
 }
 
-.BasketSimple-total{
-    font-weight: bold;
-    margin: 0 15px;
+.BasketSimple-total {
+  font-weight: bold;
+  margin: 0 15px;
+}
+
+.BasketSimple-link {
+  flex: 1;
+}
+
+.BasketSimple-link a {
+  text-decoration: underline;
+  color: rgba(0, 135, 233, 1);
+  font-size: 18px;
+  line-height: calc(21 / 18);
 }

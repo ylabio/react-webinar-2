@@ -1,0 +1,13 @@
+.Menu {
+  flex: 1;
+}
+
+.Menu-list {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.Menu-link {
+  color: rgba(0, 135, 233, 1);
+}

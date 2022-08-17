@@ -6,16 +6,12 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
-import { Routes, Route, useLocation } from "react-router-dom";
-import ItemDescription from "../../components/item-description";
 
 function Main() {
   console.log("Main");
 
   const store = useStore();
   const [pagination, setPagination] = React.useState(1);
-
-  const [item, setItem] = React.useState({});
 
   useEffect(() => {
     store.get("catalog").load(pagination);
@@ -42,40 +38,16 @@ function Main() {
   };
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <Layout head={<h1>Магазин</h1>}>
-            <BasketSimple
-              onOpen={callbacks.openModalBasket}
-              amount={select.amount}
-              sum={select.sum}
-            />
-            <List items={select.items} renderItem={renders.item} />
+    <Layout head={<h1>Магазин</h1>}>
+      <BasketSimple
+        onOpen={callbacks.openModalBasket}
+        amount={select.amount}
+        sum={select.sum}
+      />
+      <List items={select.items} renderItem={renders.item} />
 
-            <Pagination pagination={pagination} setPagination={setPagination} />
-          </Layout>
-        }
-      />
-      <Route
-        path="/:id"
-        element={
-          <Layout head={<h1>{item.title}</h1>}>
-            <BasketSimple
-              onOpen={callbacks.openModalBasket}
-              amount={select.amount}
-              sum={select.sum}
-            />
-            <ItemDescription
-              item={item}
-              setItem={setItem}
-              onAdd={callbacks.addToBasket}
-            />
-          </Layout>
-        }
-      />
-    </Routes>
+      <Pagination pagination={pagination} setPagination={setPagination} />
+    </Layout>
   );
 }
 

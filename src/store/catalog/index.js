@@ -12,6 +12,8 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
+      page: 1,
+      pagesAmount: 0,
     };
   }
 
@@ -22,8 +24,22 @@ class CatalogState extends StateModule {
       `/api/v1/articles?skip=${skip ? skip : (page = 0)}0`
     );
     const json = await response.json();
+
     this.setState({
       items: json.result.items,
+    });
+  }
+
+  async loadPages(page) {
+    const response = await fetch(
+      `/api/v1/articles?limit=*&fields=items(*),count`
+    );
+    const json = await response.json();
+
+    this.setState({
+      ...this.store.state.catalog,
+      page,
+      pagesAmount: json.result.count,
     });
   }
 

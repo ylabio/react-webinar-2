@@ -1,35 +1,14 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useCallback } from "react";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
+import propTypes from "prop-types";
 
-const ItemDescription = ({ item, setItem, onAdd }) => {
-  const { id } = useParams();
+const ItemDescription = ({ item, onAdd, loading }) => {
   const cn = bem("ItemDescription");
 
-  const [loading, setLoading] = React.useState(true);
-
   const callbacks = {
-    onAdd: React.useCallback((e) => onAdd(item._id), [onAdd, item]),
+    onAdd: useCallback((e) => onAdd(item._id), [onAdd, item]),
   };
-
-  React.useEffect(() => {
-    async function fetchItemDescription() {
-      try {
-        const response = await fetch(
-          `/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`
-        );
-        const json = await response.json();
-
-        setItem(json.result);
-        setLoading(false);
-      } catch (error) {
-        alert("Ошибка при получении товара!");
-      }
-    }
-
-    fetchItemDescription();
-  }, []);
 
   if (loading) {
     return (
@@ -61,6 +40,15 @@ const ItemDescription = ({ item, setItem, onAdd }) => {
       </div>
     </div>
   );
+};
+
+ItemDescription.propTypes = {
+  item: propTypes.object.isRequired,
+  onAdd: propTypes.func,
+};
+
+ItemDescription.defaultProps = {
+  onAdd: () => {},
 };
 
 export default React.memo(ItemDescription);

@@ -22,7 +22,7 @@ function ItemBasket(props) {
         <Link
           onClick={props.onClose}
           className={cn("itemLink")}
-          to={`${`/${props.item._id}`}`}
+          to={`${`/articles/${props.item._id}`}`}
         >
           {props.item.title}
         </Link>

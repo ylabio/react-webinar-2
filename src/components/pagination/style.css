@@ -19,6 +19,7 @@ li {
 }
 .activePage {
    background-color: #0087E9;
+   color: white;
 }
 
 .pagination-list:hover {

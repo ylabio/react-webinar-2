@@ -5,7 +5,6 @@ const Pagination = ({ pagination, setPagination }) => {
   const pages = [];
   const [catalog, setCatalog] = React.useState([]);
 
-  // не знаю насколько адекватное это решение
   React.useEffect(() => {
     async function fetchFullCatalog() {
       try {

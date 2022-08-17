@@ -7,6 +7,9 @@ import ItemInfo from "../../components/item-info";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 
+//Второй вариант хранения заголовков меню
+// import navigation from '../../navigation.json';
+
 function ItemPage() {
   const store = useStore();
   const {id} = useParams();
@@ -19,7 +22,8 @@ function ItemPage() {
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
-    item: state.item
+    item: state.item,
+    menuItems: state.navigation.menuItems
   }));
 
   const callbacks = {
@@ -31,7 +35,9 @@ function ItemPage() {
 
   return (
     <Layout head={<h1>{select.item.title}</h1>}>
-      <NavMenu onLink='/' title='Главная'/>
+      {/* Второй вариант хранения заголовков меню */}
+      {/* <NavMenu menuItems={navigation.menuItems}/> */}
+      <NavMenu menuItems={select.menuItems}/>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <ItemInfo item={select.item} onAdd={callbacks.addToBasket}/>
     </Layout>

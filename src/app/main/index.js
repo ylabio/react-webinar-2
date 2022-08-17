@@ -8,6 +8,9 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from '../../components/pagination';
 
+//Второй вариант хранения заголовков меню
+// import navigation from '../../navigation.json';
+
 function Main(){
 
   console.log('Main');
@@ -23,7 +26,8 @@ function Main(){
     pagesCount: state.catalog.pagesCount,
     currentPage: state.catalog.currentPage,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    menuItems: state.navigation.menuItems
   }));
 
   const callbacks = {
@@ -41,7 +45,9 @@ function Main(){
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <NavMenu onLink={'/'} title={'Главная'}/>
+      {/* Второй вариант хранения заголовков меню */}
+      {/* <NavMenu menuItems={navigation.menuItems}/> */}
+      <NavMenu menuItems={select.menuItems}/>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination pagesCount={select.pagesCount}                  

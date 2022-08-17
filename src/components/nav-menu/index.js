@@ -9,18 +9,20 @@ function NavMenu(props) {
   const cn = bem('NavMenu');
   return (
     <div className={cn()}>
-      <Link to={`${props.onLink}`} className={cn('link') }>{props.title}</Link>
+      {props.menuItems.map((item, index) =>  
+        <Link to={`${item.link}`} className={cn('link') } key={`${index}${item.title}`}>
+          {item.title}
+        </Link>
+      )}
     </div>
   )
 }
 
 NavMenu.propTypes = {
-  onLink: propTypes.string.isRequired,
-  title: propTypes.string
+  menuItems: propTypes.arrayOf(propTypes.object).isRequired
 }
 
 NavMenu.defaultProps = {
-  title: 'Link'
 }
 
 export default React.memo(NavMenu);

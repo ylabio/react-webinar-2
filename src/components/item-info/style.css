@@ -1,0 +1,23 @@
+.Iteminfo {
+  width: 100%;
+  padding: 0px 40px;
+  box-sizing: border-box;
+}
+.Iteminfo > * {
+  margin-top: 20px;
+}
+.Iteminfo-info-wrapper {
+  display: flex;
+  align-items: flex-end;
+}
+
+.Iteminfo-info {
+  font-size: 18px;
+  font-weight: 700;
+  white-space: pre;
+}
+.Iteminfo-price {
+  font-size: 24px;
+  font-weight: 700;
+  white-space: pre;
+}

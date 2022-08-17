@@ -1,36 +1,50 @@
-import counter from "../../utils/counter";
-import StateModule from "../module";
+import StateModule from '../module';
+import { getArticleById, getArticles } from '../../utils/axios/requests';
 
 /**
  * Состояние каталога
  */
-class CatalogState extends StateModule{
-
+class CatalogState extends StateModule {
   /**
    * Начальное состояние
    * @return {Object}
    */
   initState() {
     return {
-      items: []
+      items: [],
+      count: 0,
+      activePage: 1,
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+  async load(skip) {
+    const catalog = this.store.getState().catalog;
+    const response = await getArticles(skip);
     this.setState({
-      items: json.result.items
+      ...catalog,
+      items: response.result.items,
+      count: response.result.count,
+    });
+  }
+
+  setActivePage(page) {
+    const catalog = this.store.getState().catalog;
+    this.setState({
+      ...catalog,
+      activePage: page,
     });
   }
 
   /**
    * Создание записи
    */
-  createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      items: this.getState().items.concat({_id, title, price, selected})
-    }, 'Создание товара');
+  createItem({ _id, title = 'Новый товар', price = 999, selected = false }) {
+    this.setState(
+      {
+        items: this.getState().items.concat({ _id, title, price, selected }),
+      },
+      'Создание товара'
+    );
   }
 
   /**
@@ -38,9 +52,12 @@ class CatalogState extends StateModule{
    * @param _id
    */
   deleteItem(_id) {
-    this.setState({
-      items: this.getState().items.filter(item => item._id !== _id)
-    }, 'Удаление товара');
+    this.setState(
+      {
+        items: this.getState().items.filter((item) => item._id !== _id),
+      },
+      'Удаление товара'
+    );
   }
 }
 

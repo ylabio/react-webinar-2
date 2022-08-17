@@ -8,7 +8,7 @@ import Menu from "../../components/menu";
 import useSelector from "../../utils/use-selector";
 import useStore from "../../utils/use-store";
 
-function Details(props) {
+function Details() {
 
   const { id } = useParams();
   const store = useStore();

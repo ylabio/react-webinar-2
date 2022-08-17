@@ -16,6 +16,7 @@ class ArticleState extends StateModule{
       country: '',
       code: '',
       category: '',
+      loading: false,
     };
   }
 
@@ -27,11 +28,24 @@ class ArticleState extends StateModule{
     const response = await
       fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
     const json = await response.json();
+    setTimeout(() => {
+      this.setState({
+        item: json.result,
+        country: json.result.maidIn.title,
+        code: json.result.maidIn.code,
+        category: json.result.category.title,
+        loading: false,
+      })
+    }, 500);
+  }
+
+  /**
+   * Лоадер
+   */
+  isLoading() {
     this.setState({
-      item: json.result,
-      country: json.result.maidIn.title,
-      code: json.result.maidIn.code,
-      category: json.result.category.title,
+      ...this.getState(),
+      loading: true
     });
   }
 

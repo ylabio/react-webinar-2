@@ -7,6 +7,10 @@ import {useParams} from "react-router-dom";
 import ArticleContent from "../../components/article-content";
 import Translate from "../../components/translate";
 import NavBar from "../../components/nav-bar";
+import Loader from "../../components/loader";
+import List from "../../components/list";
+import Pagination from "../../components/pagination";
+import Controls from "../../components/controls";
 
 function Article(){
 
@@ -15,10 +19,6 @@ function Article(){
   const store = useStore();
   const params = useParams();
 
-  useEffect(() => {
-    store.get('article').load(params.id);
-  }, [params.id])
-
   const select = useSelector(state => ({
     item: state.article.item,
     content: {
@@ -26,10 +26,16 @@ function Article(){
       code: state.article.code,
       category: state.article.category,
     },
+    loading: state.article.loading,
     amount: state.basket.amount,
     sum: state.basket.sum,
     lang: state.languages,
   }));
+
+  useEffect(() => {
+    store.get('article').isLoading();
+    store.get('article').load(params.id);
+  }, [params.id])
 
   const callbacks = {
     // Открытие корзины
@@ -52,15 +58,25 @@ function Article(){
   return (
     <Layout head={
       <>
-        <h1>{select.item.title}</h1>
+        <h1>
+          {
+            !select.loading && select.item.title
+          }
+        </h1>
         <Translate translate={callbacks.translate}
                    lang={select.lang}
         />
       </>
     }>
-      <NavBar links={{"/": select.lang.main,}}/>
-      <BasketSimple lang={select.lang} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      {renders.article()}
+      <Controls>
+        <NavBar links={{"/": select.lang.main,}}/>
+        <BasketSimple lang={select.lang} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      </Controls>
+      {
+        select.loading
+          ? <Loader />
+          : renders.article()
+      }
     </Layout>
   )
 }

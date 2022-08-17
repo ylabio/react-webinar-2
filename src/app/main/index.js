@@ -9,6 +9,8 @@ import Pagination from "../../components/pagination";
 import Translate from "../../components/translate";
 import {useParams} from "react-router-dom";
 import NavBar from "../../components/nav-bar";
+import Loader from "../../components/loader";
+import Controls from "../../components/controls";
 
 function Main(){
 
@@ -17,19 +19,22 @@ function Main(){
   const store = useStore();
   const params = useParams();
 
-  useEffect(() => {
-    store.get('catalog').load(params.id, select.limit);
-  }, [params.id])
-
   const select = useSelector(state => ({
     items: state.catalog.items,
     page: state.catalog.page,
     pages: state.catalog.pages,
     limit: state.catalog.limit,
+    loading: state.catalog.loading,
     amount: state.basket.amount,
     sum: state.basket.sum,
     lang: state.languages,
   }));
+
+  useEffect(() => {
+    store.get('catalog').isLoading();
+    store.get('catalog').load(params.id, select.limit);
+  }, [params.id])
+
 
   const callbacks = {
     // Открытие корзины
@@ -58,12 +63,21 @@ function Main(){
         />
       </>
     }>
-      <NavBar links={{"/": select.lang.main,}}/>
-      <BasketSimple lang={select.lang} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
-      <Pagination currentPage={select.page}
-                  allPages={select.pages}
-      />
+      <Controls>
+        <NavBar links={{"/": select.lang.main,}}/>
+        <BasketSimple lang={select.lang} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      </Controls>
+      {
+        select.loading
+          ? <Loader />
+          : <>
+              <List items={select.items} renderItem={renders.item}/>
+              <Pagination currentPage={select.page}
+                          allPages={select.pages}
+              />
+            </>
+      }
+
     </Layout>
   )
 }

@@ -16,11 +16,10 @@ class ProductState extends StateModule{
   }
 
   async load(id){
-		const lang = this.store.getState().common.language;
-    const response = await fetch(`/api/v1/articles/${id}?lang=${lang}&fields=maidIn(title,code),category(title),edition,price,title,description`);
+    const response = await fetch(`/api/v1/articles/${id}?lang=all&fields=maidIn(title,code),category(title),edition,price,title,description`);
     const json = await response.json();
     this.setState({
-			product: json.result
+      product: json.result
     });
   }
 }

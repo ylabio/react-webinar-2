@@ -5,27 +5,27 @@ import useStore from '../../utils/use-store';
 import Basket from '../basket';
 
 function Main(){
-	const store = useStore();
+  const store = useStore();
   const modal = useSelector(state => state.modals.name);
 
-	const select = useSelector(state => ({
-		product: state.product.product,
-		lang: state.common.language
-	}));
+  const select = useSelector(state => ({
+    product: state.product.product,
+    lang: state.common.language
+  }));
 
-	const callbacks = {
-		closeModalBasket: useCallback(() => {store.get('modals').close('basket')}, []),
-	};
+  const callbacks = {
+    closeModalBasket: useCallback(() => {store.get('modals').close('basket')}, []),
+  };
 
-	useEffect(() => {
-		callbacks.closeModalBasket();
-	}, [select.product]);
+  useEffect(() => {
+    callbacks.closeModalBasket();
+  }, [select.product]);
 
   return (
     <>
-		  <Outlet />
-		  {modal === 'basket' && <Basket />}
-	  </>
+      <Outlet />
+	    {modal === 'basket' && <Basket />}
+    </>
   )
 }
 

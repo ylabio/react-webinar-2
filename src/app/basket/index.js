@@ -17,7 +17,7 @@ function Basket(){
     items: state.basket.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
-	  lang: state.common.language
+    lang: state.common.language
   }));
 
   const callbacks = {
@@ -27,12 +27,12 @@ function Basket(){
     removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), [])
   };
 
-	const translate = word => {
-		return dictionaryEnum[word][select.lang];
-	};
+    const translate = word => {
+      return dictionaryEnum[word][select.lang];
+    };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket} translate={translate} />, [select.lang]),
+    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket} translate={translate} title={item.title[select.lang]} link={`product/${item._id}`} />, [select.lang]),
   };
 
   return (

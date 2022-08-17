@@ -4,14 +4,14 @@ import propTypes from "prop-types";
 import Switch from '../switch';
 import './style.css';
 
-function Layout({head, children}){
+function Layout({head, children, setLanguage, lang}){
   const cn = bem('Layout');
 
   return (
     <div className={cn()}>
       <div className={cn('head')}>
         {head}
-        <Switch />
+        <Switch setLanguage={setLanguage} lang={lang} />
       </div>
       <div className={cn('content')}>
         {children}
@@ -23,9 +23,13 @@ function Layout({head, children}){
 Layout.propTypes = {
   head: propTypes.node,
   children: propTypes.node,
+  setLanguage: propTypes.func,
+  lang: propTypes.string
 }
 
 Layout.defaultProps = {
+  setLanguage: ()=>{},
+  lang: 'ru'
 }
 
 export default React.memo(Layout);

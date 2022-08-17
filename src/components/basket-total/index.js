@@ -15,12 +15,12 @@ function BasketTotal(props) {
 
 BasketTotal.propTypes = {
   sum: propTypes.number,
-	lang: propTypes.string
+  lang: propTypes.string
 }
 
 BasketTotal.defaultProps = {
   sum: 0,
-	translate: ()=>{}
+  translate: ()=>{}
 }
 
 export default React.memo(BasketTotal);

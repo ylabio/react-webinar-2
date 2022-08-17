@@ -8,9 +8,9 @@ const cn = bem('Number');
 function Number({className, number, setPage}){
   return (
     <button className={cn(className)} onClick={setPage} data-number={number}>
-		  {number}
-	  </button>
-	)
+      {number}
+	</button>
+  )
 }
 
 Number.propTypes={

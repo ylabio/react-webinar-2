@@ -9,15 +9,15 @@ import useSelector from "../../utils/use-selector";
 import useStore from '../../utils/use-store';
 
 function HomePage(){
-	const store = useStore();
+  const store = useStore();
 
   const select = useSelector(state => ({
-	  amount: state.basket.amount,
-	  sum: state.basket.sum,
+    amount: state.basket.amount,
+    sum: state.basket.sum,
     items: state.catalog.items,
     page: state.catalog.pagination.page,
     lang: state.common.language,
-		total: state.catalog.pagination.total
+    total: state.catalog.pagination.total
   }));
 
   useEffect(() => {
@@ -28,23 +28,24 @@ function HomePage(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
-		setPage: useCallback(e => {store.get('catalog').setPage(e.target.getAttribute('data-number'))}, []),
+    setPage: useCallback(e => {store.get('catalog').setPage(e.target.getAttribute('data-number'))}, []),
+    setLanguage: useCallback(() => {store.get('common').setLanguage()}, []),
   };
 
-	const translate = word => {
-		return dictionaryEnum[word][select.lang];
-	};
+  const translate = word => {
+    return dictionaryEnum[word][select.lang];
+  };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} translate={translate} />, [select.lang]),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} translate={translate} title={item.title[select.lang]} link={`product/${item._id}`} />, [select.lang]),
   }
 
   return (
-	  <Layout head={<h1>{translate('store')}</h1>}>
-		  <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} translate={translate} />
-		  <List items={select.items} renderItem={renders.item} />
-		  <Pagination page={select.page} total={select.total} setPage={callbacks.setPage} />
-	  </Layout>
+  <Layout head={<h1>{translate('store')}</h1>} setLanguage={callbacks.setLanguage} lang={select.lang}>
+    <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} translate={translate} />
+    <List items={select.items} renderItem={renders.item} />
+    <Pagination page={select.page} total={select.total} setPage={callbacks.setPage} />
+  </Layout>
   )
 }
 

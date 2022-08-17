@@ -12,29 +12,29 @@ function Pagination({page, total, setPage}){
 
   return (
     <div className={cn()}>
-		  <div className={cn('container')}>
-			  {contentForPagination.map((el, id) => (
-				  <div key={id}>{+el ? <Number
-					  className={el===+page ? 'active' : ''}
-					  number={el}
-					  setPage={setPage}
-					  /> : <div>{el}</div>}
-				  </div>)
-			  )}
+	  <div className={cn('container')}>
+	    {contentForPagination.map((el, id) => (
+		  <div key={id}>{+el ? <Number
+		    className={el===+page ? 'active' : ''}
+		    number={el}
+		    setPage={setPage}
+		    /> : <div>{el}</div>}
+		  </div>)
+		  )}
 		  </div>
 	  </div>
 	)
 }
 
 Pagination.propTypes = {
-	page: propTypes.oneOfType([propTypes.string, propTypes.number]),
-	setPage: propTypes.func,
-	total: propTypes.number
+  page: propTypes.oneOfType([propTypes.string, propTypes.number]),
+  setPage: propTypes.func,
+  total: propTypes.number
 }
 
 Pagination.defaultProps = {
-	setPage: ()=>{},
-	page: 1
+  setPage: ()=>{},
+  page: 1
 }
 
 export default React.memo(Pagination);

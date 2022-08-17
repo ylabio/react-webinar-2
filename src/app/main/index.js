@@ -23,8 +23,8 @@ function Main(){
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    pageNumber: state.paging.pageNumber,
-    curentPage: state.paging.curentPage
+    pageNumber: state.catalog.pageNumber,
+    curentPage: state.catalog.curentPage
   }));
 
   const callbacks = {
@@ -33,7 +33,7 @@ function Main(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Переход по страницам
-    Paginate: useCallback(pageNumber => store.get('paging').paginate(pageNumber), []),
+    Paginate: useCallback(pageNumber => store.get('catalog').paginate(pageNumber), []),
   };
 
   const renders = {

@@ -13,7 +13,12 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      count: 0
+      count: 0,
+      curentPage: 1,
+      itemsPerPage: 10,
+      firsItemIndex: 0,
+      lastItemIndex: 2,
+      pageNumber: Math.ceil(this.store.getState().catalog?.count / 10)
     };
   }
 
@@ -25,7 +30,22 @@ class CatalogState extends StateModule{
       ...this.getState(),
       count: json.result.count
     });
-    this.store.get('paging').paginate(this.store.getState().paging.curentPage);
+    this.store.get('catalog').paginate(this.getState().curentPage);
+  }
+
+  paginate(Page)
+  {
+    let firsItemIndex = (Page - 1) * this.getState().itemsPerPage;
+    let lastItemIndex = firsItemIndex + this.getState().itemsPerPage;
+    let pageNumber = Math.ceil(this.getState().count / this.getState().itemsPerPage);
+    this.setState({
+        ...this.getState(),
+        curentPage: Page,
+        firsItemIndex: firsItemIndex,
+        lastItemIndex: lastItemIndex,
+        pageNumber: pageNumber
+    });
+    this.store.get('catalog').loadItems(this.getState().itemsPerPage, this.getState().firsItemIndex);
   }
 
   async loadItems(limit, skip){

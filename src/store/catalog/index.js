@@ -17,8 +17,6 @@ class CatalogState extends StateModule{
       totalCount: null,
       limit: 5,
       paginationList: [],
-      product: null,
-      isError: '',
     };
   }
 
@@ -35,43 +33,6 @@ class CatalogState extends StateModule{
       totalCount: json.result.count,
       limit,
       paginationList,
-    });
-  }
-
-  async getProduct(id){
-    try {
-      const response = await fetch(`api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
-      const json = await response.json();
-      const { title, description, maidIn, category, price, edition  } = json.result
-      let items = [...this.getState().items]; // если переходиш по прямой ссылке на продукт то его нужно добавить в state.items 
-      if (!this.getState().items.find(item => item._id === id)) {
-        items.push(json.result)
-      }
-      this.setState({
-        ...this.getState(),
-        items,
-        product: {
-          title,
-          description,
-          country: maidIn.title,
-          category: category.title,
-          edition,
-          price,
-          id, 
-        },
-      });
-    } catch (err) {
-      this.setState({
-        ...this.getState(),
-        isError: "Something went wrong",
-      });
-    }
-  }
-
-  removeProduct() {
-    this.setState({
-      ...this.getState(),
-      product: null,
     });
   }
 

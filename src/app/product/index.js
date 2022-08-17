@@ -16,13 +16,13 @@ function Product(){
   const translation = useTranslation();
 
   useEffect(() => {
-    store.get('catalog').getProduct(id);
-    return () => store.get('catalog').removeProduct();
+    store.get('product').getProduct(id);
+    return () => store.get('product').removeProduct();
   }, [id])
 
   const select = useSelector(state => ({
-    product: state.catalog.product,
-    isError: state.catalog.isError,
+    product: state.product.product,
+    isError: state.product.isError,
     amount: state.basket.amount,
     sum: state.basket.sum,
     locale: state.app.locale,

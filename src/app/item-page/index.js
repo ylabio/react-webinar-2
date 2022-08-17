@@ -5,6 +5,7 @@ import useStore from "../../utils/use-store";
 import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
 import ItemDetails from "../../components/item-details";
+import Menu from "../../components/menu";
 
 function ItemPage() {
   const store = useStore();
@@ -28,7 +29,10 @@ function ItemPage() {
 
   return (
     <Layout head={<h1>{item && item.title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={amount} sum={sum} />
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <Menu />
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={amount} sum={sum} />
+      </div>
       {item && <ItemDetails item={item} onAdd={callbacks.addToBasket} />}
     </Layout>
   );

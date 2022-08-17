@@ -24,7 +24,7 @@ function Basket(){
     // Удаление из корзины
     removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), []),
     // Редирект при нажатии на тайтл айтема
-    redirectTo: useCallback(_id => nav(`${routes.ItemPage}/${_id}`), [])
+    redirectTo: useCallback(_id => nav(routes.articles(_id)), [])
   };
 
   const renders = {

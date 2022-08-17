@@ -18,8 +18,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={`${routes.ItemPage}/:id`} element={<ItemPage/>}/>
-        <Route path='/' element={<Main/>}/>
+        <Route path={routes.articles(":id")} element={<ItemPage/>}/>
+        <Route path={routes.home()} element={<Main/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}
     </BrowserRouter>

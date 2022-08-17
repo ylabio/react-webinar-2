@@ -32,7 +32,7 @@ function Main(){
     // Кнопки пагинации
     changePage: useCallback(page => () => store.get('catalog').setPage(page), []),
     // Редирект при нажатии на тайтл айтема
-    redirectTo: useCallback(_id => nav(`${routes.ItemPage}/${_id}`), [])
+    redirectTo: useCallback(_id => nav(routes.articles(_id)), [])
   };
 
   const renders = {

@@ -1,3 +1,4 @@
 export const routes = {
-  ItemPage: 'articles'
+  home: () => '/',
+  articles: (id) => `articles/${id}`
 }

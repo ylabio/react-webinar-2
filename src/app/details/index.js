@@ -1,6 +1,6 @@
 import React, {useCallback, useLayoutEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import ItemDetail from "../../components/item-detail/item-detail";
+import ItemDetail from "../../components/item-detail";
 import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
 import PropTypes from 'prop-types';

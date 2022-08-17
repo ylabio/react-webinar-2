@@ -66,4 +66,4 @@ Pagination.propTypes = {
     currentPage: PropTypes.number,
 }
 
-export default Pagination;
+export default React.memo(Pagination);

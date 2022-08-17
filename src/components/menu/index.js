@@ -1,10 +1,10 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {cn as bem} from "@bem-react/classname";
-import "./home-link.css";
+import "./styles.css";
 
-function HomeLink(){
-    const cn = bem('HomeLink');
+function Menu(){
+    const cn = bem('Menu');
 
     return(
         <div className={cn()}>
@@ -13,4 +13,4 @@ function HomeLink(){
     )
 }
 
-export default HomeLink;
+export default React.memo(Menu);

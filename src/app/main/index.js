@@ -4,7 +4,7 @@ import Layout from "../../components/layout";
 import React, {useCallback, useEffect} from "react";
 import PropTypes from 'prop-types';
 import Item from "../../components/item";
-import Pagination from "../../components/pagination/pagination";
+import Pagination from "../../components/pagination";
 
 function Main({store, amount, sum, items, currentPage, totalCount, countForPage}){
 

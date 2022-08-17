@@ -15,11 +15,16 @@ class CatalogState extends StateModule{
       items: [],
       currentPage: 1,
       totalPages: 0,
-      itemsPerPage: 10
+      itemsPerPage: 10,
+      isCatalogLoading: true,
     };
   }
 
   async load(){
+    this.setState({
+      ...this.getState(),
+      isCatalogLoading: true,
+    });
     const skip = (this.getState().currentPage-1)*this.getState().itemsPerPage
     const response = await fetch(`/api/v1/articles?limit=10&skip=${skip}&fields=items(*),count`);
     const json = await response.json();
@@ -27,6 +32,7 @@ class CatalogState extends StateModule{
       ...this.getState(),
       items: json.result.items,
       totalPages: Math.ceil(json.result.count/this.getState().itemsPerPage),
+      isCatalogLoading: false,
     });
   }
   

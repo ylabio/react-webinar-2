@@ -9,6 +9,8 @@ import ListPagination from "../../components/list-pagination";
 import Select from "../../components/language-select";
 import MainMenu from "../../components/main-menu";
 import {translateLanguage} from "../../utils/translate-language";
+import Loader from "../../components/loader";
+import MenuWrapper from "../../components/menu-wrapper";
 
 function Main() {
   
@@ -23,6 +25,7 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.translation.language,
+    isCatalogLoading: state.catalog.isCatalogLoading
   }));
   
   const [words, setWords] = useState({});
@@ -55,9 +58,15 @@ function Main() {
   }, [select.currentPage])
   
   return (
-    <Layout head={<><h1>{words.shop}</h1><Select changeLanguage={callbacks.changeLanguage}
-                                                        language={select.language}/></>}>
-      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+    <Layout head={
+      <>
+        <h1>{words.shop}</h1>
+        <Select
+          changeLanguage={callbacks.changeLanguage}
+          language={select.language}/>
+      </>
+    }>
+      <MenuWrapper>
         <MainMenu words={
           {
             main: words.main,
@@ -72,14 +81,16 @@ function Main() {
             goTo: words.goTo
           }
         }/>
-      </div>
-      <>
-        <List items={select.items} renderItem={renders.item}/>
-        <ListPagination
-          currentPage={select.currentPage}
-          switchPage={callbacks.switchPage}
-          totalPages={select.totalPages}/>
-      </>
+      </MenuWrapper>
+      {!select.isCatalogLoading ?
+        <>
+          <List items={select.items} renderItem={renders.item}/>
+          <ListPagination
+            currentPage={select.currentPage}
+            switchPage={callbacks.switchPage}
+            totalPages={select.totalPages}
+          />
+        </> :  <Loader />}
     </Layout>
   )
 }

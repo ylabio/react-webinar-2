@@ -14,10 +14,10 @@ const ListPagination = ({currentPage, totalPages, switchPage}) => {
   
   return (
     <div className={cn()}>
-        <span
-          className={currentPage === 1 ? cn('number', {active: true}) : cn('number')}
-          onClick={() => switchPage(1)}>1
-        </span>
+      <span
+        className={currentPage === 1 ? cn('number', {active: true}) : cn('number')}
+        onClick={() => switchPage(1)}>1
+      </span>
       {currentPage > 3 && <span className={cn('dotted')}>...</span>}
       {pagesArray.map((page, index) =>
         <span key={page + index}
@@ -41,7 +41,6 @@ ListPagination.propTypes = {
   switchPage: propTypes.func
 }
 
-ListPagination.defaultProps = {
-}
+ListPagination.defaultProps = {}
 
 export default ListPagination;

@@ -7,6 +7,8 @@ import ProductCard from "../../components/product-card";
 import Select from "../../components/language-select";
 import MainMenu from "../../components/main-menu";
 import {translateLanguage} from "../../utils/translate-language";
+import Loader from "../../components/loader";
+import MenuWrapper from "../../components/menu-wrapper";
 
 function ProductInformation() {
   
@@ -25,7 +27,7 @@ function ProductInformation() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.translation.language,
-    isLoading: state.product.isLoading
+    isProductLoading: state.product.isProductLoading
   }));
   
   const callbacks = {
@@ -49,7 +51,6 @@ function ProductInformation() {
   
   useEffect(() => {
     if (window.location.pathname.includes('productInformation/')) {
-      console.log(window.location.pathname.split('productInformation/')[1])
       callbacks.getProductInformation(window.location.pathname.split('productInformation/')[1])
     }
   }, []);
@@ -57,7 +58,7 @@ function ProductInformation() {
   return (
     <Layout
       head={<><h1>{select.title}</h1><Select changeLanguage={callbacks.changeLanguage} language={select.language}/></>}>
-      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+      <MenuWrapper>
         <MainMenu words={{main: words.main}}/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={
           {
@@ -67,8 +68,8 @@ function ProductInformation() {
             item: words.item,
             goTo: words.goTo
           }}/>
-      </div>
-      {!select.isLoading ?
+      </MenuWrapper>
+      {!select.isProductLoading ?
         <ProductCard
           id={select.id}
           description={select.description}
@@ -83,7 +84,7 @@ function ProductInformation() {
             year: words.year,
             price: words.price,
             add: words.add
-          }}/> : <div style={{marginLeft: 20}}>Идет загрузка...</div>}
+          }}/> : <Loader />}
     </Layout>
   )
 }

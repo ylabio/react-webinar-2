@@ -12,8 +12,9 @@ class BasketState extends StateModule{
   initState() {
     return {
       items: [],
-        sum: 0,
-        amount: 0
+      sum: 0,
+      amount: 0,
+      isBasketLoading: false
     };
   }
 
@@ -51,6 +52,7 @@ class BasketState extends StateModule{
 
     // Установка состояние, basket тоже нужно сделать новым
     this.setState({
+      ...this.getState(),
       items,
       sum,
       amount: items.length
@@ -71,6 +73,7 @@ class BasketState extends StateModule{
       return true;
     });
     this.setState({
+      ...this.getState(),
       items,
       sum,
       amount: items.length

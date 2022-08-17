@@ -18,7 +18,7 @@ class ProductState extends StateModule {
       category: '',
       year: 0,
       price: 0,
-      isLoading: false
+      isProductLoading: false
     };
   }
   
@@ -29,14 +29,7 @@ class ProductState extends StateModule {
   async getProductInformation(id) {
     this.setState({
       ...this.getState(),
-      id: null,
-      title: null,
-      description: null,
-      country: null,
-      category: null,
-      year: null,
-      price: null,
-      isLoading: true
+      isProductLoading: true
     })
     
     const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title),category(title)`);
@@ -51,7 +44,7 @@ class ProductState extends StateModule {
       category: result.category.title,
       year: result.edition,
       price: result.price,
-      isLoading: false
+      isProductLoading: false
     })
   }
 }

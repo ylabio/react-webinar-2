@@ -6,6 +6,7 @@ import useStore from "../../utils/use-store";
 import Product from "./product";
 import { useParams } from 'react-router-dom';
 import Navigation from "../../components/navigation";
+import Container from "../../components/container";
 
 function PageInfo() {
   const { id } = useParams();
@@ -29,10 +30,10 @@ function PageInfo() {
 
   return (
     <Layout head={<h1>{select.info.title}</h1>}>
-      <div className='Main-container'>
+      <Container>
         <Navigation />
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      </div>
+      </Container>
       <Product info={select.info} addToBasket={callbacks.addToBasket} />
     </Layout>
   )

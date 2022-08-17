@@ -9,6 +9,7 @@ import Pagination from "../../components/pagination";
 import { useNavigate, useSearchParams  } from "react-router-dom";
 import Navigation from "../../components/navigation";
 import './style.css';
+import Container from "../../components/container";
 
 function Main(){
   const [searchParams] = useSearchParams();
@@ -24,6 +25,7 @@ function Main(){
     sum: state.basket.sum,
     count: state.catalog.count,
     limit: state.catalog.limit,
+    currentPage: state.catalog.currentPage
   }));
 
   const navigate = useNavigate();
@@ -33,7 +35,7 @@ function Main(){
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    
+
     getItem: useCallback(() => {
       const skip = (currentPage - 1) * select.limit;
       store.get('catalog').load(select.limit, skip)
@@ -48,17 +50,17 @@ function Main(){
   const renders = {
     item: useCallback(item => <Item item={item} path={`product/${item._id}`} onAdd={callbacks.addToBasket}/>, []),
   }
-
+// ?page=${select.currentPage}
   useEffect(() => {
     callbacks.getItem();
   }, [currentPage])
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <div className='Main-container'>
+      <Container>
         <Navigation />
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      </div>
+      </Container>
       <List items={select.items} renderItem={renders.item} />
       <Pagination
         currentPage={currentPage}

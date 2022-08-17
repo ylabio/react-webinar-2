@@ -41,7 +41,12 @@ class BasketState extends StateModule{
     if (!exists) {
       // Поиск товара в каталоге, чтобы его в корзину добавить
       // @todo В реальных приложения будет запрос к АПИ на добавление в корзину, и апи выдаст объект товара..
-      const item = this.store.getState().catalog.items.find(item => item._id === _id);
+      let item = this.store.getState().catalog.items.find(item => item._id === _id);
+
+      if(!item) {
+        item = this.store.getState().product.info;
+      }
+
       items.push({...item, amount: 1});
       // Досчитываем сумму
       sum += item.price;

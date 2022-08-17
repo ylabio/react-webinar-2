@@ -9,3 +9,16 @@
 .List-item:first-child{
     border-top: 1px dashed #ccc;
 }
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:visited {
+    color: black;
+}

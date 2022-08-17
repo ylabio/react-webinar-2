@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import numberFormat from "../../utils/numberFormat";
 import {cn as bem} from "@bem-react/classname";
 import './styles.css';
+import {Link} from "react-router-dom"
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
@@ -13,24 +14,29 @@ function ItemBasket(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('id')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>{props.item.title}</div>
+      <div className={cn('title')}>
+        <Link to={props.link} onClick={props.onClose}>{props.item.title}</Link>
+      </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}>Удалить</button></div>
+        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{props.translate(props.language, props.codesBasketItem.CODE_17) || 'Удалить'}</button></div>
       </div>
     </div>
   )
 }
 
 ItemBasket.propTypes = {
+  codesBasketItem: propTypes.object.isRequired,
+  translate: propTypes.func.isRequired,
   item: propTypes.object.isRequired,
-  onRemove: propTypes.func,
+  onRemove: propTypes.func.isRequired,
+  language: propTypes.string.isRequired
 }
 
 ItemBasket.defaultProps = {
-
+  codesBasketItem: {},
+  translate: () => {},
 }
 
 export default React.memo(ItemBasket);

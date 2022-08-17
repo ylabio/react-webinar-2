@@ -1,4 +1,3 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**
@@ -12,16 +11,34 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      isLoading: true,
+      currentPage: 1,
+      limitPerPage: 10,
+      totalPages: 0
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+ 
+  async load(newPage){
     this.setState({
-      items: json.result.items
-    });
+      ...this.getState(),
+      isLoading: true,
+    }, 'Смена пагинации');
+
+    const limitPerPage = this.getState().limitPerPage;
+    const skipPages = (newPage - 1) * limitPerPage
+
+    const response = await fetch(`/api/v1/articles?limit=${limitPerPage}&skip=${skipPages}&fields=items(*),count`);
+    const json = await response.json();
+
+    this.setState({
+      ...this.getState(),
+      items: json.result.items,
+      isLoading: false,
+      currentPage: newPage,
+      totalPages: json.result.count,
+    }, 'Загрузка товаров');
   }
 
   /**

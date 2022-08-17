@@ -1,0 +1,15 @@
+.Menu {
+  margin: 0;
+  padding: 20px;
+  list-style-type: none;
+}
+
+.Menu-item:hover {
+}
+
+.Menu-item a{
+  font-size: 18px;
+  line-height: 21px;
+
+  color: #0087E9;
+}

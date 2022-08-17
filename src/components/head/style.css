@@ -1,0 +1,11 @@
+.Head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Head-localization{
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  padding: 30px 40px;
+}

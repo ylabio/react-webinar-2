@@ -8,13 +8,17 @@ function Navigation(props) {
   const cn = bem('Navigation');
 
   return (
-    <NavLink className={cn()} to={props.path}>{props.title}</NavLink>
+    <ul className={cn()}>
+      {props.items.map(el =>
+        <li className={cn('item')} key={el._id}>
+          <NavLink className={cn('link')} to={el.path}>{el.title}</NavLink>
+        </li>)}
+    </ul>
   );
 }
 
 Navigation.propTypes = {
-  path: propTypes.PropTypes.string,
-  title: propTypes.PropTypes.string,
+  items: propTypes.arrayOf(propTypes.exact({_id: propTypes.number, path: propTypes.string, title: propTypes.string})),
 };
 
 

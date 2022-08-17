@@ -10,6 +10,7 @@ import Navigation from "components/navigation";
 import Controls from "components/controls";
 import {translation} from "l10n/strings/translation";
 import {routes} from "utils/constants/routes";
+import {navigation} from "utils/constants/navigation";
 
 function Product() {
   console.log('Product');
@@ -18,8 +19,7 @@ function Product() {
 
   const {id} = useParams();
   const {lang} = useContext(LocalisationContext);
-  const navigationHeading = translation[lang].layout.navigation.home;
-  const navigationPath = routes.home;
+  const navigationList = navigation[lang];
   const cartStrings = translation[lang].cart;
   const productCardStrings = translation[lang].product.card;
 
@@ -46,7 +46,7 @@ function Product() {
   return (
     <Layout head={<h1>{select.product?.title}</h1>}>
       <Controls>
-        <Navigation title={navigationHeading} path={navigationPath}/>
+        <Navigation items={navigationList}/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} strings={cartStrings}/>
       </Controls>
       <ProductCard item={select.product} onAdd={callbacks.addToBasket} strings={productCardStrings}/>

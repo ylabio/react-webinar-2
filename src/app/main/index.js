@@ -12,6 +12,7 @@ import Controls from "components/controls";
 import Navigation from "components/navigation";
 import {routes} from "utils/constants/routes";
 import {translation} from "l10n/strings/translation";
+import {navigation} from "utils/constants/navigation";
 
 function Main() {
   console.log('Main');
@@ -23,8 +24,7 @@ function Main() {
   const heading = translation[lang].title;
   const addButton = translation[lang].layout.buttons.add;
   const cartStrings = translation[lang].cart;
-  const navigationHeading = translation[lang].layout.navigation.home;
-  const navigationPath = routes.home;
+  const navigationList = navigation[lang];
   const itemNavLink = routes.productInfo;
   const skip = params.get("skip") || 0;
   const limit = 10;
@@ -72,7 +72,7 @@ function Main() {
   return (
     <Layout head={<h1>{heading}</h1>}>
       <Controls>
-        <Navigation title={navigationHeading} path={navigationPath}/>
+        <Navigation items={navigationList}/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} strings={cartStrings}/>
       </Controls>
 

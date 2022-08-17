@@ -12,6 +12,7 @@ let config = {
   output: {
     path: path.join(__dirname, 'dist'), // Куда и как делать сборку
     filename: '[name].js',
+    publicPath: "/",
     clean: true, // Очистить ./dist от предыдущей сборки
   },
   plugins: [

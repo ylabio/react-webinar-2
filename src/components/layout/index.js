@@ -1,17 +1,12 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {cn as bem} from "@bem-react/classname";
-import propTypes from "prop-types";
-import './style.css';
-import {Outlet, useParams} from "react-router";
-import BasketSimple from "../basket-simple";
+import {useParams} from "react-router";
 import useStore from "../../utils/use-store";
-import useSelector from "../../utils/use-selector";
 import {getItemById} from "../../api/api";
-import Menu from "../menu";
+import useSelector from "../../utils/use-selector";
+import Outlet from "../custom-outlet";
+import CustomOutlet from "../custom-outlet";
 
-function Layout({head}) {
-    const cn = bem('Layout');
-
+function Layout() {
     const store = useStore();
     const [title, setTitle] = useState('');
     const params = useParams();
@@ -28,7 +23,7 @@ function Layout({head}) {
             }
         }
         changeTitle();
-    }, [params])
+    }, [params.id])
 
     const select = useSelector(state => ({
         items: state.catalog.items,
@@ -37,26 +32,15 @@ function Layout({head}) {
     }));
 
     const callbacks = {
-        // Открытие корзины
         openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     };
 
     return (
-        <div className={cn()}>
-            <div className={cn('head')}>
-                <h1>
-                    {Object.keys(params).length === 0 ? 'Магазин' : title}
-                </h1>
-            </div>
-            <div className={cn('subheader')}>
-                <Menu title={'Главная'} url={'/'} />
-                <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-            </div>
-            <div className={cn('content')}>
-                <Outlet/>
-            </div>
-        </div>
+        <CustomOutlet title={Object.keys(params).length === 0 ? 'Магазин' : title}
+                amount={select.amount} sum={select.sum}
+                onOpen={callbacks.openModalBasket}/>
     )
 }
+
 
 export default Layout;

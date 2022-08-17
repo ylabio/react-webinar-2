@@ -1,3 +1,5 @@
-.Menu-link {
-    color: rgba(0, 135, 233, 1);
+.Menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }

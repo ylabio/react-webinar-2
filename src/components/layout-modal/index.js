@@ -20,8 +20,6 @@ function LayoutModal(props) {
     }
   });
 
-
-
   return (
     <div className={cn()}>
       <div className={cn('frame')} ref={frame}>

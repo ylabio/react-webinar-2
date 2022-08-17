@@ -1,22 +1,26 @@
 import React from 'react';
-import {Link} from "react-router-dom";
-import propTypes from "prop-types";
-import {Pagination} from "../pagination";
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
+import PropTypes from "prop-types";
 
-const Menu = ({url, title}) => {
+const Menu = ({children}) => {
     const cn = bem('Menu');
     return (
-        <Link className={cn('link')} to={url}>
-            {title}
-        </Link>
+        <nav className={cn()}>
+            {children}
+        </nav>
     );
 };
 
 Menu.propTypes = {
-    url: propTypes.string.isRequired,
-    title: propTypes.string.isRequired
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ]).isRequired
+}
+
+Menu.defaultProps = {
+    data: []
 }
 
 export default React.memo(Menu);

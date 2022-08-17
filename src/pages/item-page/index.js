@@ -5,6 +5,8 @@ import {cn as bem} from "@bem-react/classname";
 import {getCategoryById, getCountryById, getItemById} from "../../api/api";
 import Controls from "../../components/controls";
 import useStore from "../../utils/use-store";
+import Loading from "../../components/loading";
+import PageContent from "../../components/page-content";
 
 export const ItemPage = () => {
     let params = useParams();
@@ -18,7 +20,6 @@ export const ItemPage = () => {
         // Добавление в корзину
         addToBasket: useCallback(_id => store.get('basket').addToBasket(params.id), []),
     };
-
 
     const getInfo = async () => {
         getItemById(params.id).then(async (r) => {
@@ -66,7 +67,7 @@ export const ItemPage = () => {
     }, [params.id])
 
     if (isLoading) {
-        return <p className={cn('wrapper')}>Загрузка</p>
+        return <Loading/>
     }
 
     if (error) {
@@ -74,29 +75,6 @@ export const ItemPage = () => {
     }
 
     return (
-        <div className={cn()}>
-            <p>
-                {data.description}
-            </p>
-
-            <p className={cn('item')}>
-                Страна производитель: <b>{data.country} ({data.countryCode})</b>
-            </p>
-
-            <p className={cn('item')}>
-                Категория: <b>{data.category}</b>
-            </p>
-
-            <p className={cn('item')}>
-                Год выпуска: <b>{data.edition}</b>
-            </p>
-
-            <div className={cn('price')}>
-                Цена: {data.price} ₽
-            </div>
-            <div className={cn('button-wrapper')}>
-                <Controls onAdd={callbacks.addToBasket}/>
-            </div>
-        </div>
+        <PageContent data={data} addToBasket={callbacks.addToBasket}/>
     )
 }

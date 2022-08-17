@@ -3,11 +3,8 @@ import {Link} from "react-router-dom";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-export const PaginationButton = ({index, setPage, activeIndex}) => {
+const PaginationButton = ({index, setPage, activeIndex}) => {
     const cn = bem('Pagination-button');
-    useEffect(() => {
-        console.log(activeIndex, index);
-    }, [])
     if (activeIndex === index) {
         return (
             <button disabled onClick={() => setPage(index)} className={cn()}>
@@ -21,3 +18,5 @@ export const PaginationButton = ({index, setPage, activeIndex}) => {
         </button>
     )
 }
+
+export default React.memo(PaginationButton);

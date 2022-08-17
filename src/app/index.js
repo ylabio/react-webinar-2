@@ -8,6 +8,7 @@ import Layout from "../components/layout";
 import {ItemPage} from "../pages/item-page";
 import {getItemById} from "../api/api";
 
+
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
@@ -29,4 +30,4 @@ function App() {
     );
 }
 
-export default React.memo(App);
+export default App;

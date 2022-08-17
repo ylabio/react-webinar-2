@@ -6,6 +6,7 @@ import useSelector from "../../utils/use-selector";
 import {Pagination} from "../../components/pagination";
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
+import Loading from "../../components/loading";
 
 function Main() {
     const store = useStore();
@@ -37,9 +38,7 @@ function Main() {
     }
 
     if (select.isLoading) {
-        return (<div>
-            Загрузка
-        </div>)
+        return <Loading/>
     }
 
     return (

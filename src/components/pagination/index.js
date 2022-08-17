@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {cn as bem} from "@bem-react/classname";
 import {Link} from "react-router-dom";
-import {PaginationButton} from "../ui/pagination-button";
+import PaginationButton from "../ui/pagination-button";
 import './style.css'
 import propTypes from "prop-types";
 
@@ -9,9 +9,6 @@ export const Pagination = ({itemsPerPage, totalItems, setPage, activeIndex}) => 
     const cn = bem('Pagination');
     const array = [];
     const amount = Math.ceil(totalItems / itemsPerPage);
-
-    // createPages(array, totalItems, activeIndex, amount);
-
     function createPages(pages, pagesCount, currentPage) {
         if (pagesCount >= 10) {
             pages[0] = 1;
@@ -52,7 +49,6 @@ export const Pagination = ({itemsPerPage, totalItems, setPage, activeIndex}) => 
             }
             if (activeIndex + 3 === amount) {
                 pages[activeIndex + 2] = '...';
-                console.log(pages);
             }
             pages[amount] = amount;
         } else {

@@ -1,0 +1,22 @@
+.Subheader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 982px;
+    margin: 0 auto;
+}
+
+
+.Subheader-link {
+    color: rgba(0, 135, 233, 1);
+    margin-right: 8px;
+}
+
+.Subheader-link:hover {
+    opacity: 0.7;
+}
+
+.Subheader-link:last-child {
+    margin-right: 0;
+}

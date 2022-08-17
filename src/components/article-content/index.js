@@ -3,9 +3,11 @@ import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
 import "./style.css";
+import useTranslate from "../../utils/use-translate";
 
-function ArticleContent({ translate, onAdd, item, category, country }) {
+function ArticleContent({ onAdd, item, category, country }) {
   const cn = bem("article");
+  const t = (phrase) => useTranslate(phrase);
 
   const callbacks = {
     onAdd: useCallback((e) => onAdd(item._id), [onAdd, item]),
@@ -16,30 +18,29 @@ function ArticleContent({ translate, onAdd, item, category, country }) {
       <div className={cn("content")}>
         <span className={cn("description")}>{item.description}</span>
         <span className={cn("description")}>
-          {translate.article.madeIn}{" "}
+          {t("article.madeIn")}{" "}
           <strong>
             {country.title} ({country.code})
           </strong>
         </span>
         <span className={cn("description")}>
-          {translate.article.category} <strong>{category.title}</strong>
+          {t("article.category")} <strong>{category.title}</strong>
         </span>
         <span className={cn("description")}>
-          {translate.article.editionYear} <strong>{item.edition}</strong>
+          {t("article.editionYear")} <strong>{item.edition}</strong>
         </span>
         <span className={cn("price")}>
-          {translate.article.price} {numberFormat(item.price)} ₽
+          {t("article.price")} {numberFormat(item.price)} ₽
         </span>
       </div>
       <button className={cn("button")} onClick={callbacks.onAdd}>
-        {translate.main.add}
+        {t("main.add")}
       </button>
     </div>
   );
 }
 
 ArticleContent.propTypes = {
-  translate: propTypes.object.isRequired,
   onAdd: propTypes.func.isRequired,
   item: propTypes.object.isRequired,
   category: propTypes.object.isRequired,

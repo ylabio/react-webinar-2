@@ -3,22 +3,22 @@ import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 import { Link } from "react-router-dom";
+import useTranslate from "../../utils/use-translate";
 
-function Navbar({ translate }) {
+function Navbar() {
   const cn = bem("Navbar");
+  const t = (phrase) => useTranslate(phrase);
 
   return (
     <nav className={cn()}>
       <Link to="/catalog" className={cn("link")}>
-        {translate.main.mainPage}
+        {t("main.mainPage")}
       </Link>
     </nav>
   );
 }
 
-Navbar.propTypes = {
-  translate: propTypes.object.isRequired,
-};
+Navbar.propTypes = {};
 
 Navbar.defaultProps = {};
 

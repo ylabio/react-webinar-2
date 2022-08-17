@@ -5,9 +5,11 @@ import numberFormat from "../../utils/number-format";
 import "./style.css";
 import { Link } from "react-router-dom";
 import url from "../../configs/url.json";
+import useTranslate from "../../utils/use-translate";
 
 function Item(props) {
   const cn = bem("Item");
+  const t = (phrase) => useTranslate(phrase);
 
   const callbacks = {
     onAdd: useCallback(
@@ -27,7 +29,7 @@ function Item(props) {
       <div className={cn("right")}>
         <div className={cn("price")}>{numberFormat(props.item.price)} ₽</div>
         <button className={cn("button")} onClick={callbacks.onAdd}>
-          {props.translate.main.add}
+          {t("main.add")}
         </button>
       </div>
     </div>
@@ -37,7 +39,6 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func.isRequired,
-  translate: propTypes.object.isRequired,
 };
 
 Item.defaultProps = {};

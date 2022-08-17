@@ -4,32 +4,36 @@ import plural from "plural-ru";
 import { cn as bem } from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
 import "./style.css";
-import { Link } from "react-router-dom";
+import useTranslate from "../../utils/use-translate";
 
-function BasketSimple({ sum, amount, onOpen, translate }) {
+function BasketSimple({ sum, amount, onOpen }) {
   const cn = bem("BasketSimple");
+  const t = (phrase) => useTranslate(phrase);
+  let pluralPhrase = [
+    useTranslate("main.product1"),
+    useTranslate("main.product2"),
+    useTranslate("main.product3"),
+  ];
+  let empty = useTranslate("main.empty");
+
   return (
     <div className={cn()}>
-      <span className={cn("label")}>{translate.main.inBasket}</span>
+      <span className={cn("label")}>{t("main.inBasket")}</span>
       <span className={cn("total")}>
         {amount
-          ? `${amount} ${plural(
-              amount,
-              `${translate.main.product1}`,
-              `${translate.main.product2}`,
-              `${translate.main.product3}`
-            )} / ${numberFormat(sum)} ₽`
-          : `${translate.main.empty}`}
+          ? `${amount} ${plural(amount, ...pluralPhrase)} / ${numberFormat(
+              sum
+            )} ₽`
+          : `${empty}`}
       </span>
       <button className={cn("button")} onClick={onOpen}>
-        {translate.basket.openModal}
+        {t("basket.openModal")}
       </button>
     </div>
   );
 }
 
 BasketSimple.propTypes = {
-  translate: propTypes.object.isRequired,
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
   amount: propTypes.number,

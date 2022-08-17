@@ -10,15 +10,16 @@ import Select from "../../components/select";
 import LoaderComponent from "../../components/loader-component";
 import LayoutMenu from "../../components/layout-menu";
 import Navbar from "../../components/navbar";
+import useTranslate from "../../utils/use-translate";
 
 function Main() {
   console.log("Main");
 
   const store = useStore();
   const [isLoading, setIsLoading] = useState(true);
+  const t = (phrase) => useTranslate(phrase);
 
   const load = async function (page) {
-    console.log("123");
     setIsLoading(true);
     await store
       .get("catalog")
@@ -56,13 +57,7 @@ function Main() {
 
   const renders = {
     item: useCallback(
-      (item) => (
-        <Item
-          item={item}
-          onAdd={callbacks.addToBasket}
-          translate={select.lang.translate}
-        />
-      ),
+      (item) => <Item item={item} onAdd={callbacks.addToBasket} />,
       [select.lang]
     ),
   };
@@ -71,9 +66,9 @@ function Main() {
     <Layout
       head={
         <>
-          <h1>{select.lang.translate.main.storeHead}</h1>
+          <h1>{t("main.storeHead")}</h1>
           <Select
-            currentValue={select.lang.translate.lang}
+            currentValue={select.lang.currentLang}
             options={select.lang.langs}
             changeOption={callbacks.changeLang}
           />
@@ -81,9 +76,8 @@ function Main() {
       }
     >
       <LayoutMenu>
-        <Navbar translate={select.lang.translate} />
+        <Navbar />
         <BasketSimple
-          translate={select.lang.translate}
           onOpen={callbacks.openModalBasket}
           amount={select.amount}
           sum={select.sum}

@@ -5,9 +5,11 @@ import { cn as bem } from "@bem-react/classname";
 import "./styles.css";
 import { Link } from "react-router-dom";
 import url from "../../configs/url.json";
+import useTranslate from "../../utils/use-translate";
 
 function ItemBasket(props) {
   const cn = bem("ItemBasket");
+  const t = (phrase) => useTranslate(phrase);
 
   const callbacks = {
     onRemove: useCallback(
@@ -29,12 +31,10 @@ function ItemBasket(props) {
       <div className={cn("right")}>
         <div className={cn("cell")}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn("cell")}>
-          {numberFormat(props.item.amount || 0)} {props.translate.basket.amount}
+          {numberFormat(props.item.amount || 0)} {t("basket.amount")}
         </div>
         <div className={cn("cell")}>
-          <button onClick={callbacks.onRemove}>
-            {props.translate.basket.delete}
-          </button>
+          <button onClick={callbacks.onRemove}>{t("basket.delete")}</button>
         </div>
       </div>
     </div>
@@ -44,7 +44,6 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
-  translate: propTypes.object.isRequired,
 };
 
 ItemBasket.defaultProps = {};

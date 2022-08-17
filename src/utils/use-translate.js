@@ -1,7 +1,9 @@
-import useStore from "./use-store";
+import useSelector from "./use-selector";
 
 export default function useTranslate(phrase) {
-  const lang = useStore().get("language").getState().currentLang;
+  const lang = useSelector((state) => {
+    return state.language.currentLang;
+  });
 
   const dictionary = require(`../languages/${lang}.json`);
   const phraseArr = phrase.split(".");

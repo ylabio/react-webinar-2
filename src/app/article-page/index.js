@@ -16,6 +16,7 @@ function ArticlePage() {
   const store = useStore();
   const params = useParams();
   const [isLoading, setIsLoading] = useState(true);
+  const t = (phrase) => useTranslate(phrase);
 
   const load = async function () {
     setIsLoading(true);
@@ -55,7 +56,7 @@ function ArticlePage() {
           <>
             <h1>{select.item.title}</h1>
             <Select
-              currentValue={select.lang.translate.lang}
+              currentValue={select.lang.currentLang}
               options={select.lang.langs}
               changeOption={callbacks.changeLang}
             />
@@ -64,9 +65,8 @@ function ArticlePage() {
       }
     >
       <LayoutMenu>
-        <Navbar translate={select.lang.translate} />
+        <Navbar />
         <BasketSimple
-          translate={select.lang.translate}
           onOpen={callbacks.openModalBasket}
           amount={select.amount}
           sum={select.sum}
@@ -76,7 +76,6 @@ function ArticlePage() {
         <LoaderComponent />
       ) : (
         <ArticleContent
-          translate={select.lang.translate}
           onAdd={callbacks.addToBasket}
           item={select.item}
           category={select.category}

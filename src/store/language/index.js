@@ -1,6 +1,4 @@
 import StateModule from "../module";
-import ru from "../../languages/ru.json";
-import en from "../../languages/en.json";
 /**
  * Состояние каталога
  */
@@ -11,23 +9,16 @@ class LangState extends StateModule {
    */
   initState() {
     return {
-      translate: ru,
+      currentLang: "ru",
       langs: ["ru", "en"],
     };
   }
 
   async loadLang(lang) {
-    if (lang == "ru") {
-      this.setState({
-        translate: ru,
-        langs: ["ru", "en"],
-      });
-    } else if (lang == "en") {
-      this.setState({
-        translate: en,
-        langs: ["ru", "en"],
-      });
-    }
+    this.setState({
+      currentLang: lang,
+      langs: ["ru", "en"],
+    });
   }
 }
 

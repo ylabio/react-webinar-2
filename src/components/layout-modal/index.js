@@ -2,9 +2,11 @@ import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
+import useTranslate from "../../utils/use-translate";
 
 function LayoutModal(props) {
   const cn = bem("LayoutModal");
+  const t = (phrase) => useTranslate(phrase);
 
   const frame = useRef();
 
@@ -29,7 +31,7 @@ function LayoutModal(props) {
         <div className={cn("head")}>
           <h1 className={cn("title")}>{props.title}</h1>
           <button className={cn("close")} onClick={props.onClose}>
-            {props.translate.basket.closeModal}
+            {t("basket.closeModal")}
           </button>
         </div>
         <div className={cn("content")}>{props.children}</div>
@@ -42,7 +44,6 @@ LayoutModal.propTypes = {
   title: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
-  translate: PropTypes.object.isRequired,
 };
 
 LayoutModal.defaultProps = {

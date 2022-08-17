@@ -1,5 +1,5 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import propTypes, {object} from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css'
 
@@ -13,8 +13,7 @@ function Menu({children}) {
 }
 
 Menu.propTypes = {
-    children: propTypes.object.isRequired
+    children: propTypes.object
 }
-
 
 export default React.memo(Menu);

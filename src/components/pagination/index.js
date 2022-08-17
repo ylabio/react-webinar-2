@@ -3,15 +3,13 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css'
 import propTypes from "prop-types";
 
-function Pagination({totalCount, perPage, onChangePage, currentPage}) {
+function Pagination({totalPages, onChangePage, currentPage}) {
 
     const cn = bem('Paginator');
 
-    const pageCount = Math.ceil(totalCount / perPage)  //количество страниц
-
     const pages = [] //массив страниц
 
-    for (let i = 1; i <= pageCount; i++) {
+    for (let i = 1; i <= totalPages; i++) {
         pages.push(i)
     }
 
@@ -50,7 +48,7 @@ function Pagination({totalCount, perPage, onChangePage, currentPage}) {
         }
 
         setActivePages(tempPages)
-    }, [pageCount, currentPage])
+    }, [currentPage, totalPages])
 
     const showPages = activePages.map((item, index) => {
         if (item === '...') {
@@ -72,12 +70,7 @@ function Pagination({totalCount, perPage, onChangePage, currentPage}) {
 Pagination.propTypes = {
     onChangePage: propTypes.func.isRequired,
     totalCount: propTypes.number,
-    perPage: propTypes.number.isRequired,
     currentPage: propTypes.number.isRequired,
-}
-
-Pagination.defaultProps = {
-    totalCount: null
 }
 
 export default React.memo(Pagination);

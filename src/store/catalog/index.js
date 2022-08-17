@@ -17,7 +17,8 @@ class CatalogState extends StateModule{
       paginator: {
         totalCount: null,
         perPage: 10,
-        currentPage: 1
+        currentPage: 1,
+        totalPages: null
       }
     };
   }
@@ -36,6 +37,7 @@ class CatalogState extends StateModule{
       paginator: {
         ...this.getState().paginator,
         totalCount: json.result.count,
+        totalPages: json.result.count/perPage
       }
     });
   }

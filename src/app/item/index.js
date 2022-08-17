@@ -5,8 +5,11 @@ import useSelector from "../../utils/use-selector";
 import {useParams} from 'react-router';
 import ItemDescription from '../../components/item-description';
 import LayoutHead from '../../components/layout-head';
-import BasketWithLink from '../../components/basket-with-link';
 import propTypes from 'prop-types';
+import MenuLink from '../../components/menu-link';
+import BasketSimple from '../../components/basket-simple';
+import Menu from '../../components/menu';
+import Controls from '../../components/controls';
 
 
 function ItemInfo(props){
@@ -40,14 +43,20 @@ function ItemInfo(props){
   }, [itemId])
   const itemDescriptionWords = useMemo(() => store.get('localizations').receive(
     'manufacturer','category','productionYear','price','add','loading'), [select.language])
-  const basketWithLinkWords = useMemo(() => store.get('localizations').receive(
-    'mainPage', 'inCart', 'goods','empty', 'goCart'), [select.language])
+  const basketSimpleWords = useMemo(() => store.get('localizations').receive(
+    'inCart', 'goods','empty', 'goCart'), [select.language])
+  const mainPageLinkWord = useMemo(() => store.get('localizations').receive('mainPage').mainPage, [select.language])
   const placeholderWord = useMemo(() => store.get('localizations').receive(
     'loading').loading, [select.language])
   return (
     <Layout head={<LayoutHead onLanguageChange={callbacks.setLanguage} language={select.language} title={itemInfo?.title ?? placeholderWord}/>}>
-      <BasketWithLink onOpen={callbacks.openModalBasket} sum={select.sum} amount={select.amount}
-                    words={basketWithLinkWords}/>
+      <Controls>
+        <BasketSimple words={basketSimpleWords} onOpen={callbacks.openModalBasket}
+                      sum={select.sum} amount={select.amount}/>
+        <Menu>
+          <MenuLink title={mainPageLinkWord} link={'/'}/>
+        </Menu>
+      </Controls>
       <ItemDescription onAddCallback={callbacks.addToBasket} _id={itemId}
                        description={itemInfo?.description ?? placeholderWord} yearOfProduction={itemInfo?.edition}
                        manufacturer={itemInfo?.maidIn.title ?? placeholderWord} category={itemInfo?.category.title ?? placeholderWord}

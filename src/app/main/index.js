@@ -7,6 +7,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import PageControls from '../../components/page-controls';
 import LayoutHead from '../../components/layout-head';
+import Controls from '../../components/controls';
 
 function Main(){
 
@@ -50,7 +51,9 @@ function Main(){
   }
   return (
     <Layout head={<LayoutHead title={storeWord} language={select.language} onLanguageChange={callbacks.setLanguage}/>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={basketSimpleWords}/>
+      <Controls>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={basketSimpleWords}/>
+      </Controls>
       <List items={usedItems} renderItem={renders.item}/>
       <PageControls minPage={1} maxPage={select.maxPage} onPageChange={callbacks.setPage}/>
     </Layout>

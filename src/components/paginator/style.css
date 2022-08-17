@@ -1,9 +1,9 @@
-ul {
+.Paginaator ul {
   list-style-type: none;
   margin: 0;
 }
 
-li {
+.Paginator li {
   display: block;
   text-align: center;
 }

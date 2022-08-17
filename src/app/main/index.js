@@ -6,6 +6,7 @@ import Item from '../../components/item';
 import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
 import Paginator from '../../components/paginator';
+import Navbar from '../../components/navbar';
 
 function Main() {
   console.log('Main');
@@ -45,6 +46,7 @@ function Main() {
 
   return (
     <Layout head={<h1>Магазин</h1>}>
+      <Navbar />
       <BasketSimple
         onOpen={callbacks.openModalBasket}
         amount={select.amount}

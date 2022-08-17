@@ -1,0 +1,14 @@
+.Navbar {
+}
+
+.Navbar ul {
+  box-sizing: border-box;
+  list-style-type: none;
+  /* margin: 0; */
+  padding-left: 20px;
+}
+
+.Navbar li > a:link,
+.Navbar li > a:visited {
+  color: #0087e9;
+}

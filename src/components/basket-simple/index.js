@@ -10,9 +10,6 @@ function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <span className={cn('home-link')}>
-        <Link to="/">Главная</Link>
-      </span>
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
         {amount

@@ -6,6 +6,7 @@ import ItemCard from '../../components/item-card';
 import Layout from '../../components/layout';
 import BasketSimple from '../../components/basket-simple';
 import useStore from '../../utils/use-store';
+import Navbar from '../../components/navbar';
 
 function ItemDetails() {
   console.log('ItemDetails');
@@ -35,6 +36,7 @@ function ItemDetails() {
   return (
     <div className={cn()}>
       <Layout head={<h1>{select.selectedItem?.title}</h1>}>
+        <Navbar />
         <BasketSimple
           onOpen={callbacks.openModalBasket}
           amount={select.amount}

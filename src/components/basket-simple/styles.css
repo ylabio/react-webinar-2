@@ -1,6 +1,8 @@
 /* Контрол с общими действиями */
 .BasketSimple {
   display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
   padding: 20px;
   font-size: 18px;
 }
@@ -13,10 +15,10 @@
   margin: 0 15px;
 }
 
-.BasketSimple-home-link {
+/* .BasketSimple-home-link {
   margin-right: auto;
 }
 .BasketSimple-home-link > a:link,
 .BasketSimple-home-link > a:visited {
   color: #0087e9;
-}
+} */

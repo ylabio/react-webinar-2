@@ -1,0 +1,11 @@
+.NavBar {
+    padding: 20px 0;
+}
+.NavBar-link{
+    padding: 0 20px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    text-decoration-line: underline;
+    color: #0087E9;
+}

@@ -5,38 +5,79 @@ import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import Pagination from "../../components/pagination";
+import Translate from "../../components/translate";
+import {useParams} from "react-router-dom";
+import NavBar from "../../components/nav-bar";
+import Loader from "../../components/loader";
+import Controls from "../../components/controls";
 
 function Main(){
 
   console.log('Main');
 
   const store = useStore();
-
-  useEffect(() => {
-    store.get('catalog').load();
-  }, [])
+  const params = useParams();
 
   const select = useSelector(state => ({
     items: state.catalog.items,
+    page: state.catalog.page,
+    pages: state.catalog.pages,
+    limit: state.catalog.limit,
+    loading: state.catalog.loading,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    lang: state.languages,
   }));
+
+  useEffect(() => {
+    store.get('catalog').isLoading();
+    store.get('catalog').load(params.id, select.limit);
+  }, [params.id])
+
 
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Перевод
+    translate: useCallback((language) => store.get('languages').translate(language), []),
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item =>
+      <Item lang={select.lang}
+            item={item}
+            onAdd={callbacks.addToBasket}
+            pathLink={`/articles/${item._id}`}
+      />, [select.lang]),
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <List items={select.items} renderItem={renders.item}/>
+    <Layout head={
+      <>
+        <h1>{select.lang.store}</h1>
+        <Translate translate={callbacks.translate}
+                   lang={select.lang}
+        />
+      </>
+    }>
+      <Controls>
+        <NavBar links={{"/": select.lang.main,}}/>
+        <BasketSimple lang={select.lang} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      </Controls>
+      {
+        select.loading
+          ? <Loader />
+          : <>
+              <List items={select.items} renderItem={renders.item}/>
+              <Pagination currentPage={select.page}
+                          allPages={select.pages}
+              />
+            </>
+      }
+
     </Layout>
   )
 }

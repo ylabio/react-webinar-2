@@ -1,0 +1,16 @@
+.ArticleContent {
+    margin: 20px 40px;
+}
+.ArticleContent>div {
+    margin-bottom: 20px;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+}
+.ArticleContent span {
+    font-weight: 700;
+}
+.ArticleContent-price span {
+    font-size: 24px;
+    line-height: 28px;
+}

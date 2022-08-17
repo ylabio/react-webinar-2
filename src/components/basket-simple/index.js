@@ -7,21 +7,21 @@ import './styles.css';
 import Menu from '../menu'
 
 
-function BasketSimple({sum, amount, onOpen, options, tnslt, lang}) {
+function BasketSimple({sum, amount, onOpen, options}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
       <Menu items={options}/>
 
       <div className={cn('right')}>
-        <span className={cn('label')}>{tnslt(lang, 'inCart')}</span>
+        <span className={cn('label')}>В корзине:</span>
         <span className={cn('total')}>
           {amount
             ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
             : `пусто`
           }
         </span>
-        <button className='BasketSimple__button' onClick={onOpen}>{tnslt(lang, 'openCart')}</button>
+        <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
       </div>
 
     </div>
@@ -32,7 +32,6 @@ BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
   amount: propTypes.number,
-  tnslt: propTypes.func,
 }
 
 BasketSimple.defaultProps = {

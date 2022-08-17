@@ -5,11 +5,8 @@ import numberFormat from "../../utils/numberFormat";
 import './style.css';
 
 function ItemDescription(props) {
+  
   const cn = bem('ItemDescription');
-
-  const callbacks = {
-    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
-  };
 
   return (
     <div className={cn('wraper')}>
@@ -28,7 +25,7 @@ function ItemDescription(props) {
       <div className={cn('price')}>
         <p>Цена: <span className={cn('value')}>{numberFormat(props.item.price)} ₽</span></p>
       </div>
-      <button className={cn('button')} onClick={callbacks.onAdd}>Добавить</button>
+      <button className={cn('button')} onClick={() => props.onAdd(props.item._id)}>Добавить</button>
     </div>
   )
 }

@@ -7,6 +7,8 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import ItemDescription from "../../components/item-description";
+import Sidebar from "../../components/sidebar";
+import { object } from "prop-types";
 
 
 function Description(){
@@ -27,6 +29,10 @@ function Description(){
     sum: state.basket.sum
   }));
 
+  if(store.state.catalog.items.length === 0) {
+        
+  }
+
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
@@ -36,8 +42,8 @@ function Description(){
 
   return (
     <Layout head={<h1>{select.item.title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <ItemDescription item={select.item} onAdd={callbacks.addToBasket}/>
+      <Sidebar onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <ItemDescription item={select.item} onAdd={callbacks.addToBasket} />
     </Layout>
   )
 }

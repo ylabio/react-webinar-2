@@ -15,8 +15,8 @@ class DescriptionState extends StateModule{
     };
   }
 
-  async loadById(_id){
-    const response = await fetch(`/api/v1/articles/${_id}?fields=*,maidIn(title,code),category(title)`);
+  async loadById(id){
+    const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
     const json = await response.json();
     this.setState({
       item: json.result

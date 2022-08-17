@@ -1,0 +1,19 @@
+/* Контрол с общими действиями */
+.Sidebar{
+    display: flex;
+    justify-content: end;
+}
+
+.Sidebar-menu {
+    margin-right: auto;
+    margin-left: 20px;
+    margin-top: 20px;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+
+

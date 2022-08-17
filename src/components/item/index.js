@@ -18,7 +18,7 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')}>
-        <NavLink to={props.item._id} className={cn('link')}>{props.item.title}</NavLink>
+        <NavLink to={props.link} className={cn('link')}>{props.item.title}</NavLink>
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>

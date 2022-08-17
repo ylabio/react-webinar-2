@@ -21,7 +21,7 @@ function App() {
       {modal === 'basket' && <Basket/>}
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/:id" element={<Description />} />
+        <Route path="/article/:id" element={<Description />} />
       </Routes>
     </>
   );

@@ -30,6 +30,7 @@ class CatalogState extends StateModule{
     const pageNumber = (page * perPage) - perPage
     const response = await fetch(`/api/v1/articles?limit=${perPage}&skip=${pageNumber}&fields=items(*),count`);
     const json = await response.json();
+    const totalPages = Math.ceil(json.result.count/perPage)
     this.setState({
       ...this.getState(),
       items: json.result.items,
@@ -37,7 +38,7 @@ class CatalogState extends StateModule{
       paginator: {
         ...this.getState().paginator,
         totalCount: json.result.count,
-        totalPages: json.result.count/perPage
+        totalPages: totalPages
       }
     });
   }

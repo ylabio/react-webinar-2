@@ -29,6 +29,7 @@ class ModalsState extends StateModule{
       name: false
     }, `Закрытие модалки`);
   }
+  
 }
 
 export default ModalsState;

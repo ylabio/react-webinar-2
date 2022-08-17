@@ -1,0 +1,27 @@
+.Paginator{
+    display: flex;
+    justify-content: flex-end;
+    padding: 23px 22px 23px 22px;
+    height: 18px;  
+}
+
+.Paginator-actions button{
+    background: #fff;   
+    border: 0;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.Paginator-actions:hover button{
+    background: #DADADA;
+}
+
+.Paginator-actions_status_active button, .Paginator-actions_status_active:hover button{
+    background: #0087E9;   
+    color: #FFFFFF;
+}
+
+.Paginator-space{
+    color: #CCCCCC;
+}
+ 

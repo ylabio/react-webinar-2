@@ -1,4 +1,3 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**
@@ -12,36 +11,45 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      loading: false,
+      page: 1,
+      limit: 10,
+      pagesCount: 0
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+  //Загрузка списка товаров
+   async load() {
+
+     this.setState({
+       ...this.getState(),
+       loading: true
+     }, `Начало загрузки списка товаров на странице`)
+
+     const limit = this.getState().limit;
+     const skip = (this.getState().page - 1) * limit;
+     const response = await fetch(`/api/v1/articles/?&limit=${limit}&skip=${skip}&fields=items(*),count`);
+     const json = await response.json();
+  
+     this.setState({
+       ...this.getState(),
+       items: json.result.items,
+       pagesCount: Math.ceil(json.result.count / limit),
+       loading: false
+      }, `Завершение загрузки списка товаров на странице`); 
+    }
+  
+  /**
+   * Изменение текущей страницы
+   */
+  changeCurrentPage(page){
     this.setState({
-      items: json.result.items
-    });
+      ...this.getState(),
+      page
+    })
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      items: this.getState().items.concat({_id, title, price, selected})
-    }, 'Создание товара');
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param _id
-   */
-  deleteItem(_id) {
-    this.setState({
-      items: this.getState().items.filter(item => item._id !== _id)
-    }, 'Удаление товара');
-  }
 }
 
 export default CatalogState;

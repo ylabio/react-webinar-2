@@ -3,14 +3,16 @@ import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
 
-function Layout({head, children}){
+function Layout({head, children, right}){
   const cn = bem('Layout');
 
   return (
     <div className={cn()}>
       <div className={cn('head')}>
-        {head}
+        <div>{head}</div>
+        <div className={cn('right')}>{right}</div>
       </div>
+      
       <div className={cn('content')}>
         {children}
       </div>
@@ -21,9 +23,7 @@ function Layout({head, children}){
 Layout.propTypes = {
   head: propTypes.node,
   children: propTypes.node,
-}
-
-Layout.defaultProps = {
+  right: propTypes.node
 }
 
 export default React.memo(Layout);

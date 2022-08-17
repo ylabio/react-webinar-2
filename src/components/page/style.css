@@ -1,0 +1,17 @@
+.Page{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 21px 41px 40px 40px;
+    font-size: 18px;
+}
+
+.Page-price{
+    font-size: 24px;
+}
+
+.Page-actions button{
+    box-sizing: border-box;
+    width: 76px;
+    height: 21px;
+}

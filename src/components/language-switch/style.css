@@ -1,0 +1,13 @@
+.LanguageSwitch-button{
+    cursor: pointer;
+}
+
+.LanguageSwitch-button_active{
+    background:#0087E9;
+    color: #FFFFFF;
+}
+
+.LanguageSwitch{
+    display: flex;
+    gap: 5px;
+}

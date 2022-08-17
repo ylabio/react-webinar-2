@@ -26,7 +26,7 @@ class CatalogState extends StateModule {
     this.setState({
       ...this.getState(),
       _id: json.result._id,
-      name: json.result.name,
+      title: json.result.title,
       description: json.result.description,
       edition: json.result.edition,
       price: json.result.price,

@@ -20,9 +20,9 @@ function ItemPage() {
     isLoading: state.item.isLoading,
     description: state.item.description,
     id: state.item._id,
-    name: state.item.name,
+    title: state.item.title,
     edition: state.item.edition,
-    price: state.item.price,
+    price: state.item.price || 1,
     country: state.item.country,
     category: state.item.category,
     amount: state.basket.amount,
@@ -37,7 +37,7 @@ function ItemPage() {
   };
 
   return (
-    <Layout head={<h1>{select.name}</h1>}>
+    <Layout head={<h1>{select.title}</h1>}>
       <BasketSimple
         onOpen={callbacks.openModalBasket}
         amount={select.amount}

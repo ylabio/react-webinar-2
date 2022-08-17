@@ -16,6 +16,7 @@ class CatalogState extends StateModule {
       currentPage: 1,
       pageCount: 14,
       selectedItem: null,
+      lang: "ru",
     };
   }
 
@@ -30,6 +31,7 @@ class CatalogState extends StateModule {
       }0&fields=items(*),count`
     );
     const json = await response.json();
+    console.log(json);
     this.setState({
       ...this.getState(),
       items: json.result.items,
@@ -66,6 +68,14 @@ class CatalogState extends StateModule {
     this.setState({
       ...this.getState(),
       currentPage: page,
+    });
+  }
+
+  changeLang(code) {
+    console.log(code);
+    this.setState({
+      ...this.state,
+      lang: code,
     });
   }
 }

@@ -15,12 +15,14 @@ function Main() {
 
   useEffect(() => {
     store.get("catalog").load(pagination);
+    store.get("catalog").loadPages(pagination);
   }, [pagination]);
 
   const select = useSelector((state) => ({
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    pagesAmount: state.catalog.pagesAmount,
   }));
 
   const callbacks = {
@@ -46,7 +48,11 @@ function Main() {
       />
       <List items={select.items} renderItem={renders.item} />
 
-      <Pagination pagination={pagination} setPagination={setPagination} />
+      <Pagination
+        pagination={pagination}
+        setPagination={setPagination}
+        pagesAmount={select.pagesAmount}
+      />
     </Layout>
   );
 }

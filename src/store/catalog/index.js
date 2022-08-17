@@ -26,6 +26,7 @@ class CatalogState extends StateModule {
     const json = await response.json();
 
     this.setState({
+      ...this.store.state.catalog,
       items: json.result.items,
     });
   }
@@ -39,7 +40,7 @@ class CatalogState extends StateModule {
     this.setState({
       ...this.store.state.catalog,
       page,
-      pagesAmount: json.result.count,
+      pagesAmount: Math.ceil(json.result.count / 10),
     });
   }
 

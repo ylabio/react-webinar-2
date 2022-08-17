@@ -18,13 +18,16 @@ function ItemPage() {
     amount: state.basket.amount,
     sum: state.basket.sum,
     loading: state.itemStage.loading,
-    modal: state.modals.name
+    modal: state.modals.name,
+    items: state.catalog.items,
   }));
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Закрытие корзины
     closeModal: useCallback(() => store.get('modals').close(), []),
+    // Добавление в корзину
+    addToBasket: useCallback((_id) => store.get('basket').addToBasket(_id), []),
   };
 
   useEffect(() => {
@@ -35,8 +38,6 @@ function ItemPage() {
     }
   }, [pageId])
 
-
-
   return (
     <>
       <Layout head={<h1>{!select.loading ? select.item ? select.item.title : null : null}</h1>}>
@@ -44,7 +45,7 @@ function ItemPage() {
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
         {
           !select.loading ?
-            <ItemInfo item={select.item} />
+            <ItemInfo item={select.item} onAdd={callbacks.addToBasket} />
             :
             <Loader />
         }

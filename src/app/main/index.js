@@ -6,35 +6,39 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
-import { useParams } from "react-router-dom";
 import Basket from "../basket";
 import Navigation from "../../components/navigation";
 
 function Main() {
   console.log('Main');
-  const { pageId } = useParams();
   const store = useStore();
-
-  useEffect(() => {
-    store.get('catalog').load(pageId - 1);
-  }, [pageId])
   const select = useSelector(state => ({
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
     totalItems: state.catalog.totalItems,
-    modal: state.modals.name
+    modal: state.modals.name,
+    totalPages: state.paginationStage.totalPages,
+    activePage: state.paginationStage.activePage,
   }));
+  useEffect(() => {
+    store.get('paginationStage').load();
+  }, [])
+  useEffect(() => {
+    store.get('catalog').load(select.activePage - 1);
+  }, [select.activePage])
 
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Переключение активной страницы
+    correctPage: useCallback(id => store.get('paginationStage').correctPage(id), [])
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} />, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} link={'item'} />, []),
   }
 
   return (
@@ -43,7 +47,7 @@ function Main() {
         <Navigation />
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
         <List items={select.items} renderItem={renders.item} />
-        <Pagination totalItems={select.totalItems} pageId={pageId} />
+        <Pagination totalPages={select.totalPages} pageId={select.activePage} callback={callbacks.correctPage} />
       </Layout>
       {select.modal === 'basket' && <Basket />}
     </>

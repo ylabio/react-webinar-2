@@ -12,7 +12,6 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
-      totalItems: 0,
     };
   }
 
@@ -21,7 +20,6 @@ class CatalogState extends StateModule {
     const json = await response.json();
     this.setState({
       items: json.result.items,
-      totalItems: json.result.count
     });
   }
 

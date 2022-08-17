@@ -1,7 +1,10 @@
 /* Контрол с общими действиями */
 .BasketSimple{
-    display: flex;
-    align-items: center;
-    column-gap: 15px;
     font-size: 18px;
+    display: inline-flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 50%;
+    padding: 20px;
+    column-gap: 15px;
 }

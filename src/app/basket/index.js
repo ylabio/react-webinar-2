@@ -26,8 +26,7 @@ function Basket() {
     removeFromBasket: useCallback((_id) => store.get('basket').removeFromBasket(_id), []),
     openItem: useCallback((_id) => {
       store.get('modals').close(), [];
-      navigate(`/${_id}`);
-      store.get('catalog').loadItem(_id);
+      navigate(`/article/${_id}`);
     }),
   };
 

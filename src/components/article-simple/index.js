@@ -1,18 +1,16 @@
 import React, { useCallback } from 'react';
-import { useParams } from 'react-router-dom';
 import propTypes from 'prop-types';
 import numberFormat from '../../utils/numberFormat';
 
-import 'style.css';
+import './style.css';
 
-function Article({ description, price, edition, onAdd, category, country }) {
-  let { id } = useParams();
+function ArticleSimple({ id, description, price, edition, onAdd, category, country }) {
   const callbacks = {
     onAdd: useCallback((e) => onAdd(id), [onAdd, id]),
   };
 
   return (
-    <div className='article'>
+    <div className='ArticleSimple'>
       <p>{description}</p>
       <p>
         Страна производитель: <b>{country}</b>
@@ -31,12 +29,12 @@ function Article({ description, price, edition, onAdd, category, country }) {
   );
 }
 
-Article.propTypes = {
+ArticleSimple.propTypes = {
   onAdd: propTypes.func,
 };
 
-Article.defaultProps = {
+ArticleSimple.defaultProps = {
   onAdd: () => {},
 };
 
-export default React.memo(Article);
+export default React.memo(ArticleSimple);

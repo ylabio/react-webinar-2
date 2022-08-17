@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import plural from 'plural-ru';
 import { cn as bem } from '@bem-react/classname';
 import numberFormat from '../../utils/numberFormat';
-import './styles.css';
+import './style.css';
 
 function BasketSimple({ sum, amount, onOpen, children }) {
   const cn = bem('BasketSimple');

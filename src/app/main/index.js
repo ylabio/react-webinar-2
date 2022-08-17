@@ -6,39 +6,34 @@ import Item from '../../components/item';
 import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
 import Pagination from '../../components/pagination';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import Article from '../../components/Article';
-import item from '../../components/item';
+import { useNavigate } from 'react-router-dom';
 
 function Main() {
-  const [currentPage, setCurrentPage] = React.useState(1);
   const navigate = useNavigate();
   console.log('Main');
 
   const store = useStore();
 
-  useEffect(() => {
-    store.get('catalog').load((currentPage - 1) * 10);
-  }, [currentPage]);
-
   const select = useSelector((state) => ({
     items: state.catalog.items,
-    selectItem: state.catalog.selectItem,
+    itemsCount: state.catalog.itemsCount,
+    currentPage: state.catalog.currentPage,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    country: state.catalog.country,
-    category: state.catalog.category,
   }));
+
   const callbacks = {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback((_id) => store.get('basket').addToBasket(_id), []),
-    openItem: useCallback((_id) => {
-      navigate(`/${_id}`);
-      store.get('catalog').loadItem(_id);
-    }),
+    setCurrentPage: useCallback((page) => store.get('catalog').setCurrentPage(page), []),
+    openItem: useCallback((_id) => navigate(`/article/${_id}`), []),
   };
+
+  useEffect(() => {
+    store.get('catalog').load((select.currentPage - 1) * 10);
+  }, [select.currentPage]);
 
   const renders = {
     item: useCallback(
@@ -48,62 +43,18 @@ function Main() {
   };
 
   return (
-    <Routes>
-      <Route path='/' element={<Layout head={<h1>Магазин</h1>} />}>
-        <Route
-          index
-          element={
-            <>
-              <BasketSimple
-                onOpen={callbacks.openModalBasket}
-                amount={select.amount}
-                sum={select.sum}
-              />
-              <List items={select.items} renderItem={renders.item} />
-              <Pagination
-                style={{ float: 'right', marginRight: '15px' }}
-                totalPages={25}
-                currentPage={currentPage}
-                onChange={(page) => setCurrentPage(page)}
-                hidePreviousAndNextPageLinks={true}
-                hideFirstAndLastPageLinks={true}
-              />
-            </>
-          }
-        />
-      </Route>
-      <Route
-        path='/:id'
-        element={<Layout head={<h1>{select.selectItem ? select.selectItem.title : ''}</h1>} />}>
-        <Route
-          index
-          element={
-            <>
-              <BasketSimple
-                onOpen={callbacks.openModalBasket}
-                amount={select.amount}
-                sum={select.sum}>
-                <span
-                  style={{ textDecoration: 'underline', color: '#0087E9', cursor: 'pointer' }}
-                  onClick={() => {
-                    navigate('/');
-                  }}>
-                  Главная
-                </span>
-              </BasketSimple>
-              <Article
-                description={select.selectItem && select.selectItem.description}
-                price={select.selectItem && select.selectItem.price}
-                edition={select.selectItem && select.selectItem.edition}
-                onAdd={callbacks.addToBasket}
-                category={select.category && select.category.title}
-                country={select.country && select.country.title}
-              />
-            </>
-          }
-        />
-      </Route>
-    </Routes>
+    <Layout head={<h1>Магазин</h1>}>
+      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <List items={select.items} renderItem={renders.item} />
+      <Pagination
+        style={{ float: 'right', marginRight: '15px' }}
+        totalPages={Math.ceil(select.itemsCount / 10)}
+        currentPage={select.currentPage}
+        onChange={(page) => callbacks.setCurrentPage(page)}
+        hidePreviousAndNextPageLinks={true}
+        hideFirstAndLastPageLinks={true}
+      />
+    </Layout>
   );
 }
 

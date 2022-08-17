@@ -12,6 +12,8 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
+      itemsCount: 1,
+      currentPage: 1,
       selectItem: {},
       country: '',
       category: '',
@@ -19,10 +21,14 @@ class CatalogState extends StateModule {
   }
 
   async load(skip) {
-    const response = await fetch(`/api/v1/articles?limit=10&skip=${skip}`);
+    const response = await fetch(
+      `/api/v1/articles?limit=10&skip=${skip}&fields=items%28%2A%29%2C%20count`,
+    );
     const json = await response.json();
     this.setState({
       items: json.result.items,
+      itemsCount: json.result.count,
+      currentPage: this.getState().currentPage,
       selectItem: this.getState().selectItem,
       country: this.getState().country,
       category: this.getState().category,
@@ -39,9 +45,22 @@ class CatalogState extends StateModule {
 
     this.setState({
       items: this.getState().items,
+      itemsCount: this.getState().itemsCount,
+      currentPage: this.getState().currentPage,
       selectItem: json.result,
       category: json2.result,
       country: json3.result,
+    });
+  }
+
+  setCurrentPage(page) {
+    this.setState({
+      items: this.getState().items,
+      itemsCount: this.getState().itemsCount,
+      currentPage: page,
+      selectItem: this.getState().selectItem,
+      country: this.getState().country,
+      category: this.getState().category,
     });
   }
 

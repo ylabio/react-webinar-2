@@ -1,0 +1,12 @@
+.HeaderNotfFound-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 20px;
+  font-size: 18px;
+}
+
+.HeaderNotfFound-container a {
+  color: #0087E9;
+  text-decoration: underline;
+}

@@ -15,6 +15,18 @@
     padding: 20px 10px;
 }
 
+a {
+    text-decoration: none;
+}
+
+.Item-title a {
+    color: #000;
+}
+
+.Item-title a:hover {
+    text-decoration: underline;
+}
+
 .Item-right {
     padding: 20px 20px 20px 10px;
     display: flex;
@@ -22,7 +34,15 @@
     align-items: center;
 }
 
+.Item-right button {
+    width: 70px;
+}
+
 .Item-price {
     padding: 0 10px;
     white-space: nowrap;
+}
+
+button {
+    cursor: pointer;
 }

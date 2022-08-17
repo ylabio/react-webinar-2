@@ -1,0 +1,16 @@
+.Navigation {
+  padding: 20px;
+}
+
+.Navigation-container {
+  display: flex;
+  font-size: 18px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Navigation-link {
+  color: #0087E9;
+  text-decoration: underline;
+}

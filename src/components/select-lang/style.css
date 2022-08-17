@@ -1,0 +1,12 @@
+.select-lang-container {
+  display: flex;
+  align-items: flex-end;
+  padding: 20px 20px 10px;
+}
+
+.select-lang {
+  width: 70px;
+  height: 22px;
+  border-radius: 3px;
+  cursor: pointer;
+}

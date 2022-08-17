@@ -6,8 +6,8 @@
     font-size: 18px;
 }
 
-.BasketSimple-label{
-
+.BasketSimple__button{
+    width: 70px;
 }
 
 .BasketSimple-total{

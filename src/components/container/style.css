@@ -1,0 +1,4 @@
+.Container {
+  display: flex;
+  justify-content: space-between;
+}

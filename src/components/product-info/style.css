@@ -1,0 +1,14 @@
+.ProductInfo {
+  padding: 20px 40px;
+}
+
+.ProductInfo div {
+  margin-bottom: 20px;
+  line-height: 20px;
+  font-size: 18px;
+}
+
+.ProductInfo__price {
+  font-size: 24px;
+  font-weight: 700;
+}

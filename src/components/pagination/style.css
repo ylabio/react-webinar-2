@@ -1,0 +1,35 @@
+.Pagination {
+  display: flex;
+  justify-content: end;
+  padding: 20px;
+}
+
+.Pagination button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 1px 5px;
+}
+
+.Pagination button:not(:last-child) {
+  margin-right: 2px;
+}
+
+.Pagination button:hover {
+  background-color: #E1E1E1;
+}
+
+.Pagination .Pagination__button-selected {
+  background-color: #0087E9;
+  color: white;
+}
+
+.Pagination .Pagination__button-selected:hover {
+  background-color: #0087E9;
+  color: white;
+}
+
+.Pagination__dotted {
+  color: #ccc;
+}

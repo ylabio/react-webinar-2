@@ -4,7 +4,7 @@ import {cn as bem} from "@bem-react/classname";
 
 function PaginationControls({pageNumber , callback , numberArr}){
   
-    const cn = bem('Pagination');
+    const cn = bem('PaginationControls');
 
     const handleClick = (e) => {
         callback(`/${e.target.value}`)

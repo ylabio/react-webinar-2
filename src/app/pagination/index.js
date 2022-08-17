@@ -1,6 +1,5 @@
 import React, { useEffect, useState , useCallback} from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "./style.css"
 import PaginationControls from "../../components/pagination-controls";
 
 function Pagination({numberArr}){

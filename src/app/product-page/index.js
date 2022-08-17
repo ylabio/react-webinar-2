@@ -1,8 +1,6 @@
 import React, { useEffect, useState , useCallback} from "react";
-import "./style.css"
 import {useParams} from 'react-router-dom'
 import Layout from '../../components/layout'
-import BasketSimple from '../../components/basket-simple'
 import ProductContent from "../../components/product-content";
 import { getGoodInfo } from "../../api";
 import LoadingScreen from "../../components/loading-screen";

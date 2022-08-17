@@ -1,0 +1,30 @@
+.PaginationControls{
+    display: flex;
+    justify-content: end;
+    padding: 22px; 
+}
+
+.PaginationControls-btn{
+    background-color: white;
+    border: 0ch;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.PaginationControls-btn:hover{
+    background-color: #E1E1E1;
+    transition: 0.5s;
+}
+
+.PaginationControls-btn.selected{
+    background-color: #0087E9;
+    color: #FFFFFF;
+}
+
+.PaginationControls-ellipsis{
+    margin: 0 2px;
+    color:#CCCCCC;
+}

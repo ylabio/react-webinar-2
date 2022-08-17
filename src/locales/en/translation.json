@@ -1,18 +1,18 @@
 {
-  "MainTitle": "Market OnLine",
-  "LangSwitcherLang": "lang",
   "BasketSimple": "Cart content",
-  "BasketSimpleGoTo": "move to Cart",
   "BasketSimpleEmpty": "no items added yet",
-  "ItemAddToCart": "To cart",
+  "BasketSimpleGoTo": "move to Cart",
   "BasketTitle": "Cart totals",
   "BasketTotalTitle": "Cart totals",
+  "ItemAddToCart": "To cart",
   "ItemBasketRemove": "Remove",
+  "LangSwitcherLang": "lang",
+  "LayoutArticleAddToCartButton": "Add to cart",
+  "LayoutArticleCategory": "Category",
+  "LayoutArticleCountry": "Country of Manufacture",
+  "LayoutArticlePrice": "Retail price",
+  "LayoutArticleProductionYear": "Production year",
   "LayoutModalClose": "Close",
   "NavBackToMain": "Back to main",
-  "LayoutArticleCountry": "Country of Manufacture",
-  "LayoutArticleCategory": "Category",
-  "LayoutArticleProductionYear": "Production year",
-  "LayoutArticlePrice": "Retail price",
-  "LayoutArticleAddToCartButton": "Add to cart"
+  "MainTitle": "Market OnLine"
 }

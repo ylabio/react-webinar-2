@@ -1,18 +1,18 @@
 {
-  "MainTitle": "Магазин",
-  "LangSwitcherLang": "язык",
   "BasketSimple": "В корзине",
-  "BasketSimpleGoTo": "Перейти",
   "BasketSimpleEmpty": "Пусто",
-  "ItemAddToCart": "Добавить",
+  "BasketSimpleGoTo": "Перейти",
   "BasketTitle": "Корзина",
   "BasketTotalTitle": "Итого",
+  "ItemAddToCart": "Добавить",
   "ItemBasketRemove": "Удалить",
-  "LayoutModalClose": "Закрыть",
-  "NavBackToMain": "Главная",
-  "LayoutArticleCountry": "страна производитель",
+  "LangSwitcherLang": "язык",
+  "LayoutArticleAddToCartButton": "Добавить",
   "LayoutArticleCategory": "Категория",
-  "LayoutArticleProductionYear": "Год выпуска",
+  "LayoutArticleCountry": "страна производитель",
   "LayoutArticlePrice": "Цена",
-  "LayoutArticleAddToCartButton": "Добавить"
+  "LayoutArticleProductionYear": "Год выпуска",
+  "LayoutModalClose": "Закрыть",
+  "MainTitle": "Магазин",
+  "NavBackToMain": "Главная"
 }

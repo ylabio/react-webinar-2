@@ -3,10 +3,11 @@ import List from "../../components/list";
 import Layout from "../../components/layout";
 import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
+import Menu from "../../components/menu";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
-import LangArr from '../../components/lang-array'
+import { translate } from '../../utils/languages';
 
 function Main(){
 
@@ -25,8 +26,7 @@ function Main(){
     sum: state.basket.sum,
     totalCount: state.catalog.totalCount,
     limit: state.catalog.limit,
-    page: state.catalog.page,
-    language: state.language.language
+    page: state.catalog.page
   }));
 
   const callbacks = {
@@ -41,13 +41,14 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} link={item._id}/>, []),
   }
 
 
   return (
-      <Layout head={<h1>{LangArr.head[select.language]}</h1>} onChangeLanguage={callbacks.changeLanguage}>
-        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.language}/>
+      <Layout head={<h1>{translate('head')}</h1>} onChangeLanguage={callbacks.changeLanguage}>
+        <Menu/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
         <List items={select.items} renderItem={renders.item}/>
         <Pagination count={select.totalCount} itemLimit={select.limit} currentPage={select.page} selectPage={callbacks.selectPage}/>
       </Layout>

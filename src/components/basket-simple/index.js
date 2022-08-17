@@ -1,27 +1,25 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import propTypes from 'prop-types';
 import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
-import LangArr from '../lang-array';
+import { translate } from '../../utils/languages';
 import numberFormat from "../../utils/numberFormat";
 import './styles.css';
 
 
-function BasketSimple({sum, amount, onOpen, lang}) {
+function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <NavLink to="/" className={cn('link')}>{LangArr.basketSimple.link[lang]}</NavLink>
       <div>
-        <span className={cn('label')}>{LangArr.basketSimple.label[lang]}:</span>
+        <span className={cn('label')}>{translate('label')}:</span>
         <span className={cn('total')}>
         {amount
-          ? `${amount} ${plural(amount, ...LangArr.basketSimple.amount[lang])} / ${numberFormat(sum)} ₽`
-          : LangArr.basketSimple.empty[lang]
+          ? `${amount} ${plural(amount, ...translate('amount'))} / ${numberFormat(sum)} ₽`
+          : translate('empty')
         }
         </span>
-        <button className='BasketSimple__button' onClick={onOpen}>{LangArr.basketSimple.button[lang]}</button>
+        <button className='BasketSimple__button' onClick={onOpen}>{translate('go')}</button>
       </div>
     </div>
   )

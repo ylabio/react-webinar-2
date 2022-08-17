@@ -3,7 +3,7 @@ import Layout from "../../components/layout";
 import {useParams} from "react-router-dom";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-
+import Menu from "../../components/menu";
 import BasketSimple from "../../components/basket-simple";
 import ProductDescription from '../../components/product-description';
 
@@ -16,7 +16,6 @@ function Product() {
     const store = useStore();
     useEffect(() => {
         store.get('product').load(prodId);
-        setLoading(false);
     }, [params])
 
     const select = useSelector(state => ({
@@ -38,6 +37,7 @@ function Product() {
     return (
         <>
         {select.item && <Layout head={<h1>{select.item.title}</h1>} onChangeLanguage={callbacks.changeLanguage}>
+            <Menu/>
             <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} lang={select.language}/>
             <ProductDescription item={select.item} loading={loading} onAdd={callbacks.addToBasket} lang={select.language}/> 
         </Layout>}

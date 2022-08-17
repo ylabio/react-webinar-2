@@ -21,7 +21,8 @@ function Main(){
     sum: state.basket.sum,
     totalCount: state.catalog.paginator.totalCount,
     isLoading: state.catalog.isLoading,
-    currentPage: state.catalog.paginator.currentPage
+    currentPage: state.catalog.paginator.currentPage,
+    perPage: state.catalog.paginator.perPage
   }));
 
   useEffect(() => {
@@ -46,7 +47,7 @@ function Main(){
         <Menu linkTo={'/'} nav={'Главная'}/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
         {select.isLoading ? <Preload/>:<List items={select.items} renderItem={renders.item}/>}
-        <Pagination perPage={10} totalCount={select.totalCount} currentPage={select.currentPage} onChangePage={callbacks.changePage}/>
+        <Pagination perPage={select.perPage} totalCount={select.totalCount} currentPage={select.currentPage} onChangePage={callbacks.changePage}/>
       </Layout>
   )
 }

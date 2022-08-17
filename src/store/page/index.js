@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router";
 import StoreModule from "../module";
 
 class PageStore extends StoreModule {

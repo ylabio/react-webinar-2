@@ -1,10 +1,12 @@
 import React, {useEffect, useRef} from 'react';
+import {useTranslation} from 'react-i18next';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
 function LayoutModal(props) {
   const cn = bem('LayoutModal');
+  const { t } = useTranslation();
 
   const frame = useRef();
 
@@ -27,7 +29,7 @@ function LayoutModal(props) {
           <h1 className={cn('title')}>
             {props.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <button className={cn('close')} onClick={props.onClose}>{t('LayoutModalClose')}</button>
         </div>
         <div className={cn('content')}>
           {props.children}

@@ -1,5 +1,12 @@
 {
-  "title": "Market OnLine",
-  "lang": "lang",
-  "cart": "Cart content"
+  "MainTitle": "Market OnLine",
+  "LangSwitcherLang": "lang",
+  "BasketSimple": "Cart content",
+  "BasketSimpleGoTo": "move to Cart",
+  "BasketSimpleEmpty": "no items added yet",
+  "ItemAddToCart": "Add",
+  "BasketTitle": "Cart totals",
+  "BasketTotalTitle": "Cart totals",
+  "ItemBasketRemove": "Remove",
+  "LayoutModalClose": "Close"
 }

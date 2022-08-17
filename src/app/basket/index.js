@@ -1,5 +1,6 @@
 import List from "../../components/list";
 import React, {useCallback} from "react";
+import {useTranslation} from 'react-i18next';
 import BasketTotal from "../../components/basket-total";
 import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
@@ -11,6 +12,7 @@ function Basket(){
   console.log('Basket');
 
   const store = useStore();
+  const { t } = useTranslation();
 
   const select = useSelector(state => ({
     articleRoute: state.article.articleRoute,
@@ -37,7 +39,7 @@ function Basket(){
   }
 
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+    <LayoutModal title={t('BasketTitle')} onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>
       <BasketTotal sum={select.sum}/>
     </LayoutModal>

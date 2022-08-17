@@ -14,7 +14,7 @@ function Main(){
   console.log('Main');
 
   const store = useStore();
-  const { t } = useTranslation('translation');
+  const { t } = useTranslation();
 
   const select = useSelector(state => ({
     articleRoute: state.article.articleRoute,
@@ -40,11 +40,15 @@ function Main(){
 
   const renders = {
     item: useCallback(item =>
-      <Item item={item} onAdd={callbacks.addToBasket} articleRoute={select.articleRoute}/>, []),
+      <Item
+        item={item}
+        onAdd={callbacks.addToBasket}
+        onTranslate={callbacks.onTranslate}
+        articleRoute={select.articleRoute}/>, []),
   }
 
   return (
-    <Layout head={<h1>{t('title')}</h1>} langSwitch={<LangSwitcher/>}>
+    <Layout head={<h1>{t('MainTitle')}</h1>} langSwitch={<LangSwitcher/>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination itemsQty={select.itemsQty} pagSel={select.pagSel} pagSurf={callbacks.pagSurf}/>

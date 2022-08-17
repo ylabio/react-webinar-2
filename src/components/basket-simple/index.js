@@ -9,18 +9,18 @@ import './styles.css';
 
 function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
-  const { t } = useTranslation('translation');
+  const { t } = useTranslation();
 
   return (
     <div className={cn()}>
-      <span className={cn('label')}>{t('cart')}:</span>
+      <span className={cn('label')}>{t('BasketSimple')}:</span>
       <span className={cn('total')}>
       {amount
         ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-        : `пусто`
+        : t('BasketSimpleEmpty')
       }
       </span>
-      <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+      <button className='BasketSimple__button' onClick={onOpen}>{t('BasketSimpleGoTo')}</button>
     </div>
   )
 }

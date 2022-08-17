@@ -1,5 +1,6 @@
 import React, {useCallback} from 'react';
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from 'react-i18next';
 import propTypes from 'prop-types';
 import numberFormat from "../../utils/numberFormat";
 import {cn as bem} from "@bem-react/classname";
@@ -8,6 +9,7 @@ import './styles.css';
 function ItemBasket({articleRoute, item, onRemove, onClose}) {
   const cn = bem('ItemBasket');
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const callbacks = {
     // Удаляет товар из корзины
@@ -30,7 +32,7 @@ function ItemBasket({articleRoute, item, onRemove, onClose}) {
         <div className={cn('cell')}>{numberFormat(item.price)}&nbsp;&#8381;</div>
         <div className={cn('cell')}>{numberFormat(item.amount || 0)} шт</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{t('ItemBasketRemove')}</button>
         </div>
       </div>
     </div>

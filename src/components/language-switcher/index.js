@@ -13,7 +13,7 @@ function LangSwitcher() {
 
   return (
     <div className={cn()}>
-      {t('lang')}:&nbsp;
+      {t('LangSwitcherLang')}:&nbsp;
       {Object.keys(lngs).map((lng) => (
         <button
           className={cn('button')}

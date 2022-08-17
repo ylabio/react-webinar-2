@@ -1,5 +1,12 @@
 {
-  "title": "Магазин",
-  "lang": "язык",
-  "cart": "В корзине"
+  "MainTitle": "Магазин",
+  "LangSwitcherLang": "язык",
+  "BasketSimple": "В корзине",
+  "BasketSimpleGoTo": "Перейти",
+  "BasketSimpleEmpty": "Пусто",
+  "ItemAddToCart": "Добавить",
+  "BasketTitle": "Корзина",
+  "BasketTotalTitle": "Итого",
+  "ItemBasketRemove": "Удалить",
+  "LayoutModalClose": "Закрыть"
 }

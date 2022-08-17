@@ -1,14 +1,15 @@
 import React, {useCallback} from 'react';
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from 'react-i18next';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './style.css';
-import PropTypes from "prop-types";
 
-function Item({articleRoute, item, onAdd}) {
+function Item({articleRoute, item, onAdd, onTranslate}) {
   const cn = bem('Item');
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const callbacks = {
     // Добавляет товар в корзину
@@ -27,7 +28,7 @@ function Item({articleRoute, item, onAdd}) {
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(item.price)}&nbsp;&#8381;</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{t('ItemAddToCart')}</button>
       </div>
     </div>
   )

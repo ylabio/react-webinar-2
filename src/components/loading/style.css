@@ -1,0 +1,9 @@
+
+.Loading {
+position: absolute;
+margin: 0;
+top: 215px;
+left: 50%;
+margin-right: -50%;
+transform: translate(-50%, -50%) 
+}

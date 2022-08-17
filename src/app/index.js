@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
 import { ContextTitle } from '../store/contextTitle';
+import { Routes, Route } from 'react-router-dom';
+import InfoItem from './../components/info-item/index';
 
 /**
  * Приложение
@@ -13,14 +14,19 @@ function App() {
 
 
   const modal = useSelector(state => state.modals.name);
-  const titleFromLocalStorage = localStorage.getItem('title')||'Магазин'
-  const [title,setTitle] = useState(titleFromLocalStorage)
+  const titleFromLocalStorage = localStorage.getItem('title') || 'Магазин'
+  const [title, setTitle] = useState(titleFromLocalStorage)
   const [itemsSkipPages, setItemsSkipPages] = useState(10);
 
   return (
 
-    <ContextTitle.Provider value={{title, setTitle,itemsSkipPages}}>
-      <Main />
+    <ContextTitle.Provider value={{ title, setTitle, itemsSkipPages }}>
+      <Routes>
+        <Route path="/" element={
+          <Main />}
+        />
+        <Route path="info/:id" element={<InfoItem />} />
+      </Routes>
       {modal === 'basket' && <Basket />}
     </ContextTitle.Provider>
   );

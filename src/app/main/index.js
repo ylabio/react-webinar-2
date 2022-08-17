@@ -1,20 +1,18 @@
 
 import BasketSimple from "../../components/basket-simple";
-import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, { useCallback, useEffect, useState, useContext } from "react";
+import React, { useCallback, useEffect, useContext, useState } from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import { Routes, Route, Link } from 'react-router-dom'
-import Pagination from "../pagination";
-import './style.css'
 import ListAndPagination from "../../components/list-pagination";
-import InfoItem from "../../components/info-item";
 import { ContextTitle } from './../../store/contextTitle';
-import { InfinitySpin } from "react-loader-spinner";
+import Loading from "../../components/loading/loading";
 
 function Main() {
+  const { title, itemsSkipPages } = useContext(ContextTitle)
+  const [selectedNumber, setSelectedNumber] = useState(0)
+  const [lengthItemsPag, setLengthItemsPag] = useState(0)
   const select = useSelector(state => ({
     items: state.catalog.items,
     amount: state.basket.amount,
@@ -22,10 +20,13 @@ function Main() {
     lengthItems: state.catalog.lengthItems,
     cuurentItem: state.catalog.cuurentItem,
   }));
-  const { title, setTitle,itemsSkipPages } = useContext(ContextTitle)
   const store = useStore();
   useEffect(() => {
-    store.get('catalog').getItems(0,itemsSkipPages)
+    fetch(`/api/v1/articles?limit=*&skip=*&fields=items(*),count`)
+      .then((response) => response.json())
+      .then((count) => setLengthItemsPag(count.result.count))
+
+    store.get('catalog').getItems(0, itemsSkipPages)
   }, [])
 
 
@@ -35,6 +36,15 @@ function Main() {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     getItemById: useCallback(id => store.get('catalog').getItemById(id), []),
+    getItemsPagination: useCallback((nextList, selectedNum, itemsSkipPages) => {
+      store.get('catalog').getItems(nextList, itemsSkipPages)
+      setSelectedNumber(selectedNum)
+    }, []),
+    cuurentItemDefaultValue: useCallback(() => store.get('catalog').cuurentItemDefaultValue(), []),
+
+    getItems: useCallback((nextList) => {
+      store.get('catalog').getItems(nextList)
+    }, [])
   };
 
   const renders = {
@@ -43,31 +53,26 @@ function Main() {
   return select.items.length > 0 ? (<>
 
     <Layout head={<h1>{title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <BasketSimple
 
-      <Routes>
-        <Route path="/" element={
-          <ListAndPagination
-
-            items={select.items}
-            renderItem={renders.item}
-            lengthItems={select.lengthItems}
-          />} />
-        <Route path="info/:id" element={<InfoItem />} />
-
-      </Routes>
+        cuurentItemDefaultValue={callbacks.cuurentItemDefaultValue}
+        onOpen={callbacks.openModalBasket}
+        amount={select.amount}
+        sum={select.sum}
+      />
+      <ListAndPagination
+        items={select.items}
+        renderItem={renders.item}
+        lengthItems={lengthItemsPag}
+        getItems={callbacks.getItemsPagination}
+        selectedNumber={selectedNumber}
+        setSelectedNumber={setSelectedNumber}
+      />
     </Layout>
   </>
 
-  ) :
-    <div className="Loading" >
-      <InfinitySpin
-        width='300'
-        height='200'
-        color="#f5f5f5"
-        timeout={300}
-      />
-    </div>
+  ) : <Loading />
+
 }
 
 export default React.memo(Main);

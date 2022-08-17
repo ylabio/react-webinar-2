@@ -16,7 +16,7 @@ function List(props) {
 
       )}
       </div>
-   
+
     </>
 
   )
@@ -25,7 +25,7 @@ function List(props) {
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
   renderItem: propTypes.func,
-  
+
 }
 
 List.defaultProps = {
@@ -33,7 +33,7 @@ List.defaultProps = {
   renderItem: (item) => {
     return item.toString()
   },
-  
+
 }
 
 export default React.memo(List);

@@ -3,18 +3,14 @@ import propTypes from 'prop-types';
 import { cn as bem } from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './style.css';
-import useStore from './../../utils/use-store';
-import useSelector from '../../utils/use-selector';
 
-import { Link } from 'react-router-dom';
+
 import { ContextTitle } from './../../store/contextTitle';
+import LinkMenu from '../link-menu';
 
 function Item(props) {
   const cn = bem('Item');
-  const store = useStore()
-  const select = useSelector(state => ({
-    cuurentItem: state.catalog.cuurentItem,
-  }));
+
   const callbacks = {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
 
@@ -26,12 +22,17 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')} >
-        <Link to={`/info/${props.item._id}`} onClick={() => {
-          setTitle(props.item.title);
-          localStorage.setItem('title',props.item.title)
-        }}>
+        <LinkMenu
+          title={props.item.title}
+          setTitle={setTitle}
+          localStorageKey={'title'}
+          localStorageValue={props.item.title}
+          path={'/info/'}
+          idItem={props.item._id}
+        >
           {props.item.title}
-        </Link>
+        </LinkMenu>
+
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>

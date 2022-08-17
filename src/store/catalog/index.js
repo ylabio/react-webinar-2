@@ -14,23 +14,22 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
-      lengthPages: 0,
       cuurentItem: {},
     };
   }
 
-  async getItems(nextList = 0,limit) {
- 
+  async getItems(nextList = 0, limit) {
+
     const result = await axios(`/api/v1/articles?limit=${limit}&skip=${nextList}&fields=items(*),count`);
-    
-    
+
+
     this.setState({
 
       items: result.data.result.items,
-      lengthItems: result.data.result.count
+
 
     });
-    
+
 
   }
   isEmpty(obj) {

@@ -2,7 +2,8 @@ import React from 'react'
 import Pagination from '../../app/pagination'
 import List from '../list'
 import propTypes from 'prop-types';
-function ListAndPagination({ items, renderItem, lengthItems,setTitle }) {
+
+function ListAndPagination({ items, renderItem, lengthItems, setTitle, getItems, selectedNumber }) {
     return (
         <>
             <List
@@ -12,6 +13,8 @@ function ListAndPagination({ items, renderItem, lengthItems,setTitle }) {
             />
             <Pagination
                 lengthItems={lengthItems}
+                getItems={getItems}
+                selectedNumber={selectedNumber}
             />
         </>
     )
@@ -21,6 +24,8 @@ ListAndPagination.propTypes = {
     renderItem: propTypes.func,
     lengthItems: propTypes.number,
     setTitle: propTypes.func,
+    getItems: propTypes.func.isRequired,
+    selectedNumber: propTypes.number.isRequired,
 }
 
 ListAndPagination.defaultProps = {

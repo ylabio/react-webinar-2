@@ -1,29 +1,19 @@
-import React, { useState,useCallback, useContext } from 'react'
-import useStore from './../../utils/use-store';
+import React, { useContext } from 'react'
 import propTypes from 'prop-types';
 import './style.css'
 import { ContextTitle } from './../../store/contextTitle';
-function Pagination({ lengthItems }) {
-    const store = useStore();
-    const [selectedNumber, setSelectedNumber] = useState(0)
-    const {itemsSkipPages } = useContext(ContextTitle)
-    const callbacks = {
-        getItems: useCallback((nextList, selectedNum,itemsSkipPages) => {
-            store.get('catalog').getItems(nextList,itemsSkipPages)
-            setSelectedNumber(selectedNum)
+function Pagination({ lengthItems, getItems, selectedNumber }) {
+    const { itemsSkipPages } = useContext(ContextTitle)
 
-        }, [])
-
-    }
     const pageNumber = []
     for (let item = 1; item < Math.ceil(lengthItems / itemsSkipPages) - 1; item++) {
         pageNumber.push(item)
     }
-    return (
+    return lengthItems > 0 ? (
         <div className={`Pagination`}>
 
             <div className={`Wrapper-Pagination`}>
-                <p className={`Pagination-bth-first ${selectedNumber === 0 ? 'selected' : ''}`} onClick={() => callbacks.getItems((pageNumber[0] - 1) * itemsSkipPages, 0,itemsSkipPages)}>{pageNumber[0]}</p>
+                <p className={`Pagination-bth-first ${selectedNumber === 0 ? 'selected' : ''}`} onClick={() => getItems((pageNumber[0] - 1) * itemsSkipPages, 0, itemsSkipPages)}>{pageNumber[0]}</p>
                 <p className={`ThreeDots ${selectedNumber >= 3 ? 'block' : ''}`}>...</p>
                 {
                     pageNumber.map(number => (
@@ -37,24 +27,28 @@ function Pagination({ lengthItems }) {
                                 ? 'block'
                                 : ''}
                                 ${selectedNumber === number ? 'selected' : ''}
-                            `} onClick={() => callbacks.getItems(number * itemsSkipPages, number,itemsSkipPages)}>
+                            `} onClick={() => getItems(number * itemsSkipPages, number, itemsSkipPages)}>
                             {number + 1}
                         </p>
                     ))
                 }
                 <p className={`ThreeDots ${selectedNumber <= (pageNumber.length - 1) && selectedNumber !== (pageNumber.length - 1) ? 'block' : ''} `}>...</p>
-                <p className={`Pagination-bth-last ${selectedNumber === pageNumber.length + 1 ? 'selected' : ''}`} onClick={() => callbacks.getItems((pageNumber.length + 1) * itemsSkipPages, pageNumber.length + 1,itemsSkipPages)}>{pageNumber.length + 2}</p>
+                <p className={`Pagination-bth-last ${selectedNumber === pageNumber.length + 1 ? 'selected' : ''}`} onClick={() => getItems((pageNumber.length + 1) * itemsSkipPages, pageNumber.length + 1, itemsSkipPages)}>{pageNumber.length + 2}</p>
             </div>
 
         </div>
-    )
+    ) : null
 }
-Pagination.propTypes = {
 
+
+Pagination.propTypes = {
+    getItems: propTypes.func.isRequired,
     lengthItems: propTypes.number,
+    selectedNumber: propTypes.number,
 }
 Pagination.defaultProps = {
     lengthItems: 0,
+    selectedNumber: 0,
 }
 
 export default Pagination

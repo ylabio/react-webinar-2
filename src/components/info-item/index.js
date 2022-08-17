@@ -2,49 +2,49 @@ import React from 'react'
 import BasketSimple from '../basket-simple'
 import Layout from '../layout'
 import useSelector from './../../utils/use-selector';
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import useStore from '../../utils/use-store';
-import numberFormat from '../../utils/numberFormat';
-import './style.css'
-import { FallingLines } from 'react-loader-spinner';
+import './style.css';
+import { ContextTitle } from '../../store/contextTitle';
+import Info from './info';
 function InfoItem(props) {
     const store = useStore()
+    const { title } = useContext(ContextTitle)
     const { id } = useParams()
     const select = useSelector(state => ({
         cuurentItem: state.catalog.cuurentItem,
-
+        sum: state.basket.sum,
+        amount: state.basket.amount,
     }));
+
     const callbacks = {
         addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
         isEmpty: useCallback(obj => store.get('catalog').isEmpty(obj), []),
+        openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+        cuurentItemDefaultValue: useCallback(() => store.get('catalog').cuurentItemDefaultValue(), []),
+
     };
 
     useEffect(() => {
         store.get('catalog').getItemById(id)
     }, [id])
 
-    return callbacks.isEmpty(select.cuurentItem) ? (
-        <div className='InfoItem'>
+    return (
+        <Layout head={<h1>{title}</h1>}>
+            <BasketSimple
+                cuurentItemDefaultValue={callbacks.cuurentItemDefaultValue}
+                onOpen={callbacks.openModalBasket}
+                amount={select.amount}
+                sum={select.sum} />
+            <Info
+                cuurentItem={select.cuurentItem}
+                isEmpty={callbacks.isEmpty}
+                addToBasket={callbacks.addToBasket}
+            />
+        </Layout>
 
-
-            <p>{select.cuurentItem.description}</p>
-            <p>Страна производитель:<span>{select.cuurentItem.maidIn.title}</span> </p>
-            <p>Категория:<span>{select.cuurentItem.category.title}</span> </p>
-            <p>Год выпуска: <span>{select.cuurentItem.edition}</span></p>
-            <p className='price'>Цена:{numberFormat(select.cuurentItem.price)} ₽</p>
-            <button onClick={() => callbacks.addToBasket(select.cuurentItem._id)}>Добавить</button>
-
-        </div>
-    ) : <div className="Loading" >
-        <FallingLines
-            width='70'
-            height='70'
-            color="black"
-            visible={true}
-            ariaLabel='falling-lines-loading'
-        />
-    </div>
+    )
 }
 
 export default InfoItem

@@ -12,7 +12,8 @@
         "title": "Cart",
         "close": "Close",
         "remove": "Remove",
-        "total": "Total"
+        "total": "Total",
+        "pc": "pc"
     },
     "product": {
         "country": "Made in",

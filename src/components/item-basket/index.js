@@ -18,7 +18,7 @@ function ItemBasket(props) {
       <div onClick={callbacks.viewProduct} className={cn('title')}>{props.item.title}</div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {props.translation('pc')}</div>
         <div className={cn('cell')}><button onClick={callbacks.onRemove}>{props.translation('remove')}</button></div>
       </div>
     </div>

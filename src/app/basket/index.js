@@ -38,7 +38,7 @@ function Basket(){
     itemBasket: useCallback(item => <ItemBasket item={item} 
                                                 viewProduct={callbacks.viewProduct}
                                                 onRemove={callbacks.removeFromBasket}
-                                                translation={translationBasket}/>, [translationBasket]),
+                                                translation={callbacks.translationBasket}/>, []),
   }
 
   return (

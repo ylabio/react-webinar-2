@@ -1,5 +1,6 @@
 const counterBtn = (e, loadPage) => {
     const { selected } = e.target.dataset;
+    loadPage(+selected);
 
     document.querySelectorAll('.page-').forEach(btn => {
         btn.classList.remove("Active");
@@ -14,11 +15,10 @@ const counterBtn = (e, loadPage) => {
 
 
 
-    loadPage(+selected);
 
 
 
 }
 
 
-export default counterBtn;
+export default counterBtn; 

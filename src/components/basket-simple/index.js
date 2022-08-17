@@ -14,14 +14,19 @@ function BasketSimple({ sum, amount, onOpen }) {
   const [a, b, c] = language.commodityDeclensions
   return (
     <div className={cn()}>
-      <span className={cn('label')}>{language.inTheBasket}:</span>
-      <span className={cn('total')}>
-        {amount
-          ? `${amount} ${plural(amount, a, b, c)} / ${numberFormat(sum)} ₽`
-          : language.empty
-        }
-      </span>
-      <Link to="/"><button className='BasketSimple__button' onClick={onOpen}>{language.go}</button></Link>
+      <Link className="Main" to="/">
+        {language.productLink}
+      </Link>
+      <div>
+        <span className={cn('label')}>{language.inTheBasket}:</span>
+        <span className={cn('total')}>
+          {amount
+            ? `${amount} ${plural(amount, a, b, c)} / ${numberFormat(sum)} ₽`
+            : language.empty
+          }
+        </span>
+        <Link to="/"><button className='BasketSimple__button' onClick={onOpen}>{language.go}</button></Link>
+      </div>
     </div>
   )
 }

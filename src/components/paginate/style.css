@@ -8,16 +8,23 @@
   height: 20px;
   padding: 1px;
   cursor: pointer;
+  color: #000000;
+  background-color: #fff;
 }
-.Active {
+
+.page-:hover {
+  background-color: #e1e1e1;
+}
+
+.page-.Active {
   display: block;
   background-color: #0087e9;
   color: #fff;
 }
 
 .btn-container {
-  position: absolute;
-  right: 500px;
+  margin-top: 20px;
+  margin-right: 20px;
   top: 800px;
   display: flex;
   max-width: 1024px;

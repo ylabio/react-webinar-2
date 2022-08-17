@@ -28,13 +28,10 @@ function Product(props) {
     }));
 
 
-    console.log(language);
 
     return (
         <Layout head={<h1>{language.productTitle}</h1>}>
-            <Link className="Main" to="/">
-                {language.productLink}
-            </Link>
+
             <ContainerProduct language={language} sum={sum} amount={amount} selectItem={selectItem} />
 
         </Layout>

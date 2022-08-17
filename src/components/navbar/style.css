@@ -1,0 +1,11 @@
+.Navbar {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 20px;
+}
+
+.Navbar-link {
+  color: #0087e9;
+  font-size: 18px;
+  line-height: 21px;
+}

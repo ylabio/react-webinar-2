@@ -1,0 +1,17 @@
+/* Контрол с общими действиями */
+.BasketSimple {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.BasketSimple-label {
+}
+
+.BasketSimple-total {
+  font-weight: bold;
+  margin: 0 14px;
+}
+.BasketSimple-button {
+  width: 80px;
+}

@@ -1,0 +1,27 @@
+{
+    "lang": "en",
+    "main": {
+        "storeHead": "Shop",
+        "mainPage": "Home",
+        "inBasket": "In basket:",
+        "empty": "empty",
+        "add": "Add",
+        "product1": "product",
+        "product2": "products",
+        "product3": "products"
+    },
+    "article": {
+        "madeIn": "Made in:",
+        "category": "Category:",
+        "editionYear": "Year of release:",
+        "price": "Price:"
+    },
+    "basket": {
+        "openModal": "Open",
+        "closeModal": "Close",
+        "total": "Total",
+        "delete": "Delete",
+        "amount": "pcs",
+        "title": "Basket"
+    }
+}

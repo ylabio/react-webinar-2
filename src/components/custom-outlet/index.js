@@ -8,7 +8,7 @@ import './style.css';
 
 const CustomOutlet = ({title, sum, onOpen, amount}) => {
     const cn = bem('Outlet');
-    return(
+    return (
         <div className={cn()}>
             <Header title={title}/>
             <SubHeader openModal={onOpen} links={[{link: '', title: 'Главная'}]} amount={amount} sum={sum}/>

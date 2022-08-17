@@ -4,7 +4,6 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import {Pagination} from "../../components/pagination";
-import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import Loading from "../../components/loading";
 
@@ -44,9 +43,7 @@ function Main() {
     return (
         <>
             <List items={select.items} renderItem={renders.item}/>
-            <div className={cn('pagination')}>
-                <Pagination activeIndex={page} setPage={setPage} itemsPerPage={10} totalItems={select.amount}/>
-            </div>
+            <Pagination activeIndex={page} setPage={setPage} itemsPerPage={10} totalItems={select.amount}/>
         </>
     )
 }

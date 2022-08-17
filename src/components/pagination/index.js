@@ -3,10 +3,8 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function Pagination({count, currentPage, load, changePage}) {
+function Pagination({limit, count, currentPage, load, changePage}) {
   const cn = bem('Pagination');
-
-  const limit = 10;
 
   const pages = [];
 
@@ -91,13 +89,15 @@ function Pagination({count, currentPage, load, changePage}) {
 }
 
 Pagination.propTypes = {
+  limit: propTypes.number,
   count: propTypes.number,
   currentPage: propTypes.number,
-  load: propTypes.func,
+  loadPage: propTypes.func,
   changePage: propTypes.func
 }
 
 Pagination.defaultProps = {
+  limit: 10
 }
 
 export default React.memo(Pagination);

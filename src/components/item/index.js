@@ -3,7 +3,6 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
 import { NavLink } from 'react-router-dom';
-
 import './style.css';
 
 function Item(props) {
@@ -19,7 +18,7 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')}>
-        <NavLink to={props.item._id} className={cn('link')}>{props.item.title}</NavLink>
+        <NavLink to={props.link} className={cn('link')}>{props.item.title}</NavLink>
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
@@ -32,6 +31,7 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
+  link: propTypes.string
 }
 
 Item.defaultProps = {

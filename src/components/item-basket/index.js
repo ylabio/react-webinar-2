@@ -13,15 +13,15 @@ function ItemBasket(props) {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item])
   };
 
-  function goto(id){
-    navigate("/product/"+id);
+  function goto(productId){
+    navigate(productId);
     props.onClose();
   }
 
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
-      <div className={cn('title')}><span onClick={()=>{goto(props.item._id)}}>{props.item.title}</span></div>
+      <div className={cn('title')}><span onClick={()=>{goto(props.productId)}}>{props.item.title}</span></div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>

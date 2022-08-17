@@ -13,8 +13,8 @@ function Item(props) {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
 
-  function goto(id){
-    navigate("/product/"+id);
+  function goto(productId){
+    navigate(productId);
   }
 
   return (
@@ -23,7 +23,7 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')}>
-        <span onClick={()=>{goto(props.item._id)}}>{props.item.title}</span>
+        <span onClick={()=>{goto(props.productId)}}>{props.item.title}</span>
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>

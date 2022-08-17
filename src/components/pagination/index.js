@@ -12,7 +12,8 @@ function Pagination(props) {
 
     const select = useSelector(state => ({
         currentPage: state.catalog.currentPage,
-        pages: state.catalog.paginationList,
+        totalCount: state.catalog.totalCount, 
+        limit: state.catalog.limit,
     }));
 
     const cn = bem('Pagination');
@@ -21,18 +22,37 @@ function Pagination(props) {
         props.loadPage(+page)
     }, [page, props.loadPage])
 
+    // возвращает список страниц для отрисовки
     const getPages = () => {
+        const countOfPages = Math.ceil(select.totalCount / select.limit);
+        let pages = [];
+    
+        for (let i = 1; i <= countOfPages; i++) {
+    
+            if (select.currentPage == countOfPages && i >= countOfPages - 2) { pages.push(i) } else
+            if ( i == 1 || i == countOfPages) { pages.push(i) } else
+            if ((select.currentPage == 1 || select.currentPage == 2)  && i <= 3) { pages.push(i) } else
+            if (select.currentPage == 3  && i <= 4) { pages.push(i) } else
+            if (i >= select.currentPage - 1 && i <= select.currentPage + 1) { pages.push(i) }
+    
+        }
+    
+        return pages;
+    };
 
+    // добавляет "..." если прерывается последовательность страниц
+    const addEllipsis = () => {
+
+        const pages = getPages()
         let pagesWithEllipsis = [];
  
-        // если прерывается последовательность страниц - добавляем троеточие
-        for (let i = 0; i < select.pages.length; i++) {
+        for (let i = 0; i < pages.length; i++) {
 
-            if (select.pages[i] - select.pages[i-1] !== 1 && i !== 0) {
+            if (pages[i] - pages[i-1] !== 1 && i !== 0) {
                 pagesWithEllipsis.push(<a key={`${i}n`} className={cn('ellipsis')}>...</a>);
             }
-            pagesWithEllipsis.push(<Page key={select.pages[i]} 
-                                         id={select.pages[i]}
+            pagesWithEllipsis.push(<Page key={pages[i]} 
+                                         id={pages[i]}
                                          currentPage={select.currentPage} />)
                     
         }
@@ -43,7 +63,7 @@ function Pagination(props) {
   return (
     <ul className={cn()}>
         
-        { getPages() }
+        { addEllipsis() }
         
     </ul>
   )

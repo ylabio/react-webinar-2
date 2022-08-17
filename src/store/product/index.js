@@ -22,7 +22,6 @@ class ProductState extends StateModule{
       const json = await response.json();
       const { title, description, maidIn, category, price, edition  } = json.result
       const catalog = this.store.getState()['catalog'];
-      console.log("catalog: ",catalog);
       let items = [...catalog.items]; // если переходиш по прямой ссылке на продукт то его нужно добавить в state.items 
       if (!items.find(item => item._id === id)) {
         items.push(json.result)

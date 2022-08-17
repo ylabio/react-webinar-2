@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import BasketSimple from '../../components/basket-simple'
 import ProductInfo from '../../components/product-info'
+import Menu from '../../components/menu'
 
 function Product() {
   console.log('Product')
@@ -35,6 +36,7 @@ function Product() {
   return (
     <Layout head={<h1>{select.item.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <Menu />
       <ProductInfo
         onAdd={callbacks.addToBasket}
         item={select.item}

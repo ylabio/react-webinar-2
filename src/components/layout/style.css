@@ -4,6 +4,7 @@ body{
     background: #535353;
     font-family: sans-serif;
     position: relative;
+    font-family: Arial;
 }
 /* Страница*/
 .Layout{
@@ -15,10 +16,16 @@ body{
     box-shadow: 0 0 15px 5px #0000003b;
 }
 .Layout-head{
+    display: flex;
+    justify-content: space-between;
     height: 80px;
     background: #f5f5f5;
 }
 .Layout-head h1{
     margin: 0;
     padding: 20px 20px 10px;
+}
+.Layout-langBtn{
+    height: 21px;
+    margin: 30px 20px; 
 }

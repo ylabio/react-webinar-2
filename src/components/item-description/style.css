@@ -1,0 +1,20 @@
+.ItemDescription{
+    margin: 20px 40px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 20.7px;
+}
+
+.ItemDescription-element{
+    margin-bottom: 20px;
+}
+.ItemDescription-element span{
+    font-weight: 700;
+}
+.ItemDescription-price{
+    font-size: 24px;
+    line-height: 27.6px;
+}
+.ItemDescription button{
+    width: 76px;
+}

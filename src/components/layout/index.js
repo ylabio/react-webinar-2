@@ -3,16 +3,17 @@ import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
 
-function Layout({head, children}){
+function Layout(props){
   const cn = bem('Layout');
 
   return (
     <div className={cn()}>
       <div className={cn('head')}>
-        {head}
+        {props.head}
+        {props.setLang && <button className={cn('langBtn')} onClick={props.setLang}>{props.lang}</button>}
       </div>
       <div className={cn('content')}>
-        {children}
+        {props.children}
       </div>
     </div>
   )
@@ -20,10 +21,15 @@ function Layout({head, children}){
 
 Layout.propTypes = {
   head: propTypes.node,
+  setLang: propTypes.func,
+  lang: propTypes.string,
   children: propTypes.node,
 }
 
 Layout.defaultProps = {
+  head: <h1>Заголовок</h1>,
+  setLang: null,
+  lang: ""
 }
 
 export default React.memo(Layout);

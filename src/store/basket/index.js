@@ -1,4 +1,5 @@
 import StateModule from "../module";
+import ApiService from "../../utils/api-service";
 
 /**
  * Состояние корзины
@@ -21,7 +22,7 @@ class BasketState extends StateModule{
    * Добавление товара в корзину
    * @param _id Код товара
    */
-  addToBasket(_id) {
+  async addToBasket(_id) {
     let sum = 0;
     // Ищем товар в корзие, чтобы увеличить его количество. Заодно получаем новый массив items
     let exists = false;
@@ -37,14 +38,13 @@ class BasketState extends StateModule{
       return result
     });
 
-    // Если товар не был найден в корзине, то добавляем его из каталога
+    // Если товар не был найден в корзине, то посылаем запрос к АПИ и получаем объект с сервера
     if (!exists) {
-      // Поиск товара в каталоге, чтобы его в корзину добавить
       // @todo В реальных приложения будет запрос к АПИ на добавление в корзину, и апи выдаст объект товара..
-      const item = this.store.getState().catalog.items.find(item => item._id === _id);
-      items.push({...item, amount: 1});
+      const response = await ApiService.getOne(_id);
+      items.push({...response.result, amount: 1});
       // Досчитываем сумму
-      sum += item.price;
+      sum += response.result.price; 
     }
 
     // Установка состояние, basket тоже нужно сделать новым

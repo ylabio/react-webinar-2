@@ -31,5 +31,8 @@
 
 .ItemBasket-link {
     cursor: pointer;
+}
+
+.ItemBasket-link :hover{
     text-decoration: underline;
 }

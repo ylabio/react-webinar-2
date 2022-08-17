@@ -5,8 +5,10 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import {useNavigate} from 'react-router-dom'
 
 function Basket(){
+  const navigate = useNavigate()
 
   console.log('Basket');
 
@@ -22,11 +24,23 @@ function Basket(){
     // Закрытие любой модалки
     closeModal: useCallback(() => store.get('modals').close(), []),
     // Удаление из корзины
-    removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), [])
+    removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), []),
+    goToPage: useCallback((id) => {
+      navigate(`product/${id}`);
+      callbacks.closeModal();
+    })
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item => 
+    <ItemBasket 
+      item={item} 
+      onRemove={callbacks.removeFromBasket} 
+      onClose = {callbacks.closeModal}
+      redirect = {callbacks.goToPage}
+      />,
+      []
+    ),
   }
 
   return (

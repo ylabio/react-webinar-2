@@ -15,19 +15,15 @@ function ItemBasket(props) {
 
   const callbacks = {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
-    closeModal: useCallback(()=> store.get('modals').close(),[])
+    closeModal: useCallback(()=> store.get('modals').close(),[]),
+    goToPage: useCallback(()=> props.redirect(props.item._id),[])
   };
-
-  const goToItem = () => {
-    navigate(`product/${props.item._id}`);
-    callbacks.closeModal();
-  }
 
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-      <span onClick={goToItem} className = {cn('link')}>
+      <span onClick={callbacks.goToPage} className = {cn('link')}>
         {props.item.title}
       </span>
       </div>
@@ -42,6 +38,9 @@ function ItemBasket(props) {
 
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
+  path: propTypes.string,
+  redirect: propTypes.func,
+  onClose: propTypes.func,
   onRemove: propTypes.func,
 }
 

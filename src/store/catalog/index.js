@@ -1,4 +1,4 @@
-import { getSingleItem,getItems } from "../../services/api";
+import { getItems } from "../../services/api";
 import StateModule from "../module";
 
 /**
@@ -13,23 +13,17 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      productInfo: {
-        _id: '',
-        description: '',
-        edition: 0,
-        category: {title: ''},
-        maidIn: {
-          title: '',
-          code: '',
-        },
-        price: 0,
-      },
+      limit:10,
+      currentPage: 1,
       count: 0,
     };
   }
 
-  async load(limit, skip){
+  async load(){
+    const {limit, currentPage} = this.getState();
+    const skip = (currentPage - 1) * limit;
     const data = await getItems(limit, skip);
+
     this.setState({
       ...this.store.getState().catalog,
       items: data.items,
@@ -37,12 +31,11 @@ class CatalogState extends StateModule{
     });
   }
 
-  async getInfo(id) {
-    const data = await getSingleItem(id);
+  setCurrentPage(page) {
     this.setState({
       ...this.store.getState().catalog,
-      productInfo: data
-    });
+      currentPage: page
+    })
   }
 
   /**

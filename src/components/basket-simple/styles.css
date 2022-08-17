@@ -1,16 +1,25 @@
 /* Контрол с общими действиями */
-.BasketSimple{
+.BasketSimple {
     display: flex;
-    justify-content: flex-end;
-    padding: 20px;
+    align-items: center;
     font-size: 18px;
 }
 
-.BasketSimple-label{
+.BasketSimple-label {
 
 }
 
-.BasketSimple-total{
+.BasketSimple-heading {
+    margin: 0;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    text-decoration-line: underline;
+    color: #0087E9;
+
+}
+
+.BasketSimple-total {
     font-weight: bold;
     margin: 0 15px;
 }

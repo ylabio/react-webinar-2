@@ -13,5 +13,12 @@
         "close": "Close",
         "remove": "Remove",
         "total": "Total"
+    },
+    "product": {
+        "country": "Made in",
+        "category": "Category",
+        "year": "Year of issue",
+        "price": "Price",
+        "add": "Add"
     }
 }

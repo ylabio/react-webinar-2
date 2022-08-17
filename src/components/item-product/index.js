@@ -4,7 +4,7 @@ import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
 import './style.css';
 
-function ItemProduct({ product, onAdd }) {
+function ItemProduct({ product, onAdd, translation }) {
   const cn = bem('Product');
 
   const callbacks = {
@@ -14,11 +14,11 @@ function ItemProduct({ product, onAdd }) {
   return (
     <div className={cn()}>
         <div>{product.description}</div>
-        <div>Страна производитель: <span>{product.country}</span></div>
-        <div>Категория: <span>{product.category}</span></div>
-        <div>Год выпуска: <span>{product.edition}</span></div>
-        <div className={cn('price')}>Цена: <span>{numberFormat(product.price)} ₽</span></div>
-        <button className={cn('btn')} onClick={callbacks.onAdd}>Добавить</button>
+        <div>{translation.product.country}: <span>{product.country}</span></div>
+        <div>{translation.product.category}: <span>{product.category}</span></div>
+        <div>{translation.product.year}: <span>{product.edition}</span></div>
+        <div className={cn('price')}>{translation.product.price}: <span>{numberFormat(product.price)} ₽</span></div>
+        <button className={cn('btn')} onClick={callbacks.onAdd}>{translation.product.add}</button>
     </div>
   )
 }
@@ -26,10 +26,12 @@ function ItemProduct({ product, onAdd }) {
 ItemProduct.propTypes = {
     product: propTypes.object.isRequired,
     onAdd: propTypes.func,
+    translation: propTypes.object,
 }
 
 ItemProduct.defaultProps = {
     onAdd: () => {},
+    translation: {},
 }
 
 export default React.memo(ItemProduct);

@@ -1,5 +1,4 @@
 import React, {useCallback} from 'react';
-import { useNavigate } from "react-router-dom";
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
@@ -7,11 +6,10 @@ import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
-  const navigate = useNavigate();
-
+  
   const callbacks = {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
-    viewProduct: useCallback(() => navigate(`/product/${props.item._id}`), [props.item])
+    viewProduct: useCallback(() => props.viewProduct(props.item._id), [props.item]),
   };
 
   return (
@@ -24,7 +22,7 @@ function Item(props) {
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{props.translation.main.add}</button>
       </div>
     </div>
   )
@@ -32,11 +30,15 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
+  translation: propTypes.object,
   onAdd: propTypes.func,
+  viewProduct: propTypes.func,
 }
 
 Item.defaultProps = {
+  translation: {},
   onAdd: () => {},
+  viewProduct: () => {},
 }
 
 export default React.memo(Item);

@@ -1,5 +1,6 @@
 import List from "../../components/list";
 import React, {useCallback} from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import BasketTotal from "../../components/basket-total";
 import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
@@ -11,6 +12,7 @@ function Basket(){
   
   const translation = useTranslation();
   const store = useStore();
+  const navigate = useNavigate();
 
   const select = useSelector(state => ({
     items: state.basket.items,
@@ -22,11 +24,19 @@ function Basket(){
     // Закрытие любой модалки
     closeModal: useCallback(() => store.get('modals').close(), []),
     // Удаление из корзины
-    removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), [])
+    removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), []),
+    // переход на страницу с описанием товар
+    viewProduct: useCallback((id) => {
+      store.get('modals').close();
+      navigate(`/product/${id}`)
+    }, [])
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item => <ItemBasket item={item} 
+                                                viewProduct={callbacks.viewProduct}
+                                                onRemove={callbacks.removeFromBasket}
+                                                translation={translation}/>, [translation]),
   }
 
   return (

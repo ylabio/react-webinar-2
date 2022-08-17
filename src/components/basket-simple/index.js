@@ -13,7 +13,7 @@ function BasketSimple({sum, amount, onOpen}) {
 
   return (
     <div className={cn()}>
-      <Link className={cn('link')} to ="/1">{translation.main.home_link}</Link>
+      {/* <Link className={cn('link')} to ="/1">{translation.main.home_link}</Link> */}
       <div className={cn('right')}>
         <span className={cn('label')}>{translation.main.at_cart}:</span>
         <span className={cn('total')}>

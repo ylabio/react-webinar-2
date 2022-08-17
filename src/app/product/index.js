@@ -5,12 +5,15 @@ import { useParams } from "react-router-dom";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import ItemProduct from "../../components/item-product";
+import useTranslation from "../../utils/use-translation";
+import Nav from "../../components/nav";
 
 function Product(){
 
   const { id } = useParams()
 
   const store = useStore();
+  const translation = useTranslation();
 
   useEffect(() => {
     store.get('catalog').getProduct(id);
@@ -22,6 +25,7 @@ function Product(){
     isError: state.catalog.isError,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    locale: state.app.locale,
   }));
 
   const callbacks = {
@@ -29,17 +33,22 @@ function Product(){
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Смена языка интерфейса
+    changeLocaleHandler: useCallback((value) => store.get('app').changeLocale(value), []),
   };
 
   if (select.isError) return <h1>{select.isError}</h1>
 
   return (
-    <Layout head={<h1>{select.product?.title}</h1>}>
+    <Layout head={<h1>{select.product?.title}</h1>}
+            locale={select.locale}
+            changeLocaleHandler={callbacks.changeLocaleHandler}>
+      <Nav translation={translation}/>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       { 
         !select.product 
         ? <h1 style={{textAlign: "center", width: "100%"}}>Loading...</h1>
-        : <ItemProduct product={select.product} onAdd={callbacks.addToBasket}/>
+        : <ItemProduct product={select.product} onAdd={callbacks.addToBasket} translation={translation}/>
       }
     </Layout>
   )

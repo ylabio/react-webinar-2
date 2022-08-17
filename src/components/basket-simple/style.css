@@ -1,7 +1,7 @@
 /* Контрол с общими действиями */
 .BasketSimple{
-    display: flex;
-    justify-content: space-between;
+    position: relative;
+    float: right;
     padding: 20px;
     font-size: 18px;
 }
@@ -17,4 +17,7 @@
 .BasketSimple-total{
     font-weight: bold;
     margin: 0 15px;
+}
+.BasketSimple__button{
+    height: 21px;
 }

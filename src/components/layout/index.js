@@ -5,14 +5,12 @@ import './style.css';
 import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
 
-function Layout({head, children}){
+function Layout({head, children, changeLocaleHandler, locale}){
   const cn = bem('Layout');
-  const store = useStore();
-  const locale = useSelector(state => state.app.locale);
 
   const callbacks = {
     // Смена языка интерфейса
-    changeLocaleHandler: useCallback((e) => store.get('app').changeLocale(e.target.value), []),
+    changeLocaleHandler: useCallback((e) => changeLocaleHandler(e.target.value), []),
   };
 
   return (
@@ -34,6 +32,8 @@ function Layout({head, children}){
 Layout.propTypes = {
   head: propTypes.node,
   children: propTypes.node,
+  changeLocaleHandler: propTypes.func.isRequired,
+  locale: propTypes.string.isRequired,
 }
 
 Layout.defaultProps = {

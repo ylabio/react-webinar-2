@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Article from './article';
+import PageNotFound from './page-not-found';
 
 /**
  * Приложение
@@ -16,8 +18,17 @@ function App() {
 
   return (
     <>
-      <Main/>
-      {modal === 'basket' && <Basket/>}
+      {/* <Main/> */}
+      
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Main />} />
+					<Route path="/article/:id" element={<Article />} />
+					<Route path="*" element={<PageNotFound />} />
+				</Routes>
+
+				{modal === 'basket' && <Basket/>}
+			</BrowserRouter>
     </>
   );
 }

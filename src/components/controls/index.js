@@ -1,21 +1,30 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import {cn as bem} from "@bem-react/classname";
+import { Link } from 'react-router-dom';
+import Nav from '../nav';
 import './style.css';
 
-function Controls({onAdd}){
+const NavItems = [
+	{title: 'Главная', pathLink: '/'}
+];
+
+function Controls({children}){
+	const cn = bem('Controls');
+
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className={cn()}>
+			<Nav NavItems={NavItems} />
+
+			{children}
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

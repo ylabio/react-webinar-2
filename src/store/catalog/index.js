@@ -12,17 +12,39 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+			isLoading: false,
+			limit: 10,
+			pagesCount: 0,
+			currPage: 1
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+  async load(limit, skip){
+		this.setIsLoading(true);
+    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
-      items: json.result.items
+			...this.store.state.catalog,
+			items: json.result.items,
+			pagesCount: Math.ceil(json.result.count / limit),
+			isLoading: false
     });
   }
+
+	setCurrPage(page) {
+		this.setState({
+			...this.store.state.catalog,
+			currPage: page
+		}, 'Запись текущей страницы');
+	}
+
+	setIsLoading(flag){
+		this.setState({
+			...this.store.state.catalog,
+			isLoading: flag
+    });
+	}
 
   /**
    * Создание записи

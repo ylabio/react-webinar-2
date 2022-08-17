@@ -1,0 +1,16 @@
+.Nav {
+		display: flex;
+    padding: 20px;
+}
+
+.Nav-link{
+	margin-right: 30px;
+}
+
+.Nav-link:last-child {
+	margin-right: 0;
+}
+
+.Nav-link a{
+	color: #0087E9;
+}

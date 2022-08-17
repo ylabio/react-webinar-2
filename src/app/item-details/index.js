@@ -4,7 +4,7 @@ import { useParams } from 'react-router';
 import useSelector from '../../utils/use-selector';
 import useStore from '../../utils/use-store';
 
-import BasketSimple from '../../components/basket-simple';
+import LinkedBasket from '../../components/linked-basket';
 import Layout from '../../components/layout';
 import ItemInfo from '../../components/item-info';
 
@@ -21,6 +21,10 @@ function ItemDetails() {
 		item: state.catalog.currItem,
 		isLoading: state.catalog.isLoading,
 	}));
+
+	useEffect(() => {
+		store.get('catalog').selectItem(id);
+	}, []);
 
 	useEffect(() => {
 		store.get('catalog').selectItem(id);
@@ -43,11 +47,10 @@ function ItemDetails() {
 			{isLoading && <Loader />}
 			{!isLoading && (
 				<>
-					<BasketSimple
+					<LinkedBasket
 						onOpen={callbacks.openModalBasket}
 						amount={amount}
 						sum={sum}
-						isLinked
 					/>
 					{item && (
 						<ItemInfo item={item} onAdd={callbacks.addToBasket} />

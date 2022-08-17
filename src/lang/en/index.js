@@ -16,6 +16,7 @@ export default function getEn() {
     'Категория': 'Category',
     'Год выпуска': 'Edition',
     'Цена': 'Price',
-    'шт': 'pcs'
+    'шт': 'pcs',
+    'пусто': 'empty'
   }
 }

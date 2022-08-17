@@ -11,11 +11,11 @@ function Header({ title, changeLang, lang }) {
       <h1 className={cn('title')}>{title}</h1>
       <div className={cn('languages')}>
         <label>
-          <input onClick={(e) => changeLang(e.target.value)} type="radio" name="lang" value="ru" checked={lang === 'ru'}></input>
+          <input onChange={(e) => changeLang(e.target.value)} type="radio" name="lang" value="ru" checked={lang === 'ru'}></input>
           RU
         </label>
         <label>
-          <input onClick={(e) => changeLang(e.target.value)} type="radio" name="lang" value="en" checked={lang === 'en'}></input>
+          <input onChange={(e) => changeLang(e.target.value)} type="radio" name="lang" value="en" checked={lang === 'en'}></input>
           EN
         </label>
       </div>

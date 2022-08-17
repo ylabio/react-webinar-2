@@ -14,7 +14,7 @@ function BasketSimple({ sum, amount, onOpen, lang }) {
       <span className={cn('total')}>
         {amount
           ? `${amount} ${plural(amount, translate(lang, 'товар'), translate(lang, 'товара'), translate(lang, 'товаров'))} / ${numberFormat(sum)} ₽`
-          : `пусто`
+          : translate(lang, 'пусто')
         }
       </span>
       <button className='BasketSimple__button' onClick={onOpen}>{translate(lang, 'Перейти')}</button>

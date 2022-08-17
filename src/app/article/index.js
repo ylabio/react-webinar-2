@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import Layout from '../components/layout';
-import Controls from '../components/controls';
-import BasketSimple from '../components/basket-simple';
-import useStore from "../utils/use-store";
-import useSelector from "../utils/use-selector";
-import ArticleInfo from '../components/article-info';
+import Layout from '../../components/layout';
+import Controls from '../../components/controls';
+import BasketSimple from '../../components/basket-simple';
+import useStore from "../../utils/use-store";
+import useSelector from "../../utils/use-selector";
+import ArticleInfo from '../../components/article-info';
 
 function Article() {
 	const { id } = useParams();

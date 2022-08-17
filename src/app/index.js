@@ -3,7 +3,7 @@ import Main from "./main";
 import Basket from "./basket";
 import useSelector from "../utils/use-selector";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Article from '../article';
+import Article from './article';
 import PageNotFound from './page-not-found';
 
 /**

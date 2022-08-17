@@ -3,24 +3,23 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import {renderPagination} from "../../utils/render-pagination";
-import {useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function Pagination({currentPage, allPages}) {
   const cn = bem('Pagination');
-  const navigate = useNavigate();
 
   const {arrPage, firstDots, lastDots} = renderPagination(allPages, currentPage);
 
   return (
     <div className={cn()} >
-      <ul className={cn('list')}>
+      <div className={cn('list')}>
         {
           allPages > 1 &&
-          <li className={currentPage === 1 ? cn('active') : ''}
-             onClick={() => navigate(`/page/1`, {replace: true})}
+          <Link className={currentPage === 1 ? cn('active') : ''}
+             to={`/page/1`}
           >
             1
-          </li>
+          </Link>
         }
         {
           firstDots && <li className={cn('dotted')}>...</li>
@@ -28,10 +27,10 @@ function Pagination({currentPage, allPages}) {
         {
           allPages > 2 &&
           arrPage.map(item =>
-            <li className={currentPage === item ? cn('active') : ''}
-                onClick={() => navigate(`/page/${item}`, { replace: true })}
+            <Link className={currentPage === item ? cn('active') : ''}
+                to={`/page/${item}`}
                 key={item}>{item}
-            </li>
+            </Link>
           )
         }
         {
@@ -39,13 +38,13 @@ function Pagination({currentPage, allPages}) {
         }
         {
           allPages > 1 &&
-          <li className={currentPage === allPages ? cn('active') : ''}
-             onClick={() => navigate(`/page/${allPages}`, {replace: true})}
+          <Link className={currentPage === allPages ? cn('active') : ''}
+             to={`/page/${allPages}`}
           >
             {allPages}
-          </li>
+          </Link>
         }
-      </ul>
+      </div>
     </div>
   )
 }

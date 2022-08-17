@@ -8,7 +8,7 @@
     list-style: none;
     display: flex;
 }
-.Pagination-list>li {
+.Pagination-list>a {
     /*display: flex;*/
     /*justify-content: center;*/
     /*align-items: center;*/
@@ -19,17 +19,19 @@
     font-size: 16px;
     line-height: 18px;
     text-align: center;
+    color: #000000;
+    text-decoration: none;
     cursor: pointer;
 }
-.Pagination-list>li:hover {
+.Pagination-list>a:hover {
     background-color: #E1E1E1;
 }
-.Pagination-list>li.Pagination-active {
+.Pagination-list>a.Pagination-active {
     background-color: #0087E9;
     color: #fff;
 }
-.Pagination-list>li.Pagination-dotted,
-.Pagination-list>li.Pagination-dotted:hover {
+.Pagination-list>a.Pagination-dotted,
+.Pagination-list>a.Pagination-dotted:hover {
     margin: 0 1px;
     background-color: #fff;
     color: #CCCCCC;

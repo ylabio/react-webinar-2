@@ -11,7 +11,6 @@ function BasketSimple({lang, sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <NavBar lang={lang} />
       <div className={cn('content')}>
         <span className={cn('label')}>{lang.inCart}:</span>
         <span className={cn('total')}>

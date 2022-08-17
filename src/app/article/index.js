@@ -6,6 +6,7 @@ import useSelector from "../../utils/use-selector";
 import {useParams} from "react-router-dom";
 import ArticleContent from "../../components/article-content";
 import Translate from "../../components/translate";
+import NavBar from "../../components/nav-bar";
 
 function Article(){
 
@@ -57,6 +58,7 @@ function Article(){
         />
       </>
     }>
+      <NavBar links={{"/": select.lang.main,}}/>
       <BasketSimple lang={select.lang} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       {renders.article()}
     </Layout>

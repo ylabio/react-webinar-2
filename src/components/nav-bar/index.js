@@ -4,24 +4,30 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import {Link} from "react-router-dom";
 
-function NavBar({lang}) {
+function NavBar({links}) {
   const cn = bem('NavBar');
+  const url = Object.keys(links)
+  const link = Object.values(links)
+
+  console.log(url, link)
 
   return (
     <div className={cn()}>
-      <Link to="/">
-        <span className={cn('link')}>{lang.main}</span>
-      </Link>
+      {url.map((item, index) =>
+        <Link to={item} key={item}>
+          <span className={cn('link')}>{link[index]}</span>
+        </Link>
+      )}
     </div>
   )
 }
 
 NavBar.propTypes = {
-  lang: propTypes.object,
+  links: propTypes.arrayOf(propTypes.object),
 }
 
 NavBar.defaultProps = {
-  lang: {},
+  links: [],
 }
 
 export default React.memo(NavBar);

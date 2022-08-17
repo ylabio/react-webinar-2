@@ -1,3 +1,8 @@
+.NavBar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
 .NavBar-link{
     font-weight: 400;
     font-size: 18px;

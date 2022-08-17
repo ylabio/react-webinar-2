@@ -8,6 +8,7 @@ import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import Translate from "../../components/translate";
 import {useParams} from "react-router-dom";
+import NavBar from "../../components/nav-bar";
 
 function Main(){
 
@@ -57,6 +58,7 @@ function Main(){
         />
       </>
     }>
+      <NavBar links={{"/": select.lang.main,}}/>
       <BasketSimple lang={select.lang} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination currentPage={select.page}

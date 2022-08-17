@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import numberFormat from "../../utils/number-format";
 import {cn as bem} from "@bem-react/classname";
 import './styles.css';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
@@ -17,14 +17,9 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
-      <div className={cn('title')}
-           onClick={() => {
-             callbacks.onClose();
-             navigate(props.pathLink, {replace: true});
-           }}
-      >
+      <Link to={props.pathLink} className={cn('title')} onClick={callbacks.onClose}>
         {props.item.title}
-      </div>
+      </Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {props.lang.pcs}</div>

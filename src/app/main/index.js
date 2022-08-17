@@ -58,19 +58,10 @@ function Main() {
   }, [select.currentPage])
   
   return (
-    <Layout head={
-      <>
-        <h1>{words.shop}</h1>
-        <Select
-          changeLanguage={callbacks.changeLanguage}
-          language={select.language}/>
-      </>
-    }>
+    <Layout head={<><h1>{words.shop}</h1><Select changeLanguage={callbacks.changeLanguage} language={select.language}/></>}>
       <MenuWrapper>
         <MainMenu words={
-          {
-            main: words.main,
-          }
+          {main: words.main,}
         }/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={
           {

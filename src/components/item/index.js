@@ -9,8 +9,10 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
+    onAdd: useCallback(() => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
+
+  const link = props.link || `articles/${props.item._id}`;
 
   return (
     <div className={cn()}>
@@ -18,7 +20,7 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')}>
-        <Link className={cn('link')} to={`/${props.item._id}`}>{props.item.title}</Link>
+        <Link className={cn('link')} to={`/${link}`}>{props.item.title}</Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>

@@ -13,6 +13,8 @@ function ItemBasket(props) {
     openItem: useCallback(() => props.openItem(props.item._id), [])
   };
 
+  const link = props.link || `articles/${props.item._id}`;
+
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
@@ -20,7 +22,7 @@ function ItemBasket(props) {
         <Link
           onClick={callbacks.openItem}
           className={cn('link')}
-          to={`/${props.item._id}`}
+          to={`/${link}`}
         >
           {props.item.title}
         </Link>

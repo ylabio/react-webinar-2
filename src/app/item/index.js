@@ -5,6 +5,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import ItemInfo from '../../components/item-info';
 import {useParams} from "react-router-dom";
+import Menu from "../../components/menu";
 
 function Item() {
 
@@ -29,8 +30,11 @@ function Item() {
   };
 
   return (
-    <Layout head={<h1>Название товара</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+    <Layout head={<h1>{select.item.title}</h1>}>
+      <div className='Head'>
+        <Menu pages={[{title: 'Главная', path: '/', id: 1}]}/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      </div>
       <ItemInfo item={select.item} addToBasket={callbacks.addToBasket}/>
     </Layout>
   )

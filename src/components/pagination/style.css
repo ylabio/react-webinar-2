@@ -1,7 +1,7 @@
 .Pagination {
     display: flex;
     flex-direction: row;
-    font-family: Arial;
+    font-family: Arial, serif;
     margin-top: 23px;
     justify-content: flex-end;
     margin-right: 22px;
@@ -31,4 +31,9 @@
 
 .Pagination-page:hover {
     background: #e1e1e1;
+}
+
+.Pagination-lastPage:hover {
+    background: #e1e1e1;
+    cursor: pointer;
 }

@@ -88,4 +88,5 @@ const useLocale = () => {
   return translate
 }
 
+export const getSupportedLangs = () => Object.getOwnPropertyNames(locale)
 export default useLocale

@@ -14,9 +14,6 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('id')}>*/}
-      {/*  {props.item._id}*/}
-      {/*</div>*/}
       <div className={cn('title')}
            onClick={callbacks.onNav}>
         {props.item.title}

@@ -1,4 +1,5 @@
 import { cn } from '@bem-react/classname'
+import propTypes from 'prop-types'
 import React from 'react'
 import './styles.css'
 
@@ -12,4 +13,13 @@ function Loader({translate:{text}}) {
   )
 }
 
-export default Loader
+Loader.propTypes = {
+  translate: propTypes.object
+}
+Loader.defaultProps = {
+  translate: {
+    text: 'Loading...'
+  }
+}
+
+export default React.memo(Loader)

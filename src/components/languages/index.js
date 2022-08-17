@@ -1,10 +1,10 @@
-import React, { useCallback } from 'react'
+import propTypes from 'prop-types'
+import React from 'react'
 import './styles.css'
 
 function Languages({langs, onClick}) {
-  const callbacks = {
-    onChangeLang: useCallback((lang) => onClick(lang), [langs, onClick])
-  }
+
+  // Здесь был callbacks, но что-то пошло не так
 
   return (
     <div className='Languages'>
@@ -17,6 +17,15 @@ function Languages({langs, onClick}) {
       )}
     </div>
   )
+}
+
+Languages.propTypes = {
+  langs: propTypes.arrayOf(propTypes.string).isRequired,
+  onClick: propTypes.func
+}
+
+Languages.defaultProps = {
+  onClick: () => {}
 }
 
 export default React.memo(Languages)

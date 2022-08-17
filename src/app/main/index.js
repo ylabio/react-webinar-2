@@ -5,6 +5,7 @@ import React, { useCallback, useEffect } from "react";
 import Spinner from "../../components/spinner";
 import Item from "../../components/item";
 import PanelLanguage from "../../components/panel-language";
+import Menu from "../../components/menu";
 import Pagination from "../../components/pagination";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
@@ -66,18 +67,24 @@ function Main() {
   }
 
   return (
-    <Layout head={<h1>{text("shop")}</h1>}>
+    <Layout
+      head={<h1>{text("shop")}</h1>}
+      language={
+        <PanelLanguage
+          changeLanguage={callbacks.changeLanguage}
+          language={select.language}
+        />
+      }
+    >
       <BasketSimple
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
         sum={select.sum}
         text={[text("go"), text("in_the_basket"), text("empty")]}
-      >
-        <PanelLanguage
-          changeLanguage={callbacks.changeLanguage}
-          language={select.language}
-        />
-      </BasketSimple>
+      />
+
+      <Menu link="/" title={text("main")} />
+
       <List items={select.items[select.num]} renderItem={renders.item} />
       {select.allPage && (
         <Pagination

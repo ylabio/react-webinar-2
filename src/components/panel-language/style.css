@@ -1,6 +1,11 @@
-.Language span {
+.Language {
+  align-self: center;
   cursor: pointer;
+}
+
+.Language span {
   font-family: Cambria, Cochin, serif;
+  font-size: 20px;
 }
 
 .Language-active {

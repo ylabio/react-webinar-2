@@ -4,7 +4,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Layout from "../../components/layout";
 import Info from "../../components/info";
-import MainLink from "../../components/main-link";
+import Menu from "../../components/menu";
 import Spinner from "../../components/spinner";
 import BasketSimple from "../../components/basket-simple";
 import { translation } from "../../utils/language-array";
@@ -55,9 +55,8 @@ function Page() {
         amount={select.amount}
         onOpen={callbacks.openModalBasket}
         text={[text("go"), text("in_the_basket"), text("empty")]}
-      >
-        <MainLink link="/" title={text("main")} />
-      </BasketSimple>
+      />
+      <Menu link="/" title={text("main")} />
       <Info item={select.item} onAdd={callbacks.addToBasket} />
     </Layout>
   );

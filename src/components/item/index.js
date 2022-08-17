@@ -17,7 +17,10 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      <Link to={`article/${props.item._id}`} className={cn("title")}>
+      <Link
+        to={props.item._id ? `article/${props.item._id}` : ""}
+        className={cn("title")}
+      >
         {props.item.title}
       </Link>
 

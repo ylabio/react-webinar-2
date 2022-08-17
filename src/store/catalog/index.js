@@ -57,6 +57,7 @@ class CatalogState extends StateModule{
         currentPage: page
       }
     })
+    this.load()
   }
 
   /**

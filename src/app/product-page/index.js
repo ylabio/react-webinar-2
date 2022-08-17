@@ -3,7 +3,7 @@ import BasketSimple from "../../components/basket-simple";
 import useStore from "../../utils/use-store";
 import React, {useCallback, useEffect, useState} from "react";
 import useSelector from "../../utils/use-selector";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import ItemDetails from "../../components/item-details";
 import Preload from "../../components/preload";
 import Menu from "../../components/menu";
@@ -46,7 +46,9 @@ function ProductPage() {
 
     return (
         <Layout head={<h1 style={{opacity: select.isLoading && '0.5'}}>{select.item.title}{select.isLoading && ' ...'}</h1>}>
-            <Menu linkTo={'/'} nav={'Главная'}/>
+            <Menu>
+                <Link to={'/'}>Главная</Link>
+            </Menu>
             <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
             {select.isLoading ? <Preload/> : <ItemDetails item={select.item} onAdd={callbacks.addToBasket}/>}
         </Layout>

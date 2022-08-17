@@ -8,6 +8,7 @@ import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import Preload from "../../components/preload";
 import Menu from "../../components/menu";
+import {Link} from "react-router-dom";
 
 function Main(){
 
@@ -44,7 +45,9 @@ function Main(){
 
   return (
       <Layout head={<h1>Магазин</h1>}>
-        <Menu linkTo={'/'} nav={'Главная'}/>
+        <Menu>
+          <Link to={'/'}>Главная</Link>
+        </Menu>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
         {select.isLoading ? <Preload/>:<List items={select.items} renderItem={renders.item}/>}
         <Pagination perPage={select.perPage} totalCount={select.totalCount} currentPage={select.currentPage} onChangePage={callbacks.changePage}/>

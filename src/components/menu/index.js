@@ -1,24 +1,20 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import {Link} from "react-router-dom";
 import './style.css'
 
-function Menu({nav, linkTo}) {
+function Menu({children}) {
     const cn = bem('Menu');
     return (
         <div className={cn()}>
-            <Link className={cn('link')} to={linkTo}>{nav}</Link>
+            {children}
         </div>
     )
 }
 
 Menu.propTypes = {
-    crumbs: propTypes.string
+    children: propTypes.object.isRequired
 }
 
-Menu.defaultProps = {
-    crumbs: ''
-}
 
 export default React.memo(Menu);

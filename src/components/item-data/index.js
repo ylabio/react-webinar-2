@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {cn as bem} from "@bem-react/classname";
 import "./styles.css";
 import propTypes from "prop-types";

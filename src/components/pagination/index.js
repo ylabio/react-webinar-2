@@ -20,9 +20,8 @@ const Pagination = ({ currentPage, allPages, setCurrentPage }) => {
           <p
             onClick={() => setCurrentPage(1)}
             className={
-                currentPage === 1 ? cn('Item-active') : cn('Item')
-              /* "Pagination-item" +
-              (currentPage === 1 ? " Pagination-item_active" : "") */
+              currentPage === 1 ? cn("Item-active") : cn("Item")
+              
             }
           >
             1
@@ -35,8 +34,9 @@ const Pagination = ({ currentPage, allPages, setCurrentPage }) => {
       {pagesArray.map((page, index) => (
         <p
           onClick={() => setCurrentPage(page)}
-          className={currentPage === page ? cn('Item-active') : cn('Item')}
-          key={index}>
+          className={currentPage === page ? cn("Item-active") : cn("Item")}
+          key={index}
+        >
           {page}
         </p>
       ))}
@@ -48,7 +48,14 @@ const Pagination = ({ currentPage, allPages, setCurrentPage }) => {
           ) : (
             <></>
           )}
-          <p onClick={() => setCurrentPage(allPages)}>{allPages}</p>
+          <p
+            onClick={() => setCurrentPage(allPages)}
+            className={
+              currentPage === allPages ? cn("Item-active") : cn("Item")
+            }
+          >
+            {allPages}
+          </p>
         </>
       ) : (
         ""

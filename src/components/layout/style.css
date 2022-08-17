@@ -26,8 +26,3 @@ body {
   margin: 0;
   padding-left: 20px;
 }
-.Layout-menu {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-}

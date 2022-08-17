@@ -1,4 +1,3 @@
-import BasketSimple from '../../components/basket-simple';
 import List from '../../components/list';
 import Layout from '../../components/layout';
 import React, { useCallback } from 'react';
@@ -7,8 +6,7 @@ import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
 import Pages from '../../components/pages';
 import translator from '../../utils/translator';
-import Menu from '../../components/menu';
-import { Link } from 'react-router-dom';
+import Controls from '../../components/controls';
 
 function Main() {
   console.log('Main');
@@ -58,20 +56,14 @@ function Main() {
 
   return (
     <>
-      <Layout
-        head={<h1>{dictionary.store}</h1>}
-        menu={
-          <>
-            <Menu links={links} />
-            <BasketSimple
-              onOpen={callbacks.openModalBasket}
-              amount={select.amount}
-              sum={select.sum}
-              dictionary={dictionary}
-            />
-          </>
-        }
-      >
+      <Layout head={<h1>{dictionary.store}</h1>}>
+        <Controls
+          links={links}
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+          dictionary={dictionary}
+        />
         <List items={select.items} renderItem={renders.item} />
 
         <Pages

@@ -13,10 +13,13 @@ function App() {
 
 
   const modal = useSelector(state => state.modals.name);
-  const [title, setTitle] = useState('Магазин');
+  const titleFromLocalStorage = localStorage.getItem('title')||'Магазин'
+  const [title,setTitle] = useState(titleFromLocalStorage)
+  const [itemsSkipPages, setItemsSkipPages] = useState(10);
+
   return (
 
-    <ContextTitle.Provider value={{title, setTitle}}>
+    <ContextTitle.Provider value={{title, setTitle,itemsSkipPages}}>
       <Main />
       {modal === 'basket' && <Basket />}
     </ContextTitle.Provider>

@@ -19,17 +19,18 @@ class CatalogState extends StateModule {
     };
   }
 
-  async getItems(nextList = 0) {
-
-    const result = await axios(`/api/v1/articles?limit=10&skip=${nextList}&fields=items(*),count`);
-
+  async getItems(nextList = 0,limit) {
+ 
+    const result = await axios(`/api/v1/articles?limit=${limit}&skip=${nextList}&fields=items(*),count`);
+    
+    
     this.setState({
 
       items: result.data.result.items,
       lengthItems: result.data.result.count
 
     });
-
+    
 
   }
   isEmpty(obj) {

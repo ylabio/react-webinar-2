@@ -20,12 +20,14 @@ function BasketSimple({ sum, amount, onOpen }) {
 
 
   };
-  const { setTitle } = useContext(ContextTitle)
+  const {title, setTitle } = useContext(ContextTitle)
   return (
     <>
       <div className={cn()}>
         <div className={cn('home')} >
           <Link to='/' onClick={() => {
+            callbacks.cuurentItemDefaultValue()
+            localStorage.setItem('title','Магазин')
             setTitle('Магазин')
           }} >Главная</Link>
         </div>

@@ -2,27 +2,27 @@ import React from 'react'
 import BasketSimple from '../basket-simple'
 import Layout from '../layout'
 import useSelector from './../../utils/use-selector';
-import { useState, useEffect, useCallback} from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import useStore from '../../utils/use-store';
 import numberFormat from '../../utils/numberFormat';
 import './style.css'
+import { FallingLines } from 'react-loader-spinner';
 function InfoItem(props) {
     const store = useStore()
     const { id } = useParams()
     const select = useSelector(state => ({
         cuurentItem: state.catalog.cuurentItem,
-        
+
     }));
     const callbacks = {
         addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-        isEmpty: useCallback(obj=> store.get('catalog').isEmpty(obj),[]),       
-      };
+        isEmpty: useCallback(obj => store.get('catalog').isEmpty(obj), []),
+    };
 
     useEffect(() => {
         store.get('catalog').getItemById(id)
     }, [id])
-
 
     return callbacks.isEmpty(select.cuurentItem) ? (
         <div className='InfoItem'>
@@ -33,10 +33,18 @@ function InfoItem(props) {
             <p>Категория:<span>{select.cuurentItem.category.title}</span> </p>
             <p>Год выпуска: <span>{select.cuurentItem.edition}</span></p>
             <p className='price'>Цена:{numberFormat(select.cuurentItem.price)} ₽</p>
-            <button onClick={()=>callbacks.addToBasket(select.cuurentItem._id)}>Добавить</button>
+            <button onClick={() => callbacks.addToBasket(select.cuurentItem._id)}>Добавить</button>
 
         </div>
-    ) : null
+    ) : <div className="Loading" >
+        <FallingLines
+            width='70'
+            height='70'
+            color="black"
+            visible={true}
+            ariaLabel='falling-lines-loading'
+        />
+    </div>
 }
 
 export default InfoItem

@@ -2,7 +2,7 @@
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, { useCallback, useEffect, useState,useContext } from "react";
+import React, { useCallback, useEffect, useState, useContext } from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
@@ -12,6 +12,8 @@ import './style.css'
 import ListAndPagination from "../../components/list-pagination";
 import InfoItem from "../../components/info-item";
 import { ContextTitle } from './../../store/contextTitle';
+import { InfinitySpin } from "react-loader-spinner";
+
 function Main() {
   const select = useSelector(state => ({
     items: state.catalog.items,
@@ -20,10 +22,10 @@ function Main() {
     lengthItems: state.catalog.lengthItems,
     cuurentItem: state.catalog.cuurentItem,
   }));
-  const {title,setTitle} = useContext(ContextTitle)
+  const { title, setTitle,itemsSkipPages } = useContext(ContextTitle)
   const store = useStore();
   useEffect(() => {
-    store.get('catalog').getItems()
+    store.get('catalog').getItems(0,itemsSkipPages)
   }, [])
 
 
@@ -41,7 +43,7 @@ function Main() {
   return select.items.length > 0 ? (<>
 
     <Layout head={<h1>{title}</h1>}>
-      <BasketSimple  onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
 
       <Routes>
         <Route path="/" element={
@@ -59,7 +61,12 @@ function Main() {
 
   ) :
     <div className="Loading" >
-      <p>Идет загрузка...</p>
+      <InfinitySpin
+        width='300'
+        height='200'
+        color="#f5f5f5"
+        timeout={300}
+      />
     </div>
 }
 

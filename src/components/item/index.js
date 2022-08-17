@@ -26,7 +26,10 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')} >
-        <Link to={`/info/${props.item._id}`} onClick={() => setTitle(props.item.title || 'Магазин')}>
+        <Link to={`/info/${props.item._id}`} onClick={() => {
+          setTitle(props.item.title);
+          localStorage.setItem('title',props.item.title)
+        }}>
           {props.item.title}
         </Link>
       </div>

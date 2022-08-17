@@ -18,19 +18,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={'/'} element={
-          <>
-            <Main/>
-            {modal === 'basket' && <Basket/>}
-          </>
-        }/>
-        <Route path={'/article/:articleId'} element={
-          <>
-            <Article/>
-            {modal === 'basket' && <Basket/>}
-          </>
-        }/>
+        <Route path={'/'} element={<Main/>}/>
+        <Route path={'/article/:articleId'} element={<Article/>}/>
       </Routes>
+      {modal === 'basket' && <Basket/>}
     </BrowserRouter>
   );
 }

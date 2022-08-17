@@ -1,0 +1,25 @@
+.Article {
+  padding: 20px 35px;
+}
+
+.Article-description {
+  margin: 20px 0;
+}
+
+.Article-info {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.Article-info_size_big{
+  font-size: 24px;
+}
+
+.Article-title{
+  padding-right: 10px;
+}
+
+.Article-value{
+  font-weight: bold;
+}

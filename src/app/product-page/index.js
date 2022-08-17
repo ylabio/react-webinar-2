@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState , useCallback} from "react";
 import "./style.css"
 import {useParams} from 'react-router-dom'
 import Layout from '../../components/layout'
@@ -25,13 +25,20 @@ function ProductPage(){
             alert('Что-то пошло не так , обновите страницу.');
         })
     },[params])
+
+    const callbacks = {
+        // Добавление товара в корзину
+        addToBasket: useCallback(_id => store.get('basket').addProductToBasket(_id), []),
+      };
     
     return(
         <>
         {productInfo && 
             <Layout head={<h1>{productInfo.title}</h1>}>
             <BasketSimple />
-            <ProductContent productInfo={productInfo} />
+            <ProductContent productInfo={productInfo}
+                            addToBasket={callbacks.addToBasket}
+             />
             </Layout>
         || 
         <></>}
@@ -40,4 +47,4 @@ function ProductPage(){
     )
 }
 
-export default React.memo(ProductPage);
+export default ProductPage;

@@ -4,11 +4,9 @@ import "./style.css"
 import useStore from "../../utils/use-store";
 
 
-function ProductContent({productInfo}){
+function ProductContent({productInfo , addToBasket}){
 
     const cn = bem('ProductContent');
-
-    const store = useStore();
 
     return (
         <div className={cn()}>
@@ -27,7 +25,7 @@ function ProductContent({productInfo}){
             </div>
             <div className={cn("price-container")}>
             <span className={cn('price')}>{'Цена:   ' + String(productInfo.price).replace(/\./g,',') + ' ₽'}</span>
-            <button onClick={() => {store.get('basket').addProductToBasket(productInfo)}}>Добавить</button>
+            <button onClick={() => {addToBasket(productInfo)}}>Добавить</button>
             </div>
         </div>
     )

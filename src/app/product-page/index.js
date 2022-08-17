@@ -15,7 +15,8 @@ const ProductPage = () => {
     const select = useSelector(state => ({
         item: state.item_page.item,
         amount: state.basket.amount,
-        sum: state.basket.sum
+        sum: state.basket.sum,
+        currentItem: state.item_page.item,
     }));
 
     const callbacks = {
@@ -27,7 +28,7 @@ const ProductPage = () => {
     }, [product])
 
     return (
-        <Layout head={<h1>Название товара</h1>}>
+        <Layout head={<h1>{select.currentItem.title}</h1>}>
             <HeaderWrapper>
                 <Navigation/>
                 <BasketSimple onOpen={callbacks.onOpen} amount={select.amount} sum={select.sum}/>

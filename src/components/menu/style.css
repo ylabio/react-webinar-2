@@ -5,8 +5,13 @@
     position: absolute;
 }
 
-.Menu-link {
+.Menu a{
+    position: relative;
     cursor: url("../../images/cursor.svg"), pointer;
     text-decoration-line: underline;
     color: inherit;
+}
+
+.Menu a + .Menu a {
+    margin-left: 5px;
 }

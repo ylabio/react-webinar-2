@@ -13,7 +13,11 @@ function Menu({children}) {
 }
 
 Menu.propTypes = {
-    children: propTypes.object
+    children: propTypes.oneOfType([
+        propTypes.object,
+        propTypes.arrayOf(object)
+    ]),
 }
+
 
 export default React.memo(Menu);

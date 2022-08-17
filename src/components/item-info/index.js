@@ -11,29 +11,38 @@ function ItemInfo({
     edition,
     price
   },
-  onAdd
+  onAdd,
+  translate
 }) {
   const bem = cn('ItemInfo')
 
   return (
     <div className={bem()}>
       <div>{description}</div>
-      <div>Страна производитель: <span>{country}</span></div>
-      <div>Категория: <span>{category}</span></div>
-      <div>Год выпуска: <span>{edition}</span></div>
-      <h2>Цена: {price}</h2>
-      <button onClick={onAdd}>Добавить</button>
+      <div>{translate.country}<span>{country}</span></div>
+      <div>{translate.category}<span>{category}</span></div>
+      <div>{translate.edition}<span>{edition}</span></div>
+      <h2>{translate.price}{price}</h2>
+      <button onClick={onAdd}>{translate.add}</button>
     </div>
   )
 }
 
 ItemInfo.propTypes = {
   item: propTypes.object.isRequired,
-  onAdd: propTypes.func
+  onAdd: propTypes.func,
+  translate: propTypes.object
 }
 
 ItemInfo.defaultProps = {
-  onAdd: () => {}
+  onAdd: () => {},
+  translate: {
+    country: 'text',
+    category: 'text',
+    edition: 'text',
+    price: 'text',
+    add: 'text',
+  }
 }
 
 export default React.memo(ItemInfo)

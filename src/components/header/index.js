@@ -7,13 +7,14 @@ import './styles.css'
 function Header({
   basketControls: {
     sum, amount, onOpen
-  }
+  },
+  translate
 }) {
   const bem = cn('Header')
   return (
     <div className={bem()}>
-      <Navbar />
-      <BasketSimple sum={sum} amount={amount} onOpen={onOpen} />
+      <Navbar translate={translate.nav}/>
+      <BasketSimple sum={sum} amount={amount} onOpen={onOpen} translate={translate.basketSimple} />
     </div>
   )
 }

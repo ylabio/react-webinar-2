@@ -23,7 +23,7 @@ function Item(props) {
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <button onClick={callbacks.onAdd}>{props.translate.btn}</button>
       </div>
     </div>
   )
@@ -32,12 +32,16 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
-  redirectTo: propTypes.func
+  redirectTo: propTypes.func,
+  translate: propTypes.object
 }
 
 Item.defaultProps = {
   onAdd: () => {},
-  redirectTo: () => {}
+  redirectTo: () => {},
+  translate: {
+    btn: 'text'
+  }
 }
 
 export default React.memo(Item);

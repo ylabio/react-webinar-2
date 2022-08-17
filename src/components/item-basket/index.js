@@ -18,8 +18,8 @@ function ItemBasket(props) {
       <div className={cn('title')} onClick={callbacks.onNav}>{props.item.title}</div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}>Удалить</button></div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {props.translate.num}</div>
+        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{props.translate.btn}</button></div>
       </div>
     </div>
   )
@@ -27,11 +27,16 @@ function ItemBasket(props) {
 
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
+  translate: propTypes.object,
   onRemove: propTypes.func,
   redirectTo: propTypes.func
 }
 
 ItemBasket.defaultProps = {
+  translate: {
+    btn: 'text',
+    num: 'text'
+  },
   redirectTo: () => {},
   onRemove: () => {}
 }

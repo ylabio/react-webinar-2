@@ -3,12 +3,12 @@ import React from 'react'
 import './styles.css'
 import { Link } from 'react-router-dom'
 
-function Navbar() {
+function Navbar({translate: {toMain}}) {
   const bem = cn('Navbar')
 
   return (
   <div className={bem()}>
-    <Link to='/' replace={true}>Главная</Link>
+    <Link to='/' replace={true}>{toMain}</Link>
   </div>  
   )
 }

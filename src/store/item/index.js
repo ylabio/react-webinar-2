@@ -8,7 +8,9 @@ class ItemState extends StateModule {
   }
 
   async load(id) {
-    const res = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`)
+    const lang = this.store.get('lang').getState().lang
+
+    const res = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)&lang=${lang}`)
     const {result} = await res.json()
     this.setState({
       item: {

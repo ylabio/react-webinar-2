@@ -5,17 +5,26 @@ import useSelector from '../../utils/use-selector'
 import LayoutWithHeader from '../../components/layout-with-header'
 import ItemInfo from '../../components/item-info'
 import Loader from '../../components/loader'
+import useLocale from '../../utils/use-locale'
 
 function ItemPage() {
   const store = useStore()
   const { id } = useParams()
+  const locale = useLocale()(loc => ({
+    itemInfo: loc.itemPage,
+    header: {
+      basketSimple: loc.basketSimple,
+      nav: loc.nav
+    },
+    loader: loc.loader
+  }))
 
   useEffect(() => {
     store.get('item').load(id)
     return () => {
       store.get('item').unmount()
     }
-  }, [id])
+  }, [id, locale.itemInfo])
 
   const callbacks = {
     // Открытие корзины
@@ -41,10 +50,11 @@ function ItemPage() {
                     sum: sum
                   }
                 }
+                translate={locale.header}
         >
-          <ItemInfo item={item} onAdd={callbacks.addToBasket} />
+          <ItemInfo item={item} onAdd={callbacks.addToBasket} translate={locale.itemInfo} />
         </LayoutWithHeader>
-        : <Loader />
+        : <Loader translate={locale.loader}/>
       }
     </>
   )

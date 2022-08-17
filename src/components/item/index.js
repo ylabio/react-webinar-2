@@ -17,10 +17,7 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      <Link
-        to={props.item._id ? `article/${props.item._id}` : "/"}
-        className={cn("title")}
-      >
+      <Link to={`${props.address}/${props.item._id}`} className={cn("title")}>
         {props.item.title}
       </Link>
 
@@ -39,6 +36,7 @@ Item.propTypes = {
 
 Item.defaultProps = {
   onAdd: () => {},
+  address: "article",
 };
 
 export default React.memo(Item);

@@ -11,7 +11,9 @@ class CatalogState extends StateModule {
    */
   initState() {
     return {
-      items: []
+      items: [],
+      totalItems: 0,
+      currentPage: 1
     };
   }
 
@@ -24,17 +26,17 @@ class CatalogState extends StateModule {
   }
 
   async loadWithPagination(limit = 10) {
-    const pagination = this.store.get('pagination');
-    const skip = (this.store.getState().pagination.currentPage - 1) * limit;
+    const skip = (this.getState().currentPage - 1) * limit;
     const response = await fetch(
       `/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(*),count`
     );
     const json = await response.json();
     const items = json.result.items;
-    pagination.setTotalItems(json.result.count);
+    this.setTotalItems(json.result.count);
 
     this.setState(
       {
+        ...this.getState(),
         items
       },
       'загрузка элементов с пагинацией из API'
@@ -47,6 +49,7 @@ class CatalogState extends StateModule {
   createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
     this.setState(
       {
+        ...this.getState(),
         items: this.getState().items.concat({_id, title, price, selected})
       },
       'Создание товара'
@@ -60,9 +63,30 @@ class CatalogState extends StateModule {
   deleteItem(_id) {
     this.setState(
       {
+        ...this.getState(),
         items: this.getState().items.filter(item => item._id !== _id)
       },
       'Удаление товара'
+    );
+  }
+
+  setCurrentPage(pageNumber) {
+    this.setState(
+      {
+        ...this.getState(),
+        currentPage: pageNumber
+      },
+      'назначение текущей страницы'
+    );
+  }
+
+  setTotalItems(total) {
+    this.setState(
+      {
+        ...this.getState(),
+        totalItems: total
+      },
+      'назначение общего количества страниц'
     );
   }
 }

@@ -17,8 +17,8 @@ function Main() {
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    currentPage: state.pagination.currentPage,
-    totalItems: state.pagination.totalItems
+    currentPage: state.catalog.currentPage,
+    totalItems: state.catalog.totalItems
   }));
 
   useEffect(() => {
@@ -32,7 +32,7 @@ function Main() {
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Назначение текущей страницы
     setCurrentPage: useCallback(
-      pageNumber => store.get('pagination').setCurrentPage(pageNumber),
+      pageNumber => store.get('catalog').setCurrentPage(pageNumber),
       []
     )
   };

@@ -1,28 +1,40 @@
 import Layout from '../../components/layout';
-import React, { useCallback, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useCallback } from 'react';
+import { Outlet } from 'react-router-dom';
 import Controls from '../../components/controls';
-import Shop from '../shop';
-import ItemPage from '../itempage';
+import useStore from '../../utils/use-store';
+import useSelector from '../../utils/use-selector';
 
-function Main() {
+import propTypes from 'prop-types';
+
+function Main({ title }) {
   console.log('Main');
 
-  const [title, setTitle] = useState('');
+  const store = useStore();
+
+  const select = useSelector((state) => ({
+    amount: state.basket.amount,
+    sum: state.basket.sum,
+  }));
 
   const callbacks = {
-    setTitle: useCallback((title) => setTitle(title), []),
+    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
   };
 
   return (
     <Layout head={<h1>{title}</h1>}>
-      <Controls />
-      <Routes>
-        <Route path='/' element={<Shop setTitle={callbacks.setTitle} />} />
-        <Route path='/:id' element={<ItemPage setTitle={callbacks.setTitle} />} />
-      </Routes>
+      <Controls
+        amount={select.amount}
+        sum={select.sum}
+        openModalBasket={callbacks.openModalBasket}
+      />
+      <Outlet />
     </Layout>
   );
 }
+
+Main.propTypes = {
+  title: propTypes.string.isRequired,
+};
 
 export default React.memo(Main);

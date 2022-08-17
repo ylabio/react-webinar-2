@@ -1,31 +1,22 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import { DELIMETER, ITEMS_ON_PAGE, PAGINATION_RANGE } from '../../utils/render-data';
+import propTypes from 'prop-types';
 import Delimeter from './delimeter';
 import Page from './page';
 import './style.css';
 
-function Pagination({ items, count, loadCatalog }) {
+function Pagination({ count, activePage, setActivePage }) {
   const cn = bem('Pagination');
-  const [activePage, setActivePage] = useState(1);
   const [pagesToShow, setPagesToShow] = useState([]);
 
-  function countSkip() {
-    return (activePage - 1) * ITEMS_ON_PAGE;
-  }
-
   const callbacks = {
-    countSkip: useCallback(() => countSkip(), [activePage]),
     setActivePage: useCallback((page) => setActivePage(page), []),
   };
 
   useEffect(() => {
-    loadCatalog(callbacks.countSkip());
-  }, [activePage]);
-
-  useEffect(() => {
     setPagesToShow(createPages());
-  }, [activePage, count, items]);
+  }, [activePage, count]);
 
   function createPages() {
     const firstPage = 1;
@@ -103,5 +94,11 @@ function Pagination({ items, count, loadCatalog }) {
 
   return <div className={cn()}>{showPages()}</div>;
 }
+
+Pagination.propTypes = {
+  count: propTypes.number.isRequired,
+  activePage: propTypes.number.isRequired,
+  setActivePage: propTypes.func.isRequired,
+};
 
 export default React.memo(Pagination);

@@ -13,35 +13,26 @@ class CatalogState extends StateModule {
     return {
       items: [],
       count: 0,
+      activePage: 1,
     };
   }
 
   async load(skip) {
+    const catalog = this.store.getState().catalog;
     const response = await getArticles(skip);
     this.setState({
+      ...catalog,
       items: response.result.items,
       count: response.result.count,
     });
   }
 
-  async getItemById(id) {
-    let item = this.store.getstate().catalog.items.find((item) => item._id === id);
-    if (item) {
-      return item;
-    } else {
-      const asyncItem = await this.getAsyncItemById(id).then((responce) => responce.result);
-      this.setState({ items: [asyncItem], count: 0 });
-      return asyncItem;
-    }
-  }
-
-  async getAsyncItemById(id) {
-    try {
-      const responce = await getArticleById(id);
-      return responce;
-    } catch (e) {
-      console.log(e);
-    }
+  setActivePage(page) {
+    const catalog = this.store.getState().catalog;
+    this.setState({
+      ...catalog,
+      activePage: page,
+    });
   }
 
   /**

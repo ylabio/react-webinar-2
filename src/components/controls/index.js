@@ -1,30 +1,27 @@
 import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import useStore from '../../utils/use-store';
-import useSelector from '../../utils/use-selector';
+
 import BasketSimple from '../../components/basket-simple';
 import './style.css';
+import Navbar from '../navbar';
 
-function Controls() {
-  const store = useStore();
-
-  const select = useSelector((state) => ({
-    amount: state.basket.amount,
-    sum: state.basket.sum,
-  }));
-
+function Controls({ amount, sum, openModalBasket }) {
   const callbacks = {
-    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+    openModalBasket: useCallback(() => openModalBasket(), []),
   };
+
   return (
     <div className='Controls'>
-      <Link className='Controls-link' to={'/'}>
-        Главная
-      </Link>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <Navbar />
+      <BasketSimple onOpen={callbacks.openModalBasket} amount={amount} sum={sum} />
     </div>
   );
 }
+
+Controls.propTypes = {
+  amount: propTypes.number.isRequired,
+  sum: propTypes.number.isRequired,
+  openModalBasket: propTypes.func.isRequired,
+};
 
 export default React.memo(Controls);

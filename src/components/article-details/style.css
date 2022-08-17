@@ -1,0 +1,40 @@
+.ArticleDetails {
+  font-size: 18px;
+  padding-left: 40px;
+  padding-right: 41px;
+  margin-top: 20px;
+}
+
+.ArticleDetails-description,
+.ArticleDetails-country,
+.ArticleDetails-category,
+.ArticleDetails-edition,
+.ArticleDetails-price {
+  margin-bottom: 20px;
+}
+
+.ArticleDetails-price,
+.ArticleDetails-bold {
+  font-weight: bold;
+}
+
+.ArticleDetails-price {
+  font-size: 24px;
+}
+
+.ArticleDetails-button {
+  display: block;
+  width: 76px;
+  height: 21px;
+  padding: 0;
+  font-weight: 400;
+  font-size: 13px;
+  background-color: #EFEFEF;
+  border: 1px solid #404040;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.ArticleDetails-button:hover {
+  opacity: 0.8;
+}

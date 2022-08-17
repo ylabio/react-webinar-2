@@ -5,6 +5,7 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import getTranslation from "../../services/locale";
 
 function Basket(){
 
@@ -15,24 +16,36 @@ function Basket(){
   const select = useSelector(state => ({
     items: state.basket.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    language: state.language.value,
   }));
 
   const callbacks = {
     // Закрытие любой модалки
     closeModal: useCallback(() => store.get('modals').close(), []),
     // Удаление из корзины
-    removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), [])
+    removeFromBasket: useCallback(id => store.get('basket').removeFromBasket(id), []),
+    getTranslation: useCallback(code => {
+      return getTranslation(select.language, code);
+    }, [select.language]),
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item => (
+    <ItemBasket item={item}
+                onRemove={callbacks.removeFromBasket}
+                link={`/article/${item.id}`}
+                getTranslation={callbacks.getTranslation}/>)
+    , []),
   }
 
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+    <LayoutModal title={callbacks.getTranslation('basketModal') || 'Корзина'}
+                 onClose={callbacks.closeModal}
+                 getTranslation={callbacks.getTranslation}>
       <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum}
+                   getTranslation={callbacks.getTranslation}/>
     </LayoutModal>
   )
 }

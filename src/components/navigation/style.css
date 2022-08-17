@@ -1,0 +1,18 @@
+.Navigation {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 50%;
+  padding: 20px;
+}
+
+.Navigation-link{
+  font-size: 18px;
+  color: #0087E9;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.Navigation-link:hover{
+  opacity: 0.7;
+}

@@ -1,5 +1,7 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
+import YLabService from "../../services/ylab-service";
+
+const service = new YLabService();
 
 /**
  * Состояние каталога
@@ -12,35 +14,39 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      total: null,
+      isLoading: true,
+      limit: 10,
+      current: 1,
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+  async load(skip = 0, limit = 0){
+    const response = await service.getArticles(skip, limit);
+
     this.setState({
-      items: json.result.items
-    });
+      ...this.store.getState().catalog,
+      items: response.items,
+      total: response.total,
+      isLoading: false,
+    }, 'Загрузка каталога');
   }
 
-  /**
-   * Создание записи
-   */
-  createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
+  setLoadingTrue() {
     this.setState({
-      items: this.getState().items.concat({_id, title, price, selected})
-    }, 'Создание товара');
+      ...this.store.getState().catalog,
+      isLoading: true,
+    }, 'Лоадер');
   }
 
-  /**
-   * Удаление записи по её коду
-   * @param _id
-   */
-  deleteItem(_id) {
-    this.setState({
-      items: this.getState().items.filter(item => item._id !== _id)
-    }, 'Удаление товара');
+  changePage(page) {
+    if (page) {
+      this.setState({
+        ...this.store.getState().catalog,
+        current: page,
+      }, 'Изменение текущей страницы')
+    }
   }
 }
 

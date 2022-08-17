@@ -1,22 +1,27 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
+import {useNavigate} from "react-router-dom";
 import numberFormat from "../../utils/numberFormat";
 import './style.css';
 
 function Item(props) {
   const cn = bem('Item');
 
+    let navigate = useNavigate();
+
   const callbacks = {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
 
   return (
-    <div className={cn()}>
+    <div  className={cn()}>
       {/*<div className={cn('id')}>*/}
       {/*  {props.item._id}*/}
       {/*</div>*/}
-      <div className={cn('title')}>
+      <div  onClick={(event) => {
+          navigate(`/article/${props.item._id}`)
+      }} className={cn('title')}>
         {props.item.title}
       </div>
       <div className={cn('right')}>

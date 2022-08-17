@@ -1,0 +1,23 @@
+/*style={{display: 'flex', flexDirection: 'column',width: '94%', margin: '0 auto', marginTop: '20px', gap: '20px' }}*/
+
+.Article {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    margin: 20px auto;
+    gap: 20px;
+    line-height: 21px;
+
+}
+
+.Article span {
+    font-weight: bold;;
+}
+.Article-price {
+    font-size: 24px;
+}
+
+.Article-controls {
+    display: flex;
+    margin: -19px;
+}

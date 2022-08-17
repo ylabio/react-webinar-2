@@ -1,0 +1,25 @@
+.Pagination {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Pagination-content {
+    margin-top: 22px;
+    margin-right: 22px;
+}
+
+.Pagination-content--item {
+    margin-right: 5px;
+    cursor: pointer;
+    background-color: #E1E1E1;
+    padding: 3px;
+    color: black;
+}
+
+.Pagination-content--item--active {
+    color: white;
+    margin-right: 5px;
+    padding: 3px;
+    cursor: pointer;
+    background-color: #0087E9;
+}

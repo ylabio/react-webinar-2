@@ -8,6 +8,7 @@ import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import useLanguage from "../../utils/use-language";
 import usePageState from "../../utils/use-pageState";
+import LanguageSelect from "../../components/language-select";
 
 function Main() {
   const store = useStore();
@@ -18,6 +19,7 @@ function Main() {
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    pages: state.catalog.pages,
   }));
 
   const callbacks = {
@@ -35,14 +37,27 @@ function Main() {
           item={item}
           onAdd={callbacks.addToBasket}
           lang={langPackage.buttons}
+          pathname="/product"
         />
       ),
       [langPackage]
     ),
   };
 
+  const languageModule = store.get("language");
+
   return (
-    <Layout head={<h1>{langPackage.title}</h1>}>
+    <Layout
+      head={
+        <>
+          <h1>{langPackage.title}</h1>
+          <LanguageSelect
+            langState={languageModule.getState.bind(languageModule)}
+            setLanguage={languageModule.setLanguage.bind(languageModule)}
+          />
+        </>
+      }
+    >
       <BasketSimple
         onOpen={callbacks.openModalBasket}
         amount={select.amount}
@@ -52,8 +67,12 @@ function Main() {
 
       <List items={select.items} renderItem={renders.item} />
 
-      {!!select.items.length && (
-        <Pagination {...{ page, setPage: callbacks.setPage }} />
+      {!!select.pages && (
+        <Pagination
+          page={page}
+          setPage={callbacks.setPage}
+          pagesAmount={select.pages}
+        />
       )}
     </Layout>
   );

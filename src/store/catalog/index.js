@@ -12,9 +12,8 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
-      currentProduct: {},
       skip: 0,
-      count: 0,
+      pages: 0,
     };
   }
 
@@ -25,8 +24,8 @@ class CatalogState extends StateModule {
     const json = await response.json();
     this.setState({
       items: json.result.items,
-      count: json.result.count,
       skip,
+      pages: Math.ceil(json.result.count / 10),
     });
   }
 

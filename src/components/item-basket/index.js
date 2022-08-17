@@ -4,29 +4,23 @@ import numberFormat from "../../utils/numberFormat";
 import { cn as bem } from "@bem-react/classname";
 import "./styles.css";
 import { Link } from "react-router-dom";
-import useStore from "../../utils/use-store";
 
 function ItemBasket(props) {
   const cn = bem("ItemBasket");
-
-  const store = useStore();
 
   const callbacks = {
     onRemove: useCallback(
       (e) => props.onRemove(props.item._id),
       [props.onRemove, props.item]
     ),
-    onClose: useCallback(() => {
-      store.get("modals").close();
-    }, []),
   };
 
   return (
     <div className={cn()}>
       <Link
         className={cn("title")}
-        to={`/product/${props.item._id}`}
-        onClick={callbacks.onClose}
+        to={{ pathname: props.pathname, hash: props.item._id }}
+        onClick={props.onClose}
       >
         {props.item.title}
       </Link>
@@ -48,8 +42,13 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
+  lang: propTypes.object.isRequired,
+  onClose: propTypes.func.isRequired,
+  pathname: propTypes.string,
 };
 
-ItemBasket.defaultProps = {};
+ItemBasket.defaultProps = {
+  pathname: "",
+};
 
 export default React.memo(ItemBasket);

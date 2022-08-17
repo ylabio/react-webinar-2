@@ -26,6 +26,8 @@ BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
   amount: propTypes.number,
+  lang: propTypes.object.isRequired,
+  children: propTypes.node,
 };
 
 BasketSimple.defaultProps = {

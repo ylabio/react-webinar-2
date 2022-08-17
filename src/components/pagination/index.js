@@ -1,23 +1,19 @@
 import React, { memo } from "react";
-import useSelector from "../../utils/use-selector";
 import "./style.css";
 import propTypes from "prop-types";
 
-export function Pagination({ page, setPage }) {
-  const catalog = useSelector((state) => state.catalog);
-
-  const maxPage = Math.ceil(catalog.count / 10);
+export function Pagination({ page, setPage, pagesAmount }) {
   const currentPage = page / 10 + 1;
 
   const conditions = {
     firstPage: currentPage > 2,
-    prevPrevPage: currentPage > maxPage - 1,
+    prevPrevPage: currentPage > pagesAmount - 1,
     prevPage: currentPage > 1,
-    nextPage: currentPage < maxPage - 1,
+    nextPage: currentPage < pagesAmount - 1,
     nextNextPage: currentPage < 2,
-    lastPage: currentPage < maxPage,
+    lastPage: currentPage < pagesAmount,
     prevDotted: currentPage > 3,
-    nextDotted: currentPage < maxPage - 2,
+    nextDotted: currentPage < pagesAmount - 2,
   };
 
   const callbacks = {
@@ -26,7 +22,7 @@ export function Pagination({ page, setPage }) {
     prevPage: () => setPage(page - 10),
     nextPage: () => setPage(page + 10),
     nextNextPage: () => setPage(page + 20),
-    lastPage: () => setPage((maxPage - 1) * 10),
+    lastPage: () => setPage((pagesAmount - 1) * 10),
   };
 
   return (
@@ -56,7 +52,7 @@ export function Pagination({ page, setPage }) {
       {conditions.nextDotted && <span className="Pagination__dotted">...</span>}
 
       {conditions.lastPage && (
-        <button onClick={callbacks.lastPage}>{maxPage}</button>
+        <button onClick={callbacks.lastPage}>{pagesAmount}</button>
       )}
     </div>
   );
@@ -65,6 +61,7 @@ export function Pagination({ page, setPage }) {
 Pagination.propTypes = {
   page: propTypes.number,
   setPage: propTypes.func,
+  pagesAmount: propTypes.number,
 };
 
 Pagination.defaultProps = {};

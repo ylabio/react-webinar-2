@@ -34,6 +34,8 @@ function Basket() {
           item={item}
           onRemove={callbacks.removeFromBasket}
           lang={langPackage}
+          pathname="/product"
+          onClose={callbacks.closeModal}
         />
       ),
       []

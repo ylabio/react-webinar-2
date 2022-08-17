@@ -17,7 +17,10 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      <Link to={`/product/${props.item._id}`} className={cn("title")}>
+      <Link
+        to={{ pathname: props.pathname, hash: props.item._id }}
+        className={cn("title")}
+      >
         {props.item.title}
       </Link>
       <div className={cn("right")}>
@@ -30,11 +33,15 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onAdd: propTypes.func,
+  onRemove: propTypes.func,
+  lang: propTypes.object.isRequired,
+  onAdd: propTypes.func.isRequired,
+  pathname: propTypes.string,
 };
 
 Item.defaultProps = {
   onAdd: () => {},
+  pathname: "",
 };
 
 export default React.memo(Item);

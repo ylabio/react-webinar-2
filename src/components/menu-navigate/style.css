@@ -1,0 +1,11 @@
+.MenuNavigate {
+  margin-right: auto;
+}
+
+.MenuNavigate__link {
+  color: #0087E9;
+}
+
+.MenuNavigate__link:hover {
+  color: black;
+}

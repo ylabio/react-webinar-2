@@ -23,6 +23,7 @@ function Main() {
     currentPage: state.catalog.currentPage,
     currentLanguage: state.language.lang,
   }));
+
   const dictionary = translator(select.currentLanguage);
 
   const callbacks = {

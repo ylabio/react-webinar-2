@@ -9,8 +9,8 @@ function Menu(props) {
 
   return (
     <div className={cn()}>
-      {props.links.map((link) => (
-        <Link to={`${link.to}`} className={cn('link')}>
+      {props.links.map((link, index) => (
+        <Link key={index} to={`${link.to}`} className={cn('link')}>
           {link.name}
         </Link>
       ))}

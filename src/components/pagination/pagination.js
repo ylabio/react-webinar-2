@@ -6,10 +6,6 @@ import "./styles.css";
 function Pagination({itemsCount, pageSize, onPageChange, currentPage}) {
     const cn = bem('Pagination');
 
-    /*const tempItemsCount = store.get('catalog').getState().count
-    const tempCurrentPage = store.get('catalog').getState().currentPage*/
-    // console.log('temp', temp)
-
     const pagesCount = Math.ceil(itemsCount / pageSize);
     if (pagesCount === 1) return null;
     const pages = [];

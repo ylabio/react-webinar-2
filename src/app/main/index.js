@@ -1,22 +1,19 @@
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import PropTypes from 'prop-types';
 import Item from "../../components/item";
 import Pagination from "../../components/pagination/pagination";
 
-function Main({store, amount, sum, items, currentPage, count}){
+function Main({store, amount, sum, items, currentPage, totalCount, countForPage}){
 
   console.log('Main');
 
-  const [currPage, setCurrentPage] = useState(currentPage);
-
-  const pageSize = 10;
   const skip = (currentPage - 1) * 10;
 
   useEffect(() => {
-    store.get('catalog').getItemsForPage(pageSize, skip, currPage)
+    store.get('catalog').getItemsForPage(countForPage, skip, currentPage)
   }, [currentPage])
 
   /*useLayoutEffect(() => {
@@ -29,8 +26,7 @@ function Main({store, amount, sum, items, currentPage, count}){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     onPageChange: useCallback(pageIndex => {
-      setCurrentPage(pageIndex);
-      store.get('catalog').setCurrentPage(currPage);
+      store.get('catalog').setCurrentPage(pageIndex);
     }, [])
   };
 
@@ -43,8 +39,8 @@ function Main({store, amount, sum, items, currentPage, count}){
       <BasketSimple onOpen={callbacks.openModalBasket} amount={amount} sum={sum}/>
       <List items={items} renderItem={renders.item}/>
       <Pagination
-          itemsCount={count}
-          pageSize={pageSize}
+          itemsCount={totalCount}
+          pageSize={countForPage}
           currentPage={currentPage}
           onPageChange={callbacks.onPageChange}
       />
@@ -56,7 +52,10 @@ Main.propTypes = {
   store: PropTypes.object,
   amount: PropTypes.number,
   sum: PropTypes.number,
-  items: PropTypes.array
+  items: PropTypes.array,
+  currentPage: PropTypes.number,
+  totalCount: PropTypes.number,
+  countForPage: PropTypes.number
 }
 
 export default React.memo(Main);

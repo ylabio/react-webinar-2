@@ -43,7 +43,6 @@ class BasketState extends StateModule{
       // @todo В реальных приложения будет запрос к АПИ на добавление в корзину, и апи выдаст объект товара..
       // const item = this.store.getState().catalog.items.find(item => item._id === _id);
       const item = await this.getItem(_id)
-      // console.log('item!', item)
       items.push({...item, amount: 1});
       // Досчитываем сумму
       sum += item.price;
@@ -83,7 +82,7 @@ class BasketState extends StateModule{
       const json = await response.json()
       return json.result
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

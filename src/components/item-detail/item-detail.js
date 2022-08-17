@@ -3,11 +3,10 @@ import "./styles.css";
 import PropTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
-import {useParams} from "react-router-dom";
+import propTypes from "prop-types";
 
-function ItemDetail({item, onAdd}) {
+function ItemDetail({id, item, onAdd}) {
     const cn = bem('ItemDetail');
-    const {id} = useParams();
 
     return (
         <div className={cn('content')}>
@@ -34,6 +33,7 @@ function ItemDetail({item, onAdd}) {
 }
 
 ItemDetail.propTypes = {
+    id: propTypes.string,
     item: PropTypes.object,
     onAdd: PropTypes.func,
 }

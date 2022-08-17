@@ -4,15 +4,13 @@ import numberFormat from "../../utils/number-format";
 import {cn as bem} from "@bem-react/classname";
 import './styles.css';
 import {Link} from "react-router-dom";
-import useStore from "../../utils/use-store";
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
-  const store = useStore();
 
   const callbacks = {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
-    closeModalBasket: useCallback(() => store.get('modals').close('basket'), []),
+    closeModalBasket: useCallback(() => props.store.get('modals').close('basket'), []),
   };
 
   return (

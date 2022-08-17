@@ -43,27 +43,28 @@ class CatalogState extends StateModule{
     }, 'Удаление товара');
   }
 
-  async getItem(_id){
-    const response = await fetch(`/api/v1/articles/${_id}?fields=*,maidIn(title,code),category(title)`)
-    const json = await response.json()
-    return json.result
-  }
-
-  async getItemsForPage(pageSize, skip, pageNumber = 1){
-    const response = await fetch(`/api/v1/articles?limit=${pageSize}&skip=${skip}&fields=items(*),count`);
-    const json = await response.json();
-    this.store.setState({
-      ...this.store.state,
-      catalog: {items: json.result.items, count: json.result.count, currentPage: pageNumber}
-    })
+  async getItemsForPage(pageSize = 10, skip, pageNumber = 1){
+    try{
+      const response = await fetch(`/api/v1/articles?limit=${pageSize}&skip=${skip}&fields=items(*),count`);
+      const json = await response.json();
+      this.store.setState({
+        ...this.store.state,
+        catalog: {items: json.result.items, totalCount: json.result.count, currentPage: pageNumber, countForPage: pageSize}
+      })
+    } catch (error) {
+         console.error(error)
+    }
   }
 
   setCurrentPage(number){
-    console.log('setCurrentPage', this.store.state.catalog)
-    console.log('ID', number)
     this.store.setState({
       ...this.store.state,
-      catalog: {items: [...this.store.state.catalog.items], count: this.store.state.catalog.count, currentPage: number}
+      catalog: {
+        items: [...this.store.state.catalog.items],
+        totalCount: this.store.state.catalog.totalCount,
+        currentPage: number,
+        countForPage: this.store.state.catalog.countForPage
+      }
     })
   }
 

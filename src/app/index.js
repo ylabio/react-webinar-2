@@ -20,8 +20,9 @@ function App() {
           amount: state.basket.amount,
           sum: state.basket.sum,
           items: state.catalog.items,
-          count: state.catalog.count,
+          totalCount: state.catalog.totalCount,
           currentPage: state.catalog.currentPage,
+          countForPage: state.catalog.countForPage
       }));
 
   return (
@@ -34,8 +35,9 @@ function App() {
                 items={select.items}
                 amount={select.amount}
                 sum={select.sum}
-                count={select.count}
+                totalCount={select.totalCount}
                 currentPage={select.currentPage}
+                countForPage={select.countForPage}
             />}
         />
         <Route
@@ -44,7 +46,8 @@ function App() {
             element={<Details
                 store={store}
                 amount={select.amount}
-                sum={select.sum}/>}
+                sum={select.sum}
+            />}
         />
       </Routes>
       {modal === 'basket' && <Basket/>}

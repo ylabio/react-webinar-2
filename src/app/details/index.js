@@ -11,7 +11,7 @@ function Details({store, amount, sum}) {
     const [item, setItem] = useState(null);
 
     useLayoutEffect(() => {
-        store.get('catalog').getItem(id).then(res => setItem( res))
+        store.get('detail').getItem(id).then(() => setItem(store.getState().detail))
     }, [id]);
 
     const callbacks = {
@@ -23,7 +23,7 @@ function Details({store, amount, sum}) {
     return (
         <Layout head={<h1>{item?.title}</h1>}>
             <BasketSimple onOpen={callbacks.openModalBasket} sum={sum} amount={amount}/>
-            <ItemDetail item={item} onAdd={callbacks.addToBasket}/>
+            <ItemDetail id={id} item={item} onAdd={callbacks.addToBasket}/>
         </Layout>
     );
 }

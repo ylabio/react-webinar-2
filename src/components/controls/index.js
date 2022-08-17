@@ -1,21 +1,31 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
+import Menu from '../menu';
+import BasketSimple from '../basket-simple';
 
-function Controls({onAdd}){
+function Controls(props) {
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className="Controls">
+      <Menu links={props.links}></Menu>
+      <BasketSimple
+        onOpen={props.onOpen}
+        amount={props.amount}
+        sum={props.sum}
+        dictionary={props.dictionary}
+      />
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
-}
+  links: propTypes.array,
+  onOpen: propTypes.func,
+  amount: propTypes.number,
+  sum: propTypes.number,
+  dictionary: propTypes.object,
+};
 
-Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
-}
+Controls.defaultProps = {};
 
 export default React.memo(Controls);

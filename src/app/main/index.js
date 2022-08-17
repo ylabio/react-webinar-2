@@ -5,7 +5,9 @@ import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import Pagination from '../../components/pagination'
+import Pagination from '../../components/pagination';
+import NavMenu from '../../components/nav-menu';
+
 
 function Main(){
 
@@ -40,11 +42,22 @@ function Main(){
 
   const renders = {
     item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
-  }  
+  }
+
+  // Список элементов меню. Пока оставил тут
+  const navMenu = [
+    {
+      title: 'Главная',
+      link: '/',
+    },
+  ];
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        <NavMenu links={navMenu}/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      </div>
       <List items={select.items} renderItem={renders.item} />
       <Pagination lastPage={select.lastPage} loadPage={callbacks.loadPage} currentPage={select.currentPage}/>
     </Layout>

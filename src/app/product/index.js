@@ -4,8 +4,9 @@ import useStore from "../../utils/use-store";
 import {useParams} from 'react-router-dom';
 import Layout from '../../components/layout';
 import BasketSimple from '../../components/basket-simple';
-import Product from '../../components/product'
-import Loader from '../../components/loader'
+import Product from '../../components/product';
+import Loader from '../../components/loader';
+import NavMenu from '../../components/nav-menu';
 
 
 function ProductCard() {
@@ -38,13 +39,24 @@ function ProductCard() {
     product: state.product.description,
   }));
 
+  // Список элементов меню. Пока оставил тут
+  const navMenu = [
+    {
+      title: 'Главная',
+      link: '/',
+    },
+  ];
+
   return (
    <>
       {!select.product
       ?  <Loader />
       :
       <Layout head={<h1>{select.product.title}</h1>}>
-        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+          <NavMenu links={navMenu}/>
+          <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+        </div>
         <Product product={select.product} addToBasket={callbacks.addToBasket}/>
       </Layout>}
    </>

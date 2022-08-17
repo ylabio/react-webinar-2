@@ -3,23 +3,14 @@ import propTypes from 'prop-types';
 import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
-import NavMenu from '../../components/nav-menu';
 import './styles.css';
 
 
 function BasketSimple({sum, amount, onOpen}) {
   const cn = bem('BasketSimple');
-  // Список элементов меню. Пока оставил тут
-  const navMenu = [
-    {
-      title: 'Главная',
-      link: '/',
-    }, 
-  ];
 
   return (
     <div className={cn()}>
-      <NavMenu links={navMenu} />
       <div>
         <span className={cn('label')}>В корзине:</span>
         <span className={cn('total')}>

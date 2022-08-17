@@ -10,6 +10,7 @@ import LanguageButtons from '../../components/languageButtons';
 function ItemInfo({ words, language, setLanguage }) {
   const store = useStore();
   let params = useParams();
+
   React.useEffect(() => {
     store.get('description').loadItem(params.id);
   }, [params.id]);
@@ -17,6 +18,7 @@ function ItemInfo({ words, language, setLanguage }) {
   const select = useSelector((state) => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
+    totalAmount: state.catalog.totalAmount,
   }));
   const itemSelect = useSelector((state) => ({
     item: state.description.item,
@@ -28,6 +30,10 @@ function ItemInfo({ words, language, setLanguage }) {
     category: state.description.category,
     edition: state.description.edition,
   }));
+
+  React.useEffect(() => {
+    store.get('catalog').load(select.totalAmount, 0);
+  });
 
   const callbacks = {
     // Открытие корзины

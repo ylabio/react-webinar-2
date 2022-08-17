@@ -28,7 +28,7 @@ function App() {
           }
         />
         <Route
-          path='/:id'
+          path='/articles/:id'
           element={
             <ItemInfo
               words={translates}

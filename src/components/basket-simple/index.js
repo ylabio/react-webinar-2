@@ -5,15 +5,13 @@ import { cn as bem } from '@bem-react/classname';
 import numberFormat from '../../utils/numberFormat';
 import './styles.css';
 import { Link } from 'react-router-dom';
+import ToMain from '../toMain';
 
 function BasketSimple({ sum, amount, onOpen, words, language }) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <Link className='Link' to='/'>
-        {language == 'ru' ? words.ru.buttonToMain : words.eng.buttonToMain}
-      </Link>
-
+      <ToMain language={language} words={words} />
       <span className={cn('label')}>{language == 'ru' ? words.ru.inCart : words.eng.inCart}</span>
       <span className={cn('total')}>
         {language == 'ru'

@@ -1,17 +1,20 @@
 import React, {useCallback, useEffect} from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import {useTranslation} from 'react-i18next';
 import BasketSimple from "../../components/basket-simple";
 import Item from "../../components/item";
 import List from "../../components/list";
 import Layout from "../../components/layout";
 import Pagination from "../../components/pagination";
+import LangSwitcher from "../../components/language-switcher";
 
 function Main(){
 
   console.log('Main');
 
   const store = useStore();
+  const { t } = useTranslation('translation');
 
   const select = useSelector(state => ({
     articleRoute: state.article.articleRoute,
@@ -41,7 +44,7 @@ function Main(){
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1>{t('title')}</h1>} langSwitch={<LangSwitcher/>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination itemsQty={select.itemsQty} pagSel={select.pagSel} pagSurf={callbacks.pagSurf}/>

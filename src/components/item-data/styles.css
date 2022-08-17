@@ -1,0 +1,11 @@
+.ItemData{
+  margin: 20px;
+}
+span{
+  font-weight: 600;
+}
+.ItemData-button {
+  margin-top: 30px;
+  width: 71px;
+  height: 21px;
+} 

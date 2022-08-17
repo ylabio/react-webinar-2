@@ -1,23 +1,53 @@
-import React, {useEffect, useState} from 'react';
-import Main from "./main";
+import React from "react";
+import Main from "../app/main";
 import Basket from "./basket";
-import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
+import { Route, Routes } from "react-router-dom";
+import ItemPage from "./item-page";
+import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
+  const modal = useSelector((state) => state.modals.name);
 
-  console.log('App');
+  let location = useLocation();
+  let [itemId, setItemId] = useState(location.search.split("=")[1]);
 
-  const modal = useSelector(state => state.modals.name);
+  useEffect(() => {
+    setItemId(location.search.split("=")[1]);
+  }, [location]);
+  
+  const renderBasket = 
+  <>
+    {modal === "basket" && <Basket />};
+  </>
 
   return (
     <>
-      <Main/>
-      {modal === 'basket' && <Basket/>}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Main />
+             {renderBasket}
+            </>
+          }
+        />
+        <Route
+          path="/item"
+          element={
+            <>
+              <ItemPage itemId={itemId} />
+           {renderBasket}
+            </>
+          }
+        />
+      </Routes>
     </>
   );
 }

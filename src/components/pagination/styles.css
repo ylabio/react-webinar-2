@@ -1,0 +1,28 @@
+.Pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-weight: 500;
+  font-size: 15px;
+  padding-right: 25px;
+  margin-top: 10px;
+}
+.Pagination-dots {
+  margin: 0px 5px;
+}
+.Pagination-Item {
+  height: 20px;
+  width: 20px;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+.Pagination-Item-active {
+  background-color: #0087e9;
+  color: #fff;
+  height: 20px;
+  width: 20px;
+  text-decoration: none;
+  text-align: center;
+}

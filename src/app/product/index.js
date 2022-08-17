@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import Layout from "../../components/layout";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import useSelector from "../../utils/use-selector";
 import useStore from "../../utils/use-store";
 import ContainerProduct from "../../components/container-product";
+import BasketSimple from "../../components/basket-simple";
 import "./style.css"
+
 
 
 
@@ -20,6 +22,10 @@ function Product(props) {
         store.get('catalog').loadProduct(productId);
     }, [])
 
+    const callbacks = {
+        openAndCloseModalBasket: [useCallback(() => store.get('modals').open('basket'), []), useCallback(() => store.get('modals').close('basket'), []),]
+    }
+
     const { language, selectItem, amount, sum } = useSelector(state => ({
         selectItem: state.catalog.selectItem,
         amount: state.basket.amount,
@@ -31,9 +37,8 @@ function Product(props) {
 
     return (
         <Layout head={<h1>{language.productTitle}</h1>}>
-
-            <ContainerProduct language={language} sum={sum} amount={amount} selectItem={selectItem} />
-
+            <BasketSimple sum={sum} amount={amount} onOpen={callbacks.openAndCloseModalBasket}></BasketSimple>
+            <ContainerProduct language={language} selectItem={selectItem} />
         </Layout>
 
     )

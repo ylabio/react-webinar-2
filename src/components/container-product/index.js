@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import propTypes from 'prop-types';
 import numberFormat from '../../utils/numberFormat';
-import BasketSimple from "../basket-simple";
+
 import useStore from "../../utils/use-store";
 import "./style.css";
 
@@ -10,17 +10,15 @@ function ContainerProduct(props) {
     const store = useStore();
 
     const callbacks = {
-        openAndCloseModalBasket: [useCallback(() => store.get('modals').open('basket'), []), useCallback(() => store.get('modals').close('basket'), []),],
         addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), [])
     }
 
-    const { language, selectItem, amount, sum } = props
+    const { language, selectItem } = props
     console.log(selectItem);
 
 
 
     return (<div className="container-product">
-        <BasketSimple sum={sum} amount={amount} onOpen={callbacks.openAndCloseModalBasket}></BasketSimple>
         <p className="description">{selectItem.description}</p>
         <p className="country">{language.productCountry}:{'\u00A0'} <strong>{selectItem.maidIn.title}</strong></p>
         <p className="category">{language.category}:{'\u00A0'}<strong>{selectItem.category.title} </strong> </p>

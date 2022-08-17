@@ -1,5 +1,5 @@
 .Main {
-  display: block;
+  display: inline-block;
   font-family: "Arial";
   font-style: normal;
   font-weight: 400;
@@ -7,10 +7,6 @@
   line-height: 21px;
   /* padding: 40px 0; */
   width: 69px;
-  height: 21px;
-  left: 228px;
-  top: 98px;
-  margin-left: 20px;
   /* identical to box height */
 
   text-decoration-line: underline;

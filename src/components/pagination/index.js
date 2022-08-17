@@ -30,25 +30,21 @@ function Pagination(props) {
 
   return (
     <ul className={cn()}>
-      {props.pages ? (
-        props.pages.map((item, index) => (
-          <li
-            key={index}
-            className={cn(
-              item === props.currentPage
-                ? 'page_current'
-                : item === '...'
-                ? 'page_dots'
-                : 'page'
-            )}
-            onClick={callbacks.setPagination}
-          >
-            {item}
-          </li>
-        ))
-      ) : (
-        <Preloader />
-      )}
+      {props.pages.map((item, index) => (
+        <li
+          key={index}
+          className={cn(
+            item === props.currentPage
+              ? 'page_current'
+              : item === '...'
+              ? 'page_dots'
+              : 'page'
+          )}
+          onClick={callbacks.setPagination}
+        >
+          {item}
+        </li>
+      ))}
     </ul>
   );
 }

@@ -1,10 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
+import { Link } from 'react-router-dom';
 
 function Menu({ children }) {
   return (
     <div className="Menu">
+      <Link to='/'>Главная</Link>
       {children}
     </div>
   );
@@ -12,10 +14,6 @@ function Menu({ children }) {
 
 Menu.propTypes = {
   children: propTypes.node
-};
-
-Menu.defaultProps = {
-  children: <a href="/">Главная</a>
 };
 
 export default React.memo(Menu);

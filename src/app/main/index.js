@@ -24,6 +24,7 @@ function Main() {
     pages: state.catalog.pages,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    isLoading: state.catalog.isLoading,
   }));
 
   useEffect(() => {
@@ -60,6 +61,10 @@ function Main() {
     ),
   };
 
+  if (select.isLoading) {
+    return <Preloader />;
+  }
+
   return (
     <Layout head={<h1>Магазин</h1>}>
       <Wrapper>
@@ -70,12 +75,7 @@ function Main() {
           sum={select.sum}
         />
       </Wrapper>
-
-      {select.items.length ? (
-        <List items={select.items} renderItem={renders.item} />
-      ) : (
-        <Preloader />
-      )}
+      <List items={select.items} renderItem={renders.item} />
       {select.count > select.limit && (
         <Pagination
           setInitialPages={callbacks.setInitialPages}

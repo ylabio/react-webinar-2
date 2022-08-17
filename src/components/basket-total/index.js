@@ -6,7 +6,7 @@ import './styles.css';
 function BasketTotal(props) {
   return (
     <div className="BasketTotal">
-      <span className="BasketTotal-cell">Итого</span>
+      <span className="BasketTotal-cell">{props.words.summary}</span>
       <span className="BasketTotal-cell"> {numberFormat(props.sum)} ₽</span>
       <span className="BasketTotal-cell"></span>
     </div>
@@ -14,6 +14,7 @@ function BasketTotal(props) {
 }
 
 BasketTotal.propTypes = {
+  words: propTypes.object.isRequired,
   sum: propTypes.number
 }
 

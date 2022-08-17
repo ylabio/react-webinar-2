@@ -1,0 +1,10 @@
+.PageLink {
+    padding: 20px;
+
+}
+.PageLink a {
+    font-size: 18px;
+    color: #0087E9;
+    text-decoration: #0087E9;
+    text-decoration-line: underline;
+}

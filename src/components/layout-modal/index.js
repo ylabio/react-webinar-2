@@ -7,7 +7,6 @@ function LayoutModal(props) {
   const cn = bem('LayoutModal');
 
   const frame = useRef();
-
   useEffect(() => {
     let top = 10;
     if (window.innerWidth > frame.current.clientHeight) {
@@ -27,7 +26,7 @@ function LayoutModal(props) {
           <h1 className={cn('title')}>
             {props.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <button className={cn('close')} onClick={props.onClose}>{props.words.close}</button>
         </div>
         <div className={cn('content')}>
           {props.children}
@@ -39,13 +38,13 @@ function LayoutModal(props) {
 
 LayoutModal.propTypes = {
   title: PropTypes.string,
+  words: PropTypes.object.isRequired,
   onClose: PropTypes.func,
   children: PropTypes.node,
 };
 
 LayoutModal.defaultProps = {
   title: 'Модалка',
-  onClose: () => {}
 };
 
 export default React.memo(LayoutModal);

@@ -2,17 +2,16 @@ import React from 'react';
 import propTypes from 'prop-types';
 import './styles.css'
 
-const Controls = (props) => {
+const Menu = (props) => {
   return (
-    <div className="Controls">
+    <div className="Menu">
       {props.children}
     </div>
   );
 };
 
-Controls.propTypes = {
+Menu.propTypes = {
   children: propTypes.node
 }
 
-
-export default React.memo(Controls);
+export default React.memo(Menu);

@@ -1,4 +1,3 @@
-import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
 import React, {useCallback, useEffect, useState} from "react";
@@ -8,9 +7,11 @@ import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
 import Spinner from "../../components/spinner";
 import {withLocale} from "../../contexts/locale.context";
-import {useSearchParams} from "react-router-dom"
+import {useSearchParams} from "react-router-dom";
+import Header from "../../components/header";
+import LangPanel from "../../components/lang-panel";
 
-function Main({lang}){
+function Main({lang, language}){
 
   console.log('Main');
 
@@ -40,6 +41,7 @@ function Main({lang}){
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    changeLang: useCallback((codeLanguage) => store.get('language').changeLang(codeLanguage), [])
   };
 
   const onSelect = (value) => {
@@ -53,9 +55,17 @@ function Main({lang}){
     ), []),
   }
 
+
+
   return (
-    <Layout head={<h1>{lang.handle('store')}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+    <Layout 
+      head={
+        <>
+          <h1>{lang.handle('store')}</h1>
+          <LangPanel changeLang={callbacks.changeLang} language={language}/>
+        </>
+      }>
+      <Header onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <div style={{"maxWidth": "1024px", "height": "621px"}}>
         {
           select.loading ? 

@@ -4,10 +4,11 @@ import useStore from "../../utils/use-store";
 import SingleProductLayout from "../../components/single-product-layout";
 import useSelector from "../../utils/use-selector";
 import Layout from "../../components/layout";
-import BasketSimple from "../../components/basket-simple";
 import Spinner from "../../components/spinner";
+import Header from "../../components/header";
+import LangPanel from "../../components/lang-panel";
 
-function SingleProductPage() {
+function SingleProductPage({language}) {
   const {id} = useParams();
   const store = useStore();
 
@@ -30,11 +31,18 @@ function SingleProductPage() {
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    changeLang: useCallback((codeLanguage) => store.get('language').changeLang(codeLanguage), [])
   };
 
   return(
-    <Layout head={<h1>{select.item && select.item.title}</h1>}>
-      <BasketSimple amount={select.amount} sum={select.sum} onOpen={callbacks.openModalBasket}/>
+    <Layout 
+      head={
+        <>
+          <h1>{select.item && select.item.title}</h1>
+          <LangPanel changeLang={callbacks.changeLang} language={language}/>
+        </>
+      }>
+      <Header amount={select.amount} sum={select.sum} onOpen={callbacks.openModalBasket}/>
       {!select.item ? 
         <Spinner/> :
         <SingleProductLayout item={select.item} onAdd={callbacks.addToBasket}/>

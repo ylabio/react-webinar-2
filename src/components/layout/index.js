@@ -2,7 +2,7 @@ import React from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
-import LangPanel from "../../app/lang-panel";
+import LangPanel from "../lang-panel";
 
 function Layout({head, children}){
   const cn = bem('Layout');
@@ -11,7 +11,6 @@ function Layout({head, children}){
     <div className={cn()}>
       <div className={cn('head')}>
         {head}
-        <LangPanel/>
       </div>
       <div className={cn('content')}>
         {children}

@@ -11,6 +11,8 @@ import { Locale } from "../hoc/locale";
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
+const language = navigator.language || navigator.userLanguage; //вытаскиеваем из браузера предустановленный язык
+
 function App() {
 
   console.log('App');
@@ -21,9 +23,9 @@ function App() {
     <Locale>
       <Router>
         <Routes>
-          <Route path='/' element={<Main/>}/>
-          <Route path="/product/:id" element={<SingleProductPage/>}/>
-          <Route path="/*" element={<h1>Такой страницы не существует</h1>}/>
+          <Route path='/' element={<Main language={language.substr(0, 2)}/>}/>
+          <Route path="/product/:id" element={<SingleProductPage language={language.substr(0, 2)}/>}/>
+          <Route path="*" element={<h1>Такой страницы не существует</h1>}/>
         </Routes>
         {modal === 'basket' && <Basket/>}
       </Router>

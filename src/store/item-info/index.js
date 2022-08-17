@@ -28,7 +28,7 @@ class ItemInfoState extends StateModule {
    */
   async load(id) {
     const response = await fetch(
-      `/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`
+      `/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)&lang=ru`
     );
     const json = await response.json();
     this.setState(
@@ -44,21 +44,6 @@ class ItemInfoState extends StateModule {
         }
       },
       'Загружена информация о товаре'
-    );
-  }
-
-  /**Думаю из-за того, что переделал логику сайдэфектов на странице, этот метод бесполезен, но не буду убирать, вдруг лучше будет переделать по-старому
-   * @param id
-   */
-  setId(id) {
-    this.setState(
-      {
-        info: {
-          ...this.getState().info,
-          _id: id
-        }
-      },
-      'Установка идентификтора товара для получения информации о нем'
     );
   }
 }

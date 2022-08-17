@@ -5,21 +5,21 @@ import {Link} from 'react-router-dom';
 import numberFormat from '../../utils/numberFormat';
 import './style.css';
 
-function Item(props) {
+function Item({item, onAdd, text, baseUrl}) {
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: useCallback(e => props.onAdd(props.item._id), [props.onAdd, props.item])
+    onAdd: useCallback(e => onAdd(item._id), [onAdd, item])
   };
 
   return (
     <div className={cn()}>
-      <Link to={`/article/${props.item._id}`} className={cn('title')}>
-        {props.item.title}
+      <Link to={`${baseUrl}/${item._id}`} className={cn('title')}>
+        {item.title}
       </Link>
       <div className={cn('right')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>{props.addLocal}</button>
+        <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
+        <button onClick={callbacks.onAdd}>{text.add}</button>
       </div>
     </div>
   );
@@ -27,8 +27,9 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  onAdd: propTypes.func,
-  addLocal: propTypes.string
+  text: propTypes.object.isRequired,
+  baseUrl: propTypes.string.isRequired,
+  onAdd: propTypes.func.isRequired
 };
 
 Item.defaultProps = {

@@ -20,7 +20,7 @@ class BasketState extends StateModule {
    * @param _id: string
    */
   async #getItemById(_id) {
-    const response = await fetch(`/api/v1/articles/${_id}`);
+    const response = await fetch(`/api/v1/articles/${_id}/?lang=ru`);
     const json = await response.json();
     return {
       _id: json.result._id,

@@ -4,41 +4,37 @@ import React, {useCallback} from 'react';
 import numberFormat from '../../utils/numberFormat';
 import './style.css';
 
-function ItemInfo({_id, description, maidIn, category, edition, price, addToBasket, local}) {
+function ItemInfo({info, text, addToBasket}) {
   const cn = bem('ItemInfo');
 
   const callbacks = {
-    addToBasket: useCallback(() => addToBasket(_id), [_id])
+    addToBasket: useCallback(() => addToBasket(info._id), [info._id])
   };
 
   return (
     <div className={cn()}>
-      <p className={cn('description')}>{description}</p>
+      <p className={cn('description')}>{info.description}</p>
       <p className={cn('country')}>
-        {local.itemInfo.country}: <strong>{maidIn}</strong>
+        {text.country}: <strong>{info.maidIn}</strong>
       </p>
       <p className={cn('category')}>
-        {local.itemInfo.category}: <strong>{category}</strong>
+        {text.category}: <strong>{info.category}</strong>
       </p>
       <p className={cn('year')}>
-        {local.itemInfo.edition}: <strong>{edition}</strong>
+        {text.edition}: <strong>{info.edition}</strong>
       </p>
       <strong className={cn('price')}>
-        {local.itemInfo.price}: {numberFormat(price)} ₽
+        {text.price}: {numberFormat(info.price)} ₽
       </strong>
-      <button onClick={callbacks.addToBasket}>{local.common.add}</button>
+      <button onClick={callbacks.addToBasket}>{text.add}</button>
     </div>
   );
 }
 
 ItemInfo.propTypes = {
-  _id: propTypes.string.isRequired,
-  description: propTypes.string.isRequired,
-  maidIn: propTypes.string.isRequired,
-  category: propTypes.string.isRequired,
-  edition: propTypes.number.isRequired,
-  price: propTypes.number.isRequired,
-  local: propTypes.object.isRequired
+  text: propTypes.object.isRequired,
+  info: propTypes.object.isRequired,
+  addToBasket: propTypes.func.isRequired
 };
 
 export default React.memo(ItemInfo);

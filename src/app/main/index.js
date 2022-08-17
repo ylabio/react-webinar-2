@@ -1,28 +1,22 @@
-import {cn as bem} from '@bem-react/classname';
 import React, {useCallback, useEffect} from 'react';
-import BasketSimple from '../../components/basket-simple';
 import Item from '../../components/item';
 import Layout from '../../components/layout';
 import List from '../../components/list';
 import Pagination from '../../components/pagination';
 import useSelector from '../../utils/use-selector';
 import useStore from '../../utils/use-store';
-import './style.css';
+import Controls from '../controls';
 
 function Main() {
   console.log('Main');
-  const cn = bem('Main');
 
   const store = useStore();
 
   const select = useSelector(state => ({
     items: state.catalog.items,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
     page: state.catalog.page,
     limit: state.catalog.pageLimit,
     pagesCount: state.catalog.pagesCount,
-    local: state.local.dict[state.local.lang],
     lang: state.local.lang
   }));
 
@@ -35,39 +29,35 @@ function Main() {
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Установка страницы
     setPage: useCallback(page => store.get('catalog').setPage(page), []),
-    setLang: useCallback(lang => store.get('local').setLang(lang), []),
-
-    setFirstPage: useCallback(() => store.get('catalog').setPage(1), [])
+    setFirstPage: useCallback(() => store.get('catalog').setPage(1), []),
+    // Установка языка
+    setLang: useCallback(lang => store.get('local').setLang(lang), [])
   };
+
+  // Переводчик статического текста
+  const t = (path, amount = null) => store.get('local').translate(path, amount);
 
   const renders = {
     item: useCallback(
-      item => <Item item={item} onAdd={callbacks.addToBasket} addLocal={select.local.common.add} />,
-      [select.local.common.add]
+      item => (
+        <Item
+          item={item}
+          onAdd={callbacks.addToBasket}
+          text={{add: t('common.add')}}
+          baseUrl={'/article'}
+        />
+      ),
+      [select.lang]
     )
   };
 
   return (
-    <Layout
-      head={<h1>{select.local.catalog.header}</h1>}
-      curLang={select.lang}
-      setLang={callbacks.setLang}
-    >
-      <BasketSimple
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-        local={select.local}
-        onHomeClick={callbacks.setFirstPage}
-      />
+    <Layout head={<h1>{t('catalog.header')}</h1>} curLang={select.lang} setLang={callbacks.setLang}>
+      <Controls />
       <List items={select.items} renderItem={renders.item} />
-      <Pagination
-        className={cn('pagination')}
-        total={select.pagesCount}
-        active={select.page}
-        onChange={callbacks.setPage}
-      />
+      <Pagination total={select.pagesCount} active={select.page} onChange={callbacks.setPage} />
     </Layout>
   );
 }

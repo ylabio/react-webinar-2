@@ -1,11 +1,9 @@
 import {cn as bem} from '@bem-react/classname';
 import propTypes from 'prop-types';
 import React from 'react';
-
 import {generatePaginationSequence} from '../../utils/generatePaginationSequence';
 import {joinClasses} from '../../utils/joinClasses';
 import './style.css';
-
 
 function Pagination({total, active, siblings, onChange, className}) {
   const cn = bem('Pagination');
@@ -13,7 +11,7 @@ function Pagination({total, active, siblings, onChange, className}) {
   const pages = generatePaginationSequence(total, active, siblings, separator);
 
   return (
-    <div className={className}>
+    <div className={cn('wrapper')}>
       <ul className={cn()}>
         {pages.map((i, index) =>
           i === separator ? (

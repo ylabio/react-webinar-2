@@ -6,7 +6,7 @@ import Item from "../../components/item";
 import Pagination from "../../components/pagination";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import { useSearchParams } from "react-router-dom";
+import {Link, useSearchParams} from "react-router-dom";
 
 const LIMIT_VALUE = 10;
 function Main(){
@@ -39,12 +39,13 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item link={item._id} item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item link={'articles/' + item._id} item={item} onAdd={callbacks.addToBasket}/>, []),
+    menu: useCallback(() =>  <Link to={'/'}>Главная</Link>, [])
   }
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} renderMenu={renders.menu}/>
       <List items={select.items} renderItem={renders.item}/>
       {select.totalCount > 0 && (
         <Pagination

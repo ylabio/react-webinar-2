@@ -1,4 +1,3 @@
-import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
 import React, {useCallback, useEffect} from "react";
@@ -6,7 +5,7 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from '../../components/pagination';
-import NavMenu from '../../components/nav-menu';
+import Controls from '../../components/controls';
 
 
 function Main(){
@@ -41,7 +40,7 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} link={'product/'}/>, []),
   }
 
   // Список элементов меню. Пока оставил тут
@@ -54,10 +53,7 @@ function Main(){
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-        <NavMenu links={navMenu}/>
-        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      </div>
+      <Controls links={navMenu} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item} />
       <Pagination lastPage={select.lastPage} loadPage={callbacks.loadPage} currentPage={select.currentPage}/>
     </Layout>

@@ -3,10 +3,9 @@ import useSelector from "../../utils/use-selector";
 import useStore from "../../utils/use-store";
 import {useParams} from 'react-router-dom';
 import Layout from '../../components/layout';
-import BasketSimple from '../../components/basket-simple';
 import Product from '../../components/product';
 import Loader from '../../components/loader';
-import NavMenu from '../../components/nav-menu';
+import Controls from '../../components/controls';
 
 
 function ProductCard() {
@@ -52,11 +51,8 @@ function ProductCard() {
       {!select.product
       ?  <Loader />
       :
-      <Layout head={<h1>{select.product.title}</h1>}>
-        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-          <NavMenu links={navMenu}/>
-          <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-        </div>
+      <Layout head={<h1>{select.product.title}</h1>}>   
+        <Controls links={navMenu} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
         <Product product={select.product} addToBasket={callbacks.addToBasket}/>
       </Layout>}
    </>

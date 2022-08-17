@@ -12,15 +12,15 @@ import Article from "./article";
  */
 function App() {
 
-  console.log('App');
 
+  console.log('App');
   const modal = useSelector(state => state.modals.name);
 
   return (
     <>
       <Routes>
-        <Route path={""} element={<Main/>}/>
-        <Route path={"/:id"} element={<Article/>}/>
+        <Route path={`:lang/`} element={<Main/>}/>
+        <Route path={`:lang/:id`} element={<Article/>}/>
       </Routes>
       <Main/>
       {modal === 'basket' && <Basket/>}

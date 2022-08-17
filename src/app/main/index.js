@@ -6,6 +6,8 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
+import lang  from "../../utils/dictionary";
+import {useParams} from "react-router-dom";
 
 function Main(){
 
@@ -21,9 +23,8 @@ function Main(){
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    page: state.catalog.paramPage.page,
-    limit: state.catalog.limit,
-    count: state.catalog.count
+    params: state.catalog.params,
+    count: state.catalog.count,
   }));
 
   const callbacks = {
@@ -32,26 +33,28 @@ function Main(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Переход по страницам
-    onPaginate: useCallback(page => store.get('catalog').load({page}), [])
+    onPaginate: useCallback(page => store.get('catalog').load({page}), []),
+
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} link={`/${item._id}`}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} link={`/${useParams().lang || 'ru'}/${item._id}`}/>, []),
   };
   //Пора декомпозировать)
   const options = {
     menuItems: [
-      {key: 1, title: 'Главная', link: '/'},
+      {key: 1, title: 'Главная', link: `/${useParams().lang || 'ru' }/`},
     ]
   };
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout
+      head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} options={options.menuItems}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination
-        page={select.page}
-        limit={select.limit}
+        page={select.params.page}
+        limit={select.params.limit}
         count={select.count}
         onChange={callbacks.onPaginate}
       />

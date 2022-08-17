@@ -14,23 +14,24 @@ class CatalogState extends StateModule {
     return {
       items: [],
       count: 0,
-      paramPage: { //обернуто в объект для удобного сравнения
+      params: { //обернуто в объект для удобного сравнения
         page: 1,
+        limit: 10,
       },
-      limit: 10, //можно закинуть в объект выше, вдруг значение придется менять, чтобы не писать новую функцию
+
     };
   }
 
-  async load(page = {}) {
+  async load(params = {}) {
     //проверка и бновление(если нужно) значения page
-    const newPage = {...this.getState().paramPage, ...page};
+    const newParams = {...this.getState().params, ...params};
     this.setState({
       ...this.getState(),
-      paramPage: newPage,
+      params: newParams,
     });
 
-    const skip = (newPage.page - 1) * (this.getState().limit);
-    const response = await fetch(`/api/v1/articles?limit=${this.getState().limit}&skip=${skip}&fields=items(*),count`);
+    const skip = (newParams.page - 1) * (newParams.limit);
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count`);
     const json = await response.json();
 
     this.setState({

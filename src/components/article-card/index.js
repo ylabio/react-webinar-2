@@ -5,31 +5,31 @@ import numberFormat from "../../utils/numberFormat";
 import './styles.css';
 
 function ArticleCard(props) {
-  const cn = bem('ArticleCard')
+  const cn = bem('ArticleCard');
   return (
     <div className={cn()}>
       <div className={cn('Description')}>{props.article.description}</div>
       <div className={cn('Prop')}>
-        <div className={cn('Label')}>Страна производитель:</div>
+        <div className={cn('Label')}>{props.tnslt(props.lang, 'country')}</div>
         <span className={cn('Value')}>{props.article.maidIn?.title} ({props.article.maidIn?.code})</span>
       </div>
 
       <div className={cn('Prop')}>
-        <div className={cn('Label')}>Категория:</div>
+        <div className={cn('Label')}>{props.tnslt(props.lang, 'category')}</div>
         <span className={cn('Value')}>{props.article.category?.title}</span>
       </div>
 
       <div className={cn('Prop')}>
-        <div className={cn('Label')}>Год выпуска:</div>
+        <div className={cn('Label')}>{props.tnslt(props.lang, 'year')}</div>
         <span className={cn('Value')}>{props.article.edition}</span>
       </div>
 
       <div className={cn('Prop', {size: 'big'})}>
-        <div className={cn('Label', {font: 'bold'})}>Цена:</div>
+        <div className={cn('Label', {font: 'bold'})}>{props.tnslt(props.lang, 'price')}</div>
         <span className={cn('Value')}>{numberFormat(props.article.price)} ₽</span>
       </div>
 
-      <button onClick={() => props.onAdd(props.article._id)}>Добавить</button>
+      <button onClick={() => props.onAdd(props.article._id)}>{props.tnslt(props.lang, 'add')}</button>
 
     </div>
 
@@ -38,7 +38,8 @@ function ArticleCard(props) {
 
 ArticleCard.propTypes = {
   article: propTypes.object,
-  onAdd: propTypes.func
+  onAdd: propTypes.func,
+  tnslt: propTypes.func,
 }
 ArticleCard.defaultProps = {}
 

@@ -12,20 +12,21 @@ let config = {
   output: {
     path: path.join(__dirname, 'dist'), // Куда и как делать сборку
     filename: '[name].js',
-    clean: true, // Очистить ./dist от предыдущей сборки
+    clean: true // Очистить ./dist от предыдущей сборки
   },
   plugins: [
     new MiniCssExtractPlugin(), // Сборка стилей в отдельный файл
-    new HtmlWebPackPlugin({ // Создание dist/index.html с подключенной сборкой
+    new HtmlWebPackPlugin({
+      // Создание dist/index.html с подключенной сборкой
       template: './index.html',
       filename: './index.html',
-      base: '',
-    }),
+      base: '/'
+    })
   ],
   //
   resolve: {
     extensions: ['.js', '.jsx'], // Расширения по умолчанию, если не указаны в import
-    modules: ['./', 'node_modules'], // Где искать файлы подключаемых модулей
+    modules: ['./', 'node_modules'] // Где искать файлы подключаемых модулей
   },
   module: {
     rules: [
@@ -33,7 +34,7 @@ let config = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: [{loader: 'babel-loader'}],
+        use: [{loader: 'babel-loader'}]
       },
       // Возможность подключать css как модули, чтобы попали в сборку
       // С опцией modules при импорте стиля получаем объект с названиями ccs классов
@@ -41,11 +42,14 @@ let config = {
         test: /\.css$/,
         use: [
           {loader: MiniCssExtractPlugin.loader, options: {}},
-          {loader: 'css-loader', options: {url: true, import: true/*, modules: true*/}},
-        ],
-      },
-    ],
-  },
+          {
+            loader: 'css-loader',
+            options: {url: true, import: true /*, modules: true*/}
+          }
+        ]
+      }
+    ]
+  }
 };
 
 // Локальный сервер для отладки приложения
@@ -59,9 +63,9 @@ if (process.env.NODE_ENV === 'development') {
       '/api/**': {
         target: 'http://example.front.ylab.io',
         secure: false,
-        changeOrigin: true,
-      },
-    },
+        changeOrigin: true
+      }
+    }
   };
 }
 

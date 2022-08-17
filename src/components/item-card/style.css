@@ -1,0 +1,20 @@
+.ItemCard {
+  display: flex;
+  flex-direction: column;
+  padding: 0 40px;
+}
+
+.ItemCard > div {
+  padding-top: 20px;
+}
+
+.ItemCard-price {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.ItemCard-origin span,
+.ItemCard-category span,
+.ItemCard-yearOfProd span {
+  font-weight: 700;
+}

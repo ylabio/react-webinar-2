@@ -7,6 +7,7 @@ import ProductContent from "../../components/product-content";
 import { getGoodInfo } from "../../api";
 import LoadingScreen from "../../components/loading-screen";
 import useStore from "../../utils/use-store";
+import TopPanel from "../../components/top-panel";
 
 function ProductPage(){
     
@@ -35,7 +36,7 @@ function ProductPage(){
         <>
         {productInfo && 
             <Layout head={<h1>{productInfo.title}</h1>}>
-            <BasketSimple />
+            <TopPanel />
             <ProductContent productInfo={productInfo}
                             addToBasket={callbacks.addToBasket}
              />

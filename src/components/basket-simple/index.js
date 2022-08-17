@@ -5,8 +5,6 @@ import numberFormat from "../../utils/numberFormat";
 import './styles.css';
 import useSelector from "../../utils/use-selector";
 import useStore from "../../utils/use-store";
-import { Link } from 'react-router-dom';
-import Menu from '../menu';
 
 function BasketSimple() {
 
@@ -24,7 +22,6 @@ function BasketSimple() {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <Menu />
       <div>
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>

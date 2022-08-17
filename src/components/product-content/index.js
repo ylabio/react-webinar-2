@@ -1,7 +1,6 @@
 import React from "react";
 import {cn as bem} from "@bem-react/classname";
 import "./style.css"
-import useStore from "../../utils/use-store";
 
 
 function ProductContent({productInfo , addToBasket}){

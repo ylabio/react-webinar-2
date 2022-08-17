@@ -1,4 +1,4 @@
-import BasketSimple from "../../components/basket-simple";
+import TopPanel from "../../components/top-panel"
 import List from "../../components/list";
 import Layout from "../../components/layout";
 import React, {useCallback, useEffect} from "react";
@@ -50,7 +50,7 @@ function Main(){
   return (
     <>
     <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <TopPanel onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination />
     </Layout>

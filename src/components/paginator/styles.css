@@ -1,0 +1,26 @@
+/* Контрол с общими действиями */
+.Pagination{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.Pagination-item {
+    display: inline-block;
+    text-align: center;
+    margin:2px;
+    min-width: 20px;
+    height: 20px;
+}
+
+.Pagination-active {
+    background-color:blue;
+    color: white
+}
+
+.Pagination span:hover {
+    background-color:darkgrey;
+    color:black;
+    cursor: pointer;
+}

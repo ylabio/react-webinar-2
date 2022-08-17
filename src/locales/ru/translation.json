@@ -8,5 +8,11 @@
   "BasketTitle": "Корзина",
   "BasketTotalTitle": "Итого",
   "ItemBasketRemove": "Удалить",
-  "LayoutModalClose": "Закрыть"
+  "LayoutModalClose": "Закрыть",
+  "NavBackToMain": "Главная",
+  "LayoutArticleCountry": "страна производитель",
+  "LayoutArticleCategory": "Категория",
+  "LayoutArticleProductionYear": "Год выпуска",
+  "LayoutArticlePrice": "Цена",
+  "LayoutArticleAddToCartButton": "Добавить"
 }

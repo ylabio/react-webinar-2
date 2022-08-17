@@ -1,4 +1,5 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import propTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import numberFormat from '../../utils/numberFormat';
@@ -11,6 +12,7 @@ function LayoutArticle({article, addToBasket, onNavigate, children}) {
   console.log('LayoutArticle');
 
   const cn = bem('LayoutArticle');
+  const { t } = useTranslation();
 
   return (
     <div className={cn()}>
@@ -25,20 +27,20 @@ function LayoutArticle({article, addToBasket, onNavigate, children}) {
           <li className={cn('li')}>
             <p className={cn('description')}>{article.description}</p>
           </li>
-          <li className={cn('li')}>Страна производитель:&nbsp;
+          <li className={cn('li')}>{t('LayoutArticleCountry')}:&nbsp;
             <span className={cn('li-bold')}>{article.maidIn?.title}</span>
           </li>
-          <li className={cn('li')}>Категория:&nbsp;
+          <li className={cn('li')}>{t('LayoutArticleCategory')}:&nbsp;
             <span className={cn('li-bold')}>{article.category?.title}</span>
           </li>
-          <li className={cn('li')}>Год выпуска:&nbsp;<span
+          <li className={cn('li')}>{t('LayoutArticleProductionYear')}:&nbsp;<span
             className={cn('li-bold')}>{article.edition}</span>
           </li>
           <li className={cn('li')}><span
-            className={cn('li-bold')}>Цена:{' '}{numberFormat(article.price)}&nbsp;&#8381;</span>
+            className={cn('li-bold')}>{t('LayoutArticlePrice')}:{' '}{numberFormat(article.price)}&nbsp;&#8381;</span>
           </li>
         </ul>
-        <button className={cn('add-button')} onClick={addToBasket}>Добавить</button>
+        <button className={cn('add-button')} onClick={addToBasket}>{t('LayoutArticleAddToCartButton')}</button>
       </div>
     </div>
   )

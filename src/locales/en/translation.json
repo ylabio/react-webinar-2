@@ -4,9 +4,15 @@
   "BasketSimple": "Cart content",
   "BasketSimpleGoTo": "move to Cart",
   "BasketSimpleEmpty": "no items added yet",
-  "ItemAddToCart": "Add",
+  "ItemAddToCart": "Add to cart",
   "BasketTitle": "Cart totals",
   "BasketTotalTitle": "Cart totals",
   "ItemBasketRemove": "Remove",
-  "LayoutModalClose": "Close"
+  "LayoutModalClose": "Close",
+  "NavBackToMain": "Back to main",
+  "LayoutArticleCountry": "Country of Manufacture",
+  "LayoutArticleCategory": "Category",
+  "LayoutArticleProductionYear": "Production year",
+  "LayoutArticlePrice": "Retail price",
+  "LayoutArticleAddToCartButton": "Add to cart"
 }

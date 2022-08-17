@@ -28,7 +28,7 @@ function Item({articleRoute, item, onAdd}) {
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(item.price)}&nbsp;&#8381;</div>
-        <button onClick={callbacks.onAdd}>{t('ItemAddToCart')}</button>
+        <button className={cn('add-to-cart-button')} onClick={callbacks.onAdd}>{t('ItemAddToCart')}</button>
       </div>
     </div>
   )

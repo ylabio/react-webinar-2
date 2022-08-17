@@ -1,21 +1,11 @@
 import { cn as bem } from "@bem-react/classname";
-import React, { useCallback, useMemo, useState } from 'react';
+import propTypes from 'prop-types';
+import React, { useMemo } from 'react';
 import json from '../../localization.json';
-import useStore from '../../utils/use-store';
 import './style.css';
 
-function LanguageChooser() {
+function LanguageChooser(props) {
   const cn = bem('LangChooser');
-  const store = useStore();
-  const [lang, setLang] = useState(store.get('localization').getLanguage());
-
-  const callbacks = {
-    // Смена языка интерфейса
-    changeLanguage: useCallback(id => {
-      setLang(id);
-      store.get('localization').setLanguage(id)
-    }, []),
-  }
 
   const array = useMemo(() => { // достаточно посчитать всего 1 раз
     const tmp = [];
@@ -33,21 +23,29 @@ function LanguageChooser() {
         let style;
         switch (value) {
           default: style = 'normal'; break;
-          case lang: style = 'selected'; break;
+          case props.lnagID: style = 'selected'; break;
         }
 
         return <div
           className={cn(style)}
           key={index}
           onClick={
-            lang == value ? null : (e) => { callbacks.changeLanguage(value) }
+            props.lnagID == value ? null : () => props.onSelect(value)
           }
         >{value}</div>
       })
-
     }
     </div>
   );
 };
+
+LanguageChooser.propTypes = {
+  onSelect: propTypes.func,
+  lnagID: propTypes.string
+}
+
+LanguageChooser.defaultProps = {
+  onSelect: () => {}
+}
 
 export default React.memo(LanguageChooser);

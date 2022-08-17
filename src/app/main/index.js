@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BasketSimple from "../../components/basket-simple";
 import Item from "../../components/item";
+import LanguageChooser from "../../components/lang-chooser";
 import Layout from "../../components/layout";
 import List from "../../components/list";
 import Menu from "../../components/menu";
@@ -21,7 +22,8 @@ function Main(){
     items: state.catalog.items,
     scope: state.catalog.scope,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    lang: state.localization.lang
   }));
 
   const lng = useLanguage();
@@ -40,9 +42,11 @@ function Main(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Переключение страницы
-    switchPage: useCallback(selected => {store.get('catalog').setCurrentScope(selected)}, []),
+    switchPage: useCallback(selected => store.get('catalog').setCurrentScope(selected), []),
     // Подробности о товаре
-    showDetails: useCallback(id => navigate(`details/${id}`), [])
+    showDetails: useCallback(id => navigate(`details/${id}`), []),
+    // Переключение языка
+    switchLanguage: useCallback(ln => store.get('localization').setLanguage(ln), [])
   };
 
   const renders = {
@@ -52,6 +56,7 @@ function Main(){
   return (
     
     <Layout head={<h1>{lng("mainLabel")}</h1>}>
+      <LanguageChooser lnagID={select.lang} onSelect={callbacks.switchLanguage}/>
       <Menu/>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>

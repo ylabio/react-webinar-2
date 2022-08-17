@@ -1,0 +1,7 @@
+.Menu{
+    text-decoration-line: underline;
+    color: #0087E9;
+}
+.Menu:hover{
+    cursor: pointer;
+}

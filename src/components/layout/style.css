@@ -21,7 +21,7 @@ body{
     align-items: center;
     justify-content: space-between;
 }
-.Layout-head button{
+.Layout-head select{
     margin-top: 15px;
     margin-right: 20px;
 }

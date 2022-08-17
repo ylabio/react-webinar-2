@@ -12,7 +12,11 @@ function Layout(props){
         <h1 className={cn('title')}>
           {props.title}
         </h1>
-        <button className={cn('close')} onClick={props.changeLanguage}>RU/ENG</button>
+        {/* <button className={cn('close')} onClick={props.changeLanguage}>RU/ENG</button> */}
+        <select onChange={props.changeLanguage} defaultValue={props.lang}>
+          <option value='ru'>RU</option>
+          <option value='eng'>ENG</option>
+        </select>
       </div>
       <div className={cn('content')}>
         {props.children}

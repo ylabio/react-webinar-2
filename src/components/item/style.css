@@ -14,8 +14,12 @@
     width: 100%;
     padding: 20px 10px;
 }
+.Item-title a{
+    text-decoration: none;
+    color: inherit;
+}
 
-.Item-title:hover{
+.Item-title a:hover{
     cursor: pointer;
     text-decoration-line: underline;
 }

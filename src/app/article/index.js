@@ -5,6 +5,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import { useParams } from "react-router-dom";
 import ItemArticle from "../../components/item-article";
+import Menu from "../../components/menu";
 
 function Article(){
 
@@ -33,6 +34,8 @@ function Article(){
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Переводчик
+    translate: useCallback((code) => store.get('language').getTranslate(code, select.lang), [select.lang])
   };
 
   return (
@@ -41,14 +44,19 @@ function Article(){
         onOpen={callbacks.openModalBasket} 
         amount={select.amount} 
         sum={select.sum} 
-        lang={select.lang}
+        translate={callbacks.translate}
+        menu={
+          <Menu
+            translate={callbacks.translate} 
+          />
+        }
       />
       <ItemArticle 
         item={select.item} 
         category={select.category} 
         maidIn={select.maidIn} 
         onAdd={callbacks.addToBasket}
-        lang={select.lang}
+        translate={callbacks.translate}
       />
     </LayoutArticle>
   )

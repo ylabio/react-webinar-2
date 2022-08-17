@@ -46,7 +46,7 @@ function Main(){
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
-      {select.totalCount && (
+      {select.totalCount > 0 && (
         <Pagination
           onChange={callbacks.onChangePage}
           pageCount={Math.ceil(select.totalCount / LIMIT_VALUE)}

@@ -1,7 +1,7 @@
 import useSelector from "../utils/use-selector";
 
 /**
- * Хук для доступа к объектам translation
+ * Хук для доступа к функциям translation
  * @return {translation|{}}
  */
 export default function useTranslation(chapter){
@@ -11,4 +11,3 @@ export default function useTranslation(chapter){
 
     return (key) => wordbook[chapter][key]
 }
-// можно разбить все перевода на json файлы каждой отдельной страницы (путь - папка локализации и назвинме - передавать через пропсы)

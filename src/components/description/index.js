@@ -1,10 +1,9 @@
 import React, {useCallback, useEffect, useState} from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import {
-  useParams
-} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import BasketSimple from '../basket-simple';
+import numberFormat from '../../utils/numberFormat';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
@@ -70,7 +69,7 @@ function Description (props){
         <span><b>{currentItem.edition}</b></span>
       </div>
       <div className={cn('string')}>
-        <h2>{`Цена: ${currentItem.price.toLocaleString('ru-RU')+' \u20bd'}`}</h2>
+        <h2>{`Цена: ${numberFormat(currentItem.price)+' \u20bd'}`}</h2>
       </div>
       <button onClick={callbacks.onAdd}>Добавить</button>
         </div>

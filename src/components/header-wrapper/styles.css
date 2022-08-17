@@ -1,0 +1,6 @@
+/* Контрол с общими действиями */
+.HeaderWrpapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

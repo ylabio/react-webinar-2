@@ -1,21 +1,23 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import './style.css';
+import React from 'react'
+import propTypes from 'prop-types'
+import './style.css'
 
-function Controls({onAdd}){
+function Controls({ clickHandler, title }) {
   return (
     <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+      <button onClick={clickHandler}>{title}</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  clickHandler: propTypes.func.isRequired, // Обязательное свойство - функция
+  title: propTypes.string.isRequired,
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+  onClick: () => {}, // Значение по умолчанию - функция-заглушка
+  title: 'Нажми',
 }
 
-export default React.memo(Controls);
+export default React.memo(Controls)

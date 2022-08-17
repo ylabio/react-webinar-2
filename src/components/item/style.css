@@ -3,7 +3,6 @@
     display: flex;
     justify-content: flex-start;
     transition: background-color 1s;
-    padding-left: 10px;
 }
 
 .Item-id {
@@ -11,8 +10,19 @@
 }
 
 .Item-title {
+    padding: 20px 10px 20px 20px;
     width: 100%;
-    padding: 20px 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.Item-title:hover {
+    text-decoration: underline;
+}
+
+.Item-price {
+    text-align: end;
+    width: 100%;
 }
 
 .Item-right {

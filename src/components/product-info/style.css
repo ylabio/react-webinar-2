@@ -1,0 +1,46 @@
+.ProductInfo {
+  padding: 0px 40px;
+}
+
+.ProductInfo-description {
+  padding: 10px 0px 20px;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.ProductInfo-country {
+  padding: 0px 0px 20px;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.ProductInfo-country span {
+  font-weight: bold;
+}
+
+.ProductInfo-category {
+  padding: 0px 0px 20px;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.ProductInfo-category span {
+  font-weight: bold;
+}
+
+.ProductInfo-edition {
+  padding: 0px 0px 20px;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.ProductInfo-edition span {
+  font-weight: bold;
+}
+
+.ProductInfo-price {
+  padding: 0px 0px 20px;
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: bold;
+}

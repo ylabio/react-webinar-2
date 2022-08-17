@@ -1,0 +1,10 @@
+/* Контрол с общими действиями */
+.Menu {
+    padding: 20px;
+    font-size: 18px;
+}
+
+.Menu-link a {
+    color: #0087E9;
+
+}

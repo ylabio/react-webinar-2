@@ -1,4 +1,3 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**
@@ -12,17 +11,34 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      count: 0,
+      query: {
+        page: 1,
+        limit: 10,
+
+      }
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
+  async load(query={}){
+    const newQuery = {...this.getState().query, ...query};
     this.setState({
-      items: json.result.items
+      ...this.getState(),
+      query: newQuery
     });
+    const skip = (newQuery.page - 1) * (newQuery.limit);
+
+    const response = await  fetch(`/api/v1/articles?limit=${newQuery.limit}&skip=${skip}&fields=items(*),count`)
+    const json = await response.json()
+    this.setState({
+      ...this.getState(),
+      items: json.result.items,
+      count: json.result.count,
+    })
   }
+
+
 
   /**
    * Создание записи
@@ -42,6 +58,7 @@ class CatalogState extends StateModule{
       items: this.getState().items.filter(item => item._id !== _id)
     }, 'Удаление товара');
   }
+
 }
 
 export default CatalogState;

@@ -15,6 +15,15 @@
     padding: 20px 10px;
 }
 
+.ItemBasket a {
+    text-decoration: none;
+    color: #000;
+}
+
+.ItemBasket a:hover {
+    text-decoration: underline;
+}
+
 .ItemBasket-right {
     padding: 20px 20px 20px 10px;
     display: flex;

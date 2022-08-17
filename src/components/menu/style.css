@@ -1,0 +1,13 @@
+.Menu
+{
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.Menu-link{
+    align-self: center;
+    margin-right: auto;
+    color: #0087E9;
+    margin-left: 20px;
+}

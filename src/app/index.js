@@ -4,7 +4,7 @@ import Basket from "./basket";
 import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import ItemDetail from '../components/item-detail';
+import ItemDetail from './item-detail';
 
 /**
  * Приложение

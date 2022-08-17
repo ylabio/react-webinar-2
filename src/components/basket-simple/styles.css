@@ -5,15 +5,13 @@
     padding: 20px;
     font-size: 18px;
     flex-direction: row;
+    align-self: flex-end;
+    justify-self: flex-end;
+    margin-left: auto;
 }
 
 
 .BasketSimple-total{
     font-weight: bold;
     margin: 0 15px;
-}
-.BasketSimple-tomain{
-    align-self: center;
-    margin-right: auto;
-    color: #0087E9;
 }

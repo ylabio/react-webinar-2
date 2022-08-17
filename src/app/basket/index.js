@@ -1,13 +1,12 @@
-import List from "../../components/list";
-import React, {useCallback} from "react";
-import BasketTotal from "../../components/basket-total";
-import LayoutModal from "../../components/layout-modal";
-import ItemBasket from "../../components/item-basket";
-import useStore from "../../utils/use-store";
-import useSelector from "../../utils/use-selector";
+import List from '../../components/list';
+import React, {useCallback} from 'react';
+import BasketTotal from '../../components/basket-total';
+import LayoutModal from '../../components/layout-modal';
+import ItemBasket from '../../components/item-basket';
+import useStore from '../../utils/use-store';
+import useSelector from '../../utils/use-selector';
 
-function Basket(){
-
+function Basket() {
   console.log('Basket');
 
   const store = useStore();
@@ -22,19 +21,31 @@ function Basket(){
     // Закрытие любой модалки
     closeModal: useCallback(() => store.get('modals').close(), []),
     // Удаление из корзины
-    removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), [])
+    removeFromBasket: useCallback(
+      _id => store.get('basket').removeFromBasket(_id),
+      []
+    )
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
-  }
+    itemBasket: useCallback(
+      item => (
+        <ItemBasket
+          item={item}
+          linkAddress={`/items/${item['_id']}`}
+          onRemove={callbacks.removeFromBasket}
+        />
+      ),
+      []
+    )
+  };
 
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
-      <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+    <LayoutModal title="Корзина" onClose={callbacks.closeModal}>
+      <List items={select.items} renderItem={renders.itemBasket} />
+      <BasketTotal sum={select.sum} />
     </LayoutModal>
-  )
+  );
 }
 
 export default React.memo(Basket);

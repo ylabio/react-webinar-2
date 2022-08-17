@@ -21,6 +21,7 @@ const ArticleById = () => {
     const callbacks = {
         openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
         addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+
     };
 
     const fetchArticleById = async () => {
@@ -36,7 +37,7 @@ const ArticleById = () => {
     return (
             <Layout head={<h1 style={{fontSize: '32px'}}>{article.title}</h1>} >
                 <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-                <ItemActicle article={article} onAdd={() => callbacks.addToBasket(params.id)}/>
+                <ItemActicle article={article} onAdd={() => callbacks.addToBasket(params.id)} />
             </Layout>
 
 

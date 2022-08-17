@@ -15,10 +15,13 @@ const ItemActicle = ({article, onAdd }) => {
             <div>Категория: <span>{article.category?.title}</span></div>
             <div>Год выпуска: <span>{article?.edition}</span> </div>
             <div className={cn('price')}> <span>Цена: {article.price} ₽</span></div>
-            <Controls onAdd={onAdd}/>
+            <div className={cn('controls')}>
+                <Controls onAdd={onAdd}/>
+            </div>
         </div>
     );
 };
+
 
 ItemActicle.propTypes = {
     article: propTypes.object.isRequired,

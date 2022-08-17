@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {cn as bem} from "@bem-react/classname";
 import './style.css'
 import propTypes from "prop-types";
 
 function Pagination({pages, currentPage,setCurrentPage,updateCatalog})  {
+
     const cn = bem('Pagination');
     return (
         <div className={cn()}>

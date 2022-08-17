@@ -16,3 +16,8 @@
 .Article-price {
     font-size: 24px;
 }
+
+.Article-controls {
+    display: flex;
+    margin: -19px;
+}

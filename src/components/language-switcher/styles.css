@@ -1,0 +1,28 @@
+.LanguageSwitcher {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+
+    margin-right: 50px;
+}
+
+.LanguageSwitcher-langButton{
+    width: 50px;
+    height: 30px;
+    margin-left: 10px;
+
+    background-color: #bacbd8;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.LanguageSwitcher-langButton:hover{
+    cursor: pointer;
+    background-color: #86a3b8;
+}
+
+.LanguageSwitcher-langButton__active{
+    background-color: #0087E9;
+}

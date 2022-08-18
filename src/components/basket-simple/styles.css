@@ -1,8 +1,11 @@
 /* Контрол с общими действиями */
 .BasketSimple{
+    flex-basis: 50%;
+}
+
+.BasketSimple-wrapper{
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
     font-size: 18px;
 }
 

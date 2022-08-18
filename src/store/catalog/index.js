@@ -12,16 +12,18 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      amount: 0,
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+  async loadPage(limit, currentPage){
+    const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${currentPage * limit - limit}`);
     const json = await response.json();
     this.setState({
+      ...this.store.state.catalog,
       items: json.result.items
-    });
+    },'load page');
   }
 
   /**

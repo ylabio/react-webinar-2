@@ -60,8 +60,8 @@ function Main(){
   return (
     <Layout head={<h1>{translate(select.language, 'Title')}</h1>} language={select.language} selectLanguage={callbacks.selectLanguage}>
       <LayoutFlex>
-        <Menu>
-          <Link to='/'>{translate(select.language, 'Home')}</Link>
+        <Menu language={select.language} translate={translate} links={[{title: 'Home', href: '/'}]}>
+          {/* <Link to='/'>{translate(select.language, 'Home')}</Link> */}
         </Menu>
         <BasketSimple language={select.language} translate={translate} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       </LayoutFlex>

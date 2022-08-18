@@ -1,0 +1,31 @@
+.LayoutArticle-basket-simple {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.LayoutArticle-description {
+    text-align: justify;
+    text-indent: 20px;
+    margin-right: 80px;
+}
+
+.LayoutArticle-ul {
+    list-style-type: none;
+    margin: 0;
+    margin-left: 40px;
+    padding: 0;
+}
+
+.LayoutArticle-li {
+    margin-bottom: 15px;
+}
+
+.LayoutArticle-li-bold {
+    font-weight: 700;
+}
+
+.LayoutArticle-add-button {
+    margin-top: 15px;
+    margin-left: 40px;
+}

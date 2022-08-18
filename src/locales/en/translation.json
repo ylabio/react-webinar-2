@@ -1,0 +1,18 @@
+{
+  "BasketSimple": "Cart content",
+  "BasketSimpleEmpty": "no items added yet",
+  "BasketSimpleGoTo": "move to Cart",
+  "BasketTitle": "Cart totals",
+  "BasketTotalTitle": "Cart totals",
+  "ItemAddToCart": "To cart",
+  "ItemBasketRemove": "Remove",
+  "LangSwitcherLang": "lang",
+  "LayoutArticleAddToCartButton": "Add to cart",
+  "LayoutArticleCategory": "Category",
+  "LayoutArticleCountry": "Country of Manufacture",
+  "LayoutArticlePrice": "Retail price",
+  "LayoutArticleProductionYear": "Production year",
+  "LayoutModalClose": "Close",
+  "NavBackToMain": "Back to main",
+  "MainTitle": "Market OnLine"
+}

@@ -3,13 +3,14 @@ import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
 
-function Layout({head, children}){
+function Layout({head, langSwitch, children}){
   const cn = bem('Layout');
 
   return (
     <div className={cn()}>
       <div className={cn('head')}>
-        {head}
+        <div className={cn('head-title')}>{head}</div>
+        <div className={cn('head-language-switch')}>{langSwitch}</div>
       </div>
       <div className={cn('content')}>
         {children}
@@ -19,11 +20,8 @@ function Layout({head, children}){
 }
 
 Layout.propTypes = {
-  head: propTypes.node,
-  children: propTypes.node,
-}
-
-Layout.defaultProps = {
+  head: propTypes.node.isRequired,
+  children: propTypes.node.isRequired,
 }
 
 export default React.memo(Layout);

@@ -1,0 +1,18 @@
+{
+  "BasketSimple": "В корзине",
+  "BasketSimpleEmpty": "Пусто",
+  "BasketSimpleGoTo": "Перейти",
+  "BasketTitle": "Корзина",
+  "BasketTotalTitle": "Итого",
+  "ItemAddToCart": "Добавить",
+  "ItemBasketRemove": "Удалить",
+  "LangSwitcherLang": "язык",
+  "LayoutArticleAddToCartButton": "Добавить",
+  "LayoutArticleCategory": "Категория",
+  "LayoutArticleCountry": "страна производитель",
+  "LayoutArticlePrice": "Цена",
+  "LayoutArticleProductionYear": "Год выпуска",
+  "LayoutModalClose": "Закрыть",
+  "MainTitle": "Магазин",
+  "NavBackToMain": "Главная"
+}

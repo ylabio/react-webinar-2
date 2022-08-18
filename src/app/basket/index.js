@@ -1,5 +1,6 @@
 import List from "../../components/list";
 import React, {useCallback} from "react";
+import {useTranslation} from 'react-i18next';
 import BasketTotal from "../../components/basket-total";
 import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
@@ -11,9 +12,11 @@ function Basket(){
   console.log('Basket');
 
   const store = useStore();
+  const { t } = useTranslation();
 
   const select = useSelector(state => ({
-    items: state.basket.items,
+    articleRoute: state.article.articleRoute,
+    items: state.basket.cartItems,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -26,11 +29,17 @@ function Basket(){
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
+    itemBasket: useCallback(item =>
+      <ItemBasket
+        item={item}
+        articleRoute={select.articleRoute}
+        onRemove={callbacks.removeFromBasket}
+        onClose={callbacks.closeModal}
+      />, []),
   }
 
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+    <LayoutModal title={t('BasketTitle')} onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>
       <BasketTotal sum={select.sum}/>
     </LayoutModal>

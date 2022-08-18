@@ -1,0 +1,10 @@
+.Nav-link-to-main {
+    color: blue;
+    font-size: 1.1em;
+    margin-left: 20px;
+    text-decoration: underline;
+}
+
+.Nav-link-to-main:hover {
+    cursor: pointer;
+}

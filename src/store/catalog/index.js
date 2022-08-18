@@ -27,7 +27,7 @@ class CatalogState extends StateModule{
     });
     const limit = this.getState().pageSize;
     page--;
-    const response = await fetch(`/api/v1/articles?fields=items(*),count&limit=${limit}&skip=${!page ? 0 : `${limit * page}`}`);
+    const response = await fetch(`/api/v1/articles?fields=items(*),count&limit=${limit}&skip=${!page ? 0 : limit * page}`);
     const json = await response.json();
     this.setState({
       ...this.getState(),

@@ -1,0 +1,18 @@
+/* Пункт списка */
+.ItemArticle {
+    padding: 20px 40px;
+}
+
+.ItemArticle-cell {
+    padding: 10px 0;
+}
+
+.ItemArticle-cell span {
+    font-weight: bold;
+}
+
+.ItemArticle-price {
+    padding: 10px 0;
+    font-weight: bold;
+    font-size: 24px;
+}

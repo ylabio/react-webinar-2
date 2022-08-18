@@ -6,8 +6,8 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination";
-import HomeButton from "../../components/home-button";
 import Navigation from "../../components/navigation";
+import HeaderWrapper from "../../components/header-wrapper";
 import Language from "../../components/language";
 
 function Main(){
@@ -44,13 +44,13 @@ function Main(){
 
   return (
     <Layout head={<h1>{select.language.shop}</h1>}>
-      <Navigation>
-        <HomeButton language={select.language}/>
+      <HeaderWrapper>
+        <Navigation language={select.language}/>
         <Language language={select.language.languageName} changeLanguage={callbacks.changeLanguage}/>
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} language={select.language}/>
-      </Navigation>
+      </HeaderWrapper>
       <List items={select.items} renderItem={renders.item}/>
-      <Pagination count={select.count}                  
+      <Pagination count={select.count}
                   paginate={callbacks.setPage}
                   activePage={select.activePage}
                   />

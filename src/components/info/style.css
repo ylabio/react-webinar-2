@@ -1,0 +1,20 @@
+.Info div {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+
+.Info div h5 {
+  margin: 0;
+  font-size: 18px;
+}
+.Info div h4 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.Info div:last-child {
+  padding: 10px;
+}

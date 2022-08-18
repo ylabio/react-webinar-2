@@ -1,0 +1,22 @@
+.Pagination {
+  display: flex;
+  list-style-type: none;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 20px 20px 20px 0;
+}
+
+.Pagination-pages > button {
+  width: 30px;
+  height: 30px;
+  font-size: 17px;
+  line-height: 18.4px;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+}
+
+.Pagination-active {
+  background: #0087e9 !important;
+  color: #fff;
+}

@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
@@ -19,14 +18,6 @@ function Menu() {
     )}
     </div>
   )  
-}
-
-Menu.propTypes = {
-  
-}
-
-Menu.defaultProps = {
-  
 }
 
 export default React.memo(Menu);

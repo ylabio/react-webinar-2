@@ -5,6 +5,7 @@ import useLanguage from "utils/use-language";
 
 
 function Menu() {
+  console.log('menu')
   const navigate = useNavigate();
   const translation = useLanguage()
 

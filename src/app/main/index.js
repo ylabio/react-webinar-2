@@ -27,6 +27,7 @@ function Main() {
     count: state.catalog.count,
     currentPage: state.catalog.page,
     contentPerPage: state.catalog.contentPerPage,
+    language: state.language.language,
   }));
 
   const skip = select.currentPage * select.contentPerPage - select.contentPerPage
@@ -44,6 +45,7 @@ function Main() {
     setCurrentPage: useCallback(page => store.get('catalog').setPage(page), []),
     //навигация на катру товара
     onPageProduct: useCallback(id => navigate(`/${id}`), []),
+    translation: useCallback((text) => translation(text), [select.language]),
   };
 
   const renders = {
@@ -55,7 +57,8 @@ function Main() {
 
   return (
     <Layout head={<h1>{translation('shop')}</h1>}>
-      <Controls amount={select.amount} sum={select.sum} onOpen={callbacks.openModalBasket}/>
+      <Controls amount={select.amount} sum={select.sum}
+                onOpen={callbacks.openModalBasket} translation={callbacks.translation}/>
       {select.isLoading ? <Loading/> :
         <List items={select.items} renderItem={renders.item}/>}
       <Pagination count={select.count} setCurrentPage={callbacks.setCurrentPage}

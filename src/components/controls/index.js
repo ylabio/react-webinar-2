@@ -4,7 +4,7 @@ import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 
-function Controls({sum, amount, onOpen}) {
+function Controls({sum, amount, onOpen, translation}) {
 
   const callbacks = {
     // Открытие корзины
@@ -14,7 +14,7 @@ function Controls({sum, amount, onOpen}) {
   return (
     <div className='Controls'>
       <Menu/>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={amount} sum={sum}/>
+      <BasketSimple onOpen={callbacks.openModalBasket} amount={amount} sum={sum} translation={callbacks.translation}/>
     </div>
   )
 }
@@ -22,7 +22,8 @@ function Controls({sum, amount, onOpen}) {
 Controls.propTypes = {
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
-  amount: propTypes.number
+  amount: propTypes.number,
+  translation: propTypes.func,
 }
 
 Controls.defaultProps = {

@@ -13,17 +13,17 @@ function Main() {
   const store = useStore();
   const [pagination, setPagination] = React.useState(1);
 
-  useEffect(() => {
-    store.get("catalog").load(pagination);
-    store.get("catalog").loadPages(pagination);
-  }, [pagination]);
-
   const select = useSelector((state) => ({
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
     pagesAmount: state.catalog.pagesAmount,
   }));
+
+  useEffect(() => {
+    store.get("catalog").load(pagination);
+    store.get("catalog").loadPages(pagination);
+  }, [pagination]);
 
   const callbacks = {
     // Открытие корзины

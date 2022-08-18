@@ -43,7 +43,7 @@ const Article = () => {
     }
 
     fetchItemDescription();
-  }, []);
+  }, [id]);
 
   return (
     <Layout head={<h1>{article.title}</h1>}>

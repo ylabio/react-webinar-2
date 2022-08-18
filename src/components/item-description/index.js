@@ -22,10 +22,10 @@ const ItemDescription = ({ item, onAdd, loading }) => {
     <div className={cn()}>
       <div className={cn("desc")}>{item.description}</div>
       <div className={cn("desc-country")}>
-        Страна производитель: <b>{item.maidIn?.title}</b>
+        Страна производитель: <b>{item.maidIn.title}</b>
       </div>
       <div className={cn("category")}>
-        Категория: <b>{item.category?.title}</b>
+        Категория: <b>{item.category.title}</b>
       </div>
       <div className={cn("year-of-issue")}>
         Год выпуска: <b>{item.edition}</b>

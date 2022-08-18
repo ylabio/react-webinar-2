@@ -2,7 +2,7 @@ import React from "react";
 import { newPages } from "../../utils/pages";
 import "./style.css";
 
-const Pagination = ({ pagination, setPagination, pagesAmount }) => {
+const Pagination = ({ pagination, pagesAmount, setPagination }) => {
   const pages = [];
 
   for (let i = 1; i < pagesAmount + 1; i++) {

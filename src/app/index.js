@@ -3,7 +3,7 @@ import Main from "./main";
 import Article from "./article";
 import Basket from "./basket";
 import useSelector from "../utils/use-selector";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React

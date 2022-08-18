@@ -16,7 +16,8 @@ function Main(){
     itemsCount: state.catalog.itemsCount,
     items: state.catalog.items,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    activePage: state.catalog.activePage
   }));
 
   const callbacks = {
@@ -26,12 +27,13 @@ function Main(){
 
   return (    
     <Layout head={<h1>Магазин</h1>} 
-    nav={<Pages count={Math.ceil(select.itemsCount/itemsPerPage)} 
+    nav={<Pages state={select} 
+    count={Math.ceil(select.itemsCount/itemsPerPage)} 
     perPage={itemsPerPage} />}>
       <BasketSimple onOpen={callbacks.openModalBasket} 
       amount={select.amount} 
       sum={select.sum}>
-        <Menu />    
+        <Menu onButtonClick={()=>store.get('catalog').setActive(0)}/>    
       </BasketSimple>
     </Layout>
   )

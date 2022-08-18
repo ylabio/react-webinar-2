@@ -43,8 +43,7 @@ function App() {
           <Route index element={<List items={select.items} renderItem={renders.item}/>} />
           <Route path=":query" element={<List items={select.items} renderItem={renders.item}/>} />
         </Route>
-        <Route path="/articles/:id" 
-               element={<Product onAdd={callbacks.addToBasket} />} />
+        <Route path="/articles/:id" element={<Product onAdd={callbacks.addToBasket} />} />
       </Routes>
 
       {modal === 'basket' && <Basket/>}

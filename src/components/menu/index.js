@@ -3,12 +3,12 @@ import {Link} from "react-router-dom";
 import {cn as bem} from '@bem-react/classname';
 import './index.css';
 
-function Menu () {
+function Menu (props) {
   const cn = bem('Menu');
 
   return (
     <div className={cn()}>
-    <Link to='/'>Главная</Link>
+    <Link to='/' onClick={props.onButtonClick}>Главная</Link>
     </div>
   )
 }

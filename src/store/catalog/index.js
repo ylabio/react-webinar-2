@@ -11,7 +11,8 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      //activePage: 0
     };
   }
 
@@ -22,6 +23,7 @@ class CatalogState extends StateModule{
     const json = await response.json();
     
     this.setState({
+      ...this.getState(),
       items: json.result.items,
       itemsCount: json.result.count,
     });
@@ -32,9 +34,16 @@ class CatalogState extends StateModule{
     const json = await response.json();
   
     this.setState({
+      ...this.getState(),
       items: [json.result],
     });
+  }
 
+  setActive(index){
+    this.setState({
+      ...this.getState(),
+      activePage: index
+    })
   }
 
   /**

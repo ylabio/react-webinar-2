@@ -50,7 +50,7 @@ function Product (props){
       <BasketSimple onOpen={callbacks.openModalBasket} 
         amount={select.amount} 
         sum={select.sum}>
-          <Menu />
+          <Menu onButtonClick={()=>store.get('catalog').setActive(0)}/>
         </BasketSimple>
     </Description>
   )

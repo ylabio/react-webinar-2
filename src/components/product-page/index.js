@@ -3,6 +3,8 @@ import Layout from '../layout'
 import BasketSimple from "../basket-simple";
 import {cn as bem} from "@bem-react/classname";
 import './style.css'
+import Header from "../header/header";
+import ToHomePage from "../home";
 
 function ProductPage({basketAmount, basketSum, product, currentId, onOpenModal, addToBasket}){
     const cn = bem('ItemPage');
@@ -10,7 +12,10 @@ function ProductPage({basketAmount, basketSum, product, currentId, onOpenModal, 
     return(
         <>{!!product
         ? <Layout head={<h1>{product.title}</h1>}>
-            <BasketSimple onOpenModal={onOpenModal} sum={basketSum} amount={basketAmount}/>
+            <Header>
+                <ToHomePage />
+                <BasketSimple onOpenModal={onOpenModal} sum={basketSum} amount={basketAmount}/>
+            </Header>
             <div className={cn()}>
             <div className={cn('char')}>{`${product.description}`}</div>
             <div className={cn('char')}>

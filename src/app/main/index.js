@@ -7,6 +7,8 @@ import Item from "../../components/item";
 import PaginationBar from "../../components/pagination";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import ToHomePage from "../../components/home";
+import Header from "../../components/header/header";
 
 
 function Main(){
@@ -40,14 +42,17 @@ function Main(){
   }));
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} link={'/articles/' + item._id}/>, []),
   }
 
   return (
     <> {!!select.items 
     ?<Layout head={<h1>Магазин</h1>}>
+      <Header>
+        <ToHomePage />
         <BasketSimple amount={select.amount} sum={select.sum} onOpenModal={callbacks.openModalBasket}/>
-        <List items={select.items} renderItem={renders.item}/>
+      </Header>    
+      <List items={select.items} renderItem={renders.item}/>
         <PaginationBar 
           pagination={select.pagination.paginationArray}
           selected={select.currentPage}

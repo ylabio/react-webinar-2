@@ -4,20 +4,17 @@ import plural from "plural-ru";
 import { cn as bem } from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import { Link } from 'react-router-dom';
-import useSelector from "../../utils/use-selector";
 import './styles.css';
 
 
-function BasketSimple({ language, modalName, sum, amount, onOpen }) {
+function BasketSimple({ language, sum, amount, onOpen }) {
 
-  const [open, close] = onOpen;
+  console.log(onOpen);
+
   const cn = bem('BasketSimple');
   const [a, b, c] = language.commodityDeclensions
   return (
     <div className={cn()}>
-      <Link className="Main" to="/">
-        <button onClick={() => { modalName ? close(false) : "" }} className='main-link-basket'>{language.productLink}</button>
-      </Link>
       <div>
         <span className={cn('label')}>{language.inTheBasket}:</span>
         <span className={cn('total')}>
@@ -26,20 +23,20 @@ function BasketSimple({ language, modalName, sum, amount, onOpen }) {
             : language.empty
           }
         </span>
-        <Link to="/"><button className='BasketSimple__button' onClick={open}>{language.go}</button></Link>
+        <Link to="/"><button className='BasketSimple__button' onClick={() => onOpen()}>{language.go}</button></Link>
       </div>
     </div>
   )
 }
 
 BasketSimple.propTypes = {
-  onOpen: propTypes.array.isRequired,
+  onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
   amount: propTypes.number
 }
 
 BasketSimple.defaultProps = {
-  onOpen: [() => { }, () => { }],
+  onOpen: () => { },
   sum: 0,
   amount: 0
 }

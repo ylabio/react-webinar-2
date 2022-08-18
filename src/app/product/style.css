@@ -1,4 +1,5 @@
 .Main {
+  position: absolute;
   display: inline-block;
   font-family: "Arial";
   font-style: normal;

@@ -1,10 +1,11 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, Fragment } from "react";
 import Layout from "../../components/layout";
 import { useLocation } from "react-router-dom";
 import useSelector from "../../utils/use-selector";
 import useStore from "../../utils/use-store";
 import ContainerProduct from "../../components/container-product";
 import BasketSimple from "../../components/basket-simple";
+import MainLink from "../../components/main-link";
 import "./style.css"
 
 
@@ -24,7 +25,8 @@ function Product(props) {
     }, [])
 
     const callbacks = {
-        openAndCloseModalBasket: [useCallback(() => store.get('modals').open('basket'), []), useCallback(() => store.get('modals').close('basket'), []),],
+        openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+        closeModalBasket: useCallback(() => store.get('modals').close('basket'), []),
         addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), [])
 
     }
@@ -40,7 +42,8 @@ function Product(props) {
 
     return (
         <Layout head={<h1>{selectItem?.title}</h1>}>
-            <BasketSimple modalName={modalName} language={language} sum={sum} amount={amount} onOpen={callbacks.openAndCloseModalBasket}></BasketSimple>
+            <MainLink modalName={modalName} close={callbacks.closeModalBasket} language={language} />
+            <BasketSimple language={language} sum={sum} amount={amount} onOpen={callbacks.openModalBasket}></BasketSimple>
             <ContainerProduct add={callbacks.addToBasket} language={language} selectItem={selectItem} />
         </Layout>
 

@@ -8,6 +8,7 @@ import useSelector from "../../utils/use-selector";
 import Paginate from "../../components/paginate";
 import { Link } from "react-router-dom";
 import SwitcherLanguage from "../../components/switcher-language";
+import MainLink from "../../components/main-link";
 
 function Main() {
 
@@ -36,8 +37,10 @@ function Main() {
 
 
   const callbacks = {
-    // Открытие корзины и её закрытие
-    openAndCloseModalBasket: [useCallback(() => store.get('modals').open('basket'), []), useCallback(() => store.get('modals').close('basket'), [])],
+    // Открытие корзины 
+    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+    // Закрытие корзины
+    closeModalBasket: useCallback(() => store.get('modals').close('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Загрузка каталога
@@ -54,7 +57,8 @@ function Main() {
   return (
     <Layout head={<h1>{select.language.mainTitle}</h1>}>
       <SwitcherLanguage langKey={Object.keys(select.alllanguage)} switchFn={callbacks.switchLang} />
-      <BasketSimple language={select.language} modalName={select.modalName} onOpen={callbacks.openAndCloseModalBasket} amount={select.amount} sum={select.sum} />
+      <MainLink modalName={select.modalName} close={callbacks.closeModalBasket} language={select.language} />
+      <BasketSimple language={select.language} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <List items={select.items} renderItem={renders.item} catalogLoad={callbacks.catalogLoad} />
       <Paginate position={select.position} totalSum={select.totalSum} catalogLoad={callbacks.catalogLoad} />
     </Layout>

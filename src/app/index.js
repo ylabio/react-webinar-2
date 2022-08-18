@@ -20,15 +20,10 @@ function App() {
       {modal === 'basket' && <Basket />}
       <Routes>
         <Route path="/" element={
-          <>
-            <Main />
-          </>
+          <Main />
         } />
         <Route path="/item/:_id" element={
-          <>
-            <ItemPage />
-            {modal === 'basket' && <Basket />}
-          </>
+          <ItemPage />
         } />
       </Routes>
     </>

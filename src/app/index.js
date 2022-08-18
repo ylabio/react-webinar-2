@@ -31,7 +31,7 @@ function App() {
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} />, []),
+    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} path={`/articles/${item._id}`} />, []),
   }
 
   return (

@@ -1,10 +1,12 @@
 import React, {useCallback} from "react";
-import useSelector from "../../utils/use-selector";
-import useStore from "../../utils/use-store";
+import useSelector from "../../hooks/use-selector";
+import useStore from "../../hooks/use-store";
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
 import Spinner from "../../components/spinner";
 import Item from "../../components/item";
+import translate from "../../utils/translate";
+import useTranslate from "../../hooks/use-translate";
 
 function CatalogList() {
 
@@ -15,8 +17,10 @@ function CatalogList() {
     page: state.catalog.params.page,
     limit: state.catalog.params.limit,
     count: state.catalog.count,
-    waiting: state.catalog.waiting
+    waiting: state.catalog.waiting,
   }));
+
+  const {t} = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
@@ -27,8 +31,8 @@ function CatalogList() {
 
   const renders = {
     item: useCallback(item => (
-      <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`}/>
-    ), []),
+      <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`} labelAdd={t('article.add')}/>
+    ), [t]),
   }
 
   return (

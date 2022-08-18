@@ -1,5 +1,5 @@
 import React from 'react';
-import useSelector from "../utils/use-selector";
+import useSelector from "../hooks/use-selector";
 import {Routes, Route} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
@@ -10,8 +10,6 @@ import Article from "./article";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
-
-  console.log('App');
 
   const modal = useSelector(state => state.modals.name);
 

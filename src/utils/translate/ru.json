@@ -1,7 +1,9 @@
 {
   "title": "Магазин",
   "menu.main": "Главная",
+  "basket.title": "Корзина",
   "basket.open": "Перейти",
+  "basket.close": "Закрыть",
   "basket.inBasket": "В корзине",
   "basket.empty": "пусто",
   "basket.articles": {
@@ -10,6 +12,9 @@
     "many": "товаров",
     "other": "товара"
   },
+  "basket.total": "Итого",
+  "basket.unit": "шт",
+  "basket.delete": "Удалть",
   "article.add": "Добавить",
   "filter.reset": "Сбросить"
 }

@@ -3,12 +3,11 @@ import React, {useCallback} from "react";
 import BasketTotal from "../../components/basket-total";
 import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
-import useStore from "../../utils/use-store";
-import useSelector from "../../utils/use-selector";
+import useStore from "../../hooks/use-store";
+import useSelector from "../../hooks/use-selector";
+import useTranslate from "../../hooks/use-translate";
 
 function Basket() {
-
-  console.log('Basket');
 
   const store = useStore();
 
@@ -17,6 +16,8 @@ function Basket() {
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
+
+  const {t} = useTranslate();
 
   const callbacks = {
     // Закрытие любой модалки
@@ -32,14 +33,16 @@ function Basket() {
         link={`/articles/${item._id}`}
         onRemove={callbacks.removeFromBasket}
         onLink={callbacks.closeModal}
+        labelUnit={t('basket.unit')}
+        labelDelete={t('basket.delete')}
         />
     ), []),
   }
 
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+    <LayoutModal title={t('basket.title')} labelClose={t('basket.close')} onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum} t={t}/>
     </LayoutModal>
   )
 }

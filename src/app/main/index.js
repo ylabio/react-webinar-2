@@ -1,14 +1,16 @@
 import Layout from "../../components/layout";
 import React, {useCallback, useMemo} from "react";
-import useStore from "../../utils/use-store";
-import useInit from "../../utils/use-init";
+import useStore from "../../hooks/use-store";
+import useInit from "../../hooks/use-init";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import Tools from "../../containers/tools";
-import useSelector from "../../utils/use-selector";
+import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import LayoutFlex from "../../components/layout-flex";
 import translate from "../../utils/translate";
+import useTranslate from "../../hooks/use-translate";
+import LocaleSelect from "../../containers/locale-select";
 
 function Main() {
   const store = useStore();
@@ -17,26 +19,13 @@ function Main() {
     await store.get('catalog').initParams();
   }, [], {backForward: true});
 
-  const select = useSelector(state => ({
-    lang: state.locale.lang
-  }));
-
-  const callbacks = {
-    setLang: useCallback(lang => store.get('locale').setLang(lang), []),
-  }
-
-  const options = {
-    lang: useMemo(() => ([
-      {value: 'ru', title: 'Русский'},
-      {value: 'en', title: 'English'},
-    ]), [])
-  };
+  const {t} = useTranslate();
 
   return (
     <Layout head={
       <LayoutFlex flex="between">
-        <h1>{translate(select.lang, 'title')}</h1>
-        <Select onChange={callbacks.setLang} value={select.lang} options={options.lang}/>
+        <h1>{t('title')}</h1>
+        <LocaleSelect/>
       </LayoutFlex>
     }>
       <Tools/>

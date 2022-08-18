@@ -8,7 +8,7 @@ import * as locales from './locales.js';
  * @returns {String} Перведенный текст
  */
 export default function translate(lang, text, plural) {
-  const result = locales[lang] && locales[lang][text] ? locales[lang][text] : text;
+  const result = locales[lang] && typeof locales[lang][text] !== 'undefined' ? locales[lang][text] : text;
 
   if (typeof plural !== 'undefined'){
     const key = new Intl.PluralRules(lang).select(plural);

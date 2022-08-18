@@ -1,9 +1,10 @@
 import React, {useCallback, useMemo} from "react";
-import useSelector from "../../utils/use-selector";
-import useStore from "../../utils/use-store";
+import useSelector from "../../hooks/use-selector";
+import useStore from "../../hooks/use-store";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
+import useTranslate from "../../hooks/use-translate";
 
 function CatalogFilter() {
 
@@ -13,6 +14,8 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
   }));
+
+  const {t} = useTranslate();
 
   const callbacks = {
     // Сортировка
@@ -37,7 +40,7 @@ function CatalogFilter() {
     <LayoutFlex flex="start">
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
-      <button onClick={callbacks.onReset}>Сбросить</button>
+      <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </LayoutFlex>
   );
 }

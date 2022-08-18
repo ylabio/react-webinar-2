@@ -1,12 +1,16 @@
 import Layout from "../../components/layout";
 import React, {useCallback} from "react";
-import useStore from "../../utils/use-store";
-import useSelector from "../../utils/use-selector";
+import useStore from "../../hooks/use-store";
+import useSelector from "../../hooks/use-selector";
 import {useParams} from "react-router-dom";
 import ArticleCard from "../../components/article-card";
 import Spinner from "../../components/spinner";
-import useInit from "../../utils/use-init";
+import useInit from "../../hooks/use-init";
 import Tools from "../../containers/tools";
+import useTranslate from "../../hooks/use-translate";
+import Select from "../../components/select";
+import LayoutFlex from "../../components/layout-flex";
+import LocaleSelect from "../../containers/locale-select";
 
 function Article(){
 
@@ -24,16 +28,23 @@ function Article(){
     waiting: state.article.waiting
   }));
 
+  const {t} = useTranslate();
+
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
 
   return (
-    <Layout head={<h1>{select.article.title}</h1>}>
+    <Layout head={
+      <LayoutFlex flex="between">
+        <h1>{select.article.title}</h1>
+        <LocaleSelect/>
+      </LayoutFlex>
+    }>
       <Tools/>
       <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket}/>
+        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
     </Layout>
   )

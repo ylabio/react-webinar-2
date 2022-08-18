@@ -1,0 +1,12 @@
+.Pagination {
+    padding: 20px 20px 20px 10px;
+    list-style-type: none;
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+}
+.Pagination-dotes{
+    font-size: 16px;
+    line-height: 18px;
+    color: #CCCCCC;
+}

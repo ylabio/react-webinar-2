@@ -1,0 +1,19 @@
+.Pagination-button{
+    border: none;
+    background: transparent;
+
+    font-size: 16px;
+    line-height: 18px;
+    cursor: pointer;
+}
+.Pagination-button:hover{
+    background-color: #E1E1E1;
+}
+.Pagination-button_selected{
+    background-color: #0087E9;
+    color: white;
+}
+.Pagination-button_selected:hover{
+    background-color: #0087E9;
+    color: white;
+}

@@ -1,0 +1,16 @@
+.Item-card{
+    padding: 20px 10px 20px 40px;
+}
+.Item-card-country_styled{
+    font-weight: bold;
+}
+.Item-card-category_styled{
+    font-weight: bold;
+}
+.Item-card-edition_styled{
+    font-weight: bold;
+}
+.Item-card-price_styled{
+    font-weight: bold;
+    font-size: 18px;
+}

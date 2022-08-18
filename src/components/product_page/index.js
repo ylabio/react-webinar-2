@@ -7,6 +7,7 @@ import ProductItem from '../product_item'
 import useSelector from "../../utils/use-selector";
 import BasketSimple from "../../components/basket-simple";
 import Layout from '../layout';
+import Menu from '../menu';
 
 
 
@@ -54,6 +55,7 @@ function ProductPage() {
 
   return (
     <Layout head={<h1>{select.item?.title}</h1>}>
+      <Menu/>
       <BasketSimple 
         onOpen={callbacks.openModalBasket} 
         toNull={callbacks.toNullForItemState} 

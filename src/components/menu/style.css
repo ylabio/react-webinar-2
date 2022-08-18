@@ -1,0 +1,9 @@
+.menu {
+    float: left;
+    margin: 20px ;
+    
+}
+
+.menu a {
+    color: rgb(0, 153, 255);;
+}

@@ -1,14 +1,14 @@
 import React from 'react';
 import {cn as bem} from "@bem-react/classname";
 import { Link } from 'react-router-dom';
+import './style.css'
 import propTypes from 'prop-types';
-function ToMainLink(props) {
-  const cn = bem('ToMainLink');
-
- 
+function Menu(props) {
+  const cn = bem('menu');
 
   return (
     <div
+      className={cn()}
         onClick={props.toNull}
     >
       <Link 
@@ -18,12 +18,12 @@ function ToMainLink(props) {
   )
 }
 
-ToMainLink.propTypes = {
+Menu.propTypes = {
     toNull: propTypes.func.isRequired,
 }
 
-ToMainLink.defaultProps = {
+Menu.defaultProps = {
     toNull: () => {}
 }
 
-export default React.memo(ToMainLink);
+export default React.memo(Menu);

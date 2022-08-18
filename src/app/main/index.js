@@ -6,6 +6,7 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import PaginationBlock from "../../components/pagination-block";
+import Menu from '../../components/menu'
 
 
 
@@ -56,6 +57,7 @@ function Main(){
 
   return (
     <Layout head={<h1>Магазин</h1>}>
+      <Menu/>
       <BasketSimple 
         onOpen={callbacks.openModalBasket} 
         toNull={callbacks.toNullForItemState} 

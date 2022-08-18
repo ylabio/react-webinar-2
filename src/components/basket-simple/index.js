@@ -4,7 +4,6 @@ import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './styles.css';
-import NavigationPanel from '../navigation-panel';
 import TextContext from '../../store/textcontext';
 
 function BasketSimple({sum, amount, onOpen}) {
@@ -12,8 +11,7 @@ function BasketSimple({sum, amount, onOpen}) {
   const { BASCKET_SHOW } =  React.useContext(TextContext)
   
   return (
-    <div className={cn()}>
-      <NavigationPanel />      
+    <div className={cn()}>   
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
       {amount

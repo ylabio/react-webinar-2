@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Layout from '../../components/layout';
+import NavigationPanel from "../../components/navigation-panel";
 import BasketSimple from "../../components/basket-simple";
 import ItemCard from "../../components/item-card";
 import TextContentContext from "../../store/textcontext";
@@ -35,6 +36,7 @@ function ItemPage(){
     return (
         <TextContentContext.Provider value={select.locales[select.locales.lng]}>
             <Layout head={<h1>{select.depiction.title}</h1>}>
+                <NavigationPanel />
                 <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
                 {select.isLoading === `${itemId} finished` && <ItemCard item={select.depiction} onAdd={callbacks.addToBasket} />}
             </Layout>

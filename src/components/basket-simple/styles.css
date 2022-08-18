@@ -1,10 +1,6 @@
 /* Контрол с общими действиями */
 .BasketSimple{
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 20px;
-    font-size: 18px;
+
 }
 
 .BasketSimple-label{

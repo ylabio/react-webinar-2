@@ -12,7 +12,12 @@ function Layout({head, children}){
         {head}
       </div>
       <div className={cn('content')}>
-        {children}
+        <div className={cn('contentHeader')}>
+        {children[0]}
+        {children[1]}
+        </div>
+        {children[2]}
+        {children[3]}
       </div>
     </div>
   )

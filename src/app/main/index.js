@@ -1,6 +1,7 @@
 import BasketSimple from "../../components/basket-simple";
 import List from "../../components/list";
 import Layout from "../../components/layout";
+import NavigationPanel from '../../components/navigation-panel';
 import Header from "../../components/header";
 import React, {useCallback, useEffect} from "react";
 import Item from "../../components/item";
@@ -19,16 +20,16 @@ function Main(){
 
   useEffect(() => {
     store.get('catalog').load();
-    store.get('pagination').load();
+    store.get('catalog').load();
   }, [])
 
   const select = useSelector(state => ({
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    itemsQuantity: state.pagination.itemsQuantity,
-    itemsNuberPerPage: state.pagination.itemsNuberPerPage,
-    activePage: state.pagination.activePage,
+    itemsQuantity: state.catalog.itemsQuantity,
+    itemsNuberPerPage: state.catalog.itemsNuberPerPage,
+    activePage: state.catalog.activePage,
     locales: state.locales,
   }));
 
@@ -41,7 +42,7 @@ function Main(){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Навигация по пагинации каталога
     moveToPage: useCallback(_indexNumber => {
-      store.get('pagination').setActivePage(_indexNumber)
+      store.get('catalog').setActivePage(_indexNumber)
       store.get('catalog').loadPage(_indexNumber, select.itemsNuberPerPage)
     }, [select.itemsNuberPerPage, select.activePage]),
     // Просмотр информации о товаре
@@ -67,6 +68,7 @@ function Main(){
   return (
     <TextContentContext.Provider value={select.locales[select.locales.lng]}>
       <Layout head={<Header onChangeLng={callbacks.changeLng} />}>
+        <NavigationPanel />
         <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
         <List items={select.items} renderItem={renders.item}/>
         {select.itemsQuantity !== 'idle' && <Pagination 

@@ -11,7 +11,10 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      itemsNuberPerPage: 10, // Дефолт значение количества товаров на страницу
+      itemsQuantity: 'idle',
+      activePage: 'idle', 
     };
   }
 
@@ -19,8 +22,14 @@ class CatalogState extends StateModule{
     const query = routes.initialLoad();
     const response = await fetch(query);
     const json = await response.json();
+    const pathToQuantity = '/api/v1/articles?limit=20&skip=10&fields=items(*),count'
+    const itemsResposne = await fetch(pathToQuantity)
+    const itemsQuantity = await itemsResposne.json()
     this.setState({
+      ...this.store.state.catalog,
       items: json.result.items,
+      itemsQuantity: itemsQuantity.result.count,
+      activePage: 0, // По загрузке приложение первая страница имеет индекс 0
     });
   }
 
@@ -30,7 +39,15 @@ class CatalogState extends StateModule{
     const response = await fetch(query);
     const json = await response.json();
     this.setState({
+      ...this.store.state.catalog,
       items: json.result.items,
+    });
+  }
+
+  setActivePage(_indexNumber){
+    this.setState({
+      ...this.store.state.catalog,
+      activePage: _indexNumber,
     });
   }
   /**

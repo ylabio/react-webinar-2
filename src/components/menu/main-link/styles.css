@@ -1,0 +1,9 @@
+.MainLink a{
+    font-size: 18px;
+    line-height: 21px;
+    color: #0087E9;
+}
+
+.MainLink:visited a{
+    color: #0087E9;
+}

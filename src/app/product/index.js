@@ -8,6 +8,8 @@ import { useParams } from "react-router-dom";
 import Article from "../../components/article";
 import { LanguageContext } from "../../services/language/context";
 import Translation from "../../services/language";
+import LinkToMain from "../../components/link-to-main";
+
 
 function Product() {
 
@@ -40,6 +42,7 @@ function Product() {
 
     return (
         <Layout head={<h1>{select.item.title ? select.item.title : Translation[language].loading}</h1>}>
+            <LinkToMain />
             <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
             {select.item.id ?
                 <Article item={select.item} onAdd={callbacks.addToBasket} /> :

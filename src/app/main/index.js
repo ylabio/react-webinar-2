@@ -9,6 +9,7 @@ import Pagination from "../../components/pagination";
 import Loader from "../../components/loader";
 import { LanguageContext } from "../../services/language/context";
 import Translation from "../../services/language";
+import LinkToMain from "../../components/link-to-main";
 
 
 function Main() {
@@ -24,9 +25,9 @@ function Main() {
     total: state.catalog.total,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    current: state.pagination.current,
-    skip: state.pagination.skip,
-    limit: state.pagination.limit,
+    current: state.catalog.current,
+    skip: state.catalog.skip,
+    limit: state.catalog.limit,
   }));
 
   useEffect(() => {
@@ -39,7 +40,7 @@ function Main() {
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(id => store.get('basket').addToBasket(id), []),
-    changePage: useCallback(page => store.get('pagination').changePage(page), []),
+    changePage: useCallback(page => store.get('catalog').changePage(page), []),
   };
 
   const renders = {
@@ -48,6 +49,7 @@ function Main() {
 
   return (
     <Layout head={<h1>{Translation[language].main.title}</h1>}>
+      <LinkToMain />
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       {select.items.length ?
         <>

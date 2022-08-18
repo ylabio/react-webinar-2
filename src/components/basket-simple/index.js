@@ -3,7 +3,6 @@ import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
 import "./styles.css";
-import { Link } from "react-router-dom";
 import { LanguageContext } from "../../services/language/context";
 import Translation from "../../services/language";
 
@@ -13,8 +12,6 @@ function BasketSimple({ sum, amount, onOpen }) {
 
   return (
     <div className={cn()}>
-      <Link className={cn('to__main')}
-        to={`/`}>{Translation[language].actions.home}</Link>
 
       <div className={cn('right')}>
         <span className={cn('label')}>{Translation[language].basket.simple}</span>

@@ -1,0 +1,30 @@
+.Pagination
+{
+    margin-top: 20px;
+    margin-right: 25px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Pagination-item
+{
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    vertical-align: bottom;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor:pointer;
+}
+
+.Pagination-item_curent
+{
+    background: #0087E9;
+    color: white;
+}
+
+.Pagination-item:hover
+{
+    background: #E1E1E1;
+}

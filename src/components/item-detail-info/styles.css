@@ -1,0 +1,28 @@
+.ItemDetailInfo{
+    max-width: 943px;
+    align-self: center;
+    justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ItemDetailInfo-description{
+    word-wrap: break-word;
+    margin-top: 25px;
+}
+
+.ItemDetailInfo-country{
+    margin-top: 25px;
+}
+
+.ItemDetailInfo-category{
+    margin-top: 25px;
+}
+
+.ItemDetailInfo-edition{
+    margin-top: 25px;
+}
+
+.ItemDetailInfo-price{
+    margin-top: 25px;
+}

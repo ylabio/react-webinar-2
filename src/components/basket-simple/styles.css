@@ -4,11 +4,12 @@
     justify-content: flex-end;
     padding: 20px;
     font-size: 18px;
+    flex-direction: row;
+    align-self: flex-end;
+    justify-self: flex-end;
+    margin-left: auto;
 }
 
-.BasketSimple-label{
-
-}
 
 .BasketSimple-total{
     font-weight: bold;

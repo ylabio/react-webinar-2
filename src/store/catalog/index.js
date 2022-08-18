@@ -12,7 +12,10 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      //activePage: 0
+      query:{
+        skip:0,
+        limit:10
+      }
     };
   }
 

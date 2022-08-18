@@ -10,7 +10,7 @@ const cn = bem('Pages');
 const {query} = useParams();
 const active = props.state.activePage 
   || (query) ? query.split('=')[2]/10 : 0;
-console.log(active);
+
 for (let n = 1; n <= props.count; n++) {
   pagesList.push(n);
 }
@@ -26,7 +26,7 @@ return (
       else return isActive ? cn('item_active') : cn('item');
     }}
     onClick={()=>props.catalog.setActive(0)}
-    to={`limit=${props.perPage}&skip=${1*props.perPage-props.perPage}`}>
+    to={`limit=${props.state.query.limit}&skip=${1*props.state.query.limit-props.state.query.limit}`}>
       {1}
     </NavLink>
     }
@@ -47,7 +47,7 @@ return (
       }
     } 
     onClick={()=>props.catalog.setActive(index)}
-    to={`limit=${props.perPage}&skip=${item*props.perPage-props.perPage}`}>
+    to={`limit=${props.state.query.limit}&skip=${item*props.state.query.limit-props.state.query.limit}`}>
       {item}
     </NavLink>)}
 
@@ -57,7 +57,7 @@ return (
       return isActive ? cn('item_active') : cn('item');
       }}
       onClick={()=>props.catalog.setActive(props.count - 1)}
-      to={`limit=${props.perPage}&skip=${props.count*props.perPage-props.perPage}`}>
+      to={`limit=${props.state.query.limit}&skip=${props.count*props.state.query.limit-props.state.query.limit}`}>
         {(props.count) ? props.count : ''}
       </NavLink>
     }

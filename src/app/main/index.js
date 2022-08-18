@@ -12,14 +12,14 @@ function Main(){
   console.log('Main');
   const store = useStore();
   const catalog = store.get('catalog');
-  const [itemsPerPage] = useState(10);
 
   const select = useSelector(state => ({
     itemsCount: state.catalog.itemsCount,
     items: state.catalog.items,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    activePage: state.catalog.activePage
+    activePage: state.catalog.activePage,
+    query: state.catalog.query
   }));
 
   const callbacks = {
@@ -31,8 +31,8 @@ function Main(){
     <Layout head={<h1>Магазин</h1>} 
     nav={<Pages state={select}
     catalog={catalog} 
-    count={Math.ceil(select.itemsCount/itemsPerPage)} 
-    perPage={itemsPerPage} />}>
+    count={Math.ceil(select.itemsCount/select.query.limit)} 
+      />}>
       <Menu>
         <Link to='/' onClick={()=>catalog.setActive(0)}>Главная</Link>
       </Menu> 

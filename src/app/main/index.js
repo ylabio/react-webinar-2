@@ -71,22 +71,18 @@ function Main(){
       item={item} 
       onAdd={callbacks.addToBasket} 
       translate={callbacks.translate} 
-      link={<Link to={`article/${item._id}`}>{item.title}</Link>}
+      link={`article/${item._id}`}
     />, [select.lang]),
   }
   
   return (
     <Layout title={callbacks.translate("shop")} changeLanguage={callbacks.changeLanguage} lang={select.lang}>
+      <Menu translate={callbacks.translate} />
       <BasketSimple 
         onOpen={callbacks.openModalBasket} 
         amount={select.amount} 
         sum={select.sum} 
         translate={callbacks.translate}
-        menu={
-          <Menu
-            translate={callbacks.translate} 
-          />
-        }
       />
       <List items={select.items} renderItem={renders.item}/>
       <PaginationMain   

@@ -9,9 +9,11 @@ function Menu(props) {
   const cn = bem('Menu');
 
   return (
-    <Link to='/' className={cn()} >
-      {props.translate("main")}
-    </Link>
+    <div className={cn()}>
+        <Link to='/' className={cn('main')} >
+        {props.translate("main")}
+        </Link>
+    </div>
   )
 }
 

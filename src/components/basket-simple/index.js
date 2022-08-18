@@ -10,8 +10,7 @@ function BasketSimple(props) {
 
   return (
     <div className={cn()}>
-      {props.menu}
-      <div>
+      <div className={cn('content')}>
         <span className={cn('label')}>{props.translate("incart")}</span>
         <span className={cn('total')}>
         {props.amount

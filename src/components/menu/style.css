@@ -1,7 +1,11 @@
 .Menu{
+    padding: 20px 0 20px 20px;
+    display: inline-block;
+}
+.Menu-main{
     text-decoration-line: underline;
     color: #0087E9;
 }
-.Menu:hover{
+.Menu-main:hover{
     cursor: pointer;
 }

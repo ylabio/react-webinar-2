@@ -40,16 +40,12 @@ function Article(){
 
   return (
     <LayoutArticle head={<h1>{select.item.title}</h1>}>
+      <Menu translate={callbacks.translate} />
       <BasketSimple 
         onOpen={callbacks.openModalBasket} 
         amount={select.amount} 
         sum={select.sum} 
         translate={callbacks.translate}
-        menu={
-          <Menu
-            translate={callbacks.translate} 
-          />
-        }
       />
       <ItemArticle 
         item={select.item} 

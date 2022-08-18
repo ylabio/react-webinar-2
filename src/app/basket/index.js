@@ -33,8 +33,9 @@ function Basket(){
     itemBasket: useCallback(item => <ItemBasket 
       item={item} 
       onRemove={callbacks.removeFromBasket}  
-      translate={callbacks.translate} 
-      link={<Link to={`article/${item._id}`} onClick={callbacks.closeModal}>{item.title}</Link>}
+      translate={callbacks.translate}
+      closeModal={callbacks.closeModal} 
+      link={`article/${item._id}`}
     />, []),
   }
 

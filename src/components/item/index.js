@@ -3,8 +3,8 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './style.css';
-import Router from "../router";
 import translate from "../../utils/translate";
+import {Link} from "react-router-dom";
 
 function Item(props) {
   const cn = bem('Item');
@@ -18,10 +18,15 @@ function Item(props) {
       {/*<div className={cn('id')}>*/}
       {/*  {props.item._id}*/}
       {/*</div>*/}
-      <div className={cn('title')}>
-        <Router to={`/articles/${props.item._id}`}>
+    <div className={cn('title')}>
+      {props.link
+        ? <Link to={`/articles/${props.item._id}`}>
           {props.item.title}
-        </Router>
+        </Link>
+        : <div>
+          {props.item.title}
+        </div>
+      }
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>

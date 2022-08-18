@@ -4,15 +4,14 @@ import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './styles.css';
-import Router from "../router";
 import translate from "../../utils/translate";
-
+import {Link} from "react-router-dom";
 
 function BasketSimple({sum, amount, onOpen, language}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <Router to={"/"} className={cn('home')}>{translate(language, "basket-simple-home")}</Router>
+      <Link to={"/"} className={cn('home')}>{translate(language, "basket-simple-home")}</Link>
       <div>
         <span className={cn('label')}>{translate(language, "basket-simple-label")}</span>
         <span className={cn('total')}>

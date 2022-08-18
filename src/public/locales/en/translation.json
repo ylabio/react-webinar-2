@@ -6,11 +6,15 @@
   "basket-simple-total-genitive-plural": "products",
   "basket-simple-total-empty": "empty",
   "basket-simple-button": "To basket",
-  "main-header-title": "Shop",
+  "header-title": "Shop",
   "item-button": "Add",
   "item-basket-button": "Delete",
   "item-basket-piece": "pcs",
   "basket-title": "Basket",
   "layout-modal-button": "Close",
-  "basket-total-total": "Total"
+  "basket-total-total": "Total",
+  "card-info-price": "Price:",
+  "card-info-year": "Year of manufacture:",
+  "card-info-category": "Category:",
+  "card-info-country": "Country of origin:"
 }

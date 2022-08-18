@@ -13,16 +13,16 @@ function CardInfo ({item, onAdd, language}) {
       <main className={cn('main')}>
         <div>{item?.description}</div>
         <div className={cn('block')}>
-          Страна производитель: <span className={cn('value')}>{item?.maidIn?.title} ({item?.maidIn?.code})</span>
+          {translate(language, "card-info-country")} <span className={cn('value')}>{item?.maidIn?.title} ({item?.maidIn?.code})</span>
         </div>
         <div className={cn('block')}>
-          Категория: <span className={cn('value')}>{item?.category?.title}</span>
+          {translate(language, "card-info-category")} <span className={cn('value')}>{item?.category?.title}</span>
         </div>
         <div className={cn('block')}>
-          Год выпуска: <span className={cn('value')}>{item?.edition}</span>
+          {translate(language, "card-info-year")} <span className={cn('value')}>{item?.edition}</span>
         </div>
         <div className={cn('price')}>
-          Цена: <span>{numberFormat(item?.price)} ₽</span>
+          {translate(language, "card-info-price")} <span>{numberFormat(item?.price)} ₽</span>
         </div>
       </main>
 

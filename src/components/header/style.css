@@ -1,15 +1,15 @@
-.MainHeader {
+.Header {
     display: flex;
     justify-content: space-between;
     height: 80px;
 }
 
-.MainHeader-control {
+.Header-control {
     padding: 20px;
     align-self: center;
 }
 
-.MainHeader-language{
+.Header-language{
     margin: 0 10px;
     cursor: pointer;
 

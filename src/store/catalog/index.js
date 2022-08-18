@@ -12,20 +12,24 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      count: 0,
+      skip: 0
     };
+  }
+
+  async getCount(){
+    const count = await fetch("/api/v1/articles?limit=1&fields=items(*),count");
+    const jsonCount = await count.json();
+
+    this.setState({...this.getState(), count: jsonCount.result.count});
   }
 
   async getArticles(skip){
     const articles = await fetch(`api/v1/articles?limit=10&skip=${skip * 10}`);
-    const count = await fetch("/api/v1/articles?limit=1&fields=items(*),count");
     const jsonArticles = await articles.json();
-    const jsonCount = await count.json();
 
-    this.setState({
-      items: jsonArticles.result.items,
-      count: jsonCount.result.count
-    });
+    this.setState({...this.getState(), items: jsonArticles.result.items});
   }
 
   /**
@@ -45,6 +49,13 @@ class CatalogState extends StateModule{
     this.setState({
       items: this.getState().items.filter(item => item._id !== _id)
     }, 'Удаление товара');
+  }
+
+  /**
+   * Установить сдвиг для запроса
+   */
+  setSkip(skip){
+    this.setState({...this.getState(), skip: skip-1});
   }
 }
 

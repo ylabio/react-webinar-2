@@ -6,11 +6,14 @@
   "basket-simple-total-genitive-plural": "товаров",
   "basket-simple-total-empty": "пусто",
   "basket-simple-button": "Перейти",
-  "main-header-title": "Магазин",
+  "header-title": "Магазин",
   "item-button": "Добавить",
   "item-basket-button": "Удалить",
   "item-basket-piece": "шт",
   "basket-title": "Корзина",
   "layout-modal-button": "Закрыть",
-  "basket-total-total": "Итого"
+  "basket-total-total": "Итого",
+  "card-info-price": "Цена:",
+  "card-info-year": "Год выпуска:",
+  "card-info-country": "Страна производитель:"
 }

@@ -1,0 +1,9 @@
+.LanguageMenu {
+    padding: 20px;
+    align-self: center;
+}
+
+.LanguageMenu-language{
+    margin: 0 10px;
+    cursor: pointer;
+}

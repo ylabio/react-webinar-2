@@ -12,13 +12,15 @@ function Item(props) {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
 
+  const href = props.item._id ? `/product/${props.item._id}` : '/'
+
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>*/}
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')}>
-        <Link className={cn('link')} to={`/product/${props.item._id}`}>
+        <Link className={cn('link')} to={href}>
           {props.item.title}
         </Link>
       </div>

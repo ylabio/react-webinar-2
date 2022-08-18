@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
-import {Link} from 'react-router-dom';
 import BasketSimple from '../../components/basket-simple';
 import LayoutControls from '../../components/layout-controls';
+import Menu from '../../components/menu';
 import useSelector from '../../utils/use-selector';
 import useStore from '../../utils/use-store';
 
@@ -32,9 +32,8 @@ function Controls() {
 
   return (
     <LayoutControls>
-      <Link to={'/'} onClick={callbacks.setFirstPage}>
-        {text.home}
-      </Link>
+      <Menu text = {text} onSetPage={callbacks.setFirstPage}/>
+
       <BasketSimple
         sum={select.sum}
         amount={select.amount}

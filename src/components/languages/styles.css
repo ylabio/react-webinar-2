@@ -1,0 +1,14 @@
+.Languages {
+  position: absolute;
+  top: 20px;
+  right: calc(25%);
+  display: flex;
+  flex-direction: row;
+}
+.Languages-lang {
+  padding: 5px;
+  cursor: pointer;
+}
+.Languages-lang:hover {
+  text-decoration: underline;
+}

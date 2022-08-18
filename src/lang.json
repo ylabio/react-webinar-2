@@ -1,0 +1,39 @@
+{
+  "languages": {
+    "ru": {
+      "store": "Магазин",
+      "inCart": "В корзине:",
+      "empty": "пусто",
+      "openCart": "Перейти",
+      "basket": "Корзина",
+      "total": "Итого",
+      "quality": "шт",
+      "close": "Закрыть",
+      "add": "Добавить",
+      "remove": "Удалить",
+      "Main": "Главная",
+      "country": "Страна производитель:",
+      "category": "Категория:",
+      "year": "Год выпуска:",
+      "price": "Цена:"
+    },
+    "en": {
+      "store": "Market",
+      "inCart": "In basket:",
+      "empty": "empty",
+      "openCart": "Go",
+      "basket": "Basket",
+      "total": "Total",
+      "quality": "pcs",
+      "close": "Close",
+      "add": "Add",
+      "remove": "Remove",
+      "Main": "Main page",
+      "country": "Producing country:",
+      "category": "Category:",
+      "year": "Year:",
+      "price": "Price:"
+    }
+  },
+  "count": 2
+}

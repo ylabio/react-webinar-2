@@ -3,21 +3,8 @@ import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './styles.css';
-import useSelector from "../../utils/use-selector";
-import useStore from "../../utils/use-store";
 
-function BasketSimple() {
-
-  const select = useSelector(state => ({
-    amount: state.basket.amount,
-    sum: state.basket.sum
-  }));
-
-  const store = useStore();
-
-  const callbacks = {
-    openModal: useCallback(() => store.get('modals').open('basket'), []),
-  };
+function BasketSimple({amount , sum , onOpen}) {
 
   const cn = bem('BasketSimple');
   return (
@@ -25,12 +12,12 @@ function BasketSimple() {
       <div>
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
-      {select.amount
-        ? `${select.amount} ${plural(select.amount, 'товар', 'товара', 'товаров')} / ${numberFormat(select.sum)} ₽`
+      {amount
+        ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
         : `пусто`
       }
       </span>
-      <button className='BasketSimple__button' onClick={callbacks.openModal}>Перейти</button>
+      <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
       </div>
     </div>
   )

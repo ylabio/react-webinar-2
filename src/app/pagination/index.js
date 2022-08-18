@@ -1,4 +1,4 @@
-import React, { useEffect, useState , useCallback} from "react";
+import React, { useCallback} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PaginationControls from "../../components/pagination-controls";
 

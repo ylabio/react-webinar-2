@@ -6,6 +6,7 @@ import { getGoodInfo } from "../../api";
 import LoadingScreen from "../../components/loading-screen";
 import useStore from "../../utils/use-store";
 import TopPanel from "../../components/top-panel";
+import useSelector from "../../utils/use-selector";
 
 function ProductPage(){
     
@@ -25,16 +26,25 @@ function ProductPage(){
         })
     },[params])
 
+    const select = useSelector(state => ({
+        amount: state.basket.amount,
+        sum: state.basket.sum,
+      }));
+
     const callbacks = {
         // Добавление товара в корзину
         addToBasket: useCallback(product => store.get('basket').addProductToBasket(product), []),
+        // Открытие корзины
+        openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
       };
     
     return(
         <>
         {productInfo && 
             <Layout head={<h1>{productInfo.title}</h1>}>
-            <TopPanel />
+            <TopPanel onOpen={callbacks.openModalBasket} 
+                      amount={select.amount} 
+                      sum={select.sum}/>
             <ProductContent productInfo={productInfo}
                             addToBasket={callbacks.addToBasket}
              />

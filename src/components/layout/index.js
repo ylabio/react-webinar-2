@@ -2,8 +2,6 @@ import React, { useCallback } from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
-import useStore from '../../utils/use-store';
-import useSelector from '../../utils/use-selector';
 
 function Layout({head, children, changeLocaleHandler, locale}){
   const cn = bem('Layout');

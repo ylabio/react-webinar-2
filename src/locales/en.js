@@ -15,4 +15,5 @@ export const dictionaryEN = {
   yearOfEdition: 'Year of edition',
   price: 'Price',
   qty: 'qty',
+  pageNotFound: 'Page not found',
 };

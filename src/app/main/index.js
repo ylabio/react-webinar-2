@@ -4,7 +4,7 @@ import React, { useCallback, useEffect } from 'react';
 import Item from '../../components/item';
 import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
-import LayoutLoader from '../layout-loader';
+import LayoutLoader from '../../components/layout-loader';
 import Pagination from '../../components/pagination';
 import Header from '../../components/header';
 import translate from '../../utils/translate';
@@ -21,6 +21,7 @@ function Main() {
     amountPages: state.catalog.amountPages,
     currentPage: state.catalog.currentPage,
     language: state.language,
+    loading: state.loading,
   }));
 
   useEffect(() => {
@@ -64,7 +65,7 @@ function Main() {
         sum={select.sum}
         language={select.language}
       />
-      <LayoutLoader>
+      <LayoutLoader loading={select.loading}>
         <List items={select.items} renderItem={renders.item} />
       </LayoutLoader>
       {select.amountPages > 1 && (

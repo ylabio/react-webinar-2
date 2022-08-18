@@ -15,4 +15,5 @@ export const dictionaryRU = {
   yearOfEdition: 'Год выпуска',
   price: 'Цена',
   qty: 'шт',
+  pageNotFound: 'Страница не найдена',
 };

@@ -20,12 +20,15 @@ class CatalogState extends StateModule {
   async load(currentPage) {
     this.store.setState({ ...this.store.getState(), loading: true });
 
+    const limit = this.store.getState().limit;
+    const skip = (currentPage - 1) * limit;
+
     const response = await fetch(
-      `/api/v1/articles?skip=${(currentPage - 1) * 10}&fields=items(*),count`
+      `/api/v1/articles?skip=${skip}&limit=${limit}&fields=items(*),count`
     );
     const json = await response.json();
 
-    this.store.setState({ ...this.store.getState(), loading: false });
+    this.store.setState({ ...this.store.getState(), loading: false, skip });
 
     this.setState({
       ...this.store.getState().catalog,

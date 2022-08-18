@@ -6,6 +6,8 @@ class Store {
     this.state = {
       loading: false,
       language: 'ru',
+      limit: 10,
+      skip: 10,
     };
     // Слушатели изменений state
     this.listeners = [];

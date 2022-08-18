@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import useStore from '../../utils/use-store';
 import useSelector from '../../utils/use-selector';
 import ArticleInfo from '../../components/article-info';
-import LayoutLoader from '../layout-loader';
+import LayoutLoader from '../../components/layout-loader';
 import Header from '../../components/header';
 
 function Article() {
@@ -14,16 +14,17 @@ function Article() {
   const { id } = useParams();
   const store = useStore();
 
-  useEffect(() => {
-    store.get('article').load(id);
-  }, [id]);
-
   const select = useSelector((state) => ({
     article: state.article,
     amount: state.basket.amount,
     sum: state.basket.sum,
     language: state.language,
+    loading: state.loading,
   }));
+
+  useEffect(() => {
+    store.get('article').load(id);
+  }, [id]);
 
   const callbacks = {
     // Открытие корзины
@@ -45,7 +46,7 @@ function Article() {
         sum={select.sum}
         language={select.language}
       />
-      <LayoutLoader>
+      <LayoutLoader loading={select.loading}>
         <ArticleInfo
           onAdd={callbacks.addToBasket}
           article={select.article}

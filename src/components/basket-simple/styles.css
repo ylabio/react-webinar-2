@@ -10,6 +10,25 @@
 
 }
 
+.BasketSimple-link {
+    margin: 0;
+    padding: 0;
+    margin-right: auto;
+    text-align: left;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    text-decoration-line: underline;
+    color: #0087E9;
+}
+
+.BasketSimple-link:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
 .BasketSimple-total{
     font-weight: bold;
     margin: 0 15px;

@@ -8,9 +8,13 @@ function Menu(props) {
     const cn = bem('Menu');
 
     return(
-        <Link to={"/"} className={cn('link')} onClick={()=> {
-            props.onNavigate()
-        }} >Главная</Link>
+        <ul className={cn("list")}>
+            <li>
+                <Link to={"/"} className={cn('link')} onClick={()=> {
+                    props.onNavigate()
+                }} >Главная</Link>
+            </li>
+        </ul>
     )
 }
 

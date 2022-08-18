@@ -1,27 +1,27 @@
 /*Пагинация*/
 
-.Footer{
+.Pagination{
     padding: 23px;
 
 }
-.Footer-tabs{
+.Pagination-tabs{
     display: flex;
     justify-content: flex-end;
 
 }
-.Footer-tab{
+.Pagination-tab{
     line-height: 18px;
     min-width: 18px;
     height: 18px;
     text-align: center;
 
 }
-.Footer-tab:hover{
+.Pagination-tab:hover{
     background-color: #E1E1E1;
 
 }
 
-.Footer-active{
+.Pagination-active{
     background-color: #0087E9;
     color: white;
     line-height: 18px;

@@ -9,6 +9,7 @@ function Menu() {
     return (
         <div className={cn()}>
             <Link to="/">Главная</Link>
+
         </div>
     )
 }

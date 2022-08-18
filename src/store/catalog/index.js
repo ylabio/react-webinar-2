@@ -15,36 +15,38 @@ class CatalogState extends StateModule{
       items: [],
       count:0,
       limit:10,
-      countPages:0,
+      currentPage:1,
     };
   }
 
 
 
-  async load(){
+  async load(skip){
 
-    const response = await fetch('/api/v1/articles?limit=0&skip=0&fields=items(*),count');
-
-
+    const response = await fetch(`/api/v1/articles`);
     const json = await response.json();
-
     this.setState({
       items: json.result.items,
-      count:json.result.count,
-      limit:this.getState().limit,
-      countPages: Math.ceil(json.result.count / this.getState().limit)
     });
 
   }
-  async switchPage(skip) {
+  async switchPage(limit=10) {
+    const skip = (this.getState().currentPage - 1) * limit;
     const response = await fetch(`/api/v1/articles?limit=10&skip=${skip}&fields=items(*),count`);
     const json = await response.json();
     this.setState({
       items: json.result.items,
       count:json.result.count,
-      limit:this.getState().limit,
-      countPages: Math.ceil(json.result.count / this.getState().limit)
+      currentPage:this.getState().currentPage
     });
+  }
+  setPageNumber(page) {
+    this.setState(
+        {
+          ...this.getState(),
+          currentPage: page,
+        },
+    );
   }
 
 

@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import './style.css';
+
 import BasketSimple from "../basket-simple";
 import Card from "../card";
 import Layout from "../layout";
@@ -14,7 +13,7 @@ import Menu from "../menu";
 
 function ItemCard() {
     console.log("ItemCard");
-    const cn = bem('ItemCard');
+
     const store = useStore();
     const {id}=useParams();
 

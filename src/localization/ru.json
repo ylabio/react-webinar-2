@@ -1,0 +1,26 @@
+{
+  "catalog": {
+    "header": "Магазин"
+  },
+  "basket": {
+    "header": "Корзина",
+    "totalLabel": "Итого",
+    "piece": "шт"
+  },
+  "itemInfo": {
+    "country": "Страна производитель",
+    "category": "Категория",
+    "edition": "Год выпуска",
+    "price": "Цена"
+  },
+  "common": {
+    "homeLink": "Главная",
+    "openCart": "Перейти",
+    "basketFullnessLabel": "В корзине",
+    "basketEmpty": "Пусто",
+    "basketAmount": ["товар", "товара", "товаров"],
+    "close": "Закрыть",
+    "add": "Добавить",
+    "remove": "Удалить"
+  }
+}

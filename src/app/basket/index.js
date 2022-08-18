@@ -1,13 +1,12 @@
-import List from "../../components/list";
-import React, {useCallback} from "react";
-import BasketTotal from "../../components/basket-total";
-import LayoutModal from "../../components/layout-modal";
-import ItemBasket from "../../components/item-basket";
-import useStore from "../../utils/use-store";
-import useSelector from "../../utils/use-selector";
+import React, {useCallback} from 'react';
+import BasketTotal from '../../components/basket-total';
+import ItemBasket from '../../components/item-basket';
+import LayoutModal from '../../components/layout-modal';
+import List from '../../components/list';
+import useSelector from '../../utils/use-selector';
+import useStore from '../../utils/use-store';
 
-function Basket(){
-
+function Basket() {
   console.log('Basket');
 
   const store = useStore();
@@ -19,22 +18,41 @@ function Basket(){
   }));
 
   const callbacks = {
-    // Закрытие любой модалки
+    // Закрытие модального окна
     closeModal: useCallback(() => store.get('modals').close(), []),
+    
     // Удаление из корзины
     removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), [])
   };
 
+  // translater
+  const translate = (path, amount = null) => store.get('local').translate(path, amount);
+
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
-  }
+    itemBasket: useCallback(
+      item => (
+        <ItemBasket
+          item={item}
+          onRemove={callbacks.removeFromBasket}
+          onItemOpen={callbacks.closeModal}
+          text={{piece: translate('basket.piece'), remove: translate('common.remove')}}
+          baseUrl={'/article'}
+        />
+      ),
+      []
+    )
+  };
 
   return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
-      <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+    <LayoutModal
+      title={translate('basket.header')}
+      onClose={callbacks.closeModal}
+      closeButtonLabel={translate('common.close')}
+    >
+      <List items={select.items} renderItem={renders.itemBasket} />
+      <BasketTotal sum={select.sum} totalLabel={translate('basket.totalLabel')} />
     </LayoutModal>
-  )
+  );
 }
 
 export default React.memo(Basket);

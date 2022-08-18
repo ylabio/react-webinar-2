@@ -9,7 +9,6 @@ import ProductInfo from '../../components/product-info';
 export default function Product() {
 
     let { id } = useParams();
-
     const store = useStore();
 
     useEffect(() => {
@@ -37,14 +36,7 @@ export default function Product() {
     return (
         <Layout head={<h1>{select.name}</h1>}>
             <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-            <ProductInfo>
-                <p>{select.desc}</p>
-                <p>Страна производитель: <b>{select.maidIn}</b></p>
-                <p>Категория: <b>{select.category}</b></p>
-                <p>Год выпуска: <b>{select.date}</b></p>
-                <h3>Цена: {Number(select.price).toLocaleString()} ₽</h3>
-                <button onClick={()=>{callbacks.addToBasket(id)}}>Добавить</button>
-            </ProductInfo>
+            <ProductInfo select={select}/>
         </Layout>
     )
 }

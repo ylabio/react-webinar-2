@@ -4,12 +4,14 @@ import { useParams } from 'react-router';
 import useSelector from '../../utils/use-selector';
 import useStore from '../../utils/use-store';
 
-import LinkedBasket from '../../components/linked-basket';
 import Layout from '../../components/layout';
 import ItemInfo from '../../components/item-info';
 
 import './style.css';
 import Loader from '../../components/loader';
+import MenuNav from '../../components/menu-nav';
+import BasketSimple from '../../components/basket-simple';
+import Menu from '../../components/menu';
 
 function ItemDetails() {
 	const store = useStore();
@@ -47,11 +49,19 @@ function ItemDetails() {
 			{isLoading && <Loader />}
 			{!isLoading && (
 				<>
-					<LinkedBasket
-						onOpen={callbacks.openModalBasket}
-						amount={amount}
-						sum={sum}
-					/>
+					<div>
+						<MenuNav
+							left={<Menu linkTo="/" />}
+							right={
+								<BasketSimple
+									onOpen={callbacks.openModalBasket}
+									amount={amount}
+									sum={sum}
+								/>
+							}
+						/>
+					</div>
+
 					{item && (
 						<ItemInfo item={item} onAdd={callbacks.addToBasket} />
 					)}

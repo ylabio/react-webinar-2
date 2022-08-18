@@ -18,9 +18,7 @@ function Item(props) {
 	return (
 		<div className={cn()}>
 			<div className={cn('title')}>
-				<Link to={`${props.deleteByIdAPI}${props.item._id}`}>
-					{props.item.title}
-				</Link>
+				<Link to={`${props.linkTo}`}>{props.item.title}</Link>
 			</div>
 			<div className={cn('right')}>
 				<div className={cn('price')}>
@@ -34,13 +32,12 @@ function Item(props) {
 
 Item.propTypes = {
 	item: propTypes.object.isRequired,
-	deleteByIdAPI: propTypes.string,
+	linkTo: propTypes.string.isRequired,
 	onAdd: propTypes.func,
 };
 
 Item.defaultProps = {
 	onAdd: () => {},
-	deleteByIdAPI: '/articles/',
 };
 
 export default React.memo(Item);

@@ -9,6 +9,7 @@ import Layout from '../../components/layout';
 import Item from '../../components/item';
 import Pagination from '../../components/pagination';
 import Loader from '../../components/loader';
+import MenuNav from '../../components/menu-nav';
 
 function Main() {
 	console.log('Main');
@@ -48,17 +49,27 @@ function Main() {
 
 	const renders = {
 		item: useCallback(
-			(item) => <Item item={item} onAdd={callbacks.addToBasket} />,
+			(item) => (
+				<Item
+					item={item}
+					onAdd={callbacks.addToBasket}
+					linkTo={`/articles/${item._id}`}
+				/>
+			),
 			[],
 		),
 	};
 
 	return (
 		<Layout head={<h1 lang="ru">Магазин</h1>}>
-			<BasketSimple
-				onOpen={callbacks.openModalBasket}
-				amount={select.amount}
-				sum={select.sum}
+			<MenuNav
+				right={
+					<BasketSimple
+						onOpen={callbacks.openModalBasket}
+						amount={select.amount}
+						sum={select.sum}
+					/>
+				}
 			/>
 			{select.isLoading && <Loader />}
 			{!select.isLoading && (

@@ -1,0 +1,10 @@
+.Menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+  
+  .Menu-link{
+    color: #0087E9;
+    font-size: 18px;
+  }

@@ -1,0 +1,23 @@
+/* Контрол с общими действиями */
+.BasketSimple{
+    position: relative;
+    float: right;
+    padding: 20px;
+    font-size: 18px;
+}
+.BasketSimple-link{
+    font-size: 18px;
+    line-height: 21px;
+    color: #0087E9;
+    text-decoration-line: underline;
+}
+.BasketSimple-label{
+
+}
+.BasketSimple-total{
+    font-weight: bold;
+    margin: 0 15px;
+}
+.BasketSimple__button{
+    height: 21px;
+}

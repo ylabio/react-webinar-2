@@ -14,12 +14,24 @@
     width: 100%;
     padding: 20px 10px;
 }
+.Item-title a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.Item-title a:hover{
+    cursor: pointer;
+    text-decoration-line: underline;
+}
 
 .Item-right {
     padding: 20px 20px 20px 10px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+}
+.Item-right button{
+    width: max-content;
 }
 
 .Item-price {

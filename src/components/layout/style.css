@@ -13,12 +13,22 @@ body{
     background: #fff;
     box-sizing: border-box;
     box-shadow: 0 0 15px 5px #0000003b;
+    position: relative;
 }
 .Layout-head{
     height: 80px;
     background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
+.Layout-head select{
+    margin-top: 15px;
+    margin-right: 20px;
+}
+
 .Layout-head h1{
     margin: 0;
     padding: 20px 20px 10px;
 }
+

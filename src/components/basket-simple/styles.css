@@ -1,13 +1,15 @@
 /* Контрол с общими действиями */
 .BasketSimple{
-    display: flex;
-    justify-content: flex-end;
-    padding: 20px;
+    display: inline-block;
     font-size: 18px;
+    text-align: end;
+    position: absolute;
+    right: 20px;
+    margin: 20px 0 20px 0;
 }
 
-.BasketSimple-label{
-
+.BasketSimple-content{
+    display: inline-block;
 }
 
 .BasketSimple-total{

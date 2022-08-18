@@ -3,16 +3,23 @@ import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
 
-function Layout({head, children}){
+function Layout(props){
   const cn = bem('Layout');
 
   return (
     <div className={cn()}>
       <div className={cn('head')}>
-        {head}
+        <h1 className={cn('title')}>
+          {props.title}
+        </h1>
+        {/* <button className={cn('close')} onClick={props.changeLanguage}>RU/ENG</button> */}
+        <select onChange={props.changeLanguage} defaultValue={props.lang}>
+          <option value='ru'>RU</option>
+          <option value='eng'>ENG</option>
+        </select>
       </div>
       <div className={cn('content')}>
-        {children}
+        {props.children}
       </div>
     </div>
   )
@@ -21,6 +28,7 @@ function Layout({head, children}){
 Layout.propTypes = {
   head: propTypes.node,
   children: propTypes.node,
+  changeLanguage: propTypes.func.isRequired
 }
 
 Layout.defaultProps = {

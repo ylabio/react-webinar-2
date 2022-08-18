@@ -1,0 +1,35 @@
+.PaginationMain{
+    display: flex;
+    justify-content: end;
+    margin-top: 23px;
+    margin-right: 22px;
+    padding-bottom: 23px;
+}
+.PaginationMain-number{
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding-top: 1px;
+}
+.PaginationMain-number:hover{
+    background: #DADADA;
+}
+.PaginationMain-active{
+    background: #0087E9;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    padding-top: 1px;
+}
+.PaginationMain-ellipsis{
+    color: #CCCCCC;
+    padding-top: 1px;
+    margin-left: 1px;
+    margin-right: 1px;
+}

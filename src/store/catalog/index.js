@@ -12,15 +12,22 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
+      count: 0,
+      itemsPerPage: 10,
+      currentPage: 1,
       items: []
     };
   }
-
-  async load(){
-    const response = await fetch('/api/v1/articles');
+  
+  async load(pageNumber = 1){
+    const firstItemIndex = (pageNumber - 1) * this.initState().itemsPerPage;
+    const response = await fetch(`/api/v1/articles?&limit=${this.initState().itemsPerPage}&fields=items(*),count&skip=${firstItemIndex}`);
     const json = await response.json();
     this.setState({
-      items: json.result.items
+      count: json.result.count,
+      items: json.result.items,
+      itemsPerPage: this.initState().itemsPerPage,
+      currentPage: pageNumber
     });
   }
 

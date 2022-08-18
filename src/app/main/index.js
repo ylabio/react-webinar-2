@@ -39,7 +39,7 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} link={item._id} onAdd={callbacks.addToBasket} language={select.language}/>, [select.language]),
+    item: useCallback(item => <Item item={item} link={`/articles/${item._id}`} onAdd={callbacks.addToBasket} language={select.language}/>, [select.language]),
   }
 
   useEffect(() => {

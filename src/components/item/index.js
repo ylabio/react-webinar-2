@@ -20,7 +20,7 @@ function Item(props) {
       {/*</div>*/}
     <div className={cn('title')}>
       {props.link
-        ? <Link to={`/articles/${props.item._id}`}>
+        ? <Link to={props.link}>
           {props.item.title}
         </Link>
         : <div>

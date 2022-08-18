@@ -6,6 +6,7 @@ import {cn as bem} from "@bem-react/classname";
 
 const PageContent = ({data, addToBasket}) => {
     const cn = bem('ItemPage');
+    console.log(data);
     return (
         <div className={cn()}>
             <p>

@@ -15,31 +15,66 @@ class CatalogState extends StateModule {
         return {
             items: [],
             amount: 0,
-            isLoading: true
+            limit: 0,
+            currentPage: 1,
+            skip: 0,
+            isLoading: true,
+            title: ''
         };
     }
 
     async loadInit() {
         const json = await getCountList();
         this.setState({
+            ...this.getState(),
             items: json.items,
             amount: json.count
         })
     }
 
-    async load(limit, skip) {
-        const obj = await getItemList(limit, skip);
+    async load() {
+        console.log(this.getState().limit, this.getState().skip);
+        const obj = await getItemList(this.getState().limit, this.getState().skip);
         this.setState({
+            ...this.getState(),
             amount: this.getState().amount,
             items: obj.items
         });
     }
 
-    setIsLoading() {
+    setIsLoading(loading) {
         this.setState({
             ...this.getState(),
-            isLoading: !this.getState().isLoading
+            isLoading: loading
         })
+    }
+
+    setLimit(limit) {
+        this.setState({
+            ...this.getState(),
+            limit: limit,
+        });
+    }
+
+    setCurrentPage(currentPage) {
+        this.setState({
+            ...this.getState(),
+            currentPage: currentPage,
+        });
+    }
+
+    setTitle(title) {
+        this.setState({
+            ...this.getState(),
+            title: title,
+        });
+    }
+
+    setSkip(skip) {
+        this.setState({
+            ...this.getState(),
+            skip: skip,
+        });
     }
 
     /**

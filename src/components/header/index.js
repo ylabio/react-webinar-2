@@ -8,7 +8,7 @@ const Header = ({title}) => {
     return (
         <div className={cn()}>
             <h1>
-                {title}
+                {title === '' ? 'Магазин' : title}
             </h1>
         </div>
     );

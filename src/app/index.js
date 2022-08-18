@@ -14,12 +14,33 @@ import {getItemById} from "../api/api";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
+    const store = useStore();
     const modal = useSelector(state => state.modals.name);
+    
+    useEffect(() => {
+        console.log('render');
+    })
+
+    useEffect(() => {
+        store.get('catalog').loadInit();
+    }, [])
+
+    const select = useSelector(state => ({
+        items: state.catalog.items,
+        amount: state.basket.amount,
+        sum: state.basket.sum,
+        title: state.catalog.title
+    }));
+
+    const callbacks = {
+        openModalBasket: useCallback(() => store.get('modals').open('basket'), [])
+    };
 
     return (
         <>
             <Routes>
-                <Route path={'/'} element={<Layout/>}>
+                <Route path={'/'} element={<Layout sum={select.sum} title={select.title} amount={select.amount}
+                                                   onOpen={callbacks.openModalBasket}/>}>
                     <Route index element={<Main/>}/>
                     <Route path={'articles/:id'} element={<ItemPage/>}/>
                 </Route>

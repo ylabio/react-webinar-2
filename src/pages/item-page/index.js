@@ -15,6 +15,7 @@ export const ItemPage = () => {
     const callbacks = {
         // Добавление в корзину
         addToBasket: useCallback(_id => store.get('basket').addToBasket(params.id), []),
+        setTitle: useCallback((title) => store.get('catalog').setTitle(title), [])
     };
 
     const getInfo = async () => {
@@ -22,6 +23,7 @@ export const ItemPage = () => {
             let obj = r.data.result;
             const result = await getCountryById(r.data.result.maidIn._id);
             const category = await getCategoryById(r.data.result.category._id);
+            callbacks.setTitle(obj.title);
             if (category !== true) {
                 obj = {
                     ...obj,

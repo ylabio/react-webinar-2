@@ -4,32 +4,38 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import {Pagination} from "../../components/pagination";
-import {cn as bem} from "@bem-react/classname";
 import Loading from "../../components/loading";
 
 function Main() {
     const store = useStore();
-    const cn = bem('Main');
-    const [page, setPage] = useState(1);
-    const [limit] = useState(10);
 
     const select = useSelector(state => ({
         amount: state.catalog.amount,
         items: state.catalog.items,
-        isLoading: state.catalog.isLoading
+        isLoading: state.catalog.isLoading,
+        currentPage: state.catalog.currentPage,
+        skip: state.catalog.skip,
+        limit: state.catalog.limit
     }));
 
     useEffect(() => {
-        if (page === 0) {
-            store.get('catalog').load(10, 0);
-        } else {
-            store.get('catalog').load(limit, (page - 1) * limit);
-        }
-        store.get('catalog').setIsLoading();
-    }, [page]);
+        store.get('catalog').setIsLoading(true);
+        store.get('catalog').setSkip((select.currentPage - 1) * select.limit);
+        store.get('catalog').load().then(() => {
+            store.get('catalog').setIsLoading(false);
+        });
+
+    }, [select.currentPage]);
+
+    useEffect(() => {
+        store.get('catalog').setLimit(10);
+        store.get('catalog').setTitle('');
+    }, [])
+
 
     const callbacks = {
         addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+        setCurrentPage: useCallback(currentIndex => store.get('catalog').setCurrentPage(currentIndex), [])
     };
 
     const renders = {
@@ -43,9 +49,10 @@ function Main() {
     return (
         <>
             <List items={select.items} renderItem={renders.item}/>
-            <Pagination activeIndex={page} setPage={setPage} itemsPerPage={10} totalItems={select.amount}/>
+            <Pagination activeIndex={select.currentPage} setPage={callbacks.setCurrentPage} itemsPerPage={10}
+                        totalItems={select.amount}/>
         </>
     )
 }
 
-export default React.memo(Main);
+export default Main;

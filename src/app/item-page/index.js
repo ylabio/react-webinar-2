@@ -5,6 +5,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import { useParams } from "react-router-dom";
 import ItemDescription from "../../components/item-description";
+import Navigation from "../../components/navigation";
 
 
 function ItemPage(){
@@ -12,6 +13,10 @@ function ItemPage(){
   let { id } = useParams();
   const store = useStore();
 
+
+  useEffect(() => {
+    store.get('catalog').load();
+  }, [])
   useEffect(() => {
     store.get('itemInfo').load(id);
   }, [id])
@@ -32,7 +37,10 @@ function ItemPage(){
 
   return (
     <Layout head={<h1>{select.item.title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <div className='Layout-header'>
+        <Navigation/>
+        <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      </div>
       <ItemDescription item={select.item} onAdd={callbacks.addToBasket}/>
     </Layout>
   )

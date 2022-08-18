@@ -1,0 +1,31 @@
+/*Пагинация*/
+
+.Pagination{
+    padding: 23px;
+
+}
+.Pagination-tabs{
+    display: flex;
+    justify-content: flex-end;
+
+}
+.Pagination-tab{
+    line-height: 18px;
+    min-width: 18px;
+    height: 18px;
+    text-align: center;
+
+}
+.Pagination-tab:hover{
+    background-color: #E1E1E1;
+
+}
+
+.Pagination-active{
+    background-color: #0087E9;
+    color: white;
+    line-height: 18px;
+    min-width: 18px;
+    height: 18px;
+    text-align: center;
+}

@@ -12,17 +12,43 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      count:0,
+      limit:10,
+      currentPage:1,
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+
+
+  async load(skip){
+
+    const response = await fetch(`/api/v1/articles`);
     const json = await response.json();
     this.setState({
-      items: json.result.items
+      items: json.result.items,
+    });
+
+  }
+  async switchPage(limit=10) {
+    const skip = (this.getState().currentPage - 1) * limit;
+    const response = await fetch(`/api/v1/articles?limit=10&skip=${skip}&fields=items(*),count`);
+    const json = await response.json();
+    this.setState({
+      items: json.result.items,
+      count:json.result.count,
+      currentPage:this.getState().currentPage
     });
   }
+  setPageNumber(page) {
+    this.setState(
+        {
+          ...this.getState(),
+          currentPage: page,
+        },
+    );
+  }
+
 
   /**
    * Создание записи
@@ -42,6 +68,8 @@ class CatalogState extends StateModule{
       items: this.getState().items.filter(item => item._id !== _id)
     }, 'Удаление товара');
   }
+
+
 }
 
 export default CatalogState;

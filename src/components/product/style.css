@@ -1,0 +1,19 @@
+.Product {
+  font-size: 18px;
+  line-height: 21px;
+  padding: 20px 40px;
+}
+
+.Product-description {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.Product-description > li:nth-child(n+2) {
+  margin-top: 20px;
+}
+
+.Product-price {
+  font-size: 24px;
+}

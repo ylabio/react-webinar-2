@@ -15,6 +15,16 @@
     padding: 20px 10px;
 }
 
+.Item-title > a {
+    text-decoration: none;
+    color: #000000;;
+}
+
+
+.Item-title > a:hover {
+   text-decoration: underline;
+}
+
 .Item-right {
     padding: 20px 20px 20px 10px;
     display: flex;
@@ -25,4 +35,10 @@
 .Item-price {
     padding: 0 10px;
     white-space: nowrap;
+}
+
+.Item-button {
+    width: 76px;
+    height: 21px;
+    cursor: pointer;
 }

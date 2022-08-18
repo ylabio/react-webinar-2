@@ -1,0 +1,29 @@
+.Pagination {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: end;
+	margin: 0;
+	padding: 20px;
+	list-style: none;
+}
+
+.Pagination-page, .Pagination-page_current, .Pagination-page_dots {
+	width: 20px;
+	height: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.Pagination-page, .Pagination-page_current {
+	cursor: pointer;
+}
+
+.Pagination-page:hover {
+	background-color: #E1E1E1;
+}
+
+.Pagination-page_current {
+	color: #fff;
+	background-color: #0087E9;
+}

@@ -12,7 +12,9 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
-      count: 0
+      count: 0,
+      limit: 10,
+      skip: 0
     };
   }
   /**
@@ -22,10 +24,10 @@ class CatalogState extends StateModule {
    * @param fields {String}
    * @param count {Boolean}
    */
-  async load({ limit, skip, fields, count } = { limit: 10, skip: 0, fields: "items(*)", count: true }) {
-    limit = limit ?? 10;
-    skip = skip ?? 0;
-    fields = fields ?? "items(*)",
+  async load({ fields, count } = { fields: "items(*)", count: true }) {
+    const limit = this.getState().limit ?? 10;
+    const skip = this.getState().skip ?? 0;
+    fields = fields ?? "items(*)";
     count = count || true;
 
     this.store.get('params').setIsLoaded(false);
@@ -33,6 +35,7 @@ class CatalogState extends StateModule {
     const json = await response.json();
     if (count === true) {
       this.setState({
+        ...this.getState(),
         items: json.result.items,
         count: json.result.count
       }, `load ${limit} items`);
@@ -63,6 +66,21 @@ class CatalogState extends StateModule {
     this.setState({
       items: this.getState().items.filter(item => item._id !== _id)
     }, 'Удаление товара');
+  }
+
+  /**
+ * Устанавливает параметры загрузки товаров
+ * @param limit {number} отвечает за то, сколько товаров будет выводится в каталоге
+ * @param skip {number} отвечает за то, какие limit товаров будут выводится в каталоге (первые 10 или с 30 по 50...)
+ */
+  setLoadOptions({ limit, skip }) {
+    limit = limit ?? this.getState().limit;
+    skip = skip ?? this.getState.skip;
+    this.setState({
+      ...this.getState(),
+      limit,
+      skip
+    }, `установка параметров загрузки товаров`)
   }
 }
 

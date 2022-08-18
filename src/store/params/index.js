@@ -42,7 +42,7 @@ class ParamsState extends StateModule {
         this.setState({
             ...this.getState(),
             paginationPage
-        })
+        }, 'установка страницы пагинации')
     }
 }
 

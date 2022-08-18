@@ -24,9 +24,11 @@ function Main() {
     sum: state.basket.sum,
     isLoaded: state.params.isLoaded,
     count: state.catalog.count,
-    lang: state.params.lang
+    lang: state.params.lang,
+    limit: state.catalog.limit,
+    skip: state.catalog.limit
   }));
-  
+
   const {
     page,
     gaps,
@@ -38,7 +40,8 @@ function Main() {
   });
 
   useEffect(() => {
-    store.get('catalog').load({ limit: contentPerPage, skip: (page - 1) * contentPerPage });
+    store.get('catalog').setLoadOptions({ limit: contentPerPage, skip: (page - 1) * contentPerPage })
+    store.get('catalog').load();
   }, [])
 
   const callbacks = {
@@ -49,8 +52,9 @@ function Main() {
     // Переход на страницу по пагинации
     onClick: useCallback(async (page) => {
       setPage(page);
-      await store.get('catalog').load({ limit: contentPerPage, skip: (page - 1) * contentPerPage });
-    }, [page, select.count]),
+      store.get('catalog').setLoadOptions({ skip: (page - 1) * select.limit })
+      await store.get('catalog').load({ limit: select.limit, skip: select.skip });
+    }, [page, select.count, select.limit]),
     // Установить язык страницы
     setLang: useCallback((l) => store.get('params').setLang(l), [select.lang])
   };
@@ -64,8 +68,8 @@ function Main() {
     item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket} linkTo={"/item"} text={itemText} />, [select.lang]),
     head: <>
       <h1>
-      {select.isLoaded ? layoutText.title : "Loading..."}
-      <MultiLang langArr={["RU", "ENG"]} setLang={callbacks.setLang} />
+        {select.isLoaded ? layoutText.title : "Loading..."}
+        <MultiLang langArr={["RU", "ENG"]} setLang={callbacks.setLang} />
       </h1>
     </>
   }

@@ -1,42 +1,25 @@
-import React, { useCallback, useContext } from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
-import { cn as bem } from "@bem-react/classname";
-import numberFormat from "../../utils/numberFormat";
+import {cn as bem} from "@bem-react/classname";
+import {Link} from "react-router-dom";
+import numberFormat from "../../utils/number-format";
 import './style.css';
-
-
-import { ContextTitle } from './../../store/contextTitle';
-import LinkMenu from '../link-menu';
 
 function Item(props) {
   const cn = bem('Item');
-  const {itemsSkipPages,selectedNumber} = useContext(ContextTitle)
-  const callbacks = {
-    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
 
+  const callbacks = {
+    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
-  const { setTitle } = useContext(ContextTitle)
+
   return (
     <div className={cn()}>
-      {/*<div className={cn('id')}>*/}
-      {/*  {props.item._id}*/}
-      {/*</div>*/}
-      <div className={cn('title')} >
-        <LinkMenu
-          title={props.item.title}
-          setTitle={setTitle}
-          localStorageKey={'title'}
-          localStorageValue={props.item.title}
-          path={'/info/'}
-          idItem={props.item._id}
-        >
-          {props.item.title}
-        </LinkMenu>
-
+      <div className={cn('title')}>
+        {props.link ? <Link to={props.link}>{props.item.title}</Link> : props.item.title}
       </div>
       <div className={cn('right')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <div className={cn('price')}>{numberFormat(props.item.price)} {props.labelCurr}</div>
+        <button onClick={callbacks.onAdd}>{props.labelAdd}</button>
       </div>
     </div>
   )
@@ -45,12 +28,15 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
-
+  link: propTypes.string,
+  labelCurr: propTypes.string,
+  labelAdd: propTypes.string
 }
 
 Item.defaultProps = {
-  onAdd: () => { },
-
+  onAdd: () => {},
+  labelCurr: '₽',
+  labelAdd: 'Добавить'
 }
 
 export default React.memo(Item);

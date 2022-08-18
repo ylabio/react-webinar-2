@@ -1,11 +1,22 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
-import axios from "axios";
+import qs from 'qs';
+
+const QS_OPTIONS = {
+  stringify: {
+    addQueryPrefix: true,
+    arrayFormat: 'comma',
+    encode: false
+  },
+  parse: {
+    ignoreQueryPrefix: true,
+    comma: true
+  }
+}
 
 /**
  * Состояние каталога
  */
-class CatalogState extends StateModule {
+class CatalogState extends StateModule{
 
   /**
    * Начальное состояние
@@ -13,60 +24,87 @@ class CatalogState extends StateModule {
    */
   initState() {
     return {
-      items:[],
-      cuurentItem: {},
-      lengthItems:0
+      items: [],
+      count: 0,
+      params: {
+        page: 1,
+        limit: 10,
+        sort: 'order',
+        query: ''
+      },
+      waiting: false
     };
   }
 
-  async getItems(nextList = 0, limit) {
-    const result = await axios(`/api/v1/articles?limit=${limit}&skip=${nextList}&fields=items(*),count`);
+  /**
+   * Инициализация параметров.
+   * Восстановление из query string адреса
+   * @param params
+   * @return {Promise<void>}
+   */
+  async initParams(params = {}){
+    // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
+    const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
+    let validParams = {};
+    if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
+    if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
+    if (urlParams.sort) validParams.sort = urlParams.sort;
+    if (urlParams.query) validParams.query = urlParams.query;
+
+    // Итоговые параметры из начальных, из URL и из переданных явно
+    const newParams = {...this.initState().params, ...validParams, ...params};
+    // Установка параметров и подгрузка данных
+    await this.setParams(newParams, true);
+  }
+
+  /**
+   * Сброс параметров к начальным
+   * @param params
+   * @return {Promise<void>}
+   */
+  async resetParams(params = {}){
+    // Итоговые параметры из начальных, из URL и из переданных явно
+    const newParams = {...this.initState().params, ...params};
+    // Установк параметров и подгрузка данных
+    await this.setParams(newParams);
+  }
+
+  /**
+   * Устанвока параметров и загрузка списка товаров
+   * @param params
+   * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
+   * @returns {Promise<void>}
+   */
+  async setParams(params = {}, historyReplace = false){
+    const newParams = {...this.getState().params, ...params};
+
+    // Установка новых параметров и признака загрузки
     this.setState({
-      items: result.data.result.items,
-      lengthItems:result.data.result.count
+      ...this.getState(),
+      params: newParams,
+      waiting: true
     });
-    localStorage.setItem('items',JSON.stringify(result.data.result.items))
-   
-  }
-  isEmpty(obj) {
-    for (var key in obj) {
-      return true;
+
+    const skip = (newParams.page - 1) * newParams.limit;
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    const json = await response.json();
+
+    // Установка полученных данных и сброс признака загрузки
+    this.setState({
+      ...this.getState(),
+      items: json.result.items,
+      count: json.result.count,
+      waiting: false
+    });
+
+    // Запоминаем параметры в URL
+    let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);
+    const url = window.location.pathname + queryString + window.location.hash;
+    if (historyReplace) {
+      window.history.replaceState({}, '', url);
+    } else {
+      window.history.pushState({}, '', url);
     }
-    return false;
-  }
-  async getItemById(id) {
-
-    const result = await axios(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`)
-    const data = result.data.result
-    this.setState({
-      ...this.getState(),
-      cuurentItem: { ...data }
-    })
-    
-  }
-  cuurentItemDefaultValue() {
-    this.setState({
-      ...this.getState(),
-      cuurentItem: {}
-    })
-  }
-  /**
-   * Создание записи
-   */
-  createItem({ _id, title = 'Новый товар', price = 999, selected = false }) {
-    this.setState({
-      items: this.getState().items.concat({ _id, title, price, selected })
-    }, 'Создание товара');
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param _id
-   */
-  deleteItem(_id) {
-    this.setState({
-      items: this.getState().items.filter(item => item._id !== _id)
-    }, 'Удаление товара');
   }
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 
-function Controls({ onAdd }) {
+function Controls({onAdd}){
   return (
     <div className='Controls'>
       <button onClick={onAdd}>Добавить</button>
@@ -15,7 +15,7 @@ Controls.propTypes = {
 }
 
 Controls.defaultProps = {
-  onAdd: () => { } // Значение по умолчанию - функция-заглушка
+  onAdd: () => {} // Значение по умолчанию - функция-заглушка
 }
 
 export default React.memo(Controls);

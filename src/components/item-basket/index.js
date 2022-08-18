@@ -1,42 +1,28 @@
-import React, { useCallback, useContext } from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
-import numberFormat from "../../utils/numberFormat";
-import { cn as bem } from "@bem-react/classname";
+import numberFormat from "../../utils/number-format";
+import {cn as bem} from "@bem-react/classname";
+import {Link} from "react-router-dom";
 import './styles.css';
-import useStore from './../../utils/use-store';
-import { Link } from 'react-router-dom';
-import { ContextTitle } from '../../store/contextTitle';
-import LinkMenu from '../link-menu';
-function ItemBasket(props) {
-  const cn = bem('ItemBasket');
-  const store = useStore()
-  const callbacks = {
-    onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove, props.item]),
-    closeModal: useCallback(() =>props.closeModal(), []),
 
+function ItemBasket({item, link, onRemove, onLink, labelDelete, labelUnit, labelCurr}) {
+  const cn = bem('ItemBasket');
+
+  const callbacks = {
+    onRemove: useCallback((e) => onRemove(item._id), [onRemove, item])
   };
 
-  const { setTitle } = useContext(ContextTitle)
   return (
     <div className={cn()}>
-      {/*<div className={cn('id')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <LinkMenu
-          title={props.item.title}
-          setTitle={setTitle}
-          localStorageKey={'title'}
-          localStorageValue={props.item.title}
-          path={'/info/'}
-          idItem={props.item._id}
-          closeModal={callbacks.closeModal}
-        >
-          {props.item.title}
-        </LinkMenu>
+        {link ? <Link onClick={onLink} to={link}>{item.title}</Link> : item.title}
       </div>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}>Удалить</button></div>
+        <div className={cn('cell')}>{numberFormat(item.price)} {labelCurr}</div>
+        <div className={cn('cell')}>{numberFormat(item.amount || 0)} {labelUnit}</div>
+        <div className={cn('cell')}>
+          <button onClick={callbacks.onRemove}>{labelDelete}</button>
+        </div>
       </div>
     </div>
   )
@@ -45,10 +31,18 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
+  link: propTypes.string,
+  onLink: propTypes.func,
+  labelCurr: propTypes.string,
+  labelDelete: propTypes.string,
+  labelUnit: propTypes.string,
 }
 
 ItemBasket.defaultProps = {
-
+  onLink: () => {},
+  labelCurr: '₽',
+  labelUnit: 'шт',
+  labelDelete: 'Удалить',
 }
 
 export default React.memo(ItemBasket);

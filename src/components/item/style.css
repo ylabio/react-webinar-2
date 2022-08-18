@@ -13,16 +13,20 @@
 .Item-title {
     width: 100%;
     padding: 20px 10px;
+    color: #000;
 }
-.Item-title a{
-    color: black;
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-}
-.Item-title a:hover{
-    border-bottom: 1px solid black;
 
+.Item-title a{
+    color: #000;
+    text-decoration: none;
 }
+
+.Item-title a:hover{
+    color: #000;
+    text-decoration: underline;
+}
+
+
 .Item-right {
     padding: 20px 20px 20px 10px;
     display: flex;

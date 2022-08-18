@@ -1,15 +1,13 @@
 /* Контрол с общими действиями */
-
 .BasketSimple{
     display: flex;
-    justify-content: space-between;
-    padding: 20px;
+    justify-content: flex-end;
+    padding: 0;
     font-size: 18px;
 }
 
-.BasketSimple-home a{
+.BasketSimple-label{
 
-    color:#0087E9
 }
 
 .BasketSimple-total{

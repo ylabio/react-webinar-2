@@ -13,13 +13,14 @@ let config = {
     path: path.join(__dirname, 'dist'), // Куда и как делать сборку
     filename: '[name].js',
     clean: true, // Очистить ./dist от предыдущей сборки
+    publicPath: '/'
   },
   plugins: [
     new MiniCssExtractPlugin(), // Сборка стилей в отдельный файл
     new HtmlWebPackPlugin({ // Создание dist/index.html с подключенной сборкой
       template: './index.html',
       filename: './index.html',
-      base: '',
+      base: '/',
     }),
   ],
   //
@@ -55,6 +56,13 @@ if (process.env.NODE_ENV === 'development') {
     static: path.join(__dirname, 'dist'),
     port: 8010,
     historyApiFallback: true,
+    proxy: {
+      '/api/**': {
+        target: 'http://example.front.ylab.io',
+        secure: false,
+        changeOrigin: true,
+      },
+    },
   };
 }
 

@@ -1,0 +1,31 @@
+.PageControls {
+    padding-top: 23px;
+    padding-right: 23px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.PageControls-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 18px;
+}
+.PageControls-page {
+    font-size: medium;
+    background: transparent;
+    border: transparent;
+}
+.PageControls-page:hover {
+    font-size: medium;
+    background-color: #E1E1E1;
+}
+.PageControls-page-selected {
+    font-size: medium;
+    color: white;
+    background-color: #0087E9;
+    border: transparent;
+}
+.PageControls-delimiter {
+    color: #CCCCCC;
+}

@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../utils/use-store";
 import useSelector from "../utils/use-selector";
+import Article from './article';
 
 /**
  * Приложение
@@ -16,8 +17,11 @@ function App() {
 
   return (
     <>
-      <Main/>
       {modal === 'basket' && <Basket/>}
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="articles/:id" element={<Article />} />
+      </Routes>
     </>
   );
 }

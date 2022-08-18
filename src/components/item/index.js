@@ -18,7 +18,7 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')}>
-        <Link to={"/item?id=" + props.item._id}>
+        <Link to={props.linkTo + props.item._id}>
           <span>
             {props.item.title}
           </span>

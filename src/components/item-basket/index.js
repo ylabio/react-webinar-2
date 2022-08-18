@@ -17,7 +17,7 @@ function ItemBasket(props) {
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
       <div className={cn("title")}>
-        <Link to={"/item?id=" + props.item._id}>
+        <Link to={props.linkTo + props.item._id}>
           <div onClick={props.onClose}>{props.item.title}</div>
         </Link>
       </div>

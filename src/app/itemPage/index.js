@@ -1,9 +1,9 @@
-import BasketSimple from "../../components/basket-simple";
 import Layout from "../../components/layout";
 import ItemInfo from "../../components/itemInfo";
 import React, {useCallback, useEffect} from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import Header from "../../components/header";
 
 function ItemPage(props){
 
@@ -36,7 +36,7 @@ function ItemPage(props){
 
   return (
     <Layout head={<h1>{select.item.title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <Header openModalBasket={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
       <ItemInfo item={select.item} onAdd={callbacks.addToBasket} />
     </Layout>
   )

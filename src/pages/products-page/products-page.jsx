@@ -7,7 +7,7 @@ import Product from './product';
 import { useRef } from 'react';
 import Layout from '../../components/layout';
 import BasketSimple from '../../components/basket-simple';
-import { MenuBasker } from './../../components/menu-basker';
+import { MenuBasker } from '../../components/menu/menu-basker';
 
 const ProductsPage = () => {
 

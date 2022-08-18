@@ -5,7 +5,7 @@ import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pagination from "../../components/pagination/pagination";
-import { MenuBasker } from "../../components/menu-basker";
+import { MenuBasker } from "../../components/menu/menu-basker";
 
 function Main({ }) {
 

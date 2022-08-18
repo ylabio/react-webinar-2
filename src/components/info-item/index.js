@@ -10,9 +10,10 @@ import { ContextTitle } from '../../store/contextTitle';
 import Info from './info';
 function InfoItem(props) {
     const store = useStore()
-    const { title } = useContext(ContextTitle)
+    const { title,itemsSkipPages } = useContext(ContextTitle)
     const { id } = useParams()
     const select = useSelector(state => ({
+        items: state.catalog.items,
         cuurentItem: state.catalog.cuurentItem,
         sum: state.basket.sum,
         amount: state.basket.amount,
@@ -23,11 +24,13 @@ function InfoItem(props) {
         isEmpty: useCallback(obj => store.get('catalog').isEmpty(obj), []),
         openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
         cuurentItemDefaultValue: useCallback(() => store.get('catalog').cuurentItemDefaultValue(), []),
-
+        getItems:useCallback((itemsSkipPages)=>store.get('catalog').getItems(0, itemsSkipPages),[]),
+        getItemById:useCallback((id)=>store.get('catalog').getItemById(id),[]) 
     };
 
     useEffect(() => {
-        store.get('catalog').getItemById(id)
+        callbacks.getItemById(id)
+     
     }, [id])
 
     return (

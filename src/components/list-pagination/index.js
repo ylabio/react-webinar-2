@@ -29,7 +29,7 @@ ListAndPagination.propTypes = {
 }
 
 ListAndPagination.defaultProps = {
-    items: [],
+    
     renderItem: (item) => {
         return item.toString()
     },

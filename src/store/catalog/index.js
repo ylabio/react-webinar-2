@@ -13,24 +13,18 @@ class CatalogState extends StateModule {
    */
   initState() {
     return {
-      items: [],
+      items:JSON.parse(localStorage.getItem('items')||'[]'),
       cuurentItem: {},
     };
   }
 
   async getItems(nextList = 0, limit) {
-
     const result = await axios(`/api/v1/articles?limit=${limit}&skip=${nextList}&fields=items(*),count`);
-
-
     this.setState({
-
       items: result.data.result.items,
-
-
     });
-
-
+    localStorage.setItem('items',JSON.stringify(result.data.result.items))
+   
   }
   isEmpty(obj) {
     for (var key in obj) {
@@ -46,7 +40,7 @@ class CatalogState extends StateModule {
       ...this.getState(),
       cuurentItem: { ...data }
     })
-
+    
   }
   cuurentItemDefaultValue() {
     this.setState({

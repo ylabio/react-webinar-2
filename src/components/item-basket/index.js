@@ -6,12 +6,13 @@ import './styles.css';
 import useStore from './../../utils/use-store';
 import { Link } from 'react-router-dom';
 import { ContextTitle } from '../../store/contextTitle';
+import LinkMenu from '../link-menu';
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
   const store = useStore()
   const callbacks = {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove, props.item]),
-    closeModal: useCallback(() => store.get('modals').close(), []),
+    closeModal: useCallback(() =>props.closeModal(), []),
 
   };
 
@@ -19,12 +20,19 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
-      <div className={cn('title')}><Link to={`/info/${props.item._id}`} onClick={() => {
-        setTitle(props.item.title)
-        localStorage.setItem('title',props.item.title)
-        store.get('modals').close()
-
-      }}>{props.item.title}</Link></div>
+      <div className={cn('title')}>
+        <LinkMenu
+          title={props.item.title}
+          setTitle={setTitle}
+          localStorageKey={'title'}
+          localStorageValue={props.item.title}
+          path={'/info/'}
+          idItem={props.item._id}
+          closeModal={callbacks.closeModal}
+        >
+          {props.item.title}
+        </LinkMenu>
+      </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>

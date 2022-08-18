@@ -16,7 +16,7 @@ function Basket(){
 
   const select = useSelector(state => ({
     articleRoute: state.article.articleRoute,
-    items: state.basket.items,
+    items: state.basket.cartItems,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));

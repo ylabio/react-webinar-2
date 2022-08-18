@@ -3,17 +3,16 @@ import StateModule from "../module";
 /**
  * Состояние корзины
  */
-class BasketState extends StateModule{
-
+class BasketState extends StateModule {
   /**
    * Начальное состояние
    * @return {Object}
    */
   initState() {
     return {
-      items: [],
-        sum: 0,
-        amount: 0
+      cartItems: [],
+      sum: 0,
+      amount: 0
     };
   }
 
@@ -21,59 +20,86 @@ class BasketState extends StateModule{
    * Добавление товара в корзину
    * @param _id Код товара
    */
-  addToBasket(_id) {
-    let sum = 0;
-    // Ищем товар в корзие, чтобы увеличить его количество. Заодно получаем новый массив items
-    let exists = false;
-    const items = this.getState().items.map(item => {
-      let result = item;
-      // Искомый товар для увеличения его количества
-      if (item._id === _id) {
-        exists = true;
-        result = {...item, amount: item.amount + 1};
-      }
-      // Добавляея в общую сумму
-      sum += result.price * result.amount;
-      return result
-    });
+  async addToBasket(_id) {
+    let cartSum = this.getState().sum;
+    let itemExists = false;
+    let cartItemsExists = this.getState().cartItems.length !== 0;
+    const cartItems = this.getState().cartItems;
 
-    // Если товар не был найден в корзине, то добавляем его из каталога
-    if (!exists) {
-      // Поиск товара в каталоге, чтобы его в корзину добавить
-      // @todo В реальных приложения будет запрос к АПИ на добавление в корзину, и апи выдаст объект товара..
-      const item = this.store.getState().catalog.items.find(item => item._id === _id);
-      items.push({...item, amount: 1});
-      // Досчитываем сумму
-      sum += item.price;
+    const loadNewCartItem = async (_id) => {
+      const response = await fetch('/api/v1/articles/' + _id + '?fields=*,maidIn(title,code),category(title)');
+      const json = await response.json();
+      return json.result;
     }
 
-    // Установка состояние, basket тоже нужно сделать новым
-    this.setState({
-      items,
-      sum,
-      amount: items.length
-    }, 'Добавление в корзину');
+    const addNewCartItem = async (_id) => {
+      /**
+       * Получение данных о товаре для добавления в корзину из общего каталога через запрос к API
+       */
+      const newCartItem = await loadNewCartItem(_id);
+
+      const newCartItems = [...cartItems].concat(Object.assign(newCartItem, {amount: 1}));
+      // Пересчитываем общую сумму корзины
+      cartSum = cartSum + newCartItem.price;
+      // Новое состояние корзины
+      this.setState({
+        cartItems: newCartItems,
+        sum: cartSum,
+        amount: cartItems.length + 1
+      }, 'Добавление в корзину нового товара');
+    }
+
+    // Ищем товар в корзине, чтобы увеличить его количество. Сразу получаем новый массив cartItems
+    if (!cartItemsExists) {
+      addNewCartItem(_id);
+    } else {
+      let cartSum = 0;
+      console.log('addToBasket existing cartItems', cartItems)
+
+      cartItems.map(item => {
+        // Если товар был добавлен в корзину: увеличиваем его количество на 1 шт
+        if (item._id === _id) {
+          itemExists = true;
+          item = Object.assign(item, {amount: (item.amount + 1)})
+        }
+        // Пересчитываем общую сумму корзины
+        cartSum += item.price * item.amount;
+        console.log('addToBasket cartItems', cartItems)
+      });
+      this.setState({
+        cartItems,
+        sum: cartSum,
+        amount: cartItems.length
+      }, 'Добавление в корзину еще одного ранее выбранного товара');
+    }
+
+    // Если товар не был раньше добавлен в корзину: получаем данные о нем из общего каталога через API
+    // Добавляем в корзину
+    if (!itemExists && cartItemsExists) {
+      addNewCartItem(_id)
+    }
   }
 
   /**
-   * Добавление товара в корзину
+   * Удаление товара из корзины
    * @param _id Код товара
    */
   removeFromBasket(_id) {
-    let sum = 0;
-    const items = this.getState().items.filter(item => {
+    let cartSum = 0;
+    const cartItems = this.getState().cartItems.filter(item => {
       // Удаляемый товар
       if (item._id === _id) return false
-      // Подсчёт суммы если твоар не удаляем.
-      sum += item.price * item.amount;
+      // Общая суммы корзины, которая подсчитывается исходя из оставшихся товаров
+      cartSum += item.price * item.amount;
       return true;
     });
     this.setState({
-      items,
-      sum,
-      amount: items.length
+      cartItems,
+      sum: cartSum,
+      amount: cartItems.length
     }, 'Удаление из корзины')
   }
 }
+
 
 export default BasketState;

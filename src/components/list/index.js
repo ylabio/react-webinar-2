@@ -8,7 +8,7 @@ function List({items, renderItem}) {
   const cn = bem('List');
 
   return (
-    <div className={cn()}>{items.map(item =>
+    <div className={cn()}>{items?.map(item =>
       <div key={item._id} className={cn('item')}>
         {renderItem(item)}
       </div>
@@ -18,7 +18,7 @@ function List({items, renderItem}) {
 }
 
 List.propTypes = {
-  items: propTypes.arrayOf(propTypes.object).isRequired,
+  items: propTypes.arrayOf(propTypes.object),
   renderItem: propTypes.func.isRequired
 }
 

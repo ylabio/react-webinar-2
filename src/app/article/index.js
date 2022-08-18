@@ -33,7 +33,7 @@ function Article(){
 
   return (
     <Layout head={<h1>{select.item.title}</h1>}>
-      <Menu link='/' title='Главная'/>
+      <Menu />
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <ArticleDescription item={select.item} onAdd={callbacks.addToBasket}/>
     </Layout>

@@ -4,22 +4,29 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function Menu({link, title}) {
+function Menu() {
   const cn = bem('Menu');
+
+  let menus = [
+    { title: 'Главная', link: '/'},
+  ];
+
   return (
-    <div className={cn()}>
-      <Link to={`${link}`} className={cn('link') }>{title}</Link>
+    <div className={cn()}>{menus.map(item =>
+      <div key={item.title} className={cn('item')}>
+        <Link to={`${item.link}`} className={cn('link') }>{item.title}</Link>
+      </div>
+    )}
     </div>
-  )
+  )  
 }
 
 Menu.propTypes = {
-  link: propTypes.string.isRequired,
-  title: propTypes.string
+  
 }
 
 Menu.defaultProps = {
-  title: 'Menu'
+  
 }
 
 export default React.memo(Menu);

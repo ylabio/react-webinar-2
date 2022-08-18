@@ -42,8 +42,7 @@ function Main(){
 
   return (
     <Layout head={<h1>Магазин</h1>}>
-      <Menu title={'Главная'} 
-            link={'/'}/>
+      <Menu />
       <BasketSimple onOpen={callbacks.openModalBasket} 
                     amount={select.amount} 
                     sum={select.sum}/>

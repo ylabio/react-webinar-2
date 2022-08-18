@@ -33,6 +33,7 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
+  link: propTypes.string
 }
 
 ItemBasket.defaultProps = {

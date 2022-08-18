@@ -47,11 +47,10 @@ function Product (props){
   return (
     <Description onAdd={callbacks.onAdd}
       select={select}>
+      <Menu onButtonClick={()=>store.get('catalog').setActive(0)}/>
       <BasketSimple onOpen={callbacks.openModalBasket} 
         amount={select.amount} 
-        sum={select.sum}>
-          <Menu onButtonClick={()=>store.get('catalog').setActive(0)}/>
-        </BasketSimple>
+        sum={select.sum} />
     </Description>
   )
 }

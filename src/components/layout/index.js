@@ -12,8 +12,10 @@ function Layout({head, children, nav}){
        {head && <div className={cn('head')}>
         {head}
       </div>}
+      {<div className={cn('menu')}>
+      {children}
+      </div>}
       <div className={cn('content')}>
-        {children}
         <Outlet />
       </div>
       {nav}

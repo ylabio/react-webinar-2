@@ -32,11 +32,10 @@ function Main(){
     catalog={catalog} 
     count={Math.ceil(select.itemsCount/itemsPerPage)} 
     perPage={itemsPerPage} />}>
+      <Menu onButtonClick={()=>catalog.setActive(0)}/> 
       <BasketSimple onOpen={callbacks.openModalBasket} 
       amount={select.amount} 
-      sum={select.sum}>
-        <Menu onButtonClick={()=>catalog.setActive(0)}/>    
-      </BasketSimple>
+      sum={select.sum} />
     </Layout>
   )
 }

@@ -14,7 +14,7 @@ function Description (props){
           {props.select.title}
           </h1>
           </div>
-        {props.children}
+        <div className={cn('menu')}>{props.children}</div>
       <div className={cn('content')}>
       <div className={cn('string')}>{props.select.description}</div>
       <span className={cn('string')}>

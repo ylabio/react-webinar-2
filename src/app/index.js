@@ -15,7 +15,7 @@ function App() {
 
   const modal = useSelector(state => state.modals.name);
   const titleFromLocalStorage = localStorage.getItem('title') || 'Магазин'
-  const selectedNumberFromLocalStorage = JSON.parse(localStorage.getItem('selected')||1)
+  const selectedNumberFromLocalStorage = JSON.parse(localStorage.getItem('selected')||0)
   const [title, setTitle] = useState(titleFromLocalStorage)
   const [itemsSkipPages, setItemsSkipPages] = useState(10);
   const [selectedNumber, setSelectedNumber] = useState(selectedNumberFromLocalStorage)

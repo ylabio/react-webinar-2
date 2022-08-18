@@ -1,0 +1,17 @@
+.Description {
+    padding: 20px 40px;
+}
+
+.Description-cell {
+    padding: 10px;
+}
+
+.Description-cell span {
+    font-weight: bold;
+}
+
+.Description-price {
+    padding: 10px;
+    font-weight: bold;
+    font-size: 24px;
+}

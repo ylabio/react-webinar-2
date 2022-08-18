@@ -1,6 +1,8 @@
 import React, {useCallback} from 'react';
+import { NavLink } from 'react-router-dom';
 import propTypes from 'prop-types';
 import numberFormat from "../../utils/numberFormat";
+import { translate } from '../../utils/languages';
 import {cn as bem} from "@bem-react/classname";
 import './styles.css';
 
@@ -14,11 +16,14 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>{props.item.title}</div>
+      <div className={cn('title')}> 
+        <NavLink to={`${props.link}`} className={cn('link')} onClick={props.onClose}>
+          {props.item.title}
+        </NavLink></div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}>Удалить</button></div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {translate('pcs')}</div>
+        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{translate('delete')}</button></div>
       </div>
     </div>
   )

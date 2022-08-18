@@ -3,13 +3,17 @@ import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
 
-function Layout({head, children}){
+function Layout({head, children, onChangeLanguage}){
   const cn = bem('Layout');
 
   return (
     <div className={cn()}>
       <div className={cn('head')}>
         {head}
+        <select onChange={(e) => onChangeLanguage(e.target.value)}>
+          <option value="ru">ru</option>
+          <option value="en">en</option>
+        </select>
       </div>
       <div className={cn('content')}>
         {children}

@@ -1,0 +1,13 @@
+{
+  "title": "Shop",
+  "menu.main": "Main",
+  "basket.open": "Open",
+  "basket.inBasket": "In cart",
+  "basket.empty": "empty",
+  "basket.articles": {
+    "one": "article",
+    "other": "articles"
+  },
+  "article.add": "Add",
+  "filter.reset": "Reset"
+}

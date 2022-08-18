@@ -1,0 +1,15 @@
+{
+  "title": "Магазин",
+  "menu.main": "Главная",
+  "basket.open": "Перейти",
+  "basket.inBasket": "В корзине",
+  "basket.empty": "пусто",
+  "basket.articles": {
+    "one": "товар",
+    "few": "товара",
+    "many": "товаров",
+    "other": "товара"
+  },
+  "article.add": "Добавить",
+  "filter.reset": "Сбросить"
+}

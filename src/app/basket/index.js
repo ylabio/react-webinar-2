@@ -1,14 +1,13 @@
-import List from "../../components/list";
 import React, {useCallback} from "react";
-import BasketTotal from "../../components/basket-total";
-import LayoutModal from "../../components/layout-modal";
-import ItemBasket from "../../components/item-basket";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
+import BasketTotal from "../../components/basket-total";
+import LayoutModal from "../../components/layout-modal";
+import ItemBasket from "../../components/item-basket";
+import List from "../../components/list";
 
 function Basket() {
-
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -35,12 +34,13 @@ function Basket() {
         onLink={callbacks.closeModal}
         labelUnit={t('basket.unit')}
         labelDelete={t('basket.delete')}
-        />
+      />
     ), []),
   }
 
   return (
-    <LayoutModal title={t('basket.title')} labelClose={t('basket.close')} onClose={callbacks.closeModal}>
+    <LayoutModal title={t('basket.title')} labelClose={t('basket.close')}
+                 onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>
       <BasketTotal sum={select.sum} t={t}/>
     </LayoutModal>

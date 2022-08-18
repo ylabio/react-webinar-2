@@ -1,15 +1,12 @@
-import Layout from "../../components/layout";
-import React, {useCallback, useMemo} from "react";
+import React from "react";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
+import useTranslate from "../../hooks/use-translate";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import Tools from "../../containers/tools";
-import useSelector from "../../hooks/use-selector";
-import Select from "../../components/select";
 import LayoutFlex from "../../components/layout-flex";
-import translate from "../../utils/translate";
-import useTranslate from "../../hooks/use-translate";
+import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 
 function Main() {

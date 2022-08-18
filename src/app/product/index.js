@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import {useParams} from "react-router-dom";
+import {useParams, Link} from "react-router-dom";
 import BasketSimple from '../../components/basket-simple';
 import Description from "../../components/description";
 import Menu from "../../components/menu";
@@ -47,7 +47,9 @@ function Product (props){
   return (
     <Description onAdd={callbacks.onAdd}
       select={select}>
-      <Menu onButtonClick={()=>store.get('catalog').setActive(0)}/>
+      <Menu>
+        <Link to='/' onClick={()=>store.get('catalog').setActive(0)}>Главная</Link>
+      </Menu>
       <BasketSimple onOpen={callbacks.openModalBasket} 
         amount={select.amount} 
         sum={select.sum} />

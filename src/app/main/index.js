@@ -5,6 +5,7 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pages from "../../components/pages";
 import Menu from "../../components/menu";
+import {Link} from "react-router-dom";
 
 function Main(){
 
@@ -32,7 +33,9 @@ function Main(){
     catalog={catalog} 
     count={Math.ceil(select.itemsCount/itemsPerPage)} 
     perPage={itemsPerPage} />}>
-      <Menu onButtonClick={()=>catalog.setActive(0)}/> 
+      <Menu>
+        <Link to='/' onClick={()=>catalog.setActive(0)}>Главная</Link>
+      </Menu> 
       <BasketSimple onOpen={callbacks.openModalBasket} 
       amount={select.amount} 
       sum={select.sum} />

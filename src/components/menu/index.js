@@ -8,7 +8,7 @@ function Menu (props) {
 
   return (
     <div className={cn()}>
-    <Link to='/' onClick={props.onButtonClick}>Главная</Link>
+      {props.children}
     </div>
   )
 }

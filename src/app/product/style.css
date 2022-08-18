@@ -1,0 +1,16 @@
+.Main {
+  position: absolute;
+  display: inline-block;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  /* padding: 40px 0; */
+  width: 69px;
+  /* identical to box height */
+
+  text-decoration-line: underline;
+
+  color: #0087e9;
+}

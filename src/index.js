@@ -1,25 +1,26 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './app.js';
-import Store from "./store.js";
-import {counter} from './utils.js';
+import { createRoot } from 'react-dom/client';
+import App from './app';
+import Store from "./store";
+import { BrowserRouter } from 'react-router-dom';
+import { StoreContext } from "./store/context";
 
-const store = new Store({
-  items: [
-    {code: counter(), title: 'Название элемента'},
-    {code: counter(), title: 'Некий объект'},
-    {code: counter(), title: 'Заголовок'},
-    {code: counter(), title: 'Короткое название'},
-    {code: counter(), title: 'Запись'},
-    {code: counter(), title: 'Пример выделенной записи', selected: true},
-    {code: counter(), title: 'Седьмой'},
-  ]
-});
+// Внешнее состояние
 
-// Реакция на изменение store - повторный рендер приложения
-store.subscribe(() => {
-  ReactDOM.render(<App store={store}/>, document.body);
-});
+const store = new Store({});
+
+
+
+
+
+// Корень React приложения
+const root = createRoot(document.getElementById('root'));
 
 // Первый рендер (один раз)
-ReactDOM.render(<App store={store}/>, document.body);
+root.render(
+  <BrowserRouter>
+    <StoreContext.Provider value={store}>
+      <App />
+    </StoreContext.Provider>
+  </BrowserRouter>
+);

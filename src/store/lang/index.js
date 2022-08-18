@@ -3,7 +3,7 @@ import StateModule from "../module";
 class LangState extends StateModule {
   initState() {
     return {
-      lang: 'en'
+      lang: 'ru'
     }
   }
 

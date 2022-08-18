@@ -85,7 +85,7 @@ function Main() {
         text={[text("go"), text("in_the_basket"), text("empty")]}
       />
 
-      <Menu link="/" title={text("main")} />
+      <Menu links={[{ link: "/", title: text("main") }]} />
 
       <List items={select.items[select.num]} renderItem={renders.item} />
       {select.allPage && (

@@ -4,12 +4,16 @@ import "./style.css";
 import { cn as bem } from "@bem-react/classname";
 import propTypes from "prop-types";
 
-function Menu({ link, title }) {
+function Menu({ links }) {
   const cn = bem("Menu");
 
   return (
     <div className={cn()}>
-      <Link to={link}>{title}</Link>
+      {links.map((item, index) => (
+        <Link key={index} to={item.link}>
+          {item.title}
+        </Link>
+      ))}
     </div>
   );
 }

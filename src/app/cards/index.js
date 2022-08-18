@@ -56,7 +56,7 @@ function Page() {
         onOpen={callbacks.openModalBasket}
         text={[text("go"), text("in_the_basket"), text("empty")]}
       />
-      <Menu link="/" title={text("main")} />
+      <Menu links={[{ link: "/", title: text("main") }]} />
       <Info item={select.item} onAdd={callbacks.addToBasket} />
     </Layout>
   );

@@ -5,11 +5,10 @@ import { cn as bem } from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import "./styles.css";
 
-function BasketSimple({ sum, amount, onOpen, children, text }) {
+function BasketSimple({ sum, amount, onOpen, text }) {
   const cn = bem("BasketSimple");
   return (
     <div className={cn()}>
-      <div className={cn("link")}>{children}</div>
       <span className={cn("label")}>{text[1]}:</span>
       <span className={cn("total")}>
         {amount

@@ -4,11 +4,11 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function Link({ link, color, noUnderline, children }) {
+function Link({ link, color, children }) {
   const cn = bem('Link');
 
   return (
-    <NavLink className={cn({color, noUnderline})} to={link}>
+    <NavLink className={cn({color})} to={link}>
       {children}
     </NavLink>
   )
@@ -17,7 +17,6 @@ function Link({ link, color, noUnderline, children }) {
 Link.propTypes = {
   link: propTypes.string,
   color: propTypes.string,
-  noUnderline: propTypes.bool,
   children: propTypes.node,
 }
 

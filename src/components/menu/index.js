@@ -5,6 +5,7 @@ import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/numberFormat";
 import './styles.css';
 import { Link, BrowserRouter as Router, Route } from "react-router-dom";
+import LanguageSwitcher from '../language-switcher';
 
 
 function Menu({translate}) {
@@ -14,7 +15,7 @@ function Menu({translate}) {
   return (
       <div className={cn()}>
       <div className={cn('links')}>
-        <Link to="/" className={cn('linkMain')}>{translate('ru','menu-main')}</Link>
+        <Link to="/" className={cn('linkMain')}>{translate('menu-main')}</Link>
       </div>
       </div>
   )

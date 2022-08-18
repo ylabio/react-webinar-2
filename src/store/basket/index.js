@@ -48,8 +48,8 @@ class BasketState extends StateModule{
         // Досчитываем сумму
         sum += item.price;
       } else {
-        items.push({...this.store.getState().catalog.currentItem, amount: 1});
-        sum += this.store.getState().catalog.currentItem.price;
+        items.push({...this.store.getState().itemPage.currentItem, amount: 1});
+        sum += this.store.getState().itemPage.currentItem.price;
       }
     } 
 

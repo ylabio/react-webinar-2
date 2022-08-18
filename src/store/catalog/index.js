@@ -14,21 +14,8 @@ class CatalogState extends StateModule{
     return {
       items: [],
       amount: 0,
-      currentItem: {},
-      currentItemCountry: '',
-      currentItemCountryCode: '',
-      currentItemCountryCategory: '',
     };
   }
-
-  // async load(){
-  //   const response = await fetch('/api/v1/articles?limit=10&skip=20');
-  //   const json = await response.json();
-  //   this.setState({
-  //     ...this.state,
-  //     items: json.result.items
-  //   },'load');
-  // }
 
   async loadPage(limit, currentPage){
     const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${currentPage * limit - limit}`);
@@ -37,37 +24,6 @@ class CatalogState extends StateModule{
       ...this.store.state.catalog,
       items: json.result.items
     },'load page');
-  }
-
-  async loadItemById(itemId){
-    const response = await fetch(`/api/v1/articles/${itemId}?fields=title%2Cdescription%2CmaidIn%2Cprice%2Ccategory%2Cedition&lang=ru`);
-    const json = await response.json();
-
-    const country = await this.loadCountryById(json.result.maidIn._id)
-    const category = await this.loadCategoryById(json.result.category._id)
-    this.setState({
-      ...this.store.state.catalog,
-      // items: json.result,
-      currentItem: json.result,
-      currentItemCountry: country.title,
-      currentItemCountryCode: country.code,
-      currentItemCategory: category,
-    },'this item');
-  }
-
-  async loadCountryById(id){
-    const response = await fetch(`/api/v1/countries/${id}?lang=ru&fields=title%2Ccode`);
-    const json = await response.json();
-    let country = json.result
-
-    return country
-  }
-  async loadCategoryById(id){
-    const response = await fetch(`/api/v1/categories/${id}?lang=ru&fields=title`);
-    const json = await response.json();
-    let category = json.result.title
-    
-    return category
   }
 
   /**

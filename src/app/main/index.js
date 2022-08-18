@@ -44,7 +44,8 @@ function Main(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Перевод
-    translate: useCallback((lang, item) => store.get('localisation').translate(lang, item), []),
+    translate: useCallback((item) => store.get('localisation').translate(item), []),
+    changeLanguage: useCallback((lang) => store.get('localisation').changeLanguage(lang), []),
   };
 
   const renders = {
@@ -52,7 +53,7 @@ function Main(){
   }
   
   return (
-    <Layout head={<h1>{callbacks.translate('en','main-header')}</h1>}>
+    <Layout head={<h1>{callbacks.translate('main-header')}</h1>} changeLanguage={callbacks.changeLanguage}>
       <TopBar translate={callbacks.translate} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination pagesCount={select.pagesCount} currentPage={select.currentPage ? select.currentPage : 1} goToPage={callbacks.goToPage}/>

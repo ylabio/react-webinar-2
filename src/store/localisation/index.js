@@ -16,8 +16,17 @@ class LocalisationState extends StateModule{
     };
   }
 
-  translate(lang, item) {
-    return localisation[lang][item]
+  translate(item) {
+    console.log(this.store.state.localisation.currentLanguage)
+    return localisation[this.store.state.localisation.currentLanguage][item]
+  }
+
+  changeLanguage(lang) {
+    console.log('исполнилось')
+    console.log(lang)
+    this.setState({
+      currentLanguage: lang
+    }, 'localisation')
   }
 
 }

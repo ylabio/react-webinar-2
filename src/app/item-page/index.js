@@ -18,16 +18,16 @@ function ItemPage(){
   const store = useStore();
 
   const select = useSelector(state => ({
-    currentItem: state.catalog.currentItem,
-    currentItemCountry: state.catalog.currentItemCountry,
-    currentItemCountryCode: state.catalog.currentItemCountryCode,
-    currentItemCategory: state.catalog.currentItemCategory,
+    currentItem: state.itemPage.currentItem,
+    currentItemCountry: state.itemPage.currentItemCountry,
+    currentItemCountryCode: state.itemPage.currentItemCountryCode,
+    currentItemCategory: state.itemPage.currentItemCategory,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
 
   useEffect(() => {
-    store.get('catalog').loadItemById(params.itemId);
+    store.get('itemPage').loadItemById(params.itemId);
   }, [params.itemId])
 
   const callbacks = {
@@ -35,12 +35,15 @@ function ItemPage(){
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(params.itemId), []),
+    // Перевод
+    translate: useCallback((item) => store.get('localisation').translate(item), []),
+    changeLanguage: useCallback((lang) => store.get('localisation').changeLanguage(lang), []),
   };
 
   
   return (
-    <Layout head={<h1>{select.currentItem.title}</h1>}>
-      <TopBar onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+    <Layout head={<h1>{select.currentItem.title}</h1>} changeLanguage={callbacks.changeLanguage}>
+      <TopBar translate={callbacks.translate} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <ItemInfo
       item={select.currentItem}
       itemCountry={select.currentItemCountry}

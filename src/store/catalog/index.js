@@ -13,8 +13,9 @@ class CatalogState extends StateModule {
    */
   initState() {
     return {
-      items:JSON.parse(localStorage.getItem('items')||'[]'),
+      items:[],
       cuurentItem: {},
+      lengthItems:0
     };
   }
 
@@ -22,6 +23,7 @@ class CatalogState extends StateModule {
     const result = await axios(`/api/v1/articles?limit=${limit}&skip=${nextList}&fields=items(*),count`);
     this.setState({
       items: result.data.result.items,
+      lengthItems:result.data.result.count
     });
     localStorage.setItem('items',JSON.stringify(result.data.result.items))
    

@@ -5,14 +5,15 @@ import React, { useCallback, useEffect, useContext, useState } from "react";
 import Item from "../../components/item";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import ListAndPagination from "../../components/list-pagination";
 import { ContextTitle } from './../../store/contextTitle';
 import Loading from "../../components/loading/loading";
+import Pagination from "../pagination";
+import List from "../../components/list";
 
 function Main() {
-  const { title, itemsSkipPages } = useContext(ContextTitle)
-  const [selectedNumber, setSelectedNumber] = useState(0)
-  const [lengthItemsPag, setLengthItemsPag] = useState(0)
+  const { title, itemsSkipPages,selectedNumber,setSelectedNumber } = useContext(ContextTitle)
+  
+  
   const select = useSelector(state => ({
     items: state.catalog.items,
     amount: state.basket.amount,
@@ -22,11 +23,7 @@ function Main() {
   }));
   const store = useStore();
   useEffect(() => {
-    fetch(`/api/v1/articles?limit=*&skip=*&fields=items(*),count`)
-      .then((response) => response.json())
-      .then((count) => setLengthItemsPag(count.result.count))
-
-    store.get('catalog').getItems(0, itemsSkipPages)
+    store.get('catalog').getItems(selectedNumber*itemsSkipPages, itemsSkipPages)
   }, [])
 
 
@@ -34,7 +31,7 @@ function Main() {
     // Открытие корзины
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    addToBasket: useCallback((_id,limit,numberPage )=> store.get('basket').addToBasket(_id,limit,numberPage), []),
     getItemById: useCallback(id => store.get('catalog').getItemById(id), []),
     getItemsPagination: useCallback((nextList, selectedNum, itemsSkipPages) => {
       store.get('catalog').getItems(nextList, itemsSkipPages)
@@ -60,14 +57,17 @@ function Main() {
         amount={select.amount}
         sum={select.sum}
       />
-      <ListAndPagination
-        items={select.items}
-        renderItem={renders.item}
-        lengthItems={lengthItemsPag}
-        getItems={callbacks.getItemsPagination}
-        selectedNumber={selectedNumber}
-        setSelectedNumber={setSelectedNumber}
+      <List
+           items={select.items}
+            renderItem={renders.item}
       />
+      <Pagination
+           lengthItems={select.lengthItems}
+          getItems={callbacks.getItemsPagination}
+          selectedNumber={selectedNumber}
+          setSelectedNumber={setSelectedNumber}
+      />
+      
     </Layout>
   </>
 

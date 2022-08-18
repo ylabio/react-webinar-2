@@ -20,7 +20,7 @@ function InfoItem(props) {
     }));
 
     const callbacks = {
-        addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+        addToBasket: useCallback((_id,limit,numberPage) => store.get('basket').addToBasket(_id,limit,numberPage), []),
         isEmpty: useCallback(obj => store.get('catalog').isEmpty(obj), []),
         openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
         cuurentItemDefaultValue: useCallback(() => store.get('catalog').cuurentItemDefaultValue(), []),

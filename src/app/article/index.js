@@ -46,8 +46,8 @@ function Article(){
   return (
     <Layout head={select.loading ? <h1>{translate(select.language, 'Loading')}</h1> : <h1>{select.item && select.item.title}</h1>} language={select.language} selectLanguage={callbacks.selectLanguage}>
       <LayoutFlex>
-        <Menu>
-          <Link to='/'>{translate(select.language, 'Home')}</Link>
+        <Menu language={select.language} translate={translate} links={[{title: 'Home', href: '/'}]}>
+          {/* <Link to='/'>{translate(select.language, 'Home')}</Link> */}
         </Menu>
         <BasketSimple language={select.language} translate={translate} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       </LayoutFlex>

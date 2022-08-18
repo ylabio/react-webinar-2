@@ -1,18 +1,15 @@
 import React, { useCallback, useEffect } from 'react';
-import CommonLayout from '../../containers/common-layout';
 import useStore from '../../utils/hooks/use-store';
 import { useParams } from 'react-router-dom';
 import useSelector from '../../utils/hooks/use-selector';
-import { cn as bem } from '@bem-react/classname';
-import './style.css';
 import ArticleInfo from '../../components/article-info';
 import useLang from '../../utils/hooks/use-lang';
+import CommonLayout from '../../containers/common-layout';
 
 const Article = () => {
   const { articleInfo } = useLang();
   const store = useStore();
   const { articleId } = useParams();
-  const cn = bem('Article');
   const { data, loading } = useSelector((state) => state.article);
 
   const callbacks = {
@@ -27,10 +24,10 @@ const Article = () => {
   }, [articleId]);
 
   return (
-    <CommonLayout>
-      <div className={cn()}>
+    <CommonLayout head={data?.name || ' '}>
+      <div>
         {loading ? (
-          <div>loading...</div>
+          <div style={{ padding: '20px' }}>loading...</div>
         ) : (
           <>
             {data && <ArticleInfo article={data} ln={articleInfo} onAdd={callbacks.addToBasket} />}

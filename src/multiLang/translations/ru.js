@@ -2,7 +2,7 @@ export default {
   main: {
     head: 'Магазин',
   },
-  commonLayout: {
+  menu: {
     home: 'Главная',
   },
   basketSimple: {

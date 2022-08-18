@@ -7,12 +7,10 @@ import useLang from '../../utils/hooks/use-lang';
 import Pagination from '../../components/pagination';
 import CommonLayout from '../../containers/common-layout';
 import { useSearchParams } from 'react-router-dom';
-import { cn as bem } from '@bem-react/classname';
-import 'style.css';
+import CatalogWrapper from "../../components/catalog-wrapper";
 
 function Main() {
   const { item: itemLn } = useLang();
-  const cn = bem('Catalog');
   const store = useStore();
   const [searchParams] = useSearchParams();
   const initPage = useRef(false);
@@ -52,7 +50,7 @@ function Main() {
       {select.loading ? (
         <div style={{ paddingLeft: '20px' }}>loading...</div>
       ) : (
-        <div className={cn()}>
+        <CatalogWrapper>
           {!!select.items.length && (
             <>
               <List items={select.items} renderItem={renders.item} />
@@ -62,7 +60,7 @@ function Main() {
               />
             </>
           )}
-        </div>
+        </CatalogWrapper>
       )}
     </CommonLayout>
   );

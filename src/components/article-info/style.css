@@ -1,3 +1,7 @@
+.Article-info {
+  padding: 20px;
+}
+
 .Article-info > div {
   margin-bottom: 20px;
 }

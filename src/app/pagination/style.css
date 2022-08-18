@@ -1,0 +1,45 @@
+.Pagination{
+    margin-top: 23px;
+    margin-right: 22px;
+    position: relative;
+}
+.Wrapper-Pagination{
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+}
+
+.Pagination-bth-first,
+.Pagination-bth-last{
+    min-width:18px;
+    min-height: 18px;
+    padding: 3px;
+    cursor: pointer;
+    transition: .5s;
+    vertical-align: text-top;
+    text-align: center;
+}
+.ThreeDots {
+    display: none;
+}
+.selected{
+    background-color: #0087E9;
+    color: white;
+}
+.Pagination-bth{
+    min-width:18px;
+    min-height: 18px;
+    padding: 3px;
+    cursor: pointer;
+    margin: 0px 2px;
+    text-align: center;
+    transition: .5s;
+    display: none;
+}
+.block{
+    display: block;
+}
+.Pagination-bth:hover{
+    transition: .5s;
+    background-color: #E1E1E1;
+}

@@ -1,0 +1,36 @@
+.Page {
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  text-align: center;
+  padding: 4px 6px;
+  color: #000000;
+  border: none;
+  background: transparent;
+}
+
+.Page-active {
+  color: #FFFFFF;
+  background: #0087E9;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  text-align: center;
+  padding: 4px 6px;
+  border: none;
+}
+
+.Page:disabled {
+  color: #ccc;
+  cursor: auto;
+}
+
+.Page:disabled:hover {
+  background: none;
+}
+
+.Page:hover {
+  background: #e1e1e1;
+}

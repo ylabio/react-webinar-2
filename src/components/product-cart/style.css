@@ -1,0 +1,13 @@
+.ProductCart {
+  padding: 20px 40px;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.ProductCart-text {
+  font-weight: 700;
+}
+
+.ProductCart-price {
+  font-size: 24px;
+}

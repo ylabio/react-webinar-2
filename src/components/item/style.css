@@ -6,6 +6,15 @@
     padding-left: 10px;
 }
 
+.Item a {
+    text-decoration: none;
+    color: black;
+}
+
+.Item a:hover {
+    text-decoration: underline;
+}
+
 .Item-id {
     padding: 20px 10px 20px 20px;
 }

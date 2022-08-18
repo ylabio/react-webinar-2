@@ -1,0 +1,5 @@
+/* Обертка меню */
+.MenuWrapper {
+    display: flex;
+    justify-content: space-between;
+}

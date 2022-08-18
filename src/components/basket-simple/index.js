@@ -6,18 +6,22 @@ import numberFormat from "../../utils/numberFormat";
 import './styles.css';
 
 
-function BasketSimple({sum, amount, onOpen}) {
+function BasketSimple({sum, amount, onOpen, words}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <span className={cn('label')}>В корзине:</span>
+      <span className={cn('label')}>{words.inCart}</span>
       <span className={cn('total')}>
-      {amount
-        ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-        : `пусто`
+      {words.item === 'товар' ?
+        amount ?
+          `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
+          : words.empty
+        :
+        amount ?
+          `${amount} ${words.item}${amount !== 1 ? 's' : ''} / ${numberFormat(sum)} ₽` : words.empty
       }
       </span>
-      <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+      <button className='BasketSimple__button' onClick={onOpen}>{words.goTo}</button>
     </div>
   )
 }
@@ -25,11 +29,11 @@ function BasketSimple({sum, amount, onOpen}) {
 BasketSimple.propTypes = {
   onOpen: propTypes.func.isRequired,
   sum: propTypes.number,
-  amount: propTypes.number
+  amount: propTypes.number,
+  words: propTypes.objectOf(propTypes.string)
 }
 
 BasketSimple.defaultProps = {
-  onOpen: () => {},
   sum: 0,
   amount: 0
 }

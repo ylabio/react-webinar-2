@@ -1,0 +1,33 @@
+/**
+    Пагинация
+ */
+.ListPagination {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    margin-right: 20px;
+    text-align: center;
+}
+
+.ListPagination-number {
+    display: inline-block;
+    line-height: 20px;
+    padding: 0 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.ListPagination-number:hover {
+    background: #E1E1E1;
+}
+
+.ListPagination-number_active {
+    background-color: #0087E9;
+    color: white;
+}
+.ListPagination-number_active:hover {
+    background-color: #0087E9;
+}
+
+.ListPagination-dotted {
+    margin: 0 2px;
+}

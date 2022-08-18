@@ -29,6 +29,9 @@ function Main(){
     amount: state.basket.amount,
     sum: state.basket.sum,
     locale: state.app.locale,
+    currentPage: state.catalog.currentPage,
+    totalCount: state.catalog.totalCount, 
+    limit: state.catalog.limit,
   })); 
 
   const callbacks = {
@@ -36,8 +39,6 @@ function Main(){
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    // Запрашиваем новую страницу
-    loadPage: useCallback(page => store.get('catalog').load(page), []),
     // перейти на страницу товара
     viewProduct: useCallback((id) => navigate(`/product/${id}`), []),
     // Смена языка интерфейса
@@ -63,7 +64,10 @@ function Main(){
                     amount={select.amount} 
                     sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
-      <Pagination loadPage={callbacks.loadPage}/>
+      <Pagination currentPage={select.currentPage}
+                  totalCount={select.totalCount}
+                  limit={select.limit}
+                  page={select.page} />
 
     </Layout>
   )

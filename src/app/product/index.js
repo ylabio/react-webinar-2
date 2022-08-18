@@ -38,9 +38,8 @@ function Product(props) {
     }));
 
 
-
     return (
-        <Layout head={<h1>{language.productTitle}</h1>}>
+        <Layout head={<h1>{selectItem?.title}</h1>}>
             <BasketSimple modalName={modalName} language={language} sum={sum} amount={amount} onOpen={callbacks.openAndCloseModalBasket}></BasketSimple>
             <ContainerProduct add={callbacks.addToBasket} language={language} selectItem={selectItem} />
         </Layout>

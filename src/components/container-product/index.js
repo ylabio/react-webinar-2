@@ -10,7 +10,6 @@ function ContainerProduct(props) {
 
     const { language, selectItem, add } = props
 
-    console.log(selectItem._id);
 
 
 

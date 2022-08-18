@@ -15,11 +15,12 @@ function Pagination(props) {
     const pages = [];
 
 
-    const pageTransfer = useCallback(e => counterBtn(e, props.catalogLoad), [])
+    const pageTransfer = e => counterBtn(e, props.catalogLoad);
 
     for (let page = 0; page < totalCount; page++) {
         pages.push(page)
     }
+
 
 
 
@@ -29,11 +30,9 @@ function Pagination(props) {
             if (page === 0 || page === totalCount - 1) className = "showAlways";
             else className = "";
 
-
-            if (page === 1 || page === 2 || page === 2 && props.position === 10) className = "Next"
-            if (page === 0 && props.position === 0) className = "showAlways Active";
-            if (props.position > 20 && page === 1) return (<span key={index + 128} className='points'>...</span>)
-            if (props.position < 100 && page === 12) return (<Fragment key={index + 64}><span key={index + 256} className='points'>...</span><button key={index + Math.PI} className={`page- showAlways`} onClick={pageTransfer} data-selected={page}>{page + 1}</button></Fragment>)
+            if (page === 1 || page === 2) className = "Next"
+            if (page === 1) return (<Fragment key={index + 64}><span key={index + 128} className='points'>...</span><button key={index + Math.PI} className={`page- ${className}`} onClick={pageTransfer} data-selected={page}>{page + 1}</button></Fragment>)
+            if (page === 12) return (<Fragment key={index + 64}><span key={index + 256} className='points-end'>...</span><button key={index + Math.PI} className={`page- ${className}`} onClick={pageTransfer} data-selected={page}>{page + 1}</button></Fragment>)
             return (<button key={index} className={`page- ${className}`} onClick={pageTransfer} data-selected={page}>{page + 1}</button>)
         })}
     </div>)

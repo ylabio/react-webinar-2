@@ -9,6 +9,8 @@ import useSelector from "../../utils/use-selector";
 function Item(props) {
   const cn = bem('Item');
 
+  console.log(props);
+
   const callbacks = {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
@@ -21,7 +23,7 @@ function Item(props) {
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')}>
-        <Link className='link' to="product" state={props.item._id}>
+        <Link className='link' to={props.defaultLink} state={props.item._id}>
           {props.item.title}
         </Link>
       </div>

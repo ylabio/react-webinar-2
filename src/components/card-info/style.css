@@ -1,0 +1,32 @@
+.CardInfo{
+	font-family: Arial, serif;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 21px;
+	letter-spacing: 0;
+	text-align: left;
+	padding: 20px 40px;
+}
+
+.CardInfo-main{
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.CardInfo-block{
+	display: inline-block;
+}
+
+.CardInfo-price{
+	font-weight: bold;
+	font-size: 24px;
+}
+
+.CardInfo-value{
+	font-weight: bold;
+}
+
+.CardInfo-button{
+	margin-top: 20px;
+}

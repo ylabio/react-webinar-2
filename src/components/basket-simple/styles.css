@@ -1,7 +1,7 @@
 /* Контрол с общими действиями */
 .BasketSimple{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding: 20px;
     font-size: 18px;
 }
@@ -13,4 +13,17 @@
 .BasketSimple-total{
     font-weight: bold;
     margin: 0 15px;
+}
+
+.BasketSimple > a{
+    text-decoration: underline;
+    color: #0087E9;
+}
+
+.BasketSimple-home{
+    text-decoration: none;
+    color: black;
+}
+.BasketSimple-home:hover{
+    text-decoration: underline;
 }

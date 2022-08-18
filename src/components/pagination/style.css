@@ -1,0 +1,36 @@
+.Pagination {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	padding: 20px;
+}
+
+.Pagination-item {
+	width: 20px;
+	height: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	color: black;
+	padding: 2px;
+}
+
+.Pagination-item_current {
+	background-color: #0087E9;
+	color: white;
+	cursor: default;
+}
+
+.Pagination-item_current:hover {
+	background-color: #0087E9;
+	color: white;
+}
+
+.Pagination-item_ellipsis {
+	cursor: default;
+}
+
+.Pagination-item_ellipsis:hover {
+	background-color: transparent;
+}

@@ -26,3 +26,12 @@
     padding: 0 10px;
     white-space: nowrap;
 }
+
+.Item-title > a{
+    text-decoration: none;
+    color: black;
+}
+
+.Item-title > a:hover{
+    text-decoration: underline;
+}

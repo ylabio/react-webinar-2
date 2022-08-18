@@ -1,0 +1,19 @@
+{
+  "basket-simple-home": "Главная",
+  "basket-simple-label": "В корзине:",
+  "basket-simple-total-nominative": "товар",
+  "basket-simple-total-genitive": "товара",
+  "basket-simple-total-genitive-plural": "товаров",
+  "basket-simple-total-empty": "пусто",
+  "basket-simple-button": "Перейти",
+  "header-title": "Магазин",
+  "item-button": "Добавить",
+  "item-basket-button": "Удалить",
+  "item-basket-piece": "шт",
+  "basket-title": "Корзина",
+  "layout-modal-button": "Закрыть",
+  "basket-total-total": "Итого",
+  "card-info-price": "Цена:",
+  "card-info-year": "Год выпуска:",
+  "card-info-country": "Страна производитель:"
+}

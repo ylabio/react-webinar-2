@@ -24,12 +24,12 @@ class BasketState extends StateModule{
   async addToBasket(id) {
     let sum = 0;
 
-    if(this.store.getState().catalog.items.length === 0)
+    if(this.store.getState().catalog.items.length === 0 && this.store.getState().basket.items.length === 0)
     {
       const response = await fetch(`api/v1/articles/${id}?fields=%2A&lang=ru`);
       const json = await response.json();
       this.setState({
-        items: [json.result],
+        items: [{...json.result, amount: 1}],
         sum: json.result.price,
         amount: 1
       }, 'Добавление в корзину');

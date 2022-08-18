@@ -4,7 +4,7 @@ import BasketSimple from "../basket-simple";
 import {cn as bem} from "@bem-react/classname";
 import './style.css'
 import Header from "../header/header";
-import ToHomePage from "../home";
+import Menu from "../Menu";
 
 function ProductPage({basketAmount, basketSum, product, currentId, onOpenModal, addToBasket}){
     const cn = bem('ItemPage');
@@ -13,7 +13,7 @@ function ProductPage({basketAmount, basketSum, product, currentId, onOpenModal, 
         <>{!!product
         ? <Layout head={<h1>{product.title}</h1>}>
             <Header>
-                <ToHomePage />
+                <Menu />
                 <BasketSimple onOpenModal={onOpenModal} sum={basketSum} amount={basketAmount}/>
             </Header>
             <div className={cn()}>

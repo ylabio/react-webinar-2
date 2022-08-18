@@ -7,7 +7,7 @@ import Item from "../../components/item";
 import PaginationBar from "../../components/pagination";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
-import ToHomePage from "../../components/home";
+import ToHomePage from "../../components/Menu";
 import Header from "../../components/header/header";
 
 

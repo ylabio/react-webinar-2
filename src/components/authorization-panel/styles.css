@@ -1,0 +1,23 @@
+.Authorization-panel {
+    height: 41px;
+    max-width: 1024px;
+    margin: auto;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #DCDCDC;
+    display: flex;
+    justify-content: end ;
+}
+
+.Authorization-panel-button {
+    display: block;
+    background-color: #EFEFEF;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    height: 21px;
+    width: 47px;
+    margin: 10px;
+    text-align: center;
+    font-size: 13px;
+    padding: 3px;
+    box-sizing: border-box;
+}

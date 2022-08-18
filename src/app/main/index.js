@@ -4,6 +4,7 @@ import React, {useCallback, useState} from "react";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Pages from "../../components/pages";
+import Menu from "../../components/menu";
 
 function Main(){
 
@@ -25,11 +26,13 @@ function Main(){
 
   return (    
     <Layout head={<h1>Магазин</h1>} 
-            nav={<Pages count={Math.ceil(select.itemsCount/itemsPerPage)} 
-            perPage={itemsPerPage} />}>
+    nav={<Pages count={Math.ceil(select.itemsCount/itemsPerPage)} 
+    perPage={itemsPerPage} />}>
       <BasketSimple onOpen={callbacks.openModalBasket} 
-                    amount={select.amount} 
-                    sum={select.sum}/>
+      amount={select.amount} 
+      sum={select.sum}>
+        <Menu />    
+      </BasketSimple>
     </Layout>
   )
 }

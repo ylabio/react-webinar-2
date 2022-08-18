@@ -7,11 +7,11 @@ import numberFormat from "../../utils/numberFormat";
 import './styles.css';
 
 
-function BasketSimple({sum, amount, onOpen}) {
+function BasketSimple({sum, amount, onOpen, children}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <Link to='/'>Главная</Link>
+      {children}
       <div>
         <span className={cn('label')}>В корзине:</span>
         <span className={cn('total')}>

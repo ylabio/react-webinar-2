@@ -4,6 +4,7 @@ import useSelector from "../../utils/use-selector";
 import {useParams} from "react-router-dom";
 import BasketSimple from '../../components/basket-simple';
 import Description from "../../components/description";
+import Menu from "../../components/menu";
 
 function Product (props){
   console.log('Product');
@@ -45,10 +46,12 @@ function Product (props){
 
   return (
     <Description onAdd={callbacks.onAdd}
-                 select={select}>
+      select={select}>
       <BasketSimple onOpen={callbacks.openModalBasket} 
-                    amount={select.amount} 
-                    sum={select.sum}/>
+        amount={select.amount} 
+        sum={select.sum}>
+          <Menu />
+        </BasketSimple>
     </Description>
   )
 }

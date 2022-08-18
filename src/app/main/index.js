@@ -28,7 +28,8 @@ function Main() {
     totalSum: state.catalog.totalSum,
     language: state.multilang.CurrentLang,
     alllanguage: state.multilang,
-    position: state.catalog.position
+    position: state.catalog.position,
+    modalName: state.modals.name
   }));
 
 
@@ -53,7 +54,7 @@ function Main() {
   return (
     <Layout head={<h1>{select.language.mainTitle}</h1>}>
       <SwitcherLanguage langKey={Object.keys(select.alllanguage)} switchFn={callbacks.switchLang} />
-      <BasketSimple onOpen={callbacks.openAndCloseModalBasket} amount={select.amount} sum={select.sum} />
+      <BasketSimple language={select.language} modalName={select.modalName} onOpen={callbacks.openAndCloseModalBasket} amount={select.amount} sum={select.sum} />
       <List items={select.items} renderItem={renders.item} catalogLoad={callbacks.catalogLoad} />
       <Paginate position={select.position} totalSum={select.totalSum} catalogLoad={callbacks.catalogLoad} />
     </Layout>

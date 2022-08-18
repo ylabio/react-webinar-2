@@ -8,28 +8,25 @@ import useSelector from "../../utils/use-selector";
 import './styles.css';
 
 
-function BasketSimple({ sum, amount, onOpen }) {
-  const state = useSelector(state => ({
-    language: state.multilang.CurrentLang,
-    modalName: state.modals.name
-  }));
+function BasketSimple({ language, modalName, sum, amount, onOpen }) {
+
   const [open, close] = onOpen;
   const cn = bem('BasketSimple');
-  const [a, b, c] = state.language.commodityDeclensions
+  const [a, b, c] = language.commodityDeclensions
   return (
     <div className={cn()}>
       <Link className="Main" to="/">
-        <button onClick={() => { state.modalName ? close(false) : "" }} className='main-link-basket'>{state.language.productLink}</button>
+        <button onClick={() => { modalName ? close(false) : "" }} className='main-link-basket'>{language.productLink}</button>
       </Link>
       <div>
-        <span className={cn('label')}>{state.language.inTheBasket}:</span>
+        <span className={cn('label')}>{language.inTheBasket}:</span>
         <span className={cn('total')}>
           {amount
             ? `${amount} ${plural(amount, a, b, c)} / ${numberFormat(sum)} ₽`
-            : state.language.empty
+            : language.empty
           }
         </span>
-        <Link to="/"><button className='BasketSimple__button' onClick={open}>{state.language.go}</button></Link>
+        <Link to="/"><button className='BasketSimple__button' onClick={open}>{language.go}</button></Link>
       </div>
     </div>
   )

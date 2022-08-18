@@ -30,7 +30,7 @@ function Pagination(props) {
             else className = "";
 
 
-            if (page === 1 || page === 2) className = "Next"
+            if (page === 1 || page === 2 || page === 2 && props.position === 10) className = "Next"
             if (page === 0 && props.position === 0) className = "showAlways Active";
             if (props.position > 20 && page === 1) return (<span key={index + 128} className='points'>...</span>)
             if (props.position < 100 && page === 12) return (<Fragment key={index + 64}><span key={index + 256} className='points'>...</span><button key={index + Math.PI} className={`page- showAlways`} onClick={pageTransfer} data-selected={page}>{page + 1}</button></Fragment>)

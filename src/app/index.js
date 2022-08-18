@@ -16,6 +16,7 @@ import { Routes, Route } from 'react-router-dom';
  */
 function App() {
 
+
   const modal = useSelector(state => state.modals.name);
 
   console.log('App');

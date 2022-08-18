@@ -16,29 +16,33 @@ function Product(props) {
 
     const store = useStore();
     const productId = useLocation().state;
-
+    console.log(window.location.hash);
 
     useEffect(() => {
-        store.get('catalog').loadProduct(productId);
+        productId ? window.location.hash = productId : ""
+        store.get('catalog').loadProduct(window.location.hash.slice(1));
     }, [])
 
     const callbacks = {
-        openAndCloseModalBasket: [useCallback(() => store.get('modals').open('basket'), []), useCallback(() => store.get('modals').close('basket'), []),]
+        openAndCloseModalBasket: [useCallback(() => store.get('modals').open('basket'), []), useCallback(() => store.get('modals').close('basket'), []),],
+        addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), [])
+
     }
 
-    const { language, selectItem, amount, sum } = useSelector(state => ({
+    const { modalName, language, selectItem, amount, sum } = useSelector(state => ({
         selectItem: state.catalog.selectItem,
         amount: state.basket.amount,
         sum: state.basket.sum,
-        language: state.multilang.CurrentLang
+        language: state.multilang.CurrentLang,
+        modalName: state.modals.name
     }));
 
 
 
     return (
         <Layout head={<h1>{language.productTitle}</h1>}>
-            <BasketSimple sum={sum} amount={amount} onOpen={callbacks.openAndCloseModalBasket}></BasketSimple>
-            <ContainerProduct language={language} selectItem={selectItem} />
+            <BasketSimple modalName={modalName} language={language} sum={sum} amount={amount} onOpen={callbacks.openAndCloseModalBasket}></BasketSimple>
+            <ContainerProduct add={callbacks.addToBasket} language={language} selectItem={selectItem} />
         </Layout>
 
     )

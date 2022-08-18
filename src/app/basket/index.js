@@ -5,36 +5,42 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
+import {useNavigate} from "react-router";
 
-function Basket(){
+function Basket() {
+    const store = useStore();
+    const navigate = useNavigate();
 
-  console.log('Basket');
+    const select = useSelector(state => ({
+        items: state.basket.items,
+        amount: state.basket.amount,
+        sum: state.basket.sum
+    }));
 
-  const store = useStore();
+    const callbacks = {
+        // Закрытие любой модалки
+        closeModal: useCallback(() => store.get('modals').close(), []),
+        // Удаление из корзины
+        removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), []),
 
-  const select = useSelector(state => ({
-    items: state.basket.items,
-    amount: state.basket.amount,
-    sum: state.basket.sum
-  }));
+        redirectToItem: useCallback((id) => {
+            callbacks.closeModal();
+            navigate(`/articles/${id}`, {replace: true});
+        }, [])
+    };
 
-  const callbacks = {
-    // Закрытие любой модалки
-    closeModal: useCallback(() => store.get('modals').close(), []),
-    // Удаление из корзины
-    removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), [])
-  };
+    const renders = {
+        itemBasket: useCallback(item => <ItemBasket item={item} onRedirect={callbacks.redirectToItem}
+                                                    onRemove={callbacks.removeFromBasket}/>, []),
+    }
 
-  const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>, []),
-  }
 
-  return (
-    <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
-      <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
-    </LayoutModal>
-  )
+    return (
+        <LayoutModal title='Корзина' onClose={callbacks.closeModal}>
+            <List items={select.items} renderItem={renders.itemBasket}/>
+            <BasketTotal sum={select.sum}/>
+        </LayoutModal>
+    )
 }
 
 export default React.memo(Basket);

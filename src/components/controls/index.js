@@ -9,7 +9,6 @@ function Controls({onAdd}){
     </div>
   )
 }
-
 Controls.propTypes = {
   onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
 }

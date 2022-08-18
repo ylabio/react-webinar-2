@@ -1,0 +1,23 @@
+.Pagination-button {
+    font-size: 16px;
+    margin-right: 2px;
+    border: none;
+    width: 20px;
+    height: 20px;
+    background: white;
+    display: flex;
+    justify-content: center;
+}
+
+.Pagination-button:last-child {
+    margin-right: 0;
+}
+
+.Pagination-button:hover {
+    background: #E1E1E1;
+}
+
+.Pagination-button:disabled {
+    background: #0087E9;
+    color: white;
+}

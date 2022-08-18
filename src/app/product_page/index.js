@@ -3,11 +3,11 @@ import {cn as bem} from "@bem-react/classname";
 import propTypes from 'prop-types';
 import useStore from '../../utils/use-store';
 import { useParams } from 'react-router-dom';
-import ProductItem from '../product_item'
+import ProductItem from '../../components/product_item'
 import useSelector from "../../utils/use-selector";
 import BasketSimple from "../../components/basket-simple";
-import Layout from '../layout';
-import Menu from '../menu';
+import Layout from '../../components/layout';
+import Menu from '../../components/menu';
 
 
 

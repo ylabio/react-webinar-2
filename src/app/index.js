@@ -8,7 +8,7 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-import Product_page from '../components/product_page';
+import Product_page from './product_page';
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React

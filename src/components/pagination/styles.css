@@ -32,12 +32,22 @@
     align-items: center;
 }
 
-.BasketTotal-cell {
-    min-width: 85px;
-    text-align: right;
-    font-weight: bold;
-    font-size: 18px;
-    padding-left: 10px;
-    white-space: nowrap;
+.Pagination-paginationLink{
+    color: black;
+    text-decoration: none;
 }
 
+.Pagination-paginationLink:hover{
+    cursor: pointer;
+}
+
+.Pagination-separator{
+    width: 20px;
+    height: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #CCCCCC;
+}

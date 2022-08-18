@@ -33,8 +33,6 @@ class CatalogState extends StateModule{
   async loadPage(limit, currentPage){
     const response = await fetch(`/api/v1/articles?limit=${limit}&skip=${currentPage * limit - limit}`);
     const json = await response.json();
-    console.log('state')
-    console.log(this)
     this.setState({
       ...this.store.state.catalog,
       items: json.result.items
@@ -47,14 +45,13 @@ class CatalogState extends StateModule{
 
     const country = await this.loadCountryById(json.result.maidIn._id)
     const category = await this.loadCategoryById(json.result.category._id)
-    console.log(country)
-    console.log(category)
     this.setState({
       ...this.store.state.catalog,
+      // items: json.result,
       currentItem: json.result,
       currentItemCountry: country.title,
       currentItemCountryCode: country.code,
-      currentItemCountryCategory: category,
+      currentItemCategory: category,
     },'this item');
   }
 

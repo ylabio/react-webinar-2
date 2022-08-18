@@ -12,7 +12,6 @@ function Main(){
   let params = useParams();
 
   console.log('Main');
-  console.log('ItemPage');
   console.log(params.pageNumber);
 
   const store = useStore();
@@ -32,7 +31,7 @@ function Main(){
 
   useEffect(() => {
     store.get('pagination').goToPage(params.pageNumber);
-  })
+  }, [params.pageNumber])
 
   useEffect(() => {
     store.get('catalog').loadPage(select.itemsOnPage, select.currentPage);
@@ -49,8 +48,7 @@ function Main(){
   const renders = {
     item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
   }
-  console.log("select.currentPage")
-  console.log(select.currentPage)
+  
   return (
     <Layout head={<h1>Магазин</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>

@@ -14,51 +14,42 @@ function Pagination(props) {
     pagesCount.push(i)
   }
 
-  console.log(pages)
-
   let pages = new Array()
+  let separatorAfter = false, separatorBefore = false
   pagesCount.map((item) =>{
+    
     if ((item === 1) || (item === pagesCount.length)) {
-      pages.push(<Link to={`/page${item}`} key={item}>
-        <div key={item} className={item === currentPage ? cn('page__active') : cn('page')}>
+      separatorAfter = false
+      separatorBefore = false
+      pages.push(<Link to={`/page${item}`} key={item} className={cn('paginationLink')}>
+        <div className={item === currentPage ? cn('page__active') : cn('page')}>
+          {item}
+        </div>
+      </Link>)
+      } else if ((item === 3) && (currentPage === 1)) {
+        pages.push(<Link to={`/page${item}`} key={item} className={cn('paginationLink')}>
+        <div className={item === currentPage ? cn('page__active') : cn('page')}>
           {item}
         </div>
       </Link>)
       } else if ((item === (currentPage - 1)) || (item === currentPage) || (item === (currentPage + 1))) {
-        pages.push(<Link to={`/page${item}`} key={item}>
-          <div key={item} className={item === currentPage ? cn('page__active') : cn('page')}>
+        pages.push(<Link to={`/page${item}`} key={item} className={cn('paginationLink')}>
+          <div className={item === currentPage ? cn('page__active') : cn('page')}>
             {item}
           </div>
         </Link>)
-      } else if ((item < (currentPage - 1)) || (item > (currentPage + 1))) {
-        pages.push(<div>
-            ...
-        </div>)
+      } else if ((item < (currentPage - 1)) && !separatorBefore) {
+        separatorBefore = true
+        pages.push(<div className={cn('separator')} > ... </div>)
+      } else if ((item > (currentPage + 1)) && !separatorAfter ) {
+        separatorAfter = true
+        pages.push(<div className={cn('separator')} > ... </div>)
       }
-
     
 })
-
-if ((currentPage === 1) && (pagesCount > 3)) {
-  pages[2] = (<Link to={`/page3`} key={3}> 
-               <div key={3} className={cn('page')}>
-                 3
-               </div>
-             </Link>)
-}
-  console.log("pages 2")
-  console.log(pages[2])
-  
   return (
     
     <div className={cn('wrapper')}>
-      {/* {pagesCount.map(item => 
-        <Link to={`/page${item}`} key={item}>
-        <div key={item} className={item === props.currentPage ? cn('page__active') : cn('page')}>
-          {item}
-        </div>
-      </Link>
-      )} */}
       {pages}
     </div>
   )

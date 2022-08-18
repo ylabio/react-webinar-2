@@ -12,7 +12,7 @@ function ItemPage(props){
   const cn = bem('ItemPage');
   let params = useParams();
 
-  console.log('ItemPage');
+  console.log('ItemPage itemID');
   console.log(params.itemId);
 
   const store = useStore();
@@ -28,7 +28,7 @@ function ItemPage(props){
 
   useEffect(() => {
     store.get('catalog').loadItemById(params.itemId);
-  }, [])
+  }, [params.itemId])
 
   const callbacks = {
     // Открытие корзины
@@ -40,16 +40,16 @@ function ItemPage(props){
   const renders = {
     item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
   }
-
+  
   return (
     <Layout head={<h1>{select.currentItem.title}</h1>}>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <div className={cn('container')}>
         <div className={cn('description')}>{select.currentItem.description}</div>
-        <div className={cn('country')}>{select.currentItemCountry}{select.currentItemCountryCode}</div>
-        <div className={cn('category')}>{select.currentItemCategory}</div>
-        <div className={cn('year')}>{select.currentItem.edition}</div>
-        <div className={cn('price')}>{select.currentItem.price} ₽</div>
+        <div className={cn('country')}>Страна производитель: <span className={cn('itemInfo')}>{select.currentItemCountry} ({select.currentItemCountryCode})</span></div>
+        <div className={cn('category')}>Категория: <span className={cn('itemInfo')}>{select.currentItemCategory}</span></div>
+        <div className={cn('year')}>Год выпуска: <span className={cn('itemInfo')}>{select.currentItem.edition}</span></div>
+        <div className={cn('price')}>Цена: {Number(select.currentItem.price).toLocaleString('ru-RU')} ₽</div>
         <button onClick={callbacks.addToBasket}>Добавить</button>
       </div>
     </Layout>

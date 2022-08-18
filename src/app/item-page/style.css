@@ -2,3 +2,16 @@
 .ItemPage-container {
     padding: 20px 40px;
 }
+
+.ItemPage-container * {
+    margin-bottom: 20px;
+}
+
+.ItemPage-itemInfo {
+    font-weight: 700;
+}
+
+.ItemPage-price {
+    font-weight: 700;
+    font-size: 24px;
+}

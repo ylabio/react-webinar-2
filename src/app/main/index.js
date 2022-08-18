@@ -10,6 +10,7 @@ function Main(){
 
   console.log('Main');
   const store = useStore();
+  const catalog = store.get('catalog');
   const [itemsPerPage] = useState(10);
 
   const select = useSelector(state => ({
@@ -27,13 +28,14 @@ function Main(){
 
   return (    
     <Layout head={<h1>Магазин</h1>} 
-    nav={<Pages state={select} 
+    nav={<Pages state={select}
+    catalog={catalog} 
     count={Math.ceil(select.itemsCount/itemsPerPage)} 
     perPage={itemsPerPage} />}>
       <BasketSimple onOpen={callbacks.openModalBasket} 
       amount={select.amount} 
       sum={select.sum}>
-        <Menu onButtonClick={()=>store.get('catalog').setActive(0)}/>    
+        <Menu onButtonClick={()=>catalog.setActive(0)}/>    
       </BasketSimple>
     </Layout>
   )

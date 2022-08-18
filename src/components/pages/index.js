@@ -1,12 +1,10 @@
 import React, {useEffect} from 'react';
-import useStore from '../../utils/use-store';
 import {NavLink, useParams} from "react-router-dom";
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
 function Pages(props){
-const store = useStore();
 const pagesList = [];
 const cn = bem('Pages');
 const {query} = useParams();
@@ -14,21 +12,20 @@ const active = props.state.activePage
   || (query) ? query.split('=')[2]/10 : 0;
 console.log(active);
 for (let n = 1; n <= props.count; n++) {
-    pagesList.push(n);
+  pagesList.push(n);
 }
 
 useEffect(()=>{
-    store.get('catalog').load(query);
+  props.catalog.load(query);
   },[query]);
 
 return (
-  <div className={cn()}>
-    {
+  <div className={cn()}>{
     <NavLink className={({isActive}) =>{
       if (active === 0) return cn('item_active');
       else return isActive ? cn('item_active') : cn('item');
     }}
-    onClick={()=>store.get('catalog').setActive(0)}
+    onClick={()=>props.catalog.setActive(0)}
     to={`limit=${props.perPage}&skip=${1*props.perPage-props.perPage}`}>
       {1}
     </NavLink>
@@ -49,20 +46,19 @@ return (
       else return isActive ? cn('item_active') : cn('item'); 
       }
     } 
-    onClick={()=>store.get('catalog').setActive(index)}
+    onClick={()=>props.catalog.setActive(index)}
     to={`limit=${props.perPage}&skip=${item*props.perPage-props.perPage}`}>
       {item}
     </NavLink>)}
 
     {(active < (props.count - 3)) && <span className={cn('spread')}>...</span>}
 
-    {
-      <NavLink className={({isActive}) =>{
-          return isActive ? cn('item_active') : cn('item');
+    {<NavLink className={({isActive}) =>{
+      return isActive ? cn('item_active') : cn('item');
       }}
-      onClick={()=>store.get('catalog').setActive(props.count - 1)}
+      onClick={()=>props.catalog.setActive(props.count - 1)}
       to={`limit=${props.perPage}&skip=${props.count*props.perPage-props.perPage}`}>
-          {(props.count) ? props.count : ''}
+        {(props.count) ? props.count : ''}
       </NavLink>
     }
   </div>

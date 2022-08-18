@@ -21,14 +21,14 @@ class BasketState extends StateModule {
    * Добавление товара в корзину
    * @param _id Код товара
    */
-  async addToBasket(_id,limit,numberPage) {
+  async addToBasket(_id) {
     let sum = 0;
-    
-    console.log(numberPage);
+
+
     // Ищем товар в корзие, чтобы увеличить его количество. Заодно получаем новый массив items
     const resultObj = await axios(`/api/v1/articles/${_id}`)
-    
-    console.log(resultObj.data.result);
+
+
     let exists = false;
     const items = this.getState().items.map(item => {
       let result = item;

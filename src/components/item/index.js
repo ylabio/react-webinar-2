@@ -12,7 +12,7 @@ function Item(props) {
   const cn = bem('Item');
   const {itemsSkipPages,selectedNumber} = useContext(ContextTitle)
   const callbacks = {
-    onAdd: useCallback((e) => props.onAdd(props.item._id,itemsSkipPages,selectedNumber), [props.onAdd, props.item]),
+    onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item]),
 
   };
   const { setTitle } = useContext(ContextTitle)

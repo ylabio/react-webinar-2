@@ -14,6 +14,7 @@ function Description(){
   useEffect(() => {
     store.get('description').load(_id);
     store.get('catalog').reset();
+    store.get('modals').close();
     return () => {
       store.get('description').reset();
     };

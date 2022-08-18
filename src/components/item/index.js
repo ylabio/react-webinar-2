@@ -18,7 +18,7 @@ function Item(props) {
       {/*  {props.description._id}*/}
       {/*</div>*/}
       <div className={cn('title')}>
-        <Link to={`/description/${props.item._id}`}>
+        <Link to={props.path}>
           {props.item.title}
         </Link>
       </div>
@@ -33,10 +33,12 @@ function Item(props) {
 Item.propTypes = {
   item: propTypes.object.isRequired,
   onAdd: propTypes.func,
+  path: propTypes.string
 }
 
 Item.defaultProps = {
   onAdd: () => {},
+  path: '/'
 }
 
 export default React.memo(Item);

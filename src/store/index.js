@@ -1,10 +1,14 @@
 import * as modules from './exports.js';
 
 class Store {
-
   constructor() {
     // Состояние приложения (данные)
-    this.state = {};
+    this.state = {
+      loading: false,
+      language: 'ru',
+      limit: 10,
+      skip: 10,
+    };
     // Слушатели изменений state
     this.listeners = [];
 
@@ -22,7 +26,7 @@ class Store {
    * Доступ к модулю состояния
    * @param name {String} Название модуля
    */
-  get(name){
+  get(name) {
     return this.modules[name];
   }
 
@@ -40,11 +44,10 @@ class Store {
    * @param [description] {String} Описание действия для логирования
    */
   setState(newState, description = 'setState') {
-
     console.group(
       `%c${'store.setState'} %c${description}`,
       `color: ${'#777'}; font-weight: normal`,
-      `color: ${'#333'}; font-weight: bold`,
+      `color: ${'#333'}; font-weight: bold`
     );
     console.log(`%c${'prev:'}`, `color: ${'#d77332'}`, this.state);
     console.log(`%c${'next:'}`, `color: ${'#2fa827'}`, newState);
@@ -66,8 +69,16 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
+  }
+
+  /**
+   * Изменение языка приложения
+   * @param {string} language
+   */
+  changeLanguage(language) {
+    this.setState({ ...this.getState(), language }, `Изменение языка на ${language}`);
   }
 }
 

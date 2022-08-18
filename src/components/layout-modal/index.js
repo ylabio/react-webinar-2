@@ -1,7 +1,8 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
+import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import translate from '../../utils/translate';
 
 function LayoutModal(props) {
   const cn = bem('LayoutModal');
@@ -17,21 +18,19 @@ function LayoutModal(props) {
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = 'auto';
-    }
+    };
   });
 
   return (
     <div className={cn()}>
       <div className={cn('frame')} ref={frame}>
         <div className={cn('head')}>
-          <h1 className={cn('title')}>
-            {props.title}
-          </h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <h1 className={cn('title')}>{props.title}</h1>
+          <button className={cn('close')} onClick={props.onClose}>
+            {translate(props.language, 'close')}
+          </button>
         </div>
-        <div className={cn('content')}>
-          {props.children}
-        </div>
+        <div className={cn('content')}>{props.children}</div>
       </div>
     </div>
   );
@@ -41,11 +40,12 @@ LayoutModal.propTypes = {
   title: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
+  language: PropTypes.string.isRequired,
 };
 
 LayoutModal.defaultProps = {
   title: 'Модалка',
-  onClose: () => {}
+  onClose: () => {},
 };
 
 export default React.memo(LayoutModal);

@@ -1,0 +1,7 @@
+/* Контрол с общими действиями */
+.TopBar{
+    display: flex;
+    justify-content: space-between;
+
+    padding: 20px 20px;
+}

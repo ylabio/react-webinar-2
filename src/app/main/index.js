@@ -1,4 +1,4 @@
-import BasketSimple from "../../components/basket-simple";
+import TopBar from "../../components/top-bar";
 import List from "../../components/list";
 import Layout from "../../components/layout";
 import Pagination from "../../components/pagination";
@@ -27,7 +27,7 @@ function Main(){
 
   useEffect(() => {
     store.get('pagination').calculatePagesCount(select.itemsOnPage);
-  })
+  }, [])
 
   useEffect(() => {
     store.get('pagination').goToPage(params.pageNumber);
@@ -43,6 +43,8 @@ function Main(){
     openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Перевод
+    translate: useCallback((lang, item) => store.get('localisation').translate(lang, item), []),
   };
 
   const renders = {
@@ -50,8 +52,8 @@ function Main(){
   }
   
   return (
-    <Layout head={<h1>Магазин</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+    <Layout head={<h1>{callbacks.translate('en','main-header')}</h1>}>
+      <TopBar translate={callbacks.translate} onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       <List items={select.items} renderItem={renders.item}/>
       <Pagination pagesCount={select.pagesCount} currentPage={select.currentPage ? select.currentPage : 1} goToPage={callbacks.goToPage}/>
     </Layout>

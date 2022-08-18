@@ -1,19 +1,12 @@
 /* Контрол с общими действиями */
 .BasketSimple{
+    flex-basis: 50%;
+}
+
+.BasketSimple-wrapper{
     display: flex;
-    justify-content: space-between;
-    padding: 20px;
+    justify-content: flex-end;
     font-size: 18px;
-}
-
-.BasketSimple-links{
-    display: flex;
-    align-items: center;
-    justify-content: start;
-}
-
-.linkMain{
-    justify-self: start;
 }
 
 .BasketSimple-label{

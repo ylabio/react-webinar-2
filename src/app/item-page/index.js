@@ -1,14 +1,14 @@
-import BasketSimple from "../../components/basket-simple";
+
 import Layout from "../../components/layout";
 import React, {useCallback, useEffect} from "react";
 import { Link, BrowserRouter as Router, Route, useParams } from "react-router-dom";
-import Item from "../../components/item";
+import ItemInfo from "../../components/item-info";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import {cn as bem} from "@bem-react/classname";
-import './style.css';
+import TopBar from "../../components/top-bar";
 
-function ItemPage(props){
+function ItemPage(){
   const cn = bem('ItemPage');
   let params = useParams();
 
@@ -37,21 +37,16 @@ function ItemPage(props){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(params.itemId), []),
   };
 
-  const renders = {
-    item: useCallback(item => <Item item={item} onAdd={callbacks.addToBasket}/>, []),
-  }
   
   return (
     <Layout head={<h1>{select.currentItem.title}</h1>}>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
-      <div className={cn('container')}>
-        <div className={cn('description')}>{select.currentItem.description}</div>
-        <div className={cn('country')}>Страна производитель: <span className={cn('itemInfo')}>{select.currentItemCountry} ({select.currentItemCountryCode})</span></div>
-        <div className={cn('category')}>Категория: <span className={cn('itemInfo')}>{select.currentItemCategory}</span></div>
-        <div className={cn('year')}>Год выпуска: <span className={cn('itemInfo')}>{select.currentItem.edition}</span></div>
-        <div className={cn('price')}>Цена: {Number(select.currentItem.price).toLocaleString('ru-RU')} ₽</div>
-        <button onClick={callbacks.addToBasket}>Добавить</button>
-      </div>
+      <TopBar onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
+      <ItemInfo
+      item={select.currentItem}
+      itemCountry={select.currentItemCountry}
+      itemCountryCode={select.currentItemCountryCode}
+      itemCategory={select.currentItemCategory}
+      onAdd={callbacks.addToBasket}/>
     </Layout>
   )
 }

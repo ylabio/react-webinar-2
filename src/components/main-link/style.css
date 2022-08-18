@@ -1,0 +1,21 @@
+.MainLink-mainLink,
+.MainLink-mainLink:visited{
+    
+    color: #0087E9;
+    position: relative;
+    
+    float: left;
+    padding-top:30px;
+    padding-left:30px;
+    display:flex;
+
+}
+
+a.MainLink-mainLink{
+    float:left;
+
+}
+
+.MainLink-mainLink:hover{
+    color: #55A8E4;
+}

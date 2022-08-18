@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
 import plural from "plural-ru";
 import {cn as bem} from "@bem-react/classname";
@@ -6,10 +6,11 @@ import numberFormat from "../../utils/numberFormat";
 import './styles.css';
 
 
-function BasketSimple({sum, amount, onOpen}) {
+function BasketSimple({sum, amount, onOpenModal}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
+      <div>
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
       {amount
@@ -17,7 +18,8 @@ function BasketSimple({sum, amount, onOpen}) {
         : `пусто`
       }
       </span>
-      <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+      <button className='BasketSimple__button' onClick={onOpenModal}>Перейти</button>
+      </div>
     </div>
   )
 }

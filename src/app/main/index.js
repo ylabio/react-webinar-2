@@ -59,7 +59,7 @@ function Main() {
   }, [select.currentPage])
   
   return (
-    <Layout head={<PageHead title='Корзина' changeLanguage={callbacks.changeLanguage} language={select.language}/>}>
+    <Layout head={<PageHead title={words.cart} changeLanguage={callbacks.changeLanguage} language={select.language}/>}>
       <MenuWrapper>
         <MainMenu words={
           {main: words.main,}

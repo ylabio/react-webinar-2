@@ -17,7 +17,7 @@ function Main() {
   }, [], {backForward: true});
 
   const {t} = useTranslate();
-
+  
   return (
     <Layout head={
       <LayoutFlex flex="between">

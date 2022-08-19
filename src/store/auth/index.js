@@ -54,7 +54,6 @@ class AuthState extends StateModule{
    * @param password - пароль
    */
   async pushAuth(login, password) {
-    console.log(JSON.stringify({login: login, password: password, remember: true}))
     this.setState({
       waiting: true,
       user: {},

@@ -33,7 +33,7 @@ const AuthForm = () => {
     onSetPassword: cred => setCreds({...creds, password: cred}),
     onSubmitCallback: () => {
       if(creds.login && creds.password) {
-        store.get('auth').pushAuth(creds.login, creds.password).then(r => console.log(r))
+        store.get('auth').pushAuth(creds.login, creds.password)
       }
     }
   }

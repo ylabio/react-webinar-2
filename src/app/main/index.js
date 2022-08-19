@@ -8,6 +8,8 @@ import Loader from "../../components/loader";
 import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import Controls from "../../components/controls";
+import LanguageSelect from '../../components/language-select';
+import TranslateText from "../../components/translate-text";
 
 function Main(){
 
@@ -22,7 +24,8 @@ function Main(){
 		pagesCount: state.catalog.pagesCount,
 		currPage: state.catalog.currPage,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+		currLanguage: state.language.currLanguage
   }));
 
 	useEffect(() => {
@@ -36,7 +39,9 @@ function Main(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
 
-		setCurrPage: useCallback(page => store.get('catalog').setCurrPage(page), [])
+		setCurrPage: useCallback(page => store.get('catalog').setCurrPage(page), []),
+
+		setCurrLanguage: useCallback(language => store.get('language').setCurrLanguage(language), []),
   };
 
   const renders = {
@@ -44,8 +49,9 @@ function Main(){
   }
 
   return (
-    <Layout head={<h1>Магазин</h1>}>
+    <Layout head={<h1><TranslateText tid="shop" /></h1>}>
 			<Controls>
+				<LanguageSelect currLanguage={select.currLanguage} setCurrLanguage={callbacks.setCurrLanguage} />
 				<BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
 			</Controls>
 			{select.isLoading ? 

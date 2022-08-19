@@ -1,25 +1,28 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useCallback, useMemo,} from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
-import { createCategoryTree } from "./create-categoty-tree";
-import { createCategories } from "./create-categories";
+import { useGettingCategory } from "./useGettingCategories";
 
 function CatalogFilter() {
   const store = useStore();
-  const [categories, setCategories] = useState({});
+  const [categories, setCategories] = useGettingCategory();
+  console.log(categories)
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    filter: state.catalog.params['search[category]'],
   }));
 
   const {t} = useTranslate();
 
   const callbacks = {
+    // Фильтр
+    onFilter: useCallback(filter => store.get('catalog').setParams({'search[category]': filter}), []),
     // Сортировка
     onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
     // Поиск
@@ -38,15 +41,11 @@ function CatalogFilter() {
     ]), [])
   }
   
-  useEffect(()=> {
-    (async () => {
-      const response = await (await fetch('/api/v1/categories')).json()
-      setCategories(createCategoryTree(response.result.items));
-    })()
-  }, [])
 
+ 
   return (
     <LayoutFlex flex="start">
+      <Select onChange={callbacks.onFilter} value={select.filter} options={categories}/>
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

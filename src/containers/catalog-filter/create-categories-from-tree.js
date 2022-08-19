@@ -1,11 +1,9 @@
-export function createCategories(tree) {
+export function createCategoriesFromTree(tree) {
   const categories = [];
 
   for (const branch in tree) {
     categories.push(...scanBranch({[branch]: tree[branch]}));
   }
-
-  console.log({categories})
 
   return categories;
 }
@@ -19,8 +17,8 @@ function scanBranch(branch) {
       const children = tree[branchName].children;
 
       categories.push({
-        value: prefix + branchName,
-        data,
+        value: data._id,
+        title: prefix + ' ' + data.title,
       })
       
       if (Object.keys(children).length) {

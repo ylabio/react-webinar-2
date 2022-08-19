@@ -2,6 +2,7 @@ import React, {useCallback, useMemo} from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
+import getCategories from "../../utils/get-categories";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
@@ -17,16 +18,12 @@ function CatalogFilter() {
     categories: state.categories.items,
   }));
 
-  let categoriesOptions = [];
-  if (select.categories) {
-    categoriesOptions = select.categories.map((item) => ({ value: item._id, title: item.title }));
-  }
-
+  const categoriesOptions = getCategories(select.categories);
   const {t} = useTranslate();
 
   const callbacks = {
     // Фильтрация по категории
-    onCategory: useCallback(category => store.get('catalog').setParams({category}), []),
+    onCategory: useCallback(category => store.get('catalog').setParams({category, page: 1}), []),
     // Сортировка
     onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
     // Поиск
@@ -44,7 +41,7 @@ function CatalogFilter() {
       {value: 'edition', title: 'Древние'},
     ]), []),
     categories: useMemo(() => ([
-        {value: 'all', title: 'Все'},
+        {value: '', title: 'Все'},
         ...categoriesOptions
     ]), [categoriesOptions])
   }

@@ -11,10 +11,6 @@ import Categories from "../../components/categories";
 function CatalogFilter() {
   const store = useStore();
 
-  useInit(async () => {
-    await store.get("categories").load();
-  }, []);
-
   const select = useSelector((state) => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,

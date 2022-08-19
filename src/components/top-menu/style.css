@@ -1,0 +1,26 @@
+.TopMenu{
+    max-width: 1024px;   
+    margin: 0 auto;
+    background: #fff;
+    box-sizing: border-box;
+    box-shadow: 0 0 15px 5px #0000003b;
+}
+.TopMenu{
+    justify-content: flex-start;
+}
+
+.TopMenu_padding{
+    padding: 10px 20px;
+}
+
+.TopMenu_flex_end{
+    justify-content: flex-end;
+}
+
+.TopMenu_flex_between{
+    justify-content: space-between;
+}
+
+.TopMenu-item{
+    margin: 0 5px;
+}

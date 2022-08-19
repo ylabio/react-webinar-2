@@ -1,0 +1,13 @@
+.LoginForm {
+    padding: 20px;
+}
+
+.LoginForm-prop {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+}
+.LoginForm-sigin {
+    margin-top: 20px;
+
+}

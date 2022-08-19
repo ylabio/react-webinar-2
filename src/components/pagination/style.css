@@ -35,3 +35,13 @@
     cursor: default;
     color: #CCCCCC;
 }
+
+.Pagination-item a {
+    color: initial;
+    text-decoration: initial;
+}
+
+.Pagination-item_active a{
+    background: #0087E9;
+    color: #fff;
+}

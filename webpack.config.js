@@ -19,7 +19,7 @@ let config = {
     new HtmlWebPackPlugin({ // Создание dist/index.html с подключенной сборкой
       template: './index.html',
       filename: './index.html',
-      base: '',
+      base: '/',
     }),
   ],
   //

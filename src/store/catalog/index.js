@@ -1,4 +1,3 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
 
 /**
@@ -12,16 +11,42 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      query:{
+        skip:0,
+        limit:10
+      }
     };
   }
 
-  async load(){
-    const response = await fetch('/api/v1/articles');
+  async load(params){
+    const response = await fetch(`/api/v1/articles${(params) 
+      ? '?' + params + '&fields=items(*),count' 
+      : '?limit=10&skip=0&fields=items(*),count'}`);
     const json = await response.json();
+    
     this.setState({
-      items: json.result.items
+      ...this.getState(),
+      items: json.result.items,
+      itemsCount: json.result.count,
     });
+  }
+
+  async loadId(id){
+    const response = await fetch(`/api/v1/articles/${id}?fields=%2A&lang=ru`);
+    const json = await response.json();
+  
+    this.setState({
+      ...this.getState(),
+      items: [json.result],
+    });
+  }
+
+  setActive(index){
+    this.setState({
+      ...this.getState(),
+      activePage: index
+    })
   }
 
   /**

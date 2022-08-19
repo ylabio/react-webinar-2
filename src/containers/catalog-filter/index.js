@@ -11,6 +11,8 @@ function CatalogFilter() {
 
   const select = useSelector((state) => ({
     sort: state.catalog.params.sort,
+    category: state.catalog.params.category,
+    categoryList: state.catalog.categoryList,
     query: state.catalog.params.query,
   }));
 
@@ -19,6 +21,8 @@ function CatalogFilter() {
   const callbacks = {
     // Сортировка
     onSort: useCallback((sort) => store.get("catalog").setParams({ sort }), []),
+    // Сортировка
+    filterCategory: useCallback((category) => store.get("catalog").setParams({ category }), []),
     // Поиск
     onSearch: useCallback(
       (query) => store.get("catalog").setParams({ query, page: 1 }),
@@ -28,100 +32,59 @@ function CatalogFilter() {
     onReset: useCallback(() => store.get("catalog").resetParams(), []),
   };
 
-  const [categoryList, setCategoryList] = useState([{title: 'Все', value: ''}]);
+  // useEffect(() => {
 
-  useEffect(() => {
-    // const res = store.get("catalog").getCategory();
-    // let cats = [];
+  //   (async function rec() {
+  //     store.get("catalog").getCategory();
 
-    (async function rec() {
-      let items = await store.get("catalog").getCategory();
-      console.log("category: ", items);
+  //     let items = await store.get("catalog").getCategory();
+  //     console.log("category: ", items);
 
-      let tree = [];
-      for (let i = 0; i < items.length; i++) {
-        items[i].level = 0;
-        const getLevel = (item) => {
-          if (item?.parent?._id) {
-            const parent = items.find(
-              (parent) => item.parent._id === parent._id
-            );
+  //     let tree = [];
+  //     for (let i = 0; i < items.length; i++) {
+  //       items[i].level = 0;
+  //       const getLevel = (item) => {
+  //         if (item?.parent?._id) {
+  //           const parent = items.find(
+  //             (parent) => item.parent._id === parent._id
+  //           );
 
-            if (parent) {
-              if (parent.children?.length) {
-                !parent.children.includes(item) && parent.children.push(item);
-              } else parent.children = [item];
-              items[i].level++
-              getLevel(parent);
-            } else return;
-          } else return;
-        };
-        getLevel(items[i]);
-        if (items[i].level === 0) tree.push(items[i]);
-        else continue;
-      }
-      console.log("tree: ", tree);
+  //           if (parent) {
+  //             if (parent.children?.length) {
+  //               !parent.children.includes(item) && parent.children.push(item);
+  //             } else parent.children = [item];
+  //             items[i].level++
+  //             getLevel(parent);
+  //           } else return;
+  //         } else return;
+  //       };
+  //       getLevel(items[i]);
+  //       if (items[i].level === 0) tree.push(items[i]);
+  //       else continue;
+  //     }
+  //     console.log("tree: ", tree);
 
-      let categoryList = [];
-      const setArray = (items) => {
-        items.forEach((item) => {
-          const cat = {
-            title: `${'-'.repeat(item.level)}${item.title}`,
-            value: item._id
-          }
-          categoryList.push(cat);
-          if (item?.children?.length) {
-            setArray(item.children);
-          } else return;
-        });
-      };
-      setArray(tree);
-      console.log("categoryList: ", categoryList);
+  //     let categoryList = [];
+  //     const setArray = (items) => {
+  //       items.forEach((item) => {
+  //         const cat = {
+  //           title: `${'-'.repeat(item.level)}${item.title}`,
+  //           value: item._id
+  //         }
+  //         categoryList.push(cat);
+  //         if (item?.children?.length) {
+  //           setArray(item.children);
+  //         } else return;
+  //       });
+  //     };
+  //     setArray(tree);
+  //     console.log("categoryList: ", categoryList);
 
-      setCategoryList(prev => [...prev, ...categoryList])
+  //     setCategoryList(prev => [...prev, ...categoryList])
       
-    })();
+  //   })();
 
-    // res
-    //   .then((res) => (cats = res.result.items))
-    //   .then(() => {
-    //     return cats.map((cat) => {
-    //       cat.level = 0;
-    //       const getLevel = (item) => {
-    //         if (item?.parent?._id) {
-    //           const parent = cats.find(
-    //             (parent) => item.parent._id === parent._id
-    //           );
-
-    //           if (parent) {
-    //             if (parent.children?.length) {
-    //               !parent.children.includes(item) && parent.children.push(item);
-    //             } else parent.children = [item];
-    //             cat.level = cat.level + 1;
-    //             getLevel(parent);
-    //           } else return;
-    //         } else return;
-    //       };
-    //       getLevel(cat);
-    //       if (cat.level === 0) return cat;
-    //       else return {};
-    //     });
-    //   })
-    //   .then((res) => {
-    //     let newArray = [];
-    //     const setArray = (items) => {
-    //       items.forEach((item) => {
-    //         Object.keys(item).length !== 0 && newArray.push(item);
-    //         if (item?.children?.length) {
-    //           setArray(item.children);
-    //         } else return;
-    //       });
-    //     };
-    //     setArray(res);
-    //     console.log(newArray);
-    //     console.log(res);
-    //   });
-  }, []);
+  // }, []);
 
   // Опции для полей
   const options = {
@@ -133,24 +96,15 @@ function CatalogFilter() {
         { value: "edition", title: "Древние" },
       ],
       []
-    ),
-    category: useMemo(
-      () => [
-        { value: "1", title: "11" },
-        { value: "2", title: "22" },
-        { value: "3", title: "33" },
-        { value: "4", title: "44" },
-      ],
-      []
-    ),
+    )
   };
 
   return (
     <LayoutFlex flex="start">
       <Select
-        onChange={() => {}}
-        value={categoryList}
-        options={categoryList}
+        onChange={callbacks.filterCategory}
+        value={select.category}
+        options={select.categoryList}
       />
       <Select
         onChange={callbacks.onSort}

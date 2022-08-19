@@ -9,8 +9,7 @@ import { useGettingCategory } from "./useGettingCategories";
 
 function CatalogFilter() {
   const store = useStore();
-  const [categories, setCategories] = useGettingCategory();
-  console.log(categories)
+  const [categories] = useGettingCategory();
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,

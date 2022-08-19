@@ -89,15 +89,14 @@ class CatalogState extends StateModule{
     const skip = (newParams.page - 1) * newParams.limit;
 
     let _url;
-    const baseUrl = `/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}&lang=ru`;
+    const baseUrl = `/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`;
+    const category = 'search[category]';
 
-    if (newParams['search[category]'] !== 'all') {
-      _url = baseUrl + `&search[category]=${newParams['search[category]']}`;
-      console.log({newParams})
-    } else {
-      delete newParams['search[category]'];
+    if (newParams[category] === 'all' || !newParams[category]) {
+      delete newParams[category];
       _url = baseUrl;
-      console.log({newParams})
+    } else {
+      _url = baseUrl + `&search[category]=${newParams[category]}`;
     }
 
     const response = await fetch(_url);

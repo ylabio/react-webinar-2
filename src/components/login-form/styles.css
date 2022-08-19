@@ -1,0 +1,19 @@
+.LoginForm {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.LoginForm-button {
+    align-self: start;
+}
+.LoginForm-forms {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.LoginForm-form p {
+    margin: 0
+}
+.LoginForm-error {
+    color: #FF0000;
+}

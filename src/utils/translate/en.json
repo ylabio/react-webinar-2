@@ -15,5 +15,14 @@
   "basket.delete": "Delete",
   "article.add": "Add",
   "filter.reset": "Reset",
-  "category.all": "All"
+  "search.title": "Search",
+  "category.all": "All",
+  "auth.login": "Log in",
+  "auth.loginto": "Log in",
+  "auth.logout": "Log out",
+  "auth.username": "Login",
+  "auth.password": "Password",
+  "profile.title": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone"
 }

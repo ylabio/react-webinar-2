@@ -1,0 +1,15 @@
+.TopMenu {
+    background: white;
+    margin: 0 auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 10px 20px;
+    max-width: 1024px;
+    gap: 20px;
+}
+.TopMenu a {
+    color: #0087E9;
+    text-decoration-line: underline;
+    text-decoration-color: #0087E9;
+}

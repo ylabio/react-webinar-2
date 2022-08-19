@@ -17,5 +17,14 @@
   "basket.delete": "Удалть",
   "article.add": "Добавить",
   "filter.reset": "Сбросить",
-  "category.all": "Все"
+  "search.title": "Поиск",
+  "category.all": "Все",
+  "auth.login": "Вход",
+  "auth.loginto": "Войти",
+  "auth.logout": "Выход",
+  "auth.username": "Логин",
+  "auth.password": "Пароль",
+  "profile.title": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон"
 }

@@ -1,0 +1,26 @@
+.UserProfile{
+    padding: 20px;
+}
+
+.UserProfile h2{
+    margin: 0;
+    padding: 10px 0;
+}
+
+.UserProfile-prop {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.UserProfile-prop_size_big{
+    font-size: 24px;
+}
+
+.UserProfile-label{
+    padding-right: 10px;
+}
+
+.UserProfile-value{
+    font-weight: bold;
+}

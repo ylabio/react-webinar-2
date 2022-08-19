@@ -1,0 +1,21 @@
+.ProfileContent {
+    padding: 40px 20px;
+}
+.ProfileContent-title {
+    margin-bottom: 30px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    color: #000000;
+}
+.ProfileContent-prop {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+}
+.ProfileContent-label{
+    padding-right: 10px;
+}
+.ProfileContent-value{
+    font-weight: bold;
+}

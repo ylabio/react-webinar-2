@@ -4,12 +4,13 @@ import useSelector from "../../hooks/use-selector";
 import {useParams} from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
-import ArticleCard from "../../components/article-card";
+import ArticleCard from "../../components/products/article-card";
 import Spinner from "../../components/spinner";
 import Tools from "../../containers/tools";
-import Layout from "../../components/layout";
-import LayoutFlex from "../../components/layout-flex";
+import Layout from "../../components/layouts/layout";
+import LayoutFlex from "../../components/layouts/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import PanelLogin from "../../containers/panel-login";
 
 function Article(){
   const store = useStore();
@@ -23,7 +24,7 @@ function Article(){
 
   const select = useSelector(state => ({
     article: state.article.data,
-    waiting: state.article.waiting
+    waiting: state.article.waiting,
   }));
 
   const {t} = useTranslate();
@@ -34,12 +35,17 @@ function Article(){
   };
 
   return (
-    <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{select.article.title}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    }>
+    <Layout
+      panelLogin={
+        <PanelLogin />
+      }
+      head={
+        <LayoutFlex flex="between">
+          <h1>{select.article.title}</h1>
+          <LocaleSelect/>
+        </LayoutFlex>
+      }
+    >
       <Tools/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>

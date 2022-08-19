@@ -2,10 +2,10 @@ import React, {useCallback} from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import List from "../../components/list";
-import Pagination from "../../components/pagination";
+import List from "../../components/products/list";
+import Pagination from "../../components/tools/pagination";
 import Spinner from "../../components/spinner";
-import Item from "../../components/item";
+import Item from "../../components/products/item";
 
 function CatalogList() {
 

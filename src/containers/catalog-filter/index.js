@@ -1,10 +1,11 @@
-import React, {useCallback, useMemo} from "react";
+import React, {useCallback, useEffect, useMemo} from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
+import { createCategoryTree } from "./create-categoty-tree";
 
 function CatalogFilter() {
 
@@ -35,9 +36,18 @@ function CatalogFilter() {
       {value:'edition', title: 'Древние'},
     ]), [])
   }
+  
+  useEffect(()=> {
+    (async () => {
+      const response = await (await fetch('/api/v1/categories')).json()
+      console.log(response)
+      createCategoryTree(response.result.items)
+    })()
+  }, [])
 
   return (
     <LayoutFlex flex="start">
+      <Select onChange={callbacks.onSort} value={select.sort} options={options.sort} />
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

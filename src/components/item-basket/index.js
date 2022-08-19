@@ -1,28 +1,37 @@
 import React, { useCallback } from 'react'
 import propTypes from 'prop-types'
-import { Link } from 'react-router-dom'
-import numberFormat from '../../utils/numberFormat'
+import numberFormat from '../../utils/number-format'
 import { cn as bem } from '@bem-react/classname'
+import { Link } from 'react-router-dom'
 import './styles.css'
 
-function ItemBasket(props) {
+function ItemBasket({ item, link, onRemove, onLink, labelDelete, labelUnit, labelCurr }) {
   const cn = bem('ItemBasket')
 
   const callbacks = {
-    onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove, props.item]),
-    closeModal: useCallback((e) => props.closeModal(), []),
+    onRemove: useCallback((e) => onRemove(item._id), [onRemove, item]),
   }
 
   return (
     <div className={cn()}>
-      <Link onClick={callbacks.closeModal} to={`product/${props.item._id}`} className={cn('title')}>
-        {props.item.title}
-      </Link>
+      <div className={cn('title')}>
+        {link ? (
+          <Link onClick={onLink} to={link}>
+            {item.title}
+          </Link>
+        ) : (
+          item.title
+        )}
+      </div>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          {numberFormat(item.price)} {labelCurr}
+        </div>
+        <div className={cn('cell')}>
+          {numberFormat(item.amount || 0)} {labelUnit}
+        </div>
+        <div className={cn('cell')}>
+          <button onClick={callbacks.onRemove}>{labelDelete}</button>
         </div>
       </div>
     </div>
@@ -32,9 +41,18 @@ function ItemBasket(props) {
 ItemBasket.propTypes = {
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,
-  closeModal: propTypes.func,
+  link: propTypes.string,
+  onLink: propTypes.func,
+  labelCurr: propTypes.string,
+  labelDelete: propTypes.string,
+  labelUnit: propTypes.string,
 }
 
-ItemBasket.defaultProps = {}
+ItemBasket.defaultProps = {
+  onLink: () => {},
+  labelCurr: '₽',
+  labelUnit: 'шт',
+  labelDelete: 'Удалить',
+}
 
 export default React.memo(ItemBasket)

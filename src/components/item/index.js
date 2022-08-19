@@ -2,8 +2,8 @@ import React, { useCallback } from 'react'
 import propTypes from 'prop-types'
 import { cn as bem } from '@bem-react/classname'
 import { Link } from 'react-router-dom'
+import numberFormat from '../../utils/number-format'
 import './style.css'
-import numberFormat from '../../utils/numberFormat'
 
 function Item(props) {
   const cn = bem('Item')
@@ -14,12 +14,14 @@ function Item(props) {
 
   return (
     <div className={cn()}>
-      <Link to={`${props.path}${props.item._id}`} className={cn('title')}>
-        {props.item.title}
-      </Link>
+      <div className={cn('title')}>
+        {props.link ? <Link to={props.link}>{props.item.title}</Link> : props.item.title}
+      </div>
       <div className={cn('right')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <div className={cn('price')}>
+          {numberFormat(props.item.price)} {props.labelCurr}
+        </div>
+        <button onClick={callbacks.onAdd}>{props.labelAdd}</button>
       </div>
     </div>
   )
@@ -27,12 +29,16 @@ function Item(props) {
 
 Item.propTypes = {
   item: propTypes.object.isRequired,
-  path: propTypes.string,
   onAdd: propTypes.func,
+  link: propTypes.string,
+  labelCurr: propTypes.string,
+  labelAdd: propTypes.string,
 }
 
 Item.defaultProps = {
   onAdd: () => {},
+  labelCurr: '₽',
+  labelAdd: 'Добавить',
 }
 
 export default React.memo(Item)

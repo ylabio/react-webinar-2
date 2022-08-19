@@ -1,78 +1,65 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import propTypes from 'prop-types'
 import { cn as bem } from '@bem-react/classname'
 import './style.css'
 
-function Pagination({ limit, count, changeNumber, currentPage = 1, setCurrentPage }) {
+function Pagination(props) {
   const cn = bem('Pagination')
+  // Количество страниц
+  const length = Math.ceil(props.count / Math.max(props.limit, 1))
 
-  const callbacks = {
-    changeNumberPage: useCallback((number) => {
-      const skip = (number - 1) * limit
-      setCurrentPage(number)
-      changeNumber(skip)
-    }, []),
-  }
+  // Номера слева и справа относительно активного номера, которые остаются видимыми
+  let left = Math.max(props.page - props.indent, 1)
+  let right = Math.min(left + props.indent * 2, length)
+  // Корректировка когда страница в конце
+  left = Math.max(right - props.indent * 2, 1)
 
-  const numbers = Math.ceil(count / limit)
+  // Массив номеров, чтобы удобней рендерить
+  let items = []
+  // Первая страница всегда нужна
+  if (left > 1) items.push(1)
+  // Пропуск
+  if (left > 2) items.push(null)
+  // Последваотельность страниц
+  for (let page = left; page <= right; page++) items.push(page)
+  // Пропуск
+  if (right < length - 1) items.push(null)
+  // Последнаяя страница
+  if (right < length) items.push(length)
 
-  const pageNumbers = () => {
-    let pageNumbers = []
-    for (let i = 1; i <= numbers; i++) {
-      if (
-        (i === numbers && i !== currentPage && i !== currentPage - 1) ||
-        (i === 1 && i !== currentPage && i !== currentPage - 1)
-      ) {
-        pageNumbers.push(i)
-      } else if (i === 1 && i === currentPage) {
-        pageNumbers.push(i, i + 1, i + 2)
-      } else if (i === currentPage && i !== numbers && i !== 1 && i !== numbers - 1) {
-        pageNumbers.push(i - 1, i, i + 1)
-      } else if (i === currentPage && i !== numbers && i !== 1 && i === numbers - 1) {
-        pageNumbers.push(i - 1, i)
-      } else if (i === numbers && i === currentPage) {
-        pageNumbers.push(i - 2, i - 1, i)
-      } else if (
-        (currentPage < numbers && i > 2 && i < numbers - 1) ||
-        (currentPage === numbers && i > 2 && i < numbers - 2)
-      ) {
-        pageNumbers.push(null)
-      }
-    }
-    pageNumbers = pageNumbers.filter((item, i, arr) => item !== arr[i - 1])
-    return pageNumbers
+  // Возвращает функцию с замыканием на номер страницы
+  const onClickHandler = (page) => {
+    return () => props.onChange(page)
   }
 
   return (
-    <div className={cn()}>
-      {pageNumbers().map((number, i) => {
-        return number ? (
-          <div
-            key={i}
-            className={number === currentPage ? cn('item-active') : cn('item')}
-            onClick={() => callbacks.changeNumberPage(number)}>
-            {number}
-          </div>
-        ) : (
-          <div key={i} className={cn('item-ellipsis')}>
-            ...
-          </div>
-        )
-      })}
-    </div>
+    <ul className={cn()}>
+      {items.map((number, index) => (
+        <li
+          key={index}
+          className={cn('item', { active: number === props.page, split: !number })}
+          onClick={onClickHandler(number)}>
+          {number || '...'}
+        </li>
+      ))}
+    </ul>
   )
 }
 
 Pagination.propTypes = {
-  limit: propTypes.number.isRequired,
-  count: propTypes.number.isRequired,
-  changeNumber: propTypes.func,
-  setCurrentPage: propTypes.func,
-  currentPage: propTypes.number,
+  page: propTypes.number.isRequired,
+  limit: propTypes.number,
+  count: propTypes.number,
+  onChange: propTypes.func,
+  indent: propTypes.number,
 }
 
 Pagination.defaultProps = {
-  changeNumber: () => {},
+  page: 1,
+  limit: 10,
+  count: 1000,
+  indent: 1,
+  onChange: () => {},
 }
 
 export default React.memo(Pagination)

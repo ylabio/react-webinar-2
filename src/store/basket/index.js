@@ -10,7 +10,6 @@ class BasketState extends StateModule {
    */
   initState() {
     return {
-      currentItem: {},
       items: [],
       sum: 0,
       amount: 0,
@@ -18,27 +17,10 @@ class BasketState extends StateModule {
   }
 
   /**
-   * Получение товара по id
-   * @param _id Код товара
-   */
-  async loadItem(id) {
-    const response = await fetch(
-      `api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`
-    )
-    const json = await response.json()
-    console.log(json.result)
-    this.setState({
-      currentItem: json.result,
-      items: this.getState().items,
-      sum: this.getState().sum,
-    })
-  }
-
-  /**
    * Добавление товара в корзину
    * @param _id Код товара
    */
-  addToBasket(_id) {
+  async addToBasket(_id) {
     let sum = 0
     // Ищем товар в корзие, чтобы увеличить его количество. Заодно получаем новый массив items
     let exists = false
@@ -57,19 +39,13 @@ class BasketState extends StateModule {
     // Если товар не был найден в корзине, то добавляем его из каталога
     if (!exists) {
       // Поиск товара в каталоге, чтобы его в корзину добавить
-      // @todo В реальных приложения будет запрос к АПИ на добавление в корзину, и апи выдаст объект товара..
+      const response = await fetch(`/api/v1/articles/${_id}`)
+      const json = await response.json()
+      const item = json.result
 
-      const item = this.store.getState().catalog.items.find((item) => item._id === _id)
-      const product = this.store.state.product.item
-
-      if (item) {
-        items.push({ ...item, amount: 1 })
-        // Досчитываем сумму
-        sum += item.price
-      } else {
-        items.push({ ...product, amount: 1 })
-        sum += product.price
-      }
+      items.push({ ...item, amount: 1 })
+      // Досчитываем сумму
+      sum += item.price
     }
 
     // Установка состояние, basket тоже нужно сделать новым
@@ -82,6 +58,7 @@ class BasketState extends StateModule {
       'Добавление в корзину'
     )
   }
+
   /**
    * Добавление товара в корзину
    * @param _id Код товара

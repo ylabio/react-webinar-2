@@ -21,6 +21,16 @@
     text-decoration: underline;
 }
 
+.ItemBasket-title a{
+    color: #000;
+    text-decoration: none;
+}
+
+.ItemBasket-title a:hover{
+    color: #000;
+    text-decoration: underline;
+}
+
 .ItemBasket-right {
     padding: 20px 20px 20px 10px;
     display: flex;

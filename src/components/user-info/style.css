@@ -1,0 +1,18 @@
+.User {
+    margin: 35px 20px;
+}
+
+.User-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 30px 0;
+}
+
+.User-data {
+    margin: 20px 0;
+    font-size: 18px;
+}
+
+.User-data-value {
+    font-weight: 700;
+}

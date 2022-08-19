@@ -1,11 +1,14 @@
 .Authorization-panel {
     height: 41px;
     max-width: 1024px;
-    margin: auto;
+    margin: 0 auto;
     background-color: #FFFFFF;
     border-bottom: 1px solid #DCDCDC;
     display: flex;
-    justify-content: end ;
+    justify-content: end;
+    box-sizing: border-box;
+    align-items: center;
+    z-index: 10000;
 }
 
 .Authorization-panel-button {
@@ -15,9 +18,19 @@
     border-radius: 2px;
     height: 21px;
     width: 47px;
-    margin: 10px;
+    margin: 10px 20px;
     text-align: center;
     font-size: 13px;
+    line-height: 13px;
+    vertical-align: center;
     padding: 3px;
     box-sizing: border-box;
+    text-decoration: none;
+    color: #000000;
+}
+
+.Authorization-panel-user-link {
+    color: #0087E9;
+    font-size: 13px;
+    vertical-align: center;
 }

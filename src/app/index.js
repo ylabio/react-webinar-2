@@ -4,6 +4,9 @@ import {Routes, Route} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
+import Authorization from "./authorization";
+import UserProfile from "./user-profile";
+import PrivateRoute from "../components/private-route";
 
 /**
  * Приложение
@@ -16,6 +19,8 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path={"/login"} element={<Authorization/>}/>
+        <PrivateRoute path={"/profile"} element={<UserProfile/>}/>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
       </Routes>

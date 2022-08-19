@@ -21,7 +21,7 @@ function Main() {
 
   return (
       <>
-        <AuthorizationPanel/>
+        <AuthorizationPanel isAuthorized={store.getState().user.isAuthorized}/>
         <Layout head={
           <LayoutFlex flex="between">
             <h1>{t('title')}</h1>

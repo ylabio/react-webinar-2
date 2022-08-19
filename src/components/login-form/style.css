@@ -1,0 +1,10 @@
+.Form{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 20px;
+}
+.Form h1 {
+	margin: 0;
+	padding-bottom: 10px;
+}

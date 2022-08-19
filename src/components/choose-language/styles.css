@@ -1,0 +1,13 @@
+.ChooseLanguage {
+    position: relative;
+    padding: 10px;
+
+    /*Общие стили */
+    background: #edf7fc;
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    cursor: pointer;
+
+    /* Настройки шрифтов */
+    font-weight: bold;
+}

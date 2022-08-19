@@ -1,23 +1,26 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import plural from "plural-ru";
-import {cn as bem} from "@bem-react/classname";
-import numberFormat from "../../utils/numberFormat";
-import './styles.css';
+import React, { useContext } from 'react';
+import propTypes from "prop-types";
+import { cn as bem } from "@bem-react/classname";
+import numberFormat from "../../utils/number-format";
+import "./styles.css";
+import { LanguageContext } from "../../services/language/context";
+import Translation from "../../services/language";
 
-
-function BasketSimple({sum, amount, onOpen}) {
+function BasketSimple({ sum, amount, onOpen }) {
   const cn = bem('BasketSimple');
+  const { language } = useContext(LanguageContext);
+
   return (
     <div className={cn()}>
-      <span className={cn('label')}>В корзине:</span>
-      <span className={cn('total')}>
-      {amount
-        ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-        : `пусто`
-      }
-      </span>
-      <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
+
+      <div className={cn('right')}>
+        <span className={cn('label')}>{Translation[language].basket.simple}</span>
+        <span className={cn('total')}>
+          {amount ?
+            `${amount} ${Translation[language].basket.piece(amount)} / ${numberFormat(sum)} ₽` :
+            `${Translation[language].basket.empty}`}</span>
+        <button className={cn('button')} onClick={onOpen}>{Translation[language].actions.open}</button>
+      </div>
     </div>
   )
 }
@@ -29,7 +32,7 @@ BasketSimple.propTypes = {
 }
 
 BasketSimple.defaultProps = {
-  onOpen: () => {},
+  onOpen: () => { },
   sum: 0,
   amount: 0
 }

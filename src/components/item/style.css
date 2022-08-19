@@ -12,17 +12,43 @@
 
 .Item-title {
     width: 100%;
-    padding: 20px 10px;
+    padding: 17px 10px;
+    cursor: pointer;
+}
+
+.Item-title a {
+    text-decoration: none;
+    color: #000;
+}
+
+.Item-title a:hover {
+    text-decoration: underline;
 }
 
 .Item-right {
-    padding: 20px 20px 20px 10px;
+    padding: 20px 23px 19px 10px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
 .Item-price {
-    padding: 0 10px;
+    padding: 0 18px;
     white-space: nowrap;
+    font-size: 18px;
+}
+
+.Item-button {
+    width: 76px;
+    height: 21px;
+    padding: 0;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: #efefef;
+    border: 1px solid #404040;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.Item-button:hover {
+    opacity: 0.8;
 }

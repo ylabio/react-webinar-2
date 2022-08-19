@@ -1,12 +1,15 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
+import { cn as bem } from "@bem-react/classname";
 import './style.css';
+import { LanguageContext } from "../../services/language/context";
+import Translation from "../../services/language";
 
 function LayoutModal(props) {
   const cn = bem('LayoutModal');
 
   const frame = useRef();
+  const { language } = useContext(LanguageContext);
 
   useEffect(() => {
     let top = 10;
@@ -27,7 +30,7 @@ function LayoutModal(props) {
           <h1 className={cn('title')}>
             {props.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>Закрыть</button>
+          <button className={cn('close')} onClick={props.onClose}>{Translation[language].actions.close}</button>
         </div>
         <div className={cn('content')}>
           {props.children}
@@ -40,12 +43,12 @@ function LayoutModal(props) {
 LayoutModal.propTypes = {
   title: PropTypes.string,
   onClose: PropTypes.func,
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 
 LayoutModal.defaultProps = {
   title: 'Модалка',
-  onClose: () => {}
+  onClose: () => { }
 };
 
 export default React.memo(LayoutModal);

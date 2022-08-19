@@ -1,0 +1,31 @@
+.Article {
+    font-size: 18px;
+    padding-left: 40px;
+    padding-right: 41px;
+    margin-top: 20px;
+}
+
+.Arctile-info {
+    padding: 10px 0px 10px 0px;
+}
+
+.Article span {
+    font-weight: bold;
+}
+
+.Article-price {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.Article-button {
+    margin-top: 23px;
+    display: block;
+    width: 76px;
+    height: 21px;
+    font-weight: 400;
+    font-size: 13px;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    cursor: pointer;
+}

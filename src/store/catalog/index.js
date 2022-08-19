@@ -26,10 +26,12 @@ class CatalogState extends StateModule{
     return {
       items: [],
       count: 0,
+      categories: [],
       params: {
         page: 1,
         limit: 10,
         sort: 'order',
+        filter: 'all',
         query: ''
       },
       waiting: false
@@ -48,6 +50,7 @@ class CatalogState extends StateModule{
     let validParams = {};
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
+    if (urlParams.filter) validParams.filter = urlParams.filter;
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
 
@@ -86,8 +89,11 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
-    const json = await response.json();
+    const filter = newParams.filter !== 'all' ? `&search[category]=${newParams.filter}` : ''
+    const response = await fetch(`
+      /api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${filter}&lang=ru
+    `)
+    const json = await response.json()
 
     // Установка полученных данных и сброс признака загрузки
     this.setState({
@@ -105,6 +111,36 @@ class CatalogState extends StateModule{
     } else {
       window.history.pushState({}, '', url);
     }
+  }
+
+  /**
+   * Загрузка и создание вложенных категорий
+   * @returns {Promise<void>}
+   */
+  async getCategories() {
+    const response =  await fetch(`/api/v1/categories?limit=*`)
+    const json = await response.json()
+
+    const categories = {}
+    // перебираем полученные категории, для каждой создаем свойство children и определяем в новый объект по ключу собственного ID
+    // так будет удобнее добавлять подкатегории
+    json.result.items.forEach((category) => categories[category._id] = {...category, children: []})
+
+    const mainCategories = [{_id: 'all', title: 'Все'}]
+    // если у категории есть родитель, добавляем ее к свойству children этого родителя, определенному ранее
+    // главные категории не имеют родителей, добавляем их в итоговый массив mainCategories
+    json.result.items.forEach((category) => {
+      if (category.parent) {
+        categories[category.parent._id].children.push(categories[category._id])
+      } else {
+        mainCategories.push(categories[category._id])
+      }
+    })
+
+    this.setState({
+      ...this.getState(),
+      categories: mainCategories
+    })
   }
 }
 

@@ -13,11 +13,20 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    categories: state.categories.items,
   }));
+
+  let categoriesOptions = [];
+  if (select.categories) {
+    categoriesOptions = select.categories.map((item) => ({ value: item._id, title: item.title }));
+  }
 
   const {t} = useTranslate();
 
   const callbacks = {
+    // Фильтрация по категории
+    onCategory: useCallback(category => store.get('catalog').setParams({category}), []),
     // Сортировка
     onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
     // Поиск
@@ -29,15 +38,20 @@ function CatalogFilter() {
   // Опции для полей
   const options = {
     sort: useMemo(() => ([
-      {value:'order', title: 'По порядку'},
-      {value:'title.ru', title: 'По именованию'},
-      {value:'-price', title: 'Сначала дорогие'},
-      {value:'edition', title: 'Древние'},
-    ]), [])
+      {value: 'order', title: 'По порядку'},
+      {value: 'title.ru', title: 'По именованию'},
+      {value: '-price', title: 'Сначала дорогие'},
+      {value: 'edition', title: 'Древние'},
+    ]), []),
+    categories: useMemo(() => ([
+        {value: 'all', title: 'Все'},
+        ...categoriesOptions
+    ]), [categoriesOptions])
   }
 
   return (
     <LayoutFlex flex="start">
+      <Select onChange={callbacks.onCategory} value={select.category} options={options.categories}/>
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

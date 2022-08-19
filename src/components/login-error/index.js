@@ -1,9 +1,10 @@
 import React from 'react'
+import './styles.css'
 
-function LoginError() {
+function LoginError({code, t}) {
   return (
-    <div>
-      
+    <div className='LoginError'>
+      {t(`login.error.${code}`)}
     </div>
   )
 }

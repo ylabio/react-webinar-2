@@ -117,6 +117,17 @@ class AuthState extends StateModule {
       user: null
     }, 'Выход на клиенте')
   }
+
+  resetError() {
+    this.setState({
+      ...this.getState(),
+      auth: {
+        ...this.getState().auth,
+        isErr: false,
+        errCode: null
+      }
+    }, 'Обнуление ошибки')
+  }
 }
 
 export default AuthState

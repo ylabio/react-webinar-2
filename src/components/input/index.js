@@ -35,6 +35,7 @@ function Input(props) {
       type={props.type}
       placeholder={props.placeholder}
       onChange={onChange}
+      onFocus={props.onFocus}
     />
   )
 }
@@ -44,12 +45,14 @@ Input.propTypes = {
   type: propTypes.string,
   placeholder: propTypes.string,
   onChange: propTypes.func,
+  onFocus: propTypes.func,
   theme: propTypes.string,
   notThrottle: propTypes.bool
 }
 
 Input.defaultProps = {
   onChange: () => {},
+  onFocus: () => {},
   type: 'text',
   theme: '',
   notThrottle: false

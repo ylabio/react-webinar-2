@@ -6,10 +6,12 @@ function LoginInput({
   title,
   value,
   onChange,
+  onFocus,
   type
 }) {
   const callbacks = {
-    onChangeFn: useCallback((v) => onChange(v), [onChange])
+    onChangeFn: useCallback((v) => onChange(v), [onChange]),
+    onFocus: useCallback((v) => onFocus(v), [onFocus])
   }
   return (
     <div className='LoginInput'>
@@ -17,6 +19,7 @@ function LoginInput({
       <Input 
         value={value}
         onChange={callbacks.onChangeFn}
+        onFocus={callbacks.onFocus}
         notThrottle={true}
         type={type}
       />

@@ -15,9 +15,9 @@ export default class CategoriesState extends StateModule {
       title: el.title,
       parent: el.parent?._id
     }))
+    
     for (let item of mapped) {
       if (!item.parent) continue
-      
       let k = item.parent
       do {
         const tmp = mapped.find(elem => elem.id === k)
@@ -25,7 +25,7 @@ export default class CategoriesState extends StateModule {
         k = tmp.parent
       } while (k)
     }
-
+    
     mapped.forEach((v, idx) => {
       if (v.parent) {
         mapped.splice(mapped.findIndex(el => el.id === v.parent) + 1, 0, v)

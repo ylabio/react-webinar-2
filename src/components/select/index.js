@@ -9,7 +9,7 @@ function Select(props){
   }, [props.onChange])
 
   return (
-    <select className="Select" onChange={onSelect} value={props.value}>
+    <select className="Select" onChange={onSelect} value={props.value} style={{width: `${props.width}px`|| 'auto'}}>
       {props.options.map(item => (
         <option key={item.value} value={item.value}>{item.title}</option>
       ))}
@@ -20,7 +20,8 @@ function Select(props){
 Select.propTypes = {
   options: propTypes.arrayOf(propTypes.object).isRequired,
   value: propTypes.any,
-  onChange: propTypes.func
+  onChange: propTypes.func,
+  width: propTypes.number,
 }
 
 Select.defaultProps = {

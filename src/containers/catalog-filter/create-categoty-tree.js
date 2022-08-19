@@ -36,6 +36,8 @@ export function createCategoryTree(data) {
     }
 
   } while (flag) 
+
+  return tree;
 }
 
 function findNodeToAttachChildren(itemParentId, tree) {
@@ -44,7 +46,6 @@ function findNodeToAttachChildren(itemParentId, tree) {
     const children = tree[node].children
 
     if (parentId === itemParentId) {
-      console.log('found!', itemParentId, tree[node])
       return tree[node];
     } else {
       if (Object.keys(children).length) {

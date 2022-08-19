@@ -13,6 +13,10 @@
     margin: 0 2px;
 }
 
+.Menu-item a {
+    color: #0087E9;
+}
+
 .Menu-item:first-child {
     margin-left: 0;
     padding-left: 0;

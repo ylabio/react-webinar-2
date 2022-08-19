@@ -1,0 +1,30 @@
+.ToggleLanguage-wrapper {
+    display: flex;
+    margin: 20px;
+}
+
+.ToggleLanguage-item {
+    width: 25px;
+    height: 25px;
+    margin: 0 2px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ToggleLanguage-item:hover {
+    cursor: pointer;
+    background-color: #E1E1E1;
+    color: #000000;
+}
+
+.ToggleLanguage-item_active {
+    background-color: #0087E9;
+    color: #ffffff;
+}
+
+.ToggleLanguage-item_active:hover {
+    background-color: #0087E9;
+    color: #ffffff;
+    cursor: none;
+}

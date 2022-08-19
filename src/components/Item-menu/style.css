@@ -1,0 +1,9 @@
+.MenuItem-link{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    text-decoration-line: underline;
+    cursor: pointer;
+    color: #0087E9;
+}

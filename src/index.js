@@ -10,7 +10,7 @@ const store = new Store();
 
 // Корень React приложения
 const root = createRoot(document.getElementById('root'));
-
+console.log(root);
 // Первый рендер (один раз)
 root.render(
   <StoreContext.Provider value={store}>

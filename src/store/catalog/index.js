@@ -106,6 +106,16 @@ class CatalogState extends StateModule{
       window.history.pushState({}, '', url);
     }
   }
+
+  /**
+   * Получить все категории
+   * @return {Promise<void>}
+   */
+   async getCategory(id){
+    const response = await fetch(`api/v1/categories?lang=ru&limit=100&skip=0&fields=%2A${id ? `&search[parent]=${id}` : ''}`);
+    const json = await response.json();
+    return json.result.items
+  }
 }
 
 export default CatalogState;

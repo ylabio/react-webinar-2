@@ -16,7 +16,7 @@ GET {{baseUrl}}/articles?limit=20&skip=10&fields=items(*),count
 ###
 # Список с фильтрами по категории
 
-GET {{baseUrl}}/articles?search[category]=62fde67bfa639a32847b3d6d
+GET {{baseUrl}}/articles?search[query]=Авт&search[category]=62fde67bfa639a32847b3d6d
 
 ###
 # Товар по id

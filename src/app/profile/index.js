@@ -1,5 +1,6 @@
 import React from "react";
 import useSelector from "../../hooks/use-selector";
+import { Navigate } from "react-router-dom";
 import useTranslate from "../../hooks/use-translate";
 import Spinner from "../../components/spinner";
 import Tools from "../../containers/tools";
@@ -14,6 +15,10 @@ function Profile() {
     user: state.auth.user,
   }));
   const { t } = useTranslate();
+
+  if (!select.user) {
+    return <Navigate replace to="/login" />;
+  }
 
   return (
     <>

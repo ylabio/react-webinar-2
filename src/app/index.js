@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import useSelector from "../hooks/use-selector";
 import {Routes, Route} from "react-router-dom";
 import Main from "./main";
@@ -19,6 +19,7 @@ function App() {
   const modal = useSelector(state => state.modals.name);
   const isFetching = useSelector(state => state.auth.isFetching);
   const store = useStore();
+  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     const userData = getUserDataFromLS();
@@ -26,10 +27,11 @@ function App() {
       store.get('auth').getProfile(userData.token);
     }
     
+    setIsChecked(true);
   }, [])
 
   return (
-    <Spinner active={isFetching}>
+    <Spinner active={!isChecked}>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>

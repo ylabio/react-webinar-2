@@ -8,6 +8,7 @@ import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import MenuRegister from "../../components/menu-register";
 import UserProfile from "../../components/user-profile";
+import LayoutAuth from "../../components/layout-auth";
 
 function Profile(props) {
   const store = useStore();
@@ -20,9 +21,11 @@ function Profile(props) {
         <h1>{t('title')}</h1>
         <LocaleSelect/>
       </LayoutFlex>
-    } top={ <MenuRegister link={'/login'}/>}>
+    } topHead={ <MenuRegister link={'/login'}/>}>
       <Tools/>
-      <UserProfile/>
+      <LayoutAuth title={<h2>Профиль</h2>}>
+        <UserProfile/>
+      </LayoutAuth>
     </Layout>
   )
 }

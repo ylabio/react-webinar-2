@@ -1,0 +1,11 @@
+.LayoutAuth{
+    padding: 20px;
+}
+
+.LayoutAuth-title h2{
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    margin: 0;
+    padding: 20px 0;
+}

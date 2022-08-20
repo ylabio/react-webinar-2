@@ -5,17 +5,15 @@ import {Link} from "react-router-dom";
 import './style.css';
 
 function FormLogin(props) {
-  const cn = bem('Login');
-  console.log(cn('form-login'))
+  const cn = bem('FormLogin');
+
   return (
-    <div className={cn()}>
-      <h2>Вход</h2>
-      <form className={cn('form')}>
-        <div className={cn('form-login')}>
+      <form className={cn()}>
+        <div className={cn('login')}>
           <div>Логин</div>
           <input type="text" value="Anyvalue"/>
         </div>
-        <div className={cn('form-login')}>
+        <div className={cn('password')}>
           <div>Пароль</div>
           <input type="text" value="Anyvalue"/>
         </div>
@@ -24,7 +22,6 @@ function FormLogin(props) {
           <Link to={props.link}>Войти</Link>
         </div>
       </form>
-    </div>
   )
 }
 

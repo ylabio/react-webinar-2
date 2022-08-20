@@ -1,21 +1,12 @@
-.Login{
-    padding: 20px;
+.FormLogin{
+
 }
 
-.Login h2{
-    margin: 0;
+.FormLogin-login{
     padding: 10px 0;
 }
 
-
-.Login-form-login{
-    padding: 10px 0;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 18px;
-}
-
-.Login-form-login input{
+.FormLogin-login input{
     padding-top: 1px;
     min-width: 200px;
     height: 26px;
@@ -24,11 +15,11 @@
     line-height: 18px;
 }
 
-.Login-form-password{
+.FormLogin-password{
     padding: 10px 0;
 }
 
-.Login-form-password input{
+.FormLogin-password input{
     padding-top: 1px;
     min-width: 200px;
     height: 26px;
@@ -37,17 +28,17 @@
     line-height: 18px;
 }
 
-.Login-error{
+.FormLogin-error{
     padding: 10px 0;
     color: red;
 }
 
-.Login-btn{
+.FormLogin-btn{
     display: flex;
     padding: 10px 0;
     margin: 0;
 }
-.Login-btn a {
+.FormLogin-btn a {
     background: #EFEFEF;
     color: black;
     border: 1px solid #767676;

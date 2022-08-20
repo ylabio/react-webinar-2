@@ -8,6 +8,7 @@ import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import MenuRegister from "../../components/menu-register";
 import FormLogin from "../../components/form-login";
+import LayoutAuth from "../../components/layout-auth";
 
 function Login(props) {
   const store = useStore();
@@ -20,9 +21,11 @@ function Login(props) {
         <h1>{t('title')}</h1>
         <LocaleSelect/>
       </LayoutFlex>
-    } top={ <MenuRegister link={'/login'}/>}>
+    } topHead={ <MenuRegister link={'/login'}/>}>
       <Tools/>
-      <FormLogin link={'/profile'}/>
+      <LayoutAuth title={<h2>Вход</h2>}>
+        <FormLogin link={'/profile'}/>
+      </LayoutAuth>
     </Layout>
   )
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
@@ -16,10 +16,10 @@ function Main() {
 
   useInit(async () => {
     await store.get('catalog').initParams();
+    await store.get('category').loadCategory();
   }, [], {backForward: true});
 
   const {t} = useTranslate();
-
 
   return (
     

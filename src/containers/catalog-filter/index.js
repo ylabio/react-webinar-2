@@ -3,8 +3,8 @@ import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/select";
-import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
+import TextField from "../../components/text-field";
 
 function CatalogFilter() {
 
@@ -39,7 +39,7 @@ function CatalogFilter() {
   return (
     <LayoutFlex flex="start">
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
-      <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
+      <TextField onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </LayoutFlex>
   );

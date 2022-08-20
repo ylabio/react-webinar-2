@@ -1,0 +1,11 @@
+.LoginForm-title {
+	margin-bottom: 30px;
+}
+.LoginForm form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+.LoginForm-button {
+	align-self: flex-start;
+}

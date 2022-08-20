@@ -4,8 +4,8 @@ import {cn as bem} from '@bem-react/classname';
 import throttle from "lodash.throttle";
 import './style.css';
 
-function Input(props) {
-  const cn = bem('Input');
+function TextField(props) {
+  const cn = bem('TextField');
 
   // Внутренний стейт по умолчанию с переданным value
   const [value, change] = useState(props.value);
@@ -25,17 +25,20 @@ function Input(props) {
   }, [props.value]);
 
   return (
-    <input
-      className={cn({theme: props.theme})}
-      value={value}
-      type={props.type}
-      placeholder={props.placeholder}
-      onChange={onChange}
-    />
+    <label className={cn({ theme: props.theme })}>
+      {props.label}
+      <input
+        value={value}
+        type={props.type}
+        placeholder={props.placeholder}
+        onChange={onChange}
+      />
+    </label>
   )
 }
 
-Input.propTypes = {
+TextField.propTypes = {
+  label: propTypes.string,
   value: propTypes.string,
   type: propTypes.string,
   placeholder: propTypes.string,
@@ -43,10 +46,11 @@ Input.propTypes = {
   theme: propTypes.string,
 }
 
-Input.defaultProps = {
+TextField.defaultProps = {
+  label: '',
   onChange: () => {},
   type: 'text',
   theme: ''
 }
 
-export default React.memo(Input);
+export default React.memo(TextField);

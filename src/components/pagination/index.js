@@ -37,7 +37,7 @@ function Pagination(props) {
       {items.map((number, index) => (
         <li key={index}
             className={cn('item', {active: number === props.page, split: !number})}
-            onClick={onClickHandler(number)}
+            onClick={number && onClickHandler(number)}
         >
           {number || '...'}
         </li>

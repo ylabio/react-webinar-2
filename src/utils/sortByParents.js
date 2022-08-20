@@ -13,13 +13,13 @@ function _createTrees(dataset) {
   return dataTree;
 }
 
-function _treesToFlat(trees, sign = '') {
+function _treesToFlat(trees, sign = ' ') {
   const result = [];
   if (trees === undefined) return;
   trees.forEach(node => {
     node.title = sign + node.title;
     result.push(node);
-    result.push(..._treesToFlat(node.children, sign + '-'));
+    result.push(..._treesToFlat(node.children, sign + '- '));
   });
   return result;
 }

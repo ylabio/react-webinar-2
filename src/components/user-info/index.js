@@ -4,7 +4,7 @@ import { cn as bem } from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
 import "./style.css";
 
-function UserInfo({ article, onAdd }) {
+function UserInfo({}) {
   // CSS классы по БЭМ
   const cn = bem("LoginForm");
 

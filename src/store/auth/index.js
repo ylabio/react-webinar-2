@@ -36,7 +36,6 @@ class AuthState extends StateModule {
         }),
       });
       const json = await res.json();
-      console.log(json);
 
       if (json.error) {
         this.setState({
@@ -56,6 +55,70 @@ class AuthState extends StateModule {
       });
     } catch (e) {
       console.log(e);
+    }
+  }
+
+  async getUser() {
+    const localToken = localStorage.getItem("generalToken-ylab");
+
+    if (localToken && !this.getState().token) {
+      this.setState({
+        ...this.getState(),
+        waiting: true,
+      });
+
+      try {
+        const res = await fetch("/api/v1/users/self", {
+          method: "GET",
+          headers: {
+            "X-Token": localToken,
+          },
+        });
+
+        const json = await res.json();
+
+        this.setState({
+          ...this.getState(),
+          user: json.result,
+          waiting: false,
+          errors: null,
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+
+  async resetUser() {
+    this.setState({
+      ...this.state,
+      waiting: true,
+      errors: null,
+    });
+
+    const token =
+      this.getState().token || localStorage.getItem("generalToken-ylab");
+
+    if (token) {
+      try {
+        const res = await fetch("/api/v1/users/sign", {
+          method: "DELETE",
+          headers: {
+            "X-Token": token,
+          },
+        });
+        const json = await res.json();
+        localStorage.removeItem("generalToken-ylab");
+
+        this.setState({
+          user: null,
+          token: "",
+          waiting: false,
+          errors: null,
+        });
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 }

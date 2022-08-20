@@ -16,5 +16,7 @@
   "article.add": "Add",
   "filter.reset": "Reset",
   "login.enter":"Log in",
-  "login.title":"Log in"
+  "login.title":"Log in",
+  "userMenu.logIn":"Log in",
+  "userMenu.logOut":"Log out"
 }

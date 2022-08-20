@@ -8,8 +8,7 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
-import UserMenu from "../../components/user-menu";
-import TopMenu from "../../components/top-menu";
+import TopMenu from "../../containers/top-menu";
 
 function Main() {
   const store = useStore();
@@ -18,6 +17,7 @@ function Main() {
     async () => {
       await store.get("catalog").initParams();
       await store.get("categories").load();
+      await store.get("auth").getUser();
     },
     [],
     { backForward: true }
@@ -27,10 +27,7 @@ function Main() {
 
   return (
     <>
-      <UserMenu />
-      {/* <TopMenu>
-        <UserMenu />
-      </TopMenu> */}
+      <TopMenu />
       <Layout
         head={
           <LayoutFlex flex="between">

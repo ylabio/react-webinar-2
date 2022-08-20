@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { Navigate } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import { useParams } from "react-router-dom";
@@ -10,24 +11,15 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
-import UserMenu from "../../components/user-menu";
+import TopMenu from "../../containers/top-menu";
 
 function Auth() {
   const store = useStore();
-
-  // Параметры из пути /articles/:id
-  const params = useParams();
-
-  useInit(async () => {
-    await store.get("article").load(params.id);
-  }, [params.id]);
+  const { t } = useTranslate();
 
   const select = useSelector((state) => ({
-    article: state.article.data,
-    waiting: state.article.waiting,
+    isLogin: state.auth.token,
   }));
-
-  const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
@@ -40,7 +32,7 @@ function Auth() {
 
   return (
     <>
-      <UserMenu />
+      <TopMenu />
       <Layout
         head={
           <LayoutFlex flex="between">
@@ -50,6 +42,7 @@ function Auth() {
         }
       >
         <Tools />
+        {select.isLogin && <Navigate replace to="/profile" />}
         <LoginForm t={t} submit={callbacks.onLogIn} />
       </Layout>
     </>

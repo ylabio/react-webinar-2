@@ -11,7 +11,7 @@ import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
 import UserInfo from "../../components/user-info";
-import UserMenu from "../../components/user-menu";
+import TopMenu from "../../containers/top-menu";
 
 function Profile() {
   const store = useStore();
@@ -37,7 +37,7 @@ function Profile() {
 
   return (
     <>
-      <UserMenu />
+      <TopMenu />
       <Layout
         head={
           <LayoutFlex flex="between">

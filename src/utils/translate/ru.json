@@ -18,5 +18,7 @@
   "article.add": "Добавить",
   "filter.reset": "Сбросить",
   "login.enter":"Войти",
-  "login.title":"Вход"
+  "login.title":"Вход",  
+  "userMenu.logIn":"Вход",
+  "userMenu.logOut":"Выход"
 }

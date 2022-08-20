@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Page from '../../components/page'
-import LoginForm from '../../containers/login-form'
+import LoginForm from '../../containers/login/form'
 import useInit from '../../hooks/use-init'
 import useSelector from '../../hooks/use-selector'
 import useTranslate from '../../hooks/use-translate'

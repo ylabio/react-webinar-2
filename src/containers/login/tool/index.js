@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Auth from '../../components/auth'
-import LayoutFlex from '../../components/layout-flex'
-import useInit from '../../hooks/use-init'
-import useSelector from '../../hooks/use-selector'
-import useStore from '../../hooks/use-store'
-import useTranslate from '../../hooks/use-translate'
+import Auth from '../../../components/auth'
+import LayoutFlex from '../../../components/layouts/layout-flex'
+import useInit from '../../../hooks/use-init'
+import useSelector from '../../../hooks/use-selector'
+import useStore from '../../../hooks/use-store'
+import useTranslate from '../../../hooks/use-translate'
 
 function LoginTool() {
   const {t} = useTranslate()

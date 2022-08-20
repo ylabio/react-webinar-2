@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react'
-import LayoutForm from '../../components/layout-form'
-import LoginError from '../../components/login-error'
-import LoginInput from '../../components/login-input'
-import useSelector from '../../hooks/use-selector'
-import useStore from '../../hooks/use-store'
-import useTranslate from '../../hooks/use-translate'
+import LayoutForm from '../../../components/layouts/layout-form'
+import LoginError from '../../../components/login/login-error'
+import LoginInput from '../../../components/login/login-input'
+import useSelector from '../../../hooks/use-selector'
+import useStore from '../../../hooks/use-store'
+import useTranslate from '../../../hooks/use-translate'
 
 function LoginForm() {
   const { t } = useTranslate()

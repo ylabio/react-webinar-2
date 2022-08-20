@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import Input from '../input'
+import Input from '../../input'
 import './styles.css'
 import propTypes from 'prop-types'
 

@@ -1,9 +1,9 @@
 import React from 'react'
-import Layout from '../layout'
-import LayoutFlex from '../layout-flex'
+import Layout from '../layouts/layout'
+import LayoutFlex from '../layouts/layout-flex'
 import LocaleSelect from '../../containers/locale-select'
 import propTypes from 'prop-types'
-import LoginTool from '../../containers/login-tool'
+import LoginTool from '../../containers/login/tool'
 import Tools from '../../containers/tools'
 
 function Page({children, title}) {

@@ -2,8 +2,8 @@ import React from "react";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
-import CatalogFilter from "../../containers/catalog-filter";
-import CatalogList from "../../containers/catalog-list";
+import CatalogFilter from "../../containers/catalog/filter";
+import CatalogList from "../../containers/catalog/list";
 import Page from "../../components/page";
 
 function Main() {

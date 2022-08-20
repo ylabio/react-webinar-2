@@ -3,7 +3,7 @@
     margin: 0 auto;
     background: #fff;
     box-sizing: border-box;
-    box-shadow: 0 0 15px 5px #0000003b;
+    border-bottom:1px solid #DCDCDC ;
     display: flex;
     justify-content: end;
     align-items: center;

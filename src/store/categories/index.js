@@ -19,7 +19,7 @@ export default class CategoriesState extends StateModule {
     const prefixes = {}
 
     const children = { 0: [] }
-    const root = { id: 0, nodes: tmp[0] }
+    const root = { id: 0, nodes: children[0] }
 
     // Делаем дерево
     mapped.forEach((v) => {

@@ -30,9 +30,11 @@ class CatalogState extends StateModule{
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        category: ''
       },
-      waiting: false
+      waiting: false,
+      categories: []
     };
   }
 
@@ -55,6 +57,8 @@ class CatalogState extends StateModule{
     const newParams = {...this.initState().params, ...validParams, ...params};
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
+    await this.getAllCategories();
+    // await this.getItemsByCategoryId();
   }
 
   /**
@@ -106,6 +110,58 @@ class CatalogState extends StateModule{
       window.history.pushState({}, '', url);
     }
   }
+
+  async getAllCategories(){
+    // Решение из интернета
+    const res = await fetch('/api/v1/categories')
+    const json = await res.json()
+    const newArr = json.result.items.map(c => ({
+      _id: c._id,
+      title: c.title,
+      parent: c.parent?._id
+    }))
+    for (let item of newArr) {
+      if (!item.parent) continue
+
+      let parentId = item.parent
+      do {
+        const temp = newArr.find(item => item._id === parentId)
+        item.title = '-' + item.title
+        parentId = temp.parent
+      } while (parentId)
+    }
+
+    newArr.forEach((category, index) => {
+      if (category.parent) {
+        newArr.splice(newArr.findIndex(el => el._id === category.parent) + 1, 0, category)
+        newArr.splice(index + 1, 1)
+      }
+    })
+
+    this.setState({
+      ...this.getState(),
+      categories: newArr
+    })
+  }
+
+  async getItemsByCategoryId(category){
+    await this.setParams({category})
+    const state = this.getState();
+    const limit = this.getState().params.limit;
+    const page = this.getState().params.page;
+    const skip = (page - 1) * 10;
+    console.log('skip', skip)
+    const item = this.getState().categories.find(el => el.title === state.params.category);
+    const result = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(*),count&search[category]=${item?._id}`);
+    const json = await result.json();
+    this.setState({
+      ...this.getState(),
+      items: json.result.items,
+      count: json.result.count
+    })
+    // console.log('json', json)
+  }
+
 }
 
 export default CatalogState;

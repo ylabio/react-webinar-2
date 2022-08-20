@@ -16,5 +16,11 @@
   "basket.unit": "шт",
   "basket.delete": "Удалть",
   "article.add": "Добавить",
-  "filter.reset": "Сбросить"
+  "filter.reset": "Сбросить",
+  "filter.allCategories": "Все",
+  "search.placeholder": "Поиск",
+  "sort.orderAsc": "По порядку",
+  "sort.titleAsc": "По именованию",
+  "sort.priceDesc": "Сначала дорогие",
+  "sort.editionAsc": "Древние"
 }

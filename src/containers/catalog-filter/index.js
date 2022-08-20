@@ -1,7 +1,7 @@
 import React, {useCallback, useMemo} from 'react';
-import Input from '../../components/input';
-import LayoutFlex from '../../components/layout-flex';
-import Select from '../../components/select';
+import Input from '../../components/common/input';
+import Select from '../../components/common/select';
+import LayoutFlex from '../../components/layouts/layout-flex';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
@@ -16,7 +16,7 @@ function CatalogFilter() {
     categories: state.catalog.categories.map(item => ({value: item._id, title: item.title}))
   }));
 
-  const {t} = useTranslate();
+  const {t, lang} = useTranslate();
 
   const callbacks = {
     // Сортировка
@@ -36,15 +36,15 @@ function CatalogFilter() {
   const options = {
     sort: useMemo(
       () => [
-        {value: 'order', title: 'По порядку'},
-        {value: 'title.ru', title: 'По именованию'},
-        {value: '-price', title: 'Сначала дорогие'},
-        {value: 'edition', title: 'Древние'}
+        {value: 'order', title: t('sort.orderAsc')},
+        {value: 'title.ru', title: t('sort.titleAsc')},
+        {value: '-price', title: t('sort.priceDesc')},
+        {value: 'edition', title: t('sort.editionAsc')}
       ],
-      []
+      [lang]
     ),
     categories: useMemo(
-      () => [{value: '*', title: 'Все'}, ...select.categories],
+      () => [{value: '*', title: t('filter.allCategories')}, ...select.categories],
       [select.categories]
     )
   };
@@ -57,7 +57,12 @@ function CatalogFilter() {
         options={options.categories}
       />
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort} />
-      <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme='big' />
+      <Input
+        onChange={callbacks.onSearch}
+        value={select.query}
+        placeholder={t('search.placeholder')}
+        theme='big'
+      />
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </LayoutFlex>
   );

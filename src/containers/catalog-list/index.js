@@ -1,14 +1,13 @@
-import React, {useCallback} from "react";
-import useSelector from "../../hooks/use-selector";
-import useStore from "../../hooks/use-store";
-import useTranslate from "../../hooks/use-translate";
-import List from "../../components/list";
-import Pagination from "../../components/pagination";
-import Spinner from "../../components/spinner";
-import Item from "../../components/item";
+import React, {useCallback} from 'react';
+import Item from '../../components/catalog/item';
+import List from '../../components/common/list';
+import Pagination from '../../components/common/pagination';
+import Spinner from '../../components/common/spinner';
+import useSelector from '../../hooks/use-selector';
+import useStore from '../../hooks/use-store';
+import useTranslate from '../../hooks/use-translate';
 
 function CatalogList() {
-
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -16,7 +15,7 @@ function CatalogList() {
     page: state.catalog.params.page,
     limit: state.catalog.params.limit,
     count: state.catalog.count,
-    waiting: state.catalog.waiting,
+    waiting: state.catalog.waiting
   }));
 
   const {t} = useTranslate();
@@ -25,19 +24,32 @@ function CatalogList() {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Пагианция
-    onPaginate: useCallback(page => store.get('catalog').setParams({page}), []),
+    onPaginate: useCallback(page => store.get('catalog').setParams({page}), [])
   };
 
   const renders = {
-    item: useCallback(item => (
-      <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`} labelAdd={t('article.add')}/>
-    ), [t]),
-  }
+    item: useCallback(
+      item => (
+        <Item
+          item={item}
+          onAdd={callbacks.addToBasket}
+          link={`/articles/${item._id}`}
+          labelAdd={t('article.add')}
+        />
+      ),
+      [t]
+    )
+  };
 
   return (
     <Spinner active={select.waiting}>
-      <List items={select.items} renderItem={renders.item}/>
-      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
+      <List items={select.items} renderItem={renders.item} />
+      <Pagination
+        count={select.count}
+        page={select.page}
+        limit={select.limit}
+        onChange={callbacks.onPaginate}
+      />
     </Spinner>
   );
 }

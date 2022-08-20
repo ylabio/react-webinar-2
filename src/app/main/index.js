@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
-import Layout from '../../components/layout';
-import LayoutFlex from '../../components/layout-flex';
+import Layout from '../../components/layouts/layout';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
-import LocaleSelect from '../../containers/locale-select';
+import CommonHead from '../../containers/common-head';
+import CommonTopbar from '../../containers/common-topbar';
 import Tools from '../../containers/tools';
 import useInit from '../../hooks/use-init';
 import useStore from '../../hooks/use-store';
@@ -27,14 +27,7 @@ function Main() {
   }, []);
 
   return (
-    <Layout
-      head={
-        <LayoutFlex flex='between'>
-          <h1>{t('title')}</h1>
-          <LocaleSelect />
-        </LayoutFlex>
-      }
-    >
+    <Layout head={<CommonHead />} topbar={<CommonTopbar />}>
       <Tools />
       <CatalogFilter />
       <CatalogList />

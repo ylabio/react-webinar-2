@@ -1,7 +1,7 @@
 import StateModule from "../module";
 import qs from 'qs';
 
-const QS_OPTIONS = {
+export const QS_OPTIONS = {
   stringify: {
     addQueryPrefix: true,
     arrayFormat: 'comma',

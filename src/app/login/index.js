@@ -24,13 +24,17 @@ function Login() {
     openLoginPage: useCallback(() => navigate('/login'), []),
     login: useCallback((username, password) => {
       store.get('auth').login({username, password});
-      history.go(-1);
     }, []),
-    openProfilePage: useCallback(() => navigate(('/profile')), []),
     clearErrorMsg: useCallback(() => {
       store.get('auth').setErrorMsg('');
     }, []),
   }
+
+  useEffect(() => {
+    if (isAuth) {
+      history.go(-1);
+    }
+  }, [isAuth])
 
   return (
     <Layout 
@@ -44,7 +48,6 @@ function Login() {
       <Spinner active={isFetching}>
         <LoginFormContainer 
           login={callbacks.login}
-          navigate={callbacks.openProfilePage}
           errorMsg={errorMsg || ''}
           clearErrorMsg={callbacks.clearErrorMsg}
           user={user}

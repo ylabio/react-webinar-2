@@ -4,7 +4,6 @@ import LoginForm from '../../components/login-form';
 
 function LoginFormContainer({ 
   login, 
-  navigate, 
   errorMsg, 
   clearErrorMsg, 
   user 
@@ -34,10 +33,6 @@ function LoginFormContainer({
       }, 2000);
     }
 
-    if (user) {
-      navigate();
-    }
-
     return () => clearTimeout(id);
   }, [errorMsg, user])
 
@@ -56,7 +51,6 @@ function LoginFormContainer({
 
 LoginForm.propTypes = {
   login: propTypes.func.isRequired,
-  navigate: propTypes.func,
   clearErrorMsg: propTypes.func,
   errorMsg: propTypes.string.isRequired,
   user: propTypes.object,
@@ -64,7 +58,6 @@ LoginForm.propTypes = {
 
 LoginForm.defaultProps = {
   user: null,
-  navigate: () => {},
   clearErrorMsg: () => {},
 };
 

@@ -35,3 +35,8 @@
     cursor: default;
     color: #CCCCCC;
 }
+
+
+.Pagination-link {
+    text-decoration: none;
+}

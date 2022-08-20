@@ -19,7 +19,7 @@ class AuthState extends StateModule {
 
   async logIn(login, password) {
     this.setState({
-      ...this.state,
+      ...this.getState(),
       waiting: true,
       errors: null,
     });
@@ -39,7 +39,7 @@ class AuthState extends StateModule {
 
       if (json.error) {
         this.setState({
-          ...this.state,
+          ...this.getState(),
           errors: json.error.data?.issues,
         });
         return;

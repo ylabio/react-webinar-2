@@ -19,11 +19,10 @@ function Auth() {
 
   const select = useSelector((state) => ({
     isLogin: state.auth.token,
+    errors: state.auth.errors,
   }));
 
   const callbacks = {
-    // Добавление в корзину
-    addToBasket: useCallback((_id) => store.get("basket").addToBasket(_id), []),
     onLogIn: useCallback(
       (login, password) => store.get("auth").logIn(login, password),
       []
@@ -43,7 +42,7 @@ function Auth() {
       >
         <Tools />
         {select.isLogin && <Navigate replace to="/profile" />}
-        <LoginForm t={t} submit={callbacks.onLogIn} />
+        <LoginForm t={t} submit={callbacks.onLogIn} errors={select.errors} />
       </Layout>
     </>
   );

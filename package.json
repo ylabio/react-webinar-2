@@ -26,6 +26,7 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
     "html-webpack-plugin": "^5.5.0",
+    "js-cookie": "^3.0.1",
     "lodash.throttle": "^4.1.1",
     "mini-css-extract-plugin": "^2.6.1",
     "plural-ru": "^2.0.2",

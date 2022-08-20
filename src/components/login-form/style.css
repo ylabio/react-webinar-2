@@ -1,0 +1,19 @@
+
+.LoginForm {
+    padding: 40px 20px;
+}
+
+.LoginForm-title {
+    margin: 20px 0;
+}
+
+.LoginForm-error {
+    margin-bottom: 20px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    color: #FF0000;
+}
+
+

@@ -3,11 +3,12 @@ import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
 
-function Layout({head, children}){
+function Layout({head, children, menu}){
   const cn = bem('Layout');
 
   return (
     <div className={cn()}>
+      {menu}
       <div className={cn('head')}>
         {head}
       </div>
@@ -20,6 +21,7 @@ function Layout({head, children}){
 
 Layout.propTypes = {
   head: propTypes.node,
+  menu: propTypes.node,
   children: propTypes.node,
 }
 

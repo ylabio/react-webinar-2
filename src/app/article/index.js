@@ -1,3 +1,4 @@
+import Header from "containers/header";
 import React, {useCallback} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -39,7 +40,7 @@ function Article(){
         <h1>{select.article.title}</h1>
         <LocaleSelect/>
       </LayoutFlex>
-    }>
+    } menu={<Header/>}>
       <Tools/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>

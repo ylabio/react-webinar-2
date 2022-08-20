@@ -1,3 +1,4 @@
+import Header from "containers/header";
 import React from "react";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
@@ -21,11 +22,11 @@ function Main() {
 
   return (
     <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{t('title')}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    }>
+        <LayoutFlex flex="between">
+          <h1>{t('title')}</h1>
+          <LocaleSelect/>
+        </LayoutFlex>
+    } menu={<Header/>}>
       <Tools/>
       <CatalogFilter/>
       <CatalogList/>

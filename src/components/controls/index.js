@@ -1,21 +1,40 @@
+import {cn as bem} from "@bem-react/classname";
 import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
+import {Link} from "react-router-dom";
 
-function Controls({onAdd}){
+function Controls({isLogin, onLogout, onLogin, userName, link}){
+
+  const cn = bem('Controls');
+
+  if(!isLogin) {
+    return  (
+      <div className={cn()}>
+        <button onClick={onLogin}>Войти</button>
+      </div>
+    )
+  }
+
   return (
-    <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+    <div className={cn()}>
+      {link ? <Link className={cn('link')} to={link}>{userName}</Link> : null}
+      <button className={cn('button')} onClick={onLogout}>Выйти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  onLogin: propTypes.func.isRequired,
+  onLogout: propTypes.func.isRequired,
+  onProfile: propTypes.func.isRequired,
+  isLogin: propTypes.bool,
+  userName: propTypes.string,
+  link: propTypes.string,
 }
 
 Controls.defaultProps = {
-  onAdd: () => {} // Значение по умолчанию - функция-заглушка
+
 }
 
 export default React.memo(Controls);

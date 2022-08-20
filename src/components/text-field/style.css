@@ -1,0 +1,7 @@
+.TextField {
+    margin-bottom: 20px;
+    width: 203px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}

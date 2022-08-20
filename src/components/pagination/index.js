@@ -28,20 +28,20 @@ function Pagination(props) {
   if (right < length) items.push(length);
 
   // Возвращает функцию с замыканием на номер страницы
-  const onClickHandler = page => {
+  const clickHandler = page => {
     return () => props.onChange(page);
   };
 
   return (
     <ul className={cn()}>
-      {items.map((number, index) => (
-        <li key={index}
-            className={cn('item', {active: number === props.page, split: !number})}
-            onClick={onClickHandler(number)}
-        >
-          {number || '...'}
-        </li>
-      ))}
+      {items.map((num, i) => num
+        ? (
+          <li key={i} className={cn('item', {active: num === props.page})} onClick={clickHandler(num)}>
+            {num}
+          </li>
+        )
+        : <li key={i} className={cn('item', {split: true})}>...</li>
+      )}
     </ul>
   )
 }

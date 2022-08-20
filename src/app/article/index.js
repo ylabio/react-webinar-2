@@ -13,7 +13,6 @@ import LocaleSelect from "../../containers/locale-select";
 
 function Article(){
   const store = useStore();
-
   // Параметры из пути /articles/:id
   const params = useParams();
 

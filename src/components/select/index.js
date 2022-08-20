@@ -3,7 +3,6 @@ import propTypes from "prop-types";
 import './style.css';
 
 function Select(props){
-
   const onSelect = useCallback((e) => {
     props.onChange(e.target.value);
   }, [props.onChange])

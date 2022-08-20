@@ -7,6 +7,7 @@ import Article from "./article";
 import Login from './login';
 import Profile from './profile';
 import useStore from '../hooks/use-store';
+import Spinner from '../components/spinner';
 
 /**
  * Приложение
@@ -14,6 +15,7 @@ import useStore from '../hooks/use-store';
  */
 function App() {
   const modal = useSelector(state => state.modals.name);
+  const isFetching = useSelector(state => state.auth.isFetching);
   const store = useStore();
 
   useEffect(() => {
@@ -26,7 +28,7 @@ function App() {
   }, [])
 
   return (
-    <>
+    <Spinner active={isFetching}>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
@@ -34,7 +36,7 @@ function App() {
         <Route path={"/profile"} element={<Profile />}/>
       </Routes>
       {modal === 'basket' && <Basket/>}
-    </>
+    </Spinner>
   );
 }
 

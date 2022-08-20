@@ -13,7 +13,10 @@ function Main() {
   const store = useStore();
 
   useInit(async () => {
-    await store.get('catalog').initParams();
+    await Promise.all([
+      store.get('catalog').initParams(),
+      store.get('categories').load()
+    ]);
   }, [], {backForward: true});
 
   const {t} = useTranslate();

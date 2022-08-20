@@ -10,7 +10,8 @@ class AuthState extends StateModule {
         errCode: null
       },
       user: null,
-      isLoading: false
+      isLoading: true,
+      loadingErr: false
     }
   }
 
@@ -90,6 +91,7 @@ class AuthState extends StateModule {
     })
     const data = await res.json()
     if (data.error) {
+      this.setLoadingErr()
       return
     }
 
@@ -127,6 +129,19 @@ class AuthState extends StateModule {
         errCode: null
       }
     }, 'Обнуление ошибки')
+  }
+
+  // Имитация сигнала о том, что произошла ошибка
+  // Таймаут для того, чтобы успели сработать эффекты
+  setLoadingErr() {
+    this.setState({
+      ...this.getState(),
+      loadingErr: true
+    })
+    setTimeout(() => this.setState({
+      ...this.getState(),
+      loadingErr: false
+    }), 0)
   }
 }
 

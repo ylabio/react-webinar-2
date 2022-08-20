@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Page from '../../components/page'
 import ProfileInfo from '../../components/profile-info'
 import Spinner from '../../components/spinner'
-import useInit from '../../hooks/use-init'
 import useSelector from '../../hooks/use-selector'
 import useTranslate from '../../hooks/use-translate'
 
@@ -11,21 +10,17 @@ function Profile() {
   const { t } = useTranslate()
   const select = useSelector(state => ({
     user: state.auth.user,
-    isLoading: state.auth.isLoading
+    isLoading: state.auth.isLoading,
+    loadingErr: state.auth.loadingErr
   }))
   const nav = useNavigate()
-  const [loading, setLoading] = useState(true)
 
-  useInit(() => {
-    setLoading(select.isLoading)
-  }, [select.isLoading])
-
-  useInit(() => {
-    if (!(select.user || loading)) {
+  useEffect(() => {
+    if (!(select.user || select.isLoading) || !localStorage.getItem('TOKEN') || select.loadingErr) {
       nav('/login')
     }
-  }, [select.user, loading, nav])
-  
+  }, [select.user, select.loadingErr, select.isLoading, nav])
+
   return (
     <Page title={"Магазин"}>
       <Spinner active={select.isLoading}>

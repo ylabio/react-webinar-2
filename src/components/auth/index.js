@@ -27,14 +27,14 @@ Auth.propTypes = {
   t: propTypes.func,
   toLogin: propTypes.func,
   logOut: propTypes.func,
-  toProfile: propTypes.func,
+  toProfile: propTypes.string,
   username: propTypes.string
 }
 
 Auth.defaultProps = {
   t: (v) => v,
   toLogin: () => {},
-  toProfile: () => {},
+  toProfile: '/',
   logOut: () => {},
   username: ''
 }

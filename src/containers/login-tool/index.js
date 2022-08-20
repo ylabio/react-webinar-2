@@ -14,7 +14,7 @@ function LoginTool() {
   const nav = useNavigate()
 
   useInit(() => {
-    if (!user) {
+    if (!user && localStorage.getItem('TOKEN')) {
       store.get('auth').getProfile()
     }
   }, [], {backForward: false})

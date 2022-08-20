@@ -29,7 +29,7 @@ function LayoutForm({onSubmit, submitText, title, err, children}) {
 LayoutForm.propTypes = {
   onSubmit: propTypes.func,
   submitText: propTypes.string,
-  title: propTypes.string,
+  title: propTypes.node,
   err: propTypes.node,
   children: propTypes.node
 }
@@ -37,7 +37,7 @@ LayoutForm.propTypes = {
 LayoutForm.defaultProps = {
   onSubmit: () => {},
   submitText: 'submit',
-  title: 'title',
+  title: <h2>form</h2>
 }
 
 export default React.memo(LayoutForm)

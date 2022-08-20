@@ -1,15 +1,19 @@
-import React, {useState} from 'react'
+import React, {useState, useMemo} from 'react'
 import propTypes from 'prop-types';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 import {cn as bem} from "@bem-react/classname";
 import './style.css'
 
 function AuthForm(props) {
   const cn = bem('AuthForm')
   const navigate = useNavigate()
+  const location = useLocation()
 
   const [loginForm, setLoginForm] = useState({login: '', password: ''});
   const [error, setError] = useState('')
+
+  // Получаем путь, с которого пришли на страницу логина
+  const from = useMemo(() => location.state?.from || "/", []);
 
   const onChangeHandler = (e) => {
     setLoginForm({...loginForm, [e.target.name]: e.target.value})
@@ -23,8 +27,8 @@ function AuthForm(props) {
       return setError('Заполните все поля')
     } 
     props.login(loginForm)
-    // После успешной авторизации делаем редирект на профиль пользователя
-      .then(_ => navigate('/profile'))
+    // После успешной авторизации делаем редирект на предыдущую страницу
+      .then(_ => navigate(from, {replace: true}))
     // Если что-то пошло не так, выводим ошибку
       .catch(_ => setError('Некая ошибка от сервера'))
   }
@@ -56,7 +60,7 @@ function AuthForm(props) {
   )
 }
 
-export default AuthForm
+export default React.memo(AuthForm)
 
 AuthForm.propTypes = {
   login: propTypes.func,

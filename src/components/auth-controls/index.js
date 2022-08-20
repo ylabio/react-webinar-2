@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useLocation} from "react-router-dom";
 import propTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname'
 import './style.css'
@@ -7,6 +7,7 @@ import './style.css'
 function AuthControls(props) {
   const cn = bem("AuthControls")
   const navigate = useNavigate()
+  const location = useLocation()
 
   return (
     <div className={cn()}>
@@ -16,13 +17,13 @@ function AuthControls(props) {
           <button onClick={props.logout}>{props.t('auth.signout')}</button>
         </>
       : 
-        <button onClick={() => navigate('/login')}>{props.t('auth.signin')}</button>
+        <button onClick={() => navigate('/login', {state: {from: location.pathname}})}>{props.t('auth.signin')}</button>
       }
     </div>
   )
 }
 
-export default AuthControls
+export default React.memo(AuthControls)
 
 AuthControls.propTypes = {
   isAuthenticated: propTypes.bool,

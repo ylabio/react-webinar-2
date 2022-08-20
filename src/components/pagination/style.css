@@ -23,6 +23,7 @@
     background: #E1E1E1;
 }
 
+.Pagination-item_active a,
 .Pagination-item_active,
 .Pagination-item_active:hover{
     background: #0087E9;
@@ -42,7 +43,6 @@
     text-decoration: none;
     color: #000000;
 }
-
 .Pagination-dots {
     padding: 2px 4px 2px 2px;
 }

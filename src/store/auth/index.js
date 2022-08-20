@@ -6,12 +6,9 @@ import StateModule from '../module';
 class AuthState extends StateModule {
   initState() {
     return {
-      userInfo:{
-        login: null,
-        id: null,
-        token: null,
-      },
-      message: null
+      user: {},
+      token: localStorage.getItem('authToken') || null,
+      message: null,
     };
   }
 
@@ -19,54 +16,73 @@ class AuthState extends StateModule {
    * Авторизация пользователя
    */
   async setUser(login, password) {
-    try {
-      const response = await fetch(`api/v1/users/sign`,
-        {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            login: login,
-            password: password,
-            remember: true,
-          }),
+    fetch('api/v1/users/sign', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          login: login,
+          password: password,
+          remember: true,
+        }),
+      })
+      .then(response => response.json())
+      .then(result => {
+        if(!result.error){
+          localStorage.setItem('authToken', result.result.token)
+          this.setState({
+            user: result.result.user,
+            token: result.result.token,
+          });
+        } else {
+          throw new Error(result.error.data.issues[0].message)
         }
-      );
-        console.log(response);
-      const json = await response.json();
-        console.log(json);
-      this.setState({
-        userInfo: {
-          login: user.login,
-          id: user.id,
-          token: user.token,
-        }});
-    } catch (e) {
 
-      this.setState({
-        userInfo: {},
-        message: e.message
+      })
+      .catch(error => {
+        this.setState({
+          ...this.getState(),
+          message: error.message,
+        });
       });
-    }
+  }
+
+  /**
+   * Свой профиль
+   */
+  async setSelf() {
+    this.getState().token && fetch('api/v1/users/self', {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Token': this.getState().token
+      },
+    })
+    .then(response=>response.json())
+    .then(result => {
+      this.setState({
+        ...this.getState(),
+        user: result.result,
+      });
+    });
   }
 
   /**
    * Log out пользователя
    */
   async removeUser() {
-    const response = await fetch(`/users/sign`,{
+    fetch(`api/v1/users/sign`, {
       method: 'DELETE',
-      body:{
-        'X-Token': token
-      }
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Token': this.getState().token
+      },
     });
     this.setState(
       {
-        email: null,
-        id: null,
+        user: {},
         token: null,
-      },
-      `Log Out`
-    );
+        message: null,
+      });
+    localStorage.removeItem('authToken');
   }
 }
 

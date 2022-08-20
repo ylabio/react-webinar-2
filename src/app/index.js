@@ -20,7 +20,7 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'login'} element={<Login/>}/>
-        <Route path={'userinfo'} element={<UserPage/>}/>
+        <Route path={'profile'} element={<UserPage/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}

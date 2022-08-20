@@ -8,3 +8,7 @@
 	margin: 0;
 	padding-bottom: 10px;
 }
+
+.Form-error{
+	color: red;
+}

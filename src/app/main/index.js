@@ -14,9 +14,11 @@ function Main() {
   const store = useStore();
 
   useInit(async () => {
+    await store.get('auth').setSelf();
     await store.get('catalog').initParams();
   }, [], {backForward: true});
 
+  
   const {t} = useTranslate();
 
   return (

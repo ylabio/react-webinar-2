@@ -17,11 +17,11 @@ function UserCard({userInfo}) {
       <h2 className={cn('h2')}>{t("user.profile")}</h2>
       <div className={cn('prop')}>
         <div className={cn('label')}>{t("user.name")}:</div>
-        <div className={cn('value')}>{userInfo.name}</div>
+        <div className={cn('value')}>{userInfo.username}</div>
       </div>
       <div className={cn('prop')}>
         <div className={cn('label')}>{t("user.phone")}:</div>
-        <div className={cn('value')}>{userInfo.phone}</div>
+        <div className={cn('value')}>{userInfo.profile.phone}</div>
       </div>
       <div className={cn('prop')}>
         <div className={cn('label')}>email:</div>

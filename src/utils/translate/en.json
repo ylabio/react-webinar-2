@@ -19,6 +19,7 @@
   "auth.login": "Login",
   "auth.pass": "Password",
   "auth.enter": "Enter",
+  "auth.quit": "Quit",
   "user.profile": "Profile",
   "user.name": "Name",
   "user.phone": "Phone"

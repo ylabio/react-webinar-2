@@ -1,11 +1,11 @@
 import useSelector from './use-selector';
 
 export const useAuth = () => {
-  const {login,id, token, isAuth} = useSelector((state) => state.auth);
+  const {user, token, message} = useSelector((state) => state.auth);
 	return {
-		isAuth: !!login,
-		login,
-		id,
-		token
+		isAuth: !!token,
+		user,
+		token,
+		message
 	}
 };

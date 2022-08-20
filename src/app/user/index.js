@@ -9,23 +9,16 @@ import Tools from "../../containers/tools";
 import { useAuth } from './../../hooks/use-auth';
 import { useNavigate } from "react-router-dom";
 
-
-
 function UserPage() {
   const {t} = useTranslate();
-  const {isAuth} = useAuth(); 
+  const {user, isAuth} = useAuth(); 
   const navigate = useNavigate();
 
 
 	useEffect(()=>{
-		!isAuth ? navigate('/') : navigate('/login');
+		isAuth ? navigate('/profile') : navigate('/');
+	},[isAuth])
 
-	})
-
-  const callbacks = {
-    // Открытие корзины
-    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
-  };
   return (
     <Layout
       userInfo={<AuthHeader />}
@@ -37,7 +30,7 @@ function UserPage() {
       }
     >
       <Tools />
-      <UserCard />
+      {isAuth && <UserCard userInfo={user}/>}
     </Layout>
   );
 }

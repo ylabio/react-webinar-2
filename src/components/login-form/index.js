@@ -7,7 +7,7 @@ import useTranslate from '../../hooks/use-translate';
 import InputBlock from '../input-block';
 import useSelector from '../../hooks/use-selector';
 
-const LoginForm = ({title, callback}) => {
+const LoginForm = ({title, authMessage, callback}) => {
   const cn = bem('Form');
   const {t} = useTranslate();
   const [login, setLogin] = useState('');
@@ -31,6 +31,7 @@ const LoginForm = ({title, callback}) => {
         onChange={setLogin}
       />
       <InputBlock label={t('auth.pass')} value={pass} onChange={setPass} />
+      <span className={cn('error')}>{authMessage}</span>
       <button>{t('auth.enter')}</button>
     </form>
   );
@@ -38,6 +39,7 @@ const LoginForm = ({title, callback}) => {
 
 LoginForm.propTypes = {
   title: propTypes.string,
+  authMessage: propTypes.string,
   callback: propTypes.func,
 };
 

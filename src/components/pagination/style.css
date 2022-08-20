@@ -35,3 +35,7 @@
     cursor: default;
     color: #CCCCCC;
 }
+
+.Pagination-dots {
+    padding: 2px 4px 2px 2px;
+}

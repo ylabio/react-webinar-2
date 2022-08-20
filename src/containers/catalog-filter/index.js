@@ -2,10 +2,10 @@ import React, {useCallback, useMemo,} from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import Select from "../../components/select";
+import Select from "../../components/ui/select";
 import Input from "../../components/input";
-import LayoutFlex from "../../components/layout-flex";
 import { useGettingCategory } from "./useGettingCategories";
+import LayoutFlex from '../../components/layouts/layout-flex';
 
 function CatalogFilter() {
   const store = useStore();
@@ -40,8 +40,6 @@ function CatalogFilter() {
     ]), [])
   }
   
-
- 
   return (
     <LayoutFlex flex="start">
       <Select onChange={callbacks.onFilter} value={select.filter} options={categories}/>

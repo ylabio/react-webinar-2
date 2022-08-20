@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Layout from "../../components/layout";
-import LayoutFlex from "../../components/layout-flex";
-import Spinner from "../../components/spinner";
+import Spinner from "../../components/ui/spinner";
 import LoginFormContainer from "../../containers/login-form-container";
 import Tools from "../../containers/tools";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
+import Layout from '../../components/layouts/layout';
+import LayoutFlex from '../../components/layouts/layout-flex';
 
 function Login() {
   const {t} = useTranslate();

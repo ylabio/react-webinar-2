@@ -3,8 +3,8 @@ import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import List from "../../components/list";
-import Pagination from "../../components/pagination";
-import Spinner from "../../components/spinner";
+import Pagination from "../../components/ui/pagination";
+import Spinner from "../../components/ui/spinner";
 import Item from "../../components/item";
 
 function CatalogList() {

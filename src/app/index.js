@@ -7,7 +7,7 @@ import Article from "./article";
 import Login from './login';
 import Profile from './profile';
 import useStore from '../hooks/use-store';
-import Spinner from '../components/spinner';
+import Spinner from '../components/ui/spinner';
 import PrivateRoutes from '../containers/private-routes';
 import { getUserDataFromLS } from '../utils';
 
@@ -17,9 +17,9 @@ import { getUserDataFromLS } from '../utils';
  */
 function App() {
   const modal = useSelector(state => state.modals.name);
-  const isFetching = useSelector(state => state.auth.isFetching);
   const store = useStore();
   const [isChecked, setIsChecked] = useState(false);
+
 
   useEffect(() => {
     const userData = getUserDataFromLS();

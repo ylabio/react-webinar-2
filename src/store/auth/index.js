@@ -20,6 +20,7 @@ class AuthState extends StateModule{
       user: data.user,
       token: data.token,
       isFetching: false,
+      isAuth: data.isAuth,
     });
   }
 
@@ -36,14 +37,7 @@ class AuthState extends StateModule{
       errorMsg,
       isFetching: false,
     }); 
-  }
-  
-  setIsAuth(flag) {
-    this.setState({
-      ...this.getState(),
-      isAuth: flag,
-    });  
-  }     
+  }    
 
   async login(data) {
     this.setIsFetching(true);
@@ -66,8 +60,10 @@ class AuthState extends StateModule{
       const token = json.result.token; 
       const username = json.result.user.username;
       localStorage.setItem('ylab', JSON.stringify({token, username}));
-      this.setUserData(json.result);
-      this.setIsAuth(true);          
+      this.setUserData({
+        ...json.result,
+        isAuth: true,
+      });       
     }  
     
   }
@@ -89,8 +85,8 @@ class AuthState extends StateModule{
       this.setUserData({
         user: null,
         token: null,
-      });
-      this.setIsAuth(false);     
+        isAuth: false,
+      });  
     } else {
       this.setIsFetching(false);
     } 
@@ -112,12 +108,15 @@ class AuthState extends StateModule{
       this.setUserData({
         user: json.result,
         token: token,
+        isAuth: true,
       });
-      this.setIsAuth(true);    
     } else {
       localStorage.removeItem('ylab');
-      this.setIsAuth(false);
-      this.setIsFetching(false);
+      this.setState({
+        ...this.getState(),
+        setIsAuth: false,
+        setIsFetching: false,
+      });
     }
 
   }

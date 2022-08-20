@@ -1,13 +1,13 @@
 import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import Layout from "../../components/layout";
-import LayoutFlex from "../../components/layout-flex";
 import ProfilePage from "../../components/profile-page";
 import Tools from "../../containers/tools";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import { getUserDataFromLS } from "../../utils";
+import Layout from '../../components/layouts/layout';
+import LayoutFlex from '../../components/layouts/layout-flex';
 
 function Profile() {
   const store = useStore();

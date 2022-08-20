@@ -5,12 +5,12 @@ import useTranslate from "../../hooks/use-translate";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import Tools from "../../containers/tools";
-import LayoutFlex from "../../components/layout-flex";
-import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import { useNavigate } from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import { getUserDataFromLS } from "../../utils";
+import Layout from '../../components/layouts/layout';
+import LayoutFlex from '../../components/layouts/layout-flex';
 
 function Main() {
   const store = useStore();

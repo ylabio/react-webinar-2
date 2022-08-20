@@ -121,6 +121,13 @@ class AuthState extends StateModule {
       }
     }
   }
+
+  async resetErrors() {
+    this.setState({
+      ...this.getState(),
+      errors: null,
+    });
+  }
 }
 
 export default AuthState;

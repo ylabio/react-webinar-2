@@ -18,6 +18,7 @@ function Main() {
       await store.get("catalog").initParams();
       await store.get("categories").load();
       await store.get("auth").getUser();
+      await store.get("auth").resetErrors();
     },
     [],
     { backForward: true }

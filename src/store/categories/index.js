@@ -16,16 +16,34 @@ export default class CategoriesState extends StateModule {
       parent: el.parent?._id
     }))
     
-    for (let item of mapped) {
-      if (!item.parent) continue
-      let k = item.parent
-      do {
-        const tmp = mapped.find(elem => elem.id === k)
-        item.title = '-' + item.title
-        k = tmp.parent
-      } while (k)
-    }
+    const prefixes = {}
+
+    const children = { 0: [] }
+    const root = { id: 0, nodes: tmp[0] }
+
+    // Делаем дерево
+    mapped.forEach((v) => {
+      children[v.id] = children[v.id] || []
+      children[v.parent || 0] = children[v.parent || 0] || []
+      v.nodes = children[v.id]
+      children[v.parent || 0].push(v)
+    })
     
+    // Делаем мапу с префиксами
+    // Делаем рассчёт на основании уже имеющихся данных от родителя
+    const prefixesMaker = (obj) => {
+      for (let k of obj.nodes) {
+        prefixes[k.id] = typeof prefixes[k.parent] !== 'undefined' ? prefixes[k.parent] + '-' : ''
+        prefixesMaker(k)
+      }
+    }
+    prefixesMaker(root)
+
+    // Добавляем префиксы к title'ам
+    mapped.forEach((v) => {
+      v.title = prefixes[v.id] + v.title
+    })
+
     mapped.forEach((v, idx) => {
       if (v.parent) {
         mapped.splice(mapped.findIndex(el => el.id === v.parent) + 1, 0, v)

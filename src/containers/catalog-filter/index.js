@@ -26,7 +26,7 @@ function CatalogFilter() {
     onSearch: useCallback(query => store.get('catalog').setParams({query, page: 1}), []),
     // Сброс
     onReset: useCallback(() => store.get('catalog').resetParams(), []),
-    onCategoryChange: useCallback(category => store.get('catalog').setParams({category}), [])
+    onCategoryChange: useCallback(category => store.get('catalog').setParams({category, page: 1}), [])
   };
 
   // Опции для полей

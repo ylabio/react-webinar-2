@@ -1,4 +1,16 @@
 .Select{
+    box-sizing: border-box;
+    height: 26px;
+    min-width: 157px;
     font-size: 16px;
-    padding: 3px 2px 2px;
+    padding: 0 5px;
+    border: 1px solid #767676;
+    border-radius: 0;
+}
+/*
+    Ширину задала не по макету так, чтобы отображение селекта по категорям не прыгало при загрузке
+    Если задать четко по макету, то не все категории уместятся по ширине (текст)
+*/
+.Select_category {
+    min-width: 175px;
 }

@@ -3,8 +3,9 @@ import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname'
 import numberFormat from "../../utils/number-format";
 import './style.css';
+import Button from "../button";
 
-function ArticleCard({article, onAdd}) {
+function ArticleCard({article, onAdd, t}) {
 
   // CSS классы по БЭМ
   const cn = bem('ArticleCard');
@@ -13,22 +14,22 @@ function ArticleCard({article, onAdd}) {
     <div className={cn()}>
       <div className={cn('description')}>{article.description}</div>
       <div className={cn('prop')}>
-        <div className={cn('label')}>Страна производитель:</div>
+        <div className={cn('label')}>{t('country')}:</div>
         <div className={cn('value')}>{article.maidIn?.title} ({article.maidIn?.code})</div>
       </div>
       <div className={cn('prop')}>
-        <div className={cn('label')}>Категория:</div>
+        <div className={cn('label')}>{t('category')}:</div>
         <div className={cn('value')}>{article.category?.title}</div>
       </div>
       <div className={cn('prop')}>
-        <div className={cn('label')}>Год выпуска:</div>
+        <div className={cn('label')}>{t('edition')}:</div>
         <div className={cn('value')}>{article.edition}</div>
       </div>
       <div className={cn('prop', {size: 'big'})}>
-        <div className={cn('label')}>Цена:</div>
+        <div className={cn('label')}>{t('price')}:</div>
         <div className={cn('value')}>{numberFormat(article.price)} ₽</div>
       </div>
-      <button onClick={() => onAdd(article._id)}>Добавить</button>
+      <Button onClick={() => onAdd(article._id)} text={t('article.add')} type={'button'}/>
     </div>
   )
 }

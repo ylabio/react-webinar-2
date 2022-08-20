@@ -14,7 +14,11 @@
   },
   "basket.total": "Итого",
   "basket.unit": "шт",
-  "basket.delete": "Удалть",
+  "basket.delete": "Удалить",
   "article.add": "Добавить",
-  "filter.reset": "Сбросить"
+  "filter.reset": "Сбросить",
+  "country": "Страна производитель",
+  "category": "Категория",
+  "edition": "Год выпуска",
+  "price": "Цена"
 }

@@ -18,8 +18,10 @@ function Profile() {
   const callbacks = {
     signOut: useCallback(() => {
       const token = getUserDataFromLS().token;
-      store.get('auth').signOut(token);
-      navigate('/login');
+      (async () => {
+        await store.get('auth').signOut(token);
+        navigate('/login');
+      })()
     }, []),
   }
 

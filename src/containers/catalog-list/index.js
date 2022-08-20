@@ -28,7 +28,7 @@ function CatalogList() {
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Пагианция
     onPaginate: useCallback(page => store.get('catalog').setParams({page}), []),
-    generateLink: (page) => {
+    generateLink: useCallback((page) => {
       if (page !== null) {
         const query = '/?' + qs.stringify({
           ...params,
@@ -36,7 +36,7 @@ function CatalogList() {
         }, QS_OPTIONS);
         return query;
       }
-    },
+    }, [params]),
   };
 
   const renders = {

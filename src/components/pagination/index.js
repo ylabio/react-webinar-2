@@ -35,7 +35,7 @@ function Pagination(props) {
     e.preventDefault()
   }
   const linkConstructor = (page) => {
-    return window.location.search.replace(new RegExp(/page=[1-9]+/), `page=${page}`)
+    return window.location.search.replace(new RegExp(/page=[0-9]+/), `page=${page}`)
   }
 
   return (

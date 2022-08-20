@@ -1,0 +1,32 @@
+.LoginLinks {
+  position: absolute;
+  top: -121px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  box-sizing: border-box;
+  padding: 10px 20px;
+  width: 100%;
+}
+
+.LoginLinks-button {
+  margin-left: 20px;
+  padding: 1px 6px;
+  background: #EFEFEF;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  text-decoration: none;
+  color: #000000;
+  font-size: 0.85rem;
+}
+
+.LoginLinks-button:hover {
+  background: #DEDEDE;
+}
+
+.LoginLinks-user,
+.LoginLinks-user:visited {
+  color: #0087E9;
+}

@@ -11,7 +11,6 @@ function LoginForm({onLogin}){
   const onFormSubmit = useCallback((e) => {
     e.preventDefault();
     onLogin({login: loginRef.current.value, password: passwordRef.current.value});
-    console.log(loginRef.current.value, passwordRef.current.value);
   }, [])
 
   return (

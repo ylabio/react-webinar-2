@@ -11,7 +11,7 @@ function Menu(props) {
     <ul className={cn()}>
       {props.items.map(item => (
         <li key={item.key} className={cn('item')}>
-          <Link to={item.link}>{item.title}</Link>
+          <Link to={item.link} className={cn('link')}>{item.title}</Link>
         </li>
       ))}
     </ul>

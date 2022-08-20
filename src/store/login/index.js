@@ -11,7 +11,7 @@ class LoginState extends StateModule{
    */
   initState() {
     return {
-      status: 'unknown',
+      status: 'no_auth',
       user: undefined,
     };
   }

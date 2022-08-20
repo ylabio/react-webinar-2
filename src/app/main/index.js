@@ -7,11 +7,12 @@ import CatalogList from "../../containers/catalog-list";
 import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
-import LoginLink from "../../components/login-link";
+import LoginMenu from "../../containers/login-menu";
 import LocaleSelect from "../../containers/locale-select";
 
 function Main() {
   const store = useStore();
+  const {t} = useTranslate();
 
   useInit(async () => {
     await store.get('catalog').initParams();
@@ -21,8 +22,6 @@ function Main() {
     await store.get('categories').load();
   }, [], {backForward: true});
 
-  const {t} = useTranslate();
-
   return (
     <Layout head={
       <LayoutFlex flex="between">
@@ -30,7 +29,7 @@ function Main() {
         <LocaleSelect/>
       </LayoutFlex>
     }>
-      <LoginLink/>
+      <LoginMenu/>
       <Tools/>
       <CatalogFilter/>
       <CatalogList/>

@@ -1,21 +1,19 @@
-import React, {useCallback} from "react";
-import useStore from "../../hooks/use-store";
+import React from "react";
 import useTranslate from "../../hooks/use-translate";
+import useSelector from "../../hooks/use-selector";
 import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import ProfileCard from "../../components/profile-card";
 import LoginMenu from "../../containers/login-menu";
-import LoginForm from "../../components/login-form";
 
-function Login(){
-  const store = useStore();
+function Profile(){
   const {t} = useTranslate();
 
-  const callbacks = {
-    // Авторизация
-    login: useCallback((data) => store.get('login').login(data), []),
-  };
+  const select = useSelector(state => ({
+    user: state.login.user?.result.user,
+  }));
 
   return (
     <Layout head={
@@ -26,9 +24,9 @@ function Login(){
     }>
       <Tools/>
       <LoginMenu/>
-      <LoginForm onLogin={callbacks.login}/>
+      <ProfileCard user={select.user}/>
     </Layout>
   )
 }
 
-export default React.memo(Login);
+export default React.memo(Profile);

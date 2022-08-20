@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useMemo} from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
@@ -28,6 +28,11 @@ function CatalogList() {
     onPaginate: useCallback(page => store.get('catalog').setParams({page}), []),
   };
 
+  const linkMaker = useMemo(() => (link) => {
+    const localation = window.location.pathname + window.location.search
+    return localation.replace('page=' + select.page, 'page=' + link)
+  }, [select.page, window.location])
+
   const renders = {
     item: useCallback(item => (
       <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`} labelAdd={t('article.add')}/>
@@ -37,7 +42,7 @@ function CatalogList() {
   return (
     <Spinner active={select.waiting}>
       <List items={select.items} renderItem={renders.item}/>
-      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
+      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate} linkMaker={linkMaker}/>
     </Spinner>
   );
 }

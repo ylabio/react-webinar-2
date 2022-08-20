@@ -5,6 +5,7 @@ import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layouts/layout-flex";
+import {addLabels, makeTree} from '../../utils/make-categories'
 
 function CatalogFilter() {
 
@@ -13,6 +14,7 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.categories
   }));
 
   const {t} = useTranslate(); 
@@ -20,12 +22,13 @@ function CatalogFilter() {
   const callbacks = {
     // Сортировка
     onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
+    // Фильтр
+    onFilter: useCallback(category => store.get('catalog').setParams({category}), []),
     // Поиск
     onSearch: useCallback(query => store.get('catalog').setParams({query, page: 1}), []),
     // Сброс
     onReset: useCallback(() => store.get('catalog').resetParams(), [])
   };
-
   // Опции для полей
   const options = {
     sort: useMemo(() => ([
@@ -36,8 +39,18 @@ function CatalogFilter() {
     ]), [])
   }
 
+const arr = select.category.map(item => item.parent 
+  ? {id: item._id, parentId: item.parent._id, value: item.name, title: item.title} 
+  : {id: item._id, value: item.name, title: item.title}
+);
+
+const categories = addLabels(makeTree(arr));
+
+console.log(categories);
+
   return (
     <LayoutFlex flex="start">
+      <Select onChange={callbacks.onFilter} value={categories.value} options={categories}/>
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

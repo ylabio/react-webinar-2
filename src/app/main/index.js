@@ -17,7 +17,6 @@ function Main() {
     await store.get('auth').setSelf();
     await store.get('catalog').initParams();
   }, [], {backForward: true});
-
   
   const {t} = useTranslate();
 

@@ -47,7 +47,7 @@ class AuthState extends StateModule {
   }
 
   /**
-   * Свой профиль
+   * Восстановить свой профиль
    */
   async setSelf() {
     this.getState().token && fetch('api/v1/users/self', {

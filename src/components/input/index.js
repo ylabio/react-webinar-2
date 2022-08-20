@@ -1,7 +1,7 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import propTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
-import throttle from "lodash.throttle";
+import debounce from 'lodash.debounce';
+import propTypes from 'prop-types';
+import React, {useCallback, useEffect, useState} from 'react';
 import './style.css';
 
 function Input(props) {
@@ -11,13 +11,19 @@ function Input(props) {
   const [value, change] = useState(props.value);
 
   // Задержка для вызова props.onChange
-  const changeThrottle = useCallback(throttle(value => props.onChange(value), 1000), [props.onChange]);
+  const changeDebounce = useCallback(
+    debounce(value => props.onChange(value), 1000),
+    [props.onChange]
+  );
 
   // Обработчик изменений в поле
-  const onChange = useCallback(event => {
-    change(event.target.value);
-    changeThrottle(event.target.value);
-  }, [change, changeThrottle]);
+  const onChange = useCallback(
+    event => {
+      change(event.target.value);
+      changeDebounce(event.target.value);
+    },
+    [change, changeDebounce]
+  );
 
   // Обновление стейта, если передан новый value
   useEffect(() => {
@@ -32,7 +38,7 @@ function Input(props) {
       placeholder={props.placeholder}
       onChange={onChange}
     />
-  )
+  );
 }
 
 Input.propTypes = {
@@ -40,13 +46,13 @@ Input.propTypes = {
   type: propTypes.string,
   placeholder: propTypes.string,
   onChange: propTypes.func,
-  theme: propTypes.string,
-}
+  theme: propTypes.string
+};
 
 Input.defaultProps = {
   onChange: () => {},
   type: 'text',
   theme: ''
-}
+};
 
 export default React.memo(Input);

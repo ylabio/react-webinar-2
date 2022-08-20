@@ -1,5 +1,6 @@
-import StateModule from "../module";
 import qs from 'qs';
+import {sortByParents} from '../../utils/sortByParents';
+import StateModule from '../module';
 
 const QS_OPTIONS = {
   stringify: {
@@ -11,13 +12,12 @@ const QS_OPTIONS = {
     ignoreQueryPrefix: true,
     comma: true
   }
-}
+};
 
 /**
  * Состояние каталога
  */
-class CatalogState extends StateModule{
-
+class CatalogState extends StateModule {
   /**
    * Начальное состояние
    * @return {Object}
@@ -30,8 +30,10 @@ class CatalogState extends StateModule{
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        category: '*'
       },
+      categories: [],
       waiting: false
     };
   }
@@ -42,14 +44,15 @@ class CatalogState extends StateModule{
    * @param params
    * @return {Promise<void>}
    */
-  async initParams(params = {}){
+  async initParams(params = {}) {
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
-    const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
+    const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {};
     let validParams = {};
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
+    if (urlParams.category) validParams.category = urlParams.category;
 
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = {...this.initState().params, ...validParams, ...params};
@@ -62,7 +65,7 @@ class CatalogState extends StateModule{
    * @param params
    * @return {Promise<void>}
    */
-  async resetParams(params = {}){
+  async resetParams(params = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = {...this.initState().params, ...params};
     // Установк параметров и подгрузка данных
@@ -75,7 +78,7 @@ class CatalogState extends StateModule{
    * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
    * @returns {Promise<void>}
    */
-  async setParams(params = {}, historyReplace = false){
+  async setParams(params = {}, historyReplace = false) {
     const newParams = {...this.getState().params, ...params};
 
     // Установка новых параметров и признака загрузки
@@ -86,7 +89,18 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+
+    const paginationParams = `limit=${newParams.limit}&skip=${skip}`;
+    const fieldsParams = `&fields=items(*),count`;
+    const sortParams = `&sort=${newParams.sort}`;
+    const searchParams = `&search[query]=${newParams.query}`;
+    const categoryParams =
+      newParams.category === '*' ? '' : `&search[category]=${newParams.category}`;
+    const langParams = '&lang=ru';
+
+    const response = await fetch(
+      `/api/v1/articles?${paginationParams}${fieldsParams}${sortParams}${searchParams}${categoryParams}${langParams}`
+    );
     const json = await response.json();
 
     // Установка полученных данных и сброс признака загрузки
@@ -105,6 +119,17 @@ class CatalogState extends StateModule{
     } else {
       window.history.pushState({}, '', url);
     }
+  }
+
+  async loadCategories() {
+    const response = await fetch(`api/v1/categories`);
+    const json = await response.json();
+    const items = json.result.items;
+    const sortedItems = sortByParents(items);
+    this.setState({
+      ...this.getState(),
+      categories: sortedItems
+    });
   }
 }
 

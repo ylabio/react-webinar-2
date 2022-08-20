@@ -3,39 +3,16 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function LoginForm({ login, navigate, errorMsg, clearErrorMsg, user }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [showAlert, setShowAlert] = useState(false);
+function LoginForm({ 
+  errorMsg,
+  username, 
+  setUsername, 
+  password, 
+  setPassword,
+  login,
+  showAlert, 
+}) {
   const cn = bem('LoginForm');
-
-  const callbacks = {
-    login: () => {
-      const usernameLength = username.trim().length;
-      const passwordLength = password.trim().length;
-      if (usernameLength && passwordLength) {
-        login(username, password);
-      }
-    },
-  };
-
-  useEffect(() => {
-    let id;
-
-    if (errorMsg) {
-      setShowAlert(true);
-      id = setTimeout(() => {
-        setShowAlert(false);
-        clearErrorMsg();
-      }, 2000);
-    }
-
-    if (user) {
-      navigate();
-    }
-
-    return () => clearTimeout(id);
-  }, [errorMsg, user])
 
   return (
     <form 
@@ -77,22 +54,24 @@ function LoginForm({ login, navigate, errorMsg, clearErrorMsg, user }) {
       <button 
         type="submit"
         className={cn('submit')}
-        onClick={callbacks.login}
+        onClick={login}
       >Войти</button>
     </form>
   );
 }
 
 LoginForm.propTypes = {
-  login: propTypes.func.isRequired,
-  navigate: propTypes.func.isRequired,
-  clearErrorMsg: propTypes.func.isRequired,
   errorMsg: propTypes.string.isRequired,
-  user: propTypes.object,
+  username: propTypes.string.isRequired,
+  password: propTypes.string.isRequired,
+  setUsername: propTypes.func.isRequired,
+  setPassword: propTypes.func.isRequired,
+  login: propTypes.func.isRequired,
+  showAlert: propTypes.bool.isRequired,
 };
 
 LoginForm.defaultProps = {
-  user: null,
+
 };
 
 export default React.memo(LoginForm);

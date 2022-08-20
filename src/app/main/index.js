@@ -7,6 +7,7 @@ import CatalogList from "../../containers/catalog-list";
 import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
+import LoginLink from "../../components/login-link";
 import LocaleSelect from "../../containers/locale-select";
 
 function Main() {
@@ -29,6 +30,7 @@ function Main() {
         <LocaleSelect/>
       </LayoutFlex>
     }>
+      <LoginLink/>
       <Tools/>
       <CatalogFilter/>
       <CatalogList/>

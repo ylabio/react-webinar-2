@@ -13,6 +13,8 @@ body{
     background: #fff;
     box-sizing: border-box;
     box-shadow: 0 0 15px 5px #0000003b;
+
+    padding-top: 41px;
 }
 .Layout-head{
     height: 80px;
@@ -21,4 +23,7 @@ body{
 }
 .Layout-head h1{
     margin: 0;
+}
+.Layout-content{
+    position: relative;
 }

@@ -1,7 +1,7 @@
 import StateModule from "../module";
 
 /**
- * Состояние товара
+ * Состояние категорий товаров
  */
 class CategoriesState extends StateModule{
 

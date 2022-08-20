@@ -20,5 +20,8 @@
   "login.enter":"Войти",
   "login.title":"Вход",  
   "userMenu.logIn":"Вход",
-  "userMenu.logOut":"Выход"
+  "userMenu.logOut":"Выход",
+  "userInfo.title":"Профиль",
+  "userInfo.name":"Имя",
+  "userInfo.phone":"Телефон"
 }

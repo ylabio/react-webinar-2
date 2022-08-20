@@ -1,3 +1,4 @@
+import { saveTokenToCookie } from "../../utils/save-token-to-cookie";
 import StateModule from "../module";
 
 /**
@@ -56,7 +57,10 @@ class AuthState extends StateModule{
     if (json.error) {
       this.setErrorMsg(json.error.message);
     } else {
-      this.setUserData(json.result);
+      const token = json.result.token;
+      const username = json.result.user.username;
+      saveTokenToCookie(token, username);
+      this.setUserData(json.result);     
     }  
     
   } 

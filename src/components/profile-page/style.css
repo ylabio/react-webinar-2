@@ -1,0 +1,15 @@
+.ProfilePage {
+  font-size: 18px;
+  padding: 12px 20px;
+}
+
+.ProfilePage-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.ProfilePage-data {
+  font-weight: bold;
+}

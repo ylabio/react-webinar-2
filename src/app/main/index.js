@@ -9,10 +9,12 @@ import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import { useNavigate } from "react-router-dom";
+import useSelector from "../../hooks/use-selector";
 
 function Main() {
   const store = useStore();
   const navigate = useNavigate();
+  const { user } = useSelector(state => state.auth);
 
   useInit(async () => {
     await store.get('catalog').initParams();
@@ -22,6 +24,10 @@ function Main() {
 
   const callbacks = {
     openLoginPage: useCallback(() => navigate('/login'), []),
+    signOut: useCallback(() => {
+      store.get('auth').setUserData({user: null, token: null});
+      navigate('/login');
+    }, []),
   };
 
   return (
@@ -32,7 +38,9 @@ function Main() {
         <LocaleSelect/>
       </LayoutFlex>}
       
-      openLoginPage={callbacks.openLoginPage}
+      handleAuth={callbacks.openLoginPage}
+      signOut={callbacks.signOut}
+      userData={user?.profile?.name}
     > 
       <Tools/>
       <CatalogFilter/>

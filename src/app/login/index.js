@@ -20,7 +20,7 @@ function Login() {
     login: useCallback((username, password) => {
       store.get('auth').login({username, password});
     }, []),
-    openProfilePage: useCallback(() => navigate(('/')), []),
+    openProfilePage: useCallback(() => navigate(('/profile')), []),
     clearErrorMsg: useCallback(() => {
       store.get('auth').setErrorMsg('');
     }, []),
@@ -32,7 +32,7 @@ function Login() {
         <LayoutFlex flex="between">
           <h1>{t('title')}</h1>
         </LayoutFlex>}
-      openLoginPage={callbacks.openLoginPage}
+      handleAuth={callbacks.openLoginPage}
     >
       <Tools />
       <Spinner active={isFetching}>

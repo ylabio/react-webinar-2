@@ -14,6 +14,7 @@ import LocaleSelect from "../../containers/locale-select";
 function Article(){
   const store = useStore();
   const navigate = useNavigate();
+  const { user } = useSelector(state => state.auth);
 
   // Параметры из пути /articles/:id
   const params = useParams();
@@ -33,6 +34,10 @@ function Article(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     openLoginPage: useCallback(() => navigate('/login'), []),
+    signOut: useCallback(() => {
+      store.get('auth').setUserData({user: null, token: null});
+      navigate('/login');
+    }, []),
   };
 
   return (
@@ -42,7 +47,9 @@ function Article(){
           <h1>{select.article.title}</h1>
           <LocaleSelect/>
         </LayoutFlex>}
-      openLoginPage={callbacks.openLoginPage}
+      handleAuth={callbacks.openLoginPage}
+      signOut={callbacks.signOut}
+      userData={user?.profile?.name}
     >
       <Tools/>
       <Spinner active={select.waiting}>

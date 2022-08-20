@@ -41,6 +41,7 @@ class AuthState extends StateModule {
         this.setState({
           ...this.getState(),
           errors: json.error.data?.issues,
+          waiting: false,
         });
         return;
       }

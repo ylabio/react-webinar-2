@@ -1,8 +1,10 @@
 import React, { useCallback } from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
+import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import UserMenu from "../../components/user-menu";
+import Spinner from "../../components/spinner";
 
 function TopMenu() {
   const store = useStore();
@@ -11,6 +13,7 @@ function TopMenu() {
   const select = useSelector((state) => ({
     isLogin: state.auth.token,
     user: state.auth.user,
+    waiting: state.auth.waiting,
   }));
 
   const callbacks = {
@@ -18,12 +21,14 @@ function TopMenu() {
   };
 
   return (
-    <UserMenu
-      title={select.user ? "logOut" : "logIn"}
-      userName={select.user}
-      reset={callbacks.onReset}
-      t={t}
-    />
+    <Spinner active={select.waiting}>
+      <UserMenu
+        title={select.user ? "logOut" : "logIn"}
+        userName={select.user}
+        reset={callbacks.onReset}
+        t={t}
+      />
+    </Spinner>
   );
 }
 

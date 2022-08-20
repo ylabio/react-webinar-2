@@ -1,6 +1,8 @@
-import React from "react";
-import useSelector from "../../hooks/use-selector";
+import React, { useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import useStore from "../../hooks/use-store";
+import useSelector from "../../hooks/use-selector";
+import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import Spinner from "../../components/spinner";
 import Tools from "../../containers/tools";
@@ -13,7 +15,9 @@ import TopMenu from "../../containers/top-menu";
 function Profile() {
   const select = useSelector((state) => ({
     user: state.auth.user,
+    waiting: state.auth.waiting,
   }));
+
   const { t } = useTranslate();
 
   if (!select.user) {
@@ -32,7 +36,10 @@ function Profile() {
         }
       >
         <Tools />
-        <UserInfo user={select.user} t={t} />
+
+        <Spinner active={select.waiting}>
+          <UserInfo user={select.user} t={t} />
+        </Spinner>
       </Layout>
     </>
   );

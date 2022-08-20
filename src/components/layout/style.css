@@ -28,6 +28,9 @@ body{
     justify-content: flex-end;
     align-items: center;
     gap: 20px;
+}
+
+.Layout-login span {
     color: blue;
     text-decoration: underline;
 }

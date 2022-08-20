@@ -10,9 +10,9 @@ function ProfilePage({userData}) {
     <section className={cn()}>
       <h2>Профиль</h2>
       <div className={cn('wrapper')}>
-        <div>Имя: <span className={cn('data')}>{userData.profile.name}</span></div>
-        <div>Телефон: <span className={cn('data')}>{userData.profile.phone}</span></div>
-        <div>email: <span className={cn('data')}>{userData.email}</span></div>
+        <div>Имя: <span className={cn('data')}>{userData?.profile?.name}</span></div>
+        <div>Телефон: <span className={cn('data')}>{userData?.profile?.phone}</span></div>
+        <div>email: <span className={cn('data')}>{userData?.email}</span></div>
       </div>
     </section>
   );

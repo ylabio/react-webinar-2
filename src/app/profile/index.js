@@ -7,6 +7,7 @@ import Tools from "../../containers/tools";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
+import { getUserDataFromLS } from "../../utils";
 
 function Profile() {
   const store = useStore();
@@ -16,7 +17,8 @@ function Profile() {
 
   const callbacks = {
     signOut: useCallback(() => {
-      store.get('auth').setUserData({user: null, token: null});
+      const token = getUserDataFromLS().token;
+      store.get('auth').signOut(token);
       navigate('/login');
     }, []),
   }
@@ -30,6 +32,7 @@ function Profile() {
       handleAuth={callbacks.signOut}
       userData={user?.profile?.name}
       signOut={callbacks.signOut}
+      link='/profile'
     >
       <Tools />
       <ProfilePage userData={user} />

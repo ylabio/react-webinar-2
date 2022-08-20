@@ -1,4 +1,3 @@
-import { saveTokenToCookie } from "../../utils/save-token-to-cookie";
 import StateModule from "../module";
 
 /**
@@ -12,6 +11,7 @@ class AuthState extends StateModule{
       token: null,
       isFetching: false,
       errorMsg: '',  
+      isAuth: false,
     };
   }
 
@@ -37,9 +37,15 @@ class AuthState extends StateModule{
       isFetching: false,
     }); 
   }
+  
+  setIsAuth(flag) {
+    this.setState({
+      ...this.getState(),
+      isAuth: flag,
+    });  
+  }     
 
   async login(data) {
-
     this.setIsFetching(true);
 
     const response = await fetch('api/v1/users/sign', {
@@ -57,13 +63,59 @@ class AuthState extends StateModule{
     if (json.error) {
       this.setErrorMsg(json.error.message);
     } else {
-      const token = json.result.token;
+      const token = json.result.token; 
       const username = json.result.user.username;
-      saveTokenToCookie(token, username);
-      this.setUserData(json.result);     
+      localStorage.setItem('ylab', JSON.stringify({token, username}));
+      this.setUserData(json.result);
+      this.setIsAuth(true);          
     }  
     
-  } 
+  }
+  
+  async signOut(token) {
+    this.setIsFetching(true);
+
+    const response = await fetch('api/v1/users/sign', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-TOKEN': token
+      }
+    });
+    const json = await response.json();
+
+    if (json.result) {
+      localStorage.removeItem('ylab');
+      this.setUserData({
+        user: null,
+        token: null,
+      });
+      this.setIsAuth(false);     
+    } else {
+      this.setIsFetching(false);
+    } 
+  }
+
+  async getProfile(token) {
+    this.setIsFetching(true);
+
+    const response = await fetch('api/v1/users/self', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-TOKEN': token
+      }
+    });
+    const json = await response.json(); 
+    
+    if (json.result) {
+      this.setUserData({
+        user: json.result,
+        token: token,
+      });
+      this.setIsAuth(true);    
+    }
+  }
 }
 
 export default AuthState;

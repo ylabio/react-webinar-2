@@ -10,6 +10,7 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import { getUserDataFromLS } from "../../utils";
 
 function Article(){
   const store = useStore();
@@ -35,7 +36,8 @@ function Article(){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     openLoginPage: useCallback(() => navigate('/login'), []),
     signOut: useCallback(() => {
-      store.get('auth').setUserData({user: null, token: null});
+      const token = getUserDataFromLS().token;
+      store.get('auth').signOut(token);
       navigate('/login');
     }, []),
   };
@@ -50,6 +52,7 @@ function Article(){
       handleAuth={callbacks.openLoginPage}
       signOut={callbacks.signOut}
       userData={user?.profile?.name}
+      link='/profile'
     >
       <Tools/>
       <Spinner active={select.waiting}>

@@ -2,8 +2,9 @@ import React from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
+import { Link } from 'react-router-dom';
 
-function Layout({head, children, handleAuth, userData, signOut}){
+function Layout({head, children, handleAuth, userData, signOut, link}){
   const cn = bem('Layout');
 
   console.log(userData)
@@ -11,8 +12,8 @@ function Layout({head, children, handleAuth, userData, signOut}){
   return (
     <div className={cn()}>
       {userData 
-        ? <div className={cn('login')} onClick={signOut}>
-            <span>{userData}</span>
+        ? <div className={cn('login')}>
+            <Link to={link}><span>{userData}</span></Link>
             <button onClick={signOut}>Выход</button>
           </div>
         : <div className={cn('login')}>
@@ -36,11 +37,13 @@ Layout.propTypes = {
   handleAuth: propTypes.func.isRequired,
   signOut: propTypes.func,
   userData: propTypes.string,
+  link: propTypes.string,
 }
 
 Layout.defaultProps = {
   userData: null,
   signOut: () => {},
+  link: '',
 }
 
 export default React.memo(Layout);

@@ -10,6 +10,7 @@ import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import { useNavigate } from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
+import { getUserDataFromLS } from "../../utils";
 
 function Main() {
   const store = useStore();
@@ -25,7 +26,8 @@ function Main() {
   const callbacks = {
     openLoginPage: useCallback(() => navigate('/login'), []),
     signOut: useCallback(() => {
-      store.get('auth').setUserData({user: null, token: null});
+      const token = getUserDataFromLS().token;
+      store.get('auth').signOut(token);
       navigate('/login');
     }, []),
   };
@@ -41,6 +43,7 @@ function Main() {
       handleAuth={callbacks.openLoginPage}
       signOut={callbacks.signOut}
       userData={user?.profile?.name}
+      link='/profile'
     > 
       <Tools/>
       <CatalogFilter/>

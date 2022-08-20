@@ -1,15 +1,18 @@
 import React from 'react';
 import propTypes from "prop-types";
+import {Link} from 'react-router-dom';
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
 
 function Pagination(props) {
   const cn = bem('Pagination');
+  const {page, limit, sort, filter, query} = props.params
+
   // Количество страниц
-  const length = Math.ceil(props.count / Math.max(props.limit, 1));
+  const length = Math.ceil(props.count / Math.max(limit, 1));
 
   // Номера слева и справа относительно активного номера, которые остаются видимыми
-  let left = Math.max(props.page - props.indent, 1);
+  let left = Math.max(page - props.indent, 1);
   let right = Math.min(left + props.indent * 2, length);
   // Корректировка когда страница в конце
   left = Math.max(right - props.indent * 2, 1);
@@ -37,29 +40,41 @@ function Pagination(props) {
       {items.map((number, index) => 
         number ?
           <li key={index}
-              className={cn('item', {active: number === props.page, split: !number})}
+              className={cn('item', {active: number === page, split: !number})}
               onClick={onClickHandler(number)}
           >
-            {number}
+            <Link className={cn('link')} to={`/?page=${number}&limit=${limit}&sort=${sort}&filter=${filter}&query=${query}`}>
+              {number}
+            </Link>
           </li>
         :
-          <span className={cn('dots')}>...</span>
+          <span key={index} className={cn('dots')}>...</span>
       )}
     </ul>
   )
 }
 
 Pagination.propTypes = {
-  page: propTypes.number.isRequired,
-  limit: propTypes.number,
+  params: propTypes.shape({
+    page: propTypes.number.isRequired,
+    limit: propTypes.number,
+    sort: propTypes.string,
+    filter: propTypes.string,
+    query: propTypes.string
+  }).isRequired,
   count: propTypes.number,
   onChange: propTypes.func,
   indent: propTypes.number
 }
 
 Pagination.defaultProps = {
-  page: 1,
-  limit: 10,
+  params: {
+    page: 1,
+    limit: 10,
+    sort: '',
+    filter: '',
+    query: ''
+  },
   count: 1000,
   indent: 1,
   onChange: () => {

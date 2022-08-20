@@ -13,10 +13,9 @@ function CatalogList() {
 
   const select = useSelector(state => ({
     items: state.catalog.items,
-    page: state.catalog.params.page,
-    limit: state.catalog.params.limit,
     count: state.catalog.count,
     waiting: state.catalog.waiting,
+    params: state.catalog.params
   }));
 
   const {t} = useTranslate();
@@ -37,7 +36,7 @@ function CatalogList() {
   return (
     <Spinner active={select.waiting}>
       <List items={select.items} renderItem={renders.item}/>
-      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
+      <Pagination count={select.count} onChange={callbacks.onPaginate} params={select.params}/>
     </Spinner>
   );
 }

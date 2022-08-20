@@ -36,6 +36,13 @@
     color: #CCCCCC;
 }
 
+.Pagination-link {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: #000000;
+}
+
 .Pagination-dots {
     padding: 2px 4px 2px 2px;
 }

@@ -25,4 +25,5 @@ body {
 
 .Layout-topbar {
   height: 40px;
+  border-bottom: #dcdcdc solid 1px;
 }

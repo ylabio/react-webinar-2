@@ -11,7 +11,13 @@ class AuthState extends StateModule {
   initState() {
     return {
       isSigned: false,
-      username: ''
+      username: '',
+
+      login: {
+        username: '',
+        password: '',
+        error: ''
+      }
     };
   }
 
@@ -19,6 +25,19 @@ class AuthState extends StateModule {
     this.setState({
       isSigned: true,
       username: 'test'
+    });
+  }
+
+  /**
+   * @param {password?: string, login?: string, error?: string} data
+   */
+  setLoginData(data) {
+    this.setState({
+      ...this.getState(),
+      login: {
+        ...this.getState().login,
+        ...data
+      }
     });
   }
 }

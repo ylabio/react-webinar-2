@@ -1,0 +1,17 @@
+.Form {
+  padding: 10px 20px;
+}
+
+.Form-head {
+  margin-block-end: 30px;
+}
+
+.Form-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.Form-main button {
+  width: fit-content;
+}

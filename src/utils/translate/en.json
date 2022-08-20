@@ -20,5 +20,11 @@
   "sort.orderAsc": "In order",
   "sort.titleAsc": "By title",
   "sort.priceDesc": "Expensive at first",
-  "sort.editionAsc": "Old ones first"
+  "sort.editionAsc": "Old ones first",
+  "login": "Login",
+  "logout": "Logout",
+  "submit.login": "Login",
+  "login.label": "Username",
+  "password.label": "Password",
+  "login-form.head": "Login"
 }

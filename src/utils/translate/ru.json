@@ -22,5 +22,11 @@
   "sort.orderAsc": "По порядку",
   "sort.titleAsc": "По именованию",
   "sort.priceDesc": "Сначала дорогие",
-  "sort.editionAsc": "Древние"
+  "sort.editionAsc": "Древние",
+  "login": "Вход",
+  "logout": "Выход",
+  "submit.login": "Войти",
+  "login.label": "Логин",
+  "password.label": "Пароль",
+  "login-form.head": "Вход"
 }

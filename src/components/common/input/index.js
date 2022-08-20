@@ -8,7 +8,7 @@ function Input(props) {
   const cn = bem('Input');
 
   // Внутренний стейт по умолчанию с переданным value
-  const [value, change] = useState(props.value);
+  const [value, setValue] = useState(props.value);
 
   // Задержка для вызова props.onChange
   const changeDebounce = useCallback(
@@ -19,25 +19,33 @@ function Input(props) {
   // Обработчик изменений в поле
   const onChange = useCallback(
     event => {
-      change(event.target.value);
-      changeDebounce(event.target.value);
+      if (props.debounced) {
+        setValue(event.target.value);
+        changeDebounce(event.target.value);
+      } else {
+        props.onChange(event.target.value);
+      }
     },
-    [change, changeDebounce]
+    [setValue, changeDebounce, props.debounced]
   );
 
   // Обновление стейта, если передан новый value
   useEffect(() => {
-    change(props.value);
+    setValue(props.value);
   }, [props.value]);
 
   return (
-    <input
-      className={cn({theme: props.theme})}
-      value={value}
-      type={props.type}
-      placeholder={props.placeholder}
-      onChange={onChange}
-    />
+    <div className={cn()}>
+      {props.label && <label htmlFor={props.id}>{props.label}</label>}
+      <input
+        id={props.id}
+        className={cn({theme: props.theme})}
+        value={value}
+        type={props.type}
+        placeholder={props.placeholder}
+        onChange={onChange}
+      />
+    </div>
   );
 }
 
@@ -46,13 +54,17 @@ Input.propTypes = {
   type: propTypes.string,
   placeholder: propTypes.string,
   onChange: propTypes.func,
-  theme: propTypes.string
+  theme: propTypes.string,
+  debounced: propTypes.bool,
+  id: propTypes.string,
+  title: propTypes.string
 };
 
 Input.defaultProps = {
   onChange: () => {},
   type: 'text',
-  theme: ''
+  theme: '',
+  debounced: false
 };
 
 export default React.memo(Input);

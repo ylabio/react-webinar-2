@@ -1,18 +1,22 @@
-import React, {useMemo} from 'react';
+import React, {useCallback, useMemo} from 'react';
+import {useNavigate} from 'react-router-dom';
 import LayoutFlex from '../../components/layouts/layout-flex';
-import LoginControls from '../../components/login-controls';
+import LoginControls from '../../components/login/login-controls';
 import useSelector from '../../hooks/use-selector';
-import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 
 function CommonTopbar() {
-  const store = useStore();
+  const navigate = useNavigate();
+
   const select = useSelector(state => ({
     username: state.auth.username,
     isSigned: state.auth.isSigned
   }));
 
-  console.log(select.isSigned);
+  const callbacks = {
+    onLoginClick: useCallback(url => navigate(url))
+  };
+
   const {t, lang} = useTranslate();
 
   const text = useMemo(
@@ -29,7 +33,7 @@ function CommonTopbar() {
         text={text}
         username={select.username}
         isSigned={select.isSigned}
-        onLogin={() => store.get('auth').login()}
+        onLogin={callbacks.onLoginClick}
       ></LoginControls>
     </LayoutFlex>
   );

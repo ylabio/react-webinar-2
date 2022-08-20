@@ -1,9 +1,13 @@
 import propTypes from 'prop-types';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Link} from 'react-router-dom';
-import LayoutFlex from '../layouts/layout-flex';
+import LayoutFlex from '../../layouts/layout-flex';
 
-function LoginControls({isSigned, username, profileUrl, text, onLogin, onLogout}) {
+function LoginControls({isSigned, username, profileUrl, loginUrl, text, onLogin, onLogout}) {
+  const callbacks = {
+    onLogin: useCallback(() => onLogin(loginUrl), [loginUrl])
+  };
+
   return (
     <>
       {isSigned ? (
@@ -13,7 +17,7 @@ function LoginControls({isSigned, username, profileUrl, text, onLogin, onLogout}
         </LayoutFlex>
       ) : (
         <>
-          <button onClick={onLogin}>{text.login}</button>
+          <button onClick={callbacks.onLogin}>{text.login}</button>
         </>
       )}
     </>
@@ -25,12 +29,14 @@ LoginControls.propTypes = {
   text: propTypes.objectOf(propTypes.string).isRequired,
   username: propTypes.string,
   profileUrl: propTypes.string,
+  loginUrl: propTypes.string,
   onLogin: propTypes.func,
   onLogout: propTypes.func
 };
 
 LoginControls.defaultProps = {
-  profileUrl: '/profile'
+  profileUrl: '/profile',
+  loginUrl: '/login'
 };
 
 export default React.memo(LoginControls);

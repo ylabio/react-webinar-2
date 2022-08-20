@@ -62,6 +62,7 @@ function CatalogFilter() {
         value={select.query}
         placeholder={t('search.placeholder')}
         theme='big'
+        debounced={true}
       />
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </LayoutFlex>

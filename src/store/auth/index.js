@@ -13,6 +13,7 @@ class AuthState extends StateModule {
     return {
       isLogin: false,
       waiting: false,
+      isInitialize: true,
       user: {
         username: '',
         profile: {}
@@ -55,12 +56,11 @@ class AuthState extends StateModule {
       }
       if (json.result) {
         const {user, token} = json.result
-        localStorage.setItem('user_secret', JSON.stringify(token));
+        await localStorage.setItem('user_secret', JSON.stringify(token));
         this.setState({
           ...this.getState(),
           isLogin: true,
           user,
-          token,
           waiting: false
         });
       }
@@ -86,16 +86,25 @@ class AuthState extends StateModule {
       const json = await response.json();
 
       if (json.result.error) {
+        console.log('ww')
+        this.setState({
+          ...this.getState(),
+          isInitialize: false
+        });
       }
       if (!json.result.error) {
         this.setState({
           ...this.getState(),
           isLogin: true,
           user: json.result,
-          waiting: false
+          isInitialize: false
         });
       }
     } catch (e) {
+      this.setState({
+        ...this.getState(),
+        waiting: false
+      });
     }
   }
 
@@ -117,14 +126,16 @@ class AuthState extends StateModule {
       });
       const json = await response.json();
       if (json.result) {
-
         this.setState({
           ...this.getState(),
           isLogin: false,
-          user: {},
+          user: {
+            username: '',
+            profile: {}
+          },
           waiting: false
         });
-        localStorage.removeItem('user_secret');
+        await localStorage.removeItem('user_secret');
       }
     } catch (e) {
     }

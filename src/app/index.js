@@ -1,5 +1,6 @@
 import useInit from "hooks/use-init";
 import useStore from "hooks/use-store";
+import Profile from "profile";
 import React from 'react';
 import useSelector from "../hooks/use-selector";
 import {Routes, Route} from "react-router-dom";
@@ -28,6 +29,7 @@ function App() {
       <Routes>
         <Route path={'/'} element={<Main/>}/>
         <Route path={'/login'} element={<Login/>}/>
+        <Route path={'/profile'} element={<Profile/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}

@@ -1,0 +1,16 @@
+/* Пункт списка */
+.ProfileUser {
+    padding: 20px 35px;
+}
+
+.ProfileUser-description {
+    margin: 20px 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.ProfileUser-description span {
+    font-weight: 700;
+}

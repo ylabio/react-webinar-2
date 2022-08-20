@@ -114,7 +114,12 @@ class AuthState extends StateModule{
         token: token,
       });
       this.setIsAuth(true);    
+    } else {
+      localStorage.removeItem('ylab');
+      this.setIsAuth(false);
+      this.setIsFetching(false);
     }
+
   }
 }
 

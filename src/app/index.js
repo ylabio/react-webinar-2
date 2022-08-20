@@ -8,6 +8,8 @@ import Login from './login';
 import Profile from './profile';
 import useStore from '../hooks/use-store';
 import Spinner from '../components/spinner';
+import PrivateRoutes from '../containers/private-routes';
+import { getUserDataFromLS } from '../utils';
 
 /**
  * Приложение
@@ -19,9 +21,8 @@ function App() {
   const store = useStore();
 
   useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem('ylab'));
+    const userData = getUserDataFromLS();
     if (userData) {
-      console.log({userData})
       store.get('auth').getProfile(userData.token);
     }
     
@@ -33,7 +34,9 @@ function App() {
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
         <Route path={"/login"} element={<Login />}/>
-        <Route path={"/profile"} element={<Profile />}/>
+        <Route element={<PrivateRoutes />}>
+          <Route path={"/profile"} element={<Profile />}/>
+        </Route>
       </Routes>
       {modal === 'basket' && <Basket/>}
     </Spinner>

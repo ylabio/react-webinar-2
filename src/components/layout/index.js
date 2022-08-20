@@ -7,8 +7,6 @@ import { Link } from 'react-router-dom';
 function Layout({head, children, handleAuth, userData, signOut, link}){
   const cn = bem('Layout');
 
-  console.log(userData)
-
   return (
     <div className={cn()}>
       {userData 

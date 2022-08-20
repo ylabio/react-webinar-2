@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
@@ -13,7 +13,7 @@ function Login() {
   const {t} = useTranslate();
   const navigate = useNavigate();
   const store = useStore();
-  const { errorMsg, isFetching, user } = useSelector(state => state.auth);
+  const { errorMsg, isFetching, user, isAuth } = useSelector(state => state.auth);
 
   const callbacks = {
     openLoginPage: useCallback(() => navigate('/login'), []),
@@ -25,6 +25,12 @@ function Login() {
       store.get('auth').setErrorMsg('');
     }, []),
   }
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/');
+    }
+  }, [])
 
   return (
     <Layout 

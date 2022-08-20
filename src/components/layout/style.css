@@ -5,6 +5,9 @@ body{
     font-family: sans-serif;
     position: relative;
 }
+button {
+    cursor: pointer;
+}
 /* Страница*/
 .Layout{
     max-width: 1024px;
@@ -13,6 +16,9 @@ body{
     background: #fff;
     box-sizing: border-box;
     box-shadow: 0 0 15px 5px #0000003b;
+}
+.Layout-auth {
+    padding: 10px 20px;
 }
 .Layout-head{
     height: 80px;

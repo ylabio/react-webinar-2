@@ -1,0 +1,10 @@
+.ProfileCard {
+  padding-left: 20px;
+}
+.ProfileCard-item {
+  display: flex;
+}
+.ProfileCard-item p:last-child {
+  font-weight: 700;
+  margin-left: 5px;
+}

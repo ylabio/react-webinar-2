@@ -1,28 +1,35 @@
-.LayoutFlex{
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    padding: 0;
-    margin-left: -5px;
-    margin-right: -5px;
-    align-items: center;
+.LayoutFlex {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  padding: 0;
+  /* margin-left: -5px;
+  margin-right: -5px; */
+  align-items: center;
 }
-.LayoutFlex_flex_start{
-    justify-content: flex-start;
-}
-
-.LayoutFlex_padding{
-    padding: 20px 20px;
+.LayoutFlex_flex_start {
+  justify-content: flex-start;
 }
 
-.LayoutFlex_flex_end{
-    justify-content: flex-end;
+.LayoutFlex_padding {
+  padding: 20px 20px;
 }
 
-.LayoutFlex_flex_between{
-    justify-content: space-between;
+.LayoutFlex_flex_end {
+  padding: 0;
+  justify-content: flex-end;
 }
 
-.LayoutFlex-item{
-    margin: 0 5px;
+.LayoutFlex_flex_between {
+  justify-content: space-between;
+}
+
+.LayoutFlex-item {
+  margin: 0 5px;
+}
+
+.LayoutFlex_bg_white {
+  /* padding: 10px 20px; */
+  background-color: #fff;
+  padding: 10px 20px;
 }

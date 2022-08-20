@@ -1,0 +1,13 @@
+.LogoutLink {
+  display: flex;
+  align-items: center;
+}
+.LogoutLink button {
+  margin-left: 20px;
+}
+.LogoutLink p {
+  margin: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  color: #0087e9;
+}

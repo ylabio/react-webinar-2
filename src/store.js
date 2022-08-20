@@ -41,43 +41,59 @@ class Store {
   }
 
   /**
-   * Создание записи
+   * Добавление товара в корзину
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
-    });
-  }
 
-  /**
-   * Удаление записи по её коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
+  addItemCart({code, title, price}) {
+    let checkItem = true;
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
+      cart: this.state.cart.map(item => {
+        if (item.code === code) {
+          checkItem = false;
           return {
             ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
+            count: item.count + 1
           }
         }
-        return item.selected ? {...item, selected: false} : item;
-      })
+        return item;
+      }),
+      calcInCart: {
+        ...this.state.calcInCart,
+        sum: this.state.calcInCart.sum + price,
+      }
+    });
+
+    if (checkItem) {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.concat({code, title, price, count: 1}),
+        calcInCart: {
+          ...this.state.calcInCart,
+          count: this.state.calcInCart.count + 1,
+        }
+      });
+    }
+  }
+
+  /**
+   * Удаление записи по её коду из корзины
+   * @param code
+   */
+  deleteItemCart(code) {
+    this.setState({
+      ...this.state,
+      cart: this.state.cart.filter(item => item.code !== code),
+      calcInCart: {
+        count: this.state.calcInCart.count - 1,
+        sum: this.state.cart.reduce((sum, item) => {
+          if (item.code !== code) {
+            return sum + item.price * item.count;
+          }
+          return sum;
+        } , 0),
+      }
     });
   }
 }

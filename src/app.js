@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Controls from "./components/controls";
-import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Popup from "./components/popup";
+import Product from "./components/product";
+import Footer from "./components/footer";
 
 /**
  * Приложение
@@ -10,28 +11,43 @@ import {counter} from "./utils";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App({store}) {
+  const [popup, setPopup] = useState(false);
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAddCart: useCallback(({code, title, price}) => {
+      store.addItemCart({code, title, price});
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onDeleteCart: useCallback(({code}) => {
+      store.deleteItemCart(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
+    changePopup: useCallback((value) => {
+      return setPopup(value);
     }, []),
   }
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
-      />
-    </Layout>
+    <>
+      <Layout head={<h1>Магазин</h1>}>
+        <Controls openPopup={callbacks.changePopup}
+                  countAndSum={store.getState().calcInCart}
+                   />
+        <Product items={store.getState().items}
+                 onBtn={callbacks.onAddCart}
+                 btn="Добавить"
+        />
+      </Layout>
+      {
+        popup &&
+          <Popup title={<span>Корзина</span>} closePopup={callbacks.changePopup}>
+              <Product items={store.getState().cart}
+                       onBtn={callbacks.onDeleteCart}
+                       btn="Удалить"
+              >
+                <Footer countAndSum={store.getState().calcInCart}/>
+              </Product>
+          </Popup>
+      }
+    </>
   );
 }
 

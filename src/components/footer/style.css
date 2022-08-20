@@ -1,0 +1,11 @@
+.Footer{
+    padding: 26px 108px;
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+}
+.Footer-text{
+    padding-right: 49px;
+}

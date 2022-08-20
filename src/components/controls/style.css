@@ -4,3 +4,21 @@
     justify-content: flex-end;
     padding: 20px;
 }
+.Controls button {
+    padding: 2px 13px 3px 13px;
+}
+.Controls-information {
+    padding: 0 20px;
+    display: flex;
+}
+.Controls-text {
+    padding-right: 15px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+.Controls-calc {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+}

@@ -24,7 +24,12 @@ function Page({children, title}) {
 }
 
 Page.propTypes = {
-  children: propTypes.node
+  children: propTypes.node,
+  title: propTypes.string
+}
+
+Page.defaultProps = {
+  title: 'Page'
 }
 
 export default React.memo(Page)

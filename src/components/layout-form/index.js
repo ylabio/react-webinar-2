@@ -1,6 +1,7 @@
 import { cn } from '@bem-react/classname'
 import React, { useCallback } from 'react'
 import './styles.css'
+import propTypes from 'prop-types'
 
 function LayoutForm({onSubmit, submitText, title, err, children}) {
   const bem = cn('LayoutForm')
@@ -25,4 +26,18 @@ function LayoutForm({onSubmit, submitText, title, err, children}) {
   )
 }
 
-export default LayoutForm
+LayoutForm.propTypes = {
+  onSubmit: propTypes.func,
+  submitText: propTypes.string,
+  title: propTypes.string,
+  err: propTypes.node,
+  children: propTypes.node
+}
+
+LayoutForm.defaultProps = {
+  onSubmit: () => {},
+  submitText: 'submit',
+  title: 'title',
+}
+
+export default React.memo(LayoutForm)

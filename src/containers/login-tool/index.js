@@ -31,4 +31,4 @@ function LoginTool() {
   )
 }
 
-export default LoginTool
+export default React.memo(LoginTool) // Без пропсов

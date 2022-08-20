@@ -38,14 +38,14 @@ function Pagination(props) {
       {items.map((number, index) => (
         number 
           ? <Link 
-              to={number ? props.linkMaker(number) : '/'}
+              to={props.linkMaker(number)}
               key={index}
-              className={cn('item', {active: number === props.page, split: !number})}
-              onClick={number && onClickHandler(number)}
+              className={cn('item', {active: number === props.page})}
+              onClick={onClickHandler(number)}
             >
               {number || '...'}
             </Link>
-          : <div key={index} className={cn('item', {active: number === props.page, split: !number})}>...</div>
+          : <div key={index} className={cn('item', {split: true})}>...</div>
       ))}
     </div>
   )
@@ -61,7 +61,7 @@ Pagination.propTypes = {
 }
 
 Pagination.defaultProps = {
-  linkMaker: () => '/',
+  linkMaker: (v) => '/' + v,
   page: 1,
   limit: 10,
   count: 1000,

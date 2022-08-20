@@ -1,4 +1,5 @@
 import React from 'react'
+import propTypes from 'prop-types'
 import './styles.css'
 
 function LoginError({code, t}) {
@@ -9,4 +10,14 @@ function LoginError({code, t}) {
   )
 }
 
-export default LoginError
+LoginError.propTypes = {
+  code: propTypes.string,
+  t: propTypes.func
+}
+
+LoginError.defaultProps = {
+  code: '',
+  t: (v) => v
+}
+
+export default React.memo(LoginError)

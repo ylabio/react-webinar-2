@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import './styles.css'
+import propTypes from 'prop-types'
 
 function Auth({t, toLogin, username, logOut, toProfile}) {
   const callbacks = {
@@ -22,4 +23,20 @@ function Auth({t, toLogin, username, logOut, toProfile}) {
   )
 }
 
-export default Auth
+Auth.propTypes = {
+  t: propTypes.func,
+  toLogin: propTypes.func,
+  logOut: propTypes.func,
+  toProfile: propTypes.func,
+  username: propTypes.string
+}
+
+Auth.defaultProps = {
+  t: (v) => v,
+  toLogin: () => {},
+  toProfile: () => {},
+  logOut: () => {},
+  username: ''
+}
+
+export default React.memo(Auth)

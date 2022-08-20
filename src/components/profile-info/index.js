@@ -1,6 +1,7 @@
 import { cn } from '@bem-react/classname'
 import React from 'react'
 import './styles.css'
+import propTypes from 'prop-types'
 
 function ProfileInfo({
   user,
@@ -17,4 +18,13 @@ function ProfileInfo({
   )
 }
 
-export default ProfileInfo
+ProfileInfo.propTypes = {
+  user: propTypes.object,
+  t: propTypes.func
+}
+ProfileInfo.defaultProps = {
+  user: null,
+  t: (v) => v
+}
+
+export default React.memo(ProfileInfo)

@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react'
 import Input from '../input'
 import './styles.css'
+import propTypes from 'prop-types'
 
 function LoginInput({
   title,
@@ -27,4 +28,20 @@ function LoginInput({
   )
 }
 
-export default LoginInput
+LoginInput.propTypes = {
+  title: propTypes.string,
+  value: propTypes.string,
+  onChange: propTypes.func,
+  onFocus: propTypes.func,
+  type: propTypes.string
+}
+
+LoginInput.defaultProps = {
+  title: 'title',
+  value: '',
+  onChange: () => {},
+  onFocus: () => {},
+  type: 'text'
+}
+
+export default React.memo(LoginInput)

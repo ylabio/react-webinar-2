@@ -24,18 +24,13 @@ function Login() {
     openLoginPage: useCallback(() => navigate('/login'), []),
     login: useCallback((username, password) => {
       store.get('auth').login({username, password});
+      history.go(-1);
     }, []),
     openProfilePage: useCallback(() => navigate(('/profile')), []),
     clearErrorMsg: useCallback(() => {
       store.get('auth').setErrorMsg('');
     }, []),
   }
-
-  useEffect(() => {
-    if (isAuth) {
-      navigate('/');
-    }
-  }, [])
 
   return (
     <Layout 

@@ -17,6 +17,7 @@ class AuthState extends StateModule{
 
   setUserData(data) {
     this.setState({
+      ...this.getState(),
       user: data.user,
       token: data.token,
       isFetching: false,
@@ -37,7 +38,7 @@ class AuthState extends StateModule{
       errorMsg,
       isFetching: false,
     }); 
-  }    
+  }
 
   async login(data) {
     this.setIsFetching(true);

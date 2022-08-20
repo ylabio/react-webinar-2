@@ -20,7 +20,6 @@ function App() {
   const store = useStore();
   const [isChecked, setIsChecked] = useState(false);
 
-
   useEffect(() => {
     const userData = getUserDataFromLS();
     if (userData) {

@@ -29,9 +29,11 @@ class CatalogState extends StateModule{
       params: {
         page: 1,
         limit: 10,
+        category: '',
         sort: 'order',
         query: ''
       },
+      categories: [],
       waiting: false
     };
   }
@@ -45,12 +47,14 @@ class CatalogState extends StateModule{
   async initParams(params = {}){
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
+    //Загрузка из api списка категорий товаров
+    await this.#getCategories();
     let validParams = {};
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
+    if (urlParams.category) validParams.category = urlParams.category;
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
-
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = {...this.initState().params, ...validParams, ...params};
     // Установка параметров и подгрузка данных
@@ -86,7 +90,7 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${newParams.category ? `&search[category]=${newParams.category}` : ''}`);
     const json = await response.json();
 
     // Установка полученных данных и сброс признака загрузки
@@ -105,6 +109,39 @@ class CatalogState extends StateModule{
     } else {
       window.history.pushState({}, '', url);
     }
+  }
+
+  /**
+   * Загрузка из api списка категорий товаров
+   */
+  async #getCategories(){
+    const response = await fetch('/api/v1/categories');
+    const json = await response.json();
+    const categories = json.result.items.map(cat => ({
+      id: cat._id,
+      title: cat.title,
+      parent: cat.parent?._id
+    }));
+
+    for (let cat of categories) {
+      let parent = cat.parent;
+      while (parent) {
+        cat.title = ' - ' + cat.title;
+        parent = categories.find(c => c.id === parent).parent;
+      }
+    }
+
+    categories.forEach((cat, index) => {
+      if (cat.parent) {
+        categories.splice(categories.findIndex(c => c.id === cat.parent) + 1, 0, cat);
+        categories.splice(index + 1, 1);
+      }
+    })
+
+    this.setState({
+      ...this.getState(),
+      categories: categories
+    }, 'Загрузка категорий товавор в стейт')
   }
 }
 

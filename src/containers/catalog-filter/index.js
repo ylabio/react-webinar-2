@@ -35,6 +35,11 @@ function CatalogFilter() {
       {value:'edition', title: 'Древние'},
     ]), [])
   }
+  
+  React.useEffect(() => {
+    store.get('catalog').getCategories()
+  }, []);
+  
 
   return (
     <LayoutFlex flex="start">

@@ -1,0 +1,16 @@
+.Auth {
+    padding: 20px;
+}
+
+.Auth-label {
+    margin: 29px 0 0;
+}
+
+.Auth-error {
+    margin: 20px 0 0;
+    color: #ff0000;
+}
+
+.Auth-submit {
+    margin-top: 20px;
+}

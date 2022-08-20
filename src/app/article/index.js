@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import {useParams} from "react-router-dom";
@@ -10,6 +10,8 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import {getToken, removeToken} from "../../services/token";
+import api from "../../services/api";
 
 function Article(){
   const store = useStore();
@@ -23,7 +25,8 @@ function Article(){
 
   const select = useSelector(state => ({
     article: state.article.data,
-    waiting: state.article.waiting
+    waiting: state.article.waiting,
+    name: state.user.name,
   }));
 
   const {t} = useTranslate();
@@ -31,10 +34,23 @@ function Article(){
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    removeToken: useCallback(() => {
+      removeToken();
+      store.get('user').removeName()
+    }, []),
   };
 
+  useEffect(() => {
+    const load = async () => {
+      const res = await api.get('/users/self/');
+      store.get('user').setName(res.data.result.profile.name)
+    };
+
+    if (getToken()) load();
+  }, [])
+
   return (
-    <Layout head={
+    <Layout t={t} name={select.name} removeToken={callbacks.removeToken} head={
       <LayoutFlex flex="between">
         <h1>{select.article.title}</h1>
         <LocaleSelect/>

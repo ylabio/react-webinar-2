@@ -14,5 +14,14 @@
   "basket.unit": "pcs",
   "basket.delete": "Delete",
   "article.add": "Add",
-  "filter.reset": "Reset"
+  "filter.reset": "Reset",
+  "login": "Login",
+  "password": "Password",
+  "enter": "Enter",
+  "entery": "Entery",
+  "exit": "Exit",
+  "profile": "Profile",
+  "name": "Name",
+  "phone": "Phone",
+  "error": "Some kind of error from the server"
 }

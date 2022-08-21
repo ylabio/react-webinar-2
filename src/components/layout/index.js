@@ -2,13 +2,15 @@ import React from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
-import LangPanel from "../lang-panel";
 
-function Layout({head, children}){
+function Layout({top, head, children}){
   const cn = bem('Layout');
 
   return (
     <div className={cn()}>
+      <div className={cn('top')}>
+        {top}
+      </div>
       <div className={cn('head')}>
         {head}
       </div>

@@ -2,7 +2,6 @@ import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
-import {withLocale} from "../../contexts/locale.context"
 
 function LayoutModal(props) {
   const cn = bem('LayoutModal');
@@ -28,7 +27,7 @@ function LayoutModal(props) {
           <h1 className={cn('title')}>
             {props.title}
           </h1>
-          <button className={cn('close')} onClick={props.onClose}>{props.lang.handle('closemodal')}</button>
+          <button className={cn('close')} onClick={props.onClose}>{props.labelClose}</button>
         </div>
         <div className={cn('content')}>
           {props.children}
@@ -42,11 +41,13 @@ LayoutModal.propTypes = {
   title: PropTypes.string,
   onClose: PropTypes.func,
   children: PropTypes.node,
+  labelClose: PropTypes.string
 };
 
 LayoutModal.defaultProps = {
   title: 'Модалка',
+  labelClose: 'Закрыть',
   onClose: () => {}
 };
 
-export default React.memo(withLocale(LayoutModal));
+export default React.memo(LayoutModal);

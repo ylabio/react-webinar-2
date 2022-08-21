@@ -1,18 +1,13 @@
-import List from "../../components/list";
 import React, {useCallback} from "react";
+import useStore from "../../hooks/use-store";
+import useSelector from "../../hooks/use-selector";
+import useTranslate from "../../hooks/use-translate";
 import BasketTotal from "../../components/basket-total";
 import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
-import useStore from "../../utils/use-store";
-import useSelector from "../../utils/use-selector";
-import {withLocale} from "../../contexts/locale.context";
-import propTypes from 'prop-types';
+import List from "../../components/list";
 
-
-function Basket({lang}){
-
-  console.log('Basket');
-
+function Basket() {
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -20,6 +15,8 @@ function Basket({lang}){
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
+
+  const {t} = useTranslate();
 
   const callbacks = {
     // Закрытие любой модалки
@@ -29,19 +26,25 @@ function Basket({lang}){
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket item={item} onRemove={callbacks.removeFromBasket} onClose={callbacks.closeModal}/>, []),
+    itemBasket: useCallback(item => (
+      <ItemBasket
+        item={item}
+        link={`/articles/${item._id}`}
+        onRemove={callbacks.removeFromBasket}
+        onLink={callbacks.closeModal}
+        labelUnit={t('basket.unit')}
+        labelDelete={t('basket.delete')}
+      />
+    ), []),
   }
 
   return (
-    <LayoutModal title={lang.handle('basket')} onClose={callbacks.closeModal}>
+    <LayoutModal title={t('basket.title')} labelClose={t('basket.close')}
+                 onClose={callbacks.closeModal}>
       <List items={select.items} renderItem={renders.itemBasket}/>
-      <BasketTotal sum={select.sum}/>
+      <BasketTotal sum={select.sum} t={t}/>
     </LayoutModal>
   )
 }
 
-Basket.propTypes = {
-  lang: propTypes.object
-}
-
-export default React.memo(withLocale(Basket));
+export default React.memo(Basket);

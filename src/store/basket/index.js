@@ -40,23 +40,13 @@ class BasketState extends StateModule{
     // Если товар не был найден в корзине, то добавляем его из каталога
     if (!exists) {
       // Поиск товара в каталоге, чтобы его в корзину добавить
-      // @todo В реальных приложения будет запрос к АПИ на добавление в корзину, и апи выдаст объект товара..
-      if(this.store.getState().catalog.items.length > 0) {
-        console.log(this.store.getState().catalog.items, "Существует")
-        const item = this.store.getState().catalog.items.find(item => item._id === _id);
-        items.push({...item, amount: 1});
-        sum += item.price;
-      } else {
-        const response = await fetch(`/api/v1/articles/${_id}?fields=*,maidIn(title,code),category(title)`);
-        const json = await response.json();
-        console.log(json.result)
-        items.push({...json.result, amount: 1});
-        sum += json.result.price;
-      }
-      // const item = this.store.getState().catalog.items.find(item => item._id === _id);
-      // items.push({...item, amount: 1});
+      const response = await fetch(`/api/v1/articles/${_id}`);
+      const json = await response.json();
+      const item = json.result;
+
+      items.push({...item, amount: 1});
       // Досчитываем сумму
-      // sum += item.price;
+      sum += item.price;
     }
 
     // Установка состояние, basket тоже нужно сделать новым

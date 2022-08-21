@@ -1,21 +1,29 @@
-import React from "react";
-import {withLocale} from "../../contexts/locale.context";
+import React from 'react';
+import propTypes from "prop-types";
+import {cn as bem} from '@bem-react/classname'
 import {Link} from "react-router-dom";
-import {cn as bem} from "@bem-react/classname";
-import propTypes from 'prop-types';
-import "./style.css"
+import './style.css';
 
-function Menu({lang}) {
+function Menu(props) {
   const cn = bem('Menu');
+
   return (
-    <div className={cn()}>
-      <Link to="/" className={cn('nav')} style={{"color": "#0087E9"}}>{lang.handle('home')}</Link>
-    </div>
+    <ul className={cn()}>
+      {props.items.map(item => (
+        <li key={item.key} className={cn('item')}>
+          <Link className={cn('link')} to={item.link}>{item.title}</Link>
+        </li>
+      ))}
+    </ul>
   )
 }
 
 Menu.propTypes = {
-  lang: propTypes.object
+  items: propTypes.arrayOf(propTypes.object),
 }
 
-export default React.memo(withLocale(Menu));
+Menu.defaultProps = {
+  items: []
+}
+
+export default React.memo(Menu);

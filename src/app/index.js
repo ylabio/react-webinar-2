@@ -1,35 +1,40 @@
-import React, {useEffect, useState} from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from 'react';
+import useSelector from "../hooks/use-selector";
+import {Routes, Route} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../utils/use-store";
-import useSelector from "../utils/use-selector";
-import SingleProductPage from './single-product-page';
-import { Locale } from "../hoc/locale";
+import Article from "./article";
+import Login from './login';
+import Profile from './profile';
+import PrivateRoute from '../hoc/private-route';
+import ClosedRoute from '../hoc/closed-route';
 
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
-const language = navigator.language || navigator.userLanguage; //вытаскиеваем из браузера предустановленный язык
-
 function App() {
-
-  console.log('App');
 
   const modal = useSelector(state => state.modals.name);
 
   return (
-    <Locale>
-      <Router>
-        <Routes>
-          <Route path='/' element={<Main language={language.substr(0, 2)}/>}/>
-          <Route path="/product/:id" element={<SingleProductPage language={language.substr(0, 2)}/>}/>
-          <Route path="*" element={<h1>Такой страницы не существует</h1>}/>
-        </Routes>
-        {modal === 'basket' && <Basket/>}
-      </Router>
-    </Locale>
+    <>
+      <Routes>
+        <Route path={''} element={<Main/>}/>
+        <Route path={"/articles/:id"} element={<Article/>}/>
+        <Route path={"/login"} element={
+          <ClosedRoute>
+            <Login/>
+          </ClosedRoute>
+        }/>
+        <Route path={"/profile"} element={
+          <PrivateRoute>
+            <Profile/>
+          </PrivateRoute>
+        }/>
+      </Routes>
+      {modal === 'basket' && <Basket/>}
+    </>
   );
 }
 

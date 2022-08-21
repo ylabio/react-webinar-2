@@ -1,0 +1,27 @@
+###
+# Список товаров
+
+GET {{baseUrl}}/articles
+
+###
+# Список с пагинацией
+
+GET {{baseUrl}}/articles?limit=10&skip=20
+
+###
+# Список с пагинацией и возвратом общего количества
+
+GET {{baseUrl}}/articles?limit=20&skip=10&fields=items(*),count
+
+###
+# Товар по id
+
+GET {{baseUrl}}/articles/62fde67bfa639a32847b3d78
+
+###
+# Товар по id с кучей свойств
+
+GET {{baseUrl}}/62fde67bfa639a32847b3d78?fields=*,maidIn(title,code),category(title)
+
+
+GET http://example.front.ylab.io/api/v1/categories?fields=title,parent(title)

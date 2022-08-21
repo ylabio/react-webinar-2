@@ -30,6 +30,7 @@ class CatalogState extends StateModule {
         limit: 10,
         sort: "order",
         query: "",
+        category: "all",
       },
       waiting: false,
     };
@@ -42,6 +43,7 @@ class CatalogState extends StateModule {
    * @return {Promise<void>}
    */
   async initParams(params = {}) {
+    console.log(params);
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {};
     let validParams = {};
@@ -49,11 +51,12 @@ class CatalogState extends StateModule {
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
+    if (urlParams.search) validParams.category = urlParams.category || "all";
 
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = { ...this.initState().params, ...validParams, ...params };
 
-    console.log(urlParams);
+    //  console.log(urlParams);
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
   }
@@ -77,9 +80,10 @@ class CatalogState extends StateModule {
    * @returns {Promise<void>}
    */
   async setParams(params = {}, historyReplace = false) {
+    console.log(params);
     const newParams = { ...this.getState().params, ...params };
 
-    console.log(params);
+    //  console.log(params);
 
     // Установка новых параметров и признака загрузки
     this.setState({

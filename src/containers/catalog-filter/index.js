@@ -13,11 +13,16 @@ function CatalogFilter() {
   const select = useSelector((state) => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    filter: state.catalog.params.category,
   }));
 
   const { t } = useTranslate();
 
   const callbacks = {
+    onFilterCategory: useCallback(
+      (id) => store.get("catalog").setParams({ category: id, page: 1 }),
+      []
+    ),
     // Сортировка
     onSort: useCallback((sort) => store.get("catalog").setParams({ sort }), []),
     // Поиск
@@ -42,11 +47,15 @@ function CatalogFilter() {
     ),
   };
 
-  getCategories();
+  const categories = [{ title: "Все" }, ...getCategories()];
 
   return (
     <LayoutFlex flex="start" padding="20">
-      {/* <select>sadasd</select> */}
+      <Select
+        onChange={callbacks.onFilterCategory}
+        value={select.filter}
+        options={categories}
+      />
       <Select
         onChange={callbacks.onSort}
         value={select.sort}

@@ -28,7 +28,7 @@ function Login() {
 
   useEffect(() => {
     if (select.isAuth) {
-      navigate('/profile', {replace: true})
+      navigate(-1);
     }
   }, [select.isAuth])
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
@@ -12,24 +13,35 @@ import LocaleSelect from "../../containers/locale-select";
 function Main() {
   const store = useStore();
 
-  useInit(async () => {
-    await store.get('catalog').initParams();
-  }, [], {backForward: true});
+  useInit(
+    async () => {
+      await store.get("catalog").initParams();
+    },
+    [],
+    { backForward: true }
+  );
 
-  const {t} = useTranslate();
+  const { t } = useTranslate();
 
   return (
-    <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{t('title')}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    }>
-      <Tools/>
-      <CatalogFilter/>
-      <CatalogList/>
+    <Layout
+      head={
+        <LayoutFlex flex="between">
+          <h1>{t("title")}</h1>
+          <LocaleSelect />
+        </LayoutFlex>
+      }
+      authorization={
+        <Link to="/login">
+          <button>Вход</button>
+        </Link>
+      }
+    >
+      <Tools />
+      <CatalogFilter />
+      <CatalogList />
     </Layout>
-  )
+  );
 }
 
 export default React.memo(Main);

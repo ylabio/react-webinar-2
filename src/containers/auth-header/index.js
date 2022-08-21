@@ -6,23 +6,26 @@ import {cn as bem} from '@bem-react/classname';
 import {Link} from 'react-router-dom';
 import {useAuth} from './../../hooks/use-auth';
 import useTranslate from '../../hooks/use-translate';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 
-const AuthHeader = () => {
+const AuthHeader = ({link}) => {
   const cn = bem('AuthHeader');
   const {t} = useTranslate();
+
   const store = useStore();
   const navigate = useNavigate();
+
   const {isAuth, user, token} = useAuth();
+
   const callbacks = {
     // Добавление в корзину
     logout: useCallback(() => store.get('auth').removeUser(token), []),
   };
 
   const onClick = () => {
-    callbacks.logout;
-    navigate('/');
-  };
+    localStorage.setItem('link', link)
+    navigate('/login')
+  }
 
   return (
     <div className={cn()}>
@@ -33,7 +36,7 @@ const AuthHeader = () => {
             <button onClick={callbacks.logout}>{t('auth.quit')}</button>
           </>
         ) : (
-          <button onClick={() => navigate('/login')}>{t('auth.enter')}</button>
+          <button onClick={onClick}>{t('auth.enter')}</button>
         )}
       </LayoutFlex>
     </div>

@@ -1,5 +1,6 @@
 import StateModule from "../module";
 import qs from 'qs';
+import {addLabels, makeTree} from '../../utils/make-categories'
 
 const QS_OPTIONS = {
   stringify: {
@@ -26,12 +27,13 @@ class CatalogState extends StateModule{
     return {
       items: [],
       count: 0,
+      categories: [],
       params: {
         page: 1,
         limit: 10,
         sort: 'order',
         query: '',
-        categories: [],
+        category: '',
       },
       waiting: false
     };
@@ -77,12 +79,17 @@ class CatalogState extends StateModule{
     fetch(`api/v1/categories`)
     .then(response => response.json())
     .then(result => {
+      const arr = result.result.items.map(item => item.parent 
+        ? {id: item._id, parentId: item.parent._id, value: item.name, title: item.title} 
+        : {id: item._id, value: item.name, title: item.title}
+      );
+      
+      const categories = addLabels(makeTree(arr));
+      categories.unshift({value:'', title: 'Все'});
+
       this.setState({
         ...this.getState(),
-        params: {
-          ...this.getState().params,
-          categories: result.result.items,
-        }
+        categories: categories,
       });
     });
   }
@@ -102,9 +109,10 @@ class CatalogState extends StateModule{
       params: newParams,
       waiting: true
     });
-
+    const category = newParams.category && `&count&search[category]=${newParams.category}`;
+    
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${category}`);
     const json = await response.json();
     // Установка полученных данных и сброс признака загрузки
     this.setState({

@@ -36,7 +36,7 @@ function Article(){
 
   return (
     <Layout 
-    userInfo={<AuthHeader/>} 
+    userInfo={<AuthHeader link={`/articles/${params.id}`}/>} 
     head={
       <LayoutFlex flex="between">
         <h1>{select.article.title}</h1>

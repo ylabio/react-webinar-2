@@ -22,7 +22,7 @@ function Main() {
 
   return (
     <Layout 
-      userInfo={<AuthHeader/>} 
+      userInfo={<AuthHeader link='/'/>} 
       head={
       <LayoutFlex flex="between">
         <h1>{t('title')}</h1>

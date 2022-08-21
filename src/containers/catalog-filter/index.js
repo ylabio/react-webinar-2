@@ -4,7 +4,7 @@ import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/ui/select";
 import Input from "../../components/input";
-import { useGettingCategory } from "./useGettingCategories";
+import { useGettingCategory } from "./use-getting-categories";
 import LayoutFlex from '../../components/layouts/layout-flex';
 
 function CatalogFilter() {

@@ -6,6 +6,7 @@ import Basket from "./basket";
 import Article from "./article";
 import Authorization from './authorization';
 import Profile from './profile';
+import { RequireAuth } from '../containers/require-auth';
 
 /**
  * Приложение
@@ -18,10 +19,12 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path={''} element={<Main/>}/>
-        <Route path={"/authorization"} element={<Authorization/>}/>
-        <Route path={"/articles/:id"} element={<Article/>}/>
-        <Route path={"/profile"} element={<Profile/>}/>
+        <Route path={'/'} element={<Main/>}/>
+        <Route path={"articles/:id"} element={<Article/>}/>
+        <Route path={"profile"} element={
+          <RequireAuth><Profile/></RequireAuth>
+        }/>
+        <Route path={"authorization"} element={<Authorization/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

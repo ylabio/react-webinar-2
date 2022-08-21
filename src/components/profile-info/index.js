@@ -1,8 +1,9 @@
 import React from "react";
 import {cn as bem} from '@bem-react/classname'
+import propTypes from "prop-types";
 import './style.css';
 
-function ProfileInfo() {
+function ProfileInfo({ info }) {
   const cn = bem('ProfileInfo');
 
   return (
@@ -11,19 +12,23 @@ function ProfileInfo() {
       <div className={cn('content')}>
         <div className={cn('container')}>
           <span>Имя: </span>
-          <span>User №1</span>
+          <span>{info.profile.name}</span>
         </div>
         <div className={cn('container')}>
           <span>Телефон: </span>
-          <span>+70000000001</span>
+          <span>{info.profile.phone}</span>
         </div>
         <div className={cn('container')}>
           <span>email: </span>
-          <span>test_50@example.com</span>
+          <span>{info.email}</span>
         </div>
       </div>
     </div>
   )
+}
+
+ProfileInfo.propTypes = {
+  info: propTypes.object,
 }
 
 export default React.memo(ProfileInfo);

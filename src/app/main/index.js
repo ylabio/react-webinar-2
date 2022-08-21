@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
@@ -10,13 +10,20 @@ import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import AuthControls from "../../components/auth-controls";
 import { useNavigate } from "react-router-dom";
+import { getCookie, setCookie } from "../../utils/coockie";
 
 function Main() {
   const store = useStore();
   const navigate = useNavigate();
+  const token = getCookie('token');
+  const name = localStorage.getItem('name');
 
   const callbacks = {
     redirect: () => { navigate('/authorization') },
+    logout: useCallback(() => {
+      store.get('user').logout(token);
+      console.log('MAINOUT', token)
+    }, [])
   }
 
   useInit(async () => {
@@ -28,7 +35,12 @@ function Main() {
   return (
     <Layout
       control={
-        <AuthControls redirect={callbacks.redirect} />
+        <AuthControls
+          token={token}
+          name={name}
+          logout={callbacks.logout}
+          redirect={callbacks.redirect}
+        />
       }
       head={
         <LayoutFlex flex="between">

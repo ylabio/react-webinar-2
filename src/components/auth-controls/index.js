@@ -3,16 +3,29 @@ import { Link } from "react-router-dom"
 import Controls from "../controls"
 import LayoutFlex from "../layout-flex"
 import './style.css';
+import propTypes from "prop-types";
 
-function AuthControls(props) {
+function AuthControls({token, name, logout, redirect}) {
+  console.log('CONTROLS', token)
   return (
     <LayoutFlex flex={"end"} padding={false}>
       <div className="profile-link">
-        <Link to='profile'>User №1</Link>
+        <Link to='/profile'>{name}</Link>
       </div>
-      <Controls handler={props.redirect} title={'Вход'}/>
+      {
+        token ?
+        <Controls handler={logout} title={'Выход'}/>
+        :
+        <Controls handler={redirect} title={'Вход'}/>
+      }
   </LayoutFlex>
   )
+}
+
+AuthControls.propTypes = {
+  token: propTypes.string,
+  name: propTypes.string,
+  redirect: propTypes.func,
 }
 
 export default React.memo(AuthControls);

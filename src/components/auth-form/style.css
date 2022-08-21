@@ -1,6 +1,6 @@
 .AuthForm {
   min-width: 203px;
-  width: 18px;
+  width: 33%;
   padding: 40px 20px;
 }
 
@@ -22,5 +22,8 @@
 }
 
 .AuthForm-container label {
+  width: 203px;
+  display: flex;
+  flex-direction: column;
   margin-bottom: 20px;
 }

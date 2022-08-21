@@ -33,7 +33,7 @@ function TopContainer() {
 
   return (
     <LayoutFlex flex="end" indent="small">
-      {select.exists && <Link to="/profile">{select.user.username}</Link>}
+      {select.exists && <Link to="/profile">{select.user.profile.name}</Link>}
       {select.exists
         ? <button onClick={callbacks.onSignOut}>{t('session.signOut')}</button>
         : <button onClick={callbacks.onSignIn}>{t('session.signIn')}</button>

@@ -1,9 +1,9 @@
 import StateModule from "../module";
 
 /**
- * Состояние товара
+ * Состояние профиля
  */
-class ArticleState extends StateModule{
+class ProfileState extends StateModule{
 
   /**
    * Начальное состояние
@@ -17,33 +17,38 @@ class ArticleState extends StateModule{
   }
 
   /**
-   * Загрузка товаров по id
+   * Загрузка профиля
    */
-  async load(id){
+  async load(){
     // Сброс текущего товара и установка признака ожидания загрузки
     this.setState({
       waiting: true,
       data: {}
-    }, 'Ожидание загрузки товара');
+    }, 'Ожидание загрузки профиля');
 
     try {
-      const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
-      const json = await response.json();
+      const res = await fetch('/api/v1/users/self', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Token': this.store.getState().session.token
+        },
+      });
+      const json = await res.json();
 
       // Товар загружен успешно
       this.setState({
         data: json.result,
         waiting: false
-      }, 'Товар по id загружен');
+      }, 'Профиль загружен');
     } catch (e){
       // Ошибка при загрузке
-      // @todo В стейт можно положть информауию об ошибке
       this.setState({
         data: {},
         waiting: false
-      }, 'Ошибка загрузки товара');
+      }, 'Ошибка загрузки профиля');
     }
   }
 }
 
-export default ArticleState;
+export default ProfileState;

@@ -15,7 +15,7 @@ class SessionState extends StateModule{
       token: null,
       errors: null,
       exists: false,
-      waiting: false
+      waiting: true
     };
   }
 
@@ -76,7 +76,7 @@ class SessionState extends StateModule{
     } catch(error) {
       console.error(error);
     }
-    this.setState(this.initState());
+    this.setState({...this.initState(), waiting: false});
   }
 
   /**
@@ -107,6 +107,12 @@ class SessionState extends StateModule{
           waiting: false
         }, 'Успешно вспомнили сессию');
       }
+    } else {
+      this.setState({
+        ...this.getState(),
+        exists: false,
+        waiting: false
+      }, 'Сессии нет');
     }
   }
 }

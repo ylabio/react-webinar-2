@@ -1,5 +1,6 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
+import AuthProvider from '../hocs/AuthProvider';
 import useSelector from '../hooks/use-selector';
 import Article from './article';
 import Basket from './basket';
@@ -15,7 +16,7 @@ function App() {
   const modal = useSelector(state => state.modals.name);
 
   return (
-    <>
+    <AuthProvider>
       <Routes>
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
@@ -29,7 +30,7 @@ function App() {
         <Route path={'/profile'} element={<Profile />} />
       </Routes>
       {modal === 'basket' && <Basket />}
-    </>
+    </AuthProvider>
   );
 }
 

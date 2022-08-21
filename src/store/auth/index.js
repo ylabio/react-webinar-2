@@ -46,11 +46,29 @@ class AuthState extends StateModule {
     this.setState({
       ...this.getState(),
       isSigned: error ? false : true,
+      token,
       login: {
         ...this.getState().login,
-        error,
-        token
+        error
       }
+    });
+  }
+
+  async logout() {
+    const token = this.getState().token;
+
+    const response = await fetch('api/v1/users/sign', {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Token': `${token}`
+      },
+      method: 'DELETE'
+    });
+
+    localStorage.setItem('auth-token', '');
+    this.setState({
+      ...this.getState(),
+      token: ''
     });
   }
 
@@ -76,6 +94,15 @@ class AuthState extends StateModule {
         error: ''
       }
     });
+  }
+
+  async checkToken() {
+    const token = localStorage.getItem('auth-token');
+    this.setState({
+      ...this.getState(),
+      token
+    });
+    await this.store.get('profile').fetchProfile(token);
   }
 }
 

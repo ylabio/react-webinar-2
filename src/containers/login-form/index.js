@@ -1,16 +1,13 @@
-import propTypes from 'prop-types';
-import React, {useCallback, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, {useCallback} from 'react';
 import Input from '../../components/common/input';
 import LayoutForm from '../../components/layouts/layout-form';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 
-function LoginForm({redirectPage, pageId}) {
+function LoginForm() {
   const {t} = useTranslate();
   const store = useStore();
-  const navigate = useNavigate();
   const select = useSelector(state => ({
     login: state.auth.login,
     isSigned: state.auth.isSigned
@@ -25,13 +22,6 @@ function LoginForm({redirectPage, pageId}) {
     }, [])
   };
 
-  useEffect(() => {
-    if (select.isSigned) {
-      const page = redirectPage ? redirectPage : '';
-      const id = pageId ? '/' + pageId : '';
-      navigate(`/${page}${id}`);
-    }
-  }, [select.isSigned]);
   return (
     <LayoutForm
       head={<h2>{t('login-form.head')}</h2>}
@@ -54,10 +44,5 @@ function LoginForm({redirectPage, pageId}) {
     </LayoutForm>
   );
 }
-
-LoginForm.propTypes = {
-  redirectPage: propTypes.string,
-  pageId: propTypes.string
-};
 
 export default React.memo(LoginForm);

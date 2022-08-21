@@ -1,0 +1,11 @@
+.Login-link-profile, .Login-link-quit, .Login-link-login{
+	font-size: 13px;
+}
+
+.Login-link-profile{
+	margin-right: 5px;
+}
+
+.Login-link-quit{
+	margin-left: 5px;
+}

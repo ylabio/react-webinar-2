@@ -1,0 +1,8 @@
+.Form-label{
+	display: block;
+	margin-bottom: 20px;
+}
+
+.Form-label span{
+	display: block;
+}

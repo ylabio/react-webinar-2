@@ -13,9 +13,10 @@ body{
     background: #fff;
     box-sizing: border-box;
     box-shadow: 0 0 15px 5px #0000003b;
+		overflow: hidden;
 }
 .Layout-head{
-    height: 80px;
+    /* height: 80px; */
     background: #f5f5f5;
     padding: 0;
 }

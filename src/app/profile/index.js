@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect} from "react";
-import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import Tools from "../../containers/tools";
@@ -13,12 +12,7 @@ import PanelLogin from "../../containers/panel-login";
 import Spinner from "../../components/spinner";
 
 function Profile() {
-  const store = useStore();
   const navigate = useNavigate();
-
-  useInit(async () => {
-    await store.get('login').checkLogin();
-  }, [], {backForward: true});
 
   const select = useSelector(state => ({
     isAuth: state.login.isAuth,
@@ -26,11 +20,11 @@ function Profile() {
     waiting: state.login.waiting,
   }));
 
-  useEffect(() => {
+  useInit(async () => {
     if (!select.isAuth) {
       navigate('/login');
     }
-  }, [select.isAuth])
+  }, [select.isAuth], {backForward: true});
 
   const {t} = useTranslate();
 

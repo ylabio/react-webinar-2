@@ -17,26 +17,20 @@ function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log(location)
-
-  useInit(async () => {
-    await store.get('login').checkLogin();
-  }, [], {backForward: true});
-
   const select = useSelector(state => ({
     err: state.login.err,
     isAuth: state.login.isAuth,
     waiting: state.login.waiting,
   }));
 
-  useEffect(() => {
+  useInit(async () => {
     if (select.isAuth && location.key === 'default') {
-      navigate('/profile', {replace: true});
+      navigate('/', {replace: true});
     }
     if (select.isAuth && location.key !== 'default') {
       navigate(-1);
     }
-  }, [select.isAuth])
+  }, [select.isAuth], {backForward: true});
 
 
   const {t} = useTranslate();

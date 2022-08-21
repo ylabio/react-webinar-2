@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
-import numberFormat from "../../utils/number-format";
 import "./style.css";
 
 function UserMenu({ userName, title, t, reset }) {

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
@@ -13,15 +13,26 @@ import UserInfo from "../../components/user-info";
 import TopMenu from "../../containers/top-menu";
 
 function Profile() {
+  const store = useStore();
+  const location = useLocation();
+
+  console.log(window.location.pathname);
   const select = useSelector((state) => ({
     user: state.auth.user,
     waiting: state.auth.waiting,
   }));
 
   const { t } = useTranslate();
+  useInit(
+    async () => {
+      await store.get("auth").getUser();
+    },
+    [select.user],
+    { backForward: true }
+  );
 
-  if (!select.user) {
-    return <Navigate replace to="/login" />;
+  if (!select.user && !select.waiting) {
+    return <Navigate replace to="/login" state={{ from: location }} />;
   }
 
   return (
@@ -36,7 +47,6 @@ function Profile() {
         }
       >
         <Tools />
-
         <Spinner active={select.waiting}>
           <UserInfo user={select.user} t={t} />
         </Spinner>

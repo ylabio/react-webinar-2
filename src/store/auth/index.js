@@ -81,6 +81,7 @@ class AuthState extends StateModule {
         this.setState({
           ...this.getState(),
           user: json.result,
+          token: localToken,
           waiting: false,
           errors: null,
         });

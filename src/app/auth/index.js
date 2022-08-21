@@ -1,9 +1,7 @@
 import React, { useCallback } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import { useParams } from "react-router-dom";
-import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import LoginForm from "../../components/login-form";
 import Spinner from "../../components/spinner";
@@ -14,11 +12,13 @@ import LocaleSelect from "../../containers/locale-select";
 import TopMenu from "../../containers/top-menu";
 
 function Auth() {
+  const { state } = useLocation();
+  const replacePathname = state?.from.pathname ? state?.from.pathname : "/";
   const store = useStore();
   const { t } = useTranslate();
 
   const select = useSelector((state) => ({
-    isLogin: state.auth.token,
+    isLogin: state.auth.user,
     errors: state.auth.errors,
   }));
 
@@ -41,8 +41,13 @@ function Auth() {
         }
       >
         <Tools />
-        {select.isLogin && <Navigate replace to="/profile" />}
-        <LoginForm t={t} submit={callbacks.onLogIn} errors={select.errors} />
+        {select.isLogin && <Navigate replace to={replacePathname} />}
+        <LoginForm
+          t={t}
+          submit={callbacks.onLogIn}
+          errors={select.errors}
+          isLogin={select.isLogin}
+        />
       </Layout>
     </>
   );

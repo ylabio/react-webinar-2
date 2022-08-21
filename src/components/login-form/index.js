@@ -1,13 +1,16 @@
 import React, { useState, useCallback } from "react";
+import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import Input from "../input";
 import Error from "../../components/error";
 import "./style.css";
 
-function LoginForm({ submit, t, errors }) {
+function LoginForm({ submit, t, errors, isLogin }) {
   // CSS классы по БЭМ
   const cn = bem("LoginForm");
+  const navigate = useNavigate();
+  const { state } = useLocation();
 
   const [login, setLogin] = useState("");
   const [password, setpassword] = useState("");

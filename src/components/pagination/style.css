@@ -35,3 +35,8 @@
     cursor: default;
     color: #CCCCCC;
 }
+
+.Pagination-link {
+    color: inherit;
+    text-decoration: none;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import useSelector from "../hooks/use-selector";
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, Navigate} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
@@ -25,10 +25,11 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path={''} element={<Main/>}/>
+        <Route path={'catalog/:page'} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
         <Route path={"/login"} element={<Login />}/>
         <Route path={"/profile"} element={<Profile />}/>
+        <Route path="" element={<Navigate replace to="catalog/1"/>} />
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

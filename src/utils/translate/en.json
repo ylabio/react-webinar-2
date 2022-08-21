@@ -21,5 +21,7 @@
   "userMenu.logOut":"Log out",
   "userInfo.title":"Profile",
   "userInfo.name":"Name",
-  "userInfo.phone":"Phone"
+  "userInfo.phone":"Phone",
+  "loginForm.login":"Login",
+  "loginForm.password":"Password"
 }

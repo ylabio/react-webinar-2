@@ -23,5 +23,7 @@
   "userMenu.logOut":"Выход",
   "userInfo.title":"Профиль",
   "userInfo.name":"Имя",
-  "userInfo.phone":"Телефон"
+  "userInfo.phone":"Телефон",
+  "loginForm.login":"Логин",
+  "loginForm.password":"Пароль"
 }

@@ -1,16 +1,13 @@
 import React, { useState, useCallback } from "react";
-import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
-import Input from "../input";
 import Error from "../../components/error";
 import "./style.css";
 
-function LoginForm({ submit, t, errors, isLogin }) {
+function LoginForm({ submit, t, errors }) {
+  console.log(t);
   // CSS классы по БЭМ
   const cn = bem("LoginForm");
-  const navigate = useNavigate();
-  const { state } = useLocation();
 
   const [login, setLogin] = useState("");
   const [password, setpassword] = useState("");
@@ -39,7 +36,7 @@ function LoginForm({ submit, t, errors, isLogin }) {
       <form className={cn()} onSubmit={checkAuth}>
         <h2>{t("login.title")}</h2>
         <div>
-          <label className={cn("prop")}>Логин</label>
+          <label className={cn("prop")}>{t("loginForm.login")}</label>
           <input
             value={login}
             onChange={loginHandler}
@@ -48,7 +45,7 @@ function LoginForm({ submit, t, errors, isLogin }) {
           />
         </div>
         <div>
-          <label className={cn("prop")}>Пароль</label>
+          <label className={cn("prop")}>{t("loginForm.password")}</label>
           <input
             value={password}
             onChange={passwordHandler}
@@ -64,5 +61,17 @@ function LoginForm({ submit, t, errors, isLogin }) {
     </>
   );
 }
+
+LoginForm.propTypes = {
+  submit: propTypes.func,
+  t: propTypes.func,
+  errors: propTypes.arrayOf(propTypes.object),
+};
+
+LoginForm.defaultProps = {
+  submit: (login, password) => {},
+  t: (text) => text,
+  errors: [],
+};
 
 export default React.memo(LoginForm);

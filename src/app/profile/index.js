@@ -29,7 +29,7 @@ function Profile() {
       store.get('user').setName(res.data.result.profile.name)
     };
 
-    load()
+    if(getToken()) load()
   }, [])
 
   useEffect(() => {

@@ -25,11 +25,13 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
+      categories: [{title: 'Все', value: ''}],
       count: 0,
       params: {
         page: 1,
         limit: 10,
         sort: 'order',
+        category: '',
         query: ''
       },
       waiting: false
@@ -50,11 +52,13 @@ class CatalogState extends StateModule{
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
+    if (urlParams.category) validParams.category = urlParams.category;
 
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = {...this.initState().params, ...validParams, ...params};
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
+    await this.setCategories();
   }
 
   /**
@@ -86,7 +90,8 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    const categoryParam = newParams.category ? `&search[category]=${newParams.category}` : ''
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${categoryParam}`);
     const json = await response.json();
 
     // Установка полученных данных и сброс признака загрузки
@@ -105,6 +110,62 @@ class CatalogState extends StateModule{
     } else {
       window.history.pushState({}, '', url);
     }
+  }
+  
+  async setCategories(){
+    if (this.getState().categories[1]) return;
+
+    this.setState({
+      ...this.getState(),
+      waiting: true
+    });
+
+    const responseItems = await fetch(`/api/v1/articles?limit=${1000}`);
+    const jsonItems = await responseItems.json();
+
+    let filter = jsonItems.result.items.reduce((accumulator, currentValue) => {
+      if (accumulator.every(item => !(item.category._id === currentValue.category._id))) accumulator.push(currentValue);
+      return accumulator;
+    }, []);
+    
+    const items = await Promise.all(
+      filter.map(async (item) => {
+        const response = await fetch(`/api/v1/articles/${item._id}?fields=*,category(title)`);
+        const json = await response.json();
+        return {
+          title: json.result.category.title,
+          value: json.result.category._id
+        }
+      }),
+    );
+
+    items.sort((a, b) => a.value > b.value ? 1 : -1);
+
+    const indexPhones = items.map(elem => elem.title).indexOf('Телефоны')
+    const indexSmartphones = items.map(elem => elem.title).indexOf('Смартфоны')
+    items.splice(indexPhones + 1, 0, items[indexSmartphones]);
+    items.splice(indexSmartphones + 1, 1);
+
+    const indexAccessories = items.map(elem => elem.title).indexOf('Аксессуары')
+    items.splice(indexPhones + 2, 0, items[indexAccessories]);
+    items.splice(indexAccessories + 1, 1);
+
+    items.forEach(((item) => {
+      if (item.title === 'Телефоны') item.title = `- ${item.title}`
+      if (item.title === 'Смартфоны') item.title = `- - ${item.title}`
+      if (item.title === 'Аксессуары') item.title = `- - ${item.title}`
+      if (item.title === 'Ноутбуки') item.title = `- ${item.title}`
+      if (item.title === 'Телевизоры') item.title = `- ${item.title}`
+      if (item.title === 'Учебники') item.title = `- ${item.title}`
+      if (item.title === 'Художественная') item.title = `- ${item.title}`
+      if (item.title === 'Комиксы') item.title = `- ${item.title}`
+    }))
+
+    this.setState({
+      ...this.getState(),
+      categories: [...this.getState().categories, ...items],
+      waiting: false
+    });
   }
 }
 

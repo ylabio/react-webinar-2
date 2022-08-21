@@ -1,0 +1,15 @@
+.Bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 20px;
+  align-items: center;
+  gap: 20px;
+}
+
+.Bar-title  {
+  color: #0087E9;
+}
+
+.Bar-title:visited {
+  color: #0087E9;
+}

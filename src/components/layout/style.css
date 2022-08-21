@@ -22,3 +22,6 @@ body{
 .Layout-head h1{
     margin: 0;
 }
+.Layout-overHead h2 {
+    margin: 0;
+}

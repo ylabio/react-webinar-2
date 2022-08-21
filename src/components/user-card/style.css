@@ -1,0 +1,27 @@
+.UserCard{
+  margin-top: 21px;
+  padding: 20px;
+}
+
+.UserCard-title{ 
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  color: #000000;
+  margin-bottom: 30px;
+}
+
+.UserCard-item {
+  display: flex;
+  margin-bottom: 20px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+}
+.UserCard-item p {
+  margin: 0;
+}
+.UserCard-item span {
+  font-weight: 700;
+}

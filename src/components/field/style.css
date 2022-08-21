@@ -1,3 +1,15 @@
-.Field{
-    padding: 10px 0;
+.Field {
+    margin: 20px 0;
+}
+
+.Field-label {
+
+}
+
+.Field_input {
+
+}
+
+.Field-error {
+    color: #f00;
 }

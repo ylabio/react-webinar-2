@@ -6,7 +6,7 @@ import Menu from "../../components/menu";
 import BasketSimple from "../../components/basket-simple";
 import LayoutFlex from "../../components/layout-flex";
 
-function Tools() {
+function ToolsContainer() {
 
   const store = useStore();
 
@@ -30,11 +30,11 @@ function Tools() {
   }
 
   return (
-    <LayoutFlex flex="between">
+    <LayoutFlex flex="between" indent="big">
       <Menu items={options.menu}/>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} t={t}/>
     </LayoutFlex>
   );
 }
 
-export default React.memo(Tools);
+export default React.memo(ToolsContainer);

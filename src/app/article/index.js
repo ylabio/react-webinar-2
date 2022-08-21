@@ -10,9 +10,14 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import TopHead from "../../containers/top-head";
 
 function Article(){
   const store = useStore();
+
+  useInit(async () => {
+    await store.get('authorization').loadUser();
+  }, [], {backForward: true});
 
   // Параметры из пути /articles/:id
   const params = useParams();
@@ -38,8 +43,11 @@ function Article(){
       <LayoutFlex flex="between">
         <h1>{select.article.title}</h1>
         <LocaleSelect/>
-      </LayoutFlex>
-    }>
+      </LayoutFlex>}
+      topHead={
+        <TopHead/>
+      }>
+        
       <Tools/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>

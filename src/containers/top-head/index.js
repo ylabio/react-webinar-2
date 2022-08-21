@@ -20,7 +20,7 @@ function TopHead() {
   };
   
   return (
-    <MenuRegister token={select.token} onLogout={callbacks.logout} user={select.user}/>
+    <MenuRegister token={select.token} onLogout={callbacks.logout} user={select.user} t={t}/>
   )
 }
 

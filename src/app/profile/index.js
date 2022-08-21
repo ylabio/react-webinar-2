@@ -38,9 +38,10 @@ function Profile() {
       topHead={ 
         <TopHead/>
       }>
+        
       <Tools/>
-      <LayoutAuth title={<h2>{t('filter')}</h2>}>
-        <UserProfile user={select.user}/>
+      <LayoutAuth title={<h2>{t('profile')}</h2>}>
+        <UserProfile user={select.user} t={t}/>
       </LayoutAuth>
     </Layout>
   )

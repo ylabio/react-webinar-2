@@ -1,5 +1,6 @@
 import React, {useCallback} from "react";
 import useStore from "../../hooks/use-store";
+import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import useSelector from "../../hooks/use-selector";
 import Tools from "../../containers/tools";
@@ -14,10 +15,15 @@ import { Navigate } from "react-router-dom";
 function Login() {
   const store = useStore();
 
+  useInit(async () => {
+    await store.get('authorization').loadUser();
+  }, [], {backForward: true});
+
   const select = useSelector(state => ({
     token: state.authorization.token,
     error: state.authorization.error,
   }));
+  
 
   const callbacks = {
     // Логин
@@ -25,6 +31,10 @@ function Login() {
   };
 
   const {t} = useTranslate();
+
+  if (select.token) {
+    return <Navigate to="/profile" replace={true} />
+  }
 
   return (
     
@@ -36,12 +46,10 @@ function Login() {
       topHead={ 
         <TopHead/>
       }>
-      {select.token && (
-        <Navigate to="/profile" replace={true} />
-      )}
+
       <Tools/>
-      <LayoutAuth title={<h2>Вход</h2>}>
-        <FormLogin onLogin={callbacks.login} token={select.token} error={select.error}/>
+      <LayoutAuth title={<h2>{t('login')}</h2>}>
+        <FormLogin onLogin={callbacks.login} token={select.token} error={select.error} t={t}/>
       </LayoutAuth>
     </Layout>
   )

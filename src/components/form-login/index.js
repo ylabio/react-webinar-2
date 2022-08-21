@@ -3,7 +3,7 @@ import propTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
 
-function FormLogin(props) {
+function FormLogin({onLogin, error, t}) {
   const cn = bem('FormLogin');
 
   const [login, setLogin] = useState('');
@@ -12,9 +12,8 @@ function FormLogin(props) {
   const callbacks = {
     onLogin: useCallback((e) => {
       e.preventDefault();
-      console.log('obj',{login, password})
-      props.onLogin({login, password})
-    }, [props.onLogin, login, password])};
+      onLogin({login, password})
+    }, [onLogin, login, password])};
     
   const handleLogin = (e) => {
     setLogin(e.target.value);
@@ -27,28 +26,30 @@ function FormLogin(props) {
   return (
       <form className={cn()} onSubmit={callbacks.onLogin}>
         <div className={cn('login')}>
-          <div>Логин</div>
+          <div>{t('formLogin.username')}</div>
           <input type="text" value={login} onChange={handleLogin}/>
         </div>
         <div className={cn('password')}>
-          <div>Пароль</div>
+          <div>{t('formLogin.password')}</div>
           <input type="text" value={password} onChange={handlePassword}/>
         </div>
-        <div className={cn('error')}>{props.error}</div>
+        <div className={cn('error')}>{error}</div>
         <button type="submit" className={cn('btn')}>
-          Войти
+          {t('formLogin.login')}
         </button>
       </form>
   )
 }
 
 FormLogin.propTypes = {
+  t: propTypes.func,
   onLogin: propTypes.func.isRequired,
   error: propTypes.string.isRequired
 }
 
 FormLogin.defaultProps = {
-  onLogin: () => {}
+  onLogin: () => {},
+  t: (text) => text
 }
 
 export default React.memo(FormLogin);

@@ -87,7 +87,7 @@ class CatalogState extends StateModule{
       ...this.getState(),
       params: newParams,
       waiting: true
-    });
+    }, 'Установка новых параметров и признака загрузки');
 
     const skip = (newParams.page - 1) * newParams.limit;
     const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${newParams.category ? `&search[category]=${newParams.category}` : ''}`);
@@ -99,7 +99,7 @@ class CatalogState extends StateModule{
       items: json.result.items,
       count: json.result.count,
       waiting: false
-    });
+    }, 'Установка полученных данных и сброс признака загрузки');
 
     // Запоминаем параметры в URL
     let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);

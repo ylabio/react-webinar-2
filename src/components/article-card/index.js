@@ -39,7 +39,6 @@ ArticleCard.propTypes = {
 }
 
 ArticleCard.defaultProps = {
-  article: {},
   onAdd: () => {}
 }
 

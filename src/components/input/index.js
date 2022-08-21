@@ -5,6 +5,8 @@ import throttle from "lodash.throttle";
 import './style.css';
 
 function Input(props) {
+
+  // CSS классы по БЭМ
   const cn = bem('Input');
 
   // Внутренний стейт по умолчанию с переданным value
@@ -51,6 +53,8 @@ Input.propTypes = {
 }
 
 Input.defaultProps = {
+  value: '',
+  placeholder: '',
   onChange: () => {},
   type: 'text',
   theme: '',

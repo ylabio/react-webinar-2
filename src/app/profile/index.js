@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import useTranslate from "../../hooks/use-translate";
 import PageTemplate from "../../components/page-template";
 import ProfileInfo from "../../components/profile-info";

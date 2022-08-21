@@ -22,5 +22,9 @@
   "login.submit": "Enter",
   "login.userLogin": "Login",
   "login.userPassword": "Password",
-  "profile.title": "Profile"
+  "profile.title": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "profile.email": "email"
+
 }

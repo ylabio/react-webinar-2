@@ -4,6 +4,8 @@ import propTypes from "prop-types";
 import './style.css';
 
 function LayoutFlex({children, flex, padding}){
+
+  // CSS классы по БЭМ
   const cn = bem('LayoutFlex');
 
   return (
@@ -22,6 +24,7 @@ LayoutFlex.propTypes = {
 }
 
 LayoutFlex.defaultProps = {
+  children: '',
   flex: 'start',
   padding: true,
 }

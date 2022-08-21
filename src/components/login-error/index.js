@@ -5,6 +5,7 @@ import './style.css';
 
 function LoginError({t}) {
 
+  // CSS классы по БЭМ
   const cn = bem('LoginError');
 
   return (
@@ -15,9 +16,11 @@ function LoginError({t}) {
 }
 
 LoginError.propTypes = {
+  t: propTypes.func,
 }
 
 LoginError.defaultProps = {
+  t: (text) => text,
 }
 
 export default React.memo(LoginError);

@@ -5,8 +5,13 @@ import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import LoginTools from "../../containers/login-tools";
 import propTypes from 'prop-types';
+import {cn as bem} from "@bem-react/classname";
+import './style.css';
 
 function PageTemplate({title, children}) {
+
+  // CSS классы по БЭМ
+  const cn = bem('PageTemplate');
 
   return (
     <Layout top={
@@ -25,9 +30,13 @@ function PageTemplate({title, children}) {
 }
 
 PageTemplate.propTypes = {
+  title: propTypes.string,
+  children: propTypes.node
 }
 
 PageTemplate.defaultProps = {
+  title: '',
+  children: ''
 }
 
 export default React.memo(PageTemplate);

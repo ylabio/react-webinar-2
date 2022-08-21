@@ -4,6 +4,8 @@ import propTypes from "prop-types";
 import './style.css';
 
 function Layout({top, head, children}){
+
+  // CSS классы по БЭМ
   const cn = bem('Layout');
 
   return (

@@ -15,10 +15,14 @@ class LocaleState extends StateModule{
     };
   }
 
+  /**
+   * Установка языка интерфейса
+   * @param lang {string}
+   */
   async setLang(lang) {
     this.setState({
       lang
-    });
+    }, 'Установка языка интерфейса');
   }
 }
 

@@ -24,6 +24,7 @@ Select.propTypes = {
 }
 
 Select.defaultProps = {
+  value: '',
   onChange: () => {}
 }
 

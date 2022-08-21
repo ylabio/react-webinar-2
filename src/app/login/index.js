@@ -23,7 +23,6 @@ function Login() {
     if (select.user && location.key !== 'default') {
       navigate(-1, {replace: true})
     }
-
   }, [select.user], {backForward: true});
 
   return (

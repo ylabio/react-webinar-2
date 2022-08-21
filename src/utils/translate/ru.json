@@ -24,5 +24,8 @@
   "login.submit": "Войти",
   "login.userLogin": "Логин",
   "login.userPassword": "Пароль",
-  "profile.title": "Профиль"
+  "profile.title": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+  "profile.email": "email"
 }

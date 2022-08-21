@@ -12,22 +12,26 @@ function ProfileInfo({t, user}) {
     <div className={cn()}>
       <div className={cn('title')}>{t('profile.title')}</div>
       <div className={cn('prop')}>
-        <div className={cn('name')}>Имя: <strong>{user?.profile?.name}</strong></div>
+        <div className={cn('name')}>{t('profile.name')}: <strong>{user?.profile?.name}</strong></div>
       </div>
       <div className={cn('prop')}>
-        <div className={cn('phone')}>Телефон: <strong>{user?.profile?.phone}</strong></div>
+        <div className={cn('phone')}>{t('profile.phone')}: <strong>{user?.profile?.phone}</strong></div>
       </div>
       <div className={cn('prop')}>
-        <div className={cn('email')}>email: <strong>{user?.email}</strong></div>
+        <div className={cn('email')}>{t('profile.email')}: <strong>{user?.email}</strong></div>
       </div>
     </div>
   )
 }
 
 ProfileInfo.propTypes = {
+  t: propTypes.func,
+  user: propTypes.object
 }
 
 ProfileInfo.defaultProps = {
+  t: (text) => text,
+  user: null
 }
 
 export default React.memo(ProfileInfo);

@@ -5,6 +5,7 @@ import './style.css';
 
 function LayoutForm({title, children, onSubmit, onSubmitText}) {
 
+  // CSS классы по БЭМ
   const cn = bem('LayoutForm');
 
   const callbacks = {
@@ -23,9 +24,17 @@ function LayoutForm({title, children, onSubmit, onSubmitText}) {
 }
 
 LayoutForm.propTypes = {
+  title: propTypes.string,
+  children: propTypes.node,
+  onSubmit: propTypes.func,
+  onSubmitText: propTypes.string
 }
 
 LayoutForm.defaultProps = {
+  title: '',
+  children: '',
+  onSubmit: () => {},
+  onSubmitText: ''
 }
 
 export default React.memo(LayoutForm);

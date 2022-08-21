@@ -6,6 +6,8 @@ import numberFormat from "../../utils/number-format";
 import './style.css';
 
 function Item(props) {
+
+  // CSS классы по БЭМ
   const cn = bem('Item');
 
   const callbacks = {
@@ -35,6 +37,7 @@ Item.propTypes = {
 
 Item.defaultProps = {
   onAdd: () => {},
+  link: '',
   labelCurr: '₽',
   labelAdd: 'Добавить'
 }

@@ -6,6 +6,7 @@ import './style.css';
 
 function LoginInput({value, onChange, type, title, onFocus}) {
 
+  // CSS классы по БЭМ
   const cn = bem('LoginInput');
 
   const callbacks = {
@@ -26,9 +27,19 @@ function LoginInput({value, onChange, type, title, onFocus}) {
 }
 
 LoginInput.propTypes = {
+  value: propTypes.string,
+  onChange: propTypes.func,
+  type: propTypes.string,
+  title: propTypes.string,
+  onFocus: propTypes.func
 }
 
 LoginInput.defaultProps = {
+  value: '',
+  onChange: () => {},
+  type: '',
+  title: '',
+  onFocus: () => {}
 }
 
 export default React.memo(LoginInput);

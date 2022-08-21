@@ -55,6 +55,7 @@ class BasketState extends StateModule{
       sum,
       amount: items.length
     }, 'Добавление в корзину');
+    localStorage.setItem("basket", JSON.stringify(this.store.getState().basket.items));
   }
 
   /**
@@ -74,8 +75,24 @@ class BasketState extends StateModule{
       items,
       sum,
       amount: items.length
-    }, 'Удаление из корзины')
+    }, 'Удаление из корзины');
+    localStorage.setItem("basket", JSON.stringify(this.store.getState().basket.items));
   }
+
+  //обновление корзины из localStorage
+  setFromStorage(json) {
+    const items = JSON.parse(json);
+    let sum = 0;
+    items.map(item => {
+      sum += item.price * item.amount;
+    });
+    this.setState({
+      items,
+      sum,
+      amount: items.length
+  }, 'Получение корзины из localStorage')
+}
+
 }
 
 export default BasketState;

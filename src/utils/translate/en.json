@@ -14,5 +14,20 @@
   "basket.unit": "pcs",
   "basket.delete": "Delete",
   "article.add": "Add",
-  "filter.reset": "Reset"
+  "filter.reset": "Reset",
+  "cabinet.name": "Name",
+  "cabinet.phone": "Phone",
+  "cabinet.email": "email",
+  "cabinet.h2": "Profile",
+  "login.login": "Login",
+  "login.pass": "Password",
+  "login.in": "Login",
+  "login.error": "Error",
+  "login.inButton": "Login",
+  "login": "Login",
+  "logout": "Logout",
+  "article.price": "Price:",
+  "article.country": "Country of Origin:",
+  "article.category": "Category:",
+  "article.year": "Production year:"
 }

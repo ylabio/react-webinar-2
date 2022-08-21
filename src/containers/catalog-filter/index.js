@@ -4,7 +4,8 @@ import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/select";
 import Input from "../../components/input";
-import LayoutFlex from "../../components/layout-flex";
+import LayoutFlex from "../../components/layouts/layout-flex";
+import categoryList from "../../utils/category-list";
 
 function CatalogFilter() {
 
@@ -13,11 +14,15 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    categoriesArr: state.catalog.categories
   }));
 
   const {t} = useTranslate();
 
   const callbacks = {
+    // Выбор каталога
+    onChange: useCallback(category => store.get('catalog').setParams({category, page: 1}), []),
     // Сортировка
     onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
     // Поиск
@@ -26,7 +31,7 @@ function CatalogFilter() {
     onReset: useCallback(() => store.get('catalog').resetParams(), [])
   };
 
-  // Опции для полей
+  // Опции для полей сортировки
   const options = {
     sort: useMemo(() => ([
       {value:'order', title: 'По порядку'},
@@ -35,9 +40,12 @@ function CatalogFilter() {
       {value:'edition', title: 'Древние'},
     ]), [])
   }
+  //опции для категорий
+  let cat = categoryList(select.categoriesArr);
 
   return (
     <LayoutFlex flex="start">
+      <Select onChange={callbacks.onChange} value={select.category} options={cat}/>
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

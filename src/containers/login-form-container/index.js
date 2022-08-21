@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import propTypes from 'prop-types';
 import LoginForm from '../../components/login-form';
 
@@ -13,13 +13,13 @@ function LoginFormContainer({
   const [showAlert, setShowAlert] = useState(false);
 
   const callbacks = {
-    login: () => {
+    login: useCallback(() => {
       const usernameLength = username.trim().length;
       const passwordLength = password.trim().length;
       if (usernameLength && passwordLength) {
         login(username, password);
       }
-    },
+    }, [username, password]),
   };
 
   useEffect(() => {

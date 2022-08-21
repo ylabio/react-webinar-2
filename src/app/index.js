@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
+import useSelector from "../hooks/use-selector";
+import {Routes, Route} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
-import useSelector from "../utils/use-selector";
-import {BrowserRouter, Routes, Route} from "react-router-dom";
-import Product from './product'
+import Article from "./article";
+import Login from './login';
+import Profile from './profile';
 
 /**
  * Приложение
@@ -11,20 +13,19 @@ import Product from './product'
  */
 function App() {
 
-    console.log('App');
+  const modal = useSelector(state => state.modals.name);
 
-    const modal = useSelector(state => state.modals.name);
-
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Main/>}/>
-                <Route path="/product/:id" element={<Product/>}/>
-            </Routes>
-            {modal === 'basket' && <Basket/>}
-
-        </BrowserRouter>
-    )
+  return (
+    <>
+      <Routes>
+        <Route path={''} element={<Main/>}/>
+        <Route path={"/articles/:id"} element={<Article/>}/>
+        <Route path={"/login"} element={<Login/>}/>
+        <Route path={"/profile"} element={<Profile/>}/>
+      </Routes>
+      {modal === 'basket' && <Basket/>}
+    </>
+  );
 }
 
 export default React.memo(App);

@@ -1,4 +1,18 @@
 import StateModule from "../module";
+import qs from 'qs';
+import categoriesToLabel from "../../utils/category-formatting";
+
+const QS_OPTIONS = {
+  stringify: {
+    addQueryPrefix: true,
+    arrayFormat: 'comma',
+    encode: false
+  },
+  parse: {
+    ignoreQueryPrefix: true,
+    comma: true
+  }
+}
 
 /**
  * Состояние каталога
@@ -12,51 +26,103 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      pagesLoaded: 0,
-      currentPage: 0,
-      maxPage: 0
+      categories: [],
+      count: 0,
+      params: {
+        page: 1,
+        limit: 10,
+        sort: 'order',
+        query: '',
+        category: ''
+      },
+      waiting: false
     };
   }
 
-  async load(pagesToSkip, pagesToLoad){
-    const requestURL = `/api/v1/articles?fields=items(*),count&limit=${pagesToLoad * 10}&skip=${pagesToSkip * 10}`
-    const response = await fetch(requestURL);
+  /**
+   * Инициализация параметров.
+   * Восстановление из query string адреса
+   * @param params
+   * @return {Promise<void>}
+   */
+  async initParams(params = {}){
+    // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
+    const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
+    let validParams = {};
+    if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
+    if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
+    if (urlParams.sort) validParams.sort = urlParams.sort;
+    if (urlParams.query) validParams.query = urlParams.query;
+    if (urlParams.category) validParams.category = urlParams.category;
 
-    const json = await response.json();
-    this.setState({ ...this.getState(),
-      items:  [...this.getState().items].concat(json.result.items),
-      pagesLoaded: this.getState().pagesLoaded+1,
-      maxPage: Math.ceil(json.result.count / 10)
-    });
+    // Итоговые параметры из начальных, из URL и из переданных явно
+    const newParams = {...this.initState().params, ...validParams, ...params};
+    // Установка параметров и подгрузка данных
+    await this.setParams(newParams, true);
   }
-  setPage(page) {
-    const currentPage = this.getState().currentPage
-    const pagesLoaded = this.getState().pagesLoaded
-    if (page === currentPage) return
-    if (page > pagesLoaded) {
-      this.load(currentPage, page - pagesLoaded)
-          .then(() => this.setState({...this.getState(), currentPage: page, pagesLoaded: page}))
+
+  /**
+   * Сброс параметров к начальным
+   * @param params
+   * @return {Promise<void>}
+   */
+  async resetParams(params = {}){
+    // Итоговые параметры из начальных, из URL и из переданных явно
+    const newParams = {...this.initState().params, ...params};
+    // Установк параметров и подгрузка данных
+    await this.setParams(newParams);
+  }
+
+  /**
+   * Устанвока параметров и загрузка списка товаров
+   * @param params
+   * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
+   * @returns {Promise<void>}
+   */
+  async setParams(params = {}, historyReplace = false){
+    const newParams = {...this.getState().params, ...params};
+
+    // Установка новых параметров и признака загрузки
+    this.setState({
+      ...this.getState(),
+      params: newParams,
+      waiting: true
+    });
+    
+    const category = newParams.category ? `&search[category]=${newParams.category}` : ''
+    const skip = (newParams.page - 1) * newParams.limit;
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}&${category}`);
+    const json = await response.json();
+
+    // Установка полученных данных и сброс признака загрузки
+    this.setState({
+      ...this.getState(),
+      items: json.result.items,
+      count: json.result.count,
+      waiting: false
+    });
+
+    // Запоминаем параметры в URL
+    let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);
+    const url = window.location.pathname + queryString + window.location.hash;
+    if (historyReplace) {
+      window.history.replaceState({}, '', url);
     } else {
-      this.setState({...this.getState(), currentPage: page})
+      window.history.pushState({}, '', url);
     }
   }
-  /**
-   * Создание записи
-   */
-  createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      items: this.getState().items.concat({_id, title, price, selected})
-    }, 'Создание товара');
-  }
 
-  /**
-   * Удаление записи по её коду
-   * @param _id
-   */
-  deleteItem(_id) {
+  // Инициализация категорий
+  async initCategories() {
+    // Загрузка категорий
+    const response = await fetch(`/api/v1/categories`);
+    const json = await response.json();
+    // Преобразование в массив с префиксами дочерних элементов
+    const categories = [{value: '', title: 'Все'}, ...categoriesToLabel(json.result.items)]
     this.setState({
-      items: this.getState().items.filter(item => item._id !== _id)
-    }, 'Удаление товара');
+      ...this.getState(),
+      categories
+    });
   }
 }
 

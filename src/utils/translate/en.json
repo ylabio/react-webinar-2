@@ -1,0 +1,27 @@
+{
+  "title": "Shop",
+  "menu.main": "Main",
+  "basket.title": "Cart",
+  "basket.open": "Open",
+  "basket.close": "Close",
+  "basket.inBasket": "In cart",
+  "basket.empty": "empty",
+  "basket.articles": {
+    "one": "article",
+    "other": "articles"
+  },
+  "basket.total": "Total",
+  "basket.unit": "pcs",
+  "basket.delete": "Delete",
+  "article.add": "Add",
+  "filter.reset": "Reset",
+  "user.login": "Log In",
+  "user.logout": "Log Out",
+  "login.title": "Log In",
+  "login.login": "Login",
+  "login.password": "Password",
+  "login.submit": "Enter",
+  "profile": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone"
+}

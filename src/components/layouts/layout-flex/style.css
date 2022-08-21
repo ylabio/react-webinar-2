@@ -32,3 +32,22 @@
 .LayoutFlex_flex_with-gap {
   gap: 20px;
 }
+
+.LayoutFlex_direction_row {
+  flex-direction: row;
+}
+
+.LayoutFlex_direction_column {
+  flex-direction: column;
+}
+
+.LayoutFlex_align_center {
+  align-items: center;
+}
+
+.LayoutFlex_align_start {
+  align-items: flex-start;
+}
+.LayoutFlex_align_end {
+  align-items: flex-end;
+}

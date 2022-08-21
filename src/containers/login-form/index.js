@@ -9,8 +9,7 @@ function LoginForm() {
   const {t} = useTranslate();
   const store = useStore();
   const select = useSelector(state => ({
-    login: state.auth.login,
-    isSigned: state.auth.isSigned
+    login: state.auth.login
   }));
 
   const callbacks = {

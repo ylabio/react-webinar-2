@@ -26,5 +26,9 @@
   "submit.login": "Login",
   "login.label": "Username",
   "password.label": "Password",
-  "login-form.head": "Login"
+  "login-form.head": "Login",
+  "profile.head": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone number",
+  "profile.email": "email"
 }

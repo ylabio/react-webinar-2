@@ -17,4 +17,4 @@ function AuthProvider({children}) {
 
 // AuthProvider.propTypes = {};
 
-export default AuthProvider;
+export default React.memo(AuthProvider);

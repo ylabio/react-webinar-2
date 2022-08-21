@@ -1,20 +1,19 @@
 import {cn as bem} from '@bem-react/classname';
 import propTypes from 'prop-types';
 import React from 'react';
+import LayoutFlex from '../layout-flex';
 
 import './style.css';
 
 function LayoutForm({head, children, onSubmit, submitText, error}) {
   const cn = bem('Form');
   return (
-    <div className={cn()}>
+    <LayoutFlex direction={'column'} align={'start'} flex={'with-gap'}>
       <div className={cn('head')}>{head}</div>
-      <div className={cn('main')}>
-        {children}
-        {error && <div className={cn('error')}>{error}</div>}
-        <button onClick={onSubmit}>{submitText}</button>
-      </div>
-    </div>
+      {children}
+      {error && <div className={cn('error')}>{error}</div>}
+      <button onClick={onSubmit}>{submitText}</button>
+    </LayoutFlex>
   );
 }
 

@@ -28,5 +28,9 @@
   "submit.login": "Войти",
   "login.label": "Логин",
   "password.label": "Пароль",
-  "login-form.head": "Вход"
+  "login-form.head": "Вход",
+  "profile.head": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+  "profile.email": "email"
 }

@@ -34,6 +34,7 @@ function CatalogList() {
     ), [t]),
   }
 
+  //Создание ссылок для страниц в пагинации
   const link = useMemo(() => (page) => {
     const location = window.location.pathname + window.location.search
     return location.replace('page=' + select.page, 'page=' + page)

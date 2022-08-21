@@ -14,7 +14,9 @@ function LoginTools(){
   const {t} = useTranslate();
 
   const callbacks = {
+    // Переход на страницу авторизации
     onLogin: useCallback(() => navigate('/login'), [navigate]),
+    // Запрос на деавторизацию пользователя
     onLogout: useCallback(() => store.get('login').logout(), []),
   }
 

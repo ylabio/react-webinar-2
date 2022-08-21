@@ -16,9 +16,13 @@ function LoginForm() {
   }))
 
   const callbacks = {
+    // Отправка запроса на авторизацию
     onLogin: useCallback(() => store.get('login').login(select.auth), []),
+    // Установка логина
     setLogin: useCallback((val) => store.get('login').setLogin(val), []),
+    // Установка пароля
     setPassword: useCallback((val) => store.get('login').setPassword(val), []),
+    // Сброс ошибки
     resetError: useCallback(() => store.get('login').resetError(), [])
   }
   return (

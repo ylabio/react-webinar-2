@@ -21,7 +21,7 @@ function Field({label, error, children}){
 
 Field.propTypes = {
   label: propTypes.node,
-  error: propTypes.string,
+  error: propTypes.node,
   children: propTypes.node,
 }
 

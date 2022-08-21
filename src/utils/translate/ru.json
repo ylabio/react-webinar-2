@@ -20,5 +20,7 @@
   "auth.title": "Вход",
   "auth.login": "Логин",
   "auth.password": "Пароль",
-  "auth.signIn": "Войти"
+  "auth.signIn": "Войти",
+  "session.signIn": "Вход",
+  "session.signOut": "Выход"
 }

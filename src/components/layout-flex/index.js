@@ -9,7 +9,7 @@ function LayoutFlex({children, flex, indent}){
   return (
     <div className={cn({flex, indent})}>
       {React.Children.map(children, (child) => (
-        <div key={child.key} className={cn('item')}>{child}</div>
+        child && <div key={child.key} className={cn('item')}>{child}</div>
       ))}
     </div>
   )

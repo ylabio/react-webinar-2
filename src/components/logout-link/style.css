@@ -5,9 +5,6 @@
 .LogoutLink button {
   margin-left: 20px;
 }
-.LogoutLink p {
-  margin: 0;
-  cursor: pointer;
-  text-decoration: underline;
+.LogoutLink a {
   color: #0087e9;
 }

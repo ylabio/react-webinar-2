@@ -9,9 +9,8 @@ function LoginForm(props) {
 
   const onHandleSubmit = (e) => {
     e.preventDefault();
-    console.log('from login form data loaded');
-    // if (!login || !password) return;
     props.onLogin(login, password);
+
     setLogin('');
     setPassword('');
   };

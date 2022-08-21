@@ -8,11 +8,21 @@ import LocaleSelect from '../../containers/locale-select';
 import ProfileCard from '../../components/profile-card';
 import UserMenu from '../user-menu';
 import { Navigate } from 'react-router-dom';
+import useStore from '../../hooks/use-store';
+import getCookies from '../../utils/get-cookies';
+import Spinner from '../../components/spinner';
 
 function Profile() {
+  const store = useStore();
+
+  React.useEffect(() => {
+    store.get('profile').checkUser(getCookies().token);
+  }, []);
+
   const select = useSelector((state) => ({
     user: state.profile.user,
     isLogged: state.profile.isLogged,
+    waiting: state.profile.waiting,
   }));
 
   const { t } = useTranslate();
@@ -30,9 +40,9 @@ function Profile() {
       }
     >
       <Tools />
-
-      <ProfileCard user={select.user} />
-
+      <Spinner active={select.waiting}>
+        <ProfileCard user={select.user} />
+      </Spinner>
       {!select.isLogged && <Navigate to="/login" />}
     </Layout>
   );

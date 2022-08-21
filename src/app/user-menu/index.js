@@ -6,6 +6,7 @@ import LoginLink from '../../components/login-link';
 import LogoutLink from '../../components/logout-link';
 import useInit from '../../hooks/use-init';
 import useTranslate from '../../hooks/use-translate';
+import { parse } from 'qs';
 
 function UserMenu() {
   const store = useStore();
@@ -19,18 +20,11 @@ function UserMenu() {
 
   useInit(() => {
     store.get('profile').initUser(JSON.parse(localStorage.getItem('user')));
-  }, [select.isLogged]);
+  }, []);
 
   const callbacks = {
-    // проверка профиля
-    checkUser: useCallback(
-      (token) => store.get('profile').checkUser(token),
-      []
-    ),
     // выход из профиля
     onLogout: useCallback((token) => store.get('profile').onLogout(token), []),
-    resetState: useCallback(() => store.get('profile').resetState(), []),
-    resetRedirect: useCallback(() => store.get('profile').resetRedirect(), []),
   };
 
   const links = {
@@ -43,12 +37,9 @@ function UserMenu() {
       {select.isLogged ? (
         <LogoutLink
           lableButton={t('user-menu.logout')}
-          checkUser={callbacks.checkUser}
-          resetState={callbacks.resetState}
-          userName={select.user.name}
+          userName={JSON.parse(localStorage.getItem('user')).name}
           onOut={callbacks.onLogout}
-          directTo={select.directTo}
-          resetRedirect={callbacks.resetRedirect}
+          link={links.profileLink}
         />
       ) : (
         <LoginLink lableButton={t('user-menu.login')} link={links.loginLink} />

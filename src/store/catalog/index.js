@@ -30,8 +30,12 @@ class CatalogState extends StateModule{
         page: 1,
         limit: 10,
         sort: 'order',
+        category: '',
         query: ''
       },
+      categories: [
+        
+      ],
       waiting: false
     };
   }
@@ -50,11 +54,15 @@ class CatalogState extends StateModule{
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
+    if (urlParams.category) validParams.category = urlParams.category;
 
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = {...this.initState().params, ...validParams, ...params};
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
+
+    // Получаем все категории из API
+    this.getAllCategories();
   }
 
   /**
@@ -86,7 +94,8 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    const category = newParams.category ? `&search[category]=${newParams.category}` : '';
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}` + category);
     const json = await response.json();
 
     // Установка полученных данных и сброс признака загрузки
@@ -105,6 +114,53 @@ class CatalogState extends StateModule{
     } else {
       window.history.pushState({}, '', url);
     }
+  }
+
+  clearCategories() {
+    this.setState({
+      ...this.getState(),
+      categories: [
+        {value:'all', title: 'Все'}
+      ]
+    });
+  }
+
+  async getAllCategories(){
+    this.clearCategories();
+    const response = await fetch(`/api/v1/categories`);
+    const json = await response.json();
+    const result = json.result.items;
+    let categories = [
+      
+    ];
+
+    result.filter( item => { return item.parent == undefined } ).map(item => {
+      categories = [...categories, {value: item._id, title: item.title}]
+      findChildrens(item._id)
+    })
+
+    // ! Плохо, надо переделать!!!
+    function findChildrens(parentID){
+      result.filter( itemChild => { return itemChild.parent != undefined && itemChild.parent._id == parentID } ).map(itemChild => {
+        categories = [...categories, {value: itemChild._id, title: "- " + itemChild.title}]
+
+        result.filter( itemChild2 => { return itemChild2.parent != undefined && itemChild2.parent._id == itemChild._id } ).map(itemChild2 => {
+          categories = [...categories, {value: itemChild2._id, title: "- - " + itemChild2.title}]
+
+          result.filter( itemChild3 => { return itemChild3.parent != undefined && itemChild3.parent._id == itemChild2._id } ).map(itemChild3 => {
+            categories = [...categories, {value: itemChild3._id, title: "- - - " + itemChild3.title}]
+          })
+        })
+      })
+    }
+
+    this.setState({
+      ...this.getState(),
+      categories: [
+        ...this.getState().categories,
+        ...categories
+      ]
+    });
   }
 }
 

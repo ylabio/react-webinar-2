@@ -4,7 +4,7 @@ import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import Menu from "../../components/menu";
 import BasketSimple from "../../components/baskets/basket-simple";
-import LayoutFlex from "../../components/layout-flex";
+import LayoutFlex from "../../components/layouts/layout-flex";
 
 function Tools() {
 

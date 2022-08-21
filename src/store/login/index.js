@@ -12,9 +12,9 @@ class LogState extends StateModule {
     };
   }
 
-  async setLogin() {
+  async setLogin(a) {
     this.setState({
-      log: true,
+      log: a,
     });
   }
 }

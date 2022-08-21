@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Link } from "react-router-dom";
 import useStore from "../../hooks/use-store";
+import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import CatalogFilter from "../../containers/catalog-filter";
@@ -23,6 +24,31 @@ function Main() {
 
   const { t } = useTranslate();
 
+  const select = useSelector((state) => ({
+    log: state.login.log,
+  }));
+
+  const callbacks = {
+    // вход/выход
+    setLogin: useCallback(
+      () => store.get("login").setLogin(!select.log),
+      [select.log]
+    ),
+  };
+
+  const btn = (title) => {
+    return (
+      <button
+        onClick={(e) => {
+          callbacks.setLogin();
+          e.preventDefault();
+        }}
+      >
+        {title}
+      </button>
+    );
+  };
+
   return (
     <Layout
       head={
@@ -31,10 +57,19 @@ function Main() {
           <LocaleSelect />
         </LayoutFlex>
       }
-      authorization={
-        <Link to="/login">
-          <button>Вход</button>
-        </Link>
+      btn={
+        select.log ? (
+          <>
+            <Link to="/profil">
+              <button>ggg</button>
+            </Link>
+            {btn("выйте")}
+          </>
+        ) : (
+          <Link to="/login">
+            <button>Вход</button>
+          </Link>
+        )
       }
     >
       <Tools />

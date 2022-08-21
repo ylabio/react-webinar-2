@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -7,6 +7,7 @@ import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import Tools from "../../containers/tools";
 import Form from "../../components/form";
+import Prof from "../../components/prof";
 import Cabinet from "../../components/layout-cabinet";
 import LocaleSelect from "../../containers/locale-select";
 
@@ -29,10 +30,8 @@ function Authorization() {
     ),
   };
 
-  const [state, setState] = useState({ login: "", password: "" });
-
   useEffect(() => {
-    if (select.log) {
+    if (!select.log) {
       return navigate("/");
     }
   }, [select.log]);
@@ -49,7 +48,7 @@ function Authorization() {
       </button>
     );
   };
-  console.log("state", state);
+
   return (
     <Layout
       head={
@@ -58,15 +57,11 @@ function Authorization() {
           <LocaleSelect />
         </LayoutFlex>
       }
-      btn={
-        <Link to="/login">
-          <button>Вход</button>
-        </Link>
-      }
+      btn={<Link to="/">{btn("выйте")}</Link>}
     >
       <Tools />
       <Cabinet head={"Вход"}>
-        <Form btn={btn("войти")} state={state} setState={setState} />
+        <Prof />
       </Cabinet>
     </Layout>
   );

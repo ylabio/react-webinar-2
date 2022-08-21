@@ -22,7 +22,7 @@ function Profile() {
   }, [select.user, select.loadingErr, select.isLoading, nav])
 
   return (
-    <Page title={"Магазин"}>
+    <Page title={t('title')}>
       <Spinner active={select.isLoading}>
         <ProfileInfo user={select.user} t={t} />
       </Spinner>

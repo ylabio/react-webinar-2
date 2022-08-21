@@ -6,7 +6,7 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layouts/layout-flex";
 import Layout from "../../components/layouts/layout";
 import LocaleSelect from "../../containers/locale-select";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import LoginForm from "../../components/admin/login-form";
 import PanelLogin from "../../containers/panel-login";
 import useSelector from "../../hooks/use-selector";
@@ -15,6 +15,9 @@ import Spinner from "../../components/spinner";
 function Login() {
   const store = useStore();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  console.log(location)
 
   useInit(async () => {
     await store.get('login').checkLogin();
@@ -27,8 +30,11 @@ function Login() {
   }));
 
   useEffect(() => {
-    if (select.isAuth) {
-      navigate(-1);
+    if (select.isAuth && location.key === 'default') {
+      navigate('/profile', {replace: true});
+    }
+    if (select.isAuth && location.key !== 'default') {
+      navigate(-1, {replace: true});
     }
   }, [select.isAuth])
 

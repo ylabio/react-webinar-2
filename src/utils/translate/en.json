@@ -18,5 +18,15 @@
   "country": "Origin",
   "category": "Category",
   "edition": "Edition",
-  "price": "Price"
+  "price": "Price",
+  "profile.login": "Login",
+  "profile.logout": "Logout",
+  "login.title": "Authorisation",
+  "login.login": "Login",
+  "login.password": "Password",
+  "login.send": "Send",
+  "profile.title": "Profile",
+  "profile.name": "Name:",
+  "profile.phone": "Phone:",
+  "profile.email": "email:"
 }

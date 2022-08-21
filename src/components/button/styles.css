@@ -14,3 +14,7 @@
 .Button:hover{
   opacity: 0.8;
 }
+
+.Button_profileSimple {
+  width: 47px;
+}

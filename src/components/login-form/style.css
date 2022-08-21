@@ -1,0 +1,17 @@
+.LoginForm {
+  padding: 20px;
+}
+
+.LoginForm input,
+.LoginForm label,
+.LoginForm button {
+  display: block;
+}
+
+.LoginForm form > * + * {
+  margin-top: 20px;
+}
+
+.LoginForm-error {
+  color: #ff0000;
+}

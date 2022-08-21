@@ -2,15 +2,14 @@ import React from 'react';
 import useStore from '../../hooks/use-store';
 import useInit from '../../hooks/use-init';
 import useTranslate from '../../hooks/use-translate';
-import CatalogFilter from '../../containers/catalog-filter';
-import CatalogList from '../../containers/catalog-list';
 import Tools from '../../containers/tools';
 import LayoutFlex from '../../components/layout-flex';
 import Layout from '../../components/layout';
 import LocaleSelect from '../../containers/locale-select';
 import LoginTools from '../../containers/login-tools';
+import LoginForm from '../../components/login-form';
 
-function Main() {
+function Login() {
   const store = useStore();
 
   useInit(
@@ -36,10 +35,9 @@ function Main() {
       }
     >
       <Tools />
-      <CatalogFilter />
-      <CatalogList />
+      <LoginForm />
     </Layout>
   );
 }
 
-export default React.memo(Main);
+export default React.memo(Login);

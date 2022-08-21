@@ -13,11 +13,15 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    catList: state.category.items,
   }));
 
   const {t} = useTranslate();
 
   const callbacks = {
+    //По категории
+    onCat: useCallback(category => store.get('catalog').setParams({category}), []),
     // Сортировка
     onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
     // Поиск
@@ -38,6 +42,7 @@ function CatalogFilter() {
 
   return (
     <LayoutFlex flex="start">
+      <Select onChange={callbacks.onCat} value={select.category} options={select.catList} />
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

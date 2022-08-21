@@ -1,0 +1,14 @@
+.AuthAction {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 20px;
+}
+.AuthAction-profile {
+	font-size: 13px;
+	line-height: 15px;
+	color: #0087e9;
+}
+.AuthAction-profile:hover {
+	text-decoration: none;
+}

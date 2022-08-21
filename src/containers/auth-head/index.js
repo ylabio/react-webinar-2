@@ -1,14 +1,22 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import LayoutFlex from '../../components/layout-flex';
+import React, { useCallback } from 'react';
+import AuthAction from '../../components/auth-action';
+import useSelector from '../../hooks/use-selector';
+import useStore from '../../hooks/use-store';
 
 function AuthHead() {
+	const store = useStore();
+
+	const { isAuth, user } = useSelector((state) => ({
+		isAuth: state.user.isAuth,
+		user: state.user.user,
+	}));
+
+	const callbacks = {
+		onLogout: useCallback(() => store.get('user').logout(), []),
+	};
+
 	return (
-		<LayoutFlex flex='end' padding={false}>
-			<Link to='/login'>
-				<button>Вход</button>
-			</Link>
-		</LayoutFlex>
+		<AuthAction isAuth={isAuth} user={user} onLogout={callbacks.onLogout} />
 	);
 }
 

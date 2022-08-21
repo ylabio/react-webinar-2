@@ -1,56 +1,41 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import propTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname';
-import throttle from "lodash.throttle";
+import React from 'react';
+import propTypes from 'prop-types';
+import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 function TextField(props) {
-  const cn = bem('TextField');
+	const cn = bem('TextField');
 
-  // Внутренний стейт по умолчанию с переданным value
-  const [value, change] = useState(props.value);
-
-  // Задержка для вызова props.onChange
-  const changeThrottle = useCallback(throttle(value => props.onChange(value), 1000), [props.onChange]);
-
-  // Обработчик изменений в поле
-  const onChange = useCallback(event => {
-    change(event.target.value);
-    changeThrottle(event.target.value);
-  }, [change, changeThrottle]);
-
-  // Обновление стейта, если передан новый value
-  useEffect(() => {
-    change(props.value);
-  }, [props.value]);
-
-  return (
-    <label className={cn({ theme: props.theme })}>
-      {props.label}
-      <input
-        value={value}
-        type={props.type}
-        placeholder={props.placeholder}
-        onChange={onChange}
-      />
-    </label>
-  )
+	return (
+		<div className={cn()}>
+			<label htmlFor={props.name}>{props.label}</label>
+			<input
+        id={props.id}
+				type={props.type}
+				value={props.value}
+				name={props.name}
+				placeholder={props.placeholder}
+				onChange={props.onChange}
+			/>
+		</div>
+	);
 }
 
 TextField.propTypes = {
-  label: propTypes.string,
-  value: propTypes.string,
-  type: propTypes.string,
-  placeholder: propTypes.string,
-  onChange: propTypes.func,
-  theme: propTypes.string,
-}
+	id: propTypes.string,
+	label: propTypes.string,
+	name: propTypes.string,
+	value: propTypes.string,
+	type: propTypes.string,
+	onChange: propTypes.func,
+	placeholder: propTypes.string,
+};
 
 TextField.defaultProps = {
-  label: '',
-  onChange: () => {},
-  type: 'text',
-  theme: ''
-}
+	label: '',
+	name: '',
+	type: 'text',
+	onChange: () => {},
+};
 
 export default React.memo(TextField);

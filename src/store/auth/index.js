@@ -11,7 +11,7 @@ class AuthState extends StateModule {
   initState() {
     return {
       isSigned: false,
-      username: '',
+      token: '',
 
       login: {
         username: '',
@@ -21,10 +21,36 @@ class AuthState extends StateModule {
     };
   }
 
-  login() {
+  async login() {
+    const login = this.getState().login.username;
+    const password = this.getState().login.password;
+
+    let token = '';
+    let error = '';
+
+    const response = await fetch('api/v1/users/sign', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({login, password}),
+      method: 'POST'
+    });
+
+    if (!response.ok) {
+      error = response.statusText;
+    } else {
+      token = (await response.json()).result.token;
+      localStorage.setItem('auth-token', token);
+    }
+
     this.setState({
-      isSigned: true,
-      username: 'test'
+      ...this.getState(),
+      isSigned: error ? false : true,
+      login: {
+        ...this.getState().login,
+        error,
+        token
+      }
     });
   }
 
@@ -37,6 +63,17 @@ class AuthState extends StateModule {
       login: {
         ...this.getState().login,
         ...data
+      }
+    });
+  }
+
+  clearInputFields() {
+    this.setState({
+      ...this.getState(),
+      login: {
+        username: '',
+        password: '',
+        error: ''
       }
     });
   }

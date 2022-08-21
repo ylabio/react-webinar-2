@@ -1,3 +1,4 @@
+import propTypes from 'prop-types';
 import React, {useCallback, useMemo} from 'react';
 import {useNavigate} from 'react-router-dom';
 import LayoutFlex from '../../components/layouts/layout-flex';
@@ -5,7 +6,7 @@ import LoginControls from '../../components/login/login-controls';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
 
-function CommonTopbar() {
+function CommonTopbar({redirectPage}) {
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
@@ -34,9 +35,18 @@ function CommonTopbar() {
         username={select.username}
         isSigned={select.isSigned}
         onLogin={callbacks.onLoginClick}
+        loginUrl={`/login/${redirectPage}`}
       ></LoginControls>
     </LayoutFlex>
   );
 }
+
+CommonTopbar.propTypes = {
+  redirectPage: propTypes.string
+};
+
+CommonTopbar.defaultProps = {
+  redirectPage: 'profile'
+};
 
 export default React.memo(CommonTopbar);

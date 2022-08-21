@@ -27,7 +27,7 @@ function Main() {
   }, []);
 
   return (
-    <Layout head={<CommonHead />} topbar={<CommonTopbar />}>
+    <Layout head={<CommonHead />} topbar={<CommonTopbar redirectPage={''} />}>
       <Tools />
       <CatalogFilter />
       <CatalogList />

@@ -15,3 +15,7 @@
 .Form-main button {
   width: fit-content;
 }
+
+.Form-error {
+  color: red;
+}

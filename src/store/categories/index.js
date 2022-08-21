@@ -10,18 +10,21 @@ export default class CategoriesState extends StateModule {
   async getCategories() {
     const res = await fetch('/api/v1/categories')
     const data = await res.json()
-    const mapped = data.result.items.map(el => ({
+    const mapped = data.result.items.map(el => ({ // t = O(n) m = O(n) 
       id: el._id,
       title: el.title,
       parent: el.parent?._id
     }))
     
-    const prefixes = {}
+    const prefixes = {} // m = O(n)
 
-    const children = { 0: [] }
-    const root = { id: 0, nodes: children[0] }
+    const children = { 0: [] } // m = O(n)
+    const root = { id: 0, nodes: children[0] } // m = O(1)
+
+    const sorted = [] // m = O(n)
 
     // Делаем дерево
+    // t = O(n)
     mapped.forEach((v) => {
       children[v.id] = children[v.id] || []
       children[v.parent || 0] = children[v.parent || 0] || []
@@ -29,10 +32,13 @@ export default class CategoriesState extends StateModule {
       children[v.parent || 0].push(v)
     })
     
-    // Делаем мапу с префиксами
+    // Делаем мапу с префиксами, обходя дерево
     // Делаем рассчёт на основании уже имеющихся данных от родителя
+    // Попутно сортируем, т.к. порядок при обходе - иерархический
+    // t = O(n), так как в дереве все элементы в 1-м экземляре
     const prefixesMaker = (obj) => {
       for (let k of obj.nodes) {
+        sorted.push(k)
         prefixes[k.id] = typeof prefixes[k.parent] !== 'undefined' ? prefixes[k.parent] + '-' : ''
         prefixesMaker(k)
       }
@@ -40,20 +46,16 @@ export default class CategoriesState extends StateModule {
     prefixesMaker(root)
 
     // Добавляем префиксы к title'ам
-    mapped.forEach((v) => {
+    // t = O(n)
+    sorted.forEach((v) => {
       v.title = prefixes[v.id] + v.title
     })
 
-    mapped.forEach((v, idx) => {
-      if (v.parent) {
-        mapped.splice(mapped.findIndex(el => el.id === v.parent) + 1, 0, v)
-        mapped.splice(idx + 1, 1)
-      }
-    })
 
+    // Итого: t = O(4n) ~ O(n), m = O(4n + 1) ~ O(n)
     this.setState({
       ...this.getState(),
-      categories: mapped
+      categories: sorted
     }, 'Установка категорий')
   }
 }

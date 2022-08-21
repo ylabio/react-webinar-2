@@ -1,5 +1,6 @@
 import StateModule from "../module";
 import qs from 'qs';
+import sortingCategory from "../../utils/sortingCategory";
 
 const QS_OPTIONS = {
   stringify: {
@@ -16,7 +17,7 @@ const QS_OPTIONS = {
 /**
  * Состояние каталога
  */
-class CatalogState extends StateModule{
+class CatalogState extends StateModule {
 
   /**
    * Начальное состояние
@@ -30,8 +31,10 @@ class CatalogState extends StateModule{
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        _id: "0",
       },
+      category: [],
       waiting: false
     };
   }
@@ -42,7 +45,7 @@ class CatalogState extends StateModule{
    * @param params
    * @return {Promise<void>}
    */
-  async initParams(params = {}){
+  async initParams(params = {}) {
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
     let validParams = {};
@@ -52,7 +55,7 @@ class CatalogState extends StateModule{
     if (urlParams.query) validParams.query = urlParams.query;
 
     // Итоговые параметры из начальных, из URL и из переданных явно
-    const newParams = {...this.initState().params, ...validParams, ...params};
+    const newParams = { ...this.initState().params, ...validParams, ...params };
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
   }
@@ -62,9 +65,9 @@ class CatalogState extends StateModule{
    * @param params
    * @return {Promise<void>}
    */
-  async resetParams(params = {}){
+  async resetParams(params = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
-    const newParams = {...this.initState().params, ...params};
+    const newParams = { ...this.initState().params, ...params };
     // Установк параметров и подгрузка данных
     await this.setParams(newParams);
   }
@@ -75,8 +78,9 @@ class CatalogState extends StateModule{
    * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
    * @returns {Promise<void>}
    */
-  async setParams(params = {}, historyReplace = false){
-    const newParams = {...this.getState().params, ...params};
+  async setParams(params = {}, historyReplace = false) {
+    const newParams = { ...this.getState().params, ...params };
+    newParams._id === this.getState().params._id ? "" : newParams.page = 1;
 
     // Установка новых параметров и признака загрузки
     this.setState({
@@ -85,17 +89,39 @@ class CatalogState extends StateModule{
       waiting: true
     });
 
+    const category = newParams._id === '0' ? "" : `&search[category]=${newParams._id}`;
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${category}`);
     const json = await response.json();
 
-    // Установка полученных данных и сброс признака загрузки
-    this.setState({
-      ...this.getState(),
-      items: json.result.items,
-      count: json.result.count,
-      waiting: false
-    });
+
+
+
+    // Проверка пустой ли массив категорий
+    if (this.getState().category.length === 0) {
+      const responseCategory = await fetch(`api/v1/categories`);
+      const jsonCategory = await responseCategory.json();
+      const sortCategory = sortingCategory(jsonCategory.result.items);
+
+      this.setState({
+        ...this.getState(),
+        items: json.result.items,
+        count: json.result.count,
+        category: sortCategory,
+        waiting: false
+      });
+
+
+    }
+    else {
+      // Установка полученных данных и сброс признака загрузки
+      this.setState({
+        ...this.getState(),
+        items: json.result.items,
+        count: json.result.count,
+        waiting: false
+      });
+    }
 
     // Запоминаем параметры в URL
     let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);

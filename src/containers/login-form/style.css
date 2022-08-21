@@ -1,0 +1,24 @@
+.login-container {
+  display: inline-block;
+  max-width: 203px;
+  margin-top: 62px;
+  padding: 0 20px;
+}
+
+.login-form {
+  padding-top: 29px;
+  display: flex;
+  flex-direction: column;
+}
+
+.password-label {
+  margin-top: 19px;
+}
+
+.login-button {
+  align-self: flex-start;
+}
+
+.error {
+  color: #ff0000;
+}

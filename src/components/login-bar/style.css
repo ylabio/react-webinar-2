@@ -1,0 +1,14 @@
+.bar-panel {
+  display: flex;
+  max-width: 1024px;
+  height: 41px;
+  background: #fff;
+  margin: 0 auto;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+}
+
+.bar-button {
+  margin-right: 20px;
+}

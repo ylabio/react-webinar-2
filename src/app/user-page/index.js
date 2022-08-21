@@ -24,7 +24,7 @@ function UserPage() {
   return (
     <>
       {Object.keys(user).length === 0 ? (
-        <Navigate replace to="/" />
+        <Navigate replace to="/login" />
       ) : (
         <Layout
           head={

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -49,14 +49,6 @@ function LoginPage() {
       });
   }
 
-  function handleChange(e) {
-    setLogin(e.target.value);
-  }
-
-  function handlePassChange(e) {
-    setPassword(e.target.value);
-  }
-
   const callbacks = {
     handleLoginChange: useCallback((e) => setLogin(e.target.value), []),
     handlePasswordChange: useCallback((e) => setPassword(e.target.value), []),
@@ -66,26 +58,32 @@ function LoginPage() {
   };
 
   return (
-    <Layout
-      head={
-        <LayoutFlex flex="between">
-          <h1>{t('title')}</h1>
-          <LocaleSelect />
-        </LayoutFlex>
-      }
-    >
-      <Tools />
-      <Spinner active={select.waiting}>
-        <Login
-          onSubmit={callbacks.handleSubmit}
-          login={login}
-          password={password}
-          error={error}
-          handleLoginChange={/* callbacks.handleLoginChange */ handleChange}
-          handlePasswordChange={/* callbacks.handlePasswordChange */ handlePassChange}
-        />
-      </Spinner>
-    </Layout>
+    <>
+      {Object.keys(userStore.store.state.user.user).length === 0 ? (
+        <Layout
+          head={
+            <LayoutFlex flex="between">
+              <h1>{t('title')}</h1>
+              <LocaleSelect />
+            </LayoutFlex>
+          }
+        >
+          <Tools />
+          <Spinner active={select.waiting}>
+            <Login
+              onSubmit={callbacks.handleSubmit}
+              login={login}
+              password={password}
+              error={error}
+              handleLoginChange={callbacks.handleLoginChange}
+              handlePasswordChange={callbacks.handlePasswordChange}
+            />
+          </Spinner>
+        </Layout>
+      ) : (
+        <Navigate replace to="/" />
+      )}
+    </>
   );
 }
 

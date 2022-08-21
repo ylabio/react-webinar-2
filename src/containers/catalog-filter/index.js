@@ -37,7 +37,7 @@ function CatalogFilter() {
 
   function getSelectList(list, parentId = undefined, determinant = '') {
     const SelectList = [];
-    list.map((item) => {
+    list.forEach((item) => {
       if (parentId === item.parent) {
         item.title = determinant + item.title;
         SelectList.push(item);

@@ -25,66 +25,10 @@ function CatalogFilter() {
     filterCategory: useCallback((category) => store.get("catalog").setParams({ category }), []),
     // Поиск
     onSearch: useCallback(
-      (query) => store.get("catalog").setParams({ query, page: 1 }),
-      []
-    ),
+      (query) => store.get("catalog").setParams({ query, page: 1 }), []),
     // Сброс
     onReset: useCallback(() => store.get("catalog").resetParams(), []),
   };
-
-  // useEffect(() => {
-
-  //   (async function rec() {
-  //     store.get("catalog").getCategory();
-
-  //     let items = await store.get("catalog").getCategory();
-  //     console.log("category: ", items);
-
-  //     let tree = [];
-  //     for (let i = 0; i < items.length; i++) {
-  //       items[i].level = 0;
-  //       const getLevel = (item) => {
-  //         if (item?.parent?._id) {
-  //           const parent = items.find(
-  //             (parent) => item.parent._id === parent._id
-  //           );
-
-  //           if (parent) {
-  //             if (parent.children?.length) {
-  //               !parent.children.includes(item) && parent.children.push(item);
-  //             } else parent.children = [item];
-  //             items[i].level++
-  //             getLevel(parent);
-  //           } else return;
-  //         } else return;
-  //       };
-  //       getLevel(items[i]);
-  //       if (items[i].level === 0) tree.push(items[i]);
-  //       else continue;
-  //     }
-  //     console.log("tree: ", tree);
-
-  //     let categoryList = [];
-  //     const setArray = (items) => {
-  //       items.forEach((item) => {
-  //         const cat = {
-  //           title: `${'-'.repeat(item.level)}${item.title}`,
-  //           value: item._id
-  //         }
-  //         categoryList.push(cat);
-  //         if (item?.children?.length) {
-  //           setArray(item.children);
-  //         } else return;
-  //       });
-  //     };
-  //     setArray(tree);
-  //     console.log("categoryList: ", categoryList);
-
-  //     setCategoryList(prev => [...prev, ...categoryList])
-      
-  //   })();
-
-  // }, []);
 
   // Опции для полей
   const options = {
@@ -94,9 +38,7 @@ function CatalogFilter() {
         { value: "title.ru", title: "По именованию" },
         { value: "-price", title: "Сначала дорогие" },
         { value: "edition", title: "Древние" },
-      ],
-      []
-    )
+      ], [])
   };
 
   return (

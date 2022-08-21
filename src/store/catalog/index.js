@@ -1,5 +1,7 @@
 import StateModule from "../module";
 import qs from "qs";
+import { createTree } from "../../utils/createTree";
+import { createCategoryList } from "../../utils/createCategoryList";
 
 const QS_OPTIONS = {
   stringify: {
@@ -114,20 +116,6 @@ class CatalogState extends StateModule {
     }
   }
 
-    /**
-   * Получить товары по категории
-   * @return {Promise<void>}
-   */
-     async getByCategory(id) {
-      const response = await fetch(
-        `api/v1/categories?lang=ru&limit=100&skip=0&fields=%2A${
-          id ? `&search[parent]=${id}` : ""
-        }`
-      );
-      const json = await response.json();
-      let items = json.result.items;
-     }
-
   /**
    * Получить все категории
    * @return {Promise<void>}
@@ -135,50 +123,18 @@ class CatalogState extends StateModule {
   async getCategorys(id) {
     const response = await fetch('api/v1/categories');
     const json = await response.json();
-    let items = json.result.items;
+    const items = json.result.items;
 
-    let tree = [];
-    for (let i = 0; i < items.length; i++) {
-      items[i].level = 0;
-      const getLevel = (item) => {
-        if (item?.parent?._id) {
-          const parent = items.find((parent) => item.parent._id === parent._id);
-
-          if (parent) {
-            if (parent.children?.length) {
-              !parent.children.includes(item) && parent.children.push(item);
-            } else parent.children = [item];
-            items[i].level++;
-            getLevel(parent);
-          } else return;
-        } else return;
-      };
-      getLevel(items[i]);
-      if (items[i].level === 0) tree.push(items[i]);
-      else continue;
-    }
+    const tree = createTree(items);
     console.log("tree: ", tree);
 
-    let categoryList = [];
-    const setArray = (items) => {
-      items.forEach((item) => {
-        const cat = {
-          title: `${"-".repeat(item.level)}${item.title}`,
-          value: item._id,
-        };
-        categoryList.push(cat);
-        if (item?.children?.length) {
-          setArray(item.children);
-        } else return;
-      });
-    };
-    setArray(tree);
+    const categoryList = createCategoryList(tree)
     console.log("categoryList: ", categoryList);
 
-    //
+    // Установка полученных данных
     this.setState({
       ...this.getState(),
-      categoryList: [...this.getState().categoryList, ...categoryList]
+      categoryList: [{ title: 'Все', value: '' }, ...categoryList]
     });
   }
 }

@@ -1,12 +1,20 @@
-import React, {useCallback, useRef} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
+import {useNavigate} from "react-router-dom";
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
 
-function LoginForm({errorMessage, onLogin}){
+function LoginForm({status, errorMessage, onLogin}){
+  const navigate = useNavigate();
   const loginRef = useRef(null);
   const passwordRef = useRef(null);
   const cn = bem('LoginForm');
+
+  useEffect(() => {
+    if (status === 'auth') {
+      navigate(-1);
+    }
+  }, [status]);
 
   const onFormSubmit = useCallback((e) => {
     e.preventDefault();

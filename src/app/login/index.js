@@ -19,7 +19,8 @@ function Login(){
   };
 
   const select = useSelector(state => ({
-    error: state.login.error
+    error: state.login.error,
+    status: state.login.status,
   }));
 
   return (
@@ -31,7 +32,7 @@ function Login(){
     }>
       <Tools/>
       <LoginMenu/>
-      <LoginForm errorMessage={select.error} onLogin={callbacks.login}/>
+      <LoginForm errorMessage={select.error} status={select.status} onLogin={callbacks.login}/>
     </Layout>
   )
 }

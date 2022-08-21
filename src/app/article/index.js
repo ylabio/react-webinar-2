@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import {useParams} from "react-router-dom";
@@ -21,6 +21,11 @@ function Article(){
   useInit(async () => {
     await store.get('article').load(params.id);
   }, [params.id]);
+
+  // Сбрасываем данные о товаре при демонтировании компонента
+  useEffect(() => {
+    return () => store.get('article').resetArticle();
+  }, []);
 
   const select = useSelector(state => ({
     article: state.article.data,

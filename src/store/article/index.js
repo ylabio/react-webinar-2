@@ -44,6 +44,16 @@ class ArticleState extends StateModule{
       });
     }
   }
+
+  /**
+   * Удаление данных о товаре из стора
+   */
+   async resetArticle(){
+    this.setState({
+      data: {},
+      waiting: false
+    });
+  }
 }
 
 export default ArticleState;

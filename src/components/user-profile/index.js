@@ -9,26 +9,22 @@ function UserProfile(props) {
     <div className={cn()}>
       <div className={cn('prop')}>
         <div className={cn('label')}>Имя</div>
-        <div className={cn('value')}>User №1</div>
+        <div className={cn('value')}>{props.user?.profile?.name}</div>
       </div>
       <div className={cn('prop')}>
         <div className={cn('label')}>Телефон:</div>
-        <div className={cn('value')}>+70000000001</div>
+        <div className={cn('value')}>{props.user?.profile?.phone}</div>
       </div>
       <div className={cn('prop')}>
         <div className={cn('label')}>email:</div>
-        <div className={cn('value')}>test_50@example.com</div>
+        <div className={cn('value')}>{props.user?.email}</div>
       </div>
     </div>
   )
 }
 
 UserProfile.propTypes = {
-
-}
-
-UserProfile.defaultProps = {
- 
+  user: propTypes.object.isRequired
 }
 
 export default React.memo(UserProfile);

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
@@ -8,8 +8,7 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
-import MenuRegister from "../../components/menu-register";
-
+import TopHead from "../../containers/top-head";
 
 function Main() {
   const store = useStore();
@@ -17,6 +16,7 @@ function Main() {
   useInit(async () => {
     await store.get('catalog').initParams();
     await store.get('category').loadCategory();
+    await store.get('authorization').loadUser();
   }, [], {backForward: true});
 
   const {t} = useTranslate();
@@ -29,7 +29,7 @@ function Main() {
           <LocaleSelect/>
         </LayoutFlex>}
         topHead={
-        <MenuRegister link={'/login'}/>
+          <TopHead/>
         }>
       <Tools/>
       <CatalogFilter/>

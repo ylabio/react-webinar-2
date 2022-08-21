@@ -38,7 +38,7 @@
     padding: 10px 0;
     margin: 0;
 }
-.FormLogin-btn a {
+.FormLogin-btn {
     background: #EFEFEF;
     color: black;
     border: 1px solid #767676;
@@ -48,8 +48,8 @@
     font-size: 13px;
     min-width: 47px;
     min-height: 21px;
-    text-decoration: none; 
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }

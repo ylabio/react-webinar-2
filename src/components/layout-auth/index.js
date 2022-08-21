@@ -23,7 +23,4 @@ LayoutAuth.propTypes = {
   children: propTypes.node,
 }
 
-LayoutAuth.defaultProps = {
-}
-
 export default React.memo(LayoutAuth);

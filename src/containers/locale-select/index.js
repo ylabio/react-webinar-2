@@ -1,10 +1,10 @@
 import React, {useMemo} from "react";
 import useTranslate from "../../hooks/use-translate";
-import Select from "../../components/select";
+import Select from "../../components/elements/select";
 
 function LocaleSelect() {
 
-  const {lang, setLang, t} = useTranslate();
+  const {lang, setLang} = useTranslate();
 
   const options = {
     lang: useMemo(() => ([

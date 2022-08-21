@@ -41,14 +41,14 @@ class Store {
    */
   setState(newState, description = 'setState') {
 
-    console.group(
-      `%c${'store.setState'} %c${description}`,
-      `color: ${'#777'}; font-weight: normal`,
-      `color: ${'#333'}; font-weight: bold`,
-    );
-    console.log(`%c${'prev:'}`, `color: ${'#d77332'}`, this.state);
-    console.log(`%c${'next:'}`, `color: ${'#2fa827'}`, newState);
-    console.groupEnd();
+    // console.group(
+    //   `%c${'store.setState'} %c${description}`,
+    //   `color: ${'#777'}; font-weight: normal`,
+    //   `color: ${'#333'}; font-weight: bold`,
+    // );
+    // console.log(`%c${'prev:'}`, `color: ${'#d77332'}`, this.state);
+    // console.log(`%c${'next:'}`, `color: ${'#2fa827'}`, newState);
+    // console.groupEnd();
 
     this.state = newState;
     // Оповещаем всех подписчиков об изменении стейта

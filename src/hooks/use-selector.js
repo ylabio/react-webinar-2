@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import shallowequal from 'shallowequal';
 import useStore from "./use-store";
 
@@ -6,15 +6,17 @@ import useStore from "./use-store";
  * Хук для доступа к объекту хранилища
  * @return {Store|{}}
  */
-export default function useSelector(selector){
+export default function useSelector(selector) {
 
   const store = useStore();
 
   const [state, setState] = useState(() => selector(store.getState()));
 
-  useEffect(() => {
-    // Подписка на последующие изменения в store
-    return store.subscribe(() => {
+  const unsubscribe = useRef(null);
+
+  // Подписка на Store, если ещё не подписаны
+  if (unsubscribe.current === null) {
+    unsubscribe.current = store.subscribe(() => {
       // Новая выборка
       const newState = selector(store.getState());
       // Установка выбранных данных, если они изменились
@@ -23,6 +25,10 @@ export default function useSelector(selector){
         return shallowequal(prevState, newState) ? prevState : newState
       });
     });
+  }
+
+  useEffect(() => {
+    return unsubscribe.current
   }, []);
 
   return state;

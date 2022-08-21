@@ -5,6 +5,7 @@ import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
+import formCategories from "../../utils/form-categories";
 
 function CatalogFilter() {
   const store = useStore();
@@ -13,6 +14,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     filter: state.catalog.params.filter,
+    categories: state.catalog.categories,
   }));
 
   const { t } = useTranslate();
@@ -44,7 +46,10 @@ function CatalogFilter() {
       ],
       []
     ),
-    filter: useMemo(() => [{ value: "Test", title: "Test" }], []),
+    filter: useMemo(() => {
+      let default_category = [{ value: "", title: "Все" }];
+      return default_category.concat(formCategories(select.categories));
+    }, [select.categories]),
   };
 
   return (

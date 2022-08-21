@@ -20,7 +20,8 @@ function CatalogFilter() {
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
-    query: state.catalog.params.query
+    query: state.catalog.params.query,
+    category: state.catalog.params.category
   }));
 
   const {t} = useTranslate();
@@ -31,6 +32,11 @@ function CatalogFilter() {
     // Поиск
     onSearch: useCallback(
       query => store.get('catalog').setParams({query, page: 1}),
+      []
+    ),
+    // Поиск по категории
+    onCategory: useCallback(
+      category => store.get('catalog').setParams({category, page: 1}),
       []
     ),
     // Сброс
@@ -48,14 +54,17 @@ function CatalogFilter() {
       ],
       []
     ),
-    sortCategory: useMemo(() => categoriesMap(categories))
+    sortCategory: useMemo(() => [
+      {value: '', title: 'Все'},
+      ...categoriesMap(categories)
+    ])
   };
 
   return (
     <LayoutFlex flex="start">
       <Select
-        onChange={callbacks.onSort}
-        value={select.sort}
+        onChange={callbacks.onCategory}
+        value={select.category}
         options={options.sortCategory}
       />
       <Select

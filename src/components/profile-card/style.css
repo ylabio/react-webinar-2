@@ -12,3 +12,8 @@
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.ProfileCard-spinner {
+  text-align: center;
+  color: #BBBBBB;
+}

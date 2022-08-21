@@ -3,7 +3,7 @@ import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
 
-function LoginForm({onLogin}){
+function LoginForm({errorMessage, onLogin}){
   const loginRef = useRef(null);
   const passwordRef = useRef(null);
   const cn = bem('LoginForm');
@@ -14,13 +14,14 @@ function LoginForm({onLogin}){
   }, [])
 
   return (
-    <div className={cn('')}>
-      <h2>Вход</h2>
+    <div className={cn()}>
+      <h2 className={cn('title')}>Вход</h2>
       <form className={cn('form')} onSubmit={onFormSubmit}>
         <label className={cn('label')} htmlFor="login">Логин</label>
         <input className={cn('input')} ref={loginRef} id="login" type="text"/>
         <label className={cn('label')} htmlFor="password">Пароль</label>
         <input className={cn('input')} ref={passwordRef} id="password" type="password"/>
+        {errorMessage && <div className={cn('error')}>{errorMessage}</div>}
         <button type="submit">Войти</button>
       </form>
     </div>
@@ -28,7 +29,8 @@ function LoginForm({onLogin}){
 }
 
 LoginForm.propTypes = {
-  onLogin: propTypes.func
+  onLogin: propTypes.func,
+  errorMessage: propTypes.string
 }
 
 LoginForm.defaultProps = {

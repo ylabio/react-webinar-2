@@ -2,12 +2,22 @@
   padding: 20px;
 }
 
+.LoginForm-title {
+  margin-bottom: 30px;
+}
+
 .LoginForm-form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin: 20px 0;
 }
 
 .LoginForm-input {
   margin-bottom: 20px;
+}
+
+.LoginForm-error {
+  margin-bottom: 20px;
+  color: #FF0000;
 }

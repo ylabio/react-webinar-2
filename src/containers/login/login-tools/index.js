@@ -1,11 +1,11 @@
 import React, {useCallback} from 'react';
 import {useNavigate} from "react-router-dom";
-import LayoutFlex from "../../components/layout-flex";
-import useStore from "../../hooks/use-store";
-import LoginControls from "../../components/login-controls";
-import useTranslate from "../../hooks/use-translate";
-import useSelector from "../../hooks/use-selector";
-import useInit from "../../hooks/use-init";
+import LayoutFlex from "../../../components/layouts/layout-flex";
+import useStore from "../../../hooks/use-store";
+import LoginControls from "../../../components/login/login-controls";
+import useTranslate from "../../../hooks/use-translate";
+import useSelector from "../../../hooks/use-selector";
+import useInit from "../../../hooks/use-init";
 
 function LoginTools(){
 

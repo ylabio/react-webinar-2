@@ -2,9 +2,9 @@ import React, {useCallback} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
-import BasketTotal from "../../components/basket-total";
-import LayoutModal from "../../components/layout-modal";
-import ItemBasket from "../../components/item-basket";
+import BasketTotal from "../../components/basket/basket-total";
+import LayoutModal from "../../components/layouts/layout-modal";
+import ItemBasket from "../../components/basket/item-basket";
 import List from "../../components/list";
 
 function Basket() {

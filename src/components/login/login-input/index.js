@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
-import Input from "../../components/input";
+import Input from "../../input";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 

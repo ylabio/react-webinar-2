@@ -1,110 +1,132 @@
 import StateModule from "../module";
-import qs from 'qs';
+import nestedCategories from "../../utils/nested-categories";
 
-const QS_OPTIONS = {
-  stringify: {
-    addQueryPrefix: true,
-    arrayFormat: 'comma',
-    encode: false
-  },
-  parse: {
-    ignoreQueryPrefix: true,
-    comma: true
-  }
-}
-
-/**
- * Состояние каталога
- */
 class CatalogState extends StateModule{
-
-  /**
-   * Начальное состояние
-   * @return {Object}
-   */
   initState() {
     return {
-      items: [],
-      count: 0,
-      params: {
-        page: 1,
-        limit: 10,
-        sort: 'order',
-        query: ''
+      pageItems: [],
+      // limit: 10,
+      currentPage: 1,
+      currentRoute: '/',
+      pagesCount: 1,
+      filterParams: {
+        query: '',
+        sort: '',
+        category: '',
       },
-      waiting: false
+      fetchState: {
+        pending: true,
+        error: false,
+        ok: false,
+      },
+      filterOptions: {
+        categories: [{ value: '', title: '...загрузка' }],
+      },
     };
   }
 
-  /**
-   * Инициализация параметров.
-   * Восстановление из query string адреса
-   * @param params
-   * @return {Promise<void>}
-   */
-  async initParams(params = {}){
-    // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
-    const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
-    let validParams = {};
-    if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
-    if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
-    if (urlParams.sort) validParams.sort = urlParams.sort;
-    if (urlParams.query) validParams.query = urlParams.query;
-
-    // Итоговые параметры из начальных, из URL и из переданных явно
-    const newParams = {...this.initState().params, ...validParams, ...params};
-    // Установка параметров и подгрузка данных
-    await this.setParams(newParams, true);
-  }
-
-  /**
-   * Сброс параметров к начальным
-   * @param params
-   * @return {Promise<void>}
-   */
-  async resetParams(params = {}){
-    // Итоговые параметры из начальных, из URL и из переданных явно
-    const newParams = {...this.initState().params, ...params};
-    // Установк параметров и подгрузка данных
-    await this.setParams(newParams);
-  }
-
-  /**
-   * Устанвока параметров и загрузка списка товаров
-   * @param params
-   * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
-   * @returns {Promise<void>}
-   */
-  async setParams(params = {}, historyReplace = false){
-    const newParams = {...this.getState().params, ...params};
-
-    // Установка новых параметров и признака загрузки
-    this.setState({
-      ...this.getState(),
-      params: newParams,
-      waiting: true
-    });
-
-    const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
-    const json = await response.json();
-
-    // Установка полученных данных и сброс признака загрузки
-    this.setState({
-      ...this.getState(),
-      items: json.result.items,
-      count: json.result.count,
-      waiting: false
-    });
-
-    // Запоминаем параметры в URL
-    let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);
-    const url = window.location.pathname + queryString + window.location.hash;
-    if (historyReplace) {
-      window.history.replaceState({}, '', url);
-    } else {
-      window.history.pushState({}, '', url);
+  errorState() {
+    return {
+      ...this.initState(),
+      fetchState: {
+        pending: false,
+        error: true,
+        ok: false,
+      },
     }
+  }
+
+
+
+  async fetchPageItems(location) {
+    const filterParams = { ...this.getState().filterParams };
+
+    const routeSearch = new URLSearchParams(location.search);
+
+    for (let key in filterParams) {
+      filterParams[key] = routeSearch.get(key) || '';
+    }
+
+    const currentPage = +routeSearch.get('page') || 1;
+
+    let apiQuery = `/api/v1/articles?fields=items(*),count&limit=10&skip=${currentPage * 10 - 10}`
+
+    if (filterParams.sort) apiQuery += '&sort=' + filterParams.sort;
+    if (filterParams.query) apiQuery += '&search[query]=' + filterParams.query;
+    if (filterParams.category) apiQuery += '&search[category]=' + filterParams.category;
+
+    await fetch(apiQuery)
+      .then(res => {
+        if (res.ok) return res.json()
+        throw new Error(res.status + ' ' + res.statusText);
+      })
+      .then(json => {
+        if (!json.result.items.length) throw new Error('Ничего не найдено');
+        this.setState({
+          pageItems: json.result.items,
+          currentPage,
+          currentRoute: location.pathname + location.search,
+          pagesCount: Math.ceil(json.result.count / 10),
+          fetchState: {
+            pending: false,
+            error: false,
+            ok: true,
+          },
+          filterParams,
+          filterOptions: {
+            categories: this.getState().filterOptions.categories,
+          },
+        }, 'Загружены товары страницы каталога')
+      })
+      .catch(err => {
+        console.error('store.catalog.fetchPageItems() ' + err);
+        this.setState(this.errorState());
+      })
+  }
+
+
+  // Загрузка категорий фильтра
+  //
+  async fetchFilterOptions () {
+    if (this.getState().filterOptions.categories.length !== 1) return;
+
+    await fetch('/api/v1/categories/')
+      .then(res => {
+        if (res.ok) return res.json();
+        throw new Error(res.status + ' ' + res.statusText);
+      })
+      .then(json => {
+        setTimeout(() => {
+          this.setState({
+            ...this.getState(),
+            filterOptions: {
+              categories: nestedCategories(json.result.items),
+            },
+          }, 'Загружены категории фильтра')
+        }, 1000)
+      })
+      .catch(err => {
+        this.setState(this.errorState());
+        console.error('store.catalog.fetchFilterOptions() ' + err);
+      });
+  }
+
+
+
+  // Вызывается при смене параметров фильтра
+  // Возвращает новый роут, который обрабатывается fetchPageItems()
+  //
+  getFilterResultRoute (param, value) {
+    const filterParams = { ...this.getState().filterParams };
+    filterParams[param] = value;
+
+    let route = '/catalog/?';
+    if (filterParams.sort) route += `sort=${filterParams.sort}&`;
+    if (filterParams.query) route += `query=${filterParams.query}&`;
+    if (filterParams.category) route += `category=${filterParams.category}`;
+
+    this.setState({ ...this.getState(), filterParams, });
+    return route.replace(/&$/, '');
   }
 }
 

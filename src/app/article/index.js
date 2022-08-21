@@ -1,14 +1,14 @@
 import React, {useCallback} from "react";
+import { useParams } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import {useParams} from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import ArticleCard from "../../components/article-card";
 import Spinner from "../../components/spinner";
 import Tools from "../../containers/tools";
-import Layout from "../../components/layout";
-import LayoutFlex from "../../components/layout-flex";
+import LayoutPage from "../../layouts/layout-page";
+import LayoutFlex from "../../layouts/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
 
 function Article(){
@@ -23,7 +23,7 @@ function Article(){
 
   const select = useSelector(state => ({
     article: state.article.data,
-    waiting: state.article.waiting
+    waiting: state.article.waiting,
   }));
 
   const {t} = useTranslate();
@@ -34,8 +34,8 @@ function Article(){
   };
 
   return (
-    <Layout head={
-      <LayoutFlex flex="between">
+    <LayoutPage head={
+      <LayoutFlex place="row-between">
         <h1>{select.article.title}</h1>
         <LocaleSelect/>
       </LayoutFlex>
@@ -44,7 +44,7 @@ function Article(){
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
-    </Layout>
+    </LayoutPage>
   )
 }
 

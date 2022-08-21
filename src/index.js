@@ -4,6 +4,7 @@ import {BrowserRouter} from "react-router-dom";
 import Store from "./store";
 import {StoreContext} from "./store/context";
 import App from './app';
+import './style.css';
 
 // Внешнее состояние
 const store = new Store();

@@ -1,0 +1,15 @@
+.layout-flex {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  gap: 1em;
+}
+
+.layout-flex--row-right {
+  justify-content: flex-end;
+}
+
+.layout-flex--row-between {
+  justify-content: space-between;
+}
+

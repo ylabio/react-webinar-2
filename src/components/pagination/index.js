@@ -1,66 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import propTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname'
+import { getPages, getLink } from '../../utils/pagination-utils';
 import './style.css';
 
-function Pagination(props) {
-  const cn = bem('Pagination');
-  // Количество страниц
-  const length = Math.ceil(props.count / Math.max(props.limit, 1));
+function Pagination ({ current, last, route }) {
+  const [pages, setPages] = useState([route]);
 
-  // Номера слева и справа относительно активного номера, которые остаются видимыми
-  let left = Math.max(props.page - props.indent, 1);
-  let right = Math.min(left + props.indent * 2, length);
-  // Корректировка когда страница в конце
-  left = Math.max(right - props.indent * 2, 1);
-
-  // Массив номеров, чтобы удобней рендерить
-  let items = [];
-  // Первая страница всегда нужна
-  if (left > 1) items.push(1);
-  // Пропуск
-  if (left > 2) items.push(null);
-  // Последваотельность страниц
-  for (let page = left; page <= right; page++) items.push(page)
-  // Пропуск
-  if (right < length - 1) items.push(null);
-  // Последнаяя страница
-  if (right < length) items.push(length);
-
-  // Возвращает функцию с замыканием на номер страницы
-  const onClickHandler = page => {
-    return () => props.onChange(page);
-  };
+  useEffect(() => {
+    setPages(getPages(current, last));
+  }, [current, last, route]);
 
   return (
-    <ul className={cn()}>
-      {items.map((number, index) => (
-        <li key={index}
-            className={cn('item', {active: number === props.page, split: !number})}
-            onClick={onClickHandler(number)}
-        >
-          {number || '...'}
-        </li>
-      ))}
-    </ul>
+    <div className='pagination'>
+      {pages.map((item, index) =>
+        (item === current) ? <p key={index} className='pagination__active-link'>{item}</p>
+          : (item === null) ? <p key={index} className='pagination__separator'>...</p>
+            : <Link key={index} to={getLink(item, route)} className='pagination__link'>{item}</Link>
+      )}
+    </div>
   )
 }
 
 Pagination.propTypes = {
-  page: propTypes.number.isRequired,
-  limit: propTypes.number,
-  count: propTypes.number,
-  onChange: propTypes.func,
-  indent: propTypes.number
-}
+  current: propTypes.number,
+  last: propTypes.number,
+  route: propTypes.string,
+};
 
 Pagination.defaultProps = {
-  page: 1,
-  limit: 10,
-  count: 1000,
-  indent: 1,
-  onChange: () => {
-  },
-}
+  current: 1,
+  last: 1,
+  route: '/catalog/?page=1',
+};
 
 export default React.memo(Pagination);

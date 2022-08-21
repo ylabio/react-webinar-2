@@ -6,26 +6,24 @@ import List from "../../components/list";
 import Pagination from "../../components/pagination";
 import Spinner from "../../components/spinner";
 import Item from "../../components/item";
+import ErrorMessage from '../../components/error-message';
 
 function CatalogList() {
-
   const store = useStore();
+  const { t } = useTranslate();
 
   const select = useSelector(state => ({
-    items: state.catalog.items,
-    page: state.catalog.params.page,
-    limit: state.catalog.params.limit,
-    count: state.catalog.count,
-    waiting: state.catalog.waiting,
+    items: state.catalog.pageItems,
+    pending: state.catalog.fetchState.pending,
+    error: state.catalog.fetchState.error,
+    currentPage: state.catalog.currentPage,
+    pagesCount: state.catalog.pagesCount,
+    currentRoute: state.catalog.currentRoute,
   }));
-
-  const {t} = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    // Пагианция
-    onPaginate: useCallback(page => store.get('catalog').setParams({page}), []),
   };
 
   const renders = {
@@ -34,12 +32,15 @@ function CatalogList() {
     ), [t]),
   }
 
-  return (
-    <Spinner active={select.waiting}>
-      <List items={select.items} renderItem={renders.item}/>
-      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
-    </Spinner>
-  );
+  return !select.error
+    ? (
+      <Spinner active={select.pending}>
+        <List items={select.items} renderItem={renders.item} />
+        <Pagination current={select.currentPage} last={select.pagesCount} route={select.currentRoute}/>
+      </Spinner>
+    ) : (
+      <ErrorMessage />
+    )
 }
 
 export default React.memo(CatalogList);

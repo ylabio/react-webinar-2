@@ -1,0 +1,8 @@
+.user-preview {
+  background: white;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px 20px;
+  column-gap: 10px;
+}

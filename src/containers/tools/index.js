@@ -4,19 +4,17 @@ import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import Menu from "../../components/menu";
 import BasketSimple from "../../components/basket-simple";
-import LayoutFlex from "../../components/layout-flex";
+import LayoutFlex from '../../layouts/layout-flex';
 
 function Tools() {
-
   const store = useStore();
+  const { t } = useTranslate();
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
     lang: state.locale.lang
   }));
-
-  const {t} = useTranslate();
 
   const callbacks = {
     // Открытие корзины
@@ -30,7 +28,7 @@ function Tools() {
   }
 
   return (
-    <LayoutFlex flex="between">
+    <LayoutFlex place='row-between'>
       <Menu items={options.menu}/>
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} t={t}/>
     </LayoutFlex>

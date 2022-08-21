@@ -1,29 +1,35 @@
 import React, {useCallback, useMemo} from "react";
+import { useNavigate } from 'react-router-dom';
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/select";
 import Input from "../../components/input";
-import LayoutFlex from "../../components/layout-flex";
+import LayoutFlex from '../../layouts/layout-flex';
 
 function CatalogFilter() {
-
   const store = useStore();
+  const navigate = useNavigate();
+  const { t } = useTranslate();
 
   const select = useSelector(state => ({
-    sort: state.catalog.params.sort,
-    query: state.catalog.params.query,
+    sort: state.catalog.filterParams.sort,
+    query: state.catalog.filterParams.query,
+    category: state.catalog.filterParams.category,
+    categories: state.catalog.filterOptions.categories,
   }));
 
-  const {t} = useTranslate();
-
   const callbacks = {
-    // Сортировка
-    onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
-    // Поиск
-    onSearch: useCallback(query => store.get('catalog').setParams({query, page: 1}), []),
-    // Сброс
-    onReset: useCallback(() => store.get('catalog').resetParams(), [])
+    onSort: useCallback(sort => {
+      navigate(store.get('catalog').getFilterResultRoute('sort', sort));
+    }, []),
+    onCat: useCallback(cat => {
+      navigate(store.get('catalog').getFilterResultRoute('category', cat));
+    }, []),
+    onSearch: useCallback(query => {
+      navigate(store.get('catalog').getFilterResultRoute('query', query));
+    }, []),
+    onReset: useCallback(() => navigate('/catalog/'), [])
   };
 
   // Опции для полей
@@ -37,8 +43,9 @@ function CatalogFilter() {
   }
 
   return (
-    <LayoutFlex flex="start">
+    <LayoutFlex>
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
+      <Select onChange={callbacks.onCat} value={select.category} options={select.categories} />
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </LayoutFlex>

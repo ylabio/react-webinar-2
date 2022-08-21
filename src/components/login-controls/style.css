@@ -1,0 +1,9 @@
+/* Контроль состояния авторизации*/
+.LoginControls{
+    padding: 10px 20px;
+}
+
+.LoginControls a{
+    margin-right: 20px;
+    font-size: 13px;
+}

@@ -1,0 +1,17 @@
+/* Информация о пользователе*/
+.ProfileInfo{
+    margin-top: 30px;
+    padding: 0 20px;
+}
+
+.ProfileInfo-title{
+    padding: 10px 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.ProfileInfo-prop{
+    margin: 20px 0;
+    font-size: 18px;
+    font-weight: 400;
+}

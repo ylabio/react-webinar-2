@@ -5,6 +5,7 @@ import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
+import CategoriesSelect from "../../components/categories-select";
 
 function CatalogFilter() {
 
@@ -13,6 +14,8 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+		categories: state.catalog.categories,
+		categoryId: state.catalog.params.categoryId
   }));
 
   const {t} = useTranslate();
@@ -23,7 +26,9 @@ function CatalogFilter() {
     // Поиск
     onSearch: useCallback(query => store.get('catalog').setParams({query, page: 1}), []),
     // Сброс
-    onReset: useCallback(() => store.get('catalog').resetParams(), [])
+    onReset: useCallback(() => store.get('catalog').resetParams(), []),
+		// Выбор категории
+		onCategory: useCallback(categoryId => store.get('catalog').setParams({categoryId, page: 1}), []),
   };
 
   // Опции для полей
@@ -38,6 +43,7 @@ function CatalogFilter() {
 
   return (
     <LayoutFlex flex="start">
+			<CategoriesSelect onChange={callbacks.onCategory} value={select.categoryId} categories={select.categories} />
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

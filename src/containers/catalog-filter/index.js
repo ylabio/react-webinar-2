@@ -2,9 +2,9 @@ import React, { useCallback, useMemo } from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import Select from "../../components/select";
-import Input from "../../components/input";
-import LayoutFlex from "../../components/layout-flex";
+import Select from "../../components/ui/select";
+import Input from "../../components/ui/input";
+import LayoutFlex from "../../components/wrappers/layout-flex";
 import getHierarchyItems from "../../utils/hierarchy-items";
 
 function CatalogFilter() {

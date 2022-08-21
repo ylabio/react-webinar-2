@@ -1,0 +1,35 @@
+.LoginForm {
+  margin-top: 38px;
+  padding: 0 20px;
+}
+
+.LoginForm-title {
+  margin-bottom: 16px;
+}
+
+.LoginForm-fields {
+  max-width: 203px;
+  display: flex;
+  flex-direction: column;
+}
+
+.LoginForm-fields input {
+  height: 26px;
+}
+
+.LoginForm-fields>*:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.LoginForm-fields>* {
+  display: flex;
+  flex-direction: column;
+}
+
+.LoginForm-error {
+  color: #FF0000;
+}
+
+.LoginForm-button {
+  width: 55px;
+}

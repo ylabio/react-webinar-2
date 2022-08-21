@@ -1,0 +1,16 @@
+.ProfileCart {
+  margin-top: 38px;
+  padding: 0 20px;
+}
+
+.ProfileCart-title {
+  margin-bottom: 30px;
+}
+
+.ProfileCart-items {
+  font-size: 18px;
+}
+
+.ProfileCart-items>*:not(:last-child) {
+  margin-bottom: 20px;
+}

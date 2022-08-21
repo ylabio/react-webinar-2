@@ -18,6 +18,9 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
+        <Route path={"/login"} element={<Login/>}/>
+        <Route path={"/login"} element={<Profile/>}/>
+        <Route path={"*"} element={<Navigate to='/'/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

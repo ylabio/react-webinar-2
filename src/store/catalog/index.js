@@ -30,8 +30,10 @@ class CatalogState extends StateModule {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        category: ''
       },
+      categories: [],
       waiting: false
     };
   }
@@ -62,40 +64,36 @@ class CatalogState extends StateModule {
    */
   
   async getCategories() {
-    const response = await fetch('api/v1/categories')
-    const json = await response.json()
-    const {items} = json.result
-    const newItems = items.map(item => {
-      let test = item
-      let newTitle = item.title;
-      while (test.hasOwnProperty('parent')) {
-        test = items.find(j => j._id === test.parent._id)
-        newTitle = '-' + newTitle
-      }
-      return {...item, title: newTitle}
-    })
-    console.log(newItems)
+    this.setState({
+      ...this.getState(),
+      waiting: true
+    });
+    
+    const response = await fetch('/api/v1/categories?fields=_id,title,parent');
+    const json = await response.json();
+    
+    const categories = [];
+    const sortCategories = (newItems, items, parentId = null, dashCount = 0) => {
+      items.forEach(item => {
+        if (item.parent === parentId || item.parent?._id === parentId) {
+          const newItem = {...item};
+          if (dashCount) {
+            newItem.title = "-".repeat(dashCount) + newItem.title;
+          }
+          newItems.push(newItem);
+          sortCategories(newItems, items, newItem._id, dashCount + 1);
+        }
+      })
+    };
+    
+    sortCategories(categories, json.result.items);
+    
+    this.setState({
+      ...this.getState(),
+      categories: [{_id: "", title: "Все"}, ...categories],
+      waiting: false,
+    });
   }
-  
-  // (item) {
-  //   if(item.hasOwnProperty('parent')){
-  //     item.title = '-' + item.title
-  //     recurs(items.find(elem => elem.id === item.parent.id))
-  //   }
-  //   console.log(item.title)
-  // }
-  //
-  //   for (let category of items) {
-  //     if (!category.parent) continue
-  //     let parentCategory = category.parent
-  //     do {
-  //       const tmp = items.find(item => item.id === parentCategory)
-  //       category = tmp.parent
-  //     } while (parentCategory)
-  //   }
-  //
-  //   console.log(items)
-  // }
   
   /**
    * Сброс параметров к начальным
@@ -125,8 +123,12 @@ class CatalogState extends StateModule {
       waiting: true
     });
     
+    const categoryFilter =
+      newParams.category && newParams.category !== 'Все' ?
+        `&search[category]=${newParams.category}` : ''
+    
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${categoryFilter}`);
     const json = await response.json();
     
     // Установка полученных данных и сброс признака загрузки

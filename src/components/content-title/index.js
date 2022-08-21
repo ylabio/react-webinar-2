@@ -7,4 +7,4 @@ function ContentTitle(props) {
 	)
 }
 
-export default ContentTitle;
+export default React.memo(ContentTitle);

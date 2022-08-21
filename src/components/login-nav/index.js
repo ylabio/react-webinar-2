@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import LayoutFlex from '../../components/layout-flex';
 import './style.css';
 
-function LoginNav() {
+function LoginNav(props) {
 	const cn = bem('Login-link');
-	const [isAuth, setIsAuth] = useState(false);
-
+	
 	return (
 		<>
-			{isAuth?
+			{props.isAuth?
 				<LayoutFlex flex="end" padding="10-20" className={cn()}>
-					<Link to="/" className={cn('profile')}>User №1</Link>
+					<Link to="/profile" className={cn('profile')}>{props.user.name}</Link>
 					<button className={cn('quit')}>Выход</button>
 				</LayoutFlex> : 
 				<LayoutFlex flex="end" padding="10-20" className={cn()}>
@@ -23,4 +23,13 @@ function LoginNav() {
 	)
 }
 
-export default LoginNav;
+LoginNav.propTypes = {
+  isAuth: propTypes.bool,
+	user: propTypes.object.isRequired,
+}
+
+LoginNav.defaultProps = {
+	isAuth: false
+}
+
+export default React.memo(LoginNav);

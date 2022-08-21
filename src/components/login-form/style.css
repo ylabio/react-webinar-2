@@ -6,3 +6,8 @@
 .Form-label span{
 	display: block;
 }
+
+.Form-error{
+	color: #FF0000;
+	margin-bottom: 20px;
+}

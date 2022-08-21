@@ -14,14 +14,15 @@ import Profile from './profile';
 function App() {
 
   const modal = useSelector(state => state.modals.name);
+	const isAuth = useSelector(state => state.auth.isAuth);
 
   return (
     <>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
-				<Route path={"/login"} element={<Login />}/>
-				<Route path={"/profile"} element={<Profile/>}/>
+				<Route path={"/login"} element={isAuth ? <Main /> : <Login />}/>
+				<Route path={"/profile"} element={isAuth ? <Profile /> : <Main />}/>
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

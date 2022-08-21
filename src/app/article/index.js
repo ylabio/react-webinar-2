@@ -1,21 +1,19 @@
 import React, {useCallback} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import {useNavigate, useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import ArticleCard from "../../components/article-card";
 import Spinner from "../../components/ui/spinner";
 import Tools from "../../containers/tools";
 import LocaleSelect from "../../containers/locale-select";
-import { getUserDataFromLS } from "../../utils";
 import Layout from '../../components/layouts/layout';
 import LayoutFlex from '../../components/layouts/layout-flex';
+import TopContainer from "../../containers/top-container";
 
 function Article(){
   const store = useStore();
-  const navigate = useNavigate();
-  const { user } = useSelector(state => state.auth);
 
   // Параметры из пути /articles/:id
   const params = useParams();
@@ -34,27 +32,16 @@ function Article(){
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    openLoginPage: useCallback(() => navigate('/login'), []),
-    signOut: useCallback(() => {
-      const token = getUserDataFromLS().token;
-      (async () => {
-        await store.get('auth').signOut(token);
-        navigate('/login');
-      })()
-    }, []),
   };
 
   return (
     <Layout 
+      top={<TopContainer />}
       head={
         <LayoutFlex flex="between">
           <h1>{select.article.title}</h1>
           <LocaleSelect/>
         </LayoutFlex>}
-      handleAuth={callbacks.openLoginPage}
-      signOut={callbacks.signOut}
-      userData={user?.profile?.name}
-      link='/profile'
     >
       <Tools/>
       <Spinner active={select.waiting}>

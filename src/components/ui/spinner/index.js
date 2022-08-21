@@ -10,8 +10,8 @@ function Spinner(props) {
     return (
       <div className="Spinner">
         <HashLoader loading={props.loading}
-                    color='purple'
-                    size={120}
+                      color='purple'
+                      size={120}
         />
       </div>
     )

@@ -1,0 +1,12 @@
+.Top {
+  padding: 10px 24px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+}
+
+.Top span {
+  color: blue;
+  text-decoration: underline;
+}

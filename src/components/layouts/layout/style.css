@@ -21,16 +21,3 @@ body{
 .Layout-head h1{
     margin: 0;
 }
-
-.Layout-login {
-    padding: 10px 24px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 20px;
-}
-
-.Layout-login span {
-    color: blue;
-    text-decoration: underline;
-}

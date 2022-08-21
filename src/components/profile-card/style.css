@@ -1,0 +1,14 @@
+/* Профиль пользователя */
+.ProfileCard {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+}
+
+.ProfileCard h2 {
+	margin: 22px 0 30px;
+}
+
+.ProfileCard span {
+	margin-bottom: 20px;
+}

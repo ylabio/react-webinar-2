@@ -14,7 +14,7 @@ function ArticleCard({article, onAdd}) {
       <div className={cn('description')}>{article.description}</div>
       <div className={cn('prop')}>
         <div className={cn('label')}>Страна производитель:</div>
-        <div className={cn('value')}>{article.maidIn?.title} ({article.maidIn?.code})</div>
+        <div className={cn('value')}>{article.maidIn?.title} {article.maidIn?.code}</div>
       </div>
       <div className={cn('prop')}>
         <div className={cn('label')}>Категория:</div>

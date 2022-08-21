@@ -2,7 +2,7 @@
     display: flex;
     list-style: none;
     justify-content: flex-end;
-    padding: 24px 20px;
+    padding: 20px;
     font-size: 16px;
     margin: 0;
 }
@@ -14,7 +14,6 @@
     cursor: pointer;
     height: 20px;
     min-width: 20px;
-    box-sizing: border-box;
     text-align: center;
     line-height: 18px;
 }

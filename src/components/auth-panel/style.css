@@ -1,0 +1,33 @@
+.AuthPanel {
+	max-width: 1024px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	margin: 0 auto;
+	padding: 10px 20px;
+	border-bottom: #DCDCDC solid 1px;
+	background-color: white;
+}
+
+.AuthPanel_flex_start {
+	justify-content: flex-start;
+}
+
+.AuthPanel_flex_end {
+	justify-content: flex-end;
+}
+
+.AuthPanel_flex_between {
+	justify-content: space-between;
+}
+
+.AuthPanel a {
+	margin-left: 20px;
+	color: #0087E9;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.AuthPanel-button {
+	margin-left: 20px;
+}

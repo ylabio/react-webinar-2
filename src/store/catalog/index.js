@@ -1,4 +1,4 @@
-import StateModule from "../module";
+import StateModule from '../module';
 import qs from 'qs';
 
 const QS_OPTIONS = {
@@ -11,13 +11,12 @@ const QS_OPTIONS = {
     ignoreQueryPrefix: true,
     comma: true
   }
-}
+};
 
 /**
  * Состояние каталога
  */
-class CatalogState extends StateModule{
-
+class CatalogState extends StateModule {
   /**
    * Начальное состояние
    * @return {Object}
@@ -42,9 +41,9 @@ class CatalogState extends StateModule{
    * @param params
    * @return {Promise<void>}
    */
-  async initParams(params = {}){
+  async initParams(params = {}) {
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
-    const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
+    const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {};
     let validParams = {};
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
@@ -62,7 +61,7 @@ class CatalogState extends StateModule{
    * @param params
    * @return {Promise<void>}
    */
-  async resetParams(params = {}){
+  async resetParams(params = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = {...this.initState().params, ...params};
     // Установк параметров и подгрузка данных
@@ -75,7 +74,7 @@ class CatalogState extends StateModule{
    * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
    * @returns {Promise<void>}
    */
-  async setParams(params = {}, historyReplace = false){
+  async setParams(params = {}, historyReplace = false) {
     const newParams = {...this.getState().params, ...params};
 
     // Установка новых параметров и признака загрузки
@@ -86,7 +85,10 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    const response = await fetch(
+      `/api/v1/articles?` +
+        `limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`
+    );
     const json = await response.json();
 
     // Установка полученных данных и сброс признака загрузки

@@ -19,6 +19,7 @@ function Article(){
 
   useInit(async () => {
     await store.get('article').load(params.id);
+    await store.get('user').getCurrentUser()
   }, [params.id]);
 
   const select = useSelector(state => ({

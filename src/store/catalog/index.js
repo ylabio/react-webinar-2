@@ -52,13 +52,12 @@ class CatalogState extends StateModule{
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
+    if (urlParams.category) validParams.category = urlParams.category;
 
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = {...this.initState().params, ...validParams, ...params};
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
-    await this.getAllCategories();
-    // await this.getItemsByCategoryId();
   }
 
   /**
@@ -80,6 +79,7 @@ class CatalogState extends StateModule{
    * @returns {Promise<void>}
    */
   async setParams(params = {}, historyReplace = false){
+    await this.getAllCategories();
     const newParams = {...this.getState().params, ...params};
 
     // Установка новых параметров и признака загрузки
@@ -90,7 +90,11 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    const category = this.getState().params.category;
+    const findCategory = this.getState().categories.find(el => el.title === category);
+
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${findCategory?._id ? '&search[category]='+findCategory._id:''}`);
+
     const json = await response.json();
 
     // Установка полученных данных и сброс признака загрузки
@@ -138,30 +142,13 @@ class CatalogState extends StateModule{
       }
     })
 
+    newArr[0] = {_id: '', title: 'Все', parent: ''}
+
     this.setState({
       ...this.getState(),
       categories: newArr
     })
   }
-
-  async getItemsByCategoryId(category){
-    await this.setParams({category})
-    const state = this.getState();
-    const limit = this.getState().params.limit;
-    const page = this.getState().params.page;
-    const skip = (page - 1) * 10;
-    console.log('skip', skip)
-    const item = this.getState().categories.find(el => el.title === state.params.category);
-    const result = await fetch(`/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(*),count&search[category]=${item?._id}`);
-    const json = await result.json();
-    this.setState({
-      ...this.getState(),
-      items: json.result.items,
-      count: json.result.count
-    })
-    // console.log('json', json)
-  }
-
 }
 
 export default CatalogState;

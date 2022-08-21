@@ -14,6 +14,7 @@ function Main() {
 
   useInit(async () => {
     await store.get('catalog').initParams();
+    await store.get('user').getCurrentUser()
   }, [], {backForward: true});
 
   const {t} = useTranslate();
@@ -32,4 +33,4 @@ function Main() {
   )
 }
 
-export default React.memo(Main);
+export default Main;

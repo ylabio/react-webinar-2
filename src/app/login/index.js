@@ -33,20 +33,18 @@ function Login(){
   }
 
   return (
-  <>
-    <ProfileMenu />
     <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{t('title')}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    }>
+              <LayoutFlex flex="between">
+                <h1>{t('title')}</h1>
+                <LocaleSelect/>
+              </LayoutFlex>
+            }
+            profileMenu={<ProfileMenu />}>
       <Tools/>
       <Spinner active={select.waiting}>
         <LoginForm data={data.login} onSubmit={callbacks.onLoginClick} error={select.error}/>
       </Spinner>
     </Layout>
-  </>
   )
 }
 

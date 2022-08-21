@@ -35,20 +35,18 @@ function Article(){
   };
 
   return (
-    <>
-      <ProfileMenu />
-      <Layout head={
-        <LayoutFlex flex="between">
-          <h1>{select.article.title}</h1>
-          <LocaleSelect/>
-        </LayoutFlex>
-      }>
-        <Tools/>
-        <Spinner active={select.waiting}>
-          <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
-        </Spinner>
-      </Layout>
-    </>
+    <Layout head={
+              <LayoutFlex flex="between">
+                <h1>{select.article.title}</h1>
+                <LocaleSelect/>
+              </LayoutFlex>
+            }
+            profileMenu={<ProfileMenu />}>
+      <Tools/>
+      <Spinner active={select.waiting}>
+        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+      </Spinner>
+    </Layout>
   )
 }
 

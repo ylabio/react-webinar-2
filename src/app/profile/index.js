@@ -32,20 +32,18 @@ function Profile(){
   if (!select.name) return <Navigate replace to="/login"/>;
 
   return (
-  <>
-    <ProfileMenu />
     <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{t('title')}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    }>
+              <LayoutFlex flex="between">
+                <h1>{t('title')}</h1>
+                <LocaleSelect/>
+              </LayoutFlex>
+            }
+            profileMenu={<ProfileMenu />}>
       <Tools/>
       <Spinner active={select.waiting}>
         <ProfileInfo data={data.profile} name={select.name} phone={select.phone} email={select.email}/>
       </Spinner>
     </Layout>
-  </>
   )
 }
 

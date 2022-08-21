@@ -21,19 +21,16 @@ function Main() {
   const {t} = useTranslate();
 
   return (
-    <>
-      <ProfileMenu />
-      <Layout head={
-        <LayoutFlex flex="between">
-          <h1>{t('title')}</h1>
-          <LocaleSelect/>
-        </LayoutFlex>
-      }>
-        <Tools/>
-        <CatalogFilter/>
-        <CatalogList/>
-      </Layout>
-    </>
+    <Layout head={
+              <LayoutFlex flex="between">
+                <h1>{t('title')}</h1>
+                <LocaleSelect/>
+              </LayoutFlex>}
+            profileMenu={<ProfileMenu />}>
+      <Tools/>
+      <CatalogFilter/>
+      <CatalogList/>
+    </Layout>
   )
 }
 

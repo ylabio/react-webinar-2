@@ -45,7 +45,7 @@ class AuthState extends StateModule {
   }
 
   async logIn() {
-    
+    this.setLoadingErr(false)
     this.changeLoading(true)
 
     const auth = this.getState().auth
@@ -91,7 +91,8 @@ class AuthState extends StateModule {
     })
     const data = await res.json()
     if (data.error) {
-      this.setLoadingErr()
+      this.setLoadingErr(true)   
+      this.changeLoading(false)
       return
     }
 
@@ -131,17 +132,11 @@ class AuthState extends StateModule {
     }, 'Обнуление ошибки')
   }
 
-  // Имитация сигнала о том, что произошла ошибка
-  // Таймаут для того, чтобы успели сработать эффекты
-  setLoadingErr() {
+  setLoadingErr(b) {
     this.setState({
       ...this.getState(),
-      loadingErr: true
-    })
-    setTimeout(() => this.setState({
-      ...this.getState(),
-      loadingErr: false
-    }), 0)
+      loadingErr: b
+    }, b ? 'Установка ошибки при подзагрузке' : 'Сброс ошибки при подзагрузке')
   }
 }
 

@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
 import propTypes from "prop-types";
-import Select from "../../components/select";
 import "./style.css";
 
 function Categories(props) {
@@ -29,6 +28,7 @@ Categories.propTypes = {
 };
 
 Categories.defaultProps = {
+  options: [],
   onChange: () => {},
 };
 

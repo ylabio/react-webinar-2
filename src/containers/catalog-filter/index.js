@@ -1,11 +1,10 @@
 import React, { useCallback, useMemo } from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
-import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/select";
 import Input from "../../components/input";
-import LayoutFlex from "../../components/layout-flex";
+import LayoutFlex from "../../components/layouts/layout-flex";
 import Categories from "../../components/categories";
 
 function CatalogFilter() {

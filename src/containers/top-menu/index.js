@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import UserMenu from "../../components/user-menu";
 import Spinner from "../../components/spinner";

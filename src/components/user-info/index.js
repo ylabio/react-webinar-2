@@ -32,7 +32,7 @@ UserInfo.propTypes = {
 
 UserInfo.defaultProps = {
   user: {},
-  t: () => {},
+  t: (text) => text,
 };
 
 export default React.memo(UserInfo);

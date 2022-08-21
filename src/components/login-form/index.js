@@ -5,7 +5,6 @@ import Error from "../../components/error";
 import "./style.css";
 
 function LoginForm({ submit, t, errors }) {
-  console.log(t);
   // CSS классы по БЭМ
   const cn = bem("LoginForm");
 

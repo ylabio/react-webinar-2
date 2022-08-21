@@ -9,14 +9,13 @@ import ProfileCard from '../../components/profile-card';
 import UserMenu from '../user-menu';
 import { Navigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
-import getCookies from '../../utils/get-cookies';
 import Spinner from '../../components/spinner';
 
 function Profile() {
   const store = useStore();
 
   React.useEffect(() => {
-    store.get('profile').checkUser(getCookies().token);
+    store.get('profile').checkUser(localStorage.getItem('token'));
   }, []);
 
   const select = useSelector((state) => ({

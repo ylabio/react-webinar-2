@@ -18,9 +18,8 @@ class ProfileState extends StateModule {
     };
   }
 
-  initUser(user) {
-    console.log('ИНИЦИАЛИЗАЦИЯ');
-    if (user) {
+  initUser(name) {
+    if (name) {
       this.setState({
         ...this.getState(),
         isLogged: true,
@@ -48,12 +47,9 @@ class ProfileState extends StateModule {
       history.back();
       const json = await response.json();
       const user = await json.result.user;
-      localStorage.setItem(
-        'user',
-        JSON.stringify({
-          name: user.profile.name,
-        })
-      );
+
+      localStorage.setItem('token', json.result.token);
+      localStorage.setItem('name', user.profile.name);
 
       this.setState({
         ...this.getState(),
@@ -79,13 +75,14 @@ class ProfileState extends StateModule {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          // 'X-Token': 111,
           'X-Token': token,
         },
       });
+
       if (response.status === 403) {
-        throw new Error('Wrong token');
+        throw new Error('Что-то не так с авторизацией!');
       }
+
       const json = await response.json();
       const result = json.result;
 
@@ -99,7 +96,9 @@ class ProfileState extends StateModule {
         waiting: false,
       });
     } catch (error) {
-      localStorage.removeItem('user');
+      console.log(error.message);
+      localStorage.removeItem('token');
+      localStorage.removeItem('name');
       this.setState({
         ...this.getState(),
         isLogged: false,
@@ -118,17 +117,25 @@ class ProfileState extends StateModule {
           'X-Token': token,
         },
       });
-      localStorage.removeItem('user');
+      if (response.status === 403) {
+        throw new Error('Что-то пошло не так при выходе!');
+      }
+      localStorage.removeItem('token');
+      localStorage.removeItem('name');
+
       this.setState({
         ...this.initState(),
         isLogged: false,
       });
-
-      if (response.status === 400) {
-        throw new Error('bad reques');
-      }
     } catch (error) {
       console.log(error.message);
+      localStorage.removeItem('token');
+      localStorage.removeItem('name');
+
+      this.setState({
+        ...this.initState(),
+        isLogged: false,
+      });
     }
   }
 }

@@ -3,13 +3,12 @@ import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { Link } from 'react-router-dom';
 import './style.css';
-import getCookies from '../../utils/get-cookies';
 
 function LogoutLink(props) {
   const cn = bem('LogoutLink');
 
   const logOut = () => {
-    props.onOut(getCookies().token);
+    props.onOut(localStorage.getItem('token'));
   };
 
   return (

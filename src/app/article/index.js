@@ -10,14 +10,17 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import LoginBar from "../../components/login-bar";
+import {useAuth} from "../../hooks/use-auth";
 
 function Article(){
   const store = useStore();
-
+  const {user, isAuth} = useAuth();
   // Параметры из пути /articles/:id
   const params = useParams();
 
   useInit(async () => {
+    await store.get('user').restore();
     await store.get('article').load(params.id);
   }, [params.id]);
 
@@ -34,17 +37,20 @@ function Article(){
   };
 
   return (
-    <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{select.article.title}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    }>
-      <Tools/>
-      <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
-      </Spinner>
-    </Layout>
+    <>
+      <LoginBar userName={isAuth && user.username} logOut={callbacks.logOut}/>
+      <Layout head={
+        <LayoutFlex flex="between">
+          <h1>{select.article.title}</h1>
+          <LocaleSelect/>
+        </LayoutFlex>
+      }>
+        <Tools/>
+        <Spinner active={select.waiting}>
+          <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        </Spinner>
+      </Layout>
+      </>
   )
 }
 

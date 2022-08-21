@@ -1,0 +1,15 @@
+.LoginBar{
+    display: flex;
+    align-items: center;
+    height: 40px;
+    background: #ffffff;
+    max-width: 1024px;
+    margin: 0 auto;
+    justify-content: flex-end;
+}
+.LoginBar-user{
+    margin: 0;
+}
+.LoginBar-btn{
+    margin: 0 20px;
+}

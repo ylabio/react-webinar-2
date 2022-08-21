@@ -35,4 +35,4 @@ CommonLayout.propTypes = {
   head: propTypes.node,
 };
 
-  export default CommonLayout;
+  export default React.memo(CommonLayout);

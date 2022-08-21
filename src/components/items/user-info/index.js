@@ -28,4 +28,4 @@ UserInfo.defaultProps = {
   t: (text) => text,
 };
 
-export default UserInfo;
+export default React.memo(UserInfo);

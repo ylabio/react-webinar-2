@@ -14,4 +14,4 @@ ErrorMsg.propTypes = {
   children: propTypes.node.isRequired,
 }
 
-export default ErrorMsg;
+export default React.memo(ErrorMsg);

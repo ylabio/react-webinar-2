@@ -35,4 +35,4 @@ const AuthNav = () => {
   );
 };
 
-export default AuthNav;
+export default React.memo(AuthNav);

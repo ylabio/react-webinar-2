@@ -17,4 +17,4 @@ FilterSelect.propTypes = {
     onChange: propTypes.func,
 }
 
-export default FilterSelect;
+export default React.memo(FilterSelect);

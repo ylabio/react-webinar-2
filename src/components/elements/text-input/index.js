@@ -18,4 +18,4 @@ TextInput.defaultProps = {
   onChange: () => {},
 }
 
-export default TextInput;
+export default React.memo(TextInput);

@@ -25,4 +25,4 @@ AuthControls.defaultProps = {
   t: (text) => text,
 }
 
-export default AuthControls;
+export default React.memo(AuthControls);

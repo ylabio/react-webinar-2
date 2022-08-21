@@ -18,6 +18,7 @@ function App() {
 
   const modal = useSelector(state => state.modals.name);
   const token = useSelector(state => state.auth.token);
+  const isAuth = useSelector(state => state.auth.isAuthenticated);
 
   useInit(async () => {
     // делаем запрос на получение юзера, если имеем сохраненный токен
@@ -29,8 +30,8 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
-        <Route path={"/login"} element={!token ? <Login/> : <Navigate to='/profile' replace/>}/>
-        <Route path={"/profile"} element={token ? <Profile/> : <Navigate to='/login' replace/>}/>
+        <Route path={"/login"} element={!isAuth ? <Login/> : <Navigate to='/profile' replace/>}/>
+        <Route path={"/profile"} element={isAuth ? <Profile/> : <Navigate to='/login' replace/>}/>
         <Route path={"*"} element={<Navigate to='/'/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}

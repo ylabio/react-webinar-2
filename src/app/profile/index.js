@@ -29,7 +29,7 @@ function Profile() {
   return(
     <Layout
       top={
-        <LayoutFlex flex="end">
+        <LayoutFlex flex="end" padding="min">
           <AuthControl/>
         </LayoutFlex>
       }

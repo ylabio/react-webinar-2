@@ -15,7 +15,8 @@ class AuthState extends StateModule {
       profileData: {},
       waiting: false,
       logErr: false,
-      loggedIn: false
+      loggedIn: false,
+      tokenErr: false
     };
   }
 
@@ -30,30 +31,34 @@ class AuthState extends StateModule {
       ...this.getState(),
       waiting: true,
       loggedIn: false,
+      tokenErr: false
     });
 
-    try {
-      const response = await fetch(`/api/v1/users/self`, {
-        headers: {
-          "Content-type": "application/json",
-          "X-Token": token
-        }
-      });
-      const json = await response.json();
-      // Данные загружены успешно
-      this.setState({
-        ...this.getState(),
-        profileData: json.result,
-        waiting: false,
-        loggedIn: true,
-      }, "удачная загрузка данных пользователя по токену");
-    } catch (e) {
-      // Ошибка
-      this.setState({
-        ...this.getState(),
-        waiting: false,
-        logErr: true,
-      }, "неудачная загрузка данных пользователя по токену");
+    if (token) {
+      try {
+        const response = await fetch(`/api/v1/users/self`, {
+          headers: {
+            "Content-type": "application/json",
+            "X-Token": token
+          }
+        });
+        const json = await response.json();
+        // Данные загружены успешно
+        this.setState({
+          ...this.getState(),
+          profileData: json.result,
+          waiting: false,
+          loggedIn: true,
+          tokenErr: false
+        }, "удачная загрузка данных пользователя по токену");
+      } catch (e) {
+        localStorage.removeItem("token");
+        this.setState({
+          ...this.getState(),
+          waiting: false,
+          tokenErr: true
+        }, "неудачная загрузка данных пользователя по токену");
+      }
     }
   }
 
@@ -69,6 +74,7 @@ class AuthState extends StateModule {
         ...this.getState(),
         waiting: true,
         loggedIn: false,
+        tokenErr: false
       });
 
       try {
@@ -85,13 +91,16 @@ class AuthState extends StateModule {
           loginData: json.result.profile,
           waiting: false,
           loggedIn: true,
+          tokenErr: false
         });
       } catch (e) {
+        localStorage.removeItem("token");
         // Ошибка при логине
         this.setState({
           ...this.getState(),
           waiting: false,
-          loggedIn: false
+          loggedIn: false,
+          tokenErr: true,
         });
       }
     }
@@ -108,7 +117,7 @@ class AuthState extends StateModule {
       ...this.getState(),
       waiting: true,
       loginData: {},
-      error: false,
+      logErr: false,
     });
 
     try {
@@ -168,7 +177,8 @@ class AuthState extends StateModule {
         profileData: {},
         waiting: false,
         logErr: false,
-        loggedIn: false
+        loggedIn: false,
+        tokenErr: false
       }, "signOut");
     } catch (e) {
       console.log("server notification error: ", e)
@@ -179,7 +189,8 @@ class AuthState extends StateModule {
         profileData: {},
         waiting: false,
         logErr: false,
-        loggedIn: false
+        loggedIn: false,
+        tokenErr: false
       }, "signOut");
     }
 

@@ -34,7 +34,7 @@ function Profile() {
             </>
         }>
             <Tools />
-            <ProfilePage name={data.profile?.name} phoneNum={data.profile?.phone} email={data.email} />
+            <ProfilePage name={data?.profile?.name} phoneNum={data?.profile?.phone} email={data?.email} />
         </Layout>
     )
 }

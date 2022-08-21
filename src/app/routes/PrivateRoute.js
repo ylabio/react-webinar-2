@@ -1,15 +1,20 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import propTypes from "prop-types";
+import useSelector from "../../hooks/use-selector";
 
 function PrivateRoute({ children }) {
   const location = useLocation();
   const url = new URLSearchParams();
 
+  const { tokenErr } = useSelector(state => ({
+    tokenErr: state.auth.tokenErr
+  }))
+
   //нужно чтобы при авторизации пользователя, по возможности, перекинуло его назад, где он был, а не на главную
   url.set("redirect", location.pathname + location.search);
 
-  return localStorage.getItem("token") ? (
+  return localStorage.getItem("token") && !tokenErr ? (
     children
   ) : (
     <Navigate

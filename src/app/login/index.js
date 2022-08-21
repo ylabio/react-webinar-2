@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import {Redirect} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import useTranslate from "../../hooks/use-translate";
 import Spinner from "../../components/spinner";
 import Tools from "../../containers/tools";
@@ -14,6 +14,7 @@ import User from "../../containers/user";
 function Login() {
   const { t } = useTranslate();
   const store = useStore();
+  const navigate = useNavigate();
 
   const select = useSelector((state) => ({
     token: state.user.token,
@@ -24,7 +25,7 @@ function Login() {
   useEffect(() => {
     // Редирект на страницу профиля, если пользователь авторизирован
     if (select.token) {
-      return <Redirect to={"/profile"}/>
+      navigate("/profile", { replace: true });
     }
   }, [select.token]);  
 

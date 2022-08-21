@@ -31,7 +31,14 @@ class UserState extends StateModule {
         },
       });
       const json = await response.json();
-      this.setState({
+      if (json.error) {
+        this.setState({
+          ...this.getState(),
+          waiting: false,
+        });
+        window.localStorage.removeItem("token")
+      } else
+        this.setState({
         ...this.getState(),
         waiting: false,
         data: json.result,

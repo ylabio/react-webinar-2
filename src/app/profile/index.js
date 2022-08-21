@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import useSelector from "../../hooks/use-selector";
-import {Redirect} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import useTranslate from "../../hooks/use-translate";
 import Spinner from "../../components/spinner";
 import Tools from "../../containers/tools";
@@ -11,8 +11,9 @@ import User from "../../containers/user";
 import ProfileCard from "../../components/profile-card";
 
 function Profile() {
-  const { t } = useTranslate();
 
+  const { t } = useTranslate();
+  const navigate = useNavigate();
 
   const select = useSelector((state) => ({
     token: state.user.token,
@@ -23,7 +24,7 @@ function Profile() {
   useEffect(() => {
     // Редирект на страницу логина, если пользователь не авторизирован
     if (!select.token) {
-      return <Redirect to={"/login"}/>
+      navigate("/login", { replace: true });
     }
   }, [select.token]);
 

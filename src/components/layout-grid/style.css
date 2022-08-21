@@ -1,0 +1,53 @@
+.LayoutGrid{
+    display: grid;
+    grid-template-areas: 'sign sign'
+                        'head select';
+    /* flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding: 0;
+    margin-left: -5px;
+    margin-right: -5px;
+    align-items: center; */
+}
+
+.LayoutGrid-item:first-child {
+    width: 100%;
+    height: 60px;
+    grid-area: sign;
+    background: rgb(255, 255, 255);
+    position: relative;
+}
+
+.LayoutGrid-item:nth-child(2) {
+    grid-area: head;
+    justify-self: start;
+    align-self: end;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+.LayoutGrid-item:nth-child(3) {
+    grid-area: select;
+    justify-self: end;
+    margin-top: 25px;
+    margin-right: 20px;
+}
+
+/* .LayoutFlex_flex_start{
+    justify-content: flex-start;
+}
+
+.LayoutFlex_padding{
+    padding: 20px 20px;
+}
+
+.LayoutFlex_flex_end{
+    justify-content: flex-end;
+}
+
+.LayoutFlex_flex_between{
+    justify-content: space-between;
+}
+
+.LayoutFlex-item{
+    margin: 0 5px;
+} */

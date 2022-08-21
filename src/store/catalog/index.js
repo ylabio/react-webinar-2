@@ -30,10 +30,26 @@ class CatalogState extends StateModule{
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        category:''
       },
-      waiting: false
+      waiting: false,
+      categories: []
     };
+  }
+
+  async initCategories(){
+    try {
+      const response = await fetch(`/api/v1/categories`);
+      const json = await response.json();
+      this.setState({
+        ...this.getState(),
+        categories: json.result.items
+      });
+    } catch(e) {
+
+    }
+      
   }
 
   /**
@@ -76,7 +92,14 @@ class CatalogState extends StateModule{
    * @returns {Promise<void>}
    */
   async setParams(params = {}, historyReplace = false){
-    const newParams = {...this.getState().params, ...params};
+
+    let newParams = {...this.getState().params, ...params};
+
+    if(newParams.page === this.getState().params.page) {
+      newParams.page = 1
+    } else {
+       newParams
+    }
 
     // Установка новых параметров и признака загрузки
     this.setState({
@@ -85,8 +108,15 @@ class CatalogState extends StateModule{
       waiting: true
     });
 
+    console.log(newParams)
+
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    let response
+    if(newParams.category) {
+      response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}&search[category]=${newParams.category}`);
+    } else {
+      response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    }
     const json = await response.json();
 
     // Установка полученных данных и сброс признака загрузки
@@ -106,6 +136,7 @@ class CatalogState extends StateModule{
       window.history.pushState({}, '', url);
     }
   }
+
 }
 
 export default CatalogState;

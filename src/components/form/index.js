@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 
-function Form({ btn, setState, state }) {
+function Form({ setStateFetch }) {
+  const [state, setState] = useState({ login: "", password: "" });
+
+  const handleAction = (e) => {
+    e.preventDefault();
+    setStateFetch(state);
+    setState({ login: "", password: "" });
+  };
+
   return (
     <form>
       <label>
@@ -15,7 +23,7 @@ function Form({ btn, setState, state }) {
           onChange={(e) => setState({ ...state, password: e.target.value })}
         />
       </label>
-      {btn}
+      <button onClick={handleAction}>Войти</button>
     </form>
   );
 }

@@ -19,17 +19,17 @@ function Authorization() {
     log: state.login.log,
   }));
 
+  const [stateFetch, setStateFetch] = useState({ login: "", password: "" });
+
   console.log("log", select.log);
 
   const callbacks = {
     // вход/выход
     setLogin: useCallback(
-      () => store.get("login").setLogin(!select.log),
-      [select.log]
+      () => store.get("login").setLogin(stateFetch, select.log),
+      [select.log, stateFetch]
     ),
   };
-
-  const [state, setState] = useState({ login: "", password: "" });
 
   useEffect(() => {
     if (select.log) {
@@ -37,19 +37,13 @@ function Authorization() {
     }
   }, [select.log]);
 
-  const btn = (title) => {
-    return (
-      <button
-        onClick={(e) => {
-          callbacks.setLogin();
-          e.preventDefault();
-        }}
-      >
-        {title}
-      </button>
-    );
-  };
-  console.log("state", state);
+  useEffect(() => {
+    if (stateFetch.login) {
+      callbacks.setLogin();
+    }
+  }, [stateFetch]);
+
+  console.log("state", stateFetch);
   return (
     <Layout
       head={
@@ -66,7 +60,7 @@ function Authorization() {
     >
       <Tools />
       <Cabinet head={"Вход"}>
-        <Form btn={btn("войти")} state={state} setState={setState} />
+        <Form setStateFetch={setStateFetch} />
       </Cabinet>
     </Layout>
   );

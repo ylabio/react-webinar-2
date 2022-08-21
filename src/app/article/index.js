@@ -7,9 +7,10 @@ import useTranslate from "../../hooks/use-translate";
 import ArticleCard from "../../components/article-card";
 import Spinner from "../../components/spinner";
 import Tools from "../../containers/tools";
-import Layout from "../../components/layout";
-import LayoutFlex from "../../components/layout-flex";
+import Layout from "../../components/layouts/layout";
+import LayoutFlex from "../../components/layouts/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import Login from "../../containers/login";
 
 function Article(){
   const store = useStore();
@@ -17,14 +18,14 @@ function Article(){
   // Параметры из пути /articles/:id
   const params = useParams();
 
-  useInit(async () => {
-    await store.get('article').load(params.id);
-  }, [params.id]);
-
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting
   }));
+
+  useInit(async () => {
+    await store.get('article').load(params.id);
+  }, [params.id]);
 
   const {t} = useTranslate();
 
@@ -35,10 +36,13 @@ function Article(){
 
   return (
     <Layout head={
+      <>
+      <Login />
       <LayoutFlex flex="between">
         <h1>{select.article.title}</h1>
         <LocaleSelect/>
       </LayoutFlex>
+      </>
     }>
       <Tools/>
       <Spinner active={select.waiting}>

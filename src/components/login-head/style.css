@@ -1,0 +1,12 @@
+.Login {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding: 10px 20px;
+    background: #FFFFFF;
+    border-bottom: 1px solid #CCCCCC;
+    z-index: 11;
+    font-size: 13px;
+    gap: 20px;
+    max-width: 1024px;
+}

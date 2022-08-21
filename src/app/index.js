@@ -4,6 +4,10 @@ import {Routes, Route} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
+import Auth from './auth';
+import Profile from './profile';
+import NonLoggedRoute from './routes/NonLoggedRoute';
+import PrivateRoute from './routes/PrivateRoute';
 
 /**
  * Приложение
@@ -18,6 +22,8 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
+        <Route path={"/login"} element={<NonLoggedRoute><Auth /></NonLoggedRoute>} />
+        <Route path={"/profile"} element={<PrivateRoute><Profile /></PrivateRoute>} />
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

@@ -1,6 +1,6 @@
 import React, {useMemo} from "react";
 import useTranslate from "../../hooks/use-translate";
-import Select from "../../components/select";
+import Select from "../../components/form/select";
 
 function LocaleSelect() {
 

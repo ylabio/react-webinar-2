@@ -16,7 +16,7 @@ const QS_OPTIONS = {
 /**
  * Состояние каталога
  */
-class CatalogState extends StateModule{
+class CatalogState extends StateModule {
 
   /**
    * Начальное состояние
@@ -30,9 +30,11 @@ class CatalogState extends StateModule{
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        category: ""
       },
-      waiting: false
+      waiting: false,
+      categories: []
     };
   }
 
@@ -42,17 +44,17 @@ class CatalogState extends StateModule{
    * @param params
    * @return {Promise<void>}
    */
-  async initParams(params = {}){
+  async initParams(params = {}) {
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
     let validParams = {};
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
+    if (urlParams.category) validParams.category = urlParams.category || "";
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
-
     // Итоговые параметры из начальных, из URL и из переданных явно
-    const newParams = {...this.initState().params, ...validParams, ...params};
+    const newParams = { ...this.initState().params, ...validParams, ...params };
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
   }
@@ -62,9 +64,9 @@ class CatalogState extends StateModule{
    * @param params
    * @return {Promise<void>}
    */
-  async resetParams(params = {}){
+  async resetParams(params = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
-    const newParams = {...this.initState().params, ...params};
+    const newParams = { ...this.initState().params, ...params };
     // Установк параметров и подгрузка данных
     await this.setParams(newParams);
   }
@@ -75,8 +77,8 @@ class CatalogState extends StateModule{
    * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
    * @returns {Promise<void>}
    */
-  async setParams(params = {}, historyReplace = false){
-    const newParams = {...this.getState().params, ...params};
+  async setParams(params = {}, historyReplace = false) {
+    const newParams = { ...this.getState().params, ...params };
 
     // Установка новых параметров и признака загрузки
     this.setState({
@@ -86,7 +88,7 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${newParams.category && "&search[category]=" + newParams.category}`);
     const json = await response.json();
 
     // Установка полученных данных и сброс признака загрузки
@@ -104,6 +106,70 @@ class CatalogState extends StateModule{
       window.history.replaceState({}, '', url);
     } else {
       window.history.pushState({}, '', url);
+    }
+  }
+
+  /**
+ * Загрузка категорий
+ * @param depth {Number}
+ */
+  async loadCategories(depth = 5) {
+    const r = (depth) => {
+      if (depth > 0) {
+        return `name,title,parent(${r(depth - 1)})`
+      } else {
+        return "name,title"
+      }
+    };
+    const categories = []
+    const createCategories = (arr, i = 0, mark = "- ") => {
+      arr.forEach((elem) => {
+        if (elem.children) {
+          categories.push({ title: `${mark.repeat(i)}${elem.title}`, value: elem._id })
+          createCategories(elem.children, i + 1)
+        } else {
+          categories.push({ title: `${mark.repeat(i)}${elem.title}`, value: elem._id })
+        }
+      })
+    };
+
+    try {
+      const response = await fetch(`api/v1/categories?fields=items(${r(depth)})`)
+      const json = await response.json();
+  
+      const { items } = json.result;
+  
+      const result = Array.from(
+        items.reduce((acc, o) => {
+          let _id, name;
+          if (o.parent) {
+            [_id, name] = [o.parent._id, o.parent.name];
+          }
+  
+          if (!acc.has(_id)) acc.set(_id, { _id, name }) // if the current item's parent doesn't exist, create it in the Map
+  
+          const parent = acc.get(_id) // get the current parent
+  
+          parent.children ??= [] // init children if it doesn't exist
+  
+          if (!acc.has(o._id)) acc.set(o._id, o) // add the current item to the Map if it doesn't exist
+          else Object.assign(acc.get(o._id), o) // combine it with the existing object if it does
+  
+          parent.children.push(acc.get(o._id)) // add the item to the children
+  
+          return acc
+        }, new Map()).values()
+      ).filter(o => !o.hasOwnProperty('parent'))
+  
+      createCategories(result[0].children);  //TODO: result[0].children - самые высшие категории (электроника и книги)
+  
+      // Установка полученных данных
+      this.setState({
+        ...this.getState(),
+        categories
+      }, "загрузка категорий");
+    } catch(e) {
+      console.log("load categories err", e)
     }
   }
 }

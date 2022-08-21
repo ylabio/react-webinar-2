@@ -34,7 +34,7 @@ function Login() {
       navigate('/profile', {replace: true});
     }
     if (select.isAuth && location.key !== 'default') {
-      navigate(-1, {replace: true});
+      navigate(-1);
     }
   }, [select.isAuth])
 

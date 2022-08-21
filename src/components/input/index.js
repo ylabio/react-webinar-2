@@ -35,6 +35,7 @@ function Input(props) {
       type={props.type}
       placeholder={props.placeholder}
       onChange={onChange}
+      onFocus={props.onFocus}
     />
   )
 }
@@ -45,14 +46,16 @@ Input.propTypes = {
   placeholder: propTypes.string,
   onChange: propTypes.func,
   theme: propTypes.string,
-  withoutThrottle: propTypes.bool
+  withoutThrottle: propTypes.bool,
+  onFocus: propTypes.func
 }
 
 Input.defaultProps = {
   onChange: () => {},
   type: 'text',
   theme: '',
-  withoutThrottle: false
+  withoutThrottle: false,
+  onFocus: () => {}
 }
 
 export default React.memo(Input);

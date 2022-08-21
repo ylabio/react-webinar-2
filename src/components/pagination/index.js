@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
+import {Link} from "react-router-dom";
 
 function Pagination(props) {
   const cn = bem('Pagination');
@@ -33,16 +34,19 @@ function Pagination(props) {
   };
 
   return (
-    <ul className={cn()}>
+    <div className={cn()}>
       {items.map((number, index) => (
-        <li key={index}
-            className={cn('item', {active: number === props.page, split: !number})}
-            onClick={onClickHandler(number)}
-        >
-          {number || '...'}
-        </li>
+        number
+          ? <Link to={props.link(number)}
+                  key={index}
+                  className={cn('item', {active: number === props.page, split: !number})}
+                  onClick={onClickHandler(number)}
+          >
+            {number}
+          </Link>
+          : <div key={index} className={cn('item', {split: true})}>...</div>
       ))}
-    </ul>
+    </div>
   )
 }
 

@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useMemo} from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
@@ -34,10 +34,15 @@ function CatalogList() {
     ), [t]),
   }
 
+  const link = useMemo(() => (page) => {
+    const location = window.location.pathname + window.location.search
+    return location.replace('page=' + select.page, 'page=' + page)
+  }, [select.page, window.location])
+
   return (
     <Spinner active={select.waiting}>
       <List items={select.items} renderItem={renders.item}/>
-      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
+      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate} link={link}/>
     </Spinner>
   );
 }

@@ -17,6 +17,8 @@
     box-sizing: border-box;
     text-align: center;
     line-height: 18px;
+    color: #000000;
+    text-decoration: none;
 }
 
 .Pagination-item:hover{

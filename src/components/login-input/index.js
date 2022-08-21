@@ -4,12 +4,13 @@ import Input from "../../components/input";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function LoginInput({value, onChange, type, title}) {
+function LoginInput({value, onChange, type, title, onFocus}) {
 
   const cn = bem('LoginInput');
 
   const callbacks = {
-    onChange: useCallback((val) => onChange(val), [onChange])
+    onChange: useCallback((val) => onChange(val), [onChange]),
+    onFocus: useCallback((val) => onFocus(val), [onFocus])
   }
 
   return (
@@ -18,7 +19,8 @@ function LoginInput({value, onChange, type, title}) {
       <Input value={value}
              onChange={callbacks.onChange}
              type={type}
-             withoutThrottle={true}/>
+             withoutThrottle={true}
+             onFocus={callbacks.onFocus}/>
     </div>
   )
 }

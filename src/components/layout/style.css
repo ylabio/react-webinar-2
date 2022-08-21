@@ -8,11 +8,11 @@ body{
 /* Страница*/
 .Layout{
     max-width: 1024px;
-    min-height: 100vh;
+    min-height: calc(100vh - 42px);
     margin: 0 auto;
     background: #fff;
     box-sizing: border-box;
-    box-shadow: 0 0 15px 5px #0000003b;
+    /*box-shadow: 0 0 15px 5px #0000003b;*/
 }
 .Layout-head{
     height: 80px;

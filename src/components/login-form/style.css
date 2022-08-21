@@ -1,0 +1,20 @@
+/* форма для авторизации */
+.LoginForm{
+margin: 0 20px;
+
+}
+
+.LoginForm-title {
+    font-weight: 700;
+    font-size: 24px;
+    margin: 36px 0;
+}
+
+.LoginForm-inputWrapper {
+    margin-bottom: 20px;
+}
+
+.LoginForm-error{
+    color: red;
+    margin-bottom: 20px;
+}

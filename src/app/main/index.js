@@ -11,13 +11,13 @@ import LocaleSelect from "../../containers/locale-select";
 
 function Main() {
   const store = useStore();
-
+  
   useInit(async () => {
     await store.get('catalog').initParams();
   }, [], {backForward: true});
-
+  
   const {t} = useTranslate();
-
+  
   return (
     <Layout head={
       <LayoutFlex flex="between">

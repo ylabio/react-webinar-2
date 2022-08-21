@@ -23,7 +23,7 @@ function CatalogFilter() {
     // Сортировка
     onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
     // Сортировка
-    onCategory: useCallback(category => store.get('catalog').setParams({category}), []),
+    onCategory: useCallback(category => store.get('catalog').setParams({category, page: 1}), []),
     // Поиск
     onSearch: useCallback(query => store.get('catalog').setParams({query, page: 1}), []),
     // Сброс
@@ -40,7 +40,6 @@ function CatalogFilter() {
     ]), []),
     categories: useMemo(() => (select.categories.map(item => ({value: item._id, title: item.title}))), [select.categories]),
   }
-  console.log(options.categories)
   
   React.useEffect(() => {
     store.get('catalog').getCategories()
@@ -51,7 +50,7 @@ function CatalogFilter() {
     <LayoutFlex flex="start">
       <Select onChange={callbacks.onCategory} value={select.category} options={options.categories}/>
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
-      <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
+      <Input onChange={callbacks.onSearch} value={select.query} placeholder={t('filter.search')} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </LayoutFlex>
   );

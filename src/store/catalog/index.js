@@ -33,7 +33,7 @@ class CatalogState extends StateModule {
         query: '',
         category: ''
       },
-      categories: [],
+      categories: [{title: `Все`, _id: ''}],
       waiting: false
     };
   }
@@ -78,7 +78,7 @@ class CatalogState extends StateModule {
         if (item.parent === parentId || item.parent?._id === parentId) {
           const newItem = {...item};
           if (dashCount) {
-            newItem.title = "-".repeat(dashCount) + newItem.title;
+            newItem.title = "- ".repeat(dashCount) + newItem.title;
           }
           newItems.push(newItem);
           sortCategories(newItems, items, newItem._id, dashCount + 1);

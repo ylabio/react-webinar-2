@@ -1,0 +1,24 @@
+/* Окно профиля пользователя */
+.ProfileCard {
+    padding: 30px 20px;
+}
+
+.ProfileCard-description {
+    margin: 20px 0;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.ProfileCard-prop {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.ProfileCard-label{
+    padding-right: 10px;
+}
+
+.ProfileCard-value{
+    font-weight: bold;
+}

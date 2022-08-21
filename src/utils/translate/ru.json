@@ -19,6 +19,12 @@
   "filter.reset": "Сбросить",
   "login": {
     "signIn": "вход",
-    "exit": "выход"
+    "exit": "выход",
+    "loginTitle": "Логин",
+    "loginPassword": "Пароль"
+  },
+  "profile": {
+    "name": "Имя",
+    "phone": "Телефон"
   }
 }

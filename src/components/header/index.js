@@ -21,24 +21,14 @@ const Header = () => {
     }, []),
   };
 
-  React.useEffect(() => {
-    store.get("user").getUser();
-  }, []);
-
-  console.log(t("login").signIn);
-
   return (
     <header>
       <LayoutFlex flex="end" padding="10">
-        <Link
-          //  onClick={callbacks.getProfile}
-          to="/profile"
-          className={cn("profile")}
-        >
+        <Link to="/profile" className={cn("profile")}>
           <div>{user.name}</div>
         </Link>
 
-        {user.name ? (
+        {localStorage.getItem("token") ? (
           <Link onClick={callbacks.exit} to="/">
             <button>{t("login").exit}</button>
           </Link>

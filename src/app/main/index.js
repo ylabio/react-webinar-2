@@ -21,6 +21,10 @@ function Main() {
     { backForward: true }
   );
 
+  React.useEffect(() => {
+    store.get("user").getUser();
+  }, []);
+
   const { t } = useTranslate();
 
   return (

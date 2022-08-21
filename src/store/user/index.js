@@ -19,34 +19,26 @@ class UserState extends StateModule {
   }
 
   async authorization(login, password) {
-    try {
-      const response = await fetch("/api/v1/users/sign", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ login, password }),
-      });
-      const json = await response.json();
+    const response = await fetch("/api/v1/users/sign", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ login, password }),
+    });
+    const json = await response.json();
 
+    if (response.status >= 400) {
+      this.setState({
+        error: json.error.data.issues[0].message,
+      });
+    } else {
       localStorage.setItem("token", json.result.token);
 
-      if (response.status >= 400) {
-        this.setState({
-          ...this.store.state.user,
-          error: json.error.message,
-        });
-      } else {
-        this.setState({
-          name: json.result.user.username,
-          token: json.result.token,
-          error: "",
-        });
-      }
-    } catch (e) {
       this.setState({
-        ...this.store.state.user,
-        error: e.error,
+        name: json.result.user.username,
+        token: json.result.token,
+        error: "",
       });
     }
   }
@@ -70,7 +62,8 @@ class UserState extends StateModule {
         email: json.result.email,
       });
     } catch (error) {
-      console.log("Ошибка при получении юзера");
+      console.log(error);
+      console.log("Ошибка getUser");
     }
   }
   async exit() {
@@ -94,7 +87,7 @@ class UserState extends StateModule {
         token: "",
       });
     } catch (error) {
-      console.log("Ошибка при получении юзера");
+      console.log("Ошибка exit");
     }
   }
 }

@@ -13,6 +13,7 @@ import useSelector from "../../hooks/use-selector";
 
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { t } = useTranslate();
@@ -22,6 +23,8 @@ const Login = () => {
   const [password, setPassword] = React.useState("");
 
   const store = useStore();
+
+  const navigate = useNavigate();
 
   const select = useSelector((state) => ({
     error: state.user.error,
@@ -33,6 +36,12 @@ const Login = () => {
       store.get("user").authorization(login, password);
     }, [login, password]),
   };
+
+  React.useEffect(() => {
+    if (select.user.name) {
+      navigate("/profile");
+    }
+  });
 
   return (
     <Layout
@@ -48,11 +57,11 @@ const Login = () => {
 
       <LayoutProfile head={<h2>Вход</h2>}>
         <div className={cn()}>
-          <div className={cn("data")}>Логин</div>
+          <div className={cn("data")}>{t("login").loginTitle}</div>
           <div className={cn("input")}>
             <input onChange={(e) => setLogin(e.target.value)} type="text" />
           </div>
-          <div className={cn("data")}>Пароль</div>
+          <div className={cn("data")}>{t("login").loginPassword}</div>
           <div className={cn("input")}>
             <input
               onChange={(e) => setPassword(e.target.value)}
@@ -61,7 +70,7 @@ const Login = () => {
           </div>
           {select.error && <div className={cn("error")}>{select.error}</div>}
           <div>
-            <button onClick={callbacks.signIn}>Войти</button>
+            <button onClick={callbacks.signIn}>{t("login").signIn}</button>
           </div>
         </div>
       </LayoutProfile>

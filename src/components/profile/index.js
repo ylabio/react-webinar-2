@@ -10,8 +10,8 @@ import LayoutProfile from "../layout-profile";
 import useTranslate from "../../hooks/use-translate";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
-import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
+import useStore from "../../hooks/use-store";
 
 const Profile = () => {
   const { t } = useTranslate();
@@ -19,9 +19,14 @@ const Profile = () => {
   const cn = bem("Profile");
 
   const store = useStore();
+
   const select = useSelector((state) => ({
     user: state.user,
   }));
+
+  React.useEffect(() => {
+    store.get("user").getUser();
+  }, []);
 
   return (
     <Layout
@@ -38,10 +43,10 @@ const Profile = () => {
       <LayoutProfile head={<h2>Профиль</h2>}>
         <div className={cn()}>
           <div className={cn("name")}>
-            Имя: <b> {select.user.name}</b>
+            {t("profile").name}: <b> {select.user.name}</b>
           </div>
           <div className={cn("phone")}>
-            Телефон: <b> {select.user.phone}</b>
+            {t("profile").phone}: <b> {select.user.phone}</b>
           </div>
           <div className={cn("email")}>
             email: <b> {select.user.email}</b>

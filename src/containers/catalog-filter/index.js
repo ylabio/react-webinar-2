@@ -5,6 +5,7 @@ import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
+import { getCategories } from "./getCategories";
 
 function CatalogFilter() {
   const store = useStore();
@@ -41,8 +42,11 @@ function CatalogFilter() {
     ),
   };
 
+  getCategories();
+
   return (
     <LayoutFlex flex="start" padding="20">
+      {/* <select>sadasd</select> */}
       <Select
         onChange={callbacks.onSort}
         value={select.sort}

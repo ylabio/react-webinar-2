@@ -22,6 +22,10 @@ function Article() {
     await store.get("article").load(params.id);
   }, [params.id]);
 
+  React.useEffect(() => {
+    store.get("user").getUser();
+  }, []);
+
   const select = useSelector((state) => ({
     article: state.article.data,
     waiting: state.article.waiting,

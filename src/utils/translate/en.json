@@ -17,6 +17,12 @@
   "filter.reset": "Reset",
   "login": {
     "signIn": "signIn",
-    "exit": "exit"
+    "exit": "exit",
+    "loginTitle": "Login",
+    "loginPassword": "Password"
+  },
+  "profile": {
+    "name": "name",
+    "phone": "phone"
   }
 }

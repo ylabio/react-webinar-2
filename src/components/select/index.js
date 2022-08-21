@@ -10,8 +10,9 @@ function Select(props){
 
   return (
     <select className="Select" onChange={onSelect} value={props.value}>
+      {props.categoryReset ? <option value={''}>Все</option> : null}
       {props.options.map(item => (
-        <option key={item.value} value={item.value}>{item.title}</option>
+        <option key={props.categoryReset? item?._id : item.title} value={props.categoryReset ? item?._id : item.value}>{item.title}</option>
       ))}
     </select>
   )

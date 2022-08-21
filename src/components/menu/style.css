@@ -11,6 +11,14 @@
     display: block;
     padding: 2px 4px 3px 2px;
     margin: 0 2px;
+
+}
+
+.Menu-main-link {
+    line-height: 15px;
+    text-align: center;
+    text-decoration-line: underline;
+    color: #0087E9;
 }
 
 .Menu-item:first-child {

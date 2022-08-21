@@ -28,13 +28,13 @@ function LoginForm() {
     >
       <LoginInput title={t('login.username')}
                   onChange={callbacks.loginChange}
-                  onFocus={callbacks.resetError}
+                  onFocus={select.auth.isErr ? callbacks.resetError : () => {}}
                   value={select.auth.login}
                   type='text'
       />
       <LoginInput title={t('login.password')}
                   onChange={callbacks.passwordChange}
-                  onFocus={callbacks.resetError}
+                  onFocus={select.auth.isErr ? callbacks.resetError : () => {}}
                   value={select.auth.password}
                   type='password'
       />

@@ -52,11 +52,7 @@ function Pagination(props) {
     </ul>
   );
 }
-{
-  /* <Link to={window.location.search.replace(re, String(number))}>
-{number}
-</Link> */
-}
+
 Pagination.propTypes = {
   page: propTypes.number.isRequired,
   limit: propTypes.number,

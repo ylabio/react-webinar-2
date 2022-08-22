@@ -4,6 +4,7 @@ import useTranslate from "../../hooks/use-translate";
 import { Navigate, useLocation } from "react-router-dom";
 import Form from "../../components/form";
 import useStore from "../../hooks/use-store";
+import Spinner from "../../components/spinner";
 
 function FormContainer() {
   const { t } = useTranslate();
@@ -19,6 +20,7 @@ function FormContainer() {
   const select = useSelector((state) => ({
     error: state.auth.error,
     isAuth: state.auth.isAuth,
+    waiting: state.auth.waiting,
   }));
 
   const [login, setLogin] = useState('test_1')
@@ -38,13 +40,15 @@ function FormContainer() {
   if (select.isAuth) return <Navigate to={options.fromPage} replace />
 
   return (
-    <Form login={login} 
-          password={password} 
-          changLogin={callbacks.changLogin}
-          changePassword={callbacks.changePassword}
-          onSubmit={callbacks.submit}
-          error={select.error}
-          t={t} />
+    <Spinner active={select.waiting}>
+      <Form login={login} 
+            password={password} 
+            changLogin={callbacks.changLogin}
+            changePassword={callbacks.changePassword}
+            onSubmit={callbacks.submit}
+            error={select.error}
+            t={t} />
+    </Spinner>
   );
 }
 

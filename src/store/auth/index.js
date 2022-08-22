@@ -18,6 +18,7 @@ class AuthState extends StateModule{
       },
       error: '',
       isAuth: false,
+      waiting: false,
     };
   }
 
@@ -25,6 +26,11 @@ class AuthState extends StateModule{
    * Авторизация
    */
   async login(payload){
+    // Установка признака загрузки
+    this.setState({
+      ...this.getState(),
+      waiting: true,
+    });
 
     try {
       const response = await fetch('/api/v1/users/sign', {
@@ -44,15 +50,16 @@ class AuthState extends StateModule{
         user: {...this.getState().user, name: json.result.user.profile.name},
         error: '',
         isAuth: true,
+        waiting: false,
       });
       console.log("try: ", response);
     } catch (error){
-      // const error = e.error.data ? e.error.data.issues[0].message : e.error.message
       console.log("catch: ", error);
       // Ошибка при загрузке
       this.setState({
         ...this.getState(),
-        error: `${error.message}`
+        error: `${error.message ? error.message : 'Некая ошибка от сервера'}`,
+        waiting: false,
       });
     }
   }
@@ -61,6 +68,11 @@ class AuthState extends StateModule{
    * Выход
    */
      async logout(){
+      // Установка признака загрузки
+      this.setState({
+        ...this.getState(),
+        waiting: true,
+      });
 
       const token = await localStorage.getItem('token');
 
@@ -84,6 +96,7 @@ class AuthState extends StateModule{
             error: '',
             isAuth: false,
             user: {},
+            waiting: false,
           });
         }
   
@@ -93,6 +106,7 @@ class AuthState extends StateModule{
           error: '',
           isAuth: false,
           user: {},
+          waiting: false,
         });
       }
     }
@@ -101,6 +115,12 @@ class AuthState extends StateModule{
    * Получить данные профиля
    */
   async me(){
+     // Установка признака загрузки
+     this.setState({
+      ...this.getState(),
+      waiting: true,
+    });
+
     const token = await localStorage.getItem('token');
 
     try {
@@ -122,12 +142,14 @@ class AuthState extends StateModule{
           email: json.result.email,
         },
         isAuth: true,
+        waiting: false,
     });
     } catch (e){
       // Ошибка при загрузке
       this.setState({
         ...this.getState(),
         isAuth: false,
+        waiting: false,
       });
     }
   }

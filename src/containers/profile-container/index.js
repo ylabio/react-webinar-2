@@ -2,16 +2,20 @@ import React from "react";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import Profile from "../../components/profile";
+import Spinner from "../../components/spinner";
 
 function ProfileContainer() {
   const { t } = useTranslate();
 
   const select = useSelector((state) => ({
     user: state.auth.user,
+    waiting: state.auth.waiting,
   }));
 
   return (
-    <Profile user={select.user} t={t} />
+    <Spinner active={select.waiting}>
+      <Profile user={select.user} t={t} />
+    </Spinner>
   );
 }
 

@@ -121,7 +121,7 @@ class CatalogState extends StateModule {
    * Получить все категории
    * @return {Promise<void>}
    */
-  async getCategorys(id) {
+  async getCategories() {
     const response = await fetch('api/v1/categories');
     const json = await response.json();
     const items = json.result.items;

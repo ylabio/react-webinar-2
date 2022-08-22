@@ -23,6 +23,11 @@
     background: #E1E1E1;
 }
 
+.Pagination-link {
+    text-decoration: none;
+    color: black;
+}
+
 .Pagination-item_active,
 .Pagination-item_active:hover{
     background: #0087E9;

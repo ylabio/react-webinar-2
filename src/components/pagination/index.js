@@ -41,7 +41,7 @@ function Pagination(props) {
             onClick={onClickHandler(number)}
         >
           {number ?
-              <Link to={`/?${props.URLsearch({...props.params, page: number})}`}>
+              <Link className={cn('link')} to={`/?${props.URLsearch({...props.params, page: number})}`}>
                 {number}
               </Link> :  '...'}
         </li>

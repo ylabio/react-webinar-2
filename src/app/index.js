@@ -17,8 +17,14 @@ import Profile from "./profile";
 function App() {
   const store = useStore();
 
+  const select = useSelector(state => ({
+    status: state.login.status,
+  }));
+
   useInit(async () => {
-    await store.get('login').checkAuth();
+    if (select.status === 'no_auth') {
+      await store.get('login').checkAuth();
+    }
   }, [], {backForward: true});
 
   const modal = useSelector(state => state.modals.name);

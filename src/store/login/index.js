@@ -106,11 +106,21 @@ class LoginState extends StateModule{
   /**
    * Сброс авторизации
    */
-  logout() {
+  async logout() {
     this.setState({
       ...this.getState(),
       status: 'no_auth',
       user: null,
+    });
+
+    const token = getToken();
+
+    await fetch(`/api/v1/users/sign`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Token': `${token}`
+      }
     });
 
     dropToken();

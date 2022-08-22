@@ -43,7 +43,6 @@ function Pagination(props) {
             to={props.generateLink(number)}
             onClick={onClickHandler(number)}
           >
-            {console.log(props.generateLink(number))}
             <li>{number}</li>
           </Link>
         ) : (

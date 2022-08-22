@@ -8,28 +8,40 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
+import Header from "../../components/header";
 
 function Main() {
   const store = useStore();
 
-  useInit(async () => {
-    await store.get('catalog').initParams();
-  }, [], {backForward: true});
+  useInit(
+    async () => {
+      await store.get("catalog").initParams();
+    },
+    [],
+    { backForward: true }
+  );
 
-  const {t} = useTranslate();
+  React.useEffect(() => {
+    store.get("user").getUser();
+  }, []);
+
+  const { t } = useTranslate();
 
   return (
-    <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{t('title')}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    }>
-      <Tools/>
-      <CatalogFilter/>
-      <CatalogList/>
+    <Layout
+      header={<Header />}
+      head={
+        <LayoutFlex padding="20" flex="between">
+          <h1>{t("title")}</h1>
+          <LocaleSelect />
+        </LayoutFlex>
+      }
+    >
+      <Tools />
+      <CatalogFilter />
+      <CatalogList />
     </Layout>
-  )
+  );
 }
 
 export default React.memo(Main);

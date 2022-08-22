@@ -1,0 +1,14 @@
+.input input {
+   width: 203px;
+   border: 1px solid #767676;
+   height: 26px;
+   outline: none;
+}
+
+.Login-input {
+   margin-bottom: 19px;
+}
+.Login-error {
+   color: #FF0000;
+   margin-bottom: 19px;
+}

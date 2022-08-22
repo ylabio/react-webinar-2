@@ -27,15 +27,7 @@ class ProfileState extends StateModule{
     }, 'Ожидание загрузки профиля');
 
     try {
-      const res = await fetch('/api/v1/users/self', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Token': this.store.getState().session.token
-        },
-      });
-      const json = await res.json();
-
+      const json = await this.services.api.request({url: '/api/v1/users/self'});
       // Товар загружен успешно
       this.setState({
         data: json.result,

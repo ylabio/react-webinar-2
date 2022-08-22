@@ -4,7 +4,7 @@ import simplifyErrors from "../../utils/simplify-errors";
 /**
  * Сессия
  */
-class SessionState extends StateModule{
+class SessionState extends StateModule {
   /**
    * Начальное состояние
    * @return {Object}
@@ -28,13 +28,11 @@ class SessionState extends StateModule{
   async signIn(data, onSuccess) {
     this.setState(this.initState(), 'Авторизация (начало)');
     try {
-      const res = await fetch('/api/v1/users/sign', {
+      const json = await this.services.api.request({
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        url: '/api/v1/users/sign',
         body: JSON.stringify(data)
       });
-      const json = await res.json();
-
       if (json.error) {
         this.setState({
           ...this.getState(),
@@ -52,9 +50,12 @@ class SessionState extends StateModule{
 
         // Запоминаем токен, чтобы потом автоматически аутентифицировать юзера
         window.localStorage.setItem('token', json.result.token);
+        // Устанавливаем токен в АПИ
+        this.services.api.setToken(json.result.token);
+
         if (onSuccess) onSuccess();
       }
-    } catch(error) {
+    } catch (error) {
       console.error(error);
     }
   }
@@ -65,15 +66,9 @@ class SessionState extends StateModule{
    */
   async signOut() {
     try {
-      await fetch('/api/v1/users/sign', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Token': this.getState().token
-        }
-      });
-      window.localStorage.removeItem('token');
-    } catch(error) {
+      await this.services.api.request({method: 'DELETE', url: '/api/v1/users/sign'});
+      this.services.api.setToken(null);
+    } catch (error) {
       console.error(error);
     }
     this.setState({...this.initState(), waiting: false});
@@ -86,18 +81,13 @@ class SessionState extends StateModule{
   async remind() {
     const token = localStorage.getItem('token');
     if (token) {
-      const res = await fetch('/api/v1/users/self', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Token': token
-        },
-      });
-      const json = await res.json();
-
+      // Устанавливаем токен в АПИ
+      this.services.api.setToken(token);
+      const json = await this.services.api.request({url: '/api/v1/users/self'});
       if (json.error) {
         // Удаляем плохой токен
         window.localStorage.setItem('token', json.result.token);
+        this.services.api.setToken(null);
       } else {
         this.setState({
           ...this.getState(),

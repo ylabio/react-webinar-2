@@ -2,7 +2,13 @@ import * as modules from './exports.js';
 
 class Store {
 
-  constructor() {
+  /**
+   * @param services {Services}
+   */
+  constructor(services) {
+    // Менеджер сервисов
+    this.services = services;
+
     // Состояние приложения (данные)
     this.state = {};
     // Слушатели изменений state

@@ -1,21 +1,21 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
-import {BrowserRouter} from "react-router-dom";
-import Store from "./store";
-import {StoreContext} from "./store/context";
+import {BrowserRouter} from 'react-router-dom';
 import App from './app';
+import Services from './services';
+import ServicesProvider from "./provider";
 
-// Внешнее состояние
-const store = new Store();
+// Менеджер сервисов
+const services = new Services();
 
 // Корень React приложения
 const root = createRoot(document.getElementById('root'));
 
 // Первый рендер (один раз)
 root.render(
-  <StoreContext.Provider value={store}>
+  <ServicesProvider services={services}>
     <BrowserRouter>
       <App/>
     </BrowserRouter>
-  </StoreContext.Provider>
+  </ServicesProvider>
 );

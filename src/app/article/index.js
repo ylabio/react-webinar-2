@@ -38,12 +38,7 @@ function Article(){
   };
 
   useEffect(() => {
-    const load = async () => {
-      const res = await api.get('/users/self/');
-      store.get('user').setName(res.data.result.profile.name)
-    };
-
-    if (getToken()) load();
+    if (getToken()) store.get('user').setData();
   }, [])
 
   return (

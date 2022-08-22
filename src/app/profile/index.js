@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback} from "react";
+import React, { useEffect, useCallback} from "react";
 import { useNavigate } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -16,20 +16,14 @@ function Profile() {
   const navigate = useNavigate();
   const {t} = useTranslate();
 
-  const [response, setResponse] = useState('');
-
   const select = useSelector(state => ({
     name: state.user.name,
+    phone: state.user.phone,
+    email: state.user.email,
   }));
   
   useEffect(() => {
-    const load = async () => {
-      const res = await api.get('/users/self/');
-      setResponse(res);
-      store.get('user').setName(res.data.result.profile.name)
-    };
-
-    if(getToken()) load()
+    if (getToken()) store.get('user').setData();
   }, [])
 
   useEffect(() => {
@@ -48,7 +42,7 @@ function Profile() {
       </LayoutFlex>
     }>
       <Tools/>
-      {response && getToken() ? <Data response={response} t={t}/> : null}
+      {select.name ? <Data name={select.name} phone={select.phone} email={select.email} t={t}/> : null}
     </Layout>
   )
 }

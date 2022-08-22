@@ -20,7 +20,6 @@ function Auth() {
       try {
         const response = await api.post('/users/sign', {login, password});
         saveToken(response.data.result.token)
-        store.get('user').setName(response.data.result.user.profile.name)
         navigate(`/profile`);
       } catch (error) {
         setError(true)

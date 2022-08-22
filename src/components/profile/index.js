@@ -3,21 +3,23 @@ import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
 
-function Profile({ response, t }){
+function Profile({ name, phone, email, t }){
   const cn = bem('Profile');
 
   return (
     <div className={cn()}>
       <h2>{t('profile')}</h2>
-      <p>{t('name')}: <b>{response.data.result.profile.name}</b></p>
-      <p>{t('phone')}: <b>{response.data.result.profile.phone}</b></p>
-      <p>email: <b>{response.data.result.email}</b></p>
+      <p>{t('name')}: <b>{name}</b></p>
+      <p>{t('phone')}: <b>{phone}</b></p>
+      <p>email: <b>{email}</b></p>
     </div>
   )
 }
 
 Profile.propTypes = {
-  response: propTypes.object,
+  name: propTypes.string,
+  phone: propTypes.string,
+  email: propTypes.string,
   t: propTypes.func
 }
 

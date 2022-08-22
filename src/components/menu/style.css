@@ -1,5 +1,24 @@
-.Menu{
-    padding: 20px;
+.Menu {
+    display: flex;
+    list-style: none;
+    justify-content: flex-start;
+    padding: 0;
+    margin: 0;
     font-size: 18px;
-    font-family: Arial, Helvetica, sans-serif;
+}
+
+.Menu-item {
+    display: block;
+    padding: 2px 4px 3px 2px;
+    margin: 0 2px;
+}
+
+.Menu-item:first-child {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.Menu-item:last-child {
+    margin-right: 0;
+    padding-right: 0;
 }

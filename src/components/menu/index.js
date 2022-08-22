@@ -1,17 +1,29 @@
-import React from "react";
-import HomeMenuButton from "../home-menu-button";
-import "style.css"
-import {cn as bem} from "@bem-react/classname";
+import React from 'react';
+import propTypes from "prop-types";
+import {cn as bem} from '@bem-react/classname'
+import {Link} from "react-router-dom";
+import './style.css';
 
-function  Menu() {
-    
-    const cn = bem('Menu');
+function Menu(props) {
+  const cn = bem('Menu');
 
-    return (
-        <div className={cn()}>
-            <HomeMenuButton />
-        </div>
-    )
+  return (
+    <ul className={cn()}>
+      {props.items.map(item => (
+        <li key={item.key} className={cn('item')}>
+          <Link to={item.link}>{item.title}</Link>
+        </li>
+      ))}
+    </ul>
+  )
 }
 
-export default React.memo(Menu)
+Menu.propTypes = {
+  items: propTypes.arrayOf(propTypes.object),
+}
+
+Menu.defaultProps = {
+  items: []
+}
+
+export default React.memo(Menu);

@@ -1,26 +1,38 @@
-import React , {useCallback} from 'react';
-import plural from "plural-ru";
+import React from 'react';
+import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import numberFormat from "../../utils/numberFormat";
+import numberFormat from "../../utils/number-format";
 import './styles.css';
 
-function BasketSimple({amount , sum , onOpen}) {
 
+function BasketSimple({sum, amount, onOpen, t}) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
-      <div>
-      <span className={cn('label')}>В корзине:</span>
+      <span className={cn('label')}>{t('basket.inBasket')}:</span>
       <span className={cn('total')}>
       {amount
-        ? `${amount} ${plural(amount, 'товар', 'товара', 'товаров')} / ${numberFormat(sum)} ₽`
-        : `пусто`
+        ? `${amount} ${t('basket.articles', amount)} / ${numberFormat(sum)} ₽`
+        : t('basket.empty')
       }
       </span>
-      <button className='BasketSimple__button' onClick={onOpen}>Перейти</button>
-      </div>
+      <button className='BasketSimple__button' onClick={onOpen}>{t('basket.open')}</button>
     </div>
   )
 }
 
-export default BasketSimple;
+BasketSimple.propTypes = {
+  onOpen: propTypes.func.isRequired,
+  sum: propTypes.number,
+  amount: propTypes.number,
+  t: propTypes.func
+}
+
+BasketSimple.defaultProps = {
+  onOpen: () => {},
+  sum: 0,
+  amount: 0,
+  t: (text) => text
+}
+
+export default React.memo(BasketSimple);

@@ -1,5 +1,17 @@
-import counter from "../../utils/counter";
 import StateModule from "../module";
+import qs from 'qs';
+
+const QS_OPTIONS = {
+  stringify: {
+    addQueryPrefix: true,
+    arrayFormat: 'comma',
+    encode: false
+  },
+  parse: {
+    ignoreQueryPrefix: true,
+    comma: true
+  }
+}
 
 /**
  * Состояние каталога
@@ -13,62 +25,86 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      limit: 10,
-      skip: 0,
-      pageNumber: 1,
-      fields: 'items(_id,_key,title,price),count'
+      count: 0,
+      params: {
+        page: 1,
+        limit: 10,
+        sort: 'order',
+        query: ''
+      },
+      waiting: false
     };
   }
 
-  async load(openLoadingScreen , closeLoadingScreen){
-    openLoadingScreen();
-    const response = await fetch('/api/v1/articles');
-    const json = await response.json();
-    this.setState({
-      items: json.result.items
-    });
-    closeLoadingScreen();
+  /**
+   * Инициализация параметров.
+   * Восстановление из query string адреса
+   * @param params
+   * @return {Promise<void>}
+   */
+  async initParams(params = {}){
+    // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
+    const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
+    let validParams = {};
+    if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
+    if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
+    if (urlParams.sort) validParams.sort = urlParams.sort;
+    if (urlParams.query) validParams.query = urlParams.query;
+
+    // Итоговые параметры из начальных, из URL и из переданных явно
+    const newParams = {...this.initState().params, ...validParams, ...params};
+    // Установка параметров и подгрузка данных
+    await this.setParams(newParams, true);
   }
 
-  async loadPage(openLoadingScreen, closeLoadingScreen){
-    openLoadingScreen();
-    const response = await fetch
-      (`/api/v1/articles?limit=${this.getState().limit}&skip=${this.getState().skip}&fields=${this.getState().fields}`);
+  /**
+   * Сброс параметров к начальным
+   * @param params
+   * @return {Promise<void>}
+   */
+  async resetParams(params = {}){
+    // Итоговые параметры из начальных, из URL и из переданных явно
+    const newParams = {...this.initState().params, ...params};
+    // Установк параметров и подгрузка данных
+    await this.setParams(newParams);
+  }
+
+  /**
+   * Устанвока параметров и загрузка списка товаров
+   * @param params
+   * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
+   * @returns {Promise<void>}
+   */
+  async setParams(params = {}, historyReplace = false){
+    const newParams = {...this.getState().params, ...params};
+
+    // Установка новых параметров и признака загрузки
+    this.setState({
+      ...this.getState(),
+      params: newParams,
+      waiting: true
+    });
+
+    const skip = (newParams.page - 1) * newParams.limit;
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
     const json = await response.json();
+
+    // Установка полученных данных и сброс признака загрузки
     this.setState({
       ...this.getState(),
       items: json.result.items,
-      size: json.result.count
-    }) 
-    closeLoadingScreen();
-  }
+      count: json.result.count,
+      waiting: false
+    });
 
-  /**
-   * Создание записи
-   */
-  createItem({_id, title = 'Новый товар', price = 999, selected = false}) {
-    this.setState({
-      items: this.getState().items.concat({_id, title, price, selected})
-    }, 'Создание товара');
-  }
-
-  /**
-   * Удаление записи по её коду
-   * @param _id
-   */
-  deleteItem(_id) {
-    this.setState({
-      items: this.getState().items.filter(item => item._id !== _id)
-    }, 'Удаление товара');
-  }
-
-  setNewParametrs(pageNumber){
-    this.setState({
-      ...this.getState() ,
-      pageNumber: pageNumber,
-      skip: (pageNumber -1 )*10
-    })
-    console.log(this.getState())
+    // Запоминаем параметры в URL
+    let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);
+    const url = window.location.pathname + queryString + window.location.hash;
+    if (historyReplace) {
+      window.history.replaceState({}, '', url);
+    } else {
+      window.history.pushState({}, '', url);
+    }
   }
 }
 

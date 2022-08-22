@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
+import useSelector from "../hooks/use-selector";
+import {Routes, Route} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
-import useStore from "../utils/use-store";
-import useSelector from "../utils/use-selector";
-import { Routes , Route , BrowserRouter } from 'react-router-dom';
-import ProductPage from './product-page';
+import Article from "./article";
 
 /**
  * Приложение
@@ -12,22 +11,13 @@ import ProductPage from './product-page';
  */
 function App() {
 
-  console.log('App');
-
   const modal = useSelector(state => state.modals.name);
 
   return (
     <>
-      <BrowserRouter>
       <Routes>
-        <Route path={"/"}
-               element={<Main />}
-               />
-        <Route path={"/:pageNumber"}
-               element={<Main />}
-               />
-        <Route path={"products/:id"}
-               element={<ProductPage />}/>
+        <Route path={''} element={<Main/>}/>
+        <Route path={"/articles/:id"} element={<Article/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}
       </BrowserRouter>

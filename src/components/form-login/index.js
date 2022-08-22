@@ -19,14 +19,12 @@ function FormLogin({onPutLogin, onPutPassword, onFetch, errorMessage, t}) {
         <div className={cn('box')}>
           <div className={cn('item')}>
             <label className={cn('label')}>{t('auth.label.login')}</label>
-            <Input type="text" placeholder={'Логин'} onChange={onPutLogin} value=""/>
-            {/* <input name="name" id="name" className={cn('input')} type="text"/> */}
+            <Input type="text" onChange={onPutLogin} value=""/>
           </div>
 
           <div className={cn('item')}>
             <label className={cn('label')}>{t('auth.label.pass')}</label>
-            <Input type="password" placeholder={'Пароль'} onChange={onPutPassword} value=""/>
-            {/* <input name="password" id="password" className={cn('input')} type="password"/> */}
+            <Input type="password" onChange={onPutPassword} value=""/>
           </div>
         </div>
         {

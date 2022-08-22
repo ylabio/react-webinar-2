@@ -9,7 +9,6 @@ import UserCard from '../../components/user-card';
 import useSelector from '../../hooks/use-selector';
 
 function Profile() {
-
   const select = useSelector(state => ({
     user: state.user.currentUser
   }));

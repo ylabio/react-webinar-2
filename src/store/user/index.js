@@ -1,7 +1,7 @@
 import StateModule from '../module';
 
 /**
- * Состояние товара
+ * Состояние авторизованного пользователя
  */
 class User extends StateModule {
   /**
@@ -14,14 +14,20 @@ class User extends StateModule {
     };
   }
 
+  /**
+   *  назначение текущего пользователя
+   * @param {Object} user
+   */
   setUser(user) {
-    
     this.setState({
       ...this.getState(),
       currentUser: user
     });
   }
 
+  /**
+   * сброс текущего пользователя
+   */
   resetUser() {
     this.setState({
       currentUser: {}

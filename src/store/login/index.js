@@ -1,7 +1,7 @@
 import StateModule from '../module';
 
 /**
- * Состояние товара
+ * Состояние при процедуре авторизации
  */
 class Login extends StateModule {
   /**
@@ -16,6 +16,11 @@ class Login extends StateModule {
     };
   }
 
+  /**
+   * Авторизация пользователя с логином и паролем
+   * @param {string} login
+   * @param {string} password
+   */
   async signIn(login, password) {
     try {
       const response = await fetch(`/api/v1/users/sign`, {
@@ -54,7 +59,10 @@ class Login extends StateModule {
     }
   }
 
-  // было необходимо связать this
+  /**
+   * Получение текущего пользователя через токен, стрелочная функция применяется для связывания this
+   * @param {string} token
+   */
   signInWithToken = async token => {
     try {
       const response = await fetch(`/api/v1/users/self`, {
@@ -83,6 +91,9 @@ class Login extends StateModule {
     }
   };
 
+  /**
+   * Выход пользователя, сброс авторизации текущего пользователя
+   */
   async signOut() {
     const xToken = this.getState().xToken;
 

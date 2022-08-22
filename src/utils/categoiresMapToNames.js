@@ -1,3 +1,9 @@
+/**
+ * Преображает массив объектов из одной структуры в другую
+ * @param {array} array
+ * @returns {array}
+ */
+
 export function categoriesMap(array) {
   // топ категории, т.е. которые не являются подкатегориями
   const sortedCategories = array.filter(elem => !elem.hasOwnProperty('parent'));

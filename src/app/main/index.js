@@ -9,7 +9,6 @@ import LayoutFlex from '../../components/layout-flex';
 import Layout from '../../components/layout';
 import LocaleSelect from '../../containers/locale-select';
 import LoginTools from '../../containers/login-tools';
-import {callMeIfPresentInStorage} from '../../utils/callMeIFPresentInStorage';
 
 function Main() {
   const store = useStore();
@@ -17,7 +16,6 @@ function Main() {
   useInit(
     async () => {
       await store.get('catalog').initParams();
-      
     },
     [],
     {backForward: true}

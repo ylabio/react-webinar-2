@@ -12,35 +12,42 @@ function LoginForm(props) {
   const cn = bem('LoginForm');
   const [values, setValues] = useState(initialValues);
 
-  const handleInputChange = event => {
-    const {name, value} = event.target;
+  const callbacks = {
+    onChange: useCallback(
+      event => {
+        const {name, value} = event.target;
 
-    setValues({
-      ...values,
-      [name]: value
-    });
-  };
-
-  const handleSubmit = event => {
-    event.preventDefault();
-    props.onSubmit(values.name, values.password);
-    setValues({
-      name: '',
-      password: ''
-    });
+        setValues({
+          ...values,
+          [name]: value.trim()
+        });
+      },
+      [values]
+    ),
+    onSubmit: useCallback(
+      event => {
+        event.preventDefault();
+        props.onSubmit(values.name, values.password);
+        setValues({
+          name: '',
+          password: ''
+        });
+      },
+      [values]
+    )
   };
 
   return (
     <div className={cn()}>
       <h2>Вход</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={callbacks.onSubmit}>
         <label>
           Логин
           <input
             name="name"
             type="text"
             value={values.name}
-            onChange={handleInputChange}
+            onChange={callbacks.onChange}
           />
         </label>
 
@@ -50,7 +57,7 @@ function LoginForm(props) {
             name="password"
             type="password"
             value={values.password}
-            onChange={handleInputChange}
+            onChange={callbacks.onChange}
           />
         </label>
         <button type="submit">Войти</button>

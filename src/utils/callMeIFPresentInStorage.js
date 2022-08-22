@@ -1,6 +1,6 @@
 /**
  * Проверяет наличие записи в localStorage по переданному ключу, и вызывает callback, если запись присутствует
- * @param {String} itemInStorageName
+ * @param {string} itemInStorageName
  * @param {Function} callback
  */
 

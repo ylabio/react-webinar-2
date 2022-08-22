@@ -14,7 +14,9 @@ function LoginTools() {
   }));
 
   const callbacks = {
+    // выход пользователя
     signOut: useCallback(() => store.get('login').signOut(), []),
+    // переход на страницу входа пользователя
     goToSignInForm: useCallback(() => {
       navigate('/login');
     }, [])
@@ -30,7 +32,6 @@ function LoginTools() {
     [select.isAuthorized]
   );
 
-  // write render functions for buttons
   return (
     <LayoutFlex flex="end">
       <div>

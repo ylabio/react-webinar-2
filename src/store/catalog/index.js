@@ -57,7 +57,6 @@ class CatalogState extends StateModule {
     const newParams = { ...this.initState().params, ...validParams, ...params };
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
-    await this.setCategories();
   }
 
   /**
@@ -98,11 +97,11 @@ class CatalogState extends StateModule {
       }
     });
 
-    const test = categories(children, parents);
+    const result = categories(children, parents);
 
     this.setState({
       ...this.getState(),
-      categories: [...this.getState().categories, ...test],
+      categories: [...this.getState().categories, ...result],
       waiting: false,
     });
   }

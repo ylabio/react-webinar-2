@@ -6,13 +6,18 @@ import Select from "../../components/tools/select";
 import Input from "../../components/tools/input";
 import LayoutFlex from "../../components/layouts/layout-flex";
 import Filter from "../../components/tools/filter";
+import useInit from "../../hooks/use-init";
 
 function CatalogFilter() {
 
   const store = useStore();
 
+  useInit(async () => {
+    await store.get('categories').loadCategories();
+  }, [], {backForward: true});
+
   const select = useSelector(state => ({
-    categories: state.catalog.categories,
+    categories: state.categories.categories,
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,

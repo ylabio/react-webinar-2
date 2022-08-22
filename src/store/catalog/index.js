@@ -1,6 +1,5 @@
 import StateModule from "../module";
 import qs from 'qs';
-import {groupCategories} from "../../utils/group-categories";
 
 const QS_OPTIONS = {
   stringify: {
@@ -26,7 +25,6 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      categories: [],
       count: 0,
       params: {
         page: 1,
@@ -94,14 +92,11 @@ class CatalogState extends StateModule{
     const response = await fetch(
       `/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${strCategory}`);
     const json = await response.json();
-    const responseCategories = await fetch('/api/v1/categories');
-    const jsonCategories = await responseCategories.json();
 
     // Установка полученных данных и сброс признака загрузки
     this.setState({
       ...this.getState(),
       items: json.result.items,
-      categories: groupCategories(jsonCategories.result.items),
       count: json.result.count,
       waiting: false
     });

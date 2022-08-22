@@ -14,6 +14,9 @@
 .LayoutFlex_padding{
     padding: 20px 20px;
 }
+.LayoutFlex_padding_10-20{
+    padding: 10px 20px;
+}
 
 .LayoutFlex_flex_end{
     justify-content: flex-end;

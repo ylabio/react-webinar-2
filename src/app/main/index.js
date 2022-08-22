@@ -35,6 +35,7 @@ function Main() {
       () => store.get("login").setLogin(select.log),
       [select.log]
     ),
+    setDelete: useCallback((token) => store.get("login").setDelete(token), []),
   };
 
   const btn = (title) => {
@@ -43,6 +44,9 @@ function Main() {
         onClick={(e) => {
           callbacks.setLogin();
           e.preventDefault();
+          {
+            select.log && callbacks.setDelete(localStorage.getItem("token"));
+          }
         }}
       >
         {title}
@@ -62,9 +66,9 @@ function Main() {
         select.log ? (
           <>
             <Link to="/profil">
-              <button>{select.user.profile.name}</button>
+              <button>{select.user.name}</button>
             </Link>
-            {btn("выйте")}
+            {btn("Выйте")}
           </>
         ) : (
           <Link to="/login">

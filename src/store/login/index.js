@@ -9,7 +9,7 @@ class LogState extends StateModule {
   initState() {
     return {
       log: false,
-      user: [],
+      user: {},
     };
   }
 
@@ -27,7 +27,6 @@ class LogState extends StateModule {
         }),
       });
       const json = await response.json();
-      console.log("response", json);
 
       if (!json) {
         this.setState({
@@ -36,13 +35,70 @@ class LogState extends StateModule {
         });
       } else {
         this.setState({
-          user: json.result.user,
+          user: {
+            name: json.result.user.profile.name,
+            phone: json.result.user.profile.phone,
+            email: json.result.user.email,
+          },
           log: !a,
         });
+        localStorage.setItem("token", json.result.token);
       }
     } catch (e) {
       console.log("error", e);
     }
+  }
+
+  // async setAuth(token) {
+  //   console.log("start token", token);
+  // }
+
+  async setAuth(token) {
+    try {
+      const response = await fetch("/api/v1/users/self", {
+        headers: { "X-Token": token },
+      });
+
+      const json = await response.json();
+
+      if (!json) {
+        this.setState({
+          ...this.store.state.login,
+          log: false,
+        });
+      } else {
+        this.setState({
+          user: {
+            name: json.result.profile.name,
+            phone: json.result.profile.phone,
+            email: json.result.email,
+          },
+          log: true,
+        });
+      }
+    } catch (e) {}
+  }
+
+  async setDelete(token) {
+    try {
+      const response = await fetch("/api/v1/users/sign", {
+        method: "DELETE",
+        headers: { "X-Token": token },
+      });
+      const json = await response.json();
+
+      console.log("response", json);
+      if (!json) {
+        this.setState({
+          ...this.store.state.login,
+        });
+      } else {
+        this.setState({
+          user: {},
+          log: false,
+        });
+      }
+    } catch (e) {}
   }
 }
 

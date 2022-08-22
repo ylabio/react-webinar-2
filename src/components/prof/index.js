@@ -10,10 +10,10 @@ function Prof({ user }) {
   return (
     <ul className={cn()}>
       <li>
-        Имя: <span>{user.profile.name}</span>
+        Имя: <span>{user.name}</span>
       </li>
       <li>
-        Телефон: <span>{user.profile.phone}</span>
+        Телефон: <span>{user.phone}</span>
       </li>
       <li>
         email: <span>{user.email}</span>

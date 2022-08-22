@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useCallback } from "react";
 import useSelector from "../hooks/use-selector";
+import useStore from "../hooks/use-store";
 import { Routes, Route } from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
@@ -13,6 +14,18 @@ import Authorization from "./authorization";
  */
 function App() {
   const modal = useSelector((state) => state.modals.name);
+
+  const store = useStore();
+
+  const callbacks = {
+    setAuth: useCallback((token) => store.get("login").setAuth(token), []),
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      callbacks.setAuth(localStorage.getItem("token"));
+    }
+  }, []);
 
   return (
     <>

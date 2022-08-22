@@ -1,0 +1,8 @@
+.LayoutForm {
+  display: relative;
+  padding: 20px;
+}
+
+.LayoutForm-content {
+  margin-bottom: 20px;
+}

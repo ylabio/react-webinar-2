@@ -1,0 +1,25 @@
+.Profile {
+  padding: 40px 20px 0px 20px;
+}
+
+.Profile-title {
+  margin: 0px 0px 30px 0px;
+}
+
+.Profile-info > *:not(:last-child) {
+  margin: 0px 0px 20px 0px;
+}
+
+.Form-input {
+  display: block;
+  font-size: 16px;
+  padding: 2px;
+}
+
+.Form-label {
+  display: block;
+}
+
+.Form-red {
+  color: red;
+}

@@ -1,25 +1,37 @@
-import React from 'react';
-import useSelector from "../hooks/use-selector";
-import {Routes, Route} from "react-router-dom";
-import Main from "./main";
-import Basket from "./basket";
-import Article from "./article";
+import React, { useEffect } from 'react';
+import useSelector from '../hooks/use-selector';
+import Basket from './basket';
+import useStore from '../hooks/use-store';
+import { PrivateRoutes, PublicRoutes } from '../routes';
 
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
+  const store = useStore();
 
-  const modal = useSelector(state => state.modals.name);
+  useEffect(() => {
+    store.get('authorization').checkToken(localStorage.getItem('token'));
+  });
+
+  const select = useSelector((state) => ({
+    modal: state.modals.name,
+    loggedIn: state.authorization.loggedIn,
+  }));
 
   return (
     <>
-      <Routes>
-        <Route path={''} element={<Main/>}/>
-        <Route path={"/articles/:id"} element={<Article/>}/>
-      </Routes>
-      {modal === 'basket' && <Basket/>}
+      {select.loggedIn ? (
+        <div>
+          <PrivateRoutes />
+        </div>
+      ) : (
+        <div>
+          <PublicRoutes />
+        </div>
+      )}
+      {select.modal === 'basket' && <Basket />}
     </>
   );
 }

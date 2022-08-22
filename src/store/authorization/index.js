@@ -33,7 +33,7 @@ class AuthorizationState extends StateModule{
     if (!json.result) {
       this.setState({
       ...this.getState(),
-      error: json.error.data?.issues[0].message,
+      error: json.error.data?.issues[0]?.message,
       })
     } else {
       localStorage.setItem('authToken', json.result.token)
@@ -50,6 +50,8 @@ class AuthorizationState extends StateModule{
   async loadUser() {
     const token = localStorage.getItem('authToken');
 
+    if (!token) return
+
     const requestOptions = {
       method: 'GET',
       headers: {
@@ -65,7 +67,7 @@ class AuthorizationState extends StateModule{
       userData: json.result,
       error: '',
       token,
-    });
+    }, 'Загрузка данных пользователя');
   }
   
   // Выход из личного кабинета пользователя (сброс параметров и удаление токена 
@@ -89,7 +91,7 @@ class AuthorizationState extends StateModule{
         error: '',
         token: '',
         userData: {},
-    }, 'Получение токена');
+    }, 'Удаление токена');
   }
 }
 

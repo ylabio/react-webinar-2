@@ -1,0 +1,28 @@
+.LoginMenu {
+  background-color: white;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.LoginMenu__user {
+  margin-right: 20px;
+}
+
+.LoginMenu__button {
+    text-decoration: none;
+    background-color: #efefef;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    padding: 3px 7px;
+    line-height: 15px;
+    color: black;
+    cursor: default;
+    font-size: 13px;
+}
+
+.LoginMenu__button:hover {
+    background-color: #dedede;
+    border-color: #666;
+}

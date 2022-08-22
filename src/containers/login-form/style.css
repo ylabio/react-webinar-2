@@ -1,0 +1,23 @@
+.LoginForm {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px 20px;
+}
+
+.LoginForm *:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.LoginForm label,
+.LoginForm input {
+  display: block;
+}
+
+.LoginForm-title {
+  margin: 0;
+}
+
+.LoginForm-error {
+  color: #ff0000;
+}
+

@@ -2,9 +2,9 @@ import React, {useCallback, useMemo} from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import Select from "../../components/select";
-import Input from "../../components/input";
-import LayoutFlex from "../../components/layout-flex";
+import Select from "../../components/form-components/select";
+import Input from "../../components/form-components/input";
+import LayoutFlex from "../../components/layouts/layout-flex";
 
 function CatalogFilter() {
 
@@ -13,11 +13,16 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    categories: state.category
   }));
 
   const {t} = useTranslate();
 
+
   const callbacks = {
+    // Категории
+    onCategory: useCallback(category => store.get('catalog').setParams({category, page: 1}), []),
     // Сортировка
     onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
     // Поиск
@@ -33,11 +38,14 @@ function CatalogFilter() {
       {value:'title.ru', title: 'По именованию'},
       {value:'-price', title: 'Сначала дорогие'},
       {value:'edition', title: 'Древние'},
-    ]), [])
+    ]), []),
+    category: useMemo(() => (select.categories || [
+    ]), [select.categories])
   }
 
   return (
     <LayoutFlex flex="start">
+      <Select onChange={callbacks.onCategory} value={select.category} options={options.category}/>
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

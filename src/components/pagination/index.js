@@ -1,10 +1,13 @@
 import React from 'react';
+import {Link, useLocation} from "react-router-dom";
 import propTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname'
+import {cn as bem} from '@bem-react/classname';
+import getLink from "../../utils/get-link";
 import './style.css';
 
 function Pagination(props) {
   const cn = bem('Pagination');
+  const params = useLocation().search;
   // Количество страниц
   const length = Math.ceil(props.count / Math.max(props.limit, 1));
 
@@ -35,12 +38,13 @@ function Pagination(props) {
   return (
     <ul className={cn()}>
       {items.map((number, index) => (
-        <li key={index}
-            className={cn('item', {active: number === props.page, split: !number})}
-            onClick={onClickHandler(number)}
+        <Link to={getLink(params, 'page', [number])}
+          key={index}
+          className={cn('item', {active: number === props.page, split: !number})}
+          onClick={onClickHandler(number)}
         >
           {number || '...'}
-        </li>
+        </Link>
       ))}
     </ul>
   )

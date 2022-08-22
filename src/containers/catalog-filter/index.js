@@ -5,7 +5,7 @@ import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
-import categoriesToHierarchy from "../../utils/categoriesToHierarchy";
+import categoriesToHierarchy from "../../utils/categories-to-hierarchy";
 
 function CatalogFilter() {
   const store = useStore();

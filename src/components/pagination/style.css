@@ -35,3 +35,8 @@
     cursor: default;
     color: #CCCCCC;
 }
+
+.Pagination a {
+    text-decoration: none;
+    color: #000;
+}

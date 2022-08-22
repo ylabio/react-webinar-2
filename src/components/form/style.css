@@ -1,0 +1,15 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  min-height: 160px;
+  justify-content: space-between;
+}
+.Form button {
+  display: block;
+  width: 70px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+.Form h5 {
+  margin: 0;
+}

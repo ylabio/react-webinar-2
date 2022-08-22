@@ -57,10 +57,10 @@ function Authorization() {
           <LocaleSelect />
         </LayoutFlex>
       }
-      btn={<Link to="/">{btn("выйте")}</Link>}
+      btn={<Link to="/">{btn("Выйте")}</Link>}
     >
       <Tools />
-      <Cabinet head={"Вход"}>
+      <Cabinet head={"Профиль"}>
         <Prof user={select.user} />
       </Cabinet>
     </Layout>

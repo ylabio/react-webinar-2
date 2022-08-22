@@ -7,8 +7,8 @@ import propTypes from "prop-types";
 function LoginForm(props) {
   const cn = bem('LoginForm');
   
-  const [loginInput, setLoginInput] = React.useState('test_1');
-  const [passwordInput, setPasswordInput] = React.useState('123456');
+  const [loginInput, setLoginInput] = React.useState('');
+  const [passwordInput, setPasswordInput] = React.useState('');
   
   return (
     <div className={cn()}>

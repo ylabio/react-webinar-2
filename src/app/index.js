@@ -9,6 +9,7 @@ import Login from "./login";
 import Profile from "./profile";
 import useStore from "../hooks/use-store";
 import useTranslate from "../hooks/use-translate";
+import useInit from "../hooks/use-init";
 
 /**
  * Приложение
@@ -27,19 +28,22 @@ function App() {
   });
   
   const callbacks = {
-    // Сортировка
+    // Сброс авторизации
     logout: useCallback(() => store.get('user').logout(), []),
+    // Получение данных при первом рендере
+    getUserProfile: useCallback(() => store.get("user").getUserProfile(), [])
   };
   
-  useEffect(() => {
-    store.get("user").getUserProfile()
+  useInit(() => {
+    callbacks.getUserProfile()
   }, []);
   
   const {t} = useTranslate()
   
   return (
     <>
-      <Header buttonText={isAuth ? t('header.logout') : t('header.login')} userName={userName} isAuth={isAuth} logout={isAuth ? callbacks.logout : null}/>
+      <Header buttonText={isAuth ? t('header.logout') : t('header.login')} userName={userName} isAuth={isAuth}
+              logout={isAuth ? callbacks.logout : null}/>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/login'} element={!isAuth ? <Login/> : <Navigate to={'/profile'}/>}/>

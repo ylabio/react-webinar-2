@@ -1,12 +1,10 @@
 import React from 'react';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
-import useTranslate from "../../hooks/use-translate";
+import propTypes from "prop-types";
 
-const UserInfo = ({ user }) => {
+const UserInfo = ({user, t}) => {
   const cn = bem('User');
-
-  const {t} = useTranslate();
   
   return (
     <div className={cn()}>
@@ -26,5 +24,11 @@ const UserInfo = ({ user }) => {
     </div>
   );
 };
+UserInfo.propTypes = {
+  user: propTypes.object.isRequired,
+  t: propTypes.func
+};
+
+UserInfo.defaultProps = {};
 
 export default React.memo(UserInfo);

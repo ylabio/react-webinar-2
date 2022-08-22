@@ -12,14 +12,13 @@ import LoginBar from "../../components/login-bar";
 import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
 
-// todo: вывод ошибки и перевод кнопки
-
 function LoginPage() {
   const navigate = useNavigate();
   const {isAuth, token} = useAuth();
   const store = useStore();
   const {t} = useTranslate();
   const from = localStorage.getItem('link') || '/';
+  const error = useSelector(state=> state.user.message)
 
   const callbacks = {
     logIn: useCallback((login, pass) => store.get('user').logIn(login, pass), []),
@@ -27,12 +26,10 @@ function LoginPage() {
   useInit(()=> {
     {isAuth || token ? navigate(from): navigate('/login')}
   },[isAuth,from]);
-  const error = useSelector(state=> state.user.message)
-  console.log(error);
 
   return (
     <>
-      <LoginBar/>
+      <LoginBar t={t}/>
       <Layout  head={
         <LayoutFlex flex="between">
           <h1>{t('title')}</h1>
@@ -40,7 +37,7 @@ function LoginPage() {
         </LayoutFlex>
       }>
         <Tools/>
-        <LoginForm callback={callbacks.logIn} title={'Вход'} error={error}/>
+        <LoginForm callback={callbacks.logIn} title={'Вход'} error={error} t={t}/>
       </Layout>
     </>
   )

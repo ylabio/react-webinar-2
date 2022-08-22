@@ -32,13 +32,14 @@ function Article(){
   const {t} = useTranslate();
 
   const callbacks = {
+    logOut: useCallback(() => store.get('user').logOut(), []),
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), [])
   };
 
   return (
     <>
-      <LoginBar userName={isAuth && user.username} logOut={callbacks.logOut}/>
+      <LoginBar userName={isAuth && user.username} logOut={callbacks.logOut} t={t}/>
       <Layout head={
         <LayoutFlex flex="between">
           <h1>{select.article.title}</h1>

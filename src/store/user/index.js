@@ -3,7 +3,7 @@ import StateModule from "../module";
 /**
  * Состояние пользователя
  */
-class AuthState extends StateModule{
+class UserState extends StateModule{
 
   initState() {
     return {
@@ -37,13 +37,11 @@ class AuthState extends StateModule{
             token: result.result.token,
           });
         }
-      })
-      .catch(error => {
-        this.setState({
+        else this.setState({
           ...this.getState(),
-          message: error.message,
+          message: result.error.message,
         });
-      });
+      })
   }
   /**
    * Logout
@@ -84,4 +82,4 @@ class AuthState extends StateModule{
   }
 }
 
-export default AuthState;
+export default UserState;

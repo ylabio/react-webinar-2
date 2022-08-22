@@ -27,7 +27,7 @@ function Main() {
 
   return (
     <>
-      <LoginBar userName={isAuth && user.username} logOut={callbacks.logOut}/>
+      <LoginBar userName={isAuth && user.username} logOut={callbacks.logOut} t={t}/>
       <Layout head={
         <LayoutFlex flex="between">
           <h1>{t('title')}</h1>

@@ -17,19 +17,18 @@ function Profile(){
   const {user, isAuth} = useAuth();
   const navigate = useNavigate();
 
-  console.log(user);
   const callbacks = {
     logOut: useCallback(() => store.get('user').logOut(), []),
   };
 
   useInit(async () => {
     await store.get('user').restore();
-    isAuth ? navigate('/profile') : navigate('/');
+    isAuth ? navigate('/profile') : navigate('/login');
   }, [isAuth], {backForward: true});
 
   return (
     <>
-      <LoginBar userName={user.username} logOut={callbacks.logOut}/>
+      <LoginBar userName={user.username} logOut={callbacks.logOut} t={t}/>
       <Layout head={
         <LayoutFlex flex="between">
           <h1>{t('title')}</h1>
@@ -37,7 +36,7 @@ function Profile(){
         </LayoutFlex>
       }>
         <Tools/>
-        <UserInfo user={user}/>
+        <UserInfo user={user} t={t}/>
       </Layout>
     </>
   )

@@ -2,12 +2,10 @@ import React, {useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
-import useTranslate from '../../hooks/use-translate';
 import FormInput from "../form-input";
 
-const LoginForm = ({title, error, callback}) => {
+const LoginForm = ({error, callback, t}) => {
   const cn = bem('Form');
-  const {t} = useTranslate();
   const [login, setLogin] = useState('');
   const [pass, setPass] = useState('');
 
@@ -18,7 +16,7 @@ const LoginForm = ({title, error, callback}) => {
 
   return (
     <form className={cn()} onSubmit={onSubmit}>
-      <h1>{title}</h1>
+      <h1>{t('auth.title')}</h1>
       <FormInput
         label={t('auth.login')}
         value={login}
@@ -32,9 +30,9 @@ const LoginForm = ({title, error, callback}) => {
 };
 
 LoginForm.propTypes = {
-  title: propTypes.string,
   error: propTypes.string,
   callback: propTypes.func,
+  t: propTypes.func
 };
 
 LoginForm.defaultProps = {};

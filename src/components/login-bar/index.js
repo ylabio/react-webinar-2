@@ -2,11 +2,11 @@ import React from "react";
 import {Link} from "react-router-dom";
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
-import useTranslate from "../../hooks/use-translate";
+import propTypes from "prop-types";
 
-function LoginBar({ userName, logOut }) {
+function LoginBar({ userName, logOut, t }) {
   const cn = bem('LoginBar');
-  const {t} = useTranslate();
+
   return (
     <div className={cn()}>
       <Link to="/profile"><p className={cn('user')}>{userName}</p></Link>
@@ -18,5 +18,12 @@ function LoginBar({ userName, logOut }) {
     </div>
   )
 }
+LoginBar.propTypes = {
+  userName: propTypes.string,
+  logOut: propTypes.func,
+  t: propTypes.func
+};
+
+LoginBar.defaultProps = {};
 
 export default React.memo(LoginBar);

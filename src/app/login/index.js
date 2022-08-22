@@ -1,37 +1,26 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback} from "react";
 import useStore from "../../hooks/use-store";
-import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layouts/layout-flex";
 import Layout from "../../components/layouts/layout";
 import LocaleSelect from "../../containers/locale-select";
-import {useLocation, useNavigate} from "react-router-dom";
 import LoginForm from "../../components/admin/login-form";
 import PanelLogin from "../../containers/panel-login";
 import useSelector from "../../hooks/use-selector";
 import Spinner from "../../components/spinner";
+import useRedirect from "../../hooks/use-redirect";
 
 function Login() {
   const store = useStore();
-  const navigate = useNavigate();
-  const location = useLocation();
 
   const select = useSelector(state => ({
-    err: state.login.err,
     isAuth: state.login.isAuth,
+    err: state.login.err,
     waiting: state.login.waiting,
   }));
 
-  useInit(async () => {
-    if (select.isAuth && location.key === 'default') {
-      navigate('/', {replace: true});
-    }
-    if (select.isAuth && location.key !== 'default') {
-      navigate(-1);
-    }
-  }, [select.isAuth], {backForward: true});
-
+  useRedirect(select.isAuth, '/login', '/');
 
   const {t} = useTranslate();
 

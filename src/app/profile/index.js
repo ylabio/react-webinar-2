@@ -1,18 +1,16 @@
-import React, {useCallback, useEffect} from "react";
-import useInit from "../../hooks/use-init";
+import React from "react";
 import useTranslate from "../../hooks/use-translate";
 import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layouts/layout-flex";
 import Layout from "../../components/layouts/layout";
 import LocaleSelect from "../../containers/locale-select";
-import {useNavigate} from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import ProfileContent from "../../components/admin/profile-content";
 import PanelLogin from "../../containers/panel-login";
 import Spinner from "../../components/spinner";
+import useRedirect from "../../hooks/use-redirect";
 
 function Profile() {
-  const navigate = useNavigate();
 
   const select = useSelector(state => ({
     isAuth: state.login.isAuth,
@@ -20,11 +18,7 @@ function Profile() {
     waiting: state.login.waiting,
   }));
 
-  useInit(async () => {
-    if (!select.isAuth) {
-      navigate('/login');
-    }
-  }, [select.isAuth], {backForward: true});
+  useRedirect(select.isAuth, '/login', '/');
 
   const {t} = useTranslate();
 

@@ -97,6 +97,15 @@ class UserState extends StateModule {
     });
 
     const token = localStorage.getItem('token');
+
+    if (!token) {
+      this.setState({
+        ...this.getState(),
+        waiting: false
+      });
+      return;
+    }
+
     let response = await fetch('/api/v1/users/self', {
       headers: {
         'Content-Type': 'application/json',

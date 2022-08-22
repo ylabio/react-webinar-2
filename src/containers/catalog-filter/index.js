@@ -13,14 +13,16 @@ function CatalogFilter() {
   const select = useSelector((state) => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    filter: state.catalog.params.category,
+    category: state.catalog.params.category,
   }));
+
+  const categories = [{ title: "Все", value: "all" }, ...getCategories()];
 
   const { t } = useTranslate();
 
   const callbacks = {
     onFilterCategory: useCallback(
-      (id) => store.get("catalog").setParams({ category: id, page: 1 }),
+      (category) => store.get("catalog").setParams({ category, page: 1 }),
       []
     ),
     // Сортировка
@@ -47,14 +49,14 @@ function CatalogFilter() {
     ),
   };
 
-  const categories = [{ title: "Все" }, ...getCategories()];
+  console.log(categories);
 
   return (
     <LayoutFlex flex="start" padding="20">
       <Select
         onChange={callbacks.onFilterCategory}
-        value={select.filter}
         options={categories}
+        value={select.filter}
       />
       <Select
         onChange={callbacks.onSort}

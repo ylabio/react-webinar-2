@@ -43,20 +43,17 @@ class CatalogState extends StateModule {
    * @return {Promise<void>}
    */
   async initParams(params = {}) {
-    console.log(params);
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {};
     let validParams = {};
+
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
-    if (urlParams.search) validParams.category = urlParams.category || "all";
 
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = { ...this.initState().params, ...validParams, ...params };
-
-    //  console.log(urlParams);
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
   }
@@ -80,10 +77,7 @@ class CatalogState extends StateModule {
    * @returns {Promise<void>}
    */
   async setParams(params = {}, historyReplace = false) {
-    console.log(params);
     const newParams = { ...this.getState().params, ...params };
-
-    //  console.log(params);
 
     // Установка новых параметров и признака загрузки
     this.setState({
@@ -92,10 +86,17 @@ class CatalogState extends StateModule {
       waiting: true,
     });
 
+    let newUrl;
+    const baseUrl = `/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`;
+
+    if (newParams.category === "all" || !newParams.category) {
+      newUrl = baseUrl;
+    } else {
+      newUrl = baseUrl + `&search[category]=${newParams.category}`;
+    }
+
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(
-      `/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`
-    );
+    const response = await fetch(newUrl);
     const json = await response.json();
 
     // Установка полученных данных и сброс признака загрузки

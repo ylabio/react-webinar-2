@@ -2,7 +2,7 @@ import React from "react";
 
 export const getCategories = () => {
   const [categories, setCategories] = React.useState([]);
-  console.log(categories);
+
   React.useEffect(() => {
     (async () => {
       const response = await fetch("/api/v1/categories");
@@ -16,11 +16,11 @@ export const getCategories = () => {
     if ("parent" in item) {
       const x = categories.find((itemX) => itemX._id === item.parent._id);
       if ("parent" in x) {
-        return { ...item, title: ` - - ${item.title}` };
+        return { ...item, title: ` - - ${item.title}`, value: item._id };
       }
-      return { ...item, title: ` - ${item.title}` };
+      return { ...item, title: ` - ${item.title}`, value: item._id };
     }
-    return item;
+    return { ...item, name: item.name, value: item._id };
   });
 
   const func = () => {

@@ -26,6 +26,11 @@ class UserState extends StateModule {
 				},
 			});
 
+			if (!response.ok) {
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.error.data.issues[0].message);
+      }
+
 			const json = await response.json();
 
 			localStorage.setItem('yToken', json.result.token);

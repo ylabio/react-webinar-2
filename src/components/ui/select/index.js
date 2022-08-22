@@ -3,7 +3,6 @@ import propTypes from "prop-types";
 import './style.css';
 
 function Select(props){
-
   const onSelect = useCallback((e) => {
     props.onChange(e.target.value);
   }, [props.onChange])
@@ -14,17 +13,17 @@ function Select(props){
         <option key={item.value} value={item.value}>{item.title}</option>
       ))}
     </select>
-  )
+  );
 }
 
 Select.propTypes = {
   options: propTypes.arrayOf(propTypes.object).isRequired,
   value: propTypes.any,
   onChange: propTypes.func
-}
+};
 
 Select.defaultProps = {
   onChange: () => {}
-}
+};
 
 export default React.memo(Select);

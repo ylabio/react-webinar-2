@@ -32,7 +32,12 @@ function Login() {
 
   useEffect(() => {
     if (isAuth) {
-      history.go(-1);
+      if (history.length !== 2) {
+        history.go(-1);
+      
+      } else {
+        navigate('/');
+      }
     }
   }, [isAuth])
 

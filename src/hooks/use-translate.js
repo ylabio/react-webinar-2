@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import { useCallback } from "react";
 import useSelector from "./use-selector";
 import translate from "../utils/translate";
 import useStore from "./use-store";
@@ -11,16 +11,18 @@ export default function useTranslate() {
   const store = useStore();
 
   // Текущая локаль
-  const lang = useSelector(state => state.locale.lang);
+  const lang = useSelector((state) => state.locale.lang);
 
   // Функция для семны локали
-  const setLang = useCallback(lang => store.get('locale').setLang(lang), []);
+  const setLang = useCallback((lang) => store.get("locale").setLang(lang), []);
 
   // Функция для локализации текстов
-  const t = useCallback((text, number = undefined) => {
-    return translate(lang, text, number)
-  }, [lang]);
+  const t = useCallback(
+    (text, number = undefined) => {
+      return translate(lang, text, number);
+    },
+    [lang]
+  );
 
-
-  return {lang, setLang, t};
+  return { lang, setLang, t };
 }

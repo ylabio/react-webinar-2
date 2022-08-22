@@ -17,9 +17,6 @@ class UserState extends StateModule {
 	}
 
 	async login(data) {
-		// this.setState({
-		// 	...this.getState(),
-		// });
 		try {
 			const response = await fetch('api/v1/users/sign', {
 				method: 'POST',
@@ -53,10 +50,6 @@ class UserState extends StateModule {
 	}
 
 	async getProfile() {
-		// this.setState({
-		// 	...this.getState(),
-		// 	// isAuth: true
-		// });
 		try {
 			const token = localStorage.getItem('yToken');
 			const response = await fetch('api/v1/users/self', {

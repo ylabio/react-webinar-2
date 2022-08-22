@@ -25,13 +25,18 @@ class AuthState extends StateModule {
   * @param password
   */
   async login(login, password) {
-    try {
-      const response = await fetch(`/api/v1/users/sign`, {
-        method: 'POST',
-        body: JSON.stringify({ login: login, password: password }),
-        headers: { "Content-Type": "application/json" }
-      });
-      const json = await response.json();
+    const response = await fetch(`/api/v1/users/sign`, {
+      method: 'POST',
+      body: JSON.stringify({ login: login, password: password }),
+      headers: { "Content-Type": "application/json" }
+    });
+    const json = await response.json();
+    if (json.error) {
+      this.setState({
+        ...this.getState(),
+        error: `${json.error.data.issues[0].message}`,
+      })
+    } else {
       this.setState({
         ...this.getState(),
         token: json.result.token,
@@ -41,11 +46,6 @@ class AuthState extends StateModule {
       })
       localStorage.setItem("token", json.result.token);
       localStorage.setItem("userName", json.result.user.profile.name);
-    } catch (e) {
-      this.setState({
-        ...this.getState(),
-        error: 'Некая ошибка от сервера',
-      })
     }
   }
 

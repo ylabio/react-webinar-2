@@ -25,7 +25,7 @@ function Profile() {
 
     useInit(async () => {
         (window.localStorage.length === 0 && navigate('/login'));
-        (!select.user && await store.get('authorization').choiceProfile());
+        (!select.user && navigate("/"));
     }, [select.profile]);
 
     const callback = {

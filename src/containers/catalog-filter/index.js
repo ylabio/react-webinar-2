@@ -2,8 +2,8 @@ import React, { useCallback, useMemo } from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import Select from "../../components/select";
-import Input from "../../components/input";
+import Select from "../../components/form/select";
+import Input from "../../components/form/input";
 import LayoutFlex from "../../components/layouts/layout-flex";
 import Categories from "../../components/categories";
 

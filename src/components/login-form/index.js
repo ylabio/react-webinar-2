@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
-import Error from "../../components/error";
+import Error from "../../components/form/error";
 import "./style.css";
 
 function LoginForm({ submit, t, errors }) {

@@ -44,8 +44,8 @@ class ProfileState extends StateModule{
       headers: {
         'Content-Type': 'application/json'
       }})
-      .then((res) => res.json())
-      .then((res) => {
+      .then(res => res.json())
+      .then(res => {
       if(res.result) this.setUser(res.result.user, res.result.token, true);
       else if(res.error) throw new Error(res.error.data.issues[0].message);
     }).catch((e) => {
@@ -66,7 +66,7 @@ class ProfileState extends StateModule{
         'Content-Type': 'application/json',
         "X-Token": this.getState().token
       }})
-      .then((res) => res.json());
+      .then(res => res.json());
     this.setUser({}, "", false);
   }
   /**
@@ -81,8 +81,8 @@ class ProfileState extends StateModule{
         'Content-Type': 'application/json',
         "X-Token": token
       }})
-      .then((res) => res.json())
-      .then((res) => {
+      .then(res => res.json())
+      .then(res => {
         if(res.result) this.setUser(res.result, token, true)
       });
   }

@@ -10,20 +10,23 @@ import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import AuthControls from "../../components/auth-controls";
 import { useNavigate } from "react-router-dom";
-import { getCookie, setCookie } from "../../utils/coockie";
+import { getCookie } from "../../utils/coockie";
+import Spinner from "../../components/spinner";
+import useSelector from "../../hooks/use-selector";
 
 function Main() {
-  const store = useStore();
   const navigate = useNavigate();
+  const store = useStore();
   const token = getCookie('token');
   const name = localStorage.getItem('name');
 
+  const select = useSelector(state => ({
+    waiting: state.user.waiting,
+  }));
+
   const callbacks = {
     redirect: () => { navigate('/authorization') },
-    logout: useCallback(() => {
-      store.get('user').logout(token);
-      console.log('MAINOUT', token)
-    }, [])
+    logout: useCallback(() => store.get('user').logout(token), [])
   }
 
   useInit(async () => {
@@ -48,9 +51,11 @@ function Main() {
           <LocaleSelect/>
         </LayoutFlex>
     }>
-      <Tools/>
-      <CatalogFilter/>
-      <CatalogList/>
+      <Spinner active={select.waiting}>
+        <Tools/>
+        <CatalogFilter/>
+        <CatalogList/>
+      </Spinner>
     </Layout>
   )
 }

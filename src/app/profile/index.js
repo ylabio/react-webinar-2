@@ -11,11 +11,11 @@ import useInit from "../../hooks/use-init";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import { getCookie, setCookie } from "../../utils/coockie";
+import { getCookie } from "../../utils/coockie";
 
 function Profile() {
-  const store = useStore();
   const navigate = useNavigate();
+  const store = useStore();
   const token = getCookie('token');
   const name = localStorage.getItem('name');
 

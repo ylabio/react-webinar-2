@@ -10,15 +10,12 @@ import Tools from "../../containers/tools";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import { getToken, logout } from "../../service/auth";
-import { getCookie, setCookie } from "../../utils/coockie";
+import { getCookie } from "../../utils/coockie";
 
 function Authorization() {
   const navigate = useNavigate();
   const token = getCookie('token');
   const name = localStorage.getItem('name');
-
-  //console.log('PAGE', token);
 
   const store = useStore();
 
@@ -26,19 +23,24 @@ function Authorization() {
     waiting: state.user.waiting,
     error: state.user.error,
   }));
-
+  //console.log('ERROR!!!!!!', select.error)
   const {t} = useTranslate();
 
   const callbacks = {
     redirect: useCallback(() => { navigate('/authorization') }, []),
-    onSubmit: useCallback((data) => {
-      store.get('user').authorize(data)
-      navigate('/');
+    onSubmit: useCallback(async (data) => {
+      try {
+        await store.get('user').authorize(data);
+        navigate(-1);
+      } catch (error) {
+         throw error;
+      }
+
     }, []),
+
     logout: useCallback(() => {
       const token = getCookie('token');
       store.get('user').logout(token);
-      navigate('/');
     }, [])
   }
 

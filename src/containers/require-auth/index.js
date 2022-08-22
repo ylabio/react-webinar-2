@@ -1,14 +1,24 @@
-import React from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import React, { useEffect, useCallback } from "react";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { getUserInfo } from "../../service/user";
 import { getCookie } from "../../utils/coockie";
 
 export const RequireAuth = ({ children }) => {
   const token = getCookie('token');
-  const location = useLocation();
+  const navigate = useNavigate();
 
-  if (!token) {
-    return <Navigate to="/authorization" state={{ from: location }} replace />;
-  }
+  const checkAuth = useCallback(async () =>{
+    try {
+      await getUserInfo(token); 
+    } catch (error) {
+      navigate('/authorization');
+    }
+  });
+
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   return children;
 };

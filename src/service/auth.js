@@ -1,18 +1,16 @@
 export async function getToken(data) {
-  try {
-    const response = await fetch(`/api/v1/users/sign`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data),
-    });
-    const json = await response.json();
-
-    return json;
-  } catch (error) {
-    return error;
+  const response = await fetch(`/api/v1/users/sign`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data),
+  });
+  const json = await response.json();
+  if (!response.ok) {
+    throw json;
   }
+  return json;
 }
 
 export async function deleteToken(token) {

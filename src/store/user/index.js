@@ -1,6 +1,6 @@
 import { deleteToken, getToken } from "../../service/auth";
 import { getUserInfo } from "../../service/user";
-import { getCookie, setCookie } from "../../utils/coockie";
+import { setCookie } from "../../utils/coockie";
 import StateModule from "../module";
 
 class UserState extends StateModule{
@@ -30,25 +30,29 @@ class UserState extends StateModule{
       waiting: true,
     });
 
-    const res = await getToken(data);
+    try {
+      const res = await getToken(data);
+      debugger
+      setCookie('token', res.result.token);
 
-    if(res.error) {
       this.setState({
         ...this.getState(),
         waiting: false,
-        error: res.error.data.issues[0].message,
+        name: res.result.user.profile.name,
+        error: '',
       });
-      return;
+
+      localStorage.setItem('name', res.result.user.profile.name);
+
+    } catch (e) {
+      this.setState({
+        ...this.getState(),
+        waiting: false,
+        error: e.error.data.issues[0].message,
+      });
+
+      throw e;
     }
-
-    setCookie('token', res.result.token);
-
-    this.setState({
-      ...this.getState(),
-      waiting: false,
-      name: res.result.user.profile.name,
-    });
-    localStorage.setItem('name', res.result.user.profile.name)
   }
 
   async logout(token) {
@@ -64,6 +68,7 @@ class UserState extends StateModule{
     this.setState({
       ...this.getState(),
       waiting: false,
+      name: '',
     });
   }
 
@@ -73,21 +78,20 @@ class UserState extends StateModule{
       waiting: true,
     });
 
-    const res = await getUserInfo(token);
+    try {
+      const res = await getUserInfo(token);
 
-    if(res.error) {
       this.setState({
         ...this.getState(),
         waiting: false,
+        info: res.result
       });
-      return;
+    } catch (error) {
+        this.setState({
+          ...this.getState(),
+          waiting: false,
+        });
     }
-
-    this.setState({
-      ...this.getState(),
-      waiting: false,
-      info: res.result
-    });
   }
 }
 

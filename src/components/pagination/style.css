@@ -18,7 +18,10 @@
     text-align: center;
     line-height: 18px;
 }
-
+.Pagination-item a {
+    color: inherit;
+    text-decoration: none;
+}
 .Pagination-item:hover{
     background: #E1E1E1;
 }
@@ -29,6 +32,9 @@
     color: #fff;
 }
 
+.Pagination-item_split {
+    pointer-events: none;
+}
 .Pagination-item_split,
 .Pagination-item_split:hover{
     background: transparent;

@@ -23,8 +23,9 @@ function Profile() {
         profile: state.authorization
     }));
 
-    useInit(() => {
+    useInit(async () => {
         (window.localStorage.length === 0 && navigate('/login'));
+        (!select.user && await store.get('authorization').choiceProfile());
     }, [select.profile]);
 
     const callback = {

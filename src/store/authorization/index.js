@@ -58,7 +58,7 @@ class Authorization extends StateModule {
             }
         }
         catch (err) {
-            alert(err)
+            alert("Не удалось подключится к серверу")
         }
     }
 
@@ -66,6 +66,7 @@ class Authorization extends StateModule {
 
     async choiceProfile() {
         if (window.localStorage.length === 0) return;
+
 
         try {
 
@@ -86,23 +87,29 @@ class Authorization extends StateModule {
             });
         }
         catch (err) {
-            alert(err)
+            alert("Не удалось подключится к серверу")
         }
     }
 
     async logOut() {
 
-        const token = window.localStorage.getItem('token');
-        await fetch("/api/v1/users/sign", {
-            method: 'DELETE',
-            headers: {
-                'X-Token': `${token}`,
-                'Content-Type': 'application/json'
-            },
-        });
+        try {
 
-        window.localStorage.clear();
-        this.setUser(this.initState());
+            const token = window.localStorage.getItem('token');
+            await fetch("/api/v1/users/sign", {
+                method: 'DELETE',
+                headers: {
+                    'X-Token': `${token}`,
+                    'Content-Type': 'application/json'
+                },
+            });
+
+            window.localStorage.clear();
+            this.setUser(this.initState());
+        }
+        catch (err) {
+            alert("Не удалось подключится к серверу")
+        }
 
     }
 }

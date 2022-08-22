@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
@@ -8,9 +9,12 @@ import LoginBar from "../../components/login-bar";
 import useTranslate from "../../hooks/use-translate";
 import LoginForm from "../../containers/login-form";
 import useStore from "../../hooks/use-store";
+import useInit from "../../hooks/use-init";
 
 
 function Authorization() {
+
+    const navigate = useNavigate();
 
     const { t } = useTranslate();
 
@@ -19,6 +23,10 @@ function Authorization() {
     }));
 
     const store = useStore();
+
+    useInit(() => {
+        (select.user && navigate('/'));
+    }, [select.user]);
 
     const callback = {
         exit: useCallback(() => store.get('authorization').logOut(), []),

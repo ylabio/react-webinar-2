@@ -36,7 +36,7 @@ export default function sortingCategory(arr) {
         },
         [arr[9]._id]: {
             order: 3,
-            nesting: 2
+            nesting: 3
         }
     };
 

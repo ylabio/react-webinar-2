@@ -95,13 +95,14 @@ class CatalogState extends StateModule{
     const searchOptions = qs.stringify({
       limit: newParams.limit,
       skip: skip,
-      fields: 'items(*),count',
+      fields: ['items(*)', 'count'],
       sort: newParams.sort,
       search: {
         query: newParams.query,
         category: newParams.category === 'all' ? undefined : newParams.category
       }
     }, QS_OPTIONS.stringify)
+    console.log(searchOptions)
 
     const response = await fetch(`/api/v1/articles${searchOptions}`);
     const json = await response.json();

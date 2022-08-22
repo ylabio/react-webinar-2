@@ -8,6 +8,7 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
+import HeaderInfo from "../../containers/header-info";
 
 function Main() {
   const store = useStore();
@@ -18,7 +19,8 @@ function Main() {
 
   const {t} = useTranslate();
 
-  return (
+  return (<>
+    <HeaderInfo/>
     <Layout head={
       <LayoutFlex flex="between">
         <h1>{t('title')}</h1>
@@ -29,7 +31,7 @@ function Main() {
       <CatalogFilter/>
       <CatalogList/>
     </Layout>
-  )
+  </>)
 }
 
 export default React.memo(Main);

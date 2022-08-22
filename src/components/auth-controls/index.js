@@ -6,7 +6,6 @@ import './style.css';
 import propTypes from "prop-types";
 
 function AuthControls({token, name, logout, redirect}) {
-  console.log('CONTROLS', token)
   return (
     <LayoutFlex flex={"end"} padding={false}>
       <div className="profile-link">

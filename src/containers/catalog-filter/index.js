@@ -5,7 +5,7 @@ import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
-import { getSelectOptions } from "../../service/filters";
+import useInit from "../../hooks/use-init";
 
 function CatalogFilter() {
 
@@ -15,6 +15,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
+    options: state.categories.options,
   }));
 
   const {t} = useTranslate();
@@ -38,7 +39,29 @@ function CatalogFilter() {
       {value:'-price', title: 'Сначала дорогие'},
       {value:'edition', title: 'Древние'},
     ]), []),
-    category: useMemo(() => ([
+    categories: [{value:'', title: 'Все'}].concat(select.options),
+  }
+console.log('AAAAAAAAAAAAAAA', options.categories)
+
+  useInit(async () => {
+    await store.get('categories').getCategories();
+  }, []);
+
+  return (
+    <LayoutFlex flex="start">
+      <Select onChange={callbacks.onSortCategory} value={select.category} options={options.categories}/>
+      <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
+      <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
+      <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
+    </LayoutFlex>
+  );
+}
+
+export default React.memo(CatalogFilter);
+
+
+/*
+useMemo(() => ([
       {value:'', title: 'Все'},
       {value:'62fde67bfa639a32847b3d65', title: 'Электроника'},
       {value:'62fde67bfa639a32847b3d66', title: '- Телефоны'},
@@ -51,22 +74,7 @@ function CatalogFilter() {
       {value:'62fde67bfa639a32847b3d6b', title: '- Художественная'},
       {value:'62fde67bfa639a32847b3d6c', title: '- Комиксы'},
     ]), []),
-  }
 
-  return (
-    <LayoutFlex flex="start">
-      <Select onChange={callbacks.onSortCategory} value={select.category} options={options.category}/>
-      <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
-      <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
-      <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
-    </LayoutFlex>
-  );
-}
-
-export default React.memo(CatalogFilter);
-
-
-/*
 
 
 temp1.filter(v => !v.parent).map(v => fn(temp1, v, [])).reduce((acc, v) => [...acc, ...v], []).map(v => ({value: v._id, title: v.hash + v.title}));

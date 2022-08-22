@@ -1,7 +1,5 @@
-import { deleteToken, getToken } from "../../service/auth";
 import { getSelectOptions } from "../../service/filters";
-import { getUserInfo } from "../../service/user";
-import { getCookie, setCookie } from "../../utils/coockie";
+import { fn } from "../../utils/categories";
 import StateModule from "../module";
 
 class CategoriesState extends StateModule{
@@ -24,14 +22,14 @@ class CategoriesState extends StateModule{
     });
 
     try {
-      const res = await getSelectOptions();
-
-      res.filter(v => !v.parent).map(v => fn(temp1, v, [])).reduce((acc, v) => [...acc, ...v], []).map(v => ({value: v._id, title: v.hash + v.title}));
+      const {result: {items}} = await getSelectOptions();
+      
+      const options = items.filter(v => !v.parent).map(v => fn(items, v, [])).reduce((acc, v) => [...acc, ...v], []).map(v => ({value: v._id, title: v.hash + v.title}));
 
       this.setState({
         ...this.getState(),
         waiting: false,
-        options: res.result
+        options: options,
       });
     } catch (error) {
         this.setState({

@@ -1,4 +1,4 @@
-function fn (arr, parent, result) {
+export function fn (arr, parent, result) {
   if (!parent) {
       return result;
   }

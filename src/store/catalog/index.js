@@ -26,7 +26,9 @@ class CatalogState extends StateModule{
     return {
       items: [],
       count: 0,
+      categories: [],
       params: {
+        category: '',
         page: 1,
         limit: 10,
         sort: 'order',
@@ -46,6 +48,7 @@ class CatalogState extends StateModule{
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
     let validParams = {};
+    if (urlParams.category) validParams.category = urlParams.category || '';
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
@@ -86,17 +89,57 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    const query = () => newParams.category !== '' ?
+    `/api/v1/articles?search%5Bcategory%5D=${newParams.category}&limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`
+    : `/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`;
+    const response = await fetch(query());
     const json = await response.json();
+    const categoryResponse = await fetch(`/api/v1/categories/${newParams.category}`)
+    const categoryJson = await categoryResponse.json();
+    const getCategories = async () => {
+      const categoryResponse = await fetch('/api/v1/categories')
+      const categoryJson = await categoryResponse.json();
+      const result = categoryJson.result.items;
+
+      const getIndetNum = (arr, iter = 0, elem) => {
+        const parent = elem.parent;
+        while (parent) {
+          const ansestor = arr.find(el => el._id === parent._id);
+          return getIndetNum(arr, iter += 1, ansestor)
+        }
+        return iter;
+      }
+
+      const sortByParentId = (arr) => arr.forEach((el, index )=> {
+        const parentIndex = arr.findIndex(item => item.value === el.parent);
+ 
+        if (parentIndex !== -1) {
+          arr.splice(index, 1)
+          arr.splice(parentIndex + 1, 0, el)  
+        }
+      })
+
+      const indentedCategories = result.map((elem) => {
+        const { _id, title } = elem;
+        const indentNum = getIndetNum(result, 0, elem);
+        return { ...elem, value: _id, title: '-'.repeat(indentNum) + ' ' + title, parent: elem.parent ? elem.parent._id : undefined }
+      })
+      
+      sortByParentId(indentedCategories)
+
+      return indentedCategories;
+    };
 
     // Установка полученных данных и сброс признака загрузки
     this.setState({
       ...this.getState(),
       items: json.result.items,
       count: json.result.count,
+      category: newParams.category !== '' && categoryJson.result,
+      categories: await getCategories(),
       waiting: false
     });
-
+    
     // Запоминаем параметры в URL
     let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);
     const url = window.location.pathname + queryString + window.location.hash;

@@ -25,7 +25,7 @@ function Tools() {
 
   const options = {
     menu: useMemo(() => ([
-      {key: 1, title: t('menu.main'), link: '/'},
+      {key: 1, title: t('menu.main'), link: '/?category=&page=1&limit=10&sort=order&query='},
     ]), [t]),
   }
 

@@ -18,7 +18,7 @@ function App () {
   return (<>
     <Routes>
       <Route index element={<Catalog />} />
-      <Route exact path='/catalog/' element={<Catalog />} />
+      <Route exact path='/catalog' element={<Catalog />} />
       <Route exact path='/login' element={<Login />} />
       <Route exact path='/profile' element={<Profile />} />
       <Route exact path='/articles/:id' element={<Article/>}/>

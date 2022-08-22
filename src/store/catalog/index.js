@@ -25,9 +25,9 @@ class CatalogState extends StateModule{
     };
   }
 
-  errorState() {
+  errorState() {  
     return {
-      ...this.initState(),
+      ...this.getState(),
       fetchState: {
         pending: false,
         error: true,
@@ -80,7 +80,7 @@ class CatalogState extends StateModule{
       })
       .catch(err => {
         console.error('store.catalog.fetchPageItems() ' + err);
-        this.setState(this.errorState());
+        this.setState(this.errorState(), 'Ошибка при загрузке товаров каталога');
       })
   }
 
@@ -120,12 +120,11 @@ class CatalogState extends StateModule{
     const filterParams = { ...this.getState().filterParams };
     filterParams[param] = value;
 
-    let route = '/catalog/?';
+    let route = '/catalog?';
     if (filterParams.sort) route += `sort=${filterParams.sort}&`;
     if (filterParams.query) route += `query=${filterParams.query}&`;
     if (filterParams.category) route += `category=${filterParams.category}`;
 
-    this.setState({ ...this.getState(), filterParams, });
     return route.replace(/&$/, '');
   }
 }

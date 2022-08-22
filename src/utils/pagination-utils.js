@@ -11,8 +11,8 @@ const getPages = (current, last) => (last <= 5)
           : [1, null, current - 1, current, current + 1, null, last];
 
 const getLink = (page, route) =>
-  (route === '/' || route === '/catalog/')
-    ? '/catalog/?page=' + page
+  (/^\/(catalog)?\/?$/.test(route))
+    ? '/catalog?page=' + page
     : /page=\d+/.test(route)
       ? route.replace(/page=\d+/, `page=${page}`)
       : `${route}&page=${page}`;

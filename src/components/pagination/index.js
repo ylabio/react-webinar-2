@@ -31,7 +31,7 @@ Pagination.propTypes = {
 Pagination.defaultProps = {
   current: 1,
   last: 1,
-  route: '/catalog/?page=1',
+  route: '/catalog?page=1',
 };
 
 export default React.memo(Pagination);

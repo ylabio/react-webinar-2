@@ -29,7 +29,7 @@ function CatalogFilter() {
     onSearch: useCallback(query => {
       navigate(store.get('catalog').getFilterResultRoute('query', query));
     }, []),
-    onReset: useCallback(() => navigate('/catalog/'), [])
+    onReset: useCallback(() => navigate('/catalog'), []),
   };
 
   // Опции для полей

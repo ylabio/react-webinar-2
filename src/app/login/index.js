@@ -17,8 +17,6 @@ function Login() {
     error: state.login.error.message
   }));
 
-  console.log(select.error);
-
   const callbacks = {
     signIn: useCallback(
       (login, password) => store.get('login').signIn(login, password),

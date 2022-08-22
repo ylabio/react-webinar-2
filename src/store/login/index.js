@@ -51,7 +51,7 @@ class Login extends StateModule {
     }
   }
 
-  signInWithToken(token){
+  async signInWithToken(token) {
     try {
       const response = await fetch(`/api/v1/users/self`, {
         method: 'GET',

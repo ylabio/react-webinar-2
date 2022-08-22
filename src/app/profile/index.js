@@ -9,7 +9,6 @@ import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import LoginControl from "../../components/login-control";
-import ProfileInfo from "../../containers/profile-info";
 import ProfileCard from "../../components/profile-card";
 import select from "../../components/select";
 
@@ -20,7 +19,9 @@ function Profile(){
     const navigate = useNavigate();
     const {t} = useTranslate();
 
-    
+    useInit(async () => {
+        await store.get('autorization').getProfile();
+      }, [], {backForward: true});
 
     const select = useSelector(state => ({
         user: state.autorization.user,

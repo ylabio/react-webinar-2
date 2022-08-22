@@ -70,6 +70,7 @@ class AutorizationState extends StateModule{
           },
         });
        this.setState(this.initState());
+       window.localStorage.removeItem('token')
     } catch(e) {
         this.setState({
             ...this.getState(),

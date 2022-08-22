@@ -37,7 +37,7 @@ function User(){
     };
 
     const {t} = useTranslate();
-    
+
     return(
         <>
           <LoginControl 

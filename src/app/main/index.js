@@ -17,16 +17,12 @@ function Main() {
   useInit(async () => {
     await store.get('catalog').initParams();
     await store.get('catalog').loadCategories();
+    await store.get('autorization').getProfile();
   }, [], {backForward: true});
 
   const select = useSelector(state => ({
     user: state.autorization.user
   }));
-
-  useInit( () => {
-    store.get('autorization').getProfile();
-  }, [])
-
   
 
   const callbacks = {

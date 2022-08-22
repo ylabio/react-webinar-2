@@ -46,7 +46,14 @@ class AuthState extends StateModule{
    */
   async logOut() {
     localStorage.removeItem('244sinfallStoreToken')
-    this.setState(this.initState())
+    fetch(`/api/v1/users/sign/`, {
+      method: "DELETE",
+      headers: {
+        "X-Token": `${this.getState().token}`
+      }
+    }).then(() => {
+      this.setState(this.initState())
+    })
   }
   /**
    * Сделать попытку авторизации

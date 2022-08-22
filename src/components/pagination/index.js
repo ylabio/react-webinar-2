@@ -35,7 +35,7 @@ function Pagination(props) {
     e.preventDefault()
   }
   const linkConstructor = (page) => {
-    return window.location.search.replace(new RegExp(/page=[0-9]+/), `page=${page}`)
+    return window.location.search.replace(new RegExp(`${props.pageParam}=[0-9]+`), `page=${page}`)
   }
 
   return (
@@ -58,6 +58,7 @@ Pagination.propTypes = {
   limit: propTypes.number,
   count: propTypes.number,
   onChange: propTypes.func,
+  pageParam: propTypes.string,
   indent: propTypes.number
 }
 
@@ -66,6 +67,7 @@ Pagination.defaultProps = {
   limit: 10,
   count: 1000,
   indent: 1,
+  pageParam: "page",
   onChange: () => {
   },
 }

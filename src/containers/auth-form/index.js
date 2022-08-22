@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import LayoutFlex from '../../components/layout-flex';
-import {useNavigate} from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
 import LoginForm from '../../components/login-form';
 import useTranslate from '../../hooks/use-translate';
@@ -9,7 +8,6 @@ import Spinner from '../../components/spinner';
 
 const AuthForm = () => {
   const [creds, setCreds] = useState({login:"", password:""})
-  const navigate = useNavigate()
   const {t} = useTranslate()
   const store = useStore()
   const select = useSelector(state => ({
@@ -19,12 +17,7 @@ const AuthForm = () => {
   }))
   useEffect(() => {
     if(select.token) {
-      navigate('/')
-    }
-  }, [])
-  useEffect(() => {
-    if(select.token) {
-      navigate('/profile')
+      history.back()
     }
   }, [select.token])
   const callbacks = {

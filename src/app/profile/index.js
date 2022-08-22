@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import useTranslate from '../../hooks/use-translate';
 import TopMenu from '../../components/top-menu/index.';
 import Auth from '../../containers/auth';
@@ -8,8 +8,8 @@ import LocaleSelect from '../../containers/locale-select';
 import Tools from '../../containers/tools';
 import UserInfo from '../../components/user-info';
 import useSelector from '../../hooks/use-selector';
-import {useNavigate} from 'react-router-dom';
 import Spinner from '../../components/spinner';
+import useAuth from '../../hooks/use-auth';
 
 const Profile = () => {
   const {t} = useTranslate();
@@ -18,13 +18,7 @@ const Profile = () => {
     user: state.auth.user,
     waiting: state.auth.waiting
   }));
-  const navigate = useNavigate()
-  useEffect(() => {
-    if(!select.token) {
-      navigate('/login')
-    }
-  }, [select.token])
-
+  useAuth()
   return (
     <div>
       <TopMenu>
@@ -42,7 +36,6 @@ const Profile = () => {
                     nameTitle={t('profile.name')} phone={select.user.profile?.phone}
                     phoneTitle={t('profile.phone')}/>
         </Spinner>
-
       </Layout>
     </div>
   )

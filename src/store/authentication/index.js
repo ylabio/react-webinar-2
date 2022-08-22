@@ -19,10 +19,7 @@ class AuthenticationState extends StateModule{
       waiting: true
     };
   }
-
-  /**
-   * Загрузка списка товаров
-   */
+  
   async logIn(login, password) {
     this.setState({
       ...this.getState(),
@@ -61,36 +58,6 @@ class AuthenticationState extends StateModule{
         waiting: false
       });
     }
-    
-    // await fetch('/api/v1/users/sign', {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     login: login,
-    //     password: password
-    //   }),
-    //   headers: {
-    //       'Content-Type': 'application/json'
-    //   }
-    // })
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     // console.log(data);
-    //       localStorage.setItem('token', data.result.token);
-    //       this.setState({
-    //         user: data.result.user,
-    //         token: data.result.token,
-    //         errorMessage: "",
-    //         waiting: false
-    //       })
-    //   })
-    //   .catch(e => {
-    //     console.log(e);
-    //     this.setState({
-    //       ...this.getState(),
-    //       // errorMessage: e.
-    //       waiting: false
-    //     });
-    //   })
   }
 
   async logOut() {

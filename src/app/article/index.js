@@ -37,7 +37,7 @@ function Article(){
   return (
     <Layout
       top={
-        <LayoutFlex flex="end" padding="min">
+        <LayoutFlex flex="end" paddingMin={true}>
           <AuthControl/>
         </LayoutFlex>
       }

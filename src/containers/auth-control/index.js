@@ -5,6 +5,7 @@ import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import AuthPanel from "../../components/auth-panel";
 import useTranslate from "../../hooks/use-translate";
+import Button from "../../components/button";
 
 function AuthControl() {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ function AuthControl() {
           t={t}
         /> 
         :
-        <button onClick={callbacks.onNavigateLogin}>{t('auth.login')}</button>
+        <Button callback={callbacks.onNavigateLogin} title={t('auth.login')}/>
       }
     </>
   )

@@ -39,7 +39,7 @@ class UserState extends StateModule{
         }
         else this.setState({
           ...this.getState(),
-          message: result.error.message,
+          message: result.error.data.issues[0].message,
         });
       })
   }

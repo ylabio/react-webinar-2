@@ -1,0 +1,12 @@
+.Btn {
+  display: inline;
+}
+
+.Btn h6 {
+  padding-right: 20px;
+  font-size: 14px;
+  display: inline;
+}
+
+.Btn button {
+}

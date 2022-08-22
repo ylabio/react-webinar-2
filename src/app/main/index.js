@@ -10,6 +10,7 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
+import Btn from "../../components/btn/btn";
 
 function Main() {
   const store = useStore();
@@ -38,22 +39,6 @@ function Main() {
     setDelete: useCallback((token) => store.get("login").setDelete(token), []),
   };
 
-  const btn = (title) => {
-    return (
-      <button
-        onClick={(e) => {
-          callbacks.setLogin();
-          e.preventDefault();
-          {
-            select.log && callbacks.setDelete(localStorage.getItem("token"));
-          }
-        }}
-      >
-        {title}
-      </button>
-    );
-  };
-
   return (
     <Layout
       head={
@@ -64,12 +49,13 @@ function Main() {
       }
       btn={
         select.log ? (
-          <>
-            <Link to="/profil">
-              <button>{select.user.name}</button>
-            </Link>
-            {btn("Выйте")}
-          </>
+          <Btn
+            title="Выйте"
+            log={select.log}
+            name={select.user.name}
+            setLogin={callbacks.setLogin}
+            setDelete={callbacks.setDelete}
+          />
         ) : (
           <Link to="/login">
             <button>Вход</button>

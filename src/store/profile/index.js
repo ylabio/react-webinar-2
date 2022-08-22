@@ -18,15 +18,6 @@ class ProfileState extends StateModule {
     };
   }
 
-  initUser(name) {
-    if (name) {
-      this.setState({
-        ...this.getState(),
-        isLogged: true,
-      });
-    }
-  }
-
   // авторизация пользователя
   async onLogin(login, password) {
     try {
@@ -49,10 +40,10 @@ class ProfileState extends StateModule {
       const user = await json.result.user;
 
       localStorage.setItem('token', json.result.token);
-      localStorage.setItem('name', user.profile.name);
 
       this.setState({
         ...this.getState(),
+        user: { name: user.profile.name },
         isLogged: true,
         error: '',
       });
@@ -65,7 +56,7 @@ class ProfileState extends StateModule {
   }
 
   // проверка на авторизацию пользователя
-  async checkUser(token) {
+  async checkUser(token, type = 'check') {
     this.setState({
       ...this.getState(),
       waiting: true,
@@ -86,21 +77,34 @@ class ProfileState extends StateModule {
       const json = await response.json();
       const result = json.result;
 
-      this.setState({
-        ...this.getState(),
-        user: {
-          email: result.email,
-          phone: result.profile.phone,
-          name: result.profile.name,
-        },
-        waiting: false,
-      });
+      if (type === 'load') {
+        this.setState({
+          ...this.getState(),
+          user: {
+            email: result.email,
+            phone: result.profile.phone,
+            name: result.profile.name,
+          },
+          isLogged: true,
+          waiting: false,
+        });
+      }
+      if (type === 'check') {
+        this.setState({
+          ...this.getState(),
+          user: {
+            name: result.profile.name,
+          },
+          isLogged: true,
+          waiting: false,
+        });
+      }
     } catch (error) {
       console.log(error.message);
       localStorage.removeItem('token');
-      localStorage.removeItem('name');
       this.setState({
         ...this.getState(),
+        user: {},
         isLogged: false,
         waiting: false,
       });
@@ -120,8 +124,6 @@ class ProfileState extends StateModule {
       if (response.status === 403) {
         throw new Error('Что-то пошло не так при выходе!');
       }
-      localStorage.removeItem('token');
-      localStorage.removeItem('name');
 
       this.setState({
         ...this.initState(),
@@ -129,8 +131,6 @@ class ProfileState extends StateModule {
       });
     } catch (error) {
       console.log(error.message);
-      localStorage.removeItem('token');
-      localStorage.removeItem('name');
 
       this.setState({
         ...this.initState(),

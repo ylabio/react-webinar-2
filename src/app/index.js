@@ -6,12 +6,20 @@ import Basket from './basket';
 import Article from './article';
 import Login from './login';
 import Profile from './profile';
+import useStore from '../hooks/use-store';
+import useInit from '../hooks/use-init';
 
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
+  const store = useStore();
+
+  useInit(() => {
+    localStorage.getItem('token') &&
+      store.get('profile').checkUser(localStorage.getItem('token'));
+  }, []);
   const modal = useSelector((state) => state.modals.name);
 
   return (

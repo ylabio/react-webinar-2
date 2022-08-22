@@ -10,12 +10,13 @@ import UserMenu from '../user-menu';
 import { Navigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import Spinner from '../../components/spinner';
+import useInit from '../../hooks/use-init';
 
 function Profile() {
   const store = useStore();
 
-  React.useEffect(() => {
-    store.get('profile').checkUser(localStorage.getItem('token'));
+  useInit(() => {
+    store.get('profile').checkUser(localStorage.getItem('token'), 'load');
   }, []);
 
   const select = useSelector((state) => ({

@@ -28,6 +28,7 @@ function LoginForm(props) {
         <label className={cn('form-item')}>
           <p>Пароль</p>
           <input
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />

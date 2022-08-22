@@ -1,0 +1,28 @@
+.LoginForm{
+    flex-direction: column; 
+    margin-left: 20px;
+}
+
+.title{
+    font-size: 24px;
+    font-weight: 700;
+}
+.login {
+    align-items: flex-end;
+    margin-bottom: 0;
+}
+input{
+    border: 1px solid #767676;
+    height: 22px;
+    width: 203px;
+}
+.password{
+    margin-bottom: 0;
+}
+
+.wrapper-error p{
+    color: #FF0000;
+}
+.button-wrapper{
+    margin-top: 20px;
+}

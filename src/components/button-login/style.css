@@ -1,0 +1,13 @@
+.Login{
+    min-height: 41px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    background-color: #FFFFFF;
+
+}
+.Login button{
+    align-items: center;
+    text-align: center;
+    margin-right: 10px;
+}

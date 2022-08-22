@@ -16,7 +16,7 @@ const QS_OPTIONS = {
 /**
  * Состояние каталога
  */
-class CatalogState extends StateModule{
+class CatalogState extends StateModule {
 
   /**
    * Начальное состояние
@@ -30,9 +30,12 @@ class CatalogState extends StateModule{
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        category: '',
+        query: '',
       },
-      waiting: false
+      categoryItems: [],
+      waiting: false,
+   
     };
   }
 
@@ -42,7 +45,7 @@ class CatalogState extends StateModule{
    * @param params
    * @return {Promise<void>}
    */
-  async initParams(params = {}){
+  async initParams(params = {}) {
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
     let validParams = {};
@@ -50,21 +53,94 @@ class CatalogState extends StateModule{
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
+    if (urlParams.category) validParams.category = urlParams.category;
 
     // Итоговые параметры из начальных, из URL и из переданных явно
-    const newParams = {...this.initState().params, ...validParams, ...params};
+    const newParams = { ...this.initState().params, ...validParams, ...params };
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
   }
+  recursion(item, arr, count) {
+    let parentId, parent;
+    
+    if(item.parent && count < 3) {
+      //count-количество ---,3 так как максимальное количество их 3 
 
+      parentId = item.parent._id;
+      parent = arr.find(el => parentId == el._id);
+      return this.recursion(parent, arr, count + 1);
+    }
+
+    return count;
+  }
+
+  sortOfCategories(arr) {
+    arr.forEach(item => {
+      if(item.parent) {
+        let count = this.recursion(item, arr, 0);
+        let countI = 0;
+        while (countI < count) {
+          item.title = "-" + item.title;
+          countI++;
+        }
+
+        let indexItem, indexParent;
+        arr.forEach((itemTree, index) => {
+          if (itemTree._id === item._id) {
+            indexItem = index;
+          }
+          if (itemTree._id === item.parent._id) {
+            indexParent = index;
+          }
+        });
+        arr.splice(indexParent+1, 0, arr.splice(indexItem, 1)[0]);
+      }
+    })
+    return(arr)
+  }
+  async getCategory() {
+    const response = await fetch('/api/v1/categories')
+    const json = await response.json()
+    const category = json.result.items
+    // const notParentCategory = []
+    // for (const item of category) {
+    //   if (item.parent) {
+    //     notParentCategory.push(item)
+    //   }
+
+    // }
+
+
+    // console.log(notParentCategory);
+    // category.map((item) => {
+    //   notParentCategory.forEach((notParent) => {
+
+    //     if (item.parent?._id === notParent._id) {
+    //       console.log(item)
+    //     }
+
+
+
+    //   })
+    // })
+    category.unshift({ _id: '', title: 'Все' })
+    this.setState({
+      ...this.getState(),
+      categoryItems:this.sortOfCategories(category),
+
+    });
+  }
+  //
+  
+  //
   /**
    * Сброс параметров к начальным
    * @param params
    * @return {Promise<void>}
    */
-  async resetParams(params = {}){
+  async resetParams(params = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
-    const newParams = {...this.initState().params, ...params};
+    const newParams = { ...this.initState().params, ...params };
     // Установк параметров и подгрузка данных
     await this.setParams(newParams);
   }
@@ -75,8 +151,8 @@ class CatalogState extends StateModule{
    * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
    * @returns {Promise<void>}
    */
-  async setParams(params = {}, historyReplace = false){
-    const newParams = {...this.getState().params, ...params};
+  async setParams(params = {}, historyReplace = false) {
+    const newParams = { ...this.getState().params, ...params };
 
     // Установка новых параметров и признака загрузки
     this.setState({
@@ -84,9 +160,10 @@ class CatalogState extends StateModule{
       params: newParams,
       waiting: true
     });
+    const category = newParams.category ? `&search[category]=${newParams.category}` : ''
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}${category}&search[query]=${newParams.query}`);
     const json = await response.json();
 
     // Установка полученных данных и сброс признака загрузки
@@ -100,6 +177,7 @@ class CatalogState extends StateModule{
     // Запоминаем параметры в URL
     let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);
     const url = window.location.pathname + queryString + window.location.hash;
+
     if (historyReplace) {
       window.history.replaceState({}, '', url);
     } else {

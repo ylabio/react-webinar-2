@@ -39,7 +39,7 @@ const Login = () => {
 
   React.useEffect(() => {
     if (select.user.name) {
-      navigate("/profile");
+      navigate("/");
     }
   });
 

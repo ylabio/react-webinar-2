@@ -35,8 +35,11 @@ class UserState extends StateModule {
     } else {
       localStorage.setItem("token", json.result.token);
 
+      console.log(json.result.user);
+
       this.setState({
         name: json.result.user.username,
+        id: json.result.user._id,
         token: json.result.token,
         error: "",
       });
@@ -53,11 +56,13 @@ class UserState extends StateModule {
           "Content-Type": "application/json",
         },
       });
+
       const json = await response.json();
 
       this.setState({
         ...this.store.state.user,
         name: json.result.username,
+        id: json.result._id,
         phone: json.result.profile.phone,
         email: json.result.email,
       });

@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import LayoutFlex from "../layout-flex";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
@@ -24,7 +24,7 @@ const Header = () => {
   return (
     <header>
       <LayoutFlex flex="end" padding="10">
-        <Link to="/profile" className={cn("profile")}>
+        <Link to={`/profile/${user.id}`} className={cn("profile")}>
           <div>{user.name}</div>
         </Link>
 

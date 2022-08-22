@@ -14,7 +14,7 @@ function CatalogFilter() {
 
   useInit(async () => {
     await store.get('categories').loadCategories();
-  }, [], {backForward: true});
+  }, [],);
 
   const select = useSelector(state => ({
     categories: state.categories.categories,

@@ -15,7 +15,7 @@ function PanelLogin() {
     if (localStorage.getItem('token')) {
       await store.get('login').checkLogin(localStorage.getItem('token'));
     }
-  }, [], {backForward: true});
+  }, []);
 
   const select = useSelector(state => ({
     token: state.login.token,

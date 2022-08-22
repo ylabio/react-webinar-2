@@ -6,6 +6,7 @@ import Layout from "../../components/layouts/layout";
 import LocaleSelect from "../../containers/locale-select";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
+import isLocalStorageAvailable from '../../utils/test-localstorage';
 
 function Profile() {
 
@@ -22,15 +23,17 @@ function Profile() {
   let user = '';
   if (select.dataUser?.profile?.name)
    user = select.dataUser.profile.name;
-  let tokenCookie = document.cookie.match(/token=(.+?)(;|$)/);
+   let tokenCookie = '';
+  if (navigator.cookieEnabled)
+    tokenCookie = document.cookie.match(/token=(.+?)(;|$)/);
   if(!user && tokenCookie)
     store.get('authorization').reLogin(tokenCookie[1]);
 
   //получаем данные из localStorage, если они есть  
   useEffect(() => {
-    if ( localStorage.getItem("basket"))
+    if ( isLocalStorageAvailable() && localStorage.getItem("basket"))
       store.get('basket').setFromStorage(localStorage.getItem("basket"))
-  }, [])  
+  }, [])
 
   return (
     <Layout head={

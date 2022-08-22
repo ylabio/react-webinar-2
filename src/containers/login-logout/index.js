@@ -12,21 +12,19 @@ function LoginLogout() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    dataUser: state.authorization.dataUser
+    dataUser: state.authorization.dataUser,
+    tokenUser: state.authorization.token
   }));
 
   //управление отображением в Authorization
   let user = '';
   if (select.dataUser?.profile?.name)
    user = select.dataUser.profile.name;
-
-  //проверка авторизации
-  let tokenCookie = document.cookie.match(/token=(.+?)(;|$)/);
   
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const callbacks = {
     //выход пользовтаеля
-    logOut: useCallback(() => {store.get('authorization').logOut(tokenCookie[1]);
+    logOut: useCallback(() => {store.get('authorization').logOut(select.tokenUser);
     setCookie("token", "");}, [])
   };
 

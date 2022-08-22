@@ -12,7 +12,8 @@ class Authorization extends StateModule{
   initState() {
     return {
       dataUser: {},
-      error: {}
+      error: {},
+      token: ''
     };
   }
 
@@ -34,14 +35,16 @@ class Authorization extends StateModule{
         // Авторизация прошла успешно
         this.setState({
             dataUser: json.result.user,
-            error: ''
+            error: '',
+            token: json.result.token
         });
       }
       if(json.error) {
         // Авторизация прошла не успешно
         this.setState({
           dataUser: {},
-          error: json.error
+          error: json.error,
+          token: ''
         });
       }
   } catch(err) {
@@ -65,7 +68,8 @@ class Authorization extends StateModule{
         // Авторизация прошла успешно
         this.setState({
             dataUser: json.result,
-            error: ''
+            error: '',
+            token: token
         });
       }
   }  catch(err) {
@@ -95,7 +99,8 @@ class Authorization extends StateModule{
         // выход успешен
         this.setState({
             dataUser: {},
-            error: ''
+            error: '',
+            token: ''
         });
       }
   }

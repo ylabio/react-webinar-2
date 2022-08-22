@@ -1,4 +1,5 @@
 import StateModule from "../module";
+import isLocalStorageAvailable from '../../utils/test-localstorage';
 
 /**
  * Состояние корзины
@@ -55,7 +56,8 @@ class BasketState extends StateModule{
       sum,
       amount: items.length
     }, 'Добавление в корзину');
-    localStorage.setItem("basket", JSON.stringify(this.store.getState().basket.items));
+    if (isLocalStorageAvailable())
+      localStorage.setItem("basket", JSON.stringify(this.store.getState().basket.items));
   }
 
   /**
@@ -76,7 +78,8 @@ class BasketState extends StateModule{
       sum,
       amount: items.length
     }, 'Удаление из корзины');
-    localStorage.setItem("basket", JSON.stringify(this.store.getState().basket.items));
+    if (isLocalStorageAvailable())
+      localStorage.setItem("basket", JSON.stringify(this.store.getState().basket.items));
   }
 
   //обновление корзины из localStorage

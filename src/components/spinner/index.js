@@ -16,9 +16,12 @@ function Spinner(props) {
   }
 }
 
+
+
 Spinner.propTypes = {
   active: propTypes.bool.isRequired,
   children: PropTypes.node,
+  newProp: propTypes.bool.isRequired,
 }
 
 export default React.memo(Spinner);

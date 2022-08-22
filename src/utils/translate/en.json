@@ -1,5 +1,7 @@
 {
   "title": "Shop",
+  "enter": "Please, enter your credentials:",
+  "profile": "User Profile",
   "menu.main": "Main",
   "basket.title": "Cart",
   "basket.open": "Open",

@@ -1,0 +1,17 @@
+.Switch {
+    box-sizing: border-box;
+    margin: auto;
+    max-width: 1024px;
+    height: 41px;
+    background: #FFFFFF;
+    border-bottom: 1px solid #DCDCDC;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.Switch-btn {
+    margin-right: 20px;
+}
+.Switch-user-link {
+    margin-right: 20px;
+}

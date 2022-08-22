@@ -1,0 +1,16 @@
+.LoginPage {
+    margin-left: 20px;
+}
+
+.LoginPage-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.LoginPage-err-msg {
+    color: red;
+}
+
+.LoginPage-button {
+    margin-top: 19px;
+}

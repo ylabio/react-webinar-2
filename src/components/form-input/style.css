@@ -1,9 +1,9 @@
-.Input {
+.FormInput {
     padding: 18px 0 0;
     position: relative;
     margin-bottom: 20px;
 }
-.Input input {
+.FormInput input {
     padding: 2px 2px 4px;
     background-color: #FFFFFF;
     border: 1px solid #767676;
@@ -14,7 +14,7 @@
     font-size: 16px;
     line-height: 18px;
 }
-.Input label {
+.FormInput label {
     position: absolute;
     left: 0;
     top: 0;

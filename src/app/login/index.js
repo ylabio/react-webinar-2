@@ -1,6 +1,4 @@
 import React from "react";
-import useStore from "../../hooks/use-store";
-import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
@@ -10,12 +8,6 @@ import HeaderContainer from "../../containers/header-container";
 import FormContainer from "../../containers/form-container";
 
 function Login() {
-  const store = useStore();
-
-  // useInit(async () => {
-  //   await store.get('catalog').initParams();
-  //   await store.get("catalog").getCategorys();
-  // }, [], {backForward: true});
 
   const {t} = useTranslate();
 

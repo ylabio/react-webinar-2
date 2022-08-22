@@ -4,7 +4,7 @@ import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
 function FormInput({ label, className, ...restProps }) {
-  const cn = bem("Input");
+  const cn = bem("FormInput");
 
   return (
     <div className={cn()}>

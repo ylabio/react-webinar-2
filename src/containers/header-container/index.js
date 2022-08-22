@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 
 function HeaderContainer() {
-  //   const {lang, setLang, t} = useTranslate();
+  const { t } = useTranslate();
   const store = useStore();
   const navigate = useNavigate();
 
@@ -25,7 +25,8 @@ function HeaderContainer() {
   return (
     <Header action={select.isAuth ? callbacks.logout : callbacks.login} 
             userName={select.name} 
-            link={"/profile"} />
+            link={"/profile"}
+            t={t} />
   );
 }
 

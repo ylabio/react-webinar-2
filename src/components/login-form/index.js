@@ -6,13 +6,12 @@ import "./style.css";
 function LoginForm({ onLogin, error, t }) {
   const cn = bem("LoginForm");
   // Внутренний стейт логина и пароля
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
+  const [data, setData] = useState({ login: "", password: "" });
 
   // Обработчик отправки формы
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin(login, password);
+    onLogin(data.login, data.password);
   };
 
   return (
@@ -21,13 +20,16 @@ function LoginForm({ onLogin, error, t }) {
       <form onSubmit={handleSubmit}>
         <div className={cn("prop")}>
           <label>{t("login.login")}</label>
-          <input value={login} onChange={(e) => setLogin(e.target.value)} />
+          <input
+            value={data.login}
+            onChange={(e) => setData({ ...data, login: e.target.value })}
+          />
         </div>
         <div className={cn("prop")}>
           <label>{t("login.password")}</label>
           <input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={data.password}
+            onChange={(e) => setData({ ...data, password: e.target.value })}
             type="password"
             autoComplete="on"
           />

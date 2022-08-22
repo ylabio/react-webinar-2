@@ -6,12 +6,19 @@ import Basket from "./basket";
 import Article from "./article";
 import Login from './login';
 import Profile from './profile';
+import useInit from '../hooks/use-init';
+import useStore from '../hooks/use-store';
 
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
+  const store = useStore();
+  useInit(async () => {
+    // Инициализация текущего пользователя
+    await store.get("user").init();
+  }, []);
 
   const modal = useSelector(state => state.modals.name);
 

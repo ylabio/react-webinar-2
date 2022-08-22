@@ -1,7 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import { useNavigate } from "react-router-dom";
 import useTranslate from "../../hooks/use-translate";
 import Spinner from "../../components/spinner";
 import Tools from "../../containers/tools";
@@ -10,24 +9,19 @@ import LayoutFlex from "../../components/layouts/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
 import LoginForm from "../../components/login-form";
 import User from "../../containers/user";
+import useAuth from "../../hooks/use-auth";
 
 function Login() {
   const { t } = useTranslate();
   const store = useStore();
-  const navigate = useNavigate();
 
   const select = useSelector((state) => ({
     token: state.user.token,
     waiting: state.user.waiting,
     error: state.user.error,
   }));
-
-  useEffect(() => {
-    // Редирект на страницу профиля, если пользователь авторизирован
-    if (select.token) {
-      navigate("/profile", { replace: true });
-    }
-  }, [select.token]);  
+ 
+  useAuth(select.token, "/login", "/");
 
   const callbacks = {
     // Функция авторизации

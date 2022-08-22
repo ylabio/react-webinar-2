@@ -26,15 +26,5 @@ export default function nestedCategories(cats) {
     }
   })
 
-  result = result.map(item => {
-    item.value = item._id;
-    return item;
-  });
-
-  result.unshift({
-    value: '',
-    title: 'Все',
-  });
-
   return result;
 }

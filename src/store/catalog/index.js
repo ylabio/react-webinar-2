@@ -20,7 +20,8 @@ class CatalogState extends StateModule{
         ok: false,
       },
       filterOptions: {
-        categories: [{ value: '', title: '...загрузка' }],
+        categories: [{ value: '', title: 'Все' }],
+        pending: true,
       },
     };
   }
@@ -73,9 +74,7 @@ class CatalogState extends StateModule{
             ok: true,
           },
           filterParams,
-          filterOptions: {
-            categories: this.getState().filterOptions.categories,
-          },
+          filterOptions: { ...this.getState().filterOptions },
         }, 'Загружены товары страницы каталога')
       })
       .catch(err => {
@@ -83,6 +82,7 @@ class CatalogState extends StateModule{
         this.setState(this.errorState(), 'Ошибка при загрузке товаров каталога');
       })
   }
+
 
 
   // Загрузка категорий фильтра
@@ -96,17 +96,20 @@ class CatalogState extends StateModule{
         throw new Error(res.status + ' ' + res.statusText);
       })
       .then(json => {
+        const categories = this.initState().filterOptions.categories
+          .concat(nestedCategories(
+            json.result.items.map(item => {
+              return { ...item, value: item._id };
+            })
+          ));
         setTimeout(() => {
           this.setState({
             ...this.getState(),
-            filterOptions: {
-              categories: nestedCategories(json.result.items),
-            },
+            filterOptions: { categories, pending: false, },
           }, 'Загружены категории фильтра')
         }, 1000)
       })
       .catch(err => {
-        this.setState(this.errorState());
         console.error('store.catalog.fetchFilterOptions() ' + err);
       });
   }

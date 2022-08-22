@@ -4,18 +4,19 @@ import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
+
 import ArticleCard from "../../components/article-card";
 import Spinner from "../../components/spinner";
 import Tools from "../../containers/tools";
 import LayoutPage from "../../layouts/layout-page";
 import LayoutFlex from "../../layouts/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import UserPreview from '../../containers/user-preview';
 
 function Article(){
   const store = useStore();
-
-  // Параметры из пути /articles/:id
   const params = useParams();
+  const { t } = useTranslate();
 
   useInit(async () => {
     await store.get('article').load(params.id);
@@ -26,20 +27,19 @@ function Article(){
     waiting: state.article.waiting,
   }));
 
-  const {t} = useTranslate();
-
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
 
   return (
-    <LayoutPage head={
+    <LayoutPage head={<>
+      <UserPreview />
       <LayoutFlex place="row-between">
         <h1>{select.article.title}</h1>
         <LocaleSelect/>
       </LayoutFlex>
-    }>
+    </>}>
       <Tools/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>

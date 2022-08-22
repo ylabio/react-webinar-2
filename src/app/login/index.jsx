@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
+
 import LayoutPage from '../../layouts/layout-page';
 import LayoutFlex from '../../layouts/layout-flex';
 import LocaleSelect from "../../containers/locale-select";
@@ -16,9 +17,10 @@ const Login = () => {
   const { t } = useTranslate();
 
   const select = useSelector(state => ({
+    logged: state.user.logged,
     pending: state.user.loginState.pending,
     error: state.user.loginState.error,
-    logged: state.user.logged,
+    errorText: state.user.loginState.errorText,
   }));
 
   const callbacks = {
@@ -39,7 +41,7 @@ const Login = () => {
       </>}>
         <Tools />
         <Spinner active={select.pending}>
-          <LoginForm logged={select.logged} error={select.error} onSubmit={callbacks.login} />
+          <LoginForm onSubmit={callbacks.login} error={select.error} errorText={select.errorText} />
         </Spinner>
       </LayoutPage>
     )

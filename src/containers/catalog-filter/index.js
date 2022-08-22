@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
+
+import LayoutFlex from '../../layouts/layout-flex';
+import Spinner from '../../components/spinner';
 import Select from "../../components/select";
 import Input from "../../components/input";
-import LayoutFlex from '../../layouts/layout-flex';
 
 function CatalogFilter() {
   const store = useStore();
@@ -17,6 +19,7 @@ function CatalogFilter() {
     query: state.catalog.filterParams.query,
     category: state.catalog.filterParams.category,
     categories: state.catalog.filterOptions.categories,
+    pending: state.catalog.filterOptions.pending,
   }));
 
   const callbacks = {
@@ -43,12 +46,14 @@ function CatalogFilter() {
   }
 
   return (
-    <LayoutFlex>
-      <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
-      <Select onChange={callbacks.onCat} value={select.category} options={select.categories} />
-      <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
-      <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
-    </LayoutFlex>
+    <Spinner active={select.pending}>
+      <LayoutFlex>
+        <Select onChange={callbacks.onCat} value={select.category} options={select.categories} />
+        <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
+        <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
+        <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
+      </LayoutFlex>
+    </Spinner>
   );
 }
 

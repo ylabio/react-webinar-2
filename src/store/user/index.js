@@ -14,6 +14,7 @@ class User extends StateModule {
       loginState: {
         pending: false,
         error: false,
+        errorText: '',
       },
     }
   }
@@ -58,6 +59,7 @@ class User extends StateModule {
           loginState: {
             pending: false,
             error: true,
+            errorText: err.message,
           },
         }, 'Ошибка при авторизации')
       })

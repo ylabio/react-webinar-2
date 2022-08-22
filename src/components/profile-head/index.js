@@ -14,7 +14,7 @@ function ProfileHead(props) {
 
   return (
     <div className={cn()}>
-      <Link className={cn('name')} to='/profile' onClick={() => props.loadProfile(props.token)}>{props.name}</Link>
+      <Link className={cn('name')} to='/profile'>{props.name}</Link>
       <LayoutLink>
         <a onClick={() => props.logout(props.token)}>{t('auth.logout')}</a>
       </LayoutLink>
@@ -26,14 +26,12 @@ ProfileHead.propTypes = {
   name: propTypes.string,
   token: propTypes.string,
   logout: propTypes.func,
-  loadProfile: propTypes.func
 }
 
 ProfileHead.defaultProps = {
   name: '',
   token: '',
   logout: () => { },
-  loadProfile: () => { }
 }
 
 

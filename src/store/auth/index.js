@@ -12,7 +12,6 @@ class AuthState extends StateModule {
   initState() {
     return {
       token: '',
-      name: '',
       error: '',
       user: {},
       isLogin: false,
@@ -36,10 +35,12 @@ class AuthState extends StateModule {
       this.setState({
         ...this.getState(),
         token: json.result.token,
-        name: json.result.user.profile.name,
         isLogin: true,
+        user: json.result.user,
         error: '',
       })
+      localStorage.setItem("token", json.result.token);
+      localStorage.setItem("userName", json.result.user.profile.name);
     } catch (e) {
       this.setState({
         ...this.getState(),
@@ -52,8 +53,9 @@ class AuthState extends StateModule {
    * Получение данных о профиле по токену
    * @param token
    */
-  async loadProfile(token) {
+  async loadProfile() {
     // Установка признака загрузки
+    const token = localStorage.getItem("token");
     this.setState({
       ...this.getState(),
       waiting: true
@@ -64,10 +66,11 @@ class AuthState extends StateModule {
       headers: { 'X-Token': token, "Content-Type": "application/json" }
     });
     const json = await response.json();
-    console.log(json)
     this.setState({
       ...this.getState(),
+      token: token,
       user: json.result,
+      isLogin: true,
       waiting: false
     })
   }
@@ -79,7 +82,7 @@ class AuthState extends StateModule {
   async logout(token) {
     const response = await fetch(`/api/v1/users/sign`, {
       method: 'DELETE',
-      headers: { 'X-Token': token, "Content-Type": "application/json" }
+      headers: { 'X-Token': token, 'Content-Type': 'application/json' }
     });
     const json = await response.json();
     this.setState({
@@ -89,6 +92,9 @@ class AuthState extends StateModule {
       user: {},
       isLogin: false
     })
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+
   }
 }
 

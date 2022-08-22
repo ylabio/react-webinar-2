@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import ProfileCart from '../../components/profile-cart';
 import Layout from '../../components/wrappers/layout';
 import LayoutFlex from '../../components/wrappers/layout-flex';
@@ -14,15 +14,20 @@ import useTranslate from '../../hooks/use-translate';
 
 function Profile() {
   const store = useStore();
+  const navigate = useNavigate();
   const { t } = useTranslate();
 
   useInit(async () => {
-    await store.get('auth').initState();
+    await store.get('auth').loadProfile();
   }, []);
 
   const select = useSelector(state => ({
     auth: state.auth
   }));
+
+  if (!localStorage.getItem("token")) {
+    navigate('/login');
+  }
 
   return (
     <Layout
@@ -41,7 +46,6 @@ function Profile() {
           email={select.auth.user.email}
         />
       </Spinner>
-      {!select.auth.isLogin && <Navigate to='/login' />}
     </Layout >
   )
 }

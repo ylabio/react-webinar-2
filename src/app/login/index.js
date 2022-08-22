@@ -7,11 +7,12 @@ import Tools from '../../containers/tools';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import AuthHeader from '../../containers/auth-header';
 
 function Login() {
   const store = useStore();
+  const navigate = useNavigate();
   const [loginForm, setLoginForm] = useState({ login: '', password: '' })
 
   const select = useSelector(state => ({
@@ -22,6 +23,10 @@ function Login() {
     // Авторизация
     login: useCallback((login, password) => store.get('auth').login(login, password), []),
   };
+
+  if (localStorage.getItem("token")) {
+    navigate(-1)
+  }
 
   const { t } = useTranslate();
 
@@ -42,7 +47,6 @@ function Login() {
         loginFetch={callbacks.login}
         error={select.auth.error}
       />
-      {select.auth.isLogin && <Navigate to='/' />}
     </Layout >
   )
 }

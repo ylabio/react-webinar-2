@@ -19,16 +19,13 @@ export default function AuthHeader() {
   const callbacks = {
     // Выход из авторизации
     logout: useCallback((token) => store.get('auth').logout(token), []),
-    // Получение данных профиля
-    loadProfile: useCallback((token) => store.get('auth').loadProfile(token), [])
   };
   return (
     <LayoutFlex flex="end" padding={false} center={true}>
-      {select.auth.isLogin
+      {localStorage.getItem("token")
         ? <ProfileHead
           logout={callbacks.logout}
-          loadProfile={callbacks.loadProfile}
-          name={select.auth.name}
+          name={localStorage.getItem("userName")}
           token={select.auth.token} />
         : <LayoutLink><Link to="/login">{t('auth.login')}</Link></LayoutLink>
       }

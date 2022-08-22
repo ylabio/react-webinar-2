@@ -1,0 +1,21 @@
+.Forms {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  justify-content: flex-start;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+}
+
+.Forms-field-password {
+  position: relative;
+  padding-bottom: 40px;
+}
+
+.Forms-error {
+  color: crimson;
+  position: absolute;
+  top: 50px;
+  width: 300%;
+}

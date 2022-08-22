@@ -1,0 +1,19 @@
+/* Пункт списка */
+.LoginForm {
+    padding: 20px;
+}
+
+.LoginForm-form {
+    display: flex;
+    flex-direction: column;
+    /* text-align: start; */
+    justify-content: flex-start;
+}
+
+.LoginForm-input {
+    padding: 5px;
+}
+
+.LoginForm-button {
+    padding: 5px;
+}

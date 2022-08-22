@@ -1,4 +1,4 @@
-.LayoutFlex{
+.LayoutFlex {
     display: flex;
     flex-wrap: nowrap;
     justify-content: flex-start;
@@ -7,22 +7,23 @@
     margin-right: -5px;
     align-items: center;
 }
-.LayoutFlex_flex_start{
+
+.LayoutFlex_flex_start {
     justify-content: flex-start;
 }
 
-.LayoutFlex_padding{
+.LayoutFlex_padding {
     padding: 20px 20px;
 }
 
-.LayoutFlex_flex_end{
+.LayoutFlex_flex_end {
     justify-content: flex-end;
 }
 
-.LayoutFlex_flex_between{
+.LayoutFlex_flex_between {
     justify-content: space-between;
 }
 
-.LayoutFlex-item{
+.LayoutFlex-item {
     margin: 0 5px;
 }

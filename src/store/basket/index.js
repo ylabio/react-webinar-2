@@ -32,7 +32,7 @@ class BasketState extends StateModule{
         exists = true;
         result = {...item, amount: item.amount + 1};
       }
-      // Добавляея в общую сумму
+      // Добавляет в общую сумму
       sum += result.price * result.amount;
       return result
     });

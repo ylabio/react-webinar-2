@@ -37,7 +37,7 @@ class ArticleState extends StateModule{
       });
     } catch (e){
       // Ошибка при загрузке
-      // @todo В стейт можно положть информауию об ошибке
+      // @todo В стейт можно положить информацию об ошибке
       this.setState({
         data: {},
         waiting: false

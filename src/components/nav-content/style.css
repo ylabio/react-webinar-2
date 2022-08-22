@@ -1,0 +1,30 @@
+.Nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 13px 23px 12px 0;
+}
+
+.Nav-button {
+    background: #EFEFEF;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    color: black;
+    text-decoration: none;
+    padding: 3px;
+    font-size: 13px;
+}
+
+.Nav-button:hover {
+    opacity: 0.8;
+}
+
+.Nav-link {
+    margin-right: 20px;
+    color: rgba(0, 135, 233, 1);
+}
+
+.Nav-link:hover {
+    opacity: 0.7;
+}

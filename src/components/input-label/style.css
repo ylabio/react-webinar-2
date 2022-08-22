@@ -1,0 +1,15 @@
+.InputLabel {
+    margin-top: 19px;
+}
+
+.InputLabel p {
+    margin: 0;
+}
+
+.InputLabel:first-child {
+    margin-top: 0;
+}
+
+.InputLabel-title {
+    margin-bottom: 2px !important;
+}

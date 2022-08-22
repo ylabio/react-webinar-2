@@ -1,31 +1,34 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import Layout from "../../components/layout";
+import useInit from "../../hooks/use-init";
+import useStore from "../../hooks/use-store";
+import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import UserInfo from "../../components/user-info";
 import Tools from "../../containers/tools";
-import LoginForm from "../../components/login-form";
-import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Profile() {
   const navigate = useNavigate();
   const store = useStore();
-  const error_message = useSelector((state) => state.auth.error_message);
   const token = useSelector((state) => state.auth.token);
+  const user_data = useSelector((state) => ({
+    username: state.auth.username,
+    phone: state.auth.extra_data.phone,
+    email: state.auth.extra_data.email,
+  }));
 
   useEffect(() => {
-    if (token) navigate("/profile", { replace: true });
+    if (!token) navigate("/login", { replace: true });
   }, [token]);
 
-  const { t } = useTranslate();
-
-  const login = useCallback(async (user_login, password) => {
-    await store.get("auth").login(user_login, password, () => {
-      navigate("/", { replace: true });
-    });
+  useInit(async () => {
+    await store.get("auth").getProfile();
   });
+
+  const { t } = useTranslate();
 
   return (
     <Layout
@@ -37,9 +40,9 @@ function Login() {
       }
     >
       <Tools />
-      <LoginForm onSubmit={login} error_message={error_message} />
+      <UserInfo info={user_data} />
     </Layout>
   );
 }
 
-export default Login;
+export default Profile;

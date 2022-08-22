@@ -4,7 +4,7 @@ import LayoutFlex from "../layout-flex";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-function LoginForm() {
+function LoginForm({ onSubmit, error_message }) {
   const login = useRef();
   const password = useRef();
 
@@ -12,9 +12,7 @@ function LoginForm() {
 
   const submit = (e) => {
     e.preventDefault();
-    console.log(
-      `Login: ${login.current.value} password: ${password.current.value}`
-    );
+    onSubmit(login.current.value, password.current.value);
   };
 
   return (
@@ -37,7 +35,7 @@ function LoginForm() {
           value=""
           theme="margin"
         />
-        <div className={cn("errorMessage")}>Некая ошибка от сервера</div>
+        <div className={cn("errorMessage")}>{error_message}</div>
         <button type="submit">Войти</button>
       </form>
     </LayoutFlex>

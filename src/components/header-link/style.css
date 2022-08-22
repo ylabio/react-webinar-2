@@ -1,0 +1,29 @@
+.HeaderLink {
+  height: 41px;
+  background: #ffffff;
+  border-bottom: 1px solid #dcdcdc;
+  max-width: 1024px;
+  margin: 0 auto;
+  text-align: end;
+  box-sizing: border-box;
+}
+
+.HeaderLink-wrapper {
+  padding: 10px 20px;
+}
+
+.HeaderLink-link {
+  border: 1px solid #767676;
+  border-radius: 2px;
+  font-size: 13px;
+  line-height: 15px;
+  padding: 2px 7px;
+  color: #000;
+  text-decoration: none;
+}
+
+.HeaderLink-mail {
+  margin-right: 20px;
+  text-decoration-line: underline;
+  color: #0087e9;
+}

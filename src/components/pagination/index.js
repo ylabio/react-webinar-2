@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
@@ -39,7 +40,7 @@ function Pagination(props) {
             className={cn('item', { active: number === props.page, split: !number })}
             onClick={number && onClickHandler(number)}
         >
-          {number || '...'}
+          {number ? <Link to={`/?page=${number}` + props.urlLink}>{number}</Link> : '...'}
         </li>
       ))}
     </ul>
@@ -51,7 +52,8 @@ Pagination.propTypes = {
   limit: propTypes.number,
   count: propTypes.number,
   onChange: propTypes.func,
-  indent: propTypes.number
+  indent: propTypes.number,
+  urlLink: propTypes.string.isRequired
 };
 
 Pagination.defaultProps = {
@@ -59,7 +61,7 @@ Pagination.defaultProps = {
   limit: 10,
   count: 1000,
   indent: 1,
-  onChange: () => {},
+  onChange: () => {}
 };
 
 export default React.memo(Pagination);

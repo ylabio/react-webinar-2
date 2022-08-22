@@ -26,7 +26,14 @@ function LoginCard({ onLogin, error }) {
       <h2>Вход</h2>
       <form onSubmit={callbacks.onSubmit}>
         <label>Логин<input type="text" value={login} onChange={onChange.setLogin} /></label>
-        <label>Пароль<input type="password" value={password} onChange={onChange.setPassword} /></label>
+        <label>
+          Пароль
+          <input
+            type="password"
+            autoComplete="on"
+            value={password}
+            onChange={onChange.setPassword} />
+        </label>
         {error && <span>{error}</span>}
         <input type="submit" value="Войти" />
       </form>

@@ -37,7 +37,8 @@ class CatalogState extends StateModule {
         query: '',
         category: '*'
       },
-      waiting: false
+      waiting: false,
+      urlLink: ''
     };
   }
 
@@ -105,16 +106,20 @@ class CatalogState extends StateModule {
     const response = await fetch(apiUrl);
     const json = await response.json();
 
-    // Установка полученных данных и сброс признака загрузки
+    // Создание ссылки для открытия в новой вкладке
+    let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);
+    const urlLink = queryString.slice(7);
+
+    // Установка полученных данных и ссылки, сброс признака загрузки
     this.setState({
       ...this.getState(),
       items: json.result.items,
       count: json.result.count,
-      waiting: false
+      waiting: false,
+      urlLink
     });
 
     // Запоминаем параметры в URL
-    let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);
     const url = window.location.pathname + queryString + window.location.hash;
     if (historyReplace) {
       window.history.replaceState({}, '', url);

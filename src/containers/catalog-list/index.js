@@ -1,11 +1,11 @@
-import React, {useCallback} from "react";
-import useSelector from "../../hooks/use-selector";
-import useStore from "../../hooks/use-store";
-import useTranslate from "../../hooks/use-translate";
-import List from "../../components/list";
-import Pagination from "../../components/pagination";
-import Spinner from "../../components/spinner";
-import Item from "../../components/item";
+import React, { useCallback } from 'react';
+import useSelector from '../../hooks/use-selector';
+import useStore from '../../hooks/use-store';
+import useTranslate from '../../hooks/use-translate';
+import List from '../../components/list';
+import Pagination from '../../components/pagination';
+import Spinner from '../../components/spinner';
+import Item from '../../components/item';
 
 function CatalogList() {
 
@@ -17,27 +17,34 @@ function CatalogList() {
     limit: state.catalog.params.limit,
     count: state.catalog.count,
     waiting: state.catalog.waiting,
+    urlLink: state.catalog.urlLink,
   }));
 
-  const {t} = useTranslate();
+  const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    // Пагианция
-    onPaginate: useCallback(page => store.get('catalog').setParams({page}), []),
+    // Пагинация
+    onPaginate: useCallback(page => store.get('catalog').setParams({ page }), []),
   };
 
   const renders = {
     item: useCallback(item => (
-      <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`} labelAdd={t('article.add')}/>
+      <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`} labelAdd={t('article.add')} />
     ), [t]),
-  }
+  };
 
   return (
     <Spinner active={select.waiting}>
-      <List items={select.items} renderItem={renders.item}/>
-      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
+      <List items={select.items} renderItem={renders.item} />
+      <Pagination
+        count={select.count}
+        page={select.page}
+        limit={select.limit}
+        onChange={callbacks.onPaginate}
+        urlLink={select.urlLink}
+      />
     </Spinner>
   );
 }

@@ -35,10 +35,7 @@ function Main() {
   }, [])
 
   const callbacks = {
-    removeToken: useCallback(() => {
-      removeToken();
-      store.get('user').removeName()
-    }, []),
+    removeToken: useCallback(() => store.get('user').logout(), []),
   };
 
   return (

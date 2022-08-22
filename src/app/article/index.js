@@ -34,10 +34,7 @@ function Article(){
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    removeToken: useCallback(() => {
-      removeToken();
-      store.get('user').removeName()
-    }, []),
+    removeToken: useCallback(() => store.get('user').logout(), []),
   };
 
   useEffect(() => {

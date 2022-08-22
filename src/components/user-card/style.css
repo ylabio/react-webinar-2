@@ -1,0 +1,26 @@
+/* Пункт списка */
+.UserCard {
+  padding: 20px 20px;
+}
+
+.UserCard-prop {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.UserCard-prop_size_big{
+  font-size: 24px;
+}
+
+.UserCard-label{
+  padding-right: 10px;
+}
+
+.UserCard-value{
+  font-weight: bold;
+}
+
+.UserCard h2 {
+  margin: 30px 0;
+}

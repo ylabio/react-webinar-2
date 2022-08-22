@@ -86,11 +86,11 @@ class CatalogState extends StateModule {
       params: newParams,
       waiting: true,
     });
-
+    const skip = (newParams.page - 1) * newParams.limit;
     let API_url = `/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`;
     if (this.getState().params.filter)
       API_url = API_url.concat(`&search[category]=${newParams.filter}`);
-    const skip = (newParams.page - 1) * newParams.limit;
+
     const response = await fetch(API_url);
     const json = await response.json();
 

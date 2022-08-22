@@ -11,7 +11,6 @@ import { useLocation } from "react-router-dom";
 function CatalogList() {
 
   const location = useLocation();
-
   const store = useStore();
 
   const select = useSelector(state => ({

@@ -33,12 +33,10 @@ function Pagination(props) {
     return () => props.onChange(page);
   };
 
-  console.log("location: ", location);
-
   return (
     <ul className={cn()}>
       {items.map((number, index) => (
-        <Link to={`/${location.search.replace(/page=\d*/, `page=${number}`)}`} key={index}
+        <Link to={`/${props.location.search.replace(/page=\d*/, `page=${number}`)}`} key={index}
             className={cn('item', {active: number === props.page, split: !number})}
             onClick={onClickHandler(number)}
         >

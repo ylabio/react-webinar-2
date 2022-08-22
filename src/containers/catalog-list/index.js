@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, { useCallback } from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
@@ -19,25 +19,29 @@ function CatalogList() {
     waiting: state.catalog.waiting,
   }));
 
-  const {t} = useTranslate();
+  const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Пагианция
-    onPaginate: useCallback(page => store.get('catalog').setParams({page}), []),
+    onPaginate: useCallback(page => store.get('catalog').setParams({ page }), []),
   };
 
   const renders = {
     item: useCallback(item => (
-      <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`} labelAdd={t('article.add')}/>
+      <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`} labelAdd={t('article.add')} />
     ), [t]),
   }
 
   return (
     <Spinner active={select.waiting}>
-      <List items={select.items} renderItem={renders.item}/>
-      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
+      <List items={select.items} renderItem={renders.item} />
+      <Pagination count={select.count}
+        page={select.page}
+        limit={select.limit}
+        onChange={callbacks.onPaginate}
+        linkBase={'/catalog/'} />
     </Spinner>
   );
 }

@@ -1,0 +1,22 @@
+.ProfileSimple {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    max-width: 1024px;
+    height: 42px;
+    margin: 0 auto;
+    padding: 0 20px;
+    background: #ffffff;
+    box-sizing: border-box;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.ProfileSimple-link {
+    font-size: 13px;
+    color: #0087e9;
+    margin-right: 20px;
+}
+
+.ProfileSimple-link:hover {
+    opacity: 0.8;
+}

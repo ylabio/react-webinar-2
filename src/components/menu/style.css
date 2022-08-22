@@ -22,3 +22,14 @@
     margin-right: 0;
     padding-right: 0;
 }
+
+.Menu-link {
+    font-size: 18px;
+    color: #0087e9;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.Menu-link:hover {
+    opacity: 0.7;
+}

@@ -7,6 +7,9 @@ import Article from './article';
 import Login from './login';
 import Profile from './profile';
 import RequireAuth from '../containers/require-auth';
+import useInit from '../hooks/use-init';
+import useStore from '../hooks/use-store';
+import {callMeIfPresentInStorage} from '../utils/callMeIFPresentInStorage';
 
 /**
  * Приложение
@@ -14,6 +17,14 @@ import RequireAuth from '../containers/require-auth';
  */
 function App() {
   const modal = useSelector(state => state.modals.name);
+  const store = useStore();
+
+  useInit(async () => {
+    await callMeIfPresentInStorage(
+      'xToken',
+      store.get('login').signInWithToken
+    );
+  });
 
   return (
     <>

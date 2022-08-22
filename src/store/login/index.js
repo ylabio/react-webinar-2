@@ -40,6 +40,9 @@ class Login extends StateModule {
         error: {}
       });
 
+      // запись token в localStorage
+      localStorage.setItem('xToken', token);
+
       this.store.get('user').setUser(user);
     } catch (error) {
       // Ошибка при загрузке
@@ -51,27 +54,34 @@ class Login extends StateModule {
     }
   }
 
-  async signInWithToken(token) {
+  // было необходимо связать this
+  signInWithToken = async token => {
     try {
       const response = await fetch(`/api/v1/users/self`, {
         method: 'GET',
         headers: {'Content-Type': 'application/json', 'X-Token': token}
       });
       const json = await response.json();
-      const user = json.result.result;
+      const user = json.result;
 
       this.setState({
         ...this.getState(),
-        currentUser: user
+        xToken: token,
+        isAuthorized: true,
+        error: {}
       });
-    } catch (e) {
+
+      // запись user в модуль состояния user
+      this.store.get('user').setUser(user);
+    } catch (error) {
       // Ошибка при загрузке
       this.setState({
         ...this.getState(),
-        currentUser: {}
+        isAuthorized: false,
+        error
       });
     }
-  }
+  };
 
   async signOut() {
     const xToken = this.getState().xToken;
@@ -99,6 +109,9 @@ class Login extends StateModule {
 
         // также после уведомления api сбрасываем текущего пользователя
         this.store.get('user').resetUser();
+
+        // и удаляем запись tokena из localStorage
+        localStorage.removeItem('xToken');
       } else {
         throw Error('There was a problem when sign out');
       }

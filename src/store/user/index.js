@@ -15,6 +15,7 @@ class User extends StateModule {
   }
 
   setUser(user) {
+    
     this.setState({
       ...this.getState(),
       currentUser: user
@@ -25,10 +26,6 @@ class User extends StateModule {
     this.setState({
       currentUser: {}
     });
-  }
-
-  async loadUser() {
-    
   }
 }
 

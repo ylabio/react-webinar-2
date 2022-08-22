@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import {useParams} from "react-router-dom";
@@ -8,8 +8,7 @@ import ArticleCard from "../../components/article-card";
 import Spinner from "../../components/spinner";
 import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
-import LayoutFlex from "../../components/layout-flex";
-import LocaleSelect from "../../containers/locale-select";
+import Header from "../../containers/header";
 
 function Article(){
   const store = useStore();
@@ -26,20 +25,20 @@ function Article(){
     waiting: state.article.waiting
   }));
 
+  // Сохраняем текущий path для редиректа
+  useEffect(() => {
+    store.get('auth').setRedirect(window.location.pathname + window.location.search);
+  }, []);
+
   const {t} = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), [])
   };
 
   return (
-    <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{select.article.title}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    }>
+    <Layout head={<Header title={select.article.title}/>}>
       <Tools/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>

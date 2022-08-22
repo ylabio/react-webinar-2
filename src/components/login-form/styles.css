@@ -1,0 +1,29 @@
+.LoginForm {
+    padding: 20px;
+}
+
+.LoginForm input,
+.LoginForm label {
+    display: block;
+}
+
+.LoginForm button,
+.LoginForm label {
+    margin-top: 20px;
+}
+
+.LoginForm-error-none {
+    display: none;
+}
+
+.LoginForm-error-active {
+    display: block;
+    color: #ff0000;
+    padding-top: 20px;
+}
+
+.LoginForm-error-active pre{
+    margin: 0;
+    font-family: Arial;
+    font-size: 18px;
+}

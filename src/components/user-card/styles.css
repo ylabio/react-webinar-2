@@ -1,0 +1,16 @@
+.UserCard {
+    padding: 20px;
+}
+
+.UserCard-record {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.UserCard-record  span{
+    font-weight: 700;
+}
+
+.UserCard h2 {
+    margin-bottom: 30px;
+}

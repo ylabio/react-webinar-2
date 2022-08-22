@@ -2,10 +2,10 @@ import React from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 
-function Controls({onAdd}){
+function Controls({onLogin, title}){
   return (
     <div className='Controls'>
-      <button onClick={onAdd}>Добавить</button>
+      <button onClick={onLogin}>{title}</button>
     </div>
   )
 }

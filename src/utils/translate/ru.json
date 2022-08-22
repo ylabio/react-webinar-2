@@ -16,5 +16,12 @@
   "basket.unit": "шт",
   "basket.delete": "Удалть",
   "article.add": "Добавить",
-  "filter.reset": "Сбросить"
+  "filter.reset": "Сбросить",
+  "enter": "Войти",
+  "exit": "Выход",
+  "login": "Логин",
+  "password": "Пароль",
+  "entry": "Вход",
+  "profile": "Профиль",
+  "submit": "Войти"
 }

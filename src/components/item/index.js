@@ -11,6 +11,7 @@ function Item(props) {
   const cn = bem('Item');
 
   const callbacks = {
+    // Добавление одной единицы товара в корзину
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
 

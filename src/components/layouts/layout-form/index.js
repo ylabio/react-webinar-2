@@ -9,6 +9,7 @@ function LayoutForm({title, children, onSubmit, onSubmitText}) {
   const cn = bem('LayoutForm');
 
   const callbacks = {
+    // Отмена действия браузера по умолчанию
     eventPreventDefault: useCallback((event) => event.preventDefault(), [])
   }
 

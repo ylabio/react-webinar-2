@@ -10,7 +10,9 @@ function LoginInput({value, onChange, type, title, onFocus}) {
   const cn = bem('LoginInput');
 
   const callbacks = {
+    // Изменение значения элемента формы
     onChange: useCallback((val) => onChange(val), [onChange]),
+    // Событие при получении элементом фокуса
     onFocus: useCallback((val) => onFocus(val), [onFocus])
   }
 

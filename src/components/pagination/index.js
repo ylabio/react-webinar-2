@@ -5,6 +5,8 @@ import './style.css';
 import {Link} from "react-router-dom";
 
 function Pagination(props) {
+
+  // CSS классы по БЭМ
   const cn = bem('Pagination');
   // Количество страниц
   const length = Math.ceil(props.count / Math.max(props.limit, 1));
@@ -39,7 +41,7 @@ function Pagination(props) {
         number
           ? <Link to={props.link(number)}
                   key={index}
-                  className={cn('item', {active: number === props.page, split: !number})}
+                  className={cn('item', {active: number === props.page})}
                   onClick={onClickHandler(number)}
           >
             {number}

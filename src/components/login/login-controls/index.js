@@ -10,7 +10,9 @@ function LoginControls({t, userName, onLogin, onLogout, link}) {
   const cn = bem('LoginControls');
 
   const callbacks = {
+    // Переход на страницу авторизации
     onLogin: useCallback(() => onLogin(), [onLogin]),
+    // Деавторизация пользователя
     onLogout: useCallback(() => onLogout(), [onLogout]),
   }
 

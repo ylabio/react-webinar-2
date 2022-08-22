@@ -11,6 +11,7 @@ function ItemBasket({item, link, onRemove, onLink, labelDelete, labelUnit, label
   const cn = bem('ItemBasket');
 
   const callbacks = {
+    // Удаление всех товаров одного наименования из корзины
     onRemove: useCallback((e) => onRemove(item._id), [onRemove, item])
   };
 

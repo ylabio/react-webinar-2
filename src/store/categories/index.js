@@ -5,7 +5,7 @@ export default class CategoriesState extends StateModule {
     return {
       categories: []
     }
-  }
+  };
 
   async getCategories() {
     const res = await fetch('/api/v1/categories');
@@ -25,20 +25,20 @@ export default class CategoriesState extends StateModule {
       children[el.parent || 0] = children[el.parent || 0] || []
       el.nodes = children[el.id]
       children[el.parent || 0].push(el)
-    })
+    });
 
-    const prefixesMaker = (obj) => {
+    const addPrefix = (obj) => {
       for (let k of obj.nodes) {
         sorted.push(k)
         prefixes[k.id] = typeof prefixes[k.parent] !== 'undefined' ? prefixes[k.parent] + '-' : ''
-        prefixesMaker(k)
+        addPrefix(k)
       }
     }
-    prefixesMaker(root)
+    addPrefix(root);
 
     sorted.forEach((el) => {
       el.title = prefixes[el.id] + el.title
-    })
+    });
 
     this.setState({
       ...this.getState(),

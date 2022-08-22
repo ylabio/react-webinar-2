@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import useSelector from "../hooks/use-selector";
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, Navigate} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
+import Login from '../components/login';
+import Auth from './auth';
+import Profile from './profile';
+import useStore from '../hooks/use-store';
 
 /**
  * Приложение
@@ -11,13 +15,29 @@ import Article from "./article";
  */
 function App() {
 
+  const store = useStore();
+  const callbacks = {
+    // Загрузка 
+ 
+    load: useCallback(() => store.get('auth').load(), [])
+  };
   const modal = useSelector(state => state.modals.name);
+  const token = useSelector(state => state.auth.token);
+  const isAuth = useSelector(state => state.auth.isAuth);
+  useEffect(() =>{
+    if(token){
+callbacks.load();
+    }
+  }, [])
 
   return (
     <>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
+        <Route path={"/login"} element={<Auth/>}/>
+        <Route path={"/profile"} element={<Profile/>}/>
+        <Route path='*' element={<Navigate to=''/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

@@ -1,0 +1,10 @@
+.Out{
+   display: flex;
+   gap: 20px;
+}
+.Out a{
+    color: #0087E9;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+}

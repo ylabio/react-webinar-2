@@ -10,6 +10,8 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import AuthContainer from "../../containers/auth-container";
+import LayoutLogin from "../../components/layout-login";
 
 function Article(){
   const store = useStore();
@@ -39,8 +41,12 @@ function Article(){
         <h1>{select.article.title}</h1>
         <LocaleSelect/>
       </LayoutFlex>
-    }>
+    }
+    login={<LayoutLogin>
+      <AuthContainer />
+      </LayoutLogin>}>
       <Tools/>
+    
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>

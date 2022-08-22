@@ -29,6 +29,11 @@
     color: #fff;
 }
 
+.Pagination-item a{
+    text-decoration: none;
+    color: #000000;
+}
+
 .Pagination-item_split,
 .Pagination-item_split:hover{
     background: transparent;

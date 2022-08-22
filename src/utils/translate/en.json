@@ -6,6 +6,7 @@
   "basket.close": "Close",
   "basket.inBasket": "In cart",
   "basket.empty": "empty",
+  
   "basket.articles": {
     "one": "article",
     "other": "articles"
@@ -14,5 +15,19 @@
   "basket.unit": "pcs",
   "basket.delete": "Delete",
   "article.add": "Add",
-  "filter.reset": "Reset"
+  "filter.reset": "Reset",
+  "auth.login": "Login",
+  "auth.password": "Password",
+  "auth.toComeIn": "To come in",
+  "article.producingCountry": "Producing country",
+  "article.category": "Category",
+  "article.releaseYear": "Release year",
+  "article.price": "Price",
+  "auth.entry": "Entry",
+  "auth.exit": "Exit",
+  "profile.profile": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "profile.email": "email"
+  
 }

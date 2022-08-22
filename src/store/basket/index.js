@@ -49,7 +49,7 @@ class BasketState extends StateModule{
       sum += item.price;
     }
 
-    // Установка состояние, basket тоже нужно сделать новым
+    // Установка состояния, basket тоже нужно сделать новым
     this.setState({
       items,
       sum,
@@ -66,7 +66,7 @@ class BasketState extends StateModule{
     const items = this.getState().items.filter(item => {
       // Удаляемый товар
       if (item._id === _id) return false
-      // Подсчёт суммы если твоар не удаляем.
+      // Подсчёт суммы если товар не удаляем.
       sum += item.price * item.amount;
       return true;
     });

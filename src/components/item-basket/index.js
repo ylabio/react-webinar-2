@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import numberFormat from "../../utils/number-format";
 import {cn as bem} from "@bem-react/classname";
 import {Link} from "react-router-dom";
-import './styles.css';
+import './style.css';
 
 function ItemBasket({item, link, onRemove, onLink, labelDelete, labelUnit, labelCurr}) {
   const cn = bem('ItemBasket');

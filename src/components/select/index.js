@@ -8,6 +8,8 @@ function Select(props){
     props.onChange(e.target.value);
   }, [props.onChange])
 
+  console.log(props);
+
   return (
     <select className="Select" onChange={onSelect} value={props.value}>
       {props.options.map(item => (

@@ -26,3 +26,11 @@
 .LayoutFlex-item{
     margin: 0 5px;
 }
+
+.LayoutFlex_direction_row {
+    flex-direction: row;
+}
+
+.LayoutFlex_direction_column {
+    flex-direction: column;
+}

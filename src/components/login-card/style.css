@@ -1,0 +1,15 @@
+.LoginCard {
+    padding: 20px;
+}
+
+.LoginCard h2 {
+    margin: 0;
+}
+
+.LoginCard-form {
+    margin-top: 29px;
+}
+
+.LoginCard-button {
+    margin-top: 20px;
+}

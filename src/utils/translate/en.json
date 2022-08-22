@@ -14,5 +14,8 @@
   "basket.unit": "pcs",
   "basket.delete": "Delete",
   "article.add": "Add",
-  "filter.reset": "Reset"
+  "filter.reset": "Reset",
+  "login.title": "Sign in",
+  "login.labelLogin": "Login",
+  "login.labelPassword": "Password"
 }

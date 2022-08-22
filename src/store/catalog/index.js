@@ -1,5 +1,5 @@
-import StateModule from "../module";
 import qs from 'qs';
+import StateModule from "../module";
 
 const QS_OPTIONS = {
   stringify: {
@@ -30,8 +30,10 @@ class CatalogState extends StateModule{
         page: 1,
         limit: 10,
         sort: 'order',
+        category: '',
         query: ''
       },
+      categories: [{value:'all', title: 'Все'}],
       waiting: false
     };
   }
@@ -49,12 +51,16 @@ class CatalogState extends StateModule{
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
+    if (urlParams.category) validParams.category = urlParams.category;
     if (urlParams.query) validParams.query = urlParams.query;
 
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = {...this.initState().params, ...validParams, ...params};
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
+
+    this.#resetCategories();
+    await this.#makeCategories();
   }
 
   /**
@@ -86,14 +92,16 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
-    const json = await response.json();
+    const category = newParams.category ? '&search[category]=' + newParams.category : '';
+    const response = await(
+      await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}` + category)
+    ).json();
 
     // Установка полученных данных и сброс признака загрузки
     this.setState({
       ...this.getState(),
-      items: json.result.items,
-      count: json.result.count,
+      items: response.result.items,
+      count: response.result.count,
       waiting: false
     });
 
@@ -105,6 +113,51 @@ class CatalogState extends StateModule{
     } else {
       window.history.pushState({}, '', url);
     }
+  }
+
+  async #makeCategories() {
+    
+    const response = await fetch(`/api/v1/categories`);
+    const json = await response.json();
+    const objects = json.result.items;
+
+    const categories = [...this.getState().categories];
+    const childs = new Map();
+    const roots = [];
+    const recurse = (obj, level = 0) => {
+      categories.push({ value: obj._id, title: '- '.repeat(level) + ' ' + obj.title });
+      const ch = childs.get(obj._id);
+      if (!ch) return;
+      level++;
+      ch.forEach(obj => recurse(obj, level));
+    };
+
+    objects.forEach(obj => {
+      const p = obj.parent;
+      if (p) {
+        if (!childs.has(p._id))
+          childs.set(p._id, [obj]);
+        else
+          childs.get(p._id).push(obj);
+      } else
+        roots.push(obj);
+    });
+  
+    roots.forEach(obj => recurse(obj));
+    
+    this.setState({
+      ...this.getState(),
+      categories
+    });
+  }
+
+  #resetCategories() {
+    this.setState({
+      ...this.getState(),
+      categories: [
+        {value:'all', title: 'Все'}
+      ]
+    });
   }
 }
 

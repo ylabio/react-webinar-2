@@ -5,7 +5,6 @@ import "./style.css";
 
 const Btn = ({
   title = "кнопка",
-  log,
   name = "test",
   setLogin = () => {},
   setDelete = () => {},
@@ -14,16 +13,14 @@ const Btn = ({
 
   return (
     <div className={cn()}>
-      <Link to="/profil">
+      <Link to="/profile">
         <h6>{name}</h6>
       </Link>
       <button
         onClick={(e) => {
           setLogin();
           e.preventDefault();
-          {
-            log && setDelete(localStorage.getItem("token"));
-          }
+          setDelete(localStorage.getItem("token"));
         }}
       >
         {title}

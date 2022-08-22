@@ -32,7 +32,7 @@ function App() {
       <Routes>
         <Route path={""} element={<Main />} />
         <Route path={"/login"} element={<Authorization />} />
-        <Route path={"/profil"} element={<User />} />
+        <Route path={"/profile"} element={<User />} />
         <Route path={"/articles/:id"} element={<Article />} />
       </Routes>
       {modal === "basket" && <Basket />}

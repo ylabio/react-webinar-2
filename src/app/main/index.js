@@ -51,7 +51,6 @@ function Main() {
         select.log ? (
           <Btn
             title="Выйте"
-            log={select.log}
             name={select.user.name}
             setLogin={callbacks.setLogin}
             setDelete={callbacks.setDelete}

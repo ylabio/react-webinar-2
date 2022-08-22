@@ -29,19 +29,27 @@ function Pagination(props) {
 
   // Возвращает функцию с замыканием на номер страницы
   const onClickHandler = page => {
-    return () => props.onChange(page);
+    return (e) => {
+      e.preventDefault();
+      props.onChange(page)};
   };
-
+  
+  
   return (
     <ul className={cn()}>
-      {items.map((number, index) => (
-        <li key={index}
-            className={cn('item', {active: number === props.page, split: !number})}
-            onClick={onClickHandler(number)}
-        >
-          {number || '...'}
-        </li>
-      ))}
+      {items.map((number, index) =>{
+        const url = new URL(window.location.href);
+        url.searchParams.set('page', number)
+        return  (
+          <a key={index}
+              className={cn('item', {active: number === props.page, split: !number})}
+              onClick={onClickHandler(number)}
+              href={url}
+          >
+            {number || '...'}
+          </a>
+        )
+      })}
     </ul>
   )
 }

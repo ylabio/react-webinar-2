@@ -1,0 +1,20 @@
+.HeadLogout{
+    display: flex;
+    justify-content: flex-end;
+    padding: 0;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.HeadLogout-button{
+    text-decoration: none;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.HeadLogout-button a{
+    text-decoration: none;
+    color: black;
+    
+}

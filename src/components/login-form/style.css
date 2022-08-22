@@ -1,0 +1,14 @@
+/* Пункт списка */
+.LoginForm {
+    padding: 20px 35px;
+}
+
+.LoginForm-form {
+    margin-bottom: 20px;
+}
+
+.LoginForm-form p {
+    padding: 0;
+    margin: 0;
+}
+

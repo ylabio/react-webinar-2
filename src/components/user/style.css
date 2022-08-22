@@ -1,0 +1,37 @@
+.User {
+    padding-top: 20px;
+    padding-right: 35px;
+    margin-left: 20px;
+    
+}
+
+.User-title {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    margin-bottom: 30px;
+}
+
+.User-description {
+    margin: 20px 0;
+}
+
+.User-prop {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.User-prop_size_big{
+    font-size: 24px;
+}
+
+.User-label{
+    padding-right: 10px;
+}
+
+.User-value{
+    font-weight: bold;
+}

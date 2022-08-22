@@ -26,11 +26,13 @@ class CatalogState extends StateModule{
     return {
       items: [],
       count: 0,
+      categories: [],
       params: {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        category: ''
       },
       waiting: false
     };
@@ -50,6 +52,7 @@ class CatalogState extends StateModule{
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
+    if (urlParams.category) validParams.category = urlParams.category;
 
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = {...this.initState().params, ...validParams, ...params};
@@ -69,7 +72,7 @@ class CatalogState extends StateModule{
     await this.setParams(newParams);
   }
 
-  /**
+    /**
    * Устанвока параметров и загрузка списка товаров
    * @param params
    * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
@@ -85,9 +88,13 @@ class CatalogState extends StateModule{
       waiting: true
     });
 
+
+
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    const category = newParams.category ? `&search[category]=${newParams.category}` : ''
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${category}`);
     const json = await response.json();
+    
 
     // Установка полученных данных и сброс признака загрузки
     this.setState({
@@ -105,6 +112,34 @@ class CatalogState extends StateModule{
     } else {
       window.history.pushState({}, '', url);
     }
+  }
+
+  async getCategories () {
+    const response = await fetch("api/v1/categories?lang=ru&&skip=0&fields=title,_id,parent&sort=parent")
+    const json = await response.json()
+    const categories = json["result"]["items"]
+    const newCategories = [{value: '', title: 'Все', parent: undefined}]
+
+    for (let category of categories) {
+      newCategories.push({value: category._id, title: category.title, parent: category.parent?._id})
+    }
+
+    for (let category of newCategories) {
+      let parent = category.parent
+      while(parent) {
+          category.title = ' - '+category.title
+          parent = newCategories.find(category => category.value === parent).parent
+      }
+    }
+
+    for (let id = 0; id < newCategories.length; id ++) {
+      if(newCategories[id].parent) {
+        const parentId = newCategories.findIndex((c) => c.value === newCategories[id].parent)
+        newCategories.splice(parentId + 1, 0, newCategories[id])
+        newCategories.splice(id+1, 1)
+      }
+    }
+    return newCategories
   }
 }
 

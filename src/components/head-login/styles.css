@@ -1,0 +1,13 @@
+/* Контрол с общими действиями */
+.HeadLogin{
+    display: flex;
+    justify-content: flex-end;
+    padding: 0;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.HeadLogin-name{
+    margin-right: 20px;
+}

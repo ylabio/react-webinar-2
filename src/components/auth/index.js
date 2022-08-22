@@ -9,7 +9,7 @@ function Auth({ textError, login, setLogin, password, setPassword, handleSubmit,
 
   return (
     <form className={cn()} onSubmit={ handleSubmit }>
-      <h2>{t('entery')}</h2>
+      <h2 className={cn('title')}>{t('entery')}</h2>
       <label>
         <p className={cn('label')}>{t('login')}</p>
         <Input value={login} onChange={setLogin}/>

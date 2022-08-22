@@ -16,7 +16,7 @@ function BtnAuth({ t, name, removeToken }){
 
   return (
     <div className={cn()}>
-      <LayoutFlex flex="end">
+      <LayoutFlex flex="end" padding="small">
         {name && <Link className={cn('link')} to='/profile'>{name}</Link>}
         <button 
           type='button' 

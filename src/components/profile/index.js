@@ -8,10 +8,10 @@ function Profile({ name, phone, email, t }){
 
   return (
     <div className={cn()}>
-      <h2>{t('profile')}</h2>
-      <p>{t('name')}: <b>{name}</b></p>
-      <p>{t('phone')}: <b>{phone}</b></p>
-      <p>email: <b>{email}</b></p>
+      <h2 className={cn('title')}>{t('profile')}</h2>
+      <p className={cn('text')}>{t('name')}: <span className={cn('text', {'fw': 'bold'})}>{name}</span></p>
+      <p className={cn('text')}>{t('phone')}: <span className={cn('text', {'fw': 'bold'})}>{phone}</span></p>
+      <p className={cn('text')}>email: <span className={cn('text', {'fw': 'bold'})}>{email}</span></p>
     </div>
   )
 }

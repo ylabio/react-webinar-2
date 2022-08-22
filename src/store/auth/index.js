@@ -58,7 +58,7 @@ class AuthState extends StateModule{
   }
   
     /**
-   * Разлогинивание
+   * Выход
    */
      async logout(){
 
@@ -74,7 +74,7 @@ class AuthState extends StateModule{
           }
         });
 
-        console.log("result: ", response);
+        console.log("logout: ", response);
 
         if (response.status == 200) {
           await localStorage.removeItem('token');
@@ -101,12 +101,6 @@ class AuthState extends StateModule{
    * Получить данные профиля
    */
   async me(){
-    // Сброс текущего товара и установка признака ожидания загрузки
-    // this.setState({
-    //   waiting: true,
-    //   data: {}
-    // });
-
     const token = await localStorage.getItem('token');
 
     try {

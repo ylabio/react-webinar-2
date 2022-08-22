@@ -6,8 +6,11 @@ import List from "../../components/list";
 import Pagination from "../../components/pagination";
 import Spinner from "../../components/spinner";
 import Item from "../../components/item";
+import { useLocation } from "react-router-dom";
 
 function CatalogList() {
+
+  const location = useLocation();
 
   const store = useStore();
 
@@ -37,7 +40,11 @@ function CatalogList() {
   return (
     <Spinner active={select.waiting}>
       <List items={select.items} renderItem={renders.item}/>
-      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
+      <Pagination count={select.count} 
+                  page={select.page} 
+                  limit={select.limit} 
+                  onChange={callbacks.onPaginate}
+                  location={location} />
     </Spinner>
   );
 }

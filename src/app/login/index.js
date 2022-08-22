@@ -9,13 +9,22 @@ import LocaleSelect from '../../containers/locale-select';
 import LoginTools from '../../containers/login-tools';
 import LoginForm from '../../components/login-form';
 import useSelector from '../../hooks/use-selector';
+import {useNavigate} from 'react-router-dom';
 
 function Login() {
   const store = useStore();
+  const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    error: state.login.error.message
+    error: state.login.error.message,
+    isAuthorized: state.login.isAuthorized
   }));
+
+  useInit(() => {
+    if (select.isAuthorized) {
+      navigate('/profile');
+    }
+  }, [select.isAuthorized]);
 
   const callbacks = {
     signIn: useCallback(

@@ -4,7 +4,7 @@ import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import CatalogFilter from "../../containers/catalog/filter";
 import CatalogList from "../../containers/catalog/list";
-import Page from "../../components/page";
+import Page from "../../containers/page";
 
 function Main() {
   const store = useStore();

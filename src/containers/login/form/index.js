@@ -10,11 +10,11 @@ function LoginForm() {
   const { t } = useTranslate()
   const store = useStore()
   const select = useSelector(state => ({
-    auth: state.auth.auth,
+    auth: state.auth,
   }))
 
   const callbacks = {
-    onSubmit: useCallback(() => store.get('auth').logIn(select.auth), []),
+    onSubmit: useCallback(() => store.get('auth').logIn(), []),
     loginChange: useCallback((v) => store.get('auth').setLogin(v), []),
     passwordChange: useCallback((v) => store.get('auth').setPassword(v), []),
     resetError: useCallback(() => store.get('auth').resetError(), [])

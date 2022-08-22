@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Page from '../../components/page'
+import Page from '../../containers/page'
 import ProfileInfo from '../../components/profile-info'
 import Spinner from '../../components/spinner'
 import useSelector from '../../hooks/use-selector'
@@ -9,9 +9,9 @@ import useTranslate from '../../hooks/use-translate'
 function Profile() {
   const { t } = useTranslate()
   const select = useSelector(state => ({
-    user: state.auth.user,
-    isLoading: state.auth.isLoading,
-    loadingErr: state.auth.loadingErr
+    user: state.session.user,
+    isLoading: state.session.isLoading,
+    loadingErr: state.session.loadingErr
   }))
   const nav = useNavigate()
 

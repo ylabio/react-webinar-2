@@ -5,7 +5,7 @@ import {useParams} from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import ArticleCard from "../../components/article-card";
-import Page from "../../components/page";
+import Page from "../../containers/page";
 import Spinner from "../../components/spinner";
 
 function Article(){

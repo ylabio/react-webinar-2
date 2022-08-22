@@ -10,18 +10,18 @@ import useTranslate from '../../../hooks/use-translate'
 function LoginTool() {
   const {t} = useTranslate()
   const store = useStore()
-  const {user, loadingErr} = useSelector(state => ({user: state.auth.user, loadingErr: state.auth.loadingErr}))
+  const {user, loadingErr} = useSelector(state => ({user: state.session.user, loadingErr: state.session.loadingErr}))
   const nav = useNavigate()
 
   useInit(() => {
     if (!user && localStorage.getItem('TOKEN') && !loadingErr) {
-      store.get('auth').getProfile()
+      store.get('session').getProfile()
     }
   }, [], {backForward: false})
 
   const callbacks = {
     toLogin: useCallback(() => nav('/login'), [nav]),
-    logOut: useCallback(() => store.get('auth').logOut(), []),
+    logOut: useCallback(() => store.get('session').quit(), []),
   }
 
   return (

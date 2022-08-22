@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import Page from '../../components/page'
+import Page from '../../containers/page'
 import LoginForm from '../../containers/login/form'
 import useInit from '../../hooks/use-init'
 import useSelector from '../../hooks/use-selector'
@@ -9,7 +9,7 @@ import useTranslate from '../../hooks/use-translate'
 function Login () {
   const { t } = useTranslate()
   const select = useSelector(state => ({
-    user: state.auth.user
+    user: state.session.user
   }))
   const nav = useNavigate()
   

@@ -1,0 +1,24 @@
+###
+# Авторизация
+
+POST http://example.front.ylab.io/api/v1/users/sign
+Content-Type: application/json
+
+{
+  "login": "test_1",
+  "password": "123456"
+}
+
+###
+# Выход - отмена авториазции для удаления токена
+
+DELETE http://example.front.ylab.io/api/v1/users/sign
+X-Token: token
+Content-Type: application/json
+
+###
+# Свой профиль
+
+GET http://example.front.ylab.io/api/v1/users/self
+X-Token: token
+Content-Type: application/json

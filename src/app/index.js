@@ -1,45 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import useSelector from '../hooks/use-selector';
+import { Routes, Route } from 'react-router-dom';
 import Main from './main';
 import Basket from './basket';
-import useSelector from '../utils/use-selector';
-import { Routes, Route } from 'react-router-dom';
-import ItemInfo from './itemInfo';
-import translates from '../utils/translates';
+import Article from './article';
+import Auth from './auth';
+import Profile from './profile';
+import useStore from '../hooks/use-store';
+import useInit from '../hooks/use-init';
 
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
+  const store = useStore();
   const modal = useSelector((state) => state.modals.name);
-  const [language, setLanguage] = React.useState('ru');
+  useInit(async () => {
+    await store.get('auth').loadProfile();
+  }, []);
 
   return (
     <>
       <Routes>
-        <Route
-          path='/'
-          element={
-            <Main
-              words={translates}
-              language={language}
-              setLanguage={(lang) => setLanguage(lang)}
-            />
-          }
-        />
-        <Route
-          path='/articles/:id'
-          element={
-            <ItemInfo
-              words={translates}
-              language={language}
-              setLanguage={(lang) => setLanguage(lang)}
-            />
-          }
-        />
+        <Route path={''} element={<Main />} />
+        <Route path={'/articles/:id'} element={<Article />} />
+        <Route path={'/login'} element={<Auth />} />
+        <Route path={'/profile'} element={<Profile />} />
       </Routes>
-
-      {modal === 'basket' && <Basket words={translates} language={language} />}
+      {modal === 'basket' && <Basket />}
     </>
   );
 }

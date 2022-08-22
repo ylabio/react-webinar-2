@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../../store/authcontext";
-import axios from 'axios';
 
 const AuthContextProvider = ({ children }) => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
+    
     const toLogin = () => navigate('/login');
 
     const logIn = async (password, login) => {
@@ -25,6 +25,7 @@ const AuthContextProvider = ({ children }) => {
       localStorage.setItem('token', JSON.stringify(result.token));
       setUser(result.user);
     };
+    
     const logOut = () => {
       localStorage.removeItem('user');
       localStorage.removeItem('token');

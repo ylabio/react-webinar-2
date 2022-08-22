@@ -7,12 +7,16 @@ import './style.css';
 function LoginMenu(props) {
   const cn = bem('LoginMenu');
   const { loginTitle, logOutTitle } = props.options;
-  const { user, toLogin, logOut } = useContext(AuthContext);
+  const { toLogin, logOut } = useContext(AuthContext);
   const localStorageUser = localStorage.user && JSON.parse(localStorage.user);
 
   const UserMenu = () => (
     <>
-        <Link to={`/users/${localStorageUser._id}`}>{localStorageUser.username}</Link>
+        <Link className={cn('link')} to={`/users/${localStorageUser._id}`}>
+          {localStorageUser.profile.name}
+          {' '}
+          {localStorageUser.profile.surname}
+        </Link>
         <button type='submit' onClick={logOut}>{logOutTitle}</button>
     </>
   );
@@ -21,8 +25,8 @@ function LoginMenu(props) {
 
   return (
     <div className={cn()}>
-        {(user || localStorageUser) && <UserMenu />}
-        {!(user || localStorageUser) && <ToLogin />}
+        {localStorageUser && <UserMenu />}
+        {!localStorageUser && <ToLogin />}
     </div>
   )
 }

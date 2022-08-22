@@ -36,8 +36,10 @@ class AuthState extends StateModule {
       method: 'POST'
     });
 
-    if (!response.ok) {
-      error = response.statusText;
+    const json = await response.json();
+
+    if (json.error) {
+      error = json.error.message;
     } else {
       token = (await response.json()).result.token;
       localStorage.setItem('auth-token', token);

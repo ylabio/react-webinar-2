@@ -55,7 +55,7 @@ class UserState extends StateModule {
       // Установка ошибки и сброс признака загрузки
       this.setState({
         ...this.getState(),
-        error: json.error.message,
+        error: 'Error: ' + json.error.data.issues[0].message,
         waiting: false
       });
     }

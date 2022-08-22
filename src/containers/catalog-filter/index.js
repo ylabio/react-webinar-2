@@ -7,9 +7,7 @@ import Input from '../../components/input';
 import LayoutFlex from '../../components/layout-flex';
 
 function CatalogFilter() {
-
   const store = useStore();
-
   const select = useSelector(state => ({
     category: state.catalog.params.category,
     categories: state.catalog.categories,
@@ -43,7 +41,7 @@ function CatalogFilter() {
 
   return (
     <LayoutFlex flex="start">
-      <Select onChange={callbacks.setCategoryHandler} value={select.category} options={select.categories} />
+      <Select onChange={callbacks.setCategoryHandler} value={select.category} options={select.categories} theme="big" />
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort} />
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big" />
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

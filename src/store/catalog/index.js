@@ -38,7 +38,7 @@ class CatalogState extends StateModule {
         category: '*'
       },
       waiting: false,
-      urlLink: ''
+      link: ''
     };
   }
 
@@ -107,8 +107,9 @@ class CatalogState extends StateModule {
     const json = await response.json();
 
     // Создание ссылки для открытия в новой вкладке
-    let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);
-    const urlLink = queryString.slice(7);
+    const linkParams = Object.assign({}, newParams);
+    if (linkParams.page) delete linkParams.page;
+    const link = qs.stringify(linkParams, QS_OPTIONS.stringify);
 
     // Установка полученных данных и ссылки, сброс признака загрузки
     this.setState({
@@ -116,10 +117,15 @@ class CatalogState extends StateModule {
       items: json.result.items,
       count: json.result.count,
       waiting: false,
-      urlLink
+      link: link.slice(1)
     });
 
+    /* Не запоминаем параметры в URL, если был сделан клик по номеру страницы, так как переход по ссылке
+     автоматически попадает в history */
+    if (Object.keys(params).length === 1 && params.page) return;
+
     // Запоминаем параметры в URL
+    let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);
     const url = window.location.pathname + queryString + window.location.hash;
     if (historyReplace) {
       window.history.replaceState({}, '', url);

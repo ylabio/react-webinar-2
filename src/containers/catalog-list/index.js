@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
@@ -17,7 +18,7 @@ function CatalogList() {
     limit: state.catalog.params.limit,
     count: state.catalog.count,
     waiting: state.catalog.waiting,
-    urlLink: state.catalog.urlLink,
+    link: state.catalog.link,
   }));
 
   const { t } = useTranslate();
@@ -33,6 +34,9 @@ function CatalogList() {
     item: useCallback(item => (
       <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`} labelAdd={t('article.add')} />
     ), [t]),
+    link: useCallback(number => (
+      <Link to={`/?page=${number}&` + select.link}>{number}</Link>
+    ), [select.link]),
   };
 
   return (
@@ -43,7 +47,7 @@ function CatalogList() {
         page={select.page}
         limit={select.limit}
         onChange={callbacks.onPaginate}
-        urlLink={select.urlLink}
+        renderLink={renders.link}
       />
     </Spinner>
   );

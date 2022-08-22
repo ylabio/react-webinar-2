@@ -40,7 +40,7 @@ function Pagination(props) {
             className={cn('item', { active: number === props.page, split: !number })}
             onClick={number && onClickHandler(number)}
         >
-          {number ? <Link to={`/?page=${number}` + props.urlLink}>{number}</Link> : '...'}
+          {number ? props.renderLink(number) : '...'}
         </li>
       ))}
     </ul>
@@ -53,7 +53,7 @@ Pagination.propTypes = {
   count: propTypes.number,
   onChange: propTypes.func,
   indent: propTypes.number,
-  urlLink: propTypes.string.isRequired
+  renderLink: propTypes.func
 };
 
 Pagination.defaultProps = {
@@ -61,7 +61,10 @@ Pagination.defaultProps = {
   limit: 10,
   count: 1000,
   indent: 1,
-  onChange: () => {}
+  onChange: () => {},
+  renderLink: (number) => {
+    return number.toString();
+  }
 };
 
 export default React.memo(Pagination);

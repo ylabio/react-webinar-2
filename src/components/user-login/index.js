@@ -21,9 +21,9 @@ function UserLogin(props) {
       <form className={cn()} onSubmit={callbacks.onLogin}>
         <p className={cn('text__bold')}>{props.in}</p>
         <label htmlFor="login" className={cn('text')}>{props.login}</label>
-        <input type="text" id="login" onChange={(e) => {login = e.target.value;}}></input>
+        <input type="text" id="login" onInput={(e) => {login = e.target.value;}}></input>
         <label htmlFor="password" className={cn('text')}>{props.pass}</label>
-        <input type="password" id="password"onChange={(e) => {password = e.target.value;}}></input>
+        <input type="password" id="password"onInput={(e) => {password = e.target.value;}}></input>
         {props.error && <p className={cn('text_disappear')}>
             {props.error}
         </p>}

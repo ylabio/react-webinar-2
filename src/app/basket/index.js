@@ -28,7 +28,14 @@ function Basket(){
   };
 
   const renders = {
-    itemBasket: useCallback(item => <ItemBasket words={words[select.lang]} item={item} onRemove={callbacks.removeFromBasket} onClose={callbacks.closeModal}/>, []),
+    itemBasket: useCallback(item => 
+      <ItemBasket 
+        words={words[select.lang]} 
+        item={item} 
+        link={`/product/${item._id}`} 
+        onRemove={callbacks.removeFromBasket} 
+        onClose={callbacks.closeModal}
+      />, []),
   }
 
   return (

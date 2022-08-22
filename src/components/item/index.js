@@ -12,17 +12,16 @@ function Item(props) {
     onAdd: useCallback((e) => props.onAdd(props.item._id), [props.onAdd, props.item])
   };
 
-  const href = props.item._id ? `/product/${props.item._id}` : '/'
-
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>*/}
       {/*  {props.item._id}*/}
       {/*</div>*/}
       <div className={cn('title')}>
-        <Link className={cn('link')} to={href}>
-          {props.item.title}
-        </Link>
+        {props.link ? 
+          <Link className={cn('link')} to={props.link}>{props.item.title}</Link> : 
+          props.item.title
+        }
       </div>
       <div className={cn('right')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
@@ -33,6 +32,7 @@ function Item(props) {
 }
 
 Item.propTypes = {
+  link: propTypes.string,
   item: propTypes.object.isRequired,
   words: propTypes.object.isRequired,
   onAdd: propTypes.func,

@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import {useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import propTypes from 'prop-types';
 import numberFormat from "../../utils/numberFormat";
 import {cn as bem} from "@bem-react/classname";
@@ -8,21 +8,19 @@ import './styles.css';
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
 
-  const navigate = useNavigate()
-
   const callbacks = {
     onRemove: useCallback((e) => props.onRemove(props.item._id), [props.onRemove,  props.item]),
-    onClose: useCallback(() => {
-      props.onClose(),
-      navigate(`/product/${props.item._id}`);
-    }, [props.onClose, props.item])
+    onClose: useCallback(() => props.onClose(), [props.onClose, props.item])
   };
 
   return (
     <div className={cn()}>
       {/*<div className={cn('id')}>{props.item._id}</div>*/}
       <div className={cn('title')} onClick={callbacks.onClose}>
-        <span className={cn('text')}>{props.item.title}</span>
+        {props.link ? 
+          <Link className={cn('link')} onClick={callbacks.onClose} to={props.link}>{props.item.title}</Link> : 
+          props.item.title
+        }
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
@@ -34,6 +32,7 @@ function ItemBasket(props) {
 }
 
 ItemBasket.propTypes = {
+  link: propTypes.string,
   words: propTypes.object.isRequired,
   item: propTypes.object.isRequired,
   onRemove: propTypes.func,

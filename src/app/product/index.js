@@ -7,18 +7,17 @@ import useStore from "../../utils/use-store";
 import useSelector from "../../utils/use-selector";
 import words from "../../utils/words";
 
-function Product({ item }){
+function Product(){
   console.log('Product');
 
   const store = useStore();
   const {id} = useParams();
 
   useEffect(() => {
-    const idFinal = item ? item : id;
+    store.get('product').load(id);
 
-    store.get('product').load(idFinal);
     return () => store.get('product').deleteItem();
-  }, [item, id])
+  }, [id])
   
   const select = useSelector(state => ({
     dataJson: state.product.dataJson,

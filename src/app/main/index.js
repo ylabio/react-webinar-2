@@ -46,7 +46,13 @@ function Main(){
   };
 
   const renders = {
-    item: useCallback(item => <Item item={item} words={words[select.lang]} onAdd={callbacks.addToBasket}/>, [select.lang]),
+    item: useCallback(item => 
+      <Item 
+        item={item} 
+        words={words[select.lang]} 
+        link={`/product/${item._id}`} 
+        onAdd={callbacks.addToBasket}
+      />, [select.lang]),
   }
   return (
     <Layout head={

@@ -36,7 +36,7 @@ function CatalogList() {
           {key: 'query', value: select.query},
           {key: 'category', value: select.category}
         ]),
-      []
+      [select.limit, select.sort, select.query, select.category]
     ),
     onPaginate: useCallback(page => store.get('catalog').setParams({page}), [])
   };

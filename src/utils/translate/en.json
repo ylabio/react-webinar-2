@@ -22,6 +22,5 @@
   "exit": "Exit",
   "profile": "Profile",
   "name": "Name",
-  "phone": "Phone",
-  "error": "Some kind of error from the server"
+  "phone": "Phone"
 }

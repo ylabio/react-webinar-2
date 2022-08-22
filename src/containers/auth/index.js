@@ -11,7 +11,7 @@ function Auth() {
 
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const [isError, setError] = useState(false);
+  const [textError, setTextError] = useState('');
   const callbacks = {
     onSubmit: useCallback(async (evt) => {
       evt.preventDefault();
@@ -19,14 +19,14 @@ function Auth() {
         await store.get('user').setToken(login, password)
         navigate(`/profile`);
       } catch (error) {
-        setError(true)
+        setTextError(error.message)
       }
     }, [login, password]),
   };
 
   return (
     <Login 
-      isError={isError}
+      textError={textError}
       login={login}
       setLogin={setLogin}
       password={password} 

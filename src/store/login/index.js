@@ -20,45 +20,47 @@ class LoginState extends StateModule{
     }
 
 
-    async checkLogin() {
+    async checkLogin(token) {
         this.setState({
             ...this.getState(),
-            token: localStorage.getItem('token') || '',
-            isAuth: !!localStorage.getItem('token'),
             err: '',
             waiting: true,
         });
 
-        if (this.getState().isAuth) {
-            const response = await fetch(`/api/v1/users/self`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Token': `${this.getState().token}`
-                },
-            });
-            const json = await response.json();
+        const response = await fetch(`/api/v1/users/self`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Token': `${token}`
+            },
+        });
+        const json = await response.json();
 
-            if (json.result._id) {
-                this.setState({
-                    ...this.getState(),
-                    user: json.result,
-                    err: '',
-                    waiting: false
-                });
-            }
+        if (!!json.result) {
+            this.setState({
+                ...this.getState(),
+                token: token,
+                user: json.result,
+                isAuth: true,
+                waiting: false
+            });
         } else {
             this.setState({
                 ...this.getState(),
+                token: '',
+                user: {},
+                isAuth: false,
                 waiting: false
             });
+
+            localStorage.removeItem('token');
         }
     }
 
     async logIn (data){
         this.setState({
             ...this.getState(),
-            user: {},
+            err: '',
             waiting: true
         });
 
@@ -74,12 +76,11 @@ class LoginState extends StateModule{
 
             if (json.result.token) {
                 localStorage.setItem('token', json.result.token);
-
                 this.setState({
+                    ...this.getState(),
                     user: json.result.user,
                     token: json.result.token,
                     isAuth: true,
-                    err: '',
                     waiting: false
                 });
             }

@@ -11,7 +11,9 @@ const AuthPanel = () => {
     const store = useStore();
 
     useInit(async () => {
-        await store.get('login').checkLogin();
+        if (localStorage.getItem('token')) {
+            await store.get('login').checkLogin(localStorage.getItem('token'));
+        }
     }, [], {backForward: true});
 
     const select = useSelector(state => ({

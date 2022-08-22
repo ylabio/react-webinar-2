@@ -13,12 +13,9 @@ import Spinner from "../../components/spinner";
 import ProfileContent from "../../components/profile-content";
 
 const Profile = () => {
-    const store = useStore();
     const navigate = useNavigate();
 
-    useInit(async () => {
-        await store.get('login').checkLogin();
-    }, [], {backForward: true});
+
 
     const select = useSelector(state => ({
         isAuth: state.login.isAuth,
@@ -26,11 +23,11 @@ const Profile = () => {
         waiting: state.login.waiting,
     }));
 
-    useEffect(() => {
+    useInit(() => {
         if (!select.isAuth) {
-            navigate('/login', {replace: true});
+            navigate('/login');
         }
-    }, [select.isAuth])
+    }, [select.isAuth], {backForward: true})
 
     const {t} = useTranslate();
     return (

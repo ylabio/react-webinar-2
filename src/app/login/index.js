@@ -9,12 +9,14 @@ import Spinner from "../../components/spinner";
 import useTranslate from "../../hooks/use-translate";
 import useSelector from "../../hooks/use-selector";
 import LoginForm from "../../components/login-form";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
+import useInit from "../../hooks/use-init";
 
 const Login = () => {
     const store = useStore();
     const {t} = useTranslate();
     const navigate = useNavigate();
+    const location = useLocation();
     const select = useSelector(state => ({
         token: state.login.token,
         err: state.login.err,
@@ -24,12 +26,14 @@ const Login = () => {
     const callbacks = {
         logIn: useCallback(data => store.get('login').logIn(data), []),
     };
-    useEffect(() => {
-        if (select.token) {
-            navigate("/profile", { replace: true });
-
+    useInit(() => {
+        if (select.isAuth && location.key === 'default') {
+            navigate('/', {replace: true});
         }
-    }, [select.token]);
+        if (select.isAuth && location.key !== 'default') {
+            navigate(-1);
+        }
+    }, [select.token], {backForward: true});
     return (
         <Layout
             authPanel={<AuthPanel/>}

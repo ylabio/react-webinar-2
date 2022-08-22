@@ -5,6 +5,7 @@ import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
+import convert from "../../utils/convert"
 
 function CatalogFilter() {
 
@@ -13,6 +14,9 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    categories: state.categories.categories,
+    waiting: state.categories.waiting,
+    category: state.catalog.params.category
   }));
 
   const {t} = useTranslate();
@@ -22,10 +26,15 @@ function CatalogFilter() {
     onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
     // Поиск
     onSearch: useCallback(query => store.get('catalog').setParams({query, page: 1}), []),
+    // Search categories
+    onSearchCat: useCallback(category => store.get('catalog').setParams({category, page: 1}), []),
     // Сброс
     onReset: useCallback(() => store.get('catalog').resetParams(), [])
   };
-
+  // Опции для полей категорий, с декорацией вложенности
+  const categories = convert(select.categories).map(item => {
+         return {value: item._id, title: item.title}
+       });
   // Опции для полей
   const options = {
     sort: useMemo(() => ([
@@ -33,11 +42,16 @@ function CatalogFilter() {
       {value:'title.ru', title: 'По именованию'},
       {value:'-price', title: 'Сначала дорогие'},
       {value:'edition', title: 'Древние'},
-    ]), [])
+    ]), []),
   }
-
   return (
     <LayoutFlex flex="start">
+       <Select
+        onChange={callbacks.onSearchCat}
+        value={select.category}
+        options={categories}
+        all={<option key={Symbol} value={''}>Все</option>}
+      />
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

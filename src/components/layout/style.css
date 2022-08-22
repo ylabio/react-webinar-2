@@ -22,3 +22,6 @@ body{
 .Layout-head h1{
     margin: 0;
 }
+.Layout-upper-head {
+    height: 41px;
+}

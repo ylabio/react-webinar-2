@@ -1,7 +1,7 @@
 import React, {useCallback} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import ArticleCard from "../../components/article-card";
@@ -10,6 +10,7 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import Auth from "../../containers/auth";
 
 function Article(){
   const store = useStore();
@@ -39,6 +40,10 @@ function Article(){
         <h1>{select.article.title}</h1>
         <LocaleSelect/>
       </LayoutFlex>
+    } auth={<Auth auth={
+      <Link to={'/login'}>
+        <button>{'Login'}</button>
+      </Link>}/>
     }>
       <Tools/>
       <Spinner active={select.waiting}>

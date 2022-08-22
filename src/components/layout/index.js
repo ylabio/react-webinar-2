@@ -3,16 +3,17 @@ import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
 
-function Layout({head, children}){
+function Layout(props){
   const cn = bem('Layout');
 
   return (
     <div className={cn()}>
+      {props.auth ? <div className={cn('upper-head')}>{props.auth}</div> : null}
       <div className={cn('head')}>
-        {head}
+        {props.head}
       </div>
       <div className={cn('content')}>
-        {children}
+        {props.children}
       </div>
     </div>
   )
@@ -21,6 +22,7 @@ function Layout({head, children}){
 Layout.propTypes = {
   head: propTypes.node,
   children: propTypes.node,
+  auth: propTypes.node,
 }
 
 Layout.defaultProps = {

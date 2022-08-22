@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import useSelector from "../hooks/use-selector";
 import {Routes, Route} from "react-router-dom";
 import Main from "./main";
@@ -8,6 +8,7 @@ import Login from './login';
 import Profile from './profile';
 import PrivateRoute from '../hoc/private-route';
 import ClosedRoute from '../hoc/closed-route';
+import useStore from "../hooks/use-store";
 
 /**
  * Приложение
@@ -16,6 +17,13 @@ import ClosedRoute from '../hoc/closed-route';
 function App() {
 
   const modal = useSelector(state => state.modals.name);
+  const store = useStore();
+
+  useEffect(() => {
+    if(localStorage.getItem('token')) {
+      store.get('authentication').logInByToken(localStorage.getItem('token'));
+    }
+  }, [])
 
   return (
     <>
@@ -28,7 +36,7 @@ function App() {
           </ClosedRoute>
         }/>
         <Route path={"/profile"} element={
-          <PrivateRoute>
+          <PrivateRoute to='/login'>
             <Profile/>
           </PrivateRoute>
         }/>

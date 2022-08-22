@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer } from "react";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
@@ -10,6 +10,7 @@ import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import AuthPanel from "../../components/auth-panel";
 import AuthControl from "../../containers/auth-control";
+import useSelector from "../../hooks/use-selector";
 
 function Main() {
   const store = useStore();
@@ -20,6 +21,9 @@ function Main() {
   }, [], {backForward: true});
 
   const {t} = useTranslate();
+  const select = useSelector(state => ({
+    user: state.authentication.user
+  }))
 
   return (
     <Layout 

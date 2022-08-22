@@ -17,17 +17,10 @@ function AuthControl() {
     token: state.authentication.token
   }))
 
-  useEffect(() => {
-    if(localStorage.getItem('token') && select.token === "") {
-      store.get('authentication').logInByToken(localStorage.getItem('token'));
-    }
-  }, [])
-
   const callbacks = {
     onNavigateLogin: useCallback(() => navigate("/login"), []),
     onLogout: useCallback(() => store.get('authentication').logOut(), []),
   }
-
   return (
     <>
       { 

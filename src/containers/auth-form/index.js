@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import {useNavigate} from "react-router-dom"
+import {useNavigate, useLocation} from "react-router-dom"
 import LayoutFlex from "../../components/layout-flex";
 import FormLogin from "../../components/form-login";
 import useStore from '../../hooks/use-store';
@@ -18,25 +18,30 @@ function AuthForm() {
     errorMessage: state.authentication.errorMessage,
     waiting: state.authentication.waiting
   }));
-  
+
   useEffect(() => {
     if(select.token && select.user) {
-      navigate("/", {replace: true})
+      navigate(-1, {replace: true})
     }
   }, [select.token, select.user])
 
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
+  const [fields, setFields] = useState({
+    login: '',
+    password: ''
+  });
 
   const callbacks = {
-    onPutLogin: useCallback(l => setLogin(l), []),
-    onPutPassword: useCallback(p => setPassword(p), []),
+    onPutLogin: useCallback(value => {
+      setFields({...fields, login: value})
+    }, [fields]),
+    onPutPassword: useCallback(value => {
+      setFields({...fields, password: value})
+    }, [fields]),
     onFetch: useCallback(() => {
-      if(login && password) {
-        store.get('authentication').logIn(login, password);
-        // navigate("/", {replace: true})
+      if(fields.login && fields.password) {
+        store.get('authentication').logIn(fields.login, fields.password);
       }
-    }, [login, password])
+    }, [fields])
   }
 
   return(

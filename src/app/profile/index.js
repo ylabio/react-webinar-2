@@ -13,18 +13,11 @@ import LayoutProfile from "../../components/layout-profile";
 
 function Profile() {
   const {t} = useTranslate();
-  const navigate = useNavigate();
 
   const select = useSelector(state => ({
     user: state.authentication.user,
     waiting: state.authentication.waiting
   }))
-
-  useEffect(() => {
-    if(Object.keys(select.user).length == 0) {
-      navigate("/", {replace: true})
-    }
-  }, [select.user])
 
   return(
     <Layout

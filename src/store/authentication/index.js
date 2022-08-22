@@ -16,7 +16,8 @@ class AuthenticationState extends StateModule{
       },
       token: "",
       errorMessage: "",
-      waiting: true
+      waiting: true,
+      isAuth: false
     };
   }
   
@@ -48,14 +49,16 @@ class AuthenticationState extends StateModule{
         user: data.result.user,
         token: data.result.token,
         errorMessage: "",
-        waiting: false
+        waiting: false,
+        isAuth: true
       })
     } catch(e) {
       console.log(e);
       this.setState({
         ...this.getState(),
         errorMessage: e.message,
-        waiting: false
+        waiting: false,
+        isAuth: false
       });
     }
   }
@@ -80,7 +83,8 @@ class AuthenticationState extends StateModule{
         user: {},
         token: "",
         errorMessage: "",
-        waiting: false
+        waiting: false,
+        isAuth: false
       })
     } catch(e) {
       console.log(e);
@@ -112,23 +116,21 @@ class AuthenticationState extends StateModule{
       }
 
       const data = await res.json();
-      console.log(data.result);
 
       this.setState({
         user: data.result,
         token: token,
         errorMessage: "",
-        waiting: false
+        waiting: false,
+        isAuth: true
       });
     } catch(e) {
-      console.log(e.message);
       this.setState({
         ...this.getState(),
         waiting: false
       });
       localStorage.removeItem('token');
     }
-    // console.log(token);
   }
 }
 

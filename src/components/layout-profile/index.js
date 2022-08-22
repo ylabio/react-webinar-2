@@ -5,7 +5,6 @@ import "./style.css";
 
 function LayoutProfile({user, t}) {
   const cn = bem('Profile');
-  console.log(user)
   return(
     <div className={cn()}>
       <h2 className={cn('title')}>{t('auth.profile')}</h2>

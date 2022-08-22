@@ -22,7 +22,7 @@ function App() {
   }));
 
   useInit(async () => {
-    if (select.status === 'no_auth') {
+    if (select.status === 'no_auth' || select.status === 'unknown') {
       await store.get('login').checkAuth();
     }
   }, [], {backForward: true});

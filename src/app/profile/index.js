@@ -12,7 +12,7 @@ function Profile(){
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
-    user: state.login.user?.result.user,
+    user: state.login.user
   }));
 
   return (

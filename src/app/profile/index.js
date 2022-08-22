@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ProfileCard from '../../components/profile-card';
+import useInit from '../../hooks/use-init';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
 import Tools from '../../containers/tools';
@@ -16,7 +17,7 @@ function Profile() {
     user: state.user.data
   }));
 
-  useEffect(() => {
+  useInit(() => {
     if (!select.isLogged) {
       navigate('/login', { state: { from: location } });
     }

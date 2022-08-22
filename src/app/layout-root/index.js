@@ -1,6 +1,7 @@
-import React, { useCallback, useLayoutEffect } from 'react';
+import React, { useCallback } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import AuthPanel from '../../components/auth-panel';
+import useInit from '../../hooks/use-init';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 
@@ -13,8 +14,8 @@ function LayoutRoot() {
     user: state.user.data
   }));
 
-  useLayoutEffect(() => {
-    store.get('user').checkAuth();
+  useInit(async () => {
+    await store.get('user').checkAuth();
   }, []);
 
   const callbacks = {

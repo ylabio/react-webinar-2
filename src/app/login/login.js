@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import LoginCard from '../../components/login-card';
+import useInit from '../../hooks/use-init';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -20,7 +21,7 @@ function Login() {
     waiting: state.user.waiting
   }));
 
-  useEffect(() => {
+  useInit(() => {
     if (select.isLogged) {
       location.state ? navigate(-1) : navigate('/');
     }

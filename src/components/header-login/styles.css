@@ -1,0 +1,13 @@
+.HeaderLogin {
+    display: flex;
+    align-items: center;
+}
+.HeaderLogin-name {
+    padding-right: 20px;
+    color: #0087E9;
+    text-decoration: underline;
+}
+.HeaderLogin-name:visited {
+    color: #0087E9;
+    text-decoration: underline;
+}

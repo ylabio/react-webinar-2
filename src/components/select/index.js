@@ -7,7 +7,6 @@ function Select(props){
   const onSelect = useCallback((e) => {
     props.onChange(e.target.value);
   }, [props.onChange])
-
   return (
     <select className="Select" onChange={onSelect} value={props.value}>
       {props.options.map(item => (

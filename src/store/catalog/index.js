@@ -30,9 +30,11 @@ class CatalogState extends StateModule{
         page: 1,
         limit: 10,
         sort: 'order',
+        category: '',
         query: ''
       },
-      waiting: false
+      waiting: false,
+      categories: []
     };
   }
 
@@ -50,12 +52,20 @@ class CatalogState extends StateModule{
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
+    if (urlParams.category) validParams.category = urlParams.category;
 
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = {...this.initState().params, ...validParams, ...params};
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
+
+    let categories = await fetch('/api/v1/categories').then(res => res.json());
+    this.setState({
+      ...this.getState(),
+      categories: categories.result.items
+    })
   }
+
 
   /**
    * Сброс параметров к начальным
@@ -86,7 +96,10 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    let requestUrl = `/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`;
+
+    if (newParams.category) requestUrl = `/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}&search[category]=${newParams.category}`;
+    const response = await fetch(requestUrl);
     const json = await response.json();
 
     // Установка полученных данных и сброс признака загрузки

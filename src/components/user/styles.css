@@ -1,0 +1,19 @@
+.User {
+    padding: 20px;
+    color: #000;
+}
+.User-header {
+    padding-top: 22px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+}
+.User-text {
+    padding-top: 30px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+.User-text span {
+    font-weight: 700;
+}

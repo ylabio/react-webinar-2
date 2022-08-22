@@ -22,3 +22,12 @@ body{
 .Layout-head h1{
     margin: 0;
 }
+.Layout-login {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+}
+.Layout-login span {
+    color: #0087E9;
+    text-decoration: underline;
+}

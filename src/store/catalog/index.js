@@ -113,9 +113,12 @@ class CatalogState extends StateModule {
           items.forEach((item, i) => {
             const parent = item.parent;
             if (parent) {
-              // найти индекс элемента с таким же родителем если он есть
+              // найти крайний в последовательности индекс элемента с таким же родителем если он есть
               // если такой индекс есть то он вставит item следом за этим индексом
-              let index = categories.findIndex((item) => item.parent === parent);
+              let index = categories.reduce(
+                (index, item, idx) => (item.parent === parent && idx > index ? idx : index),
+                -1
+              );
               // если нет элемента с таким же родителем
               // то найти индекс исходного родителя по его айди
               // чтобы вставить объект следом за родителем в массиве

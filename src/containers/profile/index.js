@@ -14,7 +14,10 @@ function Profile() {
 
   return (
     <>
-      {select.name && <Data name={select.name} phone={select.phone} email={select.email} t={t}/>}
+      {select.name ? 
+        <Data name={select.name} phone={select.phone} email={select.email} t={t}/> : 
+        <h2 style={{textAlign: 'center'}}>Loading...</h2>
+      }
     </>
   );
 }

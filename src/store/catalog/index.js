@@ -12,7 +12,11 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      items: []
+      items: [],
+      limit: 10,
+      skip: 0,
+      pageNumber: 1,
+      fields: 'items(_id,_key,title,price),count'
     };
   }
 
@@ -26,10 +30,10 @@ class CatalogState extends StateModule{
     closeLoadingScreen();
   }
 
-  async loadPage(pageNumber , openLoadingScreen, closeLoadingScreen){
+  async loadPage(openLoadingScreen, closeLoadingScreen){
     openLoadingScreen();
     const response = await fetch
-      (`/api/v1/articles?limit=10&skip=${(pageNumber - 1) * 10}&fields=items(_id,_key,title,price),count`);
+      (`/api/v1/articles?limit=${this.getState().limit}&skip=${this.getState().skip}&fields=${this.getState().fields}`);
     const json = await response.json();
     this.setState({
       ...this.getState(),
@@ -56,6 +60,15 @@ class CatalogState extends StateModule{
     this.setState({
       items: this.getState().items.filter(item => item._id !== _id)
     }, 'Удаление товара');
+  }
+
+  setNewParametrs(pageNumber){
+    this.setState({
+      ...this.getState() ,
+      pageNumber: pageNumber,
+      skip: (pageNumber -1 )*10
+    })
+    console.log(this.getState())
   }
 }
 

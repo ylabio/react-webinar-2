@@ -27,7 +27,8 @@ function Main(){
         setNumberArr(getArrWithPagesNumbers(count));
       })
     if(params.pageNumber){ 
-      store.get('catalog').loadPage(params.pageNumber , callbacks.openLoadingScreen , callbacks.closeLoadingScreen)
+      store.get('catalog').setNewParametrs(params.pageNumber)
+      store.get('catalog').loadPage(callbacks.openLoadingScreen , callbacks.closeLoadingScreen)
     }else{
       store.get('catalog').load(callbacks.openLoadingScreen , callbacks.closeLoadingScreen); 
     }

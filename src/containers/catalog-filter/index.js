@@ -44,16 +44,16 @@ function CatalogFilter() {
     ),
   };
 
-  function getSelectList(list, parentId = undefined, determinant = '') {
-    const SelectList = [];
+  function getSelectList(list, parentId = undefined, delimiter = '') {
+    const selectList = [];
     list.map(item => {
       if (parentId === item.parent) {
-        item.title = determinant + item.title;
-        SelectList.push(item);
-        SelectList.push(...getSelectList(list, item.value, `${determinant}-`));
+        item.title = delimiter + item.title;
+        selectList.push(item);
+        selectList.push(...getSelectList(list, item.value, `${delimiter}-`));
       }
     });
-    return SelectList;
+    return selectList;
   }
 
   // Опции для полей

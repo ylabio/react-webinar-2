@@ -91,7 +91,7 @@ class CatalogState extends StateModule{
 
     const skip = (newParams.page - 1) * newParams.limit;
     const response = await fetch(
-      `/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${     newParams.sort}&search[query]=${newParams.query}${newParams.currentCategory === ''
+      `/api/v1/articles?lang=ru&limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${     newParams.sort}&search[query]=${newParams.query}${newParams.currentCategory === ''
           ? ''
           : `&search[category]=${newParams.currentCategory}`
       }`

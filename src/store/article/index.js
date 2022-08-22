@@ -27,7 +27,7 @@ class ArticleState extends StateModule{
     });
 
     try {
-      const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
+      const response = await fetch(`/api/v1/articles/${id}?lang=ru&fields=*,maidIn(title,code),category(title)`);
       const json = await response.json();
 
       // Товар загружен успешно

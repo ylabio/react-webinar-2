@@ -22,3 +22,8 @@ body{
 .Layout-head h1{
     margin: 0;
 }
+.Layout-auth {
+    padding: 10px 20px;
+    text-align: right;
+}
+

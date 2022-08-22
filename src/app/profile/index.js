@@ -3,13 +3,12 @@ import { useNavigate } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
-import Data from "../../components/profile";
+import Data from "../../containers/profile";
 import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
-import api from "../../services/api";
-import {getToken, removeToken} from "../../services/token";
+import {getToken} from "../../services/token";
 
 function Profile() {
   const store = useStore();
@@ -18,15 +17,13 @@ function Profile() {
 
   const select = useSelector(state => ({
     name: state.user.name,
-    phone: state.user.phone,
-    email: state.user.email,
   }));
-  
+
   useEffect(() => {
     if (getToken()) store.get('user').setData();
   }, [])
 
-  useEffect(() => {
+   useEffect(() => {
     if(!getToken()) navigate(`/login`)
   }, [select.name])
 
@@ -42,7 +39,7 @@ function Profile() {
       </LayoutFlex>
     }>
       <Tools/>
-      {select.name ? <Data name={select.name} phone={select.phone} email={select.email} t={t}/> : null}
+      <Data/>
     </Layout>
   )
 }

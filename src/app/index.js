@@ -13,6 +13,8 @@ import Login from "./login";
  */
 function App() {
   const modal = useSelector((state) => state.modals.name);
+  const username = useSelector((state) => state.auth.username);
+  console.log(username);
 
   return (
     <>

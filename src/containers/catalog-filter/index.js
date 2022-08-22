@@ -21,7 +21,10 @@ function CatalogFilter() {
 
   const callbacks = {
     // Сортировка
-    onSort: useCallback((sort) => store.get("catalog").setParams({ sort }), []),
+    onSort: useCallback(
+      (sort) => store.get("catalog").setParams({ sort, page: 1 }),
+      []
+    ),
     // Поиск
     onSearch: useCallback(
       (query) => store.get("catalog").setParams({ query, page: 1 }),
@@ -30,7 +33,7 @@ function CatalogFilter() {
     // Сброс
     onReset: useCallback(() => store.get("catalog").resetParams(), []),
     onFilter: useCallback(
-      (category) => store.get("catalog").setParams({ category }),
+      (category) => store.get("catalog").setParams({ category, page: 1 }),
       [store]
     ),
   };

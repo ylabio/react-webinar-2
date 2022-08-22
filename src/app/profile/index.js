@@ -15,7 +15,7 @@ function Profile() {
   const store = useStore();
 
   useInit(async () => {
-    await store.get('auth').loadProfile();
+    await store.get('auth').initUser();
   }, []);
 
   const {t} = useTranslate();

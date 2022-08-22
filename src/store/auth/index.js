@@ -17,6 +17,27 @@ class AuthState extends StateModule {
     };
   }
 
+  async initUser() {
+    const token = localStorage.getItem("token");
+    this.setState({
+      ...this.getState(),
+      waiting: true
+    })
+
+    const response = await fetch(`/api/v1/users/self`, {
+      method: 'GET',
+      headers: { 'X-Token': token, "Content-Type": "application/json" }
+    });
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      token: token,
+      user: json.result,
+      isLogin: true,
+      waiting: false
+    })
+  }
+
   async login(login, password) {
     try {
       const response = await fetch(`/api/v1/users/sign`, {
@@ -42,28 +63,6 @@ class AuthState extends StateModule {
       })
     }
   }
-
-  async loadProfile() {
-    const token = localStorage.getItem("token");
-    this.setState({
-      ...this.getState(),
-      waiting: true
-    })
-
-    const response = await fetch(`/api/v1/users/self`, {
-      method: 'GET',
-      headers: { 'X-Token': token, "Content-Type": "application/json" }
-    });
-    const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      token: token,
-      user: json.result,
-      isLogin: true,
-      waiting: false
-    })
-  }
-  
 
   async logout(token) {
     const response = await fetch(`/api/v1/users/sign`, {

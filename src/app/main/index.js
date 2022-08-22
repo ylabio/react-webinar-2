@@ -19,7 +19,7 @@ function Main() {
   }, [], {backForward: true});
 
   useInit(async () => {
-    await store.get('auth').loadProfile();
+    await store.get('auth').initUser();
   }, []);
 
 

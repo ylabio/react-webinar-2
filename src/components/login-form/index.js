@@ -37,7 +37,7 @@ const LoginForm = (props) => {
                 <div className={cn('err')}>
                     {
                         err ? err
-                            : props.err !== '' ? `${props.t('form.err')}  ${props.err}` : null
+                            : props.err !== '' ? `  ${props.err == "TypeError: Cannot read properties of undefined (reading 'token')" ? 'Неверный логин или пароль' : 'Ошибка'}` : null
                     }
                 </div>
                 <button>Войти</button>

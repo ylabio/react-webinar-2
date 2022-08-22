@@ -28,7 +28,10 @@
     color: black;
 }
 
+
+
 .Pagination-item_active,
+.Pagination-item_active a,
 .Pagination-item_active:hover{
     background: #0087E9;
     color: #fff;

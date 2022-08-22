@@ -85,7 +85,6 @@ class LoginState extends StateModule{
                 });
             }
         } catch (e){
-
             this.setState({
                 err: e,
                 user: '',
@@ -93,7 +92,6 @@ class LoginState extends StateModule{
                 isAuth: false,
                 waiting: false
             });
-            console.log(this.state.err)
         }
     }
 

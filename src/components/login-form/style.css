@@ -2,7 +2,7 @@
     padding: 40px 20px;
 }
 .LoginForm-title {
-    margin-bottom: 30px;
+    margin-bottom: 17px;
     font-weight: 700;
     font-size: 24px;
     line-height: 28px;
@@ -19,6 +19,10 @@
     color: #000000;
 }
 .LoginForm input {
+    border: 1px solid #767676;
+    border-radius: 1px;
+    width: 203px;
+    outline: none;
     height: 26px;
 }
 .LoginForm-err {

@@ -1,7 +1,4 @@
-import React, {useEffect} from 'react';
-import useStore from "../../hooks/use-store";
-import {useNavigate} from "react-router-dom";
-import useInit from "../../hooks/use-init";
+import React from 'react';
 import useSelector from "../../hooks/use-selector";
 import AuthPanel from "../../containers/auth-panel";
 import LayoutFlex from "../../components/layout-flex";
@@ -11,10 +8,9 @@ import Layout from "../../components/layout";
 import useTranslate from "../../hooks/use-translate";
 import Spinner from "../../components/spinner";
 import ProfileContent from "../../components/profile-content";
+import PrivatValidation from "../../containers/privat-validation";
 
 const Profile = () => {
-    const navigate = useNavigate();
-
 
 
     const select = useSelector(state => ({
@@ -23,14 +19,10 @@ const Profile = () => {
         waiting: state.login.waiting,
     }));
 
-    useInit(() => {
-        if (!select.isAuth) {
-            navigate('/login');
-        }
-    }, [select.isAuth], {backForward: true})
 
     const {t} = useTranslate();
     return (
+        <PrivatValidation>
         <Layout
             authPanel={<AuthPanel/>}
             head={
@@ -44,6 +36,7 @@ const Profile = () => {
                 <ProfileContent user={select.user} t={t}/>
             </Spinner>
         </Layout>
+        </PrivatValidation>
     );
 };
 

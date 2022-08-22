@@ -1,0 +1,14 @@
+.Pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 20px;
+    list-style: none;
+}
+
+.Pagination-ellipsis {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 18px;
+}

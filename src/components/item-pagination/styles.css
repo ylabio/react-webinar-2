@@ -1,0 +1,17 @@
+.ItemPagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 18px;
+    cursor: pointer;
+}
+
+.ItemPagination_selected {
+    color: #ffffff;
+    background: #0087e9;
+}
+
+.ItemPagination:hover {
+    color: #000000;
+    background: #e1e1e1;
+}

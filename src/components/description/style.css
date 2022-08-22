@@ -1,0 +1,16 @@
+.Description {
+    margin: 20px 40px;
+    height: 100vh;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.Description-text_weight_bold {
+    font-weight: 700;
+}
+
+.Description-price {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+}

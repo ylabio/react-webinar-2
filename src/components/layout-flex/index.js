@@ -20,8 +20,7 @@ LayoutFlex.propTypes = {
   flex: propTypes.oneOf(['start', 'end', 'between']),
 	flexDirection: propTypes.oneOf(['row', 'column']),
 	alignItems: propTypes.oneOf(['start', 'center', 'end']),
-  // padding: propTypes.bool
-	padding: propTypes.oneOf(['10-20', '20-20']),
+	padding: propTypes.oneOf(['10-20', '20-20', '40-20']),
 	backgroundColor: propTypes.oneOf(['white', 'gray']),
 }
 
@@ -29,8 +28,7 @@ LayoutFlex.defaultProps = {
   flex: 'start',
 	flexDirection: 'row',
 	alignItems: 'center',
-  // padding: true,
-	padding: ['20-20'],
+	padding: '20-20',
 	backgroundColor: 'white',
 }
 

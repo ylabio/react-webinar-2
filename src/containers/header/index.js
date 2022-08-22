@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
@@ -23,9 +23,13 @@ function Header() {
     ]), [])
   };
 
+	const callbacks = {
+    onLogout: useCallback(() => store.get('auth').logout(), []),
+  };
+
 	return (
 		<>
-			<LoginNav isAuth={select.isAuth} user={select.user}/>
+			<LoginNav isAuth={select.isAuth} user={select.user} onLogout={callbacks.onLogout}/>
 			<LayoutFlex flex="between" backgroundColor="gray">
 				<h1>{t('title')}</h1>
 				<Select onChange={setLang} value={lang} options={options.lang}/>

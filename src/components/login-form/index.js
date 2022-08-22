@@ -19,7 +19,7 @@ function LoginForm(props) {
 				login.setValue('');
 				password.setValue('');
 			}
-		}, [login.value, password.value]),
+		}, [login.value, password.value, props.onAuthorization]),
   };
 
 	return (

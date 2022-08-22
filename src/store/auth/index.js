@@ -34,7 +34,7 @@ class AuthState extends StateModule{
 		
 		if(response.status === 200) {
 			this.setState({
-				...this.store.auth,
+				...this.getState(),
 				isAuth: true,
 				user: {
 					name: json.result.user.profile.name,
@@ -45,8 +45,63 @@ class AuthState extends StateModule{
 			localStorage.setItem('token', json.result.token);
 		} else {
 			this.setState({
-				...this.store.auth,
+				...this.getState(),
 				authError: json.error.data.issues[0].message
+			})
+		}
+  }
+
+	/**
+   * Аутентификация
+   */
+  async authentication(){
+    const response = await fetch('/api/v1/users/self', {
+			headers: {'X-Token' : localStorage.getItem('token')}
+		});
+
+		const json = await response.json();
+
+		if(response.status === 200) {
+			this.setState({
+				...this.getState(),
+				isAuth: true,
+				user: {
+					name: json.result.profile.name,
+					phone: json.result.profile.phone,
+					email: json.result.email
+				}
+			})
+		} else {
+			this.setState({
+				...this.getState(),
+				authError: ''
+			})
+		}
+  }
+
+	/**
+   * Логаут
+   */
+	async logout(){
+    const response = await fetch('/api/v1/users/sign', {
+			method: 'DELETE',
+			headers: {'X-Token' : localStorage.getItem('token')},
+			body: JSON.stringify({token: localStorage.getItem('token')})
+		});
+
+		const json = await response.json();
+
+		if(json.result) {
+			this.setState({
+				...this.store.state.auth,
+				isAuth: false,
+				user: {},
+				authError: ''
+			})
+		} else {
+			this.setState({
+				...this.store.state.auth,
+				authError: ''
 			})
 		}
   }

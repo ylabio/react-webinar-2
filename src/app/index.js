@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useSelector from "../hooks/use-selector";
+import useStore from '../hooks/use-store';
+import useInit from '../hooks/use-init';
 import {Routes, Route} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
@@ -12,6 +14,11 @@ import Profile from './profile';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
+	const store = useStore();
+
+  useInit(async () => {
+    await store.get('auth').authentication();
+  }, []);
 
   const modal = useSelector(state => state.modals.name);
 	const isAuth = useSelector(state => state.auth.isAuth);
@@ -21,8 +28,8 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
-				<Route path={"/login"} element={isAuth ? <Main /> : <Login />}/>
-				<Route path={"/profile"} element={isAuth ? <Profile /> : <Main />}/>
+				<Route path={"/login"} element={isAuth ? <Main/> : <Login/>}/>
+				<Route path={"/profile"} element={isAuth ? <Profile/> : <Login/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

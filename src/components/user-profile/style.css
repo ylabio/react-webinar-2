@@ -1,0 +1,18 @@
+.UserProfile {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-left: 20px;
+}
+
+.UserProfile h2 {
+  font-size: 24px;
+  line-height: calc(27 / 24);
+  margin: 0;
+  padding-top: 40px;
+  padding-bottom: 10px;
+}
+
+.UserProfile p {
+  margin: 0;
+}

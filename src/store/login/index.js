@@ -14,6 +14,7 @@ class LoginState extends StateModule{
       status: null,
       user: null,
       error: null,
+      token: null
     };
   }
  
@@ -26,10 +27,10 @@ class LoginState extends StateModule{
       });
 
       const json = await response.json();
-
         this.setState({
           status: 'auth',
           user: json.result.user,
+          token: json.result.token,
           error: null,
         });
     } catch (err) {
@@ -37,6 +38,7 @@ class LoginState extends StateModule{
         status: 'no_auth',
         user: null,
         error: err.message,
+        token: null
       });
     }
   }
@@ -46,19 +48,17 @@ class LoginState extends StateModule{
       status: null,
       user: null,
       error: null,
+      token: null
     });
-
-    const token = "user-token";
 
     const response = await fetch(`/api/v1/users/self`, {
-      method: 'GET',
+      method: "GET",
       headers: {
         'Content-Type': 'application/json',
-        'X-Token': `${token}`
-      }
+        'X-Token': this.getState().token,
+      },
     });
     const json = await response.json();
-    
     if (response.status === 200) {
       this.setState({
         ...this.getState(),

@@ -23,7 +23,6 @@ function Login() {
     token: state.authorization.token,
     error: state.authorization.error,
   }));
-  
 
   const callbacks = {
     // Логин
@@ -33,7 +32,7 @@ function Login() {
   const {t} = useTranslate();
 
   if (select.token) {
-    return <Navigate to="/profile" replace={true} />
+    return <Navigate to="/" replace={true} />
   }
 
   return (

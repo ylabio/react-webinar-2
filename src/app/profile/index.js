@@ -26,7 +26,7 @@ function Profile() {
 
   const {t} = useTranslate();
 
-  if (!select.token) {
+  if (!localStorage.getItem('authToken')) {
    return <Navigate to="/login" replace={true} />
   }
   return (

@@ -22,10 +22,7 @@ class CategoryState extends StateModule{
     const response = await fetch('/api/v1/categories');
     const json = await response.json();
 
-    
-    
-
-    // функция для выбора правильной позиции сортировки
+    // Функция для выбора правильной позиции сортировки
     function pickPositionToSort(sortedData, parentId, index){
       if (sortedData[index+1] && sortedData[index+1].parent?._key === parentId){
         index = index + 1
@@ -46,14 +43,13 @@ class CategoryState extends StateModule{
         let index = sortedData.findIndex(item => {
           return item._key == parentId;
         });
-        // Применяем функцию для выбора правильной позиции сортировки
+        // применяем функцию для выбора правильной позиции сортировки
         index = pickPositionToSort(sortedData, parentId, index);
         sortedData.splice(index+1, 0, category);
       };
     });
 
-    console.log(sortedData)
-  // Функция для добавления 'тире' дочерним элементам
+    // Функция для формирования title
     function editTitle(category, title){
       const parentId = category.parent?._key;
       if (parentId) {
@@ -66,13 +62,14 @@ class CategoryState extends StateModule{
         return title
       }
     }
-  // Применяем функцию добавление 'тире'
+
+    // Редактируем title у сортированного списка
     const items = sortedData.map(category => {
+      // применяем функцию для формирования title
       const title = editTitle(category, category.title)
       return {value: category._id, title}
     });
 
-    
     // Меняем состояние
     this.setState({
       items: [{ value: '', title: 'Все'}, ...items]

@@ -41,7 +41,7 @@ class AuthorizationState extends StateModule{
           ...this.getState(),
           error: '',
           token: json.result.token,
-          userData: json.result.user,
+          userData: json.result.user
       }, 'Получение токена');
     }
   }

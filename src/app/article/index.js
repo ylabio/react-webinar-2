@@ -10,8 +10,9 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import HeaderInfo from "../../containers/header-info";
 
-function Article(){
+function Article() {
   const store = useStore();
 
   // Параметры из пути /articles/:id
@@ -33,7 +34,8 @@ function Article(){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
 
-  return (
+  return (<>
+    <HeaderInfo/>
     <Layout head={
       <LayoutFlex flex="between">
         <h1>{select.article.title}</h1>
@@ -45,6 +47,7 @@ function Article(){
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
     </Layout>
+    </>
   )
 }
 

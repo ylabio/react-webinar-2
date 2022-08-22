@@ -5,7 +5,6 @@ import LoginInput from '../login-input'
 import useSelector from '../../hooks/use-selector'
 import useStore from '../../hooks/use-store'
 import useTranslate from '../../hooks/use-translate';
-import 'style.css';
 
 function LoginForm() {
   const {t} = useTranslate()
@@ -27,14 +26,13 @@ function LoginForm() {
                 err={select.auth.isErr && <LoginError t={t} code={select.auth.errCode}/>}
                 onSubmit={callbacks.onSubmit}
     >
-      <LoginInput className={'item'}
-      title={t('login.username')}
+      <LoginInput title={t('login.username')}
                   onChange={callbacks.loginChange}
                   onFocus={select.auth.isErr ? callbacks.resetError : () => {}}
                   value={select.auth.login}
                   type='text'
       />
-      <LoginInput className={'item'} title={t('login.password')}
+      <LoginInput title={t('login.password')}
                   onChange={callbacks.passwordChange}
                   onFocus={select.auth.isErr ? callbacks.resetError : () => {}}
                   value={select.auth.password}

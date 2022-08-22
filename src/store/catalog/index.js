@@ -100,16 +100,16 @@ class CatalogState extends StateModule{
       const categoryResponse = await fetch('/api/v1/categories')
       const categoryJson = await categoryResponse.json();
       const result = categoryJson.result.items;
-
-      const getIndetNum = (arr, iter = 0, elem) => {
+      // Рекурсия для изменения наименования товара по его вложенности
+      const getIndetNum = (arr, elem, iter = 0) => {
         const parent = elem.parent;
         while (parent) {
           const ansestor = arr.find(el => el._id === parent._id);
-          return getIndetNum(arr, iter += 1, ansestor)
+          return getIndetNum(arr, ansestor, iter += 1)
         }
         return iter;
       }
-
+      // сортировка с изменение индекса в масиве сразу за родителем или родителелм родителя и т.д.
       const sortByParentId = (arr) => arr.forEach((el, index )=> {
         const parentIndex = arr.findIndex(item => item.value === el.parent);
  
@@ -121,10 +121,10 @@ class CatalogState extends StateModule{
 
       const indentedCategories = result.map((elem) => {
         const { _id, title } = elem;
-        const indentNum = getIndetNum(result, 0, elem);
+        const indentNum = getIndetNum(result, elem);
         return { ...elem, value: _id, title: '-'.repeat(indentNum) + ' ' + title, parent: elem.parent ? elem.parent._id : undefined }
       })
-      
+      // думаю можно было совместить в одной функции, но это понизило бы читаемость рекурсивного кода
       sortByParentId(indentedCategories)
 
       return indentedCategories;

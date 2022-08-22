@@ -1,4 +1,9 @@
 {
+  "tologin": "Вход",
+  "login": "Войти",
+  "logout": "Выйти",
+  "password": "Пароль",
+  "login.name": "Логин",
   "title": "Магазин",
   "menu.main": "Главная",
   "basket.title": "Корзина",

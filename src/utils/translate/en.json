@@ -1,4 +1,9 @@
 {
+  "tologin": "Enter",
+  "login": "Login",
+  "logout": "Exit",
+  "password": "Password",
+  "login.name": "Login",
   "title": "Shop",
   "menu.main": "Main",
   "basket.title": "Cart",

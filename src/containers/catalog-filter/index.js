@@ -33,7 +33,7 @@ function CatalogFilter() {
   // Опции для полей
   const options = {
     categories: useMemo(() => (
-      [{ _id: '*', value: '', title: 'Все'}, ...select.categories]), [select.categories]),
+      [{ id: '*', value: '', title: 'Все'}, ...select.categories]), [select.categories]),
     sort: useMemo(() => ([
       {value:'order', title: 'По порядку'},
       {value:'title.ru', title: 'По именованию'},

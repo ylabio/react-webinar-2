@@ -3,7 +3,7 @@ import api from "../../services/api";
 import { getToken, saveToken, removeToken } from "../../services/token";
 
 /**
- * Состояние товара
+ * Состояние пользователя
  */
 class UserState extends StateModule{
 

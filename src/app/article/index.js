@@ -10,8 +10,7 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
-import {getToken, removeToken} from "../../services/token";
-import api from "../../services/api";
+import {getToken} from "../../services/token";
 
 function Article(){
   const store = useStore();

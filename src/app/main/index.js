@@ -9,8 +9,7 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
-import {removeToken, getToken} from "../../services/token";
-import api from "../../services/api";
+import { getToken } from "../../services/token";
 
 function Main() {
   const store = useStore();
@@ -22,7 +21,7 @@ function Main() {
   useInit(async () => {
     await store.get('catalog').initParams();
   }, [], {backForward: true});
-  
+
   const {t} = useTranslate();
 
   useEffect(() => {

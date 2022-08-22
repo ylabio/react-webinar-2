@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import LayoutFlex from "../../components/layout-flex";
 import Tools from "../../containers/tools";
@@ -13,16 +12,12 @@ function Auth() {
   const navigate = useNavigate();
   const {t} = useTranslate();
 
-  const select = useSelector(state => ({
-    name: state.user.name,
-  }));
-
   useEffect(() => {
     if(getToken()) navigate(`/profile`)
   }, [])
     
   return (
-    <Layout t={t} name={select.name} head={
+    <Layout t={t} name={''} head={
       <LayoutFlex flex="between">
         <h1>{t('title')}</h1>
         <LocaleSelect/>

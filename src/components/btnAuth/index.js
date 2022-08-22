@@ -2,13 +2,11 @@ import React, { useCallback } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import { cn as bem } from "@bem-react/classname";
 import LayoutFlex from "../layout-flex";
-import { getToken } from "../../services/token";
 import propTypes from "prop-types";
 import './style.css';
 
-function BtnAuth({t, name, removeToken}){
+function BtnAuth({ t, name, removeToken }){
   const cn = bem('BtnAuth');
-
   const navigate = useNavigate();
 
   const callbacks = {
@@ -19,7 +17,7 @@ function BtnAuth({t, name, removeToken}){
   return (
     <div className={cn()}>
       <LayoutFlex flex="end">
-        {getToken() && <Link className={cn('link')} to='/profile'>{name}</Link>}
+        {name && <Link className={cn('link')} to='/profile'>{name}</Link>}
         <button 
           type='button' 
           onClick={name ? 

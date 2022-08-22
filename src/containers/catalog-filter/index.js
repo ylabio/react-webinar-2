@@ -61,18 +61,18 @@ function CatalogFilter() {
     ]), [])
   }
 
-  const [items, setItems] = useState([]);
+  const [categories, setCategories] = useState([]);
   useEffect(() => {
     fetch( `/api/v1/categories`)
-      .then(response => response.json())
-      .then(category => {
-        setItems(createCategories(category.result.items))
+      .then(res => res.json())
+      .then(res => {
+        setCategories(createCategories(res.result.items))
       });
   }, []);
 
   return (
     <LayoutFlex flex="start">
-      <Select onChange={callbacks.onChangeCategory} value={select.category} options={items}/>
+      <Select onChange={callbacks.onChangeCategory} value={select.category} options={categories}/>
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

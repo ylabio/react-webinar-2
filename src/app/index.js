@@ -16,11 +16,9 @@ import useInit from '../hooks/use-init';
 function App() {
   const store = useStore();
 
-  store.get('user').getProfile();
-
-  // useInit(async () => {
-  //   await store.get('user').getProfile();
-  // }, [], {backForward: true});
+  useInit(async () => {
+    await store.get('user').getProfile();
+  }, [], {backForward: true});
 
   const modal = useSelector(state => state.modals.name);
 

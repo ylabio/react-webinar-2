@@ -30,9 +30,11 @@ class CatalogState extends StateModule{
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        category: 'all'
       },
-      waiting: false
+      waiting: false,
+      categories: [{ _id: 'all', title: 'Все' }],
     };
   }
 
@@ -86,7 +88,13 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+
+    const category =
+			newParams.category === 'all'
+				? ''
+				: `&search[category]=${newParams.category}`;;
+    
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${category}`);
     const json = await response.json();
 
     // Установка полученных данных и сброс признака загрузки
@@ -106,6 +114,21 @@ class CatalogState extends StateModule{
       window.history.pushState({}, '', url);
     }
   }
+
+  async getCategories() {
+		const response = await fetch('api/v1/categories');
+		const json = await response.json();
+
+		const categoriesArray = [
+			this.initState().categories[0],
+			...json.result.items,
+		];
+
+		this.setState({
+			...this.getState(),
+			categories: categoriesArray,
+		});
+	}
 }
 
 export default CatalogState;

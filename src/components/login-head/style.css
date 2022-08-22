@@ -1,0 +1,9 @@
+.LoginHead{
+    display: flex;
+    align-items: center;
+}
+.LoginHead-name{
+    padding-right: 20px;
+    color: #0087E9;
+    text-decoration: underline;
+}

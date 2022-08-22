@@ -1,0 +1,33 @@
+.LoginForm{
+    padding: 20px;
+    color: black;
+}
+
+.LoginForm-header{
+    padding-top: 20px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.LoginForm-label{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.LoginForm-label input{
+    width: 200px;
+    height: 25px;
+    font-size: 16px;
+}
+
+.LoginForm-error{
+    padding-top: 20px;
+    color: red;
+}
+
+.LoginForm-submit{
+    margin-top: 20px;
+    width: 55px;
+    height: 20px;
+}

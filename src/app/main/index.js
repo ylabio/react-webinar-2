@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback, useEffect} from "react";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
@@ -8,6 +8,8 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
+import useSelector from "../../hooks/use-selector";
+import LoginHead from "../../components/login-head";
 
 function Main() {
   const store = useStore();
@@ -18,8 +20,16 @@ function Main() {
 
   const {t} = useTranslate();
 
+  const profile = useSelector((state) => state.profile);
+  const logout = useCallback(() => store.get('profile').logout(profile), []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if(token && !profile.isLogin) store.get('profile').auth(token);
+  }, []);
+
   return (
-    <Layout head={
+    <Layout auth={<LoginHead profile={profile} logout={logout}/>} head={
       <LayoutFlex flex="between">
         <h1>{t('title')}</h1>
         <LocaleSelect/>

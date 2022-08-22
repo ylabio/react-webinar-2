@@ -1,0 +1,16 @@
+.ProfileInfo{
+    padding: 20px;
+    color: black;
+}
+.ProfileInfo-header{
+    padding-top: 20px;
+    font-weight: bold;
+    font-size: 24px;
+}
+.ProfileInfo-text{
+    padding-top: 30px;
+    font-size: 18px;
+}
+.ProfileInfo-text span{
+    font-weight: bold;
+}

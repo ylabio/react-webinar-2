@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import {useParams} from "react-router-dom";
@@ -10,6 +10,7 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import LoginHead from "../../components/login-head";
 
 function Article(){
   const store = useStore();
@@ -23,7 +24,8 @@ function Article(){
 
   const select = useSelector(state => ({
     article: state.article.data,
-    waiting: state.article.waiting
+    waiting: state.article.waiting,
+    profile: state.profile
   }));
 
   const {t} = useTranslate();
@@ -31,10 +33,16 @@ function Article(){
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    logout: useCallback(() => store.get('profile').logout(select.profile), [])
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if(token && !select.profile.isLogin) store.get('profile').auth(token);
+  }, [])
+
   return (
-    <Layout head={
+    <Layout auth={<LoginHead profile={select.profile} logout={callbacks.logout}/>} head={
       <LayoutFlex flex="between">
         <h1>{select.article.title}</h1>
         <LocaleSelect/>

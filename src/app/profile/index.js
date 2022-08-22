@@ -25,7 +25,7 @@ function Profile() {
 
     useInit(async () => {
         (window.localStorage.length === 0 && navigate('/login'));
-        (!select.user && navigate("/"));
+        ((window.localStorage.length && !select.user) && navigate("/"));
     }, [select.profile]);
 
     const callback = {

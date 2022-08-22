@@ -25,7 +25,7 @@ function Authorization() {
     const store = useStore();
 
     useInit(() => {
-        (select.user && navigate('/'));
+        (select.user && navigate('/profile'));
     }, [select.user]);
 
     const callback = {

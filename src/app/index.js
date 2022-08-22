@@ -8,6 +8,7 @@ import Basket from "./basket";
 import Article from "./article";
 import Login from './login';
 import Profile from './profile';
+import useAuth from '../hooks/use-auth';
 
 /**
  * Приложение
@@ -15,10 +16,9 @@ import Profile from './profile';
  */
 function App() {
   const store = useStore()
+  const [isAuth, token] = useAuth()
 
   const modal = useSelector(state => state.modals.name);
-  const token = useSelector(state => state.auth.token);
-  const isAuth = useSelector(state => state.auth.isAuthenticated);
 
   useInit(async () => {
     // делаем запрос на получение юзера, если имеем сохраненный токен

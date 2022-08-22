@@ -8,26 +8,25 @@ function LoginForm({ submit, t, errors }) {
   // CSS классы по БЭМ
   const cn = bem("LoginForm");
 
-  const [login, setLogin] = useState("");
-  const [password, setpassword] = useState("");
+  const [data, setData] = useState({ login: "", password: "" });
 
   const loginHandler = useCallback(
     (event) => {
-      setLogin(event.target.value);
+      setData({ ...data, login: event.target.value });
     },
-    [setLogin]
+    [data]
   );
 
   const passwordHandler = useCallback(
     (event) => {
-      setpassword(event.target.value);
+      setData({ ...data, password: event.target.value });
     },
-    [setpassword]
+    [data]
   );
 
   const checkAuth = (event) => {
     event.preventDefault();
-    submit(login, password);
+    submit(data.login, data.password);
   };
 
   return (
@@ -37,7 +36,7 @@ function LoginForm({ submit, t, errors }) {
         <div>
           <label className={cn("prop")}>{t("loginForm.login")}</label>
           <input
-            value={login}
+            value={data.login}
             onChange={loginHandler}
             theme="big"
             type="text"
@@ -46,7 +45,7 @@ function LoginForm({ submit, t, errors }) {
         <div>
           <label className={cn("prop")}>{t("loginForm.password")}</label>
           <input
-            value={password}
+            value={data.password}
             onChange={passwordHandler}
             theme="big"
             type="password"

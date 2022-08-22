@@ -2,9 +2,9 @@ import React, {useCallback, useMemo} from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import Select from "../../components/select";
-import Input from "../../components/input";
-import LayoutFlex from "../../components/layout-flex";
+import Select from "../../components/form-components/select";
+import Input from "../../components/form-components/input";
+import LayoutFlex from "../../components/layouts/layout-flex";
 
 function CatalogFilter() {
   
@@ -38,13 +38,15 @@ function CatalogFilter() {
       {value: '-price', title: 'Сначала дорогие'},
       {value: 'edition', title: 'Древние'},
     ]), []),
-    categories: useMemo(() => (select.categories.map(item => ({value: item._id, title: item.title}))), [select.categories]),
+    categories: useMemo(() => (select.categories.map(item => ({
+      value: item._id,
+      title: item.title
+    }))), [select.categories]),
   }
   
   React.useEffect(() => {
     store.get('catalog').getCategories()
   }, []);
-  
   
   return (
     <LayoutFlex flex="start">
@@ -53,7 +55,7 @@ function CatalogFilter() {
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={t('filter.search')} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </LayoutFlex>
-  );
+  )
 }
 
 export default React.memo(CatalogFilter);

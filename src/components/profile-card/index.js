@@ -1,6 +1,7 @@
 import React from 'react';
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
+import propTypes from "prop-types";
 
 function ProfileCard(props) {
 
@@ -27,6 +28,10 @@ function ProfileCard(props) {
 }
 
 ProfileCard.propTypes = {
+  t: propTypes.func.isRequired,
+  userEmail: propTypes.string,
+  userPhone: propTypes.string,
+  UserName: propTypes.string
 }
 
 ProfileCard.defaultProps = {

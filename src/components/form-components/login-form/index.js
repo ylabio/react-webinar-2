@@ -2,6 +2,7 @@ import React from 'react';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import Input from "../input";
+import propTypes from "prop-types";
 
 function LoginForm(props) {
   const cn = bem('LoginForm');
@@ -26,8 +27,14 @@ function LoginForm(props) {
   )
 }
 
-LoginForm.propTypes = {}
+LoginForm.propTypes = {
+  t: propTypes.func.isRequired,
+  login: propTypes.func,
+  errorMessage: propTypes.string
+}
 
-LoginForm.defaultProps = {}
+LoginForm.defaultProps = {
+  login: () => {}
+}
 
 export default React.memo(LoginForm);

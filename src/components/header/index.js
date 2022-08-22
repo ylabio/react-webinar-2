@@ -2,6 +2,7 @@ import React from 'react';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import {Link} from "react-router-dom";
+import propTypes from "prop-types";
 
 function Header(props) {
   const cn = bem('Header');
@@ -20,7 +21,11 @@ function Header(props) {
   )
 }
 
-Header.propTypes = {}
+Header.propTypes = {
+  userName: propTypes.string,
+  logout: propTypes.func,
+  buttonText: propTypes.string
+}
 
 Header.defaultProps = {}
 

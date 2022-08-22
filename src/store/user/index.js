@@ -32,13 +32,14 @@ class UserState extends StateModule {
         },
         body: JSON.stringify({
           login: login,
-          password: password
+          password: password,
+          remember: true
         })
       })
       
       const json = await response.json()
       const data = json.result;
-      console.log(data)
+
       this.setState({
         ...this.getState(),
         token: data.token,
@@ -58,10 +59,12 @@ class UserState extends StateModule {
   }
   
   async getUserProfile() {
+    
     this.setState({
       ...this.getState(),
       waiting: true
     });
+    
     const currentToken = localStorage.getItem('authToken')
     if (currentToken) {
       try {
@@ -71,9 +74,10 @@ class UserState extends StateModule {
             "X-Token": currentToken,
           },
         });
+        
         const json = await response.json()
         const data = json.result;
-        console.log(data)
+
         this.setState({
           ...this.getState(),
           user: data,
@@ -83,9 +87,7 @@ class UserState extends StateModule {
         });
       } catch (e) {
         this.setState({
-          ...this.getState(),
-          errorMessage: 'Некая ошибка от сервера',
-          waiting: false
+          ...this.initState(),
         });
       }
     }
@@ -93,6 +95,7 @@ class UserState extends StateModule {
   
   async logout() {
     const currentToken = localStorage.getItem('authToken') || this.getState().token
+    
     if (currentToken) {
       try {
         const response = await fetch("/api/v1/users/sign", {
@@ -103,7 +106,7 @@ class UserState extends StateModule {
           },
         });
         const json = await response.json
-        console.log(json)
+
         this.setState({
           ...this.initState()
         });

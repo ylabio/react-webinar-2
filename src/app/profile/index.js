@@ -1,5 +1,4 @@
 import React from 'react';
-import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import Tools from '../../containers/tools';
 import LayoutFlex from '../../components/layout-flex';
@@ -7,9 +6,13 @@ import Layout from '../../components/layout';
 import LocaleSelect from '../../containers/locale-select';
 import LoginTools from '../../containers/login-tools';
 import UserCard from '../../components/user-card';
+import useSelector from '../../hooks/use-selector';
 
 function Profile() {
-  const store = useStore();
+
+  const select = useSelector(state => ({
+    user: state.user.currentUser
+  }));
 
   const {t} = useTranslate();
 
@@ -26,7 +29,7 @@ function Profile() {
       }
     >
       <Tools />
-      <UserCard />
+      <UserCard user={select.user} />
     </Layout>
   );
 }

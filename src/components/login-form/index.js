@@ -23,7 +23,11 @@ function LoginForm(props) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log('form');
+    props.onSubmit(values.name, values.password);
+    setValues({
+      name: '',
+      password: ''
+    });
   };
 
   return (
@@ -51,11 +55,14 @@ function LoginForm(props) {
         </label>
         <button type="submit">Войти</button>
       </form>
-      <p className={cn('error')}>Некая ошибка от сервера</p>
+      {props.error && <p className={cn('error')}>{props.error}</p>}
     </div>
   );
 }
 
-LoginForm.propTypes = {};
+LoginForm.propTypes = {
+  onSubmit: propTypes.func,
+  error: propTypes.string
+};
 
 export default React.memo(LoginForm);

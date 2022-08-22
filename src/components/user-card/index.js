@@ -12,26 +12,26 @@ function UserCard(props) {
       <h2>Профиль</h2>
       <div className={cn('prop')}>
         <div className={cn('label')}>Имя:</div>
-        <div className={cn('value')}>{}</div>
+        <div className={cn('value')}>{props.user?.username}</div>
       </div>
       <div className={cn('prop')}>
         <div className={cn('label')}>Телефон:</div>
-        <div className={cn('value')}>{}</div>
+        <div className={cn('value')}>{props.user?.profile?.phone}</div>
       </div>
       <div className={cn('prop')}>
         <div className={cn('label')}>email:</div>
-        <div className={cn('value')}>{}</div>
+        <div className={cn('value')}>{props.user?.email}</div>
       </div>
     </div>
   );
 }
 
 UserCard.propTypes = {
-  article: propTypes.object.isRequired
+  user: propTypes.object.isRequired
 };
 
 UserCard.defaultProps = {
-  article: {}
+  user: {}
 };
 
 export default React.memo(UserCard);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import useStore from '../../hooks/use-store';
 import useInit from '../../hooks/use-init';
 import useTranslate from '../../hooks/use-translate';
@@ -8,17 +8,24 @@ import Layout from '../../components/layout';
 import LocaleSelect from '../../containers/locale-select';
 import LoginTools from '../../containers/login-tools';
 import LoginForm from '../../components/login-form';
+import useSelector from '../../hooks/use-selector';
 
 function Login() {
   const store = useStore();
 
-  useInit(
-    async () => {
-      await store.get('catalog').initParams();
-    },
-    [],
-    {backForward: true}
-  );
+  const select = useSelector(state => ({
+    error: state.login.error.message
+  }));
+
+  console.log(select.error);
+
+  const callbacks = {
+    signIn: useCallback(
+      (login, password) => store.get('login').signIn(login, password),
+      []
+    ),
+    signOut: useCallback(() => store.get('login').signOut(), [])
+  };
 
   const {t} = useTranslate();
 
@@ -35,7 +42,7 @@ function Login() {
       }
     >
       <Tools />
-      <LoginForm />
+      <LoginForm onSubmit={callbacks.signIn} error={select.error} />
     </Layout>
   );
 }

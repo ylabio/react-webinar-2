@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import LayoutFlex from '../../components/layout-flex';
 import useSelector from '../../hooks/use-selector';
@@ -14,8 +14,21 @@ function LoginTools() {
   }));
 
   const callbacks = {
-    signOut: useCallback(() => store.get('login').signOut())
+    signOut: useCallback(() => store.get('login').signOut(), []),
+    goToSignInForm: useCallback(() => {
+      navigate('/login');
+    }, [])
   };
+
+  const button = useMemo(
+    () =>
+      select.isAuthorized ? (
+        <button onClick={callbacks.signOut}>Выход</button>
+      ) : (
+        <button onClick={callbacks.goToSignInForm}>Вход</button>
+      ),
+    [select.isAuthorized]
+  );
 
   // write render functions for buttons
   return (
@@ -25,13 +38,7 @@ function LoginTools() {
           <Link to={'/profile'}>{select.user.profile.name}</Link>
         )}
       </div>
-      <button
-        onClick={() => {
-          navigate('/login');
-        }}
-      >
-        Вход
-      </button>
+      {button}
     </LayoutFlex>
   );
 }

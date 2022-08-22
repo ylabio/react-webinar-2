@@ -31,8 +31,7 @@ class Login extends StateModule {
       }
 
       const json = await response.json();
-      const token = json.result.token;
-      const user = json.result.user;
+      const {token, user} = json.result;
 
       this.setState({
         ...this.getState(),
@@ -52,8 +51,30 @@ class Login extends StateModule {
     }
   }
 
+  signInWithToken(token){
+    try {
+      const response = await fetch(`/api/v1/users/self`, {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json', 'X-Token': token}
+      });
+      const json = await response.json();
+      const user = json.result.result;
+
+      this.setState({
+        ...this.getState(),
+        currentUser: user
+      });
+    } catch (e) {
+      // Ошибка при загрузке
+      this.setState({
+        ...this.getState(),
+        currentUser: {}
+      });
+    }
+  }
+
   async signOut() {
-    const xToken = this.getState().login.xToken;
+    const xToken = this.getState().xToken;
 
     try {
       const response = await fetch(`/api/v1/users/sign`, {
@@ -62,19 +83,22 @@ class Login extends StateModule {
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        throw Error(error.message);
+        const errorReponse = await response.json();
+        throw new Error(errorReponse.error.message);
       }
       const json = await response.json();
       const result = json.result;
 
-      // если выход успешный из api приходит result=true
+      // если выход успешный, из api приходит result=true
       if (result) {
         this.setState({
           ...this.getState(),
           xToken: '',
           isAuthorized: false
         });
+
+        // также после уведомления api сбрасываем текущего пользователя
+        this.store.get('user').resetUser();
       } else {
         throw Error('There was a problem when sign out');
       }

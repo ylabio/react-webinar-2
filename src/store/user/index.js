@@ -21,29 +21,14 @@ class User extends StateModule {
     });
   }
 
+  resetUser() {
+    this.setState({
+      currentUser: {}
+    });
+  }
+
   async loadUser() {
-    // this.setState({});
-
-    const xToken = this.getState().login.xToken;
-    try {
-      const response = await fetch(`/api/v1/users/self`, {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json', 'X-Token': xToken}
-      });
-      const json = await response.json();
-      const user = json.result.result;
-
-      this.setState({
-        ...this.getState(),
-        currentUser: user
-      });
-    } catch (e) {
-      // Ошибка при загрузке
-      this.setState({
-        ...this.getState(),
-        currentUser: {}
-      });
-    }
+    
   }
 }
 

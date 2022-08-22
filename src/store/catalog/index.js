@@ -94,7 +94,7 @@ class CatalogState extends StateModule {
     );
     const json = await response.json();
 
-    console.log("catrgory", category);
+    // console.log("catrgory", category);
 
     if (category) {
       const response_category = await fetch(

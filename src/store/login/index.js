@@ -9,6 +9,7 @@ class LogState extends StateModule {
   initState() {
     return {
       log: false,
+      user: [],
     };
   }
 
@@ -20,25 +21,27 @@ class LogState extends StateModule {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          login: "test_1",
-          password: "123456",
+          login: state.login,
+          password: state.password,
           remember: true,
         }),
       });
       const json = await response.json();
       console.log("response", json);
+
+      if (!json) {
+        this.setState({
+          ...this.store.state.login,
+          log: false,
+        });
+      } else {
+        this.setState({
+          user: json.result.user,
+          log: !a,
+        });
+      }
     } catch (e) {
       console.log("error", e);
-    }
-
-    if (!state.login) {
-      this.setState({
-        log: a,
-      });
-    } else {
-      this.setState({
-        log: !a,
-      });
     }
   }
 }

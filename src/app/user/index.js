@@ -6,7 +6,6 @@ import useTranslate from "../../hooks/use-translate";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import Tools from "../../containers/tools";
-import Form from "../../components/form";
 import Prof from "../../components/prof";
 import Cabinet from "../../components/layout-cabinet";
 import LocaleSelect from "../../containers/locale-select";
@@ -18,6 +17,7 @@ function Authorization() {
 
   const select = useSelector((state) => ({
     log: state.login.log,
+    user: state.login.user,
   }));
 
   console.log("log", select.log);
@@ -61,7 +61,7 @@ function Authorization() {
     >
       <Tools />
       <Cabinet head={"Вход"}>
-        <Prof />
+        <Prof user={select.user} />
       </Cabinet>
     </Layout>
   );

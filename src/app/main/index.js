@@ -26,6 +26,7 @@ function Main() {
 
   const select = useSelector((state) => ({
     log: state.login.log,
+    user: state.login.user,
   }));
 
   const callbacks = {
@@ -61,7 +62,7 @@ function Main() {
         select.log ? (
           <>
             <Link to="/profil">
-              <button>ggg</button>
+              <button>{select.user.profile.name}</button>
             </Link>
             {btn("выйте")}
           </>

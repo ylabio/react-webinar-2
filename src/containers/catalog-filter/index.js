@@ -87,7 +87,7 @@ function CatalogFilter() {
     ),
   };
 
-  console.log(category);
+  // console.log(category);
 
   return (
     <LayoutFlex flex="start">

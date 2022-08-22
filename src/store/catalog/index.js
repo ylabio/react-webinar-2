@@ -91,10 +91,19 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(
-      `/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${
-        newParams.category !== 'all' ? `&search[category]=${newParams.category}` : ''}`
-      );
+
+    const searchOptions = qs.stringify({
+      limit: newParams.limit,
+      skip: skip,
+      fields: 'items(*),count',
+      sort: newParams.sort,
+      search: {
+        query: newParams.query,
+        category: newParams.category === 'all' ? undefined : newParams.category
+      }
+    }, QS_OPTIONS.stringify)
+
+    const response = await fetch(`/api/v1/articles${searchOptions}`);
     const json = await response.json();
 
     // Установка полученных данных и сброс признака загрузки

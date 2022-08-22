@@ -1,0 +1,20 @@
+.login {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-title {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.login-inputContainer {
+    margin-top: 19px;
+    font-size: 16px;
+}
+
+.login-error {
+    font-size: 16px;
+    margin-top: 20px;
+    color: red;
+}

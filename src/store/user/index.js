@@ -1,6 +1,6 @@
 import StateModule from "../module";
 import api from "../../services/api";
-import { getToken, removeToken } from "../../services/token";
+import { getToken, saveToken, removeToken } from "../../services/token";
 
 /**
  * Состояние товара
@@ -19,6 +19,11 @@ class UserState extends StateModule{
     };
   }
 
+  async setToken(login, password) {
+    const res = await api.post('/users/sign', { login, password });
+    saveToken(res.data.result.token)
+  }
+ 
   async setData() {
     const res = await api.get('/users/self/');
     

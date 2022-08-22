@@ -1,10 +1,8 @@
 import React, {useCallback, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {saveToken} from '../../services/token';
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import Login from "../../components/auth";
-import api from '../../services/api';
 
 function Auth() {
   const store = useStore();
@@ -18,8 +16,7 @@ function Auth() {
     onSubmit: useCallback(async (evt) => {
       evt.preventDefault();
       try {
-        const response = await api.post('/users/sign', {login, password});
-        saveToken(response.data.result.token)
+        await store.get('user').setToken(login, password)
         navigate(`/profile`);
       } catch (error) {
         setError(true)

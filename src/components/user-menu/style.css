@@ -1,0 +1,17 @@
+.UserMenu {
+    max-width: 1024px;   
+    margin: 0 auto;
+    background: #fff;
+    box-sizing: border-box;
+    border-bottom:1px solid #DCDCDC ;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.UserMenu-login{
+    margin: 10px 20px;
+
+
+}
+

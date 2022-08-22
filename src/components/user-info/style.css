@@ -1,0 +1,17 @@
+.UserInfo {
+    padding: 20px;
+}
+
+.UserInfo-prop {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.UserInfo-label{
+    padding-right: 10px;
+}
+
+.UserInfo-value{
+    font-weight: bold;
+}

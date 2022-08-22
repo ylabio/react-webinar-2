@@ -54,8 +54,13 @@ class AuthModule extends StateModule {
       body: JSON.stringify(loginData)
     })
     const json = await response.json()
-    Cookies.set('token', json.result.token)
 
+    if (json.error) {
+      this.setState({...this.getState(), waiting: false})
+      throw new Error(json.error.data.issues.map(issue => issue.message))
+    }
+
+    Cookies.set('token', json.result.token)
     this.setState({
       ...this.getState(),
       token: json.result.token,

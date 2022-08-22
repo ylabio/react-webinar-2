@@ -23,7 +23,6 @@ class StateModule {
       [this.name]: newState
     }, description)
   }
-
 }
 
 export default StateModule;

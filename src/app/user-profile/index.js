@@ -1,28 +1,30 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import AuthorizationPanel from "../../components/authorization-panel";
+import React from 'react';
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import useTranslate from "../../hooks/use-translate";
 import UserInfo from "../../components/user-info";
 import Tools from "../../containers/tools";
 import useStore from "../../hooks/use-store";
+import AuthorizationPanelController
+  from '../../components/authorization-panel-controller'
+import useSelector from '../../hooks/use-selector'
 
 
 function UserProfile() {
     const {t} = useTranslate();
 
-    const store = useStore();
+    const userData = useSelector(store => store.user.userData)
 
     return (
         <>
-            <AuthorizationPanel/>
+            <AuthorizationPanelController />
             <Layout head={
                 <LayoutFlex flex="between">
                     <h1>{t('title')}</h1>
                 </LayoutFlex>
             }>
                 <Tools/>
-                <UserInfo token={store.getState().user.token}/>
+                { userData && <UserInfo userData={userData}/> }
             </Layout>
         </>
     )

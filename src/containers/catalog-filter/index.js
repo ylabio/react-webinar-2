@@ -6,6 +6,35 @@ import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
 
+const CATEGORY_PREFIX = '-';
+const appendChildCategory = (items, rootItem, categoryPrefix = CATEGORY_PREFIX) => {
+  const childs = items.filter(item => item?.parent?._id === rootItem._id);
+  if (childs.length === 0) {
+    return [];
+  }
+
+  return childs.reduce((categories, child) => {
+    return [
+      ...categories,
+      {value: child._id, title: categoryPrefix + ' ' + child.title},
+      ...appendChildCategory(items, child, categoryPrefix + CATEGORY_PREFIX),
+    ]
+  }, [])
+}
+
+const createOptionsCategory = (items) => {
+  // const optionsCategory = items.map(item => ({value: item._id, title: item.title}))
+  // optionsCategory.unshift({value: '', title: 'Все'})
+  const optionsCategory = items.filter(item => !item.parent)
+  return optionsCategory.reduce((categories, rootCategory) => {
+    return [
+      ...categories,
+      {value: rootCategory._id, title: rootCategory.title},
+      ...appendChildCategory(items, rootCategory),
+    ]
+  }, [{value: '', title: 'Все'}]);
+}
+
 function CatalogFilter() {
 
   const store = useStore();
@@ -15,8 +44,6 @@ function CatalogFilter() {
     query: state.catalog.params.query,
     category: state.catalog.params.category,
   }));
-
-  console.log(select.category)
 
   const {t} = useTranslate();
 
@@ -47,20 +74,14 @@ function CatalogFilter() {
         fetch( `/api/v1/categories`)
             .then(response => response.json())
             .then(category => {
-              setItems(category.result.items)
-              console.log(items);
+              setItems(createOptionsCategory(category.result.items))
             });
   }, []);
-  console.log(items);
-
-  const optionsCategory = items.map(item => new Object({value: item._id, title: item.title}))
-  optionsCategory.push(new Object({value: '', title: 'Все'}))
-    console.log(optionsCategory)
 
 
   return (
     <LayoutFlex flex="start">
-      <Select onChange={callbacks.onChangeCategory} value={select.category} options={optionsCategory}/>
+      <Select onChange={callbacks.onChangeCategory} value={select.category} options={items}/>
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

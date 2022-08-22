@@ -2,8 +2,7 @@ import React, {useRef} from 'react';
 import './styles.css';
 import {cn as bem} from "@bem-react/classname";
 
-function AuthorizationForm({onSubmit}) {
-  const error = true //временно
+function AuthorizationForm({onSubmit, error}) {
   const cn = bem('Authorization-form');
     const loginRef = useRef();
     const passwordRef = useRef();
@@ -14,23 +13,6 @@ function AuthorizationForm({onSubmit}) {
             login: loginRef.current.value,
             password: passwordRef.current.value,
         })
-        // async function postData (url, data) {
-        //     const response = await fetch(url, {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify(data)
-        //     })
-        //     return await response.json();
-        // }
-        // postData('/api/v1/users/sign', { login: loginRef.current.value,
-        //     password: passwordRef.current.value, })
-        //     .then((data) => {
-        //         console.log(data.result.token);
-        //         return data.result.token;
-        //     });
-        // console.log(postData)
     }
 
   return (
@@ -48,7 +30,7 @@ function AuthorizationForm({onSubmit}) {
                   </div>
               </div>
               <div>
-                  <p className={cn('error')}>{error ? 'Некая ошибка от сервера' : ''} </p>
+                  <p className={cn('error')}>{error ? error : ''} </p>
                   <button type="submit">Войти</button>
               </div>
           </form>

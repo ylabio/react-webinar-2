@@ -20,7 +20,11 @@ function App() {
     <>
       <Routes>
         <Route path={"/login"} element={<Authorization/>}/>
-        <PrivateRoute path={"/profile"} element={<UserProfile/>}/>
+        <Route path={"/profile"} element={
+          <PrivateRoute>
+            <UserProfile/>
+          </PrivateRoute>
+        }/>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
       </Routes>

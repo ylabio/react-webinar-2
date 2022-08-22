@@ -6,21 +6,19 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
-import HeaderContainer from "../../containers/header-container";
 import ProfileContainer from "../../containers/profile-container";
 
 function Profile() {
   const store = useStore();
 
   useInit(async () => {
-    await store.get('profile').getProfile();
+    await store.get('auth').me();
   }, [], {backForward: true});
 
   const {t} = useTranslate();
 
   return (
-    <Layout header={<HeaderContainer/>}
-            head={
+    <Layout head={
               <LayoutFlex flex="between">
                 <h1>{t('title')}</h1>
                 <LocaleSelect/>

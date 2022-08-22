@@ -2,14 +2,15 @@ import React from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
+import HeaderContainer from '../../containers/header-container';
 
-function Layout({header, head, children}){
+function Layout({ head, children }){
   const cn = bem('Layout');
 
   return (
     <div className={cn()}>
       <div className={cn('header')}>
-        {header}
+        <HeaderContainer/>
       </div>
       <div className={cn('head')}>
         {head}
@@ -22,7 +23,6 @@ function Layout({header, head, children}){
 }
 
 Layout.propTypes = {
-  header: propTypes.node,
   head: propTypes.node,
   children: propTypes.node,
 }

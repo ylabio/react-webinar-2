@@ -9,8 +9,9 @@ function Form({ login, password, changLogin, changePassword, onSubmit, error }){
 
   return (
     <form onSubmit={onSubmit} className={cn()}>
+        <span className={cn('title')}>Вход</span>
         <FormInput onChange={changLogin} value={login} label='Логин'/>
-        <FormInput onChange={changePassword} value={password} label='Пароль'/>
+        <FormInput onChange={changePassword} value={password} label='Пароль' type='password'/>
         { error && <span className={cn('error')}>{error}</span> }
         <button className={cn('btn')} type='submit'>Войти</button>
     </form>

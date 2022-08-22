@@ -11,19 +11,20 @@ function HeaderContainer() {
   const navigate = useNavigate();
 
   const select = useSelector((state) => ({
-    userName: state.auth.userName,
+    isAuth: state.auth.isAuth,
+    name: state.auth.user.name,
   }));
 
   const callbacks = {
     // 
     login: useCallback(() => navigate('/login'), []),
     // 
-    logout: useCallback((page) => store.get('auth').logout(), []),
+    logout: useCallback(() => store.get('auth').logout(), []),
   };
 
   return (
-    <Header action={select.userName ? callbacks.logout : callbacks.login} 
-            userName={select.userName} 
+    <Header action={select.isAuth ? callbacks.logout : callbacks.login} 
+            userName={select.name} 
             link={"/profile"} />
   );
 }

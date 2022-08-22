@@ -14,7 +14,7 @@ function ProfileContainer() {
 
 
   const select = useSelector((state) => ({
-    user: state.profile.user,
+    user: state.auth.user,
     isAuth: state.auth.isAuth,
   }));
 

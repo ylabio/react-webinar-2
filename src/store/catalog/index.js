@@ -126,10 +126,8 @@ class CatalogState extends StateModule {
     const items = json.result.items;
 
     const tree = createTree(items);
-    console.log("tree: ", tree);
 
     const categoryList = createCategoryList(tree)
-    console.log("categoryList: ", categoryList);
 
     // Установка полученных данных
     this.setState({

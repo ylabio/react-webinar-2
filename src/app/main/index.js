@@ -21,8 +21,7 @@ function Main() {
   const {t} = useTranslate();
 
   return (
-    <Layout header={<HeaderContainer/>}
-            head={
+    <Layout head={
               <LayoutFlex flex="between">
                 <h1>{t('title')}</h1>
                 <LocaleSelect/>

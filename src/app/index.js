@@ -7,6 +7,8 @@ import Article from "./article";
 import Login from './login';
 import Profile from './profile';
 import RequireAuth from "../hoc/require-auth"
+import useInit from '../hooks/use-init';
+import useStore from '../hooks/use-store';
 
 /**
  * Приложение
@@ -15,6 +17,11 @@ import RequireAuth from "../hoc/require-auth"
 function App() {
 
   const modal = useSelector(state => state.modals.name);
+  const store = useStore();
+
+  useInit(async () => {
+    await store.get('auth').me();
+  }, [], {backForward: false});
 
   return (
     <>

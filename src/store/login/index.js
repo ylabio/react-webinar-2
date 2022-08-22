@@ -9,7 +9,7 @@ class LoginState extends StateModule{
   initState() {
     return {
       user: {},
-      err: '',
+      err: [],
       token: '',
       isAuth: false,
       waiting: false,
@@ -22,7 +22,7 @@ class LoginState extends StateModule{
   async checkLogin(token) {
     this.setState({
       ...this.getState(),
-      err: '',
+      err: [],
       waiting: true,
     });
 
@@ -62,9 +62,11 @@ class LoginState extends StateModule{
   async logIn (data){
     this.setState({
       ...this.getState(),
-      err: '',
+      err: [],
       waiting: true
     });
+
+    let json;
 
     try {
       const response = await fetch(`/api/v1/users/sign`, {
@@ -74,7 +76,7 @@ class LoginState extends StateModule{
         },
         body: JSON.stringify(data),
       });
-      const json = await response.json();
+      json = await response.json();
 
       if (json.result.token) {
         this.setState({
@@ -89,7 +91,7 @@ class LoginState extends StateModule{
       }
     } catch (e){
       this.setState({
-        err: 'Некая ошибка от сервера',
+        err: json.error.data.issues,
         user: {},
         isAuth: false,
         waiting: false
@@ -103,7 +105,7 @@ class LoginState extends StateModule{
   async logOut (token){
     this.setState({
       ...this.getState(),
-      err: '',
+      err: [],
       waiting: true,
     });
 

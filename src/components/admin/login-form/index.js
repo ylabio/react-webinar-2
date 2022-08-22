@@ -40,7 +40,7 @@ function LoginForm(props) {
           {
             localErr
               ? localErr
-              : props.err && props.t('form.err')
+              : props.err.map((item, index) => <p key={index}>{item.message}</p>)
           }
         </div>
         <button>{props.t('form.btn')}</button>
@@ -51,13 +51,13 @@ function LoginForm(props) {
 
 LoginForm.propTypes = {
   logIn: propTypes.func,
-  err: propTypes.string,
+  err: propTypes.arrayOf(propTypes.object),
   t: propTypes.func,
 }
 
 LoginForm.defaultProps = {
   logIn: () => {},
-  err: '',
+  err: [],
   t: () => {},
 }
 

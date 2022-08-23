@@ -25,7 +25,7 @@ function Authorization({ btnExit }) {
     if (!select.log && !select.user.load) {
       return navigate("/login");
     }
-  }, [select.log]);
+  }, [select.log, select.user]);
 
   return (
     <Layout

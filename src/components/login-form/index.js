@@ -22,7 +22,7 @@ export const LoginForm = ({ onAuth, isAuth }) => {
     }
     onAuth(login, password)
       .then(_ => navigate('/'))
-      .catch(_ => setError('Ошибка с сервера'))
+      .catch(error => error.response.data.error.data.issues.map((e) => setError(e.message)))
   }
 
   return (
@@ -36,7 +36,7 @@ export const LoginForm = ({ onAuth, isAuth }) => {
         <div><label htmlFor="">Пароль</label></div>
         <div><input  value={password} name='password' onChange={onChange} type="password" /></div>
       </div>
-      <div>{error !== '' ? error : ''}</div>
+      <div style={{color:'red'}}>{error !== '' ? error : ''}</div>
       <div>
         <button type='button' onClick={onClick}>Войти</button>
       </div>

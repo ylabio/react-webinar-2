@@ -4,7 +4,7 @@ export const getCategoryItems = (items, idParent = undefined, dash = '') => {
     if (idParent === items[i].parent) {
       items[i].title = dash + items[i].title;
       categoryItems.push(items[i]);
-      categoryItems.push(...getCategoryItems(items, items[i].value, dash + '-'));
+      categoryItems.push(...getCategoryItems(items, items[i].value, dash + ' -'));
     }
   }
   return categoryItems;

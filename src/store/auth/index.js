@@ -30,6 +30,7 @@ class AuthState extends StateModule {
       isAuth:true
     })
     
+    
   }
 
   async me() {

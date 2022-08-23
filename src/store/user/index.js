@@ -11,8 +11,13 @@ class UserState extends StateModule{
    */
   initState() {
     return {
+      email: null,
       login:'',
-      password:''
+      password:'',
+      profile: {
+        name: null,
+        phone: null
+      }
     };
   }
 
@@ -52,9 +57,23 @@ class UserState extends StateModule{
     loginError: ''
     });
   }
-  setLogOut(){
-    this.setState(this.initState());
-    localStorage.removeItem('token');
+  async setLogOut(){
+    const token = localStorage.getItem('token');
+    
+    try {
+      const response = await fetch(`/api/v1/users/sign`, {
+        method: "DELETE",
+        headers: {
+          "X-Token": token,
+          "Content-Type": "application/json",
+        },
+      });
+      const json = await response.json();
+    } catch(e) {
+    console.log(e);
+   }
+   localStorage.removeItem('token');
+   this.setState(this.initState());
   }
 }
 

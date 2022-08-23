@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback} from "react";
 import { Link } from "react-router-dom";
 import CabinetSimple from "../../components/cabinet-simple";
 import LayoutFlex from "../../components/layout-flex";

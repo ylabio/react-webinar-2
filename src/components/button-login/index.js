@@ -25,7 +25,7 @@ LoginButton.propTypes = {
     token: propTypes.string,
     deleteUser: propTypes.func,
     auth: propTypes.bool,
-    path: propTypes.string,
+    path: propTypes.string
 }
 LoginButton.defaultProps = {
     token: '',

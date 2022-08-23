@@ -25,11 +25,13 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
+      categoryList: [],
       count: 0,
       params: {
         page: 1,
         limit: 10,
         sort: 'order',
+        category: 'all',
         query: ''
       },
       waiting: false
@@ -105,6 +107,36 @@ class CatalogState extends StateModule{
     } else {
       window.history.pushState({}, '', url);
     }
+  }
+
+  async getCategoryList() {
+    const response = await fetch(`/api/v1/categories?lang=ru&limit=*&skip=0&fields=%2A`);
+    
+    const json = await response.json();
+    console.log(json)
+
+    json.result.items.map(item => {
+      if (item.parent) {
+        item.title = '-' + item.title;
+
+        let parent = json.result.items.find(item2 => item2._id === item.parent._id)
+
+        json.result.items.map(item2 => {
+          if (item2._id === item.parent_id) {
+            json.result.items.map(item3 => {
+
+            })
+          }
+        })
+      }
+    })
+    
+    this.setState({
+      ...this.getState(),
+      categoryList: json.result.items.map(item => {
+        return item.title
+      }),
+    });
   }
 }
 

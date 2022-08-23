@@ -18,12 +18,12 @@ function LayoutFlex({children, flex, padding}){
 LayoutFlex.propTypes = {
   children: propTypes.node,
   flex: propTypes.oneOf(['start', 'end', 'between']),
-  padding: propTypes.bool
+  padding: propTypes.string
 }
 
 LayoutFlex.defaultProps = {
   flex: 'start',
-  padding: true,
+  padding: '20-20',
 }
 
 export default React.memo(LayoutFlex);

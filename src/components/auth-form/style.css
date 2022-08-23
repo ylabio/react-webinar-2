@@ -1,0 +1,11 @@
+/*Список*/
+.AuthForm{
+
+}
+.AuthForm-header{
+    border-bottom: 1px dashed #ccc;
+}
+
+.List-item:first-child{
+    border-top: 1px dashed #ccc;
+}

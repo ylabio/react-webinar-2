@@ -41,7 +41,7 @@ class ProfileState extends StateModule {
       if (json.error) {
         this.setState({
           ...this.getState(),
-          error: 'Какая-то ошибка от сервера',
+          error: 'Не верный логин или пароль',
           waiting: false,
         })
       } else {
@@ -109,7 +109,7 @@ class ProfileState extends StateModule {
   }
 
   async logOut() {
-    debugger
+    // debugger
     localStorage.removeItem('token')
     this.setState({
       ...this.getState(),

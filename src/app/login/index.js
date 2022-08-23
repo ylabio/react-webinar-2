@@ -8,11 +8,13 @@ import LayoutFlex from '../../components/layout-flex'
 import LocaleSelect from '../../containers/locale-select'
 import LoginForm from '../../components/login-form'
 import AuthContainer from '../../containers/auth-container'
+import { Navigate } from 'react-router-dom'
 
 function Login() {
   const store = useStore()
 
   const select = useSelector((state) => ({
+    auth: state.profile.auth,
     user: state.profile.user,
     error: state.profile.error,
     waiting: state.profile.waiting,
@@ -22,6 +24,10 @@ function Login() {
 
   const callbacks = {
     login: useCallback((login, password) => store.get('profile').login(login, password), []),
+  }
+
+  if (select.auth) {
+    return <Navigate to={'/profile'} />
   }
 
   return (

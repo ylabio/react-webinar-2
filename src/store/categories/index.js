@@ -25,8 +25,10 @@ class CategoriesState extends StateModule{
             waiting: true,
         });
         // Загрузка категорий
-        const response = await fetch(`/api/v1/categories`);
+        const response = await fetch(`/api/v1/categories?limit=*`);
+
         const json = await response.json();
+        console.log(json)
         // Преобразование в массив с префиксами дочерних элементов
         const items = [{value: '', title: 'Все'}, ...categoriesToLabel(json.result.items)]
         this.setState({

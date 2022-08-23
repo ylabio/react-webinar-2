@@ -19,7 +19,7 @@ class CategoriesState extends StateModule {
    * @return {Promise<void>}
    */
   async fetchCategories() {
-    const response = await fetch('api/v1/categories');
+    const response = await fetch('api/v1/categories?limit=*');
     const json = await response.json();
     this.setState({
       ...this.getState(),

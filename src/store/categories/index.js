@@ -39,7 +39,7 @@ export default class CategoriesState extends StateModule {
     const prefixesMaker = (obj) => {
       for (let k of obj.nodes) {
         sorted.push(k)
-        prefixes[k.id] = typeof prefixes[k.parent] !== 'undefined' ? prefixes[k.parent] + '-' : ''
+        prefixes[k.id] = typeof prefixes[k.parent] !== 'undefined' ? prefixes[k.parent] + '- ' : ''
         prefixesMaker(k)
       }
     }

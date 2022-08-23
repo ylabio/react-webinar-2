@@ -4,7 +4,8 @@ import { AuthContext } from "../../store/authcontext";
 
 const AuthContextProvider = ({ children }) => {
     const navigate = useNavigate();
-    const [user, setUser] = useState(null);
+    const [user, set] = useState(null);
+    const [err, setErr] = useState(null);
     
     const toLogin = () => navigate('/login');
 
@@ -15,27 +16,32 @@ const AuthContextProvider = ({ children }) => {
         password,
         remeber: true
       });
-      const res = await fetch(query, {
-        method: 'POST',
-        body,
-        headers: {'Content-Type': 'application/json'}
-      });
-      const { result } = await res.json()
-      localStorage.setItem('user', JSON.stringify(result.user));
-      localStorage.setItem('token', JSON.stringify(result.token));
-      setUser(result.user);
+      try {
+        const res = await fetch(query, {
+          method: 'POST',
+          body,
+          headers: {'Content-Type': 'application/json'}
+        });
+        const { result } = await res.json()
+        localStorage.setItem('user', JSON.stringify(result.user));
+        localStorage.setItem('token', JSON.stringify(result.token));
+        set(result.user);
+        navigate(`/users/${result.user._id}`);
+      } catch (err) {
+        console.log(err)
+        setErr(err.message)
+      }
     };
     
     const logOut = () => {
       localStorage.removeItem('user');
       localStorage.removeItem('token');
-      navigate('/')
-      setUser(null);
+      navigate('/login')
     };
 
     return (
       <AuthContext.Provider value={{
-        user, toLogin, logIn, logOut
+        user, err, toLogin, logIn, logOut
       }}
       >
         {children}

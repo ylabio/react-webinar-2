@@ -10,12 +10,12 @@ import './style.css';
 
 function UserPage() {
 
-    const {t} = useTranslate();
-    const cn = bem('UserPage');
-    const localStorageUser = localStorage.user && JSON.parse(localStorage.user);
-    const options = {
-        loginMenu: useMemo(() => ({ loginTitle: t('tologin'), loginName: t('login.name'), login: t('login'), logOutTitle: t('logout'), password: t('password') }), [t]),
-    }
+  const {t} = useTranslate();
+  const cn = bem('UserPage');
+  const localStorageUser = JSON.parse(localStorage.user);
+  const options = {
+    loginMenu: useMemo(() => ({ loginTitle: t('tologin'), loginName: t('login.name'), login: t('login'), logOutTitle: t('logout'), password: t('password') }), [t]),
+  }
 
   const UserInfo = () => (
     <div className={cn()}>
@@ -39,7 +39,6 @@ function UserPage() {
   )
   return (
     <>
-      
       <Layout head={
         <>
           <LoginMenu options={options.loginMenu}/>

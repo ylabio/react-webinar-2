@@ -1,23 +1,2 @@
-.LoginForm{
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-}
-.LoginForm-header{
-    margin: 0;
-    padding: 0;
-}
-.LoginForm-label{
-    display: flex;
-    flex-direction: column;
-}
-.LoginForm-input{
-    height: 25px;
-}
-.LoginForm-inputButton{
-    width: 55px;
-    height: 25px;
-}
+
 

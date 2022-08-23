@@ -25,12 +25,11 @@ function Main() {
   };
 
   const options = {
-    loginMenu: useMemo(() => ({ loginTitle: t('tologin'), logOutTitle: 'logout', toLogin: callbacks.toLogin }), [t]),
+    loginMenu: useMemo(() => ({ loginTitle: t('tologin'), logOutTitle: t('logout'), toLogin: callbacks.toLogin }), [t]),
   }
   
   return (
     <>
-      
       <Layout head={
         <>
           <LoginMenu options={options.loginMenu}/>

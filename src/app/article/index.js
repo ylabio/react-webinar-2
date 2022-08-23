@@ -10,6 +10,7 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import Auth from "../../containers/auth";
 
 function Article(){
   const store = useStore();
@@ -34,7 +35,12 @@ function Article(){
   };
 
   return (
-    <Layout head={
+    <Layout auth={
+      <LayoutFlex flex='end' 
+      padding={false}>
+        <Auth />
+      </LayoutFlex>}
+    head={
       <LayoutFlex flex="between">
         <h1>{select.article.title}</h1>
         <LocaleSelect/>

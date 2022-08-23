@@ -22,3 +22,7 @@ body{
 .Layout-head h1{
     margin: 0;
 }
+.Layout-auth{
+    height: 41px;
+    background: #FFFFFF;
+}

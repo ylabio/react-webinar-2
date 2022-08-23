@@ -1,0 +1,14 @@
+.LoginLayout {
+padding: 20px 20px;
+}
+.LoginLayout-Body{
+    padding: 0px 0px 20px 0px;
+}
+.LoginLayout-Error{
+    padding: 0px 0px 20px 0px;
+    color: red;
+}
+h2, p{
+    padding: 20px 0px 0px 0px;
+    margin: 0px;
+  }

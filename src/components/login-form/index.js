@@ -20,11 +20,13 @@ function LoginForm({ auth, errorServer, t, disabledLogin }) {
       const timer = setTimeout(() => clearErrors('login'), 3000);
       return () => clearTimeout(timer);
     }
+  }, [errors.login]);
+  useEffect(() => {
     if (errors.password) {
       const timer = setTimeout(() => clearErrors('password'), 3000);
       return () => clearTimeout(timer);
     }
-  }, [errors.login, errors.password]);
+  }, [errors.password]);
 
   const onSubmit = (data) => {
     auth(data);

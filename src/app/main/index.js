@@ -8,27 +8,37 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
+import ControlBar from "../../containers/control-bar";
 
 function Main() {
   const store = useStore();
-
   useInit(async () => {
     await store.get('catalog').initParams();
-  }, [], {backForward: true});
+    await store.get('category').setCategoryList()
+  }, [], { backForward: true });
 
-  const {t} = useTranslate();
+
+
+  const { t } = useTranslate();
 
   return (
-    <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{t('title')}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    }>
-      <Tools/>
-      <CatalogFilter/>
-      <CatalogList/>
-    </Layout>
+    <>
+      <Layout
+        overHead={
+          <ControlBar />
+        }
+        head={
+          <LayoutFlex flex="between">
+            <h1>{t('title')}</h1>
+            <LocaleSelect />
+          </LayoutFlex>
+        }>
+        <Tools />
+        <CatalogFilter />
+        <CatalogList />
+      </Layout>
+    </>
+
   )
 }
 

@@ -1,0 +1,31 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  gap: 20px;
+  
+}
+.Form p {
+  margin: 0;
+}
+.Form-title {
+margin: 0;
+margin-top: 62px;
+font-weight: 700;
+font-size: 24px;
+line-height: 28px;
+color: #000000;
+}
+.Form-input input {
+width: 203px;
+}
+.Form-error {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  color: #FF0000;
+}
+.Form-button {
+  width: 53px;
+  height: 21px;
+}

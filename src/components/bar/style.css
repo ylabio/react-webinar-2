@@ -1,0 +1,37 @@
+.Bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 20px;
+  align-items: center;
+  gap: 20px;
+}
+
+.Bar-title  {
+  color: #0087E9;
+}
+
+.Bar-title:visited {
+  color: #0087E9;
+}
+
+.Bar-button {
+  padding: 1px 6px;
+  background-color: #dcdcdc;
+  text-decoration: none;
+  color: black;
+  font-size: 13px;
+  border: 1px solid black;
+}
+
+.Bar-button:visited {
+  color: black;
+}
+
+.Bar-button:hover{
+  background-color: #a6f4ff;
+  border: 1px solid #26a0da;
+}
+
+.Bar-button:active {
+  background-color:#34b4e3;
+}

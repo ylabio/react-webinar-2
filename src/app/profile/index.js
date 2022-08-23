@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useInit from '../../hooks/use-init';
 import useTranslate from '../../hooks/use-translate';
 import Tools from '../../containers/tools';
@@ -12,11 +12,12 @@ import AuthentificationHeader from '../../containers/authentification-header';
 import LoginForm from '../../components/login-form';
 import UserProfile from '../../components/user-profile';
 
-function Login() {
+function Profile() {
   const store = useStore();
 
   // Параметры из пути /articles/:id
   const params = useParams();
+  const navigate = useNavigate();
 
   useInit(async () => {
     await store.get('article').load(params.id);
@@ -33,6 +34,12 @@ function Login() {
     navigate: useCallback((link) => navigate(link)),
   };
 
+  useEffect(() => {
+    if (!select.user.name) {
+      callbacks.navigate('/');
+    }
+  }, [select.user]);
+
   return (
     <Layout
       head={
@@ -48,4 +55,4 @@ function Login() {
   );
 }
 
-export default React.memo(Login);
+export default React.memo(Profile);

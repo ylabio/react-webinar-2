@@ -34,7 +34,7 @@ class UserState extends StateModule {
 
     if (json.result) {
       this.setState({
-        name: json.result.username,
+        name: json.result.profile.name,
         phone: json.result.profile.phone,
         email: json.result.email,
       });
@@ -44,24 +44,33 @@ class UserState extends StateModule {
   }
 
   async logInUser({ login, password }) {
-    const response = await fetch(`/api/v1/users/sign?fields=_id,profile(*),email`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        login,
-        password,
-        remember: true,
-      }),
-    });
-    const json = await response.json();
-    setUserToken(json.result.token);
-    this.setState({
-      name: json.result.user.profile.name,
-      phone: json.result.user.profile.phone,
-      email: json.result.user.email,
-    });
+    try {
+      const response = await fetch(`/api/v1/users/sign?fields=_id,profile(*),email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          login,
+          password,
+          remember: true,
+        }),
+      });
+      const json = await response.json();
+      console.log(json);
+      if (json.result) {
+        this.setState({
+          name: json.result.user.profile.name,
+          phone: json.result.user.profile.phone,
+          email: json.result.user.email,
+        });
+        setUserToken(json.result.token);
+      } else if (json.error) {
+        this.store.get('error').setError(json.error);
+      }
+    } catch (e) {
+      this.store.get('error').setError(e);
+    }
   }
 
   async logOutUser() {

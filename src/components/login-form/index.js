@@ -38,7 +38,7 @@ function LoginForm({ translate, onSubmit, error }) {
           {translate('login.enter')}
         </button>
 
-        {error && <div className={cn('error')}>{error.message}</div>}
+        {error && <div className={cn('error')}>{error.data.issues[0].message}</div>}
       </Form>
     </Formik>
   );

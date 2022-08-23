@@ -16,7 +16,7 @@ function Authentification({ user, onLogOut, translate, navigate }) {
       )}
       <button
         onClick={() => {
-          user.name ? onLogOut() : navigate('login');
+          user.name ? onLogOut() : navigate('/login');
         }}>
         {user.name ? translate('logout') : translate('login')}
       </button>

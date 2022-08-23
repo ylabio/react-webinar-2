@@ -47,7 +47,7 @@ class CatalogState extends StateModule {
   async initParams(params = {}) {
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
 
-    const response = await fetch(`/api/v1/categories`);
+    const response = await fetch(`/api/v1/categories?limit=*`);
     const json = await response.json();
 
     const categories = [{ _id: '*', key: '00', title: 'Всё' }].concat(

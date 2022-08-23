@@ -24,6 +24,7 @@ function Login() {
 
   const select = useSelector((state) => ({
     user: state.user,
+    error: state.error.error,
   }));
 
   const { t } = useTranslate();
@@ -37,6 +38,7 @@ function Login() {
     onLogOut: useCallback(() => store.get('user').logOutUser(), []),
     translate: useCallback((text) => t(text)),
     navigate: useCallback((link) => navigate(link)),
+    deleteError: useCallback(() => store.get('error').deleteError()),
   };
 
   useEffect(() => {
@@ -44,6 +46,12 @@ function Login() {
       callbacks.navigate('/');
     }
   }, [select.user]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      callbacks.deleteError();
+    }, 5000);
+  }, [select.error]);
 
   return (
     <Layout
@@ -58,7 +66,7 @@ function Login() {
       <LoginForm
         translate={callbacks.translate}
         onSubmit={callbacks.onLogIn}
-        error={select.error?.error}
+        error={select.error}
       />
     </Layout>
   );

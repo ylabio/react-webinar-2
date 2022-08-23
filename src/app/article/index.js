@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import { useParams } from 'react-router-dom';
@@ -18,8 +18,8 @@ function Article() {
   // Параметры из пути /articles/:id
   const params = useParams();
 
-  useInit(async () => {
-    await store.get('article').load(params.id);
+  useInit(() => {
+    store.get('article').load(params.id);
   }, [params.id]);
 
   const select = useSelector((state) => ({
@@ -35,19 +35,23 @@ function Article() {
   };
 
   return (
-    <Layout
-      head={
-        <LayoutFlex flex='between'>
-          <h1>{select.article.title}</h1>
-          <LocaleSelect />
-        </LayoutFlex>
-      }
-      auth={<AuthentificationHeader />}>
-      <Tools />
-      <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
-      </Spinner>
-    </Layout>
+    <>
+      {select.article && (
+        <Layout
+          head={
+            <LayoutFlex flex='between'>
+              <h1>{select.article.title}</h1>
+              <LocaleSelect />
+            </LayoutFlex>
+          }
+          auth={<AuthentificationHeader />}>
+          <Tools />
+          <Spinner active={select.waiting}>
+            <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
+          </Spinner>
+        </Layout>
+      )}
+    </>
   );
 }
 

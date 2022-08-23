@@ -5,6 +5,7 @@ import useSelector from "../../hooks/use-selector";
 import {Link, useNavigate} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
+import useAuth from '../../hooks/use-auth'
 
 function Auth(){
   const nav = useNavigate();
@@ -25,7 +26,7 @@ function Auth(){
     <div className={cn()}>
       {(select.token || select.auth) ?
         <>
-          <Link to={'/profile'}><p className={cn('profile')} onClick={e => e.stopPropagation()}>{select.name.profile?.name || t('profile')}</p></Link>
+          <Link to={'/profile'}><p className={cn('profile')}>{select.name.profile?.name || t('profile')}</p></Link>
 
           <button onClick={callbacks.logOut}>{t('logout')}</button>
         </>

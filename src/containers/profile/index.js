@@ -22,8 +22,8 @@ function Profile() {
     auth: state.user.auth
   }));
   // Загрузка данных для пользователя
-  useInit( async() => {
-      if (select.auth !== false || select.token.length > 1) await store.get('user').load()
+  useInit( () => {
+      if ((select.auth !== false  || select.token.length > 1) && !Object.keys(select.data).length)  store.get('user').load()
     }, [], {backForward: true});
 
 

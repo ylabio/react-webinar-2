@@ -10,19 +10,17 @@ import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import AuthForm from "../../components/auth-form";
 import Prehead from "../../containers/prehead";
+import useSelector from "../../hooks/use-selector";
+import ProfileData from "../../components/profile-data";
 
-function Auth() {
+function Profile() {
   const store = useStore();
 
   const {t} = useTranslate();
-
-
-  const callbacks = {
-    onAuth: useCallback(
-      (login, password) => store.get("user").authorize(login, password),
-      []
-    ),
-  };
+  
+  const select = useSelector(state => ({
+    user: state.user
+  }));
 
   return (
     <Layout prehead={<Prehead/>} head={
@@ -31,9 +29,9 @@ function Auth() {
         <LocaleSelect/>
       </LayoutFlex>
     }>
-      <AuthForm onAuth={callbacks.onAuth}/>
+      <ProfileData user={select.user}/>
     </Layout>
   )
 }
 
-export default React.memo(Auth);
+export default React.memo(Profile);

@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import useSelector from '../hooks/use-selector';
 import Basket from './basket';
 import useStore from '../hooks/use-store';
 import { PrivateRoutes, PublicRoutes } from '../routes';
+import useInit from '../hooks/use-init';
 
 /**
  * Приложение
@@ -11,9 +12,9 @@ import { PrivateRoutes, PublicRoutes } from '../routes';
 function App() {
   const store = useStore();
 
-  useEffect(() => {
-    store.get('authorization').checkToken(localStorage.getItem('token'));
-  });
+  useInit(async () => {
+    await store.get('authorization').checkToken(localStorage.getItem('token'));
+  }, []);
 
   const select = useSelector((state) => ({
     modal: state.modals.name,
@@ -22,15 +23,7 @@ function App() {
 
   return (
     <>
-      {select.loggedIn ? (
-        <div>
-          <PrivateRoutes />
-        </div>
-      ) : (
-        <div>
-          <PublicRoutes />
-        </div>
-      )}
+      {select.loggedIn ? <PrivateRoutes /> : <PublicRoutes />}
       {select.modal === 'basket' && <Basket />}
     </>
   );

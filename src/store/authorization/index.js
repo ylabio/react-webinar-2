@@ -40,15 +40,17 @@ class Authorization extends StateModule {
         loggedIn: true,
       });
       localStorage.setItem('token', this.getState().token);
+      if (window.history.length > 2) {
+        window.history.back();
+      }
     }
     if (json.error) {
       this.setState({
         ...this.getState(),
-        user: {},
         error: json.error?.data?.issues[0]?.message,
-        token: '',
         waiting: false,
       });
+      console.log(this.getState().error);
     }
   }
 
@@ -63,19 +65,16 @@ class Authorization extends StateModule {
     const json = await response.json();
     if (json.result) {
       this.setState({
-        ...this.getState(),
         user: {},
         error: '',
         token: '',
+        waiting: false,
         loggedIn: false,
       });
     }
   }
 
   async checkToken(token) {
-    this.setState({
-      ...this.getState(),
-    });
     const response = await fetch(`/api/v1/users/self/`, {
       method: 'GET',
       headers: {
@@ -86,10 +85,10 @@ class Authorization extends StateModule {
     const json = await response.json();
     if (json.result) {
       this.setState({
-        ...this.getState(),
         user: json.result,
         error: '',
         token: token,
+        waiting: false,
         loggedIn: true,
       });
     }

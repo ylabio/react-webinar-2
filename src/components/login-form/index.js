@@ -10,7 +10,6 @@ function LoginForm(props) {
   const sendData = (e, login, password) => {
     e.preventDefault();
     props.login(login, password);
-    console.log();
   };
 
   const cn = bem('Form');

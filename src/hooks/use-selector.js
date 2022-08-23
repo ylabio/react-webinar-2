@@ -4,7 +4,7 @@ import useStore from './use-store';
 
 /**
  * Хук для доступа к объекту хранилища
- * @return {Store|{}}
+ * @return {store|{}}
  */
 
 export default function useSelector(selector) {

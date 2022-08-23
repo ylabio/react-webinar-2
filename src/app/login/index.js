@@ -17,7 +17,6 @@ function Login() {
   const navigate = useNavigate();
 
   const select = useSelector((state) => ({
-    user: state.authorization.user,
     error: state.authorization.error,
     token: state.authorization.token,
     waiting: state.authorization.waiting,
@@ -26,8 +25,9 @@ function Login() {
   const { t } = useTranslate();
 
   const callbacks = {
-    login: useCallback(async (login, password) => {
+    login: useCallback((login, password) => {
       store.get('authorization').login(login, password);
+      console.log(window.history.length);
     }, []),
   };
 
@@ -42,7 +42,11 @@ function Login() {
       }>
       <Tools />
       <Spinner active={select.waiting}>
-        <LoginForm login={callbacks.login} error={select.error} />
+        <LoginForm
+          login={callbacks.login}
+          log={callbacks.getLoggingState}
+          error={select.error}
+        />
       </Spinner>
     </Layout>
   );

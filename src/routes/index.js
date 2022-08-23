@@ -12,7 +12,7 @@ export const PrivateRoutes = () => {
     { path: 'profile', element: <Profile /> },
     {
       path: '*',
-      element: <Navigate to='/' replace />,
+      element: <Navigate to='profile' replace />,
     },
   ]);
   return privateRoutes;

@@ -16,6 +16,10 @@ function Login() {
 
   const navigate = useNavigate();
 
+  useEffect(()=>{
+    store.get('auth').setErrorMessage(null);
+  },[])
+
   const select = useSelector(state => ({
     waiting: state.auth.waiting,
     isLogin: state.auth.isLogin,

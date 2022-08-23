@@ -69,6 +69,20 @@ class AuthState extends StateModule {
   }
 
   /**
+   * Устанвока ошибки
+   * @param errorMessage
+   * @returns void
+   */
+  setErrorMessage(errorMessage) {
+
+    this.setState({
+      ...this.getState(),
+      errorMessage: errorMessage,
+    });
+
+  }
+
+  /**
    * Запрос на проверку авторизации
    * @returns {Promise<void>}
    */

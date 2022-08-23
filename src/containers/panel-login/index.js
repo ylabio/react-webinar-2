@@ -11,11 +11,6 @@ import Spinner from "../../components/spinner";
 function PanelLogin() {
   const store = useStore();
 
-  useInit(async () => {
-    const lS = localStorage.getItem('token') || '';
-      await store.get('login').checkLogin(lS);
-  }, []);
-
   const select = useSelector(state => ({
     token: state.login.token,
     isAuth: state.login.isAuth,

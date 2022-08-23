@@ -1,3 +1,4 @@
+import { getUserDataFromLS } from "../../utils";
 import StateModule from "../module";
 
 /**
@@ -12,6 +13,7 @@ class AuthState extends StateModule{
       isFetching: false,
       errorMsg: '',  
       isAuth: false,
+      isChecked: false,
     };
   }
 
@@ -38,6 +40,23 @@ class AuthState extends StateModule{
       errorMsg,
       isFetching: false,
     }); 
+  }
+
+  checkUser() {
+    const userData = getUserDataFromLS();
+
+    if (userData) {
+      this.setState({
+        ...this.getState(),
+        isChecked: true,
+        token: userData.token,
+      });  
+    } else {
+      this.setState({
+        ...this.getState(),
+        isChecked: true,
+      });
+    }
   }
 
   async login(data) {

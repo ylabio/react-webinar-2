@@ -58,13 +58,12 @@ function CatalogFilter() {
     ),
     categories: useMemo(
       () => [
-        { title: 'Все', value: '' },
-        ...createList(tree).map((el) => ({ title: el.title, value: el._id })),
+        { value: '', title: 'Все' },
+        ...createList(tree).map((el) => ({ value: el.value, title: el.title })),
       ],
       [select.categories]
     ),
   }
-
   return (
     <LayoutFlex flex='start'>
       <Select

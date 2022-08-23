@@ -1,5 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
-import {useNavigate, useLocation} from "react-router-dom"
+import React, { useState, useCallback } from "react";
 import LayoutFlex from "../../components/layout-flex";
 import FormLogin from "../../components/form-login";
 import useStore from '../../hooks/use-store';
@@ -10,20 +9,13 @@ function AuthForm() {
   const store = useStore();
   const {t} = useTranslate();
 
-  const navigate = useNavigate();
-
   const select = useSelector(state => ({
     user: state.authentication.user,
     token: state.authentication.token,
+    isAuth: state.authentication.isAuth,
     errorMessage: state.authentication.errorMessage,
     waiting: state.authentication.waiting
   }));
-
-  useEffect(() => {
-    if(select.token && select.user) {
-      navigate(-1, {replace: true})
-    }
-  }, [select.token, select.user])
 
   const [fields, setFields] = useState({
     login: '',

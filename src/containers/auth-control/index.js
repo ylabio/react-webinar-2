@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import useStore from '../../hooks/use-store';
@@ -14,17 +14,17 @@ function AuthControl() {
 
   const select = useSelector(state => ({
     user: state.authentication.user,
-    token: state.authentication.token
+    isAuth: state.authentication.isAuth
   }))
 
   const callbacks = {
-    onNavigateLogin: useCallback(() => navigate("/login"), []),
+    onNavigateLogin: useCallback(() => navigate("/login", { state: location.pathname }), []),
     onLogout: useCallback(() => store.get('authentication').logOut(), []),
   }
   return (
     <>
       { 
-        select.token 
+        select.isAuth 
         ?
         <AuthPanel 
           onLogout={callbacks.onLogout}

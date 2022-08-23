@@ -14,7 +14,7 @@ class AuthenticationState extends StateModule{
       user: {
 
       },
-      token: "",
+      token: localStorage.getItem('token'),
       errorMessage: "",
       waiting: true,
       isAuth: false
@@ -107,7 +107,7 @@ class AuthenticationState extends StateModule{
         body: null,
         headers: {
             'Content-Type': 'application/json',
-            'X-Token': token
+            'X-Token': this.getState().token
         }
       })
 
@@ -118,8 +118,8 @@ class AuthenticationState extends StateModule{
       const data = await res.json();
 
       this.setState({
+        ...this.getState(),
         user: data.result,
-        token: token,
         errorMessage: "",
         waiting: false,
         isAuth: true

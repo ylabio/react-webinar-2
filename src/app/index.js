@@ -17,11 +17,14 @@ import useStore from "../hooks/use-store";
 function App() {
 
   const modal = useSelector(state => state.modals.name);
+  const token = useSelector(state => state.authentication.token);
+  const isAuth = useSelector(state => state.authentication.isAuth)
   const store = useStore();
+  console.log(isAuth)
 
   useEffect(() => {
-    if(localStorage.getItem('token')) {
-      store.get('authentication').logInByToken(localStorage.getItem('token'));
+    if(token) {
+      store.get('authentication').logInByToken();
     }
   }, [])
 

@@ -18,6 +18,7 @@ function Profile() {
     user: state.authentication.user,
     waiting: state.authentication.waiting
   }))
+  console.log(select.waiting," Ожидание")
 
   return(
     <Layout

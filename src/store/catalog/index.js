@@ -33,7 +33,7 @@ class CatalogState extends StateModule{
         query: '',
         category: ''
       },
-      waiting: false
+      waiting: true
     };
   }
 

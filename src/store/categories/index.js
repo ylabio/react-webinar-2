@@ -21,9 +21,9 @@ class CatalogState extends StateModule {
       waiting: true
     });
     
-    const response = await fetch('/api/v1/categories?fields=_id,title,parent');
+    const response = await fetch('/api/v1/categories?fields=_id,title,parent&limit=*');
     const json = await response.json();
-    
+    console.log(json)
     const categories = [];
     const sortCategories = (newItems, items, parentId = null, dashCount = 0) => {
       items.forEach(item => {

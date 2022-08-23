@@ -7,7 +7,7 @@ import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 
-function CommonTopbar({redirectPage}) {
+function CommonTopbar({redirectPage, pageId}) {
   const store = useStore();
   const navigate = useNavigate();
 
@@ -17,7 +17,10 @@ function CommonTopbar({redirectPage}) {
   }));
 
   const callbacks = {
-    onLoginClick: useCallback(url => navigate(url), []),
+    onLoginClick: useCallback(
+      url => navigate(url, {state: {redirect: redirectPage, id: pageId}}),
+      [redirectPage]
+    ),
     onLogoutClick: useCallback(() => store.get('auth').logout(), [])
   };
 
@@ -39,18 +42,20 @@ function CommonTopbar({redirectPage}) {
         isSigned={select.isSigned}
         onLogin={callbacks.onLoginClick}
         onLogout={callbacks.onLogoutClick}
-        loginUrl={`/login/${redirectPage}`}
+        loginUrl={`/login`}
       ></LoginControls>
     </LayoutFlex>
   );
 }
 
 CommonTopbar.propTypes = {
-  redirectPage: propTypes.string
+  redirectPage: propTypes.string,
+  pageId: propTypes.string
 };
 
 CommonTopbar.defaultProps = {
-  redirectPage: 'profile'
+  redirectPage: 'profile',
+  pageId: null
 };
 
 export default React.memo(CommonTopbar);

@@ -42,7 +42,7 @@ function Article() {
           <LocaleSelect />
         </LayoutFlex>
       }
-      topbar={<CommonTopbar redirectPage={`articles/${select.article._id}`} />}
+      topbar={<CommonTopbar redirectPage={`articles`} pageId={params.id} />}
     >
       <Tools />
       <Spinner active={select.waiting}>

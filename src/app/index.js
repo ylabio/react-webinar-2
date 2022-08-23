@@ -21,11 +21,7 @@ function App() {
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
 
-        <Route path={'/login'}>
-          <Route path={':redirectPage/:pageId'} element={<Login />} />
-          <Route path={':redirectPage'} element={<Login />} />
-          <Route path={''} element={<Login />} />
-        </Route>
+        <Route path={'/login'} element={<Login />}></Route>
 
         <Route path={'/profile'} element={<Profile />} />
       </Routes>

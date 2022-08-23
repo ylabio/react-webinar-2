@@ -19,7 +19,7 @@ function Profile() {
 
   useEffect(() => {
     if (!select.isSigned) {
-      navigate('/login/profile');
+      navigate('/login', {state: {redirect: 'profile'}});
     }
   }, [select.isSigned]);
 

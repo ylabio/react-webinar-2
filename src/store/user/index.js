@@ -76,6 +76,7 @@ class UserState extends StateModule {
     });
 
     if (response.ok) {
+      localStorage.removeItem('token');
       // Сброс данных пользователя, признака авторизации
       this.setState({
         ...this.getState(),
@@ -83,6 +84,16 @@ class UserState extends StateModule {
         data: {}
       });
     }
+  }
+
+  /**
+   * Сброс ошибки
+   */
+  clearError() {
+    this.setState({
+      ...this.getState(),
+      error: ''
+    });
   }
 
   /**

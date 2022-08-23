@@ -12,8 +12,7 @@ function Tools() {
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
-    sum: state.basket.sum,
-    lang: state.locale.lang
+    sum: state.basket.sum
   }));
 
   const {t} = useTranslate();

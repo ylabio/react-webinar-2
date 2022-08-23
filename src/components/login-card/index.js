@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function LoginCard({ onLogin, error }) {
+function LoginCard({ onLogin, error, t }) {
   const cn = bem('LoginCard');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -23,11 +23,11 @@ function LoginCard({ onLogin, error }) {
 
   return (
     <div className={cn()}>
-      <h2>Вход</h2>
+      <h2>{t('login.title')}</h2>
       <form onSubmit={callbacks.onSubmit}>
-        <label>Логин<input type="text" value={login} onChange={onChange.setLogin} /></label>
+        <label>{t('login.login')}<input type="text" value={login} onChange={onChange.setLogin} /></label>
         <label>
-          Пароль
+          {t('login.password')}
           <input
             type="password"
             autoComplete="on"
@@ -35,7 +35,7 @@ function LoginCard({ onLogin, error }) {
             onChange={onChange.setPassword} />
         </label>
         {error && <span>{error}</span>}
-        <input type="submit" value="Войти" />
+        <input type="submit" value={t('login.submit')} />
       </form>
     </div>
   );
@@ -43,12 +43,14 @@ function LoginCard({ onLogin, error }) {
 
 LoginCard.propTypes = {
   onLogin: propTypes.func,
-  error: propTypes.string
+  error: propTypes.string,
+  t: propTypes.func
 };
 
 LoginCard.defaultProps = {
   onLogin: () => {},
-  error: ''
+  error: '',
+  t: (text) => text
 };
 
 export default React.memo(LoginCard);

@@ -1,7 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import LoginCard from '../../components/login-card';
-import useInit from '../../hooks/use-init';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -21,10 +20,13 @@ function Login() {
     waiting: state.user.waiting
   }));
 
-  useInit(() => {
+  useEffect(() => {
     if (select.isLogged) {
       location.state ? navigate(-1) : navigate('/');
     }
+    return () => {
+      store.get('user').clearError();
+    };
   }, [select.isLogged]);
 
   const callbacks = {
@@ -43,7 +45,7 @@ function Login() {
     }>
       <Tools />
       <Spinner active={select.waiting}>
-        <LoginCard onLogin={callbacks.onLogin} error={select.error} />
+        <LoginCard onLogin={callbacks.onLogin} error={select.error} t={t} />
       </Spinner>
     </Layout>
   );

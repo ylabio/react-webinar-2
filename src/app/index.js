@@ -1,4 +1,5 @@
 import React from 'react';
+import AuthWrapper from '../containers/auth-wrapper';
 import useSelector from '../hooks/use-selector';
 import { Routes, Route } from 'react-router-dom';
 import LayoutRoot from './layout-root';
@@ -13,7 +14,6 @@ import Profile from './profile';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
-
   const modal = useSelector(state => state.modals.name);
 
   return (
@@ -22,7 +22,7 @@ function App() {
         <Route path="/*" element={<LayoutRoot />}>
           <Route path="" element={<Main />} />
           <Route path="articles/:id" element={<Article />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile" element={<AuthWrapper><Profile /></AuthWrapper>} />
           <Route path="login" element={<Login />} />
         </Route>
       </Routes>

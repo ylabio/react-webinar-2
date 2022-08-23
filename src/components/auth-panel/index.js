@@ -4,14 +4,14 @@ import { cn as bem } from '@bem-react/classname';
 import propTypes from 'prop-types';
 import './style.css';
 
-function AuthPanel({ flex, name, profileLink, isLogged, onClick }) {
+function AuthPanel({ flex, name, profileLink, isLogged, onClick, t }) {
   const cn = bem('AuthPanel');
 
   return (
     <div className={cn({ flex })}>
       {isLogged && <Link to={profileLink}>{name}</Link>}
       <button className={cn('button')} onClick={onClick}>
-        {isLogged ? 'Выход' : 'Вход'}
+        {isLogged ? t('authPanel.signOut') : t('authPanel.signIn')}
       </button>
     </div>
   );
@@ -22,14 +22,17 @@ AuthPanel.propTypes = {
   name: propTypes.string,
   profileLink: propTypes.string,
   isLogged: propTypes.bool.isRequired,
-  onClick: propTypes.func
+  onClick: propTypes.func,
+  t: propTypes.func
 };
 
 AuthPanel.defaultProps = {
   flex: 'end',
   name: '',
   profileLink: '/',
-  onClick: () => {}
+  onClick: () => {},
+  t: (text) => text
 };
+
 
 export default React.memo(AuthPanel);

@@ -1,4 +1,3 @@
-import buildCategoryArray from '../../utils/get-category-array';
 import StateModule from '../module';
 import qs from 'qs';
 
@@ -26,9 +25,6 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
-      categories: [
-        { value: '*', title: 'Все' }
-      ],
       count: 0,
       params: {
         page: 1,
@@ -45,7 +41,6 @@ class CatalogState extends StateModule {
   /**
    * Инициализация параметров
    * Восстановление из query string адреса
-   * Подгрузка и установка категорий товаров
    * @param params
    * @return {Promise<void>}
    */
@@ -61,15 +56,6 @@ class CatalogState extends StateModule {
 
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = { ...this.initState().params, ...validParams, ...params };
-
-    // Подгрузка и установка категорий товаров
-    const response = await fetch('/api/v1/categories?limit=*');
-    const json = await response.json();
-    const categories = buildCategoryArray(json.result.items);
-    this.setState({
-      ...this.getState(),
-      categories: [...this.initState().categories, ...categories]
-    });
 
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);

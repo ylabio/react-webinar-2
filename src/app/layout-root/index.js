@@ -4,6 +4,7 @@ import AuthPanel from '../../components/auth-panel';
 import useInit from '../../hooks/use-init';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
+import useTranslate from '../../hooks/use-translate';
 
 function LayoutRoot() {
   const store = useStore();
@@ -17,6 +18,8 @@ function LayoutRoot() {
   useInit(async () => {
     await store.get('user').checkAuth();
   }, []);
+
+  const { t } = useTranslate();
 
   const callbacks = {
     // Переход на страницу логина
@@ -33,7 +36,7 @@ function LayoutRoot() {
         profileLink="/profile"
         isLogged={select.isLogged}
         onClick={select.isLogged ? callbacks.onLogout : callbacks.onMoveToLogin}
-      />
+        t={t} />
       <Outlet />
     </>
   );

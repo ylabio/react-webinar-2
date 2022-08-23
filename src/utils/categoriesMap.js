@@ -8,7 +8,7 @@ export function categoriesMap(items, parentId = undefined, level = 0) {
   return it.reduce((prev, item) => {
     let title = item.title;
     for (let i = 0; i < level; i++) {
-      title = '-' + title;
+      title = '- ' + title;
     }
     const cur = [{ ...item, title }].concat(categoriesMap(items, item._id, level + 1));
     return prev.concat(cur);

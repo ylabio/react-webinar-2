@@ -1,6 +1,6 @@
 import React from 'react';
-import propTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname'
+import propTypes from 'prop-types';
+import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 function Pagination(props) {
@@ -20,11 +20,11 @@ function Pagination(props) {
   if (left > 1) items.push(1);
   // Пропуск
   if (left > 2) items.push(null);
-  // Последваотельность страниц
-  for (let page = left; page <= right; page++) items.push(page)
+  // Последовательность страниц
+  for (let page = left; page <= right; page++) items.push(page);
   // Пропуск
   if (right < length - 1) items.push(null);
-  // Последнаяя страница
+  // Последняя страница
   if (right < length) items.push(length);
 
   // Возвращает функцию с замыканием на номер страницы
@@ -36,14 +36,17 @@ function Pagination(props) {
     <ul className={cn()}>
       {items.map((number, index) => (
         <li key={index}
-            className={cn('item', {active: number === props.page, split: !number})}
-            onClick={onClickHandler(number)}
+            className={cn(`${!!number && props.link ? 'item_link' : 'item'}`, {
+              active: number === props.page,
+              split: !number
+            })}
+            onClick={number && onClickHandler(number)}
         >
-          {number || '...'}
+          {number ? props.renderLink(number) : '...'}
         </li>
       ))}
     </ul>
-  )
+  );
 }
 
 Pagination.propTypes = {
@@ -51,16 +54,21 @@ Pagination.propTypes = {
   limit: propTypes.number,
   count: propTypes.number,
   onChange: propTypes.func,
-  indent: propTypes.number
-}
+  indent: propTypes.number,
+  renderLink: propTypes.func,
+  link: propTypes.bool
+};
 
 Pagination.defaultProps = {
   page: 1,
   limit: 10,
   count: 1000,
   indent: 1,
-  onChange: () => {
+  onChange: () => {},
+  renderLink: (number) => {
+    return number.toString();
   },
-}
+  link: true
+};
 
 export default React.memo(Pagination);

@@ -1,0 +1,30 @@
+/* Форма логина */
+.LoginCard {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+}
+
+.LoginCard h2 {
+	margin: 22px 0 30px;
+}
+
+.LoginCard form {
+	display: flex;
+	flex-direction: column;
+}
+
+.LoginCard label {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+}
+
+.LoginCard span {
+	margin-bottom: 20px;
+	color: #FF0000;
+}
+
+.LoginCard input {
+	align-self: flex-start;
+}

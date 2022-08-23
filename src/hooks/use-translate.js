@@ -4,7 +4,7 @@ import translate from "../utils/translate";
 import useStore from "./use-store";
 
 /**
- * Хук возвращает функция для локализации текстов
+ * Хук возвращает функцию для локализации текстов
  * Связан с кодом языка из внешнего состояния
  */
 export default function useTranslate() {
@@ -13,7 +13,7 @@ export default function useTranslate() {
   // Текущая локаль
   const lang = useSelector(state => state.locale.lang);
 
-  // Функция для семны локали
+  // Функция для смены локали
   const setLang = useCallback(lang => store.get('locale').setLang(lang), []);
 
   // Функция для локализации текстов

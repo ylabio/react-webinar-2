@@ -13,7 +13,7 @@ class AuthorisationState extends StateModule{
     return {
       token: null,
       authorisedUser: '',
-      waiting: false,
+      waiting: true,
       error: null,
       data: {},
     };
@@ -24,7 +24,13 @@ class AuthorisationState extends StateModule{
    */
   async checkAuthorisation(){
     const token = localStorage.getItem('token');
-    if (!token) return;
+    if (!token) {
+      this.setState({
+        ...this.getState(),
+        waiting: false,
+      });
+      return;
+    }
 
     this.setState({
       ...this.getState(),

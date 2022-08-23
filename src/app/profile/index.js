@@ -29,7 +29,7 @@ function Profile(){
     }), [lang]),
   }
 
-  if (!select.name) return <Navigate replace to="/login"/>;
+  if (!select.name && !select.waiting) return <Navigate replace to="/login"/>;
 
   return (
     <Layout head={

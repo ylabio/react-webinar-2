@@ -48,6 +48,7 @@ function CatalogList() {
         limit={select.limit}
         onChange={callbacks.onPaginate}
         renderLink={renders.link}
+        link={true}
       />
     </Spinner>
   );

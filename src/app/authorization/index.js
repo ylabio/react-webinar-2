@@ -36,7 +36,7 @@ function Authorization() {
 
   useEffect(() => {
     if (select.log) {
-      return navigate("/");
+      return navigate("/profile");
     }
   }, [select.log]);
 

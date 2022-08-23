@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { cn as bem } from "@bem-react/classname";
+import Spinner from "../spinner";
 import "./style.css";
 
 const Btn = ({
   title = "кнопка",
-  name = "test",
+  name = ".......",
   setLogin = () => {},
   setDelete = () => {},
 }) => {

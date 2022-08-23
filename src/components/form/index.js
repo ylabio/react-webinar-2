@@ -20,6 +20,7 @@ function Form({ setStateFetch, user }) {
         <input
           value={state.login}
           onChange={(e) => setState({ ...state, login: e.target.value })}
+          type="text"
         />
       </label>
       <label>
@@ -27,6 +28,7 @@ function Form({ setStateFetch, user }) {
         <input
           value={state.password}
           onChange={(e) => setState({ ...state, password: e.target.value })}
+          type="password"
         />
       </label>
       <div>{user.error && user.error}</div>

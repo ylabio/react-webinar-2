@@ -9,7 +9,7 @@ class LogState extends StateModule {
   initState() {
     return {
       log: false,
-      user: {},
+      user: { load: "load" },
       waiting: false,
     };
   }
@@ -58,32 +58,34 @@ class LogState extends StateModule {
     }
   }
 
-  // async setAuth(token) {
-  //   console.log("start token", token);
-  // }
-
   async setAuth(token) {
     try {
+      this.setState({
+        ...this.store.state.login,
+        waiting: true,
+      });
+
       const response = await fetch("/api/v1/users/self", {
         headers: { "X-Token": token },
       });
 
       const json = await response.json();
 
-      if (!json) {
+      if (json.error) {
         this.setState({
-          ...this.store.state.login,
+          user: { error: json.error.data.issues[0].message },
           log: false,
+          waiting: false,
         });
       } else {
         this.setState({
-          ...this.store.state.login,
           user: {
             name: json.result.profile.name,
             phone: json.result.profile.phone,
             email: json.result.email,
           },
           log: true,
+          waiting: false,
         });
       }
     } catch (e) {}
@@ -97,14 +99,13 @@ class LogState extends StateModule {
       });
       const json = await response.json();
 
-      console.log("response", json);
       if (!json) {
         this.setState({
           ...this.store.state.login,
         });
       } else {
         this.setState({
-          user: {},
+          user: { error: "Требуется авторизация" },
           log: false,
           waiting: false,
         });

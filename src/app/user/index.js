@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useStore from "../../hooks/use-store";
+import { useLocation } from "react-router";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import Layout from "../../components/layout";
@@ -11,7 +11,6 @@ import Cabinet from "../../components/layout-cabinet";
 import LocaleSelect from "../../containers/locale-select";
 
 function Authorization({ btnExit }) {
-  const store = useStore();
   let navigate = useNavigate();
   const { t } = useTranslate();
 
@@ -19,10 +18,12 @@ function Authorization({ btnExit }) {
     log: state.login.log,
     user: state.login.user,
   }));
+  const page = useLocation();
+  console.log(page);
 
   useEffect(() => {
-    if (!select.log) {
-      return navigate("/");
+    if (!select.log && !select.user.load) {
+      return navigate("/login");
     }
   }, [select.log]);
 

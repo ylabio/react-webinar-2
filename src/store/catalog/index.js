@@ -1,6 +1,5 @@
 import StateModule from '../module';
 import qs from 'qs';
-import { categoriesMap } from '../../utils/categoriesMap';
 
 const QS_OPTIONS = {
   stringify: {
@@ -34,7 +33,6 @@ class CatalogState extends StateModule {
         category: '*',
       },
       waiting: false,
-      categories: [],
     };
   }
 
@@ -47,12 +45,9 @@ class CatalogState extends StateModule {
   async initParams(params = {}) {
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
 
-    const response = await fetch(`/api/v1/categories?limit=*`);
-    const json = await response.json();
+    await this.store.get('categories').load();
 
-    const categories = [{ _id: '*', key: '00', title: 'Всё' }].concat(
-      categoriesMap(json.result.items)
-    );
+    const categories = this.store.getState().categories.categories;
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {};
     let validParams = {};
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
@@ -66,7 +61,6 @@ class CatalogState extends StateModule {
 
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = { ...this.initState().params, ...validParams, ...params };
-    this.setState({ ...this.getState(), categories });
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
   }

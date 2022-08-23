@@ -10,11 +10,7 @@ function ControlBar() {
     isAuth: state.auth.isSigned,
     login: state.auth.login
   }));
-  useEffect(() => {
-    if (localStorage.getItem('auth-token')) {
-      store.get('profile').fetchProfile(localStorage.getItem('auth-token'))
-    }
-  }, [localStorage.getItem('auth-token')])
+
 
   const callbacks = {
     logout: useCallback(() => store.get('auth').logout())

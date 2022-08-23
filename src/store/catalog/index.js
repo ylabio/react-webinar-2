@@ -53,6 +53,7 @@ class CatalogState extends StateModule {
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
+    if (urlParams.category) validParams.category = urlParams.category || "all";
     if (urlParams.query) validParams.query = urlParams.query;
 
     // Итоговые параметры из начальных, из URL и из переданных явно

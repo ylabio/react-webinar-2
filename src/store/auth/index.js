@@ -9,7 +9,7 @@ class AuthState extends StateModule {
    */
   initState() {
     return {
-      isSigned: false,
+      isSigned: true,
       token: '',
       error: '',
       login: null
@@ -19,25 +19,35 @@ class AuthState extends StateModule {
   async login(login, password) {
     let token = '';
     let error = '';
-    const response = await fetch('api/v1/users/sign', {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ login, password }),
-      method: 'POST'
-    });
-    if (!response.ok) {
-      error = response.statusText;
-    } else {
-      token = (await response.json()).result.token;
-      localStorage.setItem('auth-token', token);
+    const response = await (
+      await fetch('api/v1/users/sign', {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ login, password }),
+        method: 'POST'
+      })).json();
+    if (response.error) {
+      error = response.error.data?.issues[0].message
+      this.setState({
+        ...this.getState(),
+        isSigned: false,
+        error: error
+      });
     }
-    this.setState({
-      ...this.getState(),
-      isSigned: error ? false : true,
-      token,
-      error,
-    });
+    else {
+      error = "";
+      token = response.result.token;
+      localStorage.setItem('auth-token', token);
+      this.setState({
+        ...this.getState(),
+        isSigned: true,
+        token: token,
+        error: error,
+      });
+      this.store.get('profile').fetchProfile(localStorage.getItem('auth-token'))
+    }
+
   }
 
   async logout() {

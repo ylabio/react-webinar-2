@@ -24,25 +24,28 @@ class ProfileState extends StateModule {
         'X-Token': `${token}`
       }
     });
-
     if (response.ok) {
       isSigned = true;
       const json = await response.json();
       const result = json.result;
       const profile = result.profile;
-
       this.setState({
         name: profile.name,
         phone: profile.phone,
         email: result.email
       });
-    }
+      this.store.get('auth').setState({
+        ...this.store.get('auth').getState(),
+        isSigned: true,
+        login: this.getState().name
+      });
 
-    this.store.get('auth').setState({
-      ...this.store.get('auth').getState(),
-      isSigned: isSigned,
-      login: this.getState().name
-    });
+    } else {
+      this.store.get('auth').setState({
+        ...this.store.get('auth').getState(),
+        isSigned: false,
+      });
+    }
   }
 }
 

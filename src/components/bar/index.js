@@ -25,14 +25,11 @@ function Bar({ isAuth, callback, login }) {
           </button>
         </>
         :
-        <button className={cn("button")}>
-          <Link
-            to={'/login'}
-          >
-            {t("bar.button")}
-          </Link>
-
-        </button>
+        <Link className={cn("button")}
+          to={'/login'}
+        >
+          {t("bar.button")}
+        </Link>
       }
     </div>
 

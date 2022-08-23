@@ -4,7 +4,6 @@ import {Routes, Route, Navigate} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
-import Login from '../components/login';
 import Auth from './auth';
 import Profile from './profile';
 import useStore from '../hooks/use-store';
@@ -16,17 +15,18 @@ import useStore from '../hooks/use-store';
 function App() {
 
   const store = useStore();
+
   const callbacks = {
-    // Загрузка 
- 
+    // Загрузка текущего пользователя
     load: useCallback(() => store.get('auth').load(), [])
   };
+  
   const modal = useSelector(state => state.modals.name);
   const token = useSelector(state => state.auth.token);
-  const isAuth = useSelector(state => state.auth.isAuth);
-  useEffect(() =>{
-    if(token){
-callbacks.load();
+  
+  useEffect(() => {
+    if (token) {
+      callbacks.load();
     }
   }, [])
 

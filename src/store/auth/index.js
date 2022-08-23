@@ -84,7 +84,7 @@ class AuthState extends StateModule{
   
     if (res.status >= 200 && res.status < 300) {
    
-      const json= await res.json();
+      const json = await res.json();
 
       this.setState({
         ...this.getState(),

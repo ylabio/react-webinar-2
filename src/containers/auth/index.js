@@ -26,7 +26,7 @@ function Auth(){
     <div className={cn()}>
       {(select.token || select.auth) ?
         <>
-          <Link to={'/profile'}><p className={cn('profile')}>{select.name.profile?.name || t('profile')}</p></Link>
+          <Link to={'/profile'}><p className={cn('profile')} onClick={e => e.stopPropagation()}>{select.name.profile?.name || t('profile')}</p></Link>
 
           <button onClick={callbacks.logOut}>{t('logout')}</button>
         </>

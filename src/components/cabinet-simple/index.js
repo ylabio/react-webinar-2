@@ -8,7 +8,7 @@ function CabinetSimple(props){
     return(
         <LayoutFlex flex='end' padding={false}>
         <Link to='/cabinet' className="CabinetSimple-Link">{props.profile.name}</Link>
-        <Link to='/login'><button onClick={props.onLogout}>Выход</button></Link>
+        <button onClick={props.onLogout}>Выход</button>
     </LayoutFlex>
     )
 }

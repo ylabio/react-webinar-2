@@ -17,7 +17,7 @@ class CategoryState extends StateModule{
   }
 
   async getCategory(){
-    const response = await fetch('api/v1/categories');
+    const response = await fetch('api/v1/categories?lang=ru&limit=15&skip=0');
     const json = await response.json();
     const items = json.result.items;
     const tree = {items: getTree(items)};

@@ -14,14 +14,16 @@ function Auth() {
   const navigate = useNavigate();
 
   const [data, setData] = useState({
-    login: "test_1",
-    password: "123456",
+    login: "",
+    password: "",
+    errorMessage: "",
     error: false,
   })
 
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
+    items: state.basket.items,
     items: state.basket.items,
   }));
 
@@ -41,7 +43,7 @@ function Auth() {
             <input onChange={setLogin} value={data.login}></input><br/><br/>
             <span>Пароль</span><br/>
             <input onChange={setPassword} value={data.password}></input>
-            {data.error ? <p>Некая ошибка от сервера</p> : <><br/><br/></>}
+            {data.error ? <p>Ошибка с сервера: {data.errorMessage}</p> : <><br/><br/></>}
             <button onClick={auth}>Войти</button>
         </AuthBox>
       </Layout>
@@ -63,12 +65,13 @@ function Auth() {
 
   async function auth() {
     const result = await store.get('user').auth(data.login, data.password);
-    if (result) {
+    if (result.result) {
       navigate("../profile");
     } else {
       setData({
         ...data,
         error: true,
+        errorMessage: Math.round(result.error.id) + " - " + result.error.code + " | " + result.error.message,
     });
     }
   }

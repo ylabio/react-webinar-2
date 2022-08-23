@@ -36,10 +36,12 @@ function Auth() {
       </>
       }>
         <Tools/>
-        <h2>Профиль</h2>
-        <p>Имя: {select.user ? select.user.profile.name : null}</p>
-        <p>Телефон: {select.user ? select.user.profile.phone : null}</p>
-        <p>Email: {select.user ? select.user.email : null}</p>
+        <div style={{padding: 21}}>
+          <h2>Профиль</h2>
+          <p>Имя: {select.user ? select.user.profile.name : null}</p>
+          <p>Телефон: {select.user ? select.user.profile.phone : null}</p>
+          <p>Email: {select.user ? select.user.email : null}</p>
+        </div>
     </Layout>
   )
 }

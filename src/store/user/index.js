@@ -34,9 +34,12 @@ class ModalsState extends StateModule{
             token: result.token,
             user: result.user,
         })
-        return true;
+        window.localStorage.setItem("login", login);
+        window.localStorage.setItem("password", password);
+        return {result: true};
     } else {
-        return false;
+      console.log(json.error);
+        return {error: json.error};
     }
   }
 
@@ -53,6 +56,8 @@ class ModalsState extends StateModule{
       token: null,
       user: null,
   })
+    window.localStorage.removeItem("login");
+    window.localStorage.removeItem("password");
     return true;
   }
 }

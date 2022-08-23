@@ -31,7 +31,7 @@ function FormLogin({onLogin, error, t}) {
         </div>
         <div className={cn('password')}>
           <div>{t('formLogin.password')}</div>
-          <input type="text" value={password} onChange={handlePassword}/>
+          <input type="password" value={password} onChange={handlePassword}/>
         </div>
         <div className={cn('error')}>{error}</div>
         <button type="submit" className={cn('btn')}>

@@ -19,7 +19,7 @@ class CategoryState extends StateModule{
    * Загрузка категорий
    */
   async loadCategory(){
-    const response = await fetch('/api/v1/categories');
+    const response = await fetch('/api/v1/categories?limit=*');
     const json = await response.json();
 
     // Функция для выбора правильной позиции сортировки

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Navigate, useLocation} from 'react-router-dom';
+import {InfinitySpin} from 'react-loader-spinner';
 import useSelector from '../../hooks/use-selector';
 
 function RequireAuth({children}) {

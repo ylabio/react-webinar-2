@@ -10,7 +10,7 @@ import RequireAuth from '../containers/require-auth';
 import useInit from '../hooks/use-init';
 import useStore from '../hooks/use-store';
 import {callMeIfPresentInStorage} from '../utils/callMeIFPresentInStorage';
-
+import Loading from '../components/loading-indicator';
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
@@ -18,6 +18,7 @@ import {callMeIfPresentInStorage} from '../utils/callMeIFPresentInStorage';
 function App() {
   const modal = useSelector(state => state.modals.name);
   const store = useStore();
+  const waiting = useSelector(state => state.login.waiting);
 
   useInit(async () => {
     await callMeIfPresentInStorage(
@@ -31,7 +32,7 @@ function App() {
       <Routes>
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
-        <Route path={'/login'} element={<Login />} />
+        <Route path={'/login'} element={waiting ? <Loading /> : <Login />} />
         <Route
           path={'/profile'}
           element={
@@ -41,6 +42,7 @@ function App() {
           }
         />
       </Routes>
+
       {modal === 'basket' && <Basket />}
     </>
   );

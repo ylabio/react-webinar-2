@@ -13,7 +13,8 @@ class Login extends StateModule {
     return {
       xToken: '',
       isAuthorized: false,
-      error: {}
+      error: {},
+      waiting: false
     };
   }
 
@@ -60,6 +61,12 @@ class Login extends StateModule {
    * @param {string} token
    */
   signInWithToken = async token => {
+    // загрузка текущего пользователя по токену началась
+    this.setState({
+      ...this.getState(),
+      waiting: true
+    });
+
     try {
       const response = await axios.get(`/api/v1/users/self`, {
         headers: {'Content-Type': 'application/json', 'X-Token': token}
@@ -71,7 +78,8 @@ class Login extends StateModule {
         ...this.getState(),
         xToken: token,
         isAuthorized: true,
-        error: {}
+        error: {},
+        waiting: false
       });
 
       // запись user в модуль состояния user
@@ -81,7 +89,8 @@ class Login extends StateModule {
       this.setState({
         ...this.getState(),
         isAuthorized: false,
-        error
+        error,
+        waiting: false
       });
     }
   };

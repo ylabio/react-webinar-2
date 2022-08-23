@@ -6,12 +6,16 @@ import './style.css';
 
 function Input(props) {
   const cn = bem('Input');
-
+  
   // Внутренний стейт по умолчанию с переданным value
   const [value, change] = useState(props.value);
 
   // Задержка для вызова props.onChange
-  const changeThrottle = useCallback(throttle(value => props.onChange(value), 1000), [props.onChange]);
+  const changeThrottle = useCallback(
+    props.notThrottle ? 
+      value => props.onChange(value) : 
+      throttle(value => props.onChange(value), 1000)
+    , [props.onChange]);
 
   // Обработчик изменений в поле
   const onChange = useCallback(event => {
@@ -31,6 +35,7 @@ function Input(props) {
       type={props.type}
       placeholder={props.placeholder}
       onChange={onChange}
+      onFocus={props.onFocus}
     />
   )
 }
@@ -40,13 +45,17 @@ Input.propTypes = {
   type: propTypes.string,
   placeholder: propTypes.string,
   onChange: propTypes.func,
+  onFocus: propTypes.func,
   theme: propTypes.string,
+  notThrottle: propTypes.bool
 }
 
 Input.defaultProps = {
   onChange: () => {},
+  onFocus: () => {},
   type: 'text',
-  theme: ''
+  theme: '',
+  notThrottle: false
 }
 
 export default React.memo(Input);

@@ -1,0 +1,9 @@
+.ProfileInfo {
+  padding: 10px 20px;
+}
+.ProfileInfo-item {
+  margin: 20px 0px;
+}
+.ProfileInfo-bold {
+  font-weight: 700;
+}

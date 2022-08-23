@@ -27,7 +27,7 @@ class CategoriesState extends StateModule{
     }, 'store/categories [load] сброс');
 
     try {
-      const response = await fetch(`/api/v1/categories`);
+      const response = await fetch(`/api/v1/categories?limit=*`);
       const json = await response.json();
 
       // Список категорий загружен успешно

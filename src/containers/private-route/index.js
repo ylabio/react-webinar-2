@@ -7,11 +7,11 @@ function PrivateRoute({children}) {
     status: state.login.status,
   }));
 
-  return (
-    select.status === 'auth'
-      ? children
-      : <Navigate to={'/login'} />
-  );
+  if (select.status === 'no_auth') {
+    return <Navigate to={'/login'} />
+  }
+
+  return children;
 }
 
 export default PrivateRoute;

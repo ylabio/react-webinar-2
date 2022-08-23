@@ -22,7 +22,8 @@ function App() {
 
   const select = useSelector(state => ({
 		modal: state.modals.name,
-		isAuth: state.auth.isAuth
+		isAuth: state.auth.isAuth,
+		user: state.auth.user
 	}));
 
   return (
@@ -30,9 +31,8 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
-				<Route path={"/login"} element={<Login/>}/>
 				<Route path={"/login"} element={select.isAuth ? <Navigate to="/"/> : <Login/>}/>
-				<Route path={"/profile"} element={select.isAuth ? <Profile/> : <Navigate to="/login"/>}/>
+				<Route path={"/profile"} element={Object.keys(select.user).length ? <Profile/> : <Navigate to="/login"/>}/>
       </Routes>
       {select.modal === 'basket' && <Basket/>}
     </>

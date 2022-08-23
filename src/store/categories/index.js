@@ -18,7 +18,7 @@ class CategoryStore extends StoreModule {
    * 
    */
   async loadCategories(){
-      const response = await fetch(`/api/v1/categories?limit=10&fields=_id,parent,title`);
+      const response = await fetch(`/api/v1/categories?limit=*&fields=_id,parent,title`);
       const json = await response.json();
       const items = json.result.items;
 

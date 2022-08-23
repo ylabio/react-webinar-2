@@ -60,9 +60,9 @@ function LoginForm(props) {
             onChange={callbacks.onChange}
           />
         </label>
+        {props.error && <p className={cn('error')}>{props.error}</p>}
         <button type="submit">Войти</button>
       </form>
-      {props.error && <p className={cn('error')}>{props.error}</p>}
     </div>
   );
 }

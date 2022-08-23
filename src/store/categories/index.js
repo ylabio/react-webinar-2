@@ -8,7 +8,7 @@ export default class CategoriesState extends StateModule {
   }
 
   async getCategories() {
-    const res = await fetch('/api/v1/categories')
+    const res = await fetch('/api/v1/categories?limit=*')
     const data = await res.json()
     const mapped = data.result.items.map(el => ({ // t = O(n) m = O(n) 
       id: el._id,

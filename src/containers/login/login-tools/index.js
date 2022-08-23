@@ -17,17 +17,17 @@ function LoginTools(){
     // Переход на страницу авторизации
     onLogin: useCallback(() => navigate('/login'), [navigate]),
     // Запрос на деавторизацию пользователя
-    onLogout: useCallback(() => store.get('login').logout(), []),
+    onLogout: useCallback(() => store.get('session').logout(), []),
   }
 
   const select = useSelector(state => ({
-    user: state.login.user,
-    loadingError: state.login.loadingError
+    user: state.session.user,
+    loadingError: state.session.loadingError
   }))
 
   useInit(() => {
     if (!select.user && localStorage.getItem('TOKEN') && !select.loadingError) {
-      store.get('login').getProfile();
+      store.get('session').getProfile();
     }
   }, [])
 

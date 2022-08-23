@@ -12,12 +12,12 @@ function LoginForm() {
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
-    auth: state.login.auth,
+    auth: state.login,
   }))
 
   const callbacks = {
     // Отправка запроса на авторизацию
-    onLogin: useCallback(() => store.get('login').login(select.auth), []),
+    onLogin: useCallback(() => store.get('login').login(), []),
     // Установка логина
     setLogin: useCallback((val) => store.get('login').setLogin(val), []),
     // Установка пароля

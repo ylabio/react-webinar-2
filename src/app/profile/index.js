@@ -9,9 +9,9 @@ import Spinner from "../../components/spinner";
 function Profile() {
 
   const select = useSelector(state => ({
-    user: state.login.user,
-    isLoading: state.login.isLoading,
-    loadingError: state.login.loadingError
+    user: state.session.user,
+    isLoading: state.session.isLoading,
+    loadingError: state.session.loadingError
   }));
 
   const {t} = useTranslate();

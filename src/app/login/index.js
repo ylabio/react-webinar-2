@@ -13,7 +13,7 @@ function Login() {
   const location = useLocation();
 
   const select = useSelector(state => ({
-    user: state.login.user
+    user: state.session.user
   }));
 
   useInit(() => {
@@ -23,7 +23,7 @@ function Login() {
     if (select.user && location.key !== 'default') {
       navigate(-1, {replace: true})
     }
-  }, [select.user], {backForward: true});
+  }, [select.user]);
 
   return (
     <PageTemplate title={t('title')}>

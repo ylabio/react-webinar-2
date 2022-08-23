@@ -3,7 +3,7 @@ import StateModule from '../module';
 /**
  * Состояние товара
  */
-class LoginState extends StateModule {
+class AuthState extends StateModule {
   /**
    * Начальное состояние
    * @return {Object}
@@ -22,7 +22,7 @@ class LoginState extends StateModule {
    * @param {string} data.login логин
    * @param {string} data.password пароль
    */
-  async auth(data) {
+  async login(data) {
     this.setState({
       ...this.getState(),
       waiting: true,
@@ -90,7 +90,6 @@ class LoginState extends StateModule {
           'X-Token': localStorage.getItem('token'),
         },
       });
-      const json = await response.json();
 
       localStorage.removeItem('token');
       this.setState({
@@ -118,4 +117,4 @@ class LoginState extends StateModule {
   }
 }
 
-export default LoginState;
+export default AuthState;

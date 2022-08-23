@@ -130,7 +130,7 @@ class CatalogState extends StateModule {
         res = [
           ...res,
           { value: item._id, title: prefix + item.title },
-          ...(item.children ? formateTree(item.children, prefix + '-') : {}),
+          ...(item.children ? formateTree(item.children, prefix + '- ') : {}),
         ];
       });
       return res;

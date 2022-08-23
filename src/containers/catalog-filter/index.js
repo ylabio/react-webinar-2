@@ -44,8 +44,6 @@ function CatalogFilter() {
     ),
   };
 
-  console.log(select.categories);
-
   return (
     <LayoutFlex flex="start">
       <Select

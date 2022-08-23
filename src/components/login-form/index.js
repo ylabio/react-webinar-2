@@ -4,7 +4,7 @@ import { cn as bem } from '@bem-react/classname';
 import { useForm } from 'react-hook-form';
 import './styles.css';
 
-function LoginForm({ auth, errorServer }) {
+function LoginForm({ auth, errorServer, t, disabledLogin }) {
   const cn = bem('LoginForm');
 
   const {
@@ -33,10 +33,10 @@ function LoginForm({ auth, errorServer }) {
 
   return (
     <div className={cn()}>
-      <h2 className={cn('title')}>Вход</h2>
+      <h2 className={cn('title')}>{t('auth.login')}</h2>
       <form className={cn('form')} onSubmit={handleSubmit(onSubmit)}>
         <label className={cn('label')}>
-          Логин
+          {t('auth.login')}
           <input
             className={cn('input')}
             placeholder="login"
@@ -49,7 +49,7 @@ function LoginForm({ auth, errorServer }) {
         </label>
 
         <label className={cn('label')}>
-          Пароль
+          {t('auth.password')}
           <input
             type="password"
             className={cn('input', { error: errors?.password })}
@@ -64,7 +64,7 @@ function LoginForm({ auth, errorServer }) {
 
         {errorServer && <p className={cn('error-message')}>{errorServer}</p>}
 
-        <input type="submit" value="Войти" />
+        <input type="submit" value={t('auth.login')} disabled={disabledLogin} />
       </form>
     </div>
   );
@@ -73,10 +73,14 @@ function LoginForm({ auth, errorServer }) {
 LoginForm.propTypes = {
   auth: propTypes.func,
   errorServer: propTypes.string,
+  t: propTypes.func,
+  disabledLogin: propTypes.bool,
 };
 
 LoginForm.defaultProps = {
   auth: () => {},
+  t: (text) => text,
+  disabledLogin: false,
 };
 
 export default React.memo(LoginForm);

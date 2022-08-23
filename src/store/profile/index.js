@@ -41,6 +41,11 @@ class ProfileState extends StateModule {
   }
 
   async getProfile(id = null) {
+    this.setState({
+      ...this.getState(),
+      waiting: true,
+    });
+
     try {
       const response = await fetch(`/api/v1/users/self`, {
         headers: {
@@ -51,8 +56,8 @@ class ProfileState extends StateModule {
       if (response.ok) {
         const json = await response.json();
 
-        this.store.get('login').setState({
-          ...this.store.get('login').getState(),
+        this.store.get('auth').setState({
+          ...this.store.get('auth').getState(),
           isAuth: true,
         });
 
@@ -66,6 +71,11 @@ class ProfileState extends StateModule {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      this.setState({
+        ...this.getState(),
+        waiting: false,
+      });
     }
   }
 }

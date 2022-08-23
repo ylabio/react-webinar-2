@@ -23,7 +23,7 @@ function Profile() {
     phone: state.profile.data.phone,
     email: state.profile.data.email,
     waiting: state.profile.waiting,
-    isAuth: state.login.isAuth,
+    isAuth: state.auth.isAuth,
   }));
 
   useEffect(() => {

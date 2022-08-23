@@ -1,0 +1,22 @@
+.UserDetails {
+  padding: 20px;
+}
+
+.UserDetails h2 {
+  margin-bottom: 30px;
+}
+
+.UserDetails-row {
+  margin: 20px 0 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+
+.UserDetails-label {
+  margin-right: 4px;
+}
+
+.UserDetails-value {
+  font-weight: bold;
+}

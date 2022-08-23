@@ -1,0 +1,17 @@
+.LoginTools {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  background: #ffffff;
+  max-width: 1024px;
+  margin: 0 auto;
+  justify-content: flex-end;
+}
+
+.LoginTools-userName {
+  color: #0087e9;
+}
+
+.LoginTools-btn {
+  margin: 0 20px;
+}

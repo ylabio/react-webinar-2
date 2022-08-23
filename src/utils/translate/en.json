@@ -14,5 +14,18 @@
   "basket.unit": "pcs",
   "basket.delete": "Delete",
   "article.add": "Add",
-  "filter.reset": "Reset"
+  "filter.reset": "Reset",
+  "auth.title": "Sign In",
+  "auth.login": "Sign In",
+  "auth.quit": "Sign Out",
+  "auth.enter": "Enter",
+  "auth.label.login": "Login",
+  "auth.label.pass": "Password",
+  "user.title": "Profile",
+  "user.profileName": "Name",
+  "user.phone": "Phone",
+  "article.maidIn": "Manufacturer",
+  "article.category": "Category",
+  "article.edition": "Year of manufacture",
+  "article.price": "Price"
 }

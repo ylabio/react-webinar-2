@@ -16,5 +16,18 @@
   "basket.unit": "шт",
   "basket.delete": "Удалть",
   "article.add": "Добавить",
-  "filter.reset": "Сбросить"
+  "filter.reset": "Сбросить",
+  "auth.title": "Вход",
+  "auth.login": "Вход",
+  "auth.quit": "Выход",
+  "auth.enter": "Войти",
+  "auth.label.login": "Логин",
+  "auth.label.pass": "Пароль",
+  "user.title": "Профиль",
+  "user.profileName": "Имя",
+  "user.phone": "Телефон",
+  "article.maidIn": "Страна производитель",
+  "article.category": "Категория",
+  "article.edition": "Год выпуска",
+  "article.price": "Цена"
 }

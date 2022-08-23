@@ -8,6 +8,7 @@
 
 .LoginForm-prop_error {
   color: #FF0000;
+  white-space: break-spaces;
 }
 
 .LoginForm label {

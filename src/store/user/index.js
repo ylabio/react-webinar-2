@@ -67,9 +67,11 @@ class UserState extends StateModule {
       });
       const json = await response.json();
       if (json.error) {
+        const issues = json.error.data.issues.map(item => item.message + '\n') || ''
+        const error = json.error.message + '\n' + issues
         this.setState({
           ...this.getState(),
-          error: json.error.message,
+          error,
           waiting: false,
         });
       } else {
@@ -102,6 +104,10 @@ class UserState extends StateModule {
         "Content-type": "application/json",
       },
     });
+  }
+
+  initLoginForm() {
+    this.setState(this.initState());
   }
 }
 

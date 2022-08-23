@@ -10,7 +10,7 @@ function UserControls({ user, onLogout, t }) {
     <div className={cn()}>
       {user.username ? (
         <>
-          <Link to="/profile">{user.username}</Link>
+          <Link to="/profile">{user.profile?.name}</Link>
           <button onClick={onLogout}>{t("user.logout")}</button>
         </>
       ) : (

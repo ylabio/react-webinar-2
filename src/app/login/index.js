@@ -31,6 +31,10 @@ function Login() {
     ),
   };
 
+  useEffect(()=>{
+    store.get("user").initLoginForm()
+  }, [])
+
   return (
     <Layout
       before={

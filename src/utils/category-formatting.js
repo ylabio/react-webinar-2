@@ -26,7 +26,7 @@ function categoriesTreeToLabels(array, prefix = "") {
       ...res,
       { value: item._id, title: prefix + item.title },
       ...(item.children
-        ? categoriesTreeToLabels(item.children, prefix + "-")
+        ? categoriesTreeToLabels(item.children, prefix + "- ")
         : {}),
     ];
   });

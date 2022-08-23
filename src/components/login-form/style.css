@@ -13,10 +13,6 @@
   flex-direction: column;
 }
 
-.LoginForm-fields input {
-  height: 26px;
-}
-
 .LoginForm-fields>*:not(:last-child) {
   margin-bottom: 15px;
 }

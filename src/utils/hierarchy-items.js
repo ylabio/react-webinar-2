@@ -4,7 +4,7 @@ function getHierarchyItems(items, idParent = undefined, dash = '') {
     if (idParent === items[i].parent) {
       items[i].title = dash + items[i].title;
       hierarchyItems.push(items[i]);
-      hierarchyItems.push(...getHierarchyItems(items, items[i].value, dash + '-'));
+      hierarchyItems.push(...getHierarchyItems(items, items[i].value, dash + '- '));
     }
   }
   return hierarchyItems;

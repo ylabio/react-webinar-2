@@ -19,6 +19,7 @@ function Main() {
   useInit(async () => {
     await store.get('user').restore();
     await store.get('catalog').initParams();
+    await store.get('categories').loadAllCategories();
   }, [], {backForward: true});
 
   const callbacks = {

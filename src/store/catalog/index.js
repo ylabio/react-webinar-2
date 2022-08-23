@@ -34,7 +34,6 @@ class CatalogState extends StateModule{
         category: '',
       },
       waiting: false,
-      allCategories: []
     };
   }
 
@@ -58,7 +57,6 @@ class CatalogState extends StateModule{
     const newParams = {...this.initState().params, ...validParams, ...params};
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
-    await this.loadAllCategories();
   }
 
   /**
@@ -72,15 +70,7 @@ class CatalogState extends StateModule{
     // Установк параметров и подгрузка данных
     await this.setParams(newParams);
   }
-  // Загрузка всех категорий
-  async loadAllCategories(){
-    const response = await fetch(`/api/v1/categories?fields=items(*),parent&limit=*`);
-    const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      allCategories: json.result.items,
-    });
-  }
+
   /**
    * Устанвока параметров и загрузка списка товаров
    * @param params

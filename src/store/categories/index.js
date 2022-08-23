@@ -24,7 +24,10 @@ class CategoriesState extends StateModule{
     try {
       const {result: {items}} = await getSelectOptions();
       
-      const options = items.filter(v => !v.parent).map(v => fn(items, v, [])).reduce((acc, v) => [...acc, ...v], []).map(v => ({value: v._id, title: v.hash + v.title}));
+      const options = items.filter(item => !item.parent)
+        .map(parent => fn(items, parent, []))
+        .reduce((acc, item) => [...acc, ...item], [])
+        .map(item => ({value: item._id, title: item.hash + item.title}));
 
       this.setState({
         ...this.getState(),

@@ -5,8 +5,11 @@ export function fn (arr, parent, result) {
 
   if (parent) {
       parent = {...parent, hash: parent.hash ? parent.hash : ''};
-      const childs = arr.filter(v => v.parent && (v.parent._id === parent._id)).map(v => ({...v, hash: v.hash || '-' + parent.hash }));
-      const res = childs.reduce((acc, v) => [...acc, ...fn(arr, v, result)], []);
+
+      const childs = arr.filter(child => child.parent && (child.parent._id === parent._id))
+        .map(child => ({...child, hash: child.hash || '-' + parent.hash }));
+
+      const res = childs.reduce((acc, item) => [...acc, ...fn(arr, item, result)], []);
       return fn(arr, undefined, [...result, ...([parent, ...res])]);
   }
 }

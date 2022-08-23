@@ -23,7 +23,7 @@ function Authorization() {
     waiting: state.user.waiting,
     error: state.user.error,
   }));
-  //console.log('ERROR!!!!!!', select.error)
+
   const {t} = useTranslate();
 
   const callbacks = {

@@ -41,7 +41,6 @@ function CatalogFilter() {
     ]), []),
     categories: [{value:'', title: 'Все'}].concat(select.options),
   }
-console.log('AAAAAAAAAAAAAAA', options.categories)
 
   useInit(async () => {
     await store.get('categories').getCategories();
@@ -58,24 +57,3 @@ console.log('AAAAAAAAAAAAAAA', options.categories)
 }
 
 export default React.memo(CatalogFilter);
-
-
-/*
-useMemo(() => ([
-      {value:'', title: 'Все'},
-      {value:'62fde67bfa639a32847b3d65', title: 'Электроника'},
-      {value:'62fde67bfa639a32847b3d66', title: '- Телефоны'},
-      {value:'62fde67bfa639a32847b3d6d', title: '-- Смартфоны'},
-      {value:'62fde67bfa639a32847b3d6e', title: '--- Аксессуары'},
-      {value:'62fde67bfa639a32847b3d67', title: '- Ноутбуки'},
-      {value:'62fde67bfa639a32847b3d68', title: '- Телевизоры'},
-      {value:'62fde67bfa639a32847b3d69', title: 'Книги'},
-      {value:'62fde67bfa639a32847b3d6a', title: '- Учебники'},
-      {value:'62fde67bfa639a32847b3d6b', title: '- Художественная'},
-      {value:'62fde67bfa639a32847b3d6c', title: '- Комиксы'},
-    ]), []),
-
-
-
-temp1.filter(v => !v.parent).map(v => fn(temp1, v, [])).reduce((acc, v) => [...acc, ...v], []).map(v => ({value: v._id, title: v.hash + v.title}));
-*/

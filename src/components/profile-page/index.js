@@ -11,12 +11,12 @@ function ProfilePage({t, user}) {
       <h2>{t('profile')}</h2>
       <div className={cn('user-data')}>
         <div className={cn('cell')}>Имя:&nbsp;
-          <span className={cn('bold')}>{user ? user.profile.name : null}</span>
+          <span className={cn('bold')}>{user ? user.profile?.name : null}</span>
         </div>
         <div className={cn('cell')}>Телефон:&nbsp;
-          <span className={cn('bold')}>{user ? user.profile.phone : null}</span></div>
+          <span className={cn('bold')}>{user ? user.profile?.phone : null}</span></div>
         <div className={cn('cell')}>email:&nbsp;
-          <span className={cn('bold')}>{user ? user.email : null}</span></div>
+          <span className={cn('bold')}>{user ? user?.email : null}</span></div>
       </div>
     </div>
   )

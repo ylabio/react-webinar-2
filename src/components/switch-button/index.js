@@ -5,14 +5,14 @@ import propTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function Switch({username, authorized, route, value, onExit, onNavigate}) {
+function Switch({username, authorized, route, value, onExit, onNavigate, onProfile}) {
   const cn = bem('Switch');
   const location = useLocation();
 
   return (
     <div className={cn()}>
       <div>
-        <Link className={cn('user-link')} to='/profile'>{username}</Link>
+        <Link to='/profile' className={cn('user-link')} onClick={onProfile} >{username}</Link>
       </div>
       <div onClick={authorized && location.pathname === '/profile' ? () => onNavigate(-1) : null}>
         <button
@@ -33,7 +33,8 @@ Switch.propTypes = {
   route: propTypes.string.isRequired,
   value: propTypes.string.isRequired,
   onExit: propTypes.func.isRequired,
-  onNavigate: propTypes.func.isRequired
+  onNavigate: propTypes.func.isRequired,
+  onProfile: propTypes.func.isRequired
 }
 
 Switch.defaultProps = {

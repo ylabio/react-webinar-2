@@ -10,7 +10,7 @@ function Auth() {
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    userName: state.user.data.user?.profile.name,
+    userName: state.user.userName,
     authorized: state.user.authorized,
   }));
 
@@ -18,7 +18,9 @@ function Auth() {
     // Выход из профиля
     onExit: useCallback(() => store.get('user').setExit(), []),
     // Возврат на страницу, с которой был выполнен вход в профиль, после выхода из профиля
-    onNavigate: useCallback((route) => navigate(route), [])
+    onNavigate: useCallback((route) => navigate(route), []),
+    // Загрузка данных пользователя для вывода в профиль
+    onProfile: useCallback(() => store.get('user').setProfile(), [])
   }
 
   return (
@@ -29,6 +31,7 @@ function Auth() {
       value={select.authorized ? 'Выход' : 'Вход'}
       onExit={callbacks.onExit}
       onNavigate={callbacks.onNavigate}
+      onProfile={callbacks.onProfile}
     />
   )
 }

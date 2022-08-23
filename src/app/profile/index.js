@@ -13,7 +13,7 @@ function Profile(){
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    user: state.user.data.user,
+    user: state.user.data,
     authorized: state.user.authorized,
     waiting: state.user.waiting
   }));

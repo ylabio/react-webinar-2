@@ -59,8 +59,7 @@ class AuthState extends StateModule{
       this.setErrorMsg(json.error.message);
     } else {
       const token = json.result.token; 
-      const username = json.result.user.username;
-      localStorage.setItem('ylab', JSON.stringify({token, username}));
+      localStorage.setItem('ylab', JSON.stringify({token}));
       this.setUserData({
         ...json.result,
         isAuth: true,

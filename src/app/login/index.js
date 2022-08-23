@@ -8,7 +8,6 @@ import {useNavigate} from "react-router-dom";
 import {useAuth} from "../../hooks/use-auth";
 import LoginForm from "../../components/login";
 import useStore from "../../hooks/use-store";
-import LoginBar from "../../components/login-bar";
 import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
 
@@ -17,29 +16,25 @@ function LoginPage() {
   const {isAuth, token} = useAuth();
   const store = useStore();
   const {t} = useTranslate();
-  const from = localStorage.getItem('link') || '/';
   const error = useSelector(state=> state.user.message)
 
   const callbacks = {
     logIn: useCallback((login, pass) => store.get('user').logIn(login, pass), []),
   };
   useInit(()=> {
-    {isAuth || token ? navigate(from): navigate('/login')}
-  },[isAuth,from]);
+    {isAuth || token ? navigate('/') : navigate('/login')}
+  },[isAuth]);
 
   return (
-    <>
-      <LoginBar t={t}/>
-      <Layout  head={
-        <LayoutFlex flex="between">
-          <h1>{t('title')}</h1>
-          <LocaleSelect/>
-        </LayoutFlex>
-      }>
-        <Tools/>
-        <LoginForm callback={callbacks.logIn} title={'Вход'} error={error} t={t}/>
-      </Layout>
-    </>
+    <Layout  head={
+      <LayoutFlex flex="between">
+        <h1>{t('title')}</h1>
+        <LocaleSelect/>
+      </LayoutFlex>
+    }>
+      <Tools/>
+      <LoginForm callback={callbacks.logIn} title={'Вход'} error={error} t={t}/>
+    </Layout>
   )
 }
 

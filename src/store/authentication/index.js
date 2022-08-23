@@ -95,7 +95,7 @@ class AuthenticationState extends StateModule{
     }
   }
 
-  async logInByToken(token) {
+  async logInByToken() {
     try {
       this.setState({
         ...this.getState(),

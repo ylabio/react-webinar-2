@@ -1,9 +1,17 @@
 .Form {
   display: flex;
   flex-direction: column;
-  min-height: 160px;
+  min-height: 180px;
   justify-content: space-between;
+  font-size: 16px;
+  line-height: 18px;
 }
+
+.Form input {
+  padding: 3px 0 5px 3px;
+  width: 203px;
+}
+
 .Form button {
   display: block;
   width: 70px;

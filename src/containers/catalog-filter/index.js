@@ -13,8 +13,10 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     currentCategory: state.catalog.params.currentCategory,
-    allCategories: state.catalog.allCategories,
+    allCategories: state.filters.allCategories,
   }));
+
+  console.log(store);
 
   const allCategories = select.allCategories.map((currentCategory) => {
     return { title: currentCategory.title, value: currentCategory._id, parent: currentCategory.parent?._id };

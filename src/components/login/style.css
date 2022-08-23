@@ -25,12 +25,14 @@
 }
 
 .Login-form-input {
+  box-sizing: border-box;
   height: 26px;
+  font-size: 16px;
+  line-height: 18px;
+  padding: 2px;
 }
 
 .Login-button {
-  border: 1px solid #767676;
-  border-radius: 2px;
   font-size: 13px;
   line-height: 15px;
   width: 53px;

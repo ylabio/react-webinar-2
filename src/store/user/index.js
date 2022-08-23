@@ -11,6 +11,7 @@ class UserState extends StateModule {
       user: {},
       token: '',
       isLogged: false,
+      waiting: true,
     };
   }
 
@@ -34,15 +35,10 @@ class UserState extends StateModule {
             user: data.result.user,
             token: data.result.token,
             isLogged: true,
+            waiting: false,
           });
         }
         return data;
-
-        /*       if (data.token) {
-          localStorage.setItem('jwt', data.token);
-  
-          return data;
-        } */
       });
   };
 
@@ -81,12 +77,12 @@ class UserState extends StateModule {
         return response.json();
       })
       .then((data) => {
-        /* console.log(data.result.profile); */
         if (data.result) {
           this.setState({
             user: data.result,
             token: token,
             isLogged: true,
+            waiting: false,
           });
         }
         return data;

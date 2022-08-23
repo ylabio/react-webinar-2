@@ -1,34 +1,15 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { cn as bem } from '@bem-react/classname';
-import useStore from '../../hooks/use-store';
 import './style.css';
 
-function Header() {
+function Header(props) {
   const cn = bem('Header');
-  const store = useStore();
-  const navigate = useNavigate();
-
-  const userStore = store.get('user');
-  const user = userStore.store.state.user;
-
-  function signOut() {
-    userStore
-      .cancelAuthorize(user.token)
-      .then((res) => {
-        if (res.result) {
-          navigate('/');
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
 
   const link = () => {
-    if (user.isLogged) {
+    if (props.user.isLogged) {
       return (
-        <button className={cn('link')} onClick={signOut}>
+        <button className={cn('link')} onClick={props.signOut}>
           Выход
         </button>
       );
@@ -45,7 +26,7 @@ function Header() {
     <header className={cn()}>
       <div className={cn('wrapper')}>
         <Link to="/user" className={cn('mail')}>
-          {user.user.email}
+          {props.user.user.email}
         </Link>
         {link()}
       </div>

@@ -15,6 +15,7 @@ function Main() {
   useInit(
     async () => {
       await store.get('catalog').initParams();
+      await store.get('filters').initParams();
     },
     [],
     { backForward: true }

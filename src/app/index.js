@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import useSelector from '../hooks/use-selector';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import useStore from '../hooks/use-store';
@@ -18,7 +18,11 @@ function App() {
 
   const userStore = store.get('user');
 
-  let navigate = useNavigate();
+  const modal = useSelector((state) => state.modals.name);
+
+  const user = userStore.store.state.user;
+
+  const navigate = useNavigate();
 
   const token = document.cookie.slice(document.cookie.indexOf('=') + 1);
 
@@ -31,11 +35,24 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
-  const modal = useSelector((state) => state.modals.name);
+  const callbacks = {
+    handleSignOut: useCallback(() => {
+      userStore
+        .cancelAuthorize(user.token)
+        .then((res) => {
+          if (res.result) {
+            navigate('/');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, [user.token]),
+  };
 
   return (
     <>
-      <Header />
+      <Header signOut={callbacks.handleSignOut} user={user} />
       <Routes>
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />

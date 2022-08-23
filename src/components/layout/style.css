@@ -8,7 +8,7 @@ body {
 /* Страница*/
 .Layout {
   max-width: 1024px;
-  min-height: 100vh;
+  min-height: calc(100vh - 43px);
   margin: 0 auto;
   background: #fff;
   box-sizing: border-box;

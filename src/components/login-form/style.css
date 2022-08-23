@@ -11,3 +11,6 @@
 .LoginForm-Button{
     margin-top: 20px;
 }
+.LoginForm-error {
+    color: red;
+}

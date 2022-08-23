@@ -17,6 +17,8 @@ function Main() {
     await store.get('catalog').initParams();
     await store.get('category').loadCategory();
     await store.get('authorization').loadUser();
+
+    return store.get('authorization').cleanError();
   }, [], {backForward: true});
 
   const {t} = useTranslate();

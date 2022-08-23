@@ -21,6 +21,9 @@ class AuthorizationState extends StateModule{
    * Получение токена
    */
   async loginRequest(data){
+
+
+
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -92,6 +95,14 @@ class AuthorizationState extends StateModule{
         token: '',
         userData: {},
     }, 'Удаление токена');
+  }
+
+  // очистка от ошибок
+  async cleanError() {
+    this.setState({
+      ...this.getState(),
+      error: '',
+    }, 'Очистка от ошибок');
   }
 }
 

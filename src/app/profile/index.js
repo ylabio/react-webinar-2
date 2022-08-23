@@ -37,9 +37,9 @@ const Profile = () => {
       }
     >
       <Tools />
-      <UserDetails user={user} />
+      <UserDetails user={user} t={t} />
     </Layout>
   );
 };
 
-export default Profile;
+export default React.memo(Profile);

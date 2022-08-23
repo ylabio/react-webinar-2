@@ -3,7 +3,7 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import propTypes from 'prop-types';
 
-const LoginForm = ({ onLogin, error }) => {
+const LoginForm = ({ onLogin, error, t }) => {
   const cn = bem('LoginForm');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -25,14 +25,14 @@ const LoginForm = ({ onLogin, error }) => {
 
   return (
     <div className={cn()}>
-      <h2>Вход</h2>
+      <h2>{t('auth.title')}</h2>
       <form className={cn('form')} onSubmit={callbacks.onSubmit}>
         <label>
-          Логин
+          {t('auth.label.login')}
           <input type='text' value={login} onChange={onChange.setLogin} />
         </label>
         <label>
-          Пароль
+          {t('auth.label.pass')}
           <input
             type='password'
             value={password}
@@ -40,7 +40,7 @@ const LoginForm = ({ onLogin, error }) => {
           />
         </label>
         {error && <span className={cn('error')}>{error}</span>}
-        <input type='submit' value='Войти' />
+        <input type='submit' value={t('auth.enter')} />
       </form>
     </div>
   );
@@ -49,8 +49,11 @@ const LoginForm = ({ onLogin, error }) => {
 LoginForm.propTypes = {
   onLogin: propTypes.func,
   error: propTypes.string,
+  t: propTypes.func,
 };
 
-LoginForm.defaultProps = {};
+LoginForm.defaultProps = {
+  t: (text) => text,
+};
 
 export default React.memo(LoginForm);

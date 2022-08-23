@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import useStore from '../../hooks/use-store';
 import useInit from '../../hooks/use-init';
 import useTranslate from '../../hooks/use-translate';
@@ -8,8 +8,6 @@ import Tools from '../../containers/tools';
 import LayoutFlex from '../../components/layout-flex';
 import Layout from '../../components/layout';
 import LocaleSelect from '../../containers/locale-select';
-import useAuth from '../../hooks/use-auth';
-import LoginTools from '../../components/login-tools';
 import LoginPanel from '../../containers/login-panel';
 
 function Main() {

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './style.css';
 import propTypes from 'prop-types';
 
-const LoginTools = ({ userName, onLogout }) => {
+const LoginTools = ({ userName, onLogout, t }) => {
   const cn = bem('LoginTools');
 
   return (
@@ -15,11 +15,11 @@ const LoginTools = ({ userName, onLogout }) => {
       </Link>
       {userName ? (
         <button className={cn('btn')} onClick={() => onLogout()}>
-          Выход
+          {t('auth.quit')}
         </button>
       ) : (
         <Link to={'/login'}>
-          <button className={cn('btn')}>Войти</button>
+          <button className={cn('btn')}>{t('auth.login')}</button>
         </Link>
       )}
     </div>
@@ -29,8 +29,11 @@ const LoginTools = ({ userName, onLogout }) => {
 LoginTools.propTypes = {
   userName: propTypes.string,
   onLogout: propTypes.func,
+  t: propTypes.func,
 };
 
-LoginTools.defaultProps = {};
+LoginTools.defaultProps = {
+  t: (text) => text,
+};
 
 export default React.memo(LoginTools);

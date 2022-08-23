@@ -41,8 +41,8 @@ const Login = () => {
       }
     >
       <Tools />
-      <LoginForm onLogin={callbacks.logIn} error={error} />
+      <LoginForm onLogin={callbacks.logIn} error={error} t={t} />
     </Layout>
   );
 };
-export default Login;
+export default React.memo(Login);

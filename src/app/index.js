@@ -7,6 +7,7 @@ import Basket from "./basket";
 import Article from "./article";
 import Login from './login';
 import Profile from './profile';
+import PrivateRoute from '../containers/private-route';
 
 /**
  * Приложение
@@ -28,9 +29,11 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path={'/'} element={<Main/>}/>
+        <Route path={"/"} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
-        <Route path={"/profile"} element={<Profile/>}/>
+        <Route path={"/profile"} element={<PrivateRoute/>}>
+          <Route path={"/profile"} element={<Profile/>}/>
+        </Route>
         <Route path={"/login"} element={<Login/>}/>
       </Routes>
       {select.modal === 'basket' && <Basket/>}

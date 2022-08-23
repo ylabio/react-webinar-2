@@ -13,7 +13,6 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      categories: [],
       count: 0,
       params: {
         page: 1,
@@ -69,14 +68,6 @@ class CatalogState extends StateModule{
       waiting: true
     });
     
-    /*
-      Получаем категории с сервера.
-      Можно получать только один раз при старте, но, как мне кажется, в этом случае может возникнуть 
-      рассинхронизация товаров и категорий: список товаров мы загружаем с сервера каждый раз при 
-      изменении параметров страницы, фильтрации и поиска и если
-      на сервере добавилась новая категория, мы ее не получим.
-    */
-    await this.getCategories();
     const skip = (newParams.page - 1) * newParams.limit;
     const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&${newParams.category ? `search[category]=${newParams.category}`: ""}&sort=${newParams.sort}&search[query]=${newParams.query}`);
     const json = await response.json();
@@ -97,19 +88,6 @@ class CatalogState extends StateModule{
     } else {
       window.history.pushState({}, '', url);
     }
-  }
-
-  /**
-   * Получение списка категорий товаров с сервера
-   * @return {Promise<void>}
-   */
-   async getCategories(){
-    const response = await fetch('/api/v1/categories?&limit=*');
-    const json = await response.json();
-    this.setState({
-        ...this.getState(),
-        categories: json.result.items,
-      });
   }
 }
 

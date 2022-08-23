@@ -1,6 +1,7 @@
 import React, {useCallback, useMemo} from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
+import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/select";
 import Input from "../../components/input";
@@ -11,11 +12,15 @@ function CatalogFilter() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    categories: state.catalog.categories,
+    categories: state.categories.list,
     category: state.catalog.params.category,
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
   }));
+
+  useInit(async () => {
+    await store.get('categories').getCategories();
+  }, []);
 
   const {t} = useTranslate();
 

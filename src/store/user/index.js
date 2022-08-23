@@ -37,12 +37,13 @@ class UserState extends StateModule {
           waiting: false,
         });
         window.localStorage.removeItem("token")
-      } else
+      } else{
         this.setState({
         ...this.getState(),
         waiting: false,
         data: json.result,
       });
+      }
     }
   }
 
@@ -71,10 +72,11 @@ class UserState extends StateModule {
         },
       });
       const json = await response.json();
+      console.log(json)
       if (json.error) {
         this.setState({
           ...this.getState(),
-          error: json.error.message,
+          error: json.error.data.issues[0].message,
           waiting: false,
         });
       } else {

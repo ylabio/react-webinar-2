@@ -130,11 +130,11 @@ class CatalogState extends StateModule{
     
     const items = await Promise.all(
       filter.map(async (item) => {
-        const response = await fetch(`/api/v1/articles/${item._id}?fields=*,category(title)`);
+        const response = await fetch(`/api/v1/categories/${item.category._id}`);
         const json = await response.json();
         return {
-          title: json.result.category.title,
-          value: json.result.category._id
+          title: json.result.title,
+          value: json.result._id
         }
       }),
     );

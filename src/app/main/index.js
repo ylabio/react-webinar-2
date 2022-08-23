@@ -17,6 +17,7 @@ function Main() {
     async () => {
       await store.get('user').checkAuth();
       await store.get('catalog').initParams();
+      await store.get('categories').fetchCategories();
     },
     [],
     { backForward: true }

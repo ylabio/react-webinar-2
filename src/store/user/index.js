@@ -54,7 +54,7 @@ class UserState extends StateModule {
     } else {
       this.setState({
         ...this.getState(),
-        error: json.error.message,
+        error: json.error.data.issues[0].message,
         loading: false,
       });
     }
@@ -91,7 +91,7 @@ class UserState extends StateModule {
     } else {
       this.setState({
         ...this.getState(),
-        error: json.error.message,
+        error: json.error.data.issues[0].message,
         loading: false,
       });
     }
@@ -105,12 +105,14 @@ class UserState extends StateModule {
     this.setState({
       ...this.getState(),
       loading: true,
+      error: '',
     });
 
     if (!this.getState().token) {
       this.setState({
         ...this.getState(),
         loading: false,
+        error: '',
       });
       return;
     }
@@ -133,7 +135,7 @@ class UserState extends StateModule {
       this.setState({
         ...this.getState(),
         loading: false,
-        error: new Error(response.statusText),
+        error: json.error.data.issues[0].message,
       });
     }
   }

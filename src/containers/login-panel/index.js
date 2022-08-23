@@ -26,7 +26,7 @@ const LoginPanel = () => {
   return (
     <LayoutFlex flex={'end'} padding={false}>
       <LoginTools
-        userName={user.profile?.name}
+        userName={user?.profile?.name}
         onLogout={callbacks.logout}
         t={t}
       />

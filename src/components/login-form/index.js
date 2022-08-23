@@ -18,6 +18,8 @@ const LoginForm = ({ onLogin, error, t }) => {
     ),
   };
 
+  console.log({ error });
+
   const onChange = {
     setLogin: useCallback((e) => setLogin(e.target.value), [setLogin]),
     setPassword: useCallback((e) => setPassword(e.target.value), [setPassword]),

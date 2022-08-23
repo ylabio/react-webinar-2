@@ -34,7 +34,6 @@ class CatalogState extends StateModule{
         category: 'all'
       },
       waiting: false,
-      categories: [{ _id: 'all', title: 'Все' }],
     };
   }
 
@@ -114,21 +113,6 @@ class CatalogState extends StateModule{
       window.history.pushState({}, '', url);
     }
   }
-
-  async getCategories() {
-		const response = await fetch('api/v1/categories');
-		const json = await response.json();
-
-		const categoriesArray = [
-			this.initState().categories[0],
-			...json.result.items,
-		];
-
-		this.setState({
-			...this.getState(),
-			categories: categoriesArray,
-		});
-	}
 }
 
 export default CatalogState;

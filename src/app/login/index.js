@@ -17,7 +17,7 @@ function Login(){
   const select = useSelector(state => ({
     login: state.user.login,
     password: state.user.password,
-    user: state.user.data,
+    authorized: state.user.authorized,
     error: state.user.error,
     waiting: state.user.waiting
   }));
@@ -50,7 +50,9 @@ function Login(){
           password={select.password}
           onChangeLogin={callbacks.onChangeLogin}
           onChangePassword={callbacks.onChangePassword}
+          onNavigate={callbacks.onNavigate}
           onSubmit={callbacks.onSubmit}
+          authorized={select.authorized}
           error={select.error}
         />
       </Spinner>

@@ -9,13 +9,13 @@ import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import Tools from "../../containers/tools";
-import User from "../../components/user";
+import Profile from "../../components/profile";
 
 function UserPage() {
   const store = useStore();
 
   useInit(async () => {
-    await store.get('catalog').initParams();
+    await store.get('catalog').initParams({}, false);
   }, [], {backForward: true});
 
   let user = useSelector((state) => state.user);
@@ -42,7 +42,7 @@ function UserPage() {
     }
     login={<HeaderLogin user={user} logout={logout}/>}>
       <Tools />
-      <User user={user.user}/>
+      <Profile user={user.user}/>
     </Layout>
   )
 }

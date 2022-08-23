@@ -11,7 +11,7 @@ const HeaderLogin = (props) => {
     <div className={cn()}>
     {props.user.logined ?
     <>
-    <Link to={"/user"}>
+    <Link to={"/profile"}>
       <div className={cn("name")}>{props.user?.user?.profile?.name}</div>
     </Link>
     <button onClick={props.logout}>Выход</button>

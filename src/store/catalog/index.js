@@ -44,7 +44,7 @@ class CatalogState extends StateModule{
    * @param params
    * @return {Promise<void>}
    */
-  async initParams(params = {}){
+  async initParams(params = {}, changeUrl = true){
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
     let validParams = {};
@@ -57,7 +57,7 @@ class CatalogState extends StateModule{
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = {...this.initState().params, ...validParams, ...params};
     // Установка параметров и подгрузка данных
-    await this.setParams(newParams, true);
+    await this.setParams(newParams, true, changeUrl);
 
     let categories = await fetch('/api/v1/categories').then(res => res.json());
     this.setState({
@@ -85,8 +85,9 @@ class CatalogState extends StateModule{
    * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
    * @returns {Promise<void>}
    */
-  async setParams(params = {}, historyReplace = false){
+  async setParams(params = {}, historyReplace = false, changeUrl = true){
     const newParams = {...this.getState().params, ...params};
+    console.log(params, historyReplace)
 
     // Установка новых параметров и признака загрузки
     this.setState({
@@ -109,14 +110,16 @@ class CatalogState extends StateModule{
       count: json.result.count,
       waiting: false
     });
-
+    console.log(changeUrl)
     // Запоминаем параметры в URL
-    let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);
-    const url = window.location.pathname + queryString + window.location.hash;
-    if (historyReplace) {
-      window.history.replaceState({}, '', url);
-    } else {
-      window.history.pushState({}, '', url);
+    if(changeUrl) {
+      let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);
+      const url = window.location.pathname + queryString + window.location.hash;
+      if (historyReplace) {
+        window.history.replaceState({}, '', url);
+      } else {
+        window.history.pushState({}, '', url);
+      }
     }
   }
 }

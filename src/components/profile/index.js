@@ -3,9 +3,9 @@ import {cn as bem} from '@bem-react/classname';
 import propTypes from 'prop-types';
 import "./styles.css"
 
-const User = (props) => {
+const Profile = (props) => {
 
-    let cn = bem("User")
+    let cn = bem("Profile")
     return (
         <div className={cn()}>
             <div className={cn("header")}>Профиль</div>
@@ -22,8 +22,8 @@ const User = (props) => {
     )
 }
 
-User.prototype = {
+Profile.prototype = {
     user: propTypes.object
 }
 
-export default React.memo(User)
+export default React.memo(Profile)

@@ -38,6 +38,18 @@ class UserState extends StateModule{
    * @param password пароль
    * @returns {Promise<void>}
    */
+  async resetError() {
+    this.setState({
+      ...this.getState(),
+      error: ""
+    })
+  }
+ /**
+   * Устанвока отправка логина и пароля на сервер
+   * @param login логин
+   * @param password пароль
+   * @returns {Promise<void>}
+   */
   async logIn(login, password) {
     await fetch("/api/v1/users/sign?fields=_id%2Cprofile%28name%29", {method: "POST", body: JSON.stringify({login, password}), headers: {
         'Content-Type': 'application/json'

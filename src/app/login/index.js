@@ -15,24 +15,26 @@ function Login() {
   const store = useStore();
 
   useInit(async () => {
-    await store.get('catalog').initParams();
+    await store.get('catalog').initParams({}, false);
   }, [], {backForward: true});
 
   let user = useSelector((state) => state.user);
   let navigate = useNavigate();
   let token = localStorage.getItem("token");
+  const reset = useCallback(() => store.get('user').resetError());
 
   useEffect(() => {
     if(token && !user.logined) store.get('user').auth(token);
+    return () => reset();
   }, [])
 
   useEffect(() => {
     if(user.logined) {
-      navigate("/user");
+      navigate("/profile");
     }
   }, [user.logined])
 
-  const logout = useCallback(() => store.get('user').logOut(user))
+  const logout = useCallback(() => store.get('user').logOut(user));
 
   const {t} = useTranslate();
 

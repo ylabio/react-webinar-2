@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
@@ -8,6 +8,7 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
+import useSelector from "../../hooks/use-selector";
 
 function Main() {
   const store = useStore();
@@ -16,10 +17,19 @@ function Main() {
     await store.get('catalog').initParams();
   }, [], {backForward: true});
 
+  const select = useSelector(state => ({
+    isAuth: state.auth.isAuth,
+    username: state.auth.user.username
+  }))
+
+  const callbacks = {
+    logout: useCallback(() => store.get('auth').logout(),[]),
+  }
+
   const {t} = useTranslate();
 
   return (
-    <Layout head={
+    <Layout isAuth={select.isAuth} userName={select.username} logout={callbacks.logout} head={
       <LayoutFlex flex="between">
         <h1>{t('title')}</h1>
         <LocaleSelect/>

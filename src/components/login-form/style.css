@@ -1,0 +1,12 @@
+.LoginForm{
+    margin: 20px;
+}
+
+.LoginForm-input{
+    margin: 20px 0px;
+}
+
+.LoginForm-error{
+    margin: 20px;
+    color: #FF0000;
+}

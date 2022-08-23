@@ -29,9 +29,10 @@ class CatalogState extends StateModule{
       params: {
         page: 1,
         limit: 10,
-        sort: 'order',
-        query: ''
+        sort: 'sort',
+        query: '',
       },
+      select: [],
       waiting: false
     };
   }
@@ -45,6 +46,7 @@ class CatalogState extends StateModule{
   async initParams(params = {}){
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
+
     let validParams = {};
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
@@ -89,13 +91,18 @@ class CatalogState extends StateModule{
     const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
     const json = await response.json();
 
+    const responseSelect = await fetch('/api/v1/categories')
+    const jsonSelect = await responseSelect.json();
+
     // Установка полученных данных и сброс признака загрузки
     this.setState({
       ...this.getState(),
       items: json.result.items,
       count: json.result.count,
+      select: jsonSelect,
       waiting: false
     });
+
 
     // Запоминаем параметры в URL
     let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);

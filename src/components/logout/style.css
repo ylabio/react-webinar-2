@@ -1,0 +1,16 @@
+.Logout{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Logout-link {
+    margin: 13px 20px 13px 13px;
+}
+
+a{
+    color: #0087E9;
+}
+
+.Logout-button{
+    margin: 13px 20px 13px 13px;
+}

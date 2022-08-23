@@ -21,6 +21,7 @@ function Input(props) {
 
   // Обновление стейта, если передан новый value
   useEffect(() => {
+
     change(props.value);
   }, [props.value]);
 

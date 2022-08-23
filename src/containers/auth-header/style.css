@@ -1,0 +1,8 @@
+.AuthHeader{
+	padding: 10px 20px;
+}
+.AuthHeader a {
+	color: #0087e9;
+	padding-right: 20px;
+	font-size: 13px;
+}

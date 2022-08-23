@@ -1,0 +1,26 @@
+/* Пункт списка */
+.UserInfo {
+	padding: 20px 35px;
+}
+
+.UserInfo-description {
+	margin: 20px 0;
+}
+
+.UserInfo-prop {
+	margin: 20px 0;
+	display: flex;
+	justify-content: flex-start;
+}
+
+.UserInfo-prop_size_big{
+	font-size: 24px;
+}
+
+.UserInfo-label{
+	padding-right: 10px;
+}
+
+.UserInfo-value{
+	font-weight: bold;
+}

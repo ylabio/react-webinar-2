@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from "react";
+import React, {useMemo} from "react";
 import {Navigate} from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -10,6 +10,7 @@ import LocaleSelect from "../../containers/locale-select";
 import ProfileMenu from "../../containers/profile-menu";
 import ProfileInfo from "../../components/profile-info";
 import useStore from "../../hooks/use-store";
+import useUninit from "../../hooks/use-uninit";
 
 function Profile(){
   const {lang, t} = useTranslate();
@@ -32,15 +33,13 @@ function Profile(){
     }), [lang]),
   }
 
-  useEffect(() => {
-    return () => {
-      if (!select.redirect && !select.name && !select.waiting) {
-        store.get('path').setPreviousPath(false, false)
-      } else {
-        store.get('path').setPreviousPath(true, false)
-      }
+  useUninit(() => {
+    if (!select.redirect && !select.name && !select.waiting) {
+      store.get('path').setPreviousPath(false, false)
+    } else {
+      store.get('path').setPreviousPath(true, false)
     }
-  });
+  }, null);
 
   if (!select.name && !select.waiting) return <Navigate replace to="/login"/>;
 

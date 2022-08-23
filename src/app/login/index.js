@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo} from "react";
+import React, {useCallback, useMemo} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -10,6 +10,7 @@ import LocaleSelect from "../../containers/locale-select";
 import ProfileMenu from "../../containers/profile-menu";
 import LoginForm from "../../components/login-form";
 import {Navigate} from "react-router-dom";
+import useUninit from "../../hooks/use-uninit";
 
 function Login(){
   const store = useStore();
@@ -37,10 +38,10 @@ function Login(){
     }), [lang]),
   }
 
-  useEffect(() => () => {
+  useUninit(() => {
     store.get('authorisation').reset();
     store.get('path').setPreviousPath(true, true);
-  }, []);
+  });
 
   if (!select.previousPage && select.authorisedUser) return <Navigate replace to="/profile"/>;
   if (select.previousPage && select.authorisedUser && select.redirect) return <Navigate replace to="/profile"/>;

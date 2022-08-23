@@ -49,10 +49,10 @@ function Pagination(props) {
 
     return totalUrl;
 
-    } else{
+    } else {
       
       return 'http://localhost:8010/?page=1&limit=10&sort=order&query=&category=';
-      
+
     }
   }
   

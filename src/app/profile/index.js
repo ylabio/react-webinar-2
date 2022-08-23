@@ -16,9 +16,10 @@ function Profile() {
     isAuth: state.login.isAuth,
     user: state.login.user,
     waiting: state.login.waiting,
+    complete: state.login.complete,
   }));
 
-  useRedirect(select.isAuth, '/login', '/');
+  useRedirect(select.isAuth, '/login', '/', select.complete);
 
   const {t} = useTranslate();
 

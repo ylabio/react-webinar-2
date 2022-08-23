@@ -12,6 +12,7 @@ class LoginState extends StateModule{
       token: '',
       isAuth: false,
       waiting: false,
+      complete: false,
     };
   }
 
@@ -21,6 +22,7 @@ class LoginState extends StateModule{
   async checkLogin(token) {
     this.setState({
       ...this.getState(),
+      complete: false,
       waiting: true,
     });
 
@@ -35,7 +37,7 @@ class LoginState extends StateModule{
 
     if (!!json.result) {
       this.setState({
-        ...this.getState(),
+        complete: true,
         token: token,
         user: json.result,
         isAuth: true,
@@ -43,7 +45,7 @@ class LoginState extends StateModule{
       });
     } else {
       this.setState({
-        ...this.getState(),
+        complete: true,
         token: '',
         user: {},
         isAuth: false,
@@ -60,6 +62,7 @@ class LoginState extends StateModule{
   async logIn (data){
     this.setState({
       ...this.getState(),
+      complete: false,
       waiting: true
     });
 
@@ -84,7 +87,7 @@ class LoginState extends StateModule{
 
       if (json.result.token) {
         this.setState({
-          ...this.getState(),
+          complete: true,
           token: json.result.token,
           user: json.result.user,
           isAuth: true,
@@ -96,8 +99,10 @@ class LoginState extends StateModule{
     } catch (e){
       this.setState({
         user: {},
+        token: '',
         isAuth: false,
-        waiting: false
+        waiting: false,
+        complete: true,
       });
       this.store.setState({
         ...this.store.getState(),
@@ -114,6 +119,7 @@ class LoginState extends StateModule{
   async logOut (token){
     this.setState({
       ...this.getState(),
+      complete: false,
       waiting: true,
     });
 
@@ -128,7 +134,7 @@ class LoginState extends StateModule{
 
     if (json.result) {
       this.setState({
-        ...this.getState(),
+        complete: true,
         user: {},
         token: '',
         isAuth: false,

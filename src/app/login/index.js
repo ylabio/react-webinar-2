@@ -26,9 +26,10 @@ function Login() {
     isAuth: state.login.isAuth,
     err: state.error.err,
     waiting: state.login.waiting,
+    complete: state.login.complete,
   }));
 
-  useRedirect(select.isAuth, '/login', '/');
+  useRedirect(select.isAuth, '/login', '/', select.complete);
 
   const {t} = useTranslate();
 

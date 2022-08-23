@@ -38,28 +38,34 @@ class UserState extends StateModule {
       })
       
       const json = await response.json()
-      const data = json.result;
-
-      this.setState({
-        ...this.getState(),
-        token: data.token,
-        user: data.user,
-        errorMessage: '',
-        isAuth: true,
-        waiting: false
-      });
-      localStorage.setItem('authToken', data.token)
+      if (json.error) {
+        this.setState({
+          ...this.getState(),
+          errorMessage: json.error.data.issues[0].message,
+          waiting: false
+        });
+      } else {
+        const data = json.result;
+        
+        this.setState({
+          ...this.getState(),
+          token: data.token,
+          user: data.user,
+          errorMessage: '',
+          isAuth: true,
+          waiting: false
+        });
+        localStorage.setItem('authToken', data.token)
+      }
     } catch (e) {
       this.setState({
         ...this.getState(),
-        errorMessage: 'Некая ошибка от сервера',
         waiting: false
       });
     }
   }
   
   async getUserProfile() {
-    
     this.setState({
       ...this.getState(),
       waiting: true
@@ -77,7 +83,7 @@ class UserState extends StateModule {
         
         const json = await response.json()
         const data = json.result;
-
+        
         this.setState({
           ...this.getState(),
           user: data,
@@ -94,8 +100,11 @@ class UserState extends StateModule {
   }
   
   async logout() {
+    this.setState({
+      ...this.getState(),
+      waiting: true,
+    });
     const currentToken = localStorage.getItem('authToken') || this.getState().token
-    
     if (currentToken) {
       try {
         const response = await fetch("/api/v1/users/sign", {
@@ -106,7 +115,7 @@ class UserState extends StateModule {
           },
         });
         const json = await response.json
-
+        
         this.setState({
           ...this.initState()
         });
@@ -114,7 +123,7 @@ class UserState extends StateModule {
       } catch (e) {
         this.setState({
           ...this.getState(),
-          errorMessage: 'Некая ошибка от сервера'
+          waiting: false
         });
       }
     }

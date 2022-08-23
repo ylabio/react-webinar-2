@@ -5,20 +5,13 @@ import Layout from "../../components/layout";
 import useSelector from "../../hooks/use-selector";
 import ProfileCard from "../../components/profile-card";
 import useStore from "../../hooks/use-store";
-import {useNavigate} from "react-router-dom";
 
 function Profile() {
     const store = useStore()
-    const token = localStorage.getItem('access-token')
-    const history = useNavigate()
 
     useEffect(() => {
-        if (token) {
-            store.get('user').getCurrentUser()
-        }else {
-            history('/login', {replace: true})
-        }
-    }, [token])
+        store.get('user').getCurrentUser()
+    }, [])
 
     const select = useSelector(state => ({
         profile: state.user.profile

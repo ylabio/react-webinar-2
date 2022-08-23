@@ -30,7 +30,7 @@ class UserState extends StateModule {
         if (json.error) {
             this.setState({
                 ...this.getState(),
-                error: json.error.message
+                error: 'Неверный логин или пароль'
             })
         }
 

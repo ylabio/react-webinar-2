@@ -33,8 +33,7 @@ class CatalogState extends StateModule{
         query: '',
         category: ''
       },
-      waiting: false,
-      categories: []
+      waiting: false
     };
   }
 
@@ -79,7 +78,6 @@ class CatalogState extends StateModule{
    * @returns {Promise<void>}
    */
   async setParams(params = {}, historyReplace = false){
-    await this.getAllCategories();
     const newParams = {...this.getState().params, ...params};
 
     // Установка новых параметров и признака загрузки
@@ -90,10 +88,8 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const category = this.getState().params.category;
-    const findCategory = this.getState().categories.find(el => el.title === category);
 
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${findCategory?._id ? '&search[category]='+findCategory._id:''}`);
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${newParams.category ? '&search[category]='+newParams.category:''}`);
 
     const json = await response.json();
 
@@ -113,41 +109,6 @@ class CatalogState extends StateModule{
     } else {
       window.history.pushState({}, '', url);
     }
-  }
-
-  async getAllCategories(){
-    // Решение из интернета
-    const res = await fetch('/api/v1/categories')
-    const json = await res.json()
-    const newArr = json.result.items.map(c => ({
-      _id: c._id,
-      title: c.title,
-      parent: c.parent?._id
-    }))
-    for (let item of newArr) {
-      if (!item.parent) continue
-
-      let parentId = item.parent
-      do {
-        const temp = newArr.find(item => item._id === parentId)
-        item.title = '-' + item.title
-        parentId = temp.parent
-      } while (parentId)
-    }
-
-    newArr.forEach((category, index) => {
-      if (category.parent) {
-        newArr.splice(newArr.findIndex(el => el._id === category.parent) + 1, 0, category)
-        newArr.splice(index + 1, 1)
-      }
-    })
-
-    newArr[0] = {_id: '', title: 'Все', parent: ''}
-
-    this.setState({
-      ...this.getState(),
-      categories: newArr
-    })
   }
 }
 

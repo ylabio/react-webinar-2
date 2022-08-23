@@ -14,7 +14,8 @@ function Main() {
 
   useInit(async () => {
     await store.get('catalog').initParams();
-    await store.get('user').getCurrentUser()
+    await store.get('user').getCurrentUser();
+    await store.get('categories').getAllCategories();
   }, [], {backForward: true});
 
   const {t} = useTranslate();

@@ -30,8 +30,8 @@ function Login() {
     <Layout head={<Header />}>
       <Tools/>
       <LayoutFlex flex="start" flexDirection="column" alignItems="start" padding="40-20">
-				<ContentTitle text="Вход"/>
-				<LoginForm isAuth={select.isAuth} authError={select.authError} onAuthorization={callbacks.onAuthorization}/>
+				<ContentTitle text={t('login.title')}/>
+				<LoginForm isAuth={select.isAuth} authError={select.authError} onAuthorization={callbacks.onAuthorization} t={t}/>
 			</LayoutFlex>
     </Layout>
   )

@@ -29,7 +29,7 @@ function Header() {
 
 	return (
 		<>
-			<LoginNav isAuth={select.isAuth} user={select.user} onLogout={callbacks.onLogout}/>
+			<LoginNav isAuth={select.isAuth} user={select.user} onLogout={callbacks.onLogout} t={t}/>
 			<LayoutFlex flex="between" backgroundColor="gray">
 				<h1>{t('title')}</h1>
 				<Select onChange={setLang} value={lang} options={options.lang}/>

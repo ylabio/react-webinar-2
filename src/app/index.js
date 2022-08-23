@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import useSelector from "../hooks/use-selector";
 import useStore from '../hooks/use-store';
 import useInit from '../hooks/use-init';
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, Navigate} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
@@ -20,18 +20,21 @@ function App() {
     await store.get('auth').authentication();
   }, []);
 
-  const modal = useSelector(state => state.modals.name);
-	const isAuth = useSelector(state => state.auth.isAuth);
+  const select = useSelector(state => ({
+		modal: state.modals.name,
+		isAuth: state.auth.isAuth
+	}));
 
   return (
     <>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
-				<Route path={"/login"} element={isAuth ? <Main/> : <Login/>}/>
-				<Route path={"/profile"} element={isAuth ? <Profile/> : <Login/>}/>
+				<Route path={"/login"} element={<Login/>}/>
+				<Route path={"/login"} element={select.isAuth ? <Navigate to="/"/> : <Login/>}/>
+				<Route path={"/profile"} element={select.isAuth ? <Profile/> : <Navigate to="/login"/>}/>
       </Routes>
-      {modal === 'basket' && <Basket/>}
+      {select.modal === 'basket' && <Basket/>}
     </>
   );
 }

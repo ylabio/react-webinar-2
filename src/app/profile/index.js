@@ -25,7 +25,7 @@ function Profile() {
     <Layout head={<Header />}>
       <Tools/>
       <LayoutFlex flex="start" flexDirection="column" alignItems="start" padding="40-20">
-				<ContentTitle text="Профиль"/>
+				<ContentTitle text={t("profile.title")}/>
 				<ProfileInfo user={select.user}/>
 			</LayoutFlex>
     </Layout>

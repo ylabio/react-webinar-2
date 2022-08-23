@@ -25,27 +25,29 @@ function LoginForm(props) {
 	return (
 		<form>
 			<label className={cn('label')}>
-				<span>Логин</span>
+				<span>{props.t("form.login")}</span>
 				<input type="text" {...login}/>
 			</label>
 			<label className={cn('label')}>
-				<span>Пароль</span>
+				<span>{props.t("form.password")}</span>
 				<input type="text" {...password}/>
 			</label>
 			<div className={cn('error')}>{props.authError}</div>
-			<input type="submit" value="Войти" onClick={callbacks.onAuthorization}/>
+			<input type="submit" value={props.t("form.submit")} onClick={callbacks.onAuthorization}/>
 		</form>
 	)
 }
 
 LoginForm.propTypes = {
   authError: propTypes.string,
-	isAuth: propTypes.bool
+	isAuth: propTypes.bool,
+	t: propTypes.func
 }
 
 LoginForm.defaultProps = {
 	authError: '',
-	isAuth: false
+	isAuth: false,
+	t: (text) => tetx
 }
 
 export default React.memo(LoginForm);

@@ -17,10 +17,10 @@ function LoginNav(props) {
 			{props.isAuth?
 				<LayoutFlex flex="end" padding="10-20" className={cn()}>
 					<Link to="/profile" className={cn('profile')}>{props.user.name}</Link>
-					<button className={cn('quit')} onClick={callbacks.onAuthorization}>Выход</button>
+					<button className={cn('quit')} onClick={callbacks.onAuthorization}>{props.t("header.logOut")}</button>
 				</LayoutFlex> : 
 				<LayoutFlex flex="end" padding="10-20" className={cn()}>
-          <Link to="/login" className={cn('login')}><button>Вход</button></Link>
+          <Link to="/login" className={cn('login')}><button>{props.t("header.logIn")}</button></Link>
 				</LayoutFlex>
 			}
 		</>
@@ -30,12 +30,14 @@ function LoginNav(props) {
 LoginNav.propTypes = {
   isAuth: propTypes.bool,
 	user: propTypes.object.isRequired,
-	onLogout: propTypes.func
+	onLogout: propTypes.func,
+	t: propTypes.func
 }
 
 LoginNav.defaultProps = {
 	isAuth: false,
-	onLogout: () => {}
+	onLogout: () => {},
+	t: (text) => text
 }
 
 export default React.memo(LoginNav);

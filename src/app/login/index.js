@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from "react";
+import React, {useCallback, useEffect, useMemo} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -31,6 +31,8 @@ function Login(){
       send: t('login.send'),
     }), [lang]),
   }
+
+  useEffect(() => () => store.get('authorisation').reset(), [])
 
   return (
     <Layout head={

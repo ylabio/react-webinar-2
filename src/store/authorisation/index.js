@@ -175,6 +175,16 @@ class AuthorisationState extends StateModule{
       });
     }
   }
+
+  /**
+   * Сброс ошибки
+   */
+  reset(){
+    this.setState({
+      ...this.getState(),
+      error: null,
+    });
+  }
 }
 
 export default AuthorisationState;

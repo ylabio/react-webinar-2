@@ -2,7 +2,7 @@ import React from "react";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import LoginForm from "../../containers/login/login-form";
-import PageTemplate from "../../components/page-template";
+import PageTemplate from "../../containers/page-template";
 import useSelector from "../../hooks/use-selector";
 import {useLocation, useNavigate} from "react-router-dom";
 

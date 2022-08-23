@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import useTranslate from "../../hooks/use-translate";
-import PageTemplate from "../../components/page-template";
+import PageTemplate from "../../containers/page-template";
 import ProfileInfo from "../../components/profile-info";
 import useSelector from "../../hooks/use-selector";
 import {useNavigate} from "react-router-dom";

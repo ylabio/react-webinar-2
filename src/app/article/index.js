@@ -6,10 +6,7 @@ import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import ArticleCard from "../../components/article-card";
 import Spinner from "../../components/spinner";
-import Tools from "../../containers/tools";
-import Layout from "../../components/layouts/layout";
-import LayoutFlex from "../../components/layouts/layout-flex";
-import LocaleSelect from "../../containers/locale-select";
+import PageTemplate from "../../containers/page-template";
 
 function Article(){
   const store = useStore();
@@ -34,17 +31,11 @@ function Article(){
   };
 
   return (
-    <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{select.article.title}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    }>
-      <Tools/>
+    <PageTemplate title={select.article.title}>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
-    </Layout>
+    </PageTemplate>
   )
 }
 

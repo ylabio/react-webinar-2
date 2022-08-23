@@ -1,9 +1,9 @@
 import React from "react";
-import Tools from "../../containers/tools";
-import LayoutFlex from "../layouts/layout-flex";
-import Layout from "../layouts/layout";
-import LocaleSelect from "../../containers/locale-select";
-import LoginTools from "../../containers/login/login-tools";
+import Tools from "../tools";
+import LayoutFlex from "../../components/layouts/layout-flex";
+import Layout from "../../components/layouts/layout";
+import LocaleSelect from "../locale-select";
+import LoginTools from "../login/login-tools";
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';

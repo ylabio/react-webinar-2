@@ -9,6 +9,7 @@ import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import Auth from "../../containers/auth";
+import Header from "../../components/header";
 
 function Main() {
   const store = useStore();
@@ -20,17 +21,21 @@ function Main() {
   const {t} = useTranslate();
 
   return (
-    <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{t('title')}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    } auth={<Auth/>}
-    >
-      <Tools/>
-      <CatalogFilter/>
-      <CatalogList/>
-    </Layout>
+    <>
+      <Header>
+        <Auth/>
+      </Header>
+      <Layout head={
+        <LayoutFlex flex="between">
+          <h1>{t('title')}</h1>
+          <LocaleSelect/>
+        </LayoutFlex>
+      }>
+        <Tools/>
+        <CatalogFilter/>
+        <CatalogList/>
+      </Layout>
+    </>
   )
 }
 

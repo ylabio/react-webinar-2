@@ -9,6 +9,7 @@ import Auth from "../../containers/auth";
 import LoginForm from "../../components/login-form";
 import useSelector from "../../hooks/use-selector";
 import useAuth from "../../hooks/use-auth";
+import Header from "../../components/header";
 
 function Login() {
   const store = useStore();
@@ -36,24 +37,28 @@ function Login() {
     })
   };
   return (
-    <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{t('title')}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    } auth={<Auth/>}
-    >
-      <Tools/>
-      <LoginForm
-        putForm={callbacks.onSubmit}
-        error={select.error}
-        onChangeLog={callbacks.onChangeLog}
-        onChangePas={callbacks.onChangePas}
-        title={t('login')}
-        login={t('Login')}
-        password={t('password')}
-      />
-    </Layout>
+    <>
+      <Header>
+        <Auth/>
+      </Header>
+      <Layout head={
+        <LayoutFlex flex="between">
+          <h1>{t('title')}</h1>
+          <LocaleSelect/>
+        </LayoutFlex>
+      }>
+        <Tools/>
+        <LoginForm
+          putForm={callbacks.onSubmit}
+          error={select.error}
+          onChangeLog={callbacks.onChangeLog}
+          onChangePas={callbacks.onChangePas}
+          title={t('login')}
+          login={t('Login')}
+          password={t('password')}
+        />
+      </Layout>
+    </>
   )
 }
 

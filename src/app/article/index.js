@@ -11,6 +11,7 @@ import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
 import Auth from "../../containers/auth";
+import Header from "../../components/header";
 
 function Article(){
   const store = useStore();
@@ -35,21 +36,22 @@ function Article(){
   };
 
   return (
-    <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{select.article.title}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    } auth={<Auth auth={
-      <Link to={'/login'}>
-        <button>{'Login'}</button>
-      </Link>}/>
-    }>
-      <Tools/>
-      <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
-      </Spinner>
-    </Layout>
+    <>
+      <Header>
+        <Auth/>
+      </Header>
+      <Layout head={
+        <LayoutFlex flex="between">
+          <h1>{select.article.title}</h1>
+          <LocaleSelect/>
+        </LayoutFlex>
+      }>
+        <Tools/>
+        <Spinner active={select.waiting}>
+          <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        </Spinner>
+      </Layout>
+    </>
   )
 }
 

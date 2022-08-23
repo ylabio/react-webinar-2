@@ -9,10 +9,7 @@ class UserState extends StateModule {
    */
   initState() {
     return {
-      user: {
-        data: {},
-        error: ''
-      },
+      data: {},
       auth: false,
       token: localStorage.getItem('token') ?? '',
       login: {
@@ -37,9 +34,9 @@ class UserState extends StateModule {
       // User загружен успешно
       this.setState({
         ...this.getState(),
-        user: {...this.getState(), data: json.result.user},
+        data: json.result.user,
         auth: true,
-        token: localStorage.setItem('token', json.result.token),
+        token: json.result.token,
       });
     } catch (e) {
       this.setState({
@@ -60,7 +57,7 @@ class UserState extends StateModule {
       },
       method: 'DELETE'
     });
-      localStorage.setItem('token', '');
+      localStorage.removeItem('token');
       this.setState(this.initState());
   }
 
@@ -70,14 +67,14 @@ class UserState extends StateModule {
         {
           method: "GET", headers: {
             'Content-Type': 'application/json',
-            "X-Token": `${this.getState().token || localStorage.getItem('token')}`
+            "X-Token": `${this.getState().token}`
           }
         });
       const json = await response.json();
       // User загружен успешно
       this.setState({
         ...this.getState(),
-        user: {data: json.result, error: ''},
+        data: json.result, error: '',
         auth: true,
       });
     } catch (e) {

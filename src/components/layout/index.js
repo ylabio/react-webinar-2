@@ -8,7 +8,6 @@ function Layout(props){
 
   return (
     <div className={cn()}>
-      {props.auth ? <div className={cn('upper-head')}>{props.auth}</div> : null}
       <div className={cn('head')}>
         {props.head}
       </div>
@@ -22,7 +21,6 @@ function Layout(props){
 Layout.propTypes = {
   head: propTypes.node,
   children: propTypes.node,
-  auth: propTypes.node,
 }
 
 Layout.defaultProps = {

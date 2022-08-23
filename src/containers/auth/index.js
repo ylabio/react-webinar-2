@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import useSelector from "../../hooks/use-selector";
@@ -13,21 +13,23 @@ function Auth(){
   const select = useSelector(state => ({
     auth: state.user.auth,
     token: state.user.token,
-    name: state.user.user.data
+    data: state.user.data
   }));
+
   const cn = bem('Auth');
   const callbacks = {
     logOut: useCallback(() => store.get('user').logout(), []),
     logIn: useCallback(() => nav('/login')),
-    profile: useCallback(() => nav('/profile')),
   };
+  useEffect(() => {
+    if (!select.data.profile && select.token) store.get('user').load()
+  }, [])
   const {t} = useTranslate();
   return (
     <div className={cn()}>
-      {(select.token || select.auth) ?
+      {select.token  ?
         <>
-          <Link to={'/profile'}><p className={cn('profile')} onClick={e => e.stopPropagation()}>{select.name.profile?.name || t('profile')}</p></Link>
-
+          <Link to={'/profile'}><p className={cn('profile')}>{select.data.profile?.name || t('profile')}</p></Link>
           <button onClick={callbacks.logOut}>{t('logout')}</button>
         </>
         : <button onClick={callbacks.logIn}>{t('login')}</button>

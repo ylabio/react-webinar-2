@@ -5,13 +5,8 @@ import Layout from "../../components/layouts/layout";
 import LocaleSelect from "../locale-select";
 import LoginTools from "../login/login-tools";
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import './style.css';
 
 function PageTemplate({title, children}) {
-
-  // CSS классы по БЭМ
-  const cn = bem('PageTemplate');
 
   return (
     <Layout top={

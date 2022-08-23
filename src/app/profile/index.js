@@ -1,34 +1,28 @@
-import React, {useEffect} from "react";
+import React from "react";
 import useTranslate from "../../hooks/use-translate";
 import PageTemplate from "../../containers/page-template";
 import ProfileInfo from "../../components/profile-info";
 import useSelector from "../../hooks/use-selector";
-import {useNavigate} from "react-router-dom";
 import Spinner from "../../components/spinner";
+import AuthCheck from "../../containers/auth-check";
 
 function Profile() {
 
   const select = useSelector(state => ({
     user: state.session.user,
-    isLoading: state.session.isLoading,
-    loadingError: state.session.loadingError
+    isLoading: state.session.isLoading
   }));
 
   const {t} = useTranslate();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!(select.user || select.isLoading) || !localStorage.getItem('TOKEN') || select.loadingError) {
-      navigate('/login')
-    }
-  }, [select.user, select.loadingError, select.isLoading, navigate])
 
   return (
-    <PageTemplate title={t('title')}>
-      <Spinner active={select.isLoading}>
-        <ProfileInfo t={t} user={select.user}/>
-      </Spinner>
-    </PageTemplate>
+    <AuthCheck>
+      <PageTemplate title={t('title')}>
+        <Spinner active={select.isLoading}>
+          <ProfileInfo t={t} user={select.user}/>
+        </Spinner>
+      </PageTemplate>
+    </AuthCheck>
   )
 }
 

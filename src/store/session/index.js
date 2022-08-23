@@ -5,6 +5,7 @@ import simplifyErrors from "../../utils/simplify-errors";
  * Сессия
  */
 class SessionState extends StateModule {
+
   /**
    * Начальное состояние
    * @return {Object}
@@ -51,7 +52,7 @@ class SessionState extends StateModule {
         // Запоминаем токен, чтобы потом автоматически аутентифицировать юзера
         window.localStorage.setItem('token', json.result.token);
         // Устанавливаем токен в АПИ
-        this.services.api.setToken(json.result.token);
+        this.services.api.setHeader(this.config.tokenHeader, json.result.token);
 
         if (onSuccess) onSuccess();
       }
@@ -67,7 +68,7 @@ class SessionState extends StateModule {
   async signOut() {
     try {
       await this.services.api.request({method: 'DELETE', url: '/api/v1/users/sign'});
-      this.services.api.setToken(null);
+      this.services.api.setHeader(this.config.tokenHeader, null);
     } catch (error) {
       console.error(error);
     }
@@ -82,12 +83,12 @@ class SessionState extends StateModule {
     const token = localStorage.getItem('token');
     if (token) {
       // Устанавливаем токен в АПИ
-      this.services.api.setToken(token);
+      this.services.api.setHeader(this.config.tokenHeader, token);
       const json = await this.services.api.request({url: '/api/v1/users/self'});
       if (json.error) {
         // Удаляем плохой токен
         window.localStorage.setItem('token', json.result.token);
-        this.services.api.setToken(null);
+        this.services.api.setHeader(this.config.tokenHeader, null);
       } else {
         this.setState({
           ...this.getState(),

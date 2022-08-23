@@ -1,10 +1,15 @@
 class APIService {
 
   /**
-   * @param services {Services}
+   * @param services {Services} Менеджер сервисов
+   * @param config {Object}
    */
-  constructor(services) {
+  constructor(services, config = {}) {
     this.services = services;
+    this.config = {
+      baseUrl: '',
+      ...config
+    }
     this.defaultHeaders = {
       'Content-Type': 'application/json',
     }
@@ -19,6 +24,7 @@ class APIService {
    * @returns {Promise<any>}
    */
   async request({url, method = 'GET', headers = {}, ...options}) {
+    if (!url.match(/^(http|\/\/)/)) url = this.config.baseUrl + url;
     const res = await fetch(url, {
       method,
       headers: {...this.defaultHeaders, ...headers},
@@ -28,14 +34,15 @@ class APIService {
   }
 
   /**
-   * Установка или сброс токена в заголовках
-   * @param token
+   * Установка или сброс заголовка
+   * @param name {String} Название заголвока
+   * @param value {String|null} Значение загововка
    */
-  setToken(token = null) {
-    if (token) {
-      this.defaultHeaders['X-Token'] = token;
-    } else if (this.defaultHeaders['X-Token']) {
-      delete this.defaultHeaders['X-Token'];
+  setHeader(name, value = null) {
+    if (value) {
+      this.defaultHeaders[name] = value;
+    } else if (this.defaultHeaders[name]) {
+      delete this.defaultHeaders[name];
     }
   }
 }

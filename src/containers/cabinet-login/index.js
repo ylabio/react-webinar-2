@@ -19,7 +19,7 @@ function CabinetLogin() {
   //обработка ошибки авторизации
   let error = '';
   if (select.loginError?.data?.issues[0]?.message)
-    error = select.loginError?.message+ '. ' + select.loginError?.data?.issues[0]?.message; 
+    error = select.loginError?.message+ '. ' + select.loginError?.data?.issues[0]?.message;
 
   const callbacks = {
     onLogin: useCallback((e, login, password) => {store.get('authorization').login(login, password);

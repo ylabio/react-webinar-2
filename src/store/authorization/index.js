@@ -126,6 +126,16 @@ class Authorization extends StateModule{
         waiting: false
       }, 'Пользовталь вышел успешно');
   }
+
+  //очистка error
+  cleanError(){
+    this.setState({
+      ...this.getState(),
+      error: '',
+      waiting: false
+    }, 'Очистка ошибка авторизации');
+  }
+
 }
 
 export default Authorization;

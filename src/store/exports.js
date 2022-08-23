@@ -5,5 +5,4 @@ export { default as article } from './article';
 export { default as locale } from './locale';
 export { default as authorization } from './authorization';
 export { default as categories } from './categories';
-export { default as userinfo } from './userinfo';
-export { default as loginform } from './loginform';
+export { default as userinfo } from './user-info';

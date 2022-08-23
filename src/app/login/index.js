@@ -27,7 +27,7 @@ function Login() {
     }, []),
     clearErrorMsg: useCallback(() => {
       store.get('auth').setErrorMsg('');
-    }, []),
+    }, []), 
   }
 
   useEffect(() => {

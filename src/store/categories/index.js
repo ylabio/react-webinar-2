@@ -19,7 +19,7 @@ class CaregoriesState extends StateModule{
       ...this.getState(),
       isFetching: true,
     });
-    const response = await (await fetch('/api/v1/categories')).json()
+    const response = await (await fetch('/api/v1/categories?limit=*')).json()
     const categoriesTree = createCategoryTree(response.result.items);
     const categories = createCategoriesFromTree(categoriesTree);
     categories.unshift({value: 'all', title: 'Все'});

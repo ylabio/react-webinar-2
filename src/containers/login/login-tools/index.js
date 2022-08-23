@@ -15,7 +15,10 @@ function LoginTools(){
 
   const callbacks = {
     // Переход на страницу авторизации
-    onLogin: useCallback(() => navigate('/login'), [navigate]),
+    onLogin: useCallback(() => {
+       store.get('login').resetError();
+       navigate('/login');
+    }, [navigate]),
     // Запрос на деавторизацию пользователя
     onLogout: useCallback(() => store.get('session').logout(), []),
   }

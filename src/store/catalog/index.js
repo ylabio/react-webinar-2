@@ -1,6 +1,5 @@
 import StateModule from '../module';
 import qs from 'qs';
-import { makeTree, putDashes, sortArray } from '../../utils/handle-filters';
 
 const QS_OPTIONS = {
   stringify: {
@@ -25,7 +24,6 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
-      filter: [],
       count: 0,
       params: {
         page: 1,
@@ -36,28 +34,6 @@ class CatalogState extends StateModule {
       },
       waiting: false,
     };
-  }
-
-  async getFilterCategories() {
-    const response = await fetch(`api/v1/categories`);
-    const json = await response.json();
-    const categories = await json.result.items;
-
-    const tree = makeTree(categories);
-    const dashedArray = putDashes(tree);
-    const sortedArray = sortArray(dashedArray);
-
-    const result = [
-      { value: '', title: 'Все' },
-      ...sortedArray.map((item) => {
-        return { value: item._id, title: item.title };
-      }),
-    ];
-
-    this.setState({
-      ...this.getState(),
-      filter: result,
-    });
   }
 
   /**
@@ -74,6 +50,7 @@ class CatalogState extends StateModule {
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
+    if (urlParams.category) validParams.category = urlParams.category;
 
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = { ...this.initState().params, ...validParams, ...params };

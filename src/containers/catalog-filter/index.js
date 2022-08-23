@@ -11,7 +11,8 @@ function CatalogFilter() {
 
   const select = useSelector((state) => ({
     category: state.catalog.params.category,
-    filter: state.catalog.filter,
+    filter: state.categories.filter,
+    waiting: state.categories.waiting,
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
   }));
@@ -46,28 +47,32 @@ function CatalogFilter() {
       ],
       []
     ),
-    filter: useMemo(() => [...select.filter]),
+    filter: useMemo(() => [...select.filter], [select.filter]),
   };
 
   return (
     <LayoutFlex flex='start'>
-      <Select
-        onChange={callbacks.onFilter}
-        value={select.category}
-        options={options.filter}
-      />
-      <Select
-        onChange={callbacks.onSort}
-        value={select.sort}
-        options={options.sort}
-      />
-      <Input
-        onChange={callbacks.onSearch}
-        value={select.query}
-        placeholder={'Поиск'}
-        theme='big'
-      />
-      <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
+      {select.waiting ? null : (
+        <>
+          <Select
+            onChange={callbacks.onFilter}
+            value={select.category}
+            options={options.filter}
+          />
+          <Select
+            onChange={callbacks.onSort}
+            value={select.sort}
+            options={options.sort}
+          />
+          <Input
+            onChange={callbacks.onSearch}
+            value={select.query}
+            placeholder={'Поиск'}
+            theme='big'
+          />
+          <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
+        </>
+      )}
     </LayoutFlex>
   );
 }

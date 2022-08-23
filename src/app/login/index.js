@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../../components/layout';
 import LayoutFlex from '../../components/layout-flex';
 import LoginForm from '../../components/login-form';
@@ -20,33 +20,40 @@ function Login() {
     waiting: state.authorization.waiting,
   }));
 
+  useEffect(() => {
+    return () => {
+      store.get('authorization').cleanError();
+    };
+  }, []);
+
   const { t } = useTranslate();
 
   const callbacks = {
     login: useCallback((login, password) => {
       store.get('authorization').login(login, password);
-      console.log(window.history.length);
     }, []),
   };
 
   return (
-    <Layout
-      login={<Authorization />}
-      head={
-        <LayoutFlex flex='between'>
-          <h1>{t('title')}</h1>
-          <LocaleSelect />
-        </LayoutFlex>
-      }>
-      <Tools />
-      <Spinner active={select.waiting}>
-        <LoginForm
-          login={callbacks.login}
-          log={callbacks.getLoggingState}
-          error={select.error}
-        />
-      </Spinner>
-    </Layout>
+    <Spinner active={select.waiting}>
+      <Layout
+        login={<Authorization />}
+        head={
+          <LayoutFlex flex='between'>
+            <h1>{t('title')}</h1>
+            <LocaleSelect />
+          </LayoutFlex>
+        }>
+        <Tools />
+        {select.waiting ? null : (
+          <LoginForm
+            login={callbacks.login}
+            log={callbacks.getLoggingState}
+            error={select.error}
+          />
+        )}
+      </Layout>
+    </Spinner>
   );
 }
 

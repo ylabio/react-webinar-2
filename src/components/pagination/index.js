@@ -32,19 +32,27 @@ function Pagination(props) {
     return () => props.onChange(page);
   };
 
+  const loco = window.location.href;
+  const pre = loco.slice(0, loco.indexOf('page='));
+  const after = loco.slice(loco.indexOf('page=') + 'page='.length + 1);
+
   return (
     <ul className={cn()}>
-      {items.map((number, index) => (
-        <li
-          className={cn('item', {
-            active: number === props.page,
-            split: !number,
-          })}
-          key={index}
-          onClick={onClickHandler(number)}>
-          <a href={`?page=${number}`}>{number || '...'}</a>
-        </li>
-      ))}
+      {items.map((number, index) => {
+        const href = `${pre}page=${number}${after}`;
+        return (
+          <a href={href} key={index}>
+            <li
+              className={cn('item', {
+                active: number === props.page,
+                split: !number,
+              })}
+              onClick={onClickHandler(number)}>
+              {number || '...'}
+            </li>
+          </a>
+        );
+      })}
     </ul>
   );
 }

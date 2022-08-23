@@ -50,11 +50,14 @@ class Authorization extends StateModule {
         error: json.error?.data?.issues[0]?.message,
         waiting: false,
       });
-      console.log(this.getState().error);
     }
   }
 
   async logout(token) {
+    this.setState({
+      ...this.getState(),
+      waiting: true,
+    });
     const response = await fetch(`/api/v1/users/sign/`, {
       method: 'DELETE',
       headers: {
@@ -75,6 +78,10 @@ class Authorization extends StateModule {
   }
 
   async checkToken(token) {
+    this.setState({
+      ...this.getState(),
+      waiting: true,
+    });
     const response = await fetch(`/api/v1/users/self/`, {
       method: 'GET',
       headers: {
@@ -97,8 +104,16 @@ class Authorization extends StateModule {
         ...this.getState(),
         user: {},
         loggedIn: false,
+        waiting: false,
       });
     }
+  }
+
+  cleanError() {
+    this.setState({
+      ...this.getState(),
+      error: '',
+    });
   }
 }
 

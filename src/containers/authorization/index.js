@@ -23,7 +23,7 @@ function Authorization() {
   };
 
   return (
-    <LayoutFlex flex='end'>
+    <LayoutFlex flex='end' padding='small'>
       <LoginPanel
         moveToProfile={callbacks.moveToProfile}
         moveToLogin={callbacks.moveToLogin}

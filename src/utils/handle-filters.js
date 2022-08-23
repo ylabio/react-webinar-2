@@ -68,16 +68,17 @@ export const putDashes = (tree) => {
 
 export const sortArray = (dashedArray) => {
   const sortedArr = dashedArray.sort((a, b) => {
-    if (a.order < b.order) {
+    if (Number(a._key) < Number(b._key)) {
       return -1;
     }
-    if (a.order > b.order) {
+    if (Number(a._key) > Number(b._key)) {
       return 1;
     }
     return 0;
   });
 
   const splicedPart = sortedArr.splice(sortedArr.length - 2, 2);
+  [splicedPart[0], splicedPart[1]] = [splicedPart[1], splicedPart[0]];
   sortedArr.splice(2, 0, ...splicedPart);
   return sortedArr;
 };

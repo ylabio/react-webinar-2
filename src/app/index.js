@@ -16,17 +16,9 @@ import useInit from '../hooks/use-init';
 function App() {
   const store = useStore();
 
-  const { isAuth } = useSelector(state => ({
-    isAuth: state.user.isAuth
-  }))
-
-  // useInit(async () => {
-  //   await store.get('user').getProfile();
-  // }, [], {backForward: true});
-
-  useMemo(() => {
-    store.get('user').getProfile();
-  }, [isAuth])
+  useInit(async () => {
+    await store.get('user').getProfile();
+  }, []);
 
   const modal = useSelector(state => state.modals.name);
 
@@ -35,14 +27,8 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
-        <Route
-					path={'/login'}
-					element={isAuth ? <Navigate to='/' /> : <Auth />}
-				/>
-				<Route
-					path={'/profile'}
-					element={isAuth ? <Profile /> : <Navigate to='/login' />}
-				/>
+        <Route path={'/login'} element={<Auth />} />
+				<Route path={'/profile'} element={<Profile />} />
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

@@ -13,6 +13,7 @@ class UserState extends StateModule {
 			isAuth: false,
 			user: { email: '', profile: { name: '', phone: '' } },
 			error: '',
+			token: localStorage.getItem('yToken') || null,
 		};
 	}
 
@@ -27,9 +28,9 @@ class UserState extends StateModule {
 			});
 
 			if (!response.ok) {
-        const errorResponse = await response.json();
-        throw new Error(errorResponse.error.data.issues[0].message);
-      }
+				const errorResponse = await response.json();
+				throw new Error(errorResponse.error.data.issues[0].message);
+			}
 
 			const json = await response.json();
 
@@ -78,6 +79,11 @@ class UserState extends StateModule {
 						},
 					},
 				});
+			} else {
+				localStorage.removeItem('yToken');
+				this.setState({
+					...this.initState(),
+				});
 			}
 		} catch (error) {
 			console.log(error);
@@ -86,6 +92,9 @@ class UserState extends StateModule {
 
 	async logout() {
 		const token = localStorage.getItem('yToken');
+
+		localStorage.removeItem('yToken');
+
 		await fetch('api/v1/users/sign', {
 			method: 'DELETE',
 			headers: {

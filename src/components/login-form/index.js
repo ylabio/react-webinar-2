@@ -24,7 +24,7 @@ function LoginForm({logIn, error, t}) {
           {t('login.password')}
           <input type="password"/>
         </label>
-        {error && <div className={cn('error')}>{t('login.error')}</div>}
+        {error && <div className={cn('error')}>{error}</div>}
         <button>{t('login.submit')}</button>
       </form>
     </div>

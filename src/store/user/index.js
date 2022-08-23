@@ -40,7 +40,16 @@ class UserState extends StateModule{
         }),
       });
       const json = await response.json();
-      if (json.result.token) {
+      if (json.error) {
+        this.setState({
+          user: {},
+          token: '',
+          error: json.error.data.issues[0].message,
+          userExists: false,
+          waiting: false
+        }, 'Ошибка входа в аккаунт');
+      }
+      else {
         localStorage.setItem('token', json.result.token);
         this.setState({
           user: json.result.user,

@@ -3,17 +3,17 @@ import propTypes from 'prop-types'
 import { cn as bem } from '@bem-react/classname'
 import './styles.css'
 
-function ProfileInfo({ user }) {
+function ProfileInfo({ user, t }) {
   const cn = bem('ProfileInfo')
 
   return (
     <div className={cn()}>
-      <h2 className={cn('title')}>Профиль</h2>
+      <h2 className={cn('title')}>{t('profile.title')}</h2>
       <div className={cn('name')}>
-        имя: <b>{user.name}</b>
+        {t('profile.name')}: <b>{user.name}</b>
       </div>
       <div className={cn('tel')}>
-        телефон: <b>{user.phone}</b>
+        {t('profile.phone')}: <b>{user.phone}</b>
       </div>
       <div className={cn('email')}>
         e-mail: <b>{user.email}</b>

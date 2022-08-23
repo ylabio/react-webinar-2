@@ -6,14 +6,15 @@
 .LoginForm-form {
     display: flex;
     flex-direction: column;
-    /* text-align: start; */
     justify-content: flex-start;
 }
 
 .LoginForm-input {
-    padding: 5px;
+    padding: 2px 0 20px 0;
 }
 
-.LoginForm-button {
-    padding: 5px;
+.LoginForm-error {
+    padding: 10px;
+    color: #FF0000;
+
 }

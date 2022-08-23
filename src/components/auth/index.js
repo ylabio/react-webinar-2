@@ -4,7 +4,7 @@ import { cn as bem } from '@bem-react/classname'
 import './style.css'
 import { Link } from 'react-router-dom'
 
-function Auth({ auth, userName, logOut }) {
+function Auth({ auth, userName, logOut, t }) {
   // CSS классы по БЭМ
   const cn = bem('Auth')
 
@@ -19,9 +19,9 @@ function Auth({ auth, userName, logOut }) {
       {auth ? <Link to={'/profile'}>{userName}</Link> : ''}
       <Link to={'/login'}>
         {auth ? (
-          <button onClick={callbacks.logOut}>Выход</button>
+          <button onClick={callbacks.logOut}>{t('auth.logout')}</button>
         ) : (
-          <button onClick={() => {}}>Вход</button>
+          <button onClick={() => {}}>{t('auth.login')}</button>
         )}
       </Link>
     </div>

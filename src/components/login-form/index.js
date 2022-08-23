@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react'
 import propTypes from 'prop-types'
 import { cn as bem } from '@bem-react/classname'
 import './style.css'
-import useTranslate from '../../hooks/use-translate'
 
 function LoginForm(props) {
   // CSS классы по БЭМ
@@ -27,19 +26,19 @@ function LoginForm(props) {
 
   return (
     <div className={cn()}>
-      <h2 className={cn('title')}>Вход</h2>
+      <h2 className={cn('title')}>{props.t('login.title')}</h2>
       <form className={cn('form')}>
-        <span>логин</span>
+        <span>{props.t('login.login')}</span>
         <div className={cn('input')}>
           <input type='text' value={login} onChange={callbacks.setLogin} />
         </div>
-        <span>пароль</span>
+        <span>{props.t('login.password')}</span>
         <div className={cn('input')}>
           <input type='password' value={password} onChange={callbacks.setPassword} />
         </div>
-        {props.error && <div style={{ color: 'red', padding: 10 }}>{props.error}</div>}
+        {props.error && <div className={cn('error')}>{props.error}</div>}
         <div className={cn('button')}>
-          <button onClick={callbacks.enter}> Войти</button>
+          <button onClick={callbacks.enter}>{props.t('login.come')}</button>
         </div>
       </form>
     </div>

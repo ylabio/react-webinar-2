@@ -38,7 +38,7 @@ function Login() {
         </LayoutFlex>
       }>
       <Tools />
-      <LoginForm login={callbacks.login} error={select.error} waiting={select.waiting} />
+      <LoginForm login={callbacks.login} error={select.error} waiting={select.waiting} t={t} />
     </Layout>
   )
 }

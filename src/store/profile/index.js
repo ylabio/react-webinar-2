@@ -63,7 +63,6 @@ class ProfileState extends StateModule {
   }
 
   async getProfile() {
-    console.log('getProfile')
     this.setState({
       ...this.getState(),
       waiting: true,
@@ -82,7 +81,6 @@ class ProfileState extends StateModule {
       })
 
       const json = await response.json()
-      console.log(json)
 
       if (token && json.error) {
         this.setState({
@@ -111,13 +109,13 @@ class ProfileState extends StateModule {
   }
 
   async logOut() {
-    localStorage.removeItem('token')
-    await this.setState({
+    this.setState({
       ...this.getState(),
       user: {},
       auth: false,
       error: '',
     })
+    await localStorage.removeItem('token')
   }
 }
 

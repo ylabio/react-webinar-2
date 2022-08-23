@@ -29,7 +29,7 @@ function AuthContainer() {
     }, []),
   }
 
-  return <Auth auth={select.auth} logOut={callbacks.logOut} userName={select.userName} />
+  return <Auth auth={select.auth} logOut={callbacks.logOut} userName={select.userName} t={t} />
 }
 
 export default React.memo(AuthContainer)

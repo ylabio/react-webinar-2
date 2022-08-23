@@ -38,7 +38,7 @@ function Profile() {
         </LayoutFlex>
       }>
       <Tools />
-      <ProfileInfo user={select.user} />
+      <ProfileInfo user={select.user} t={t} />
     </Layout>
   )
 }

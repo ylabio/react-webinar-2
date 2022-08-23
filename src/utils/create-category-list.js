@@ -4,4 +4,4 @@ export default function createCategoryList(obj, numRepeat, array) {
       numRepeat ++;
       obj.children.forEach(i=>createCategoryList(i, numRepeat, array));   
     }
-  }
+}

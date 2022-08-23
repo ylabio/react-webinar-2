@@ -24,13 +24,6 @@ class LoginState extends StateModule{
       waiting: true,
     });
 
-    this.store.setState({
-      ...this.store.getState(),
-      error: {
-        err:[]
-      }
-    })
-
     const response = await fetch(`/api/v1/users/self`, {
       method: 'GET',
       headers: {

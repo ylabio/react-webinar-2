@@ -34,11 +34,11 @@ function LoginForm({ translate, onSubmit, error }) {
         </label>
         <Field type='password' id='password' name='password' className={cn('input')} />
 
+        {error && <div className={cn('error')}>{error.data.issues[0].message}</div>}
+
         <button type='submit' className={cn('submit')}>
           {translate('login.enter')}
         </button>
-
-        {error && <div className={cn('error')}>{error.data.issues[0].message}</div>}
       </Form>
     </Formik>
   );

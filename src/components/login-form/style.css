@@ -1,0 +1,20 @@
+.LoginForm {
+  padding: 20px 20px;
+}
+
+.LoginForm-prop {
+  margin-bottom: 20px;
+}
+
+.LoginForm-prop_error {
+  color: #FF0000;
+}
+
+.LoginForm label {
+  display: block;
+}
+
+.LoginForm input {
+  font-size: 16px;
+  padding: 2px;
+}

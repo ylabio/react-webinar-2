@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname'
+import { cn as bem } from '@bem-react/classname'
 import './style.css';
 
 function Pagination(props) {
@@ -36,8 +36,8 @@ function Pagination(props) {
     <ul className={cn()}>
       {items.map((number, index) => (
         <li key={index}
-            className={cn('item', {active: number === props.page, split: !number})}
-            onClick={onClickHandler(number)}
+          className={cn('item', { active: number === props.page, split: !number })}
+          onClick={onClickHandler(number)}
         >
           {number || '...'}
         </li>
@@ -59,8 +59,7 @@ Pagination.defaultProps = {
   limit: 10,
   count: 1000,
   indent: 1,
-  onChange: () => {
-  },
+  onChange: () => { }
 }
 
 export default React.memo(Pagination);

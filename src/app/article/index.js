@@ -10,6 +10,7 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/wrappers/layout";
 import LayoutFlex from "../../components/wrappers/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import AuthHeader from '../../containers/auth-header';
 
 function Article() {
   const store = useStore();
@@ -34,12 +35,14 @@ function Article() {
   };
 
   return (
-    <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{select.article.title}</h1>
-        <LocaleSelect />
-      </LayoutFlex>
-    }>
+    <Layout
+      auth={<AuthHeader />}
+      head={
+        <LayoutFlex flex="between">
+          <h1>{select.article.title}</h1>
+          <LocaleSelect />
+        </LayoutFlex>
+      }>
       <Tools />
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />

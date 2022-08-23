@@ -5,23 +5,16 @@ import useTranslate from '../../hooks/use-translate';
 import Select from '../../components/select';
 import Input from '../../components/input';
 import LayoutFlex from '../../components/layout-flex';
-import useInit from '../../hooks/use-init';
 import {categoriesMap} from '../../utils/categoiresMapToNames';
 
 function CatalogFilter() {
   const store = useStore();
-  const [categories, setCategories] = useState([]);
-
-  useInit(async () => {
-    const response = await fetch('/api/v1/categories?limit=*');
-    const json = await response.json();
-    setCategories(json.result.items);
-  });
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    category: state.catalog.params.category
+    category: state.catalog.params.category,
+    categories: state.categories.categoriesArray
   }));
 
   const {t} = useTranslate();
@@ -56,7 +49,7 @@ function CatalogFilter() {
     ),
     sortCategory: useMemo(() => [
       {value: '', title: 'Все'},
-      ...categoriesMap(categories)
+      ...categoriesMap(select.categories)
     ])
   };
 

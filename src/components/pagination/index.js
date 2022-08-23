@@ -34,7 +34,7 @@ function Pagination(props) {
 
   const loco = window.location.href;
   const pre = loco.slice(0, loco.indexOf('page='));
-  const after = loco.slice(loco.indexOf('page=') + 'page='.length + 1);
+  const after = loco.slice(loco.indexOf('page=')).replace(/page=[0-9]+/, '');
 
   return (
     <ul className={cn()}>

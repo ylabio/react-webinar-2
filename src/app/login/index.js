@@ -32,7 +32,10 @@ function Login() {
   };
 
   useEffect(() => {
-    if (select.isLogin) {
+    if (select.isLogin && window.history.length < 3) {
+      navigate('/')
+    }
+    if (select.isLogin && window.history.length > 3) {
       navigate(-1)
     }
   }, [select.isLogin])

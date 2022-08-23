@@ -1,18 +1,15 @@
 import React from 'react';
 import {Navigate, useLocation} from 'react-router-dom';
-import {InfinitySpin} from 'react-loader-spinner';
 import useSelector from '../../hooks/use-selector';
 
 function RequireAuth({children}) {
-  let location = useLocation();
-
   const select = useSelector(state => ({
     isAuthorized: state.login.isAuthorized
   }));
 
   if (!select.isAuthorized) {
-    // перенаправить на страницу /login, но сохранить текущее положение куда был запрос перехода
-    return <Navigate to="/login" state={{from: location}} replace />;
+    // перенаправить на страницу /login
+    return <Navigate to="/login" replace />;
   }
 
   return children;

@@ -14,7 +14,7 @@ class Login extends StateModule {
       xToken: '',
       isAuthorized: false,
       error: {},
-      waiting: false
+      waiting: true
     };
   }
 
@@ -37,7 +37,8 @@ class Login extends StateModule {
         ...this.getState(),
         xToken: token,
         isAuthorized: true,
-        error: {}
+        error: {},
+        waiting: false
       });
 
       // запись token в localStorage
@@ -51,7 +52,8 @@ class Login extends StateModule {
       this.setState({
         ...this.getState(),
         isAuthorized: false,
-        error
+        error,
+        waiting: false
       });
     }
   }
@@ -113,7 +115,8 @@ class Login extends StateModule {
         this.setState({
           ...this.getState(),
           xToken: '',
-          isAuthorized: false
+          isAuthorized: false,
+          waiting: false
         });
 
         // также после уведомления api сбрасываем текущего пользователя
@@ -129,7 +132,8 @@ class Login extends StateModule {
       this.setState({
         ...this.getState(),
         isAuthorized: false,
-        error
+        error,
+        waiting: false
       });
     }
   }

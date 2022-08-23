@@ -3,7 +3,6 @@ import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname'
 import numberFormat from "../../utils/number-format";
 import './style.css';
-import { proposalSyntaxPlugins } from '@babel/preset-env/lib/shipped-proposals';
 
 function ArticleCard(props) {
 

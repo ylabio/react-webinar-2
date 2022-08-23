@@ -8,12 +8,12 @@ function Authorization(props) {
   const cn = bem('Authorisation');
 
   const callbacks = {
-    logOut: useCallback(() => props.logOut(), [])
+    logOut: useCallback(() => props.logOut(), [props.tokenUser, props.logOut])
   };
 
   return (
     <div className={cn()}>
-      {props.user && 
+      {props.tokenUser && 
       <>
         <Link to={props.profileUrl}>
           <p>{props.user}</p>
@@ -22,7 +22,7 @@ function Authorization(props) {
           <button onClick={callbacks.logOut}>{props.logout}</button>
         </Link>
       </>}
-      {!props.user && <Link to={props.loginUrl}><button>{props.login}</button></Link>}
+      {!props.tokenUser && <Link to={props.loginUrl}><button>{props.login}</button></Link>}
     </div>
   )
 }
@@ -33,7 +33,8 @@ Authorization.propTypes = {
   logout: propTypes.string,
   loginUrl: propTypes.string,
   profileUrl: propTypes.string,
-  logOut: propTypes.func.isRequired
+  logOut: propTypes.func.isRequired,
+  tokenUser: propTypes.string.isRequired
 }
 
 Authorization.defaultProps = {

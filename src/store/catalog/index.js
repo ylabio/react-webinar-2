@@ -33,7 +33,6 @@ class CatalogState extends StateModule{
         query: '',
         category: ''
       },
-      categories: [],
       waiting: false
     };
   }
@@ -86,24 +85,19 @@ class CatalogState extends StateModule{
       ...this.getState(),
       params: newParams,
       waiting: true
-    });
+    }, 'Установка признаков закгрузки');
 
     const skip = (newParams.page - 1) * newParams.limit;
     const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${newParams.category? '&search[category]='+newParams.category:''}`);
     const json = await response.json();
-
-    //получаем список категорий 
-    const categoriesResponse = await fetch(`/api/v1/categories`);
-    const categories = await categoriesResponse.json();
 
     // Установка полученных данных и сброс признака загрузки
     this.setState({
       ...this.getState(),
       items: json.result.items,
       count: json.result.count,
-      categories: categories.result.items,
       waiting: false
-    });
+    }, 'Получение списка товаров по параметрам');
 
     // Запоминаем параметры в URL
     let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);

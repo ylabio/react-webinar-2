@@ -4,16 +4,15 @@ import StateModule from "../module";
  * Авторизация
  */
 class Authorization extends StateModule{
-
   /**
    * Начальное состояние
    * @return {Object}
    */
   initState() {
     return {
-      dataUser: {},
       error: {},
-      token: ''
+      token: '',
+      waiting: false
     };
   }
 
@@ -21,6 +20,12 @@ class Authorization extends StateModule{
    * Авторизация
    */
   async login(login, password){
+  
+  // Установка признака авторизации
+  this.setState({
+    ...this.getState(),
+    waiting: true
+  }, 'Установка признака авторизации');  
     
   try {
     const response = await fetch(`/api/v1/users/sign`, {
@@ -34,18 +39,18 @@ class Authorization extends StateModule{
       if(json.result) {
         // Авторизация прошла успешно
         this.setState({
-            dataUser: json.result.user,
             error: '',
-            token: json.result.token
-        });
+            token: json.result.token,
+            waiting: false
+        }, 'Авторизация прошла успешно');
       }
       if(json.error) {
         // Авторизация прошла не успешно
         this.setState({
-          dataUser: {},
           error: json.error,
-          token: ''
-        });
+          token: '',
+          waiting: false
+        }, 'Авторизация прошла не успешно');
       }
   } catch(err) {
       console.log(err)
@@ -54,6 +59,12 @@ class Authorization extends StateModule{
   
   //повторное получение данных пользователя по токену
   async reLogin(token){
+
+  // Установка признака авторизации
+  this.setState({
+    ...this.getState(),
+    waiting: true
+  }, 'Установка признака авторизации');     
 
   try {
     const response = await fetch(`/api/v1/users/self/`, {
@@ -67,25 +78,39 @@ class Authorization extends StateModule{
       if(json.result) {
         // Авторизация прошла успешно
         this.setState({
-            dataUser: json.result,
             error: '',
-            token: token
-        });
+            token: token,
+            waiting: false
+        }, 'Авторизация прошла успешно');
+      }
+      if(json.error) {
+        // Авторизация прошла успешно
+        this.setState({
+            error: json.error.message,
+            token: '',
+            waiting: false
+        }, 'Плохой токен');
       }
   }  catch(err) {
       if(err.error) {
         // Токен плохой
         // Сбрасывем данные, запоминаем ошубку
           this.setState({
-            dataUser: {},
-            error: err.error
-          });
+            error: err.error,
+            token: '',
+            waiting: false
+          }, `Ошибка авторизации: ${err.error}`);
       }
   }  
 }
 
   //выход пользователя
   async logOut(token){
+      // Установка признака авторизации
+      this.setState({
+        ...this.getState(),
+        waiting: true
+      }, 'Установка признака ожидания выхода пользователя');  
 
     const response = await fetch(`/api/v1/users/sign/`, {
       method: 'DELETE',
@@ -95,16 +120,12 @@ class Authorization extends StateModule{
       }    
       });
       const json = await response.json();
-      if(json.result) {
-        // выход успешен
-        this.setState({
-            dataUser: {},
-            error: '',
-            token: ''
-        });
-      }
+      this.setState({
+        error: '',
+        token: '',
+        waiting: false
+      }, 'Пользовталь вышел успешно');
   }
-
 }
 
 export default Authorization;

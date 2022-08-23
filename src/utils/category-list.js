@@ -3,30 +3,37 @@
  * @returns {cat}
  */
 export default function categoryList(categoryArray){
-  
+
   //список категорий для отображения
   let cat =[{value:'', title: 'Все'}]
+  let parents = [];
+  let children = [];
+  let grandchildren = [];
+  //формирование дерева
   for (let i in categoryArray) {
-    if(!categoryArray[i]?.parent) {
-      cat.push({value: categoryArray[i]._id, title: categoryArray[i].title})
-      for (let g in categoryArray) {
-        if (categoryArray[g]?.parent?._id === categoryArray[i]._id) {
-          categoryArray[g].title = '-'+categoryArray[g].title;
-          cat.push({value: categoryArray[g]._id, title: categoryArray[g].title})
-          for (let j in categoryArray) {
-            if (categoryArray[j]?.parent?._id === categoryArray[g]._id) {
-              categoryArray[j].title = '--'+categoryArray[j].title;
-              cat.push({value: categoryArray[j]._id, title: categoryArray[j].title})
-              for (let k in categoryArray) {
-                if (categoryArray[k]?.parent?._id === categoryArray[j]._id) {
-                  categoryArray[k].title = '---' + categoryArray[k].title;
-                  cat.push({value: categoryArray[k]._id, title: categoryArray[k].title})
-                }
-              }
-            }  
+    if (!categoryArray[i]?.parent)
+      parents.push(categoryArray[i]);
+    else
+      children.push(categoryArray[i]);
+  }
+  for (let i in children) {
+    for (let j in children) {
+      if (children[j].parent._id === children[i]._id)
+        grandchildren.push(children[j]);
+    }
+  }
+  //сборка каталога по дереву
+  for (let i in parents) {
+    cat.push({value: parents[i]._id, title: parents[i].title});
+    for (let j in children) {
+      if (children[j].parent._id === parents[i]._id) {
+        cat.push({value: children[j]._id, title: '- ' + children[j].title});
+        for (let k in grandchildren) {
+          if (grandchildren[k].parent._id === children[j]._id) {
+            cat.push({value: grandchildren[k]._id, title: '- - ' + grandchildren[k].title});
           }
         }
-      } 
+      }
     }
   }
   

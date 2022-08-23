@@ -1,9 +1,12 @@
 import React, {useCallback} from "react";
 import { useCookies } from "react-cookie";
+
 import useTranslate from "../../hooks/use-translate";
 import useSelector from "../../hooks/use-selector";
-import Authorization from "../../components/authorization";
 import useStore from "../../hooks/use-store";
+
+import Authorization from "../../components/authorization";
+import Spinner from "../../components/spinner";
 
 function LoginLogout() {
 
@@ -12,8 +15,9 @@ function LoginLogout() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    dataUser: state.authorization.dataUser,
-    tokenUser: state.authorization.token
+    dataUser: state.userinfo.dataUser,
+    tokenUser: state.authorization.token,
+    waiting: state.authorization.waiting
   }));
 
   //управление отображением в Authorization
@@ -24,18 +28,23 @@ function LoginLogout() {
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const callbacks = {
     //выход пользовтаеля
-    logOut: useCallback(() => {store.get('authorization').logOut(select.tokenUser);
-    setCookie("token", "");}, [])
+    logOut: useCallback(() => {setCookie("token", "");
+      store.get('authorization').logOut(select.tokenUser);
+      store.get('userinfo').delUserInfo();
+    }, [])
   };
 
   return (
-    <Authorization user={user} 
-                     login={t('login')} 
-                     logout={t('logout')}
-                     loginUrl={'/login'}
-                     profileUrl={'/profile'}
-                     logOut={callbacks.logOut}
-    />
+    <Spinner active={select.waiting}>
+      <Authorization user={user} 
+                   login={t('login')} 
+                   logout={t('logout')}
+                   loginUrl={'/login'}
+                   profileUrl={'/profile'}
+                   logOut={callbacks.logOut}
+                   tokenUser={select.tokenUser}
+      />
+    </Spinner>
   );
 }
 

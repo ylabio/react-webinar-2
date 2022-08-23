@@ -1,4 +1,5 @@
 import React from 'react';
+
 import LayoutError from '../../components/layouts/layout-error';
 
 function Error404() {

@@ -35,11 +35,7 @@ function Article(){
   };
 
   return (
-    <Layout auth={
-      <LayoutFlex flex='end' 
-      padding={false}>
-        <Auth />
-      </LayoutFlex>}
+    <Layout auth={<Auth />}
     head={
       <LayoutFlex flex="between">
         <h1>{select.article.title}</h1>

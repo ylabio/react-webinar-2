@@ -1,8 +1,8 @@
 export async function postData(url, data){
     try {
         const response = await fetch(url, {
-          method: 'POST', // или 'PUT'
-          body: JSON.stringify(data), // данные могут быть 'строкой' или {объектом}!
+          method: 'POST',
+          body: JSON.stringify(data),
           headers: {
             'Content-Type': 'application/json'
           }

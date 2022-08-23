@@ -20,7 +20,6 @@ class CategoryState extends StateModule{
     const response = await fetch('api/v1/categories');
     const json = await response.json();
     const items = json.result.items;
-    console.log(items);
     const tree = {items: getTree(items)};
     this.setState(tree);
   }

@@ -4,7 +4,8 @@ import {Routes, Route} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
-import Login from './login/login';
+import Login from './login/';
+import Cabinet from './cabinet';
 
 /**
  * Приложение
@@ -20,6 +21,7 @@ function App() {
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
         <Route path={"/login"} element={<Login/>}/>
+        <Route path={"/cabinet"} element={<Cabinet/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

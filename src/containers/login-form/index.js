@@ -1,11 +1,13 @@
-import React, {useCallback} from "react";
+import React from "react";
 import LoginLayout from "../../components/login-layout";
 import {postData} from "../../utils/post-data";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
+import {useNavigate} from "react-router-dom";
 
 function LoginForm(){
   const store = useStore();
+  const navigate = useNavigate();
 
   const select = useSelector(state=>({
     loginError: state.user.loginError,
@@ -19,13 +21,27 @@ function LoginForm(){
   const handleLogin = ()=>{
     postData('/api/v1/users/sign', {login,password})
     .then((res)=>{
-    if (res.error) store.setState({
-      ...store.getState(),
-      user: {
-        loginError: res.error.message,
-        login: '',
-        password: ''
-    }});
+        
+      if (res.error) store.setState({
+        ...store.getState(),
+        user: {
+          loginError: res.error.data.issues[0].message,
+          login: '',
+          password: ''
+      }});
+      else {store.setState({
+        ...store.getState(),
+        user: {
+          loginError: '',
+          login: '',
+          password: '',
+          ...res.result.user,
+          token: res.result.token
+        }
+      });
+      localStorage.setItem('token', res.result.token);
+      navigate('/cabinet', { replace: true });
+      }
     });
   }
 
@@ -36,10 +52,6 @@ function LoginForm(){
   const onPassword = (e)=>{
     store.get('user').setPassword(e.target.value);
   }
-
-//   const callbacks = {
-//     onLogin: useCallback((login, password)=>handleLogin(login, password),[])
-//   }
 
   return (
     <LoginLayout onButtonClick={handleLogin} 

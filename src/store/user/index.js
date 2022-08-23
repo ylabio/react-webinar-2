@@ -16,6 +16,27 @@ class UserState extends StateModule{
     };
   }
 
+  async getUser(token){
+    try {
+      const response = await fetch(`/api/v1/users/self`, {
+        method: "GET",
+        headers: {
+          "X-Token": token,
+          "Content-Type": "application/json",
+        },
+      });
+      const json = await response.json();
+      
+      this.setState({
+        ...this.getState(),
+        ...json.result,
+        token
+      });
+    } catch(e) {
+    console.log(e);
+   }
+  }
+
   setLogin(e){
     this.setState({
     ...this.getState(),
@@ -30,6 +51,10 @@ class UserState extends StateModule{
     password: e,
     loginError: ''
     });
+  }
+  setLogOut(){
+    this.setState(this.initState());
+    localStorage.removeItem('token');
   }
 }
 

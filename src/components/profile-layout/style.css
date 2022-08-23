@@ -1,0 +1,13 @@
+.ProfileLayout{
+padding: 20px;
+}
+.ProfileLayout-Head{
+    padding-bottom: 20px;
+}
+.ProfileLayout-Item{
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+    font-size: 18px;
+    padding: 20px 0px 0px 0px;
+}

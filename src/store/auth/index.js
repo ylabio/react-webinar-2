@@ -1,0 +1,105 @@
+import StateModule from "../module";
+
+/**
+ * Состояние авторизации
+ */
+class AuthState extends StateModule{
+
+  /**
+   * Начальное состояние
+   * @return {Object}
+   */
+  initState() {
+    return {
+      user: {},
+      token: localStorage.getItem('244sinfallStoreToken') ?? '',
+      waiting: false,
+      status: ''
+    };
+  }
+  /**
+   * Восстановить авторизацию по токену из локального хранилища
+   */
+  async getSelf() {
+    if(this.getState().token) {
+      this.setState({
+        ...this.getState(),
+        waiting: true
+      })
+      fetch("/api/v1/users/self", {
+        method: "GET",
+        headers: {
+          "X-Token": `${this.getState().token}`
+        }
+      })
+        .then(response => {
+          if(response.ok) return response.json()
+          throw Error("Server rejected token")
+        })
+        .then(json => this.setState({
+          ...this.getState(),
+          user: json["result"],
+          waiting: false
+        }))
+        .catch(() => this.logOut())
+    }
+
+  }
+  /**
+   * Закрыть сессию и удалить токен из локального хранилища
+   */
+  async logOut() {
+    localStorage.removeItem('244sinfallStoreToken')
+    fetch(`/api/v1/users/sign/`, {
+      method: "DELETE",
+      headers: {
+        "X-Token": `${this.getState().token}`
+      }
+    }).then(() => {
+      this.setState(this.initState())
+    })
+  }
+  /**
+   * Сделать попытку авторизации
+   * @param login - имя пользователя
+   * @param password - пароль
+   */
+  async pushAuth(login, password) {
+    this.setState({
+      waiting: true,
+      user: {},
+      status: "",
+      token: ''
+    })
+    fetch("/api/v1/users/sign", {
+      method: "POST",
+      body: JSON.stringify({login: login, password: password, remember: true}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(json => {
+        if(!json["error"]) {
+          localStorage.setItem('244sinfallStoreToken', json.result.token)
+          this.setState({
+            user: json.result.user,
+            token: json.result.token,
+            status: "",
+            waiting: false
+          })
+        } else {
+          throw Error(json["error"]["message"])
+        }
+      })
+      .catch((e) => {
+        this.setState({
+          ...this.getState(),
+          status: e.message,
+          waiting: false
+        })
+      })
+  }
+}
+
+export default AuthState;

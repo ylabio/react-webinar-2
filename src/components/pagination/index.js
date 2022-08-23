@@ -31,15 +31,22 @@ function Pagination(props) {
   const onClickHandler = page => {
     return () => props.onChange(page);
   };
+  const linkDestructor = (e) => {
+    e.preventDefault()
+  }
+  const linkConstructor = (page) => {
+    return window.location.search.replace(new RegExp(`${props.pageParam}=[0-9]+`), `page=${page}`)
+  }
 
   return (
     <ul className={cn()}>
       {items.map((number, index) => (
         <li key={index}
             className={cn('item', {active: number === props.page, split: !number})}
-            onClick={onClickHandler(number)}
+            onClick={number && onClickHandler(number)}
         >
-          {number || '...'}
+          {number ? <a href={linkConstructor(number)} onClick={(e) => linkDestructor(e)}>{number}</a>
+          : '...'}
         </li>
       ))}
     </ul>
@@ -51,6 +58,7 @@ Pagination.propTypes = {
   limit: propTypes.number,
   count: propTypes.number,
   onChange: propTypes.func,
+  pageParam: propTypes.string,
   indent: propTypes.number
 }
 
@@ -59,6 +67,7 @@ Pagination.defaultProps = {
   limit: 10,
   count: 1000,
   indent: 1,
+  pageParam: "page",
   onChange: () => {
   },
 }

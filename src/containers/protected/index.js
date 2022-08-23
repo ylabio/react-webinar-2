@@ -19,7 +19,7 @@ function Protected({children, redirect}) {
     }
   }, [select.exists, select.waiting]);
 
-  return !select.exists || select.waiting ? <div>Ждем...</div> : children ;
+  return !select.exists || select.waiting ? <div>Проверка доступа...</div> : children ;
 }
 
 Protected.propTypes = {

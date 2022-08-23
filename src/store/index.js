@@ -22,7 +22,7 @@ class Store {
     this.modules = {};
     for (const name of Object.keys(modules)) {
       // Экземпляр модуля. Передаём ему ссылку на store и навзание модуля.
-      this.modules[name] = new modules[name](this, {name, ...this.config[name] || {}});
+      this.modules[name] = new modules[name](this, {name, ...this.config.modules[name] || {}});
       // По названию модля устанавливается свойство с анчальным состоянием от модуля
       this.state[name] = this.modules[name].initState();
     }

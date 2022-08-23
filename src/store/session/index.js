@@ -87,7 +87,7 @@ class SessionState extends StateModule {
       const json = await this.services.api.request({url: '/api/v1/users/self'});
       if (json.error) {
         // Удаляем плохой токен
-        window.localStorage.setItem('token', json.result.token);
+        window.localStorage.removeItem('token');
         this.services.api.setHeader(this.config.tokenHeader, null);
       } else {
         this.setState({

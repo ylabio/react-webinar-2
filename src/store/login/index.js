@@ -69,6 +69,13 @@ class Login extends StateModule {
         method: 'GET',
         headers: {'Content-Type': 'application/json', 'X-Token': token}
       });
+
+      // если response с кодом отличным от 200
+      if (!response.ok) {
+        const errorReponse = await response.json();
+        throw new Error(errorReponse.error.message);
+      }
+
       const json = await response.json();
       const user = json.result;
 
@@ -136,5 +143,7 @@ class Login extends StateModule {
     }
   }
 }
+
+// TODO: много повторяющегося кода, использовать axios или вынести fetch в отдельную функцию обработки
 
 export default Login;

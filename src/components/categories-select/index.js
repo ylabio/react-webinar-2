@@ -1,10 +1,9 @@
 import React, {useCallback} from 'react';
 import propTypes from "prop-types";
-import transformCategories from '../../utils/transform-categories';
-// import './style.css';
+// import transformCategories from '../../utils/transform-categories';
 
 function CategoriesSelect(props){
-	const optionCategories = transformCategories(props.categories);
+	// const optionCategories = transformCategories(props.categories);
 
   const onSelect = useCallback((e) => {
     props.onChange(e.target.value);
@@ -13,7 +12,7 @@ function CategoriesSelect(props){
   return (
     <select className="Select" onChange={onSelect} value={props.value}>
 			<option value="">Все</option>
-      {optionCategories && optionCategories.map((item, index) => (<option key={`category_${index}`} value={item._id}>{item.title}</option>
+      {props.categories.map((item, index) => (<option key={`category_${index}`} value={item._id}>{item.title}</option>
       ))}
     </select>
   )

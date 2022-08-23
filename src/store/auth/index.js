@@ -12,7 +12,6 @@ class AuthState extends StateModule{
   initState() {
     return {
       isAuth: false,
-      user: {},
 			authError: ''
     };
   }
@@ -35,12 +34,13 @@ class AuthState extends StateModule{
 		if(response.status === 200) {
 			this.setState({
 				...this.getState(),
-				isAuth: true,
-				user: {
-					name: json.result.user.profile.name,
-					phone: json.result.user.profile.phone,
-					email: json.result.user.email
-				}
+				isAuth: true
+			})
+
+			this.store.modules.profile.setUser({
+				name: json.result.user.profile.name,
+				phone: json.result.user.profile.phone,
+				email: json.result.user.email
 			})
 			localStorage.setItem('token', json.result.token);
 		} else {
@@ -64,12 +64,13 @@ class AuthState extends StateModule{
 		if(response.status === 200) {
 			this.setState({
 				...this.getState(),
-				isAuth: true,
-				user: {
-					name: json.result.profile.name,
-					phone: json.result.profile.phone,
-					email: json.result.email
-				}
+				isAuth: true
+			})
+
+			this.store.modules.profile.setUser({
+				name: json.result.profile.name,
+				phone: json.result.profile.phone,
+				email: json.result.email
 			})
 		} else {
 			this.setState({
@@ -95,9 +96,10 @@ class AuthState extends StateModule{
 			this.setState({
 				...this.store.state.auth,
 				isAuth: false,
-				user: {},
 				authError: ''
 			})
+
+			this.store.modules.profile.setUser({})
 		} else {
 			this.setState({
 				...this.store.state.auth,

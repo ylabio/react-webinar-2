@@ -23,7 +23,7 @@ function App() {
   const select = useSelector(state => ({
 		modal: state.modals.name,
 		isAuth: state.auth.isAuth,
-		user: state.auth.user
+		user: state.profile.user
 	}));
 
   return (

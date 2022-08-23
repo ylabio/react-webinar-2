@@ -16,7 +16,7 @@ function Profile() {
 	const store = useStore();
 
   const select = useSelector(state => ({
-		user: state.auth.user
+		user: state.profile.user
   }));
 
   const {t} = useTranslate();

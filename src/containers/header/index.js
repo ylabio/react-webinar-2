@@ -11,7 +11,7 @@ function Header() {
 
   const select = useSelector(state => ({
     isAuth: state.auth.isAuth,
-		user: state.auth.user
+		user: state.profile.user
   }));
 
 	const {lang, setLang, t} = useTranslate();

@@ -30,7 +30,7 @@ function LoginForm(props) {
 			</label>
 			<label className={cn('label')}>
 				<span>{props.t("form.password")}</span>
-				<input type="text" {...password}/>
+				<input type="password" {...password}/>
 			</label>
 			<div className={cn('error')}>{props.authError}</div>
 			<input type="submit" value={props.t("form.submit")} onClick={callbacks.onAuthorization}/>

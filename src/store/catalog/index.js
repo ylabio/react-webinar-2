@@ -34,7 +34,6 @@ class CatalogState extends StateModule{
 				categoryId: ''
       },
       waiting: false,
-			categories: []
     };
   }
 
@@ -89,20 +88,15 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-		const promises = [
-			`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${newParams.categoryId ? `&search[category]=${newParams.categoryId}` : ''}`, 
-			'/api/v1/categories'].map(url => fetch(url));
-		const [respArticles, respCategories] = await Promise.all(promises);
-		const jsonArticles = await respArticles.json();
-		const jsonCategories = await respCategories.json();
+		const resp = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${newParams.categoryId ? `&search[category]=${newParams.categoryId}` : ''}`);
+		const json = await resp.json();
 		
     // Установка полученных данных и сброс признака загрузки
     this.setState({
       ...this.getState(),
-      items: jsonArticles.result.items,
-      count: jsonArticles.result.count,
+      items: json.result.items,
+      count: json.result.count,
       waiting: false,
-			categories: jsonCategories.result.items
     });
 
     // Запоминаем параметры в URL

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Layout from '../../components/layout'
 import LayoutFlex from '../../components/layout-flex'
 import UserCard from '../../components/user-card'
@@ -7,23 +7,23 @@ import LocaleSelect from '../../containers/locale-select'
 import Tools from '../../containers/tools'
 import useSelector from '../../hooks/use-selector'
 import useTranslate from '../../hooks/use-translate'
-import { Navigate } from "react-router-dom";
-
+import { useNavigate } from 'react-router-dom';
+import Loader from '../../components/loader'
 
 function Profile() {
   const { t } = useTranslate();
+  const navigate = useNavigate()
   const select = useSelector(state => ({
     info: state.profile,
     isAuth: state.auth.isSigned
   }));
-  if (!select.isAuth) {
+  useEffect(() => {
+    if (select.isAuth === false) {
+      navigate('/login')
+    }
+  }, [select.isAuth])
+  if (select.isAuth !== false && select.isAuth !== null) {
     return (
-      <Navigate replace to='/login' />
-    )
-  }
-
-  return (
-    <>
       <Layout
         overHead={
           <ControlBar />
@@ -37,6 +37,11 @@ function Profile() {
         <Tools />
         <UserCard user={select.info} />
       </Layout>
+    )
+  }
+  return (
+    <>
+      <Loader />
     </>
   )
 }

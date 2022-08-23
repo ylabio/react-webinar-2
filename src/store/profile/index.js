@@ -12,7 +12,7 @@ class ProfileState extends StateModule {
     return {
       name: '',
       phone: '',
-      email: ''
+      email: '',
     };
   }
 
@@ -29,21 +29,21 @@ class ProfileState extends StateModule {
       const json = await response.json();
       const result = json.result;
       const profile = result.profile;
+      this.store.get('auth').setState({
+        ...this.store.get('auth').getState(),
+        isSigned: isSigned,
+      });
       this.setState({
         name: profile.name,
         phone: profile.phone,
         email: result.email
       });
-      this.store.get('auth').setState({
-        ...this.store.get('auth').getState(),
-        isSigned: true,
-        login: this.getState().name
-      });
+
 
     } else {
       this.store.get('auth').setState({
         ...this.store.get('auth').getState(),
-        isSigned: false,
+        isSigned: isSigned,
       });
     }
   }

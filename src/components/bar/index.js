@@ -6,7 +6,7 @@ import './style.css'
 import propTypes from 'prop-types';
 
 
-function Bar({ isAuth, callback, login }) {
+function Bar({ isAuth, callback, login, prevLink }) {
   const { t } = useTranslate();
   const cn = bem('Bar');
   return (
@@ -27,6 +27,7 @@ function Bar({ isAuth, callback, login }) {
         :
         <Link className={cn("button")}
           to={'/login'}
+          state={{ prev: prevLink }}
         >
           {t("bar.button")}
         </Link>
@@ -39,6 +40,11 @@ function Bar({ isAuth, callback, login }) {
 Bar.propTypes = {
   callback: propTypes.func.isRequired,
   login: propTypes.string,
+  prevLink: propTypes.string
+}
+
+Bar.defaultProps = {
+  prevLink: null
 }
 
 

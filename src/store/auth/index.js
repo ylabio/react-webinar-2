@@ -9,10 +9,9 @@ class AuthState extends StateModule {
    */
   initState() {
     return {
-      isSigned: true,
+      isSigned: null,
       token: '',
       error: '',
-      login: null
     };
   }
 
@@ -47,7 +46,14 @@ class AuthState extends StateModule {
       });
       this.store.get('profile').fetchProfile(localStorage.getItem('auth-token'))
     }
+  }
 
+  clearError() {
+    this.setState({
+      ...this.getState(),
+      isSigned: false,
+      error: ""
+    });
   }
 
   async logout() {
@@ -65,7 +71,6 @@ class AuthState extends StateModule {
       ...this.getState(),
       isSigned: false,
       token: '',
-      login: null
     });
   }
 }

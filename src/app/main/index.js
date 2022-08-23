@@ -14,7 +14,7 @@ function Main() {
   const store = useStore();
   useInit(async () => {
     await store.get('catalog').initParams();
-    await store.get('catalog').setCategoryList()
+    await store.get('category').setCategoryList()
   }, [], { backForward: true });
 
 

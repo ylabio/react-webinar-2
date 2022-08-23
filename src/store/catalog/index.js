@@ -36,7 +36,6 @@ class CatalogState extends StateModule {
         category: 'all'
       },
       waiting: false,
-      category: null
     };
   }
 
@@ -47,6 +46,7 @@ class CatalogState extends StateModule {
    * @return {Promise<void>}
    */
   async initParams(params = {}) {
+
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
     let validParams = {};
@@ -74,27 +74,7 @@ class CatalogState extends StateModule {
     await this.setParams(newParams);
   }
 
-  async setCategoryList() {
 
-    const response = await fetch('/api/v1/categories')
-    const json = await response.json();
-    json.result.items.forEach(value => {
-      if (!value.parent) {
-        value['parent'] = {
-          _id: 0
-        }
-      }
-    })
-    const tree = getTree(json.result.items, '_id',);
-    const arrayCategory = sortCategory(tree[0]['children'], -1, [])
-    this.setState({
-      ...this.getState(),
-      category: [{
-        title: "Все",
-        value: 'all'
-      }, ...arrayCategory]
-    })
-  }
   /**
    * Устанвока параметров и загрузка списка товаров
    * @param params

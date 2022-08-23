@@ -15,6 +15,7 @@ import useStore from '../hooks/use-store';
 function App() {
   const store = useStore();
   const modal = useSelector(state => state.modals.name);
+
   useEffect(() => {
     store.get('profile').fetchProfile(localStorage.getItem('auth-token'))
   }, [])

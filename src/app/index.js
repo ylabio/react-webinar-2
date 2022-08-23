@@ -28,14 +28,12 @@ function App() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      callbacks.setAuth(localStorage.getItem("token"));
-    }
+    callbacks.setAuth(localStorage.getItem("token"));
   }, []);
 
   const btnExit = (
     <Btn
-      title="Выйте"
+      title="Выход"
       name={select.user.name}
       setLogin={callbacks.setLogin}
       setDelete={callbacks.setDelete}

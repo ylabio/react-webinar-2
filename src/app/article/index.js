@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { Link } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import { useParams } from "react-router-dom";
@@ -10,7 +11,6 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
-import Btn from "../../components/btn/btn";
 
 function Article({ btnExit }) {
   const store = useStore();
@@ -25,6 +25,7 @@ function Article({ btnExit }) {
   const select = useSelector((state) => ({
     article: state.article.data,
     waiting: state.article.waiting,
+    log: state.login.log,
   }));
 
   const { t } = useTranslate();
@@ -42,7 +43,15 @@ function Article({ btnExit }) {
           <LocaleSelect />
         </LayoutFlex>
       }
-      btn={btnExit}
+      btn={
+        select.log ? (
+          btnExit
+        ) : (
+          <Link to="/login">
+            <button>Вход</button>
+          </Link>
+        )
+      }
     >
       <Tools />
       <Spinner active={select.waiting}>

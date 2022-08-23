@@ -115,8 +115,6 @@ class AuthorisationState extends StateModule{
         }
       });
 
-      history.back();
-
     } catch (error){
       this.setState({
         token: null,

@@ -9,6 +9,7 @@ import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
 import ProfileMenu from "../../containers/profile-menu";
 import LoginForm from "../../components/login-form";
+import {Navigate} from "react-router-dom";
 
 function Login(){
   const store = useStore();
@@ -17,6 +18,10 @@ function Login(){
   const select = useSelector(state => ({
     error: state.authorisation.error,
     waiting: state.authorisation.waiting,
+    redirect: state.path.redirect,
+    previousPage: state.path.previous,
+
+    authorisedUser: state.authorisation.authorisedUser,
   }));
 
   const callbacks = {
@@ -32,7 +37,14 @@ function Login(){
     }), [lang]),
   }
 
-  useEffect(() => () => store.get('authorisation').reset(), [])
+  useEffect(() => () => {
+    store.get('authorisation').reset();
+    store.get('path').setPreviousPath(true, true);
+  }, []);
+
+  if (!select.previousPage && select.authorisedUser) return <Navigate replace to="/profile"/>;
+  if (select.previousPage && select.authorisedUser && select.redirect) return <Navigate replace to="/profile"/>;
+  if (select.previousPage && select.authorisedUser && !select.redirect) history.back();
 
   return (
     <Layout head={

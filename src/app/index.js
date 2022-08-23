@@ -18,6 +18,7 @@ function App() {
 
   useInit(async () => {
     await store.get('authorisation').checkAuthorisation();
+    if(window.location.pathname !== '/login') store.get('path').setPreviousPath(true);
   }, [], {backForward: true});
 
   const modal = useSelector(state => state.modals.name);

@@ -12,7 +12,7 @@ import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
 import Btn from "../../components/btn/btn";
 
-function Article() {
+function Article({ btnExit }) {
   const store = useStore();
 
   // Параметры из пути /articles/:id
@@ -25,8 +25,6 @@ function Article() {
   const select = useSelector((state) => ({
     article: state.article.data,
     waiting: state.article.waiting,
-    log: state.login.log,
-    user: state.login.user,
   }));
 
   const { t } = useTranslate();
@@ -34,11 +32,6 @@ function Article() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback((_id) => store.get("basket").addToBasket(_id), []),
-    setLogin: useCallback(
-      () => store.get("login").setLogin(select.log),
-      [select.log]
-    ),
-    setDelete: useCallback((token) => store.get("login").setDelete(token), []),
   };
 
   return (
@@ -49,14 +42,7 @@ function Article() {
           <LocaleSelect />
         </LayoutFlex>
       }
-      btn={
-        <Btn
-          title="Выйте"
-          name={select.user.name}
-          setLogin={callbacks.setLogin}
-          setDelete={callbacks.setDelete}
-        />
-      }
+      btn={btnExit}
     >
       <Tools />
       <Spinner active={select.waiting}>

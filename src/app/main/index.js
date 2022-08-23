@@ -10,9 +10,8 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
-import Btn from "../../components/btn/btn";
 
-function Main() {
+function Main({ btnExit }) {
   const store = useStore();
 
   useInit(
@@ -27,17 +26,7 @@ function Main() {
 
   const select = useSelector((state) => ({
     log: state.login.log,
-    user: state.login.user,
   }));
-
-  const callbacks = {
-    // вход/выход
-    setLogin: useCallback(
-      () => store.get("login").setLogin(select.log),
-      [select.log]
-    ),
-    setDelete: useCallback((token) => store.get("login").setDelete(token), []),
-  };
 
   return (
     <Layout
@@ -49,12 +38,7 @@ function Main() {
       }
       btn={
         select.log ? (
-          <Btn
-            title="Выйте"
-            name={select.user.name}
-            setLogin={callbacks.setLogin}
-            setDelete={callbacks.setDelete}
-          />
+          btnExit
         ) : (
           <Link to="/login">
             <button>Вход</button>

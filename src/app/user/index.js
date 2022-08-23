@@ -9,9 +9,8 @@ import Tools from "../../containers/tools";
 import Prof from "../../components/prof";
 import Cabinet from "../../components/layout-cabinet";
 import LocaleSelect from "../../containers/locale-select";
-import Btn from "../../components/btn/btn";
 
-function Authorization() {
+function Authorization({ btnExit }) {
   const store = useStore();
   let navigate = useNavigate();
   const { t } = useTranslate();
@@ -20,17 +19,6 @@ function Authorization() {
     log: state.login.log,
     user: state.login.user,
   }));
-
-  console.log("log", select.log);
-
-  const callbacks = {
-    // вход/выход
-    setLogin: useCallback(
-      () => store.get("login").setLogin(select.log),
-      [select.log]
-    ),
-    setDelete: useCallback((token) => store.get("login").setDelete(token), []),
-  };
 
   useEffect(() => {
     if (!select.log) {
@@ -46,14 +34,7 @@ function Authorization() {
           <LocaleSelect />
         </LayoutFlex>
       }
-      btn={
-        <Btn
-          title="Выйте"
-          name={select.user.name}
-          setLogin={callbacks.setLogin}
-          setDelete={callbacks.setDelete}
-        />
-      }
+      btn={btnExit}
     >
       <Tools />
       <Cabinet head={"Профиль"}>

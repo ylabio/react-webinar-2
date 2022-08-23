@@ -5,7 +5,7 @@ import './style.css';
 function Select(props){
 
   const onSelect = useCallback((e) => {
-    props.onChange(e.target.value);
+    props.onChange(e.target.value, props.options[0].type);
   }, [props.onChange])
 
   return (

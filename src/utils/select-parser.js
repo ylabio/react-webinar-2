@@ -1,9 +1,9 @@
 export default function parser(arr){
-    const finalArr = [{key: '-20', title: 'Все', value: '', dashes: null, id: null}];
+    const finalArr = [{key: '-20', title: 'Все', value: '', dashes: '', id: null}];
   
     for (let i = 0; i < arr.length; i++){//формирование главных категорий товариров
       if(typeof arr[i].parent === 'undefined'){
-        finalArr.push({key : arr[i]._key, value: arr[i].name, title: arr[i].title, dashes: null, id:arr[i]._id})
+        finalArr.push({key : arr[i]._key, value: arr[i].name, title: arr[i].title, dashes: '', id:arr[i]._id})
       }
     }
   
@@ -14,7 +14,7 @@ export default function parser(arr){
             for(let k = 0; finalArr.length - k > j; k++){
               finalArr[finalArr.length - k] = finalArr[finalArr.length - k - 1]
             }
-            finalArr[j].dashes === null
+            finalArr[j].dashes === ''
             ? finalArr[j + 1] = {key : arr[i]._key, value: arr[i].name, title: arr[i].title, dashes : '-', id: arr[i]._id}
             : finalArr[j + 1] = {key : arr[i]._key, value: arr[i].name, title: arr[i].title, dashes : finalArr[j].dashes + '-', id: arr[i]._id}
           }
@@ -22,5 +22,5 @@ export default function parser(arr){
       }
     }
   
-    return finalArr;
+    return finalArr.map(item => ({id: item.id, title: item.dashes + item.title, value:item.value, type: 'category'}));
   }

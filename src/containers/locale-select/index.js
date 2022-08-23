@@ -1,11 +1,10 @@
 import React, {useMemo} from "react";
 import useTranslate from "../../hooks/use-translate";
-import SelectSorting from "../../components/select-sorting";
+import Select from "../../components/select";
 
 function LocaleSelect() {
 
   const {lang, setLang, t} = useTranslate();
-
 
   const options = {
     lang: useMemo(() => ([
@@ -15,7 +14,7 @@ function LocaleSelect() {
   };
 
   return (
-    <SelectSorting onChange={setLang} value={lang} options={options.lang}/>
+    <Select onChange={setLang} value={lang} options={options.lang}/>
   );
 }
 

@@ -32,7 +32,7 @@ class CatalogState extends StateModule{
         sort: 'sort',
         query: '',
       },
-      select: [],
+      categories: [],
       waiting: false
     };
   }
@@ -57,6 +57,7 @@ class CatalogState extends StateModule{
     const newParams = {...this.initState().params, ...validParams, ...params};
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
+    await this.initCategories();
   }
 
   /**
@@ -77,9 +78,27 @@ class CatalogState extends StateModule{
    * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
    * @returns {Promise<void>}
    */
-  async setParams(params = {}, historyReplace = false){
-    const newParams = {...this.getState().params, ...params};
-
+  async setParams(params={}, type, historyReplace = false){
+    let newParams = {}
+    if (type === 'category'){
+      const category = this.getState().categories.filter(item => item.name === params.sort);
+      if (category.length === 1) {
+        const id = category[0]._id;
+        let newString = this.getState().params.sort.indexOf('&search[category]=') === -1
+      ? this.getState().params.sort + '&search[category]=' + id
+      : this.getState().params.sort.substring(0, this.getState().params.sort.indexOf('&search[category]=')) + '&search[category]=' + id
+      newParams = {...this.getState().params, sort : newString}
+    } else {
+      newParams = {...this.getState().params,...params}
+    }
+    } else if (type === 'sort'){
+      this.getState().params.sort.indexOf('&search[category]=') === -1
+      ? newParams = {...this.getState().params, ...params}
+      : newParams = {...this.getState().params, sort : params.sort + this.getState().params.sort.substring(this.getState().params.sort.indexOf('&search[category]='))}
+    } else {
+      newParams = {...this.getState().params, ...params};
+    }
+    
     // Установка новых параметров и признака загрузки
     this.setState({
       ...this.getState(),
@@ -91,15 +110,11 @@ class CatalogState extends StateModule{
     const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
     const json = await response.json();
 
-    const responseSelect = await fetch('/api/v1/categories')
-    const jsonSelect = await responseSelect.json();
-
     // Установка полученных данных и сброс признака загрузки
     this.setState({
       ...this.getState(),
       items: json.result.items,
       count: json.result.count,
-      select: jsonSelect,
       waiting: false
     });
 
@@ -112,6 +127,17 @@ class CatalogState extends StateModule{
     } else {
       window.history.pushState({}, '', url);
     }
+  }
+
+  async initCategories(){
+    const response = await fetch('/api/v1/categories')
+    const json = await response.json();
+
+    this.setState({
+      ...this.getState(),
+      categories: json.result.items
+    })
+
   }
 }
 

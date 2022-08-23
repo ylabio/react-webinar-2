@@ -14,6 +14,8 @@ import useInit from '../../hooks/use-init'
 function Profile() {
   const {t} = useTranslate();
   const store = useStore();
+
+
   const select = useSelector(state => ({
     data: state.user.user.data,
     token: state.user.token,
@@ -21,7 +23,7 @@ function Profile() {
   }));
   // Загрузка данных для пользователя
   useInit( async() => {
-      if (!select.auth) await store.get('user').load()
+      if (select.auth !== false || select.token.length > 1) await store.get('user').load()
     }, [], {backForward: true});
 
 

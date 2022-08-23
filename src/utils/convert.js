@@ -22,7 +22,7 @@ function convert(prop) {
       let result = [];
       tree.forEach(treeItem => {
         let {children, ...item} = treeItem;
-        item.title = '-'.repeat(level) + item.title;
+        item.title = ' - '.repeat(level) + item.title;
         result.push(item);
         result = result.concat(treeToFlatList(children, level + 1))
       });

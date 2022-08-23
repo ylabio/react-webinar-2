@@ -65,13 +65,14 @@ class UserState extends StateModule {
   }
 
   async load() {
-    const response = await fetch('/api/v1/users/self',
-      {
-        method: "GET", headers: {
-          'Content-Type': 'application/json',
-          "X-Token": `${this.getState().token || localStorage.getItem('token')}`
-        }
-      });
+    try {
+      const response = await fetch('/api/v1/users/self',
+        {
+          method: "GET", headers: {
+            'Content-Type': 'application/json',
+            "X-Token": `${this.getState().token || localStorage.getItem('token')}`
+          }
+        });
       const json = await response.json();
       // User загружен успешно
       this.setState({
@@ -79,6 +80,12 @@ class UserState extends StateModule {
         user: {data: json.result, error: ''},
         auth: true,
       });
+    } catch (e) {
+      this.setState({
+        ...this.getState(),
+        auth: false,
+      })
+    }
   }
 }
 

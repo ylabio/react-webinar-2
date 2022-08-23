@@ -12,7 +12,7 @@ function Auth(){
   const select = useSelector(state => ({
     auth: state.user.auth,
     token: state.user.token,
-    name: state.user.user.data.profile?.name
+    name: state.user.user.data
   }));
   const cn = bem('Auth');
   const callbacks = {
@@ -25,7 +25,7 @@ function Auth(){
     <div className={cn()}>
       {(select.token || select.auth) ?
         <>
-          <Link to={'/profile'}><p className={cn('profile')} onClick={e => e.stopPropagation()}>{select.name || t('profile')}</p></Link>
+          <Link to={'/profile'}><p className={cn('profile')} onClick={e => e.stopPropagation()}>{select.name.profile?.name || t('profile')}</p></Link>
 
           <button onClick={callbacks.logOut}>{t('logout')}</button>
         </>

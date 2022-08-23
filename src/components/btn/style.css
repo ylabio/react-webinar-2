@@ -4,8 +4,10 @@
 
 .Btn h6 {
   padding-right: 20px;
-  font-size: 14px;
+  font-size: 13px;
+  line-height: 15px;
   display: inline;
+  color: #0087e9;
 }
 
 .Btn button {

@@ -32,12 +32,16 @@ class AuthState extends StateModule{
           "X-Token": `${this.getState().token}`
         }
       })
-        .then(response => response.json())
+        .then(response => {
+          if(response.ok) return response.json()
+          throw Error("Server rejected token")
+        })
         .then(json => this.setState({
           ...this.getState(),
           user: json["result"],
           waiting: false
         }))
+        .catch(() => this.logOut())
     }
 
   }

@@ -18,7 +18,7 @@ const Auth = () => {
 
   const select = useSelector(state => ({
     token: state.auth.token,
-    userName: state.auth.user.profile?.name,
+    userName: state.auth.user?.profile?.name,
   }));
 
   const callbacks = {

@@ -29,21 +29,17 @@ class UserState extends StateModule {
       loading: true,
     });
 
-    // Попробовать так /api/v1/users/sign
-    const response = await fetch(
-      `api/v1/users/sign?fields=_id,email,profile(name,phone)`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          login: login,
-          password: password,
-          remember: true,
-        }),
-      }
-    );
+    const response = await fetch(`/api/v1/users/sign`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        login: login,
+        password: password,
+        remember: true,
+      }),
+    });
     const json = await response.json();
 
     if (response.ok) {
@@ -53,6 +49,7 @@ class UserState extends StateModule {
         user: json.result.user,
         token: json.result.token,
         loading: false,
+        error: '',
       });
     } else {
       this.setState({

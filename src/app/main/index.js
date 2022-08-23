@@ -10,6 +10,7 @@ import Layout from '../../components/layout';
 import LocaleSelect from '../../containers/locale-select';
 import useAuth from '../../hooks/use-auth';
 import LoginTools from '../../components/login-tools';
+import LoginPanel from '../../containers/login-panel';
 
 function Main() {
   const store = useStore();
@@ -24,16 +25,11 @@ function Main() {
   );
 
   const { t } = useTranslate();
-  const { user, isAuth } = useAuth();
-
-  const callbacks = {
-    logout: useCallback(() => store.get('user').logout(), []),
-  };
 
   return (
     <>
-      <LoginTools userName={user.profile?.name} onLogout={callbacks.logout} />
       <Layout
+        loginPanel={<LoginPanel />}
         head={
           <LayoutFlex flex='between'>
             <h1>{t('title')}</h1>

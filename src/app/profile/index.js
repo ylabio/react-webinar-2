@@ -1,10 +1,10 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../../components/layout';
 import LayoutFlex from '../../components/layout-flex';
-import LoginTools from '../../components/login-tools';
 import UserDetails from '../../components/user-details';
 import LocaleSelect from '../../containers/locale-select';
+import LoginPanel from '../../containers/login-panel';
 import Tools from '../../containers/tools';
 import useAuth from '../../hooks/use-auth';
 import useInit from '../../hooks/use-init';
@@ -17,10 +17,6 @@ const Profile = () => {
   const { user, isAuth } = useAuth();
   const navigate = useNavigate();
 
-  const callbacks = {
-    logout: useCallback(() => store.get('user').logout(), []),
-  };
-
   useInit(
     async () => {
       await store.get('user').checkAuth();
@@ -31,20 +27,18 @@ const Profile = () => {
   );
 
   return (
-    <>
-      <LoginTools userName={user.profile?.name} onLogout={callbacks.logout} />
-      <Layout
-        head={
-          <LayoutFlex flex='between'>
-            <h1>{t('title')}</h1>
-            <LocaleSelect />
-          </LayoutFlex>
-        }
-      >
-        <Tools />
-        <UserDetails user={user} />
-      </Layout>
-    </>
+    <Layout
+      loginPanel={<LoginPanel />}
+      head={
+        <LayoutFlex flex='between'>
+          <h1>{t('title')}</h1>
+          <LocaleSelect />
+        </LayoutFlex>
+      }
+    >
+      <Tools />
+      <UserDetails user={user} />
+    </Layout>
   );
 };
 

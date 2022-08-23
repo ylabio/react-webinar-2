@@ -13,3 +13,8 @@
   display: flex;
   flex-direction: column;
 }
+
+.LoginForm-error {
+  color: #ff0000;
+  margin-bottom: 20px;
+}

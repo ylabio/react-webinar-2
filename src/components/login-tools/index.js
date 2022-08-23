@@ -26,4 +26,11 @@ const LoginTools = ({ userName, onLogout }) => {
   );
 };
 
-export default LoginTools;
+LoginTools.propTypes = {
+  userName: propTypes.string,
+  onLogout: propTypes.func,
+};
+
+LoginTools.defaultProps = {};
+
+export default React.memo(LoginTools);

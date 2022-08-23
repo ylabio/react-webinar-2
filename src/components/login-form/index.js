@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import propTypes from 'prop-types';
 
 const LoginForm = ({ onLogin, error }) => {
   const cn = bem('LoginForm');
@@ -45,4 +46,11 @@ const LoginForm = ({ onLogin, error }) => {
   );
 };
 
-export default LoginForm;
+LoginForm.propTypes = {
+  onLogin: propTypes.func,
+  error: propTypes.string,
+};
+
+LoginForm.defaultProps = {};
+
+export default React.memo(LoginForm);

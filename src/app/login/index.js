@@ -10,11 +10,9 @@ import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import Authorization from '../../containers/authorization';
 import Spinner from '../../components/spinner';
-import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const store = useStore();
-  const navigate = useNavigate();
 
   const select = useSelector((state) => ({
     error: state.authorization.error,

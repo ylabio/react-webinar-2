@@ -42,15 +42,17 @@ class LoginState extends StateModule {
           ...this.getState(),
           waiting: false,
           error: json.error.data.issues[0].message
-      });
-      } else {localStorage.setItem("token", json.result.token)
+        });
+      } else {
+        localStorage.setItem("token", json.result.token)
         // авторизация успешно
         this.setState({
           ...this.getState(),
           isLoggedIn: true,
           waiting: false,
         });
-        await this.isAuth()}
+        await this.isAuth()
+      }
     } catch (e) {
       // Ошибка при загрузке
       // @todo В стейт можно положть информауию об ошибке
@@ -62,10 +64,12 @@ class LoginState extends StateModule {
   }
 
   resetError() {
-    this.setState({
-      ...this.getState(),
-      error: '',
-    });
+    if (this.getState().error) {
+      this.setState({
+        ...this.getState(),
+        error: '',
+      });
+    }
   }
 
   async logout() {

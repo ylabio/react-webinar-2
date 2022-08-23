@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Forms from "../../components/forms";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -21,8 +21,11 @@ function Login() {
     waiting: state.login.waiting,
   }));
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const callbacks = {
-    onSubmit: useCallback((email, password) => store.get('login').login(email, password), []),
+    onSubmit: useCallback(() => store.get('login').login(email, password), [email, password]),
     resetError: useCallback(() => store.get('login').resetError(), []),
   };
 
@@ -46,7 +49,14 @@ function Login() {
       <Tools/>
       <Spinner active={select.waiting}>
         <LayoutFlex flex="start">
-          <Forms resetError={callbacks.resetError} onSubmit={callbacks.onSubmit} error={select.error}/>
+          <Forms
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            onSubmit={callbacks.onSubmit}
+            resetError={callbacks.resetError}
+            error={select.error}/>
         </LayoutFlex>
       </Spinner>
     </Layout>

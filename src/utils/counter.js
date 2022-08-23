@@ -31,7 +31,7 @@ export function categories(arr = []) {
     for (let i = 0; i < arr.length; i++) {
       secondCategory.map(item => {
         if(item?._id === arr[i]?.parent?._id) {
-          const elem = {...arr[i], title: `-- ${arr[i].title}`, order: 2}
+          const elem = {...arr[i], title: `- - ${arr[i].title}`, order: 2}
           thirdCategory.push(elem) 
         }
       })
@@ -40,7 +40,7 @@ export function categories(arr = []) {
     for (let i = 0; i < arr.length; i++) {
       thirdCategory.map(item => {
         if(item?._id === arr[i]?.parent?._id) {
-          const elem = {...arr[i], title: `-- ${arr[i].title}`, order: 2}
+          const elem = {...arr[i], title: `- - ${arr[i].title}`, order: 2}
           thirdCategory.push(elem) 
         }
       })
@@ -48,7 +48,19 @@ export function categories(arr = []) {
 
     const mainarr = [...firstCategory, ...secondCategory, ...thirdCategory]
     const sortedAtt = mainarr.sort((a,b) => a.order - b.order)
-    // console.log(sortedAtt)
+    sortedAtt.unshift({
+      dateCreate: "",
+      dateUpdate: "",
+      description: "",
+      isDeleted: false,
+      isNew: true,
+      name: "",
+      order: 1,
+      proto: {},
+      title: "Все",
+      _id: "",
+      _key: "1",
+      _type: "category"})
     return sortedAtt
       
 }

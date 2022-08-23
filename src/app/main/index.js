@@ -18,7 +18,9 @@ function Main() {
   const token = localStorage.getItem('token')
  
   const select = useSelector(state => ({
-    result: state.form.result
+    result: state.form.result,
+    surname: state.form.result?.result?.profile?.surname
+
   }));
 
   useEffect(() => {
@@ -26,6 +28,7 @@ function Main() {
       callbacks.getToken(token)
     }
   }, [])
+
 
   const callbacks = {
     getToken: useCallback((token) => store.get('form').loadProfile(token), []),
@@ -46,7 +49,7 @@ function Main() {
         <HeaderSign 
           logout={callbacks.fetchLogout} 
           result={select.result.result} 
-          profile={token ? token : null}
+          profile={select.surname}
         />
         <h1>{t('title')}</h1>
         <LocaleSelect/>

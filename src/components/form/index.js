@@ -22,18 +22,13 @@ function Form(props) {
     return (
         <form
             onSubmit={onSubmit}
-            className={cn()}>
-            <h2>Вход {token ? 'выполнен' : null}</h2>
-            {
-                token 
-                ? null
-                : <>
-                    <FormInput toInput={props.toLogin} label={'Логин'} type={'text'} value={props.login}/>
-                    <FormInput toInput={props.toPassword} label={'Пароль'} type={'password'} value={props.password}/>
-                    <p className={cn('error')}>{props.error}</p>
-                    <button>Войти</button>
-                </>
-            }
+            className={cn()}
+            >
+                <h2>Вход</h2>
+                <FormInput toInput={props.toLogin} label={'Логин'} type={'text'} value={props.login}/>
+                <FormInput toInput={props.toPassword} label={'Пароль'} type={'password'} value={props.password}/>
+                <p className={cn('error')}>{props.error}</p>
+                <button>Войти</button>
         </form>
     );
 

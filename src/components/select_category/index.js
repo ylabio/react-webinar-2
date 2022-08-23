@@ -8,9 +8,10 @@ function SelectCategory(props){
     props.onChange(e.target.value);
   }, [props.onChange])
 
+  console.log(props.value)
+
   return (
     <select className="Select" onChange={onSelect} value={props.value}>
-      <option value=''>Все</option>
       {props?.options.map(item => (
         <option key={item?.value} value={item?.value}>{item?.title}</option>
       ))}

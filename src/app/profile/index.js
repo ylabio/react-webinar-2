@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import {useParams} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 import useTranslate from "../../hooks/use-translate";
 import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
@@ -13,7 +13,7 @@ import UserInfo from "../../components/user_info";
 function Profile(){
     const store = useStore();
 
-    const {token} = useParams();
+    const token = localStorage.getItem('token')
 
     useEffect(() => {
       callbacks.getToken(token)
@@ -22,8 +22,11 @@ function Profile(){
     const {t} = useTranslate();
 
     const select = useSelector(state => ({
-      result: state.form.result
+      result: state.form.result,
+      surname: state.form.result?.result?.user?.profile?.surname,
+      user: state.form.result
     }));
+
     const callbacks = {
       inputLogin: useCallback((login) => store.get('form').inputLogin(login), []),
       inputPassword: useCallback((password) => store.get('form').inputPassword(password), []),
@@ -31,8 +34,8 @@ function Profile(){
       fetchLogout:  useCallback(() => store.get('form').logout(), []),
       getToken: useCallback((token) => store.get('form').loadProfile(token), []),
     };
-
     
+    if(!token) return <Navigate to={`/login`} />
 
   return (
     <Layout head={
@@ -40,12 +43,11 @@ function Profile(){
           <HeaderSign 
             logout={callbacks.fetchLogout} 
             result={select.result.result} 
-            profile={select?.result?.result?.token}
+            profile={select.surname}
           />
           <h1>{t('title')}</h1>
           <LocaleSelect/>
         </LayoutGrid>
-        
       }>
         <Tools/>
         <UserInfo result={select.result}/>

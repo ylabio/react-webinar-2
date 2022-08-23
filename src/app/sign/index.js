@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -7,29 +7,47 @@ import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import LayoutGrid from "../../components/layout-grid";
 import HeaderSign from '../../components/header_sign'
+import {Navigate} from "react-router-dom";
 import Form from "../../components/form";
 
 function Sign(){
-    const store = useStore();
-  
-    const {t} = useTranslate();
+  const store = useStore();
+  const {t} = useTranslate();
 
-    const token = localStorage.getItem('token')
+  const [link, setLink] = useState()
+
+  const token = localStorage.getItem('token')
+
+  useEffect(() => {
+    if(token) {
+      callbacks.getToken(token)
+    }
+  }, [token])
+
+  const select = useSelector(state => ({
+    login: state.form.login,
+    password: state.form.password,
+    result: state.form.result,
+    surname: state.form.result?.result?.user?.profile?.surname,
+    error: state.form.result?.error?.data?.issues[0]?.message,
+  }));
+
+  useEffect(() => {
+    if(select.result.result?.profile?.surname) {
+      setLink(true)
+    }
+  }, [select.result.result?.profile?.surname])
+
+  const callbacks = {
+    inputLogin: useCallback((login) => store.get('form').inputLogin(login), []),
+    inputPassword: useCallback((password) => store.get('form').inputPassword(password), []),
+    fetchLogin: useCallback(() => store.get('form').login(), []),
+    fetchLogout:  useCallback((token) => store.get('form').logout(token), []),
+    getToken: useCallback((token) => store.get('form').loadProfile(token), []),
+  };
 
 
-    const select = useSelector(state => ({
-      login: state.form.login,
-      password: state.form.password,
-      result: state.form.result,
-      error: state.form.result?.error?.data?.issues[0]?.message
-    }));
-
-    const callbacks = {
-      inputLogin: useCallback((login) => store.get('form').inputLogin(login), []),
-      inputPassword: useCallback((password) => store.get('form').inputPassword(password), []),
-      fetchLogin: useCallback(() => store.get('form').login(), []),
-      fetchLogout:  useCallback((token) => store.get('form').logout(token), []),
-    };
+  if(link) return <Navigate to={`/profile/${select?.result?.result?.profile?.surname}`} />
 
   return (
     <Layout head={
@@ -37,7 +55,7 @@ function Sign(){
           <HeaderSign 
             logout={callbacks.fetchLogout} 
             result={select.result?.result} 
-            profile={token ? token : select?.result?.result?.token}/>
+            profile={select.surname}/>
           <h1>{t('title')}</h1>
           <LocaleSelect/>
         </LayoutGrid>

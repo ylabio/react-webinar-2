@@ -80,7 +80,8 @@ class CatalogState extends StateModule{
    */
   async resetParams(params = {}){
     // Итоговые параметры из начальных, из URL и из переданных явно
-    const newParams = {...this.initState().params, ...params};
+    const newParams = {...this.initState().params, ...params,};
+    console.log(newParams)
     // Установк параметров и подгрузка данных
     await this.setParams(newParams);
   }
@@ -107,8 +108,6 @@ class CatalogState extends StateModule{
       params: newParams,
       waiting: true
     });
-
-    console.log(newParams)
 
     const skip = (newParams.page - 1) * newParams.limit;
     let response

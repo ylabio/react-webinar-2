@@ -28,29 +28,29 @@ function Article(){
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
-    result: state.form.result
+    result: state.form.result,
+    surname: state.form.result?.result?.profile?.surname,
   }));
+
+  console.log(select.surname)
 
   const {t} = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    fetchLogout:  useCallback(() => store.get('form').logout(), []),
   };
 
   return (
     <Layout head={
-      // <LayoutFlex flex="between">
-      //   <h1>{select.article.title}</h1>
-      //   <LocaleSelect/>
-      // </LayoutFlex>
       <LayoutGrid flex="between">
       <HeaderSign 
       logout={callbacks.fetchLogout} 
       result={select.result.result}
-      profile={token ? token : null}
+      profile={select.surname}
       />
-      <h1>{t('title')}</h1>
+      <h1>{t(select.article.title)}</h1>
       <LocaleSelect/>
     </LayoutGrid>
     }>

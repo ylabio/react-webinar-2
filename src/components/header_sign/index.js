@@ -13,7 +13,7 @@ function HeaderSign({result, logout, profile}){
     ? 
     <div className={cn()}>
       <Link to={`/profile/${profile}`}>{result?.user?.profile?.name || result?.profile?.name}</Link>
-      <Link to={'/'}><button onClick={logout} >{'Выйти'}</button></Link> 
+      <button onClick={logout} >{'Выйти'}</button> 
     </div>
     : <Link to={'/login'}><button className={cn()}>{'Вход'}</button></Link> 
   ) 

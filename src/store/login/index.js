@@ -69,6 +69,10 @@ class LoginState extends StateModule {
 
     localStorage.setItem('TOKEN', data.result.token);
 
+    this.setState({
+      ...this.initState()
+    }, 'Очищаем состояние формы авторизации');
+
     this.store.get('session').setUser(data.result.user);
 
     this.store.get('session').changeLoading(false);

@@ -19,17 +19,18 @@ function Main() {
 
   const select = useSelector(state => ({
     isAuth: state.auth.isAuth,
-    username: state.auth.user.username
+    username: typeof state.auth.user === 'undefined' ? null : state.auth.user.username
   }))
 
   const callbacks = {
-    logout: useCallback(() => store.get('auth').logout(),[]),
+    logout: useCallback(() => store.get('auth').logout(), []),
+    initAuth: useCallback(() => store.get('auth').logout(), [])
   }
 
   const {t} = useTranslate();
 
   return (
-    <Layout isAuth={select.isAuth} userName={select.username} logout={callbacks.logout} head={
+    <Layout isAuth={select.isAuth} userName={select.username} logout={callbacks.logout} initAuth={callbacks.initAuth} head={
       <LayoutFlex flex="between">
         <h1>{t('title')}</h1>
         <LocaleSelect/>

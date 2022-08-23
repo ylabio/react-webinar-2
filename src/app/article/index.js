@@ -25,7 +25,7 @@ function Article(){
     article: state.article.data,
     waiting: state.article.waiting,
     isAuth: state.auth.isAuth,
-    username: state.auth.user.username
+    username: typeof state.auth.user === 'undefined' ? null : state.auth.user.username
   }));
 
   const {t} = useTranslate();
@@ -33,11 +33,12 @@ function Article(){
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    logout: useCallback(() => store.get('auth').logout(), [])  
+    logout: useCallback(() => store.get('auth').logout(), []),
+    initAuth: useCallback(() => store.get('auth').logout(), [])
   };
 
   return (
-    <Layout isAuth={select.isAuth} logout={callbacks.logout} userName ={select.username} head={
+    <Layout isAuth={select.isAuth} initAuth={callbacks.initAuth} logout={callbacks.logout} userName ={select.username} head={
       <LayoutFlex flex="between">
         <h1>{select.article.title}</h1>
         <LocaleSelect/>

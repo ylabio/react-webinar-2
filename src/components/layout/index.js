@@ -5,7 +5,7 @@ import './style.css';
 import Entrance from '../entrance';
 import Logout from '../logout'
 
-function Layout({head, children, isAuth, userName, logout}){
+function Layout({head, children, isAuth, userName, logout, initAuth}){
   const cn = bem('Layout');
 
   return (
@@ -13,7 +13,7 @@ function Layout({head, children, isAuth, userName, logout}){
     <div className={cn()}>
     {isAuth
     ? <Logout userName={userName} logout={logout}/>
-    : <Entrance />}
+    : <Entrance initAuth={initAuth}/>}
       <div className={cn('head')}>
         {head}
       </div>

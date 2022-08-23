@@ -25,7 +25,7 @@ function LoginForm(props){
 
     return(
         <div className={cn()}>
-            <h2>{t("login")}</h2>
+            <h2>{t("enetrance")}</h2>
             <form onSubmit={onSubmitHandler}>
             <div className={cn('input')}>
                 <div>{t('login')}</div>

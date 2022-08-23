@@ -4,16 +4,13 @@ import './style.css';
 import {Link} from 'react-router-dom'
 import useTranslate from "../../hooks/use-translate";
 
-function Entrance(){
+function Entrance({initAuth}){
     const cn = bem('Entrance');
 
     const {t} = useTranslate();
-    
-    const onClickHandler = () => {
-    } 
 
     return(
-        <div className={cn()}><button onClick={onClickHandler}><Link to={"/login"}>{`${t('login')}`}</Link></button></div>
+        <div className={cn()}><button><Link to={"/login"}>{`${t('enter')}`}</Link></button></div>
     )
 }
 

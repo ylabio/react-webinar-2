@@ -17,7 +17,6 @@ function Logout({userName, logout}){
             <div className={cn('link')}><Link to={'/profile'}>{userName}</Link></div>
             <div className={cn('button')}><button onClick={()=>logout()}>{t('exit')}</button></div>   
         </div>
-        <hr/>
         </>
         
     )

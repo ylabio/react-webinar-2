@@ -1,5 +1,5 @@
 export default function parser(arr){
-    const finalArr = [{key: '-20', title: 'Все', value: '', dashes: '', id: null}];
+    const finalArr = [{key: '-20', title: 'Все', value: 'all', dashes: '', id: null}];
   
     for (let i = 0; i < arr.length; i++){//формирование главных категорий товариров
       if(typeof arr[i].parent === 'undefined'){
@@ -15,8 +15,8 @@ export default function parser(arr){
               finalArr[finalArr.length - k] = finalArr[finalArr.length - k - 1]
             }
             finalArr[j].dashes === ''
-            ? finalArr[j + 1] = {key : arr[i]._key, value: arr[i].name, title: arr[i].title, dashes : '-', id: arr[i]._id}
-            : finalArr[j + 1] = {key : arr[i]._key, value: arr[i].name, title: arr[i].title, dashes : finalArr[j].dashes + '-', id: arr[i]._id}
+            ? finalArr[j + 1] = {key : arr[i]._key, value: arr[i].name, title: arr[i].title, dashes : ' - ', id: arr[i]._id}
+            : finalArr[j + 1] = {key : arr[i]._key, value: arr[i].name, title: arr[i].title, dashes : finalArr[j].dashes + ' - ', id: arr[i]._id}
           }
         }
       }

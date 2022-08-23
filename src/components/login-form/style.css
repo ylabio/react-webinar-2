@@ -10,3 +10,8 @@
     margin: 20px;
     color: #FF0000;
 }
+
+.LoginForm-input input{
+    font-size: 16px;
+    padding: 2px;
+}

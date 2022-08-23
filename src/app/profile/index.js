@@ -7,6 +7,7 @@ import useTranslate from "../../hooks/use-translate";
 import Tools from "../../containers/tools";
 import useStore from "../../hooks/use-store";
 import ProfileList from "../../components/profile-list";
+import Spinner from "../../components/spinner";
 
 function Profile(){
 
@@ -16,11 +17,12 @@ function Profile(){
         user: state.auth.user,
         error: state.auth.error,
         isAuth: state.auth.isAuth,
+        waiting: state.auth.waiting
     }));
 
     const items = [
       {title : 'Имя', value: select.user.username}, 
-      {title :'телефон', value : select.user.phone}, 
+      {title :'телефон', value : select.user.profile.phone}, 
       {title :'email', value: select.user.email},]
 
     const callbacks = {
@@ -32,6 +34,7 @@ function Profile(){
     const {t} = useTranslate();
 
     return(
+      <Spinner active={select.waiting}>
         <Layout isAuth={select.isAuth} userName={select.user.username} logout={callbacks.logout} head={
             <LayoutFlex flex="between">
               <h1>{t('title')}</h1>
@@ -41,6 +44,7 @@ function Profile(){
           <Tools />
            <ProfileList items={items}/>
           </Layout>
+      </Spinner>
     )
 }
 

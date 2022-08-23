@@ -30,9 +30,9 @@ class CatalogState extends StateModule{
         page: 1,
         limit: 10,
         sort: 'sort',
+        category: null,
         query: '',
       },
-      categories: [],
       waiting: false
     };
   }
@@ -47,17 +47,19 @@ class CatalogState extends StateModule{
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
 
+    console.log(urlParams)
+
     let validParams = {};
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
+    if (urlParams.category) validParams.category = urlParams.category;
     if (urlParams.query) validParams.query = urlParams.query;
 
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = {...this.initState().params, ...validParams, ...params};
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
-    await this.initCategories();
   }
 
   /**
@@ -79,25 +81,8 @@ class CatalogState extends StateModule{
    * @returns {Promise<void>}
    */
   async setParams(params={}, type, historyReplace = false){
-    let newParams = {}
-    if (type === 'category'){
-      const category = this.getState().categories.filter(item => item.name === params.sort);
-      if (category.length === 1) {
-        const id = category[0]._id;
-        let newString = this.getState().params.sort.indexOf('&search[category]=') === -1
-      ? this.getState().params.sort + '&search[category]=' + id
-      : this.getState().params.sort.substring(0, this.getState().params.sort.indexOf('&search[category]=')) + '&search[category]=' + id
-      newParams = {...this.getState().params, sort : newString}
-    } else {
-      newParams = {...this.getState().params,...params}
-    }
-    } else if (type === 'sort'){
-      this.getState().params.sort.indexOf('&search[category]=') === -1
-      ? newParams = {...this.getState().params, ...params}
-      : newParams = {...this.getState().params, sort : params.sort + this.getState().params.sort.substring(this.getState().params.sort.indexOf('&search[category]='))}
-    } else {
-      newParams = {...this.getState().params, ...params};
-    }
+    const newParams = {...this.getState().params, ...params};
+    
     
     // Установка новых параметров и признака загрузки
     this.setState({
@@ -107,7 +92,7 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${newParams.category? `&search[category]= ${newParams.category}` : ''}`);
     const json = await response.json();
 
     // Установка полученных данных и сброс признака загрузки
@@ -127,17 +112,6 @@ class CatalogState extends StateModule{
     } else {
       window.history.pushState({}, '', url);
     }
-  }
-
-  async initCategories(){
-    const response = await fetch('/api/v1/categories')
-    const json = await response.json();
-
-    this.setState({
-      ...this.getState(),
-      categories: json.result.items
-    })
-
   }
 }
 

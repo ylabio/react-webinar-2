@@ -62,8 +62,14 @@ class ProfileState extends StateModule {
     }
   }
 
+  async initUser() {
+    const token = localStorage.getItem('token')
+    if (token) {
+      this.getProfile()
+    }
+  }
+
   async getProfile() {
-    console.log('ошибка здесь')
     this.setState({
       ...this.getState(),
       waiting: true,
@@ -109,8 +115,7 @@ class ProfileState extends StateModule {
   }
 
   async logOut() {
-    // debugger
-    localStorage.removeItem('token')
+    localStorage.clear()
     this.setState({
       ...this.getState(),
       user: {},

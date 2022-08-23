@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react'
 import useStore from '../../hooks/use-store'
-// import useInit from '../../hooks/use-init'
 import useSelector from '../../hooks/use-selector'
 import useTranslate from '../../hooks/use-translate'
 import Auth from '../../components/auth'
@@ -16,8 +15,7 @@ function AuthContainer() {
 
   useInit(
     async () => {
-      console.log('ошибка auth')
-      await store.get('profile').getProfile()
+      await store.get('profile').initUser()
     },
     [select.auth],
     { backForward: false }

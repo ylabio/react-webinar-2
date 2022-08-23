@@ -33,7 +33,6 @@ class CatalogState extends StateModule{
         sort: 'order',
         query: ''
       },
-      categories: [],
       waiting: false
     };
   }
@@ -48,7 +47,7 @@ class CatalogState extends StateModule{
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
     //Загрузка из api списка категорий товаров
-    await this.#getCategories();
+    await this.store.get('categories').getCategories();
     let validParams = {};
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
@@ -109,39 +108,6 @@ class CatalogState extends StateModule{
     } else {
       window.history.pushState({}, '', url);
     }
-  }
-
-  /**
-   * Загрузка из api списка категорий товаров
-   */
-  async #getCategories(){
-    const response = await fetch('/api/v1/categories');
-    const json = await response.json();
-    const categories = json.result.items.map(cat => ({
-      id: cat._id,
-      title: cat.title,
-      parent: cat.parent?._id
-    }));
-
-    for (let cat of categories) {
-      let parent = cat.parent;
-      while (parent) {
-        cat.title = ' - ' + cat.title;
-        parent = categories.find(c => c.id === parent).parent;
-      }
-    }
-
-    categories.forEach((cat, index) => {
-      if (cat.parent) {
-        categories.splice(categories.findIndex(c => c.id === cat.parent) + 1, 0, cat);
-        categories.splice(index + 1, 1);
-      }
-    })
-
-    this.setState({
-      ...this.getState(),
-      categories: categories
-    }, 'Загрузка категорий товавор в стейт')
   }
 }
 

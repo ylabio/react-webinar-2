@@ -1,7 +1,7 @@
 import StateModule from "../module";
 
 /**
- * Состояние товара
+ * Состояние языка интерфейса
  */
 class LocaleState extends StateModule{
 

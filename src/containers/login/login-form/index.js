@@ -41,7 +41,7 @@ function LoginForm() {
                   type={'password'}
                   onFocus={select.auth.isError ? callbacks.resetError : () => {
                   }}/>
-      {select.auth.isError && <LoginError t={t}/>}
+      {select.auth.isError && <LoginError t={t} errorCode={select.auth.errorCode}/>}
     </LayoutForm>
   )
 }

@@ -17,7 +17,7 @@
   "filter.reset": "Reset",
   "login.login": "Login",
   "login.logout": "Logout",
-  "login.error": "Some error from the server",
+  "login.error.Validation": "Incorrect login and/or password",
   "login.title": "Login",
   "login.submit": "Enter",
   "login.userLogin": "Login",

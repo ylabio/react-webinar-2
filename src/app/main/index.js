@@ -9,7 +9,7 @@ function Main() {
   const store = useStore();
 
   useInit(async () => {
-    store.get('catalog').fetchCategories();
+    store.get('options').fetchCategories();
     await store.get('catalog').initParams();
   }, [], {backForward: true});
 

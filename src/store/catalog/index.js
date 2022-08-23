@@ -1,6 +1,5 @@
 import StateModule from '../module';
 import qs from 'qs';
-import categoriesTransformer from '../../utils/categoriesTransformer';
 
 const QS_OPTIONS = {
   stringify: {
@@ -26,9 +25,6 @@ class CatalogState extends StateModule {
     return {
       items: [],
       count: 0,
-      options: {
-        categories: [{ id: '01', value: '', title: 'Все' }],
-      },
       params: {
         page: 1,
         limit: 10,
@@ -45,24 +41,6 @@ class CatalogState extends StateModule {
    * Восстановление из query string адреса
    * @return {Promise<void>}
    */
-  async fetchCategories() {
-    try {
-      const response = await fetch('/api/v1/categories?limit=*');
-      const data = await response.json();
-      const categories = categoriesTransformer(data.result.items);
-
-      this.setState({
-        ...this.getState(),
-        options: {
-          ...this.getState().options,
-          categories: [...this.initState().options.categories, ...categories],
-        },
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   async initParams(params = {}) {
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {};

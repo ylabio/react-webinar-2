@@ -15,7 +15,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.options.categories,
+    categories: state.options.categories,
   }));
 
   const {t} = useTranslate();

@@ -18,7 +18,7 @@ function LayoutFlex({children, flex, padding}){
 LayoutFlex.propTypes = {
   children: propTypes.node,
   flex: propTypes.oneOf(['start', 'end', 'between']),
-  padding: propTypes.bool
+  padding: propTypes.oneOfType([propTypes.string, propTypes.bool])
 }
 
 LayoutFlex.defaultProps = {

@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import useSelector from "../../../hooks/use-selector";
 import useStore from "../../../hooks/use-store";
 import useTranslate from "../../../hooks/use-translate";
@@ -13,7 +13,12 @@ function LoginForm() {
 
   const select = useSelector(state => ({
     auth: state.login,
-  }))
+  }));
+
+  // Сброс ошибки от сервера при демонтировании компонента
+  useEffect(() => {
+    return () => {store.get('login').resetError()};
+  }, []);
 
   const callbacks = {
     // Отправка запроса на авторизацию
@@ -25,6 +30,7 @@ function LoginForm() {
     // Сброс ошибки
     resetError: useCallback(() => store.get('login').resetError(), [])
   }
+
   return (
     <LayoutForm title={t('login.title')}
                 onSubmit={callbacks.onLogin}

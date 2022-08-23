@@ -6,7 +6,9 @@ import Select from '../../components/select'
 import Input from '../../components/input'
 import LayoutFlex from '../../components/layout-flex'
 import useInit from '../../hooks/use-init'
-import { sortItem } from '../../utils/sort-item'
+// import { sortItem } from '../../utils/sort-item'
+import { createList } from '../../utils/create-list'
+import { createTreeCategory } from '../../utils/create-tree-category'
 
 function CatalogFilter() {
   const store = useStore()
@@ -25,6 +27,8 @@ function CatalogFilter() {
     category: state.catalog.params.category,
     categories: state.catalog.categories,
   }))
+
+  const tree = createTreeCategory(select.categories)
 
   const { t } = useTranslate()
 
@@ -55,13 +59,18 @@ function CatalogFilter() {
     ),
     categories: useMemo(
       () => [
-        { value: '', title: 'Все' },
-        ...sortItem(select.categories).map((el) => ({ value: el._id, title: el.title })),
+        { title: 'Все', value: '' },
+        ...createList(tree).map((el) => ({ title: el.title, value: el._id })),
       ],
       [select.categories]
     ),
   }
 
+  // const categories = [
+  //   { title: 'Все', value: '' },
+  //   ...createList(tree).map((el) => ({ title: el.title, value: el._id })),
+  // ]
+  // console.log
   return (
     <LayoutFlex flex='start'>
       <Select

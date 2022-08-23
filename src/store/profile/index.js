@@ -41,7 +41,7 @@ class ProfileState extends StateModule {
       if (json.error) {
         this.setState({
           ...this.getState(),
-          error: json.error.message,
+          error: 'Какая-то ошибка от сервера',
           waiting: false,
         })
       } else {
@@ -55,7 +55,7 @@ class ProfileState extends StateModule {
     } catch (err) {
       this.setState({
         ...this.getState(),
-        error: err,
+        error: 'Какая-то ошибка от сервера',
         waiting: false,
       })
       console.log(err.message)
@@ -63,6 +63,7 @@ class ProfileState extends StateModule {
   }
 
   async getProfile() {
+    console.log('ошибка здесь')
     this.setState({
       ...this.getState(),
       waiting: true,
@@ -74,7 +75,6 @@ class ProfileState extends StateModule {
       const response = await fetch('/api/v1/users/self', {
         method: 'GET',
         headers: {
-          Accept: 'application/json',
           'Content-Type': 'application/json',
           'X-Token': token,
         },
@@ -109,13 +109,14 @@ class ProfileState extends StateModule {
   }
 
   async logOut() {
+    debugger
+    localStorage.removeItem('token')
     this.setState({
       ...this.getState(),
       user: {},
       auth: false,
       error: '',
     })
-    await localStorage.removeItem('token')
   }
 }
 

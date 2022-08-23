@@ -63,6 +63,12 @@ class AuthState extends StateModule {
       }
     }, 'Обнуление ошибки')
   }
+
+  resetState() {
+    this.setState({
+      ...this.initState()
+    })
+  }
 }
 
 export default AuthState

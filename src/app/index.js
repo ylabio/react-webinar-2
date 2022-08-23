@@ -6,14 +6,40 @@ import Basket from './basket';
 import Article from './article';
 import Login from './login';
 import Profile from './profile';
+import useInit from '../hooks/use-init';
+import useStore from '../hooks/use-store';
+import Spinner from '../components/spinner';
 
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
-  const modal = useSelector((state) => state.modals.name);
+  const store = useStore();
 
+  useInit(
+    async () => {
+      await store.get('app').init();
+    },
+    [],
+    { backForward: true }
+  );
+
+  const select = useSelector((state) => ({
+    modal: state.modals.name,
+    waiting: state.app.waiting,
+    initialized: state.app.initialized,
+  }));
+
+  // здесь должен показываться loader, пока приложение инициализируется
+  // пока использую Spinner как заглушку, хоть он и не отображается
+  if (!select.initialized) {
+    return (
+      <Spinner active={true}>
+        <></>
+      </Spinner>
+    );
+  }
   return (
     <>
       <Routes>
@@ -22,7 +48,7 @@ function App() {
         <Route path={'/login'} element={<Login />} />
         <Route path={'/profile/:id'} element={<Profile />} />
       </Routes>
-      {modal === 'basket' && <Basket />}
+      {select.modal === 'basket' && <Basket />}
     </>
   );
 }

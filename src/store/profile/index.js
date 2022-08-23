@@ -17,6 +17,7 @@ class ProfileState extends StateModule {
         email: null,
       },
       waiting: false,
+      error: false,
     };
   }
 
@@ -44,10 +45,12 @@ class ProfileState extends StateModule {
     this.setState({
       ...this.getState(),
       waiting: true,
+      error: false,
     });
 
     try {
-      const response = await fetch(`/api/v1/users/self`, {
+      const userId = id ? id : 'self';
+      const response = await fetch(`/api/v1/users/${userId}`, {
         headers: {
           'X-Token': localStorage.getItem('token'),
         },
@@ -68,9 +71,17 @@ class ProfileState extends StateModule {
           email: json.result.email,
         };
         this.setAuthProfile(userData);
+      } else {
+        this.setState({
+          ...this.getState(),
+          error: true,
+        });
       }
     } catch (error) {
-      console.log(error);
+      this.setState({
+        ...this.getState(),
+        error: true,
+      });
     } finally {
       this.setState({
         ...this.getState(),

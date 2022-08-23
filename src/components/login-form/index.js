@@ -39,7 +39,6 @@ function LoginForm({ auth, errorServer, t, disabledLogin }) {
           {t('auth.login')}
           <input
             className={cn('input')}
-            placeholder="login"
             {...register('login', {
               required: 'Поле обязательно к заполнению',
               onChange: () => clearErrors('login'),
@@ -53,7 +52,6 @@ function LoginForm({ auth, errorServer, t, disabledLogin }) {
           <input
             type="password"
             className={cn('input', { error: errors?.password })}
-            placeholder="password"
             {...register('password', {
               required: 'Поле обязательно к заполнению',
               onChange: () => clearErrors('password'),

@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
-import useInit from '../../hooks/use-init';
 import useTranslate from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
 import Tools from '../../containers/tools';
@@ -13,23 +12,12 @@ import HeaderContainer from '../../containers/header-container';
 function Login() {
   const store = useStore();
   const { t } = useTranslate();
-  const navigate = useNavigate();
 
   const select = useSelector((state) => ({
     error: state.auth.error,
     waiting: state.auth.waiting,
     isAuth: state.auth.isAuth,
   }));
-
-  useInit(async () => {}, [], { backForward: true });
-
-  console.log(select);
-
-  useEffect(() => {
-    if (select.isAuth) {
-      return navigate('/');
-    }
-  }, [select.isAuth]);
 
   const callbacks = {
     auth: useCallback((data) => store.get('auth').login(data)),
@@ -46,6 +34,9 @@ function Login() {
     }
   }, [select.error]);
 
+  if (select.isAuth) {
+    return <Navigate to="/" />;
+  }
   return (
     <Layout head={<HeaderContainer />}>
       <Tools />

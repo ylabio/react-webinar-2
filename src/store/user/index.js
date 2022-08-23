@@ -21,17 +21,17 @@ class UserState extends StateModule {
     };
   }
   /**
-   * Загрузка информации о пользователе
+   * Авторизация пользователя
    */
   async authUser() {
-    // Установка признака ожидания загрузки
+    // Очистка параметров
     this.setState({
       ...this.getState(),
       error: '',
       authorized: false,
       waiting: true,
     });
-    // Авторизация
+    // Запрос токена авторизации с сервера
     const response = await fetch(`/api/v1//users/sign`, {
       method: 'POST',
       body: JSON.stringify({
@@ -46,7 +46,7 @@ class UserState extends StateModule {
       const json = await response.json();
       window.localStorage.setItem('access_token', json.result.token)
 
-      // Данные о пользователе получены успешно
+      // Пользователь успешно авторизован
       this.setState({
         ...this.getState(),
         login: '',
@@ -56,7 +56,7 @@ class UserState extends StateModule {
         waiting: false
       });
     } else {
-      // Ошибка при загрузке
+      // Ошибка авторизации
       this.setState({
         ...this.getState(),
         error: 'Данные введены неверно: HTTP-Error: ' + response.status + '. Повторите ввод.',
@@ -65,7 +65,9 @@ class UserState extends StateModule {
       });
     }
   }
-
+  /**
+   * Получение данных пользователя
+   */
   async setProfile() {
     const myHeaders = new Headers({
       'Content-Type': 'application/json; charset=UTF-8"',
@@ -84,7 +86,7 @@ class UserState extends StateModule {
         data: json.result,
       });
     } else {
-      // Ошибка при загрузке
+      // Ошибка при загрузке данных пользователя
       this.setState({
         ...this.getState(),
         error: 'Ошибка пользователя: ' + response.status,
@@ -108,13 +110,15 @@ class UserState extends StateModule {
       password: password
     });
   }
-
+  /**
+   * Выход пользователя из профиля
+   */
   async setExit() {
     const myHeaders = new Headers({
       'Content-Type': 'application/json; charset=UTF-8"',
       'X-Token': window.localStorage.getItem('access_token')
     })
-    // Выход пользователя из профиля
+    // Удаление токена на сервере и из памяти браузера
     const response = await fetch(`/api/v1//users/sign`, {
       method: 'DELETE',
       headers: myHeaders
@@ -124,6 +128,7 @@ class UserState extends StateModule {
       window.localStorage.setItem('access_token', '')
     }
 
+    // Сброс данных к начальному состоянию
     this.setState({
       login: '',
       password: '',

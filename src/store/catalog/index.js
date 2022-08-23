@@ -1,6 +1,5 @@
 import StateModule from "../module";
 import qs from 'qs';
-import {addLabels, makeTree} from '../../utils/make-categories'
 
 const QS_OPTIONS = {
   stringify: {
@@ -27,7 +26,6 @@ class CatalogState extends StateModule{
     return {
       items: [],
       count: 0,
-      categories: [],
       params: {
         page: 1,
         limit: 10,
@@ -59,7 +57,7 @@ class CatalogState extends StateModule{
     const newParams = {...this.initState().params, ...validParams, ...params};
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
-    await this.getCategories();
+    // await this.getCategories();
   }
 
   /**
@@ -72,26 +70,6 @@ class CatalogState extends StateModule{
     const newParams = {...this.initState().params, ...params};
     // Установк параметров и подгрузка данных
     await this.setParams(newParams);
-  }
-
-
-  async getCategories(){
-    fetch(`api/v1/categories`)
-    .then(response => response.json())
-    .then(result => {
-      const arr = result.result.items.map(item => item.parent 
-        ? {id: item._id, parentId: item.parent._id, value: item.name, title: item.title} 
-        : {id: item._id, value: item.name, title: item.title}
-      );
-      
-      const categories = addLabels(makeTree(arr));
-      categories.unshift({value:'', title: 'Все'});
-
-      this.setState({
-        ...this.getState(),
-        categories: categories,
-      });
-    });
   }
 
   /**

@@ -30,7 +30,7 @@ const LoginForm = ({title, authMessage, callback}) => {
         value={login}
         onChange={setLogin}
       />
-      <InputBlock label={t('auth.pass')} value={pass} onChange={setPass} />
+      <InputBlock label={t('auth.pass')} type='password' value={pass} onChange={setPass} />
       <span className={cn('error')}>{authMessage}</span>
       <button>{t('auth.enter')}</button>
     </form>

@@ -4,13 +4,13 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import Input from '../input'
 
-function InputBlock({label, value, onChange}) {
+function InputBlock({label, value, onChange, ...props}) {
   const cn = bem('InputBlock');
 
   return (
     <div className={cn()}>
     <label>{label}</label>
-    <Input value={value} onChange={onChange}/>
+    <Input value={value} onChange={onChange} {...props}/>
   </div>
   )
 }

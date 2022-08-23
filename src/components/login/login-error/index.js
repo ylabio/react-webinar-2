@@ -10,7 +10,7 @@ function LoginError({t, errorCode}) {
 
   return (
     <div className={cn()}>
-      {t(`login.error.${errorCode}`)}
+      {t(`login.error`)}{errorCode}
     </div>
   )
 }

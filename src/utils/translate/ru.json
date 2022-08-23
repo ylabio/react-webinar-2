@@ -19,7 +19,7 @@
   "filter.reset": "Сбросить",
   "login.login": "Вход",
   "login.logout": "Выход",
-  "login.error.Validation": "Неверный логин и/или пароль",
+  "login.error": "Ошибка: ",
   "login.title": "Вход",
   "login.submit": "Войти",
   "login.userLogin": "Логин",

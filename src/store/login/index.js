@@ -61,8 +61,8 @@ class LoginState extends StateModule {
       this.setState({
         ...this.getState(),
         isError: true,
-        errorCode: data.error.code
-      }, 'Получена ошибка: ' + data.error.code)
+        errorCode: data.error.data.issues[0].message
+      }, 'Получена ошибка: ' + data.error.data.issues[0].message)
 
       return
     }

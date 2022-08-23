@@ -47,7 +47,7 @@ function AuthForm(props) {
           <span>{props.t('authForm.password')}</span>
           <input
             className={cn('input-field')}
-            type={'text'}
+            type={'password'}
             name={'password'}
             required
             value={form.password}

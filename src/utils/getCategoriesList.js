@@ -14,7 +14,7 @@ function getCategoriesList(categories) {
         const { _id: value, title } = category;
         orderedCategories.push(
           { value, title },
-          ...getCategoriesList(items, category._id, separator + '-')
+          ...getCategoriesList(items, category._id, separator + '- ')
         );
       }
     });

@@ -71,9 +71,15 @@ class AuthFormState extends StateModule {
     } else {      
       console.log('Login error') //! Консоль
       const {error} = await response.json();
+
+      let errorMessage = '';
+      for(const issue of error.data.issues) {
+        errorMessage += issue.message;
+      }
+      
       this.setState({
         ...this.getState(),
-        error: error.message,
+        error: errorMessage,
       })
     }  
   }

@@ -9,13 +9,15 @@ import LayoutFlex from "../../components/layouts/layout-flex";
 import Layout from "../../components/layouts/layout";
 import LocaleSelect from "../../containers/locale-select";
 import PanelLogin from "../../containers/panel-login";
+import {useLocation} from "react-router-dom";
 
 function Main() {
   const store = useStore();
+  const location = useLocation();
 
   useInit(async () => {
     await store.get('catalog').initParams();
-  }, [], {backForward: true});
+  }, [location.search], {backForward: true});
 
   const {t} = useTranslate();
 

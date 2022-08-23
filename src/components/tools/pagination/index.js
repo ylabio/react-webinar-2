@@ -11,11 +11,6 @@ function Pagination(props) {
   // Количество страниц
   const length = Math.ceil(props.count / Math.max(props.limit, 1));
 
-  // Колбек на смену страницы
-  const cb = {
-    onClickHandler: useCallback(number => props.onChange(number), [window.location]),
-  };
-
   // Формирование ссылок для страниц пагинации
   const createLink = (page) => {
     const path = window.location;
@@ -53,7 +48,6 @@ function Pagination(props) {
         <Link to={`/?${createLink(number)}`}
               key={index}
               className={cn('item', {active: number === props.page, split: !number})}
-              onClick={() => cb.onClickHandler(number)}
         >
           {number || '...'}
         </Link>

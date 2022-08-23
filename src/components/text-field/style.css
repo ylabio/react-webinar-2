@@ -1,0 +1,17 @@
+.TextField {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1px;
+}
+
+.TextField input{
+    font-size: 16px;
+    padding: 2px;
+}
+
+.TextField_theme_md input{
+    width: 196px;
+}
+.TextField_theme_big input{
+    width: 300px;
+}

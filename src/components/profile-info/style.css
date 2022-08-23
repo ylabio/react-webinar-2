@@ -1,0 +1,23 @@
+.ProfileInfo {
+	padding: 20px;
+}
+
+.ProfileInfo-title {
+	margin-bottom: 30px;
+}
+
+.ProfileInfo-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	font-size: 18px;
+	line-height: 21px;
+}
+.ProfileInfo-list li span {
+	display: inline-block;
+	font-weight: 700;
+	margin-left: 6px;
+}

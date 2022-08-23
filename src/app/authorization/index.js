@@ -17,6 +17,7 @@ function Authorization() {
 
   const select = useSelector((state) => ({
     log: state.login.log,
+    user: state.login.user,
   }));
 
   const [stateFetch, setStateFetch] = useState({ login: "", password: "" });
@@ -60,7 +61,7 @@ function Authorization() {
     >
       <Tools />
       <Cabinet head={"Вход"}>
-        <Form setStateFetch={setStateFetch} />
+        <Form setStateFetch={setStateFetch} user={select.user} />
       </Cabinet>
     </Layout>
   );

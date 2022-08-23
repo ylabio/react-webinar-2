@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-function Form({ setStateFetch }) {
+function Form({ setStateFetch, user }) {
   const [state, setState] = useState({ login: "", password: "" });
 
   const cn = bem("Form");
@@ -29,6 +29,7 @@ function Form({ setStateFetch }) {
           onChange={(e) => setState({ ...state, password: e.target.value })}
         />
       </label>
+      <div>{user.error && user.error}</div>
       <button onClick={handleAction}>Войти</button>
     </form>
   );

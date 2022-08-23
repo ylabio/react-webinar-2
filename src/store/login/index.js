@@ -27,10 +27,11 @@ class LogState extends StateModule {
         }),
       });
       const json = await response.json();
+      console.log("cc", json);
 
-      if (!json) {
+      if (json.error) {
         this.setState({
-          ...this.store.state.login,
+          user: { error: json.error.data.issues[0].message },
           log: false,
         });
       } else {

@@ -8,8 +8,11 @@
   display: block;
   width: 70px;
   cursor: pointer;
-  margin-top: 20px;
 }
 .Form h5 {
   margin: 0;
+}
+.Form div {
+  color: red;
+  font-size: 14px;
 }

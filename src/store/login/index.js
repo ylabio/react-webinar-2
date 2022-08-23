@@ -99,6 +99,8 @@ class LogState extends StateModule {
           log: false,
         });
       }
+
+      localStorage.removeItem("token");
     } catch (e) {}
   }
 }

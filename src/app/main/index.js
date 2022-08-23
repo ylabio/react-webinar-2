@@ -18,18 +18,25 @@ function Main() {
   }
   const select = useSelector(state => ({
     token: state.user.user.token,
+
   }));
   useInit(async () => {
     await store.get('catalog').initParams();
   }, [], { backForward: true });
   const { t } = useTranslate();
   return (
-    <Layout top={<LoginButton deleteUser={callbacks.deleteUser} token={select.token} />} head={
-      <LayoutFlex flex="between">
-        <h1>{t('title')}</h1>
-        <LocaleSelect />
-      </LayoutFlex>
-    }>
+    <Layout top={
+      <LoginButton
+        path={'/profile'}
+        deleteUser={callbacks.deleteUser}
+        token={select.token}
+      />}
+      head={
+        <LayoutFlex flex="between">
+          <h1>{t('title')}</h1>
+          <LocaleSelect />
+        </LayoutFlex>
+      }>
       <Tools />
       <CatalogFilter />
       <CatalogList />

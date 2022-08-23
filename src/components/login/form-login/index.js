@@ -2,7 +2,7 @@ import React from 'react'
 import './style.css'
 import propTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
-function LoginForm({ loginUser, error, data, handleChange, }) {
+function LoginForm({ loginUser, error, data, handleChange,auth }) {
     const { login, password } = data
     async function handleSubmit(evt) {
         evt.preventDefault();
@@ -21,7 +21,7 @@ function LoginForm({ loginUser, error, data, handleChange, }) {
                     error ? <div className='wrapper-error'><p>{error}</p></div> : null
                 }
                 <div className='button-wrapper'>
-                    <button >Войти</button>
+                    <button disabled={auth}>Войти</button>
                 </div>
             </div>
         </form>
@@ -37,8 +37,10 @@ LoginForm.propTypes = {
     error: propTypes.any,
     data: propTypes.object.isRequired,
     handleChange: propTypes.func.isRequired,
+    auth:propTypes.bool,
 }
 LoginForm.defaultProps = {
     error: null,
+    auth:false,
 }
 export default LoginForm

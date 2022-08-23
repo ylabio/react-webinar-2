@@ -13,6 +13,7 @@ function Login() {
         error: state.user.user.error,
         token: state.user.user.token,
         user: state.user.user.userName,
+        auth: state.user.user.auth,
     }));
     const [data, setData] = useState({
         login: '',
@@ -42,6 +43,7 @@ function Login() {
         }>
             <Tools />
             <LoginForm
+                auth={select.auth}
                 error={select.error}
                 loginUser={callbacks.loginUser}
                 exitUser={callbacks.exitUser}

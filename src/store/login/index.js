@@ -128,6 +128,17 @@ class LoginState extends StateModule{
       });
     }
   }
+
+  /**
+   * Обнуление ошибки
+   */
+
+  removeErr () {
+    this.setState({
+      ...this.getState(),
+      err: [],
+    });
+  }
 }
 
 export default LoginState;

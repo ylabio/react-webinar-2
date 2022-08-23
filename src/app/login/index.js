@@ -10,9 +10,14 @@ import PanelLogin from "../../containers/panel-login";
 import useSelector from "../../hooks/use-selector";
 import Spinner from "../../components/spinner";
 import useRedirect from "../../hooks/use-redirect";
+import useInit from "../../hooks/use-init";
 
 function Login() {
   const store = useStore();
+
+  useInit(async () => {
+      await store.get('login').removeErr();
+  }, []);
 
   const select = useSelector(state => ({
     isAuth: state.login.isAuth,

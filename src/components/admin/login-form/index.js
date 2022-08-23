@@ -24,6 +24,8 @@ function LoginForm(props) {
     }, []),
   };
 
+  console.log(props.err)
+
   return (
     <div className={cn()}>
       <div className={cn('title')}>{props.t('panel.enter')}</div>

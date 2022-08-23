@@ -15,7 +15,6 @@ import Btn from "../components/btn/btn";
  */
 function App() {
   const select = useSelector((state) => ({
-    log: state.login.log,
     user: state.login.user,
     modal: state.modals.name,
   }));
@@ -24,10 +23,7 @@ function App() {
 
   const callbacks = {
     setAuth: useCallback((token) => store.get("login").setAuth(token), []),
-    setLogin: useCallback(
-      () => store.get("login").setLogin(select.log),
-      [select.log]
-    ),
+    setLogin: useCallback(() => store.get("login").setLogin(true), []),
     setDelete: useCallback((token) => store.get("login").setDelete(token), []),
   };
 

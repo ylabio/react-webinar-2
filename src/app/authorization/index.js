@@ -29,8 +29,8 @@ function Authorization() {
   const callbacks = {
     // вход/выход
     setLogin: useCallback(
-      () => store.get("login").setLogin(stateFetch, select.log),
-      [select.log, stateFetch]
+      () => store.get("login").setLogin(false, stateFetch),
+      [stateFetch]
     ),
   };
 

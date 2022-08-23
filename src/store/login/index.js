@@ -14,7 +14,7 @@ class LogState extends StateModule {
     };
   }
 
-  async setLogin(state, a) {
+  async setLogin(a, state) {
     try {
       this.setState({
         ...this.store.state.login,

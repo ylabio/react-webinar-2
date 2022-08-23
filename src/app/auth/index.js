@@ -18,7 +18,11 @@ function Auth() {
 	const navigate = useNavigate();
 	useEffect(() => {
 		if (isAuth || token) {
-			navigate('/');
+			if (window.history.state && window.history.state.idx > 0) {
+				navigate(-1);
+			} else {
+				navigate('/', { replace: true });
+			}
 		}
 	}, [isAuth, token]);
 

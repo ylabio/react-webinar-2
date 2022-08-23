@@ -19,5 +19,8 @@
   "filter.reset": "Сбросить",
   "auth.login": "Вход",
   "auth.logout": "Выход",
-  "auth.password": "Пароль"
+  "auth.password": "Пароль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+  "profile.email": "Email"
 }

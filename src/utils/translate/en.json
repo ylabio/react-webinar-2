@@ -17,5 +17,8 @@
   "filter.reset": "Reset",
   "auth.login": "Login",
   "auth.logout": "Logout",
-  "auth.password": "Password"
+  "auth.password": "Password",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "profile.email": "Email"
 }

@@ -17,6 +17,7 @@ function Profile() {
   const store = useStore();
   const params = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslate();
 
   const select = useSelector((state) => ({
     name: state.profile.data.name,
@@ -36,13 +37,11 @@ function Profile() {
     await store.get('profile').getProfile(params.id);
   }, [params.id]);
 
-  const { t } = useTranslate();
-
   return (
     <Layout head={<HeaderContainer />}>
       <Tools />
       <Spinner active={select.waiting}>
-        <ProfileView name={select.name} phone={select.phone} email={select.email} />
+        <ProfileView name={select.name} phone={select.phone} email={select.email} t={t} />
       </Spinner>
     </Layout>
   );

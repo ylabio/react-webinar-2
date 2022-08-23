@@ -1,10 +1,16 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, { useCallback, useEffect } from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import Login from "../../components/login";
 import Spinner from "../../components/spinner";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import Layout from "../../components/layout";
+import LayoutFlex from "../../components/layout-flex";
+import LocaleSelect from "../../containers/locale-select";
+import LayoutLogin from "../../components/layout-login";
+import AuthContainer from "../../containers/auth-container";
+import Tools from "../../containers/tools";
 
 function Auth() {
   const store = useStore();
@@ -30,9 +36,13 @@ function Auth() {
 
   const navigate = useNavigate();
 
+  const location = useLocation()
+
   useEffect(() => {
-    if (select.token) {
-      navigate(-1)
+    if (select.token&&location.key !== 'default') {
+      navigate(-1);
+    } else if (select.token&&location.key === 'default') {
+      navigate('/');
     }
   }, [select.token])
 
@@ -43,13 +53,27 @@ function Auth() {
   }, [select.isAuthAttempt])
 
   return (
-    <Spinner active={select.waiting}>
-      <Login error={select.error}
-             user={select.user} 
-             authAttempt={callbacks.authAttempt}
-             t={t}/>
-             </Spinner>
-   
+    <Layout 
+      head={
+        <LayoutFlex flex="between">
+          <h1>{t('title')}</h1>
+          <LocaleSelect/>
+        </LayoutFlex>
+      } 
+      login={
+        <LayoutLogin>
+          <AuthContainer/>
+        </LayoutLogin>
+      }
+    >
+      <Tools/>
+      <Spinner active={select.waiting}>
+        <Login error={select.error}
+               user={select.user} 
+               authAttempt={callbacks.authAttempt}
+               t={t}/>
+      </Spinner>
+    </Layout>
   )
 }
 

@@ -2,12 +2,6 @@ import React, {useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
-import Layout from '../layout';
-import LayoutFlex from '../layout-flex';
-import LocaleSelect from '../../containers/locale-select';
-import Tools from '../../containers/tools';
-import AuthContainer from '../../containers/auth-container';
-import LayoutLogin from '../layout-login';
 
 function Login(props) {
   const cn = bem('Login');
@@ -24,20 +18,7 @@ function Login(props) {
   }
   
   return (
-    <Layout 
-      head={
-        <LayoutFlex flex="between">
-          <h1>{props.t('title')}</h1>
-          <LocaleSelect/>
-        </LayoutFlex>
-      } 
-      login={
-        <LayoutLogin>
-          <AuthContainer/>
-          </LayoutLogin>
-      }
-    >
-      <Tools/>
+    <>
       <form className={cn()} onSubmit={formSubmit}>
         <div className={cn('entry')}><h2>{props.t('auth.entry')}</h2></div>
         <div className={cn('login')}>
@@ -58,7 +39,7 @@ function Login(props) {
           </button>
         </div>
       </form>
-    </Layout>
+    </> 
   )
 }
 

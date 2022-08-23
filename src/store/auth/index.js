@@ -99,6 +99,8 @@ class AuthState extends StateModule{
       localStorage.setItem('token', json.result.token);
       
     } else {
+      const n = res;
+      console.log(n)
         const error = res.statusText;
         this.setState({
           ...this.getState(),

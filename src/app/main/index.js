@@ -1,4 +1,4 @@
-import React,{useCallback} from "react";
+import React, { useCallback } from "react";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
@@ -15,39 +15,25 @@ function Main() {
   const store = useStore();
   const callbacks = {
     deleteUser: useCallback((token) => store.get('user').deleteUser(token), []),
-
   }
   const select = useSelector(state => ({
-    
     token: state.user.user.token,
-}));
+  }));
   useInit(async () => {
     await store.get('catalog').initParams();
   }, [], { backForward: true });
-
   const { t } = useTranslate();
-
   return (
-    
-          
-         
-    <Layout top={<LoginButton deleteUser={callbacks.deleteUser} token={select.token}/>} head={
-      
-        <LayoutFlex flex="between">
-          <h1>{t('title')}</h1>
-          <LocaleSelect />
-        </LayoutFlex>
-      
-    
-      }>
-        <Tools />
-        <CatalogFilter />
-        <CatalogList />
-      </Layout>
-    
-    
-
-
+    <Layout top={<LoginButton deleteUser={callbacks.deleteUser} token={select.token} />} head={
+      <LayoutFlex flex="between">
+        <h1>{t('title')}</h1>
+        <LocaleSelect />
+      </LayoutFlex>
+    }>
+      <Tools />
+      <CatalogFilter />
+      <CatalogList />
+    </Layout>
   )
 }
 

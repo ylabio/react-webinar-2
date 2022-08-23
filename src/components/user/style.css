@@ -1,0 +1,14 @@
+.User{
+ margin-left: 20px;
+}
+.User p{
+    font-size: 18px;
+}
+.User span{
+    font-weight: 700;
+    font-size: 18px;
+}
+.Profile{
+    font-size: 24px;
+    font-weight: 700;
+}

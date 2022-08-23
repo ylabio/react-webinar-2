@@ -7,13 +7,12 @@ import Layout from '../layout'
 import LayoutFlex from '../layout-flex'
 import LoginForm from './form-login'
 import useSelector from '../../hooks/use-selector'
-import { Navigate, useNavigate } from 'react-router-dom'
 function Login() {
     const store = useStore()
-   
     const select = useSelector(state => ({
         error: state.user.user.error,
         token: state.user.user.token,
+        user: state.user.user.userName,
     }));
     const [data, setData] = useState({
         login: '',
@@ -21,25 +20,22 @@ function Login() {
     })
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })
-
     }
-    
     const callbacks = {
-        
         loginUser: useCallback((data) => {
-           
-                
-                store.get('user').loginUser(data)
-                
-              
-        }, [data.login,data.password]),
+            store.get('user').loginUser(data)
+            setData({
+                login: '',
+                password: '',
+            })
+        }, []),
         exitUser: useCallback((token) => store.get('user').exitUser(token), []),
         deleteUser: useCallback((token) => store.get('user').deleteUser(token), []),
     };
     const { t } = useTranslate()
     return (
 
-        <Layout top={<LoginButton deleteUser={callbacks.deleteUser} token={select.token} />} head={
+        <Layout top={<LoginButton name={select.user} deleteUser={callbacks.deleteUser} token={select.token} />} head={
             <LayoutFlex flex="between">
                 <h1>{t('title')}</h1>
             </LayoutFlex>

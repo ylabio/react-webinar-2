@@ -7,7 +7,6 @@ import Article from "./article";
 import Login from './../components/login/index';
 import UserInfo from './../components/user-info/index';
 import RequireAuth from '../hoc/RequireAuth';
-
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
@@ -15,7 +14,7 @@ import RequireAuth from '../hoc/RequireAuth';
 function App() {
   const select = useSelector(state => ({
     user: state.user.user,
-    modal:state.modals.name
+    modal: state.modals.name
   }));
 
   return (
@@ -24,19 +23,9 @@ function App() {
         <Route path={''} element={<Main />} />
         <Route path={"/articles/:id"} element={<Article />} />
         <Route path={"/login"} element={<Login />} />
-        <Route path={'/profile'} element={
-         <RequireAuth>
-             <UserInfo user={select.user}/>
-         </RequireAuth>
-        }/>
-       
-
-      
-            
-         
-
-        
-        
+        <Route element={<RequireAuth />}>
+          <Route path={'/profile'} element={<UserInfo />} />
+        </Route>
       </Routes>
       {select.modal === 'basket' && <Basket />}
     </>

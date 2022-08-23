@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback} from 'react';
 import useSelector from "../hooks/use-selector";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Main from "./main";
@@ -10,6 +10,7 @@ import Profile from "./profile";
 import useStore from "../hooks/use-store";
 import useTranslate from "../hooks/use-translate";
 import useInit from "../hooks/use-init";
+import LoginChecker from "../containers/login-checker";
 
 /**
  * Приложение
@@ -23,7 +24,7 @@ function App() {
     return {
       modal: state.modals.name,
       userName: state.user.user?.profile?.name,
-      isAuth: state.user.isAuth
+      isAuth: state.user.isAuth,
     }
   });
   
@@ -46,8 +47,8 @@ function App() {
               logout={isAuth ? callbacks.logout : null}/>
       <Routes>
         <Route path={''} element={<Main/>}/>
-        <Route path={'/login'} element={!isAuth ? <Login/> : <Navigate to={'/profile'}/>}/>
-        <Route path={'/profile'} element={isAuth ? <Profile/> : <Navigate to={'/login'}/>}/>
+        <Route path={'/login'} element={<LoginChecker condition={!isAuth} path={'/profile'}><Login/></LoginChecker>}/>
+        <Route path={'/profile'} element={<LoginChecker condition={isAuth} path={'/login'}><Profile/></LoginChecker>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}

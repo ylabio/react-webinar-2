@@ -14,7 +14,7 @@ function Profile(props) {
     return {
       userName: state.user.user?.profile?.name,
       userEmail: state.user.user?.email,
-      userPhone: state.user.user?.profile?.phone,
+      userPhone: state.user.user?.profile?.phone
     }
   });
   

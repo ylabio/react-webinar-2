@@ -3,7 +3,7 @@ import StateModule from "../module";
 /**
  * Состояние категорий
  */
-class CatalogState extends StateModule {
+class CategoriesState extends StateModule {
   
   /**
    * Начальное состояние
@@ -23,7 +23,7 @@ class CatalogState extends StateModule {
     
     const response = await fetch('/api/v1/categories?fields=_id,title,parent&limit=*');
     const json = await response.json();
-    console.log(json)
+
     const categories = [];
     const sortCategories = (newItems, items, parentId = null, dashCount = 0) => {
       items.forEach(item => {
@@ -48,4 +48,4 @@ class CatalogState extends StateModule {
   }
 }
 
-export default CatalogState;
+export default CategoriesState;

@@ -32,7 +32,7 @@ function Login() {
       </LayoutFlex>
     }>
       <Tools/>
-      <LoginForm errorMessage={errorMessage} login={callbacks.login} t={t}/>
+        <LoginForm errorMessage={errorMessage} login={callbacks.login} t={t}/>
     </Layout>
   )
 }

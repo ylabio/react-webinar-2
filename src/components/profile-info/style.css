@@ -1,0 +1,21 @@
+.ProfileInfo {
+  padding: 36px 20px 20px 20px;
+}
+
+.ProfileInfo-title {
+  padding: 0;
+  margin: 0;
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.ProfileInfo-list {
+  font-size: 18px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ProfileInfo-list li:nth-child(n+2) {
+  margin-top: 20px;
+}

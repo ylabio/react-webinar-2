@@ -49,7 +49,7 @@ function LoginForm(props) {
           <span>{t('auth.password')}</span>
           <input
             className={cn('input')}
-            type='text'
+            type='password'
             name='password'
             required
             value={form.password}

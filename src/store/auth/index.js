@@ -84,10 +84,12 @@ class AuthState extends StateModule {
             });
         }
         catch ({ error }) {
+            console.log(error)
+            const errorMsg = error.data.issues.reduce((total, { message }) => total + message + ', ', '').slice(0, -2);
             console.log('Login error');
             this.setState({
                 ...this.getState(),
-                errorMsg: error.message,
+                errorMsg,
             });
         }
     }
@@ -130,6 +132,7 @@ class AuthState extends StateModule {
             this.setState({
                 ...this.getState(),
                 token,
+                isAuth: true,
                 userInfo: {
                     name,
                     phone,

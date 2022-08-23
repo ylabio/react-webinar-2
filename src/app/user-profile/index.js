@@ -7,7 +7,9 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
-import UserInfo from "../../components/user-info"
+import UserInfo from "../../components/user-info";
+import { LineWave } from 'react-loader-spinner'
+
 
 function UserProfile() {
 
@@ -20,6 +22,7 @@ function UserProfile() {
 
   // check token
   useCheckToken('token');
+
 
   useEffect(() => {
     if (!isAuth) navigate('/login');

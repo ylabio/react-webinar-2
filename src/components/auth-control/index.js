@@ -19,11 +19,12 @@ function AuthControl() {
 
     const callbacks = {
         logout: useCallback(() => {
-            const data = localStorage.getItem('shop');
+            const data = localStorage.getItem('token');
             if (data) {
                 const { token } = JSON.parse(data);
                 store.get('auth').logout(token);
-                localStorage.removeItem('shop');
+                localStorage.removeItem('token');
+                // localStorage.removeItem('login');
                 navigate('/');
             }
         })

@@ -6,18 +6,19 @@ import useStore from "./use-store";
  * @param token - token в localStorage
  * @param deps - зависимости
  */
-function useCheckToken(token = '', deps = []) {
+function useLogin(login = '', deps = []) {
+    console.log("LOGIN OUTSIDE OF EFFECT")
     const store = useStore();
 
     useEffect(() => {
-        console.log("TOKEN")
-        const data = localStorage.getItem(token);
 
-        if (data) {
-            const { token } = JSON.parse(data);
-            store.get('auth').getProfile(token);
+        console.log("LOGIN")
+        const { token } = localStorage.getItem(login);
+
+        if (token) {
+            const userAuth = JSON.parse(data);
         }
     }, deps)
 }
 
-export default useCheckToken;
+export default useLogin;

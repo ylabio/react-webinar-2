@@ -20,19 +20,20 @@ function Auth() {
   }));
 
   const callbacks = {
-    onLogin: useCallback((data) => store.get('auth').login(data)),
+    onLogin: useCallback((data) => {
+      store.get('auth').login(data);
+    }),
   }
 
   // check token
   useCheckToken('token');
-
-  console.log(auth.isLogin)
   useEffect(() => {
     if (auth.isAuth) {
       localStorage.setItem('token', JSON.stringify({ token: auth.token }));
       navigate('/profile');
     }
   }, [auth.isAuth]);
+
 
   return (
     <Layout

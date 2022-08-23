@@ -94,7 +94,6 @@ class UserState extends StateModule {
     }
   }
 
-
   setLogin(login) {
     // Ввод логина
     this.setState({

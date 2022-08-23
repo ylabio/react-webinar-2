@@ -103,7 +103,7 @@ class CatalogState extends StateModule{
     }
     const articles = await resArticles.json();
     // Загрузка категорий товаров из каталога
-    const resCats = await fetch('api/v1/categories?lang=ru&fields=%2A');
+    const resCats = await fetch('api/v1/categories?lang=ru&limit=*&fields=%2A');
     const cats = await resCats.json();
 
     // Определяем вложенность категорий для правильного отображения выпадающего списка

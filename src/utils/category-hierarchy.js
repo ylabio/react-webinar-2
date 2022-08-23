@@ -3,7 +3,7 @@ export default function getCategoryHierarchy(list, pId = undefined, separator = 
   list.forEach((item) => {
     if (pId === item.parent) {
       item.title = separator + item.title;
-      categories.push(item, ...getCategoryHierarchy(list, item.value, `${separator}-`));
+      categories.push(item, ...getCategoryHierarchy(list, item.value, `${separator} - `));
     }
   });
   return categories;

@@ -4,6 +4,7 @@
 
 .Login-login{
     padding: 17px 0 19px 0;
+    
 }
 
 .Login-password{
@@ -22,5 +23,12 @@
 .Login input{
     width: 203px;
     height: 26px;
-    font-size: 16px;
+    font-size: 16px;   
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
 }

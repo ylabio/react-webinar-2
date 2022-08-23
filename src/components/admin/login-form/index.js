@@ -6,15 +6,10 @@ import './style.css';
 function LoginForm(props) {
 
   const cn = bem('LoginForm');
-  const [localErr, setLocalErr] = useState('');
 
   const cb = {
     logIn: useCallback((e) => {
       e.preventDefault();
-
-      if(e.target[0].value.trim() === '' || e.target[1].value.trim() === '') {
-        return setLocalErr('Поля не должны быть пустыми')
-      }
 
       // Функция принимающая логин и пароль с инпутов
       return props.logIn({
@@ -23,8 +18,6 @@ function LoginForm(props) {
       })
     }, []),
   };
-
-  console.log(props.err)
 
   return (
     <div className={cn()}>
@@ -40,9 +33,7 @@ function LoginForm(props) {
         </label>
         <div className={cn('err')}>
           {
-            localErr
-              ? localErr
-              : props.err.map((item, index) => <p key={index}>{item.message}</p>)
+            props.err.map((item, index) => <p key={index}>{item.message}</p>)
           }
         </div>
         <button>{props.t('form.btn')}</button>

@@ -9,7 +9,6 @@ class LoginState extends StateModule{
   initState() {
     return {
       user: {},
-      err: [],
       token: '',
       isAuth: false,
       waiting: false,
@@ -22,9 +21,15 @@ class LoginState extends StateModule{
   async checkLogin(token) {
     this.setState({
       ...this.getState(),
-      err: [],
       waiting: true,
     });
+
+    this.store.setState({
+      ...this.store.getState(),
+      error: {
+        err:[]
+      }
+    })
 
     const response = await fetch(`/api/v1/users/self`, {
       method: 'GET',
@@ -62,9 +67,15 @@ class LoginState extends StateModule{
   async logIn (data){
     this.setState({
       ...this.getState(),
-      err: [],
       waiting: true
     });
+
+    this.store.setState({
+      ...this.store.getState(),
+      error: {
+        err:[]
+      }
+    })
 
     let json;
 
@@ -91,11 +102,16 @@ class LoginState extends StateModule{
       }
     } catch (e){
       this.setState({
-        err: json.error.data.issues,
         user: {},
         isAuth: false,
         waiting: false
       });
+      this.store.setState({
+        ...this.store.getState(),
+        error: {
+          err: json.error.data.issues
+        }
+      })
     }
   }
 
@@ -105,7 +121,6 @@ class LoginState extends StateModule{
   async logOut (token){
     this.setState({
       ...this.getState(),
-      err: [],
       waiting: true,
     });
 
@@ -127,17 +142,6 @@ class LoginState extends StateModule{
         waiting: false
       });
     }
-  }
-
-  /**
-   * Обнуление ошибки
-   */
-
-  removeErr () {
-    this.setState({
-      ...this.getState(),
-      err: [],
-    });
   }
 }
 

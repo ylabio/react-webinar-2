@@ -15,13 +15,16 @@ import useInit from "../../hooks/use-init";
 function Login() {
   const store = useStore();
 
+  /**
+   * Обнуление ошибки
+   */
   useInit(async () => {
-      await store.get('login').removeErr();
+      await store.get('error').removeErr();
   }, []);
 
   const select = useSelector(state => ({
     isAuth: state.login.isAuth,
-    err: state.login.err,
+    err: state.error.err,
     waiting: state.login.waiting,
   }));
 

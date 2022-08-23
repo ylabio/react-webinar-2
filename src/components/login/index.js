@@ -5,7 +5,6 @@ import './style.css';
 import Layout from '../layout';
 import LayoutFlex from '../layout-flex';
 import LocaleSelect from '../../containers/locale-select';
-import useTranslate from '../../hooks/use-translate';
 import Tools from '../../containers/tools';
 import AuthContainer from '../../containers/auth-container';
 import LayoutLogin from '../layout-login';
@@ -14,14 +13,14 @@ function Login(props) {
   const cn = bem('Login');
 
   const [login, changeLogin] = useState('');
-  const [password, changePassword] =  useState('');
+  const [password, changePassword] = useState('');
 
   const formSubmit = (e) => {
     e.preventDefault();
     const form = e.target.elements;
     const login = form['login'].value;
     const password = form['password'].value;
-    props.authAttempt(login, password)
+    props.authAttempt(login, password);
   }
   
   return (
@@ -34,7 +33,7 @@ function Login(props) {
       } 
       login={
         <LayoutLogin>
-          <AuthContainer />
+          <AuthContainer/>
           </LayoutLogin>
       }
     >

@@ -127,9 +127,9 @@ class CatalogState extends StateModule{
     for (let i = 0; i < diff.length; i++) {
       let catListIdx = catList.findIndex((item) => item.value === diff[i].parentId)
       if (catListIdx >= 0 && i === 1) {
-        catList.splice(catListIdx + 1, 0, {...diff[i], title: '--- '.concat(diff[i].title)})
+        catList.splice(catListIdx + 1, 0, {...diff[i], title: '- - - '.concat(diff[i].title)})
       } else {
-        catList.splice(catListIdx + 1, 0, {...diff[i], title: '-- '.concat(diff[i].title)})
+        catList.splice(catListIdx + 1, 0, {...diff[i], title: '- - '.concat(diff[i].title)})
       }
     }
 

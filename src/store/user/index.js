@@ -18,32 +18,27 @@ class UserState extends StateModule {
   }
 
   async init() {
-    if (this.getState().token) {
+    this.setState({
+      ...this.getState(),
+      waiting: true,
+    });
+    const response = await fetch("/api/v1/users/self", {
+      method: "GET",
+      headers: {
+        "X-Token": `${this.getState().token}`,
+        "Content-type": "application/json",
+      },
+    });
+    const json = await response.json();
+    if (json.error) {
+      window.localStorage.removeItem("token");
+      this.setState(this.initState());
+    } else {
       this.setState({
-        ...this.getState(),
-        waiting: true,
-      });
-      const response = await fetch("/api/v1/users/self", {
-        method: "GET",
-        headers: {
-          "X-Token": `${this.getState().token}`,
-          "Content-type": "application/json",
-        },
-      });
-      const json = await response.json();
-      if (json.error) {
-        this.setState({
-          ...this.getState(),
-          waiting: false,
-        });
-        window.localStorage.removeItem("token")
-      } else{
-        this.setState({
         ...this.getState(),
         waiting: false,
         data: json.result,
       });
-      }
     }
   }
 
@@ -72,7 +67,7 @@ class UserState extends StateModule {
         },
       });
       const json = await response.json();
-      console.log(json)
+
       if (json.error) {
         this.setState({
           ...this.getState(),

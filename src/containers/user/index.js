@@ -14,10 +14,7 @@ function User() {
     user: state.user.data,
   }));
 
-  useInit(async () => {
-    // Инициализация текущего пользователя
-    await store.get("user").init();
-  }, [], {backForward: true});
+
 
   const callbacks = {
     // Функция выхода из аккаунта

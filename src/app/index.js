@@ -6,6 +6,8 @@ import Basket from "./basket";
 import Article from "./article";
 import Login from './login';
 import Profile from './profile';
+import useStore from "../hooks/use-store";
+import useInit from "../hooks/use-init";
 
 /**
  * Приложение
@@ -13,19 +15,25 @@ import Profile from './profile';
  */
 function App() {
 
-  const modal = useSelector(state => state.modals.name);
+    const store = useStore();
+    useInit(async () => {
+        // Инициализация текущего пользователя
+        await store.get("user").init();
+    }, []);
 
-  return (
-    <>
-      <Routes>
-        <Route path={''} element={<Main/>}/>
-        <Route path={"/articles/:id"} element={<Article/>}/>
-        <Route path={"/login"} element={<Login/>}/>
-        <Route path={"/profile"} element={<Profile/>}/>
-      </Routes>
-      {modal === 'basket' && <Basket/>}
-    </>
-  );
+    const modal = useSelector(state => state.modals.name);
+
+    return (
+        <>
+            <Routes>
+                <Route path={''} element={<Main/>}/>
+                <Route path={"/articles/:id"} element={<Article/>}/>
+                <Route path={"/login"} element={<Login/>}/>
+                <Route path={"/profile"} element={<Profile/>}/>
+            </Routes>
+            {modal === 'basket' && <Basket/>}
+        </>
+    );
 }
 
 export default React.memo(App);

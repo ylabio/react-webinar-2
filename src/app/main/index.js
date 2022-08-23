@@ -11,32 +11,32 @@ import LocaleSelect from "../../containers/locale-select";
 import User from "../../containers/user";
 
 function Main() {
-  const store = useStore();
+    const store = useStore();
 
-  useInit(async () => {
-    await store.get('catalog').initParams();
-    await store.get('catalog').initCategories();
-  }, [], {backForward: true});
+    useInit(async () => {
+        await store.get('catalog').initParams();
+        await store.get('categories').initCategories();
+    }, [], {backForward: true});
 
-  const {t} = useTranslate();
+    const {t} = useTranslate();
 
-  return (
-    <Layout 
-      before={
-      <LayoutFlex flex='end' padding={false}>
-        <User />
-      </LayoutFlex>}
-      head={
-      <LayoutFlex flex="between">
-        <h1>{t('title')}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    }>
-      <Tools/>
-      <CatalogFilter/>
-      <CatalogList/>
-    </Layout>
-  )
+    return (
+        <Layout
+            before={
+                <LayoutFlex flex='end' padding={false}>
+                    <User/>
+                </LayoutFlex>}
+            head={
+                <LayoutFlex flex="between">
+                    <h1>{t('title')}</h1>
+                    <LocaleSelect/>
+                </LayoutFlex>
+            }>
+            <Tools/>
+            <CatalogFilter/>
+            <CatalogList/>
+        </Layout>
+    )
 }
 
 export default React.memo(Main);

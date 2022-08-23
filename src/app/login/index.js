@@ -10,11 +10,11 @@ import LayoutFlex from "../../components/layouts/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
 import LoginForm from "../../components/login-form";
 import User from "../../containers/user";
+import useAuth from "../../hooks/use-auth";
 
 function Login() {
   const { t } = useTranslate();
   const store = useStore();
-  const navigate = useNavigate();
 
   const select = useSelector((state) => ({
     token: state.user.token,
@@ -22,12 +22,7 @@ function Login() {
     error: state.user.error,
   }));
 
-  useEffect(() => {
-    // Редирект на страницу профиля, если пользователь авторизирован
-    if (select.token) {
-      navigate("/profile", { replace: true });
-    }
-  }, [select.token]);  
+  useAuth(select.token, "/login", "/");
 
   const callbacks = {
     // Функция авторизации

@@ -1,19 +1,14 @@
 import React from 'react';
-import {Link, useLocation} from "react-router-dom";
+import {Link} from "react-router-dom";
 import propTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
-import useSelector from "../../hooks/use-selector";
 import getLink from "../../utils/get-link";
 import './style.css';
 
 function Pagination(props) {
   const cn = bem('Pagination');
   
-  const select = useSelector(state => ({
-    params: state.catalog.params,
-  }));
-
-  // Количество страниц
+    // Количество страниц
   const length = Math.ceil(props.count / Math.max(props.limit, 1));
 
   // Номера слева и справа относительно активного номера, которые остаются видимыми
@@ -43,7 +38,7 @@ function Pagination(props) {
   return (
     <ul className={cn()}>
       {items.map((number, index) => (
-        <Link to={getLink(select.params, 'page', number)}
+        <Link to={getLink(props.params, 'page', number)}
           key={index}
           className={cn('item', {active: number === props.page, split: !number})}
           onClick={onClickHandler(number)}
@@ -60,7 +55,8 @@ Pagination.propTypes = {
   limit: propTypes.number,
   count: propTypes.number,
   onChange: propTypes.func,
-  indent: propTypes.number
+  indent: propTypes.number,
+  params: propTypes.object
 }
 
 Pagination.defaultProps = {
@@ -70,6 +66,7 @@ Pagination.defaultProps = {
   indent: 1,
   onChange: () => {
   },
+  params: {}
 }
 
 export default React.memo(Pagination);

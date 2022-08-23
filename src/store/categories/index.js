@@ -24,7 +24,7 @@ class CategoriesState extends StateModule{
     this.setState({
       items: [],
       waiting: true
-    });
+    }, 'store/categories [load] сброс');
 
     try {
       const response = await fetch(`/api/v1/categories`);
@@ -34,14 +34,14 @@ class CategoriesState extends StateModule{
       this.setState({
         items: json.result.items,
         waiting: false
-      });
+      }, 'store/categories [load] успешно');
     } catch (e){
       // Ошибка при загрузке
       // @todo В стейт можно положть информацию об ошибке
       this.setState({
         items: [],
         waiting: false
-      });
+      }, 'store/categories [load] не удалось');
     }
   }
 }

@@ -20,6 +20,7 @@
   text-decoration: none;
   color: #000000;
   font-size: 0.85rem;
+  cursor: default;
 }
 
 .LoginLinks-button:hover {

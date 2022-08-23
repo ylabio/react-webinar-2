@@ -22,13 +22,6 @@ class LoginState extends StateModule{
    * Авторизация пользователя
    */
   async login(data = {}) {
-    // Сброс текущего пользователя
-    this.setState({
-      ...this.getState(),
-      status: 'unknown',
-      user: null,
-    });
-
     try {
       const response = await fetch(`/api/v1/users/sign`, {
         method: 'POST',
@@ -45,7 +38,7 @@ class LoginState extends StateModule{
           status: 'auth',
           user: json.result.user,
           error: null,
-        });
+        }, 'store/login [login] авторизация успешно');
 
         saveToken(json.result.token);
       } else {
@@ -59,7 +52,7 @@ class LoginState extends StateModule{
         status: 'no_auth',
         user: null,
         error: err.message,
-      });
+      }, 'store/login [login] авторизация не удалась');
     }
   }
 
@@ -67,39 +60,42 @@ class LoginState extends StateModule{
    * Проверка авторизации
    */
   async checkAuth() {
-    // Сброс текущего пользователя
-    this.setState({
-      status: 'unknown',
-      user: null,
-      error: null,
-    });
-
     const token = getToken();
 
-    const response = await fetch(`/api/v1/users/self`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Token': `${token}`
-      }
-    });
-
-    const json = await response.json();
-    
-    if (response.status === 200) {
-      // Авторизация прошла успешно
-      this.setState({
-        ...this.getState(),
-        status: 'auth',
-        user: json.result,
-      });
-    } else {
-      // Не получилось авторизоваться
+    if (!token) {
+      // Нет токена - не делаем запрос
       this.setState({
         ...this.getState(),
         status: 'no_auth',
-        user: json.result,
+        user: null,
+      }, 'store/login [checkAuth] не удалось, нет токена');
+    } else {
+      // Есть токен - делаем запрос
+      const response = await fetch(`/api/v1/users/self`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Token': `${token}`
+        }
       });
+    
+      const json = await response.json();
+    
+      if (response.status === 200) {
+        // Авторизация прошла успешно
+        this.setState({
+          ...this.getState(),
+          status: 'auth',
+          user: json.result,
+        }, 'store/login [checkAuth] успешно');
+      } else {
+        // Не получилось авторизоваться
+        this.setState({
+          ...this.getState(),
+          status: 'no_auth',
+          user: json.result,
+        }, 'store/login [checkAuth] не удалось, ошибка запроса');
+      }
     }
   }
 
@@ -111,7 +107,7 @@ class LoginState extends StateModule{
       ...this.getState(),
       status: 'no_auth',
       user: null,
-    });
+    }, 'store/login [logout]');
 
     const token = getToken();
 

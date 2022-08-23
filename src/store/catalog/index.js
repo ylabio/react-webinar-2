@@ -85,7 +85,7 @@ class CatalogState extends StateModule{
       ...this.getState(),
       params: newParams,
       waiting: true
-    });
+    }, 'store/catalog [setParams] установка новых параметров');
 
     const skip = (newParams.page - 1) * newParams.limit;
     const response = await fetch(`/api/v1/articles?
@@ -105,7 +105,7 @@ class CatalogState extends StateModule{
       items: json.result.items,
       count: json.result.count,
       waiting: false
-    });
+    }, 'store/catalog [setParams] установка полученных данных');
 
     // Запоминаем параметры в URL
     let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);

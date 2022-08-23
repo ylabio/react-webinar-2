@@ -11,17 +11,24 @@ function LoginLinks({user, profileLink, loginLink, status, onLogout}){
     onLogoutHandler: useCallback((e) => onLogout(), [onLogout])
   };
 
-  return (
-    <div className={cn()}>
-    {status ===  'auth' ?
-      <>
+  if (status === 'auth') {
+    return (
+      <div className={cn()}>
         <Link to={profileLink} className={cn('user')}>{user?.profile?.name}</Link>
         <button className={cn('button')} onClick={callbacks.onLogoutHandler}>Выход</button>
-      </> :
-      <Link to={loginLink} className={cn('button')}>Вход</Link> 
-    }
-    </div>
-  )
+      </div>
+    )
+  } else if (status === 'no_auth') {
+    return (
+      <div className={cn()}>
+        <Link to={loginLink} className={cn('button')}>Вход</Link>
+      </div>
+    )
+  } else {
+    return (
+      <div className={cn()}></div>
+    )
+  }
 }
 
 LoginLinks.propTypes = {

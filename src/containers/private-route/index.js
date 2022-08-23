@@ -8,7 +8,7 @@ function PrivateRoute({children}) {
   }));
 
   return (
-    select.status === 'auth' || select.status === 'unknown'
+    select.status === 'auth'
       ? children
       : <Navigate to={'/login'} />
   );

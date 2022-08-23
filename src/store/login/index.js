@@ -10,11 +10,17 @@ class LogState extends StateModule {
     return {
       log: false,
       user: {},
+      waiting: false,
     };
   }
 
   async setLogin(state, a) {
     try {
+      this.setState({
+        ...this.store.state.login,
+        waiting: true,
+      });
+
       const response = await fetch(`/api/v1/users/sign`, {
         method: "POST",
         headers: {
@@ -27,12 +33,12 @@ class LogState extends StateModule {
         }),
       });
       const json = await response.json();
-      console.log("cc", json);
 
       if (json.error) {
         this.setState({
           user: { error: json.error.data.issues[0].message },
           log: false,
+          waiting: false,
         });
       } else {
         this.setState({
@@ -42,7 +48,9 @@ class LogState extends StateModule {
             email: json.result.user.email,
           },
           log: !a,
+          waiting: false,
         });
+
         localStorage.setItem("token", json.result.token);
       }
     } catch (e) {
@@ -69,6 +77,7 @@ class LogState extends StateModule {
         });
       } else {
         this.setState({
+          ...this.store.state.login,
           user: {
             name: json.result.profile.name,
             phone: json.result.profile.phone,
@@ -97,6 +106,7 @@ class LogState extends StateModule {
         this.setState({
           user: {},
           log: false,
+          waiting: false,
         });
       }
 

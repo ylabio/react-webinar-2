@@ -9,6 +9,7 @@ import Tools from "../../containers/tools";
 import Form from "../../components/form";
 import Cabinet from "../../components/layout-cabinet";
 import LocaleSelect from "../../containers/locale-select";
+import Spinner from "../../components/spinner";
 
 function Authorization() {
   const store = useStore();
@@ -18,11 +19,12 @@ function Authorization() {
   const select = useSelector((state) => ({
     log: state.login.log,
     user: state.login.user,
+    waiting: state.login.waiting,
   }));
 
   const [stateFetch, setStateFetch] = useState({ login: "", password: "" });
 
-  console.log("log", select.log);
+  console.log("waiting", select.waiting);
 
   const callbacks = {
     // вход/выход
@@ -46,24 +48,27 @@ function Authorization() {
 
   console.log("state", stateFetch);
   return (
-    <Layout
-      head={
-        <LayoutFlex flex="between">
-          <h1>{t("title")}</h1>
-          <LocaleSelect />
-        </LayoutFlex>
-      }
-      btn={
-        <Link to="/login">
-          <button>Вход</button>
-        </Link>
-      }
-    >
-      <Tools />
-      <Cabinet head={"Вход"}>
-        <Form setStateFetch={setStateFetch} user={select.user} />
-      </Cabinet>
-    </Layout>
+    <Spinner active={select.waiting}>
+      <Layout
+        head={
+          <LayoutFlex flex="between">
+            <h1>{t("title")}</h1>
+            <LocaleSelect />
+          </LayoutFlex>
+        }
+        btn={
+          <Link to="/login">
+            <button>Вход</button>
+          </Link>
+        }
+      >
+        <Tools />
+
+        <Cabinet head={"Вход"}>
+          <Form setStateFetch={setStateFetch} user={select.user} />
+        </Cabinet>
+      </Layout>
+    </Spinner>
   );
 }
 

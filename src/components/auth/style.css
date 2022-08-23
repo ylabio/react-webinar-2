@@ -1,2 +1,5 @@
 /* Пункт списка */
-.Auth {}
+.Auth a {
+  color: #0087E9;
+  padding: 0 10px;
+}

@@ -25,21 +25,21 @@ function Profile() {
   const { t } = useTranslate()
 
   return (
-    <>
-      <LayoutFlex flex='end'>
-        <AuthContainer />
-      </LayoutFlex>
-      <Layout
-        head={
-          <LayoutFlex flex='between'>
-            <h1>{t('title')}</h1>
-            <LocaleSelect />
-          </LayoutFlex>
-        }>
-        <Tools />
-        <ProfileInfo user={select.user} />
-      </Layout>
-    </>
+    <Layout
+      topHead={
+        <LayoutFlex flex='end'>
+          <AuthContainer />
+        </LayoutFlex>
+      }
+      head={
+        <LayoutFlex flex='between'>
+          <h1>{t('title')}</h1>
+          <LocaleSelect />
+        </LayoutFlex>
+      }>
+      <Tools />
+      <ProfileInfo user={select.user} />
+    </Layout>
   )
 }
 

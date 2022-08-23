@@ -25,3 +25,11 @@ body {
 .Layout-head h1 {
     margin: 0;
 }
+
+.Layout-topHead {
+    padding: 13px;
+}
+
+.Layout-topHead div {
+    padding: 0;
+}

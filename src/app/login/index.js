@@ -25,21 +25,21 @@ function Login() {
   }
 
   return (
-    <>
-      <LayoutFlex flex='end'>
-        <AuthContainer />
-      </LayoutFlex>
-      <Layout
-        head={
-          <LayoutFlex flex='between'>
-            <h1>{t('title')}</h1>
-            <LocaleSelect />
-          </LayoutFlex>
-        }>
-        <Tools />
-        <LoginForm login={callbacks.login} error={select.error} waiting={select.waiting} />
-      </Layout>
-    </>
+    <Layout
+      topHead={
+        <LayoutFlex flex='end'>
+          <AuthContainer />
+        </LayoutFlex>
+      }
+      head={
+        <LayoutFlex flex='between'>
+          <h1>{t('title')}</h1>
+          <LocaleSelect />
+        </LayoutFlex>
+      }>
+      <Tools />
+      <LoginForm login={callbacks.login} error={select.error} waiting={select.waiting} />
+    </Layout>
   )
 }
 

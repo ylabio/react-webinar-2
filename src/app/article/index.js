@@ -35,23 +35,23 @@ function Article() {
   }
 
   return (
-    <>
-      <LayoutFlex flex='end'>
-        <AuthContainer />
-      </LayoutFlex>
-      <Layout
-        head={
-          <LayoutFlex flex='between'>
-            <h1>{select.article.title}</h1>
-            <LocaleSelect />
-          </LayoutFlex>
-        }>
-        <Tools />
-        <Spinner active={select.waiting}>
-          <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
-        </Spinner>
-      </Layout>
-    </>
+    <Layout
+      topHead={
+        <LayoutFlex flex='end'>
+          <AuthContainer />
+        </LayoutFlex>
+      }
+      head={
+        <LayoutFlex flex='between'>
+          <h1>{select.article.title}</h1>
+          <LocaleSelect />
+        </LayoutFlex>
+      }>
+      <Tools />
+      <Spinner active={select.waiting}>
+        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
+      </Spinner>
+    </Layout>
   )
 }
 

@@ -8,10 +8,16 @@ function ProfileInfo({ user }) {
 
   return (
     <div className={cn()}>
-      <h2>Профиль</h2>
-      <div>имя: {user.name}</div>
-      <div>телефон: {user.phone}</div>
-      <div>e-mail: {user.email}</div>
+      <h2 className={cn('title')}>Профиль</h2>
+      <div className={cn('name')}>
+        имя: <b>{user.name}</b>
+      </div>
+      <div className={cn('tel')}>
+        телефон: <b>{user.phone}</b>
+      </div>
+      <div className={cn('email')}>
+        e-mail: <b>{user.email}</b>
+      </div>
     </div>
   )
 }

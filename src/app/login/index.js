@@ -10,13 +10,14 @@ import LoginTools from '../../containers/login-tools';
 import LoginForm from '../../components/login-form';
 import useSelector from '../../hooks/use-selector';
 import {useNavigate} from 'react-router-dom';
+import {handleErrorFromApi} from '../../utils/handleErrorFromApi';
 
 function Login() {
   const store = useStore();
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    error: state.login.error.message,
+    error: handleErrorFromApi(state.login.error),
     isAuthorized: state.login.isAuthorized
   }));
 

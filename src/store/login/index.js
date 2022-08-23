@@ -1,3 +1,4 @@
+import axios from 'axios';
 import StateModule from '../module';
 
 /**
@@ -23,20 +24,13 @@ class Login extends StateModule {
    */
   async signIn(login, password) {
     try {
-      const response = await fetch(`/api/v1/users/sign`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({login, password, remember: true})
+      const response = await axios.post(`/api/v1/users/sign`, {
+        login,
+        password,
+        remember: true
       });
 
-      // если response с кодом отличным от 200
-      if (!response.ok) {
-        const errorReponse = await response.json();
-        throw new Error(errorReponse.error.message);
-      }
-
-      const json = await response.json();
-      const {token, user} = json.result;
+      const {token, user} = response.data.result;
 
       this.setState({
         ...this.getState(),
@@ -48,9 +42,11 @@ class Login extends StateModule {
       // запись token в localStorage
       localStorage.setItem('xToken', token);
 
+      // назначение текущего пользователя
       this.store.get('user').setUser(user);
     } catch (error) {
       // Ошибка при загрузке
+      console.log(error);
       this.setState({
         ...this.getState(),
         isAuthorized: false,
@@ -65,19 +61,11 @@ class Login extends StateModule {
    */
   signInWithToken = async token => {
     try {
-      const response = await fetch(`/api/v1/users/self`, {
-        method: 'GET',
+      const response = await axios.get(`/api/v1/users/self`, {
         headers: {'Content-Type': 'application/json', 'X-Token': token}
       });
 
-      // если response с кодом отличным от 200
-      if (!response.ok) {
-        const errorReponse = await response.json();
-        throw new Error(errorReponse.error.message);
-      }
-
-      const json = await response.json();
-      const user = json.result;
+      const user = response.data.result;
 
       this.setState({
         ...this.getState(),
@@ -105,17 +93,11 @@ class Login extends StateModule {
     const xToken = this.getState().xToken;
 
     try {
-      const response = await fetch(`/api/v1/users/sign`, {
-        method: 'DELETE',
+      const response = await axios.delete(`/api/v1/users/sign`, {
         headers: {'Content-Type': 'application/json', 'X-Token': xToken}
       });
 
-      if (!response.ok) {
-        const errorReponse = await response.json();
-        throw new Error(errorReponse.error.message);
-      }
-      const json = await response.json();
-      const result = json.result;
+      const {result} = response.data;
 
       // если выход успешный, из api приходит result=true
       if (result) {

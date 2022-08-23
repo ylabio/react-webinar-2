@@ -21,7 +21,7 @@ export function categoriesMap(array) {
     }
   }
 
-  // оставляем из параметров категорий имя с добавлением '-' согласно вложенности и id
+  // оставляем из параметров категорий имя, с добавлением '-' согласно вложенности, и id
   return sortedCategories.map(elem => ({
     value: elem['_id'],
     title: `${addDashes(elem, sortedCategories)} ${elem.title}`
@@ -31,7 +31,7 @@ export function categoriesMap(array) {
 function addDashes(elem, arr) {
   if (elem.hasOwnProperty('parent')) {
     const parent = arr.find(item => item['_id'] === elem.parent['_id']);
-    return '-' + addDashes(parent, arr);
+    return '- ' + addDashes(parent, arr);
   } else {
     return '';
   }

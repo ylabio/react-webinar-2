@@ -13,7 +13,7 @@ function CatalogFilter() {
   const [categories, setCategories] = useState([]);
 
   useInit(async () => {
-    const response = await fetch('/api/v1/categories');
+    const response = await fetch('/api/v1/categories?limit=*');
     const json = await response.json();
     setCategories(json.result.items);
   });

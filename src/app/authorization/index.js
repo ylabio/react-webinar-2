@@ -30,9 +30,9 @@ function Authorization() {
             },
             (error) => {
               if (error.message === 'Validation') {
-                setError('Не верные данные');
+                setError('Некая ошибка от сервера');
               } else {
-                setError('Ошибка сервера');
+                setError('Некая ошибка от сервера');
               }
             }
           ),

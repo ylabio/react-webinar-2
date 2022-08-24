@@ -4,7 +4,6 @@ import LayoutFlex from "../../components/layout-flex";
 import useTranslate from "../../hooks/use-translate";
 import UserInfo from "../../components/user-info";
 import Tools from "../../containers/tools";
-import useStore from "../../hooks/use-store";
 import AuthorizationPanelController
   from '../../components/authorization-panel-controller'
 import useSelector from '../../hooks/use-selector'
@@ -14,6 +13,8 @@ function UserProfile() {
     const {t} = useTranslate();
 
     const userData = useSelector(store => store.user.userData)
+
+    console.log(userData)
 
     return (
         <>

@@ -33,7 +33,7 @@ class CatalogState extends StateModule{
         query: '',
         category: ''
       },
-      waiting: false
+      waiting: false,
     };
   }
 
@@ -111,6 +111,21 @@ class CatalogState extends StateModule{
     } else {
       window.history.pushState({}, '', url);
     }
+  }
+
+  async getCatalogCategory () {
+  const response = await fetch( `/api/v1/categories`)
+    const json = await response.json();
+
+    this.setState({
+      ...this.getState(),
+      ...this.params,
+      category: json.result.items,
+    });
+
+    return json.result.items;
+
+    console.log(this.getState())
   }
 }
 

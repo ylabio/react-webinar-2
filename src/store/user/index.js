@@ -55,11 +55,15 @@ class UserState extends StateModule{
                 userData: json.result,
             });
         } else {
-            this.logout()
+            await this.logout(userToken)
         }
     }
 
-    logout() {
+    async logout(userToken) {
+        await fetch('/api/v1/users/sign', {method: 'DELETE',
+            headers: {
+                'X-Token': userToken
+            }})
         localStorage.removeItem('token')
         this.setState(this.initState())
     }

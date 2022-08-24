@@ -6,6 +6,7 @@ import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
 
+
 const CATEGORY_PREFIX = '-';
 const appendChildCategory = (items, rootItem, categoryPrefix = CATEGORY_PREFIX) => {
   const childs = items.filter(item => item?.parent?._id === rootItem._id);
@@ -23,8 +24,6 @@ const appendChildCategory = (items, rootItem, categoryPrefix = CATEGORY_PREFIX) 
 }
 
 const createOptionsCategory = (items) => {
-  // const optionsCategory = items.map(item => ({value: item._id, title: item.title}))
-  // optionsCategory.unshift({value: '', title: 'Все'})
   const optionsCategory = items.filter(item => !item.parent)
   return optionsCategory.reduce((categories, rootCategory) => {
     return [
@@ -44,6 +43,8 @@ function CatalogFilter() {
     query: state.catalog.params.query,
     category: state.catalog.params.category,
   }));
+
+  console.log(select.category)
 
   const {t} = useTranslate();
 
@@ -68,16 +69,24 @@ function CatalogFilter() {
     ]), [])
   }
 
+  // const [items, setItems] = useState([]);
+  // useEffect(() => {
+  //       fetch( `/api/v1/categories`)
+  //           .then(response => response.json())
+  //           .then(category => {
+  //             setItems(createOptionsCategory(category.result.items))
+  //             console.log(category)
+  //           });
+  // }, []);
 
+
+//черновик с неработающей фигней
   const [items, setItems] = useState([]);
   useEffect(() => {
-        fetch( `/api/v1/categories`)
-            .then(response => response.json())
-            .then(category => {
-              setItems(createOptionsCategory(category.result.items))
-            });
-  }, []);
-
+   const list = store.get('catalog').getCatalogCategory();
+    setItems(createOptionsCategory(select.category.result))
+    console.log(list.result)
+  }, [])
 
   return (
     <LayoutFlex flex="start">

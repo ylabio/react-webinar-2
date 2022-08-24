@@ -78,13 +78,18 @@ class AuthState extends StateModule {
             "X-Token": `${this.getState().token}`
           }
         });
-      const json = await response.json();
-      // User загружен успешно
-      this.setState({
-        ...this.getState(),
-        data: json.result,
-        auth: true,
-      });
+      //ну и запарился же я искать этот статус, наверное потому что уже 2 часа ночи)
+      if (await response.status === 403) {
+        localStorage.removeItem('token')
+        this.setState(this.initState())} else {
+        const json = await response.json();
+        // User загружен успешно
+        this.setState({
+          ...this.getState(),
+          data: json.result,
+          auth: true,
+        });
+      }
     } catch (e) {
       this.setState({
         ...this.getState(),
@@ -92,6 +97,7 @@ class AuthState extends StateModule {
       })
     }
   }
+
 }
 
 export default AuthState;

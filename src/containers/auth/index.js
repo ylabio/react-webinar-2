@@ -5,6 +5,7 @@ import useSelector from "../../hooks/use-selector";
 import {Link, useNavigate} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
+import useInit from '../../hooks/use-init'
 
 function Auth(){
   const nav = useNavigate();

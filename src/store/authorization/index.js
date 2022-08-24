@@ -13,6 +13,7 @@ class AuthorizationState extends StateModule{
     return {
       error: '',
       token: '',
+      authName: '',
     };
   }
 
@@ -36,20 +37,67 @@ class AuthorizationState extends StateModule{
       error: json.error.data?.issues[0]?.message,
       })
     } else {
-      console.log('тест', json.result)
       localStorage.setItem('authToken', json.result.token)
       this.setState({
           ...this.getState(),
           error: '',
           token: json.result.token,
+          authName: json.result.user.profile.name
       }, 'Получение токена');
     }
   }
 
-  /**
-   * Очистка от ошибок
-   */
-  cleanError() {
+  // Проверка работоспособности токена
+  async checkToken() {
+    const token = localStorage.getItem('authToken');
+
+    if (!token) return
+
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'X-Token': token,
+      },
+    }
+
+    const res = await fetch('/api/v1/users/self', requestOptions);
+    const json = await res.json();
+
+
+    this.setState({
+      ...this.getState(),
+      authName: json.result.profile.name,
+      error: '',
+      token,
+    }, 'Загрузка данных пользователя');
+  }
+  
+  // Выход из личного кабинета пользователя (сброс параметров и удаление токена 
+  async logout() {
+    const token = this.getState().token;
+
+    const requestOptions = {
+      method: 'DELETE',
+      headers: {
+        'X-Token': token,
+      }
+    }
+
+    const response = await fetch('/api/v1/users/sign', requestOptions);
+    const json = await response.json();
+    
+    localStorage.removeItem('authToken');
+
+    this.setState({
+        ...this.getState(),
+        authName: '',
+        error: '',
+        token: '',
+    }, 'Удаление токена');
+  }
+
+  // очистка от ошибки
+  async cleanError() {
     this.setState({
       ...this.getState(),
       error: '',

@@ -4,14 +4,14 @@ import {cn as bem} from '@bem-react/classname'
 import {Link} from "react-router-dom";
 import './style.css';
 
-function MenuRegister({onLogout, user, t}) {
+function MenuRegister({onLogout, token, authName, user, t}) {
   const cn = bem('MenuRegister');
 
   return (
     <div className={cn()}>
-      {user.profile ?
+      {token ?
       <>
-        <Link to='/profile' className={cn('profile')}>{user.profile?.name}</Link>
+        <Link to='/profile' className={cn('profile')}>{authName}</Link>
         <button className={cn('btn')} onClick={onLogout}>{t('menuRegister.exit')}</button>
       </> : <Link className={cn('btn')} to='/login'>{t('menuRegister.login')}</Link>
       }
@@ -23,6 +23,8 @@ MenuRegister.propTypes = {
   t: propTypes.func,
   onLogout: propTypes.func.isRequired,
   user: propTypes.object.isRequired,
+  token: propTypes.string,
+  authName: propTypes.string,
 }
 
 MenuRegister.defaultProps = {

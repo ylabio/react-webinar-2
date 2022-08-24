@@ -16,6 +16,7 @@ function Profile() {
   const store = useStore();
 
   useInit(async () => {
+    await store.get('authorization').checkToken();
     await store.get('profile').loadUser();
   }, []);
 

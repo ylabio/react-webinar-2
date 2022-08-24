@@ -16,10 +16,10 @@ function Login() {
   const store = useStore();
 
   useInit(async () => {
-    await store.get('profile').loadUser();
+    await store.get('authorization').checkToken();
   }, []);
 
-  // очищаем от ошибки при размонтировании (переходе на другую страницу)
+  // очищаем состояние авторизации при размонтировании (переходе на другую страницу)
   useEffect(() => {
     return () => store.get('authorization').cleanError();
   }, [])
@@ -27,6 +27,8 @@ function Login() {
   const select = useSelector(state => ({
     token: state.authorization.token,
     error: state.authorization.error,
+    //token о
+    user: state.profile.userData?.profile,
   }));
 
   const callbacks = {
@@ -36,6 +38,7 @@ function Login() {
 
   const {t} = useTranslate();
 
+  console.log(select.token)
   if (select.token) {
     return <Navigate to="/" replace={true} />
   }

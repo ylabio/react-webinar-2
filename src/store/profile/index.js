@@ -37,27 +37,6 @@ class ProfileState extends StateModule{
       userData: json.result,
     }, 'Загрузка данных пользователя');
   }
-  
-  // Выход из личного кабинета пользователя (сброс параметров и удаление токена 
-  async logout() {
-    const token = this.getState().token;
-
-    const requestOptions = {
-      method: 'DELETE',
-      headers: {
-        'X-Token': token,
-      }
-    }
-
-    const response = await fetch('/api/v1/users/sign', requestOptions);
-    
-    localStorage.removeItem('authToken');
-
-    this.setState({
-        ...this.getState(),
-        userData: {},
-    }, 'Удаление токена');
-  }
 }
 
 export default ProfileState;

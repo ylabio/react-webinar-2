@@ -5,7 +5,7 @@ import { LoginForm } from '../../components/login-form'
 import LocaleSelect from '../../containers/locale-select'
 import Tools from '../../containers/tools'
 import useSelector from './../../hooks/use-selector';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import useStore from './../../hooks/use-store';
 
 export const Login = () => {
@@ -16,7 +16,9 @@ export const Login = () => {
   }));
   const callbacks = {
     onAuth: useCallback((login,password) => store.get('auth').auth(login,password), []),
+    me: useCallback(() => store.get('auth').me(), []),
   };
+
 
   return (
     <Layout head={
@@ -27,6 +29,7 @@ export const Login = () => {
     }>
       <Tools />
       <LoginForm
+      me={callbacks.me}
       onAuth={callbacks.onAuth}
       isAuth={select.isAuth}
       />

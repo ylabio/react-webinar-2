@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useMemo } from 'react';
 
-export const LoginForm = ({ onAuth, isAuth }) => {
+export const LoginForm = ({ onAuth, me }) => {
 
   const navigate = useNavigate()
 
@@ -23,6 +23,9 @@ export const LoginForm = ({ onAuth, isAuth }) => {
     onAuth(login, password)
       .then(_ => navigate('/'))
       .catch(error => error.response.data.error.data.issues.map((e) => setError(e.message)))
+      setTimeout(() => {
+        me()
+      }, 1000);
   }
 
   return (

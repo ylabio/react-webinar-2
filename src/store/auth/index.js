@@ -17,7 +17,8 @@ class AuthState extends StateModule {
       profile: {},
       isAuth: false,
       token: Cookies.get('token'),
-      me: {}
+      me: {},
+      waiting:null
     };
   }
 
@@ -45,8 +46,15 @@ class AuthState extends StateModule {
     this.setState({
       ...this.getState(),
       isAuth:true,
-      profile: response.data.result
+      profile: response.data.result,
     })
+    setTimeout(() => {
+      this.setState({
+        ...this.getState(),      
+        waiting:true
+      })
+    }, 1000);
+    
   }
 
   async logout() {

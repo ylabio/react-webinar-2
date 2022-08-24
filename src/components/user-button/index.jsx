@@ -11,21 +11,14 @@ export const UserButton = () => {
 
   const select = useSelector(state => ({
     profile: state.auth.profile.profile,
+    isAuth : state.auth.isAuth
   }));
 
   const callbacks = {
     logout: useCallback(() => store.get('auth').logout(), []),
-    me: useCallback(() => store.get('auth').me(), []),
-
   };
-  useEffect(() => {
-    callbacks.me()
-  }, [])
 
-  const auth = useMemo(() => {
-    if (!!Cookies.get('token')) { return true }
-    else return false
-  })
+
 
   const onClick = () => {
     callbacks.logout()
@@ -37,7 +30,7 @@ export const UserButton = () => {
         profilePath={`/profile`}
         onClick={onClick}
         profile={select.profile}
-        auth={auth}
+        auth={select.isAuth}
 
       />
     </div>

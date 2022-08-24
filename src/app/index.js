@@ -22,8 +22,12 @@ function App() {
   }));
 
   // Загружаем данные пользователя если есть токен
+  // Если произошла ошибка при восстановлении сессии, выводим сообшение
   useEffect(() => {
-    if (select.token) store.get('auth').loadUser(select.token);
+    if (select.token) store.get('auth').loadUser(select.token).then(() => {
+      if (store.getState().auth.error) alert("Ошибка восстановления сессии: " + store.getState().auth.error);
+      store.get('auth').clearError() 
+    });
   }, [])
 
   return (

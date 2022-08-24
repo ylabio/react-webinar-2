@@ -30,11 +30,6 @@ function Pagination(props) {
   // Последнаяя страница
   if (right < length) items.push(length);
 
-  // Возвращает функцию с замыканием на номер страницы
-  const onClickHandler = page => {
-    return () => props.onChange(page);
-  };
-
   return (
     <div className={cn()}>
       {items.map((number, index) => (
@@ -42,7 +37,6 @@ function Pagination(props) {
           ? <Link to={props.link(number)}
                   key={index}
                   className={cn('item', {active: number === props.page})}
-                  onClick={onClickHandler(number)}
           >
             {number}
           </Link>

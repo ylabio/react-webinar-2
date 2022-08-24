@@ -1,0 +1,8 @@
+.LoginForm > * {
+  display: block;
+}
+
+.LoginForm-errorMessage {
+  color: red;
+  margin-bottom: 20px;
+}

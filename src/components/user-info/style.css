@@ -1,0 +1,8 @@
+.UserInfo {
+  padding: 20px;
+}
+
+.UserInfo > span {
+  display: block;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,8 @@
+.LoginBar {
+  background-color: white;
+  max-width: 1024px;
+  margin: 0 auto;
+  border-bottom: 1px solid #dcdcdc;
+  position: relative;
+  box-shadow: 15px 0 15px -15px #0000003b, -15px 0 15px -15px #0000003b;
+}

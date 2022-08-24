@@ -13,7 +13,7 @@ function Header(props) {
   const store = useStore();  
 
   const select = useSelector(state => ({
-    userName: state.auth.user?.profile.name,
+    userName: state.auth.userName,
     token: state.auth.token,
   }));
 

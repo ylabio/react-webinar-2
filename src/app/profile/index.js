@@ -8,7 +8,9 @@ import UserCard from "../../components/user-card";
 
 function Profile(){
   const select = useSelector(state => ({
-    user: state.auth.user
+    name: state.profile.name,
+    phone: state.profile.phone,
+    email: state.profile.email
   }));
 
   const {t} = useTranslate();
@@ -17,7 +19,7 @@ function Profile(){
     <Layout head={<Header title={t('title')}/>}>
       <Tools/>
       {/* Ждем подгрузки данных пользователя если профайл открыт по прямой ссылке */}
-      {select.user && <UserCard name={select.user.profile.name} phone={select.user.profile.phone} email={select.user.email}/>}
+      {select.name && <UserCard name={select.name} phone={select.phone} email={select.email}/>}
     </Layout>
   )
 }

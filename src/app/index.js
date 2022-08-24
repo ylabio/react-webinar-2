@@ -35,9 +35,11 @@ function App() {
       <Routes>
         <Route path={"/"} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
-        <Route path={"/profile"} element={<PrivateRoute/>}>
-          <Route path={"/profile"} element={<Profile/>}/>
-        </Route>
+        <Route path={"/profile"} element={
+          <PrivateRoute>
+            <Profile/>
+          </PrivateRoute>
+        }/>
         <Route path={"/login"} element={<Login/>}/>
       </Routes>
       {select.modal === 'basket' && <Basket/>}

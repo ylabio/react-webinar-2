@@ -11,7 +11,7 @@ class AuthState extends StateModule{
    */
   initState() {
     return {
-      user: null,
+      userName: "",
       token: localStorage.getItem("token") || "",
       error: "",
       waiting: false,
@@ -40,10 +40,16 @@ class AuthState extends StateModule{
       // Проверяем ответ сервера
       await this.checkResponse(response);
       const json = await response.json();
+
+      this.store.get('profile').setState({
+        name: json.result.user.profile.name,
+        phone: json.result.user.profile.phone,
+        email: json.result.user.email 
+      }); 
       
       this.setState({
         ...this.getState(),
-        user: json.result.user,
+        userName: json.result.user.profile.name,
         token: json.result.token,
         error: "",
         waiting: false,
@@ -80,9 +86,15 @@ class AuthState extends StateModule{
       await this.checkResponse(response);
       const json = await response.json();
 
+      this.store.get('profile').setState({
+        name: json.result.profile.name,
+        phone: json.result.profile.phone,
+        email: json.result.email 
+      }); 
+
       this.setState({
         ...this.getState(),
-        user: json.result,
+        userName: json.result.profile.name,
         error: "",
         waiting: false
       });
@@ -116,9 +128,15 @@ class AuthState extends StateModule{
       // Проверяем ответ сервера
       await this.checkResponse(response);
 
+      this.store.get('profile').setState({
+        name: "",
+        phone: "",
+        email: "" 
+      }); 
+
       this.setState({
         ...this.getState(),
-        user: null,
+        userName: "",
         token: "",
         error: "",
         waiting: false

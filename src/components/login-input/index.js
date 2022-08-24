@@ -15,6 +15,7 @@ function LoginInput({title, value, onChange, onFocus, type}) {
         value={value}
         onChange={callbacks.onChangeFn}
         onFocus={callbacks.onFocus}
+        throttle={false}
         type={type}
       />
       <div className='gap'></div>

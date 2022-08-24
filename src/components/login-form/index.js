@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import LayoutForm from '../layout-form'
 import LoginError from '../login-error'
 import LoginInput from '../login-input'
@@ -11,7 +11,13 @@ function LoginForm() {
   const store = useStore()
   const select = useSelector(state => ({
     auth: state.auth.auth,
-  }))
+  }));
+
+  useEffect(() => {
+    return () => {
+      store.get('auth').resetState()
+    }
+  }, []);
 
   const callbacks = {
     onSubmit: useCallback(() => store.get('auth').logIn(select.auth), []),

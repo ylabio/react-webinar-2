@@ -90,6 +90,7 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
+
     const response = await fetch(
       `/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${
         newParams.category !== 'all' ? `&search[category]=${newParams.category}` : ''}`

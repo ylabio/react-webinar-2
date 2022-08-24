@@ -66,7 +66,7 @@ class AuthState extends StateModule {
           isErr: true,
           errCode: data.error.code
         }
-      }, 'Получена ошибка ' + data.error.code)
+      }, 'Ошибка ' + data.error.code)
       return
     };
 
@@ -137,7 +137,13 @@ class AuthState extends StateModule {
       ...this.getState(),
       loadingErr: err
     }, err ? 'Установка ошибки' : 'Сброс ошибки')
-  }
+  };
+
+  resetState() {
+    this.setState({
+      ...this.initState()
+    })
+  };
 }
 
 export default AuthState;

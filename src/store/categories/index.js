@@ -8,7 +8,7 @@ export default class CategoriesState extends StateModule {
   };
 
   async getCategories() {
-    const res = await fetch('/api/v1/categories');
+    const res = await fetch('/api/v1/categories?limit=*');
     const data = await res.json();
     const mapped = data.result.items.map(item => ({  
       id: item._id,
@@ -27,14 +27,14 @@ export default class CategoriesState extends StateModule {
       children[el.parent || 0].push(el)
     });
 
-    const addPrefix = (obj) => {
+    const prefix = (obj) => {
       for (let k of obj.nodes) {
         sorted.push(k)
-        prefixes[k.id] = typeof prefixes[k.parent] !== 'undefined' ? prefixes[k.parent] + '-' : ''
-        addPrefix(k)
+        prefixes[k.id] = typeof prefixes[k.parent] !== 'undefined' ? prefixes[k.parent] + '- ' : ''
+        prefix(k)
       }
     }
-    addPrefix(root);
+    prefix(root);
 
     sorted.forEach((el) => {
       el.title = prefixes[el.id] + el.title

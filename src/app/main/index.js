@@ -29,7 +29,7 @@ function Main() {
         <LocaleSelect/>
       </LayoutFlex>
   }>
-    <Tools />
+      <Tools />
       <CatalogFilter/>
       <CatalogList/>
     </Layout>

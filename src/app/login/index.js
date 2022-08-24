@@ -21,7 +21,7 @@ function Login () {
     if (select.user) {
       nav('/profile', {replace: true})
     }
-  }, [select.user], {backForward: true});
+  }, [select.user]);
 
   return (
     <Layout top={<LoginPanel />} 

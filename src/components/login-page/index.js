@@ -6,6 +6,8 @@ import './style.css';
 
 function LoginPage({t, login, password, onLogin, onPassword, onNavigate, onSubmit, authorized, error}) {
   const cn = bem('LoginPage');
+  const previousURL = document.referrer;
+  console.log('previous page url', previousURL);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -36,7 +38,7 @@ function LoginPage({t, login, password, onLogin, onPassword, onNavigate, onSubmi
     )
   } else {
     useEffect(() => {
-      onNavigate(-1)
+      previousURL ? onNavigate(-1) : null
     })
   }
 }

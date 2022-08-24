@@ -4,7 +4,7 @@ import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
-import Spinner from "../../components/spinner";
+import Spinner from "../../components/catalog-spinner";
 import Item from "../../components/item";
 
 function CatalogList() {

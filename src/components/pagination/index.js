@@ -3,6 +3,7 @@ import propTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
 import {Link} from "react-router-dom";
+import {makeLinkPath} from "../../utils/make-link-path";
 
 function Pagination(props) {
   const cn = bem('Pagination');
@@ -33,14 +34,10 @@ function Pagination(props) {
     return () => props.onChange(page);
   };
   
-  const linkPath = (number) => {
-    return `?page=${number}&limit=${props.params.limit}&sort=${props.params.sort}&query=${props.params.query}&category=${props.params.category}`
-  }
-  
   return (
     <ul className={cn()}>
       {items.map((number, index) => (
-        <Link to={linkPath(number)} key={index}>
+        <Link to={makeLinkPath(number, props.params.limit, props.params.sort, props.params.query, props.params.category)} key={index}>
           <li
             className={cn('item', {active: number === props.page, split: !number})}
             onClick={onClickHandler(number)}

@@ -7,7 +7,8 @@ import useTranslate from "../../hooks/use-translate";
 import Tools from "../../containers/tools";
 import LoginForm from "../../components/form-components/login-form";
 import useSelector from "../../hooks/use-selector";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import LoginSpinner from "../../components/login-spinner";
 
 function Login() {
   const store = useStore();
@@ -22,9 +23,10 @@ function Login() {
     }, []),
   };
   
-  const {errorMessage} = useSelector(state => {
+  const {errorMessage,profileWaiting} = useSelector(state => {
     return {
       errorMessage: state.user.errorMessage,
+      profileWaiting: state.user.waiting
     }
   });
   
@@ -38,7 +40,9 @@ function Login() {
       </LayoutFlex>
     }>
       <Tools/>
+      <LoginSpinner active={!profileWaiting}>
         <LoginForm errorMessage={errorMessage} login={callbacks.login} t={t}/>
+      </LoginSpinner>
     </Layout>
   )
 }

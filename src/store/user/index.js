@@ -40,7 +40,7 @@ class UserState extends StateModule {
       const json = await response.json()
       if (json.error) {
         const errors = json.error.data.issues.reduce((previousValue, currentValue) => previousValue + currentValue.message + '. ', '')
-        console.log(errors)
+
         this.setState({
           ...this.getState(),
           errorMessage: errors,

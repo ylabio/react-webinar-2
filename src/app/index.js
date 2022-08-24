@@ -11,6 +11,7 @@ import useStore from "../hooks/use-store";
 import useTranslate from "../hooks/use-translate";
 import useInit from "../hooks/use-init";
 import LoginChecker from "../containers/login-checker";
+import LoginSpinner from "../components/login-spinner";
 
 /**
  * Приложение
@@ -48,9 +49,13 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/login'} element={
-          <LoginChecker condition={!isAuth} path={'/profile'}><Login/></LoginChecker>}/>
+          <LoginChecker condition={!isAuth} path={'/profile'}>
+            <Login/>
+          </LoginChecker>}/>
         <Route path={'/profile'} element={
-          <LoginChecker condition={isAuth} path={'/login'}><Profile/></LoginChecker>}/>
+          <LoginChecker condition={isAuth} path={'/login'}>
+            <Profile/>
+          </LoginChecker>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}

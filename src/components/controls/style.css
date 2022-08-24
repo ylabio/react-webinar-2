@@ -1,0 +1,16 @@
+/* Контрол с общими действиями */
+.Controls{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.Controls-link {
+    margin-right: 20px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    text-decoration-line: underline;
+    color: #0087E9;
+}

@@ -42,7 +42,7 @@ const LoginForm = ({ t, onSubmit, waiting, errors }) => {
             onChange={cb.onChange}
           />
         </label>
-        {errors && <ErrorMsg>{errors?.[0]?.message}</ErrorMsg>}
+        {errors && <ErrorMsg>{errors.message}</ErrorMsg>}
         <button type={'submit'} disabled={waiting}>
           {t('login.btn')}
         </button>

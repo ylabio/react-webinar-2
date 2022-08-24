@@ -33,7 +33,7 @@ class UserState extends StateModule {
       if (cb) cb();
     } catch (err) {
       this.removeNameFromLC();
-      this.mergeState({ errors: err?.data?.issues, waiting: false });
+      this.mergeState({ errors: {data: err?.data?.issues, message: err?.data?.issues?.[0]?.message }, waiting: false });
     }
   }
 
@@ -69,20 +69,25 @@ class UserState extends StateModule {
             'X-Token': token,
           },
         };
-        const response = await fetch('/api/v1/users/self', options);
+        const response = await fetch('/api/v1/users/selfs', options);
         const json = await response.json();
+        if (json.error) throw json.error;
 
         const profile = { ...json.result.profile, email: json.result.email };
         this.setNameToLC(profile.name);
         this.mergeState({ profile, status: json.result.status, waiting: false });
       } catch (err) {
         this.removeNameFromLC();
-        this.mergeState({ errors: err, profile: {}, waiting: false });
+        this.mergeState({profile: {}, waiting: false });
       }
     } else {
       this.removeNameFromLC();
       this.mergeState({ profile: {} });
     }
+  }
+
+  resetErr() {
+    this.mergeState({errors: null});
   }
 
   mergeState(obj) {

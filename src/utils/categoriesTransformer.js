@@ -62,13 +62,13 @@ const categoriesTransformer = (arr) => {
     return null;
   }
 
-  function convertToArr(obj, _res = [{ id: obj._id, value: obj._id, title: obj.title }], _level = '-') {
+  function convertToArr(obj, _res = [{ id: obj._id, value: obj._id, title: obj.title }], _level = ' - ') {
     if (obj.child) {
       //Сортировка нижнего уровня
       obj.child.sort((a,b) => {a.order > b.order})
       obj.child.forEach(c => {
         _res.push({ id: c._id, value: c._id, title: _level + c.title });
-        if (c.child) convertToArr(c, _res, '-' + _level);
+        if (c.child) convertToArr(c, _res, '- ' + _level);
       })
     }
     return _res;

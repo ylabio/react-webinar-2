@@ -8,6 +8,7 @@ import Profile from "./profile";
 import SignIn from "./sign-in";
 import useStore from "../hooks/use-store";
 import cookieValue from "../utils/cookieValue";
+import AuthCheck from "../containers/auth-check";
 
 /**
  * Приложение
@@ -29,7 +30,7 @@ function App() {
         <Route path={"/articles/:id"} element={<Article/>}/>
         <Route path={"/user"} element={<Profile/>}/>
         <Route path={"/sign_in"} element={<SignIn/>}/>
-        <Route path={"/profile"} element={<Profile/>}/>
+        <Route path={"/profile"} element={<AuthCheck><Profile/></AuthCheck>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

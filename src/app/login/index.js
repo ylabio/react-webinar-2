@@ -1,8 +1,9 @@
-import React, {useState, useCallback} from "react";
-import {useNavigate} from "react-router-dom";
+import React, {useState, useEffect, useCallback} from "react";
+import {useLocation} from 'react-router-dom';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
+import usePrevious from "../../hooks/use-previous";
 import Spinner from "../../components/spinner";
 import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
@@ -12,9 +13,13 @@ import LoginPage from "../../components/login-page";
 
 function Login(){
   const store = useStore();
-  const navigate = useNavigate();
+  const location = useLocation();
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [navBack, setNavBack] = useState('');
+  const prevLocation = usePrevious(navBack);
+
+  console.log('now', navBack, 'prev', prevLocation);
 
   const select = useSelector(state => ({
     authorized: state.user.authorized,
@@ -26,9 +31,7 @@ function Login(){
 
   const callbacks = {
     // Авторизация
-    onSubmit: useCallback((login, password) => store.get('user').authUser(login, password), []),
-    // Навигация на предыдущую страницу
-    onNavigate: useCallback((route) => navigate(route), []),
+    onSubmit: useCallback((login, password) => store.get('user').openUser(login, password), [])
   };
 
   const onLogin = (e) => {
@@ -38,6 +41,10 @@ function Login(){
   const onPassword = (e) => {
     setPassword(e);
   }
+
+  useEffect(() => {
+    setNavBack(location);
+  }, [])
 
   return (
     <Layout head={
@@ -54,10 +61,10 @@ function Login(){
           password={password}
           onLogin={onLogin}
           onPassword={onPassword}
-          onNavigate={callbacks.onNavigate}
           onSubmit={callbacks.onSubmit}
           authorized={select.authorized}
           error={select.error}
+          prev={prevLocation?.pathname}
         />
       </Spinner>
     </Layout>

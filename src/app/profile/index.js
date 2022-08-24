@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from 'react-router-dom';
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import Spinner from "../../components/spinner";
@@ -9,16 +9,20 @@ import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
 import ProfilePage from "../../components/profile-page";
 
-function Profile(){
+function Profile() {
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    user: state.user.data,
+    user: state.profile.data,
     authorized: state.user.authorized,
     waiting: state.user.waiting
   }));
 
   const {t} = useTranslate();
+
+  useEffect(() => {
+    if (!select.authorized) {navigate('/login')}
+  }, [])
 
   if (select.authorized) {
     return (
@@ -37,10 +41,6 @@ function Profile(){
         </Spinner>
       </Layout>
     )
-  } else {
-    useEffect(() => {
-      navigate('/login')
-    })
   }
 }
 

@@ -4,7 +4,6 @@ import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import Switch from '../../components/switch-button'
 
-
 function Auth() {
   const store = useStore();
   const navigate = useNavigate();
@@ -17,11 +16,13 @@ function Auth() {
 
   const callbacks = {
     // Выход из профиля
-    onExit: useCallback(() => store.get('user').setExit(), []),
+    onExitProfile: useCallback(() => store.get('profile').setExitProfile(), []),
+    // Завершение сессии
+    onExitUser: useCallback(() => store.get('user').closeUser(), []),
     // Возврат на страницу, с которой был выполнен вход в профиль, после выхода из профиля
     onNavigate: useCallback((route) => navigate(route), []),
     // Загрузка данных пользователя для вывода в профиль
-    onProfile: useCallback(() => store.get('user').setProfile(), [])
+    onProfile: useCallback(() => store.get('profile').setProfile(), [])
   }
 
   // Сброс ошибки сервера
@@ -35,7 +36,8 @@ function Auth() {
       authorized={select.authorized}
       route='/login'
       value={select.authorized ? 'Выход' : 'Вход'}
-      onExit={callbacks.onExit}
+      onExitProfile={callbacks.onExitProfile}
+      onExitUser={callbacks.onExitUser}
       onNavigate={callbacks.onNavigate}
       onProfile={callbacks.onProfile}
     />

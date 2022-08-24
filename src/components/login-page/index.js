@@ -1,17 +1,18 @@
 import React, {useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import propTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import Input from '../../components/input';
 import './style.css';
 
-function LoginPage({t, login, password, onLogin, onPassword, onNavigate, onSubmit, authorized, error}) {
+function LoginPage({t, login, password, onLogin, onPassword, onSubmit, authorized, error, prev}) {
   const cn = bem('LoginPage');
-  const previousURL = document.referrer;
-  console.log('previous page url', previousURL);
+  const navigate = useNavigate();
 
   const handleSubmit = e => {
     e.preventDefault();
     onSubmit(login, password);
+    prev ? navigate(-1) : null;
   }
 
   if (!authorized) {
@@ -38,8 +39,8 @@ function LoginPage({t, login, password, onLogin, onPassword, onNavigate, onSubmi
     )
   } else {
     useEffect(() => {
-      previousURL ? onNavigate(-1) : null
-    })
+      prev ? navigate(-1) : null;
+    }, [prev])
   }
 }
 
@@ -49,17 +50,18 @@ LoginPage.propTypes = {
   password: propTypes.string,
   onLogin: propTypes.func.isRequired,
   onPassword: propTypes.func.isRequired,
-  onNavigate: propTypes.func.isRequired,
   onSubmit: propTypes.func.isRequired,
   authorized: propTypes.bool,
-  error: propTypes.string
+  error: propTypes.string,
+  prev: propTypes.string
 }
 
 LoginPage.defaultProps = {
   login: 'введите логин',
   password: '******',
   authorized: false,
-  error: ''
+  error: '',
+  prev: ''
 }
 
 export default React.memo(LoginPage);

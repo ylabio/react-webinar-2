@@ -13,7 +13,6 @@ class UserState extends StateModule {
     return {
       userName: '',
       authorized: false,
-      data: {},
       error: '',
       waiting: false
     };
@@ -21,7 +20,7 @@ class UserState extends StateModule {
   /**
    * Авторизация пользователя
    */
-  async authUser(login, password) {
+  async openUser(login, password) {
     // Очистка параметров
     this.setState({
       ...this.getState(),
@@ -61,59 +60,15 @@ class UserState extends StateModule {
       });
     }
   }
-  /**
-   * Получение данных пользователя
-   */
-  async setProfile() {
-    const myHeaders = new Headers({
-      'Content-Type': 'application/json; charset=UTF-8"',
-      'X-Token': window.localStorage.getItem('access_token')
-    })
-    const response = await fetch(`/api/v1//users/self`, {
-      method: 'GET',
-      headers: myHeaders
-    });
-    if (response.ok) {
-      const json = await response.json();
 
-      // Данные пользователя загружены успешно
-      this.setState({
-        ...this.getState(),
-        data: json.result,
-      });
-    } else {
-      // Ошибка при загрузке данных пользователя
-      this.setState({
-        ...this.getState(),
-        error: 'Ошибка пользователя: ' + response.status,
-      });
-    }
-  }
-  /**
-   * Выход пользователя из профиля
-   */
-  async setExit() {
-    const myHeaders = new Headers({
-      'Content-Type': 'application/json; charset=UTF-8"',
-      'X-Token': window.localStorage.getItem('access_token')
-    })
-    // Удаление токена на сервере и из памяти браузера
-    const response = await fetch(`/api/v1//users/sign`, {
-      method: 'DELETE',
-      headers: myHeaders
-    });
-    console.log('DELETE response', response.json)
-    if (response.ok) {
-      window.localStorage.setItem('access_token', '')
-    }
-
-    // Сброс данных к начальному состоянию
+  // Завершение сеанса пользователя
+  closeUser() {
     this.setState({
+      userName: '',
       authorized: false,
-      data: {},
       error: '',
       waiting: false
-    })
+    });
   }
 
   // Сброс ошибки сервера

@@ -5,9 +5,14 @@ import propTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function Switch({username, authorized, route, value, onExit, onNavigate, onProfile}) {
+function Switch({username, authorized, route, value, onExitProfile, onExitUser, onNavigate, onProfile}) {
   const cn = bem('Switch');
   const location = useLocation();
+
+  const onClick = () => {
+    onExitProfile();
+    onExitUser();
+  }
 
   return (
     <div className={cn()}>
@@ -18,7 +23,7 @@ function Switch({username, authorized, route, value, onExit, onNavigate, onProfi
         <button
           className={cn('btn')}
           type='button'
-          onClick={authorized ? onExit : () => onNavigate(route)}
+          onClick={authorized ? onClick : () => onNavigate(route)}
         >
           {value}
         </button>
@@ -32,7 +37,8 @@ Switch.propTypes = {
   authorized: propTypes.bool.isRequired,
   route: propTypes.string.isRequired,
   value: propTypes.string.isRequired,
-  onExit: propTypes.func.isRequired,
+  onExitProfile: propTypes.func.isRequired,
+  onExitUser: propTypes.func.isRequired,
   onNavigate: propTypes.func.isRequired,
   onProfile: propTypes.func.isRequired
 }

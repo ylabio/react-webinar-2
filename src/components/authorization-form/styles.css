@@ -1,0 +1,30 @@
+.Authorization-form {
+    margin: 35px 20px;
+}
+
+.Authorization-form-field {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-bottom: 20px;
+}
+
+.Authorization-form-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 30px 0;
+}
+
+.Authorization-form-login {
+    font-size: 16px;
+}
+
+.Authorization-form-input {
+    height: 26px;
+    width: 203px;
+    box-sizing: border-box;
+}
+
+.Authorization-form-error {
+    font-size: 16px;
+    color: #FF0000;
+}

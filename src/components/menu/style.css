@@ -11,6 +11,11 @@
     display: block;
     padding: 2px 4px 3px 2px;
     margin: 0 2px;
+
+}
+
+.Menu-item a {
+    color: #0087E9;
 }
 
 .Menu-item:first-child {

@@ -5,7 +5,7 @@ POST {{baseUrl}}/users/sign
 Content-Type: application/json
 
 {
-  "login": "tesst_1",
+  "login": "test_1",
   "password": "123456"
 }
 

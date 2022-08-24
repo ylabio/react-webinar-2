@@ -10,30 +10,36 @@ import LoginForm from "../../components/login-form";
 import useSelector from "../../hooks/use-selector";
 import useAuth from "../../hooks/use-auth";
 import Header from "../../components/header";
+import useInit from '../../hooks/use-init'
 
 function Login() {
   const store = useStore();
-  const [params, setParams] = useState({login:"", password:""});
+  // const [params, setParams] = useState({login:"", password:""});
   const select = useSelector(state => ({
-    error: state.user.login.error,
-    auth: state.user.auth,
+    error: state.loginForm.error,
+    auth: state.auth.auth,
   }));
-
+  useInit(() => {
+    if (select.error)
+      store.get('loginForm').resetError();
+  }, [select.success], { backForward: true });
 
   const {t} = useTranslate();
 
   // redirect
-  useAuth(!select.auth, '')
+  useAuth(!select.auth,'/')
   const callbacks = {
     //установка логина
-    onChangeLog: useCallback((value) => setParams({...params, login: value}), [params]),
+    // onChangeLog: useCallback((value) => setParams({...params, login: value}), [params]),
+    onChangeLog: useCallback((value) => store.get('loginForm').changeLog(value),[]),
     //установка пароля
-    onChangePas: useCallback((value) => setParams({...params, password: value}), [params]),
+    // onChangePas: useCallback((value) => setParams({...params, password: value}), [params]),
+    onChangePas: useCallback((value) => store.get('loginForm').changePas(value),[]),
     //отправка данных на сервер
     onSubmit: useCallback(async (e) => {
       e.preventDefault();
-      await store.get('user').login(params.login, params.password)
-
+      // await store.get('auth').login(params.login, params.password)
+      await store.get('loginForm').login()
     })
   };
   return (

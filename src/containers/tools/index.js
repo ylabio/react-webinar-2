@@ -1,10 +1,10 @@
-import React, {useCallback, useMemo} from "react";
+import React, { useCallback, useMemo } from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import Menu from "../../components/menu";
 import BasketSimple from "../../components/basket-simple";
-import LayoutFlex from "../../components/layout-flex";
+import LayoutFlex from "../../components/wrappers/layout-flex";
 
 function Tools() {
 
@@ -16,7 +16,7 @@ function Tools() {
     lang: state.locale.lang
   }));
 
-  const {t} = useTranslate();
+  const { t } = useTranslate();
 
   const callbacks = {
     // Открытие корзины
@@ -25,14 +25,14 @@ function Tools() {
 
   const options = {
     menu: useMemo(() => ([
-      {key: 1, title: t('menu.main'), link: '/'},
+      { key: 1, title: t('menu.main'), link: '/' },
     ]), [t]),
   }
 
   return (
     <LayoutFlex flex="between">
-      <Menu items={options.menu}/>
-      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} t={t}/>
+      <Menu items={options.menu} />
+      <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} t={t} />
     </LayoutFlex>
   );
 }

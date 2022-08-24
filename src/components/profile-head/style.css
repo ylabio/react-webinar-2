@@ -1,0 +1,9 @@
+.ProfileHead {
+  display: flex;
+  align-items: center;
+}
+
+.ProfileHead-name {
+  font-size: 13px;
+  margin-right: 23px;
+}

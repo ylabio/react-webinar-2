@@ -20,7 +20,6 @@ function Login () {
 
   const select = useSelector((state) => ({
     error: state.user.error,
-    token: state.user.token,
     userExists: state.user.userExists,
     waiting: state.user.waiting,
   }));
@@ -29,6 +28,7 @@ function Login () {
     if (select.userExists) {
       navigate(`/profile`, {replace: true});
     }
+    store.get('user').removeError();
   }, [select.userExists]);
 
   const callbacks = {

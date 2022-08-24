@@ -12,7 +12,7 @@ class UserState extends StateModule{
    initState() {
     return {
       user: {},
-      token: '',
+      token: localStorage.getItem('token') || '',
       error: '',
       userExists: false,
       waiting: false,
@@ -89,7 +89,6 @@ class UserState extends StateModule{
       });
       const json = await response.json();
       localStorage.removeItem('token');
-
       this.setState({
         user: {},
         token: '',
@@ -113,45 +112,54 @@ class UserState extends StateModule{
    * Загрузка аккаунта
    */
   async load(){
-    const token = localStorage.getItem('token');
-    this.setState({
-      ...this.getState(),
-      waiting: true
-    });
-    try {
-      const response = await fetch('/api/v1/users/self', {
-        method: 'GET',
-        headers: {
-          'X-Token': token,
-        },
+    const token = this.getState().token;
+    if(token){
+      this.setState({
+        ...this.getState(),
+        waiting: true
       });
-      const json = await response.json();
-      if (!json.error) {
+      try {
+        const response = await fetch('/api/v1/users/self', {
+          method: 'GET',
+          headers: {
+            'X-Token': token,
+          },
+        });
+        const json = await response.json();
+        if (!json.error) {
+          this.setState({
+            user: json.result,
+            error: '',
+            userExists: true,
+            waiting: false
+          }, 'Вход в аккаунт с токена');
+        }
+        else {
+          localStorage.removeItem('token');
+          this.setState({
+            ...this.getState(),
+            token: '',
+            userExists: false,
+            waiting: false
+          }, 'Токен просрочен')
+        }
+      } catch (e){
         this.setState({
-          user: json.result,
-          token: token,
-          error: '',
-          userExists: true,
-          waiting: false
-        }, 'Вход в аккаунт с токена');
-      }
-      else {
-        localStorage.removeItem('token');
-        this.setState({
-          ...this.getState(),
+          error: 'Некая ошибка от сервера',
+          user: {},
+          token: '',
           userExists: false,
           waiting: false
-        }, 'Токен просрочен')
+        }, 'Ошибка');
       }
-    } catch (e){
-      this.setState({
-        error: 'Некая ошибка от сервера',
-        user: {},
-        token: '',
-        userExists: false,
-        waiting: false
-      }, 'Ошибка');
     }
+  }
+
+  removeError() {
+    this.setState({
+      ...this.getState(),
+      error: ''
+    });
   }
 }
 

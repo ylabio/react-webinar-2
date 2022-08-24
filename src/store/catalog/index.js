@@ -1,23 +1,22 @@
-import StateModule from "../module";
+import StateModule from '../module';
 import qs from 'qs';
 
 const QS_OPTIONS = {
   stringify: {
     addQueryPrefix: true,
     arrayFormat: 'comma',
-    encode: false
+    encode: false,
   },
   parse: {
     ignoreQueryPrefix: true,
-    comma: true
-  }
-}
+    comma: true,
+  },
+};
 
 /**
  * Состояние каталога
  */
-class CatalogState extends StateModule{
-
+class CatalogState extends StateModule {
   /**
    * Начальное состояние
    * @return {Object}
@@ -33,8 +32,7 @@ class CatalogState extends StateModule{
         query: '',
         currentCategory: '',
       },
-      allCategories: [],
-      waiting: false
+      waiting: false,
     };
   }
 
@@ -44,21 +42,21 @@ class CatalogState extends StateModule{
    * @param params
    * @return {Promise<void>}
    */
-  async initParams(params = {}){
+  async initParams(params = {}) {
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
-    const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
+    const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {};
     let validParams = {};
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
-    if (urlParams.currentCategory) validParams.currentCategory = urlParams.currentCategory; 
+    if (urlParams.currentCategory) validParams.currentCategory = urlParams.currentCategory;
 
     // Итоговые параметры из начальных, из URL и из переданных явно
-    const newParams = {...this.initState().params, ...validParams, ...params};
+    const newParams = { ...this.initState().params, ...validParams, ...params };
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
-    await this.loadAllCategories();
+    /* await this.loadAllCategories(); */
   }
 
   /**
@@ -66,9 +64,9 @@ class CatalogState extends StateModule{
    * @param params
    * @return {Promise<void>}
    */
-  async resetParams(params = {}){
+  async resetParams(params = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
-    const newParams = {...this.initState().params, ...params};
+    const newParams = { ...this.initState().params, ...params };
     // Установк параметров и подгрузка данных
     await this.setParams(newParams);
   }
@@ -79,21 +77,19 @@ class CatalogState extends StateModule{
    * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
    * @returns {Promise<void>}
    */
-  async setParams(params = {}, historyReplace = false){
-    const newParams = {...this.getState().params, ...params};
+  async setParams(params = {}, historyReplace = false) {
+    const newParams = { ...this.getState().params, ...params };
 
     // Установка новых параметров и признака загрузки
     this.setState({
       ...this.getState(),
       params: newParams,
-      waiting: true
+      waiting: true,
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
     const response = await fetch(
-      `/api/v1/articles?lang=ru&limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${     newParams.sort}&search[query]=${newParams.query}${newParams.currentCategory === ''
-          ? ''
-          : `&search[category]=${newParams.currentCategory}`
+      `/api/v1/articles?lang=ru&limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${newParams.currentCategory === '' ? '' : `&search[category]=${newParams.currentCategory}`
       }`
     );
     const json = await response.json();
@@ -103,7 +99,7 @@ class CatalogState extends StateModule{
       ...this.getState(),
       items: json.result.items,
       count: json.result.count,
-      waiting: false
+      waiting: false,
     });
 
     // Запоминаем параметры в URL
@@ -114,15 +110,6 @@ class CatalogState extends StateModule{
     } else {
       window.history.pushState({}, '', url);
     }
-  }
-
-  async loadAllCategories() {
-    const response = await fetch(`/api/v1/categories?fields=items(*),parent&limit=*`)
-    const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      allCategories: json.result.items,
-    })
   }
 }
 

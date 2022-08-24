@@ -18,24 +18,28 @@ class AuthModule extends StateModule {
   async getUser() {
     this.setState({ ...this.getState(), waiting: true });
 
-    const response = await fetch(
-      `/api/v1/users/self?fields=_id,email,profile(phone, name)`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Token': this.getState().token,
+    if (this.getState().token) {
+      const response = await fetch(
+        `/api/v1/users/self?fields=_id,email,profile(phone, name)`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Token': this.getState().token,
+          },
+        }
+      );
+      const json = await response.json();
+      this.setState(
+        {
+          ...this.getState(),
+          user: json.result,
+          isAuth: true,
+          waiting: false,
         },
-      }
-    );
-    const json = await response.json();
-
-    this.setState({
-      ...this.getState(),
-      user: json.result,
-      isAuth: true,
-      waiting: false,
-    });
+        'Пользователь успешно загружен по токену'
+      );
+    }
   }
 
   async login(data) {
@@ -51,6 +55,13 @@ class AuthModule extends StateModule {
       }
     );
     const json = await response.json();
+    console.log({ json });
+
+    if (json.error) {
+      this.setState({...this.getState(), waiting: false})
+      throw new Error(json.error.data.issues.map(item => item.message));
+    }
+
     Cookies.set('token', json.result.token);
 
     this.setState(

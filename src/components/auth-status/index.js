@@ -14,10 +14,10 @@ function AuthStatus(props) {
       {props.isAuth ? 
         <>
           <Link to={'/profile'} className={cn('link')}>{props.username}</Link>
-          <button onClick={props.logout}>Выход</button>
+          <button onClick={props.logout}>{props.t('auth.signout')}</button>
         </>
       : 
-        <button onClick={() => navigate('/login', {state: {from: location.pathname}} )}>Вход</button>
+        <button onClick={() => navigate('/login', {state: {from: location.pathname}} )}>{props.t('auth.signin')}</button>
       }
     </div>
   )
@@ -30,7 +30,4 @@ AuthStatus.propTypes = {
   username: propTypes.string,
   logout: propTypes.func,
   t: propTypes.func
-}
-
-AuthStatus.defaultProps = {
 }

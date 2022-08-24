@@ -1,60 +1,38 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 function Login(props) {
   const cn = bem('Login');
-  const navigate = useNavigate();
-
-  const [login, setlogin] = useState({ login: '', password: '' });
-  const [error, setError] = useState('');
-
-  const onChangeHandler = e => {
-    setlogin({ ...login, [e.target.name]: e.target.value });
-    setError('');
-  };
-
-  const onSubmitHandler = e => {
-    e.preventDefault();
-
-    if (login.login === '' || login.password === '') {
-      return setError('Заполните все поля');
-    }
-    props
-      .login(login)
-      .then(() => navigate('/profile'))
-      .catch(() => setError('Некая ошибка от сервера'));
-  };
 
   return (
     <div className={cn()}>
-      <h2 className={cn('title')}>{props.t('Вход')}</h2>
-      <form onSubmit={onSubmitHandler} className={cn('form')}>
+      <h2 className={cn('title')}>{props.t('auth.signin')}</h2>
+      <form onSubmit={props.onSubmit} className={cn('form')}>
         <label className={cn('label')}>
-          Логин
+        {props.t('auth.username')}
           <input
             className={cn('input')}
             type='text'
             name='login'
-            value={login.login}
-            onChange={onChangeHandler}
+            value={props.username}
+            onChange={e => props.onFormChange(e)}
           />
         </label>
         <label className={cn('label')}>
-          Пароль
+        {props.t('auth.password')}
           <input
             className={cn('input')}
             type='password'
             name='password'
-            value={login.password}
-            onChange={onChangeHandler}
+            value={props.password}
+            onChange={e => props.onFormChange(e)}
           />
         </label>
-        {error && <div className={cn('error')}>{error}</div>}
+        {props.error && <div className={cn('error')}>{props.error}</div>}
         <button type='submit' className={cn('btn')}>
-          Войти
+        {props.t('auth.login')}
         </button>
       </form>
     </div>
@@ -64,8 +42,11 @@ function Login(props) {
 export default Login;
 
 Login.propTypes = {
-  login: propTypes.func,
-  t: propTypes.func,
+  username: propTypes.string.isRequired,
+  password: propTypes.string.isRequired,
+  onFormChange: propTypes.func,
+  onSubmit: propTypes.func,
+  errors: propTypes.string,
 };
 
 Login.defaultProps = {};

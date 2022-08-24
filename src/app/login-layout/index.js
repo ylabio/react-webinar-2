@@ -1,33 +1,72 @@
-import React, {useCallback} from 'react'
+import React, { useState, useCallback, useMemo } from 'react';
 import useStore from '../../hooks/use-store';
-import useTranslate from '../../hooks/use-translate';
 import Layout from '../../components/layout';
 import LayoutFlex from '../../components/layout-flex';
 import LocaleSelect from '../../containers/locale-select';
 import Login from '../../components/login';
 import Tools from '../../containers/tools';
 import User from '../../containers/user';
+import { useNavigate } from 'react-router-dom';
+import useTranslate from '../../hooks/use-translate';
+
 
 function LoginLayout() {
+  const navigate = useNavigate();
   const store = useStore();
-  const {t} = useTranslate()
+
+  const [login, setLogin] = useState({ login: '', password: '' });
+  const [error, setError] = useState(null);
+
+  const { t } = useTranslate();
+
+  const from = useMemo(() => location.state?.from || '/', []);
 
   const callbacks = {
-    login: useCallback((data) => store.get('auth').login(data), []),
+    onFormChange: useCallback(
+      e => {
+        setLogin({ ...login, [e.target.name]: e.target.value });
+        setError(null);
+      },
+      [login]
+    ),
+
+    onSubmit: useCallback(
+      e => {
+        e.preventDefault();
+        if (login.login === '' || login.password === '') {
+          return setError('Заполните все поля');
+        }
+        store
+          .get('auth')
+          .login(login)
+          .then(() => navigate(from, { replace: true }))
+          .catch(err => setError(err.message));
+      },
+      [login]
+    ),
   };
 
   return (
-    <Layout auth={<User/>} head={
-        <LayoutFlex flex="between">
+    <Layout
+      auth={<User />}
+      head={
+        <LayoutFlex flex='between'>
           <h1>{t('title')}</h1>
-          <LocaleSelect/>
+          <LocaleSelect />
         </LayoutFlex>
       }
     >
-      <Tools/>
-      <Login login={callbacks.login} t={t}/>
+      <Tools />
+      <Login
+        username={login.login}
+        password={login.password}
+        onFormChange={callbacks.onFormChange}
+        onSubmit={callbacks.onSubmit}
+        t={t}
+        error={error}
+      />
     </Layout>
-  )
+  );
 }
 
-export default React.memo(LoginLayout)
+export default React.memo(LoginLayout);

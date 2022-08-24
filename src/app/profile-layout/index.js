@@ -10,7 +10,7 @@ import User from '../../containers/user';
 import Spinner from '../../components/spinner';
 
 function ProfileLayout() {
-
+  
   const select = useSelector(state => ({
     user: state.auth.user,
     waiting: state.auth.waiting

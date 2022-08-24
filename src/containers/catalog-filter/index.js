@@ -13,7 +13,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     currentCategory: state.catalog.params.currentCategory,
-    allCategories: state.catalog.allCategories,
+    allCategories: state.category.allCategories,
   }));
 
   const allCategories = select.allCategories.map(currentCategory => {
@@ -46,11 +46,11 @@ function CatalogFilter() {
 
   function getSelectList(list, parentId = undefined, delimiter = '') {
     const selectList = [];
-    list.map(item => {
+    list.forEach((item) => {
       if (parentId === item.parent) {
         item.title = delimiter + item.title;
         selectList.push(item);
-        selectList.push(...getSelectList(list, item.value, `${delimiter}-`));
+        selectList.push(...getSelectList(list, item.value, `${delimiter}- `));
       }
     });
     return selectList;

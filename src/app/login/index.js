@@ -3,13 +3,13 @@ import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import useSelector from "../../hooks/use-selector";
-import {useNavigate} from "react-router-dom";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import LoginForm from "../../components/login-form";
 import HeaderLogin from "../../components/header-login";
 import Tools from "../../containers/tools";
+import useAuth from "../../hooks/use-auth";
 
 function Login() {
   const store = useStore();
@@ -18,19 +18,14 @@ function Login() {
     await store.get('catalog').initParams({}, false);
   }, [], {backForward: true});
 
+  let profile = useSelector((state) => state.profile.profile);
   let user = useSelector((state) => state.user);
-  let navigate = useNavigate();
-  let token = localStorage.getItem("token");
-  const reset = useCallback(() => store.get('user').resetError());
 
-  useEffect(() => {
-    if(token && !user.logined) store.get('user').auth(token);
-    return () => reset();
-  }, [])
+  useAuth();
 
   useEffect(() => {
     if(user.logined) {
-      navigate("/profile");
+      history.back()
     }
   }, [user.logined])
 
@@ -47,7 +42,7 @@ function Login() {
       </LayoutFlex>
       </>
     }
-    login={<HeaderLogin user={user} logout={logout}/>}
+    login={<HeaderLogin profile={profile} user={user} logout={logout}/>}
     >
       <Tools />
       <LoginForm />

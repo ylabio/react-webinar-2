@@ -19,6 +19,7 @@ function UserPage() {
   }, [], {backForward: true});
 
   let user = useSelector((state) => state.user);
+  let profile = useSelector((state) => state.profile.profile);
   let token = localStorage.getItem("token");
   let navigate = useNavigate();
 
@@ -40,9 +41,9 @@ function UserPage() {
         <LocaleSelect/>
       </LayoutFlex>
     }
-    login={<HeaderLogin user={user} logout={logout}/>}>
+    login={<HeaderLogin profile={profile} user={user} logout={logout}/>}>
       <Tools />
-      <Profile user={user.user}/>
+      <Profile profile={profile}/>
     </Layout>
   )
 }

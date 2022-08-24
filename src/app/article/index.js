@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import {useParams} from "react-router-dom";
@@ -11,6 +11,7 @@ import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
 import HeaderLogin from "../../components/header-login";
+import useAuth from "../../hooks/use-auth";
 
 function Article(){
   const store = useStore();
@@ -22,12 +23,10 @@ function Article(){
     await store.get('article').load(params.id);
   }, [params.id]);
 
-  let user = useSelector((state) => state.user)
+  useAuth();
 
-  useEffect(() => {
-    let token = localStorage.getItem("token");
-    if(token && !user.logined) store.get('user').auth(token);
-  }, [])
+  let profile = useSelector((state) => state.profile.profile);
+  let user = useSelector((state) => state.user);
 
   const select = useSelector(state => ({
     article: state.article.data,
@@ -50,7 +49,7 @@ function Article(){
         <LocaleSelect/>
       </LayoutFlex>
     }
-    login={<HeaderLogin user={user} />}>
+    login={<HeaderLogin profile={profile} user={user} logout={callbacks.logout} />}>
       <Tools/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>

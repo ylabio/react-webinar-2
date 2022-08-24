@@ -10,6 +10,7 @@ import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import useSelector from "../../hooks/use-selector";
 import HeaderLogin from "../../components/header-login";
+import useAuth from "../../hooks/use-auth";
 
 function Main() {
   const store = useStore();
@@ -18,6 +19,9 @@ function Main() {
     await store.get('catalog').initParams();
   }, [], {backForward: true});
 
+  useAuth();
+
+  let profile = useSelector((state) => state.profile.profile);
   let user = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -36,7 +40,7 @@ function Main() {
         <LocaleSelect/>
       </LayoutFlex>
     }
-    login={<HeaderLogin user={user} logout={logout}/>}
+    login={<HeaderLogin profile={profile} user={user} logout={logout}/>}
       >
       <Tools/>
       <CatalogFilter/>

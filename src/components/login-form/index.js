@@ -12,7 +12,9 @@ const LoginForm = () => {
 
   const callbacks = {
     onLogIn: useCallback((login, password) => {
-      store.get("user").logIn(login, password);
+      store.get("user").logIn(login, password).then((res) => {
+        if(res !== undefined) store.get('profile').setProfile(res.result.user.profile)
+      });
     }, [])
   }
 

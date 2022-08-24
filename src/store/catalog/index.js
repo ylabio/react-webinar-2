@@ -34,7 +34,6 @@ class CatalogState extends StateModule{
         query: ''
       },
       waiting: false,
-      categories: []
     };
   }
 
@@ -58,12 +57,6 @@ class CatalogState extends StateModule{
     const newParams = {...this.initState().params, ...validParams, ...params};
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true, changeUrl);
-
-    let categories = await fetch('/api/v1/categories').then(res => res.json());
-    this.setState({
-      ...this.getState(),
-      categories: categories.result.items
-    })
   }
 
 
@@ -87,7 +80,6 @@ class CatalogState extends StateModule{
    */
   async setParams(params = {}, historyReplace = false, changeUrl = true){
     const newParams = {...this.getState().params, ...params};
-    console.log(params, historyReplace)
 
     // Установка новых параметров и признака загрузки
     this.setState({
@@ -110,7 +102,6 @@ class CatalogState extends StateModule{
       count: json.result.count,
       waiting: false
     });
-    console.log(changeUrl)
     // Запоминаем параметры в URL
     if(changeUrl) {
       let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);

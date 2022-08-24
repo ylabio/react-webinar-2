@@ -10,7 +10,7 @@ const Profile = (props) => {
         <div className={cn()}>
             <div className={cn("header")}>Профиль</div>
             <div className={cn("text")}>
-                Имя: <span>{props.user.profile ? props.user.profile.name : ""}</span>
+                Имя: <span>{props.profile ? props.profile.name : ""}</span>
             </div>
             <div className={cn("text")}>
                 Телефон: <span>+70000000001</span>
@@ -23,7 +23,7 @@ const Profile = (props) => {
 }
 
 Profile.prototype = {
-    user: propTypes.object
+    profile: propTypes.object
 }
 
 export default React.memo(Profile)

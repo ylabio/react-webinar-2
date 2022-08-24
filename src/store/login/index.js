@@ -11,7 +11,6 @@ class UserState extends StateModule{
    */
   initState() {
     return {
-      user: {},
       token: localStorage.getItem("token") ? localStorage.getItem("token") : "",
       logined: false,
       error: ""
@@ -19,17 +18,16 @@ class UserState extends StateModule{
   }
  /**
    * Устанвока данных пользователя
-   * @param user данные пользователя
    * @param token токен
    * @param logined залогинен ли пользователь
    * @returns {void}
    */
-  setUser(user, token, logined) {
+  setUser(token, logined) {
     localStorage.setItem("token", token);
     this.setState({
-      user: {...user},
       token: token,
-      logined: logined
+      logined: logined,
+      error: ""
     });
   }
  /**
@@ -51,17 +49,24 @@ class UserState extends StateModule{
    * @returns {Promise<void>}
    */
   async logIn(login, password) {
-    await fetch("/api/v1/users/sign?fields=_id%2Cprofile%28name%29", {method: "POST", body: JSON.stringify({login, password}), headers: {
+    let returnFlag = false;
+    let profile = await fetch("/api/v1/users/sign?fields=_id%2Cprofile%28name%29", {method: "POST", body: JSON.stringify({login, password}), headers: {
         'Content-Type': 'application/json'
       }}).then((res) => res.json()).then((res) => {
-        if(res.result) this.setUser(res.result.user, res.result.token, true);
+        if(res.result) {
+          localStorage.setItem("token", res.result.token);
+          returnFlag = true;
+          this.setState({token: res.result.token, logined: true});
+        }
         else if(res.error) throw new Error(res.error.data.issues[0].message);
+        return res
       }).catch((e) => {
         this.setState({
           ...this.getState(),
           error: e.message
         })
       })
+      if(returnFlag) return profile;
   }
  /**
    * Выход из аккаунта
@@ -73,7 +78,7 @@ class UserState extends StateModule{
         "X-Token": this.getState().token
       }}).then((res) => res.json());
 
-    this.setUser({}, "", false);
+    this.setUser("", false);
   }
  /**
    * Автоматический логин при помощи записанного токена
@@ -81,12 +86,16 @@ class UserState extends StateModule{
    * @returns {Promise<void>}
    */
   async auth(token) {
-    await fetch("/api/v1/users/self?fields=_id%2Cprofile%28name%29", {method: "GET", headers: {
+    let profile = await fetch("/api/v1/users/self?fields=_id%2Cprofile%28name%29", {method: "GET", headers: {
         'Content-Type': 'application/json',
         "X-Token": token
     }}).then((res) => res.json()).then((res) => {
-      if(res.result) this.setUser(res.result, token, true)
+      if(res.result) {
+        this.setState({token: token, logined: true});
+      }
+      return res
     });
+    if(profile.result) return profile;
   }
 }
 

@@ -12,7 +12,7 @@ const HeaderLogin = (props) => {
     {props.user.logined ?
     <>
     <Link to={"/profile"}>
-      <div className={cn("name")}>{props.user?.user?.profile?.name}</div>
+      <div className={cn("name")}>{props.profile?.name}</div>
     </Link>
     <button onClick={props.logout}>Выход</button>
     </>
@@ -24,6 +24,7 @@ const HeaderLogin = (props) => {
 
 HeaderLogin.prototype = {
   user: propTypes.object,
+  profile: propTypes.object,
   logout: propTypes.func
 }
 

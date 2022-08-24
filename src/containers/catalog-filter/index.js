@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from "react";
+import React, {useCallback, useEffect, useMemo} from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
@@ -39,11 +39,15 @@ function CatalogFilter() {
     return arr;
   }
 
+  useEffect(() => {
+    store.get("categories").loadCategories();
+  }, [])
+
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.categories,
+    categories: state.categories.categories,
   }));
 
   const {t} = useTranslate();
@@ -85,13 +89,13 @@ function CatalogFilter() {
         }
         return category
       })
-
+      console.log(categoryArr);
       for(let category of categoryArr) {
         if(category.parent) {
           findParentCategory(category.parent, categoryArr, category);
         } else hierarchicallyCategory.push(category)
       }
-
+      console.log(hierarchicallyCategory);
       categoryArr = [];
 
       hierarchicallyCategory.map((category) => {

@@ -1,12 +1,12 @@
-.Auth {
+.UserPanel {
     display: flex;
     justify-content: flex-end;
 }
-.Auth-profile{
+.UserPanel-profile{
     font-size: 13px;
     line-height: 15px;
 }
-.Auth button {
+.UserPanel button {
     margin: 10px 20px;
     cursor: pointer;
     height: 21px;

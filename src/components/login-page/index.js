@@ -12,7 +12,7 @@ function LoginPage({t, login, password, onLogin, onPassword, onSubmit, authorize
   const handleSubmit = e => {
     e.preventDefault();
     onSubmit(login, password);
-    prev ? navigate(-1) : null;
+    prev ? navigate('/') : null;
   }
 
   if (!authorized) {
@@ -39,7 +39,7 @@ function LoginPage({t, login, password, onLogin, onPassword, onSubmit, authorize
     )
   } else {
     useEffect(() => {
-      prev ? navigate(-1) : null;
+      prev ? navigate('/') : null;
     }, [prev])
   }
 }

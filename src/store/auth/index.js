@@ -11,6 +11,7 @@ class AuthFormState extends StateModule {
       token: '',
       authorized: false,
       error: '',
+      waiting: false,
       profile: {
         id: '',
         name: '',
@@ -28,6 +29,7 @@ class AuthFormState extends StateModule {
     this.setState({      
       token: '',
       authorized: false,
+      waiting: false,
       error: '',
       profile: {
         id: '',
@@ -63,7 +65,6 @@ class AuthFormState extends StateModule {
   async login({login, password}) {
     // Сбрасываем состояние перед логином
     this.clearState();
-
     const response = await fetch('/api/v1/users/sign?fields=_id,email,profile(name,phone)', {
       method: 'POST',
       headers: {
@@ -79,6 +80,7 @@ class AuthFormState extends StateModule {
           ...this.getState(),
           token: result.token,
           authorized: true,
+          // waiting: false,
           profile: {
             name: result.user.profile.name,
             phone: result.user.profile.phone,
@@ -97,6 +99,7 @@ class AuthFormState extends StateModule {
       this.setState({
         ...this.getState(),
         error: errorMessage,
+        // waiting: false,
       })
     }  
   }
@@ -125,6 +128,12 @@ class AuthFormState extends StateModule {
    * @param {*} token 
    */
   async getProfile(token) {
+    console.log('getProfile');
+    this.setState({
+      ...this.getState(),
+      waiting: true,
+
+    });
     const response = await fetch('/api/v1/users/self', {
       method: 'GET',
       headers: {
@@ -139,6 +148,7 @@ class AuthFormState extends StateModule {
         ...this.getState(),
         token: token,
         authorized: true,
+        waiting: false,
         profile: {
           name: result.profile.name,
           phone: result.profile.phone,
@@ -149,6 +159,7 @@ class AuthFormState extends StateModule {
       this.setState({      
         token: '',
         authorized: false,
+        waiting: false,
         error: json.error.data.issues[0].message,
         profile: {
           id: '',

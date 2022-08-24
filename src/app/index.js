@@ -19,8 +19,6 @@ function App() {
   const location = useLocation();
 
   useInit(async () => {
-    console.log('Start Session');
-
     if (localStorage.getItem('token')) {
       await store.get('session').loadSession(localStorage.getItem('token'));
     }

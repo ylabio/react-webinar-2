@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import ProfileCart from '../../components/profile-cart';
 import Layout from '../../components/wrappers/layout';
 import LayoutFlex from '../../components/wrappers/layout-flex';

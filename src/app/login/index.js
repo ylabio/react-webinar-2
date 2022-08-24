@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import LoginForm from '../../components/login-form';
 import Layout from '../../components/wrappers/layout';
 import LayoutFlex from '../../components/wrappers/layout-flex';
@@ -11,9 +11,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import AuthHeader from '../../containers/auth-header';
 
 function Login() {
-  console.log('Login')
   const store = useStore();
-  const navigate = useNavigate();
   const [loginForm, setLoginForm] = useState({ login: '', password: '' });
   const location = useLocation();
 

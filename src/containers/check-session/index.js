@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import Spinner from '../../components/wrappers/spinner';
-import useInit from '../../hooks/use-init';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import isEmptyObject from '../../utils/is-empty-object';
@@ -9,7 +7,6 @@ import isEmptyObject from '../../utils/is-empty-object';
 function CheckSession({ children }) {
 
   const store = useStore();
-  const navigate = useNavigate();
   const location = useLocation();
 
   const select = useSelector(state => ({
@@ -21,11 +18,9 @@ function CheckSession({ children }) {
 
     async function loadingData() {
       if (!localStorage.getItem('token')) {
-        console.log('Restart Session')
         await store.get('session').loadSession(localStorage.getItem('token'));
       }
       if (select.session.isLogged) {
-        console.log('Profile');
         await store.get('profile').checkProfile(select.session.token);
       }
     }

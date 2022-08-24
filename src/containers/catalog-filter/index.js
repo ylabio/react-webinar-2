@@ -2,9 +2,10 @@ import React, {useCallback, useMemo} from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import Select from "../../components/select";
-import Input from "../../components/input";
-import LayoutFlex from "../../components/layout-flex";
+import Select from "../../components/form/select";
+import Input from "../../components/form/input";
+import LayoutFlex from "../../components/layouts/layout-flex";
+import CategoryFilter from "./categoryFilter";
 
 function CatalogFilter() {
 
@@ -38,7 +39,8 @@ function CatalogFilter() {
 
   return (
     <LayoutFlex flex="start">
-      <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
+      <CategoryFilter />
+      <Select onChange={callbacks.onSort} value={select.sort} options={options.sort} />
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </LayoutFlex>

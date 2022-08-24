@@ -1,0 +1,27 @@
+/* Страница аунтентификации  */
+.AuthPage-form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+}
+
+.AuthPage-title {
+    font-weight: bold;
+    font-size: 24px;
+    padding-bottom: 10px;
+}
+
+.AuthPage-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.AuthPage-submit {
+    flex-shrink: 12;
+    min-width: 50px;
+}
+
+.AuthPage-error {
+    color: #FF0000;
+}

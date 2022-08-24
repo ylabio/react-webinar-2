@@ -1,0 +1,26 @@
+.ProfilePage {
+    padding: 40px 20px;
+}
+
+.ProfilePage-title {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.ProfilePage-description {
+    margin: 20px 0;
+}
+
+.ProfilePage-prop {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.ProfilePage-label{
+    padding-right: 5px;
+}
+
+.ProfilePage-value{
+    font-weight: bold;
+}

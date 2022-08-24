@@ -18,12 +18,14 @@ function Main() {
 
   const {t} = useTranslate();
 
-  return (
+  return ( 
     <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{t('title')}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
+      <>
+        <LayoutFlex flex="between">
+          <h1>{t('title')}</h1>
+          <LocaleSelect/>
+        </LayoutFlex>
+      </>
     }>
       <Tools/>
       <CatalogFilter/>

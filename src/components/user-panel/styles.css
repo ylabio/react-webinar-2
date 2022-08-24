@@ -1,0 +1,26 @@
+.UserPanel{
+    box-sizing: border-box;
+    width: 1024px;
+    height: 41px;
+
+    background: #FFFFFF;
+    border-bottom: 1px solid #DCDCDC;
+
+    padding: 10px;
+}
+
+.UserPanel-link{
+    color: #0087E9;
+    float: right;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.UserPanel-link:hover{
+    color: #005491;
+}
+
+.UserPanel-button{
+    float: right;
+    margin-left: 10px;
+}

@@ -12,11 +12,7 @@ function AuthVerification({children}) {
     await store.get('authorization').checkToken();
   }, []);
 
-  return (
-    <>
-      {children}
-    </>
-  )
+  return children
 }
 
 AuthVerification.propTypes = {

@@ -10,7 +10,8 @@ import LocaleSelect from "../../containers/locale-select";
 import TopHead from "../../containers/top-head";
 import FormLogin from "../../components/form-login";
 import LayoutAuth from "../../components/layout-auth";
-import { Navigate } from "react-router-dom";
+import { useLocation, useNavigate} from "react-router-dom";
+
 
 function Login() {
   const store = useStore();
@@ -27,6 +28,7 @@ function Login() {
     user: state.profile.userData?.profile,
   }));
 
+  console.log(useLocation())
   const callbacks = {
     // Логин
     login: useCallback(data => store.get('authorization').loginRequest(data), []),
@@ -34,9 +36,13 @@ function Login() {
 
   const {t} = useTranslate();
 
-  console.log(select.token)
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || '/'
+ 
   if (select.token) {
-    return <Navigate to="/" replace={true} />
+    navigate(from, {replace: true});
   }
 
   return (

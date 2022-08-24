@@ -14,8 +14,10 @@ function FormContainer() {
   // Опции для полей
   const options = {
     fromPage: useMemo(
-      () => location.state?.from?.pathname || '/', [])
+      () => location.state?.from?.pathname || '/', [location])
   };
+
+  console.log("location at login: ", location);
 
   const select = useSelector((state) => ({
     error: state.auth.error,

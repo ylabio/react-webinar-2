@@ -98,8 +98,6 @@ class AuthState extends StateModule {
         },
       });
 
-      console.log("logout: ", response);
-
       if (response.status == 200) {
         await localStorage.removeItem("token");
 

@@ -23,7 +23,7 @@ function Main() {
   const {t} = useTranslate();
 
   useEffect(() => {
-    store.get('catalog').loadCategories();
+    store.get('categories').load();
   }, []);
 
   return (

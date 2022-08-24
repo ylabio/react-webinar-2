@@ -13,7 +13,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.categories.map(item => ({value: item._id, title: item.title}))
+    categories: state.categories.items.map(item => ({value: item._id, title: item.title}))
   }));
 
   const {t, lang} = useTranslate();

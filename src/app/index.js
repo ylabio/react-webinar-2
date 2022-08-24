@@ -11,6 +11,7 @@ import Profile from './profile';
 import PrivateRoute from './private-route';
 import ProtectedRoute from './protected-route/index';
 import { useCallback } from 'react';
+import Spinner from '../components/spinner';
 
 /**
  * Приложение
@@ -22,9 +23,10 @@ function App() {
 	const select = useSelector(state => ({
 		modal: state.modals.name,
 		isAuth: state.auth.isAuth,
-		user: state.profile.user
+		user: state.profile.user,
+		isWaiting: state.auth.isWaiting
 	}));
-
+	
 	const navigate = useNavigate();
 	const location = useLocation();
 
@@ -50,12 +52,12 @@ function App() {
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
 				<Route path={"/login"} element={
-					<PrivateRoute isAuth={select.isAuth} redirectUrl="/">
+					<PrivateRoute isAuth={select.isAuth} redirectUrl="/" isWaiting={select.isWaiting}>
 						<Login/>
 					</PrivateRoute>
 				}/>
 				<Route path={"/profile"} element={
-					<ProtectedRoute isAuth={select.isAuth} redirectUrl="/login" asyncFunc={callbacks.authentication}>
+					<ProtectedRoute isAuth={select.isAuth} redirectUrl="/login" asyncFunc={callbacks.authentication} isWaiting={select.isWaiting}>
 						<Profile/>
 					</ProtectedRoute>
 				}/>

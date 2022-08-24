@@ -1,10 +1,13 @@
 import React from 'react';
 import {Navigate} from 'react-router-dom';
 import propTypes from 'prop-types';
+import PageLoader from '../../components/page-loader';
 
-function PrivateRoute({children, isAuth, redirectUrl}) {
+function PrivateRoute({children, isAuth, redirectUrl, isWaiting}) {
   if (!isAuth) {
-    return children;
+		return isWaiting ? 
+			<PageLoader isWaiting={isWaiting}/> :
+			children;
   }
     
   return <Navigate to={redirectUrl} />
@@ -13,7 +16,8 @@ function PrivateRoute({children, isAuth, redirectUrl}) {
 PrivateRoute.propTypes = {
   children: propTypes.node.isRequired,
   isAuth: propTypes.bool.isRequired,
-  redirectUrl: propTypes.string.isRequired
+  redirectUrl: propTypes.string.isRequired,
+	isWaiting: propTypes.bool.isRequired
 }
 
 PrivateRoute.defaultProps = {

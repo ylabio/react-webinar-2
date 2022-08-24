@@ -12,7 +12,8 @@ class AuthState extends StateModule{
   initState() {
     return {
       isAuth: false,
-			authError: ''
+			authError: '',
+			isWaiting: false
     };
   }
 
@@ -55,6 +56,10 @@ class AuthState extends StateModule{
    * Аутентификация
    */
   async authentication(){
+		this.setState({
+			isWaiting: true
+		})
+
     const response = await fetch('/api/v1/users/self', {
 			headers: {'X-Token' : localStorage.getItem('token')}
 		});
@@ -72,7 +77,8 @@ class AuthState extends StateModule{
 		if(response.status === 200) {
 			this.setState({
 				...this.getState(),
-				isAuth: true
+				isAuth: true,
+				isWaiting: false
 			})
 
 			this.store.modules.profile.setUser({
@@ -84,7 +90,8 @@ class AuthState extends StateModule{
 		} else {
 			this.setState({
 				...this.getState(),
-				authError: ''
+				authError: '',
+				isWaiting: false
 			})
 			return new Promise((resolve, reject) => resolve(flagIsAuth));
 		}

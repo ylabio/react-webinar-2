@@ -35,7 +35,6 @@ class CatalogState extends StateModule {
         category: '',
       },
       waiting: false,
-      categories: []
     };
   }
 
@@ -94,15 +93,12 @@ class CatalogState extends StateModule {
     const queryCategory = newParams.category ? `&search[category]=${newParams.category}` : '';
     const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${queryCategory}`);
     const json = await response.json();
-    const responseCategories = await fetch('/api/v1/categories');
-    const jsonCategories = await responseCategories.json();
 
     // Установка полученных данных и сброс признака загрузки
     this.setState({
       ...this.getState(),
       items: json.result.items,
       count: json.result.count,
-      categories: getCategories(jsonCategories.result.items),
       waiting: false
     });
 

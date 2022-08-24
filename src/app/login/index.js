@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import Forms from "../../components/forms";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import {Navigate} from "react-router-dom";
+import {useNavigate} from "react-router";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import Tools from "../../containers/tools";
@@ -14,6 +14,7 @@ import HeaderInfo from "../../containers/header-info";
 function Login() {
 
   const store = useStore();
+  const navigate = useNavigate();
 
   const select = useSelector(state => ({
     isLoggedIn: state.login.isLoggedIn,
@@ -36,7 +37,7 @@ function Login() {
   }, [])
 
   if (select.isLoggedIn) {
-    return <Navigate to="/profile"/>
+    navigate(-1, { replace: true })
   }
 
   return <>

@@ -13,6 +13,7 @@ function LoginControl() {
 
   const select = useSelector(state => ({
     auth: state.auth,
+    // profile: state.profile,
   }));
 
   const callbacks = {
@@ -21,6 +22,7 @@ function LoginControl() {
       if(data) {
         const {token} = JSON.parse(data);       
         store.get('auth').logout(token);
+        // store.get('profile').clearState();
         localStorage.removeItem('shop');
         navigate('/');
       }     

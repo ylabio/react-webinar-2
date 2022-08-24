@@ -10,7 +10,7 @@ import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 
 function Main() {
-  const store = useStore();
+  const store = useStore(); 
 
   useInit(async () => {
     await store.get('catalog').initParams();

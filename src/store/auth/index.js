@@ -38,6 +38,23 @@ class AuthFormState extends StateModule {
     });
   }
 
+  // Очистка сообщения об ошибке
+  clearError() {
+    this.setState({
+      ...this.getState(),
+      error: '',
+    })
+  }
+
+  // Установка авторизации
+  setAuthorization(status, token) {
+    this.setState({
+      ...this.getState(),
+      token: token,
+      authorized: status,
+    })
+  }
+
 
   /**
    * Запрос на логин пользователя
@@ -129,7 +146,17 @@ class AuthFormState extends StateModule {
         }
       })
     } else {      
-      this.clearState();
+      this.setState({      
+        token: '',
+        authorized: false,
+        error: json.error.data.issues[0].message,
+        profile: {
+          id: '',
+          name: '',
+          phone: '',
+          email: '',
+        }     
+      });
     }   
   }
 }

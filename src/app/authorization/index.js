@@ -11,6 +11,7 @@ import LocaleSelect from "../../containers/locale-select";
 import AuthForm from '../../components/auth-form';
 
 function Authorization() {
+  console.log('Страница авторизации');
 
   const store = useStore();
   const navigate = useNavigate();
@@ -30,9 +31,12 @@ function Authorization() {
   useEffect(() => {
     if(select.auth.authorized) {
       // Сохраняем токен в LocalStorage
+      console.log('Сохраняем новый ключ')
       localStorage.setItem('shop', JSON.stringify({token: select.auth.token})); 
       navigate('/profile');
     }
+    // Очистка сообщения об ошибке
+    return () => store.get('auth').clearError();
   }, [select.auth.authorized]);
 
   return (

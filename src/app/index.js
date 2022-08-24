@@ -9,30 +9,32 @@ import Profile from "./profile";
 import useInit from "../hooks/use-init";
 import {useAuth} from "../hooks/use-auth";
 import useStore from "../hooks/use-store";
-import LoginHeader from "../containers/login-header";
+import PrivateRoute from "../containers/private-route";
+import LoginLayout from "../containers/login-layout";
 
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
-  const {user} = useAuth();
+  const {token, isAuth} = useAuth();
   const store = useStore();
   const modal = useSelector(state => state.modals.name);
 
   useInit(async () => {
-    if(!user.username)
-      await store.get('user').restore();
-  }, [user]);
+    if(token)
+      await store.get('auth').restore();
+  }, [token]);
 
   return (
     <>
-      <LoginHeader/>
       <Routes>
-        <Route path={''} element={<Main/>}/>
-        <Route path={"/articles/:id"} element={<Article/>}/>
-        <Route path={"/profile"} element={<Profile/>}/>
-        <Route path={'/login'} element={<LoginPage/>} />
+        <Route path={'/*'} element={<LoginLayout/>}>
+          <Route path={''} element={<Main/>}/>
+          <Route path={"articles/:id"} element={<Article/>}/>
+          <Route path={"profile"} element={<PrivateRoute auth={isAuth}><Profile/></PrivateRoute>}/>
+          <Route path={'login'} element={<LoginPage/>} />
+        </Route>
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

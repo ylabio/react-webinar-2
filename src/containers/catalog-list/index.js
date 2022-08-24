@@ -38,7 +38,7 @@ function CatalogList() {
         ]),
       [select.limit, select.sort, select.query, select.category]
     ),
-    onPaginate: useCallback(page => store.get('catalog').setParams({page}), [])
+    onPaginate: useCallback(page => store.get('catalog').setParams({page}, true), [])
   };
 
   const renders = {

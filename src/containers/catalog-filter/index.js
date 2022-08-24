@@ -17,7 +17,6 @@ function CatalogFilter() {
     filter: state.catalog.params.filter,
     categories: state.categories.list,
   }));
-
   useInit(async () => {
     await store.get("categories").getList();
   }, []);

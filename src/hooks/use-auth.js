@@ -3,10 +3,10 @@ import useSelector from './use-selector';
  * Хук для получения данных авторизации
  */
 export const useAuth = () => {
-  const {user, token, message} = useSelector((state) => state.user);
+  const {username, token, message} = useSelector((state) => state.auth);
   return {
     isAuth: !!token,
-    user,
+    username,
     token,
     message
   }

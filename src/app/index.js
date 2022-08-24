@@ -4,6 +4,8 @@ import {Routes, Route} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
+import Login from "./login";
+import Profile from "./profile";
 
 /**
  * Приложение
@@ -16,6 +18,8 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path={'login'} element={<Login/>}/>
+        <Route path={'/profile'} element={<Profile />}/>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
       </Routes>
@@ -25,3 +29,4 @@ function App() {
 }
 
 export default React.memo(App);
+

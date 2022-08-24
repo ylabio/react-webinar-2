@@ -11,7 +11,11 @@ function Input(props) {
   const [value, change] = useState(props.value);
 
   // Задержка для вызова props.onChange
-  const changeThrottle = useCallback(throttle(value => props.onChange(value), 1000), [props.onChange]);
+  const changeThrottle = useCallback(
+    props.throttle ? 
+    throttle(value => props.onChange(value), 1000) :
+      value => props.onChange(value) 
+    , [props.onChange]);
 
   // Обработчик изменений в поле
   const onChange = useCallback(event => {
@@ -41,12 +45,16 @@ Input.propTypes = {
   placeholder: propTypes.string,
   onChange: propTypes.func,
   theme: propTypes.string,
+  throttle: propTypes.bool,
+  onFocus: propTypes.func,
 }
 
 Input.defaultProps = {
   onChange: () => {},
   type: 'text',
-  theme: ''
+  theme: '',
+  throttle: true,
+  onFocus: () => {},
 }
 
 export default React.memo(Input);

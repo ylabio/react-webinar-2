@@ -20,7 +20,13 @@ function Header(props) {
   const callbacks = {
     goToLogin: useCallback(() => navigate('/login'), []),
     goToProfile: useCallback(() => navigate('/profile'), []),
-    onExit: useCallback(() => store.get('auth').deleteUser(select.token), [])
+    // Если произошла ошибка при выходе из аккаунта, выводим сообшение
+    onExit: useCallback(() => {
+      store.get('auth').deleteUser(select.token).then(() => {
+        if (store.getState().auth.error) alert("Ошибка при выходе из аккаунта: " + store.getState().auth.error);
+        store.get('auth').clearError();
+      })
+    }, [])
   };
 
   const options = {

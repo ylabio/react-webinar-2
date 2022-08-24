@@ -29,7 +29,8 @@ function Pagination(props) {
 
   // Возвращает функцию с замыканием на номер страницы
   const onClickHandler = page => {
-    return () => props.onChange(page);
+    if (Number(page))
+      return () => props.onChange(page);
   };
 
   return (

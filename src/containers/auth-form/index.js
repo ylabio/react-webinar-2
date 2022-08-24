@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import LayoutFlex from "../../components/layout-flex";
 import FormLogin from "../../components/form-login";
 import useStore from '../../hooks/use-store';
@@ -35,6 +35,10 @@ function AuthForm() {
       }
     }, [fields])
   }
+
+  useEffect(() => {
+    store.get('authentication').clearState();
+  }, []);
 
   return(
     <LayoutFlex>

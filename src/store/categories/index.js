@@ -37,7 +37,7 @@ class CategoriesState extends StateModule{
       waiting: true,
     });
 
-    const response = await fetch(`/api/v1/categories?fields=title,parent(title)`);
+    const response = await fetch(`/api/v1/categories?limit=*&fields=title,parent(title)`);
     const json = await response.json();
     this.setState({
       items: this.calculationLocationOfCategories(json.result.items),

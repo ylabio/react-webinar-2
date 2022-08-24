@@ -11,9 +11,7 @@ class AuthenticationState extends StateModule{
    */
   initState() {
     return {
-      user: {
-
-      },
+      user: {},
       token: localStorage.getItem('token'),
       errorMessage: "",
       waiting: true,
@@ -37,21 +35,20 @@ class AuthenticationState extends StateModule{
             'Content-Type': 'application/json'
         }
       })
-
-      if(!res.ok) {
-        throw new Error(`Неверный логин или пароль`)
-      }
-
       const data = await res.json();
-      localStorage.setItem('token', data.result.token);
+      if(!data.error) {
+        localStorage.setItem('token', data.result.token);
 
-      this.setState({
-        user: data.result.user,
-        token: data.result.token,
-        errorMessage: "",
-        waiting: false,
-        isAuth: true
-      })
+        this.setState({
+          user: data.result.user,
+          token: data.result.token,
+          errorMessage: "",
+          waiting: false,
+          isAuth: true
+        })
+      } else {
+        throw new Error(data.error.message + ": " + data.error.data.issues[0].message)
+      }
     } catch(e) {
       console.log(e);
       this.setState({
@@ -131,6 +128,13 @@ class AuthenticationState extends StateModule{
       });
       localStorage.removeItem('token');
     }
+  }
+
+  clearState() {
+    this.setState({
+      ...this.getState(),
+      errorMessage: ""
+    });
   }
 }
 

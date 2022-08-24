@@ -18,15 +18,19 @@ function App() {
 
   const modal = useSelector(state => state.modals.name);
   const token = useSelector(state => state.authentication.token);
-  const isAuth = useSelector(state => state.authentication.isAuth)
+  const select = useSelector(state => ({
+    modal: state.modals.name,
+    token: state.authentication.token,
+    errorMessage: state.authentication.errorMessage,
+    isAuth: state.authentication.isAuth
+  }))
   const store = useStore();
-  console.log(isAuth)
 
   useEffect(() => {
-    if(token) {
+    if(select.token) {
       store.get('authentication').logInByToken();
     }
-  }, [])
+  }, []);
 
   return (
     <>
@@ -44,7 +48,7 @@ function App() {
           </PrivateRoute>
         }/>
       </Routes>
-      {modal === 'basket' && <Basket/>}
+      {select.modal === 'basket' && <Basket/>}
     </>
   );
 }

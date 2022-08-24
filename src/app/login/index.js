@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
@@ -16,9 +16,14 @@ function Login() {
   const store = useStore();
 
   useInit(async () => {
-    await store.get('authorization').loadUser();
-  }, [], {backForward: true});
+    await store.get('profile').loadUser();
+  }, []);
 
+  // очищаем от ошибки при размонтировании (переходе на другую страницу)
+  useEffect(() => {
+    return () => store.get('authorization').cleanError();
+  }, [])
+  
   const select = useSelector(state => ({
     token: state.authorization.token,
     error: state.authorization.error,

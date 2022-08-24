@@ -8,19 +8,18 @@ function TopHead() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    token: state.authorization.token,
-    user: state.authorization.userData,
+    user: state.profile.userData,
   }));
 
   const {t} = useTranslate();
 
   const callbacks = {
     // Разлогиниться (удалить токен и сбросить все данные в state)
-    logout: useCallback(() => store.get('authorization').logout(), [])
+    logout: useCallback(() => store.get('profile').logout(), [])
   };
   
   return (
-    <MenuRegister token={select.token} onLogout={callbacks.logout} user={select.user} t={t}/>
+    <MenuRegister onLogout={callbacks.logout} user={select.user} t={t}/>
   )
 }
 

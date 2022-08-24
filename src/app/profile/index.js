@@ -16,12 +16,12 @@ function Profile() {
   const store = useStore();
 
   useInit(async () => {
-    await store.get('authorization').loadUser();
-  }, [], {backForward: true});
+    await store.get('profile').loadUser();
+  }, []);
 
   const select = useSelector(state => ({
     token: state.authorization.token,
-    user: state.authorization.userData,
+    user: state.profile.userData,
   }));
 
   const {t} = useTranslate();

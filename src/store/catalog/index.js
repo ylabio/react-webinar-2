@@ -81,7 +81,7 @@ class CatalogState extends StateModule{
     const newParams = {...this.getState().params, ...params};
 
     const categorySelect = newParams.category !== '' ? `&search[category]=${newParams.category}` : '';
-    console.log(categorySelect)
+
     // Установка новых параметров и признака загрузки
     this.setState({
       ...this.getState(),

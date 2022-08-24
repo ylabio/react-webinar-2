@@ -16,8 +16,8 @@ function Article(){
   const store = useStore();
 
   useInit(async () => {
-    await store.get('authorization').loadUser();
-  }, [], {backForward: true});
+    await store.get('profile').loadUser();
+  }, []);
 
   // Параметры из пути /articles/:id
   const params = useParams();

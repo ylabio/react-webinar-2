@@ -11,7 +11,7 @@ function CatalogFilter() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    cats: state.catalog.cats,
+    cats: state.categories.cats,
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     cat_id: state.catalog.params.cat_id
@@ -28,7 +28,7 @@ function CatalogFilter() {
     // Поиск
     onSearch: useCallback(query => store.get('catalog').setParams({query, page: 1}), []),
     // Сброс
-    onReset: useCallback(() => store.get('catalog').resetParams(), [])
+    onResetCatalog: useCallback(() => store.get('catalog').resetParams(), [])
   };
 
   // Опции для полей
@@ -46,7 +46,7 @@ function CatalogFilter() {
       <Select onChange={callbacks.onCat} value={select.cat_id} options={select.cats}/>
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
-      <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
+      <button onClick={callbacks.onResetCatalog}>{t('filter.reset')}</button>
     </LayoutFlex>
   );
 }

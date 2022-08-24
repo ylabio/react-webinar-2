@@ -24,7 +24,6 @@ class CatalogState extends StateModule{
    */
   initState() {
     return {
-      cats: [{value: '', title: 'Все'}],
       items: [],
       count: 0,
       params: {
@@ -75,7 +74,7 @@ class CatalogState extends StateModule{
   /**
    * Установка параметров и загрузка списка товаров
    * @param params
-   * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
+   * @param historyReplace {Boolean} Заменить адрес (true) или сделать новую запись в истории браузера (false)
    * @returns {Promise<void>}
    */
   async setParams(params = {}, historyReplace = false){
@@ -88,10 +87,6 @@ class CatalogState extends StateModule{
       waiting: true
     });
 
-    let parent = [];
-    let child = [];
-    let catList = [];
-    let diff = [];
     let resArticles;
 
     const skip = (newParams.page - 1) * newParams.limit;
@@ -102,43 +97,12 @@ class CatalogState extends StateModule{
       resArticles = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}&search[category]=${newParams.cat_id}`);
     }
     const articles = await resArticles.json();
-    // Загрузка категорий товаров из каталога
-    const resCats = await fetch('api/v1/categories?lang=ru&limit=*&fields=%2A');
-    const cats = await resCats.json();
-
-    // Определяем вложенность категорий для правильного отображения выпадающего списка
-    cats.result.items.forEach(item => item.hasOwnProperty('parent')
-      ? child.push({value: item._id, title: item.title, parentId: item.parent._id})
-      : parent.push({value: item._id, title: item.title}));
-
-    for (let i = 0; i < parent.length; i++) {
-      catList.push(parent[i]);
-      for (let j = 0; j < child.length; j++) {
-        if (child[j].parentId === parent[i].value) {
-          child[j].title = '- '.concat(child[j].title)
-          catList.push(child[j])
-        }
-      }
-    }
-
-    // Второй уровень вложения
-    diff = child.filter(({value: id1}) => !catList.some(({value: id2}) => id2 === id1));
-
-    for (let i = 0; i < diff.length; i++) {
-      let catListIdx = catList.findIndex((item) => item.value === diff[i].parentId)
-      if (catListIdx >= 0 && i === 1) {
-        catList.splice(catListIdx + 1, 0, {...diff[i], title: '- - - '.concat(diff[i].title)})
-      } else {
-        catList.splice(catListIdx + 1, 0, {...diff[i], title: '- - '.concat(diff[i].title)})
-      }
-    }
 
     // Установка полученных данных и сброс признака загрузки
     this.setState({
       ...this.getState(),
       items: articles.result.items,
       count: articles.result.count,
-      cats: [this.getState().cats[0], ...catList],
       waiting: false
     });
 

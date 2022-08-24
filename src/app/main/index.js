@@ -3,6 +3,7 @@ import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
+import useToken from "../../hooks/use-token";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import Tools from "../../containers/tools";
@@ -16,17 +17,18 @@ function Main() {
 
   useInit(async () => {
     await store.get('catalog').initParams();
-    await store.get('catalog').loadCategories();
-    await store.get('autorization').getProfile();
+    await store.get('categories').loadCategories();
   }, [], {backForward: true});
 
+  useToken()
+
   const select = useSelector(state => ({
-    user: state.autorization.user
+    user: state.profile.data
   }));
   
 
   const callbacks = {
-    onLogOut: useCallback(() => store.get('autorization').logOut(), []),
+    onLogOut: useCallback(() => store.get('autorization').logOut(window.localStorage.getItem('token')), []),
   };
 
   const {t} = useTranslate();

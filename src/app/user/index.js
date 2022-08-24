@@ -22,7 +22,7 @@ function User(){
     const select = useSelector(state => ({
       autorization: state.autorization.autorization,
       error: state.autorization.error,
-      user: state.autorization.user
+      user: state.profile.data
     }));
 
     useEffect(() => {

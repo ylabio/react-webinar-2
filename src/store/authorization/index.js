@@ -11,7 +11,6 @@ class AutorizationState extends StateModule{
    */
   initState() {
     return {
-      user: {},
       waiting: false,
       autorization: false,
       error: null
@@ -34,25 +33,23 @@ class AutorizationState extends StateModule{
         
         if (json.error) {
             this.setState({
-                user: {},
                 waiting: false,
                 autorization: false,
                 error: json.error.data?.issues[0]?.message
             });
         } else {
-            window.localStorage.setItem('token', json.result.token)
+            window.localStorage.setItem('token', json.result.token);
+            await this.store.get('profile').getProfile(window.localStorage.getItem('token'));
             this.setState({
-                user: {...json.result.user},
                 waiting: false,
                 autorization: true,
                 error: null
               });
         }
-        
+    
     } catch (e){
         // Ошибка при загрузке
         this.setState({
-          user: {},
           waiting: false,
           autorization: false,
           error: 'Ошибка сервера'
@@ -60,17 +57,23 @@ class AutorizationState extends StateModule{
       }
   }
 
-  async logOut() {
+  async logOut(token) {
     try {
         await fetch("/api/v1/users/sign", {
           method: "DELETE",
           headers: {
-            "X-Token": `${this.getState().token}`,
+            "X-Token": token,
             "Content-type": "application/json",
           },
         });
        this.setState(this.initState());
+       
        window.localStorage.removeItem('token')
+        // удаляем данные из модуля состояний профиля
+       this.store.get('profile').setState({
+        data: {},
+        waiting: false
+       })
     } catch(e) {
         this.setState({
             ...this.getState(),
@@ -79,26 +82,24 @@ class AutorizationState extends StateModule{
     }
   }
 
-  async getProfile() {
+  async checkToken(token) {
     try {
         const response = await fetch("/api/v1/users/self", {
             method: 'GET',
             headers: {
-                'X-Token': `${window.localStorage.getItem('token')}`,
+                'X-Token': token,
                 'Content-Type': 'application/json'
             },
         });
         const json = await response.json();
         if (json.error) {
             this.setState({
-                user: {},
                 waiting: false,
                 error: json.error.data?.issues[0]?.message,
                 autorization: false
             });
         } else {
             this.setState({
-                user: {...json.result},
                 waiting: false,
                 error: null,
                 autorization: true
@@ -107,7 +108,6 @@ class AutorizationState extends StateModule{
 
     } catch (e) {
         this.setState({
-            user: {},
             waiting: false,
             error: 'Ошибка сервера'
           });

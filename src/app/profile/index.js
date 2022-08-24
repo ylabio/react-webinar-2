@@ -2,6 +2,7 @@ import React, {useCallback, useEffect} from "react";
 import { useNavigate } from "react-router";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
+import useToken from "../../hooks/use-token";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import Tools from "../../containers/tools";
@@ -19,12 +20,10 @@ function Profile(){
     const navigate = useNavigate();
     const {t} = useTranslate();
 
-    useInit(async () => {
-        await store.get('autorization').getProfile();
-      }, [], {backForward: true});
+    useToken()
 
     const select = useSelector(state => ({
-        user: state.autorization.user,
+        user: state.profile.data,
         autorization: state.autorization.autorization
       }));
 

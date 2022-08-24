@@ -35,7 +35,6 @@ class CatalogState extends StateModule{
         query: '',
         category: ''
       },
-      categories: [],
       waiting: false
     };
   }
@@ -113,40 +112,7 @@ class CatalogState extends StateModule{
     }
   }
 
-  async loadCategories() {
-    const response = await fetch(`api/v1/categories`);
-    const json = await response.json();
-    const createTreeData = (arr) => {
-      const tree = Object.fromEntries(arr.map(item => [ item._id, { ...item, parent_id: item.parent?._id, children: [] } ]));
-      return Object.values(tree).filter(item => !tree[item.parent_id]?.children.push(item));
-    };
-
-    function formateTree(arr, prefix = '') {
-      // arr.forEach(obj => {
-      //   obj.title = prefix + obj.title
-      //   formateTree(obj.children, prefix + '-')
-      // })
-      // return arr
-      let res = [];
-        arr.forEach((item) => {
-          res = [
-            ...res,
-            { value: item._id, title: prefix + item.title },
-            ...(item.children
-            ? formateTree(item.children, prefix + "-")
-            : {}),
-          ];
-        });
-        return res;
-      }
-    
-
-    const allCategories = [{value: '', title: 'Все'}, ...formateTree(createTreeData(json.result.items))]
-    this.setState({
-      ...this.getState(),
-      categories: allCategories
-    })
-  }
+  
 }
 
 export default CatalogState;

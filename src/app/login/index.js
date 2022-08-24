@@ -6,7 +6,7 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-components/layout-flex";
 import Layout from "../../components/layout-components/layout";
 import LocaleSelect from "../../containers/locale-select";
-import LoginAuth from "../../components/login-auth";
+import LoginForm from "../../components/login-form";
 import useSelector from "../../hooks/use-selector";
 import LoginBoard from "../../containers/login-board";
 import { useNavigate } from "react-router-dom";
@@ -15,25 +15,26 @@ function Login() {
   const store = useStore();
   const navigate = useNavigate();
 
-  useInit(
-    async () => {
-      await store.get("login").authCheck();
-    },
-    [],
-    { backForward: true }
-  );
+  useInit(async () => {
+    await store.get("login").authCheck();
+  }, []);
 
   const select = useSelector((state) => ({
     isAuth: state.login.isAuth,
     isLoading: state.login.isLoading,
     error: state.login.error,
+    prevPage: state.login.prevPage,
   }));
 
   useEffect(() => {
-    if (select.isAuth) {
-      navigate(-1, { replace: true });
+    if (select.isAuth && select.prevPage) {
+      navigate(select.prevPage, { replace: true });
     }
   }, [select.isAuth]);
+
+  useEffect(() => {
+    setTimeout(() => store.get("login").resetErr(), 10000);
+  }, [select.error]);
 
   const callbacks = {
     onAuth: useCallback(
@@ -55,7 +56,7 @@ function Login() {
       }
     >
       <Tools />
-      <LoginAuth error={select.error} onAuth={callbacks.onAuth} t={t} />
+      <LoginForm error={select.error} onAuth={callbacks.onAuth} t={t} />
     </Layout>
   );
 }

@@ -16,7 +16,6 @@ function Main() {
   useInit(
     async () => {
       await store.get("catalog").initParams();
-      await store.get("catalog").initCategories();
     },
     [],
     { backForward: true }

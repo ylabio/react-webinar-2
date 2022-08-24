@@ -4,7 +4,7 @@ import { cn as bem } from "@bem-react/classname";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
 
-function LoginBoardLayout({ user, logOut, isAuth, t }) {
+function LoginBoardLayout({ user, logOut, logIn, isAuth, t }) {
   const cn = bem("LoginBoardLayout");
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ function LoginBoardLayout({ user, logOut, isAuth, t }) {
           <button onClick={callbacks.logOut}>{t("log.out")}</button>
         </>
       ) : (
-        <button onClick={() => navigate("/login")}>{t("log.in")}</button>
+        <button onClick={logIn}>{t("log.in")}</button>
       )}
     </div>
   );

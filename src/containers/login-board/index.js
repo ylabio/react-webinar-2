@@ -2,23 +2,21 @@ import React, { useCallback } from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import LoginBoardLayout from "../../components/login-board-layout";
 import useInit from "../../hooks/use-init";
 import Spinner from "../../components/spinner";
 
 function LoginBoard() {
   const store = useStore();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  useInit(
-    async () => {
-      if (localStorage.getItem("token")) {
-        await store.get("login").authCheck();
-      }
-    },
-    [],
-    { backForward: true }
-  );
+  useInit(async () => {
+    if (localStorage.getItem("token")) {
+      await store.get("login").authCheck();
+    }
+  }, []);
 
   const select = useSelector((state) => ({
     user: state.login.user,
@@ -28,6 +26,12 @@ function LoginBoard() {
 
   const callbacks = {
     logOut: useCallback(() => store.get("login").logout(), []),
+    logIn: useCallback(() => {
+      store.get("login").setPrevPage(location);
+      // запоминаем откуда перешли на страницу логина
+      // возможно, хранить адрес стоит в другом месте
+      navigate("/login");
+    }, []),
   };
 
   const { t } = useTranslate();
@@ -37,6 +41,7 @@ function LoginBoard() {
       <LoginBoardLayout
         user={select.user}
         logOut={callbacks.logOut}
+        logIn={callbacks.logIn}
         isAuth={select.isAuth}
         t={t}
       />

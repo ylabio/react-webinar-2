@@ -2,7 +2,7 @@ import Api from "../../API";
 import StateModule from "../module";
 
 /**
- * Состояние товара
+ * Состояние логина/аутентификации
  */
 class LoginState extends StateModule {
   /**
@@ -12,10 +12,11 @@ class LoginState extends StateModule {
   initState() {
     return {
       user: {},
-      token: "",
+      token: localStorage.getItem("token") || "",
       isAuth: false,
       isLoading: false,
       error: "",
+      prevPage: "",
     };
   }
 
@@ -28,21 +29,29 @@ class LoginState extends StateModule {
     try {
       const response = await Api.auth(login, password);
 
-      localStorage.setItem("token", response.data.result.token);
+      localStorage.setItem("token", response.token);
       this.setState({
-        user: response.data.result.user,
-        token: response.data.result.token,
+        ...this.getState(),
+        user: response.user,
+        token: response.token,
         isAuth: true,
-        isLoading: false,
         error: "",
       });
     } catch (error) {
+      const errors = error.response.data.error.data.issues
+        .map((err) => err.message)
+        .join(", ");
       this.setState({
+        ...this.getState(),
         user: {},
         token: "",
         isAuth: false,
+        error: errors,
+      });
+    } finally {
+      this.setState({
+        ...this.getState(),
         isLoading: false,
-        error: error.response.data.error.message,
       });
     }
   }
@@ -54,28 +63,28 @@ class LoginState extends StateModule {
     });
 
     try {
-      const response = await fetch(`/api/v1/users/sign`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Token": `${this.getState().token}`,
-        },
-      });
-      const json = await response.json();
+      await Api.logout(this.getState().token);
 
-      if (json.result) {
-        localStorage.removeItem("token");
-        this.setState({
-          user: {},
-          token: "",
-          isLoading: false,
-          error: "",
-        });
-      }
-    } catch (e) {
+      localStorage.removeItem("token");
       this.setState({
         ...this.getState(),
-        error: e,
+        isAuth: false,
+        user: {},
+        token: "",
+        error: "",
+      });
+    } catch (error) {
+      const errors = error.response.data.error.data.issues
+        .map((err) => err.message)
+        .join(", ");
+
+      this.setState({
+        ...this.getState(),
+        error: errors,
+      });
+    } finally {
+      this.setState({
+        ...this.getState(),
         isLoading: false,
       });
     }
@@ -84,9 +93,6 @@ class LoginState extends StateModule {
   async authCheck() {
     this.setState({
       ...this.getState(),
-      token: localStorage.getItem("token"),
-      // isAuth: !!localStorage.getItem("token"),
-      // тут ошибка, ищу решение (редирект на логин)
       error: "",
       isLoading: true,
     });
@@ -97,22 +103,50 @@ class LoginState extends StateModule {
         isLoading: false,
       });
     } else {
-      const response = await fetch(`/api/v1/users/self`, {
-        headers: {
-          "Content-Type": "application/json",
-          "X-Token": `${this.getState().token}`,
-        },
-      });
-      const json = await response.json();
+      try {
+        const response = await Api.authCheck(this.getState().token);
 
-      this.setState({
-        ...this.getState(),
-        isAuth: true,
-        user: json.result,
-        error: "",
-        isLoading: false,
-      });
+        this.setState({
+          ...this.getState(),
+          isAuth: true,
+          user: response,
+          error: "",
+        });
+      } catch (error) {
+        localStorage.removeItem("token");
+
+        const errors = error.response.data.error.data.issues
+          .map((err) => err.message)
+          .join(", ");
+
+        this.setState({
+          ...this.getState(),
+          user: {},
+          token: "",
+          isAuth: false,
+          error: errors,
+        });
+      } finally {
+        this.setState({
+          ...this.getState(),
+          isLoading: false,
+        });
+      }
     }
+  }
+
+  setPrevPage(location) {
+    this.setState({
+      ...this.getState(),
+      prevPage: `${location.pathname}${location.search}`,
+    });
+  }
+
+  resetErr() {
+    this.setState({
+      ...this.getState(),
+      error: "",
+    });
   }
 }
 

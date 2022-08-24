@@ -3,7 +3,7 @@ import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-function LoginAuth({ error, onAuth, t }) {
+function LoginForm({ error, onAuth, t }) {
   const cn = bem("LoginAuth");
 
   const callbacks = {
@@ -24,20 +24,20 @@ function LoginAuth({ error, onAuth, t }) {
         <div className={cn("label")}>{t("password")}</div>
         <input type={"password"} className={cn("input")} />
       </div>
-      {error && <div className={cn("error")}>Ошибка входа: {error}</div>}
+      {error && <div className={cn("error")}>Ошибка авторизации: {error}</div>}
       <input className={cn("actions")} type="submit" value={t("enter")} />
     </form>
   );
 }
 
-LoginAuth.propTypes = {
+LoginForm.propTypes = {
   onAuth: propTypes.func.isRequired,
   error: propTypes.string,
   t: propTypes.func.isRequired,
 };
 
-LoginAuth.defaultProps = {
+LoginForm.defaultProps = {
   error: "",
 };
 
-export default React.memo(LoginAuth);
+export default React.memo(LoginForm);

@@ -16,7 +16,7 @@ function ProfileLayout({ user, t }) {
         {t("profile.phone")}: <strong>{user.profile.phone}</strong>
       </span>
       <span className={cn("content")}>
-        Email: <strong>{user.email}</strong>
+        email: <strong>{user.email}</strong>
       </span>
     </div>
   );
@@ -24,6 +24,7 @@ function ProfileLayout({ user, t }) {
 
 ProfileLayout.propTypes = {
   user: propTypes.object.isRequired,
+  t: propTypes.func.isRequired,
 };
 
 ProfileLayout.defaultProps = {};

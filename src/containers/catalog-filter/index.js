@@ -6,14 +6,26 @@ import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-components/layout-flex";
 import categoriesHandler from "../../utils/categorifier";
+import useInit from "../../hooks/use-init";
+import Spinner from "../../components/spinner";
+import CategorySelect from "../../components/category-select";
 
 function CatalogFilter() {
   const store = useStore();
 
+  useInit(
+    async () => {
+      await store.get("categories").initCategories();
+    },
+    [],
+    { backForward: true }
+  );
+
   const select = useSelector((state) => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    categories: state.catalog.categories,
+    categories: state.categories.categories,
+    waiting: state.categories.waiting,
     category: state.catalog.params.category,
   }));
 
@@ -27,8 +39,9 @@ function CatalogFilter() {
       (query) => store.get("catalog").setParams({ query, page: 1 }),
       []
     ),
-    onCategoryChoice: useCallback((category) =>
-      store.get("catalog").setParams({ category, page: 1 })
+    onCategoryChoice: useCallback(
+      (category) => store.get("catalog").setParams({ category, page: 1 }),
+      []
     ),
     // Сброс
     onReset: useCallback(() => store.get("catalog").resetParams(), []),
@@ -53,11 +66,18 @@ function CatalogFilter() {
 
   return (
     <LayoutFlex flex="start">
-      <Select
-        onChange={callbacks.onCategoryChoice}
-        value={select.category}
-        options={options.categories}
-      />
+      <Spinner active={select.waiting}>
+        <CategorySelect
+          onChange={callbacks.onCategoryChoice}
+          currentCategory={select.category}
+          categories={options.categories}
+        />
+        {/* <Select
+          onChange={callbacks.onCategoryChoice}
+          value={select.category}
+          options={options.categories}
+        /> */}
+      </Spinner>
       <Select
         onChange={callbacks.onSort}
         value={select.sort}

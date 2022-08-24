@@ -18,7 +18,7 @@ export default class Api {
   }
 
   static async getCategories() {
-    const response = await axios.get("/api/v1/categories");
+    const response = await axios.get("/api/v1/categories?limit=*");
     return response.data.result.items;
   }
 
@@ -28,6 +28,30 @@ export default class Api {
       "password": password,
     };
     const response = await axios.post("/api/v1/users/sign", json);
-    return response;
+    return response.data.result;
+  }
+
+  static async authCheck(token) {
+    const headers = {
+      "Content-Type": "application/json",
+      "X-Token": token,
+    };
+
+    const response = await axios.get("/api/v1/users/self", {
+      headers,
+    });
+
+    return response.data.result;
+  }
+
+  static async logout(token) {
+    const headers = {
+      "Content-Type": "application/json",
+      "X-Token": token,
+    };
+
+    await axios.delete("/api/v1/users/sign", {
+      headers,
+    });
   }
 }

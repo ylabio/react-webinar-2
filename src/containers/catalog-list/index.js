@@ -6,11 +6,9 @@ import List from "../../components/list";
 import Pagination from "../../components/pagination";
 import Spinner from "../../components/spinner";
 import Item from "../../components/item";
-import { useLocation } from "react-router-dom";
 
 function CatalogList() {
 
-  const location = useLocation();
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -43,7 +41,7 @@ function CatalogList() {
                   page={select.page} 
                   limit={select.limit} 
                   onChange={callbacks.onPaginate}
-                  location={location} />
+                  search={window.location.search} />
     </Spinner>
   );
 }

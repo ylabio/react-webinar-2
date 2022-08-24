@@ -3,16 +3,15 @@ import StateModule from "../module";
 /**
  * Состояние товара
  */
-class AuthState extends StateModule{
-
+class AuthState extends StateModule {
   /**
    * Начальное состояние
    * @return {Object}
    */
   initState() {
     return {
-      userName: '',
-      error: '',
+      userName: "",
+      error: "",
       isAuth: false,
       waiting: false,
       firstRender: true,
@@ -22,7 +21,7 @@ class AuthState extends StateModule{
   /**
    * Авторизация
    */
-  async login(payload){
+  async login(payload) {
     // Установка признака загрузки
     this.setState({
       ...this.getState(),
@@ -30,42 +29,45 @@ class AuthState extends StateModule{
     });
 
     try {
-      const response = await fetch('/api/v1/users/sign', {
-        method: 'POST',
+      const response = await fetch("/api/v1/users/sign", {
+        method: "POST",
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
       const json = await response.json();
 
       if (json.error) {
         this.setState({
           ...this.getState(),
-          error: `${json.error.data.issues[0].message ? json.error.data.issues[0].message : 'Некая ошибка от сервера'}`,
+          error: `${
+            json.error.data.issues[0].message
+              ? json.error.data.issues[0].message
+              : "Некая ошибка от сервера"
+          }`,
           waiting: false,
         });
         setTimeout(() => {
           this.setState({
             ...this.getState(),
-            error: '',
+            error: "",
           });
-        }, 3000)
+        }, 3000);
       } else {
-        await localStorage.setItem('token', json?.result?.token);
+        await localStorage.setItem("token", json?.result?.token);
 
         // Пользователь авторизован
         this.setState({
           userName: json?.result?.user?.profile?.name,
-          error: '',
+          error: "",
           isAuth: true,
           waiting: false,
         });
       }
-      
-    } catch (error){
-      // Ошибка при загрузке
+    } catch (error) {
+      // Иная ошибка
       this.setState({
         ...this.getState(),
         error: `${error}`,
@@ -73,74 +75,72 @@ class AuthState extends StateModule{
       });
     }
   }
-  
-    /**
+
+  /**
    * Выход
    */
-     async logout(){
-      // Установка признака загрузки
-      this.setState({
-        ...this.getState(),
-        waiting: true,
-      });
-
-      const token = await localStorage.getItem('token');
-
-      try {
-       const response = await fetch('/api/v1/users/sign', {
-          method: 'DELETE',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'X-Token': token
-          }
-        });
-
-        console.log("logout: ", response);
-
-        if (response.status == 200) {
-          await localStorage.removeItem('token');
-    
-          // Пользователь разлогинен
-          this.setState({
-            error: '',
-            isAuth: false,
-            userName: '',
-            waiting: false,
-          });
-        }
-  
-
-      } catch (e){
-        this.setState({
-          error: '',
-          isAuth: false,
-          userName: '',
-          waiting: false,
-        });
-      }
-    }
-
-    /**
-   * Получить данные профиля
-   */
-  async me(){
-     // Установка признака загрузки
-     this.setState({
+  async logout() {
+    // Установка признака загрузки
+    this.setState({
       ...this.getState(),
       waiting: true,
     });
 
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem("token");
 
     try {
-      const response = await fetch('/api/v1/users/self', {
-        method: 'GET',
+      const response = await fetch("/api/v1/users/sign", {
+        method: "DELETE",
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'X-Token': token
-        }
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "X-Token": token,
+        },
+      });
+
+      console.log("logout: ", response);
+
+      if (response.status == 200) {
+        await localStorage.removeItem("token");
+
+        // Пользователь разлогинен
+        this.setState({
+          error: "",
+          isAuth: false,
+          userName: "",
+          waiting: false,
+        });
+      }
+    } catch (e) {
+      this.setState({
+        error: "",
+        isAuth: false,
+        userName: "",
+        waiting: false,
+      });
+    }
+  }
+
+  /**
+   * Получить данные профиля
+   */
+  async me() {
+    // Установка признака загрузки
+    this.setState({
+      ...this.getState(),
+      waiting: true,
+    });
+
+    const token = await localStorage.getItem("token");
+
+    try {
+      const response = await fetch("/api/v1/users/self", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "X-Token": token,
+        },
       });
       const json = await response.json();
 
@@ -150,8 +150,8 @@ class AuthState extends StateModule{
         isAuth: true,
         waiting: false,
         firstRender: false,
-    });
-    } catch (e){
+      });
+    } catch (e) {
       // Ошибка при загрузке
       this.setState({
         ...this.getState(),
@@ -162,17 +162,16 @@ class AuthState extends StateModule{
     }
   }
 
-  resetState(){
-    // Сброс стейта до initState 
+  resetState() {
+    // Сброс стейта до initState
     this.setState({
-      userName: '',
-      error: '',
+      userName: "",
+      error: "",
       isAuth: false,
       waiting: false,
       firstRender: true,
     });
- }
-
+  }
 }
 
 export default AuthState;

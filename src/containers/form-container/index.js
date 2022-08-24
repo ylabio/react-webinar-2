@@ -23,8 +23,8 @@ function FormContainer() {
     waiting: state.auth.waiting,
   }));
 
-  const [login, setLogin] = useState('test_1')
-  const [password, setPassword] = useState('123456')
+  const [login, setLogin] = useState('')
+  const [password, setPassword] = useState('')
 
   const callbacks = {
     // Отправка данных из формы

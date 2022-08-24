@@ -16,9 +16,9 @@ function HeaderContainer() {
   }));
 
   const callbacks = {
-    // 
+    // Переход на страницу логинизации
     login: useCallback(() => navigate('/login'), []),
-    // 
+    // Запрос на удаление token
     logout: useCallback(() => store.get('auth').logout(), []),
   };
 

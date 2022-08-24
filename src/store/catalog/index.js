@@ -86,6 +86,8 @@ class CatalogState extends StateModule {
       waiting: true,
     });
 
+    console.log("newParams ", newParams.category);
+
     const skip = (newParams.page - 1) * newParams.limit;
     const response = await fetch(
       `/api/v1/articles?limit=${newParams.limit}

@@ -21,7 +21,7 @@ function CatalogFilter() {
   const callbacks = {
     // Сортировка
     onSort: useCallback((sort) => store.get("catalog").setParams({ sort }), []),
-    // Сортировка
+    // Фильтрация по категории
     filterCategory: useCallback((category) => store.get("catalog").setParams({ category, page: 1 }), []),
     // Поиск
     onSearch: useCallback(

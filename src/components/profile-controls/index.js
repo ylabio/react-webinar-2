@@ -8,8 +8,8 @@ const ProfileControls = (props) => {
   const cn = bem("ProfileControls")
   return (
     <div className={cn()}>
-      <Link to={props.link}>{props.userName}</Link>
-      <button onClick={props.onClickCallback}>{props.buttonName}</button>
+      <Link className={cn("el")} to={props.link}>{props.userName}</Link>
+      <button className={cn("btn")} onClick={props.onClickCallback}>{props.buttonName}</button>
     </div>
   );
 };

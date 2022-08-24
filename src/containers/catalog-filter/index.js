@@ -11,7 +11,7 @@ function CatalogFilter() {
 
   // Получаем список категорий
   useEffect(() => {
-    store.get('catalog').getCategories();
+    store.get('category').getCategories();
   }, []);
 
   const store = useStore();
@@ -20,7 +20,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.categories,
+    categories: state.category.categories,
   }));
 
   const {t} = useTranslate();

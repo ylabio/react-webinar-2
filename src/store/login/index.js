@@ -61,7 +61,9 @@ class LoginState extends StateModule {
       this.setState({
         ...this.getState(),
         isError: true,
-        errorCode: data.error.data.issues[0].message
+        // Если ошибок несколько, то вытаскиваем из каждой значение message и склеиваем в строку через запятую
+        errorCode: data.error.data.issues.reduce((arr, item) => {arr.push(item.message); return arr;}, []).join(', ')
+        // errorCode: data.error.data.issues[0].message
       }, 'Получена ошибка: ' + data.error.data.issues[0].message)
 
       return

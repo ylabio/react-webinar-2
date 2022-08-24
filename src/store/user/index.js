@@ -22,7 +22,6 @@ class UserState extends StateModule {
    * Авторизация пользователя
    */
   async authUser(login, password) {
-    console.log('authUser - login', login, 'authUser - password', password)
     // Очистка параметров
     this.setState({
       ...this.getState(),

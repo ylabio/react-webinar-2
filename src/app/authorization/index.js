@@ -9,6 +9,7 @@ import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import AuthForm from '../../components/auth-form';
+import LoginControl from '../../containers/login-control';
 
 function Authorization() {
   console.log('Страница авторизации');
@@ -40,7 +41,8 @@ function Authorization() {
   }, [select.auth.authorized]);
 
   return (
-    <Layout 
+    <Layout
+      loginControl={<LoginControl/>}
       head={
       <LayoutFlex flex="between">
         <h1>{t('title')}</h1>

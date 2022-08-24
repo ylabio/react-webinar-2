@@ -13,7 +13,7 @@ class AuthFormState extends StateModule {
       error: '',
       waiting: false,
       profile: {
-        id: '',
+        // id: '',
         name: '',
         phone: '',
         email: '',
@@ -32,7 +32,7 @@ class AuthFormState extends StateModule {
       waiting: false,
       error: '',
       profile: {
-        id: '',
+        // id: '',
         name: '',
         phone: '',
         email: '',
@@ -127,7 +127,7 @@ class AuthFormState extends StateModule {
    * Получает данные профиля по токену
    * @param {*} token 
    */
-  async getProfile(token) {
+  async loadAuthorizationData(token) {
     console.log('getProfile');
     this.setState({
       ...this.getState(),
@@ -162,10 +162,10 @@ class AuthFormState extends StateModule {
         waiting: false,
         error: json.error.data.issues[0].message,
         profile: {
-          id: '',
+          // id: '',
           name: '',
-          phone: '',
-          email: '',
+          // phone: '',
+          // email: '',
         }     
       });
     }   

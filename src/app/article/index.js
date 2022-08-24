@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useMemo} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import {useParams} from "react-router-dom";
@@ -8,6 +8,7 @@ import ArticleCard from "../../components/article-card";
 import Spinner from "../../components/spinner";
 import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
+import LoginMenu from "../../components/login-menu";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
 
@@ -33,12 +34,19 @@ function Article(){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
 
+  const options = {
+    loginMenu: useMemo(() => ({ loginTitle: t('tologin'), logOutTitle: t('logout'), toLogin: callbacks.toLogin }), [t]),
+  }
+
   return (
     <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{select.article.title}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
+      <>
+        <LoginMenu options={options.loginMenu}/>
+        <LayoutFlex flex="between">
+          <h1>{select.article.title}</h1>
+          <LocaleSelect/>
+        </LayoutFlex>
+      </>
     }>
       <Tools/>
       <Spinner active={select.waiting}>

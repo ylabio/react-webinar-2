@@ -32,8 +32,8 @@ const LoginForm = (props) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <input className={(cn('inputButton'))} type="submit" value={login} />
         {err && <div className={(cn('err'))}>{err}</div>}
+        <input className={(cn('inputButton'))} type="submit" value={login} />
       </form>
     )
   }

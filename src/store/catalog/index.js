@@ -48,7 +48,7 @@ class CatalogState extends StateModule{
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
     let validParams = {};
-    if (urlParams.category) validParams.category = urlParams.category || '';
+    if (urlParams.category) validParams.category = urlParams.category.value || '';
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
@@ -135,7 +135,7 @@ class CatalogState extends StateModule{
       ...this.getState(),
       items: json.result.items,
       count: json.result.count,
-      category: newParams.category !== '' && categoryJson.result,
+      category: newParams.category ? categoryJson.result.value : '',
       categories: await getCategories(),
       waiting: false
     });

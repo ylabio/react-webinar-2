@@ -14,15 +14,12 @@ import Article from "./article";
 function App() {
 
   const modal = useSelector(state => state.modals.name);
-  const userToken = localStorage.token;
 
   return (
     <>
       <Routes>
         <Route path='/login' element={<LoginPage />}/>
-        <Route path='/users/:userId' element={
-          !userToken ? <Navigate replace to='/login'/> 
-          : <UserPage />}/>
+        <Route path='/profile/:userId' element={<UserPage />}/>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
       </Routes>

@@ -7,12 +7,12 @@ import './style.css';
 function LoginMenu(props) {
   const cn = bem('LoginMenu');
   const { loginTitle, logOutTitle } = props.options;
-  const { toLogin, logOut } = useContext(AuthContext);
+  const { user, toLogin, logOut } = useContext(AuthContext);
   const localStorageUser = localStorage.user && JSON.parse(localStorage.user);
 
   const UserMenu = () => (
     <>
-        <Link className={cn('link')} to={`/users/${localStorageUser._id}`}>
+        <Link className={cn('link')} to={`/profile/${user?._id || localStorageUser._id}`}>
           {localStorageUser.profile.name}
           {' '}
           {localStorageUser.profile.surname}

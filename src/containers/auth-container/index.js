@@ -12,24 +12,24 @@ const AuthContextProvider = ({ children }) => {
     const logIn = async (password, login) => {
       const query = '/api/v1/users/sign';
       const body = JSON.stringify({
-        login: `${login.slice(0, -2)}@example.com`,
+        login,
         password,
         remeber: true
       });
-      try {
-        const res = await fetch(query, {
-          method: 'POST',
-          body,
-          headers: {'Content-Type': 'application/json'}
-        });
+      const res = await fetch(query, {
+        method: 'POST',
+        body,
+        headers: {'Content-Type': 'application/json'}
+      });
+      if (res.ok) {
         const { result } = await res.json()
         localStorage.setItem('user', JSON.stringify(result.user));
         localStorage.setItem('token', JSON.stringify(result.token));
         set(result.user);
-        navigate(`/users/${result.user._id}`);
-      } catch (err) {
-        console.log(err)
-        setErr(err.message)
+        err && setErr(null);
+      } else {
+        const { error : { data } } = await res.json()
+        setErr(data.issues[0].message)
       }
     };
     

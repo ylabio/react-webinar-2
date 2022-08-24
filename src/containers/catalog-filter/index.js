@@ -11,7 +11,7 @@ function CatalogFilter() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    category: state.catalog.category,
+    category: state.catalog.params.category,
     categories: state.catalog.categories,
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
@@ -44,7 +44,7 @@ function CatalogFilter() {
 
   return (
     <LayoutFlex flex="start">
-      <Select onChange={callbacks.onSelectCategory} value={select.category ? select.category.id : '' } options={options.categories}/>
+      <Select onChange={callbacks.onSelectCategory} value={select.category} options={options.categories}/>
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

@@ -9,6 +9,7 @@ import LocaleSelect from '../../containers/locale-select'
 import LoginForm from '../../components/login-form'
 import AuthContainer from '../../containers/auth-container'
 import { Navigate } from 'react-router-dom'
+import Spinner from '../../components/spinner'
 
 function Login() {
   const store = useStore()
@@ -46,7 +47,9 @@ function Login() {
         </LayoutFlex>
       }>
       <Tools />
-      <LoginForm login={callbacks.login} error={select.error} waiting={select.waiting} t={t} />
+      <Spinner active={select.waiting}>
+        <LoginForm login={callbacks.login} error={select.error} waiting={select.waiting} t={t} />
+      </Spinner>
     </Layout>
   )
 }

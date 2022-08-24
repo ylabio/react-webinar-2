@@ -7,12 +7,23 @@ import Article from './article'
 import Profile from './profile'
 import Login from './login'
 import useStore from '../hooks/use-store'
+import useInit from '../hooks/use-init'
 
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
+  const store = useStore()
+
+  useInit(
+    async () => {
+      await store.get('profile').initUser()
+    },
+    [],
+    { backForward: false }
+  )
+
   const modal = useSelector((state) => state.modals.name)
 
   return (

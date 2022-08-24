@@ -12,7 +12,7 @@ import ProfileInfo from '../../components/profile-info'
 import Spinner from '../../components/spinner'
 
 function Profile() {
-  const store = useStore()
+  // const store = useStore()
 
   const select = useSelector((state) => ({
     user: state.profile.user,
@@ -20,9 +20,10 @@ function Profile() {
     waiting: state.profile.waiting,
   }))
 
-  if (!select.auth && select.waiting) {
+  if (!select.auth && !select.user) {
     return <Navigate to={'/login'} replace />
   }
+  console.log(select.user)
 
   const { t } = useTranslate()
 

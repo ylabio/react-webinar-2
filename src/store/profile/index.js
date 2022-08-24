@@ -63,9 +63,16 @@ class ProfileState extends StateModule {
   }
 
   async initUser() {
-    const token = localStorage.getItem('token')
+    const token = await localStorage.getItem('token')
+
     if (token) {
       this.getProfile()
+    } else {
+      this.setState({
+        ...this.getState(),
+        waiting: false,
+        error: '',
+      })
     }
   }
 

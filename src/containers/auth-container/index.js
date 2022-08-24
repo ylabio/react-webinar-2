@@ -15,14 +15,6 @@ function AuthContainer() {
     waiting: state.profile.waiting,
   }))
 
-  useInit(
-    async () => {
-      await store.get('profile').initUser()
-    },
-    [select.auth],
-    { backForward: false }
-  )
-
   const { t } = useTranslate()
 
   const callbacks = {

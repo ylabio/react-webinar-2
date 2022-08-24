@@ -15,10 +15,6 @@ import { Navigate } from "react-router-dom";
 function Login() {
   const store = useStore();
 
-  useInit(async () => {
-    await store.get('authorization').checkToken();
-  }, []);
-
   // очищаем состояние авторизации при размонтировании (переходе на другую страницу)
   useEffect(() => {
     return () => store.get('authorization').cleanError();

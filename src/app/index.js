@@ -6,6 +6,7 @@ import Basket from "./basket";
 import Article from "./article";
 import Login from './login';
 import Profile from './profile';
+import AuthVerification from '../containers/auth-verification';
 
 /**
  * Приложение
@@ -16,7 +17,7 @@ function App() {
   const modal = useSelector(state => state.modals.name);
 
   return (
-    <>
+    <AuthVerification>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
@@ -24,7 +25,7 @@ function App() {
         <Route path={"/profile"} element={<Profile/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}
-    </>
+    </AuthVerification>
   );
 }
 

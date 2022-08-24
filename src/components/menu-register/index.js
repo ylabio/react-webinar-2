@@ -13,7 +13,7 @@ function MenuRegister({onLogout, token, authName, user, t}) {
       <>
         <Link to='/profile' className={cn('profile')}>{authName}</Link>
         <button className={cn('btn')} onClick={onLogout}>{t('menuRegister.exit')}</button>
-      </> : <Link className={cn('btn')} to='/login'>{t('menuRegister.login')}</Link>
+      </> : <div className={cn('btn')}><Link to='/login'>{t('menuRegister.login')}</Link></div>
       }
     </div>
   )

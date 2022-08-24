@@ -16,7 +16,6 @@ function Main() {
   useInit(async () => {
     await store.get('catalog').initParams();
     await store.get('category').loadCategory();
-    await store.get('authorization').checkToken();
 
   }, [], {backForward: true});
 

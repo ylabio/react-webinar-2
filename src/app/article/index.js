@@ -15,10 +15,6 @@ import TopHead from "../../containers/top-head";
 function Article(){
   const store = useStore();
 
-  useInit(async () => {
-    await store.get('authorization').checkToken();
-  }, []);
-
   // Параметры из пути /articles/:id
   const params = useParams();
 

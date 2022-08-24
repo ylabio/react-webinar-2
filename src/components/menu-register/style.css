@@ -15,17 +15,20 @@
 }
 
 .MenuRegister-btn {
+    height: 21px;
+}
+
+.MenuRegister-btn a{
     background: #EFEFEF;
     color: black;
     border: 1px solid #767676;
     border-radius: 2px;
-    padding: 2px 2px 1px 2px;
+    padding: 4px 4px 2px 4px;
     font-size: 13px;
-    min-width: 47px;
-    min-height: 21px;
     text-decoration: none; 
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
 }
+

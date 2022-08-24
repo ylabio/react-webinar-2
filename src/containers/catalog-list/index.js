@@ -2,10 +2,10 @@ import React, {useCallback} from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import List from "../../components/list";
-import Pagination from "../../components/pagination";
+import List from "../../components/products/list";
+import Pagination from "../../components/tools/pagination";
 import Spinner from "../../components/spinner";
-import Item from "../../components/item";
+import Item from "../../components/products/item";
 
 function CatalogList() {
 
@@ -24,8 +24,6 @@ function CatalogList() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    // Пагианция
-    onPaginate: useCallback(page => store.get('catalog').setParams({page}), []),
   };
 
   const renders = {
@@ -37,7 +35,7 @@ function CatalogList() {
   return (
     <Spinner active={select.waiting}>
       <List items={select.items} renderItem={renders.item}/>
-      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
+      <Pagination count={select.count} page={select.page} limit={select.limit} />
     </Spinner>
   );
 }

@@ -1,0 +1,12 @@
+.ControlsLogin{
+}
+.ControlsLogin-btn {
+    margin-left: 20px;
+}
+.ControlsLogin-user {
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+    text-decoration-line: underline;
+    color: #0087E9;
+}

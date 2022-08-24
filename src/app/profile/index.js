@@ -14,7 +14,7 @@ function Profile() {
   const navigate = useNavigate();
   const store = useStore();
   const token = useSelector((state) => state.auth.token);
-  let user_data = useSelector((state) => ({
+  const user_data = useSelector((state) => ({
     username: state.auth.username,
     phone: state.auth.extra_data.phone,
     email: state.auth.extra_data.email,

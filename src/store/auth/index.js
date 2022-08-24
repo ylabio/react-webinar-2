@@ -26,6 +26,7 @@ class AuthState extends StateModule {
         localStorage.setItem("token", json.result.token);
 
         this.setState({
+          ...this.getState(),
           username: json.result.user.profile.name,
           token: json.result.token,
           error_message: "",
@@ -54,7 +55,12 @@ class AuthState extends StateModule {
       const json = await response.json();
       localStorage.removeItem("username");
       localStorage.removeItem("token");
-      this.setState({ username: "", token: "", error_message: "" });
+      this.setState({
+        ...this.getState(),
+        username: "",
+        token: "",
+        error_message: "",
+      });
       nav_function();
     } catch (e) {
       console.log(e.message);

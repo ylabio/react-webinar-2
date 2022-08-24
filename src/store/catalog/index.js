@@ -94,7 +94,8 @@ class CatalogState extends StateModule {
     const response = await fetch(API_url);
     const json = await response.json();
 
-    API_url = "/api/v1/categories?fields=items(_id,name,title,parent(_id))";
+    API_url =
+      "/api/v1/categories?fields=items(_id,name,title,parent(_id))&limit=*";
     const cat_response = await fetch(API_url);
     const cat_json = await cat_response.json();
 

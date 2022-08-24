@@ -25,6 +25,7 @@ class AuthState extends StateModule{
   async login(data) {
     this.setState({
       ...this.getState(),
+      error: "",
       waiting: true,
     });
 
@@ -36,15 +37,9 @@ class AuthState extends StateModule{
         },
         body: JSON.stringify(data)
       });
+      // Проверяем ответ сервера
+      await this.checkResponse(response);
       const json = await response.json();
-
-      if (json.error) { 
-        let message = "";
-        json.error.data.issues.forEach(issue => {
-          message += issue.message + "\n";    
-        });
-        throw new Error(message);
-      }
       
       this.setState({
         ...this.getState(),
@@ -81,15 +76,9 @@ class AuthState extends StateModule{
           'X-Token': token
         }
       });
+      // Проверяем ответ сервера
+      await this.checkResponse(response);
       const json = await response.json();
-
-      if (json.error) { 
-        let message = "";
-        json.error.data.issues.forEach(issue => {
-          message += issue.message + "\n";    
-        });
-        throw new Error(message);
-      }
 
       this.setState({
         ...this.getState(),
@@ -101,6 +90,7 @@ class AuthState extends StateModule{
       this.setState({
         ...this.getState(),
         error: e.message,
+        token: "",        // Если восстановление сессии неудачно, сбрасываем токен в приложении
         waiting: false
       });
     }
@@ -123,15 +113,8 @@ class AuthState extends StateModule{
           'X-Token': token
         }
       });
-      const json = await response.json();
-
-      if (json.error) { 
-        let message = "";
-        json.error.data.issues.forEach(issue => {
-          message += issue.message + "\n";    
-        });
-        throw new Error(message);
-      }
+      // Проверяем ответ сервера
+      await this.checkResponse(response);
 
       this.setState({
         ...this.getState(),
@@ -149,6 +132,30 @@ class AuthState extends StateModule{
         waiting: false
       });
     }
+  }
+
+  /**
+   * Проверка респонса
+   */
+  async checkResponse(response) {
+    // Если запрос не успешен, пытаемся получить ответ сервера и записать ошибки,
+      // иначе возвращаем код и статус
+      if (!response.ok) {
+        await response.json().then(
+          (json) => {
+            if (json.error) {
+              let message = ""; 
+              json.error.data.issues.forEach(issue => {
+                message += issue.message + "\n";    
+              });
+              throw new Error(message);
+            }
+          },
+          () => {
+            throw new Error(response.status + ": " + response.statusText)
+          }
+        );
+      }
   }
 
   /**

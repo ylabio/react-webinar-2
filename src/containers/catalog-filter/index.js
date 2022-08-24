@@ -23,7 +23,7 @@ function CatalogFilter() {
     // Сортировка
     onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
     // Категории
-    onCategory: useCallback(category => store.get('catalog').setParams({category}), []),
+    onCategory: useCallback(category => store.get('catalog').setParams({category, page: 1}), []),
     // Поиск
     onSearch: useCallback(query => store.get('catalog').setParams({query, page: 1}), []),
     // Сброс

@@ -14,5 +14,15 @@
   "basket.unit": "pcs",
   "basket.delete": "Delete",
   "article.add": "Add",
-  "filter.reset": "Reset"
+  "filter.reset": "Reset",
+  "login.title": "Sign in",
+  "login.login": "Login",
+  "login.password": "Password",
+  "login.btn": "Enter",
+  "nav.logout": "Logout",
+  "nav.login": "Sign In",
+  "user.name": "Name",
+  "user.phone": "Phone",
+  "user.email": "Email",
+  "user.profile": "Profile"
 }

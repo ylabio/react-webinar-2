@@ -1,0 +1,61 @@
+.Stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.Stack_px_none {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.Stack_px_small {
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
+.Stack_px_normal {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.Stack_px_large {
+  padding-right: 28px;
+  padding-left: 28px;
+}
+
+.Stack_py_none {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.Stack_py_small {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.Stack_py_normal {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.Stack_py_large {
+  padding-top: 28px;
+  padding-bottom: 28px;
+}
+
+.Stack_spacing_none > * {
+  margin-bottom: 0;
+}
+
+.Stack_spacing_small > * {
+  margin-bottom: 12px;
+}
+
+.Stack_spacing_normal > * {
+  margin-bottom: 20px;
+}
+
+.Stack_spacing_large > * {
+  margin-bottom: 25px;
+}

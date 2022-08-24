@@ -1,6 +1,6 @@
 import React from 'react';
-import propTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname'
+import propTypes from 'prop-types';
+import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 function Pagination(props) {
@@ -21,29 +21,37 @@ function Pagination(props) {
   // Пропуск
   if (left > 2) items.push(null);
   // Последваотельность страниц
-  for (let page = left; page <= right; page++) items.push(page)
+  for (let page = left; page <= right; page++) items.push(page);
   // Пропуск
   if (right < length - 1) items.push(null);
   // Последнаяя страница
   if (right < length) items.push(length);
 
   // Возвращает функцию с замыканием на номер страницы
-  const onClickHandler = page => {
-    return () => props.onChange(page);
+  const onClickHandler = (page) => (e) => {
+    e.preventDefault();
+    props.onChange(page);
   };
 
   return (
     <ul className={cn()}>
       {items.map((number, index) => (
-        <li key={index}
-            className={cn('item', {active: number === props.page, split: !number})}
-            onClick={onClickHandler(number)}
-        >
-          {number || '...'}
+        <li key={index}>
+          {number ? (
+            <a
+              className={cn('item', { active: number === props.page, split: !number })}
+              onClick={onClickHandler(number)}
+              href={props.url ? `${props.url.base}?page=${number}&` + props.url.query : '#'}
+            >
+              {number}
+            </a>
+          ) : (
+            <div>...</div>
+          )}
         </li>
       ))}
     </ul>
-  )
+  );
 }
 
 Pagination.propTypes = {
@@ -51,7 +59,8 @@ Pagination.propTypes = {
   limit: propTypes.number,
   count: propTypes.number,
   onChange: propTypes.func,
-  indent: propTypes.number
+  indent: propTypes.number,
+  url: propTypes.object,
 }
 
 Pagination.defaultProps = {

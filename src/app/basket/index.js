@@ -2,10 +2,10 @@ import React, {useCallback} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
-import BasketTotal from "../../components/basket-total";
-import LayoutModal from "../../components/layout-modal";
-import ItemBasket from "../../components/item-basket";
-import List from "../../components/list";
+import BasketTotal from "../../components/items/basket-total";
+import LayoutModal from "../../components/layouts/layout-modal";
+import ItemBasket from "../../components/items/item-basket";
+import List from "../../components/elements/list";
 
 function Basket() {
   const store = useStore();

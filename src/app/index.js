@@ -1,6 +1,6 @@
 import React from 'react';
 import useSelector from "../hooks/use-selector";
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, useLocation} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
@@ -16,11 +16,12 @@ import useInit from "../hooks/use-init";
 function App() {
 
   const store = useStore();
+  const location = useLocation();
 
   useInit(async () => {
     const lS = localStorage.getItem('token') || '';
     await store.get('login').checkLogin(lS);
-  }, []);
+  }, [location]);
 
   const modal = useSelector(state => state.modals.name);
 

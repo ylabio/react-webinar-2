@@ -17,7 +17,7 @@ function Main() {
 
   useInit(async () => {
     await store.get('catalog').initParams();
-  }, [location.search], {backForward: true});
+  }, [location], {backForward: true});
 
   const {t} = useTranslate();
 

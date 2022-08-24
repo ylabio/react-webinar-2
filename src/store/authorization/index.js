@@ -133,7 +133,7 @@ class Authorization extends StateModule{
       ...this.getState(),
       error: '',
       waiting: false
-    }, 'Очистка ошибка авторизации');
+    }, 'Очистка ошибки авторизации');
   }
 
 }

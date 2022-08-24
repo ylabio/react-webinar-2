@@ -35,7 +35,9 @@ function Login() {
       store.get('basket').setFromStorage(localStorage.getItem("basket"));
     //получаем информацию о пользователе  
     if (select.token)
-      store.get('userinfo').setUserInfo(select.token);  
+      store.get('userinfo').setUserInfo(select.token);
+    //очистка данных формы  
+    store.get('forminfo').cleanError();
   }, [])  
 
   return (
@@ -46,7 +48,7 @@ function Login() {
       </LayoutFlex>
     } loginlogout={<LoginLogout/>}>
       <Spinner active={select.waiting}>
-        {!select.token && <CabinetLogin/>}
+        {!select.token && !select.waiting && <CabinetLogin/>}
         {select.token && <Navigate replace to={'/'}/>} 
       </Spinner>  
     </Layout>

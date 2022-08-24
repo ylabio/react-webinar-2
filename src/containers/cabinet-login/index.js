@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
@@ -13,7 +13,7 @@ function CabinetLogin() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    loginError: state.authorization.error
+    loginError: state.forminfo.error
   }));
 
   //обработка ошибки авторизации
@@ -23,6 +23,7 @@ function CabinetLogin() {
 
   const callbacks = {
     onLogin: useCallback((e, login, password) => {store.get('authorization').login(login, password);
+    store.get('forminfo').login(login, password);
     e.preventDefault();
     e.target.reset();
     }, []),

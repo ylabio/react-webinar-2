@@ -6,3 +6,4 @@ export { default as locale } from './locale';
 export { default as authorization } from './authorization';
 export { default as categories } from './categories';
 export { default as userinfo } from './user-info';
+export { default as forminfo } from './form-info';

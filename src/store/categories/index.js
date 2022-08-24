@@ -22,7 +22,7 @@ class Categories extends StateModule{
     this.setState({
       ...this.getState(),
       waiting: true
-    }, 'Установка признаков закгрузки категорий');
+    }, 'Установка признаков загрузки категорий');
     //получаем список категорий 
     try {
       const categoriesResponse = await fetch(`/api/v1/categories?limit=*`);

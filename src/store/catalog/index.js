@@ -85,7 +85,7 @@ class CatalogState extends StateModule{
       ...this.getState(),
       params: newParams,
       waiting: true
-    }, 'Установка признаков закгрузки');
+    }, 'Установка признаков загрузки');
 
     const skip = (newParams.page - 1) * newParams.limit;
     const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${newParams.category? '&search[category]='+newParams.category:''}`);

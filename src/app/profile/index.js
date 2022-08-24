@@ -9,6 +9,7 @@ import LayoutFlex from '../../components/layout-flex'
 import LocaleSelect from '../../containers/locale-select'
 import AuthContainer from '../../containers/auth-container'
 import ProfileInfo from '../../components/profile-info'
+import Spinner from '../../components/spinner'
 
 function Profile() {
   const store = useStore()
@@ -16,10 +17,11 @@ function Profile() {
   const select = useSelector((state) => ({
     user: state.profile.user,
     auth: state.profile.auth,
+    waiting: state.profile.waiting,
   }))
 
-  if (!select.auth) {
-    return <Navigate to={'/login'} />
+  if (!select.auth && select.waiting) {
+    return <Navigate to={'/login'} replace />
   }
 
   const { t } = useTranslate()
@@ -38,7 +40,9 @@ function Profile() {
         </LayoutFlex>
       }>
       <Tools />
-      <ProfileInfo user={select.user} t={t} />
+      <Spinner active={select.waiting}>
+        <ProfileInfo user={select.user} t={t} />
+      </Spinner>
     </Layout>
   )
 }

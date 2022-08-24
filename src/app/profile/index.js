@@ -6,7 +6,7 @@ import useSelector from '../../hooks/use-selector'
 import useTranslate from '../../hooks/use-translate';
 import Layout from '../../components/layout';
 import LayoutFlex from "../../components/layout-flex";
-import LoginPanel from '../../components/login-panel';
+import LoginPanel from '../../containers/login-panel';
 import LocaleSelect from "../../containers/locale-select";
 import Tools from "../../containers/tools";
 

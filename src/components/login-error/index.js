@@ -1,6 +1,6 @@
-import React from 'react'
-import propTypes from 'prop-types'
-import './style.css'
+import React from 'react';
+import propTypes from 'prop-types';
+import './style.css';
 
 function LoginError({code, t}) {
   return (

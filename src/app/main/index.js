@@ -5,7 +5,7 @@ import useTranslate from "../../hooks/use-translate";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import Layout from "../../components/layout";
-import LoginPanel from "../../components/login-panel";
+import LoginPanel from "../../containers/login-panel";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
 import Tools from "../../containers/tools";

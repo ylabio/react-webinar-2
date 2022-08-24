@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Auth from '../auth';
-import LayoutFlex from '../layout-flex';
+import Auth from '../../components/auth';
+import LayoutFlex from '../../components/layout-flex';
 import useInit from '../../hooks/use-init';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
@@ -10,18 +10,18 @@ import useTranslate from '../../hooks/use-translate';
 function LoginPanel() {
   const {t} = useTranslate()
   const store = useStore()
-  const {user, loadingErr} = useSelector(state => ({user: state.auth.user, loadingErr: state.auth.loadingErr}))
+  const {user, loadingErr} = useSelector(state => ({user: state.profile.user, loadingErr: state.profile.loadingErr}))
   const nav = useNavigate()
 
   useInit(() => {
     if (!user && localStorage.getItem('TOKEN') && !loadingErr) {
-      store.get('auth').getProfile()
+      store.get('profile').getProfile()
     }
   }, [], {backForward: false})
 
   const callbacks = {
     toLogin: useCallback(() => nav('/login'), [nav]),
-    logOut: useCallback(() => store.get('auth').logOut(), []),
+    logOut: useCallback(() => store.get('profile').quit(), []),
   }
 
   return (

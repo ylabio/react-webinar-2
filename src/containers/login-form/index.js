@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react'
-import LayoutForm from '../layout-form'
-import LoginError from '../login-error'
-import LoginInput from '../login-input'
+import LayoutForm from '../../components/layout-form'
+import LoginError from '../../components/login-error'
+import LoginInput from '../../components/login-input'
 import useSelector from '../../hooks/use-selector'
 import useStore from '../../hooks/use-store'
 import useTranslate from '../../hooks/use-translate';
@@ -10,7 +10,7 @@ function LoginForm() {
   const {t} = useTranslate()
   const store = useStore()
   const select = useSelector(state => ({
-    auth: state.auth.auth,
+    auth: state.auth,
   }));
 
   useEffect(() => {
@@ -20,7 +20,7 @@ function LoginForm() {
   }, []);
 
   const callbacks = {
-    onSubmit: useCallback(() => store.get('auth').logIn(select.auth), []),
+    onSubmit: useCallback(() => store.get('auth').logIn(), []),
     loginChange: useCallback((v) => store.get('auth').setLogin(v), []),
     passwordChange: useCallback((v) => store.get('auth').setPassword(v), []),
     resetError: useCallback(() => store.get('auth').resetError(), [])

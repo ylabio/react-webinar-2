@@ -10,7 +10,7 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
-import LoginPanel from "../../components/login-panel";
+import LoginPanel from "../../containers/login-panel";
 
 function Article(){
   const store = useStore();

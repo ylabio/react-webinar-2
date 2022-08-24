@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import useSelector from "../hooks/use-selector";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
@@ -47,8 +47,10 @@ function App() {
               logout={isAuth ? callbacks.logout : null}/>
       <Routes>
         <Route path={''} element={<Main/>}/>
-        <Route path={'/login'} element={<LoginChecker condition={!isAuth} path={'/profile'}><Login/></LoginChecker>}/>
-        <Route path={'/profile'} element={<LoginChecker condition={isAuth} path={'/login'}><Profile/></LoginChecker>}/>
+        <Route path={'/login'} element={
+          <LoginChecker condition={!isAuth} path={'/profile'}><Login/></LoginChecker>}/>
+        <Route path={'/profile'} element={
+          <LoginChecker condition={isAuth} path={'/login'}><Profile/></LoginChecker>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}

@@ -33,10 +33,14 @@ function Pagination(props) {
     return () => props.onChange(page);
   };
   
+  const linkPath = (number) => {
+    return `?page=${number}&limit=${props.params.limit}&sort=${props.params.sort}&query=${props.params.query}&category=${props.params.category}`
+  }
+  
   return (
     <ul className={cn()}>
       {items.map((number, index) => (
-        <Link to={`/${window.location.search}`} key={index}>
+        <Link to={linkPath(number)} key={index}>
           <li
             className={cn('item', {active: number === props.page, split: !number})}
             onClick={onClickHandler(number)}

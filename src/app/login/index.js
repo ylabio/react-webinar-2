@@ -7,13 +7,19 @@ import useTranslate from "../../hooks/use-translate";
 import Tools from "../../containers/tools";
 import LoginForm from "../../components/form-components/login-form";
 import useSelector from "../../hooks/use-selector";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const store = useStore();
   
+  const navigate = useNavigate()
+  
   const callbacks = {
     // Функция логина
-    login: useCallback((login, password) => store.get('user').login(login, password), []),
+    login: useCallback((login, password) => {
+      store.get('user').login(login, password)
+      navigate('/')
+    }, []),
   };
   
   const {errorMessage} = useSelector(state => {

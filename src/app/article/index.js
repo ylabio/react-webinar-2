@@ -10,6 +10,7 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import LoginControl from "../../components/login-control";
 
 function Article(){
   const store = useStore();
@@ -19,11 +20,15 @@ function Article(){
 
   useInit(async () => {
     await store.get('article').load(params.id);
+    await store.get('autorization').getProfile();
   }, [params.id]);
 
   const select = useSelector(state => ({
     article: state.article.data,
-    waiting: state.article.waiting
+    waiting: state.article.waiting,
+    user: state.autorization.user,
+    autorization: state.autorization.autorization
+      
   }));
 
   const {t} = useTranslate();
@@ -34,17 +39,23 @@ function Article(){
   };
 
   return (
-    <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{select.article.title}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    }>
-      <Tools/>
-      <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
-      </Spinner>
-    </Layout>
+    <>
+      <LoginControl 
+              t={t} 
+              userName={select.user.profile ? select.user.profile.name : null}
+              onLogOut={callbacks.onLogOut}/>
+      <Layout head={
+        <LayoutFlex flex="between">
+          <h1>{select.article.title}</h1>
+          <LocaleSelect/>
+        </LayoutFlex>
+      }>
+        <Tools/>
+        <Spinner active={select.waiting}>
+          <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        </Spinner>
+      </Layout>
+    </>
   )
 }
 

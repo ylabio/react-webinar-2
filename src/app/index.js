@@ -3,7 +3,9 @@ import useSelector from "../hooks/use-selector";
 import {Routes, Route} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
+import User from './user';
 import Article from "./article";
+import Profile from './profile';
 
 /**
  * Приложение
@@ -18,6 +20,8 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
+        <Route path={"/login"} element={<User/>}/>
+        <Route path={"/profile"} element={<Profile/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

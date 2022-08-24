@@ -1,25 +1,30 @@
 import React from 'react';
-import useSelector from "../hooks/use-selector";
-import {Routes, Route} from "react-router-dom";
-import Main from "./main";
-import Basket from "./basket";
-import Article from "./article";
+import useSelector from '../hooks/use-selector';
+import Basket from './basket';
+import useStore from '../hooks/use-store';
+import { Routes } from '../routes';
+import useInit from '../hooks/use-init';
 
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
+  const store = useStore();
 
-  const modal = useSelector(state => state.modals.name);
+  useInit(async () => {
+    await store.get('authorization').checkToken(localStorage.getItem('token'));
+  }, []);
+
+  const select = useSelector((state) => ({
+    modal: state.modals.name,
+    // loggedIn: state.authorization.loggedIn,
+  }));
 
   return (
     <>
-      <Routes>
-        <Route path={''} element={<Main/>}/>
-        <Route path={"/articles/:id"} element={<Article/>}/>
-      </Routes>
-      {modal === 'basket' && <Basket/>}
+      <Routes />
+      {select.modal === 'basket' && <Basket />}
     </>
   );
 }

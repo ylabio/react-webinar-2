@@ -1,0 +1,26 @@
+.Form {
+  padding: 15px 20px 0px 20px;
+}
+
+.Form > *:not(:last-child) {
+  margin: 0px 0px 20px 0px;
+}
+
+.Form-title {
+  margin: 0;
+  padding: 40px 20px 15px 20px;
+}
+
+.Form-input {
+  display: block;
+  font-size: 16px;
+  padding: 2px;
+}
+
+.Form-label {
+  display: block;
+}
+
+.Form-red {
+  color: red;
+}

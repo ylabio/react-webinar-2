@@ -1,0 +1,14 @@
+.Panel {
+}
+
+.Panel-button {
+  cursor: pointer;
+}
+
+.Panel-profile {
+  color: #0087e9;
+  text-decoration: underline;
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 20px;
+}

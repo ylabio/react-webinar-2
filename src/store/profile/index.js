@@ -41,7 +41,7 @@ class ProfileState extends StateModule {
     });
   }
 
-  async getProfile(id = null) {
+  async getProfile() {
     this.setState({
       ...this.getState(),
       waiting: true,
@@ -49,34 +49,15 @@ class ProfileState extends StateModule {
     });
 
     try {
-      const userId = id ? id : 'self';
-      const response = await fetch(`/api/v1/users/${userId}`, {
-        headers: {
-          'X-Token': localStorage.getItem('token'),
-        },
-      });
+      const json = await this.store.get('auth').isAuth();
+      const userData = {
+        _id: json.result._id,
+        name: json.result.profile.name,
+        phone: json.result.profile.phone,
+        email: json.result.email,
+      };
 
-      if (response.ok) {
-        const json = await response.json();
-
-        this.store.get('auth').setState({
-          ...this.store.get('auth').getState(),
-          isAuth: true,
-        });
-
-        const userData = {
-          _id: json.result._id,
-          name: json.result.profile.name,
-          phone: json.result.profile.phone,
-          email: json.result.email,
-        };
-        this.setAuthProfile(userData);
-      } else {
-        this.setState({
-          ...this.getState(),
-          error: true,
-        });
-      }
+      this.setAuthProfile(userData);
     } catch (error) {
       this.setState({
         ...this.getState(),

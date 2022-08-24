@@ -1,68 +1,71 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import { useForm } from 'react-hook-form';
 import './styles.css';
 
-function LoginForm({ auth, errorServer, t, disabledLogin }) {
+function LoginForm({
+  auth,
+  authError,
+  login,
+  password,
+  emptyErrorLogin,
+  emptyErrorPassword,
+  clearInputs,
+  changeInput,
+  changeIsEmptyError,
+  t,
+  disabledLogin,
+}) {
   const cn = bem('LoginForm');
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-    clearErrors,
-  } = useForm({ mode: 'onBlur' });
-
-  useEffect(() => {
-    if (errors.login) {
-      const timer = setTimeout(() => clearErrors('login'), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [errors.login]);
-  useEffect(() => {
-    if (errors.password) {
-      const timer = setTimeout(() => clearErrors('password'), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [errors.password]);
-
-  const onSubmit = (data) => {
-    auth(data);
-    reset();
+  const callbacks = {
+    onSubmit: (e) => {
+      e.preventDefault();
+      auth({ login, password });
+      clearInputs();
+    },
+    changeIsEmptyErrorLogin: () => {
+      if (login.trim() === '') {
+        changeIsEmptyError('login', true);
+      }
+    },
+    changeIsEmptyErrorPassword: () => {
+      if (password.trim() === '') {
+        changeIsEmptyError('password', true);
+      }
+    },
   };
 
   return (
     <div className={cn()}>
       <h2 className={cn('title')}>{t('auth.login')}</h2>
-      <form className={cn('form')} onSubmit={handleSubmit(onSubmit)}>
+      <form className={cn('form')} onSubmit={callbacks.onSubmit}>
         <label className={cn('label')}>
           {t('auth.login')}
           <input
             className={cn('input')}
-            {...register('login', {
-              required: 'Поле обязательно к заполнению',
-              onChange: () => clearErrors('login'),
-            })}
+            value={login ?? ''}
+            onChange={(e) => changeInput('login', e.currentTarget.value)}
+            onBlur={callbacks.changeIsEmptyErrorLogin}
           />
-          {errors?.login && <p className={cn('error-message')}>{errors.login.message}</p>}
+          {emptyErrorLogin && <p className={cn('error-message')}>Поле обязательно к заполнению</p>}
         </label>
 
         <label className={cn('label')}>
           {t('auth.password')}
           <input
             type="password"
-            className={cn('input', { error: errors?.password })}
-            {...register('password', {
-              required: 'Поле обязательно к заполнению',
-              onChange: () => clearErrors('password'),
-            })}
+            className={cn('input')}
+            value={password ?? ''}
+            onChange={(e) => changeInput('password', e.currentTarget.value)}
+            onBlur={callbacks.changeIsEmptyErrorPassword}
           />
-          {errors?.password && <p className={cn('error-message')}>{errors.password.message}</p>}
+          {emptyErrorPassword && (
+            <p className={cn('error-message')}>Поле обязательно к заполнению</p>
+          )}
         </label>
 
-        {errorServer && <p className={cn('error-message')}>{errorServer}</p>}
+        {authError && <p className={cn('error-message')}>{authError}</p>}
 
         <input type="submit" value={t('auth.login')} disabled={disabledLogin} />
       </form>
@@ -72,15 +75,28 @@ function LoginForm({ auth, errorServer, t, disabledLogin }) {
 
 LoginForm.propTypes = {
   auth: propTypes.func,
-  errorServer: propTypes.string,
+  authError: propTypes.string,
   t: propTypes.func,
   disabledLogin: propTypes.bool,
+  login: propTypes.string,
+  password: propTypes.string,
+  emptyErrorLogin: propTypes.bool,
+  emptyErrorPassword: propTypes.bool,
+  clearInputs: propTypes.func,
+  changeInput: propTypes.func.isRequired,
+  changeIsEmptyError: propTypes.func,
 };
 
 LoginForm.defaultProps = {
   auth: () => {},
   t: (text) => text,
   disabledLogin: false,
+  login: '',
+  password: '',
+  emptyErrorLogin: false,
+  emptyErrorPassword: false,
+  clearInputs: () => {},
+  changeIsEmptyError: () => {},
 };
 
 export default React.memo(LoginForm);

@@ -24,7 +24,7 @@ class AppState extends StateModule {
       waiting: true,
     });
 
-    await this.store.get('profile').getProfile();
+    await this.store.get('auth').isAuth();
 
     this.setState({
       ...this.getState(),

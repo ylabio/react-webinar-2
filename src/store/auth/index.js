@@ -63,8 +63,6 @@ class AuthState extends StateModule {
         isAuth: true,
       });
     } catch (error) {
-      console.log('errorLogin', error);
-
       this.setState({
         ...this.getState(),
         error: error.message,
@@ -83,7 +81,7 @@ class AuthState extends StateModule {
     });
 
     try {
-      const response = await fetch(`/api/v1/users/sign`, {
+      await fetch(`/api/v1/users/sign`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
@@ -102,6 +100,42 @@ class AuthState extends StateModule {
         ...this.getState(),
         waiting: false,
         error: error.message,
+      });
+    }
+  }
+
+  async isAuth() {
+    this.setState({
+      ...this.getState(),
+      waiting: true,
+    });
+
+    try {
+      const response = await fetch(`/api/v1/users/self`, {
+        headers: {
+          'X-Token': localStorage.getItem('token'),
+        },
+      });
+
+      if (response.ok) {
+        this.setState({
+          ...this.getState(),
+          isAuth: true,
+        });
+
+        return await response.json();
+      } else {
+        console.log('Не удалось авторизироваться');
+      }
+    } catch (error) {
+      this.setState({
+        ...this.getState(),
+        error: error.message,
+      });
+    } finally {
+      this.setState({
+        ...this.getState(),
+        waiting: false,
       });
     }
   }

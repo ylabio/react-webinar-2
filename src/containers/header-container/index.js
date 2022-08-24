@@ -26,7 +26,6 @@ function LoginContainer({ title = 'title' }) {
         isAuth={select.isAuth}
         title={t(title)}
         userName={select.userName}
-        userId={select.userId}
         logout={callbacks.logout}
         t={t}
         disabledLogout={select.waiting}

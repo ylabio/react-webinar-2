@@ -6,3 +6,5 @@ export { default as locale } from './locale';
 export { default as auth } from './auth';
 export { default as profile } from './profile';
 export { default as app } from './app';
+export { default as categories } from './categories';
+export { default as loginForm } from './login-form';

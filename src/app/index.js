@@ -9,6 +9,7 @@ import Profile from './profile';
 import useInit from '../hooks/use-init';
 import useStore from '../hooks/use-store';
 import Spinner from '../components/spinner';
+import PrivateRoute from '../containers/private-route';
 
 /**
  * Приложение
@@ -46,7 +47,14 @@ function App() {
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
         <Route path={'/login'} element={<Login />} />
-        <Route path={'/profile/:id'} element={<Profile />} />
+        <Route
+          path={'/profile'}
+          element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          }
+        />
       </Routes>
       {select.modal === 'basket' && <Basket />}
     </>

@@ -19,9 +19,6 @@
   width: 203px;
   min-height: 26px;
 }
-.LoginForm-input_error {
-  border: 1px solid red;
-}
 .LoginForm-error-message {
   margin: 0;
   color: red;

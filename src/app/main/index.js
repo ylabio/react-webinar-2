@@ -13,7 +13,7 @@ function Main() {
   useInit(
     async () => {
       await store.get('catalog').initParams();
-      await store.get('catalog').loadCategories();
+      await store.get('categories').loadCategories();
     },
     [],
     { backForward: true }

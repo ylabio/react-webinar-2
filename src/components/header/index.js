@@ -6,7 +6,7 @@ import LocaleSelect from '../../containers/locale-select';
 import LayoutFlex from '../layout-flex';
 import { Link } from 'react-router-dom';
 
-function Header({ isAuth, title, userName, userId, logout, t, disabledLogout }) {
+function Header({ isAuth, title, userName, logout, t, disabledLogout }) {
   const cn = bem('Header');
 
   return (
@@ -19,14 +19,12 @@ function Header({ isAuth, title, userName, userId, logout, t, disabledLogout }) 
             </Link>
           ) : (
             <>
-              <Link to={`/profile/${userId}`} className={cn('user')}>
+              <Link to={`/profile`} className={cn('user')}>
                 {userName}
               </Link>
-              <Link to="/login">
-                <button onClick={() => logout()} disabled={disabledLogout}>
-                  {t('auth.logout')}
-                </button>
-              </Link>
+              <button onClick={() => logout()} disabled={disabledLogout}>
+                {t('auth.logout')}
+              </button>
             </>
           )}
         </LayoutFlex>
@@ -45,7 +43,6 @@ Header.propTypes = {
   isAuth: propTypes.bool.isRequired,
   title: propTypes.string,
   userName: propTypes.string,
-  userId: propTypes.string,
   logout: propTypes.func,
   t: propTypes.func,
   disabledLogout: propTypes.bool,

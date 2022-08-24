@@ -8,15 +8,14 @@ import LayoutFlex from '../../components/layout-flex';
 
 function CatalogFilter() {
   const store = useStore();
+  const { t } = useTranslate();
 
   const select = useSelector((state) => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    categories: state.catalog.categories,
+    categories: state.categories.categories,
     category: state.catalog.params.category,
   }));
-
-  const { t } = useTranslate();
 
   const callbacks = {
     // Сортировка
@@ -42,6 +41,10 @@ function CatalogFilter() {
       ],
       []
     ),
+    categories: useMemo(
+      () => [{ value: '', title: 'Все' }, ...select.categories],
+      [select.categories]
+    ),
   };
 
   return (
@@ -49,7 +52,7 @@ function CatalogFilter() {
       <Select
         onChange={callbacks.onCategories}
         value={select.category}
-        options={select.categories}
+        options={options.categories}
       />
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort} />
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big" />

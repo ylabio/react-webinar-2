@@ -120,7 +120,7 @@ class CatalogState extends StateModule{
       waiting: true
     });
 
-    const responseItems = await fetch(`/api/v1/articles?limit=${1000}`);
+    const responseItems = await fetch(`/api/v1/articles?limit=1000`);
     const jsonItems = await responseItems.json();
 
     let filter = jsonItems.result.items.reduce((accumulator, currentValue) => {
@@ -134,36 +134,37 @@ class CatalogState extends StateModule{
         const json = await response.json();
         return {
           title: json.result.title,
-          value: json.result._id
+          value: json.result._id,
+          parent: json.result.parent
         }
       }),
     );
 
     items.sort((a, b) => a.value > b.value ? 1 : -1);
 
-    const indexPhones = items.map(elem => elem.title).indexOf('Телефоны')
-    const indexSmartphones = items.map(elem => elem.title).indexOf('Смартфоны')
-    items.splice(indexPhones + 1, 0, items[indexSmartphones]);
-    items.splice(indexSmartphones + 1, 1);
-
-    const indexAccessories = items.map(elem => elem.title).indexOf('Аксессуары')
-    items.splice(indexPhones + 2, 0, items[indexAccessories]);
-    items.splice(indexAccessories + 1, 1);
-
-    items.forEach(((item) => {
-      if (item.title === 'Телефоны') item.title = `- ${item.title}`
-      if (item.title === 'Смартфоны') item.title = `- - ${item.title}`
-      if (item.title === 'Аксессуары') item.title = `- - ${item.title}`
-      if (item.title === 'Ноутбуки') item.title = `- ${item.title}`
-      if (item.title === 'Телевизоры') item.title = `- ${item.title}`
-      if (item.title === 'Учебники') item.title = `- ${item.title}`
-      if (item.title === 'Художественная') item.title = `- ${item.title}`
-      if (item.title === 'Комиксы') item.title = `- ${item.title}`
+    const newItems = []
+    items.forEach(((item, ind) => {
+      if (item.parent) {
+        for (let i = 0; i < newItems.length; i++) {
+          if (newItems[i].value === item.parent._id) {
+            let countRepeat;
+            const regexp = newItems[i].title.match(/[-]/g);
+            if(regexp) {
+              countRepeat = 1 + regexp.length;
+            } else {
+              countRepeat = 1;
+            }
+            const copyItem = {...item, title: `${`- `.repeat(countRepeat)}${item.title}`};
+            return newItems.splice(i + 1, 0, copyItem)
+          }
+        }
+      }
+      return newItems.splice(ind, 0, item);
     }))
 
     this.setState({
       ...this.getState(),
-      categories: [...this.getState().categories, ...items],
+      categories: [...this.getState().categories, ...newItems],
       waiting: false
     });
   }

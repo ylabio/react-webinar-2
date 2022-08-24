@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import Layout from "../../components/layout";
@@ -18,8 +17,6 @@ function Authorization({ btnExit }) {
     log: state.login.log,
     user: state.login.user,
   }));
-  const page = useLocation();
-  console.log(page);
 
   useEffect(() => {
     if (!select.log && !select.user.load) {

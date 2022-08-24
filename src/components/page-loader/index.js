@@ -9,7 +9,7 @@ function PageLoader({ isWaiting }) {
 		<Spinner active={isWaiting}>
 			<Layout>
 				<LayoutFlex flex="start" flexDirection="column" alignItems="start" padding="40-20">
-					<h1>Loading...</h1>
+					<h1>Загрузка...</h1>
 				</LayoutFlex>
 			</Layout>
 		</Spinner>

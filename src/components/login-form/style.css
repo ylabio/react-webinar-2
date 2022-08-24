@@ -1,0 +1,27 @@
+.LoginAuth {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.LoginAuth-head {
+  margin-bottom: 17px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.LoginAuth-form_data {
+  margin-bottom: 20px;
+}
+.LoginAuth-error {
+  color: #ff0000;
+  margin-bottom: 19px;
+}
+
+.LoginAuth-actions {
+  width: 53px;
+}

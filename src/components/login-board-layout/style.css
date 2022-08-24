@@ -1,0 +1,20 @@
+.LoginBoardLayout {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.LoginBoardLayout-link {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
+  text-align: center;
+  text-decoration-line: underline;
+  color: #0087e9;
+  margin-right: 20px;
+}
+
+.LoginBoardLayout-link:hover {
+  cursor: pointer;
+}

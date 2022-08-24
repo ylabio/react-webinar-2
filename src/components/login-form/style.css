@@ -1,0 +1,25 @@
+.LoginForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.LoginForm-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.LoginForm-input {
+    width: 200px;
+    height: 20px;
+    margin-bottom: 20px;
+}
+
+.LoginForm-btn {
+    width: 53px;
+    height: 21px;
+}
+
+.LoginForm-error {
+    color: red;
+    margin-bottom: 20px;
+}

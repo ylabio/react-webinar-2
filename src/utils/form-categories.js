@@ -3,30 +3,23 @@ function formCategories(categories) {
   let select_list = [];
   tree.forEach((item) => {
     item.children = [];
-    appendChildTo(item, categories);
-    setSelectItem(item, 1, select_list);
+    addItem(item, categories);
   });
   return select_list;
 }
 
-function appendChildTo(node, array) {
+function addItem(node, array, level, select_list) {
   array.forEach((item) => {
     if (item.parent && node._id === item.parent._id) {
-      item.children = [];
-      node.children.push(item);
-      appendChildTo(item, array);
+      let prefix = "";
+      for (let i = 1; i < level; i++) {
+        prefix = prefix.concat("- ");
+      }
+      const title = prefix.concat(item.title);
+      select_list.push({ value: item._id, title });
+      addItem(item, array, level + 1, select_list);
     }
   });
-}
-
-function setSelectItem(item, level, select_list) {
-  let prefix = "";
-  for (let i = 1; i < level; i++) {
-    prefix = prefix.concat("- ");
-  }
-  const title = prefix.concat(item.title);
-  select_list.push({ value: item._id, title });
-  item.children.forEach((item) => setSelectItem(item, level + 1, select_list));
 }
 
 export default formCategories;

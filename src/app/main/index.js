@@ -21,12 +21,12 @@ function Main() {
   const name = localStorage.getItem('name');
 
   const select = useSelector(state => ({
-    waiting: state.user.waiting,
+    waiting: state.authorize.waiting,
   }));
 
   const callbacks = {
     redirect: () => { navigate('/authorization') },
-    logout: useCallback(() => store.get('user').logout(token), [])
+    logout: useCallback(() => store.get('authorize').logout(token), [])
   }
 
   useInit(async () => {

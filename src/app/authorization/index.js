@@ -20,8 +20,9 @@ function Authorization() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    waiting: state.user.waiting,
-    error: state.user.error,
+    waiting: state.authorize.waiting,
+    error: state.authorize.error,
+    name: state.user.info.profile.name,
   }));
 
   const {t} = useTranslate();
@@ -30,7 +31,7 @@ function Authorization() {
     redirect: useCallback(() => { navigate('/authorization') }, []),
     onSubmit: useCallback(async (data) => {
       try {
-        await store.get('user').authorize(data);
+        await store.get('authorize').authorize(data);
         navigate(-1);
       } catch (error) {
         return error;
@@ -39,7 +40,7 @@ function Authorization() {
 
     logout: useCallback(() => {
       const token = getCookie('token');
-      store.get('user').logout(token);
+      store.get('authorize').logout(token);
     }, [])
   }
 

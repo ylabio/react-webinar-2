@@ -24,12 +24,13 @@ function Profile() {
   const select = useSelector(state => ({
     info: state.user.info,
     waiting: state.user.waiting,
+    name: state.user.info.profile.name,
   }));
 
   const callbacks = {
     redirect: () => { navigate('/authorization') },
     logout: useCallback(() => {
-      store.get('user').logout(token);
+      store.get('authorize').logout(token);
       navigate('/authorization');
     }, []),
     getInfo: useCallback(() => {

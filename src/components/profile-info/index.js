@@ -5,7 +5,6 @@ import './style.css';
 
 function ProfileInfo({ info }) {
   const cn = bem('ProfileInfo');
-
   return (
     <div className={cn()}>
       <h2 className={cn('title')}>Профиль</h2>

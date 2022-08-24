@@ -16,6 +16,7 @@ function Login() {
 
   const navigate = useNavigate();
   const location = useLocation();
+
   useEffect(() => {
     if (select.isSigned) {
       let redirect;

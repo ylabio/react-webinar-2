@@ -7,16 +7,20 @@ import CatalogList from "../../containers/catalog-list";
 import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
+import LoginMenu from "../../containers/login-menu";
 import LocaleSelect from "../../containers/locale-select";
 
 function Main() {
   const store = useStore();
+  const {t} = useTranslate();
 
   useInit(async () => {
     await store.get('catalog').initParams();
   }, [], {backForward: true});
 
-  const {t} = useTranslate();
+  useInit(async () => {
+    await store.get('categories').load();
+  }, [], {backForward: true});
 
   return (
     <Layout head={
@@ -25,6 +29,7 @@ function Main() {
         <LocaleSelect/>
       </LayoutFlex>
     }>
+      <LoginMenu/>
       <Tools/>
       <CatalogFilter/>
       <CatalogList/>

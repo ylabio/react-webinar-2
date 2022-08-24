@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import {useParams} from "react-router-dom";
@@ -10,6 +10,7 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import LoginMenu from "../../containers/login-menu";
 
 function Article(){
   const store = useStore();
@@ -20,6 +21,11 @@ function Article(){
   useInit(async () => {
     await store.get('article').load(params.id);
   }, [params.id]);
+
+  // Сбрасываем данные о товаре при демонтировании компонента
+  useEffect(() => {
+    return () => store.get('article').resetArticle();
+  }, []);
 
   const select = useSelector(state => ({
     article: state.article.data,
@@ -41,6 +47,7 @@ function Article(){
       </LayoutFlex>
     }>
       <Tools/>
+      <LoginMenu/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>

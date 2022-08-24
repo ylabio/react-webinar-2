@@ -4,7 +4,6 @@ import PageTemplate from "../../containers/page-template";
 import ProfileInfo from "../../components/profile-info";
 import useSelector from "../../hooks/use-selector";
 import Spinner from "../../components/spinner";
-import AuthCheck from "../../containers/auth-check";
 
 function Profile() {
 
@@ -16,13 +15,11 @@ function Profile() {
   const {t} = useTranslate();
 
   return (
-    <AuthCheck>
       <PageTemplate title={t('title')}>
         <Spinner active={select.isLoading}>
           <ProfileInfo t={t} user={select.user}/>
         </Spinner>
       </PageTemplate>
-    </AuthCheck>
   )
 }
 

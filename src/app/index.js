@@ -19,8 +19,7 @@ function App() {
   const location = useLocation();
 
   useInit(async () => {
-    const lS = localStorage.getItem('token') || '';
-    await store.get('login').checkLogin(lS);
+    await store.get('login').checkLogin();
   }, [location]);
 
   const modal = useSelector(state => state.modals.name);

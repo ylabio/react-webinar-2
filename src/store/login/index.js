@@ -19,12 +19,24 @@ class LoginState extends StateModule{
   /**
    * Проверка на авторизацию
    */
-  async checkLogin(token) {
+  async checkLogin() {
     this.setState({
       ...this.getState(),
       complete: false,
       waiting: true,
     });
+
+    const token = localStorage.getItem('token') || '';
+
+    if (!token) {
+      return this.setState({
+        complete: true,
+        token: '',
+        user: {},
+        isAuth: false,
+        waiting: false
+      });
+    }
 
     const response = await fetch(`/api/v1/users/self`, {
       method: 'GET',

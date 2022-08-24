@@ -9,15 +9,12 @@ import User from '../../containers/user';
 import { useNavigate } from 'react-router-dom';
 import useTranslate from '../../hooks/use-translate';
 
-
-
 function LoginLayout() {
   const navigate = useNavigate();
   const store = useStore();
 
   const [login, setLogin] = useState({ login: '', password: '' });
   const [error, setError] = useState(null);
-
 
   const { t } = useTranslate();
 
@@ -41,7 +38,11 @@ function LoginLayout() {
         store
           .get('user')
           .login(login)
-          .then(() => navigate(-1))
+          .then(() =>
+            navigate(
+              window.history.state && window.history.state.idx > 0 ? -1 : '/'
+            )
+          )
           .catch(err => setError(err.message));
       },
       [login]

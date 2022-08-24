@@ -143,6 +143,7 @@ class CatalogState extends StateModule{
     items.sort((a, b) => a.value > b.value ? 1 : -1);
 
     const newItems = []
+    let startIndex = 0;
     items.forEach(((item, ind) => {
       if (item.parent) {
         for (let i = 0; i < newItems.length; i++) {
@@ -150,12 +151,14 @@ class CatalogState extends StateModule{
             let countRepeat;
             const regexp = newItems[i].title.match(/[-]/g);
             if(regexp) {
+              startIndex = 1;
               countRepeat = 1 + regexp.length;
             } else {
+              startIndex += 1;
               countRepeat = 1;
             }
             const copyItem = {...item, title: `${`- `.repeat(countRepeat)}${item.title}`};
-            return newItems.splice(i + 1, 0, copyItem)
+            return newItems.splice(i + startIndex, 0, copyItem)
           }
         }
       }

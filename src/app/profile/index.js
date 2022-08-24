@@ -8,17 +8,27 @@ import LocaleSelect from "../../containers/locale-select";
 import AuthControl from "../../containers/auth-control";
 import useSelector from "../../hooks/use-selector";
 import SpinnerCircle from "../../components/spinner-circle";
-
+import useStore from "../../hooks/use-store";
 import LayoutProfile from "../../components/layout-profile";
 
 function Profile() {
   const {t} = useTranslate();
+  const store = useStore();
 
+  // const select = useSelector(state => ({
+  //   user: state.authentication.user,
+  //   waiting: state.authentication.waiting
+  // }))
+  // console.log(select.waiting," Ожидание")
   const select = useSelector(state => ({
-    user: state.authentication.user,
-    waiting: state.authentication.waiting
+    user: state.profile.user,
+    waiting: state.profile.waiting,
+    token: state.authentication.token
   }))
-  console.log(select.waiting," Ожидание")
+
+  useEffect(() => {
+    store.get('profile').loadUser(select.token);
+  }, []);
 
   return(
     <Layout

@@ -11,7 +11,8 @@ class AuthenticationState extends StateModule{
    */
   initState() {
     return {
-      user: {},
+      // user: {},
+      user: '',
       token: localStorage.getItem('token'),
       errorMessage: "",
       waiting: true,
@@ -25,7 +26,9 @@ class AuthenticationState extends StateModule{
       waiting: true
     })
     try {
-      const res = await fetch('/api/v1/users/sign', {
+      ///api/v1/users/sign?fields=profile(name)
+      // const res = await fetch('/api/v1/users/sign', {
+      const res = await fetch('/api/v1/users/sign?fields=profile(name)', {
         method: 'POST',
         body: JSON.stringify({
           login: login,
@@ -36,11 +39,14 @@ class AuthenticationState extends StateModule{
         }
       })
       const data = await res.json();
+      console.log(data.result.user.profile.name)
+      console.log(data.result.token)
       if(!data.error) {
         localStorage.setItem('token', data.result.token);
 
         this.setState({
-          user: data.result.user,
+          // user: data.result.user,
+          user: data.result.user.profile.name,
           token: data.result.token,
           errorMessage: "",
           waiting: false,
@@ -99,7 +105,7 @@ class AuthenticationState extends StateModule{
         waiting: true
       });
 
-      const res = await fetch('/api/v1/users/self', {
+      const res = await fetch('/api/v1/users/self?fields=profile(name)', {
         method: 'GET',
         body: null,
         headers: {
@@ -113,10 +119,12 @@ class AuthenticationState extends StateModule{
       }
 
       const data = await res.json();
+      console.log(data)
 
       this.setState({
         ...this.getState(),
-        user: data.result,
+        // user: data.result,
+        user: data.result.profile.name,
         errorMessage: "",
         waiting: false,
         isAuth: true

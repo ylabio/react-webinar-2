@@ -28,7 +28,7 @@ function AuthControl() {
         ?
         <AuthPanel 
           onLogout={callbacks.onLogout}
-          user={select.user.profile.name}
+          user={select.user}
           t={t}
         /> 
         :

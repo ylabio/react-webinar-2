@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useState, useCallback} from "react";
 import {useNavigate} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -13,10 +13,10 @@ import LoginPage from "../../components/login-page";
 function Login(){
   const store = useStore();
   const navigate = useNavigate();
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
 
   const select = useSelector(state => ({
-    login: state.user.login,
-    password: state.user.password,
     authorized: state.user.authorized,
     error: state.user.error,
     waiting: state.user.waiting
@@ -26,14 +26,18 @@ function Login(){
 
   const callbacks = {
     // Авторизация
-    onSubmit: useCallback(() => store.get('user').authUser(), []),
+    onSubmit: useCallback((login, password) => store.get('user').authUser(login, password), []),
     // Навигация на предыдущую страницу
     onNavigate: useCallback((route) => navigate(route), []),
-    // Ввод логина
-    onChangeLogin: useCallback(login => store.get('user').setLogin(login), []),
-    // Ввод пароля
-    onChangePassword: useCallback(password => store.get('user').setPassword(password), [])
   };
+
+  const onLogin = (e) => {
+    setLogin(e);
+  }
+
+  const onPassword = (e) => {
+    setPassword(e);
+  }
 
   return (
     <Layout head={
@@ -46,10 +50,10 @@ function Login(){
       <Spinner active={select.waiting}>
         <LoginPage
           t={t}
-          login={select.login}
-          password={select.password}
-          onChangeLogin={callbacks.onChangeLogin}
-          onChangePassword={callbacks.onChangePassword}
+          login={login}
+          password={password}
+          onLogin={onLogin}
+          onPassword={onPassword}
           onNavigate={callbacks.onNavigate}
           onSubmit={callbacks.onSubmit}
           authorized={select.authorized}

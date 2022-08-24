@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -8,6 +8,7 @@ import Switch from '../../components/switch-button'
 function Auth() {
   const store = useStore();
   const navigate = useNavigate();
+  const resetError = () => store.get('user').resetError();
 
   const select = useSelector(state => ({
     userName: state.user.userName,
@@ -22,6 +23,11 @@ function Auth() {
     // Загрузка данных пользователя для вывода в профиль
     onProfile: useCallback(() => store.get('user').setProfile(), [])
   }
+
+  // Сброс ошибки сервера
+  useEffect(() => {
+    resetError();
+  })
 
   return (
     <Switch

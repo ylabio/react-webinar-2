@@ -4,12 +4,12 @@ import {cn as bem} from '@bem-react/classname';
 import Input from '../../components/input';
 import './style.css';
 
-function LoginPage({t, login, password, onChangeLogin, onChangePassword, onNavigate, onSubmit, authorized, error}) {
+function LoginPage({t, login, password, onLogin, onPassword, onNavigate, onSubmit, authorized, error}) {
   const cn = bem('LoginPage');
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit();
+    onSubmit(login, password);
   }
 
   if (!authorized) {
@@ -20,11 +20,11 @@ function LoginPage({t, login, password, onChangeLogin, onChangePassword, onNavig
           <div className={cn('credentials')}>
             <div className={cn('input')}>
               <label>Логин</label>
-              <Input onChange={onChangeLogin} value={login} theme='auth'/>
+              <Input onChange={onLogin} value={login} theme='auth'/>
             </div>
             <div className={cn('input')}>
               <label>Пароль</label>
-              <Input onChange={onChangePassword} value={password} type='password' theme='auth'/>
+              <Input onChange={onPassword} value={password} type='password' theme='auth'/>
             </div>
           </div>
           <span className={cn('err-msg')}>{error}</span>
@@ -45,8 +45,8 @@ LoginPage.propTypes = {
   t: propTypes.func.isRequired,
   login: propTypes.string,
   password: propTypes.string,
-  onChangeLogin: propTypes.func.isRequired,
-  onChangePassword: propTypes.func.isRequired,
+  onLogin: propTypes.func.isRequired,
+  onPassword: propTypes.func.isRequired,
   onNavigate: propTypes.func.isRequired,
   onSubmit: propTypes.func.isRequired,
   authorized: propTypes.bool,

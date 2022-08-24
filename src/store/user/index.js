@@ -11,8 +11,6 @@ class UserState extends StateModule {
    */
   initState() {
     return {
-      login: '',
-      password: '',
       userName: '',
       authorized: false,
       data: {},
@@ -23,7 +21,8 @@ class UserState extends StateModule {
   /**
    * Авторизация пользователя
    */
-  async authUser() {
+  async authUser(login, password) {
+    console.log('authUser - login', login, 'authUser - password', password)
     // Очистка параметров
     this.setState({
       ...this.getState(),
@@ -35,8 +34,8 @@ class UserState extends StateModule {
     const response = await fetch(`/api/v1//users/sign`, {
       method: 'POST',
       body: JSON.stringify({
-        login: this.getState().login,
-        password: this.getState().password
+        login: login,
+        password: password
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8"
@@ -49,8 +48,6 @@ class UserState extends StateModule {
       // Пользователь успешно авторизован
       this.setState({
         ...this.getState(),
-        login: '',
-        password: '',
         userName: json.result.user.profile.name,
         authorized: true,
         waiting: false
@@ -93,22 +90,6 @@ class UserState extends StateModule {
       });
     }
   }
-
-  setLogin(login) {
-    // Ввод логина
-    this.setState({
-      ...this.getState(),
-      login: login
-    });
-  }
-
-  setPassword(password) {
-    // Ввод пароля
-    this.setState({
-      ...this.getState(),
-      password: password
-    });
-  }
   /**
    * Выход пользователя из профиля
    */
@@ -129,13 +110,19 @@ class UserState extends StateModule {
 
     // Сброс данных к начальному состоянию
     this.setState({
-      login: '',
-      password: '',
       authorized: false,
       data: {},
       error: '',
       waiting: false
     })
+  }
+
+  // Сброс ошибки сервера
+  resetError() {
+    this.setState({
+      ...this.getState(),
+      error: ''
+    });
   }
 }
 

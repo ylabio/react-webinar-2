@@ -14,10 +14,7 @@ class AuthState extends StateModule {
       isLogin: false,
       waiting: false,
       isInitialize: true,
-      user: {
-        username: '',
-        profile: {}
-      },
+      username: null,
       errorMessage: null,
     };
   }
@@ -60,7 +57,7 @@ class AuthState extends StateModule {
         this.setState({
           ...this.getState(),
           isLogin: true,
-          user,
+          username: user.username,
           waiting: false
         });
       }
@@ -100,7 +97,6 @@ class AuthState extends StateModule {
       const json = await response.json();
 
       if (json.result.error) {
-        console.log('ww')
         this.setState({
           ...this.getState(),
           isInitialize: false
@@ -110,7 +106,7 @@ class AuthState extends StateModule {
         this.setState({
           ...this.getState(),
           isLogin: true,
-          user: json.result,
+          username: json.result.username,
           isInitialize: false
         });
       }
@@ -143,10 +139,7 @@ class AuthState extends StateModule {
         this.setState({
           ...this.getState(),
           isLogin: false,
-          user: {
-            username: '',
-            profile: {}
-          },
+          username: null,
           waiting: false
         });
         await localStorage.removeItem('user_secret');

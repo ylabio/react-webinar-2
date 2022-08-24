@@ -12,7 +12,7 @@ function Header() {
 
   const select = useSelector(state => ({
     isLogin: state.auth.isLogin,
-    userName: state.auth.user.username,
+    userName: state.auth.username,
     waiting: state.auth.waiting,
   }));
 

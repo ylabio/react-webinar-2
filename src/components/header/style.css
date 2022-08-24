@@ -1,0 +1,25 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: #535353;
+    font-family: sans-serif;
+    position: relative;
+}
+
+.Header {
+    margin: 0 auto;
+    background: #fff;
+    font-family: sans-serif;
+    position: relative;
+    max-width: 1024px;
+}
+
+.Header-content {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px 10px 0;
+}
+
+.Header-link {
+    padding-right: 20px;
+}

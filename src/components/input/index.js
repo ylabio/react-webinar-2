@@ -26,6 +26,7 @@ function Input(props) {
 
   return (
     <input
+      required={props.required}
       className={cn({theme: props.theme})}
       value={value}
       type={props.type}
@@ -41,6 +42,7 @@ Input.propTypes = {
   placeholder: propTypes.string,
   onChange: propTypes.func,
   theme: propTypes.string,
+  required: propTypes.bool,
 }
 
 Input.defaultProps = {

@@ -29,11 +29,7 @@ function Authorization() {
               navigate(from, { replace: true });
             },
             (error) => {
-              if (error.message === 'Validation') {
-                setError('Некая ошибка от сервера');
-              } else {
-                setError('Некая ошибка от сервера');
-              }
+                setError(error.message);
             }
           ),
         [])

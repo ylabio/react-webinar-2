@@ -63,14 +63,15 @@ class LoginState extends StateModule{
     const token = getToken();
 
     if (!token) {
-      // Нет токена - не делаем запрос
+      // Нет токена - не делаем запрос. устанавливаем статус 'no_auth'
       this.setState({
         ...this.getState(),
         status: 'no_auth',
         user: null,
-      }, 'store/login [checkAuth] не удалось, нет токена');
-    } else {
-      // Есть токен - делаем запрос
+      }, 'store/login [checkAuth] no_auth. нет токена');
+
+    } else if (this.getState().status !== 'auth') {
+      // Есть токен и стаутус равен 'no_auth' или 'unknown' - делаем запрос
       const response = await fetch(`/api/v1/users/self`, {
         method: 'GET',
         headers: {

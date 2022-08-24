@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback,useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom"
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -15,18 +15,23 @@ function LoginPage(){
   let navigate = useNavigate()
   const {t} = useTranslate();
 
- 
+  let [login, setLogin] = useState("");
+  let [password, setPassword] = useState("");
+  
   const callbacks = {
-    // Добавление в корзину
+  
     onAuth: useCallback((login,password) => store.get('user').signIn({'login':login,'password': password}), []),
+    resetError: useCallback(() => store.get('user').resetError(), []),
   };
 
   const select = useSelector(state => ({
     user: state.user,
   }));
 
-  if(select.user.logined&&(window.history.length>1)) {navigate(-1)}
-  else if(select.user.logined) {navigate('/',{replace: true})}
+   useEffect (() => {callbacks.resetError()},[])
+
+  if(select.user.logined&&(window.history.length>1)) {navigate(-1, {replace: true})}
+  else if(select.user.logined) {navigate('/')}
 
   return (
     <Layout head={
@@ -36,7 +41,14 @@ function LoginPage(){
       </LayoutFlex>
     }>
       <Tools/>
-      <LoginCard onAuth={callbacks.onAuth} user={select.user}/>
+      <LoginCard 
+      onAuth={callbacks.onAuth} 
+      user={select.user}
+      login={login}
+      password={password}
+      setLogin={setLogin}
+      setPassword={setPassword}
+      />
       </Layout>
   )
 }

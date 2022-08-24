@@ -7,6 +7,8 @@ import Article from "./article";
 import LoginPage from './login-page';
 import ProfilePage from './profile-page';
 import AuthContainer from '../containers/auth-container';
+import useStore from './../hooks/use-store';
+import useInit from './../hooks/use-init';
 
 /**
  * Приложение
@@ -15,6 +17,16 @@ import AuthContainer from '../containers/auth-container';
 function App() {
 
   const modal = useSelector(state => state.modals.name);
+  const store = useStore();
+  const token = localStorage.getItem('token')
+
+  useInit(async () => {
+    await store.get('user').loadProfile(token);
+  }, [token]);
+
+  useInit(async () => {
+    await store.get('catalogCategory').setCategoryList();
+  }, []);
 
   return (
     <>

@@ -14,7 +14,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categoryList: state.catalog.categoryList,
+    categoryList: state.catalogCategory.categoryList,
   }));
   const {t} = useTranslate();
 
@@ -41,7 +41,7 @@ function CatalogFilter() {
 
   return (
     <LayoutFlex flex="start">
-      <Select onChange={callbacks.onSortCategory} value={select.categoryList} options={select.categoryList}/>
+      <Select onChange={callbacks.onSortCategory} options={select.categoryList} value={select.category}/>
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

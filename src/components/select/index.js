@@ -3,15 +3,14 @@ import propTypes from "prop-types";
 import './style.css';
 
 function Select(props){
-
   const onSelect = useCallback((e) => {
     props.onChange(e.target.value);
   }, [props.onChange])
 
   return (
-    <select className="Select" onChange={onSelect} value={props._id}>
+    <select className="Select" onChange={onSelect} value={props.value}>
       {props.options.map(item => (
-        <option key={item._id} value={item._id}>{item.title}</option>
+        <option key={item._id} value={item._id}>{item.title} </option>
       ))}
     </select>
   )

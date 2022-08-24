@@ -16,7 +16,7 @@ class User extends StateModule{
         'password': ''
       },
       data:{},
-      waiting: false,
+      waiting: true,
       logined: false
     };
   }
@@ -61,6 +61,10 @@ class User extends StateModule{
     }
   }
   async loadProfile(props){
+    this.setState({
+      ...this.getState(),
+      waiting: true,
+    });
     try {
       const response = await fetch(`/api/v1/users/self`,{
         method:'get',
@@ -89,7 +93,7 @@ class User extends StateModule{
       });
     }
   }
-
+  
   async signOut(){
     // Выход
     this.setState({
@@ -117,6 +121,12 @@ class User extends StateModule{
         waiting: false
       });
     }
+  }
+  resetError(){
+    this.setState({
+      ...this.getState(),
+      error:{}
+    });
   }
 }
 

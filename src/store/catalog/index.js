@@ -116,7 +116,16 @@ class CatalogState extends StateModule{
 
   async getCategories () {
 
-    const response = await fetch("api/v1/categories?limit=12&lang=ru&&skip=0&fields=title,_id,parent")
+    let responseCount = await fetch("api/v1/articles?fields=items(*),count")
+    const jsonCount = await responseCount.json()
+    this.setState({
+      ...this.getState(),
+      count: jsonCount.result.count,
+    });
+
+    const lim = (this.getState().count)
+    
+    const response = await fetch(`api/v1/categories?limit=${lim}&lang=ru&&skip=0&fields=title,_id,parent`)
     const json = await response.json()
     const categories = json["result"]["items"]
 

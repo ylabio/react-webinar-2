@@ -8,6 +8,7 @@ import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
 import ProfilePage from "../../components/profile-page";
+import Main from "../main";
 
 function Profile() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function Profile() {
     if (!select.authorized) {navigate('/login')}
   }, [])
 
-  if (select.authorized) {
+  if (select.authorized && select.user.profile) {
     return (
       <Layout head={
         <LayoutFlex flex="between">
@@ -34,13 +35,12 @@ function Profile() {
       }>
         <Tools/>
         <Spinner active={select.waiting}>
-          <ProfilePage
-            t={t}
-            user={select.user}
-          />
+          <ProfilePage t={t} user={select.user}/>
         </Spinner>
       </Layout>
     )
+  } else {
+    return <Main/>
   }
 }
 

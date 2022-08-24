@@ -28,7 +28,9 @@ function App() {
   };
 
   useEffect(() => {
-    callbacks.setAuth(localStorage.getItem("token"));
+    if (localStorage.getItem("token")) {
+      callbacks.setAuth(localStorage.getItem("token"));
+    }
   }, []);
 
   const btnExit = (

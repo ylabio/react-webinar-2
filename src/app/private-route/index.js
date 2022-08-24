@@ -3,7 +3,7 @@ import {Navigate} from 'react-router-dom';
 import propTypes from 'prop-types';
 
 function PrivateRoute({children, isAuth, redirectUrl}) {
-  if (isAuth) {
+  if (!isAuth) {
     return children;
   }
     

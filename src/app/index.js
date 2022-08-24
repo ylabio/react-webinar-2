@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import useSelector from "../hooks/use-selector";
 import useStore from '../hooks/use-store';
 import useInit from '../hooks/use-init';
-import {Routes, Route, useNavigate} from "react-router-dom";
+import {Routes, Route, useNavigate, useLocation} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
@@ -26,22 +26,21 @@ function App() {
 	}));
 
 	const navigate = useNavigate();
+	const location = useLocation();
 
   useInit(async () => {
-    await store.get('auth').authentication().then(flagIsAuth => {
-			if(!flagIsAuth) {
-				navigate('/profile');
-			}
-		});
+    const flagIsAuth = await store.get('auth').authentication();
+		if(flagIsAuth && location.pathname === '/profile') {
+			navigate('/profile');
+		}
   }, []);
 
 	const callbacks = {
-		authentication: useCallback(() => {
-			store.get('auth').authentication().then(flagIsAuth => {
-				if(flagIsAuth) {
-					navigate('/profile');
-				}
-			})
+		authentication: useCallback(async () => {
+			const flagIsAuth = await store.get('auth').authentication();
+			if(flagIsAuth) {
+				navigate('/profile');
+			}
 		}, [])
 	};
 
@@ -51,7 +50,7 @@ function App() {
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
 				<Route path={"/login"} element={
-					<PrivateRoute isAuth={!select.isAuth} redirectUrl="/">
+					<PrivateRoute isAuth={select.isAuth} redirectUrl="/">
 						<Login/>
 					</PrivateRoute>
 				}/>

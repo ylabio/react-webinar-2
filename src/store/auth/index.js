@@ -60,6 +60,14 @@ class AuthState extends StateModule{
 		});
 
 		const json = await response.json();
+		
+		let flagIsAuth = false;
+		
+		if(!json.error) {
+			flagIsAuth = true;
+		} else {
+			flagIsAuth = false;
+		}
 
 		if(response.status === 200) {
 			this.setState({
@@ -72,13 +80,13 @@ class AuthState extends StateModule{
 				phone: json.result.profile.phone,
 				email: json.result.email
 			})
-			return new Promise((resolve, reject) => resolve(true));
+			return new Promise((resolve, reject) => resolve(flagIsAuth));
 		} else {
 			this.setState({
 				...this.getState(),
 				authError: ''
 			})
-			return new Promise((resolve, reject) => resolve(false));
+			return new Promise((resolve, reject) => resolve(flagIsAuth));
 		}
   }
 

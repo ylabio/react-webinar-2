@@ -18,8 +18,6 @@ function LoginLayout() {
 
   const { t } = useTranslate();
 
-  const from = useMemo(() => location.state?.from || '/', []);
-
   const callbacks = {
     onFormChange: useCallback(
       e => {

@@ -17,7 +17,7 @@ export default function getCategoryTree(categories){
 function createCategoryNesting(array, dash = "") {
   let tree = [];
   array.forEach((item) => {
-    tree.push({value: item._id, title: dash + item.title}, ...(item.children ? createCategoryNesting(item.children, dash + "-") : {}))
+    tree.push({value: item._id, title: dash + item.title}, ...(item.children ? createCategoryNesting(item.children, dash + "- ") : {}))
   });
   return tree;
 }

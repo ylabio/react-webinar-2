@@ -40,12 +40,6 @@ class AuthState extends StateModule{
       // Проверяем ответ сервера
       await this.checkResponse(response);
       const json = await response.json();
-
-      this.store.get('profile').setState({
-        name: json.result.user.profile.name,
-        phone: json.result.user.profile.phone,
-        email: json.result.user.email 
-      }); 
       
       this.setState({
         ...this.getState(),
@@ -66,7 +60,7 @@ class AuthState extends StateModule{
   }
 
   /**
-   * Загрузка профиля при наличии токена
+   * Загрузка данных для сессии при наличии токена
    */
   async loadUser(token) {
     this.setState({
@@ -85,12 +79,6 @@ class AuthState extends StateModule{
       // Проверяем ответ сервера
       await this.checkResponse(response);
       const json = await response.json();
-
-      this.store.get('profile').setState({
-        name: json.result.profile.name,
-        phone: json.result.profile.phone,
-        email: json.result.email 
-      }); 
 
       this.setState({
         ...this.getState(),
@@ -127,12 +115,6 @@ class AuthState extends StateModule{
       });
       // Проверяем ответ сервера
       await this.checkResponse(response);
-
-      this.store.get('profile').setState({
-        name: "",
-        phone: "",
-        email: "" 
-      }); 
 
       this.setState({
         ...this.getState(),

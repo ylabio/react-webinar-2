@@ -5,11 +5,11 @@ import useStore from '../../hooks/use-store';
 function AuthProvider({children}) {
   const store = useStore();
   const select = useSelector(state => ({
-    token: state.auth.token
+    token: state.session.token
   }));
 
   useEffect(() => {
-    store.get('auth').checkToken();
+    store.get('session').checkToken();
   }, [select.token]);
 
   return <>{children}</>;

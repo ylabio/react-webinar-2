@@ -1,5 +1,6 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
+import Spinner from '../../components/common/spinner';
 import Layout from '../../components/layouts/layout';
 import ProfileContent from '../../components/profile/profile-content';
 import CommonHead from '../../containers/common-head';
@@ -11,29 +12,31 @@ import useTranslate from '../../hooks/use-translate';
 
 function Profile() {
   const select = useSelector(state => ({
-    isSigned: state.auth.isSigned,
+    isSigned: state.session.isSigned,
+    isFetching: state.session.isFetching,
     profile: state.profile
   }));
 
   const navigate = useNavigate();
   const {t} = useTranslate();
-
   useNotSignedEffect(() => {
-    navigate('/login', {state: {redirect: 'profile'}});
+    navigate('/login', {state: {redirect: 'profile'}, replace: true});
   });
 
   return (
     <Layout head={<CommonHead />} topbar={<CommonTopbar />}>
       <Tools />
-      <ProfileContent
-        profile={select.profile}
-        text={{
-          head: t('profile.head'),
-          name: t('profile.name'),
-          email: t('profile.email'),
-          phone: t('profile.phone')
-        }}
-      />
+      <Spinner active={select.isFetching}>
+        <ProfileContent
+          profile={select.profile}
+          text={{
+            head: t('profile.head'),
+            name: t('profile.name'),
+            email: t('profile.email'),
+            phone: t('profile.phone')
+          }}
+        />
+      </Spinner>
     </Layout>
   );
 }

@@ -13,7 +13,7 @@ function CommonTopbar({redirectPage, pageId}) {
 
   const select = useSelector(state => ({
     username: state.profile.name,
-    isSigned: state.auth.isSigned
+    isSigned: state.session.isSigned
   }));
 
   const callbacks = {

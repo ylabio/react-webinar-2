@@ -10,9 +10,6 @@ class AuthState extends StateModule {
    */
   initState() {
     return {
-      isSigned: false,
-      token: '',
-
       login: {
         username: '',
         password: '',
@@ -47,12 +44,15 @@ class AuthState extends StateModule {
 
     this.setState({
       ...this.getState(),
-      isSigned: error ? false : true,
-      token,
       login: {
         ...this.getState().login,
         error
       }
+    });
+    this.store.get('session').setState({
+      ...this.store.get('session').getState(),
+      token,
+      isSigned: error ? false : true
     });
   }
 
@@ -68,8 +68,9 @@ class AuthState extends StateModule {
     });
 
     localStorage.setItem('auth-token', '');
-    this.setState({
-      ...this.getState(),
+
+    this.store.get('session').setState({
+      ...this.store.get('session').getState(),
       token: ''
     });
   }
@@ -96,15 +97,6 @@ class AuthState extends StateModule {
         error: ''
       }
     });
-  }
-
-  async checkToken() {
-    const token = localStorage.getItem('auth-token');
-    this.setState({
-      ...this.getState(),
-      token
-    });
-    await this.store.get('profile').fetchProfile(token);
   }
 }
 

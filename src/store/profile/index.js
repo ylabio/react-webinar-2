@@ -39,8 +39,8 @@ class ProfileState extends StateModule {
       });
     }
 
-    this.store.get('auth').setState({
-      ...this.store.get('auth').getState(),
+    this.store.get('session').setState({
+      ...this.store.get('session').getState(),
       isSigned
     });
   }

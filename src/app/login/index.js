@@ -9,7 +9,7 @@ import useSelector from '../../hooks/use-selector';
 
 function Login() {
   const select = useSelector(state => ({
-    isSigned: state.auth.isSigned
+    isSigned: state.session.isSigned
   }));
 
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ function Login() {
       } else {
         redirect = 'profile';
       }
-      navigate(`/${redirect}${id ? '/' + id : ''}`);
+      navigate(`/${redirect}${id ? '/' + id : ''}`, {replace: true});
     }
   }, [select.isSigned]);
 

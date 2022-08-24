@@ -24,7 +24,7 @@ function Authorization() {
 
   const [stateFetch, setStateFetch] = useState({ login: "", password: "" });
 
-  console.log("waiting", select.waiting);
+  // console.log("waiting", select.waiting);
 
   const callbacks = {
     // вход/выход

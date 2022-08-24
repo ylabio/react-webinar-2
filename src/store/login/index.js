@@ -73,7 +73,7 @@ class LogState extends StateModule {
 
       if (json.error) {
         this.setState({
-          user: { error: json.error.data.issues[0].message },
+          user: {},
           log: false,
           waiting: false,
         });
@@ -105,7 +105,7 @@ class LogState extends StateModule {
         });
       } else {
         this.setState({
-          user: { error: "Требуется авторизация" },
+          user: {},
           log: false,
           waiting: false,
         });

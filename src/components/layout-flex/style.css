@@ -34,3 +34,7 @@
 .LayoutFlex-item{
     margin: 0 5px;
 }
+
+.LayoutFlex-item a{
+    color: #0087E9;
+}

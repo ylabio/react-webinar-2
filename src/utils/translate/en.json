@@ -14,5 +14,15 @@
   "basket.unit": "pcs",
   "basket.delete": "Delete",
   "article.add": "Add",
-  "filter.reset": "Reset"
+  "filter.reset": "Reset",
+  "panel.enter": "Enter",
+  "panel.exit": "LogOut",
+  "form.login": "Login",
+  "form.pass": "Password",
+  "form.btn": "LogIn",
+  "form.err": "Some error from server",
+  "profile.title": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "filter.all": "All"
 }

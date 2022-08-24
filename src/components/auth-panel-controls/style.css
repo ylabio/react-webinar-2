@@ -1,0 +1,16 @@
+.panel-btn {
+    margin-left: 20px;
+}
+
+.panel-link {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 15px;
+    text-align: center;
+    text-decoration-line: underline;
+    color: #0087E9;
+}
+
+.panel-wrapper {
+    padding: 10px 20px
+}

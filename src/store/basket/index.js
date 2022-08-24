@@ -19,7 +19,7 @@ class BasketState extends StateModule{
 
   /**
    * Добавление товара в корзину
-   * @param _id Код товара
+   * @param _id {String} Код товара
    */
   async addToBasket(_id) {
     let sum = 0;
@@ -58,8 +58,8 @@ class BasketState extends StateModule{
   }
 
   /**
-   * Добавление товара в корзину
-   * @param _id Код товара
+   * Удаление товара из корзины
+   * @param _id {String} Код товара
    */
   removeFromBasket(_id) {
     let sum = 0;

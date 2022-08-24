@@ -1,6 +1,7 @@
 import React, {useCallback} from "react";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
+import useSelector from "../../hooks/use-selector";
 import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
@@ -18,6 +19,10 @@ function Login(){
     login: useCallback((data) => store.get('login').login(data), []),
   };
 
+  const select = useSelector(state => ({
+    error: state.login.error
+  }));
+
   return (
     <Layout head={
       <LayoutFlex flex="between">
@@ -27,7 +32,7 @@ function Login(){
     }>
       <Tools/>
       <LoginMenu/>
-      <LoginForm onLogin={callbacks.login}/>
+      <LoginForm errorMessage={select.error} onLogin={callbacks.login}/>
     </Layout>
   )
 }

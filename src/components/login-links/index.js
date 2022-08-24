@@ -15,7 +15,7 @@ function LoginLinks({user, profileLink, loginLink, status, onLogout}){
     <div className={cn()}>
     {status ===  'auth' ?
       <>
-        <Link to={profileLink} className={cn('user')}>{user?.profile.name}</Link>
+        <Link to={profileLink} className={cn('user')}>{user?.profile?.name}</Link>
         <button className={cn('button')} onClick={callbacks.onLogoutHandler}>Выход</button>
       </> :
       <Link to={loginLink} className={cn('button')}>Вход</Link> 

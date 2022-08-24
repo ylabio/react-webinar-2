@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback} from 'react';
 import useStore from "../../hooks/use-store";
 import Layout from "../../components/layout";
 import AuthPanel from "../../containers/auth-panel";
@@ -25,6 +25,7 @@ const Login = () => {
     }));
     const callbacks = {
         logIn: useCallback(data => store.get('login').logIn(data), []),
+        clearErr: useCallback(()=> store.get('login').clearErr(),[])
     };
     useInit(() => {
         if (select.isAuth && location.key === 'default') {
@@ -33,6 +34,7 @@ const Login = () => {
         if (select.isAuth && location.key !== 'default') {
             navigate(-1);
         }
+        return callbacks.clearErr()
     }, [select.token], {backForward: true});
     return (
         <Layout

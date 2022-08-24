@@ -8,7 +8,6 @@ import Layout from "../../components/layout";
 import useTranslate from "../../hooks/use-translate";
 import Spinner from "../../components/spinner";
 import ProfileContent from "../../components/profile-content";
-import PrivatValidation from "../../containers/privat-validation";
 
 const Profile = () => {
 
@@ -22,7 +21,7 @@ const Profile = () => {
 
     const {t} = useTranslate();
     return (
-        <PrivatValidation>
+            <Spinner active={select.waiting}>
         <Layout
             authPanel={<AuthPanel/>}
             head={
@@ -32,12 +31,11 @@ const Profile = () => {
                 </LayoutFlex>
             }>
             <Tools/>
-            <Spinner active={select.waiting}>
+
                 <ProfileContent user={select.user} t={t}/>
-            </Spinner>
         </Layout>
-        </PrivatValidation>
+            </Spinner>
     );
 };
 
-export default Profile;
+export default React.memo(Profile);

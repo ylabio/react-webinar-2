@@ -8,18 +8,17 @@ import LayoutFlex from "../../components/layout-flex";
 
 function CatalogFilter() {
 
-  const IsReset = true
   const store = useStore();
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    categories: state.catalog.categories,
+    categories: state.categories.categories,
     category: state.catalog.params.category
   }));
   const {t} = useTranslate();
-  console.log(select.category)
-  console.log(select.sort)
+  console.log(select.categories)
+
   const callbacks = {
     onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
     onFilter: useCallback(category => store.get('catalog').setParams({category, page: 1}), []),
@@ -39,7 +38,7 @@ function CatalogFilter() {
 
   return (
     <LayoutFlex flex="start">
-      <Select onChange={callbacks.onFilter} categoryReset={IsReset} value={select.category} options={select.categories} />
+      <Select onChange={callbacks.onFilter} value={select.category} options={select.categories} />
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

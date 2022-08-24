@@ -1,6 +1,5 @@
 import StateModule from "../module";
 import qs from 'qs';
-import {categoryTree} from "../../utils/category-tree";
 
 const QS_OPTIONS = {
     stringify: {
@@ -27,7 +26,6 @@ class CatalogState extends StateModule {
         return {
             items: [],
             count: 0,
-            categories: [],
             params: {
                 page: 1,
                 limit: 10,
@@ -48,6 +46,7 @@ class CatalogState extends StateModule {
     async initParams(params = {}) {
         // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
         const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
+        await this.store.get('categories').getCategories();
         let validParams = {};
         if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
         if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
@@ -93,15 +92,12 @@ class CatalogState extends StateModule {
         const querryCategory = newParams.category ? `&search[category]=${newParams.category}` : '';
         const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${querryCategory}`);
         const json = await response.json();
-        const responseCategories = await fetch('/api/v1/categories');
-        const jsonCategories = await responseCategories.json();
 
         // Установка полученных данных и сброс признака загрузки
         this.setState({
             ...this.getState(),
             items: json.result.items,
             count: json.result.count,
-            categories: categoryTree(jsonCategories.result.items),
             waiting: false
         });
         // Запоминаем параметры в URL

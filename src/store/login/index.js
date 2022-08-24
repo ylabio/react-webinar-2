@@ -64,7 +64,6 @@ class LoginState extends StateModule{
             waiting: true
         });
 
-        try {
             const response = await fetch(`/api/v1/users/sign`, {
                 method: 'POST',
                 headers: {
@@ -73,6 +72,19 @@ class LoginState extends StateModule{
                 body: JSON.stringify(data),
             });
             const json = await response.json();
+        if(json.error) {
+            const errors = json.error.data.issues.reduce((arr, item) => {
+                    arr.push(item.message);
+                    return arr;
+                }, []
+            ).join(', ')
+            this.setState({
+                ...this.getState(),
+                err: errors,
+                isAuth: false,
+                waiting: false
+            });
+        }
 
             if (json.result.token) {
                 localStorage.setItem('token', json.result.token);
@@ -84,15 +96,6 @@ class LoginState extends StateModule{
                     waiting: false
                 });
             }
-        } catch (e){
-            this.setState({
-                err: e,
-                user: '',
-                token: '',
-                isAuth: false,
-                waiting: false
-            });
-        }
     }
 
     async logOut (token){
@@ -128,8 +131,14 @@ class LoginState extends StateModule{
                 err: e,
                 waiting: false
             })
-
         }
+    }
+
+    clearErr(){
+        this.setState({
+            ...this.getState(),
+            err: ''
+        })
     }
 }
 

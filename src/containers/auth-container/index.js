@@ -4,7 +4,7 @@ import { AuthContext } from "../../store/authcontext";
 
 const AuthContextProvider = ({ children }) => {
     const navigate = useNavigate();
-    const [user, set] = useState(null);
+    const [user, setUser] = useState(null);
     const [err, setErr] = useState(null);
     
     const toLogin = () => navigate('/login');
@@ -25,7 +25,7 @@ const AuthContextProvider = ({ children }) => {
         const { result } = await res.json()
         localStorage.setItem('user', JSON.stringify(result.user));
         localStorage.setItem('token', JSON.stringify(result.token));
-        set(result.user);
+        setUser(result.user);
         err && setErr(null);
       } else {
         const { error : { data } } = await res.json()
@@ -33,10 +33,16 @@ const AuthContextProvider = ({ children }) => {
       }
     };
     
-    const logOut = () => {
+    const logOut = async () => {
+      const query = '/api/v1/users/sign';
+      const res = await fetch(query, {
+        method: 'DELETE',
+      });
+console.log(res)
       localStorage.removeItem('user');
       localStorage.removeItem('token');
-      navigate('/login')
+      setUser(null);
+      console.log(user)
     };
 
     return (

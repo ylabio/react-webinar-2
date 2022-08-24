@@ -12,10 +12,10 @@ function LoginMenu(props) {
 
   const UserMenu = () => (
     <>
-        <Link className={cn('link')} to={`/profile/${user?._id || localStorageUser._id}`}>
-          {localStorageUser.profile.name}
+        <Link className={cn('link')} to={'/profile'}>
+          {localStorageUser.profile.name || user.profile.name}
           {' '}
-          {localStorageUser.profile.surname}
+          {localStorageUser.profile.surname || user.profile.surname}
         </Link>
         <button type='submit' onClick={logOut}>{logOutTitle}</button>
     </>
@@ -25,8 +25,8 @@ function LoginMenu(props) {
 
   return (
     <div className={cn()}>
-        {localStorageUser && <UserMenu />}
-        {!localStorageUser && <ToLogin />}
+        {(user || localStorageUser) && <UserMenu />}
+        {(!localStorageUser && !user) && <ToLogin />}
     </div>
   )
 }

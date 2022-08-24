@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useContext } from "react";
 import useStore from "../../hooks/use-store";
 import { useNavigate } from 'react-router-dom';
 import useInit from "../../hooks/use-init";
@@ -10,18 +10,22 @@ import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import LoginMenu from "../../components/login-menu";
+import { AuthContext } from "../../store/authcontext";
 
 function Main() {
   const store = useStore();
 
   useInit(async () => {
     await store.get('catalog').initParams();
+    await store.get('categories').getCategories();
   }, [], {backForward: true});
 
   const {t} = useTranslate();
   const navigate = useNavigate();
+  const { user, toLogin, logOut } = useContext(AuthContext);
   const callbacks = {
-    toLogin: useCallback(() => navigate('/login'))
+    toLogin: useCallback(() => navigate('/login'), [toLogin]),
+
   };
 
   const options = {

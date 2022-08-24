@@ -16,14 +16,13 @@ function App() {
 
   const modal = useSelector(state => state.modals.name);
   const { user } = useContext(AuthContext);
-  console.log(user)
   const userToken = localStorage.token || user;
 
   return (
     <>
       <Routes>
-        <Route path='/login' element={<LoginPage />}/>
-        <Route path='/profile/:userId' element={
+        <Route path='/login' element={<LoginPage/>}/>
+        <Route path='/profile' element={
           !userToken ? <Navigate replace to='/login'/> 
           : <UserPage />}/>
         <Route path={''} element={<Main/>}/>

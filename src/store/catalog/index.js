@@ -24,7 +24,6 @@ class CatalogState extends StateModule {
   initState() {
     return {
       items: [],
-      category: [],
       count: 0,
       params: {
         page: 1,
@@ -77,7 +76,7 @@ class CatalogState extends StateModule {
    * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
    * @returns {Promise<void>}
    */
-  async setParams(params = {}, historyReplace = false, category = false) {
+  async setParams(params = {}, historyReplace = false) {
     const newParams = { ...this.getState().params, ...params };
 
     // Установка новых параметров и признака загрузки
@@ -95,20 +94,9 @@ class CatalogState extends StateModule {
     );
     const json = await response.json();
 
-    // console.log("catrgory", category);
-
-    if (category) {
-      const response_category = await fetch(
-        `api/v1/categories?lang=ru&limit=100&skip=0&fields=%2A`
-      );
-      const json_category = await response_category.json();
-
-      // Установка полученных данных и сброс признака загрузки
+    if (json.error) {
       this.setState({
         ...this.getState(),
-        items: json.result.items,
-        count: json.result.count,
-        category: json_category.result.items,
         waiting: false,
       });
     } else {
@@ -120,6 +108,7 @@ class CatalogState extends StateModule {
         waiting: false,
       });
     }
+
     // Запоминаем параметры в URL
     let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);
     const url = window.location.pathname + queryString + window.location.hash;

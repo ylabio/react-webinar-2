@@ -28,6 +28,7 @@ function App() {
   };
 
   useEffect(() => {
+    console.log(select.user);
     callbacks.setAuth(localStorage.getItem("token"));
   }, []);
 

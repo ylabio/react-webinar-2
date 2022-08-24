@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useEffect, useCallback, useMemo } from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
@@ -13,7 +13,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category_choice: state.catalog.params.category_choice,
-    arrayCategory: state.catalog.category,
+    categoryArray: state.category.array,
   }));
 
   const { t } = useTranslate();
@@ -34,6 +34,8 @@ function CatalogFilter() {
     ),
     // Сброс
     onReset: useCallback(() => store.get("catalog").resetParams(), []),
+    // Получение массива категорий
+    onCategoryArray: useCallback(() => store.get("category").setCategory(), []),
   };
 
   // Опции для полей
@@ -49,11 +51,17 @@ function CatalogFilter() {
     ),
   };
 
+  useEffect(() => {
+    if (!select.categoryArray.length) {
+      callbacks.onCategoryArray();
+    }
+  }, []);
+
   const category = {
     sort: useMemo(() =>
       [
         { value: "", title: "Все" },
-        ...select.arrayCategory.map((item, index, array) => {
+        ...select.categoryArray.map((item, index, array) => {
           let line = 0;
           let order = item.order;
           if (item.parent) {

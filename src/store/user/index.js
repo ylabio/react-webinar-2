@@ -11,7 +11,7 @@ class UserState extends StateModule{
    */
    initState() {
     return {
-      user: {},
+      user: [],
       token: localStorage.getItem('token') || '',
       error: '',
       userExists: false,
@@ -42,7 +42,7 @@ class UserState extends StateModule{
       const json = await response.json();
       if (json.error) {
         this.setState({
-          user: {},
+          user: [],
           token: '',
           error: json.error.data.issues[0].message,
           userExists: false,
@@ -63,7 +63,7 @@ class UserState extends StateModule{
       console.log(e);
       this.setState({
         error: 'Некая ошибка от сервера',
-        user: {},
+        user: [],
         token: '',
         userExists: false,
         waiting: false
@@ -87,10 +87,9 @@ class UserState extends StateModule{
           'X-Token': token,
         },
       });
-      const json = await response.json();
       localStorage.removeItem('token');
       this.setState({
-        user: {},
+        user: [],
         token: '',
         error: '',
         userExists: false,
@@ -100,7 +99,7 @@ class UserState extends StateModule{
       console.log(e);
       this.setState({
         error: 'Некая ошибка от сервера',
-        user: {},
+        user: [],
         token: '',
         userExists: false,
         waiting: false
@@ -146,7 +145,7 @@ class UserState extends StateModule{
       } catch (e){
         this.setState({
           error: 'Некая ошибка от сервера',
-          user: {},
+          user: [],
           token: '',
           userExists: false,
           waiting: false

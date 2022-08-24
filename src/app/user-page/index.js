@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -11,6 +11,7 @@ import LocaleSelect from '../../containers/locale-select';
 import User from '../../components/user';
 
 function UserPage() {
+  console.log('user');
   const store = useStore();
 
   const user = store.get('user').store.state.user.user;
@@ -31,7 +32,12 @@ function UserPage() {
       }
     >
       <Tools />
-      {select.waiting ? <Spinner active={select.waiting} /> : <User user={user} />}
+      {select.waiting === false && Object.keys(user).length !== 0 ? (
+        <Spinner active={select.waiting}>
+          <User user={user} />
+        </Spinner>
+      ) : null}
+      {select.waiting === false && Object.keys(user).length === 0 ? <Navigate to="/login" /> : null}
     </Layout>
   );
 }

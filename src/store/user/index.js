@@ -59,6 +59,7 @@ class UserState extends StateModule {
             user: '',
             token: '',
             isLogged: false,
+            waiting: true,
           });
         }
         return data;

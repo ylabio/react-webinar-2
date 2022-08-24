@@ -14,7 +14,6 @@ class ProfileState extends StateModule {
       auth: false,
       error: '',
       waiting: false,
-      locateKey: '',
     }
   }
 
@@ -61,18 +60,6 @@ class ProfileState extends StateModule {
       })
       console.log(err.message)
     }
-  }
-  async setLocateKey(locateKey) {
-    this.setState({
-      ...this.getState(),
-      locateKey: locateKey,
-    })
-  }
-  async clearLocateKey(locateKey) {
-    this.setState({
-      ...this.getState(),
-      locateKey: '',
-    })
   }
 
   async initUser() {

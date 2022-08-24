@@ -10,31 +10,29 @@ function CatalogFilter() {
 
   const store = useStore();
 
-  const findParentCategory = (parentCategory, arr, child) => {
-    for(let i = 0; i < arr.length; i++) {
-      if(arr[i].children) {
-        let findedParent = arr[i].children.find((c1) => {
-          return ((c1.value === parentCategory._id) || (c1.value === parentCategory.value))
-        })
-        if(findedParent) {
-          findedParent.children = findedParent.children ? [...findedParent.children, {...child}] : [{...child}];
-          return findedParent
+  const findParentCategory = (parentCategory, obj) => {
+    if(parentCategory in obj) {
+      return obj[parentCategory]
+    }
+
+    for(let category in obj) {
+      if(obj[category].children) {
+        if(parentCategory in obj[category].children) {
+          return obj[category].children[parentCategory];
+        } else {
+          return findParentCategory(parentCategory, obj[category].children)
         }
-        findParentCategory(parentCategory, arr[i].children)
       }
     }
   }
 
-  const makeHierarchicallyArray = (category, arr, depth) => {
-    if(category.title) {
-      category.title = category.title.padStart(category.title.length + depth, "-");
-      arr.push(category);
-    }
-    if(category.children) {
-      ++depth;
-      category.children.map((c1) => {
-        makeHierarchicallyArray(c1, arr, depth);
-      })
+  const makeHierarchicallyArray = (arr, obj, depth = 0) => {
+    arr.push({...obj, title: `${obj.title}`.padStart(obj.title.length + depth, "-")})
+    if(obj.children) {
+      depth++;
+      for(let c in obj.children) {
+        makeHierarchicallyArray(arr, obj.children[c], depth);
+      }
     }
     return arr;
   }
@@ -72,37 +70,26 @@ function CatalogFilter() {
       {value:'edition', title: 'Древние'},
     ]), []),
     categories: useMemo(() => {
-      let hierarchicallyCategory = [];
-      let categoryArr = [
-        {value: "", title: "Все"}
-      ];
 
-      select.categories.map((category) => categoryArr.push({value: category._id, title: category.title, parent: category.parent}));
+      let categoryObj = {
+        "all": {value: "", title: "Все"}
+      };
 
-      categoryArr = categoryArr.map((category) => {
-        if(category.parent) {
-          let parentCategory = categoryArr.find((c) => {
-            return c.value === category.parent._id
-          });
-
-          parentCategory.children = parentCategory.children ? [...parentCategory.children, {...category}] : [{...category}];
+      select.categories.map((category) => categoryObj[category._id] = {value: category._id, title: category.title, parent: category.parent});
+      for(let category in categoryObj) {
+        if(categoryObj[category].parent) {
+          let parent = findParentCategory(categoryObj[category].parent._id, categoryObj);
+          delete categoryObj[category].parent;
+          parent.children = parent.children !== undefined ? {...parent.children} : {};
+          parent.children[category] = {...categoryObj[category]};
+          delete categoryObj[category];
         }
-        return category
-      })
-      console.log(categoryArr);
-      for(let category of categoryArr) {
-        if(category.parent) {
-          findParentCategory(category.parent, categoryArr, category);
-        } else hierarchicallyCategory.push(category)
       }
-      console.log(hierarchicallyCategory);
-      categoryArr = [];
-
-      hierarchicallyCategory.map((category) => {
-        makeHierarchicallyArray(category, categoryArr, 0)
-      })
-
-      return categoryArr;
+      let arr = [];
+      for(let c in categoryObj) {
+        makeHierarchicallyArray(arr, categoryObj[c], 0)
+      }
+      return arr;
     }, [select.categories])
   }
 
@@ -117,3 +104,7 @@ function CatalogFilter() {
 }
 
 export default React.memo(CatalogFilter);
+/*
+<Select onChange={callbacks.onChangeCategory} value={select.category} options={options.categories}/>
+<Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
+*/

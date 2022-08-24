@@ -16,8 +16,14 @@ function Login() {
   const location = useLocation();
   useEffect(() => {
     if (select.isSigned) {
-      const redirect = location.state.redirect;
-      const id = location.state.id;
+      let redirect;
+      let id;
+      if (location.state) {
+        redirect = location.state.redirect;
+        id = location.state.id;
+      } else {
+        redirect = 'profile';
+      }
       navigate(`/${redirect}${id ? '/' + id : ''}`);
     }
   }, [select.isSigned]);

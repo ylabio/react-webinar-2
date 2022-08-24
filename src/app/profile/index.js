@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import Layout from '../../components/layouts/layout';
 import ProfileContent from '../../components/profile/profile-content';
 import CommonHead from '../../containers/common-head';
 import CommonTopbar from '../../containers/common-topbar';
 import Tools from '../../containers/tools';
+import {useNotSignedEffect} from '../../hooks/use-not-signed-effect';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
 
@@ -17,11 +18,9 @@ function Profile() {
   const navigate = useNavigate();
   const {t} = useTranslate();
 
-  useEffect(() => {
-    if (!select.isSigned) {
-      navigate('/login', {state: {redirect: 'profile'}});
-    }
-  }, [select.isSigned]);
+  useNotSignedEffect(() => {
+    navigate('/login', {state: {redirect: 'profile'}});
+  });
 
   return (
     <Layout head={<CommonHead />} topbar={<CommonTopbar />}>

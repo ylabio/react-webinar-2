@@ -11,9 +11,9 @@ function Loggin(props) {
       </div>
       <div className='inputBlock'>
         <p className='inputLabel'>Пароль</p>
-        <input onChange={props.passwordFunc} className='input'></input>
+        <input required onChange={props.passwordFunc} className='input'></input>
       </div>
-      {props.error ? <p className='error'>Некая ошибка от сервера</p> : ''}
+      {props.error ? <p className='error'>{props.errorMessage}</p> : ''}
       <button onClick={props.logging} className='logginButton'>
         Войти
       </button>

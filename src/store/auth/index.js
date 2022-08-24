@@ -35,6 +35,10 @@ class AuthState extends StateModule {
       localStorage.setItem('Xtoken', this.getState().token);
       return true;
     } else {
+      this.setState({
+        ...this.getState(),
+        errorMessage: json.error.message,
+      });
       return false;
     }
   }

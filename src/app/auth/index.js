@@ -14,8 +14,8 @@ function Auth() {
   const navigate = useNavigate();
 
   const [auth, setAuth] = React.useState({
-    login: 'test_1',
-    password: '123456',
+    login: '',
+    password: '',
     error: false,
   });
 
@@ -23,6 +23,7 @@ function Auth() {
 
   const select = useSelector((state) => ({
     items: state.basket.items,
+    errorMessage: state.auth.errorMessage,
   }));
 
   const callbacks = {
@@ -43,7 +44,7 @@ function Auth() {
   async function logging() {
     const result = await store.get('auth').authentication(auth.login, auth.password);
     if (result) {
-      navigate('../profile');
+      navigate(-1);
     } else {
       setAuth({
         ...auth,
@@ -69,6 +70,7 @@ function Auth() {
         password={auth.password}
         error={auth.error}
         logging={logging}
+        errorMessage={select.errorMessage}
       />
     </Layout>
   );

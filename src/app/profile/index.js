@@ -18,11 +18,6 @@ function Profile() {
     user: state.auth.user,
     token: state.auth,
   }));
-
-  React.useEffect(() => {
-    select.user == undefined ? navigate('../login') : '';
-  });
-
   return (
     <Layout
       head={

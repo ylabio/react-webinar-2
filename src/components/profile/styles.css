@@ -1,0 +1,19 @@
+.Profile {
+    padding: 20px;
+    color: #000;
+}
+.Profile-header {
+    padding-top: 22px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+}
+.Profile-text {
+    padding-top: 30px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+.Profile-text span {
+    font-weight: 700;
+}

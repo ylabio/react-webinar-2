@@ -10,6 +10,8 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import HeaderLogin from "../../components/header-login";
+import useAuth from "../../hooks/use-auth";
 
 function Article(){
   const store = useStore();
@@ -21,6 +23,11 @@ function Article(){
     await store.get('article').load(params.id);
   }, [params.id]);
 
+  useAuth();
+
+  let profile = useSelector((state) => state.profile.profile);
+  let user = useSelector((state) => state.user);
+
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting
@@ -31,6 +38,8 @@ function Article(){
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Выход из аккаунта
+    logout: useCallback(() => store.get('user').logOut(user))
   };
 
   return (
@@ -39,7 +48,8 @@ function Article(){
         <h1>{select.article.title}</h1>
         <LocaleSelect/>
       </LayoutFlex>
-    }>
+    }
+    login={<HeaderLogin profile={profile} user={user} logout={callbacks.logout} />}>
       <Tools/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>

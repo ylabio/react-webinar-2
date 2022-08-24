@@ -22,7 +22,7 @@ function appendChildTo(node, array) {
 function setSelectItem(item, level, select_list) {
   let prefix = "";
   for (let i = 1; i < level; i++) {
-    prefix = prefix.concat("-");
+    prefix = prefix.concat("- ");
   }
   const title = prefix.concat(item.title);
   select_list.push({ value: item._id, title });

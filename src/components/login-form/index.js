@@ -34,6 +34,7 @@ function LoginForm({ onSubmit, error_message }) {
           onChange={() => {}}
           value=""
           theme="margin"
+          type="password"
         />
         <div className={cn("errorMessage")}>{error_message}</div>
         <button type="submit">Войти</button>

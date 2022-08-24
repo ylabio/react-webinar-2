@@ -34,7 +34,7 @@ class AuthState extends StateModule {
       } else {
         this.setState({
           ...this.getState(),
-          error_message: json.error.message,
+          error_message: json.error.data.issues[0].message,
         });
       }
     } catch (e) {
@@ -71,7 +71,7 @@ class AuthState extends StateModule {
         },
       });
       const json = await response.json();
-      // console.log(json);
+
       this.setState({
         ...this.getState(),
         extra_data: {

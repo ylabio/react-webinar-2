@@ -55,14 +55,14 @@ function CatalogFilter() {
   return (
     <LayoutFlex flex="start">
       <Select
-        onChange={callbacks.onSort}
-        value={select.sort}
-        options={options.sort}
-      />
-      <Select
         onChange={callbacks.onFilter}
         value={select.filter}
         options={options.filter}
+      />
+      <Select
+        onChange={callbacks.onSort}
+        value={select.sort}
+        options={options.sort}
       />
       <Input
         onChange={callbacks.onSearch}

@@ -1,6 +1,6 @@
 export async function getSelectOptions() {
   try {
-    const response = await fetch(`/api/v1/categories`, {
+    const response = await fetch(`/api/v1/categories?limit=*`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

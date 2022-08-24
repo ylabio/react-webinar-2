@@ -33,7 +33,7 @@ function Authorization() {
         await store.get('user').authorize(data);
         navigate(-1);
       } catch (error) {
-         throw error;
+        return error;
       }
 
     }, []),

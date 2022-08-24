@@ -32,7 +32,7 @@ class UserState extends StateModule{
 
     try {
       const res = await getToken(data);
-      debugger
+
       setCookie('token', res.result.token);
 
       this.setState({

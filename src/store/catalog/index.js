@@ -1,5 +1,5 @@
-import StateModule from "../module";
 import qs from 'qs';
+import StateModule from "../module";
 
 const QS_OPTIONS = {
   stringify: {
@@ -30,6 +30,7 @@ class CatalogState extends StateModule{
         page: 1,
         limit: 10,
         sort: 'order',
+        category: '',
         query: ''
       },
       waiting: false
@@ -49,6 +50,7 @@ class CatalogState extends StateModule{
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
+    if (urlParams.category) validParams.category = urlParams.category;
     if (urlParams.query) validParams.query = urlParams.query;
 
     // Итоговые параметры из начальных, из URL и из переданных явно
@@ -83,19 +85,21 @@ class CatalogState extends StateModule{
       ...this.getState(),
       params: newParams,
       waiting: true
-    });
+    }, 'Loading items...');
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
-    const json = await response.json();
+    const category = newParams.category ? '&search[category]=' + newParams.category : '';
+    const response = await(
+      await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}` + category)
+    ).json();
 
     // Установка полученных данных и сброс признака загрузки
     this.setState({
       ...this.getState(),
-      items: json.result.items,
-      count: json.result.count,
+      items: response.result.items,
+      count: response.result.count,
       waiting: false
-    });
+    }, 'Items laded');
 
     // Запоминаем параметры в URL
     let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);

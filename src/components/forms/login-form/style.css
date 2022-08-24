@@ -1,0 +1,33 @@
+.Loginform {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 50px 0 0 20px;
+}
+
+.Loginform-title {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.Loginform-field {
+  padding-top: 20px;
+  padding-bottom: 2px;
+  font-size: 16px;
+}
+
+.Loginform-error {
+  padding-top: 20px;
+  font-size: 16px;
+  color: #FF0000;
+}
+
+.Loginform-button {
+  margin-top: 22px;
+  cursor: pointer;
+}
+
+.Input_theme_login {
+  width: 203;
+  font-size: 16px;
+}

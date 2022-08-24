@@ -1,10 +1,10 @@
-import React, {useCallback, useMemo} from "react";
+import React, { useCallback, useMemo } from "react";
+import BasketSimple from "../../components/basket/basket-simple";
+import LayoutFlex from "../../components/layouts/layout-flex";
+import Menu from "../../components/menu";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import Menu from "../../components/menu";
-import BasketSimple from "../../components/basket-simple";
-import LayoutFlex from "../../components/layout-flex";
 
 function Tools() {
 

@@ -14,5 +14,19 @@
   "basket.unit": "pcs",
   "basket.delete": "Delete",
   "article.add": "Add",
-  "filter.reset": "Reset"
+  "filter.reset": "Reset",
+  "userbar.login": "Login",
+  "userbar.logout": "Logout",
+  "profile.title": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "profile.email": "email",
+  "login.title": "SignIn",
+  "login.login": "Login",
+  "login.password": "password",
+  "login.in": "Enter",
+  "article.country": "Country",
+  "article.category": "Category",
+  "article.year": "Year",
+  "article.price": "Price"
 }

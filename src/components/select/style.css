@@ -1,4 +1,7 @@
 .Select{
     font-size: 16px;
     padding: 3px 2px 2px;
+    background-color: white;
+    border: 1px solid #767676;
+    border-radius: 1px;
 }

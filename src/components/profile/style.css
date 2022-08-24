@@ -1,0 +1,24 @@
+.Profile {
+  padding: 0 20px;
+}
+
+.Profile-title {
+  padding: 40px 0 30px;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.Profile-prop {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.Profile-label{
+  padding-right: 10px;
+}
+
+.Profile-value{
+  font-weight: bold;
+} 

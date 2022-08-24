@@ -1,0 +1,33 @@
+.Login {
+  padding: 0 20px;
+}
+
+.Login-title {
+  padding: 40px 0 30px;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.Login-label {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.Login-input {
+  display: block;
+  height: 26px;
+  width: 203px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.Login-error {
+  color: #FF0000;
+  margin: 20px 0;
+}
+
+.Login-loader{
+  text-align: center;
+  margin-top: 100px;
+}

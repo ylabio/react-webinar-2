@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import { Link } from 'react-router-dom';
 
 function Pagination(props) {
   const cn = bem('Pagination');
@@ -33,25 +34,36 @@ function Pagination(props) {
   };
 
   const loco = window.location.href;
-  const pre = loco.slice(0, loco.indexOf('page='));
   const after = loco.slice(loco.indexOf('page=')).replace(/page=[0-9]+/, '');
 
   return (
     <ul className={cn()}>
       {items.map((number, index) => {
-        const href = `${pre}page=${number}${after}`;
-        return (
-          <a href={href} key={index}>
+        const href = `?page=${number}${after}`;
+        if (number) {
+          return (
+            <Link to={href} key={index}>
+              <li
+                className={cn('item', {
+                  active: number === props.page,
+                  split: !number,
+                })}
+                onClick={onClickHandler(number)}>
+                {number}
+              </li>
+            </Link>
+          );
+        } else {
+          return (
             <li
+              key={index}
               className={cn('item', {
-                active: number === props.page,
                 split: !number,
-              })}
-              onClick={onClickHandler(number)}>
-              {number || '...'}
+              })}>
+              ...
             </li>
-          </a>
-        );
+          );
+        }
       })}
     </ul>
   );

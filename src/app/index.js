@@ -2,7 +2,7 @@ import React from 'react';
 import useSelector from '../hooks/use-selector';
 import Basket from './basket';
 import useStore from '../hooks/use-store';
-import { PrivateRoutes, PublicRoutes } from '../routes';
+import { Routes } from '../routes';
 import useInit from '../hooks/use-init';
 
 /**
@@ -18,12 +18,12 @@ function App() {
 
   const select = useSelector((state) => ({
     modal: state.modals.name,
-    loggedIn: state.authorization.loggedIn,
+    // loggedIn: state.authorization.loggedIn,
   }));
 
   return (
     <>
-      {select.loggedIn ? <PrivateRoutes /> : <PublicRoutes />}
+      <Routes />
       {select.modal === 'basket' && <Basket />}
     </>
   );

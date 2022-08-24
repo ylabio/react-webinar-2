@@ -76,7 +76,7 @@ class CatalogState extends StateModule {
    * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
    * @returns {Promise<void>}
    */
-  async setParams(params = {}, historyReplace = false) {
+  async setParams(params = {}, historyReplace = true) {
     const newParams = { ...this.getState().params, ...params };
 
     // Установка новых параметров и признака загрузки

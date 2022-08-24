@@ -10,7 +10,6 @@ class Authorization extends StateModule {
    */
   initState() {
     return {
-      user: {},
       error: '',
       token: '',
       waiting: false,
@@ -32,9 +31,9 @@ class Authorization extends StateModule {
     });
     const json = await response.json();
     if (json.result) {
+      this.store.get('profile').getUser(json.result.user);
       this.setState({
-        user: json.result.user,
-        error: '',
+        ...this.getState(),
         token: json.result.token,
         waiting: false,
         loggedIn: true,
@@ -45,12 +44,14 @@ class Authorization extends StateModule {
       }
     }
     if (json.error) {
+      this.store.get('profile').getUser();
       this.setState({
         ...this.getState(),
         error: json.error?.data?.issues[0]?.message,
         waiting: false,
       });
     }
+    console.log(json);
   }
 
   async logout(token) {
@@ -68,9 +69,7 @@ class Authorization extends StateModule {
     const json = await response.json();
     if (json.result) {
       this.setState({
-        user: {},
-        error: '',
-        token: '',
+        ...this.getState(),
         waiting: false,
         loggedIn: false,
       });
@@ -91,9 +90,9 @@ class Authorization extends StateModule {
     });
     const json = await response.json();
     if (json.result) {
+      this.store.get('profile').getUser(json.result);
       this.setState({
-        user: json.result,
-        error: '',
+        ...this.getState(),
         token: token,
         waiting: false,
         loggedIn: true,
@@ -102,9 +101,8 @@ class Authorization extends StateModule {
     if (json.error) {
       this.setState({
         ...this.getState(),
-        user: {},
-        loggedIn: false,
         waiting: false,
+        loggedIn: false,
       });
     }
   }

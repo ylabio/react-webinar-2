@@ -7,7 +7,7 @@ function LoginPanel(props) {
   const cn = bem('Panel');
   return (
     <>
-      {props.user.profile?.name ? (
+      {props.loggedIn ? (
         <>
           <div
             className={cn('profile')}
@@ -41,6 +41,7 @@ function LoginPanel(props) {
 
 LoginPanel.propTypes = {
   user: propTypes.object.isRequired,
+  loggedIn: propTypes.bool.isRequired,
   moveToLogin: propTypes.func,
   moveToProfile: propTypes.func,
 };

@@ -39,4 +39,5 @@
   background: transparent;
   cursor: default;
   color: #cccccc;
+  user-select: none;
 }

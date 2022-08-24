@@ -9,7 +9,8 @@ function Authorization() {
   const store = useStore();
 
   const select = useSelector((state) => ({
-    user: state.authorization.user,
+    loggedIn: state.authorization.loggedIn,
+    user: state.profile.user,
   }));
 
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ function Authorization() {
         moveToProfile={callbacks.moveToProfile}
         moveToLogin={callbacks.moveToLogin}
         logout={callbacks.getLoggedOut}
+        loggedIn={select.loggedIn}
         user={select.user}
       />
     </LayoutFlex>

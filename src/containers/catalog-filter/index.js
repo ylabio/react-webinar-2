@@ -52,27 +52,23 @@ function CatalogFilter() {
 
   return (
     <LayoutFlex flex='start'>
-      {select.waiting ? null : (
-        <>
-          <Select
-            onChange={callbacks.onFilter}
-            value={select.category}
-            options={options.filter}
-          />
-          <Select
-            onChange={callbacks.onSort}
-            value={select.sort}
-            options={options.sort}
-          />
-          <Input
-            onChange={callbacks.onSearch}
-            value={select.query}
-            placeholder={'Поиск'}
-            theme='big'
-          />
-          <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
-        </>
-      )}
+      <Select
+        onChange={callbacks.onFilter}
+        value={select.category}
+        options={options.filter}
+      />
+      <Select
+        onChange={callbacks.onSort}
+        value={select.sort}
+        options={options.sort}
+      />
+      <Input
+        onChange={callbacks.onSearch}
+        value={select.query}
+        placeholder={'Поиск'}
+        theme='big'
+      />
+      <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </LayoutFlex>
   );
 }

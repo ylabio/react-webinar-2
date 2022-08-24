@@ -14,6 +14,7 @@ class ProfileState extends StateModule {
       auth: false,
       error: '',
       waiting: false,
+      locateKey: '',
     }
   }
 
@@ -41,7 +42,7 @@ class ProfileState extends StateModule {
       if (json.error) {
         this.setState({
           ...this.getState(),
-          error: 'Не верный логин или пароль',
+          error: json.error.message,
           waiting: false,
         })
       } else {
@@ -55,11 +56,23 @@ class ProfileState extends StateModule {
     } catch (err) {
       this.setState({
         ...this.getState(),
-        error: 'Какая-то ошибка от сервера',
+        error: 'Не верный логин или пароль',
         waiting: false,
       })
       console.log(err.message)
     }
+  }
+  async setLocateKey(locateKey) {
+    this.setState({
+      ...this.getState(),
+      locateKey: locateKey,
+    })
+  }
+  async clearLocateKey(locateKey) {
+    this.setState({
+      ...this.getState(),
+      locateKey: '',
+    })
   }
 
   async initUser() {

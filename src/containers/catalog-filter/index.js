@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useCallback, useEffect, useMemo} from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
@@ -9,12 +9,12 @@ import LayoutFlex from "../../components/layout-flex";
 
 const CATEGORY_PREFIX = '-';
 const appendChildCategory = (items, rootItem, categoryPrefix = CATEGORY_PREFIX) => {
-  const childs = items.filter(item => item?.parent?._id === rootItem._id);
-  if (childs.length === 0) {
+  const childes = items.filter(item => item?.parent?._id === rootItem._id);
+  if (childes.length === 0) {
     return [];
   }
 
-  return childs.reduce((categories, child) => {
+  return childes.reduce((categories, child) => {
     return [
       ...categories,
       {value: child._id, title: categoryPrefix + ' ' + child.title},
@@ -44,8 +44,6 @@ function CatalogFilter() {
     category: state.catalog.params.category,
   }));
 
-  console.log(select.category)
-
   const {t} = useTranslate();
 
   const callbacks = {
@@ -69,28 +67,17 @@ function CatalogFilter() {
     ]), [])
   }
 
-  // const [items, setItems] = useState([]);
-  // useEffect(() => {
-  //       fetch( `/api/v1/categories`)
-  //           .then(response => response.json())
-  //           .then(category => {
-  //             setItems(createOptionsCategory(category.result.items))
-  //             console.log(category)
-  //           });
-  // }, []);
-
-
-//черновик с неработающей фигней
-  const [items, setItems] = useState([]);
+  const rawCategoryItems = useSelector(state => state.category.categoryList);
+  const categoryItems = useMemo(() => {
+    return createOptionsCategory(rawCategoryItems)
+  }, [rawCategoryItems])
   useEffect(() => {
-   const list = store.get('catalog').getCatalogCategory();
-    setItems(createOptionsCategory(select.category.result))
-    console.log(list.result)
+    store.get('category').load();
   }, [])
 
   return (
     <LayoutFlex flex="start">
-      <Select onChange={callbacks.onChangeCategory} value={select.category} options={items}/>
+      <Select onChange={callbacks.onChangeCategory} value={select.category} options={categoryItems}/>
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

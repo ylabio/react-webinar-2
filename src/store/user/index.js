@@ -38,7 +38,7 @@ class ModalsState extends StateModule{
         window.localStorage.setItem("password", password);
         return {result: true};
     } else {
-      console.log(json.error);
+        console.log(json.error);
         return {error: json.error};
     }
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import useStore from "../hooks/use-store";
 import useSelector from "../hooks/use-selector";
 import {Routes, Route} from "react-router-dom";
@@ -7,6 +7,7 @@ import Basket from "./basket";
 import Article from "./article";
 import Auth from "./auth";
 import Profile from "./profile";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Приложение
@@ -14,8 +15,11 @@ import Profile from "./profile";
  */
 function App() {
   const store = useStore();
+  const navigate = useNavigate();
 
-  preLogin()
+  useEffect(()=>{
+    preLogin();
+  }, [])
   
   const modal = useSelector(state => state.modals.name);
 

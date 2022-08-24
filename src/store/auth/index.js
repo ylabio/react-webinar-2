@@ -11,14 +11,11 @@ class AuthState extends StateModule{
    */
   initState() {
     return {
-      user: {
-        name: '',
-        phone: '',
-        email: '',
-      },
+      userName: '',
       error: '',
       isAuth: false,
       waiting: false,
+      firstRender: true,
     };
   }
 
@@ -44,7 +41,6 @@ class AuthState extends StateModule{
       const json = await response.json();
 
       if (json.error) {
-        console.log("400");
         this.setState({
           ...this.getState(),
           error: `${json.error.data.issues[0].message ? json.error.data.issues[0].message : 'Некая ошибка от сервера'}`,
@@ -61,7 +57,7 @@ class AuthState extends StateModule{
 
         // Пользователь авторизован
         this.setState({
-          user: {...this.getState().user, name: json?.result?.user?.profile?.name},
+          userName: json?.result?.user?.profile?.name,
           error: '',
           isAuth: true,
           waiting: false,
@@ -109,7 +105,7 @@ class AuthState extends StateModule{
           this.setState({
             error: '',
             isAuth: false,
-            user: {},
+            userName: '',
             waiting: false,
           });
         }
@@ -119,7 +115,7 @@ class AuthState extends StateModule{
         this.setState({
           error: '',
           isAuth: false,
-          user: {},
+          userName: '',
           waiting: false,
         });
       }
@@ -150,13 +146,10 @@ class AuthState extends StateModule{
 
       this.setState({
         ...this.getState(),
-        user: {
-          name: json.result.profile.name,
-          phone: json.result.profile.phone,
-          email: json.result.email,
-        },
+        userName: json.result.profile.name,
         isAuth: true,
         waiting: false,
+        firstRender: false,
     });
     } catch (e){
       // Ошибка при загрузке
@@ -164,6 +157,7 @@ class AuthState extends StateModule{
         ...this.getState(),
         isAuth: false,
         waiting: false,
+        firstRender: false,
       });
     }
   }
@@ -171,14 +165,11 @@ class AuthState extends StateModule{
   resetState(){
     // Сброс стейта до initState 
     this.setState({
-      user: {
-        name: '',
-        phone: '',
-        email: '',
-      },
+      userName: '',
       error: '',
       isAuth: false,
       waiting: false,
+      firstRender: true,
     });
  }
 

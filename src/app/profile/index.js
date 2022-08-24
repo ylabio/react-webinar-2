@@ -13,7 +13,7 @@ function Profile() {
   const store = useStore();
 
   useInit(async () => {
-    await store.get('auth').me();
+    await store.get('profile').getProfile();
   }, [], {backForward: true});
 
   const {t} = useTranslate();

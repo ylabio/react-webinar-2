@@ -7,9 +7,12 @@ function RequireAuth({ children }) {
 
   const select = useSelector((state) => ({  
     isAuth: state.auth.isAuth,
+    firstRender: state.auth.firstRender,
   }));
 
-  if (!select.isAuth) return <Navigate to='/login' state={{from: location}} />
+  if (!select.isAuth && select.firstRender ) return <h1>Loading...</h1>
+
+  if (!select.isAuth && !select.firstRender) return <Navigate to='/login' state={{from: location}} />
 
   return children
 }

@@ -12,7 +12,7 @@ function HeaderContainer() {
 
   const select = useSelector((state) => ({
     isAuth: state.auth.isAuth,
-    name: state.auth.user.name,
+    userName: state.auth.userName,
   }));
 
   const callbacks = {
@@ -24,7 +24,7 @@ function HeaderContainer() {
 
   return (
     <Header action={select.isAuth ? callbacks.logout : callbacks.login} 
-            userName={select.name} 
+            userName={select.userName} 
             link={"/profile"}
             t={t} />
   );

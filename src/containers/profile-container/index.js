@@ -8,8 +8,8 @@ function ProfileContainer() {
   const { t } = useTranslate();
 
   const select = useSelector((state) => ({
-    user: state.auth.user,
-    waiting: state.auth.waiting,
+    user: state.profile.user,
+    waiting: state.profile.waiting,
   }));
 
   return (

@@ -14,17 +14,17 @@ import Tools from "../../containers/tools";
 function Profile() {
   const {t} = useTranslate()
   const select = useSelector(state => ({
-    user: state.auth.user,
-    isLoading: state.auth.isLoading,
-    loadingErr: state.auth.loadingErr
-  }))
-  const nav = useNavigate()
+    user: state.profile.user,
+    isLoading: state.profile.isLoading,
+    loadingErr: state.profile.loadingErr
+  }));
+  const nav = useNavigate();
 
   useEffect(() => {
     if (!(select.user || select.isLoading) || !localStorage.getItem('TOKEN') || select.loadingErr) {
       nav('/login')
     }
-  }, [select.user, select.loadingErr, select.isLoading, nav])
+  }, [select.user, select.loadingErr, select.isLoading, nav]);
 
   return (
     <Layout top={<LoginPanel />} 
@@ -41,6 +41,6 @@ function Profile() {
     </Layout>
     
   )
-}
+};
 
 export default React.memo(Profile);

@@ -1,4 +1,5 @@
 import { deleteToken, getToken } from "../../service/auth";
+import { getUserInfo } from "../../service/user";
 import { setCookie } from "../../utils/coockie";
 import StateModule from "../module";
 
@@ -61,6 +62,29 @@ class AuthorizeState extends StateModule{
       waiting: false,
       name: '',
     });
+  }
+
+  async sessionCheck(token) {
+    this.setState({
+      ...this.getState(),
+      waiting: true,
+    });
+
+    try {
+      const res = await getUserInfo(token);
+      this.setState({
+        ...this.getState(),
+        waiting: false,
+        name: res.result.profile.name,
+      });
+    } catch (error) {
+      setCookie('token', '');
+      this.setState({
+        ...this.getState(),
+        waiting: false,
+      });
+      throw error
+    }
   }
 }
 

@@ -11,7 +11,7 @@ function CategoryFilter() {
 
     const select = useSelector(state => ({
         category: state.catalog.params.category,
-        categories: state.catalog.categories
+        categories: state.category.categories
     }));
 
     const callbacks = {
@@ -22,7 +22,7 @@ function CategoryFilter() {
     const categories = useMemo(() => ([{ value: "", title: "Все" }, ...select.categories]), [select.categories])
 
     useInit(async () => {
-        await store.get('catalog').loadCategories();
+        await store.get('category').loadCategories();
     }, [], { backForward: false });
 
     return (

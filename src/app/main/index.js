@@ -8,7 +8,6 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layouts/layout-flex";
 import Layout from "../../components/layouts/layout";
 import LocaleSelect from "../../containers/locale-select";
-import Login from "../../containers/login";
 
 function Main() {
   const store = useStore();
@@ -16,13 +15,11 @@ function Main() {
   useInit(async () => {
     await store.get('catalog').initParams();
   }, [], { backForward: true });
-
   const { t } = useTranslate();
 
   return (
     <Layout head={
       <>
-        <Login />
         <LayoutFlex flex="between">
           <h1>{t('title')}</h1>
           <LocaleSelect />

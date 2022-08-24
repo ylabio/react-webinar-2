@@ -14,7 +14,10 @@ class AuthState extends StateModule {
       loginData: {},
       profileData: {},
       waiting: false,
-      logErr: false,
+      logErr: {
+        active: false,
+        err: {}
+      },
       loggedIn: false,
       tokenErr: false
     };
@@ -117,7 +120,7 @@ class AuthState extends StateModule {
       ...this.getState(),
       waiting: true,
       loginData: {},
-      logErr: false,
+      logErr: {active: false, err: {}},
     });
 
     try {
@@ -132,15 +135,17 @@ class AuthState extends StateModule {
         })
 
       });
+
       const json = await response.json();
-      localStorage.setItem("token", json.result.token)
+      if (json.error) throw(json.error.data.issues);
+      localStorage.setItem("token", json.result.token);
 
       // Данные загружены успешно
       this.setState({
         ...this.getState(),
         loginData: json.result.user.profile,
         waiting: false,
-        logErr: false,
+        logErr: {active: false, err: {}},
         loggedIn: true
       }, "загрузка данных по логину и паролю");
     } catch (e) {
@@ -149,7 +154,7 @@ class AuthState extends StateModule {
         loginData: {},
         profileData: {},
         waiting: false,
-        logErr: true,
+        logErr: {active: true, err: e[0]},
         loggedIn: false
       }, "ошибка загрузки данных по логину и паролю");
     }
@@ -176,7 +181,7 @@ class AuthState extends StateModule {
         loginData: {},
         profileData: {},
         waiting: false,
-        logErr: false,
+        logErr: {active: false, err: {}},
         loggedIn: false,
         tokenErr: false
       }, "signOut");
@@ -188,12 +193,21 @@ class AuthState extends StateModule {
         loginData: {},
         profileData: {},
         waiting: false,
-        logErr: false,
+        logErr: {active: false, err: {}},
         loggedIn: false,
         tokenErr: false
       }, "signOut");
     }
+  }
 
+    /**
+   * Сброс ошибки логина
+   */
+  resetLogErr() {
+    this.setState({
+      ...this.getState(),
+      logErr: {active: false, err: {}},
+    })
   }
 }
 

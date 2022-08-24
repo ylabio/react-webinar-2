@@ -26,11 +26,11 @@ function Login() {
     buttonText: select.loggedIn ? "Выйти" : "Вход",
     signOut: select.loggedIn ? callbacks.signOut : () => {},
     toLog: select.loggedIn ? "/" : "/login",
-    toSelf: "/profile"
+    toSelf: "/profile",
   }
 
   return (
-    <LoginHead name={options.name} toLog={options.toLog} toSelf={options.toSelf} signOut={options.signOut} buttonText={options.buttonText} />
+    <LoginHead name={options.name} toLog={options.toLog} toSelf={options.toSelf} signOut={options.signOut} buttonText={options.buttonText}  />
   );
 }
 

@@ -7,7 +7,6 @@ import Layout from "../../components/layouts/layout";
 import LayoutFlex from "../../components/layouts/layout-flex";
 import Tools from "../../containers/tools";
 import ProfilePage from "../../components/profile-page";
-import Login from "../../containers/login";
 import LocaleSelect from "../../containers/locale-select";
 
 function Profile() {
@@ -26,7 +25,6 @@ function Profile() {
     return (
         <Layout head={
             <>
-                <Login noInit={true}/>
                 <LayoutFlex flex="between">
                     <h1>{t('title')}</h1>
                     <LocaleSelect />

@@ -20,10 +20,10 @@ function AuthPage({ onSubmit, handleLoginChange, handlePasswordChange, logErr })
         <div className={cn('input')}>
           <span>Пароль</span>
           <div>
-            <input name="password" type="current-password" onChange={handlePasswordChange} />
+            <input name="password" type="password" onChange={handlePasswordChange} />
           </div>
         </div>
-        {logErr && <span className={cn('error')}>Некая ошибка от сервера</span>}
+        {logErr.active && <span className={cn('error')}>{logErr.err?.message || "Некая ошибка от сервера"}</span>}
         <div>
           <button type="submit" className={cn('submit')}>Войти</button>
         </div>
@@ -36,14 +36,14 @@ AuthPage.propTypes = {
   onSubmit: propTypes.func,
   handleLoginChange: propTypes.func,
   handlePasswordChange: propTypes.func,
-  logErr: propTypes.bool
+  logErr: propTypes.object
 }
 
 AuthPage.defaultProps = {
   onSubmit: (e) => e.preventDefault(),
   handleLoginChange: () => {},
   handlePasswordChange: () => {},
-  logErr: false
+  logErr: {active: false, err: { }}
 }
 
 export default React.memo(AuthPage);

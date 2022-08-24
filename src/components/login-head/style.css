@@ -8,5 +8,7 @@
     z-index: 11;
     font-size: 13px;
     gap: 20px;
+    margin: auto;
     max-width: 1024px;
+    box-sizing: border-box;
 }

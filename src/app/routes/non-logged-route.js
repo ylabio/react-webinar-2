@@ -1,14 +1,18 @@
 import React from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import propTypes from "prop-types";
 
 function NonLoggedRoute({ children }) {
   const loggedIn = useSelector(state => state.auth.loggedIn);
-  const location = useLocation();
-  const url = new URLSearchParams(location.search.slice(1));
 
-  return loggedIn ? <Navigate to={url.get("redirect") || "/"} /> : children;
+  if (loggedIn) {
+    history.back()
+    return <Navigate to={"/"}/>
+  } else {
+    return children
+  }
+
 }
 
 NonLoggedRoute.propTypes = {

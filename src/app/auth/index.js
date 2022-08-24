@@ -6,8 +6,8 @@ import Layout from "../../components/layouts/layout";
 import LayoutFlex from "../../components/layouts/layout-flex";
 import Tools from "../../containers/tools";
 import AuthPage from "../../components/auth-page";
-import Login from "../../containers/login";
 import LocaleSelect from "../../containers/locale-select";
+import useInit from "../../hooks/use-init";
 
 function Auth() {
     const store = useStore();
@@ -33,10 +33,13 @@ function Auth() {
         })
     };
 
+    useInit(() => {
+        store.get('auth').resetLogErr();
+    }, [])
+
     return (
         <Layout head={
             <>
-                <Login />
                 <LayoutFlex flex="between">
                     <h1>{t('title')}</h1>
                     <LocaleSelect />

@@ -24,7 +24,7 @@ LoginHead.propTypes = {
   toSelf: propTypes.string,
   name: propTypes.string,
   signOut: propTypes.func,
-  buttonText: propTypes.string
+  buttonText: propTypes.string,
 }
 
 LoginHead.defaultProps = {
@@ -32,7 +32,7 @@ LoginHead.defaultProps = {
   name: "",
   toSelf: `/profile/name`,
   signOut: () => { },
-  buttonText: ""
+  buttonText: "",
 }
 
 export default React.memo(LoginHead);

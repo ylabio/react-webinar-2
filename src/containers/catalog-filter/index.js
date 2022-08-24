@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from "react";
+import useInit from "../../hooks/use-init";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
@@ -14,8 +15,12 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     filter: state.catalog.params.filter,
-    categories: state.catalog.categories,
+    categories: state.categories.list,
   }));
+
+  useInit(async () => {
+    await store.get("categories").getList();
+  }, []);
 
   const { t } = useTranslate();
 

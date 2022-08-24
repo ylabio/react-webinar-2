@@ -33,7 +33,6 @@ class CatalogState extends StateModule {
         filter: "",
       },
       waiting: false,
-      categories: [{ _id: "", name: "", title: "", parent: { _id: "" } }],
     };
   }
 
@@ -94,17 +93,11 @@ class CatalogState extends StateModule {
     const response = await fetch(API_url);
     const json = await response.json();
 
-    API_url =
-      "/api/v1/categories?fields=items(_id,name,title,parent(_id))&limit=*";
-    const cat_response = await fetch(API_url);
-    const cat_json = await cat_response.json();
-
     // Установка полученных данных и сброс признака загрузки
     this.setState({
       ...this.getState(),
       items: json.result.items,
       count: json.result.count,
-      categories: cat_json.result.items,
       waiting: false,
     });
 

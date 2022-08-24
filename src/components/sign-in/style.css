@@ -1,0 +1,35 @@
+.SignIn {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-left: 20px;
+}
+
+.SignIn-label {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  line-height: calc(18 / 16);
+}
+
+.SignIn-label input {
+  height: 26px;
+  max-width: 203px;
+}
+
+.SignIn h2 {
+  font-size: 24px;
+  line-height: calc(27 / 24);
+  margin: 0;
+  padding-top: 40px;
+}
+
+.SignIn button {
+  width: max-content;
+}
+
+.SignIn-error {
+  color: rgba(255, 0, 0, 1);
+  font-size: 16px;
+  line-height: calc(18 / 16);
+}

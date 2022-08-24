@@ -1,0 +1,10 @@
+.Auth {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 20px;
+}
+
+.Auth-user {
+  color: rgba(0, 135, 233, 1);
+  padding-right: 10px;
+}

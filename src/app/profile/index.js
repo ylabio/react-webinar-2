@@ -7,9 +7,9 @@ import UserProfile from "../../components/user-profile";
 
 function Profile() {
   const select = useSelector((state) => ({
-    name: state.user.name,
-    email: state.user.email,
-    phone: state.user.phone,
+    name: state.profile.name,
+    email: state.profile.email,
+    phone: state.profile.phone,
   }));
 
   return (

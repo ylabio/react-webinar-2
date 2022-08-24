@@ -11,26 +11,15 @@ import "./style.css";
 
 function Header({ title }) {
   const store = useStore();
-  const select = useSelector((state) => ({ loggedIn: state.user.loggedIn, name: state.user.name }));
+  const select = useSelector((state) => ({ loggedIn: state.profile.loggedIn, name: state.profile.name }));
   const cn = bem("Header");
-
-  useInit(
-    async () => {
-      const token = localStorage.getItem("ylabToken");
-      if (token) {
-        await store.get("user").authentication(token);
-      }
-    },
-    [],
-    { backForward: true }
-  );
 
   const { t } = useTranslate();
 
   title = title || t("title");
 
   const callbacks = {
-    onLogOut: useCallback(() => store.get("user").logOut(), []),
+    onLogOut: useCallback(() => store.get("profile").logOut(), []),
   };
 
   return (

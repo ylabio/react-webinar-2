@@ -10,16 +10,17 @@ function Login() {
   const store = useStore();
 
   const select = useSelector((state) => ({
-    name: state.user.name,
-    password: state.user.password,
-    error: state.user.error,
+    name: state.profile.name,
+    password: state.profile.password,
+    error: state.profile.error,
+    loggedIn: state.profile.loggedIn,
   }));
 
   const callbacks = {
-    onChange: useCallback((e) => store.get("user").handleChangeLogin({ [e.target.name]: e.target.value }), []),
+    onChange: useCallback((e) => store.get("profile").handleChangeLogin({ [e.target.name]: e.target.value }), []),
     onSubmit: useCallback((e) => {
       e.preventDefault();
-      store.get("user").login();
+      store.get("profile").login();
     }, []),
   };
 

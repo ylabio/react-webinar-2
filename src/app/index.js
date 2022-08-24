@@ -8,6 +8,8 @@ import Profile from "./profile";
 import Login from "./login";
 import ProtectedRoute from "../components/protected-route";
 import PrivateRoute from "../components/private-route";
+import useStore from "../hooks/use-store";
+import useInit from "../hooks/use-init";
 
 /**
  * Приложение
@@ -15,6 +17,19 @@ import PrivateRoute from "../components/private-route";
  */
 function App() {
   const modal = useSelector((state) => state.modals.name);
+  const store = useStore();
+
+  useInit(
+    async () => {
+      const token = localStorage.getItem("ylabToken");
+      if (token) {
+        await store.get("profile").authentication(token);
+      }
+    },
+    [],
+    { backForward: true }
+  );
+
   return (
     <>
       <Routes>

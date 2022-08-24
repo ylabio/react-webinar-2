@@ -13,12 +13,13 @@ function Main() {
   const store = useStore();
 
   const select = useSelector((state) => ({
-    loggedIn: state.user.loggedIn,
+    loggedIn: state.profile.loggedIn,
   }));
 
   useInit(
     async () => {
       await store.get("catalog").initParams();
+      await store.get("categories").loadCategories();
     },
     [],
     { backForward: true }

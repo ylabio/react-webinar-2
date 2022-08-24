@@ -75,6 +75,7 @@ class UserState extends StateModule {
     if (json.result) {
       localStorage.setItem("ylabToken", json.result.token);
       this.setUserData(json.result);
+      history.back();
     }
     if (json.error) {
       console.log(json.error);

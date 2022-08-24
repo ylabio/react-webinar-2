@@ -43,7 +43,10 @@ function Pagination(props) {
               className={cn('item', {active: number === page, split: !number})}
               onClick={onClickHandler(number)}
           >
-            <Link className={cn('link')} to={`/?page=${number}&limit=${limit}&sort=${sort}&filter=${filter}&query=${query}`}>
+            <Link className={cn('link')} 
+                  to={`/?page=${number}&limit=${limit}&sort=${sort}&filter=${filter}&query=${query}`} 
+                  onClick={(e) => e.preventDefault()}
+            >
               {number}
             </Link>
           </li>

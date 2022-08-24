@@ -15,8 +15,11 @@ function Main() {
 
   useInit(async () => {
     await store.get('catalog').initParams();
-    await store.get('category').getCategories();
   }, [], {backForward: true});
+
+  useInit(async () => {
+    await store.get('category').getCategories();
+  }, [], {backForward: false});
 
   const {t} = useTranslate();
 

@@ -7,6 +7,7 @@ import Article from "./article";
 import Auth from './auth';
 import Profile from './profile';
 import useStore from '../hooks/use-store';
+import PrivateRouteContaiter from '../containers/private-route-contaiter';
 
 /**
  * Приложение
@@ -23,10 +24,11 @@ function App() {
   
   const modal = useSelector(state => state.modals.name);
   const token = useSelector(state => state.auth.token);
+
   
   useEffect(() => {
     if (token) {
-      callbacks.load();
+      callbacks.load();  
     }
   }, [])
 
@@ -36,10 +38,16 @@ function App() {
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
         <Route path={"/login"} element={<Auth/>}/>
-        <Route path={"/profile"} element={<Profile/>}/>
+        <Route path='/profile' element={
+          <PrivateRouteContaiter>
+            <Profile/>
+          </PrivateRouteContaiter>
+        }/>
         <Route path='*' element={<Navigate to=''/>}/>
       </Routes>
+      
       {modal === 'basket' && <Basket/>}
+      
     </>
   );
 }

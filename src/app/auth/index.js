@@ -23,13 +23,15 @@ function Auth() {
     isAuth: state.auth.isAuth,
     waiting: state.auth.waiting,
     token: state.auth.token,
-    isAuthAttempt: state.auth.isAuthAttempt
+    isAuthAttempt: state.auth.isAuthAttempt,
+    error: state.auth.error
   }));
 
   const callbacks = {
     // Авторизация
     autorise: useCallback(() => store.get('auth').login(), []),
-    authAttempt: useCallback((login, password) => store.get('auth').authAttempt(login, password), [])
+    authAttempt: useCallback((login, password) => store.get('auth').authAttempt(login, password), []),
+    deleteError: useCallback(() => store.get('auth').deleteError(), []),
   };
 
   const {t} = useTranslate();
@@ -37,6 +39,11 @@ function Auth() {
   const navigate = useNavigate();
 
   const location = useLocation()
+
+useEffect(() => {
+  callbacks.deleteError();
+}, [])
+
 
   useEffect(() => {
     if (select.token&&location.key !== 'default') {

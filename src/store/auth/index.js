@@ -30,7 +30,8 @@ class AuthState extends StateModule{
   
     this.setState({
       ...this.getState(),
-      waiting: true
+      waiting: true,
+      error: ''
     })
 
     const res = await fetch(`/api/v1/users/self`, {
@@ -68,23 +69,26 @@ class AuthState extends StateModule{
       waiting: true
     })
 
-    const res = await fetch('/api/v1/users/sign', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-      login: this.getState().login,
-      password: this.getState().password,
-      remember: true
-      })
+    try {
+      const res = await fetch('/api/v1/users/sign', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+        login: this.getState().login,
+        password: this.getState().password,
+        remember: true
+        })
    
     });
   
-    if (res.status >= 200 && res.status < 300) {
-   
       const json = await res.json();
+        if (json.error) {
+          console.log(json.error)
+          throw new Error(`${json.error.message}: ${json.error.data.issues[0].message}`);
+        }
 
       this.setState({
         ...this.getState(),
@@ -97,19 +101,16 @@ class AuthState extends StateModule{
       }, 'Вход в профиль')
     
       localStorage.setItem('token', json.result.token);
-      
-    } else {
-      const n = res;
-      console.log(n)
-        const error = res.statusText;
+
+    } catch (err) {
         this.setState({
           ...this.getState(),
           waiting: false,
-          error,
+          error: err.message,
           isAuthAttempt: false
-        }, 'Ошибка при входе в профиль')
-     }
-  
+      }, 'Ошибка при входе в профиль')
+    }
+
   }
 
   /**
@@ -159,6 +160,13 @@ class AuthState extends StateModule{
       isAuthAttempt: true,
 
     }, 'Попытка авторизации') 
+  }
+
+  deleteError(){
+    this.setState({
+      ...this.getState(),
+      error: ''
+    }, 'Сброс ошибки отправки формы при переходе на другую страницу') 
   }
 
 }

@@ -1,8 +1,5 @@
-import React, { useEffect } from "react";
-import useStore from "../../hooks/use-store";
+import React from "react";
 import useSelector from "../../hooks/use-selector";
-import { useNavigate } from "react-router-dom";
-import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import Spinner from "../../components/spinner";
 import Tools from "../../containers/tools";
@@ -15,30 +12,13 @@ import LayoutLogin from "../../components/layout-login";
 
 function Profile(){
 
-  const store = useStore();
-
   const select = useSelector(state => ({
     user: state.auth.user,
     isAuth: state.auth.isAuth,
-    token: state.auth.token,
     waiting: state.auth.waiting
   }));
-
-  const navigate = useNavigate()
   
   const {t} = useTranslate();
-
-  useInit(async () => {
-    
-    await store.get('auth').load();
-   
-  }, [select.token]);
-
-useEffect(() => {
-  if(!select.token){
-    navigate('/login');
-  }
-}, [select.token])
 
   return (
     <Layout head={

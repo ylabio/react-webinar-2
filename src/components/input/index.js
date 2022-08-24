@@ -28,10 +28,12 @@ function Input(props) {
     <input
       className={cn({theme: props.theme})}
       value={value}
+      id={props.name}
+      name={props.name}
       type={props.type}
       placeholder={props.placeholder}
       onChange={onChange}
-      {...props.register}
+      //{...props.register}
     />
   )
 }

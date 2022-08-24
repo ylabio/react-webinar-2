@@ -35,7 +35,6 @@ function Authorization() {
       } catch (error) {
         return error;
       }
-
     }, []),
 
     logout: useCallback(() => {

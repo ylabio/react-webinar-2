@@ -19,6 +19,7 @@ function Login() {
     // Функция логина
     login: useCallback((login, password) => {
       store.get('user').login(login, password)
+      navigate('/')
     }, []),
   };
   

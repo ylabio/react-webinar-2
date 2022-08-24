@@ -40,7 +40,7 @@ function LoginForm(){
         }
       });
       localStorage.setItem('token', res.result.token);
-      navigate('/cabinet', { replace: true });
+      navigate('/');
       }
     });
   }

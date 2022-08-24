@@ -12,7 +12,6 @@ import Cabinet from './cabinet';
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
-
   const modal = useSelector(state => state.modals.name);
 
   return (

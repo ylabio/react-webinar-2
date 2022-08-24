@@ -1,4 +1,5 @@
 import React, {useCallback} from "react";
+import useSelector from "../../hooks/use-selector";
 import { Link } from "react-router-dom";
 import CabinetSimple from "../../components/cabinet-simple";
 import LayoutFlex from "../../components/layout-flex";
@@ -7,7 +8,12 @@ import useStore from "../../hooks/use-store";
 
 function Auth(){
   const store = useStore();
-  const {isAuth, profile} = useAuth();
+  const {isAuth} = useAuth();
+
+  const select = useSelector(state => ({
+    profile: state.user.profile,
+  }));
+
 
   const callbacks = {
     onLogout: useCallback(()=>store.get('user').setLogOut(),[])
@@ -17,7 +23,7 @@ function Auth(){
       !isAuth && <LayoutFlex flex='end' padding={false}>
         <Link to='/login'><button>Вход</button></Link>
       </LayoutFlex>
-      || <CabinetSimple profile={profile} onLogout={callbacks.onLogout}/>
+      || <CabinetSimple profile={select.profile} onLogout={callbacks.onLogout}/>
     )
 }
 

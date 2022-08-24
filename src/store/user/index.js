@@ -57,6 +57,7 @@ class UserState extends StateModule{
     loginError: ''
     });
   }
+
   async setLogOut(){
     const token = localStorage.getItem('token');
     
@@ -68,12 +69,11 @@ class UserState extends StateModule{
           "Content-Type": "application/json",
         },
       });
-      const json = await response.json();
     } catch(e) {
     console.log(e);
-   }
-   localStorage.removeItem('token');
-   this.setState(this.initState());
+    }
+    localStorage.removeItem('token');
+    this.setState(this.initState());
   }
 }
 

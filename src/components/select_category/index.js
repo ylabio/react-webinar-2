@@ -8,7 +8,6 @@ function SelectCategory(props){
     props.onChange(e.target.value);
   }, [props.onChange])
 
-  console.log(props.value)
 
   return (
     <select className="Select" onChange={onSelect} value={props.value}>

@@ -44,6 +44,7 @@ function Sign(){
     fetchLogin: useCallback(() => store.get('form').login(), []),
     fetchLogout:  useCallback((token) => store.get('form').logout(token), []),
     getToken: useCallback((token) => store.get('form').loadProfile(token), []),
+    reset:  useCallback(() => store.get('form').resetForm(), []),
   };
 
 
@@ -69,6 +70,7 @@ function Sign(){
           password={select.password}
           fetchLogin={callbacks.fetchLogin}
           error={select.error}
+          reset={callbacks.reset}
           result={select.result?.result}
         />
       </Layout>

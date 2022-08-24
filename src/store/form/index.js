@@ -13,9 +13,7 @@ class FormState extends StateModule{
     return {
       login: '',
       password: '',
-      remember: true,
-      result: {},
-      error: ''
+      result: {}
     };
   }
 
@@ -36,6 +34,13 @@ class FormState extends StateModule{
     
   }
 
+  resetForm() {
+    this.setState({
+      ...this.getState(),
+      result: {},
+    });
+  }
+
   async login() {
     try {
       await fetch('/api/v1/users/sign', {
@@ -48,12 +53,11 @@ class FormState extends StateModule{
       })
       .then((response) => {
         if(response.ok) {
-         return  response.json()
+          return  response.json()
         } else {
-         return  response.json()
+          return  response.json()
         }
       })
-      .catch((e) => console.log(e))
       .then(res => {
         this.setState({
           ...this.getState(),
@@ -61,6 +65,7 @@ class FormState extends StateModule{
         })
         localStorage.setItem('token', this.getState().result.result.token)
       })
+    
     } catch(e) {
       console.log(e)
     }

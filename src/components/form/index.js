@@ -8,6 +8,7 @@ import style from './style.css'
 function Form(props) {
     const cn = bem('Form');
     const [token, setToken] = useState(null)
+    const [error, setError] = useState(null)
 
     const onSubmit = useCallback(event => {
        event.preventDefault()
@@ -18,16 +19,27 @@ function Form(props) {
         setToken(localStorage.getItem('token')) 
     }, [props.result])
   
+    useEffect(() => {
+        if(props?.error) {
+            setError(props.error)
+            props.reset()
+        }
+    }, [props?.error])
+
+
+    
 
     return (
-        <form
+        token
+        ? <h2>ЗАГРУЗКА...</h2>
+        : <form
             onSubmit={onSubmit}
             className={cn()}
             >
                 <h2>Вход</h2>
                 <FormInput toInput={props.toLogin} label={'Логин'} type={'text'} value={props.login}/>
                 <FormInput toInput={props.toPassword} label={'Пароль'} type={'password'} value={props.password}/>
-                <p className={cn('error')}>{props.error}</p>
+                <p className={cn('error')}>{error}</p>
                 <button>Войти</button>
         </form>
     );

@@ -6,7 +6,7 @@ import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
 import SelectCategory from "../../components/select_category";
-import {categories} from '../../utils/counter'
+import {categories, categoriesArr} from '../../utils/counter'
 
 function CatalogFilter() {
 
@@ -25,6 +25,8 @@ function CatalogFilter() {
     callbacks.inputParams()
     callbacks.inputCategories()
   }, [])
+
+  categoriesArr(select.categories)
 
   const callbacks = {
     // Сортировка
@@ -50,7 +52,7 @@ function CatalogFilter() {
       {value:'-price', title: 'Сначала дорогие'},
       {value:'edition', title: 'Древние'},
     ]), []),
-    sortCategory: useMemo(() => categories(select.categories).map(item => {
+    sortCategory: useMemo(() => categoriesArr(select.categories).map(item => {
       return {value: item._id, title: item.title}
     }), [select.categories]),
    }

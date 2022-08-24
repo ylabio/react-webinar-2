@@ -40,7 +40,7 @@ class CatalogState extends StateModule{
 
   async initCategories(){
     try {
-      const response = await fetch(`/api/v1/categories`);
+      const response = await fetch(`/api/v1/categories/?limit=*`);
       const json = await response.json();
       this.setState({
         ...this.getState(),

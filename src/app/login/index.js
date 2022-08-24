@@ -16,11 +16,8 @@ function Login() {
   const location = useLocation();
 
   const select = useSelector(state => ({
-    session: state.session,
-    profile: state.profile
+    session: state.session
   }));
-
-  const error = select.profile.error ? select.profile.error : select.session.error
 
   const { t } = useTranslate();
 
@@ -49,7 +46,7 @@ function Login() {
         password={loginForm.password}
         setLoginForm={setLoginForm}
         loginFetch={callbacks.login}
-        error={error}
+        error={select.session.error}
       />
     </Layout >
   )

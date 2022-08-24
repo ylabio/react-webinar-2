@@ -12,7 +12,6 @@ class AuthState extends StateModule {
   initState() {
     return {
       user: {},
-      error: '',
       waiting: false
     };
   }
@@ -26,7 +25,6 @@ class AuthState extends StateModule {
     // Сброс текущего состояния и установка признака загрузки
     this.setState({
       user: {},
-      error: '',
       waiting: true
     })
 
@@ -42,13 +40,11 @@ class AuthState extends StateModule {
 
       this.setState({
         user: json.result,
-        error: '',
         waiting: false
       })
     } catch (e) {
       this.setState({
         user: {},
-        error: e.message,
         waiting: false
       })
     }
@@ -57,7 +53,6 @@ class AuthState extends StateModule {
   clear() {
     this.setState({
       user: {},
-      error: '',
       waiting: false
     })
   }

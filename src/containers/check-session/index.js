@@ -3,6 +3,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import isEmptyObject from '../../utils/is-empty-object';
+import propTypes from 'prop-types';
 
 function CheckSession({ children }) {
 
@@ -36,6 +37,10 @@ function CheckSession({ children }) {
   }
 
   return children;
+}
+
+CheckSession.propTypes = {
+  children: propTypes.node
 }
 
 export default React.memo(CheckSession);

@@ -142,16 +142,6 @@ class SessionState extends StateModule {
       })
     }
   }
-
-  clear() {
-    this.setState({
-      token: '',
-      name: '',
-      error: '',
-      isLogged: false,
-      waiting: false
-    })
-  }
 }
 
 export default SessionState;

@@ -7,7 +7,7 @@ import Tools from '../../containers/tools';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import AuthHeader from '../../containers/auth-header';
 
 function Login() {

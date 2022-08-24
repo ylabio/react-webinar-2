@@ -18,9 +18,9 @@ function CatalogFilter() {
     categories: state.categories.data
   }));
 
-  const categories = select.categories.map(category => {
-    return { title: category.title, value: category._id, parent: category.parent?._id }
-  });
+  // const categories = select.categories.map(category => {
+  //   return { title: category.title, value: category._id, parent: category.parent?._id }
+  // });
 
   const { t } = useTranslate();
 
@@ -45,8 +45,8 @@ function CatalogFilter() {
     ]), []),
     categories: useMemo(() => ([
       { title: 'Все', value: '' },
-      ...getHierarchyItems(categories)
-    ]), [categories])
+      ...select.categories
+    ]), [select.categories])
   }
 
   return (

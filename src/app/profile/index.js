@@ -27,7 +27,7 @@ function Profile() {
         </LayoutFlex >
       }>
       <Tools />
-      <Spinner active={select.session.waiting}>
+      <Spinner active={select.profile.waiting}>
         <ProfileCart
           name={select.profile.user.profile?.name}
           tel={select.profile.user.profile?.phone}

@@ -23,6 +23,7 @@ function Layout({ head, children, auth }) {
 
 Layout.propTypes = {
   head: propTypes.node,
+  auth: propTypes.node,
   children: propTypes.node,
 }
 

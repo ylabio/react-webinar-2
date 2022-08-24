@@ -27,5 +27,6 @@
 }
 
 .LoginForm-button {
+  cursor: pointer;
   width: 55px;
 }

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import LoginForm from '../../components/login-form';
 import Layout from '../../components/wrappers/layout';
 import LayoutFlex from '../../components/wrappers/layout-flex';
@@ -7,28 +7,34 @@ import Tools from '../../containers/tools';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import AuthHeader from '../../containers/auth-header';
 
 function Login() {
+  console.log('Login')
   const store = useStore();
   const navigate = useNavigate();
-  const [loginForm, setLoginForm] = useState({ login: '', password: '' })
+  const [loginForm, setLoginForm] = useState({ login: '', password: '' });
+  const location = useLocation();
 
   const select = useSelector(state => ({
-    auth: state.auth,
+    session: state.session,
+    profile: state.profile
   }));
+
+  const error = select.profile.error ? select.profile.error : select.session.error
+
+  const { t } = useTranslate();
 
   const callbacks = {
     // Авторизация
-    login: useCallback((login, password) => store.get('auth').login(login, password), []),
+    login: useCallback((login, password) => store.get('session').login(login, password), []),
   };
 
-  if (localStorage.getItem("token")) {
-    navigate(-1)
+  if (select.session.isLogged) {
+    const path = location.state?.from ? location.state.from : '/';
+    return <Navigate to={path} />
   }
-
-  const { t } = useTranslate();
 
   return (
     <Layout
@@ -45,7 +51,7 @@ function Login() {
         password={loginForm.password}
         setLoginForm={setLoginForm}
         loginFetch={callbacks.login}
-        error={select.auth.error}
+        error={error}
       />
     </Layout >
   )

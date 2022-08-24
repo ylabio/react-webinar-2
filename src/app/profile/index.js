@@ -1,5 +1,4 @@
-import React from 'react'
-import { Navigate, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react'
 import ProfileCart from '../../components/profile-cart';
 import Layout from '../../components/wrappers/layout';
 import LayoutFlex from '../../components/wrappers/layout-flex';
@@ -7,27 +6,16 @@ import Spinner from '../../components/wrappers/spinner';
 import AuthHeader from '../../containers/auth-header';
 import LocaleSelect from '../../containers/locale-select';
 import Tools from '../../containers/tools';
-import useInit from '../../hooks/use-init';
 import useSelector from '../../hooks/use-selector';
-import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 
 function Profile() {
-  const store = useStore();
-  const navigate = useNavigate();
   const { t } = useTranslate();
 
-  useInit(async () => {
-    await store.get('auth').loadProfile();
-  }, []);
-
   const select = useSelector(state => ({
-    auth: state.auth
+    session: state.session,
+    profile: state.profile
   }));
-
-  if (!localStorage.getItem("token")) {
-    navigate('/login');
-  }
 
   return (
     <Layout
@@ -39,11 +27,11 @@ function Profile() {
         </LayoutFlex >
       }>
       <Tools />
-      <Spinner active={select.auth.waiting}>
+      <Spinner active={select.session.waiting}>
         <ProfileCart
-          name={select.auth.user.profile?.name}
-          tel={select.auth.user.profile?.phone}
-          email={select.auth.user.email}
+          name={select.profile.user.profile?.name}
+          tel={select.profile.user.profile?.phone}
+          email={select.profile.user.email}
         />
       </Spinner>
     </Layout >

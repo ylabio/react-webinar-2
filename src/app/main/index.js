@@ -12,11 +12,13 @@ import UserMenu from '../user-menu';
 
 function Main() {
   const store = useStore();
+  console.log('history', history.state);
 
   useInit(
     async () => {
       await store.get('catalog').initParams();
       await store.get('categories').setCategories();
+      store.get('session').setCurrentPage();
     },
     [],
     { backForward: true }

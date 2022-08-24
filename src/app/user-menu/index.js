@@ -18,9 +18,6 @@ function UserMenu() {
     isLogged: state.session.isLogged,
   }));
 
-  const test = window.location.pathname;
-  console.log('test:', test);
-
   const callbacks = {
     // выход из профиля
     onLogout: useCallback((token) => store.get('session').onLogout(token), []),

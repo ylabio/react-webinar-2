@@ -11,9 +11,10 @@ class SessionState extends StateModule {
 
   initState() {
     return {
-      isLogged: false,
+      isLogged: localStorage.getItem('token') ? true : false,
       name: '',
       error: '',
+      currentPage: '',
     };
   }
 
@@ -21,6 +22,13 @@ class SessionState extends StateModule {
     this.setState({
       ...this.getState(),
       error: '',
+    });
+  }
+
+  setCurrentPage() {
+    this.setState({
+      ...this.getState(),
+      currentPage: window.location.pathname,
     });
   }
 
@@ -68,16 +76,16 @@ class SessionState extends StateModule {
       if (response.status === 403) {
         throw new Error('Что-то пошло не так при выходе!');
       }
-
+      localStorage.removeItem('token');
       this.setState({
-        ...this.initState(),
+        ...this.getState(),
         isLogged: false,
       });
     } catch (error) {
       console.log(error.message);
 
       this.setState({
-        ...this.initState(),
+        ...this.getState(),
         isLogged: false,
       });
     }
@@ -101,7 +109,7 @@ class SessionState extends StateModule {
         console.log(json.error);
         throw new Error(json.error.data.issues.map((i) => i.message));
       }
-      // history.back();
+      history.back();
 
       const user = await json.result.user;
 

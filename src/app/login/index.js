@@ -18,9 +18,8 @@ function Login() {
     isLogged: state.session.isLogged,
     error: state.session.error,
     waiting: state.profile.waiting,
+    currentPage: state.session.currentPage,
   }));
-
-  console.log('history', history);
 
   const { t } = useTranslate();
 
@@ -48,13 +47,18 @@ function Login() {
 
       <Spinner active={select.waiting}>
         <LoginForm
+          isLogged={select.isLogged}
+          currentPage={select.currentPage}
           onLogin={callbacks.onLogin}
           error={select.error}
           resetError={callbacks.resetError}
         />
       </Spinner>
 
-      {select.isLogged && <Navigate to="/profile" />}
+      {select.isLogged && (
+        <Navigate to={select.currentPage ? select.currentPage : '/profile'} />
+      )}
+      {/* {select.isLogged && <Navigate to="/profile" />} */}
     </Layout>
   );
 }

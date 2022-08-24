@@ -2,10 +2,12 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm(props) {
   const [login, setLogin] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     return () => {
@@ -18,6 +20,7 @@ function LoginForm(props) {
   const onHandleSubmit = (e) => {
     e.preventDefault();
     props.onLogin(login, password);
+    // console.log('currentpage', props.currentPage);
   };
 
   const cn = bem('LoginForm');
@@ -48,6 +51,7 @@ function LoginForm(props) {
 LoginForm.propTypes = {
   onLogin: propTypes.func,
   error: propTypes.string,
+  currentPage: propTypes.string,
 };
 
 LoginForm.defaultProps = {

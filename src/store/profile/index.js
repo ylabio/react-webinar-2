@@ -53,6 +53,10 @@ class ProfileState extends StateModule {
       this.setState({
         ...this.initState(),
       });
+      this.store.get('session').setState({
+        ...this.store.get('session').getState(),
+        isLogged: false,
+      });
     }
   }
 }

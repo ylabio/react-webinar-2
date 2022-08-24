@@ -6,13 +6,14 @@ import './style.css';
 
 function Pagination(props) {
   const cn = bem('Pagination');
-  const {page, limit, sort, filter, query} = props.params
 
   // Количество страниц
-  const length = Math.ceil(props.count / Math.max(limit, 1));
+  const length = Math.ceil(props.count / Math.max(props.limit, 1));
+  // Остаток запроса без номера страницы
+  const search = window.location.search.split(/page=\d+/).pop()
 
   // Номера слева и справа относительно активного номера, которые остаются видимыми
-  let left = Math.max(page - props.indent, 1);
+  let left = Math.max(props.page - props.indent, 1);
   let right = Math.min(left + props.indent * 2, length);
   // Корректировка когда страница в конце
   left = Math.max(right - props.indent * 2, 1);
@@ -40,11 +41,11 @@ function Pagination(props) {
       {items.map((number, index) => 
         number ?
           <li key={index}
-              className={cn('item', {active: number === page, split: !number})}
+              className={cn('item', {active: number === props.page, split: !number})}
               onClick={onClickHandler(number)}
           >
             <Link className={cn('link')} 
-                  to={`/?page=${number}&limit=${limit}&sort=${sort}&filter=${filter}&query=${query}`} 
+                  to={`/?page=${number}${search}`} 
                   onClick={(e) => e.preventDefault()}
             >
               {number}
@@ -58,26 +59,16 @@ function Pagination(props) {
 }
 
 Pagination.propTypes = {
-  params: propTypes.shape({
-    page: propTypes.number.isRequired,
-    limit: propTypes.number,
-    sort: propTypes.string,
-    filter: propTypes.string,
-    query: propTypes.string
-  }).isRequired,
+  page: propTypes.number.isRequired,
+  limit: propTypes.number,
   count: propTypes.number,
   onChange: propTypes.func,
   indent: propTypes.number
 }
 
 Pagination.defaultProps = {
-  params: {
-    page: 1,
-    limit: 10,
-    sort: '',
-    filter: '',
-    query: ''
-  },
+  page: 1,
+  limit: 10,
   count: 1000,
   indent: 1,
   onChange: () => {

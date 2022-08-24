@@ -10,12 +10,14 @@ import { useNavigate } from 'react-router-dom';
 import useTranslate from '../../hooks/use-translate';
 
 
+
 function LoginLayout() {
   const navigate = useNavigate();
   const store = useStore();
 
   const [login, setLogin] = useState({ login: '', password: '' });
   const [error, setError] = useState(null);
+
 
   const { t } = useTranslate();
 
@@ -37,9 +39,9 @@ function LoginLayout() {
           return setError('Заполните все поля');
         }
         store
-          .get('auth')
+          .get('user')
           .login(login)
-          .then(() => navigate(from, { replace: true }))
+          .then(() => navigate(-1))
           .catch(err => setError(err.message));
       },
       [login]

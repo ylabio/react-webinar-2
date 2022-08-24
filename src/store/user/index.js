@@ -1,7 +1,7 @@
 import StateModule from '../module';
 import Cookies from 'js-cookie';
 
-class AuthModule extends StateModule {
+class UserState extends StateModule {
   /**
    * Начальное состояние
    * @return {Object}
@@ -100,4 +100,4 @@ class AuthModule extends StateModule {
   }
 }
 
-export default AuthModule;
+export default UserState;

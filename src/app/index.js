@@ -8,8 +8,7 @@ import Basket from './basket';
 import Article from './article';
 import LoginLayout from './login-layout';
 import ProfileLayout from './profile-layout';
-import AuthUser from '../containers/auth-user';
-import NonAuthUser from '../containers/non-auth-user';
+import PrivateRoute from '../containers/private-route';
 
 /**
  * Приложение
@@ -21,7 +20,7 @@ function App() {
   const modal = useSelector(state => state.modals.name);
 
   useInit(async () => {
-    await store.get('auth').getUser();
+    await store.get('user').getUser();
   }, []);
 
   return (
@@ -29,12 +28,15 @@ function App() {
       <Routes>
         <Route path={'/'} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
-        <Route element={<NonAuthUser path='/login' />}>
-          <Route path={'/profile'} element={<ProfileLayout />} />
-        </Route>
-        <Route element={<AuthUser path='/profile' />}>
-          <Route path={'/login'} element={<LoginLayout />} />
-        </Route>
+        <Route path={'/login'} element={<LoginLayout />} />
+        <Route
+          path={'/profile'}
+          element={
+            <PrivateRoute>
+              <ProfileLayout />
+            </PrivateRoute>
+          }
+        />
       </Routes>
       {modal === 'basket' && <Basket />}
     </>

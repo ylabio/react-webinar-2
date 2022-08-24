@@ -12,8 +12,8 @@ import Spinner from '../../components/spinner';
 function ProfileLayout() {
   
   const select = useSelector(state => ({
-    user: state.auth.user,
-    waiting: state.auth.waiting
+    user: state.user.user,
+    waiting: state.user.waiting
   }));
   const {t} = useTranslate();
 

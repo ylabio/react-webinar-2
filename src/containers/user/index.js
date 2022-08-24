@@ -7,14 +7,14 @@ import useSelector from '../../hooks/use-selector';
 function User() {
   const store = useStore();
   const select = useSelector(state => ({
-    username: state.auth.user?.profile?.name,
-    isAuth: state.auth.isAuth,
+    username: state.user.user?.profile?.name,
+    isAuth: state.user.isAuth,
   }));
 
   const { t } = useTranslate();
 
   const callbacks = {
-    logout: useCallback(() => store.get('auth').logout(), []),
+    logout: useCallback(() => store.get('user').logout(), []),
   };
 
   return (

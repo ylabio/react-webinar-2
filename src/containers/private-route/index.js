@@ -3,10 +3,11 @@ import propTypes from 'prop-types';
 import useInit from '../../hooks/use-init';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 function PrivateRoute({ children }) {
   const store = useStore();
+  const location = useLocation();
 
   useInit(async () => {
     await store.get('auth').isAuth();
@@ -17,7 +18,7 @@ function PrivateRoute({ children }) {
   }));
 
   if (!select.isAuth) {
-    return <Navigate to={'/login'} />;
+    return <Navigate to={'/login'} state={{ from: location }} />;
   }
   return children;
 }

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
@@ -10,6 +10,7 @@ import Logout from '../../components/logout';
 function HeaderContainer({ title = 'title' }) {
   const store = useStore();
   const { t } = useTranslate();
+  const location = useLocation();
 
   const select = useSelector((state) => ({
     userId: state.profile.data._id,
@@ -25,7 +26,7 @@ function HeaderContainer({ title = 'title' }) {
   const renders = {
     loginOrLogout: useCallback(() => {
       return !select.isAuth ? (
-        <Link to="/login">
+        <Link to="/login" state={{ from: location }}>
           <button>{t('auth.login')}</button>
         </Link>
       ) : (

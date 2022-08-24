@@ -31,8 +31,6 @@ class CategoriesState extends StateModule {
       return Object.values(tree).filter((item) => !tree[item.parent_id]?.children.push(item));
     };
 
-    console.log(createTreeData(items));
-
     function formateTree(arr, prefix = '') {
       let res = [];
       arr.forEach((item) => {
@@ -46,7 +44,6 @@ class CategoriesState extends StateModule {
     }
 
     const allCategories = formateTree(createTreeData(items));
-    console.log(allCategories);
 
     this.setState({
       ...this.getState(),

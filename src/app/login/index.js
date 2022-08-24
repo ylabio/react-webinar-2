@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
@@ -12,7 +12,7 @@ import HeaderContainer from '../../containers/header-container';
 function Login() {
   const store = useStore();
   const { t } = useTranslate();
-  let navigate = useNavigate();
+  const location = useLocation();
 
   const select = useSelector((state) => ({
     authError: state.auth.error,
@@ -68,12 +68,9 @@ function Login() {
     }
   }, [select.emptyErrorPassword]);
 
+  const prevPath = location.state?.from?.pathname || '/';
   if (select.isAuth) {
-    if (window.history.length === 1) {
-      return <Navigate to="/" />;
-    } else {
-      navigate(-1);
-    }
+    return <Navigate to={prevPath} />;
   }
   return (
     <Layout head={<HeaderContainer />}>

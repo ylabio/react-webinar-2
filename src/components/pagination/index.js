@@ -1,6 +1,7 @@
 import React from 'react';
 import propTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname'
+import {parseParams, stringifyParams} from '../../utils/search-params-service';
 import './style.css';
 
 function Pagination(props) {
@@ -31,17 +32,32 @@ function Pagination(props) {
   const onClickHandler = page => {
     return () => props.onChange(page);
   };
+  
+  // Получаем параметры адресной строки
+  let validParams = parseParams();
 
   return (
     <ul className={cn()}>
-      {items.map((number, index) => (
-        <li key={index}
-            className={cn('item', {active: number === props.page, split: !number})}
-            onClick={onClickHandler(number)}
-        >
-          {number || '...'}
-        </li>
-      ))}
+      {items.map((number, index) => {
+        // Присваиваем номер текущей страницы в объект с параметрами 
+        validParams.page = number;
+        let queryString = stringifyParams(validParams);
+        // Формируем ссылку для текущей кнопки пагинации
+        const url = window.location.pathname + queryString + window.location.hash;
+        
+        return (
+          <a key={index} 
+             href={url} 
+             onClick={(e) => e.preventDefault()}
+          >  
+            <li className={cn('item', {active: number === props.page, split: !number})}
+                onClick={number && onClickHandler(number)}
+            >
+              {number || '...'}
+            </li>
+        </a>
+        )
+      })}
     </ul>
   )
 }

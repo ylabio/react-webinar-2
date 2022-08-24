@@ -1,0 +1,13 @@
+.AuthPanel {
+    height: 41px;
+    background: #fff;
+    text-align: end;
+}
+
+.AuthPanel button {
+    margin: 10px 20px 10px 10px;
+}
+
+.AuthPanel a {
+    font-size: 13px;
+}

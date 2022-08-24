@@ -7,7 +7,7 @@ import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
 
 
-const CATEGORY_PREFIX = '-';
+const CATEGORY_PREFIX = '- ';
 const appendChildCategory = (items, rootItem, categoryPrefix = CATEGORY_PREFIX) => {
   const childes = items.filter(item => item?.parent?._id === rootItem._id);
   if (childes.length === 0) {

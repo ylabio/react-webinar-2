@@ -19,20 +19,20 @@ function Login () {
   const navigate = useNavigate();
 
   const select = useSelector((state) => ({
-    error: state.user.error,
-    userExists: state.user.userExists,
-    waiting: state.user.waiting,
+    error: state.auth.error,
+    userExists: state.auth.userExists,
+    waiting: state.auth.waiting,
   }));
 
   useInit(async () => {
     if (select.userExists) {
       navigate(`/profile`, {replace: true});
     }
-    store.get('user').removeError();
+    store.get('auth').removeError();
   }, [select.userExists]);
 
   const callbacks = {
-    logIn: useCallback((login, password) => store.get('user').logIn(login, password), []),
+    logIn: useCallback((login, password) => store.get('auth').logIn(login, password), []),
   }
 
   return (

@@ -19,13 +19,17 @@ function Profile() {
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
-    user: state.user.user,
-    userExists: state.user.userExists,
-    waiting: state.user.waiting,
+    user: state.user,
+    userExists: state.auth.userExists,
+    waiting: state.auth.waiting,
+    token: state.auth.token,
   }));
 
   useInit(async () => {
-    if (!select.userExists) {
+    if (select.userExists) {
+      store.get('user').load(select.token);
+    }
+    else {
       navigate(`/login`, {replace: true});
     }
   }, [select.userExists]);

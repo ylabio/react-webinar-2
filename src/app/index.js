@@ -18,7 +18,7 @@ function App() {
   const store = useStore();
 
   useInit(async () => {
-    await store.get('user').load();
+    await store.get('auth').load();
   }, []);
 
   const modal = useSelector(state => state.modals.name);

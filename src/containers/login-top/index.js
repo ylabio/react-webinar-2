@@ -1,7 +1,6 @@
-import React, {useCallback, useMemo} from "react";
+import React, {useCallback} from "react";
 import {useNavigate} from "react-router-dom";
 import LayoutFlex from "../../components/layout-flex";
-import useInit from "../../hooks/use-init";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
@@ -13,13 +12,13 @@ function LoginTop() {
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    userName: state.user.user.profile?.name,
-    userExists: state.user.userExists,
+    userName: state.auth.user.profile?.name,
+    userExists: state.auth.userExists,
   }));
 
   const callbacks = {
     logIn: useCallback(() => navigate("/login"), [navigate]),
-    logOut: useCallback(() => store.get("user").logOut(), []),
+    logOut: useCallback(() => store.get("auth").logOut(), []),
   };
 
   return (

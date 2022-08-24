@@ -1,7 +1,5 @@
 import StateModule from "../module";
 import qs from "qs";
-import { createTree } from "../../utils/createTree";
-import { createCategoryList } from "../../utils/createCategoryList";
 
 const QS_OPTIONS = {
   stringify: {
@@ -34,7 +32,6 @@ class CatalogState extends StateModule {
         query: "",
         category: '',
       },
-      categoryList: [],
       waiting: false,
     };
   }
@@ -115,26 +112,6 @@ class CatalogState extends StateModule {
     } else {
       window.history.pushState({}, "", url);
     }
-  }
-
-  /**
-   * Получить все категории
-   * @return {Promise<void>}
-   */
-  async getCategories() {
-    const response = await fetch('api/v1/categories');
-    const json = await response.json();
-    const items = json.result.items;
-
-    const tree = createTree(items);
-
-    const categoryList = createCategoryList(tree)
-
-    // Установка полученных данных
-    this.setState({
-      ...this.getState(),
-      categoryList: [{ title: 'Все', value: '' }, ...categoryList]
-    });
   }
 }
 

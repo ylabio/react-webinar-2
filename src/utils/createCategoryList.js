@@ -4,7 +4,7 @@ export const createCategoryList = (items) => {
   const recursion = (items) => {
     items.forEach((item) => {
       const category = {
-        title: `${"-".repeat(item.level)}${item.title}`,
+        title: `${"- ".repeat(item.level)}${item.title}`,
         value: item._id,
       };
       arr.push(category);

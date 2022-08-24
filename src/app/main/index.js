@@ -15,7 +15,7 @@ function Main() {
 
   useInit(async () => {
     await store.get('catalog').initParams();
-    await store.get("catalog").getCategories();
+    await store.get("category").getCategories();
   }, [], {backForward: true});
 
   const {t} = useTranslate();
@@ -26,7 +26,8 @@ function Main() {
                 <h1>{t('title')}</h1>
                 <LocaleSelect/>
               </LayoutFlex>
-            }>
+            }
+            header={<HeaderContainer/>}>
 
       <Tools/>
       <CatalogFilter/>

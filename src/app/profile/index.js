@@ -7,6 +7,7 @@ import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import ProfileContainer from "../../containers/profile-container";
+import HeaderContainer from "../../containers/header-container";
 
 function Profile() {
   const store = useStore();
@@ -23,7 +24,8 @@ function Profile() {
                 <h1>{t('title')}</h1>
                 <LocaleSelect/>
               </LayoutFlex>
-            }>
+            }
+            header={<HeaderContainer/>}>
 
       <Tools/>
       <ProfileContainer/>

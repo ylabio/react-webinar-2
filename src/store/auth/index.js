@@ -43,22 +43,36 @@ class AuthState extends StateModule{
       });
       const json = await response.json();
 
-      await localStorage.setItem('token', json.result.token);
+      if (json.error) {
+        console.log("400");
+        this.setState({
+          ...this.getState(),
+          error: `${json.error.data.issues[0].message ? json.error.data.issues[0].message : 'Некая ошибка от сервера'}`,
+          waiting: false,
+        });
+        setTimeout(() => {
+          this.setState({
+            ...this.getState(),
+            error: '',
+          });
+        }, 3000)
+      } else {
+        await localStorage.setItem('token', json?.result?.token);
 
-      // Пользователь авторизован
-      this.setState({
-        user: {...this.getState().user, name: json.result.user.profile.name},
-        error: '',
-        isAuth: true,
-        waiting: false,
-      });
-      console.log("try: ", response);
+        // Пользователь авторизован
+        this.setState({
+          user: {...this.getState().user, name: json?.result?.user?.profile?.name},
+          error: '',
+          isAuth: true,
+          waiting: false,
+        });
+      }
+      
     } catch (error){
-      console.log("catch: ", error);
       // Ошибка при загрузке
       this.setState({
         ...this.getState(),
-        error: `${error.message ? error.message : 'Некая ошибка от сервера'}`,
+        error: `${error}`,
         waiting: false,
       });
     }
@@ -153,6 +167,20 @@ class AuthState extends StateModule{
       });
     }
   }
+
+  resetState(){
+    // Сброс стейта до initState 
+    this.setState({
+      user: {
+        name: '',
+        phone: '',
+        email: '',
+      },
+      error: '',
+      isAuth: false,
+      waiting: false,
+    });
+ }
 
 }
 

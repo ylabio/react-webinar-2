@@ -16,11 +16,6 @@ import { useLocation, useNavigate} from "react-router-dom";
 function Login() {
   const store = useStore();
 
-  // очищаем состояние авторизации при размонтировании (переходе на другую страницу)
-  useEffect(() => {
-    return () => store.get('authorization').cleanError();
-  }, [])
-  
   const select = useSelector(state => ({
     token: state.authorization.token,
     error: state.authorization.error,
@@ -28,25 +23,26 @@ function Login() {
     user: state.profile.userData?.profile,
   }));
 
-  console.log(useLocation())
-  const callbacks = {
-    // Логин
-    login: useCallback(data => store.get('authorization').loginRequest(data), []),
-  };
-
-  const {t} = useTranslate();
-
   const navigate = useNavigate();
   const location = useLocation();
 
   const from = location.state?.from?.pathname || '/'
- 
-  if (select.token) {
-    navigate(from, {replace: true});
-  }
 
+  useEffect(() => {
+    if (select.token) {
+      navigate(from, {replace: true});
+    }
+    return () => store.get('authorization').cleanError();
+  }, [select.token])
+
+  const callbacks = {
+    // Логин
+    login: useCallback(data => store.get('authorization').loginRequest(data), [])
+  };
+
+  const {t} = useTranslate();
+  
   return (
-    
     <Layout head={
       <LayoutFlex flex="between">
         <h1>{t('title')}</h1>

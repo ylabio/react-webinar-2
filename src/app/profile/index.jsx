@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
+
 import LayoutPage from '../../layouts/layout-page';
 import LayoutFlex from '../../layouts/layout-flex';
 import Tools from '../../containers/tools';
@@ -14,12 +15,15 @@ const Profile = () => {
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
-    pending: state.user.loginState.pending,
-    logged: state.user.logged,
-    userInfo: state.user.info,
+    checking: state.profile.checking,
+    logged: state.profile.logged,
+    info: state.profile.info,
   }));
 
-  return !select.logged
+  // если информация о пользователе уже не загружается
+  // и пользователь не восстановлен, скидывает в логин
+  //
+  return !select.checking && !select.logged
     ? <Navigate to='/login' />
     : (
       <LayoutPage head={<>
@@ -30,8 +34,8 @@ const Profile = () => {
         </LayoutFlex>
       </>}>
         <Tools />
-        <Spinner active={select.pending}>
-          <ProfileInfo info={select.userInfo} />
+        <Spinner active={select.checking}>
+          <ProfileInfo info={select.info} />
         </Spinner>
       </LayoutPage>
     )

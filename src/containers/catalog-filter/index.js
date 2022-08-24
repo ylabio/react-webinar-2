@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from "react";
+import React, { useEffect, useCallback, useMemo } from "react";
 import { useNavigate } from 'react-router-dom';
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
@@ -14,28 +14,31 @@ function CatalogFilter() {
   const navigate = useNavigate();
   const { t } = useTranslate();
 
+  useEffect(() => {
+    store.get('filterOptions').fetchCategories();
+  }, []);
+
   const select = useSelector(state => ({
+    pending: state.filterOptions.fetchState.pending,
+    categories: state.filterOptions.categories,
+    category: state.catalog.filterParams.category,
     sort: state.catalog.filterParams.sort,
     query: state.catalog.filterParams.query,
-    category: state.catalog.filterParams.category,
-    categories: state.catalog.filterOptions.categories,
-    pending: state.catalog.filterOptions.pending,
   }));
 
   const callbacks = {
-    onSort: useCallback(sort => {
+    changeSort: useCallback(sort => {
       navigate(store.get('catalog').getFilterResultRoute('sort', sort));
     }, []),
-    onCat: useCallback(cat => {
-      navigate(store.get('catalog').getFilterResultRoute('category', cat));
+    changeCategory: useCallback(category => {
+      navigate(store.get('catalog').getFilterResultRoute('category', category));
     }, []),
-    onSearch: useCallback(query => {
+    changeSearch: useCallback(query => {
       navigate(store.get('catalog').getFilterResultRoute('query', query));
     }, []),
-    onReset: useCallback(() => navigate('/catalog'), []),
+    reset: useCallback(() => navigate('/catalog'), []),
   };
 
-  // Опции для полей
   const options = {
     sort: useMemo(() => ([
       {value:'order', title: 'По порядку'},
@@ -43,15 +46,15 @@ function CatalogFilter() {
       {value:'-price', title: 'Сначала дорогие'},
       {value:'edition', title: 'Древние'},
     ]), [])
-  }
+  };
 
   return (
     <Spinner active={select.pending}>
       <LayoutFlex>
-        <Select onChange={callbacks.onCat} value={select.category} options={select.categories} />
-        <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
-        <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
-        <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
+        <Select onChange={callbacks.changeCategory} value={select.category} options={select.categories} />
+        <Select onChange={callbacks.changeSort} value={select.sort} options={options.sort}/>
+        <Input onChange={callbacks.changeSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
+        <button onClick={callbacks.reset}>{t('filter.reset')}</button>
       </LayoutFlex>
     </Spinner>
   );

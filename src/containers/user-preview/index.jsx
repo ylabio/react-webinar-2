@@ -11,24 +11,26 @@ const UserPreview = () => {
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
-    logged: state.user.logged,
-    username: state.user.info.name,
+    logged: state.profile.logged,
+    username: state.profile.info.name,
   }));
 
-  const logout = useCallback(() => store.get('user').logout(), []);
-  const login = useCallback(() => navigate('/login'), []);
+  const callbacks = {
+    login: useCallback(() => navigate('/login'), []),
+    logout: useCallback(() => store.get('profile').logout(), []),
+  };
 
   return (
     <div className='user-preview'>
       {select.logged
         ? <>
           <Link to='/profile'>{select.username}</Link>
-          <button onClick={logout}>{t('logout')}</button>
+          <button onClick={callbacks.logout}>{t('logout')}</button>
         </>
-        : <button onClick={login}>{t('login')}</button>
+        : <button onClick={callbacks.login}>{t('login')}</button>
       }
     </div>
   )
 }
 
-export default UserPreview;
+export default React.memo(UserPreview);

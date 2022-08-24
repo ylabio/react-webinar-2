@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
-import { Navigate } from "react-router-dom";
+import React, { useEffect, useCallback } from 'react';
+import { Navigate, useNavigate } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -12,24 +12,46 @@ import Spinner from '../../components/spinner';
 import LoginForm from '../../components/login-form';
 import UserPreview from '../../containers/user-preview';
 
+// тут при входе на сайт, происходил редирект в профиль, из него обратно сюда
+// и снова в профиль, как мог исправил
+//
 const Login = () => {
   const store = useStore();
+  const navigate = useNavigate();
   const { t } = useTranslate();
 
   const select = useSelector(state => ({
-    logged: state.user.logged,
-    pending: state.user.loginState.pending,
-    error: state.user.loginState.error,
-    errorText: state.user.loginState.errorText,
+    profileLogged: state.profile.logged, // доступен всему сайту
+    pending: state.login.pending,
+    logged: state.login.logged, // успешная авторизация, доступен только тут
+    error: state.login.error,
+    errorText: state.login.errorText,
   }));
+
+  // очистка стора
+  useEffect(() => {
+    return () => store.get('login').clear();
+  }, []);
+
+  // срабатывает если пользователь авторизовался, check() достаёт токен из куки,
+  // загружает данные пользователя и переключает profileLogged
+  useEffect(() => {
+    if (select.logged) store.get('profile').check();
+  }, [select.logged]);
+
+  // из-за чего тут происходит редирект в профиль
+  useEffect(() => {
+    if (select.profileLogged) navigate('/profile');
+  }, [select.profileLogged]);
 
   const callbacks = {
     login: useCallback((login, password) => {
-      store.get('user').login(login, password);
+      store.get('login').login(login, password);
     }, []),
   };
 
-  return select.logged
+  // перенаправляет если зайти авторизованным
+  return select.profileLogged
     ? <Navigate to='/profile' />
     : (
       <LayoutPage head={<>
@@ -47,4 +69,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default React.memo(Login);

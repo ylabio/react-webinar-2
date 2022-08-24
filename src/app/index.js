@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Routes, Route } from "react-router-dom";
 import useStore from '../hooks/use-store';
 import useSelector from "../hooks/use-selector";
+
 import Basket from "./basket";
 import Article from "./article";
 import Catalog from './catalog';
@@ -12,8 +13,11 @@ import NotFound from './not-found';
 function App () {
   const store = useStore();
   const modal = useSelector(state => state.modals.name);
-  useEffect(() => store.get('user').check(), []);
-  // проверка токена, при наличии - авторизация
+
+  useEffect(() => {
+    store.get('profile').check();
+  }, []);
+  // проверка токена в куки, при наличии - авторизация
 
   return (<>
     <Routes>

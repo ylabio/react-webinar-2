@@ -27,7 +27,7 @@ const LoginForm = ({ onSubmit, error, errorText }) => {
         <input className='login-form__field' type="password" name="password" />
       </label>
 
-      {error && <p className='login-form__warning'>{'Ошибка ' + errorText}</p>}
+      {error && <p className='login-form__warning'>{errorText}</p>}
 
       <button>Войти</button>
     </form>
@@ -41,8 +41,8 @@ LoginForm.propTypes = {
 };
 
 LoginForm.defaultProps = {
-  errorText: '',
+  errorText: 'Ошибка',
   onSubmit: () => {},
 };
 
-export default LoginForm;
+export default React.memo(LoginForm);

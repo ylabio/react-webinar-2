@@ -17,7 +17,6 @@ const Catalog = () => {
 
   useEffect(() => {
     store.get('catalog').fetchPageItems(location);
-    store.get('catalog').fetchFilterOptions();
   }, [location]);
 
   return (

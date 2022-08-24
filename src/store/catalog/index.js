@@ -1,5 +1,5 @@
+import getFetchState from "../utils/getFetchState";
 import StateModule from "../module";
-import nestedCategories from "../../utils/nested-categories";
 
 class CatalogState extends StateModule{
   initState() {
@@ -19,34 +19,20 @@ class CatalogState extends StateModule{
         error: false,
         ok: false,
       },
-      filterOptions: {
-        categories: [{ value: '', title: 'Все' }],
-        pending: true,
-      },
     };
   }
 
-  errorState() {  
-    return {
-      ...this.getState(),
-      fetchState: {
-        pending: false,
-        error: true,
-        ok: false,
-      },
-    }
-  }
-
-
-
   async fetchPageItems(location) {
+    this.setState({
+      ...this.getState(),
+      fetchState: getFetchState('pending'),
+    }, 'Загрузка товаров страницы каталога');
+
     const filterParams = { ...this.getState().filterParams };
 
     const routeSearch = new URLSearchParams(location.search);
 
-    for (let key in filterParams) {
-      filterParams[key] = routeSearch.get(key) || '';
-    }
+    for (let key in filterParams) { filterParams[key] = routeSearch.get(key) || ''; }
 
     const currentPage = +routeSearch.get('page') || 1;
 
@@ -59,7 +45,7 @@ class CatalogState extends StateModule{
     await fetch(apiQuery)
       .then(res => {
         if (res.ok) return res.json()
-        throw new Error(res.status + ' ' + res.statusText);
+        else throw new Error(res.status + ' ' + res.statusText);
       })
       .then(json => {
         if (!json.result.items.length) throw new Error('Ничего не найдено');
@@ -68,50 +54,18 @@ class CatalogState extends StateModule{
           currentPage,
           currentRoute: location.pathname + location.search,
           pagesCount: Math.ceil(json.result.count / 10),
-          fetchState: {
-            pending: false,
-            error: false,
-            ok: true,
-          },
+          fetchState: getFetchState('ok'),
           filterParams,
-          filterOptions: { ...this.getState().filterOptions },
         }, 'Загружены товары страницы каталога')
       })
       .catch(err => {
         console.error('store.catalog.fetchPageItems() ' + err);
-        this.setState(this.errorState(), 'Ошибка при загрузке товаров каталога');
+        this.setState({
+          ...this.getState(),
+          fetchState: getFetchState('error'),
+          filterParams,
+        }, 'Ошибка при загрузке товаров каталога');
       })
-  }
-
-
-
-  // Загрузка категорий фильтра
-  //
-  async fetchFilterOptions () {
-    if (this.getState().filterOptions.categories.length !== 1) return;
-
-    await fetch('/api/v1/categories/')
-      .then(res => {
-        if (res.ok) return res.json();
-        throw new Error(res.status + ' ' + res.statusText);
-      })
-      .then(json => {
-        const categories = this.initState().filterOptions.categories
-          .concat(nestedCategories(
-            json.result.items.map(item => {
-              return { ...item, value: item._id };
-            })
-          ));
-        setTimeout(() => {
-          this.setState({
-            ...this.getState(),
-            filterOptions: { categories, pending: false, },
-          }, 'Загружены категории фильтра')
-        }, 1000)
-      })
-      .catch(err => {
-        console.error('store.catalog.fetchFilterOptions() ' + err);
-      });
   }
 
 

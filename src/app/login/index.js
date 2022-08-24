@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import LoginForm from '../../components/forms/login-form';
 import Layout from '../../components/layouts/layout';
 import LayoutFlex from '../../components/layouts/layout-flex';
@@ -15,25 +15,28 @@ import useTranslate from '../../hooks/use-translate';
 function Login() {
 
   const navigate = useNavigate();
+  const { state } = useLocation();
   const { t } = useTranslate();
   const store = useStore();
 
   const select = useSelector(state => ({
     fields: state.user.fields,
-    inputs: state.user.inputs,
-    waiting: state.user.waiting,
-    error: state.user.error
+    inputs: state.login.inputs,
+    waiting: state.login.waiting,
+    error: state.login.error
   }));
 
   useInit(() => {
+    if (select.error)
+      store.get('login').resetError(); // сброс ошибки при открытии формы
     if (select.fields)
-      navigate('/profile')
-  }, [select.fields], { backForward: true });
+      state ? navigate(-1) : navigate('/'); // идем туда, откуда пришли. или на главную
+  }, [select.fields, select.success], { backForward: true });
 
   const callbacks = {
-    onLoginChange: useCallback(login => store.get('user').setLogin(login), []),
-    onPasswordChange: useCallback(password => store.get('user').setPassword(password), []),
-    onEnter: useCallback(() => store.get('user').login(), [])
+    onLoginChange: useCallback(login => store.get('login').setLogin(login), []),
+    onPasswordChange: useCallback(password => store.get('login').setPassword(password), []),
+    onEnter: useCallback(() => store.get('login').login(), [])
   }
 
   return (

@@ -1,40 +1,35 @@
 import React, { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import UserBarForm from '../../components/forms/user-bar-form';
 import useInit from '../../hooks/use-init';
-import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
+import useUser from '../../hooks/use-user';
 
 function UserBar() {
 
   const { t } = useTranslate();
   const navigate = useNavigate();
+  const location = useLocation();
   const store = useStore();
-
-  const select = useSelector(state => ({
-    fields: state.user.fields,
-    token: state.user.token
-  }));
-
+  const { fields, token } = useUser({ orRedirectTo: null });
+  
   useInit(() => {
-    if (select.token && !select.fields)
-      store.get('user').loadProfile();
-  }, [select.fields], {backForward: false});
+    if (token && !fields)
+      store.get('user').loadUserData();
+  }, [fields], { backForward: false });
 
   const callbacks = {
     // Открыть страницу авторизации
-    onLogin: useCallback(() => { navigate('/login') }, []),
+    onLogin: useCallback(() => { navigate('/login', { state: { from: location } }) }, []),
 
     // Забыть все данные о пользователе
     onLogout: useCallback(() => store.get('user').logout(), [])
   }
 
-  const name = select.fields?.profile?.name ? select.fields.profile.name : select.fields?.username;
-
   return (
     <UserBarForm
-      name={name}
+      name={fields?.profile?.name ? fields.profile.name : fields?.username}
       link={'/profile'}
       onLogin={callbacks.onLogin}
       onLogout={callbacks.onLogout}

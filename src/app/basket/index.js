@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import BasketTotal from "../../components/basket-total";
+import BasketTotal from "../../components/basket/basket-total";
 import ItemBasket from "../../components/items/item-basket";
 import LayoutModal from "../../components/layouts/layout-modal";
 import List from "../../components/list";

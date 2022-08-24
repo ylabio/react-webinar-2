@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react";
-import BasketSimple from "../../components/basket-simple";
+import BasketSimple from "../../components/basket/basket-simple";
 import LayoutFlex from "../../components/layouts/layout-flex";
 import Menu from "../../components/menu";
 import useSelector from "../../hooks/use-selector";

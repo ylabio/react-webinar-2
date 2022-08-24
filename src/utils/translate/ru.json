@@ -26,5 +26,9 @@
   "login.title": "Вход",
   "login.login": "Логин",
   "login.password": "Пароль",
-  "login.in": "Войти"
+  "login.in": "Войти",
+  "article.country": "Страна производитель",
+  "article.category": "Категория",
+  "article.year": "Год выпуска",
+  "article.price": "Цена"
 }

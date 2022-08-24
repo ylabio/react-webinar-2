@@ -11,79 +11,20 @@ class UserState extends StateModule {
    */
   initState() {
     return {
-      inputs: { login: '', password: '' },
       fields: null, // полей может быть много
       token: localStorage.getItem('token'),
-      error: '',
+      error: null,
       waiting: false
     };
   }
 
-  setLogin(login) {
+  setData(fields, token) {
+    localStorage.setItem('token', token);
     this.setState({
       ...this.getState(),
-      inputs: {
-        ...this.getState().inputs,
-        login
-      },
-      error: null
-    }, 'Login: ' + login);
-  }
-
-  setPassword(password) {
-    this.setState({
-      ...this.getState(),
-      inputs: {
-        ...this.getState().inputs,
-        password
-      },
-      error: null
-    }, 'Password: ' + password);
-  }
-
-  async login() {
-    this.setState({
-      ...this.getState(),
-      error: null,
-      waiting: true
-    }, 'Loginning...');
-
-    const inputs = this.getState().inputs;
-    const result = await (
-      await fetch('/api/v1/users/sign', {
-        method: 'POST',
-        body: JSON.stringify({ login: inputs.login, password: inputs.password }),
-        headers: { 'Content-Type': 'application/json' }
-      })
-    ).json();
-
-    if (result.error) {
-      //console.error(result.error);
-      let error = '';
-      const issues = result.error.data?.issues;
-      if (issues && issues.length) {
-        issues.forEach(issue => {
-          error += issue.message + '\n';
-        });
-      } else
-        error = result.error.code + ': ' + result.error.message;
-
-      this.setState({
-        ...this.getState(),
-        error,
-        waiting: false
-      }, 'Error code ' + result.error.code);
-      return;
-    }
-
-    localStorage.setItem('token', result.result.token);
-
-    this.setState({
-      ...this.getState(),
-      fields: result.result.fields,
-      token: result.result.token, // пока не используется
-      waiting: false
-    }, 'Login successful!');
+      fields,
+      token
+    }, 'User data updated!');
   }
 
   async logout() {
@@ -94,6 +35,8 @@ class UserState extends StateModule {
 
     localStorage.removeItem('token');
 
+    this.store.get('profile').setUserData(null);
+
     this.setState({
       ...this.getState(),
       fields: null,
@@ -101,32 +44,41 @@ class UserState extends StateModule {
     }, 'Logout done!');
   }
 
-  async loadProfile() {
+  async loadUserData() {
     this.setState({
       ...this.getState(),
       waiting: true
-    }, 'Loading profile...');
+    }, 'Loading user data...');
 
-    const result = await (
+    const json = await (
       await fetch('/api/v1/users/self', {
         headers: { "X-Token": localStorage.getItem('token') }
       })
     ).json();
 
-    if (result.error) {
+    if (json.error) {
       this.setState({
         ...this.getState(),
-        error: result.error,
+        error: json.error,
         waiting: false
-      }, 'Cant load profile');
+      }, 'Cant load user data');
       return;
     }
 
     this.setState({
       ...this.getState(),
       waiting: false,
-      fields: result.result
-    }, 'Profile has been loaded');
+      fields: json.result
+    }, 'User data has been loaded');
+
+    this.store.get('profile').setUserData(json.result);
+  }
+
+  resetError() {
+    this.setState({
+      ...this.getState(),
+      error: null
+    }, 'Reset user loading error');
   }
 }
 

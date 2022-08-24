@@ -7,7 +7,7 @@ import Article from "./article";
 import Auth from './auth';
 import Profile from './profile';
 import useStore from '../hooks/use-store';
-import PrivateRouteContaiter from '../containers/private-route-contaiter';
+import PrivateRouteContainer from '../containers/private-route-container';
 
 /**
  * Приложение
@@ -38,9 +38,9 @@ function App() {
         <Route path={"/articles/:id"} element={<Article/>}/>
         <Route path={"/login"} element={<Auth/>}/>
         <Route path='/profile' element={
-          <PrivateRouteContaiter>
+          <PrivateRouteContainer>
             <Profile/>
-          </PrivateRouteContaiter>
+          </PrivateRouteContainer>
         }/>
         <Route path='*' element={<Navigate to=''/>}/>
       </Routes>

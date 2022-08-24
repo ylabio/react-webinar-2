@@ -11,12 +11,13 @@ import LocaleSelect from "../../containers/locale-select";
 
 function Main() {
   const store = useStore();
+  const {t} = useTranslate();
 
   useInit(async () => {
     await store.get('catalog').initParams();
+    await store.get('categories').loadAllCategories();
   }, [], {backForward: true});
 
-  const {t} = useTranslate();
 
   return (
     <Layout head={

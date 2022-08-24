@@ -1,0 +1,19 @@
+.Form{
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.Form h1{
+    margin-top: 60px;
+}
+.Form .InputBlock{
+    margin: 10px 0;
+}
+.Form button{
+    width: 50px;
+    margin-top: 20px;
+}
+.Form-error {
+    margin-top: 12px;
+    color: #ff0000;
+}

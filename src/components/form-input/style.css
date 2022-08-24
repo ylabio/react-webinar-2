@@ -1,0 +1,10 @@
+.InputBlock{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    /* font-size: 18px; */
+}
+
+.Input_theme_big{
+    width: 300px;
+}

@@ -1,0 +1,24 @@
+/* Пункт списка */
+.User {
+    padding: 20px;
+}
+.User h2{
+    margin-bottom: 30px;
+}
+.User-wrap {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.User-wrap_size_big{
+    font-size: 24px;
+}
+
+.User-label{
+    padding-right: 10px;
+}
+
+.User-value{
+    font-weight: bold;
+}

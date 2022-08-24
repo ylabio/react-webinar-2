@@ -14,5 +14,19 @@
   "basket.unit": "pcs",
   "basket.delete": "Delete",
   "article.add": "Add",
-  "filter.reset": "Reset"
+  "article.manufacturer": "Manufacturer:",
+  "article.category": "Category:",
+  "article.year": "Year of manufacture:",
+  "article.price": "Price:",
+  "filter.reset": "Reset",
+  "auth.title": "Sign In",
+  "auth.login": "Login",
+  "auth.pass": "Password",
+  "auth.enter": "Enter",
+  "auth.quit": "Quit",
+  "user.profile": "Profile",
+  "user.name": "Name",
+  "user.phone": "Phone",
+  "login-bar.login-btn": "Sign In",
+  "login-bar.logout-btn": "Sign Out"
 }

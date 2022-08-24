@@ -13,7 +13,6 @@ import LocaleSelect from "../../containers/locale-select";
 
 function Article(){
   const store = useStore();
-
   // Параметры из пути /articles/:id
   const params = useParams();
 
@@ -30,7 +29,7 @@ function Article(){
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), [])
   };
 
   return (

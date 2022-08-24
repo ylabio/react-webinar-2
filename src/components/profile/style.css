@@ -1,0 +1,18 @@
+.Profile {
+    padding: 42px 20px;
+}
+.Profile-title {
+    display: block;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    margin-bottom: 30px;
+}
+.Profile-field {
+    font-size: 18px;
+    line-height: 21px;
+    margin-bottom: 20px;
+}
+.Profile-field span {
+    font-weight: 700;
+}

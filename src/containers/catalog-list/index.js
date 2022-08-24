@@ -37,7 +37,11 @@ function CatalogList() {
   return (
     <Spinner active={select.waiting}>
       <List items={select.items} renderItem={renders.item}/>
-      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
+      <Pagination count={select.count} 
+                  page={select.page} 
+                  limit={select.limit} 
+                  onChange={callbacks.onPaginate}
+                  search={window.location.search} />
     </Spinner>
   );
 }

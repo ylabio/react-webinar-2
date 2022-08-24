@@ -22,3 +22,7 @@ GET {{baseUrl}}/articles/62fde67bfa639a32847b3d78
 # Товар по id с кучей свойств
 
 GET {{baseUrl}}/62fde67bfa639a32847b3d78?fields=*,maidIn(title,code),category(title)
+
+http://example.front.ylab.io/api/v1/articles?limit=20&skip=10&fields=items(*),count&search[category]=62fde67bfa639a32847b3d67
+
+http://example.front.ylab.io/api/v1/categories?lang=ru&limit=10&skip=0&fields=%2A'

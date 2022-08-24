@@ -1,0 +1,25 @@
+.FormInput {
+    padding: 18px 0 0;
+    position: relative;
+    margin-bottom: 20px;
+}
+.FormInput input {
+    padding: 2px 2px 4px;
+    background-color: #FFFFFF;
+    border: 1px solid #767676;
+    border-radius: 1px;
+    cursor: pointer;
+    outline: none;
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 18px;
+    -webkit-box-shadow: inset 0 0 0 50px #FFFFFF; /* накладываеть тень поверх инпута т.к. с автозполнением из браузера прилетают другие стили*/
+    -webkit-text-fill-color: #000000;
+}
+.FormInput label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 16px;
+    line-height: 18px;
+}

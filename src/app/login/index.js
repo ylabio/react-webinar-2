@@ -19,9 +19,10 @@ function Login() {
     // Функция логина
     login: useCallback((login, password) => {
       store.get('user').login(login, password)
-      navigate('/')
     }, []),
   };
+  
+  // console.log(history.back())
   
   const {errorMessage,profileWaiting} = useSelector(state => {
     return {

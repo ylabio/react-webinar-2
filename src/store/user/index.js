@@ -99,6 +99,10 @@ class UserState extends StateModule {
         });
       }
     }
+    this.setState({
+      ...this.getState(),
+      waiting: false
+    });
   }
   
   async logout() {

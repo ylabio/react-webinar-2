@@ -3,8 +3,7 @@ import StateModule from "../module";
 /**
  * Состояние статуса авторизации
  */
-class LoginState extends StateModule{
-
+class LoginState extends StateModule {
   /**
    * Начальное состояние
    * @return {Object}
@@ -14,11 +13,11 @@ class LoginState extends StateModule{
       status: null,
       user: null,
       error: null,
-      token: null
+      token: null,
     };
   }
- 
-  async login(data={}) {
+
+  async login(data = {}) {
     try {
       const response = await fetch(`/api/v1/users/sign`, {
         method: 'POST',
@@ -33,29 +32,23 @@ class LoginState extends StateModule{
           token: json.result.token,
           error: null,
         });
+        localStorage.setItem("token", json.result.token); 
     } catch (err) {
       this.setState({
         status: 'no_auth',
         user: null,
-        error: err.message,
+        error: 'Неверный логин или пароль',
         token: null
       });
     }
   }
 
   async isAuth() {
-    this.setState({
-      status: null,
-      user: null,
-      error: null,
-      token: null
-    });
-
     const response = await fetch(`/api/v1/users/self`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
-        'X-Token': this.getState().token,
+        'X-Token': localStorage.getItem("token"),
       },
     });
     const json = await response.json();
@@ -64,22 +57,36 @@ class LoginState extends StateModule{
         ...this.getState(),
         status: 'auth',
         user: json.result,
+        token: localStorage.getItem("token"),
       });
     } else {
       this.setState({
         ...this.getState(),
         status: 'no_auth',
-        user: json.result,
+        user: null,
+        error: null,
       });
     }
   }
 
-  logout() {
-    this.setState({
-      ...this.getState(),
-      status: 'no_auth',
-      user: null,
+  async logout() {
+    const response = await fetch(`/api/v1/users/sign`, {
+      method: "DELETE",
+      headers: {
+        "X-Token": this.getState().token,
+        "Content-Type": "application/json",
+      },
     });
+    if (response.status === 200) {
+      this.setState({
+        ...this.getState(),
+        status: null,
+        user: null,
+        error: null,
+        token: null,
+      });
+      localStorage.removeItem("token");
+    }
   }
 }
 

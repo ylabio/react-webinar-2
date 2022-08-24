@@ -6,7 +6,7 @@ import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
 import LoginWrap from "../../containers/login-wrap";
-import ProfileInfo from "../../components/profile-info";
+import ProfileIsAuth from "../../containers/profile-isauth";
 
 function Profile(){
   const {t} = useTranslate();
@@ -22,7 +22,7 @@ function Profile(){
         <LocaleSelect/>
       </LayoutFlex>}>
       <Tools/>
-      <ProfileInfo user={select.user}/>
+      <ProfileIsAuth user={select.user}/>
     </Layout>
   )
 }

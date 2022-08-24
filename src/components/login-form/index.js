@@ -22,7 +22,7 @@ const formSubmit = useCallback(e => {
 },[login, pass]);
 
 if (user) {
-  return <Navigate to="/profile" />;
+  return <Navigate to="/" />;
 }
 
 return (

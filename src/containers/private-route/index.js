@@ -9,7 +9,7 @@ function PrivateRoute({ children }) {
   const store = useStore();
 
   useInit(async () => {
-    await store.get('profile').getProfile();
+    await store.get('auth').isAuth();
   }, []);
 
   const select = useSelector((state) => ({

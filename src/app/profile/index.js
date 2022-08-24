@@ -14,7 +14,7 @@ function Profile() {
     name: state.profile.data.name,
     phone: state.profile.data.phone,
     email: state.profile.data.email,
-    waiting: state.profile.waiting,
+    waiting: state.auth.waiting,
   }));
 
   return (

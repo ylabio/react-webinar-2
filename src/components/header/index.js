@@ -4,29 +4,15 @@ import propTypes from 'prop-types';
 import './styles.css';
 import LocaleSelect from '../../containers/locale-select';
 import LayoutFlex from '../layout-flex';
-import { Link } from 'react-router-dom';
 
-function Header({ isAuth, title, userName, logout, t, disabledLogout }) {
+function Header({ title, loginOrLogout }) {
   const cn = bem('Header');
 
   return (
     <div className={cn()}>
       <div className={cn('top')}>
         <LayoutFlex flex="end" padding={false}>
-          {!isAuth ? (
-            <Link to="/login">
-              <button>{t('auth.login')}</button>
-            </Link>
-          ) : (
-            <>
-              <Link to={`/profile`} className={cn('user')}>
-                {userName}
-              </Link>
-              <button onClick={() => logout()} disabled={disabledLogout}>
-                {t('auth.logout')}
-              </button>
-            </>
-          )}
+          {loginOrLogout()}
         </LayoutFlex>
       </div>
       <div className={cn('bottom')}>
@@ -40,19 +26,12 @@ function Header({ isAuth, title, userName, logout, t, disabledLogout }) {
 }
 
 Header.propTypes = {
-  isAuth: propTypes.bool.isRequired,
   title: propTypes.string,
-  userName: propTypes.string,
-  logout: propTypes.func,
-  t: propTypes.func,
-  disabledLogout: propTypes.bool,
+  loginOrLogout: propTypes.func.isRequired,
 };
 
 Header.defaultProps = {
   title: 'title',
-  logout: () => {},
-  t: (text) => text,
-  disabledLogout: false,
 };
 
 export default React.memo(Header);

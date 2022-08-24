@@ -118,12 +118,20 @@ class AuthState extends StateModule {
       });
 
       if (response.ok) {
+        const json = await response.json();
         this.setState({
           ...this.getState(),
           isAuth: true,
         });
 
-        return await response.json();
+        const userData = {
+          _id: json.result._id,
+          name: json.result.profile.name,
+          phone: json.result.profile.phone,
+          email: json.result.email,
+        };
+
+        this.store.get('profile').setAuthProfile(userData);
       } else {
         console.log('Не удалось авторизироваться');
       }

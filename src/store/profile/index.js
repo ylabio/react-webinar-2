@@ -40,36 +40,6 @@ class ProfileState extends StateModule {
       },
     });
   }
-
-  async getProfile() {
-    this.setState({
-      ...this.getState(),
-      waiting: true,
-      error: false,
-    });
-
-    try {
-      const json = await this.store.get('auth').isAuth();
-      const userData = {
-        _id: json.result._id,
-        name: json.result.profile.name,
-        phone: json.result.profile.phone,
-        email: json.result.email,
-      };
-
-      this.setAuthProfile(userData);
-    } catch (error) {
-      this.setState({
-        ...this.getState(),
-        error: true,
-      });
-    } finally {
-      this.setState({
-        ...this.getState(),
-        waiting: false,
-      });
-    }
-  }
 }
 
 export default ProfileState;

@@ -2,12 +2,19 @@
   opacity: 0.5;
 }
 
+.lds-spinner-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .lds-spinner {
   color: official;
   display: inline-block;
   position: relative;
   width: 80px;
   height: 80px;
+  margin-top: 30px;
 }
 .lds-spinner div {
   transform-origin: 40px 40px;
@@ -22,7 +29,7 @@
   width: 6px;
   height: 18px;
   border-radius: 20%;
-  background: sandybrown;
+  background: #0087e9;
 }
 .lds-spinner div:nth-child(1) {
   transform: rotate(0deg);

@@ -12,7 +12,6 @@ import UserMenu from '../user-menu';
 
 function Main() {
   const store = useStore();
-  console.log('history', history.state);
 
   useInit(
     async () => {

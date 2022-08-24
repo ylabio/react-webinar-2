@@ -12,6 +12,7 @@ class SessionState extends StateModule {
   initState() {
     return {
       isLogged: localStorage.getItem('token') ? true : false,
+      // isLogged: false,
       name: '',
       error: '',
       currentPage: '',
@@ -51,6 +52,7 @@ class SessionState extends StateModule {
       const result = json.result;
 
       this.setState({
+        ...this.getState(),
         name: result.profile.name,
         isLogged: true,
       });

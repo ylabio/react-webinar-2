@@ -7,30 +7,19 @@ import LayoutFlex from '../../components/layout-flex';
 import LocaleSelect from '../../containers/locale-select';
 import ProfileCard from '../../components/profile-card';
 import UserMenu from '../user-menu';
-import { Navigate, useNavigate } from 'react-router-dom';
-import useStore from '../../hooks/use-store';
 import Spinner from '../../components/spinner';
-import useInit from '../../hooks/use-init';
+import useCheck from '../../hooks/use-check';
 
 function Profile() {
-  const store = useStore();
-  console.log('FROM PROFILE');
+  const { t } = useTranslate();
+
+  useCheck('profile', '/login');
 
   const select = useSelector((state) => ({
     user: state.profile.user,
-    isLogged: state.session.isLogged,
     waiting: state.profile.waiting,
+    isLogged: state.session.isLogged,
   }));
-
-  useInit(
-    async () => {
-      await store.get('profile').loadUserData(localStorage.getItem('token'));
-    },
-    [],
-    { backForward: true }
-  );
-
-  const { t } = useTranslate();
 
   return (
     <Layout
@@ -48,7 +37,6 @@ function Profile() {
       <Spinner active={select.waiting}>
         <ProfileCard user={select.user} />
       </Spinner>
-      {!select.isLogged && <Navigate to="/login" />}
     </Layout>
   );
 }

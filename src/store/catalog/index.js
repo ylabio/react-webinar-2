@@ -25,7 +25,6 @@ class CatalogState extends StateModule {
     return {
       items: [],
       count: 0,
-      // categories: [],
       params: {
         page: 1,
         limit: 10,
@@ -36,20 +35,6 @@ class CatalogState extends StateModule {
       waiting: false,
     }
   }
-
-  // /**
-  //  * Получение категорий
-  //  * @return {Promise<void>}
-  //  */
-  // async getCategories() {
-  //   const response = await fetch(`/api/v1/categories`)
-  //   const json = await response.json()
-
-  //   this.setState({
-  //     ...this.getState(),
-  //     categories: json.result.items,
-  //   })
-  // }
 
   /**
    * Инициализация параметров.

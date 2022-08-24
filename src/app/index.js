@@ -6,6 +6,8 @@ import Basket from "./basket";
 import Article from "./article";
 import Login from "./login";
 import Profile from "./profile";
+import useInit from "../hooks/use-init";
+import useStore from "../hooks/use-store";
 
 /**
  * Приложение
@@ -13,7 +15,21 @@ import Profile from "./profile";
  */
 function App() {
 
+  const store = useStore();
+
   const modal = useSelector(state => state.modals.name);
+
+  const select = useSelector(state => ({
+    user: state.session.user,
+    loadingError: state.session.loadingError
+  }))
+
+  // Восстановление сессии по токену
+  useInit(() => {
+    if (!select.user && localStorage.getItem('TOKEN') && !select.loadingError) {
+      store.get('session').getProfile();
+    }
+  }, [])
 
   return (
     <>

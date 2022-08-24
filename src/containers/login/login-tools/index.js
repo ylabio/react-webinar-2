@@ -5,7 +5,6 @@ import useStore from "../../../hooks/use-store";
 import LoginControls from "../../../components/login/login-controls";
 import useTranslate from "../../../hooks/use-translate";
 import useSelector from "../../../hooks/use-selector";
-import useInit from "../../../hooks/use-init";
 
 function LoginTools(){
 
@@ -21,15 +20,8 @@ function LoginTools(){
   }
 
   const select = useSelector(state => ({
-    user: state.session.user,
-    loadingError: state.session.loadingError
+    user: state.session.user
   }))
-
-  useInit(() => {
-    if (!select.user && localStorage.getItem('TOKEN') && !select.loadingError) {
-      store.get('session').getProfile();
-    }
-  }, [])
 
   return (
     <LayoutFlex flex="end" padding={false}>

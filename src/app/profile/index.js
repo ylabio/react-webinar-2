@@ -14,20 +14,11 @@ import ProfileInfo from "../../components/profile-info";
 function ProfilePage() {
 	const store = useStore();
 
-	useInit(async () => {
-		await store.get('catalog').initParams();
-	}, [], {backForward: true});
-
 	const {t} = useTranslate();
 
 	const profile = useSelector((state) => state.profile);
 	const logout = useCallback(() => store.get('profile').logout(profile), []);
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		const token = localStorage.getItem("token");
-		if(token && !profile.isLogin) store.get('profile').auth(token);
-	}, []);
 
 	useEffect(() => {if(!profile.isLogin) navigate("/auth")}, [profile.isLogin])
 

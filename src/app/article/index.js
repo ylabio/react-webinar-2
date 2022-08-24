@@ -36,11 +36,6 @@ function Article(){
     logout: useCallback(() => store.get('profile').logout(select.profile), [])
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if(token && !select.profile.isLogin) store.get('profile').auth(token);
-  }, [])
-
   return (
     <Layout auth={<LoginHead profile={select.profile} logout={callbacks.logout}/>} head={
       <LayoutFlex flex="between">

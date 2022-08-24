@@ -16,17 +16,13 @@ function Main() {
 
   useInit(async () => {
     await store.get('catalog').initParams();
+    await store.get('categories').initCategories();
   }, [], {backForward: true});
 
   const {t} = useTranslate();
 
   const profile = useSelector((state) => state.profile);
   const logout = useCallback(() => store.get('profile').logout(profile), []);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if(token && !profile.isLogin) store.get('profile').auth(token);
-  }, []);
 
   return (
     <Layout auth={<LoginHead profile={profile} logout={logout}/>} head={

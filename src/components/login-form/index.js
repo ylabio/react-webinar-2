@@ -24,12 +24,12 @@ const LoginForm = () => {
 
 				<label htmlFor="login" className={cn("label")}>
 					Логин
-					<input id="login" value={login} onChange={(e) => setLogin(e.currentTarget.value)} placeholder="Введите логин" />
+					<input id="login" value={login} onChange={(e) => setLogin(e.currentTarget.value)}/>
 				</label>
 
 				<label htmlFor="password" className={cn("label")}>
 					Пароль
-					<input id="password" value={password} onChange={(e) => setPassword(e.currentTarget.value)} placeholder="Введите пароль" />
+					<input id="password" type="password" value={password} onChange={(e) => setPassword(e.currentTarget.value)}/>
 				</label>
 
 				{error

@@ -4,7 +4,6 @@ import propTypes from 'prop-types';
 import "./style.css"
 
 const ProfileInfo = (props) => {
-	console.log(props)
 	const cn = bem("ProfileInfo");
 
 	return (
@@ -20,7 +19,7 @@ const ProfileInfo = (props) => {
 			</div>
 
 			<div className={cn("text")}>
-				Email: <span>test_50@example.com</span>
+				email: <span>test_50@example.com</span>
 			</div>
 		</div>
 	)

@@ -16,12 +16,8 @@ function Main() {
 
   useInit(async () => {
     await store.get('catalog').initParams();
-  }, [], {backForward: true});
-
-  useInit(async () => {
     await store.get('auth').initUser();
-  }, []);
-
+  }, [], {backForward: true});
 
   const {t} = useTranslate();
 

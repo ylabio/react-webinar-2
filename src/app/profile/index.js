@@ -14,15 +14,15 @@ import { Navigate, useNavigate } from "react-router-dom";
 function Profile() {
   const store = useStore();
 
-  useInit(async () => {
-    await store.get('auth').initUser();
-  }, []);
-
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
     auth: state.auth,
   }));
+
+  useInit(async () => {
+    await store.get('auth').initUser();
+  }, []);
 
   if(select.auth.isLogin === false) {
     return <Navigate replace to={"/login"} />

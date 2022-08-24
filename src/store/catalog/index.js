@@ -115,32 +115,18 @@ class CatalogState extends StateModule{
   }
 
   async getCategories () {
-    const response = await fetch("api/v1/categories?lang=ru&&skip=0&fields=title,_id,parent&sort=parent")
+
+    const response = await fetch("api/v1/categories?limit=12&lang=ru&&skip=0&fields=title,_id,parent")
     const json = await response.json()
     const categories = json["result"]["items"]
-    const newCategories = [{value: '', title: 'Все', parent: undefined}]
 
-    for (let category of categories) {
-      newCategories.push({value: category._id, title: category.title, parent: category.parent?._id})
-    }
+    this.setState({
+      ...this.getState(),
+      categories: categories,
+    });
 
-    for (let category of newCategories) {
-      let parent = category.parent
-      while(parent) {
-          category.title = ' - '+category.title
-          parent = newCategories.find(category => category.value === parent).parent
-      }
-    }
-
-    for (let id = 0; id < newCategories.length; id ++) {
-      if(newCategories[id].parent) {
-        const parentId = newCategories.findIndex((c) => c.value === newCategories[id].parent)
-        newCategories.splice(parentId + 1, 0, newCategories[id])
-        newCategories.splice(id+1, 1)
-      }
-    }
-    return newCategories
   }
+
 }
 
 export default CatalogState;

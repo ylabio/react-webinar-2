@@ -19,7 +19,7 @@ function LoginFormContainer() {
   };
 
   if(select.auth.isLogin === true) {
-    return <Navigate replace to={"/"} />
+    return <Navigate replace to={"/profile"} />
   }
 
   return (

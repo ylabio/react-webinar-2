@@ -6,6 +6,7 @@ import Basket from "./basket";
 import Article from "./article";
 import Profile from './profile';
 import Login from './login';
+import useInit from '../hooks/use-init';
 
 /**
  * Приложение

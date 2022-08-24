@@ -7,7 +7,7 @@ import useSelector from '../../hooks/use-selector';
 import useInit from "../../hooks/use-init";
 import HeadLogout from '../../components/head-logout';
 
-const Auth = () => {
+function Auth()  {
 
   const store = useStore();
   const {t} = useTranslate();
@@ -25,7 +25,7 @@ const Auth = () => {
 
   return (
       <>
-      {select.isLogin
+      {select.isLogin 
         ?<HeadLogin t={t}           
           logout={callbacks.logout}
           name={localStorage.getItem("userName")}

@@ -1,0 +1,19 @@
+body {
+  background: #535353;
+  font-family: sans-serif;
+  position: relative;
+  padding: 0 5%;
+}
+
+.Layout {
+  box-shadow: 0 0 15px 5px #0000003b;
+  background: #fff;
+  max-width: 1024px;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+.Layout-head {
+  background: #f5f5f5;
+  min-height: 80px;
+}

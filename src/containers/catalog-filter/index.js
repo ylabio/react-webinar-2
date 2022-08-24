@@ -1,32 +1,44 @@
-import React, {useCallback, useMemo} from "react";
+import React, { useEffect, useCallback, useMemo } from "react";
+import { useNavigate } from 'react-router-dom';
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
+
+import LayoutFlex from '../../layouts/layout-flex';
+import Spinner from '../../components/spinner';
 import Select from "../../components/select";
 import Input from "../../components/input";
-import LayoutFlex from "../../components/layout-flex";
 
 function CatalogFilter() {
-
   const store = useStore();
+  const navigate = useNavigate();
+  const { t } = useTranslate();
+
+  useEffect(() => {
+    store.get('filterOptions').fetchCategories();
+  }, []);
 
   const select = useSelector(state => ({
-    sort: state.catalog.params.sort,
-    query: state.catalog.params.query,
+    pending: state.filterOptions.fetchState.pending,
+    categories: state.filterOptions.categories,
+    category: state.catalog.filterParams.category,
+    sort: state.catalog.filterParams.sort,
+    query: state.catalog.filterParams.query,
   }));
 
-  const {t} = useTranslate();
-
   const callbacks = {
-    // Сортировка
-    onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
-    // Поиск
-    onSearch: useCallback(query => store.get('catalog').setParams({query, page: 1}), []),
-    // Сброс
-    onReset: useCallback(() => store.get('catalog').resetParams(), [])
+    changeSort: useCallback(sort => {
+      navigate(store.get('catalog').getFilterResultRoute('sort', sort));
+    }, []),
+    changeCategory: useCallback(category => {
+      navigate(store.get('catalog').getFilterResultRoute('category', category));
+    }, []),
+    changeSearch: useCallback(query => {
+      navigate(store.get('catalog').getFilterResultRoute('query', query));
+    }, []),
+    reset: useCallback(() => navigate('/catalog'), []),
   };
 
-  // Опции для полей
   const options = {
     sort: useMemo(() => ([
       {value:'order', title: 'По порядку'},
@@ -34,14 +46,17 @@ function CatalogFilter() {
       {value:'-price', title: 'Сначала дорогие'},
       {value:'edition', title: 'Древние'},
     ]), [])
-  }
+  };
 
   return (
-    <LayoutFlex flex="start">
-      <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
-      <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
-      <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
-    </LayoutFlex>
+    <Spinner active={select.pending}>
+      <LayoutFlex>
+        <Select onChange={callbacks.changeCategory} value={select.category} options={select.categories} />
+        <Select onChange={callbacks.changeSort} value={select.sort} options={options.sort}/>
+        <Input onChange={callbacks.changeSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
+        <button onClick={callbacks.reset}>{t('filter.reset')}</button>
+      </LayoutFlex>
+    </Spinner>
   );
 }
 

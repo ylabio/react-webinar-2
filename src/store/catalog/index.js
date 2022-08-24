@@ -1,110 +1,88 @@
+import getFetchState from "../utils/getFetchState";
 import StateModule from "../module";
-import qs from 'qs';
 
-const QS_OPTIONS = {
-  stringify: {
-    addQueryPrefix: true,
-    arrayFormat: 'comma',
-    encode: false
-  },
-  parse: {
-    ignoreQueryPrefix: true,
-    comma: true
-  }
-}
-
-/**
- * Состояние каталога
- */
 class CatalogState extends StateModule{
-
-  /**
-   * Начальное состояние
-   * @return {Object}
-   */
   initState() {
     return {
-      items: [],
-      count: 0,
-      params: {
-        page: 1,
-        limit: 10,
-        sort: 'order',
-        query: ''
+      pageItems: [],
+      // limit: 10,
+      currentPage: 1,
+      currentRoute: '/',
+      pagesCount: 1,
+      filterParams: {
+        query: '',
+        sort: '',
+        category: '',
       },
-      waiting: false
+      fetchState: {
+        pending: true,
+        error: false,
+        ok: false,
+      },
     };
   }
 
-  /**
-   * Инициализация параметров.
-   * Восстановление из query string адреса
-   * @param params
-   * @return {Promise<void>}
-   */
-  async initParams(params = {}){
-    // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
-    const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
-    let validParams = {};
-    if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
-    if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
-    if (urlParams.sort) validParams.sort = urlParams.sort;
-    if (urlParams.query) validParams.query = urlParams.query;
-
-    // Итоговые параметры из начальных, из URL и из переданных явно
-    const newParams = {...this.initState().params, ...validParams, ...params};
-    // Установка параметров и подгрузка данных
-    await this.setParams(newParams, true);
-  }
-
-  /**
-   * Сброс параметров к начальным
-   * @param params
-   * @return {Promise<void>}
-   */
-  async resetParams(params = {}){
-    // Итоговые параметры из начальных, из URL и из переданных явно
-    const newParams = {...this.initState().params, ...params};
-    // Установк параметров и подгрузка данных
-    await this.setParams(newParams);
-  }
-
-  /**
-   * Устанвока параметров и загрузка списка товаров
-   * @param params
-   * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
-   * @returns {Promise<void>}
-   */
-  async setParams(params = {}, historyReplace = false){
-    const newParams = {...this.getState().params, ...params};
-
-    // Установка новых параметров и признака загрузки
+  async fetchPageItems(location) {
     this.setState({
       ...this.getState(),
-      params: newParams,
-      waiting: true
-    });
+      fetchState: getFetchState('pending'),
+    }, 'Загрузка товаров страницы каталога');
 
-    const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
-    const json = await response.json();
+    const filterParams = { ...this.getState().filterParams };
 
-    // Установка полученных данных и сброс признака загрузки
-    this.setState({
-      ...this.getState(),
-      items: json.result.items,
-      count: json.result.count,
-      waiting: false
-    });
+    const routeSearch = new URLSearchParams(location.search);
 
-    // Запоминаем параметры в URL
-    let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);
-    const url = window.location.pathname + queryString + window.location.hash;
-    if (historyReplace) {
-      window.history.replaceState({}, '', url);
-    } else {
-      window.history.pushState({}, '', url);
-    }
+    for (let key in filterParams) { filterParams[key] = routeSearch.get(key) || ''; }
+
+    const currentPage = +routeSearch.get('page') || 1;
+
+    let apiQuery = `/api/v1/articles?fields=items(*),count&limit=10&skip=${currentPage * 10 - 10}`
+
+    if (filterParams.sort) apiQuery += '&sort=' + filterParams.sort;
+    if (filterParams.query) apiQuery += '&search[query]=' + filterParams.query;
+    if (filterParams.category) apiQuery += '&search[category]=' + filterParams.category;
+
+    await fetch(apiQuery)
+      .then(res => {
+        if (res.ok) return res.json()
+        else throw new Error(res.status + ' ' + res.statusText);
+      })
+      .then(json => {
+        if (!json.result.items.length) throw new Error('Ничего не найдено');
+        this.setState({
+          pageItems: json.result.items,
+          currentPage,
+          currentRoute: location.pathname + location.search,
+          pagesCount: Math.ceil(json.result.count / 10),
+          fetchState: getFetchState('ok'),
+          filterParams,
+        }, 'Загружены товары страницы каталога')
+      })
+      .catch(err => {
+        console.error('store.catalog.fetchPageItems() ' + err);
+        this.setState({
+          ...this.getState(),
+          fetchState: getFetchState('error'),
+          filterParams,
+        }, 'Ошибка при загрузке товаров каталога');
+      })
+  }
+
+
+
+  // Вызывается при смене параметров фильтра
+  // Возвращает новый роут, который обрабатывается fetchPageItems()
+  //
+  getFilterResultRoute (param, value) {
+    const filterParams = { ...this.getState().filterParams };
+    filterParams[param] = value;
+
+    let route = '/catalog?';
+    if (filterParams.sort) route += `sort=${filterParams.sort}&`;
+    if (filterParams.query) route += `query=${filterParams.query}&`;
+    if (filterParams.category) route += `category=${filterParams.category}`;
+
+    return route.replace(/&$/, '');
   }
 }
 

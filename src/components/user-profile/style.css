@@ -1,0 +1,30 @@
+.UserProfile {
+  padding: 20px 35px;
+}
+
+.UserProfile-description {
+  margin: 20px 0;
+}
+
+.UserProfile-prop {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.UserProfile-prop:nth-of-type(2) {
+  margin-top: 30px;
+}
+
+.UserProfile-title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.UserProfile-label {
+  padding-right: 10px;
+}
+
+.UserProfile-value {
+  font-weight: bold;
+}

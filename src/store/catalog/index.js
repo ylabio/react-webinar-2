@@ -25,7 +25,7 @@ class CatalogState extends StateModule {
     return {
       items: [],
       count: 0,
-      categories: [],
+      // categories: [],
       params: {
         page: 1,
         limit: 10,
@@ -37,19 +37,19 @@ class CatalogState extends StateModule {
     }
   }
 
-  /**
-   * Получение категорий
-   * @return {Promise<void>}
-   */
-  async getCategories() {
-    const response = await fetch(`/api/v1/categories`)
-    const json = await response.json()
+  // /**
+  //  * Получение категорий
+  //  * @return {Promise<void>}
+  //  */
+  // async getCategories() {
+  //   const response = await fetch(`/api/v1/categories`)
+  //   const json = await response.json()
 
-    this.setState({
-      ...this.getState(),
-      categories: json.result.items,
-    })
-  }
+  //   this.setState({
+  //     ...this.getState(),
+  //     categories: json.result.items,
+  //   })
+  // }
 
   /**
    * Инициализация параметров.
@@ -62,7 +62,7 @@ class CatalogState extends StateModule {
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
     let validParams = {}
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1
-    if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10
+    if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 11
     if (urlParams.sort) validParams.sort = urlParams.sort
     if (urlParams.query) validParams.query = urlParams.query
     if (urlParams.category) validParams.category = urlParams.category

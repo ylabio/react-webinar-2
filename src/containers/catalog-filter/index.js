@@ -14,7 +14,7 @@ function CatalogFilter() {
 
   useInit(
     async () => {
-      await store.get('catalog').getCategories()
+      await store.get('categories').getCategories()
     },
     [],
     { backForward: true }
@@ -24,7 +24,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.categories,
+    categories: state.categories.categories,
   }))
 
   const tree = createTreeCategory(select.categories)

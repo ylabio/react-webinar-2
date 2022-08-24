@@ -11,6 +11,8 @@ import TopHead from "../../containers/top-head";
 import FormLogin from "../../components/form-login";
 import LayoutAuth from "../../components/layout-auth";
 import { useLocation, useNavigate} from "react-router-dom";
+import Loader from "../../components/loader";
+import Spinner from "../../components/spinner";
 
 
 function Login() {
@@ -19,7 +21,7 @@ function Login() {
   const select = useSelector(state => ({
     token: state.authorization.token,
     error: state.authorization.error,
-    //token о
+    waiting: state.authorization.waiting,
     user: state.profile.userData?.profile,
   }));
 
@@ -29,9 +31,11 @@ function Login() {
   const from = location.state?.from?.pathname || '/'
 
   useEffect(() => {
+    // редирект после авторизации
     if (select.token) {
       navigate(from, {replace: true});
     }
+    // очистка ошибки
     return () => store.get('authorization').cleanError();
   }, [select.token])
 
@@ -53,9 +57,10 @@ function Login() {
       }>
 
       <Tools/>
+      {select.waiting ? <Loader/> :
       <LayoutAuth title={<h2>{t('login')}</h2>}>
         <FormLogin onLogin={callbacks.login} token={select.token} error={select.error} t={t}/>
-      </LayoutAuth>
+      </LayoutAuth>}
     </Layout>
   )
 }

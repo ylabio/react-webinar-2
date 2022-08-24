@@ -10,7 +10,6 @@ import LocaleSelect from "../../containers/locale-select";
 import TopHead from "../../containers/top-head";
 import UserProfile from "../../components/user-profile";
 import LayoutAuth from "../../components/layout-auth";
-import { Navigate } from "react-router-dom";
 
 function Profile() {
   const store = useStore();
@@ -23,12 +22,9 @@ function Profile() {
     token: state.authorization.token,
     user: state.profile.userData,
   }));
-
+ 
   const {t} = useTranslate();
 
-  if (!localStorage.getItem('authToken')) {
-   return <Navigate to="/login" replace={true} />
-  }
   return (
     <Layout head={
       <LayoutFlex flex="between">

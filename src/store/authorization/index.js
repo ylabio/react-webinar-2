@@ -14,6 +14,7 @@ class AuthorizationState extends StateModule{
       error: '',
       token: '',
       authName: '',
+      waiting: false,
     };
   }
 
@@ -49,9 +50,16 @@ class AuthorizationState extends StateModule{
 
   // Проверка работоспособности токена
   async checkToken() {
+
     const token = localStorage.getItem('authToken');
 
+    // если токен не найден, то останавливаем чтобы не делать лишнего запроса
     if (!token) return
+
+    this.setState({
+      ...this.getState(),
+      waiting: true
+    });
 
     const requestOptions = {
       method: 'GET',
@@ -63,12 +71,12 @@ class AuthorizationState extends StateModule{
     const res = await fetch('/api/v1/users/self', requestOptions);
     const json = await res.json();
 
-
     this.setState({
       ...this.getState(),
       authName: json.result.profile.name,
       error: '',
       token,
+      waiting: false
     }, 'Загрузка данных пользователя');
   }
   
@@ -84,7 +92,6 @@ class AuthorizationState extends StateModule{
     }
 
     const response = await fetch('/api/v1/users/sign', requestOptions);
-    const json = await response.json();
     
     localStorage.removeItem('authToken');
 
@@ -97,7 +104,7 @@ class AuthorizationState extends StateModule{
   }
 
   // очистка от ошибки
-  async cleanError() {
+  cleanError() {
     this.setState({
       ...this.getState(),
       error: '',

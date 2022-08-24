@@ -17,9 +17,10 @@ class ProfileState extends StateModule{
 
   // загрузка данных пользователя в state
   async loadUser() {
+
     const token = localStorage.getItem('authToken');
 
-    // Если токена нету, то не будет и лишнего запроса для проверки его работоспособности
+    // Если токена нету, то не будет и запроса для проверки его работоспособности
     if (!token) return
 
     const requestOptions = {

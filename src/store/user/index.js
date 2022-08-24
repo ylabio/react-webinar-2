@@ -55,7 +55,7 @@ class UserState extends StateModule {
       // Ошибка авторизации
       this.setState({
         ...this.getState(),
-        error: 'Данные введены неверно: HTTP-Error: ' + response.status + '. Повторите ввод.',
+        error: 'Данные введены неверно. Повторите ввод. HTTP status: ' + response.status + ', text: ' + response.statusText + '.',
         authorized: false,
         waiting: false
       });

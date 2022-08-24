@@ -10,9 +10,7 @@ import LocaleSelect from "../../containers/locale-select";
 import TopHead from "../../containers/top-head";
 import FormLogin from "../../components/form-login";
 import LayoutAuth from "../../components/layout-auth";
-import { useLocation, useNavigate} from "react-router-dom";
 import Loader from "../../components/loader";
-import Spinner from "../../components/spinner";
 
 
 function Login() {
@@ -25,21 +23,16 @@ function Login() {
     user: state.profile.userData?.profile,
   }));
 
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const from = location.state?.from?.pathname || '/'
-
   useEffect(() => {
     // редирект после авторизации
     if (select.token) {
-      navigate(from, {replace: true});
+      window.history.back()
     }
     // очистка ошибки
     return () => store.get('authorization').cleanError();
   }, [select.token])
 
-  const callbacks = {
+    const callbacks = {
     // Логин
     login: useCallback(data => store.get('authorization').loginRequest(data), [])
   };

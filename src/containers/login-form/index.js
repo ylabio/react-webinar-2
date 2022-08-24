@@ -1,6 +1,5 @@
-import React from "react";
+import React, {useEffect, useCallback} from "react";
 import LoginLayout from "../../components/login-layout";
-import {postData} from "../../utils/post-data";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import {useNavigate} from "react-router-dom";
@@ -12,53 +11,26 @@ function LoginForm(){
   const select = useSelector(state=>({
     loginError: state.user.loginError,
     login: state.user.login,
-    password: state.user.password
+    password: state.user.password,
+    token: state.user.token
   }));
 
-  let login = select.login;
-  let password = select.password;
-
-  const handleLogin = ()=>{
-    postData('/api/v1/users/sign', {login,password})
-    .then((res)=>{
-        
-      if (res.error) store.setState({
-        ...store.getState(),
-        user: {
-          loginError: res.error.data.issues[0].message,
-          login: '',
-          password: ''
-      }});
-      else {store.setState({
-        ...store.getState(),
-        user: {
-          loginError: '',
-          login: '',
-          password: '',
-          ...res.result.user,
-          token: res.result.token
-        }
-      });
-      localStorage.setItem('token', res.result.token);
-      navigate('/');
-      }
-    });
+  const callbacks = {
+    onLogin: useCallback(()=>store.get('user').getLogIn(),[]),
+    onChangeLogin: useCallback((e)=>store.get('user').setLogin(e.target.value),[]),
+    onChangePassword: useCallback((e)=>store.get('user').setPassword(e.target.value),[])
   }
 
-  const onLogin = (e)=>{
-    store.get('user').setLogin(e.target.value);
-  }
-
-  const onPassword = (e)=>{
-    store.get('user').setPassword(e.target.value);
-  }
+  useEffect(()=>{
+    if (select.token) navigate('/');
+  });
 
   return (
-    <LoginLayout onButtonClick={handleLogin} 
+    <LoginLayout onButtonClick={callbacks.onLogin} 
       error={select.loginError}
-      onPassword={onPassword} onLogin={onLogin}
-      login={login} password={password} />
+      onPassword={callbacks.onChangePassword} onLogin={callbacks.onChangeLogin}
+      login={select.login} password={select.password} />
   )
 }
 
-export default LoginForm;
+export default React.memo(LoginForm);

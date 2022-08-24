@@ -14,7 +14,6 @@ function Auth(){
     profile: state.user.profile,
   }));
 
-
   const callbacks = {
     onLogout: useCallback(()=>store.get('user').setLogOut(),[])
     }

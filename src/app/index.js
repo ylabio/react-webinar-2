@@ -1,37 +1,49 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import useSelector from "../hooks/use-selector";
 import useStore from "../hooks/use-store";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import useInit from "../hooks/use-init";
+import { Routes, Route } from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
 import LoginBar from "../components/login-bar";
 import Login from "./login";
 import Profile from "./profile";
+import Layout from "../components/layout";
 
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
-  const navigate = useNavigate();
+  const [validating, setValidating] = useState(true);
   const modal = useSelector((state) => state.modals.name);
-  const auth_data = useSelector((state) => ({
-    username: state.auth.username,
+  const username = useSelector((state) => state.profile.username);
+  const token_data = useSelector((state) => ({
     token: state.auth.token,
+    is_token_valid: state.auth.is_token_valid,
   }));
 
   const store = useStore();
 
+  useInit(async () => {
+    await store
+      .get("profile")
+      .getProfile(token_data.token, (value) =>
+        store.get("auth").setTokenValidity(value)
+      );
+    setValidating(false);
+  }, [token_data.token]);
+
   const logout = useCallback(async () => {
-    await store.get("auth").logout(() => {
-      navigate("/", { replace: true });
-    });
+    await store.get("auth").logout();
   }, []);
 
-  return (
+  const content = validating ? (
+    <Layout />
+  ) : (
     <>
-      <LoginBar username={auth_data.username} logout={logout} />
+      <LoginBar username={username} logout={logout} />
       <Routes>
         <Route path={""} element={<Main />} />
         <Route path={"/articles/:id"} element={<Article />} />
@@ -41,6 +53,8 @@ function App() {
       {modal === "basket" && <Basket />}
     </>
   );
+
+  return content;
 }
 
 export default React.memo(App);

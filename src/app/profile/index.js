@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import Layout from "../../components/layout";
-import useInit from "../../hooks/use-init";
-import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import LayoutFlex from "../../components/layout-flex";
@@ -12,21 +10,16 @@ import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const navigate = useNavigate();
-  const store = useStore();
-  const token = useSelector((state) => state.auth.token);
+  const isLoggedIn = useSelector((state) => state.auth.is_token_valid);
   const user_data = useSelector((state) => ({
-    username: state.auth.username,
-    phone: state.auth.extra_data.phone,
-    email: state.auth.extra_data.email,
+    username: state.profile.username,
+    phone: state.profile.phone,
+    email: state.profile.email,
   }));
 
   useEffect(() => {
-    if (!token) navigate("/login", { replace: true });
-  }, [token]);
-
-  useInit(async () => {
-    await store.get("auth").getProfile();
-  });
+    if (!isLoggedIn) navigate("/login", { replace: true });
+  }, [isLoggedIn]);
 
   const { t } = useTranslate();
 

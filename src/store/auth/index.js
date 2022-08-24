@@ -3,13 +3,8 @@ import StateModule from "../module";
 class AuthState extends StateModule {
   initState() {
     return {
-      username: localStorage.getItem("username"),
       token: localStorage.getItem("token"),
-      error_message: "",
-      extra_data: {
-        phone: "",
-        email: "",
-      },
+      is_token_valid: false,
     };
   }
 
@@ -22,21 +17,20 @@ class AuthState extends StateModule {
       });
       const json = await response.json();
       if (!json.error) {
-        localStorage.setItem("username", json.result.user.profile.name);
         localStorage.setItem("token", json.result.token);
 
         this.setState({
-          ...this.getState(),
-          username: json.result.user.profile.name,
           token: json.result.token,
-          error_message: "",
+          is_token_valid: true,
         });
         nav_function();
+        return ""; // сообщение без ошибки
       } else {
         this.setState({
-          ...this.getState(),
-          error_message: json.error.data.issues[0].message,
+          token: "",
+          is_token_valid: false,
         });
+        return json.error.data.issues[0].message; //сообщение с ошибкой
       }
     } catch (e) {
       console.log(e.message);
@@ -53,13 +47,10 @@ class AuthState extends StateModule {
         },
       });
       const json = await response.json();
-      localStorage.removeItem("username");
       localStorage.removeItem("token");
       this.setState({
-        ...this.getState(),
-        username: "",
         token: "",
-        error_message: "",
+        is_token_valid: false,
       });
       nav_function();
     } catch (e) {
@@ -67,27 +58,8 @@ class AuthState extends StateModule {
     }
   }
 
-  async getProfile() {
-    try {
-      const response = await fetch("/api/v1/users/self", {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Token": this.getState().token,
-        },
-      });
-      const json = await response.json();
-
-      this.setState({
-        ...this.getState(),
-        extra_data: {
-          phone: json.result.profile.phone,
-          email: json.result.email,
-        },
-      });
-    } catch (e) {
-      console.log(e.message);
-    }
+  setTokenValidity(value) {
+    this.setState({ ...this.getState(), is_token_valid: value });
   }
 }
 

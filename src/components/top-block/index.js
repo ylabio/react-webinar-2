@@ -13,11 +13,12 @@ function TopBlock() {
     }))
 
     const callbacks = {
-        onLogin: useCallback(() => history('/login', {replace: true}), []),
+        onLogin: useCallback(() => history('/login', {replace: false}), []),
         onLogout: useCallback(() => {
-            store.get('user').logout()
+            store.get('auth').logout()
+            store.get('user').cleanUserData()
             history('/', {replace: true})
-        }, [])
+        }, [select.profile])
     }
 
     return (

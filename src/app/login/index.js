@@ -12,21 +12,20 @@ function Login() {
     const store = useStore()
     const [form, setForm] = useState({login: '', password: ''})
     const select = useSelector(state => ({
-        error: state.user.error,
+        error: state.auth.data.error,
         name: state.user.profile.name
     }))
 
     useEffect(() => {
-        if (select.name) {
-            setForm({login: '', password: ''})
-            history('/', {replace: true})
+        if(select.name && !select.error){
+            history(-1)
         }
-    }, [select.name])
+    }, [select.name, select.error])
 
     const callbacks = {
         onSubmit: useCallback((e) => {
             e.preventDefault()
-            store.get('user').login(form)
+            store.get('auth').login(form)
         }, [form]),
         onChange: useCallback((e) => {
             setForm(prevState => ({

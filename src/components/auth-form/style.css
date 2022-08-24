@@ -1,0 +1,29 @@
+.AuthForm {
+  min-width: 203px;
+  width: 33%;
+  padding: 40px 20px;
+}
+
+.AuthForm-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.AuthForm-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.AuthForm-container button {
+  width: 53px;
+  height: 21px;
+}
+
+.AuthForm-container label {
+  width: 203px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}

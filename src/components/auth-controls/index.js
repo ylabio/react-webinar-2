@@ -11,7 +11,7 @@ function AuthControls(props) {
 
   return (
     <div className={cn()}>
-      {props.isAuthenticated ? 
+      {props.status === 'auth_successful' ? 
         <>
           <Link to={'/profile'} className={cn('link')}>{props.username}</Link>
           <button onClick={props.logout}>{props.t('auth.signout')}</button>
@@ -26,7 +26,7 @@ function AuthControls(props) {
 export default React.memo(AuthControls)
 
 AuthControls.propTypes = {
-  isAuthenticated: propTypes.bool,
+  status: propTypes.string,
   username: propTypes.string,
   logout: propTypes.func,
   t: propTypes.func

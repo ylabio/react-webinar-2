@@ -8,7 +8,7 @@ function AuthUser() {
   const store = useStore()
   const select = useSelector(state => ({
     username: state.auth.user?.profile?.name,
-    isAuthenticated: state.auth.isAuthenticated
+    status: state.auth.status
   }));
 
   const {t} = useTranslate();
@@ -18,7 +18,7 @@ function AuthUser() {
   };
 
   return (
-    <AuthControls isAuthenticated={select.isAuthenticated} 
+    <AuthControls status={select.status} 
                   username={select.username} 
                   logout={callbacks.logout}
                   t={t}

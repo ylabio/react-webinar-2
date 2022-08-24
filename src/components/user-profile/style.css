@@ -22,3 +22,8 @@
 .UserProfile-value{
   font-weight: bold;
 }
+
+.UserProfile-loader{
+  text-align: center;
+  margin-top: 40px;
+}

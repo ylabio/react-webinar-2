@@ -9,8 +9,8 @@ class AuthModule extends StateModule {
      initState() {
       return {
         token: Cookies.get('token'),
-        user: {},
-        isAuthenticated: null,
+        user: null,
+        status: null,
         waiting: false
       }
     }
@@ -22,21 +22,37 @@ class AuthModule extends StateModule {
   async loadUser() {
     this.setState({...this.getState(), waiting: true})
 
-    const response = await fetch(`/api/v1/users/self?fields=_id,email,profile(phone, name)`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Token': this.getState().token
+    // Отсылаем запрос только при наличии токена
+    if (this.getState().token) {
+      const response = await fetch(`/api/v1/users/self?fields=_id,email,profile(phone, name)`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Token': this.getState().token
+        }
+      })
+      const json = await response.json()
+      if (response.status === 200) {
+        this.setState({
+          ...this.getState(),
+          user: json.result,
+          status: 'auth_successful',
+          waiting: false
+        }, 'Загрузка пользователя по токену - успешно')
+      } else {
+        this.setState({
+          ...this.getState(),
+          status: 'auth_failed',
+          waiting: false,
+        }, 'Загрузка пользователя по токену - неуспех, на сервере нет такого токена')
       }
-    })
-    const json = await response.json()
-
-    this.setState({
-      ...this.getState(),
-      user: json.result,
-      isAuthenticated: true,
-      waiting: false
-    }, 'Загрузка пользователя по токену - успешно')
+    } else {
+      this.setState({
+        ...this.getState(),
+        status: 'auth_failed',
+        waiting: false
+      }, 'Загрузка пользователя по токену - неуспех, отсутствует токен')
+    }
   }
       
   /**
@@ -65,7 +81,7 @@ class AuthModule extends StateModule {
       ...this.getState(),
       token: json.result.token,
       user: json.result.user,
-      isAuthenticated: true,
+      status: 'auth_successful',
       waiting: false
     }, 'Login')
   }
@@ -88,8 +104,8 @@ class AuthModule extends StateModule {
     this.setState({
       ...this.getState(),
       token: '',
-      user: {},
-      isAuthenticated: false,
+      user: null,
+      status: 'auth_failed',
       waiting: false
     }, 'Logout')
   }

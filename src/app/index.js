@@ -8,7 +8,8 @@ import Basket from "./basket";
 import Article from "./article";
 import Login from './login';
 import Profile from './profile';
-import useAuth from '../hooks/use-auth';
+import RequireAuth from '../containers/require-auth';
+import NonRequireAuth from '../containers/non-require-auth';
 
 /**
  * Приложение
@@ -16,13 +17,11 @@ import useAuth from '../hooks/use-auth';
  */
 function App() {
   const store = useStore()
-  const [isAuth, token] = useAuth()
 
   const modal = useSelector(state => state.modals.name);
 
   useInit(async () => {
-    // делаем запрос на получение юзера, если имеем сохраненный токен
-    token && await store.get('auth').loadUser()
+    await store.get('auth').loadUser()
   }, [])
 
   return (
@@ -30,8 +29,12 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
-        <Route path={"/login"} element={!isAuth ? <Login/> : <Navigate to='/profile' replace/>}/>
-        <Route path={"/profile"} element={isAuth ? <Profile/> : <Navigate to='/login' replace/>}/>
+        <Route element={<RequireAuth redirectPath='/login'/>}>
+          <Route path={"/profile"} element={<Profile/>}/>
+        </Route>
+        <Route element={<NonRequireAuth redirectPath='/profile'/>}>
+          <Route path={"/login"} element={<Login/>}/>
+        </Route>
         <Route path={"*"} element={<Navigate to='/'/>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}

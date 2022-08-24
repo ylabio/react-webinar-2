@@ -18,18 +18,13 @@ class CategoriesState extends StateModule {
   // Загрузка списка категорий
 
   async setCategories() {
-    this.setState({
-      ...this.getState(),
-      waiting: true,
-    });
-
     const response = await fetch(`/api/v1/categories?limit=*`);
     const json = await response.json();
 
     const result = categories(json.result.items);
 
     this.setState({
-      categories: [...this.getState().categories, ...result],
+      categories: [...this.initState().categories, ...result],
     });
   }
 }

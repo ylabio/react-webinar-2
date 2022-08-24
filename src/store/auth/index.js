@@ -72,11 +72,13 @@ class AuthState extends StateModule{
 				phone: json.result.profile.phone,
 				email: json.result.email
 			})
+			return new Promise((resolve, reject) => resolve(true));
 		} else {
 			this.setState({
 				...this.getState(),
 				authError: ''
 			})
+			return new Promise((resolve, reject) => resolve(false));
 		}
   }
 

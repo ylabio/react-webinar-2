@@ -2,12 +2,15 @@ import React, { useEffect } from 'react';
 import useSelector from "../hooks/use-selector";
 import useStore from '../hooks/use-store';
 import useInit from '../hooks/use-init';
-import {Routes, Route, Navigate} from "react-router-dom";
+import {Routes, Route, useNavigate} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
 import Login from "./login";
 import Profile from './profile';
+import PrivateRoute from './private-route';
+import ProtectedRoute from './protected-route/index';
+import { useCallback } from 'react';
 
 /**
  * Приложение
@@ -16,23 +19,47 @@ import Profile from './profile';
 function App() {
 	const store = useStore();
 
-  useInit(async () => {
-    await store.get('auth').authentication();
-  }, []);
-
-  const select = useSelector(state => ({
+	const select = useSelector(state => ({
 		modal: state.modals.name,
 		isAuth: state.auth.isAuth,
 		user: state.profile.user
 	}));
+
+	const navigate = useNavigate();
+
+  useInit(async () => {
+    await store.get('auth').authentication().then(flagIsAuth => {
+			if(!flagIsAuth) {
+				navigate('/profile');
+			}
+		});
+  }, []);
+
+	const callbacks = {
+		authentication: useCallback(() => {
+			store.get('auth').authentication().then(flagIsAuth => {
+				if(flagIsAuth) {
+					navigate('/profile');
+				}
+			})
+		}, [])
+	};
 
   return (
     <>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
-				<Route path={"/login"} element={select.isAuth ? <Navigate to="/"/> : <Login/>}/>
-				<Route path={"/profile"} element={Object.keys(select.user).length ? <Profile/> : <Navigate to="/login"/>}/>
+				<Route path={"/login"} element={
+					<PrivateRoute isAuth={!select.isAuth} redirectUrl="/">
+						<Login/>
+					</PrivateRoute>
+				}/>
+				<Route path={"/profile"} element={
+					<ProtectedRoute isAuth={select.isAuth} redirectUrl="/login" asyncFunc={callbacks.authentication}>
+						<Profile/>
+					</ProtectedRoute>
+				}/>
       </Routes>
       {select.modal === 'basket' && <Basket/>}
     </>

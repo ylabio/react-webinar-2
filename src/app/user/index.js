@@ -8,6 +8,7 @@ import Tools from "../../containers/tools";
 import Prof from "../../components/prof";
 import Cabinet from "../../components/layout-cabinet";
 import LocaleSelect from "../../containers/locale-select";
+import Spinner from "../../components/spinner";
 
 function Authorization({ btnExit }) {
   let navigate = useNavigate();
@@ -16,6 +17,7 @@ function Authorization({ btnExit }) {
   const select = useSelector((state) => ({
     log: state.login.log,
     user: state.login.user,
+    waiting: state.login.waiting,
   }));
 
   useEffect(() => {
@@ -35,9 +37,11 @@ function Authorization({ btnExit }) {
       btn={btnExit}
     >
       <Tools />
-      <Cabinet head={"Профиль"}>
-        <Prof user={select.user} />
-      </Cabinet>
+      <Spinner active={select.waiting}>
+        <Cabinet head={"Профиль"}>
+          <Prof user={select.user} />
+        </Cabinet>
+      </Spinner>
     </Layout>
   );
 }

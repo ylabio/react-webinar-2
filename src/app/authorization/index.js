@@ -48,27 +48,26 @@ function Authorization() {
 
   console.log("state", stateFetch);
   return (
-    <Spinner active={select.waiting}>
-      <Layout
-        head={
-          <LayoutFlex flex="between">
-            <h1>{t("title")}</h1>
-            <LocaleSelect />
-          </LayoutFlex>
-        }
-        btn={
-          <Link to="/login">
-            <button>Вход</button>
-          </Link>
-        }
-      >
-        <Tools />
-
+    <Layout
+      head={
+        <LayoutFlex flex="between">
+          <h1>{t("title")}</h1>
+          <LocaleSelect />
+        </LayoutFlex>
+      }
+      btn={
+        <Link to="/login">
+          <button>Вход</button>
+        </Link>
+      }
+    >
+      <Tools />
+      <Spinner active={select.waiting}>
         <Cabinet head={"Вход"}>
           <Form setStateFetch={setStateFetch} user={select.user} />
         </Cabinet>
-      </Layout>
-    </Spinner>
+      </Spinner>
+    </Layout>
   );
 }
 

@@ -7,23 +7,28 @@ import LayoutFlex from '../../components/layout-flex';
 import LocaleSelect from '../../containers/locale-select';
 import ProfileCard from '../../components/profile-card';
 import UserMenu from '../user-menu';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import Spinner from '../../components/spinner';
 import useInit from '../../hooks/use-init';
 
 function Profile() {
   const store = useStore();
-
-  useInit(() => {
-    store.get('profile').checkUser(localStorage.getItem('token'), 'load');
-  }, []);
+  console.log('FROM PROFILE');
 
   const select = useSelector((state) => ({
     user: state.profile.user,
-    isLogged: state.profile.isLogged,
+    isLogged: state.session.isLogged,
     waiting: state.profile.waiting,
   }));
+
+  useInit(
+    async () => {
+      await store.get('profile').loadUserData(localStorage.getItem('token'));
+    },
+    [],
+    { backForward: true }
+  );
 
   const { t } = useTranslate();
 

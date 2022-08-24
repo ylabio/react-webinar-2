@@ -1,6 +1,5 @@
 import StateModule from '../module';
 import qs from 'qs';
-import categories from '../../utils/categories';
 
 const QS_OPTIONS = {
   stringify: {
@@ -33,7 +32,6 @@ class CatalogState extends StateModule {
         query: '',
         category: '',
       },
-      categories: [{ value: '', title: 'Все' }],
       waiting: false,
     };
   }
@@ -69,41 +67,6 @@ class CatalogState extends StateModule {
     const newParams = { ...this.initState().params, ...params };
     // Установк параметров и подгрузка данных
     await this.setParams(newParams);
-  }
-
-  // Загрузка списка категорий
-
-  async setCategories() {
-    this.setState({
-      ...this.getState(),
-      waiting: true,
-    });
-
-    let parents = [];
-    let children = [];
-
-    const response = await fetch(`/api/v1/categories?limit=*`);
-    const json = await response.json();
-
-    json.result.items.forEach((item) => {
-      if (!item.parent) {
-        parents.push({ value: item._id, parentId: null, title: item.title });
-      } else {
-        children.push({
-          value: item._id,
-          parentId: item.parent._id,
-          title: item.title,
-        });
-      }
-    });
-
-    const result = categories(children, parents);
-
-    this.setState({
-      ...this.getState(),
-      categories: [...this.getState().categories, ...result],
-      waiting: false,
-    });
   }
 
   /**

@@ -7,12 +7,17 @@ function LoginForm(props) {
   const [login, setLogin] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  React.useEffect(() => {
+    return () => {
+      setLogin('');
+      setPassword('');
+      props.resetError();
+    };
+  }, []);
+
   const onHandleSubmit = (e) => {
     e.preventDefault();
     props.onLogin(login, password);
-
-    setLogin('');
-    setPassword('');
   };
 
   const cn = bem('LoginForm');

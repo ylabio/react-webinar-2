@@ -18,7 +18,7 @@ function App() {
 
   useInit(() => {
     localStorage.getItem('token') &&
-      store.get('profile').checkUser(localStorage.getItem('token'));
+      store.get('session').checkAccess(localStorage.getItem('token'));
   }, []);
   const modal = useSelector((state) => state.modals.name);
 

@@ -12,9 +12,14 @@
 .LoginForm-form-item p {
   margin: 0;
 }
+.LoginForm-form-item input {
+  font-size: 16px;
+}
 .LoginForm-form-item {
   margin-bottom: 20px;
 }
 .LoginForm-form-error {
+  margin: 0;
+  margin-bottom: 20px;
   color: red;
 }

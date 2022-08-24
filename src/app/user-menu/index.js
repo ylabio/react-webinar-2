@@ -5,19 +5,26 @@ import LayoutFlex from '../../components/layout-flex';
 import LoginLink from '../../components/login-link';
 import LogoutLink from '../../components/logout-link';
 import useTranslate from '../../hooks/use-translate';
+import { useNavigate } from 'react-router-dom';
 
 function UserMenu() {
   const store = useStore();
   const { t } = useTranslate();
 
+  const navigate = useNavigate();
+
   const select = useSelector((state) => ({
-    user: state.profile.user,
-    isLogged: state.profile.isLogged,
+    name: state.session.name,
+    isLogged: state.session.isLogged,
   }));
+
+  const test = window.location.pathname;
+  console.log('test:', test);
 
   const callbacks = {
     // выход из профиля
-    onLogout: useCallback((token) => store.get('profile').onLogout(token), []),
+    onLogout: useCallback((token) => store.get('session').onLogout(token), []),
+    // onLogout: useCallback((token) => store.get('profile').onLogout(token), []),
   };
 
   const links = {
@@ -31,7 +38,7 @@ function UserMenu() {
         {select.isLogged ? (
           <LogoutLink
             lableButton={t('user-menu.logout')}
-            userName={select.user.name}
+            userName={select.name}
             onOut={callbacks.onLogout}
             link={links.profileLink}
           />

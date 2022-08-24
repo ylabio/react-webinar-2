@@ -9,23 +9,27 @@ import LocaleSelect from '../../containers/locale-select';
 import LoginForm from '../../components/login-form';
 import UserMenu from '../user-menu';
 import { Navigate } from 'react-router-dom';
+import Spinner from '../../components/spinner';
 
 function Login() {
   const store = useStore();
 
   const select = useSelector((state) => ({
-    isLogged: state.profile.isLogged,
-    error: state.profile.error,
+    isLogged: state.session.isLogged,
+    error: state.session.error,
+    waiting: state.profile.waiting,
   }));
+
+  console.log('history', history);
 
   const { t } = useTranslate();
 
   const callbacks = {
-    // авторизация пользователя
     onLogin: useCallback(
-      (login, password) => store.get('profile').onLogin(login, password),
+      (login, password) => store.get('session').onLogin(login, password),
       []
     ),
+    resetError: useCallback(() => store.get('session').resetError(), []),
   };
 
   return (
@@ -42,7 +46,13 @@ function Login() {
     >
       <Tools />
 
-      <LoginForm onLogin={callbacks.onLogin} error={select.error} />
+      <Spinner active={select.waiting}>
+        <LoginForm
+          onLogin={callbacks.onLogin}
+          error={select.error}
+          resetError={callbacks.resetError}
+        />
+      </Spinner>
 
       {select.isLogged && <Navigate to="/profile" />}
     </Layout>

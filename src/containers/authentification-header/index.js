@@ -3,7 +3,7 @@ import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import Authentification from '../../components/authentification';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function AuthentificationHeader() {
   const store = useStore();
@@ -11,6 +11,8 @@ function AuthentificationHeader() {
   const select = useSelector((state) => ({
     user: state.user,
   }));
+
+  const location = useLocation();
 
   const { t } = useTranslate();
 
@@ -33,6 +35,7 @@ function AuthentificationHeader() {
       onLogOut={callbacks.onLogOut}
       translate={callbacks.translate}
       navigate={callbacks.navigate}
+      locationState={{ from: location.pathname }}
     />
   );
 }

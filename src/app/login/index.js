@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useNavigationType, useParams } from 'react-router-dom';
 import useInit from '../../hooks/use-init';
 import useTranslate from '../../hooks/use-translate';
 import Tools from '../../containers/tools';
@@ -13,6 +13,11 @@ import LoginForm from '../../components/login-form';
 
 function Login() {
   const store = useStore();
+  const location = useLocation();
+  console.log('login', location);
+
+  const from = location.state?.from || '/';
+  console.log(from);
 
   // Параметры из пути /articles/:id
   const params = useParams();
@@ -43,7 +48,7 @@ function Login() {
 
   useEffect(() => {
     if (select.user.name) {
-      callbacks.navigate('/');
+      navigate(from);
     }
   }, [select.user]);
 

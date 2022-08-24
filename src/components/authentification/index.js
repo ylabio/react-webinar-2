@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import propTypes from 'prop-types';
 import './style.css';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
-function Authentification({ user, onLogOut, translate, navigate }) {
+function Authentification({ user, onLogOut, translate, navigate, locationState }) {
   const cn = bem('Authentification');
+  const state = { ...locationState };
+
+  function nav() {
+    console.log(state);
+    navigate('/login', { replace: false, state: { ...state } });
+  }
 
   return (
     <div className={cn()}>
@@ -14,12 +20,13 @@ function Authentification({ user, onLogOut, translate, navigate }) {
           {user.name}
         </Link>
       )}
-      <button
-        onClick={() => {
-          user.name ? onLogOut() : navigate('/login');
-        }}>
-        {user.name ? translate('logout') : translate('login')}
-      </button>
+      {user.name ? (
+        <button onClick={() => onLogOut()}>{translate('logout')}</button>
+      ) : (
+        <Link to={'/login'} state={state} className='button'>
+          {translate('login')}
+        </Link>
+      )}
     </div>
   );
 }
@@ -29,6 +36,7 @@ Authentification.propTypes = {
   onLogOut: propTypes.func.isRequired,
   translate: propTypes.func.isRequired,
   navigate: propTypes.func.isRequired,
+  locationState: propTypes.object.isRequired,
 };
 
 Authentification.defaultProps = {};

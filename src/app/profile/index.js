@@ -11,6 +11,7 @@ import LocaleSelect from '../../containers/locale-select';
 import AuthentificationHeader from '../../containers/authentification-header';
 import LoginForm from '../../components/login-form';
 import UserProfile from '../../components/user-profile';
+import { getUserToken } from '../../utils/localstorage/auth';
 
 function Profile() {
   const store = useStore();
@@ -35,7 +36,8 @@ function Profile() {
   };
 
   useEffect(() => {
-    if (!select.user.name) {
+    if (!select.user.name && !getUserToken()) {
+      console.log('eto ua');
       callbacks.navigate('/');
     }
   }, [select.user]);

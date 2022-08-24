@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+
 import StateModule from "../module";
 class User extends StateModule {
     initState() {
@@ -9,6 +9,7 @@ class User extends StateModule {
                 userName: '',
                 telephone: '',
                 email: '',
+                _id:'',
                 auth: false,
             }
         };
@@ -32,6 +33,13 @@ class User extends StateModule {
 
         const loginData = data.login
         const passwordData = data.password
+        if (!loginData || !passwordData) {
+            this.setState({
+                ...this.getState(),
+                user: { ...this.initState().user, error: `Ошибка - Заполните форму`, auth: false },
+            });
+            throw new Error(`Not login or password`)
+        }
         const response = await fetch(
             `/api/v1/users/sign`, {
             method: 'POST',
@@ -41,36 +49,37 @@ class User extends StateModule {
             body: JSON.stringify({ login: loginData, password: passwordData })
         }
         )
-        if (!loginData || !passwordData) {
-            this.setState({
-                ...this.getState(),
-                user: { ...this.initState().user, error: `Заполните форму`, auth: false },
-            });
-            throw new Error(`Not login or password`)
-        }
 
+        const json = await response.json()
+        console.log(json);
         if (!response.ok) {
 
+            const error = await json.error.data.issues[0].message
+            console.log(error);
             this.setState({
                 ...this.getState(),
-                user: { ...this.initState().user, error: `Ошибка ${response.status} - ${response.statusText}`, auth: false },
+                user: {
+                    ...this.initState().user,
+                    error: `Ошибка - ${error}`,
+                    auth: false
+                },
 
             });
             throw new Error(`Could not fetch `)
         }
-        const json = await response.json()
 
         localStorage.setItem('token', await json.result.token)
+        localStorage.setItem('id', await json.result.user._id)
         const profile = await json.result.user.profile
         this.setState({
             ...this.getState(),
             user: {
                 ...this.initState().user, error: false,
-                token: json.result.token, userName: profile.name,
+                token: json.result.token, userName: profile.name,_id:json.result.user._id,
                 telephone: profile.phone, email: json.result.user.email, auth: true
             },
         });
-
+     
 
 
     }
@@ -92,22 +101,22 @@ class User extends StateModule {
         }
 
         )
+
         if (cheeck.ok) {
             const response = await cheeck.json()
             const userInfo = await response.result
+            console.log(userInfo)
             localStorage.setItem('name', userInfo.profile.name)
             this.setState({
                 ...this.getState(),
                 user: {
                     ...this.initState().user, error: false,
                     userName: userInfo.profile.name, telephone: userInfo.profile.phone,
-                    email: userInfo.email, auth: true
+                    email: userInfo.email,_id:userInfo._id, auth: true
                 },
             });
         }
-        else {
-            throw new Error(`Проблема сети`)
-        }
+    
 
     }
     /**
@@ -132,6 +141,7 @@ class User extends StateModule {
         if (response.result) {
             localStorage.removeItem('token')
             localStorage.removeItem('name')
+            localStorage.removeItem('id')
             this.setState({
                 ...this.getState(),
                 user: {

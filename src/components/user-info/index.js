@@ -8,6 +8,7 @@ import useSelector from './../../hooks/use-selector';
 import useStore from './../../hooks/use-store';
 import useTranslate from './../../hooks/use-translate';
 import Tools from '../../containers/tools';
+import { Navigate } from 'react-router-dom';
 function UserInfo() {
     const store = useStore()
     const select = useSelector(state => ({

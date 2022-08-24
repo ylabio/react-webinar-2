@@ -1,11 +1,11 @@
 import { Navigate, useLocation, Outlet } from "react-router-dom";
 import React from 'react'
 
-const RequireAuth = () => {
+const RequireAuth = ({auth}) => {
 
     const location = useLocation()
     return (
-        localStorage.getItem('token')
+        auth
             ? <Outlet />
             : <Navigate to='/login' state={{ from: location }} replace />
     )

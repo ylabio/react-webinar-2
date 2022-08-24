@@ -14,6 +14,7 @@ function Login() {
         token: state.user.user.token,
         user: state.user.user.userName,
         auth: state.user.user.auth,
+        _id: state.user.user.auth._id
     }));
     const [data, setData] = useState({
         login: '',
@@ -43,6 +44,7 @@ function Login() {
         }>
             <Tools />
             <LoginForm
+                id={select._id}
                 auth={select.auth}
                 error={select.error}
                 loginUser={callbacks.loginUser}

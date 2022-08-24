@@ -16,15 +16,14 @@ function App() {
     user: state.user.user,
     modal: state.modals.name
   }));
-
   return (
     <>
       <Routes>
         <Route path={''} element={<Main />} />
         <Route path={"/articles/:id"} element={<Article />} />
         <Route path={"/login"} element={<Login />} />
-        <Route element={<RequireAuth />}>
-          <Route path={'/profile'} element={<UserInfo />} />
+        <Route element={<RequireAuth auth={localStorage.getItem('token')} />}>D
+          <Route path={'/profile/:id'} element={<UserInfo />} />
         </Route>
       </Routes>
       {select.modal === 'basket' && <Basket />}

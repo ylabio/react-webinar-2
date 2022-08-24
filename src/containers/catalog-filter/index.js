@@ -17,13 +17,13 @@ function CatalogFilter() {
     // Сброс
     onReset: useCallback(() => store.get('catalog').resetParams(), []),
     // Получить категорию
-    getCategory: useCallback(() => store.get('catalog').getCategory(), []),
+    getCategory: useCallback(() => store.get('category').getCategory(), []),
   };
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categoryItems: state.catalog.categoryItems,
+    categoryItems: state.category.categoryItems,
   }));
   useEffect(() => {
     callbacks.getCategory()

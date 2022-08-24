@@ -10,6 +10,7 @@ import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import LoginButton from "../../components/button-login";
 import useSelector from './../../hooks/use-selector';
+import { useLocation } from 'react-router-dom';
 
 function Main() {
   const store = useStore();
@@ -20,6 +21,8 @@ function Main() {
     token: state.user.user.token,
 
   }));
+
+  const id = localStorage.getItem('id')
   useInit(async () => {
     await store.get('catalog').initParams();
   }, [], { backForward: true });
@@ -27,7 +30,7 @@ function Main() {
   return (
     <Layout top={
       <LoginButton
-        path={'/profile'}
+        path={`/profile/${id}`}
         deleteUser={callbacks.deleteUser}
         token={select.token}
       />}

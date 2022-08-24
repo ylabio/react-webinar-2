@@ -24,7 +24,7 @@ function Basket() {
     // Удаление из корзины
     removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), [])
   };
-
+  
   const renders = {
     itemBasket: useCallback(item => (
       <ItemBasket

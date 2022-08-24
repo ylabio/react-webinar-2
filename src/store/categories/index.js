@@ -1,5 +1,6 @@
 import StateModule from "../module";
-import transformCategories from './../../utils/transform-categories';
+// import transformCategories from './../../utils/transform-categories';
+import {transformCategories} from './../../utils/transform-categories';
 
 /**
  * Состояние категорий

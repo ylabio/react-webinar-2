@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import {useIsInitialRender} from './use-is-initial-render';
 import useSelector from './use-selector';
 
-export function useNotSignedEffect(callback, notSignedCondition, deps = []) {
+export function useNotSignedEffect(callback, deps = []) {
   const {isSigned, isFetching} = useSelector(state => ({
     isSigned: state.session.isSigned,
     isFetching: state.session.isFetching

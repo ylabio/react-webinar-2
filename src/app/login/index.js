@@ -6,8 +6,10 @@ import CommonTopbar from '../../containers/common-topbar';
 import LoginForm from '../../containers/login-form';
 import Tools from '../../containers/tools';
 import useSelector from '../../hooks/use-selector';
+import useStore from '../../hooks/use-store';
 
 function Login() {
+  const store = useStore();
   const select = useSelector(state => ({
     isSigned: state.session.isSigned
   }));
@@ -27,6 +29,11 @@ function Login() {
       navigate(`/${redirect}${id ? '/' + id : ''}`, {replace: true});
     }
   }, [select.isSigned]);
+
+  // clear fields when close page
+  useEffect(() => {
+    return store.get('auth').clearInputFields();
+  }, []);
 
   return (
     <Layout head={<CommonHead />} topbar={<CommonTopbar />}>

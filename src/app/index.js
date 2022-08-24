@@ -25,7 +25,6 @@ function App() {
   const modal = useSelector(state => state.modals.name);
   const token = useSelector(state => state.auth.token);
 
-  
   useEffect(() => {
     if (token) {
       callbacks.load();  

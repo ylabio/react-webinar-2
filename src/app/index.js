@@ -26,11 +26,11 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path={'catalog/:page'} element={<Main/>}/>
+        <Route path={'catalog'} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
         <Route path={"/login"} element={<Login />}/>
         <Route path={"/profile"} element={<Profile />}/>
-        <Route path="" element={<Navigate replace to="catalog/1"/>} />
+        <Route path="" element={<Navigate replace to="catalog"/>} />
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

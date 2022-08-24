@@ -38,11 +38,14 @@ function Pagination(props) {
       {items.map((number, index) => (
         <li key={index}
             className={cn('item', {active: number === props.page, split: !number})}
-            onClick={onClickHandler(number)}
-        >
+            onClick={onClickHandler(number)}>
           {
             number ?
-            <Link className={cn('link')} to={`${props.linkBase}${number}${window.location.search}`}>{number}</Link> :
+            <Link className={cn('link')}
+                  to={`${window.location.search.replace(/page=[0-9]+/,  `page=${number}`)}`}
+                  onClick={(evt) => evt.preventDefault()}>
+              {number}
+            </Link> :
             '...'
           }
         </li>

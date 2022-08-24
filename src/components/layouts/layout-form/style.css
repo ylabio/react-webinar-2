@@ -1,0 +1,18 @@
+.Form-head h2 {
+  margin: 0;
+  padding: 20px 0 10px 0;
+}
+
+.Form-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.Form-main button {
+  width: fit-content;
+}
+
+.Form-error {
+  color: red;
+}

@@ -9,10 +9,10 @@ const User = ({ user }) => {
     <div className={cn()}>
       <h2 className={cn('title')}>Профиль</h2>
       <p className={cn('field')}>
-        Имя: <span className={cn('field-value')}>{user.profile.name}</span>
+        Имя: <span className={cn('field-value')}>{user.profile?.name}</span>
       </p>
       <p className={cn('field')}>
-        Телефон: <span className={cn('field-value')}>{user.profile.phone}</span>
+        Телефон: <span className={cn('field-value')}>{user.profile?.phone}</span>
       </p>
       <p className={cn('field')}>
         email: <span className={cn('field-value')}>{user.email}</span>

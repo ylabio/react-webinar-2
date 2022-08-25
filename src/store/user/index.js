@@ -15,6 +15,45 @@ class UserState extends StateModule {
     };
   }
 
+  async load(token) {
+    this.setState({
+      user: {},
+      token: '',
+      isLogged: false,
+      waiting: true,
+    });
+
+    return await fetch(`${this.BASE_URL}/users/self`, {
+      method: 'GET',
+      headers: {
+        'X-Token': token,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if (data.result) {
+          this.setState({
+            user: data.result,
+            token: token,
+            isLogged: true,
+            waiting: false,
+          });
+        }
+        if (data.error) {
+          this.setState({
+            user: {},
+            token: '',
+            isLogged: false,
+            waiting: false,
+          });
+        }
+        return data;
+      });
+  }
+
   authorize = async (login, password) => {
     return await fetch(`${this.BASE_URL}/users/sign`, {
       method: 'POST',

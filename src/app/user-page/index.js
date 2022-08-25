@@ -11,16 +11,21 @@ import LocaleSelect from '../../containers/locale-select';
 import User from '../../components/user';
 
 function UserPage() {
-  console.log('user');
-  const store = useStore();
-
-  const user = store.get('user').store.state.user.user;
-
   const { t } = useTranslate();
 
   const select = useSelector((state) => ({
     waiting: state.user.waiting,
+    user: state.user,
   }));
+
+  const content = () => {
+    if (select.waiting === false && Object.keys(select.user.user).length) {
+      return <User user={select.user.user} />;
+    }
+    if (select.waiting === false && Object.keys(select.user.user).length === 0) {
+      return <Navigate to="/login" />;
+    }
+  };
 
   return (
     <Layout
@@ -32,12 +37,7 @@ function UserPage() {
       }
     >
       <Tools />
-      {select.waiting === false && Object.keys(user).length !== 0 ? (
-        <Spinner active={select.waiting}>
-          <User user={user} />
-        </Spinner>
-      ) : null}
-      {select.waiting === false && Object.keys(user).length === 0 ? <Navigate to="/login" /> : null}
+      <Spinner active={select.waiting}>{content()}</Spinner>
     </Layout>
   );
 }

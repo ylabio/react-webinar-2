@@ -1,0 +1,16 @@
+.ProfileCard {
+  padding: 20px;
+}
+.ProfileCard-title {
+  margin-bottom: 30px;
+}
+.ProfileCard-line {
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.ProfileCard-spinner {
+  text-align: center;
+  color: #BBBBBB;
+}

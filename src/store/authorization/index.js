@@ -4,6 +4,7 @@ class Authorization extends StateModule {
 
 
     initState() {
+
         return {
             login: '',
             password: '',
@@ -15,7 +16,7 @@ class Authorization extends StateModule {
     }
 
     setUser(credentials = {}) {
-        const newUser = { ...this.getState(), ...credentials }
+        const newUser = { ...credentials }
 
 
         this.setState({

@@ -54,6 +54,7 @@ class CatalogState extends StateModule {
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
 
+    console.log(urlParams);
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = { ...this.initState().params, ...validParams, ...params };
     // Установка параметров и подгрузка данных
@@ -102,7 +103,6 @@ class CatalogState extends StateModule {
       const responseCategory = await fetch(`api/v1/categories`);
       const jsonCategory = await responseCategory.json();
       const sortCategory = sortingCategory(jsonCategory.result.items);
-      console.log(jsonCategory);
 
       this.setState({
         ...this.getState(),

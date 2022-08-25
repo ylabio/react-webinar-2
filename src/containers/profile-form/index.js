@@ -1,17 +1,21 @@
 import React from "react";
-import "./style.css";
+import useSelector from "../../hooks/use-selector";
+import ProfileFields from "../../components/profile-fields";
 
-function ProfileForm({ name, email, phone }) {
+function ProfileForm() {
 
 
+    const select = useSelector(state => ({
+        user: state.authorization.name,
+        profile: state.authorization
+    }));
+
+    const { email, phone, name } = select.profile;
 
     return (
-        <div className="container-profile">
-            <h2>Профиль</h2>
-            <p>Имя: <strong>{name}</strong></p>
-            <p>Телефон: <strong>{phone}</strong></p>
-            <p>email: <strong>{email}</strong></p>
-        </div>
+        <>
+            <ProfileFields email={email} phone={phone} name={name} />
+        </>
     )
 
 

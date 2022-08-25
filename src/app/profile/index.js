@@ -19,31 +19,29 @@ function Profile() {
 
 
     const select = useSelector(state => ({
-        user: state.authorization.name,
-        profile: state.authorization
+        user: state.authorization.name
     }));
 
     useInit(async () => {
         (window.localStorage.length === 0 && navigate('/login'));
         ((window.localStorage.length && !select.user) && navigate("/"));
-    }, [select.profile]);
+    }, [select.user]);
 
     const callback = {
         exit: useCallback(() => store.get('authorization').logOut(), []),
     }
 
-    const { name, email, phone } = select.profile
 
 
     return (<Fragment>
-        <LoginBar userName={name} logOut={callback.exit} />
+        <LoginBar userName={select.user} logOut={callback.exit} />
         <Layout head={
             <LayoutFlex flex="between">
                 <h1>{t('title')}</h1>
                 <LocaleSelect />
             </LayoutFlex>}>
             <Tools />
-            <ProfileForm name={name} email={email} phone={phone} />
+            <ProfileForm />
         </Layout>
 
     </Fragment>)

@@ -9,9 +9,9 @@ import Spinner from '../../components/spinner';
 
 const AuthForm = () => {
   const [creds, setCreds] = useState({login:"", password:""})
-  const navigate = useNavigate()
 
   const {t} = useTranslate()
+
   const store = useStore()
   
   const select = useSelector(state => ({

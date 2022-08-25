@@ -13,11 +13,15 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    categories: state.catalog.categories,
   }));
 
   const {t} = useTranslate();
 
   const callbacks = {
+    // Категория
+    onСategory: useCallback(category => store.get('catalog').setParams({category, page: 1}), []),
     // Сортировка
     onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
     // Поиск
@@ -33,11 +37,13 @@ function CatalogFilter() {
       {value:'title.ru', title: 'По именованию'},
       {value:'-price', title: 'Сначала дорогие'},
       {value:'edition', title: 'Древние'},
-    ]), [])
+    ]), []),
+    categories: useMemo(() => (select.categories), [select.categories]),
   }
 
   return (
     <LayoutFlex flex="start">
+      <Select onChange={callbacks.onСategory} value={select.category} options={options.categories}/>
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

@@ -1,4 +1,5 @@
 .Input{
+    display: flex;
     font-size: 16px;
     padding: 2px;
 }

@@ -27,14 +27,12 @@ function Login() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const history = useNavigate()
-  const from = location.state?.from?.pathname
+  const from = location.state.from || '/'
 
   useEffect(() => {
-
     // редирект после авторизации
     if (select.token) {
-      from ? navigate(from, {replace: true}) : history(-1)
+      navigate(from, {replace: true})
     }
     // очистка ошибки
     return () => store.get('authorization').cleanError();

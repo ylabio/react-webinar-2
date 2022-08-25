@@ -19,22 +19,22 @@ class AuthState extends StateModule{
         ...this.getState(),
         waiting: true
       })
-
       fetch("/api/v1/users/self", {
         method: "GET",
         headers: {
           "X-Token": `${this.getState().token}`
         }
-
       })
-        .then(response => response.json())
+        .then(response => {
+          if(response.ok) return response.json()
+          throw Error("Token error")
+        })
         .then(json => this.setState({
           ...this.getState(),
           user: json["result"],
           waiting: false
-        }
-        )
-        )
+        }))
+        .catch(() => this.logOut())
     }
 
   }
@@ -42,27 +42,18 @@ class AuthState extends StateModule{
    * выход и удаление токена
    */
   async logOut() {
-    fetch("/users/sign",{
-      method:"DELETE",
-      headers:{
-        "X-Token": `${this.getState().token}`
-      }
-    }
-    )   
-    .then(response => response.json())
-    .then(json => this.setState({
-      ...this.getState(),
-      user: json["result"],
-      waiting: false
-    }
-    )
-    )
 
     localStorage.removeItem('token')
-    this.setState(this.initState())
+    //удаление токена на сервере
+    fetch(`/api/v1/users/sign/`, {
+      method: "DELETE",
+      headers: {
+        "X-Token": `${this.getState().token}`
+      }
+    }).then(() => {
+      this.setState(this.initState())
+    })
 
-
-    
   }
    
   // авторизация

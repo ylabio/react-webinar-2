@@ -22,13 +22,7 @@ const AuthForm = () => {
   
   useEffect(() => {
     if(select.token) {
-      navigate('/')
-    }
-  }, [])
-  
-  useEffect(() => {
-    if(select.token) {
-      navigate('/profile')
+      history.back()
     }
   }, [select.token])
 

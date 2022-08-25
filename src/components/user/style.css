@@ -1,0 +1,14 @@
+.User {
+  padding: 20px;
+}
+
+.User-title {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  margin-bottom: 30px;
+}
+
+.User-field-value {
+  font-weight: bold;
+}

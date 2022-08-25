@@ -24,10 +24,12 @@ const LoginForm = (props) => {
   
   const callbacks = {
     logIn: useCallback((password, name) => store.get('auth').logIn(password, name), []),
-    onSubmit: useCallback((e) => {
+    onSubmit: useCallback(async (e) => {
       e.preventDefault();
-      callbacks.logIn(password, name);
+      await callbacks.logIn(password, name).then(d => console.log(d));
       setSubmited(true);
+      if (!isAuthErr && history.length === 2) return navigate('/?category=&page=1&limit=10&sort=order&query=', {replace: true });
+      if (!isAuthErr && history.length > 2) return navigate(-1, {replace: true });
     })
   }
 

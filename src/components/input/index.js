@@ -1,11 +1,12 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import propTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname';
+import { cn as bem } from '@bem-react/classname';
 import throttle from "lodash.throttle";
 import './style.css';
 
 function Input(props) {
   const cn = bem('Input');
+
 
   // Внутренний стейт по умолчанию с переданным value
   const [value, change] = useState(props.value);
@@ -26,11 +27,12 @@ function Input(props) {
 
   return (
     <input
-      className={cn({theme: props.theme})}
+      className={cn({ theme: props.theme })}
       value={value}
       type={props.type}
       placeholder={props.placeholder}
       onChange={onChange}
+      required={props.required}
     />
   )
 }
@@ -44,7 +46,7 @@ Input.propTypes = {
 }
 
 Input.defaultProps = {
-  onChange: () => {},
+  onChange: () => { },
   type: 'text',
   theme: ''
 }

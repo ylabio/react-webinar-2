@@ -1,0 +1,7 @@
+.container-profile {
+  max-width: 247px;
+  margin-top: 62px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+}

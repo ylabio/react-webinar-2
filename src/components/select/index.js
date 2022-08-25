@@ -1,8 +1,8 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import propTypes from "prop-types";
 import './style.css';
 
-function Select(props){
+function Select(props) {
 
   const onSelect = useCallback((e) => {
     props.onChange(e.target.value);
@@ -11,7 +11,7 @@ function Select(props){
   return (
     <select className="Select" onChange={onSelect} value={props.value}>
       {props.options.map(item => (
-        <option key={item.value} value={item.value}>{item.title}</option>
+        <option key={item.value ? item.value : item._id} value={item.value ? item.value : item._id}>{item.title}</option>
       ))}
     </select>
   )
@@ -24,7 +24,7 @@ Select.propTypes = {
 }
 
 Select.defaultProps = {
-  onChange: () => {}
+  onChange: () => { }
 }
 
 export default React.memo(Select);

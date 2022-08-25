@@ -19,6 +19,10 @@ function Main() {
   }, [], { backForward: true });
 
   useInit(async () => {
+    await store.get('category').getCategory();
+  }, []);
+
+  useInit(async () => {
     await store.get('authorization').choiceProfile();
   }, []);
 

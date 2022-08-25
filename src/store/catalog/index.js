@@ -1,6 +1,5 @@
 import StateModule from "../module";
 import qs from 'qs';
-import sortingCategory from "../../utils/sortingCategory";
 
 const QS_OPTIONS = {
   stringify: {
@@ -34,7 +33,6 @@ class CatalogState extends StateModule {
         query: '',
         _id: "0",
       },
-      category: [],
       waiting: false
     };
   }
@@ -98,33 +96,13 @@ class CatalogState extends StateModule {
     const json = await response.json();
 
 
-
-
-    // Проверка пустой ли массив категорий
-    if (this.getState().category.length === 0) {
-      const responseCategory = await fetch(`api/v1/categories?limit=20`);
-      const jsonCategory = await responseCategory.json();
-      const sortCategory = sortingCategory(jsonCategory.result.items);
-
-      this.setState({
-        ...this.getState(),
-        items: json.result.items,
-        count: json.result.count,
-        category: sortCategory,
-        waiting: false
-      });
-
-
-    }
-    else {
-      // Установка полученных данных и сброс признака загрузки
-      this.setState({
-        ...this.getState(),
-        items: json.result.items,
-        count: json.result.count,
-        waiting: false
-      });
-    }
+    // Установка полученных данных и сброс признака загрузки
+    this.setState({
+      ...this.getState(),
+      items: json.result.items,
+      count: json.result.count,
+      waiting: false
+    });
 
     // Запоминаем параметры в URL
     let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);

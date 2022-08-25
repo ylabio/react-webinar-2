@@ -32,7 +32,8 @@ function Login() {
   useEffect(() => {
     // редирект после авторизации
     if (select.token) {
-      navigate(from, {replace: true})
+      if (from === '/login') navigate('/', {replace: true})
+      else navigate(from, {replace: true})
     }
     // очистка ошибки
     return () => store.get('authorization').cleanError();

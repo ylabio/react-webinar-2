@@ -10,8 +10,6 @@ class Authorization extends StateModule{
         this.setState({
             error: false,
             isAuth: false,
-            token: null,
-            user: {},
             waiting: false
         })
 
@@ -27,8 +25,6 @@ class Authorization extends StateModule{
             
             this.setState({ 
                 error: false,
-                token, 
-                user: result.result, 
                 isAuth : true,
                 waiting: false
             })
@@ -50,8 +46,6 @@ class Authorization extends StateModule{
                 this.setState({
                     error: false,
                     isAuth: true,
-                    token: result.result.token,
-                    user: result.result.user,
                     waiting: false
                 })
             } else {
@@ -61,8 +55,6 @@ class Authorization extends StateModule{
             this.setState({
                 error: e,
                 isAuth: false,
-                token: null,
-                user: {},
                 waiting: false
             })
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import useSelector from "../hooks/use-selector";
 import {Routes, Route} from "react-router-dom";
 import Main from "./main";
@@ -6,6 +6,8 @@ import Basket from "./basket";
 import Article from "./article";
 import Authorization from './authorization';
 import Profile from './profile';
+import useAuth from '../hooks/use-auth';
+import useStore from '../hooks/use-store';
 
 /**
  * Приложение
@@ -13,8 +15,10 @@ import Profile from './profile';
  */
 function App() {
 
+  const store = useStore()
+
   const modal = useSelector(state => state.modals.name);
-  const isAuth = useSelector(state => state.auth.isAuth);
+  const {isAuth} = useAuth();
 
   return (
     <>

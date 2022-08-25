@@ -17,20 +17,12 @@ function Main() {
     await store.get('catalog').initParams();
   }, [], {backForward: true});
 
-  const select = useSelector(state => ({
-    isAuth: state.auth.isAuth,
-    username: typeof state.auth.user === 'undefined' ? null : state.auth.user.username
-  }))
-
-  const callbacks = {
-    logout: useCallback(() => store.get('auth').logout(), []),
-    initAuth: useCallback(() => store.get('auth').logout(), [])
-  }
+  useCallback(() => store.get('profile').initState())
 
   const {t} = useTranslate();
 
   return (
-    <Layout isAuth={select.isAuth} userName={select.username} logout={callbacks.logout} initAuth={callbacks.initAuth} head={
+    <Layout head={
       <LayoutFlex flex="between">
         <h1>{t('title')}</h1>
         <LocaleSelect/>

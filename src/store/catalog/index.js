@@ -47,8 +47,6 @@ class CatalogState extends StateModule{
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
 
-    console.log(urlParams)
-
     let validParams = {};
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
@@ -80,7 +78,7 @@ class CatalogState extends StateModule{
    * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
    * @returns {Promise<void>}
    */
-  async setParams(params={}, type, historyReplace = false){
+  async setParams(params={}, historyReplace = false){
     const newParams = {...this.getState().params, ...params};
     
     

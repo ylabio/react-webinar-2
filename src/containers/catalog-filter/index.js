@@ -14,7 +14,7 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    categories: state.select.categories,
+    categories: state.categories.categories,
     category: state.catalog.params.category,
   }));
 
@@ -29,7 +29,7 @@ function CatalogFilter() {
     onSort: useCallback((sort, type) => {
       if(type === 'category'){
         const category = parser(select.categories).filter(item => item.value === sort)[0].id
-        store.get('catalog').setParams({category}) 
+        store.get('catalog').setParams({category});
       }
       store.get('catalog').setParams({sort}) 
     }, [select.categories]),

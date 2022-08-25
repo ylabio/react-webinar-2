@@ -2,13 +2,12 @@ import React from "react";
 import useTranslate from "../../hooks/use-translate";
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
-import {useNavigate} from 'react-router-dom'
+
 
 function LoginForm(props){
     const cn = bem('LoginForm');
     const {t} = useTranslate();
     let formToSend = {}
-
 
     const onChangeHandler = (event) => {
         const fieldName = event.target.name
@@ -33,10 +32,10 @@ function LoginForm(props){
             </div>
             <div className={cn('input')}>
                 <div>{t('pass')}</div>
-                <input type={'text'}  onChange={onChangeHandler} name={"password"}/>
+                <input type={'password'}  onChange={onChangeHandler} name={"password"} autoComplete="false"/>
             </div>
             {props.error
-            ?<div className={cn('error')}>{props.error.message}</div>
+            ?<div className={cn('error')}>Неверный логин или пароль</div>
             : null}
             <input type={'submit'} value={t('enter')}></input>
             </form>

@@ -4,15 +4,18 @@ import propTypes from "prop-types";
 import './style.css';
 import Entrance from '../entrance';
 import Logout from '../logout'
+import useAuth from '../../hooks/use-auth';
 
-function Layout({head, children, isAuth, userName, logout, initAuth}){
+function Layout({head, children}){
   const cn = bem('Layout');
+
+  const {isAuth, username, logout, initAuth} = useAuth()
 
   return (
     <>
     <div className={cn()}>
     {isAuth
-    ? <Logout userName={userName} logout={logout}/>
+    ? <Logout userName={username} logout={logout}/>
     : <Entrance initAuth={initAuth}/>}
       <div className={cn('head')}>
         {head}

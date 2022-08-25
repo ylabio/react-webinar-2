@@ -4,6 +4,11 @@ import {Routes, Route} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
+import Profile from './profile';
+import Login from './login';
+import useInit from '../hooks/use-init';
+import RequireAuth from '../HOC/RequireAuth';
+
 
 /**
  * Приложение
@@ -18,6 +23,12 @@ function App() {
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
+        <Route path={"/login"} element={<Login/>}/>
+        <Route path={"/profile"} element={
+          <RequireAuth>
+            <Profile />
+          </RequireAuth>
+        }/>
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

@@ -10,6 +10,7 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import Auth from "../../containers/auth";
 
 function Article(){
   const store = useStore();
@@ -19,6 +20,7 @@ function Article(){
 
   useInit(async () => {
     await store.get('article').load(params.id);
+    await store.get('auth').initUser();
   }, [params.id]);
 
   const select = useSelector(state => ({
@@ -34,11 +36,16 @@ function Article(){
   };
 
   return (
-    <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{select.article.title}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
+    <Layout 
+        auth={
+          <LayoutFlex flex='end' padding={false}>
+            <Auth />
+          </LayoutFlex>}
+        head={
+          <LayoutFlex flex="between">
+            <h1>{select.article.title}</h1>
+            <LocaleSelect/>
+          </LayoutFlex>
     }>
       <Tools/>
       <Spinner active={select.waiting}>

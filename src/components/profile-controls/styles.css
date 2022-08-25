@@ -1,0 +1,13 @@
+.ProfileControls {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.ProfileControls-el{
+    color:#0087E9 ;
+}
+
+.ProfileControls-btn{
+    margin-right: 0%;
+}

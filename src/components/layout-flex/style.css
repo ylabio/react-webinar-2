@@ -17,6 +17,14 @@
 
 .LayoutFlex_flex_end{
     justify-content: flex-end;
+
+    background: white;
+    margin: 0 auto;
+    box-sizing: border-box;
+    display: flex;
+    padding: 10px 20px;
+    max-width: 1024px;
+    gap: 20px;
 }
 
 .LayoutFlex_flex_between{
@@ -25,4 +33,8 @@
 
 .LayoutFlex-item{
     margin: 0 5px;
+}
+
+.LayoutFlex-item a{
+    color: #0087E9;
 }

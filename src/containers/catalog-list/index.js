@@ -30,14 +30,25 @@ function CatalogList() {
 
   const renders = {
     item: useCallback(item => (
-      <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`} labelAdd={t('article.add')}/>
+      <Item 
+            item={item} 
+            onAdd={callbacks.addToBasket} 
+            link={`/articles/${item._id}`} 
+            labelAdd={t('article.add')}/>
+
     ), [t]),
   }
 
   return (
     <Spinner active={select.waiting}>
       <List items={select.items} renderItem={renders.item}/>
-      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
+      
+      <Pagination 
+                  count={select.count} 
+                  page={select.page} 
+                  limit={select.limit} 
+                  onChange={callbacks.onPaginate}/>
+
     </Spinner>
   );
 }

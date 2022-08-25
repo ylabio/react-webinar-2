@@ -1,0 +1,27 @@
+.profile {
+  margin-top: 37px;
+  margin-left: 20px;
+}
+.profileTitle {
+  font-family: Arial;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: 0em;
+  margin-bottom: 30px;
+}
+.desc {
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.profileInfo {
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+}

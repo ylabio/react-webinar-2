@@ -1,0 +1,19 @@
+.login {
+  display: flex;
+  justify-content: flex-end;
+  height: 41px;
+  align-items: center;
+}
+
+.button {
+  height: 21px;
+  margin-right: 20px;
+}
+
+.authBlock {
+  width: 170px;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

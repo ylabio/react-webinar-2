@@ -5,14 +5,14 @@ import {cn as bem} from '@bem-react/classname';
 import Input from '../../components/input';
 import './style.css';
 
-function LoginPage({t, login, password, onLogin, onPassword, onSubmit, authorized, error, prev}) {
+function LoginPage({t, login, password, onLogin, onPassword, onSubmit, authorized, error, pathname}) {
   const cn = bem('LoginPage');
   const navigate = useNavigate();
 
   const handleSubmit = e => {
     e.preventDefault();
     onSubmit(login, password);
-    prev ? navigate('/') : null;
+    pathname ? navigate('/') : null;
   }
 
   if (!authorized) {
@@ -39,8 +39,8 @@ function LoginPage({t, login, password, onLogin, onPassword, onSubmit, authorize
     )
   } else {
     useEffect(() => {
-      prev ? navigate('/') : null;
-    }, [prev])
+      pathname ? navigate('/') : null;
+    }, [pathname])
   }
 }
 
@@ -53,7 +53,7 @@ LoginPage.propTypes = {
   onSubmit: propTypes.func.isRequired,
   authorized: propTypes.bool,
   error: propTypes.string,
-  prev: propTypes.string
+  pathname: propTypes.string
 }
 
 LoginPage.defaultProps = {
@@ -61,7 +61,7 @@ LoginPage.defaultProps = {
   password: '******',
   authorized: false,
   error: '',
-  prev: ''
+  pathname: ''
 }
 
 export default React.memo(LoginPage);

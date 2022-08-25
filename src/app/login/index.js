@@ -16,10 +16,10 @@ function Login(){
   const location = useLocation();
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const [navBack, setNavBack] = useState('');
-  const prevLocation = usePrevious(navBack);
+  const [currLocation, setNavBack] = useState('');
+  const prevLocation = usePrevious(currLocation);
 
-  console.log('now', navBack, 'prev', prevLocation);
+  console.log('now', currLocation, 'prev', prevLocation);
 
   const select = useSelector(state => ({
     authorized: state.user.authorized,
@@ -64,7 +64,7 @@ function Login(){
           onSubmit={callbacks.onSubmit}
           authorized={select.authorized}
           error={select.error}
-          prev={prevLocation?.pathname}
+          pathname={prevLocation?.pathname}
         />
       </Spinner>
     </Layout>

@@ -55,11 +55,12 @@ class CatalogState extends StateModule {
     if (urlParams.query) validParams.query = urlParams.query;
     if (urlParams._id) validParams._id = urlParams._id;
 
-    console.log(urlParams);
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = { ...this.initState().params, ...validParams, ...params };
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
+
+    console.log(this.store.state.catalog.params);
   }
 
   /**
@@ -101,7 +102,7 @@ class CatalogState extends StateModule {
 
     // Проверка пустой ли массив категорий
     if (this.getState().category.length === 0) {
-      const responseCategory = await fetch(`api/v1/categories`);
+      const responseCategory = await fetch(`api/v1/categories?limit=20`);
       const jsonCategory = await responseCategory.json();
       const sortCategory = sortingCategory(jsonCategory.result.items);
 

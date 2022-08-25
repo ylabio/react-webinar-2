@@ -24,6 +24,7 @@ function Main() {
 
   useInit(async () => {
     await store.get('authorization').choiceProfile();
+    await store.get('authorization').setUser({ ...store.get('authorization').getState(), error: "", login: "", password: "" });
   }, []);
 
   const select = useSelector(state => ({

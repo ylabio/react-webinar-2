@@ -14,9 +14,9 @@ function UserPanel(props){
       {props.token  ?
         <>
           <Link to={props.link}><p className={cn('profile')}>{props.name }</p></Link>
-          <button onClick={props.logOut}>{props.loginTitle}</button>
+          <button onClick={props.logOut}>{props.logOutTitle}</button>
         </>
-        : <button onClick={props.logIn}>{props.logOutTitle}</button>
+        : <button onClick={props.logIn}>{props.loginTitle}</button>
       }
     </div>
   )

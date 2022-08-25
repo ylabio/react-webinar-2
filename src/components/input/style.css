@@ -6,3 +6,9 @@
 .Input_theme_big{
     width: 300px;
 }
+
+.Input_theme_auth {
+    width: 203px;
+    height: 26px;
+    margin-bottom: 19px;
+}

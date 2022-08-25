@@ -12,6 +12,7 @@ class ArticleState extends StateModule{
   initState() {
     return {
       data: {},
+      error: '',
       waiting: false
     };
   }
@@ -19,7 +20,7 @@ class ArticleState extends StateModule{
   /**
    * Загрузка списка товаров
    */
-  async load(id){
+  async load(id) {
     // Сброс текущего товара и установка признака ожидания загрузки
     this.setState({
       waiting: true,
@@ -37,9 +38,9 @@ class ArticleState extends StateModule{
       });
     } catch (e){
       // Ошибка при загрузке
-      // @todo В стейт можно положть информауию об ошибке
       this.setState({
         data: {},
+        error: e,
         waiting: false
       });
     }

@@ -1,5 +1,5 @@
 import React, {useCallback, useMemo} from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
@@ -15,6 +15,7 @@ import LocaleSelect from "../../containers/locale-select";
 function Article(){
   // Параметры из пути /articles/:id
   const params = useParams();
+  const navigate = useNavigate();
 
   useInit(async () => {
     await store.get('article').load(params.id);
@@ -34,6 +35,7 @@ function Article(){
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    toLogin: useCallback(() => navigate('/login'), []),
     logOut: useCallback(() => store.get('auth').logOut(), []),
   };
 
@@ -44,7 +46,7 @@ function Article(){
   return (
     <Layout head={
       <>
-        <LoginMenu options={options.loginMenu} user={select.user} logOut={callbacks.logOut}/>
+        <LoginMenu options={options.loginMenu} user={select.user} toLogin={callbacks.toLogin} logOut={callbacks.logOut}/>
         <LayoutFlex flex="between">
           <h1>{select.article.title}</h1>
           <LocaleSelect/>

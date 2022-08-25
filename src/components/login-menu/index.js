@@ -1,14 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 function LoginMenu(props) {
   const cn = bem('LoginMenu');
-  const navigate = useNavigate();
-  const toLogin = () => navigate('/login');
-  const { options: { loginTitle, logOutTitle }, logOut, user } = props;
+  const { options: { loginTitle, logOutTitle }, toLogin, logOut, user } = props;
 
   const ToLogin = () => (<button type='submit' onClick={toLogin}>{loginTitle}</button>);
   const UserMenu = () => (

@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
@@ -21,12 +22,14 @@ function Main() {
   const store = useStore();
   const user = useSelector(state => state.auth.user);
   const {t} = useTranslate();
+  const navigate = useNavigate();
 
   const options = {
     loginMenu: useMemo(() => ({ loginTitle: t('tologin'), logOutTitle: t('logout') }), [t]),
   }
 
   const callbacks = {
+    toLogin: useCallback(() => navigate('/login'), []),
     logOut: useCallback(() => store.get('auth').logOut(), []),
   }
 
@@ -34,7 +37,7 @@ function Main() {
     <>
       <Layout head={
         <>
-          <LoginMenu options={options.loginMenu} user={user} logOut={callbacks.logOut}/>
+          <LoginMenu options={options.loginMenu} user={user} toLogin={callbacks.toLogin} logOut={callbacks.logOut}/>
           <LayoutFlex flex="between">
             <h1>{t('title')}</h1>
             <LocaleSelect/>

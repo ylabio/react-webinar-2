@@ -35,7 +35,7 @@ function Profile() {
       </Layout>
     )
   } else {
-    return select.authorized ? null : !select.waiting ? <Login/> : null;
+    return <Login/>
   }
 }
 

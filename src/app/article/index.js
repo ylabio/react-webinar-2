@@ -8,8 +8,7 @@ import ArticleCard from "../../components/article-card";
 import Spinner from "../../components/spinner";
 import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
-import LayoutFlex from "../../components/layout-flex";
-import LocaleSelect from "../../containers/locale-select";
+import Header from "../../containers/header";
 
 function Article(){
   const store = useStore();
@@ -34,12 +33,7 @@ function Article(){
   };
 
   return (
-    <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{select.article.title}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    }>
+    <Layout head={<Header />}>
       <Tools/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>

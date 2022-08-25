@@ -1,0 +1,14 @@
+.ProfileInfo-prop {
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: flex-start;
+	font-size: 18px;
+}
+
+.ProfileInfo-label{
+	padding-right: 10px;
+}
+
+.ProfileInfo-value{
+	font-weight: bold;
+}

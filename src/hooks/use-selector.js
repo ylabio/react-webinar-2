@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useState, useMemo} from "react";
 import shallowequal from 'shallowequal';
 import useStore from "./use-store";
 
@@ -12,7 +12,7 @@ export default function useSelector(selector){
 
   const [state, setState] = useState(() => selector(store.getState()));
 
-  useEffect(() => {
+  const unsubscribe = useMemo(() => {
     // Подписка на последующие изменения в store
     return store.subscribe(() => {
       // Новая выборка
@@ -24,6 +24,8 @@ export default function useSelector(selector){
       });
     });
   }, []);
+
+	useEffect(() => unsubscribe, [unsubscribe]);
 
   return state;
 }

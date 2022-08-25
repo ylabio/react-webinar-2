@@ -1,25 +1,68 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useSelector from "../hooks/use-selector";
-import {Routes, Route} from "react-router-dom";
+import useStore from '../hooks/use-store';
+import useInit from '../hooks/use-init';
+import {Routes, Route, useNavigate, useLocation} from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
+import Login from "./login";
+import Profile from './profile';
+import PrivateRoute from './private-route';
+import ProtectedRoute from './protected-route/index';
+import { useCallback } from 'react';
+import Spinner from '../components/spinner';
 
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
+	const store = useStore();
 
-  const modal = useSelector(state => state.modals.name);
+	const select = useSelector(state => ({
+		modal: state.modals.name,
+		isAuth: state.auth.isAuth,
+		user: state.profile.user,
+		isWaiting: state.auth.isWaiting
+	}));
+	
+	const navigate = useNavigate();
+	const location = useLocation();
+
+  useInit(async () => {
+    const flagIsAuth = await store.get('auth').authentication();
+		if(flagIsAuth && location.pathname === '/profile') {
+			navigate('/profile');
+		}
+  }, []);
+
+	const callbacks = {
+		authentication: useCallback(async () => {
+			const flagIsAuth = await store.get('auth').authentication();
+			if(flagIsAuth) {
+				navigate('/profile');
+			}
+		}, [])
+	};
 
   return (
     <>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
+				<Route path={"/login"} element={
+					<PrivateRoute isAuth={select.isAuth} redirectUrl="/" isWaiting={select.isWaiting}>
+						<Login/>
+					</PrivateRoute>
+				}/>
+				<Route path={"/profile"} element={
+					<ProtectedRoute isAuth={select.isAuth} redirectUrl="/login" asyncFunc={callbacks.authentication} isWaiting={select.isWaiting}>
+						<Profile/>
+					</ProtectedRoute>
+				}/>
       </Routes>
-      {modal === 'basket' && <Basket/>}
+      {select.modal === 'basket' && <Basket/>}
     </>
   );
 }

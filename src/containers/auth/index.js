@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import useStore from '../../hooks/use-store';
 import propTypes from "prop-types";
 import useTranslate from '../../hooks/use-translate';
@@ -6,6 +6,7 @@ import HeadLogin from '../../components/head-login';
 import useSelector from '../../hooks/use-selector';
 import useInit from "../../hooks/use-init";
 import HeadLogout from '../../components/head-logout';
+import { Navigate, useNavigate, useLocation } from "react-router-dom";
 
 function Auth()  {
 
@@ -18,7 +19,10 @@ function Auth()  {
     isLogin: state.auth.isLogin
   }));
 
-  
+  // const location = useLocation()
+  // console.log(location)
+
+ 
   const callbacks = {
     logout: useCallback((token) => store.get('auth').logout(token), []),
   };

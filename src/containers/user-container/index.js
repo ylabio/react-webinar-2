@@ -9,11 +9,13 @@ function UserContainer() {
 
   const store = useStore();
 
+
+
   const select = useSelector(state => ({
-    name: state.auth.user.profile.name,
-    phone: state.auth.user.profile.phone,
-    email: state.auth.user.email,
-    waiting: state.auth.waiting
+    name: state.profile.name,
+    phone: state.profile.phone,
+    email: state.profile.email,
+    waiting: state.profile.waiting
   }));
 
   const {t} = useTranslate();

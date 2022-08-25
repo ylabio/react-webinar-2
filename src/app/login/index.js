@@ -7,7 +7,7 @@ import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import Auth from "../../containers/auth";
 import LoginForm from "../../components/login-form";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import LoginFormContainer from "../../containers/login-form-container";
 

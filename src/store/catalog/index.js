@@ -113,29 +113,7 @@ class CatalogState extends StateModule{
       window.history.pushState({}, '', url);
     }
   }
-
-  async getCategories () {
-
-    let responseCount = await fetch("api/v1/articles?fields=items(*),count")
-    const jsonCount = await responseCount.json()
-    this.setState({
-      ...this.getState(),
-      count: jsonCount.result.count,
-    });
-
-    const lim = (this.getState().count)
-    
-    const response = await fetch(`api/v1/categories?limit=${lim}&lang=ru&&skip=0&fields=title,_id,parent`)
-    const json = await response.json()
-    const categories = json["result"]["items"]
-
-    this.setState({
-      ...this.getState(),
-      categories: categories,
-    });
-
-  }
-
+ 
 }
 
 export default CatalogState;

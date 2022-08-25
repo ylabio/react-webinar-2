@@ -2,15 +2,15 @@ import React, { useCallback, useEffect, useState } from "react";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import LoginForm from "../../components/login-form";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 
 function LoginFormContainer() {
 
   const store = useStore();
   const [loginForm, setLoginForm] = useState( {login: '', password: ''});
-  
-  const select = useSelector(state => ({
+
+   const select = useSelector(state => ({
     auth: state.auth,
   }));
 
@@ -18,7 +18,9 @@ function LoginFormContainer() {
     login: useCallback((login, password) => store.get('auth').login(login, password), []),
   };
 
+  
   if(select.auth.isLogin === true) {
+
     return <Navigate replace to={"/profile"} />
   }
 
@@ -29,7 +31,7 @@ function LoginFormContainer() {
                 password={loginForm.password}
                 setLoginForm={setLoginForm}
                 loginFetch={callbacks.login}
-                error={select.auth.error} />
+                error={select.auth.error}/>
     </>
   )
 }

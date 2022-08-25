@@ -68,7 +68,6 @@ class AuthState extends StateModule {
       headers: { 'X-Token': token, 'Content-Type': 'application/json' }
     });
     const json = await response.json();
-    console.log(json)
     this.setState({
       ...this.getState(),
       token: '',

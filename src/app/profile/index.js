@@ -9,7 +9,6 @@ import LocaleSelect from "../../containers/locale-select";
 import UserContainer from "../../containers/user-container";
 import Auth from "../../containers/auth";
 import useSelector from "../../hooks/use-selector";
-import { Navigate, useNavigate } from "react-router-dom";
 
 function Profile() {
   const store = useStore();
@@ -21,12 +20,8 @@ function Profile() {
   }));
 
   useInit(async () => {
-    await store.get('auth').initUser();
+    await store.get('profile').loadProfile();
   }, []);
-
-  if(select.auth.isLogin === false) {
-    return <Navigate replace to={"/login"} />
-  }
 
   return (
     <div>

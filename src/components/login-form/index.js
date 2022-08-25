@@ -6,7 +6,6 @@ import './style.css';
 import useTranslate from "../../hooks/use-translate";
 
 
-
 const LoginForm = (props) => {
 
   const cn = bem('LoginForm');
@@ -16,7 +15,7 @@ const LoginForm = (props) => {
     login: useCallback((e) => {
       e.preventDefault();
       props.loginFetch(props.login, props.password);
-    }, [props.login, props.password])
+    }, [props.login, props.password]),
   };
 
    return (
@@ -47,6 +46,7 @@ const LoginForm = (props) => {
           onClick={callbacks.login}>
         {t("auth.button")}
       </button>
+      <h1>{props.fromPage}</h1>
     </form>
   );
 };

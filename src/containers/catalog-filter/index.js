@@ -13,8 +13,8 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    categories: state.catalog.categories, 
-    category: state.catalog.params.category
+    categories: state.category.categories, 
+    category: state.category.params.category
   }));
 
   const {t} = useTranslate();
@@ -28,7 +28,7 @@ function CatalogFilter() {
     onCategoryChange: useCallback(_id => store.get('catalog').setParams({category: _id, page: 1}), []),
     // Сброс
     onReset: useCallback(() => store.get('catalog').resetParams(), []),
-    getCategories: useCallback(() => store.get('catalog').getCategories(),[]),
+    getCategories: useCallback(() => store.get('category').getCategories(),[]),
     
   };
 
@@ -57,6 +57,7 @@ function CatalogFilter() {
     }
     return newCategories 
   }
+
 
   useEffect(() => {
     callbacks.getCategories()

@@ -78,7 +78,6 @@ class CatalogState extends StateModule{
    * @returns {Promise<void>}
    */
   async setParams(params = {}, historyReplace = false){
-    if (params.category && this.getState().params.category !== params.category) params.page = 1;
     const newParams = {...this.getState().params, ...params};
 
     // Установка новых параметров и признака загрузки

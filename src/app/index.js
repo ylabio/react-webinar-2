@@ -16,11 +16,11 @@ import LoginCheck from "../components/login-check";
 function App() {
   const modal = useSelector(state => state.modals.name);
   const store = useStore();
-  const profile = useSelector(state => state.profile);
+  const auth = useSelector(state => state.auth);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if(token && !profile.isLogin) store.get('profile').auth(token);
+    if(token && !auth.isLogin) store.get('auth').self(token);
   }, [])
 
   return (
@@ -29,7 +29,7 @@ function App() {
         <Route path={''} element={<Main/>}/>
         <Route path={"/auth"} element={<Auth/>}/>
         <Route path={"/profile"} element={(
-          <LoginCheck>
+          <LoginCheck auth={auth}>
             <Profile/>
           </LoginCheck>
         )}/>

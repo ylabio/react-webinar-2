@@ -1,17 +1,18 @@
-import React, {useEffect} from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import useSelector from "../../hooks/use-selector";
-import {useNavigate} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 
-function LoginCheck({children}){
-	const navigate = useNavigate();
-	const profile = useSelector(state => state.profile);
-	useEffect(() => {if(!profile.isLogin) navigate("/auth")}, [profile.isLogin])
-
-	return(children)
+function LoginCheck({auth = {}, children}){
+	return auth.isLogin ? children : <Navigate to={"/auth"}/>
 }
 
 LoginCheck.propTypes = {
+	auth: PropTypes.object,
+	children: PropTypes.node
+}
+
+LoginCheck.defaultProps = {
+	auth: {},
 	children: PropTypes.node
 }
 

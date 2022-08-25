@@ -1,6 +1,5 @@
 import React, {useEffect, useCallback} from "react";
 import useStore from "../../hooks/use-store";
-import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import useSelector from "./../../hooks/use-selector";
 import LoginHead from "../../components/login-head"
@@ -10,20 +9,27 @@ import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import Tools from "../../containers/tools";
 import ProfileInfo from "../../components/profile-info";
+import useInit from "../../hooks/use-init";
 
 function ProfilePage() {
 	const store = useStore();
 
 	const {t} = useTranslate();
 
-	const profile = useSelector((state) => state.profile);
-	const logout = useCallback(() => store.get('profile').logout(profile), []);
+	const auth = useSelector((state) => state.auth);
 	const navigate = useNavigate();
+	useInit(async () => {
+		if (auth.isLogin && localStorage.getItem("token"))
+			await store.get('profile').self(localStorage.getItem("token"));
+		else navigate("/auth");
+	}, []);
 
-	useEffect(() => {if(!profile.isLogin) navigate("/auth")}, [profile.isLogin])
+	const profile = useSelector((state) => state.profile);
+	const signout = useCallback(() => store.get('auth').signout(auth), []);
+
 
 	return (
-		<Layout auth={<LoginHead profile={profile} logout={logout}/>} head={
+		<Layout auth={<LoginHead auth={auth} signout={signout}/>} head={
 			<LayoutFlex flex="between">
 				<h1>{t('title')}</h1>
 				<LocaleSelect/>

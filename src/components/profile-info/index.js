@@ -5,7 +5,6 @@ import "./style.css"
 
 const ProfileInfo = (props) => {
 	const cn = bem("ProfileInfo");
-
 	return (
 		<div className={cn()}>
 			<div className={cn("header")}>Профиль</div>
@@ -15,11 +14,11 @@ const ProfileInfo = (props) => {
 			</div>
 
 			<div className={cn("text")}>
-				Телефон: <span>+70000000001</span>
+				Телефон: <span>{props.profile?.user?.profile ? props.profile.user.profile.phone : ""}</span>
 			</div>
 
 			<div className={cn("text")}>
-				email: <span>test_50@example.com</span>
+				email: <span>{props.profile?.user ? props.profile.user.email : ""}</span>
 			</div>
 		</div>
 	)

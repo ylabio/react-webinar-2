@@ -21,11 +21,11 @@ function Main() {
 
   const {t} = useTranslate();
 
-  const profile = useSelector((state) => state.profile);
-  const logout = useCallback(() => store.get('profile').logout(profile), []);
+  const auth = useSelector((state) => state.auth);
+  const signout = useCallback(() => store.get('auth').signout(auth), []);
 
   return (
-    <Layout auth={<LoginHead profile={profile} logout={logout}/>} head={
+    <Layout auth={<LoginHead auth={auth} signout={signout}/>} head={
       <LayoutFlex flex="between">
         <h1>{t('title')}</h1>
         <LocaleSelect/>

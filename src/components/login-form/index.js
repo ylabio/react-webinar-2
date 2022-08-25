@@ -1,20 +1,19 @@
-import React, {useState, useCallback} from "react"
+import React, {useState} from "react"
 import useSelector from "../../hooks/use-selector";
-import useStore from "../../hooks/use-store";
 import {cn as bem} from '@bem-react/classname';
 import "./style.css"
+import propTypes from "prop-types";
 
-const LoginForm = () => {
-	const store = useStore();
+const LoginForm = ({sign}) => {
+	const cn = bem("LoginForm");
 	const [login, setLogin] = useState("");
 	const [password, setPassword] = useState("");
-	const cn = bem("LoginForm");
 
 	const error = useSelector((state) => state.profile.error);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		store.get("profile").login(login, password);
+		sign(login, password);
 	}
 
 	return (
@@ -32,15 +31,20 @@ const LoginForm = () => {
 					<input id="password" type="password" value={password} onChange={(e) => setPassword(e.currentTarget.value)}/>
 				</label>
 
-				{error
-					? <div className={cn("error")}>{error}</div>
-					: null
-				}
+				{error ? <div className={cn("error")}>{error}</div> : null}
 
 				<button type="submit" className={cn("submit")}>Войти</button>
 			</form>
 		</div>
 	)
+}
+
+LoginForm.propTypes = {
+	sign: propTypes.func
+}
+
+LoginForm.defaultProps = {
+	sign: () => {}
 }
 
 export default React.memo(LoginForm);

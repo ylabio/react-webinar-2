@@ -9,12 +9,12 @@ const LoginHead = (props) => {
 
 	return (
 		<div className={cn()}>
-		{props.profile.isLogin
+		{props.auth?.isLogin
 			? <>
 				<Link to={"/profile"}>
-				<div className={cn("name")}>{props.profile.user?.profile?.name}</div>
+				<div className={cn("name")}>{props.auth.name}</div>
 				</Link>
-				<button onClick={props.logout}>Выход</button>
+				<button onClick={props.signout}>Выход</button>
 			</>
 		: <Link to={"/auth"}><button>Вход</button></Link>}
 		</div>
@@ -22,13 +22,13 @@ const LoginHead = (props) => {
 }
 
 LoginHead.propTypes = {
-	profile: propTypes.object,
-	logout: propTypes.func
+	auth: propTypes.object,
+	signout: propTypes.func
 }
 
 LoginHead.defaultProps = {
-	profile: {},
-	logout: () => {}
+	auth: {},
+	signout: () => {}
 }
 
 export default React.memo(LoginHead);

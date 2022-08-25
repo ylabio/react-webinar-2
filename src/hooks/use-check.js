@@ -9,13 +9,9 @@ export default function useCheck(type, direct) {
   const store = useStore();
   const isLogged = useSelector((state) => state.session.isLogged);
 
-  useInit(
-    async () => {
-      await store.get(type).loadUserData(localStorage.getItem('token'));
-    },
-    [],
-    { backForward: true }
-  );
+  useInit(async () => {
+    await store.get(type).loadUserData(localStorage.getItem('token'));
+  }, []);
 
   React.useEffect(() => {
     if (direct && !isLogged) {

@@ -13,25 +13,32 @@ const LoginForm = (props) => {
   const store = useStore();
 
   const select = useSelector(state => ({
+    user: state.auth.user || localStorage.user,
     isWaiting: state.auth.waiting,
     err: state.auth.err,
   }));
-const isAuthErr = typeof select.err === 'string' || select.err === null;
+  const isAuthErr = select.err !== null;
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [isSubmited, setSubmited] = useState(null);
   
   const callbacks = {
     logIn: useCallback((password, name) => store.get('auth').logIn(password, name), []),
+    onSubmit: useCallback((e) => {
+      e.preventDefault();
+      callbacks.logIn(password, name);
+      setSubmited(true);
+      if (!isAuthErr && history.length === 2) return navigate('/?category=&page=1&limit=10&sort=order&query=', {replace: true });
+      if (!isAuthErr && history.length > 2) return navigate(-1, {replace: true });
+    })
   }
 
-  return (
+  return select.user ? 
+    <div className={(cn())}>
+    Вы авторизованы!
+    </div> : (
     <Spinner active={select.isWaiting}>   
-      <form className={(cn())} onSubmit={(e) => {
-        e.preventDefault();
-        callbacks.logIn(password, name);
-        (!!isAuthErr && history.length === 2) && navigate('/?category=&page=1&limit=10&sort=order&query=', {replace: true });
-        (!!isAuthErr && history.length > 2) && navigate(-1);
-        }}>
+      <form className={(cn())} onSubmit={callbacks.onSubmit}>
         <h3 className={(cn('header'))}>{enter}</h3>
         <label className={(cn('label'))}>
           {inputname}
@@ -49,7 +56,7 @@ const isAuthErr = typeof select.err === 'string' || select.err === null;
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        {isAuthErr && <div className={(cn('err'))}>{select.err}</div>}
+        {(isAuthErr && isSubmited) && <div className={(cn('err'))}>{select.err}</div>}
         <input className={(cn('inputButton'))} type="submit" value={login} />
       </form>
     </Spinner> 

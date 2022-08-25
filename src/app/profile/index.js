@@ -35,7 +35,7 @@ function Profile() {
       </Layout>
     )
   } else {
-    return <Login/>
+    setTimeout(() => {return <Login/>}, 1)
   }
 }
 

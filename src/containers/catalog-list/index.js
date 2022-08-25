@@ -1,11 +1,12 @@
-import React, {useCallback} from "react";
+import React, { useCallback } from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
 import Spinner from "../../components/spinner";
-import Item from "../../components/item";
+import Item from "../../components/items/item";
+import objectToSearch from "../../utils/object-to-search"
 
 function CatalogList() {
 
@@ -17,27 +18,28 @@ function CatalogList() {
     limit: state.catalog.params.limit,
     count: state.catalog.count,
     waiting: state.catalog.waiting,
+    params: state.catalog.params
   }));
 
-  const {t} = useTranslate();
+  const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Пагианция
-    onPaginate: useCallback(page => store.get('catalog').setParams({page}), []),
+    onPaginate: useCallback(page => store.get('catalog').setParams({ page }), []),
   };
 
   const renders = {
     item: useCallback(item => (
-      <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`} labelAdd={t('article.add')}/>
+      <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`} labelAdd={t('article.add')} />
     ), [t]),
   }
 
   return (
     <Spinner active={select.waiting}>
-      <List items={select.items} renderItem={renders.item}/>
-      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
+      <List items={select.items} renderItem={renders.item} />
+      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate} params={select.params} objectToSearch={objectToSearch} />
     </Spinner>
   );
 }

@@ -3,7 +3,7 @@ import StateModule from "../module";
 /**
  * Состояние товара
  */
-class LocaleState extends StateModule{
+class LocaleState extends StateModule {
 
   /**
    * Начальное состояние

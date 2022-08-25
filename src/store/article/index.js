@@ -3,7 +3,7 @@ import StateModule from "../module";
 /**
  * Состояние товара
  */
-class ArticleState extends StateModule{
+class ArticleState extends StateModule {
 
   /**
    * Начальное состояние
@@ -19,7 +19,7 @@ class ArticleState extends StateModule{
   /**
    * Загрузка списка товаров
    */
-  async load(id){
+  async load(id) {
     // Сброс текущего товара и установка признака ожидания загрузки
     this.setState({
       waiting: true,
@@ -35,7 +35,7 @@ class ArticleState extends StateModule{
         data: json.result,
         waiting: false
       });
-    } catch (e){
+    } catch (e) {
       // Ошибка при загрузке
       // @todo В стейт можно положть информауию об ошибке
       this.setState({

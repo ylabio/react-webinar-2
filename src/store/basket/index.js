@@ -3,7 +3,7 @@ import StateModule from "../module";
 /**
  * Состояние корзины
  */
-class BasketState extends StateModule{
+class BasketState extends StateModule {
 
   /**
    * Начальное состояние
@@ -12,8 +12,8 @@ class BasketState extends StateModule{
   initState() {
     return {
       items: [],
-        sum: 0,
-        amount: 0
+      sum: 0,
+      amount: 0
     };
   }
 
@@ -30,7 +30,7 @@ class BasketState extends StateModule{
       // Искомый товар для увеличения его количества
       if (item._id === _id) {
         exists = true;
-        result = {...item, amount: item.amount + 1};
+        result = { ...item, amount: item.amount + 1 };
       }
       // Добавляея в общую сумму
       sum += result.price * result.amount;
@@ -44,7 +44,7 @@ class BasketState extends StateModule{
       const json = await response.json();
       const item = json.result;
 
-      items.push({...item, amount: 1});
+      items.push({ ...item, amount: 1 });
       // Досчитываем сумму
       sum += item.price;
     }

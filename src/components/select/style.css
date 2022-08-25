@@ -1,13 +1,4 @@
 .Select {
     font-size: 16px;
-    box-sizing: border-box;
-    height: 26px;
-    min-width: 157px;
-    padding: 0 5px;
-    border: 1px solid #767676;
-    border-radius: 0;
-}
-
-.Select_category {
-    min-width: 175px;
+    padding: 3px 2px 2px;
 }

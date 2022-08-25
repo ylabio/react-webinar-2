@@ -36,7 +36,12 @@
     color: #cccccc;
 }
 
-.Pagination-link {
-    color: inherit;
-    text-decoration: none;
+.Pagination-item a {
+    color: initial;
+    text-decoration: initial;
+}
+
+.Pagination-item_active a {
+    background: #0087e9;
+    color: #fff;
 }

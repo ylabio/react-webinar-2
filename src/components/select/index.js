@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import propTypes from "prop-types";
-import { cn as bem } from "@bem-react/classname";
 import './style.css';
 
 function Select(props) {
@@ -21,11 +20,11 @@ function Select(props) {
 Select.propTypes = {
   options: propTypes.arrayOf(propTypes.object).isRequired,
   value: propTypes.any,
-  onChange: propTypes.func,
+  onChange: propTypes.func
 }
 
 Select.defaultProps = {
-  onChange: () => { },
+  onChange: () => { }
 }
 
 export default React.memo(Select);

@@ -4,8 +4,6 @@ import { cn as bem } from '@bem-react/classname'
 import numberFormat from "../../utils/number-format";
 import './style.css';
 
-
-
 function ArticleCard({ article, onAdd }) {
 
   // CSS классы по БЭМ
@@ -23,7 +21,7 @@ function ArticleCard({ article, onAdd }) {
         <div className={cn('value')}>{article.category?.title}</div>
       </div>
       <div className={cn('prop')}>
-        <div className={cn('label')}>Год выпуска</div>
+        <div className={cn('label')}>Год выпуска:</div>
         <div className={cn('value')}>{article.edition}</div>
       </div>
       <div className={cn('prop', { size: 'big' })}>

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
-import numberFormat from "../../utils/number-format";
+import numberFormat from "../../../utils/number-format";
 import { cn as bem } from "@bem-react/classname";
 import { Link } from "react-router-dom";
 import './styles.css';
@@ -21,7 +21,7 @@ function ItemBasket({ item, link, onRemove, onLink, labelDelete, labelUnit, labe
         <div className={cn('cell')}>{numberFormat(item.price)} {labelCurr}</div>
         <div className={cn('cell')}>{numberFormat(item.amount || 0)} {labelUnit}</div>
         <div className={cn('cell')}>
-          <button className={cn('button')} onClick={callbacks.onRemove}>{labelDelete}</button>
+          <button onClick={callbacks.onRemove}>{labelDelete}</button>
         </div>
       </div>
     </div>

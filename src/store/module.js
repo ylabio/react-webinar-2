@@ -17,7 +17,7 @@ class StateModule {
     return this.store.getState()[this.name];
   }
 
-  setState(newState, description = 'setState'){
+  setState(newState, description = 'setState') {
     this.store.setState({
       ...this.store.getState(),
       [this.name]: newState

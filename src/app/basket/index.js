@@ -7,6 +7,7 @@ import LayoutModal from "../../components/layout-modal";
 import ItemBasket from "../../components/item-basket";
 import List from "../../components/list";
 import {useStore as useStoreRedux} from "react-redux";
+import actionsModals from "../../store-redux/modals/actions";
 
 function Basket() {
   const store = useStore();
@@ -24,7 +25,7 @@ function Basket() {
     // Закрытие любой модалки
     closeModal: useCallback(() => {
       //store.get('modals').close()
-      storeRedux.dispatch({type: 'modal/close'});
+      storeRedux.dispatch(actionsModals.close());
     }, []),
     // Удаление из корзины
     removeFromBasket: useCallback(_id => store.get('basket').removeFromBasket(_id), [])

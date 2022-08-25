@@ -24,7 +24,7 @@ function App() {
   })
 
   //const modal = useSelector(state => state.modals.name);
-  const modal = useSelectorRedux(state => state.name);
+  const modal = useSelectorRedux(state => state.modals.name);
 
   return (
     <>

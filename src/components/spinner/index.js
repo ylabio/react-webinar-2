@@ -1,16 +1,33 @@
 import React from 'react';
-import propTypes from "prop-types";
-import PropTypes from "prop-types";
+import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import './style.css';
 
 function Spinner(props) {
-
-  if (props.active){
+  if (props.active) {
+    // return (
+    //   <div className="Spinner">
+    //     {props.children}
+    //   </div>
+    // )
     return (
-      <div className="Spinner">
-        {props.children}
+      <div className="lds-spinner-wrapper">
+        <div className="lds-spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
-    )
+    );
   } else {
     return props.children;
   }
@@ -19,6 +36,6 @@ function Spinner(props) {
 Spinner.propTypes = {
   active: propTypes.bool.isRequired,
   children: PropTypes.node,
-}
+};
 
 export default React.memo(Spinner);

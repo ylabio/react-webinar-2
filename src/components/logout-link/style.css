@@ -1,0 +1,10 @@
+.LogoutLink {
+  display: flex;
+  align-items: center;
+}
+.LogoutLink button {
+  margin-left: 20px;
+}
+.LogoutLink a {
+  color: #0087e9;
+}

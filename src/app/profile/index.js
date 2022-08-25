@@ -7,8 +7,6 @@ import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import HeaderContainer from "../../containers/header/header";
-import useSelector from "../../hooks/use-selector";
-import {Navigate} from "react-router-dom";
 import ProfileContainer from "../../containers/profile";
 
 function Profile() {
@@ -16,16 +14,9 @@ function Profile() {
   const {t} = useTranslate();
 
   useInit(async () => {
-    await store.get('profile').loadUser();
+    await store.get('profile').load();
+    await store.get('history').addToHistory();
   }, [], {backForward: true});
-
-  const select = useSelector(state => ({
-    token: state.profile.token
-  }));
-
-  if (!select.token) {
-    return <Navigate to="/login" replace={true}/>
-  }
 
   return (
     <Layout

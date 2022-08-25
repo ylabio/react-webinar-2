@@ -7,10 +7,10 @@ const LoginFormContainer = () => {
   const store = useStore();
 
   const callbacks = {
-    logIn: useCallback((login, password) => store.get('profile').login(login, password), [])
+    logIn: useCallback((login, password) => store.get('auth').login(login, password), [])
   };
 
-  const select = useSelector(state => ({error: state.profile.error}));
+  const select = useSelector(state => ({error: state.auth.error}));
 
   return (
     <LoginForm logIn={callbacks.logIn} error={select.error}/>

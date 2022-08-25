@@ -5,8 +5,11 @@ import useTranslate from '../../hooks/use-translate';
 import './style.css'
 
 function UserInfo({user}) {
-  const {profile, email} = user;
-  const {name, phone} = profile;
+  const profile = user?.profile;
+  const email = user?.email;
+  const name = profile?.name;
+  const phone = profile?.phone;
+
   const cn = bem('UserInfo');
   const {t} = useTranslate();
 

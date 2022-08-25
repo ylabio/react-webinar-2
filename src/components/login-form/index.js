@@ -12,6 +12,8 @@ const LoginForm = ({logIn, error}) => {
     logIn: useCallback(() => logIn(login, password), [login, password])
   }
 
+  const errorMessage = error.data?.issues[0].message;
+
   return (
     <div className={cn()}>
       <div className={cn('title')}>{t('signIn')}</div>
@@ -23,7 +25,7 @@ const LoginForm = ({logIn, error}) => {
         <div>{t('password')}</div>
         <input type="password" value={password} onChange={e => setPassword(e.target.value)}/>
       </div>
-      {error && <div className={cn('error')}>{error.message}</div>}
+      {error && <div className={cn('error')}>{errorMessage}</div>}
       <div className={cn('inputContainer')}>
         <button onClick={callbacks.logIn}>{t('signIn')}</button>
       </div>

@@ -5,7 +5,7 @@ import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
-import categoryOptions from "../../utils/category-options";
+import getCategoriesOptions from "../../utils/category-options";
 
 function CatalogFilter() {
 
@@ -41,7 +41,7 @@ function CatalogFilter() {
     ]), [])
   }
 
-  let optionsCategory = useCallback(categoryOptions(select.categories), [select.categories]);
+  let optionsCategory = useCallback(getCategoriesOptions(select.categories), [select.categories]);
 
   return (
     <LayoutFlex flex="start">

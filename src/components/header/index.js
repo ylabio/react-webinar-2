@@ -6,16 +6,16 @@ import useTranslate from '../../hooks/use-translate';
 import './style.css'
 
 
-function Header({logout, user, token}) {
+function Header({logout, user, isAuth}) {
   const cn = bem('header');
   const {t} = useTranslate();
 
   return (
     <div className={cn()}>
-      {token
+      {isAuth
         ?
         <>
-          <Link className={cn('link')} to={'/profile'}>{user.profile?.name}</Link>
+          <Link className={cn('link')} to={'/profile'}>{user.name}</Link>
           <button onClick={logout}>{t('header.logout')}</button>
         </>
         :

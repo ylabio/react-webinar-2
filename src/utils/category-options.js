@@ -1,28 +1,31 @@
-export default function categoryOptions(categoryArray) {
-  let options = [{value: '', title: 'Все'}]
-  for (let i in categoryArray) {
-    if (!categoryArray[i]?.parent) {
-      options.push({value: categoryArray[i]._id, title: categoryArray[i].title})
-      for (let g in categoryArray) {
-        if (categoryArray[g]?.parent?._id === categoryArray[i]._id) {
-          categoryArray[g].title = '-' + categoryArray[g].title;
-          options.push({value: categoryArray[g]._id, title: categoryArray[g].title})
-          for (let j in categoryArray) {
-            if (categoryArray[j]?.parent?._id === categoryArray[g]._id) {
-              categoryArray[j].title = '--' + categoryArray[j].title;
-              options.push({value: categoryArray[j]._id, title: categoryArray[j].title})
-              for (let k in categoryArray) {
-                if (categoryArray[k]?.parent?._id === categoryArray[j]._id) {
-                  categoryArray[k].title = '---' + categoryArray[k].title;
-                  options.push({value: categoryArray[k]._id, title: categoryArray[k].title})
-                }
-              }
-            }
-          }
-        }
+export default function getCategoriesOptions(optionsRaw) {
+  const makeTree = (arr) => {
+    arr.map((item) => {
+      if (!item.parent) {
+        item.parent = {_id: null};
       }
-    }
+    });
+
+    const makeChildren = (items, _id = null) => items
+      .filter(item => item.parent._id === _id)
+      .map(item => ({...item, children: makeChildren(items, item._id)}));
+
+    return makeChildren(optionsRaw);
   }
 
-  return options
+  const makeList = (tree) => {
+    const categories = [];
+    const step = (item, level = '') => {
+      categories.push({value: item._id, title: `${level} ${item.title}`});
+      item.children.forEach((child) => step(child, `- ${level}`));
+    }
+    tree.forEach((item) => {
+      step(item);
+    });
+    return categories;
+  };
+
+  const categoriesTree = makeTree(optionsRaw);
+
+  return makeList(categoriesTree);
 }

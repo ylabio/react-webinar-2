@@ -7,24 +7,19 @@ import LocaleSelect from "../../containers/locale-select";
 import LoginFormContainer from "../../containers/login-form";
 import useTranslate from "../../hooks/use-translate";
 import HeaderContainer from "../../containers/header/header";
-import useStore from "../../hooks/use-store";
-import useInit from "../../hooks/use-init";
 import useSelector from "../../hooks/use-selector";
 
 function Login() {
-  const store = useStore();
   const {t} = useTranslate();
 
-  useInit(async () => {
-    await store.get('profile').loadUser();
-  }, [], {backForward: true});
-
   const select = useSelector(state => ({
-    token: state.profile.token,
+    isAuth: state.auth.isAuth,
+    paths: state.history.history
   }));
 
-  if (select.token) {
-    return <Navigate to="/" replace={true}/>
+  const path = select.paths[select.paths.length - 1] || '/';
+  if (select.isAuth) {
+    return <Navigate to={path} replace={true}/>
   }
 
   return (

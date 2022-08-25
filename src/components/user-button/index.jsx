@@ -10,7 +10,7 @@ export const UserButton = () => {
   const store = useStore();
 
   const select = useSelector(state => ({
-    profile: state.auth.profile.profile,
+    profile: state.profile.profile.profile,
     isAuth : state.auth.isAuth
   }));
 

@@ -15,7 +15,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.categories,
+    categories: state.category.categories,
     auth: state,
   }));
 console.log(select.auth);
@@ -33,7 +33,7 @@ useEffect(() => {
     // Поиск
     onSearch: useCallback(query => store.get('catalog').setParams({ query, page: 1 }), []),
     // Сброс
-    onReset: useCallback(() => store.get('catalog').resetParams(), []),
+    onReset: useCallback(() => store.get('category').resetParams(), []),
     onSelectCategory: useCallback(category => store.get('catalog').setParams({ category, page: 1 }), []),
   };
 

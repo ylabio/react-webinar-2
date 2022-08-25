@@ -30,6 +30,7 @@ class AuthState extends StateModule {
       profile: response.data.result.user,
       isAuth:true
     })
+    this.store.get('profile').setProfile(this.getState().profile)
     
     
   }
@@ -48,6 +49,7 @@ class AuthState extends StateModule {
       isAuth:true,
       profile: response.data.result,
     })
+    this.store.get('profile').setProfile(this.getState().profile)
     setTimeout(() => {
       this.setState({
         ...this.getState(),      

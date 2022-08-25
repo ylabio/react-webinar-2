@@ -14,7 +14,7 @@ import Spinner from '../../components/spinner'
 export const Profile = () => {
   const select = useSelector(state => ({
     article: state.article.data,
-    profile: state.auth.profile,
+    profile: state.profile.profile,
     waiting: state.auth.waiting
 
   }));

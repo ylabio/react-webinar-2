@@ -58,34 +58,9 @@ class CatalogState extends StateModule {
     const newParams = { ...this.initState().params, ...validParams, ...params };
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
-    await this.categories();
+    await this.store.get('category').categories()
   }
-  /**
-   * Сброс параметров к начальным
-   * @param params
-   * @return {Promise<void>}
-   */
-  async resetParams(params = {}) {
-    // Итоговые параметры из начальных, из URL и из переданных явно
-    const newParams = { ...this.initState().params, ...params };
-    // Установк параметров и подгрузка данных
-    await this.setParams(newParams);
-  }
-  async categories() {
-    const response = await fetch(`/api/v1/categories?fields=items(*),parent&limit=*`);
-    const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      categories: json.result.items
-    })
-  }
- 
-  /**
-   * Устанвока параметров и загрузка списка товаров
-   * @param params
-   * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
-   * @returns {Promise<void>}
-   */
+
   async setParams(params = {}, historyReplace = false) {
     const newParams = { ...this.getState().params, ...params };
     const categoryPost = newParams.category !== '' ? `&search[category]=${newParams.category}` : '';

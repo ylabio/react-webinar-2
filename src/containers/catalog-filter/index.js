@@ -6,7 +6,7 @@ import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
 import SelectCategory from "../../components/select_category";
-import {categories, categoriesArr} from '../../utils/counter'
+import {categories, categoriesArr} from '../../utils/sortCategories'
 
 function CatalogFilter() {
 
@@ -16,7 +16,8 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.categories
+    // categories: state.catalog.categories,
+    categories: state.categories.categories
   }));
 
   const {t} = useTranslate();
@@ -40,8 +41,8 @@ function CatalogFilter() {
 
     inputParams: useCallback(() => store.get('catalog').initParams(), []),
 
-    inputCategories: useCallback(() => store.get('catalog').initCategories(), []),
-    
+    // inputCategories: useCallback(() => store.get('catalog').initCategories(), []),
+    inputCategories: useCallback(() => store.get('categories').initCategories(), []),
   };
 
   // Опции для полей

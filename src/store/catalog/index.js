@@ -34,7 +34,6 @@ class CatalogState extends StateModule{
         category:''
       },
       waiting: false,
-      categories: []
     };
   }
 

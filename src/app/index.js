@@ -8,6 +8,7 @@ import Login from './login';
 import Profile from './profile';
 import useStore from '../hooks/use-store';
 import useInit from '../hooks/use-init';
+import Authorized from './authorized';
 
 /**
  * Приложение
@@ -15,6 +16,7 @@ import useInit from '../hooks/use-init';
  */
 function App() {
   const store = useStore();
+  console.log('FROM APP');
 
   useInit(() => {
     localStorage.getItem('token') &&
@@ -28,7 +30,14 @@ function App() {
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
         <Route path={'/login'} element={<Login />} />
-        <Route path={'/profile'} element={<Profile />} />
+        <Route
+          path={'/profile'}
+          element={
+            <Authorized>
+              <Profile />
+            </Authorized>
+          }
+        />
       </Routes>
       {modal === 'basket' && <Basket />}
     </>

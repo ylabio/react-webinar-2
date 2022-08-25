@@ -10,11 +10,18 @@ import UserMenu from '../user-menu';
 import Spinner from '../../components/spinner';
 import useCheck from '../../hooks/use-check';
 import { useLocation, useNavigate } from 'react-router-dom';
+import useInit from '../../hooks/use-init';
+import useStore from '../../hooks/use-store';
 
 function Profile() {
   const { t } = useTranslate();
+  const store = useStore();
 
-  useCheck('profile', '/login');
+  // useCheck('profile', '/login');
+
+  useInit(async () => {
+    await store.get('profile').loadUserData(localStorage.getItem('token'));
+  }, []);
 
   const select = useSelector((state) => ({
     user: state.profile.user,

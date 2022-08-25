@@ -50,6 +50,7 @@ class CatalogState extends StateModule {
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
+    if (urlParams.category) validParams.category = urlParams.category;
 
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = { ...this.initState().params, ...validParams, ...params };

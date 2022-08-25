@@ -1,5 +1,5 @@
 import StateModule from '../module';
-import categories from '../../utils/categories-creator';
+import createCategories from '../../utils/categories-creator';
 
 /**
  * Состояние категорий
@@ -21,7 +21,23 @@ class CategoriesState extends StateModule {
     const response = await fetch(`/api/v1/categories?limit=*`);
     const json = await response.json();
 
-    const result = categories(json.result.items);
+    console.log('response', json.result.items);
+
+    let children = [];
+    let parents = [];
+    json.result.items.forEach((item) => {
+      if (!item.parent) {
+        parents.push({ value: item._id, parent: null, title: item.title });
+      } else {
+        children.push({
+          value: item._id,
+          parent: item.parent,
+          title: item.title,
+        });
+      }
+    });
+
+    const result = createCategories(children, parents);
 
     this.setState({
       categories: [...this.initState().categories, ...result],

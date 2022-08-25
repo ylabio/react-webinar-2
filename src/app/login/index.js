@@ -8,7 +8,7 @@ import LayoutFlex from '../../components/layout-flex';
 import LocaleSelect from '../../containers/locale-select';
 import LoginForm from '../../components/login-form';
 import UserMenu from '../user-menu';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import Spinner from '../../components/spinner';
 
 function Login() {
@@ -20,6 +20,9 @@ function Login() {
     waiting: state.profile.waiting,
     currentPage: state.session.currentPage,
   }));
+
+  const navigator = useNavigate();
+  console.log('navigator:', navigator);
 
   const { t } = useTranslate();
 

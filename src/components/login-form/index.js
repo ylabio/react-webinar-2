@@ -20,6 +20,7 @@ function LoginForm(props) {
   const onHandleSubmit = (e) => {
     e.preventDefault();
     props.onLogin(login, password);
+    // navigate(-1);
     // console.log('currentpage', props.currentPage);
   };
 

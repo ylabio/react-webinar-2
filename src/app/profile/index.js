@@ -20,7 +20,7 @@ function Profile() {
 
   const {t} = useTranslate();
 
-  if (select.authorized) {
+  if (select.authorized || select.waiting) {
     return (
       <Layout head={
         <LayoutFlex flex="between">
@@ -35,7 +35,7 @@ function Profile() {
       </Layout>
     )
   } else {
-    setTimeout(() => {return <Login/>}, 1)
+    return <Login/>
   }
 }
 

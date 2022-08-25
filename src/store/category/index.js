@@ -9,8 +9,8 @@ class Category extends StateModule {
     recursion(item, arr, count) {
         let parentId, parent;
 
-        if (item.parent && count < 3) {
-            //count-количество ---,3 так как максимальное количество их 3 
+        if (item.parent ) {
+   
 
             parentId = item.parent._id;
             parent = arr.find(el => parentId == el._id);

@@ -1,0 +1,11 @@
+.ProfilePage{
+    padding: 20px;
+}
+.ProfilePage-label{
+    padding-top: 30px;
+}
+.ProfilePage h2 {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+}

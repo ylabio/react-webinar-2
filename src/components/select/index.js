@@ -10,8 +10,9 @@ function Select(props){
 
   return (
     <select className="Select" onChange={onSelect} value={props.value}>
+      {props.all === undefined ? null : props.all} //Так можно или селект не стоило менять?
       {props.options.map(item => (
-        <option key={item.value} value={item.value}>{item.title}</option>
+        <option key={item.value || item._id} value={item.value || item._id}>{item.title}</option>
       ))}
     </select>
   )
@@ -20,7 +21,8 @@ function Select(props){
 Select.propTypes = {
   options: propTypes.arrayOf(propTypes.object).isRequired,
   value: propTypes.any,
-  onChange: propTypes.func
+  onChange: propTypes.func,
+  _id: propTypes.any,
 }
 
 Select.defaultProps = {

@@ -1,0 +1,16 @@
+.LoginForm {
+    margin: 20px;
+}
+.LoginForm-Title{
+
+}
+.LoginForm-label{
+    font-weight: normal;
+    margin: 20px auto 1px auto;
+}
+.LoginForm-Button{
+    margin-top: 20px;
+}
+.LoginForm-error {
+    color: red;
+}

@@ -8,27 +8,34 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
+import Auth from "../../containers/auth";
+import Header from "../../components/header";
 
 function Main() {
   const store = useStore();
 
   useInit(async () => {
-    await store.get('catalog').initParams();
+    await Promise.all([store.get('catalog').initParams(), store.get('categories').load()])
   }, [], {backForward: true});
 
   const {t} = useTranslate();
 
   return (
-    <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{t('title')}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    }>
-      <Tools/>
-      <CatalogFilter/>
-      <CatalogList/>
-    </Layout>
+    <>
+      <Header>
+        <Auth/>
+      </Header>
+      <Layout head={
+        <LayoutFlex flex="between">
+          <h1>{t('title')}</h1>
+          <LocaleSelect/>
+        </LayoutFlex>
+      }>
+        <Tools/>
+        <CatalogFilter/>
+        <CatalogList/>
+      </Layout>
+    </>
   )
 }
 

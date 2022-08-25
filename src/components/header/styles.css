@@ -1,0 +1,8 @@
+.Header {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 0 auto;
+    background: white;
+    box-sizing: border-box;
+    width: 1024px;
+}

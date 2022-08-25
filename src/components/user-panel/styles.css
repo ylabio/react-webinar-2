@@ -1,0 +1,13 @@
+.UserPanel {
+    display: flex;
+    justify-content: flex-end;
+}
+.UserPanel-profile{
+    font-size: 13px;
+    line-height: 15px;
+}
+.UserPanel button {
+    margin: 10px 20px;
+    cursor: pointer;
+    height: 21px;
+}

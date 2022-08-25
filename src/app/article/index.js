@@ -1,7 +1,7 @@
 import React, {useCallback} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import ArticleCard from "../../components/article-card";
@@ -10,6 +10,8 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import Auth from "../../containers/auth";
+import Header from "../../components/header";
 
 function Article(){
   const store = useStore();
@@ -34,17 +36,22 @@ function Article(){
   };
 
   return (
-    <Layout head={
-      <LayoutFlex flex="between">
-        <h1>{select.article.title}</h1>
-        <LocaleSelect/>
-      </LayoutFlex>
-    }>
-      <Tools/>
-      <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
-      </Spinner>
-    </Layout>
+    <>
+      <Header>
+        <Auth/>
+      </Header>
+      <Layout head={
+        <LayoutFlex flex="between">
+          <h1>{select.article.title}</h1>
+          <LocaleSelect/>
+        </LayoutFlex>
+      }>
+        <Tools/>
+        <Spinner active={select.waiting}>
+          <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        </Spinner>
+      </Layout>
+    </>
   )
 }
 

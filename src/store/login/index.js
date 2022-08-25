@@ -59,13 +59,6 @@ class LoginState extends StateModule {
         user: json.result,
         token: localStorage.getItem("token"),
       });
-    } else {
-      this.setState({
-        ...this.getState(),
-        status: 'no_auth',
-        user: null,
-        error: null,
-      });
     }
   }
 

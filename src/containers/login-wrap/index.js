@@ -1,10 +1,12 @@
 import React, {useCallback} from "react";
+import { useNavigate } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import LoginAuth from "../../components/login-auth";
 
 function LoginWrap() {
   const store = useStore();
+  const navigate = useNavigate();
 
   const select = useSelector(state => ({
     login: state.login,
@@ -13,7 +15,13 @@ function LoginWrap() {
   }));
   
   const callbacks = {
-    logout: useCallback(_id => store.get('login').logout(), []),
+    logout: useCallback((_id) => store.get("login").logout(), []),
+    logoutRedirect: useCallback(() => {
+      if (!select.user) {
+        navigate("/");
+      } 
+    }, 
+   []),
   };
 
   return (
@@ -23,6 +31,7 @@ function LoginWrap() {
       profileLink={"/profile"}
       loginLink={"/login"}
       onLogout={callbacks.logout}
+      logoutRedirect={callbacks.logoutRedirect}
     />
   );
 }

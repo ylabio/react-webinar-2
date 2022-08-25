@@ -2,9 +2,8 @@ import React, {useCallback, useState} from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
-import { Navigate } from 'react-router-dom';
 
-function LoginForm({errorMessage, user, onLogin}){
+function LoginForm({errorMessage, onLogin, loginRedirect }) {
 
 const cn = bem("LoginForm");
 const [login, setLogin] = useState("");
@@ -19,11 +18,8 @@ const changePass = (e) => {
 const formSubmit = useCallback(e => {
   e.preventDefault();
   onLogin({ login: login, password: pass });
+  loginRedirect();
 },[login, pass]);
-
-if (user) {
-  return <Navigate to="/" />;
-}
 
 return (
     <div className={cn()}>

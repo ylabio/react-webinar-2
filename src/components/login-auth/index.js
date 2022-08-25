@@ -4,16 +4,19 @@ import {cn as bem} from '@bem-react/classname'
 import propTypes, { string } from "prop-types";
 import './style.css';
 
-function LoginAuth({user, profileLink, loginLink, status, onLogout}){
+function LoginAuth({user, profileLink, loginLink, status, onLogout, logoutRedirect}){
   const cn = bem('LoginAuth');
 
   const callbacks = {
-    onLogoutHandler: useCallback((e) => onLogout(), [onLogout])
+    onLogoutHandler: useCallback((e) => {
+      onLogout();
+      logoutRedirect();
+    }, [onLogout]),
   };
 
   return (
     <div className={cn()}>
-    {status ===  'auth' ?
+    {user ?
       <>
         <Link to={profileLink} className={cn('user')}>{user.profile.name}</Link>
         <button className={cn('button')} onClick={callbacks.onLogoutHandler}>Выход</button>

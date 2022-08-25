@@ -1,0 +1,45 @@
+.LayoutFlex{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding: 10px 20px;
+    align-items: center;
+    overflow: hidden;
+}
+.LayoutFlex_flex_start{
+    justify-content: flex-start;
+}
+
+.LayoutFlex_flex_end{
+    justify-content: flex-end;
+}
+
+.LayoutFlex_flex_between{
+    justify-content: space-between;
+}
+
+.LayoutFlex_indent_none{
+    padding: 0;
+}
+
+.LayoutFlex_indent_small{
+    padding: 10px 20px;
+}
+
+.LayoutFlex_indent_big{
+    padding: 20px;
+}
+
+.LayoutFlex_indent_big h1{
+    margin: 0;
+}
+
+.LayoutFlex-item{
+    margin: 0 5px;
+}
+.LayoutFlex-item:first-child{
+    margin-left: 0;
+}
+.LayoutFlex-item:last-child{
+    margin-right: 0;
+}

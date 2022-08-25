@@ -1,0 +1,25 @@
+.ArticleCard {
+    padding: 20px 35px;
+}
+
+.ArticleCard-description {
+    margin: 20px 0;
+}
+
+.ArticleCard-prop {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.ArticleCard-prop_size_big{
+    font-size: 24px;
+}
+
+.ArticleCard-label{
+    padding-right: 10px;
+}
+
+.ArticleCard-value{
+    font-weight: bold;
+}

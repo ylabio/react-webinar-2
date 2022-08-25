@@ -18,4 +18,4 @@ function User({ user }) {
 User.propTypes = {
   user: propTypes.object.isRequired
 }
-export default User
+export default React.memo(User)

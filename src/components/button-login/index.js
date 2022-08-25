@@ -1,15 +1,18 @@
 import React from 'react'
-import LayoutFlex from '../layout-flex'
 import LinkMenu from '../linkMenu'
 import './style.css'
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-function LoginButton({ token, deleteUser, path }) {
+
+function LoginButton({ token, deleteUser, path, name }) {
+
+
+
     return (
-        localStorage.getItem('token') ?
+        token ?
             (
                 <div className='Login'>
-                    <Link to={path}>{localStorage.getItem('name')}</Link>
+                    <Link to={path}>{name}</Link>
                     <button onClick={() => deleteUser(token)}>Выход</button>
                 </div>
             )
@@ -25,11 +28,14 @@ LoginButton.propTypes = {
     token: propTypes.string,
     deleteUser: propTypes.func,
     auth: propTypes.bool,
-    path: propTypes.string
+    path: propTypes.string,
+    name: propTypes.string
 }
 LoginButton.defaultProps = {
     token: '',
     path: '',
+    name: '',
     deleteUser: () => { },
+
 }
 export default LoginButton

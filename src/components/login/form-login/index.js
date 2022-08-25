@@ -4,19 +4,16 @@ import propTypes from 'prop-types';
 import CheckUser from '../../../hoc/CheckUser';
 
 
-function LoginForm({ loginUser, error, data, handleChange, auth,_id }) {
+function LoginForm({ loginUser, error, data, handleChange, auth, user }) {
     const { login, password } = data
     async function handleSubmit(evt) {
         evt.preventDefault();
-        console.log('1');
-        await loginUser(data)
-
-
+        loginUser(data)
     }
 
 
     return (
-        <CheckUser path={'/profile'}  auth={localStorage.getItem('token')} id={localStorage.getItem('id')}>
+        <CheckUser path={'/profile'} auth={localStorage.getItem('token')} id={user._id}>
             <form onSubmit={handleSubmit}>
                 <div className='LoginForm'>
                     <p className='title'>Вход</p>
@@ -45,11 +42,11 @@ LoginForm.propTypes = {
     data: propTypes.object.isRequired,
     handleChange: propTypes.func.isRequired,
     auth: propTypes.bool,
-    _id:propTypes.string,
+    user: propTypes.object,
 }
 LoginForm.defaultProps = {
     error: null,
     auth: false,
-    _id:'',
+    user: {}
 }
 export default LoginForm

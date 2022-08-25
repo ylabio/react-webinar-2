@@ -15,22 +15,28 @@ import { useLocation } from 'react-router-dom';
 function Main() {
   const store = useStore();
   const callbacks = {
-    deleteUser: useCallback((token) => store.get('user').deleteUser(token), []),
+    deleteUser: useCallback((token) => store.get('user').deleteUser(token), []),  
+    checkUser:useCallback((token)=>store.get('user').checkUser(token),[])
   }
   const select = useSelector(state => ({
     token: state.user.user.token,
-
+    user: state.user.user,
   }));
 
-  const id = localStorage.getItem('id')
   useInit(async () => {
     await store.get('catalog').initParams();
+    await  callbacks.checkUser(localStorage.getItem('token'))
   }, [], { backForward: true });
+
+
+
   const { t } = useTranslate();
   return (
     <Layout top={
       <LoginButton
-        path={`/profile/${id}`}
+        
+        name={select.user.userName}
+        path={`/profile/${select.user._id}`}
         deleteUser={callbacks.deleteUser}
         token={select.token}
       />}

@@ -9,17 +9,28 @@ class User extends StateModule {
                 userName: '',
                 telephone: '',
                 email: '',
-                _id:'',
+                _id: '',
                 auth: false,
             }
         };
     }
     //
+    resetError() {
+        this.setState({
+            ...this.getState(),
+            user: {
+                ...this.initState().user, error: ''
+
+            },
+        });
+
+    }
     /**
      * Логин пользователя 
      * @param data (data.login , data.password)
      * 
      */
+
     async loginUser(data) {
         this.setState({
             ...this.getState(),
@@ -51,11 +62,10 @@ class User extends StateModule {
         )
 
         const json = await response.json()
-        console.log(json);
+
         if (!response.ok) {
 
             const error = await json.error.data.issues[0].message
-            console.log(error);
             this.setState({
                 ...this.getState(),
                 user: {
@@ -69,17 +79,16 @@ class User extends StateModule {
         }
 
         localStorage.setItem('token', await json.result.token)
-        localStorage.setItem('id', await json.result.user._id)
         const profile = await json.result.user.profile
         this.setState({
             ...this.getState(),
             user: {
                 ...this.initState().user, error: false,
-                token: json.result.token, userName: profile.name,_id:json.result.user._id,
+                token: json.result.token, userName: profile.name, _id: json.result.user._id,
                 telephone: profile.phone, email: json.result.user.email, auth: true
             },
         });
-     
+
 
 
     }
@@ -89,34 +98,39 @@ class User extends StateModule {
    * 
    */
     async checkUser(token) {
+        this.setState({
+            ...this.getState(),
+            user: {
+                ...this.initState().user, error: '',
 
-        const cheeck = await fetch(
-            `/api/v1/users/self`, {
-            method: 'GET',
-            headers: {
-                'X-Token': token,
-                'content-type': 'application/json'
+            },
+        });
+        if (token) {
+            const cheeck = await fetch(
+                `/api/v1/users/self`, {
+                method: 'GET',
+                headers: {
+                    'X-Token': token,
+                    'content-type': 'application/json'
+                }
+            }
+            )
+            if (cheeck.ok) {
+                const response = await cheeck.json()
+                const userInfo = await response.result
 
+                this.setState({
+                    ...this.getState(),
+                    user: {
+                        ...this.initState().user, error: '',
+                        userName: userInfo.profile.name, telephone: userInfo.profile.phone,
+                        email: userInfo.email, _id: userInfo._id, auth: true
+                    },
+                });
             }
         }
 
-        )
 
-        if (cheeck.ok) {
-            const response = await cheeck.json()
-            const userInfo = await response.result
-            console.log(userInfo)
-            localStorage.setItem('name', userInfo.profile.name)
-            this.setState({
-                ...this.getState(),
-                user: {
-                    ...this.initState().user, error: false,
-                    userName: userInfo.profile.name, telephone: userInfo.profile.phone,
-                    email: userInfo.email,_id:userInfo._id, auth: true
-                },
-            });
-        }
-    
 
     }
     /**
@@ -140,8 +154,7 @@ class User extends StateModule {
         const response = await cheeck.json()
         if (response.result) {
             localStorage.removeItem('token')
-            localStorage.removeItem('name')
-            localStorage.removeItem('id')
+
             this.setState({
                 ...this.getState(),
                 user: {

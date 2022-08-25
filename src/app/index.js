@@ -22,7 +22,7 @@ function App() {
         <Route path={''} element={<Main />} />
         <Route path={"/articles/:id"} element={<Article />} />
         <Route path={"/login"} element={<Login />} />
-        <Route element={<RequireAuth auth={localStorage.getItem('token')} />}>D
+        <Route element={<RequireAuth auth={localStorage.getItem('token')} />}>
           <Route path={'/profile/:id'} element={<UserInfo />} />
         </Route>
       </Routes>

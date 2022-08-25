@@ -12,9 +12,9 @@ function Login() {
     const select = useSelector(state => ({
         error: state.user.user.error,
         token: state.user.user.token,
-        user: state.user.user.userName,
+        name: state.user.user.userName,
+        user: state.user.user,
         auth: state.user.user.auth,
-        _id: state.user.user.auth._id
     }));
     const [data, setData] = useState({
         login: '',
@@ -33,18 +33,19 @@ function Login() {
         }, []),
         exitUser: useCallback((token) => store.get('user').exitUser(token), []),
         deleteUser: useCallback((token) => store.get('user').deleteUser(token), []),
+        resetError:useCallback(() => store.get('user').resetError(), []),
     };
     const { t } = useTranslate()
     return (
 
-        <Layout top={<LoginButton name={select.user} deleteUser={callbacks.deleteUser} token={select.token} />} head={
-            <LayoutFlex flex="between">
+        <Layout top={<LoginButton name={select.name} deleteUser={callbacks.deleteUser} token={select.token} />} head={
+            <LayoutFlex resetError={callbacks.resetError} flex="between">
                 <h1>{t('title')}</h1>
             </LayoutFlex>
         }>
             <Tools />
             <LoginForm
-                id={select._id}
+                user={select.user}
                 auth={select.auth}
                 error={select.error}
                 loginUser={callbacks.loginUser}

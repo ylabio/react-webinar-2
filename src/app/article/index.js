@@ -24,18 +24,23 @@ function Article() {
 
   const select = useSelector(state => ({
     article: state.article.data,
-    waiting: state.article.waiting
+    waiting: state.article.waiting,
+    user:state.user.user
+    
   }));
-
   const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    deleteUser: useCallback(token => store.get('user').deleteUser(token), []),
+    checkUser:useCallback((token)=>store.get('user').checkUser(token),[])
   };
-
+  useInit(async () => {
+    await  callbacks.checkUser(localStorage.getItem('token'))
+  }, [], { backForward: true });
   return (
-    <Layout top={<LoginButton />} head={
+    <Layout top={<LoginButton path={`/profile/${select.user._id}`}  name={select.user.userName}  deleteUser={callbacks.deleteUser} token={select.user.token}/>} head={
       <LayoutFlex flex="between">
         <h1>{select.article.title}</h1>
         <LocaleSelect />

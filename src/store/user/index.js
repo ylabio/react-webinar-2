@@ -71,6 +71,43 @@ class UserState extends StateModule {
     });
   }
 
+  // Восстановление сеанса пользователя
+  async restoreUser() {
+    // Установка параметра ожидания
+    this.setState({
+      ...this.getState(),
+      waiting: true
+    });
+    const myHeaders = new Headers({
+      'Content-Type': 'application/json; charset=UTF-8"',
+      'X-Token': window.localStorage.getItem('access_token')
+    })
+    const response = await fetch(`/api/v1//users/self`, {
+      method: 'GET',
+      headers: myHeaders
+    });
+    if (response.ok) {
+      const json = await response.json();
+      console.log('restoreUser data', json);
+
+      // Сеанс пользователя восстановлен успешно
+      this.setState({
+        userName: json.result.profile.name,
+        authorized: true,
+        error: '',
+        waiting: false
+      });
+    } else {
+      // Ошибка при восстановлении сеанса пользователя
+      this.setState({
+        userName: '',
+        authorized: false,
+        error: 'Ошибка при восстановлении сеанса пользователя: ' + response.status,
+        waiting: false
+      });
+    }
+  }
+
   // Сброс ошибки сервера
   resetError() {
     this.setState({

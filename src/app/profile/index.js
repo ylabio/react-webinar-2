@@ -1,5 +1,4 @@
-import React, {useEffect} from "react";
-import {useNavigate} from 'react-router-dom';
+import React from "react";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import Spinner from "../../components/spinner";
@@ -7,11 +6,11 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
+import Login from "../../app/login";
 import ProfilePage from "../../components/profile-page";
-import Main from "../main";
+
 
 function Profile() {
-  const navigate = useNavigate();
 
   const select = useSelector(state => ({
     user: state.profile.data,
@@ -21,11 +20,7 @@ function Profile() {
 
   const {t} = useTranslate();
 
-  useEffect(() => {
-    if (!select.authorized) {navigate('/login')}
-  }, [])
-
-  if (select.authorized && select.user.profile) {
+  if (select.user.profile) {
     return (
       <Layout head={
         <LayoutFlex flex="between">
@@ -40,7 +35,7 @@ function Profile() {
       </Layout>
     )
   } else {
-    return <Main/>
+    return select.authorized ? null : !select.waiting ? <Login/> : null;
   }
 }
 

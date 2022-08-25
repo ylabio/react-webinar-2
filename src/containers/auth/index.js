@@ -1,12 +1,10 @@
 import React, {useCallback, useState} from "react";
-import {useNavigate} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import Login from "../../components/auth";
 
 function Auth() {
   const store = useStore();
-  const navigate = useNavigate();
   const {t} = useTranslate(); 
 
   const [login, setLogin] = useState('');
@@ -17,7 +15,7 @@ function Auth() {
       evt.preventDefault();
       try {
         await store.get('user').setToken(login, password)
-        navigate(`/profile`);
+        window.history.back()
       } catch (error) {
         setTextError(error.message)
       }

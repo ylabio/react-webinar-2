@@ -8,6 +8,7 @@ body{
 /* Страница*/
 .Layout{
     max-width: 1024px;
+    min-width: 800px;
     min-height: 100vh;
     margin: 0 auto;
     background: #fff;
@@ -21,4 +22,7 @@ body{
 }
 .Layout-head h1{
     margin: 0;
+}
+.Layout-login{
+    height: 41px;
 }

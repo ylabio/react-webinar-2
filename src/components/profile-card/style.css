@@ -1,0 +1,17 @@
+.ProfileCard{
+    padding: 20px;
+    font-size: 18px;
+}
+
+.ProfileCard-profile{
+    font-size: 24px;
+    padding-bottom: 30px;
+}
+
+.ProfileCard-name{
+    padding-bottom: 20px;
+}
+
+.ProfileCard-phone{
+    padding-bottom: 20px;
+}

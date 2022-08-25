@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useState} from "react";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
@@ -17,9 +17,12 @@ function CatalogList() {
     limit: state.catalog.params.limit,
     count: state.catalog.count,
     waiting: state.catalog.waiting,
+    url: state.catalog.url
   }));
 
   const {t} = useTranslate();
+
+  
 
   const callbacks = {
     // Добавление в корзину

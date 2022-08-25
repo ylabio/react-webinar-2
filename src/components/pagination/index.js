@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname'
+import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 function Pagination(props) {
@@ -32,14 +32,37 @@ function Pagination(props) {
     return () => props.onChange(page);
   };
 
+  // Устанавливает ссылку для открытия страницы
+  const setLink = (numberPage) => { 
+
+    const urlArr = window.location.search.split('&');
+    const pageUrl = urlArr.find(i => i.includes('page'));
+
+    if (pageUrl != undefined) {
+      const pageNum = pageUrl.split('=');
+      pageNum[1] = String(numberPage);
+      const newPageUrl = pageNum.join('=');
+      const newUrlArr = urlArr.map(i => i.includes('page') ? i = newPageUrl : i);
+      const urlSearch = newUrlArr.join('&');
+      const totalUrl = `${window.location.protocol}//${window.location.host}/${urlSearch}`
+
+    return totalUrl;
+
+    } else {
+      
+      return 'http://localhost:8010/?page=1&limit=10&sort=order&query=&category=';
+
+    }
+  }
+  
   return (
     <ul className={cn()}>
       {items.map((number, index) => (
         <li key={index}
             className={cn('item', {active: number === props.page, split: !number})}
-            onClick={onClickHandler(number)}
+            onClick={typeof number === 'number' ? onClickHandler(number) : null}
         >
-          {number || '...'}
+         {typeof number === 'number' ? <a href={setLink(number)} onClick={(e) => e.preventDefault()}>{number}</a> : '...'}
         </li>
       ))}
     </ul>

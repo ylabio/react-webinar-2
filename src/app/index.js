@@ -7,7 +7,7 @@ import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
 import Login from "./login";
-import Profile from "./profile";
+import ProfileIsAuth from "../containers/profile-isauth"
 
 /**
  * Приложение
@@ -20,7 +20,10 @@ function App() {
     await store.get('login').isAuth();
   }, [], {backForward: true});
 
-  const modal = useSelector(state => state.modals.name);
+  const select = useSelector(state => ({
+    modal: state.modals.name,
+    user: state.login.user,
+  }));
 
   return (
     <>
@@ -28,9 +31,9 @@ function App() {
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
         <Route path={"/login"} element={<Login/>}/>
-        <Route path={"/profile"} element={<Profile/>}/>
+        <Route path={"/profile"} element={<ProfileIsAuth user={select.user}/>}/>
       </Routes>
-      {modal === 'basket' && <Basket/>}
+      {select.modal === 'basket' && <Basket/>}
     </>
   );
 }

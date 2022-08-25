@@ -1,11 +1,11 @@
 import React from "react";
 import propTypes from "prop-types";
 import { Navigate } from "react-router-dom";
-import ProfileInfo from "../../components/profile-info";
+import Profile from "../../app/profile";
 
 function ProfileIsAuth({ user }) {
   if (user) {
-    return <ProfileInfo user={user} />;
+    return <Profile />;
   } else {
     return <Navigate to="/login" />;
   }

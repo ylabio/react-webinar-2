@@ -1,0 +1,24 @@
+{
+  "title": "Shop",
+  "menu.main": "Main",
+  "basket.title": "Cart",
+  "basket.open": "Open",
+  "basket.close": "Close",
+  "basket.inBasket": "In cart",
+  "basket.empty": "empty",
+  "basket.articles": {
+    "one": "article",
+    "other": "articles"
+  },
+  "basket.total": "Total",
+  "basket.unit": "pcs",
+  "basket.delete": "Delete",
+  "article.add": "Add",
+  "filter.reset": "Reset",
+  "auth.title": "Sign In",
+  "auth.login": "Login",
+  "auth.password": "Password",
+  "auth.signIn": "Sign in",
+  "session.signIn": "Sign In",
+  "session.signOut": "Sign Out"
+}

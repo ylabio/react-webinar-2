@@ -20,7 +20,7 @@ function Profile() {
 
   const {t} = useTranslate();
 
-  if (select.user.profile) {
+  if (select.authorized) {
     return (
       <Layout head={
         <LayoutFlex flex="between">

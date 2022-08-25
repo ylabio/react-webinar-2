@@ -7,7 +7,7 @@ import App from './app';
 
 // Внешнее состояние
 const store = new Store();
-
+console.log(store)
 // Корень React приложения
 const root = createRoot(document.getElementById('root'));
 

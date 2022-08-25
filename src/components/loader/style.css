@@ -1,0 +1,28 @@
+.Loader{
+  width: 100%;
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.Loader-content {
+  width: 100px;
+  aspect-ratio: 1;
+  color: #f03355;
+  --_c: no-repeat radial-gradient(farthest-side,currentColor 92%,#0000);
+  background: 
+    var(--_c) 50% 0   /24px 24px,
+    var(--_c) 50% 100%/24px 24px,
+    var(--_c) 100% 50%/24px 24px,
+    var(--_c) 0    50%/24px 24px,
+    var(--_c) 50%  50%/24px 24px,
+    conic-gradient(from 90deg at 4px 4px,#0000 90deg,currentColor 0)
+    -8px -8px/calc(50% + 4px) calc(50% + 4px);
+  animation: s8 1s infinite linear;
+}
+@keyframes s8 {to{transform: rotate(.5turn)}}

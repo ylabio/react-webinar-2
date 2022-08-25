@@ -13,6 +13,8 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    category: state.catalog.params.category,
+    categories: state.category.items
   }));
 
   const {t} = useTranslate();
@@ -22,6 +24,8 @@ function CatalogFilter() {
     onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
     // Поиск
     onSearch: useCallback(query => store.get('catalog').setParams({query, page: 1}), []),
+    // Выбор категории
+    onCategory: useCallback(category => store.get('catalog').setParams({category, page: 1}), []),
     // Сброс
     onReset: useCallback(() => store.get('catalog').resetParams(), [])
   };
@@ -38,6 +42,7 @@ function CatalogFilter() {
 
   return (
     <LayoutFlex flex="start">
+      <Select onChange={callbacks.onCategory} value={select.category} options={select.categories}/>
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

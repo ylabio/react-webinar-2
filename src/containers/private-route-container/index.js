@@ -9,8 +9,8 @@ function PrivateRouteContainer({children}) {
     token: state.auth.token
   }));
 
-    return select.token ? children: <Navigate to ='/login'/>
-  }
+  return select.token ? children: <Navigate to ='/login'/>
+}
 
 PrivateRouteContainer.propTypes = {
   children: propTypes.node,

@@ -20,7 +20,6 @@ function Article() {
 
   useInit(async () => {
     await store.get('article').load(params.id);
-    store.get('session').setCurrentPage();
   }, [params.id]);
 
   const select = useSelector((state) => ({

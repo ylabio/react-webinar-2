@@ -9,6 +9,7 @@ import ProfileCard from '../../components/profile-card';
 import UserMenu from '../user-menu';
 import Spinner from '../../components/spinner';
 import useCheck from '../../hooks/use-check';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Profile() {
   const { t } = useTranslate();

@@ -15,7 +15,6 @@ class SessionState extends StateModule {
       // isLogged: false,
       name: '',
       error: '',
-      currentPage: '',
     };
   }
 
@@ -23,13 +22,6 @@ class SessionState extends StateModule {
     this.setState({
       ...this.getState(),
       error: '',
-    });
-  }
-
-  setCurrentPage() {
-    this.setState({
-      ...this.getState(),
-      currentPage: window.location.pathname,
     });
   }
 
@@ -111,7 +103,7 @@ class SessionState extends StateModule {
         console.log(json.error);
         throw new Error(json.error.data.issues.map((i) => i.message));
       }
-      history.back();
+      // history.back();
 
       const user = await json.result.user;
 

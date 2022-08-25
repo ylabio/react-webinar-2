@@ -17,7 +17,6 @@ function Main() {
     async () => {
       await store.get('catalog').initParams();
       await store.get('categories').setCategories();
-      store.get('session').setCurrentPage();
     },
     [],
     { backForward: true }

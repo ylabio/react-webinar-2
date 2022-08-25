@@ -8,21 +8,20 @@ import LayoutFlex from '../../components/layout-flex';
 import LocaleSelect from '../../containers/locale-select';
 import LoginForm from '../../components/login-form';
 import UserMenu from '../user-menu';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Spinner from '../../components/spinner';
 
 function Login() {
   const store = useStore();
+  const navigate = useNavigate();
 
   const select = useSelector((state) => ({
     isLogged: state.session.isLogged,
     error: state.session.error,
     waiting: state.profile.waiting,
-    currentPage: state.session.currentPage,
   }));
 
-  const navigator = useNavigate();
-  console.log('navigator:', navigator);
+  const location = useLocation();
 
   const { t } = useTranslate();
 
@@ -33,6 +32,11 @@ function Login() {
     ),
     resetError: useCallback(() => store.get('session').resetError(), []),
   };
+
+  React.useEffect(() => {
+    if (select.isLogged)
+      navigate(location.state ? location.state.pathname : '/profile');
+  }, [select.isLogged]);
 
   return (
     <Layout
@@ -57,11 +61,6 @@ function Login() {
           resetError={callbacks.resetError}
         />
       </Spinner>
-
-      {select.isLogged && (
-        <Navigate to={select.currentPage ? select.currentPage : '/profile'} />
-      )}
-      {/* {select.isLogged && <Navigate to="/profile" />} */}
     </Layout>
   );
 }

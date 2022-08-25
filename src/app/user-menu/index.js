@@ -5,13 +5,10 @@ import LayoutFlex from '../../components/layout-flex';
 import LoginLink from '../../components/login-link';
 import LogoutLink from '../../components/logout-link';
 import useTranslate from '../../hooks/use-translate';
-import { useNavigate } from 'react-router-dom';
 
 function UserMenu() {
   const store = useStore();
   const { t } = useTranslate();
-
-  const navigate = useNavigate();
 
   const select = useSelector((state) => ({
     name: state.session.name,
@@ -21,7 +18,6 @@ function UserMenu() {
   const callbacks = {
     // выход из профиля
     onLogout: useCallback((token) => store.get('session').onLogout(token), []),
-    // onLogout: useCallback((token) => store.get('profile').onLogout(token), []),
   };
 
   const links = {

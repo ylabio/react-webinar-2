@@ -28,8 +28,6 @@ const LoginForm = (props) => {
       e.preventDefault();
       callbacks.logIn(password, name);
       setSubmited(true);
-      if (!isAuthErr && history.length === 2) return navigate('/?category=&page=1&limit=10&sort=order&query=', {replace: true });
-      if (!isAuthErr && history.length > 2) return navigate(-1, {replace: true });
     })
   }
 

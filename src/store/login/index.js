@@ -110,7 +110,16 @@ class LoginState extends StateModule{
       status: 'no_auth',
       user: null,
     });
-
+    
+    const token = getToken();
+    const response = fetch(`/api/v1/users/sign`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Token': `${token}`
+      }
+    });
+    
     dropToken();
   }
 

@@ -8,18 +8,22 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
+import LoginWrap from "../../containers/login-wrap";
 
 function Main() {
   const store = useStore();
+  const {t} = useTranslate();
 
   useInit(async () => {
     await store.get('catalog').initParams();
   }, [], {backForward: true});
 
-  const {t} = useTranslate();
+  useInit(async () => {
+    await store.get('categories').load();
+  }, [], {backForward: true});
 
   return (
-    <Layout head={
+    <Layout top={<LoginWrap/>} head={
       <LayoutFlex flex="between">
         <h1>{t('title')}</h1>
         <LocaleSelect/>

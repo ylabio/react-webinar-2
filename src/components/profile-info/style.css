@@ -1,0 +1,15 @@
+.ProfileInfo {
+  padding: 20px;
+}
+
+.ProfileInfo-title {
+  margin-bottom: 30px;
+}
+
+.ProfileInfo-text {
+  margin-bottom: 20px;
+
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+

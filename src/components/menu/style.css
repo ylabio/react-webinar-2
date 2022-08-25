@@ -22,3 +22,11 @@
     margin-right: 0;
     padding-right: 0;
 }
+
+.Menu-link {
+    text-decoration-line: underline;
+    color: #0087E9;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}

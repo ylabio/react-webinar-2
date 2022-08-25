@@ -1,0 +1,33 @@
+.LoginAuth {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.LoginAuth-button {
+  padding: 1px 6px;
+  background: #EFEFEF;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
+  text-align: center;
+  color: #000000;
+  margin-left: 23px;
+}
+
+.LoginAuth-button:hover {
+  background: #DEDEDE;
+}
+
+.LoginAuth-user {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
+  text-align: center;
+  text-decoration-line: underline;
+  color: #0087E9;
+}

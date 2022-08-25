@@ -22,3 +22,8 @@ body{
 .Layout-head h1{
     margin: 0;
 }
+.Layout-topHead {
+    padding: 13px 20px;
+    justify-content: flex-end;
+    display: flex;
+}

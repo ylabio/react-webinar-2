@@ -1,0 +1,11 @@
+.AuthControl {
+}
+
+.AuthControl-name {
+  margin-right: 20px;
+  color: #0087E9;
+}
+
+.AuthControl-name:visited {
+  color: #0087E9;
+}

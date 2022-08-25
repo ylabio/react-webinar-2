@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../store/authcontext';
+import React from 'react';
+import useInit from '../hooks/use-init';
+import useStore from '../hooks/use-store';
 import useSelector from "../hooks/use-selector";
 import {Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from './login';
@@ -13,22 +14,27 @@ import Article from "./article";
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
+  const store = useStore();
+  useInit(async () => {
+    await store.get('auth').getInitAuth();
+  }, [], {backForward: true});
 
-  const modal = useSelector(state => state.modals.name);
-  const { user } = useContext(AuthContext);
-  const userToken = localStorage.token || user;
+  const select = useSelector(state => ({
+    modal: state.modals.name,
+    token: state.auth.token || localStorage.token,
+  }));
 
   return (
     <>
       <Routes>
-        <Route path='/login' element={<LoginPage/>}/>
-        <Route path='/profile' element={
-          !userToken ? <Navigate replace to='/login'/> 
-          : <UserPage />}/>
-        <Route path={''} element={<Main/>}/>
+        <Route path={'/login'} element={<LoginPage/>}/>
+        <Route path={'/profile'} element={
+          select.token ? <UserPage /> 
+          : <Navigate to={'/login'}/>}/>
+        <Route index path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
       </Routes>
-      {modal === 'basket' && <Basket/>}
+      {select.modal === 'basket' && <Basket/>}
     </>
   );
 }

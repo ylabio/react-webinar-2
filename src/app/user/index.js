@@ -1,4 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useCallback } from "react";
+import useInit from "../../hooks/use-init";
+import useSelector from "../../hooks/use-selector";
+import useStore from "../../hooks/use-store";
 import { cn as bem } from "@bem-react/classname";
 import useTranslate from "../../hooks/use-translate";
 import Tools from "../../containers/tools";
@@ -9,10 +12,19 @@ import LoginMenu from "../../components/login-menu";
 import './style.css';
 
 function UserPage() {
-
-  const {t} = useTranslate();
   const cn = bem('UserPage');
-  const localStorageUser = JSON.parse(localStorage.user);
+  const store = useStore();
+  useInit(async () => {
+    await store.get('auth').getInitAuth();
+  }, [], {backForward: true});
+
+  const user = useSelector(state => state.auth.user || JSON.parse(localStorage.user));
+
+  const callbacks = {
+    logOut: useCallback(() => store.get('auth').logOut(), []),
+  }
+  
+  const {t} = useTranslate();
   const options = {
     loginMenu: useMemo(() => ({ loginTitle: t('tologin'), loginName: t('login.name'), login: t('login'), logOutTitle: t('logout'), password: t('password') }), [t]),
   }
@@ -22,17 +34,17 @@ function UserPage() {
       <h2>{t('profile')}</h2>
       <div>{'Имя:'} 
           <span className={cn('userinfo')}>
-            {` ${localStorageUser.profile.name} ${localStorageUser.profile.surname}`}
+            {` ${user.profile.name} ${user.profile.surname}`}
           </span>
       </div>
       <div>{'Телефон:'} 
           <span className={cn('userinfo')}>
-            {` ${localStorageUser.profile.phone}`}
+            {` ${user.profile.phone}`}
           </span>
       </div>
       <div>{'Email:'} 
           <span className={cn('userinfo')}>
-            {` ${localStorageUser.email}`}
+            {` ${user.email}`}
           </span>
       </div>
     </div>
@@ -41,7 +53,7 @@ function UserPage() {
     <>
       <Layout head={
         <>
-          <LoginMenu options={options.loginMenu}/>
+          <LoginMenu options={options.loginMenu} user={user} logOut={callbacks.logOut}/>
           <LayoutFlex flex="between">
             <h1>{t('title')}</h1>
             <LocaleSelect/>

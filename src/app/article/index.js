@@ -1,7 +1,7 @@
 import React, {useCallback, useMemo} from "react";
+import { useParams } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import {useParams} from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import ArticleCard from "../../components/article-card";
@@ -13,16 +13,18 @@ import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
 
 function Article(){
-  const store = useStore();
-
   // Параметры из пути /articles/:id
   const params = useParams();
 
   useInit(async () => {
     await store.get('article').load(params.id);
-  }, [params.id]);
+    await store.get('auth').getInitAuth();
+  }, [], {backForward: true});
+
+  const store = useStore();
 
   const select = useSelector(state => ({
+    user: state.auth.user,
     article: state.article.data,
     waiting: state.article.waiting
   }));
@@ -32,6 +34,7 @@ function Article(){
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    logOut: useCallback(() => store.get('auth').logOut(), []),
   };
 
   const options = {
@@ -41,7 +44,7 @@ function Article(){
   return (
     <Layout head={
       <>
-        <LoginMenu options={options.loginMenu}/>
+        <LoginMenu options={options.loginMenu} user={select.user} logOut={callbacks.logOut}/>
         <LayoutFlex flex="between">
           <h1>{select.article.title}</h1>
           <LocaleSelect/>

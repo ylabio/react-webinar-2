@@ -1,6 +1,6 @@
-import React, { useCallback, useMemo, useContext } from "react";
+import React, { useCallback, useMemo } from "react";
 import useStore from "../../hooks/use-store";
-import { useNavigate } from 'react-router-dom';
+import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import CatalogFilter from "../../containers/catalog-filter";
@@ -10,33 +10,31 @@ import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import LoginMenu from "../../components/login-menu";
-import { AuthContext } from "../../store/authcontext";
 
 function Main() {
-  const store = useStore();
-
   useInit(async () => {
     await store.get('catalog').initParams();
     await store.get('categories').getCategories();
+    await store.get('auth').getInitAuth();
   }, [], {backForward: true});
 
+  const store = useStore();
+  const user = useSelector(state => state.auth.user);
   const {t} = useTranslate();
-  const navigate = useNavigate();
-  const { user, toLogin, logOut } = useContext(AuthContext);
-  const callbacks = {
-    toLogin: useCallback(() => navigate('/login'), [toLogin]),
-
-  };
 
   const options = {
-    loginMenu: useMemo(() => ({ loginTitle: t('tologin'), logOutTitle: t('logout'), toLogin: callbacks.toLogin }), [t]),
+    loginMenu: useMemo(() => ({ loginTitle: t('tologin'), logOutTitle: t('logout') }), [t]),
   }
-  
+
+  const callbacks = {
+    logOut: useCallback(() => store.get('auth').logOut(), []),
+  }
+
   return (
     <>
       <Layout head={
         <>
-          <LoginMenu options={options.loginMenu}/>
+          <LoginMenu options={options.loginMenu} user={user} logOut={callbacks.logOut}/>
           <LayoutFlex flex="between">
             <h1>{t('title')}</h1>
             <LocaleSelect/>

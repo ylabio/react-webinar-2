@@ -1,25 +1,36 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { cn as bem } from "@bem-react/classname";
-import { AuthContext } from "../../store/authcontext";
+import useStore from "../../hooks/use-store";
+import useSelector from "../../hooks/use-selector";
 import './style.css';
+import Spinner from "../spinner";
 
 const LoginForm = (props) => {
-    const { enter, inputname, inputpassword, login } = props.options;
-    const navigate = useNavigate();
-    const cn = bem('LoginForm');
-    const { err, logIn } = useContext(AuthContext);
-    const [isSubmited, setSubmited] = useState(null);
-    const [name, setName] = useState("");
-    const [password, setPassword] = useState("");
+  const { enter, inputname, inputpassword, login } = props.options;
+  const navigate = useNavigate();
+  const cn = bem('LoginForm');
+  const store = useStore();
 
-    return (    
+  const select = useSelector(state => ({
+    isWaiting: state.auth.waiting,
+    err: state.auth.err,
+  }));
+const isAuthErr = typeof select.err === 'string' || select.err === null;
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  
+  const callbacks = {
+    logIn: useCallback((password, name) => store.get('auth').logIn(password, name), []),
+  }
+
+  return (
+    <Spinner active={select.isWaiting}>   
       <form className={(cn())} onSubmit={(e) => {
         e.preventDefault();
-        logIn(password, name);
-        setSubmited(true);
-        history.length <= 2 && navigate('/category=&page=1&limit=10&sort=order&query=');
-        (!err && history.length > 2) && navigate(-1);
+        callbacks.logIn(password, name);
+        (!!isAuthErr && history.length === 2) && navigate('/?category=&page=1&limit=10&sort=order&query=', {replace: true });
+        (!!isAuthErr && history.length > 2) && navigate(-1);
         }}>
         <h3 className={(cn('header'))}>{enter}</h3>
         <label className={(cn('label'))}>
@@ -38,9 +49,10 @@ const LoginForm = (props) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        {(err && isSubmited) && <div className={(cn('err'))}>{err}</div>}
+        {isAuthErr && <div className={(cn('err'))}>{select.err}</div>}
         <input className={(cn('inputButton'))} type="submit" value={login} />
       </form>
+    </Spinner> 
     )
   }
 

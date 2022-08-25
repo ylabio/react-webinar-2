@@ -1,0 +1,9 @@
+.UserCard {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+.UserCard-info {
+    font-weight: bold;
+}

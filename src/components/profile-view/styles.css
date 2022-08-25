@@ -1,0 +1,14 @@
+.ProfileView {
+  padding: 36px 20px 0;
+}
+.ProfileView-header {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 30px 0;
+}
+.ProfileView-item:not(:last-child) {
+  margin-bottom: 20px;
+}
+.ProfileView-bold {
+  font-weight: 700;
+}

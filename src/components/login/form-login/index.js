@@ -13,7 +13,7 @@ function LoginForm({ loginUser, error, data, handleChange, auth, user }) {
 
 
     return (
-        <CheckUser path={'/profile'} auth={localStorage.getItem('token')} id={user._id}>
+        <CheckUser path={-1} auth={localStorage.getItem('token')} id={user._id}>
             <form onSubmit={handleSubmit}>
                 <div className='LoginForm'>
                     <p className='title'>Вход</p>

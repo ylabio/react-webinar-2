@@ -1,16 +1,18 @@
 import React from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate,useNavigate } from 'react-router-dom'
 import propTypes from 'prop-types';
 
 function CheckUser({ children, auth, path, id }) {
-
-    return auth ? <Navigate to={`${path}/${id}`} /> : children
+    const navigate = useNavigate()
+    // <Navigate to={`${path}/${id}`} />
+    return auth ? <Navigate to={path}/> : children
 }
 CheckUser.propTypes = {
     children: propTypes.node,
-    path: propTypes.string,
+    path: propTypes.any,
     auth: propTypes.any,
     id: propTypes.string
+
 }
 CheckUser.defaultProps = {
     path: '',

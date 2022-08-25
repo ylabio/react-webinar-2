@@ -21,7 +21,7 @@ export const LoginForm = ({ onAuth, me }) => {
       return setError('Заполните все поля')
     }
     onAuth(login, password)
-      .then(_ => navigate('/'))
+      .then(_ => navigate(-1))
       .catch(error => error.response.data.error.data.issues.map((e) => setError(e.message)))
       setTimeout(() => {
         me()

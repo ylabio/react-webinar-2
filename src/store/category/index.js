@@ -15,7 +15,6 @@ class Category extends StateModule {
 
 
         this.setState({
-            ...this.getState,
             items: sortCategory
         })
 

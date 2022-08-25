@@ -17,7 +17,7 @@ class CategoriesState extends StateModule {
   }
 
     async getCategories() {
-    const categoryResponse = await fetch('api/v1/categories?lang=ru&sort=parent&skip=0&fields=%2A')
+    const categoryResponse = await fetch('/api/v1/categories?fields=items(*),parent&limit=*')
     const categoryJson = await categoryResponse.json();
     const result = categoryJson.result.items;
       // Рекурсия для изменения наименования товара по его вложенности

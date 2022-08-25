@@ -1,0 +1,11 @@
+.HeaderSign{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    
+
+}
+
+.HeaderSign button {
+    margin-left: 20px;
+}

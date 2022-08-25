@@ -8,6 +8,7 @@ class ProfileState extends StateModule {
    */
   initState() {
     return {
+      waiting: true,
       name: '',
       phone: '',
       email: '',
@@ -19,7 +20,11 @@ class ProfileState extends StateModule {
    * @param {*} token 
    */
   async getProfile(token) {
-    console.log('getProfile');
+    this.setState({
+      ...this.getState(),
+      waiting: true,
+    });
+
     const response = await fetch('/api/v1/users/self', {
       method: 'GET',
       headers: {
@@ -31,12 +36,14 @@ class ProfileState extends StateModule {
     if (response.status >=200 && response.status < 300) {     
       const {result} = json;
       this.setState({
+        waiting: false,
         name: result.profile.name,
         phone: result.profile.phone,
         email: result.email,
       })
     } else { 
         this.setState({
+          waiting: false,
           name: '',
           phone: '',
           email: '',

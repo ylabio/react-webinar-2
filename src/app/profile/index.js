@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
-import useToken from '../../hooks/use-token';
 import useStore from "../../hooks/use-store";
 import Tools from '../../containers/tools';
 import LayoutFlex from '../../components/layout-flex';
@@ -11,33 +9,26 @@ import LocaleSelect from '../../containers/locale-select';
 import ProfileInfo from '../../components/profile-info';
 import Loader from '../../components/loader';
 import LoginControl from '../../containers/login-control';
+import useInit from '../../hooks/use-init';
 
 function Profile() {
   const store = useStore();
   const { t } = useTranslate();
-
-  //! Пока так восстанавливаем страницу
-  useEffect(() => {
-    const data = localStorage.getItem('shop');
-    if (data) {
-      const {token} = JSON.parse(data); 
-      store.get('profile').getProfile(token);
-    }    
-  }, []);
 
   const select = useSelector((state) => ({
     auth: state.auth,
     profile: state.profile
   }));
 
-  const { name, phone, email } = select.profile;
+  useInit(async () => {
+    await store.get('profile').getProfile(select.auth.token);
+  }, [], {backForward: true});
 
-  // Проверка авторизации по сохраненному токену
-  useToken('shop');
+  const { name, phone, email } = select.profile;
 
   return (
     <>
-      {select.auth.waiting ? (
+      {select.profile.waiting ? (
         <Loader />
       ) : (
         <Layout

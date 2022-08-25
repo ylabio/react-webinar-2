@@ -13,10 +13,7 @@ class AuthFormState extends StateModule {
       error: '',
       waiting: false,
       profile: {
-        // id: '',
         name: '',
-        phone: '',
-        email: '',
       }
     }
   }
@@ -32,10 +29,7 @@ class AuthFormState extends StateModule {
       waiting: false,
       error: '',
       profile: {
-        // id: '',
         name: '',
-        phone: '',
-        email: '',
       }     
     });
   }
@@ -75,16 +69,15 @@ class AuthFormState extends StateModule {
 
     if (response.status >= 200 && response.status < 300) {     
       console.log('Login ok');
-      const {result} = await response.json();      
+      const {result} = await response.json();
+      //! Сохраняем ключ
+      localStorage.setItem('shop', JSON.stringify({token: result.token}));     
         this.setState({
           ...this.getState(),
           token: result.token,
           authorized: true,
-          // waiting: false,
           profile: {
             name: result.user.profile.name,
-            phone: result.user.profile.phone,
-            email: result.user.email,
           }
         });
     } else {      
@@ -99,7 +92,6 @@ class AuthFormState extends StateModule {
       this.setState({
         ...this.getState(),
         error: errorMessage,
-        // waiting: false,
       })
     }  
   }
@@ -128,7 +120,6 @@ class AuthFormState extends StateModule {
    * @param {*} token 
    */
   async loadAuthorizationData(token) {
-    console.log('getProfile');
     this.setState({
       ...this.getState(),
       waiting: true,
@@ -151,8 +142,6 @@ class AuthFormState extends StateModule {
         waiting: false,
         profile: {
           name: result.profile.name,
-          phone: result.profile.phone,
-          email: result.email,
         }
       })
     } else {      
@@ -162,10 +151,7 @@ class AuthFormState extends StateModule {
         waiting: false,
         error: json.error.data.issues[0].message,
         profile: {
-          // id: '',
           name: '',
-          // phone: '',
-          // email: '',
         }     
       });
     }   

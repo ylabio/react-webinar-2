@@ -1,7 +1,5 @@
 import React, {useEffect, useCallback} from "react";
-import { useNavigate } from "react-router-dom";
 import useStore from "../../hooks/use-store";
-import useToken from "../../hooks/use-token";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import Tools from "../../containers/tools";
@@ -15,7 +13,6 @@ function Authorization() {
   console.log('Страница авторизации');
 
   const store = useStore();
-  const navigate = useNavigate();
   const {t} = useTranslate();
 
   const select = useSelector(state => ({
@@ -24,21 +21,12 @@ function Authorization() {
 
   const callbacks = {
     onLogin:useCallback((data) => store.get('auth').login(data)),
-  }  
+  }
 
-  // Проверка авторизации по сохраненному токену
-  useToken('shop');
-
+  // Очистка ошибки
   useEffect(() => {
-    if(select.auth.authorized) {
-      // Сохраняем токен в LocalStorage
-      console.log('Сохраняем новый ключ')
-      localStorage.setItem('shop', JSON.stringify({token: select.auth.token})); 
-      navigate('/profile');
-    }
-    // Очистка сообщения об ошибке
     return () => store.get('auth').clearError();
-  }, [select.auth.authorized]);
+  }, []);
 
   return (
     <Layout

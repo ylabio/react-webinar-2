@@ -14,7 +14,7 @@ export default function getCategoriesOptions(optionsRaw) {
   }
 
   const makeList = (tree) => {
-    const categories = [];
+    const categories = [{value: '', title: 'Все'}];
     const step = (item, level = '') => {
       categories.push({value: item._id, title: `${level} ${item.title}`});
       item.children.forEach((child) => step(child, `- ${level}`));

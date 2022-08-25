@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import Input from "../../components/input";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
-import "./style.css";
+import LoginFields from "../../components/login-fields";
 
 function LoginForm() {
 
@@ -20,25 +20,17 @@ function LoginForm() {
         LoginInput: useCallback(login => store.get('authorization').setUser({ login }), []),
         PasswordInput: useCallback(password => store.get('authorization').setUser({ password }), []),
         LoginUser: useCallback(event => store.get('authorization').userAuthorization(event), [])
+    };
+
+    const renders = {
+        LoginInputElement: useCallback(() => (<Input onChange={callbacks.LoginInput} value={select.login} theme="default" type="text" />), [callbacks.LoginInput, select.login]),
+        PasswordInputElement: useCallback(() => (<Input onChange={callbacks.PasswordInput} value={select.password} theme="default" type="password" />), [callbacks.PasswordInput, select.password])
 
     };
 
 
 
-    return (<div className="login-container">
-        <h2>Вход</h2>
-        <form className="login-form">
-            <label className="login-label">Логин</label>
-            <Input onChange={callbacks.LoginInput} value={select.login} theme="default" type="text" required />
-            <label className="password-label">Пароль</label>
-            <Input onChange={callbacks.PasswordInput} value={select.password} theme="default" type="password" required />
-
-            <p className="error" >{select.error}</p>
-
-            <button className="login-button" onClick={callbacks.LoginUser} type="submit">Войти</button>
-
-        </form>
-    </div>);
+    return (<LoginFields loginUser={callbacks.LoginUser} error={select.error} renderInputs={renders} />)
 }
 
 

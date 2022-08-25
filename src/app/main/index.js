@@ -9,7 +9,6 @@ import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 
-import ProfileMenu from "../../containers/profile-menu";
 
 
 function Main() {
@@ -17,8 +16,6 @@ function Main() {
 
   useInit(async () => {
     await store.get('catalog').initParams();
-    await store.get('categories').load();
-
   }, [], { backForward: true });
 
   const { t } = useTranslate();
@@ -28,8 +25,7 @@ function Main() {
       <LayoutFlex flex="between">
         <h1>{t('title')}</h1>
         <LocaleSelect />
-      </LayoutFlex>}
-      profileMenu={<ProfileMenu />}>
+      </LayoutFlex>}>
       <Tools />
       <CatalogFilter />
       <CatalogList />

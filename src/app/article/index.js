@@ -10,7 +10,6 @@ import Tools from "../../containers/tools";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
-import ProfileMenu from "../../containers/profile-menu";
 
 function Article() {
   const store = useStore();
@@ -40,8 +39,7 @@ function Article() {
         <h1>{select.article.title}</h1>
         <LocaleSelect />
       </LayoutFlex>
-    }
-      profileMenu={<ProfileMenu />}>
+    }>
       <Tools />
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />

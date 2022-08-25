@@ -1,14 +1,11 @@
 import React from 'react';
 import useSelector from "../hooks/use-selector";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
 
-import useInit from "../hooks/use-init";
-import useStore from "../hooks/use-store";
-import Login from "./login";
-import Profile from "./profile";
+
 
 /**
  * Приложение
@@ -16,22 +13,13 @@ import Profile from "./profile";
  */
 function App() {
 
-  const store = useStore();
-
-  useInit(async () => {
-    await store.get('authorisation').checkAuthorisation();
-  }, [], { backForward: true });
-
   const modal = useSelector(state => state.modals.name);
 
   return (
     <>
       <Routes>
-        <Route path={'catalog/:page'} element={<Main />} />
+        <Route path={''} element={<Main />} />
         <Route path={"/articles/:id"} element={<Article />} />
-        <Route path={"/login"} element={<Login />} />
-        <Route path={"/profile"} element={<Profile />} />
-        <Route path="" element={<Navigate replace to="catalog/1" />} />
       </Routes>
       {modal === 'basket' && <Basket />}
     </>

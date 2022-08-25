@@ -12,7 +12,8 @@ export default function useSelector(selector) {
 
   const [state, setState] = useState(() => selector(store.getState()));
 
-  const unsubscribe = useMemo(() => {
+  useEffect(() => {
+    // Подписка на последующие изменения в store    
     return store.subscribe(() => {
       // Новая выборка
       const newState = selector(store.getState());
@@ -23,8 +24,6 @@ export default function useSelector(selector) {
       });
     });
   }, []);
-
-  useEffect(() => unsubscribe, [unsubscribe]);
 
   return state;
 }

@@ -40,8 +40,7 @@ function CatalogList() {
       <Pagination count={select.count}
         page={select.page}
         limit={select.limit}
-        onChange={callbacks.onPaginate}
-        linkBase={'/catalog/'} />
+        onChange={callbacks.onPaginate} />
     </Spinner>
   );
 }

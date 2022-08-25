@@ -26,7 +26,6 @@ function Profile(){
       surname: state.form.result?.result?.user?.profile?.surname,
       user: state.form.result
     }));
-
     const callbacks = {
       inputLogin: useCallback((login) => store.get('form').inputLogin(login), []),
       inputPassword: useCallback((password) => store.get('form').inputPassword(password), []),

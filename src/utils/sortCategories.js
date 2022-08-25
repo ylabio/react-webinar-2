@@ -1,27 +1,42 @@
 
 function sycle(arr) {
-    const newArr = []
-  
+    const firstLevel = []
+    const secondLevel = []
+    const thirdLevel = []
+    const forthLevel = []
+
     for(let i = 0; i < arr.length; i++) {
         if(!arr[i]?.parent) {
-          newArr.push(arr[i])
+          firstLevel.push(arr[i])
         } 
     }
     for(let i = 0; i < arr.length; i++) {
-    arr.map(item => {
-        if(arr[i]?.parent?._id === item?._id && !item?.parent) {
-        newArr.push({...arr[i], title: ` - ${arr[i].title}`})
+      firstLevel.map(item => {
+        if(arr[i]?.parent?._id === item?._id ) {
+          secondLevel.push({...arr[i], title: ` - ${arr[i].title}`})
         } 
-        if(arr[i]?.parent?._id === item?._id && item?.parent) {
-
-        newArr.push({...arr[i], title: ` - - ${arr[i].title}`, order: arr[i].order = item.order})
-        }
     })
 
     }
-    return [...newArr]
+
+    for(let i = 0; i < arr.length; i++) {
+      secondLevel.map(item => {
+        if(arr[i]?.parent?._id === item?._id) {
+          thirdLevel.push({...arr[i], title: `- - ${arr[i].title}`, order: item.order})
+        } 
+    })
+  }
+    for(let i = 0; i < arr.length; i++) {
+      thirdLevel.map(item => {
+        if(arr[i]?.parent?._id === item?._id) {
+          forthLevel.push({...arr[i], title: `- - - ${arr[i].title}`, order: item.order})
+        } 
+    })
+
+    }
+    return [...firstLevel, ...secondLevel, ...thirdLevel, ...forthLevel]
+
 }
-  
   export function categoriesArr(arr = []) {
   
     let sortedArr = sycle(arr)
@@ -43,4 +58,3 @@ function sycle(arr) {
     return sortedArr.sort((a, b) => a.order - b.order)
       
   }
-  

@@ -32,8 +32,6 @@ function Article(){
     surname: state.form.result?.result?.profile?.surname,
   }));
 
-  console.log(select.surname)
-
   const {t} = useTranslate();
 
   const callbacks = {

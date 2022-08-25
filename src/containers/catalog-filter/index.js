@@ -27,7 +27,7 @@ function CatalogFilter() {
     callbacks.inputCategories()
   }, [])
 
-  categoriesArr(select.categories)
+
 
   const callbacks = {
     // Сортировка

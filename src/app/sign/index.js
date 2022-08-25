@@ -48,6 +48,10 @@ function Sign(){
   };
 
 
+
+
+  // if(link) return <Navigate to={`/profile/${select?.result?.result?.profile?.surname}`} />
+  
   if(link) return <Navigate to={`/profile/${select?.result?.result?.profile?.surname}`} />
 
   return (

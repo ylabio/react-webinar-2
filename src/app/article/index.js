@@ -23,7 +23,7 @@ function Article(){
 
   const select = useSelector(state => ({
     article: state.article.data,
-    waiting: state.article.waiting
+    waiting: state.article.waiting,
   }));
 
   const {t} = useTranslate();

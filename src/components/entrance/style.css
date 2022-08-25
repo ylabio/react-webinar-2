@@ -1,0 +1,11 @@
+.Entrance{
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px 23px 12px 23px;
+    border-bottom: 1px solid #DCDCDC;
+}
+
+button a{
+    text-decoration: none;
+    color: #000000;
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
@@ -8,6 +8,7 @@ import Tools from "../../containers/tools";
 import LayoutFlex from "../../components/layout-flex";
 import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
+import useSelector from "../../hooks/use-selector";
 
 function Main() {
   const store = useStore();
@@ -15,6 +16,8 @@ function Main() {
   useInit(async () => {
     await store.get('catalog').initParams();
   }, [], {backForward: true});
+
+  useCallback(() => store.get('profile').initState())
 
   const {t} = useTranslate();
 

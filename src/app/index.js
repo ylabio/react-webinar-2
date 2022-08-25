@@ -1,25 +1,55 @@
-import React from 'react';
+import React, { useEffect, useCallback } from "react";
 import useSelector from "../hooks/use-selector";
-import {Routes, Route} from "react-router-dom";
+import useStore from "../hooks/use-store";
+import { Routes, Route } from "react-router-dom";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
+import User from "./user";
+import Authorization from "./authorization";
+import Btn from "../components/btn/btn";
 
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
+  const select = useSelector((state) => ({
+    user: state.login.user,
+    modal: state.modals.name,
+  }));
 
-  const modal = useSelector(state => state.modals.name);
+  const store = useStore();
+
+  const callbacks = {
+    setAuth: useCallback((token) => store.get("login").setAuth(token), []),
+    setLogin: useCallback(() => store.get("login").setLogin(true), []),
+    setDelete: useCallback((token) => store.get("login").setDelete(token), []),
+  };
+
+  useEffect(() => {
+    console.log(select.user);
+    callbacks.setAuth(localStorage.getItem("token"));
+  }, []);
+
+  const btnExit = (
+    <Btn
+      title="Выход"
+      name={select.user.name}
+      setLogin={callbacks.setLogin}
+      setDelete={callbacks.setDelete}
+    />
+  );
 
   return (
     <>
       <Routes>
-        <Route path={''} element={<Main/>}/>
-        <Route path={"/articles/:id"} element={<Article/>}/>
+        <Route path={""} element={<Main btnExit={btnExit} />} />
+        <Route path={"/login"} element={<Authorization />} />
+        <Route path={"/profile"} element={<User btnExit={btnExit} />} />
+        <Route path={"/articles/:id"} element={<Article btnExit={btnExit} />} />
       </Routes>
-      {modal === 'basket' && <Basket/>}
+      {select.modal === "basket" && <Basket />}
     </>
   );
 }

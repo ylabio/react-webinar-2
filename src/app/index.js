@@ -9,6 +9,7 @@ import Article from "./article";
 import Login from "./login";
 import Profile from "./profile";
 import Protected from "../containers/protected";
+import {useSelector as useSelectorRedux} from 'react-redux'
 
 /**
  * Приложение
@@ -22,7 +23,8 @@ function App() {
     await store.get('session').remind();
   })
 
-  const modal = useSelector(state => state.modals.name);
+  //const modal = useSelector(state => state.modals.name);
+  const modal = useSelectorRedux(state => state.name);
 
   return (
     <>

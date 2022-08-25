@@ -5,10 +5,12 @@ import useTranslate from "../../hooks/use-translate";
 import Menu from "../../components/menu";
 import BasketSimple from "../../components/basket-simple";
 import LayoutFlex from "../../components/layout-flex";
+import {useStore as useStoreRedux, useSelector as useSelectorRedux} from 'react-redux'
 
 function ToolsContainer() {
 
-  const store = useStore();
+  //const store = useStore();
+  const storeRedux = useStoreRedux();
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
@@ -20,7 +22,10 @@ function ToolsContainer() {
 
   const callbacks = {
     // Открытие корзины
-    openModalBasket: useCallback(() => store.get('modals').open('basket'), []),
+    openModalBasket: useCallback(() => {
+      //store.get('modals').open('basket');
+      storeRedux.dispatch({type: 'modal/open', payload: {name: 'basket'}});
+    }, []),
   };
 
   const options = {

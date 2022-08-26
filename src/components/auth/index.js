@@ -17,13 +17,14 @@ function Auth({ auth, userName, logOut, t }) {
   return (
     <div className={cn()}>
       {auth ? <Link to={'/profile'}>{userName}</Link> : ''}
-      <Link to={'/login'}>
-        {auth ? (
-          <button onClick={callbacks.logOut}>{t('auth.logout')}</button>
-        ) : (
+
+      {auth ? (
+        <button onClick={callbacks.logOut}>{t('auth.logout')}</button>
+      ) : (
+        <Link to={'/login'}>
           <button onClick={() => {}}>{t('auth.login')}</button>
-        )}
-      </Link>
+        </Link>
+      )}
     </div>
   )
 }

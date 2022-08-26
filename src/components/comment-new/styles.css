@@ -1,0 +1,30 @@
+.Comment-New {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 14px;
+    padding-top: 30px;
+}
+
+.Comment-New-article {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 14px;
+    padding-bottom: 30px;
+    margin: 0 35px 0 35px;
+}
+
+.Comment-New-title {
+    font-weight: 700;
+}
+
+.Comment-New-section {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.Comment-New-controls {
+    display: flex;
+    gap: 10px;
+}

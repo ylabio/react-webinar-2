@@ -1,0 +1,39 @@
+.CommentForm {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.CommentForm label{
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+}
+.CommentForm textarea {
+    margin-bottom: 10px;
+    align-self: stretch;
+    resize: vertical;
+    min-height: 76px;
+}
+.CommentForm-not-auth {
+    font-size: 16px;
+    line-height: 18px;
+}
+.CommentForm-not-auth a {
+    text-decoration-line: underline;
+    color: #0087E9;
+}
+.CommentForm-buttons {
+    display: flex;
+}
+.CommentForm-buttons button:first-child{
+    margin-right: 10px;
+}
+.CommentForm-cancel {
+    font-size: 16px;
+    line-height: 18px;
+    text-decoration-line: underline;
+    color: #666666;
+    cursor: pointer;
+}

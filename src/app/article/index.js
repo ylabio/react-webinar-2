@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -12,13 +12,20 @@ import TopContainer from "../../containers/top";
 import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import actionsArticle from '../../store-redux/article/actions';
+import CommentsContainer from "../../containers/comments-container";
+import Comments from "../../components/comments";
+import commentsActions from '../../store-redux/comments/actions';
 
 function Article(){
   const store = useStore();
   // Параметры из пути /articles/:id
   const params = useParams();
-
   const storeRedux = useStoreRedux();
+  const { items } = useSelectorRedux(state => state.comments.data);
+
+  useEffect(() => {
+    storeRedux.dispatch(commentsActions.getAll(params.id))
+  }, []);
 
   useInit(async () => {
     //await store.get('article').load(params.id);
@@ -42,8 +49,11 @@ function Article(){
       <TopContainer/>
       <HeadContainer title={select.article.title || ''}/>
       <ToolsContainer/>
-      <Spinner active={select.waiting}>
+      <Spinner active={select.waiting || !items}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        <CommentsContainer>
+          <Comments items={items} />
+        </CommentsContainer>
       </Spinner>
     </Layout>
   )

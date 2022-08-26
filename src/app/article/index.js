@@ -1,8 +1,7 @@
 import React, {useCallback} from "react";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
 import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import ArticleCard from "../../components/article-card";
@@ -12,6 +11,7 @@ import TopContainer from "../../containers/top";
 import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import actionsArticle from '../../store-redux/article/actions';
+import ArticleCommentsContainer from "../../containers/article-comments-container";
 
 function Article(){
   const store = useStore();
@@ -21,8 +21,8 @@ function Article(){
   const storeRedux = useStoreRedux();
 
   useInit(async () => {
-    //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsArticle.load(params.id));
+    storeRedux.dispatch(actionsArticle.loadComments(params.id));
   }, [params.id]);
 
   const select = useSelectorRedux(state => ({
@@ -44,9 +44,11 @@ function Article(){
       <ToolsContainer/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        <ArticleCommentsContainer articleId={params.id} type={select.article._type}/>
       </Spinner>
     </Layout>
   )
 }
 
 export default React.memo(Article);
+

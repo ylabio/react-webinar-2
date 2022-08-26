@@ -1,0 +1,15 @@
+.Comments-alert {
+    padding: 0 40px 30px;
+}
+.Comments-signIn {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    color: #0087E9;
+    text-decoration-line: underline;
+}

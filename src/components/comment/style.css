@@ -1,0 +1,38 @@
+.Comment {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.Comment-userName {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.Comment-date {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #666666;
+}
+
+.Comment-text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.Comment-btn {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    font-size: 12px;
+    line-height: 14px;
+    color: #0087E9;
+}

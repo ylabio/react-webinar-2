@@ -25,22 +25,20 @@ class UserState extends StateModule {
       waiting: true
     });
     try {
-      const response = await fetch('/api/v1/users/sign', {
+      const json = await this.services.api.request({
+        url: '/api/v1/users/sign',
         method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          login: login,
-          password: password,
-          remember: true
-        })
+        body:
+          JSON.stringify({
+            login: login,
+            password: password,
+            remember: true
+          })
       })
       
-      const json = await response.json()
       if (json.error) {
         const errors = json.error.data.issues.reduce((previousValue, currentValue) => previousValue + currentValue.message + '. ', '')
-
+        
         this.setState({
           ...this.getState(),
           errorMessage: errors,
@@ -57,6 +55,7 @@ class UserState extends StateModule {
           isAuth: true,
           waiting: false
         });
+        this.store.api.setHeader('X-Token', data.token)
         localStorage.setItem('authToken', data.token)
       }
     } catch (e) {
@@ -76,14 +75,12 @@ class UserState extends StateModule {
     const currentToken = localStorage.getItem('authToken')
     if (currentToken) {
       try {
-        const response = await fetch("/api/v1/users/self", {
-          method: "GET",
-          headers: {
+        const json = await this.services.api.request({
+          url: "/api/v1/users/self", headers: {
             "X-Token": currentToken,
           },
         });
         
-        const json = await response.json()
         const data = json.result;
         
         this.setState({
@@ -113,14 +110,10 @@ class UserState extends StateModule {
     const currentToken = localStorage.getItem('authToken') || this.getState().token
     if (currentToken) {
       try {
-        const response = await fetch("/api/v1/users/sign", {
-          method: "DELETE",
-          headers: {
-            "X-Token": currentToken,
-            "Content-Type": "application/json"
-          },
+        const json = await this.services.api.request({
+          url: "/api/v1/users/sign",
+          method: "DELETE"
         });
-        const json = await response.json
         
         this.setState({
           ...this.initState()

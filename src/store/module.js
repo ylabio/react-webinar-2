@@ -3,6 +3,7 @@ class StateModule {
   constructor(store, name) {
     this.store = store;
     this.name = name;
+    this.services = store.services
   }
 
   /**

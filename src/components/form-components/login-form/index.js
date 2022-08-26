@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import Input from "../input";
@@ -7,22 +7,32 @@ import propTypes from "prop-types";
 function LoginForm(props) {
   const cn = bem('LoginForm');
   
-  const [loginInput, setLoginInput] = React.useState('');
-  const [passwordInput, setPasswordInput] = React.useState('');
+  const [data, setData] = React.useState({
+    loginInput: '',
+    passwordInput: ''
+  })
+  
+  const callbacks = {
+    onChange: useCallback((value, name) => {
+      setData(prevData => ({...prevData, [name]: value}))
+      console.log(data)
+    }, [])
+  };
+  
   
   return (
     <div className={cn()}>
       <div className={cn('title')}>{props.t('header.login')}</div>
       <div className={cn('inputWrapper')}>
         <label>{props.t('login.login')}</label><br/>
-        <Input value={loginInput} onChange={e => setLoginInput(e)} type='text'/>
+        <Input value={data.loginInput} onChange={e => callbacks.onChange(e, 'loginInput')} type='text'/>
       </div>
       <div className={cn('inputWrapper')}>
         <label>{props.t('login.password')}</label><br/>
-        <Input value={passwordInput} onChange={e => setPasswordInput(e)} type='password'/>
+        <Input value={data.passwordInput} onChange={e => callbacks.onChange(e, 'passwordInput')} type='password'/>
       </div>
       <div className={cn('error')}>{props.errorMessage}</div>
-      <button onClick={() => props.login(loginInput, passwordInput)}>{props.t('login.signIn')}</button>
+      <button onClick={() => props.login(data.loginInput, data.passwordInput)}>{props.t('login.signIn')}</button>
     </div>
   )
 }
@@ -34,7 +44,8 @@ LoginForm.propTypes = {
 }
 
 LoginForm.defaultProps = {
-  login: () => {}
+  login: () => {
+  }
 }
 
 export default React.memo(LoginForm);

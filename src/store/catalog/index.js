@@ -1,17 +1,7 @@
 import StateModule from "../module";
-import qs from 'qs';
-
-const QS_OPTIONS = {
-  stringify: {
-    addQueryPrefix: true,
-    arrayFormat: 'comma',
-    encode: false
-  },
-  parse: {
-    ignoreQueryPrefix: true,
-    comma: true
-  }
-}
+import qs from '../../utils/search-params';
+import diff from "../../utils/diff";
+import api from "../../api";
 
 /**
  * Состояние каталога
@@ -45,7 +35,7 @@ class CatalogState extends StateModule {
    */
   async initParams(params = {}) {
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
-    const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
+    const urlParams = qs.parse(window.location.search) || {}
     let validParams = {};
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
@@ -87,13 +77,20 @@ class CatalogState extends StateModule {
       waiting: true
     });
     
-    const categoryFilter =
-      newParams.category && newParams.category !== 'Все' ?
-        `&search[category]=${newParams.category}` : ''
+    const apiParams = diff({
+      limit: newParams.limit,
+      skip: (newParams.page - 1) * newParams.limit,
+      fields: 'items(*),count',
+      sort: newParams.sort,
+      search: {
+        query: newParams.query,
+        category: newParams.category,
+      }
+    }, {skip: 0, search: {query: '', category: ''}})
     
-    const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${categoryFilter}`);
-    const json = await response.json();
+    const json = await this.services.api.request({
+      url: `/api/v1/articles${qs.stringify(apiParams)}`
+    });
     
     // Установка полученных данных и сброс признака загрузки
     this.setState({
@@ -104,7 +101,7 @@ class CatalogState extends StateModule {
     });
     
     // Запоминаем параметры в URL
-    let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);
+    let queryString = qs.stringify(diff(newParams, this.initState().params));
     const url = window.location.pathname + queryString + window.location.hash;
     if (historyReplace) {
       window.history.replaceState({}, '', url);

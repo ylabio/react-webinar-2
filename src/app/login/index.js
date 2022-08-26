@@ -7,23 +7,24 @@ import useTranslate from "../../hooks/use-translate";
 import Tools from "../../containers/tools";
 import LoginForm from "../../components/form-components/login-form";
 import useSelector from "../../hooks/use-selector";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import LoginSpinner from "../../components/login-spinner";
 
 function Login() {
   const store = useStore();
   
   const navigate = useNavigate()
-  
+  const location = useLocation()
+  console.log(location.state)
   const callbacks = {
     // Функция логина
     login: useCallback((login, password) => {
       store.get('user').login(login, password)
-      navigate('/')
-    }, []),
+      const back = location.state?.back && location.state?.back !== location.pathname ? location.state?.back : '/'
+      navigate(back)
+    }, [location.state]),
   };
   
-  // console.log(history.back())
   
   const {errorMessage,profileWaiting} = useSelector(state => {
     return {

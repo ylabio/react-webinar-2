@@ -1,11 +1,21 @@
 import React from 'react';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
-import {Link} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import propTypes from "prop-types";
 
 function Header(props) {
   const cn = bem('Header');
+  
+  const navigate = useNavigate()
+  const location = useLocation()
+  
+  const callbacks = {
+    linkToLogin: React.useCallback(() => {
+      if (props.logout) props.logout()
+      navigate('/login', {state: {back: location.pathname}})
+    }, [location.pathname])
+  };
   
   return (
     <div className={cn()}>
@@ -13,9 +23,7 @@ function Header(props) {
         <Link to='/profile'>
           <div className={cn('userName')}>{props.userName}</div>
         </Link>
-        <Link to='/login'>
-          <button className={cn('toLoginButton')} onClick={props.logout}>{props.buttonText}</button>
-        </Link>
+        <button className={cn('toLoginButton')} onClick={callbacks.linkToLogin}>{props.buttonText}</button>
       </div>
     </div>
   )

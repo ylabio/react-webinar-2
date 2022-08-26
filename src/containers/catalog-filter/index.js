@@ -5,6 +5,8 @@ import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/form-components/select";
 import Input from "../../components/form-components/input";
 import LayoutFlex from "../../components/layouts/layout-flex";
+import treeToList from "../../utils/tree-to-list";
+import listToTree from "../../utils/list-to-tree";
 
 function CatalogFilter() {
   
@@ -38,15 +40,14 @@ function CatalogFilter() {
       {value: '-price', title: 'Сначала дорогие'},
       {value: 'edition', title: 'Древние'},
     ]), []),
-    categories: useMemo(() => (select.categories.map(item => ({
-      value: item._id,
-      title: item.title
-    }))), [select.categories]),
+    categories: useMemo(() => ([
+      {value: '', title: 'Все'},
+      ...treeToList(listToTree(select.categories), ((item, level) => ({
+        value: item._id,
+        title: '- '.repeat(level) + item.title
+      })))
+    ]), [select.categories]),
   }
-  
-  React.useEffect(() => {
-    store.get('categories').getCategories()
-  }, []);
   
   return (
     <LayoutFlex flex="start">

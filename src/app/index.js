@@ -11,7 +11,6 @@ import useStore from "../hooks/use-store";
 import useTranslate from "../hooks/use-translate";
 import useInit from "../hooks/use-init";
 import LoginChecker from "../containers/login-checker";
-import LoginSpinner from "../components/login-spinner";
 
 /**
  * Приложение

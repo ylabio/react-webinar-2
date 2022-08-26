@@ -1,0 +1,4 @@
+###
+# Список категорий
+
+GET {{baseUrl}}/categories?fields=_id,title,parent(_id)&limit=*

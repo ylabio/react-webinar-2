@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import propTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
-import throttle from "lodash.throttle";
+import debounce from "lodash.debounce";
 import './style.css';
 
 function Input(props) {
@@ -11,7 +11,10 @@ function Input(props) {
   const [value, change] = useState(props.value);
 
   // Задержка для вызова props.onChange
-  const changeThrottle = useCallback(throttle(value => props.onChange(value), 1000), [props.onChange]);
+  const changeThrottle = useCallback(
+    debounce(value => props.onChange(value, props.name), 600),
+    [props.onChange, props.name]
+  );
 
   // Обработчик изменений в поле
   const onChange = useCallback(event => {
@@ -27,6 +30,7 @@ function Input(props) {
   return (
     <input
       className={cn({theme: props.theme})}
+      name={props.name}
       value={value}
       type={props.type}
       placeholder={props.placeholder}
@@ -38,6 +42,7 @@ function Input(props) {
 Input.propTypes = {
   value: propTypes.string,
   type: propTypes.string,
+  name: propTypes.string,
   placeholder: propTypes.string,
   onChange: propTypes.func,
   theme: propTypes.string,

@@ -1,8 +1,12 @@
 import React from 'react';
-import {Navigate, Outlet } from 'react-router-dom';
+import {Navigate, Outlet, useLocation } from 'react-router-dom';
 
 function ProtectedRoute({status, redirectPath = '', children}) {
-  if (status) return <Navigate to={redirectPath} replace />;
+  console.log(useLocation());
+  const location = useLocation();
+  console.log('В ProtectedRoute', location);
+
+  if (status) return <Navigate to={redirectPath} replace state={{from: location}}/>;
   return children ? children : <Outlet />
 }
 

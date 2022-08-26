@@ -8,9 +8,13 @@ import Layout from "../../components/layout";
 import LocaleSelect from "../../containers/locale-select";
 import AuthForm from '../../components/auth-form';
 import LoginControl from '../../containers/login-control';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 function Authorization() {
   console.log('Страница авторизации');
+  // console.log(useLocation());
+  const navigate =  useNavigate();
+  
 
   const store = useStore();
   const {t} = useTranslate();
@@ -25,8 +29,17 @@ function Authorization() {
 
   // Очистка ошибки
   useEffect(() => {
+    // if (select.auth.authorized) {
+    //   console.log('Успешная авторизация');
+    //   navigate(-1);
+    // }
     return () => store.get('auth').clearError();
   }, []);
+
+  if (select.auth.authorized) {
+    // console.log('Успешная авторизация');
+    // navigate(-1);
+  }
 
   return (
     <Layout

@@ -8,7 +8,7 @@ import config from "./config";
 import {Provider} from 'react-redux';
 
 // Менеджер сервисов
-const services = new Services(config);
+const services = new Services(config); 
 
 // Корень React приложения
 const root = createRoot(document.getElementById('root'));

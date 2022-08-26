@@ -37,6 +37,10 @@
     padding: 0;
 }
 
+.Comment .Comment-restrictor {
+    padding-top: 30px;
+}
+
 p {
     margin: 0;
 }

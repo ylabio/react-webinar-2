@@ -1,0 +1,42 @@
+.Comment-container {
+    display: flex;
+    margin: 0;
+}
+
+.Comment-author {
+    margin: 0;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    color: #000000;
+}
+
+.Comment-data {
+    margin: 0 0 0 10px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #666666;
+}
+
+.Comment-text {
+    margin: 10px 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000000;
+}
+
+.Comment-answer {
+    width: fit-content;
+    margin-bottom: 30px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #0087E9;
+    cursor: pointer;
+}

@@ -1,0 +1,42 @@
+.Comment {
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-bottom: 30px;
+}
+
+.Comment-title {
+    display: flex;
+    gap: 10px;
+    font-size: 12px;
+}
+
+.Comment-user {
+    font-weight: 700;
+}
+
+.Comment-user.owner {
+    color: #666666;
+}
+
+.Comment-date {
+    color: #666666
+}
+
+.Comment-main {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 14px;
+}
+
+.Comment-reply {
+    background: transparent;
+    color: #0087E9;
+    font-size: 12px;
+    appearance: none;
+    border: none;
+    padding: 0;
+}
+
+p {
+    margin: 0;
+}

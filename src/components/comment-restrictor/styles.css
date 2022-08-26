@@ -1,0 +1,16 @@
+.Comment-restrictor {
+    font-size: 16px;
+}
+.Comment-restrictor-link {
+    color: #0087E9;
+    text-decoration: underline;
+}
+.Comment-restrictor-link:hover {
+    cursor: pointer;
+}
+.Comment-restrictor-cancel:hover {
+    cursor: pointer;
+}
+.Comment-restrictor-cancel {
+    color:#666666;
+}

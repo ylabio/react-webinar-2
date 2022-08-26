@@ -8,7 +8,6 @@ export default function listToTree(list, key = '_id') {
   let trees = {};
   let roots = {};
   for (const item of list) {
-
     // Добавление элемента в индекс узлов с создание свойства children
     if (!trees[item[key]]) {
       trees[item[key]] = item;
@@ -20,7 +19,7 @@ export default function listToTree(list, key = '_id') {
     }
 
     // Если элемент имеет родителя, то добавляем его в подчиенные родителя
-    if (item.parent?._id) {
+    if (item.parent?._id && item.parent?._type !== "article") {
       // Если родителя ещё нет в индексе, то индек созадётся, ведь _id родителя известен
       if (!trees[item.parent._id]) trees[item.parent._id] = { children: [] };
       // Добавления в подчиенные родителя

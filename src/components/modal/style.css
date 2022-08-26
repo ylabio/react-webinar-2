@@ -1,0 +1,35 @@
+.Modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: 0.5s
+}
+
+.Modal_active {
+  pointer-events: all;
+  opacity: 1;
+}
+
+.Modal-content {
+  margin:10px;
+  border-radius: 10px;
+  background-color: white;
+  transform: scale(0);
+  transition: 0.4s all;
+  width: 906px;
+  height: 603px;
+  border: 1px solid black;
+  overflow: hidden;
+}
+
+.Modal-content_active {
+  transform: scale(1);
+}

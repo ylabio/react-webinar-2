@@ -1,0 +1,14 @@
+.ProfileInfo {
+  padding: 20px;
+}
+
+.ProfileInfo-title {
+  font-size: 24px;
+}
+
+.ProfileInfo-name,
+.ProfileInfo-tel,
+.ProfileInfo-email {
+  font-size: 18px;
+  padding: 10px 0;
+}

@@ -19,7 +19,7 @@ function Profile() {
     waiting: state.profile.waiting,
   }))
 
-  if (!select.auth) {
+  if (!select.auth && !select.user) {
     return <Navigate to={'/login'} replace />
   }
 

@@ -24,6 +24,7 @@ function ProfileInfo({ user, t }) {
 
 ProfileInfo.propTypes = {
   user: propTypes.object.isRequired,
+  t: propTypes.func,
 }
 
 ProfileInfo.defaultProps = {}

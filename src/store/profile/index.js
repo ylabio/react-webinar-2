@@ -10,7 +10,11 @@ class ProfileState extends StateModule {
    */
   initState() {
     return {
-      user: {},
+      user: {
+        name: '',
+        phone: '',
+        email: '',
+      },
       auth: false,
       error: '',
       waiting: false,
@@ -36,42 +40,24 @@ class ProfileState extends StateModule {
       })
 
       const json = await response.json()
-      await localStorage.setItem('token', json.result.token)
 
-      if (json.error) {
-        this.setState({
-          ...this.getState(),
-          error: json.error.message,
-          waiting: false,
-        })
-      } else {
-        this.setState({
-          ...this.getState(),
-          user: { ...json.result.user.profile, email: json.result.user.email },
-          auth: true,
-          waiting: false,
-        })
-      }
+      localStorage.setItem('token', json.result.token)
+
+      this.setState({
+        ...this.getState(),
+        user: {
+          name: json.result.user.profile.name,
+          phone: json.result.user.profile.phone,
+          email: json.result.email,
+        },
+        auth: true,
+        waiting: false,
+      })
     } catch (err) {
       this.setState({
         ...this.getState(),
-        error: 'Не верный логин или пароль',
+        error: `${err.message ? err.message : 'Ошибка сервера'}`,
         waiting: false,
-      })
-      console.log(err.message)
-    }
-  }
-
-  async initUser() {
-    const token = await localStorage.getItem('token')
-
-    if (token) {
-      this.getProfile()
-    } else {
-      this.setState({
-        ...this.getState(),
-        waiting: false,
-        error: '',
       })
     }
   }
@@ -82,12 +68,13 @@ class ProfileState extends StateModule {
       waiting: true,
     })
 
-    const token = localStorage.getItem('token')
+    const token = await localStorage.getItem('token')
 
     try {
       const response = await fetch('/api/v1/users/self', {
         method: 'GET',
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
           'X-Token': token,
         },
@@ -95,40 +82,65 @@ class ProfileState extends StateModule {
 
       const json = await response.json()
 
-      if (token && json.error) {
-        this.setState({
-          ...this.getState(),
-          error: json.error.message,
-          waiting: false,
-        })
-      } else {
-        this.setState({
-          ...this.getState(),
-          user: { ...json.result.profile, email: json.result.email },
-          auth: true,
-          waiting: false,
-        })
-      }
+      this.setState({
+        ...this.getState(),
+        user: {
+          name: json.result.profile.name,
+          phone: json.result.profile.phone,
+          email: json.result.email,
+        },
+        auth: true,
+        waiting: false,
+      })
     } catch (err) {
-      if (token && err) {
-        this.setState({
-          ...this.getState(),
-          error: err,
-          waiting: false,
-        })
-      }
+      this.setState({
+        ...this.getState(),
+        auth: false,
+        waiting: false,
+      })
       console.log(err.message)
     }
   }
-
+  /**
+   * Выход из учётной записи
+   */
   async logOut() {
-    localStorage.clear()
+    // Установка признака загрузки
     this.setState({
       ...this.getState(),
-      user: {},
-      auth: false,
-      error: '',
+      waiting: true,
     })
+
+    const token = await localStorage.getItem('token')
+
+    try {
+      const response = await fetch('/api/v1/users/sign', {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-Token': token,
+        },
+      })
+      if (response.status == 200) {
+        await localStorage.removeItem('token')
+
+        // Пользователь разлогинен
+        this.setState({
+          user: {},
+          auth: false,
+          error: '',
+          waiting: false,
+        })
+      }
+    } catch (e) {
+      this.setState({
+        user: {},
+        auth: false,
+        error: '',
+        waiting: false,
+      })
+    }
   }
 }
 

@@ -1,5 +1,4 @@
 import React from 'react'
-import useStore from '../../hooks/use-store'
 import useSelector from '../../hooks/use-selector'
 import { Navigate } from 'react-router-dom'
 import useTranslate from '../../hooks/use-translate'
@@ -12,7 +11,7 @@ import ProfileInfo from '../../components/profile-info'
 import Spinner from '../../components/spinner'
 
 function Profile() {
-  // const store = useStore()
+  const { t } = useTranslate()
 
   const select = useSelector((state) => ({
     user: state.profile.user,
@@ -20,12 +19,9 @@ function Profile() {
     waiting: state.profile.waiting,
   }))
 
-  if (!select.auth && !select.user) {
+  if (!select.auth) {
     return <Navigate to={'/login'} replace />
   }
-  console.log(select.user)
-
-  const { t } = useTranslate()
 
   return (
     <Layout

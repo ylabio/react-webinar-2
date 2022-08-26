@@ -8,11 +8,19 @@ import LayoutFlex from '../../components/layout-flex'
 import LocaleSelect from '../../containers/locale-select'
 import LoginForm from '../../components/login-form'
 import AuthContainer from '../../containers/auth-container'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Spinner from '../../components/spinner'
 
 function Login() {
   const store = useStore()
+  const { t } = useTranslate()
+  const navigate = useNavigate()
+
+  const callbacks = {
+    login: useCallback((login, password) => {
+      store.get('profile').login(login, password)
+    }, []),
+  }
 
   const select = useSelector((state) => ({
     auth: state.profile.auth,
@@ -21,16 +29,8 @@ function Login() {
     waiting: state.profile.waiting,
   }))
 
-  const { t } = useTranslate()
-
-  const callbacks = {
-    login: useCallback((login, password) => {
-      store.get('profile').login(login, password)
-    }, []),
-  }
-
   if (select.auth) {
-    return <Navigate to={'/profile'} replace />
+    return navigate(-1)
   }
 
   return (
@@ -48,7 +48,7 @@ function Login() {
       }>
       <Tools />
       <Spinner active={select.waiting}>
-        <LoginForm login={callbacks.login} error={select.error} waiting={select.waiting} t={t} />
+        <LoginForm login={callbacks.login} error={select.error} t={t} />
       </Spinner>
     </Layout>
   )

@@ -45,7 +45,11 @@ function LoginForm(props) {
   )
 }
 
-LoginForm.propTypes = {}
+LoginForm.propTypes = {
+  login: propTypes.func.isRequired,
+  t: propTypes.func,
+  error: propTypes.string,
+}
 
 LoginForm.defaultProps = {}
 

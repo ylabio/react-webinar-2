@@ -31,7 +31,7 @@ function Auth({ auth, userName, logOut, t }) {
 Auth.propTypes = {
   auth: propTypes.bool,
   userName: propTypes.string,
-  logOut: propTypes.func.isRequired,
+  logOut: propTypes.func,
   t: propTypes.func,
 }
 

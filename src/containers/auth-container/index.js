@@ -8,6 +8,11 @@ import Spinner from '../../components/spinner'
 
 function AuthContainer() {
   const store = useStore()
+  const callbacks = {
+    logOut: useCallback(() => {
+      store.get('profile').logOut()
+    }, []),
+  }
 
   const select = useSelector((state) => ({
     auth: state.profile.auth,
@@ -17,15 +22,9 @@ function AuthContainer() {
 
   const { t } = useTranslate()
 
-  const callbacks = {
-    logOut: useCallback(() => {
-      store.get('profile').logOut()
-    }, []),
-  }
-
   return (
     <Spinner active={select.waiting}>
-      <Auth auth={select.auth} logOut={callbacks.logOut} userName={select.userName} t={t} />
+      <Auth auth={select.auth} logOut={callbacks.logOut} userName={select.userName || ''} t={t} />
     </Spinner>
   )
 }

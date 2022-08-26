@@ -14,17 +14,16 @@ import useInit from '../hooks/use-init'
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
+  const modal = useSelector((state) => state.modals.name)
   const store = useStore()
 
   useInit(
     async () => {
-      await store.get('profile').initUser()
+      await store.get('profile').getProfile()
     },
     [],
     { backForward: false }
   )
-
-  const modal = useSelector((state) => state.modals.name)
 
   return (
     <>

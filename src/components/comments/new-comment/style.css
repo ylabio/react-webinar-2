@@ -1,0 +1,14 @@
+.NewCommentBlock{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+}
+.NewCommentBlock-input{
+	width: 100%;
+	min-height: 76px;
+}
+.NewCommentBlock-title{
+	font-size: 12px;
+	font-weight: 700;
+}

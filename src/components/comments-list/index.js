@@ -1,4 +1,5 @@
 import React from 'react'
+import propTypes from 'prop-types'
 import './styles.css'
 
 function CommentsList({
@@ -13,4 +14,12 @@ function CommentsList({
   )
 }
 
-export default CommentsList
+CommentsList.propTypes = {
+  items: propTypes.array,
+  renderItem: propTypes.func.isRequired
+}
+CommentsList.defaultProps = {
+  items: []
+}
+
+export default React.memo(CommentsList)

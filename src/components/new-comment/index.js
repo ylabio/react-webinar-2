@@ -1,4 +1,5 @@
 import React from 'react'
+import propTypes from 'prop-types'
 import './styles.css'
 
 function NewComment({
@@ -31,4 +32,21 @@ function NewComment({
   )
 }
 
-export default NewComment
+NewComment.propTypes = {
+  text: propTypes.string.isRequired,
+  edit: propTypes.func.isRequired,
+  send: propTypes.func,
+  unreply: propTypes.func,
+  isLogged: propTypes.bool,
+  depth: propTypes.number,
+  toLogin: propTypes.func
+}
+NewComment.defaultProps = {
+  send: () => {},
+  unreply: () => {},
+  isLogged: false,
+  depth: 0,
+  toLogin: () => {}
+}
+
+export default React.memo(NewComment)

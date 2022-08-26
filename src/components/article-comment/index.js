@@ -1,14 +1,8 @@
+import propTypes from 'prop-types'
 import React from 'react'
+import format from '../../utils/formatDate'
+import depthPadding from '../../utils/depthPadding'
 import './styles.css'
-
-const format = (dateString) => {
-  const dateFormat = new Intl.DateTimeFormat('ru-RU', {
-    year: 'numeric', month: 'long', day: 'numeric',
-    hour: 'numeric', minute: 'numeric',
-  })
-  const date = new Date(dateString)
-  return dateFormat.format(date).replace('г.,', 'в')
-}
 
 function ArticleComment({
   depth,
@@ -21,7 +15,7 @@ function ArticleComment({
 }) {
 
   return (
-    <div className='ArticleComment' style={{paddingLeft: 30 * depth > 150 ? 150 : 30 * depth}}>
+    <div className='ArticleComment' style={depthPadding(depth)}>
       <div className='ArticleComment-head'>
         <span className={`ArticleComment-name ${me == user._id ? 'ArticleComment-name__me' : ''}`}>{user.name}</span>
         <span className='ArticleComment-date'>{format(date)}</span>
@@ -36,4 +30,21 @@ function ArticleComment({
   )
 }
 
-export default ArticleComment
+ArticleComment.propTypes = {
+  depth: propTypes.number,
+  id: propTypes.string.isRequired,
+  user: propTypes.object.isRequired,
+  date: propTypes.string,
+  text: propTypes.string,
+  onReply: propTypes.func,
+  me: propTypes.string
+}
+ArticleComment.defaultProps = {
+  depth: 0,
+  date: new Date(0).toString(),
+  text: 'undefined',
+  onReply: () => {},
+  me: '-1'
+}
+
+export default React.memo(ArticleComment)

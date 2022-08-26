@@ -1,0 +1,1 @@
+export default (depth) => ({paddingLeft: 30 * depth > 150 ? 150 : 30 * depth})

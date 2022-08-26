@@ -30,7 +30,7 @@ function Login() {
   }))
 
   if (select.auth) {
-    return navigate(-1)
+    navigate(-1)
   }
 
   return (

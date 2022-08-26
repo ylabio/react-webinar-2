@@ -8,6 +8,7 @@ import Profile from './profile'
 import Login from './login'
 import useStore from '../hooks/use-store'
 import useInit from '../hooks/use-init'
+import RequreAuth from '../hoc/requre-auth'
 
 /**
  * Приложение
@@ -30,8 +31,15 @@ function App() {
       <Routes>
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
-        <Route path={'/profile'} element={<Profile />} />
         <Route path={'/login'} element={<Login />} />
+        <Route
+          path={'/profile'}
+          element={
+            <RequreAuth>
+              <Profile />
+            </RequreAuth>
+          }
+        />
       </Routes>
       {modal === 'basket' && <Basket />}
     </>

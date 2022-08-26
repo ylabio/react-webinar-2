@@ -21,7 +21,7 @@ function Profile() {
   }))
 
   if (!select.auth && !select.user.name) {
-    return navigate('/login')
+    navigate('/login')
   }
 
   return (

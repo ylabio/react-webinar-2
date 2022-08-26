@@ -12,9 +12,9 @@ import { useNavigate } from 'react-router-dom'
 import Spinner from '../../components/spinner'
 
 function Login() {
+  const navigate = useNavigate()
   const store = useStore()
   const { t } = useTranslate()
-  const navigate = useNavigate()
 
   const callbacks = {
     login: useCallback((login, password) => {

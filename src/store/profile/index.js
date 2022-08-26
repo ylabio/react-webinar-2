@@ -40,6 +40,7 @@ class ProfileState extends StateModule {
       })
 
       const json = await response.json()
+      console.log(json)
 
       localStorage.setItem('token', json.result.token)
 
@@ -48,7 +49,7 @@ class ProfileState extends StateModule {
         user: {
           name: json.result.user.profile.name,
           phone: json.result.user.profile.phone,
-          email: json.result.email,
+          email: json.result.user.email,
         },
         auth: true,
         waiting: false,

@@ -4,7 +4,7 @@
   "description": "Example project for webinar",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve",
+    "start": "webpack serve --open",
     "build": "cross-env NODE_ENV=production webpack",
     "test": "jest"
   },

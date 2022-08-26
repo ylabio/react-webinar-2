@@ -20,5 +20,14 @@
   "auth.password": "Password",
   "auth.signIn": "Sign in",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "comment.reply": "Reply",
+  "comments.loading": "Loading...",
+  "comments.title": "Comments",
+  "comment.send": "Submit",
+  "comment.title": "New Comment",
+  "comment.subtitle": "New Reply",
+  "comment.cancel": "Cancel",
+  "redirect.linkText": "Login",
+  "redirect.mainText": " to get access to comments"
 }

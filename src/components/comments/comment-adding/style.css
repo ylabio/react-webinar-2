@@ -1,0 +1,13 @@
+.CommentAdding-link {
+  color: #0087E9;
+}
+
+.CommentAdding-textarea {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.CommentAdding-title {
+  font-size: 12px;
+  line-height: 14px;
+}

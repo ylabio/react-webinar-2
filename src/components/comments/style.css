@@ -1,0 +1,58 @@
+.Comments {
+    padding: 20px 35px;
+}
+
+.Comments-title {
+    margin: 10px 0 25px;
+    font-size: 24px;
+}
+
+.Comments-title:first-letter {
+    text-transform: uppercase;
+}
+
+.Comments-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.Comments-item {
+    margin-bottom: 30px;
+}
+
+.Comments-data {
+    display: flex;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.Comments-name {
+    margin: 0;
+    font-weight: 700;
+}
+
+.Comments-date {
+    margin: 0 10px;
+    color: #666666;
+}
+
+.Comments-text {
+    margin: 10px 0;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.Comments-btn {
+    padding: 0;
+    color: #0087E9;
+    font-size: 12px;
+    line-height: 14px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.Comments-btn:first-letter {
+    text-transform: uppercase;
+}

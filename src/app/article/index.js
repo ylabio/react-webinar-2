@@ -6,6 +6,7 @@ import {useParams} from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import ArticleCard from "../../components/article-card";
+import Comments from "../../components/comments";
 import Spinner from "../../components/spinner";
 import Layout from "../../components/layout";
 import TopContainer from "../../containers/top";
@@ -20,13 +21,20 @@ function Article(){
 
   const storeRedux = useStoreRedux();
 
+  const selectnNotRedux = useSelector(state => ({
+    exists: state.session.exists,
+    countAddComment: state.comment.countAddComment,
+  }))
+
   useInit(async () => {
     //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsArticle.load(params.id));
-  }, [params.id]);
+  }, [params.id, selectnNotRedux.countAddComment]);
 
   const select = useSelectorRedux(state => ({
     article: state.article.data,
+    comments: state.article.comments,
+    count: state.article.count,
     waiting: state.article.waiting
   }), shallowEqual);
 
@@ -35,6 +43,8 @@ function Article(){
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Добавление комментарии
+    addComment: useCallback(data => store.get('comment').addComment(data), []),
   };
 
   return (
@@ -44,6 +54,14 @@ function Article(){
       <ToolsContainer/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        <Comments 
+          comments={select.comments} 
+          count={select.count} 
+          exists={selectnNotRedux.exists} 
+          paramsId={params.id} 
+          onAdd={callbacks.addComment} 
+          t={t}
+        />
       </Spinner>
     </Layout>
   )

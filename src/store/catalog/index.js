@@ -30,6 +30,7 @@ class CatalogState extends StateModule{
         page: 1,
         limit: 10,
         sort: 'order',
+        filter: 'all',
         query: ''
       },
       waiting: false
@@ -48,6 +49,7 @@ class CatalogState extends StateModule{
     let validParams = {};
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
+    if (urlParams.filter) validParams.filter = urlParams.filter;
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
 
@@ -86,8 +88,11 @@ class CatalogState extends StateModule{
     });
 
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
-    const json = await response.json();
+    const filter = newParams.filter !== 'all' ? `&search[category]=${newParams.filter}` : ''
+    const response = await fetch(`
+      /api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${filter}&lang=ru
+    `)
+    const json = await response.json()
 
     // Установка полученных данных и сброс признака загрузки
     this.setState({

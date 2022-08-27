@@ -1,0 +1,35 @@
+.Comment {
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.Comment-head {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.Comment-author {
+  font-weight: 700;
+}
+
+.Comment-createdAt {
+  color: #666;
+}
+
+.Comment-body {
+  font-size: 14px;
+}
+
+.Comment button {
+  outline: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  color: #0087e9;
+}

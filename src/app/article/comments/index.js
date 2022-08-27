@@ -28,7 +28,7 @@ const Comments = ({data, addComment, isPermit, renderLink, renderForm, renderCom
       []
     ),
     onCloseCommentForm: useCallback(() => {
-      setState((prev) => ({ ...prev, idx: null }));
+      setState((prev) => ({ ...prev, idx: null, current: {} }));
     }, []),
     addComment: useCallback(() => {
       addComment({ ...state.current, message: state.message });

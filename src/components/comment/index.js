@@ -1,5 +1,6 @@
 import React from "react";
 import { cn as bem } from "@bem-react/classname";
+import propTypes from "prop-types";
 import AddNewComment from "../add-new-comment";
 import "./styles.css";
 
@@ -73,5 +74,15 @@ const Comment = (props) => {
     </div>
   );
 };
+
+Comment.propTypes = {
+key: propTypes.string,
+comment: propTypes.object,
+toggleMainComment: propTypes.func,
+changeShowForm: propTypes.func,
+submitComment: propTypes.func,
+token: propTypes.string,
+description: propTypes.node
+}
 
 export default React.memo(Comment);

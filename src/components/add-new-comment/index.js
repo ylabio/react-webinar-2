@@ -69,6 +69,8 @@ AddNewComment.propTypes = {
   onCancel: propTypes.func,
   createCommentOpen: propTypes.bool,
   header: propTypes.string,
+  token: propTypes.string,
+  description: propTypes.node
 };
 
 export default React.memo(AddNewComment);

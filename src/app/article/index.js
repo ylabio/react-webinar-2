@@ -11,6 +11,7 @@ import Layout from "../../components/layout";
 import TopContainer from "../../containers/top";
 import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
+import CommentsContainer from "../../containers/comments";
 import actionsArticle from '../../store-redux/article/actions';
 import actionsComments from '../../store-redux/comments/actions';
 
@@ -23,13 +24,14 @@ function Article(){
 
   useInit(async () => {
     //await store.get('article').load(params.id);
-    storeRedux.dispatch(actionsArticle.load(params.id));
-		storeRedux.dispatch(actionsComments.load(params.id));
+    storeRedux.dispatch(actionsArticle.load(params.id)),
+			storeRedux.dispatch(actionsComments.load(params.id))
   }, [params.id]);
 
   const select = useSelectorRedux(state => ({
     article: state.article.data,
-    waiting: state.article.waiting
+    waiting: state.article.waiting,
+		commentsWaiting: state.comments.waiting
   }), shallowEqual);
 
   const {t} = useTranslate();
@@ -46,7 +48,11 @@ function Article(){
       <ToolsContainer/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+				<CommentsContainer/>
       </Spinner>
+			{/* <Spinner active={select.commentsWaiting}>
+				<CommentsContainer/>
+			</Spinner> */}
     </Layout>
   )
 }

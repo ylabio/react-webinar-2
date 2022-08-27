@@ -1,0 +1,9 @@
+.CommentsLogin-button{
+	background: none;
+	outline: none;
+	border: none;
+	padding: 0;
+	font-size: 16px;
+	text-decoration: underline;
+	color: #551A8B;
+}

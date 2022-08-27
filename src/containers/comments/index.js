@@ -6,6 +6,7 @@ import {
 } from "react-redux";
 import actionsComments from "../../store-redux/comments/actions";
 import useInit from "../../hooks/use-init";
+import CommentList from "../../components/comment-list";
 
 function CommentsContainer({ id }) {
   const storeRedux = useStoreRedux();
@@ -19,12 +20,11 @@ function CommentsContainer({ id }) {
   );
 
   useInit(async () => {
-    //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsComments.load(id));
   }, [id]);
 
   return (
-    <div>{select.comments && select.comments.map((item) => item.text)}</div>
+    <div>{select.comments && <CommentList comments={select.comments} />}</div>
   );
 }
 

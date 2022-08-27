@@ -1,0 +1,43 @@
+.CommentLeave{
+  padding-top: 30px;
+}
+
+.CommentLeave-title{
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  color: #000000;
+}
+
+.CommentLeave textarea{
+  margin-top: 10px;
+  padding-top: 30px;
+  width:  100%;
+  padding: 0 0 80px;
+  overflow: hidden;
+}
+
+.CommentLeave-buttons{
+  padding-top: 10px;
+}
+
+.CommentLeave-button-send{
+  font-size: 13px;
+  line-height: 15px;
+  padding: 3px 8px 2px;
+  background: #EFEFEF;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.CommentLeave-button-cancel{
+  margin-left: 10px;
+  font-size: 13px;
+  line-height: 15px;
+  padding: 3px 8px 2px;
+  background: #EFEFEF;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  cursor: pointer;
+}

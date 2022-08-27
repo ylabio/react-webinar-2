@@ -10,7 +10,6 @@ import HeadContainer from "../../containers/head";
 import {useLocation, useNavigate} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import Spinner from "../../components/spinner";
 
 function Login() {
   const {t} = useTranslate();

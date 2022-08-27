@@ -1,0 +1,16 @@
+.CommentForm{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px 0;
+}
+
+.CommentForm label{
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.CommentForm-btn-block{
+    display: flex;
+    gap: 10px;
+}

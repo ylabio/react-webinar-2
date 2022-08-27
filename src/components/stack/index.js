@@ -15,3 +15,5 @@ Stack.propTypes = {
 };
 
 export default React.memo(Stack);
+
+//TODO: использовать LayoutFlex вместо || поковыряться с улучшениями

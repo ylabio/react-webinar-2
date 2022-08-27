@@ -37,19 +37,21 @@ function Comments({
         ))}   
       </div>
       
-      <div className={cn('bottom')}>
-        {exists && showCommentForm && (
-          <CommentForm 
-            type='comment'
-            createResponse={createResponse}
-            productId={productId}
-          />
+      {exists && showCommentForm && (
+          <div className={cn('bottomForm')}>
+            <CommentForm 
+              type='comment'
+              createResponse={createResponse}
+              productId={productId}
+            />
+          </div>
         )}
 
         {!exists && showCommentForm && (
-          <AuthWarning type='comment' link={link} />
+          <div className={cn('bottomWarning')}>
+            <AuthWarning type='comment' link={link} />
+          </div>
         )}
-      </div>
     </div>
   );
 }

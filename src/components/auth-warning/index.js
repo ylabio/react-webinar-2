@@ -3,8 +3,12 @@ import './style.css';
 import { cn as bem } from '@bem-react/classname';
 import { Link } from "react-router-dom";
 
-function AuthWarning({ type, link }) {
+function AuthWarning({ type, link, closeCB }) {
   const cn = bem('AuthWarning');
+
+  function canclelHandler() {
+    closeCB();
+  }
 
   return (
     <div className={cn()}>
@@ -15,7 +19,12 @@ function AuthWarning({ type, link }) {
       {type === 'answer' && (
         <span className={cn('text')}>
           <span>, чтобы иметь возможность ответить. </span>  
-          <span className={cn('cancel')}>Отмена</span>
+          <span 
+            className={cn('cancel')}
+            onClick={canclelHandler}
+          >
+            Отмена
+          </span>
         </span>
       )}
     </div>

@@ -11,7 +11,7 @@ function CommentForm({
   productId,
  }) {
   const cn = bem('CommentForm');
-  const [textarea, setTextarea] = useState(comment?._id);
+  const [textarea, setTextarea] = useState('Текст');
 
   function formHandler(e) {
     e.preventDefault();

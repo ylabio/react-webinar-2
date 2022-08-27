@@ -43,6 +43,10 @@
   padding: 1px 10px;
 }
 
-.Comments-bottom {
+.Comments-bottomForm {
   margin-top: 30px;
+}
+
+.Comments-bottomWarning {
+  margin-top: 16px;
 }

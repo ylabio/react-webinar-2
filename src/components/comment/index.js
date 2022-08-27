@@ -67,7 +67,11 @@ function Comment({
         
       {!exists && showAnswerForm && (
         <div className={cn('bottom')}>
-          <AuthWarning type='answer' link={link} />
+          <AuthWarning 
+            type='answer' 
+            link={link}
+            closeCB={cancelFormHandler} 
+          />
         </div>
       )}                
       

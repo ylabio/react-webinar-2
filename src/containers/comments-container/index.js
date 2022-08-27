@@ -23,10 +23,6 @@ function CommentsContainer({ productId }) {
         _type: type,
       },
     }));
-    
-    // setTimeout(() => {
-    //   dispatch(commentsActions.getAll(productId))
-    // }, 0);
   }
 
   return (

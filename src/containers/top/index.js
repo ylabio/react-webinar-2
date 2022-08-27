@@ -31,6 +31,7 @@ function TopContainer() {
     }, [location.pathname]),
   };
 
+
   return (
     <LayoutFlex flex="end" indent="small">
       {select.exists && <Link to="/profile">{select.user.profile.name}</Link>}

@@ -1,7 +1,8 @@
 // Начальное состояние товара
 const initialState = {
   data: {},
-  waiting: false
+  waiting: false,
+  comments: [],
 }
 
 export default function reducer(state = initialState, action){
@@ -15,6 +16,16 @@ export default function reducer(state = initialState, action){
 
     case "article/load-error":
       return { ...state, data: {}, waiting: false}; //@todo текст ошибки сохранить?
+
+    case "article/comments": {
+      return { ...state, comments: [], waiting: false};
+    }
+
+    case "article/comments-success":
+      return { ...state, comments: action.payload, waiting: false};
+
+    case "article/comments-error":
+      return { ...state, comments: [], waiting: false};
 
     default:
       // Нет изменений

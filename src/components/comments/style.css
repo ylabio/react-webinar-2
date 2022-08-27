@@ -1,0 +1,71 @@
+.Comments {
+    padding: 30px 40px;
+    margin: 0;
+}
+
+.Comments-header {
+    font-size: 24px;
+    margin: 0 0 30px 0;
+}
+
+.Comments-link {
+    color: #0087E9;
+    border: none;
+    background: none;
+    text-decoration: underline;
+}
+
+.Comments-text {
+    font-size: 16px;
+}
+
+.Comments-user-name {
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.Comments-user-comment {
+    font-size: 14px;
+}
+
+.Comments-list {
+    list-style: none;
+}
+
+.Comments-form {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 40px;
+}
+
+.Comments-form-header {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.Comments-form-area {
+    width: 100%;
+    min-height: 76px;
+    box-sizing: border-box;
+    margin: 0 0 10px 0;
+}
+
+.Comments-form-button {
+    width: 90px;
+    height: 21px;
+    box-sizing: border-box;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}
+

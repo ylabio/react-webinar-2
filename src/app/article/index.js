@@ -24,7 +24,7 @@ function Article(){
   useInit(async () => {
     //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsArticle.load(params.id));
-    storeRedux.dispatch(actionsComments.load());
+    storeRedux.dispatch(actionsComments.load(params.id));
   }, [params.id]);
 
   const select = useSelectorRedux(state => ({
@@ -32,7 +32,7 @@ function Article(){
     waiting: state.article.waiting,
     comments: state.comments.data
   }), shallowEqual);
-console.log(select.comments);
+
   const {t} = useTranslate();
 
   const callbacks = {
@@ -48,7 +48,7 @@ console.log(select.comments);
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
-      <CommentContainer comments={select.comments} article={select.article}/>
+      <CommentContainer />
     </Layout>
   )
 }

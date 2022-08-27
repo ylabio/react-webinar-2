@@ -1,5 +1,10 @@
+.NewCommentBlock{
+	width: 100%;
+}
+
 .NewCommentBlock-buttonBlock{
 	display: flex;
 	flex-direction: row;
 	gap: 10px;
 }
+

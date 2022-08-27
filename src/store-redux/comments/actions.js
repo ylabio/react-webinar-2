@@ -1,3 +1,6 @@
+import listToTree from "../../utils/list-to-tree";
+import treeToList from "../../utils/tree-to-list";
+
 export default {
 	load: (_id) => {
 		return async (dispatch, getState, services) => {
@@ -5,8 +8,15 @@ export default {
 
 			try {
         const json = await services.api.request({url: `/api/v1/comments?search[parent]=${_id}&limit=*&fields=_id,dateCreate,text,parent(*),author(username)`});
-        // Комментарии загружены успешно
-        dispatch({type: 'comments/load-success', payload: json.result.items});
+				
+				const transformComments = ([
+					...treeToList(
+						listToTree(json.result.items),
+						(item, level) => ({_id: item._id, text: '- '.repeat(level) + item.text, dateCreate: item.dateCreate, author: item.author})
+					)
+				]);
+				
+        dispatch({type: 'comments/load-success', payload: transformComments});
 
       } catch (e){
         // Ошибка при загрузке

@@ -8,6 +8,7 @@ import CommentsLogin from '../../components/comments-login';
 
 function CommentsContainer() {
 	const select = useSelectorRedux(state => ({
+		commentsItems: state.comments.items,
 		commentsCount: state.comments.itemsCount
 	}));
 
@@ -23,9 +24,18 @@ function CommentsContainer() {
 		}, [location.pathname]),
 	};
 
+	const renders = {
+    commentItem: useCallback(item => (
+      <div>
+				{item.text}
+			</div>
+    ), []),
+  }
+
 	return (
 		<LayoutFlex flex="start" indent="very-big" flexDirection="column" alignItems="start" marginItems="0">
       <CommentsTitle commentsCount={select.commentsCount} /*exists={selectStore.exists}*//>
+			{/* {select.commentsItems.map(item => <div>{item.text}</div>)} */}
 			<CommentsLogin title="чтобы иметь возможность комментировать" exists={selectStore.exists} onSignIn={callbacks.onSignIn}/>
 			{/* {!selectStore.exists && <div>Войдите, чтобы иметь возможность комментировать</div>} */}
 			{selectStore.exists && <div>Main form</div>}

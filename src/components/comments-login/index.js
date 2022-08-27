@@ -23,4 +23,4 @@ CommentsLogin.defaultProps = {
 	title: ''
 }
 
-export default CommentsLogin;
+export default React.memo(CommentsLogin);

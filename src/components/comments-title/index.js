@@ -23,4 +23,4 @@ CommentsTitle.defaultProps = {
   commentsCount: 0
 }
 
-export default CommentsTitle;
+export default React.memo(CommentsTitle);

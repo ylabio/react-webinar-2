@@ -1,0 +1,14 @@
+.Comment {
+  padding-top: 30px;
+}
+
+.Comment-name h5 {
+  display: inline;
+}
+.Comment-name span {
+  padding-left: 10px;
+}
+
+.Comment-text {
+  padding-top: 10px;
+}

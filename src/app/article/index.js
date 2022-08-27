@@ -40,6 +40,7 @@ function Article(){
 
   useEffect(() => {
     storeRedux.dispatch(commentsActions.getAll(params.id))
+    storeRedux.dispatch(commentsActions.setProductId(params.id))
   }, []);
 
   return (

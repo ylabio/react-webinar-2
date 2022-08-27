@@ -45,7 +45,7 @@ function Comment({
         </div>
 
         <p className={cn('text')}>
-          {data.text + ' ' + data._id}
+          {data.text}
         </p>
 
         <span 

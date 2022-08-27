@@ -1,5 +1,6 @@
 import { commentsToTree } from "../../utils/comments-to-tree";
 import { treeToComments } from "../../utils/tree-to-comments";
+import actions from './actions';
 
 export default {
   create: ({ text, parent }) => {
@@ -17,6 +18,9 @@ export default {
         });
         
         dispatch({type: 'comments/create-success'});
+        
+        const productId = getState().comments.productId;
+        dispatch(actions.getAll(productId));
 
       } catch (e){
         dispatch({type: 'comments/create-error'});
@@ -44,4 +48,11 @@ export default {
       }
     }
   },
+
+  setProductId(productId) {
+    return {
+      type: 'comments/setProductId',
+      payload: productId,
+    };
+  } 
 }

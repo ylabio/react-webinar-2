@@ -3,14 +3,27 @@ import propTypes from 'prop-types';
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
 
-function CommentForm({ type, closeCB, comment, createResponse }) {
+function CommentForm({ 
+  type, 
+  closeCB, 
+  comment, 
+  createResponse,
+  productId,
+ }) {
   const cn = bem('CommentForm');
   const [textarea, setTextarea] = useState(comment?._id);
 
   function formHandler(e) {
     e.preventDefault();
-    createResponse(textarea, comment._id, comment._type);
-    closeCB();
+
+    if (type === 'answer') {
+      createResponse(textarea, comment._id, comment._type);
+      closeCB();
+    }
+
+    if (type === 'comment') {
+      createResponse(textarea, productId, 'article');  
+    }
   }
 
   return (
@@ -51,10 +64,12 @@ function CommentForm({ type, closeCB, comment, createResponse }) {
 CommentForm.propTypes = {
   type: propTypes.string.isRequired,
   closeCB: propTypes.func,
+  productId: propTypes.string,
 };
 
 CommentForm.defaultProps = {
   closeCB: () => {},
+  productId: '',
 };
 
 export default CommentForm;

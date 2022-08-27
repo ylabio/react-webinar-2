@@ -6,8 +6,6 @@ export function treeToComments(tree) {
     comments.push(scanBranch({[branch]: tree[branch]}));
   }
 
-  console.log('finalComments', comments)
-
   return comments;
 }
 

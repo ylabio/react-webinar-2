@@ -6,7 +6,14 @@ import CommentForm from '../comment-form';
 import CommentsBranch from '../comments-branch';
 import AuthWarning from '../auth-warning';
 
-function Comments({ items, total, exists, link, createResponse }) {
+function Comments({ 
+  items, 
+  total, 
+  exists, 
+  link, 
+  createResponse,
+  productId,
+ }) {
   const cn = bem('Comments');
   const [showCommentForm, setShowCommentForm] = useState(true);
   const [lastCommentId, setLastCommentId] = useState(null);
@@ -35,6 +42,7 @@ function Comments({ items, total, exists, link, createResponse }) {
           <CommentForm 
             type='comment'
             createResponse={createResponse}
+            productId={productId}
           />
         )}
 

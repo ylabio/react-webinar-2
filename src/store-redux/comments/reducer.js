@@ -3,11 +3,15 @@ const initialState = {
   data: {},
   waiting: false,
   total: 0,
+  productId: null,
 };
 
 // Обработчик действий в redux
 export default function(state = initialState, action){
   switch (action.type) {
+    case "comments/setProductId":
+      return { ...state, productId: action.payload};
+
     case "comments/create":
       return { ...state, waiting: true};
 

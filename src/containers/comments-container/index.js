@@ -24,9 +24,9 @@ function CommentsContainer({ productId }) {
       },
     }));
     
-    setTimeout(() => {
-      dispatch(commentsActions.getAll(productId))
-    }, 0);
+    // setTimeout(() => {
+    //   dispatch(commentsActions.getAll(productId))
+    // }, 0);
   }
 
   return (
@@ -37,6 +37,7 @@ function CommentsContainer({ productId }) {
         exists={exists} 
         link={'/login'}
         createResponse={createResponse}
+        productId={productId}
       />
     </>
   );

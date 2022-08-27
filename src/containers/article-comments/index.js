@@ -11,6 +11,7 @@ import NewCommentContainer from '../new-comment';
 import listToTree from '../../utils/list-to-tree';
 import treeToList from '../../utils/tree-to-list';
 import CommentBlock from "../../components/comment-block";
+import formatDate from "../../utils/formatDate";
 
 function ArticleComments({id}){
 
@@ -41,7 +42,7 @@ function ArticleComments({id}){
           text={comment.text}
           title="Ответить"
           userName={comment.author.profile.name}
-          date={comment.dateCreate}
+          date={formatDate(comment.dateCreate)}
           me={userId && comment.author._id === userId}
           level={comment.parent._tree?.length ?? 1}
           onReply={() => setReply(comment._id)}

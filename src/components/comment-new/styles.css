@@ -8,7 +8,6 @@
 
 .CommentNew-title {
     font-weight: 700;
-    font-weight: 700;
     line-height: 14px;
     color: #000000;
     margin-bottom: 10px;
@@ -23,6 +22,11 @@
 }
 
 .CommentNew-buttons {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+    color: #000000;
     display: flex;
     gap: 10px;
 }

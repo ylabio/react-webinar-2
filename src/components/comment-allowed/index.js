@@ -14,9 +14,9 @@ const CommentAllowed = ({
   return (
     <div className={cn()}>
       <span className={cn("link")} onClick={onlogin}>
-        {loginTitle},
+        {loginTitle}
       </span>
-      <span> {loginText}</span>
+      <span>, {loginText}{" "}</span>
       <span className={cn("cancel")} onClick={onCancel}>
         {cancelTitle}
       </span>

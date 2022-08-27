@@ -3,8 +3,10 @@
 }
 
 .CommentAllowed-link {
+    font-weight: 400;
+    line-height: 18px;
+    text-decoration-line: underline;
     color: #0087E9;
-    text-decoration: underline;
 }
 
 .CommentAllowed-link:hover {

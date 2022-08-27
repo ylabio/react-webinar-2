@@ -36,24 +36,7 @@
   padding: 0;
 }
 
-.ItemComments-notice{
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 18px;
-  padding-top: 30px;
-}
 
-.ItemComments-signIn{
-  color: #0087E9;
-  text-decoration-line: underline;
-  cursor: pointer;
-}
-
-.ItemComments-cancel{
-  color: #666666;
-  text-decoration-line: underline;
-  cursor: pointer;
-}
 
 
 

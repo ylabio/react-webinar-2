@@ -1,27 +1,26 @@
-.CommentLeave{
+.LeaveComment{
   padding-top: 30px;
 }
 
-.CommentLeave-title{
+.LeaveComment-title{
   font-weight: 700;
   font-size: 12px;
   line-height: 14px;
   color: #000000;
 }
 
-.CommentLeave textarea{
+.LeaveComment textarea{
   margin-top: 10px;
-  padding-top: 30px;
-  width:  100%;
-  padding: 0 0 80px;
-  overflow: hidden;
+  width: 100%;
+  padding: 4px 5px;
+  height: 80px;
 }
 
-.CommentLeave-buttons{
+.LeaveComment-buttons{
   padding-top: 10px;
 }
 
-.CommentLeave-button-send{
+.LeaveComment-button-send{
   font-size: 13px;
   line-height: 15px;
   padding: 3px 8px 2px;
@@ -31,7 +30,7 @@
   cursor: pointer;
 }
 
-.CommentLeave-button-cancel{
+.LeaveComment-button-cancel{
   margin-left: 10px;
   font-size: 13px;
   line-height: 15px;

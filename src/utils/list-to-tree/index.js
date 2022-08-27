@@ -5,6 +5,7 @@
  * @returns {Array} Корневые узлы
  */
 export default function listToTree(list, key = '_id') {
+  console.log(list);
   let trees = {};
   let roots = {};
   for (const item of list) {
@@ -29,5 +30,6 @@ export default function listToTree(list, key = '_id') {
       if (roots[item[key]]) delete roots[item[key]];
     }
   }
+  console.log(Object.values(roots));
   return Object.values(roots);
 }

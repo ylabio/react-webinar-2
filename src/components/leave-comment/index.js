@@ -4,28 +4,28 @@ import {cn as bem} from "@bem-react/classname";
 import {Link} from "react-router-dom";
 import './style.css';
 
-function CommentLeave() {
+function LeaveComment(props) {
 
-  const cn = bem('CommentLeave');
+  const cn = bem('LeaveComment');
 
   return (
       <div className={cn()}>
-        <div className={cn('title')} >Новый ответ</div>
+        <div className={cn('title')} >Новый {props.reply === 'reply' ? 'ответ' : 'комментарий'}</div>
         <textarea type="text" value="Мой ответ для User №1"/>
         <div className={cn('buttons')}>
           <button className={cn('button-send')}>Отправить</button>
-          <button className={cn('button-cancel')}>Отмена</button>
+          {props.reply === 'reply' && <button className={cn('button-cancel')}>Отмена</button>}
         </div>
       </div>
   )
 }
 
-CommentLeave.propTypes = {
+LeaveComment.propTypes = {
 
 }
 
-CommentLeave.defaultProps = {
+LeaveComment.defaultProps = {
 
 }
 
-export default React.memo(CommentLeave);
+export default React.memo(LeaveComment);

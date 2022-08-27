@@ -1,28 +1,38 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
-import numberFormat from "../../utils/number-format";
 import {cn as bem} from "@bem-react/classname";
-import {Link} from "react-router-dom";
 import './style.css';
-import CommentLeave from '../comment-leave';
+import LeaveComment from '../leave-comment';
+import PermissionComment from '../permission-comment'
 
-function ItemComments() {
+function ItemComments(props) {
   const cn = bem('ItemComments');
+  
+  const [isReply, setIsReply] = useState(false)
+  const [openReply, setOpenReply] = useState(false)
+  const [closeReply, setCloseReply] = useState(false)
+
+  const callbacks = {
+    onReply: useCallback(() => {
+      setIsReply(true);
+    }, []),
+    onCancelReply: useCallback(() => {
+      setIsReply(false);
+    }, []),
+  };
+
+  console.log('isAuth', props.isAuthorized)
 
   return (
     <div className={cn()}>
       <div className={cn('title')}>
-        <span className={cn('author')}>User №1</span>
-        <span className={cn('date')}>25 августа 2022 в 14:00</span>
+        <span className={cn('author')}>{props.item?.author?.profile?.name}</span>
+        <span className={cn('date')}>{props.item.dateCreate}</span>
       </div>
-      <div className={cn('text')}>Текст комментрия о том какой товар. Комментатор может оставить большой комментрий и он весь показывается. Текст комментрия о том какой товар. Комментатор может оставить большой комментрий и он весь показывается. Текст комментрия о том какой товар. Комментатор может оставить большой комментрий и он весь показывается. </div>
-      <button className={cn('button')}>Ответить</button>
-      <div className={cn('notice')}>
-        <span className={cn('signIn')}>Войдите</span>, чтобы иметь возможность ответить.&nbsp;
-        <span className={cn('cancel')}>Отмена</span>
-      </div>
-      <CommentLeave/>
-      <CommentLeave/>
+      <div className={cn('text')}>{props.item.text}</div>
+      <button className={cn('button')} onClick={callbacks.onReply}>Ответить</button>
+      {!props.isAuthorized && isReply && <PermissionComment onSignIn={props.onSignIn} reply={'reply'}/>}
+      {props.isAuthorized && <LeaveComment reply={'reply'}/>}
     </div>
   )
 }

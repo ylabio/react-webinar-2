@@ -19,6 +19,15 @@ export default function reducer(state = initialState, action){
 
     case "comments/set-id":
       return { ...state, commentId: action.payload.id};
+    
+    case "comments/send":
+      return { ...state, waiting: true};
+
+    case "comments/send-success":
+      return { ...state, waiting: false};
+
+    case "comments/send-error":
+      return { ...state, waiting: false};
 
     default:
       return state;

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
@@ -6,20 +6,24 @@ import './style.css';
 function NewComment(props) {
   const cn = bem('NewComment');
 
+  const ref = useRef('');
+
   const callbacks = {
     onSubmit: useCallback((e) => {
-      e.preventDefault()
-      console.log('Submit')
-    }, [])
+      e.preventDefault();
+
+      const data = ref.current.elements.comment.value;
+      props.send(data);
+    }, []),
   }
 
   return (
-    <form className={cn()} onSubmit={callbacks.onSubmit}>
+    <form ref={ref} className={cn()} onSubmit={callbacks.onSubmit}>
       <span className={cn('title')}>{props.title}</span>
-      <textarea className={cn('text')}></textarea>
+      <textarea id={'comment'} className={cn('text')}></textarea>
       <div className={cn('btns-container')}>
         <button type='submit'>Отправить</button>
-        {props.button}
+        {props.children}
       </div>
     </form>
   )
@@ -27,7 +31,8 @@ function NewComment(props) {
 
 NewComment.propTypes = {
   title: propTypes.string,
-  button: propTypes.node,
+  children: propTypes.node,
+  send: propTypes.func,
 }
 
 export default React.memo(NewComment);

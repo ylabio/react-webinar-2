@@ -1,0 +1,20 @@
+p {
+  margin: 0;
+}
+
+.UnloginText {
+  font-size: 16px;
+  margin: 30px 0;
+}
+
+.UnloginText-out{
+  color: #666666;
+  border-bottom: 1px solid #666666;
+  cursor: pointer;
+}
+
+.UnloginText-enter {
+  color: #0087E9;
+  border-bottom: 1px solid #0087E9;
+  cursor: pointer;
+}

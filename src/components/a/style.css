@@ -1,0 +1,13 @@
+.A {
+  color: #0087E9;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.A:visited {
+  color: #0087E9;
+}
+
+.A:hover {
+  text-decoration: underline;
+}

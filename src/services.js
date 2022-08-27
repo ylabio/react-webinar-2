@@ -1,6 +1,5 @@
 import Store from "./store";
 import APIService from "./api";
-import {createStore} from "redux";
 import createStoreRedux from "./store-redux";
 
 class Services {

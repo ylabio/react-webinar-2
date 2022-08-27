@@ -1,0 +1,26 @@
+.Comments {
+}
+
+.Comments-link {
+  font-size: 16px;
+}
+
+.Comments_lvl_1, .Comments-link_lvl_1 {
+  padding-left: 20px;
+}
+
+.Comments_lvl_2, .Comments-link_lvl_2 {
+  padding-left: 40px;
+}
+
+.Comments_lvl_3, .Comments-link_lvl_3 {
+  padding-left: 60px;
+}
+
+.Comments_lvl_4, .Comments-link_lvl_4 {
+  padding-left: 80px;
+}
+
+.Comments_lvl_5, .Comments-link_lvl_5 {
+  padding-left: 100px;
+}

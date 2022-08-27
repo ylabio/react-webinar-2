@@ -15,7 +15,7 @@ function Comment(props) {
 
   const callbacks = {
     answerComment: useCallback(() => props.answerComment(props.comment._id), [props.comment.active]),
-    onHide: useCallback(() => props.onHide(props.comment._id), [props.comment.active]),
+    onHide: useCallback(() => props.onHide(props.comment._id), [props.comment.hide]),
   };
 
   const date = new Date(props.comment?.dateCreate);
@@ -37,36 +37,26 @@ function Comment(props) {
         minute: 'numeric'
       });
 
-  const checkUser = props.comment.author?._id === props.user._id;
+  const checkUser = props.comment.author?._id === props.userId;
 
   return (
     <div className={cn()} style={styleMargin}>
+      <div className={cn('head')}>
+        <div className={cn('user-name', {'current': checkUser})}>{props.comment.author?.profile.name}</div>
+        <div className={cn('date')}>{newDate}</div>
+      </div>
       {
-        !props.comment.main
+        props.comment.hide
           ? <>
-              <div className={cn('head')}>
-                <div className={cn('user-name', {'current': checkUser})}>{props.comment.author?.profile.name}</div>
-                <div className={cn('date')}>{newDate}</div>
+              <div className={cn('text')}>
+                {props.comment.text}
               </div>
-              {
-                props.comment.hide
-                  ? <>
-                      <div className={cn('text')}>
-                        {props.comment.text}
-                      </div>
-                      <div className={cn('link')} onClick={callbacks.answerComment}>{props.t('comment.answer')}</div>
-                    </>
-                  : <div className={cn('hide')} onClick={callbacks.onHide}>. . .</div>
-              }
+              <div className={cn('link')} onClick={callbacks.answerComment}>{props.t('comment.answer')}</div>
             </>
-          : ''
+          : <div className={cn('hide')} onClick={callbacks.onHide}>. . .</div>
       }
       {
-        !props.comment.active
-          ? ''
-          : props.comment.main
-            ? props.rendersForm(props.comment, props.idArticle, "article")
-            : props.rendersForm(props.comment, props.comment._id, "comment")
+        props.comment.active && props.rendersForm(props.comment._id)
       }
     </div>
   )
@@ -74,8 +64,7 @@ function Comment(props) {
 
 Comment.propTypes = {
   comment: propTypes.object.isRequired,
-  idArticle: propTypes.string,
-  user: propTypes.object,
+  userId: propTypes.string,
   rendersForm: propTypes.func,
   answerComment: propTypes.func,
   onHide: propTypes.func,
@@ -83,8 +72,7 @@ Comment.propTypes = {
 }
 
 Comment.defaultProps = {
-  idArticle: '',
-  user: {},
+  userId: '',
   rendersForm: () => {},
   answerComment: () => {},
   onHide: () => {},

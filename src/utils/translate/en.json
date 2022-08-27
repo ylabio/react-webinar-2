@@ -31,5 +31,6 @@
   "comment.send": "Send",
   "comment.answer": "Reply",
   "comment.cancel": "Cancel",
-  "comment.text": " to be able to comment. "
+  "comment.text": " to be able to comment. ",
+  "form.err": "The field must not be empty!"
 }

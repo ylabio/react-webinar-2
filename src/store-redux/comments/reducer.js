@@ -23,7 +23,6 @@ export default function reducer(state = initialState, action){
             listToTree(action.payload.data),
             (item, level) => ({...item, active: false, level: level, main: false, hide: level < 3})
           ),
-          {_id: '0', active: true, level: 0, main: true}
         ],
         count: action.payload.count,
         waiting: false};
@@ -40,11 +39,10 @@ export default function reducer(state = initialState, action){
         waiting: false,
         data: [
         ...treeToList(
-          listToTree([...state.data.filter(item => item._id !== '0'),
+          listToTree([...state.data,
             {...action.payload, hide: true}]),
           (item, level) => ({...item, level: level, active: false, main: false,})
         ),
-          {_id: '0', active: true, level: 0, main: true, hide: true}
     ],
         count: state.count + 1,
       };

@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useState} from "react";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
 import useSelector from "../../hooks/use-selector";
 import {useParams} from "react-router-dom";
@@ -8,12 +8,14 @@ import CommentList from "../../components/comment-list";
 import Comment from "../../components/comment";
 import CommentForm from "../../components/comment-form";
 import Spinner from "../../components/spinner";
+import CommentMainForm from "../../components/comment-main-form";
 
 function Comments(){
   // Параметры из пути /articles/:id
   const params = useParams();
-
   const storeRedux = useStoreRedux();
+
+  const [form, setForm] = useState( true);
 
   const select = useSelector(state => ({
     user: state.session.user,
@@ -32,43 +34,48 @@ function Comments(){
   const callbacks = {
     // Добавление в корзину
     addComment: useCallback(async (token, body) => {
-      await storeRedux.dispatch(actionsComments.addComment(token, body));
-    }, [selectRedux.count, selectRedux.comments]),
+      storeRedux.dispatch(actionsComments.addComment(token, body));
+      setForm(true);
+    }, [selectRedux.comments]),
 
-    answerComment: useCallback(_id => storeRedux.dispatch(actionsComments.answerComment(_id)), []),
-    closeComment: useCallback(_id => storeRedux.dispatch(actionsComments.closeComment(_id)), []),
+    answerComment: useCallback(_id => {
+      storeRedux.dispatch(actionsComments.answerComment(_id));
+      setForm(false);
+    }, []),
+    closeComment: useCallback(_id => {
+      storeRedux.dispatch(actionsComments.closeComment(_id));
+      setForm(true);
+    }, []),
     onHide: useCallback(_id => storeRedux.dispatch(actionsComments.onHide(_id)), []),
   };
 
   const rendersForm = {
-    commentForm: useCallback((comment, _id, type) => (
+    commentForm: useCallback((commentId) => (
       <CommentForm
-        comment={comment}
+        commentId={commentId}
         addComment={callbacks.addComment}
         closeComment={callbacks.closeComment}
         exists={select.exists}
-        idParent={_id}
-        typeParent={type}
         token={select.token}
         t={t}
       />
-    ), [select.exists, selectRedux.comments, t]),
+    ), [selectRedux.comments, select.exists, t]),
   }
 
   const renders = {
     itemComment: useCallback(item => (
       <Comment
         comment={item}
-        user={select.user}
-        idArticle={params.id}
+        userId={select.user._id}
         rendersForm={rendersForm.commentForm}
         answerComment={callbacks.answerComment}
-        removeComment={callbacks.removeComment}
         onHide={callbacks.onHide}
         t={t}
       />
-    ), [selectRedux.comments, select.exists, t]),
+    ), [selectRedux.comments, t]),
   }
+
+  console.log(selectRedux.comments)
 
   return (
     <Spinner active={selectRedux.waiting}>
@@ -77,6 +84,11 @@ function Comments(){
                    renderComment={renders.itemComment}
                    t={t}
       />
+      {form && <CommentMainForm addComment={callbacks.addComment}
+                        exists={select.exists}
+                        articleId={params.id}
+                        token={select.token}
+                        t={t}/>}
     </Spinner>
   )
 }

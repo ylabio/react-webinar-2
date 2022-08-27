@@ -4,8 +4,8 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import {Link} from "react-router-dom";
 
-function CommentForm(props) {
-  const cn = bem('CommentForm');
+function CommentMainForm(props) {
+  const cn = bem('CommentMainForm');
 
   const [form, setForm] = useState({text: '', err: ''});
 
@@ -16,8 +16,8 @@ function CommentForm(props) {
       const body = {
         text: `${form.text}`,
         parent: {
-          _id: props.commentId,
-          _type: "comment"
+          _id: props.articleId,
+          _type: "article"
         }
       }
 
@@ -25,14 +25,8 @@ function CommentForm(props) {
         setForm({...form, err: props.t('form.err')})
       } else {
         props.addComment(props.token, body);
-        props.closeComment(props.commentId);
       }
     }, [form.text]),
-
-    closeComment: useCallback((e) => {
-      e.preventDefault();
-      props.closeComment(props.commentId);
-    }, []),
   };
 
   return (
@@ -46,7 +40,6 @@ function CommentForm(props) {
               <div className={cn('err')}>{form.err}</div>
               <div className={cn('buttons')}>
                 <button>{props.t('comment.send')}</button>
-                <button onClick={cb.closeComment}>{props.t('comment.cancel')}</button>
               </div>
             </form>
           : <div className={cn('not-auth')}>
@@ -54,29 +47,26 @@ function CommentForm(props) {
                 {props.t('auth.signIn')}
               </Link>
               {props.t('comment.text')}
-              <span className={cn('cancel')} onClick={cb.closeComment}>{props.t('comment.cancel')}</span>
             </div>
       }
     </div>
   )
 }
 
-CommentForm.propTypes = {
-  commentId: propTypes.string,
+CommentMainForm.propTypes = {
   addComment: propTypes.func,
-  closeComment: propTypes.func,
   exists: propTypes.bool,
+  articleId: propTypes.string,
   token: propTypes.string,
   t: propTypes.func,
 }
 
-CommentForm.defaultProps = {
-  commentId: '',
+CommentMainForm.defaultProps = {
   addComment: () => {},
-  closeComment: () => {},
   exists: false,
+  articleId: '',
   token: '',
   t: (text) => text,
 }
 
-export default React.memo(CommentForm);
+export default React.memo(CommentMainForm);

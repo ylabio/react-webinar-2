@@ -1,12 +1,21 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import CommentsItem from "../comments-item";
 
 
 
-function Comments({comments, isAuthorized, openCommentForm, closeCommentForm, resetMessage}){
-
+function Comments({comments, isAuthorized, openCommentForm, closeCommentForm, resetMessage, onSubmit}){
+    const areaTextRef = useRef();
+    const handleSubmit = (evt) => {
+        console.log('отправка')
+        evt.preventDefault();
+        onSubmit({
+            _id: "string",
+            text: areaTextRef.current.value,
+            parent: {}
+        });
+    }
 
     const cn = bem('Comments');
     return (
@@ -22,6 +31,7 @@ function Comments({comments, isAuthorized, openCommentForm, closeCommentForm, re
                                         openCommentForm={openCommentForm}
                                         closeCommentForm={closeCommentForm}
                                         resetMessage={resetMessage}
+                                        name={comment.author.profile.name}
                                     />
                                 )
                             )
@@ -32,9 +42,9 @@ function Comments({comments, isAuthorized, openCommentForm, closeCommentForm, re
                     ?
                         <p className={cn('text')}><a className={cn('link')} href={'/login'}>Войдите</a>, чтобы иметь возможность комментировать</p>
                     :
-                        <form className={cn('form')}>
+                        <form className={cn('form')} onSubmit={handleSubmit} method={`POST`}>
                             <p className={cn('form-header')}>Новый комментарий</p>
-                            <textarea  className={cn('form-area')} placeholder={'Текст'}></textarea>
+                            <textarea  className={cn('form-area')} ref={areaTextRef} placeholder={'Текст'}></textarea>
                             <button className={cn('form-button')} type={'submit'}>Отправить</button>
                         </form>
             }

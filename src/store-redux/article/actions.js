@@ -21,7 +21,7 @@ export default {
       dispatch({type: 'article/comments',})
 
       try {
-        const json = await services.api.request({url: `/api/v1/comments/?id=${_id}?fields=*,_id,text,dateCreate,author(profile(name)),parent(_id)`});
+        const json = await services.api.request({url: `/api/v1/comments/?id=${_id}&fields=_id,text,dateCreate,author(profile(name)),parent(_id)`});
         console.log(json.result.items)
         dispatch({type: 'article/comments-success', payload: {comments: json.result.items}});
 
@@ -31,7 +31,14 @@ export default {
     }
   },
 
-  postComments: () => {
-
-  }
+  postComments: ({id, text, parent}) => {
+    const userToken = localStorage.getItem('token');
+    fetch('/api/v1/comments', {
+      method: 'POST',
+      headers: {
+        'X-Token': userToken,
+      },
+      body: {id, text, parent}
+    })
+    }
 }

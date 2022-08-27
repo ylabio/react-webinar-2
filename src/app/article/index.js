@@ -13,6 +13,7 @@ import ToolsContainer from "../../containers/tools";
 import actionsArticle from '../../store-redux/article/actions';
 import Comments from "../../components/comments";
 import useSelector from "../../hooks/use-selector";
+import postComments from "../../store-redux/article/actions";
 
 function Article(){
   const store = useStore();
@@ -135,7 +136,11 @@ const commentsArray = select.comments.comments;
     }, []),
     resetMessage: useCallback((evt) => {
           evt.target.parentNode.classList.add('visually-hidden');
-      }, [])
+      }, []),
+    // postComment: useCallback(() => {
+    //     console.log('a сейчас работаешь?')
+    //     postComments()
+    // }, [])
   };
 
   return (
@@ -152,6 +157,7 @@ const commentsArray = select.comments.comments;
           openCommentForm={callbacks.openCommentForm}
           closeCommentForm={callbacks.closeCommentForm}
           resetMessage={callbacks.resetMessage}
+          // onSubmit={callbacks.postComment}
       />
     </Layout>
   )

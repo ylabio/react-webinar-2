@@ -17,11 +17,12 @@ export const dateConvert = (date) => {
 };
 
 
-function CommentsItem ({text, date, openCommentForm, closeCommentForm, resetMessage}){
+function CommentsItem ({text, date, openCommentForm, name, closeCommentForm, resetMessage}){
     const cn = bem('Comments-item');
+    console.log(name)
     return (
         <li className={cn('item')}>
-            <p className={cn('user-name')}>Непонятно откуда брать <span className={cn('date')}>{dateConvert(date)}</span></p>
+            <p className={cn('user-name')}>{name} <span className={cn('date')}>{dateConvert(date)}</span></p>
             <p className={cn('user-comment')}>{text}</p>
             <button className={cn('button')} onClick={openCommentForm}>Ответить</button>
             <form className={cn('form' + ' ' +  'visually-hidden')}>

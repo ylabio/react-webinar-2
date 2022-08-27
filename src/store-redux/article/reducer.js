@@ -1,20 +1,21 @@
 // Начальное состояние товара
 const initialState = {
   data: {},
-  waiting: false
-}
+  waiting: false,
+  error: ''
+};
 
-export default function reducer(state = initialState, action){
+export default function reducer(state = initialState, action) {
   switch (action.type) {
 
-    case "article/load":
-      return { ...state, data: {}, waiting: true};
+    case 'article/load':
+      return { ...state, data: {}, waiting: true, error: '' };
 
-    case "article/load-success":
-      return { ...state, data: action.payload.data, waiting: false};
+    case 'article/load-success':
+      return { ...state, data: action.payload.data, waiting: false };
 
-    case "article/load-error":
-      return { ...state, data: {}, waiting: false}; //@todo текст ошибки сохранить?
+    case 'article/load-error':
+      return { ...state, waiting: false, error: action.payload.error };
 
     default:
       // Нет изменений

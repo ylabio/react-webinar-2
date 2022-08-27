@@ -33,15 +33,14 @@ export default {
 
       try {
         const json = await services.api.request({
-          url: `/api/v1/comments?fields=*,author(_id,profile(name))&limit=*`,
+          url: `/api/v1/comments?fields=*,author(_id,profile(name))&limit=*&search[parent]=${productId}`,
         });
 
-        const filtred = getCommentsByFiltering(json.result.items, productId);
-
-        const tree = commentsToTree(filtred);
+        const tree = commentsToTree(json.result.items);
         const comments = treeToComments(tree);
+        const length = json.result.items.length;
 
-        dispatch({type: 'comments/getAll-success', payload: {data: {items: comments}, total: filtred.length}});
+        dispatch({type: 'comments/getAll-success', payload: {data: {items: comments}, total: length}});
 
       } catch (e){
         dispatch({type: 'comments/getAll-error'});

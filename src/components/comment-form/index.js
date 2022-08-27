@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
 
-function CommentForm({ type = 'comment' }) {
+function CommentForm({ type, closeCB, comment }) {
   const cn = bem('CommentForm');
+  const [textarea, setTextarea] = useState(comment?._id);
 
   return (
     <form className={cn()}> 
@@ -12,14 +13,23 @@ function CommentForm({ type = 'comment' }) {
         <span className={cn('text')}>
           {type === 'comment' ? 'Новый комментарий' : 'Новый ответ'}
         </span>
-        <textarea className={cn('textarea')} defaultValue={'Text'} />
+        <textarea 
+          className={cn('textarea')} 
+          value={textarea}
+          onChange={(e) => setTextarea(e.target.value)} 
+        />
       
       </label>
 
       <div className={cn('submitWrapper')}>
         <button type='submit' className={cn('submit')}>Отправить</button>
         {type === 'answer' && (
-          <button className={cn('cancel')}>Отменить</button>
+          <button 
+            className={cn('cancel')}
+            onClick={closeCB}
+          >
+            Отмена
+          </button>
         )}
       </div>       
     </form>
@@ -27,11 +37,12 @@ function CommentForm({ type = 'comment' }) {
 }
 
 CommentForm.propTypes = {
- 
+  type: propTypes.string.isRequired,
+  closeCB: propTypes.func,
 };
 
 CommentForm.defaultProps = {
-
+  closeCB: () => {},
 };
 
 export default CommentForm;

@@ -1,16 +1,27 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { useSelector, useStore } from 'react-redux';
+import { useSelector as useSelectorR, useStore } from 'react-redux';
 import Comments from '../../components/comments';
 import commentsActions from '../../store-redux/comments/actions';
+import useSelector from '../../hooks/use-selector';
 
 function CommentsContainer({ items }) {
   const { dispatch } = useStore();
-  const { total } = useSelector(state => state.comments);
+  const { total } = useSelectorR(state => ({
+    total: state.comments.total,
+  }));
+  const { exists } = useSelector(state => ({
+    exists: state.session.exists,
+  }));
 
   return (
     <>
-      <Comments items={items} total={total} />
+      <Comments 
+        items={items} 
+        total={total} 
+        exists={exists} 
+        link={'/login'}
+      />
       {/* <button onClick={() => {
         dispatch(commentsActions.create({
           text: 'son of the second child',

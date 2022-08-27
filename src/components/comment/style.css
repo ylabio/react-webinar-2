@@ -29,3 +29,7 @@
 .Comment-answer:hover {
   text-decoration: underline;
 }
+
+.Comment-form {
+  margin-top: 30px;
+}

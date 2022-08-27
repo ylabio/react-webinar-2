@@ -37,8 +37,6 @@ export function commentsToTree(data) {
 
   } while (flag) 
 
-  console.log('finalTree: ', tree)
-
   return tree;
 }
 

@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
 import CommentForm from '../comment-form';
 import CommentsBranch from '../comments-branch';
+import AuthWarning from '../auth-warning';
 
-function Comments({ items, total }) {
+function Comments({ items, total, exists, link }) {
   const cn = bem('Comments');
-
-  console.log({items})
+  const [showCommentForm, setShowCommentForm] = useState(true);
+  const [lastCommentId, setLastCommentId] = useState(null);
 
   return (
     <div className={cn()}>
@@ -16,11 +17,27 @@ function Comments({ items, total }) {
 
       <div className={cn('content')}>
         {items && items.map((branch, idx) => (
-          <CommentsBranch branch={branch} key={idx} />
+          <CommentsBranch 
+            branch={branch} 
+            key={idx} 
+            exists={exists}
+            link={link}
+            setShowCommentForm={setShowCommentForm}
+            lastCommentId={lastCommentId}
+            setLastCommentId={setLastCommentId}
+          />
         ))}   
       </div>
       
-      <CommentForm />
+      <div className={cn('bottom')}>
+        {exists && showCommentForm && (
+          <CommentForm type='comment' />
+        )}
+
+        {!exists && (
+          <AuthWarning type='comment' link={link} />
+        )}
+      </div>
     </div>
   );
 }

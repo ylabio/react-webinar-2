@@ -1,5 +1,5 @@
 .Comments {
-  padding: 0 34px;
+  padding: 0 34px 40px 34px;
 }
 
 .Comments-header {
@@ -9,6 +9,9 @@
 }
 
 .Comments-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .Comments-form {
@@ -38,4 +41,8 @@
   margin-top: 10px;
   cursor: pointer; 
   padding: 1px 10px;
+}
+
+.Comments-bottom {
+  margin-top: 30px;
 }

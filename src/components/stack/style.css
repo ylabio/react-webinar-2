@@ -1,0 +1,6 @@
+.Stack {
+}
+
+.Stack_spacing_big > div > * + * {
+  margin-top: 30px;
+}

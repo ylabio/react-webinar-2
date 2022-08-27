@@ -4,12 +4,12 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import NewForm from './new-form';
 import ReplyForm from './reply-form';
+import ProtectedComment from '../../../containers/protected-comment';
 
 function CommentForm({
 	createComment,
 	parentId,
 	articleId,
-	style,
 	parentType,
 	openForm,
 	formType,
@@ -34,19 +34,25 @@ function CommentForm({
 	};
 
 	return (
-		<form className={cn()} onSubmit={callbacks.onSubmit} style={style}>
-			{formType === 'new' && (
-				<NewForm onChange={callbacks.onChange} value={text} />
-			)}
-			{formType === 'reply' && (
-				<ReplyForm
-					onChange={callbacks.onChange}
-					value={text}
-					openForm={openForm}
-					articleId={articleId}
-				/>
-			)}
-		</form>
+		<ProtectedComment
+			formType={formType}
+			openForm={openForm}
+			articleId={articleId}
+		>
+			<form className={cn()} onSubmit={callbacks.onSubmit}>
+				{formType === 'new' && (
+					<NewForm onChange={callbacks.onChange} value={text} />
+				)}
+				{formType === 'reply' && (
+					<ReplyForm
+						onChange={callbacks.onChange}
+						value={text}
+						openForm={openForm}
+						articleId={articleId}
+					/>
+				)}
+			</form>
+		</ProtectedComment>
 	);
 }
 
@@ -54,7 +60,6 @@ CommentForm.propTypes = {
 	createComment: propTypes.func.isRequired,
 	parentId: propTypes.string.isRequired,
 	articleId: propTypes.string.isRequired,
-	style: propTypes.object,
 	parentType: propTypes.string.isRequired,
 	openForm: propTypes.func.isRequired,
 	formType: propTypes.string.isRequired,

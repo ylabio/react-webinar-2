@@ -8,10 +8,11 @@ import CommentForm from './comment-form';
 function CommentsList({
 	comments,
 	count,
+	createComment,
+	openForm,
 	deleteComment,
 	articleId,
 	formId,
-	createComment,
 }) {
 	const cn = bem('CommentsList');
 
@@ -24,7 +25,10 @@ function CommentsList({
 						<CommentItem
 							key={comment._id}
 							comment={comment}
+							formId={formId}
 							child={comment.parent._tree.length}
+							createComment={createComment}
+							openForm={openForm}
 							deleteComment={deleteComment}
 							articleId={articleId}
 						/>
@@ -47,17 +51,19 @@ function CommentsList({
 CommentsList.propTypes = {
 	comments: propTypes.array.isRequired,
 	count: propTypes.number.isRequired,
+	createComment: propTypes.func.isRequired,
+	openForm: propTypes.func.isRequired,
 	deleteComment: propTypes.func.isRequired,
 	articleId: propTypes.string.isRequired,
 	formId: propTypes.string.isRequired,
-	createComment: propTypes.func.isRequired,
 };
 
 CommentsList.defaultProps = {
 	comments: [],
 	count: 0,
-	deleteComment: () => {},
 	createComment: () => {},
+	openForm: () => {},
+	deleteComment: () => {},
 };
 
 export default React.memo(CommentsList);

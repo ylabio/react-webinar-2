@@ -1,0 +1,14 @@
+.CommentNotice {
+	margin-top: 30px;
+}
+.CommentNotice-login,
+.CommentNotice-cancel {
+	text-decoration: underline;
+	cursor: pointer;
+}
+.CommentNotice-login {
+	color: #0087e9;
+}
+.CommentNotice-cancel {
+	color: #666666;
+}

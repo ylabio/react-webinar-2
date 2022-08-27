@@ -1,8 +1,12 @@
+.CommentItem-body {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
 .CommentItem-head {
 	display: flex;
 	align-items: center;
 	gap: 10px;
-	margin-bottom: 10px;
 }
 .CommentItem-headUser {
 	font-weight: 700;
@@ -17,7 +21,6 @@
 .CommentItem-text {
 	font-size: 14px;
 	line-height: 16px;
-	margin-bottom: 10px;
 }
 .CommentItem-reply {
 	background: transparent;
@@ -27,6 +30,7 @@
 	font-size: 12px;
 	line-height: 14px;
 	color: #0087e9;
+	align-self: flex-start;
 }
 .CommentItem-reply:hover {
 	text-decoration: underline;

@@ -40,6 +40,10 @@ function CommentsContainer() {
 				),
 			[],
 		),
+		openForm: useCallback(
+			(id) => storeRedux.dispatch(actionsComments.openForm(id)),
+			[],
+		),
 		deleteComment: useCallback(
 			(_id) => storeRedux.dispatch(actionsComments.deleteComment(_id)),
 			[],
@@ -58,10 +62,11 @@ function CommentsContainer() {
 			<CommentsList
 				comments={options.comments}
 				count={select.count}
+				createComment={callbacks.createComment}
+				openForm={callbacks.openForm}
 				deleteComment={callbacks.deleteComment}
 				articleId={params.id}
 				formId={select.formId}
-				createComment={callbacks.createComment}
 			/>
 		</Spinner>
 	);

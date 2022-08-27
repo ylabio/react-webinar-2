@@ -5,7 +5,7 @@ import treeToList from '../../utils/tree-to-list';
 export default {
   load: _id => {
     return async (dispatch, getState, services) => {
-      dispatch({type: 'comments/load'});
+      dispatch({type: 'comments/load', payload: {_id}});
       try {
         const json = await services.api.request({
           url: `/api/v1/comments/?search[parent]=${_id}&fields=items(*,author(profile(name))),count&limit=*`
@@ -29,5 +29,30 @@ export default {
         dispatch({type: 'comments/load-error'});
       }
     };
-  }
+  },
+
+  post: (_parentId, _parentType, text) => {
+    return async (dispatch, services) => {
+      dispatch({type: 'comments/post'});
+
+      try {
+        const json = await services.api.request({
+          url: `/api/v1/comments?lang=ru&fields=*`,
+          method: 'POST',
+          body: JSON.stringify({
+            text,
+            parent: {
+              _id: _parentId,
+              _type: _parentType
+            }
+          })
+        });
+      } catch (e) {}
+    };
+  },
+
+  setFormPlacement: formPlacement => ({
+    type: 'comments/set-form-placement',
+    payload: {formPlacement}
+  })
 };

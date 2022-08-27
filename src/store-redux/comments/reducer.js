@@ -8,7 +8,7 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case 'comments/load':
-      return {...state, comments: [], total: 0, waiting: true};
+      return {...state, items: [], total: 0, waiting: true, formPlacement: action.payload._id};
 
     case 'comments/load-success':
       return {
@@ -19,7 +19,14 @@ export default function reducer(state = initialState, action) {
       };
 
     case 'comments/load-error':
-      return {...state, comments: [], total: 0, waiting: false};
+      return {...state, items: [], total: 0, waiting: false};
+
+    case 'comments/set-form-placement':
+      return {...state, formPlacement: action.payload.formPlacement};
+
+    case 'comments/post':
+      return {...state, waiting: true};
+
     default:
       return {...state};
   }

@@ -3,8 +3,13 @@ import propTypes from 'prop-types';
 import React from 'react';
 import './style.css';
 
-function Comment({data, children, level}) {
+function Comment({data, level, onAnswer}) {
   const cn = bem('Comment');
+
+  const callbacks = {
+    onAnswer: () => onAnswer(data._id)
+  };
+
   return (
     <div style={{paddingLeft: `${level * 30}px`}} className={cn()}>
       <div className={cn('head')}>
@@ -12,16 +17,17 @@ function Comment({data, children, level}) {
         <div className={cn('createdAt')}>{data.date}</div>
       </div>
       <div className={cn('body')}>{data.text}</div>
-      <button className={cn('answer')}>Ответить</button>
-      {children}
+      <button className={cn('answer')} onClick={callbacks.onAnswer}>
+        Ответить
+      </button>
     </div>
   );
 }
 
 Comment.propTypes = {
   data: propTypes.object,
-  children: propTypes.node,
-  level: propTypes.number
+  level: propTypes.number,
+  hasForm: propTypes.bool
 };
 
 export default React.memo(Comment);

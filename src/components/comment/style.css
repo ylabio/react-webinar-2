@@ -1,5 +1,4 @@
 .Comment {
-  font-size: 12px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -7,6 +6,7 @@
 }
 
 .Comment-head {
+  font-size: 12px;
   display: flex;
   gap: 10px;
   justify-content: flex-start;
@@ -25,6 +25,7 @@
 }
 
 .Comment button {
+  font-size: 12px;
   outline: none;
   background: none;
   border: none;

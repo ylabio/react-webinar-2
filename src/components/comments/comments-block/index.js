@@ -1,29 +1,23 @@
-import React, {useState} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import Comment from '../comment';
-import NewCommentBlock from '../new-comment';
 import {Link} from 'react-router-dom';
+import NewCommentBlock from '../new-comment';
 
-function CommentsBlock({exists, items, count, addComment, onChange}) {
+function CommentsBlock({
+  exists,
+  items,
+  count,
+  addComment,
+  openAnswerBlock,
+  answerState,
+  onChange,
+  signIn
+}) {
   // CSS классы по БЭМ
   const cn = bem('CommentsBlock');
-console.log(items);
-  const [commentState, setCommentState] = useState(false);
-  // const [commText, setCommText] = useState('');
-
-  const Comments = ({items}) => (
-    <>
-      {items.map((item) => (
-        <Comment key={item._id} item={item}>
-          {item.children && item.children.length 
-          ? item.children.map(child=>(<Comments key={child._id} items={item.children} />
-          )) : null}
-        </Comment>
-      ))}
-    </>
-  );
 
   return (
     <div className={cn()}>
@@ -31,10 +25,27 @@ console.log(items);
         exists ? count : 0
       })`}</div>
       {exists ? (
-        <Comments items={items} />
+        <>
+          {items.map((item) => {
+            return (
+              <Comment
+                key={item._id}
+                item={item}
+                answerState={answerState}
+                setAnswerState={openAnswerBlock}
+                addComment={addComment}
+                onChange={onChange}
+              />
+            );
+          })}
+          {!answerState 
+          && <NewCommentBlock 
+          onChange={onChange}
+          addComment={addComment} />}
+        </>
       ) : (
         <span>
-          <Link to={'/login'}>Войдите,</Link> чтобы иметь возможность
+          <span className={cn('link')} onClick={signIn}>Войдите,</span> чтобы иметь возможность
           комментировать
         </span>
       )}
@@ -44,8 +55,13 @@ console.log(items);
 
 CommentsBlock.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
+  exists: propTypes.bool,
+  count: propTypes.number,
+  openAnswerBlock: propTypes.func,
+  answerState: propTypes.string,
   addComment: propTypes.func,
   onChange: propTypes.func,
+  signIn: propTypes.func,
 };
 
 CommentsBlock.defaultProps = {

@@ -4,10 +4,30 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import TextButton from '../../buttons/text-button';
 import CommentAnswerBlock from '../comments-answer-block';
+import formatDate from '../../../utils/format-date';
 
-function Comment({item, children, onAnswer, setCommState, commState, className, onAdd, onChange}) {
+function Comment({
+  item,
+  setAnswerState,
+  answerState,
+  className,
+  onChange,
+  addComment
+}) {
   // CSS классы по БЭМ
   const cn = bem('Comment');
+
+  const nestedComments = (item.children || []).map((comment) => {
+    return (
+      <Comment
+        key={comment._id}
+        item={comment}
+        answerState={answerState}
+        setAnswerState={setAnswerState}
+        addComment={addComment}
+      />
+    );
+  });
 
   return (
     <>
@@ -15,18 +35,36 @@ function Comment({item, children, onAnswer, setCommState, commState, className, 
         <div className={cn('infoBlock')}>
           <span className={cn('userInfo')}>{item.author.profile.name}</span>
           <span className={cn('date')}>
-            {item.dateCreate.toLocaleString('ru-RU')}
+            {formatDate(item.dateCreate)}
           </span>
         </div>
         <div className={cn('text')}>{item.text}</div>
-        <TextButton onClick={()=>setCommState(true)}>Ответить</TextButton>
-        {commState && <CommentAnswerBlock cancel={()=>setCommState(false)} onChange={onChange}/>}
+        <TextButton onClick={() => setAnswerState(item._id)}>
+          Ответить
+        </TextButton>
+        {answerState === item._id && (
+          <CommentAnswerBlock
+            cancel={() => setAnswerState(null)}
+            onChange={onChange}
+            send={addComment}
+            parent={item}
+          />
+        )}
       </section>
-      <section className={cn('answer')}>
-        {children}
-      </section>
+      <section className={cn('answer')}>{nestedComments}</section>
     </>
   );
 }
 
-export default Comment;
+Comment.propTypes = {
+  item: propTypes.object.isRequired,
+  answerState: propTypes.func,
+  setAnswerState: propTypes.func,
+  answerState: propTypes.string,
+  onChange: propTypes.func,
+};
+
+Comment.defaultProps = {
+};
+
+export default React.memo(Comment);

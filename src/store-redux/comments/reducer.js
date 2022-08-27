@@ -2,6 +2,7 @@
 const initialState = {
   data: [],
   count: null,
+  answeringComment:null,
   waiting: false
 }
 
@@ -17,11 +18,13 @@ export default function reducer(state = initialState, action){
     case "comments/load-error":
       return { ...state, data: [], waiting: false}; //@todo текст ошибки сохранить?
 
+    case "comments/answer":
+      return { ...state, answeringComment: action.id};
     case "comments/add":
       return { ...state, data: [], waiting: true};
 
     case "comments/add-success":
-      return { ...state, data: action.payload.data, waiting: false};
+      return { ...state, answeringComment: null, waiting: false};
 
     case "comments/add-error":
       return { ...state, data: [], waiting: false}; //@todo текст ошибки сохранить?

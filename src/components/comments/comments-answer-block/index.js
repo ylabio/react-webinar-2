@@ -1,17 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function CommentAnswerBlock({send, cancel, onChange}) {
+function CommentAnswerBlock({send, cancel, onChange, parent}) {
+  const [message, setMessage] = useState('');
   // CSS классы по БЭМ
   const cn = bem('NewCommentBlock');
+
+  const sendMsg = (e) => {
+    e.preventDefault();
+    send(message, parent);
+    setMessage('');
+  }
   return (
     <section className={cn()}>
       <span className={cn('title')}>Новый ответ</span>
-      <textarea className={cn('input')} onChange={(e)=>onChange(e.target.value)} />
+      <textarea
+        className={cn('input')}
+        value={message}
+        onChange={(e) => {setMessage(e.target.value)}}
+      />
       <div className={cn('buttonBlock')}>
-        <button onClick={send}>Отправить</button>
+        <button onClick={sendMsg}>Отправить</button>
         <button onClick={cancel}>Отмена</button>
       </div>
     </section>

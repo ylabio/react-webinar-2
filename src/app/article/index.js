@@ -16,15 +16,13 @@ import actionsComments from '../../store-redux/comments/actions';
 
 function Article(){
   const store = useStore();
-  // Параметры из пути /articles/:id
+
   const params = useParams();
 
   const storeRedux = useStoreRedux();
 
   useInit(async () => {
     storeRedux.dispatch(actionsArticle.load(params.id));
-    storeRedux.dispatch(actionsComments.loadComments(params.id));
-    storeRedux.dispatch(actionsComments.setEditor(params.id));
   }, [params.id]);
 
   const select = useSelectorRedux(state => ({
@@ -32,13 +30,20 @@ function Article(){
     waiting: state.article.waiting,
     comments: state.comments.data,
     textEditor: state.comments.textEditor,
+    rerender: state.comments.rerender,
+    waitingComments: state.comments.waiting,
   }), shallowEqual);
+
+  useInit(async () => {
+    storeRedux.dispatch(actionsComments.loadComments(params.id));
+    storeRedux.dispatch(actionsComments.setEditor(params.id));
+  }, [params.id, select.rerender]);
+
   const {t} = useTranslate();
-  console.log(select.textEditor)
+
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    setEditor: useCallback(_id => storeRedux.dispatch(actionsComments.setEditor(_id)), []),
   };
 
   return (
@@ -48,7 +53,9 @@ function Article(){
       <ToolsContainer/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
-        <Comments articleId={params.id} textEditor={select.textEditor} setEditor={callbacks.setEditor} comments={select.comments}/>
+      </Spinner>
+      <Spinner active={select.waitingComments}>
+        <Comments articleId={params.id} comments={select.comments}/>
       </Spinner>
     </Layout>
   )

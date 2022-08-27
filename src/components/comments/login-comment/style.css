@@ -1,25 +1,17 @@
-.ArticleCard {
-    padding: 20px 35px;
+.LoginComments {
+    margin: 30px 0;
 }
 
-.ArticleCard-description {
-    margin: 20px 0;
+.LoginComments-button {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    text-decoration-line: underline;
+    cursor: pointer;
+    color: #0087E9;
 }
 
-.ArticleCard-prop {
-    margin: 20px 0;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.ArticleCard-prop_size_big{
-    font-size: 24px;
-}
-
-.ArticleCard-label{
-    padding-right: 10px;
-}
-
-.ArticleCard-value{
-    font-weight: bold;
+.LoginComments-button_color_green {
+    color: #666666;
 }

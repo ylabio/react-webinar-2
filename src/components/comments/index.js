@@ -5,27 +5,24 @@ import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
 
-function Comments({comments, setEditor, textEditor, articleId}) {
+function Comments({comments, articleId}) {
 
-  // CSS классы по БЭМ
   const cn = bem('Comments');
-  console.log(comments)
+
   return (
     <div className={cn()}>
       <p className={cn('title')}>Комментарии ({comments.length})</p>
       {comments.map(comment => {
-        return <Comment textEditor={textEditor} setEditor={setEditor} comment={comment} key={comment.id}/>
+        return <Comment comment={comment} key={comment.id}/>;
       })}
-      <ProtectedComments
-        redirect={'/login'}>{articleId===textEditor ? 'yes' : 'no'}</ProtectedComments>
+
+      <ProtectedComments id={articleId} redirect={'/login'}/>
     </div>
   )
 }
 
 Comments.propTypes = {
   comments: propTypes.array.isRequired,
-  setEditor: propTypes.func.isRequired,
-  textEditor: propTypes.string,
   articleId: propTypes.string,
 }
 

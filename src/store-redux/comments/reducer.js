@@ -1,24 +1,24 @@
-// Начальное состояние товара
 const initialState = {
   data: [],
   waiting: false,
-  textEditor: null,
+  textEditor: 'null',
+  rerender: false,
 }
 
-export default function reducer(state = initialState, action){
+export default function reducer(state = initialState, action) {
   switch (action.type) {
 
     case "comments/load":
-      return { ...state, data: [], waiting: true};
+      return {...state, waiting: true, rerender: false};
 
     case "comments/set-text-editor":
-      return { ...state, textEditor: action.payload.data, waiting: false};
+      return {...state, textEditor: action.payload.data, waiting: false};
 
     case "comments/load-success":
-      return { ...state, data: action.payload.data, waiting: false};
+      return {...state, data: action.payload.data};
 
-    case "comments/load-error":
-      return { ...state, data: [], waiting: false}; //@todo текст ошибки сохранить?
+    case "comments/add-success":
+      return {...state, rerender: true, waiting: false};
 
     default:
       // Нет изменений

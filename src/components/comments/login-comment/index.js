@@ -3,26 +3,24 @@ import propTypes from 'prop-types';
 import React from 'react';
 import './style.css';
 
-function LoginComments({onNavigate}) {
+function LoginComments({onNavigate, text, onBack}) {
 
-  // CSS классы по БЭМ
   const cn = bem('LoginComments');
 
   return (
     <div className={cn()}>
-      <span onClick={onNavigate}>Войдите</span>, чтобы иметь возможность комментировать
+      <span className={cn('button')} onClick={onNavigate}>Войдите</span>,
+      {text}
+      {onBack?<span className={cn('button',{color: 'green'})} onClick={onBack}>Отмена</span>: null}
     </div>
 
   )
 }
 
 LoginComments.propTypes = {
-  onNavigate: propTypes.func.isRequired
-}
-
-LoginComments.defaultProps = {
-  onNavigate: () => {
-  }
+  onNavigate: propTypes.func.isRequired,
+  text: propTypes.string.isRequired,
+  onBack: propTypes.func
 }
 
 export default React.memo(LoginComments);

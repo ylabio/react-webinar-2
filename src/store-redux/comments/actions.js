@@ -15,7 +15,7 @@ export default {
 
       try {
         const json = await services.api.request({url: `/api/v1/comments?search[parent]=${_id}&fields=_id,text,dateCreate,parent(_type,_id),author(profile(name))&limit=*`});
-
+        console.log(json)
         const comments = [...treeToList(
           listToTreeComments(json.result.items, _id),
           (item, level) => ({
@@ -24,16 +24,36 @@ export default {
             level,
             text: item.text,
             dateCreate: item.dateCreate,
-            textEditor:false,
+            textEditor: false,
           })
         )]
 
-        // Товар загружен успешно
         dispatch({type: 'comments/load-success', payload: {data: comments}});
 
       } catch (e) {
-        // Ошибка при загрузке
-        dispatch({type: 'comments/load-error'});
+
+      }
+    }
+  },
+
+
+  addComment: (_id, text, _type) => {
+    return async (dispatch, getState, services) => {
+      dispatch({type: 'comments/load',})
+      const body = JSON.stringify({parent: {_id, _type}, text})
+
+      try {
+        const json = await services.api.request({
+          url: `/api/v1/comments`,
+          method: 'POST',
+          body
+        });
+        console.log(json)
+
+        // Товар загружен успешно
+        dispatch({type: 'comments/add-success'});
+
+      } catch (e) {
       }
     }
   },

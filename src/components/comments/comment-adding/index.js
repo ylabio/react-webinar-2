@@ -22,9 +22,15 @@ function CommentAdding(props){
     setMessageThrottle(evt.target.value);
   }, [setMessage, setMessageThrottle]);
 
-  const handleCancelCommentLogin = useCallback(() => {
-    props.handleCancel('article')
+  const handleCancel = useCallback(() => {
+    props.handleCloseCommentAnswer('article');
   }, [props.handleCancel]);
+
+  // Переход к авторизации
+  const handleEnter = useCallback((evt) => {
+    evt.preventDefault();
+    props.handleEnter();
+  }, [props.handleEnter]);
 
   // Обновление стейта, если передан новый message
   useEffect(() => {
@@ -32,17 +38,19 @@ function CommentAdding(props){
   }, [message]);
 
   const cn = bem('CommentAdding');
+
   if (!props.isAuth) {
     return (
       <div className={cn()}>
-        <Link to={'/login'} className={cn('link')}>Войдите</Link>
+        <Link to={'/login'} className={cn('link')} onClick={handleEnter}>Войдите</Link>
           , чтобы иметь возможность {props.target === 'article' ? 'комментировать' : 'ответить'}.
         {props.target === 'comment' &&
-          <button className={cn('cancel')} onClick={handleCancelCommentLogin}>Отмена</button>
+          <button className={cn('cancel')} onClick={handleCancel}>Отмена</button>
         }
       </div>
     )
   }
+
   return (
     <div className={cn()}>
       <h3 className={cn('title')}>{props.target === 'comment' ? 'Новый ответ' : 'Новый комментарий'}</h3>
@@ -55,7 +63,7 @@ function CommentAdding(props){
         />
         <button type="submit" className={cn('button')}>Отправить</button>
         {props.target === 'comment' &&
-          <button type="button" className={cn('button')} onClick={props.handleCloseCommentAnswer}>Отмена</button>
+          <button type="button" className={cn('button')} onClick={handleCancel}>Отмена</button>
         }
       </form>
     </div>
@@ -69,6 +77,7 @@ CommentAdding.propTypes = {
   author: propTypes.object,
   handleSubmit: propTypes.func,
   handleChange: propTypes.func,
+  handleEnter: propTypes.func,
   handleCloseCommentAnswer: propTypes.func,
 }
 

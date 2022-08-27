@@ -19,8 +19,8 @@ function CommentItem(props) {
   }, [props.handleTarget]);
 
   return (
-    <>
-      <div className={cn()}>
+    <div className={cn()} style={{marginLeft: `${props.item.level * 30}px`}}>
+      <div className={cn('comment')}>
         <div className={cn('header')}>
           <span className={cn('username')}>{props.item.author.profile.name}</span>
           <span className={cn('date')}>{formatDate(props.item.dateCreate)}</span>
@@ -38,10 +38,11 @@ function CommentItem(props) {
           author={props.item.author.profile}
           handleSubmit={props.handleSubmit}
           handleChange={props.handleChange}
+          handleEnter={props.handleEnter}
           handleCloseCommentAnswer={handleCancel}
         />
       }
-    </>
+    </div>
   )
 }
 
@@ -54,6 +55,7 @@ CommentItem.propTypes = {
   handleSubmit: propTypes.func,
   handleChange: propTypes.func,
   handleTarget: propTypes.func,
+  handleEnter: propTypes.func,
   handleIsActive: propTypes.func
 }
 

@@ -24,7 +24,6 @@ function Article(){
   useInit(async () => {
     storeRedux.dispatch(actionsArticle.load(params.id));
     storeRedux.dispatch(actionsComments.load(params.id));
-    // @todo возможно здесь нужен Promise.all ??? Пересмотреть лекцию 5:35
   }, [params.id]);
 
   const select = useSelectorRedux(state => ({

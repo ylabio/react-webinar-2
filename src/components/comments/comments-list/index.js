@@ -20,6 +20,7 @@ function CommentsList(props) {
           handleSubmit={props.handleSubmit}
           handleChange={props.handleChange}
           handleTarget={props.handleTarget}
+          handleEnter={props.handleEnter}
           handleIsActive={props.handleActive}
         />
       )}
@@ -35,6 +36,7 @@ CommentsList.propTypes = {
   handleChange: propTypes.func,
   handleTarget: propTypes.func,
   handleCancel: propTypes.func,
+  handleEnter: propTypes.func,
   handleIsActive: propTypes.func,
 }
 

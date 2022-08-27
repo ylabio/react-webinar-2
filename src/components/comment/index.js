@@ -13,7 +13,8 @@ function Comment({
   link,
   setShowCommentForm,
   lastCommentId,
-  setLastCommentId  
+  setLastCommentId,
+  createResponse,  
 }) {
   const cn = bem('Comment');
   const [showAnswerForm, setShowAnswerForm] = useState(false);
@@ -59,7 +60,8 @@ function Comment({
             <CommentForm 
               type='answer' 
               closeCB={cancelFormHandler}
-              comment={data} 
+              comment={data}
+              createResponse={createResponse} 
             /> 
           </div>    
         )}

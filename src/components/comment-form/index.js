@@ -3,12 +3,18 @@ import propTypes from 'prop-types';
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
 
-function CommentForm({ type, closeCB, comment }) {
+function CommentForm({ type, closeCB, comment, createResponse }) {
   const cn = bem('CommentForm');
   const [textarea, setTextarea] = useState(comment?._id);
 
+  function formHandler(e) {
+    e.preventDefault();
+    createResponse(textarea, comment._id, comment._type);
+    closeCB();
+  }
+
   return (
-    <form className={cn()}> 
+    <form className={cn()} onSubmit={formHandler}> 
       <label className={cn('label')}>
         <span className={cn('text')}>
           {type === 'comment' ? 'Новый комментарий' : 'Новый ответ'}
@@ -22,7 +28,13 @@ function CommentForm({ type, closeCB, comment }) {
       </label>
 
       <div className={cn('submitWrapper')}>
-        <button type='submit' className={cn('submit')}>Отправить</button>
+        <button 
+          type='submit' 
+          className={cn('submit')}
+        >
+          Отправить
+        </button>
+
         {type === 'answer' && (
           <button 
             className={cn('cancel')}

@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect} from "react";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
 import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
 import {useParams} from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
@@ -20,11 +19,6 @@ function Article(){
   // Параметры из пути /articles/:id
   const params = useParams();
   const storeRedux = useStoreRedux();
-  const { items } = useSelectorRedux(state => state.comments.data);
-
-  useEffect(() => {
-    storeRedux.dispatch(commentsActions.getAll(params.id))
-  }, []);
 
   useInit(async () => {
     //await store.get('article').load(params.id);
@@ -33,7 +27,8 @@ function Article(){
 
   const select = useSelectorRedux(state => ({
     article: state.article.data,
-    waiting: state.article.waiting
+    waiting: state.article.waiting,
+    waitingComments: state.comments.waiting,
   }), shallowEqual);
 
   const {t} = useTranslate();
@@ -43,14 +38,18 @@ function Article(){
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
   };
 
+  useEffect(() => {
+    storeRedux.dispatch(commentsActions.getAll(params.id))
+  }, []);
+
   return (
     <Layout>
       <TopContainer/>
       <HeadContainer title={select.article.title || ''}/>
       <ToolsContainer/>
-      <Spinner active={select.waiting || !items}>
+      <Spinner active={select.waiting || select.waitingComments}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
-        <CommentsContainer items={items} />
+        <CommentsContainer productId={params.id} />
       </Spinner>
     </Layout>
   )

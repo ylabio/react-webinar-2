@@ -9,7 +9,8 @@ function CommentsBranch({
   link,
   setShowCommentForm,
   lastCommentId,
-  setLastCommentId 
+  setLastCommentId,
+  createResponse,
 }) {
   const cn = bem('CommentsBranch');
 
@@ -25,6 +26,7 @@ function CommentsBranch({
           setShowCommentForm={setShowCommentForm}
           lastCommentId={lastCommentId}
           setLastCommentId={setLastCommentId}
+          createResponse={createResponse}
         />
       ))}
     </div>

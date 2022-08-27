@@ -1,18 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import { useSelector as useSelectorR, useStore } from 'react-redux';
 import Comments from '../../components/comments';
 import commentsActions from '../../store-redux/comments/actions';
 import useSelector from '../../hooks/use-selector';
 
-function CommentsContainer({ items }) {
+function CommentsContainer({ productId }) {
   const { dispatch } = useStore();
-  const { total } = useSelectorR(state => ({
+  const { total, items } = useSelectorR(state => ({
     total: state.comments.total,
+    items: state.comments.data.items,
   }));
   const { exists } = useSelector(state => ({
     exists: state.session.exists,
   }));
+
+  function createResponse(text, id, type) {
+    dispatch(commentsActions.create({
+      text: text,
+      parent: {
+        _id: id,
+        _type: type,
+      },
+    }));
+    
+    setTimeout(() => {
+      dispatch(commentsActions.getAll(productId))
+    }, 0);
+  }
 
   return (
     <>
@@ -21,16 +36,8 @@ function CommentsContainer({ items }) {
         total={total} 
         exists={exists} 
         link={'/login'}
+        createResponse={createResponse}
       />
-      {/* <button onClick={() => {
-        dispatch(commentsActions.create({
-          text: 'son of the second child',
-          parent: {
-            _id: '630808aa9f8e7d649942cd6b',
-            _type: 'comment',
-          },
-        }))
-      }} >_create</button> */}
     </>
   );
 }

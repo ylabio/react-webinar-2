@@ -1,5 +1,4 @@
 import { commentsToTree } from "../../utils/comments-to-tree";
-import { getCommentsByFiltering } from "../../utils/get-comments-by-filtering";
 import { treeToComments } from "../../utils/tree-to-comments";
 
 export default {
@@ -16,8 +15,6 @@ export default {
             parent,
           })
         });
-
-        console.log({json});
         
         dispatch({type: 'comments/create-success'});
 

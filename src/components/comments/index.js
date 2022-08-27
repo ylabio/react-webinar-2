@@ -6,7 +6,7 @@ import CommentForm from '../comment-form';
 import CommentsBranch from '../comments-branch';
 import AuthWarning from '../auth-warning';
 
-function Comments({ items, total, exists, link }) {
+function Comments({ items, total, exists, link, createResponse }) {
   const cn = bem('Comments');
   const [showCommentForm, setShowCommentForm] = useState(true);
   const [lastCommentId, setLastCommentId] = useState(null);
@@ -25,13 +25,17 @@ function Comments({ items, total, exists, link }) {
             setShowCommentForm={setShowCommentForm}
             lastCommentId={lastCommentId}
             setLastCommentId={setLastCommentId}
+            createResponse={createResponse}
           />
         ))}   
       </div>
       
       <div className={cn('bottom')}>
         {exists && showCommentForm && (
-          <CommentForm type='comment' />
+          <CommentForm 
+            type='comment'
+            createResponse={createResponse}
+          />
         )}
 
         {!exists && (

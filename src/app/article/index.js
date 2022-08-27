@@ -29,7 +29,7 @@ function Article() {
   useInit(async () => {
     //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsArticle.load(params.id));
-    storeRedux.dispatch(actionsComments.load(params.id));
+    // storeRedux.dispatch(actionsComments.load(params.id));
   }, [params.id]);
 
   const select = useSelectorRedux(

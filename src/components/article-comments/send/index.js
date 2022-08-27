@@ -3,18 +3,21 @@ import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
 
-function Send({ action, ...restProps }) {
+function Send({ action, title, cancel, isCancelBtn, ...restProps }) {
  
   // CSS классы по БЭМ
   const cn = bem('Send');
 
   return (
     <div className={cn()}>
-      <span className={cn('title')}>Новый комментарий</span>
+      <span className={cn('title')}>{title}</span>
       <textarea className={cn('field')} 
                 placeholder='Текст'
                 {...restProps}/>
-      <button className={cn('action')} onClick={action}>Отправить</button>
+      <div>
+        <button className={cn("action")} onClick={action}>Отправить</button>
+        { isCancelBtn && <button className={cn("action")} onClick={cancel}>Отмена</button> }
+      </div>
     </div>
   )
 }
@@ -22,10 +25,15 @@ function Send({ action, ...restProps }) {
 
 Send.propTypes = {
   action: propTypes.func,
+  title: propTypes.string,
+  cancel: propTypes.func,
+  isCancelBtn: propTypes.bool.isRequired,
 }
 
 Send.defaultProps = {
   action: () => {},
+  title: '',
+  cancel: () => {},
 }
 
 export default React.memo(Send);

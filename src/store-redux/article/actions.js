@@ -50,19 +50,17 @@ export default {
 
   addComment: (_id, _type, text) => {
     return async (dispatch, getState, services) => {
-      // dispatch({type: 'article/loadComments', payload: {comments: [], waiting: true }})
+      
+      dispatch({
+        type: "article/waiting",
+        payload: { waiting: true },
+      });
 
-      const token = localStorage.getItem('token');
-      // if (token) services.api.setHeader(this.config.tokenHeader, token);
+      const articleId = getState().article.data._id
 
       try {
         const json = await services.api.request({
           method: "POST",
-          // headers: {
-          //   Accept: "application/json",
-          //   "Content-Type": "application/json",
-          //   "X-Token": token,
-          // },
           url: "/api/v1/comments",
           body: JSON.stringify({
             text,
@@ -73,11 +71,23 @@ export default {
           }),
         });
 
-        // dispatch({type: 'article/loadComments-success', payload: {comments: json.result?.items, waiting: false}});
+        const comments = await services.api.request({
+          url: `/api/v1/comments?search%5Bparent%5D=${articleId}&limit=*&skip=0&fields=_id,text,dateCreate,author(profile(name)),parent(_id)`,
+        });
+
+        dispatch({
+          type: "article/loadComments-success",
+          payload: { comments: comments.result?.items, waiting: false },
+        });
+
       } catch (e) {
         // Ошибка при загрузке
         // dispatch({type: 'article/loadComments-error', payload: {comments: [], waiting: false}});
       }
     };
   },
+
+  setWaiting: (waiting) => {
+    dispatch({type: 'article/waiting', payload: { waiting }})
+  }
 };

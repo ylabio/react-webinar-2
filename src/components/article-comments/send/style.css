@@ -1,10 +1,12 @@
 .Send {
-    padding: 0 40px 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;    
     gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 30px;
 }
 .Send-title {
     font-weight: 700;
@@ -36,4 +38,7 @@
     box-sizing: border-box;
     min-height: 21px;
     min-width: 90px;
+}
+.Send-action:not(:last-child) {
+    margin-right: 10px;
 }

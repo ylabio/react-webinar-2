@@ -1,31 +1,60 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import {cn as bem} from '@bem-react/classname'
-import './style.css';
+import React from "react";
 import Comment from "../comment";
+import Title from "./title";
+import SendContainer from "../../containers/send-container";
+import Layout from "./layout";
 
-function ArticleComments({ comments }) {
-
-  // CSS классы по БЭМ
-  const cn = bem('Comments');
+function ArticleComments({
+  comments,
+  sendComment,
+  text,
+  changeText,
+  onSignIn,
+  articleId,
+  isAuth,
+  sendId,
+  setSendId,
+  cancel,
+  articleType,
+}) {
 
   return (
-    <div className={cn()}>
-      { 
-        comments.map(comment => <Comment key={comment._id} comment={comment}/>) 
+    <Layout>
+
+      <Title count={comments.length} />
+
+      { comments.map((comment) => (
+          <Comment
+            key={comment._id}
+            comment={comment}
+            setSendId={setSendId}
+            onChange={changeText}
+            value={text}
+            sendContainer={
+              <SendContainer  sendComment={sendComment}
+                              sendId={sendId}
+                              parentId={comment._id}
+                              parentType={'comment'}
+                              cancel={cancel}
+                              isAuth={isAuth}
+                              onSignIn={onSignIn}
+                              title="Новый ответ" />
+            }
+          />
+        ))
       }
-    </div>
+
+      <SendContainer  sendComment={sendComment}
+                      sendId={sendId}
+                      parentId={articleId}
+                      parentType={articleType}
+                      cancel={cancel}
+                      isAuth={isAuth}
+                      onSignIn={onSignIn}
+                      title="Новый комментарий" />
+
+    </Layout>
   );
 }
 
-
-ArticleComments.propTypes = {
-  comments: propTypes.array,
-}
-
-ArticleComments.defaultProps = {
-  comments: [],
-}
-
 export default React.memo(ArticleComments);
-

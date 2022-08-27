@@ -11,7 +11,6 @@ function Title({ count }) {
   return <div className={cn('title')}>Комментарии ({count})</div>
 }
 
-
 Title.propTypes = {
   count: propTypes.number,
 }

@@ -7,6 +7,7 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case "article/waiting":
     case "article/load":
     case "article/loadComments":
     case "article/load-success":

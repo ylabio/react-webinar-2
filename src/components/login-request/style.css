@@ -1,0 +1,18 @@
+.LoginRequest {
+  margin-top: 30px;
+}
+
+.LoginRequest-login {
+  color: #0087e9;
+  cursor: pointer;
+}
+.LoginRequest-login:hover {
+  text-decoration: underline;
+}
+.LoginRequest-cancel {
+  color: #666666;
+  cursor: pointer;
+}
+.LoginRequest-cancel:hover {
+  text-decoration: underline;
+}

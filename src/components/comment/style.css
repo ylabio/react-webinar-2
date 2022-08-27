@@ -1,0 +1,31 @@
+.Comment {
+  margin-bottom: 30px;
+}
+/* .Comment-hide {
+  display: none;
+} */
+.Comment-head {
+  font-weight: 700;
+}
+.Comment-date {
+  font-size: 12px;
+  color: #666;
+  margin-left: 10px;
+  font-weight: 400;
+}
+.Comment-text {
+  font-size: 14px;
+}
+.Comment-answer-button {
+  color: #0087e9;
+  cursor: pointer;
+}
+.Comment-answer-button:hover {
+  text-decoration: underline;
+}
+.Comment_form_show {
+  display: block;
+}
+.Comment_form_hide {
+  display: none;
+}

@@ -37,3 +37,8 @@
 .CommentForm-cancel:hover {
   opacity: 0.8;
 }
+
+.CommentForm-error {
+  color: red;
+  font-size: 14px;
+}

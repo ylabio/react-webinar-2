@@ -19,6 +19,7 @@ function UserComment({parentId, parentType}){
   const selectRedux = useSelectorRedux(state => ({
     replyOpenStatus:  state.comments.replyOpenStatus,
     sendWaiting:  state.comments.sendWaiting,
+    error:  state.comments.error,
   }), shallowEqual);
 
   const callbacks = {
@@ -28,6 +29,9 @@ function UserComment({parentId, parentType}){
     onSendClick: useCallback((text) => {
       storeRedux.dispatch(actionsComments.sendComment(text, parentId, parentType));
     }, []),
+    resetError: useCallback(() => {
+      storeRedux.dispatch(actionsComments.resetError());
+    }, []),
   };
 
   return (
@@ -36,9 +40,12 @@ function UserComment({parentId, parentType}){
         ? <CommentForm title={selectRedux.replyOpenStatus ? t('comment.subtitle') : t('comment.title')}
                        sendText={t('comment.send')}
                        cancelText={t('comment.cancel')}
+                       errorText={t('comment.error')}
                        isDefault={!!selectRedux.replyOpenStatus}
                        onCancelClick={callbacks.onCancelClick}
-                       onSendClick={callbacks.onSendClick}/>
+                       onSendClick={callbacks.onSendClick}
+                       error={selectRedux.error}
+                       resetError={callbacks.resetError}/>
         : <CommentRedirect mainText={t('redirect.mainText')}
                            linkText={t('redirect.linkText')}
                            link={"/login"}

@@ -29,5 +29,6 @@
   "comment.subtitle": "New Reply",
   "comment.cancel": "Cancel",
   "redirect.linkText": "Login",
-  "redirect.mainText": " to get access to comments"
+  "redirect.mainText": " to get access to comments",
+  "comment.error": "Something has gone wrong..."
 }

@@ -20,6 +20,10 @@ export default {
     return {type: 'comments/reply-open', payload: {data: id}}
   },
 
+  resetError: () => {
+    return {type: 'comments/reset-error'}
+  },
+
   sendComment: (text, parentId, parentType) => {
     return async(dispatch, getState, services) => {
       dispatch({type: 'comments/send',})
@@ -35,7 +39,6 @@ export default {
               _type: parentType
             }
           })
-
         });
 
         dispatch({type: 'comments/send-success', payload: {data: json.result}});

@@ -10,7 +10,7 @@ import HeadContainer from "../../containers/head";
 import {useLocation, useNavigate} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import Spinner from "../../components/spinner";
+import Button from "../../components/button";
 
 function Login() {
   const {t} = useTranslate();
@@ -64,7 +64,7 @@ function Login() {
           </Field>
           <Field error={select.errors?.other}/>
           <Field>
-            <button disabled={select.waiting} type="submit">{t('auth.signIn')}</button>
+            <Button disabled={select.waiting} text={t('auth.signIn')} type={'reset'}/>
           </Field>
         </form>
       </LayoutFlex>

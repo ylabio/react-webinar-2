@@ -7,6 +7,7 @@ import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
 import listToTree from "../../utils/list-to-tree";
 import treeToList from "../../utils/tree-to-list";
+import Button from "../../components/button";
 
 function CatalogFilter() {
 
@@ -55,7 +56,7 @@ function CatalogFilter() {
       <Select onChange={callbacks.onCategory} value={select.category} options={options.categories}/>
       <Select onChange={callbacks.onSort} value={select.sort} options={options.sort}/>
       <Input onChange={callbacks.onSearch} value={select.query} placeholder={'Поиск'} theme="big"/>
-      <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
+      <Button onClick={callbacks.onReset} text={t('filter.reset')} type={'reset'}/>
     </LayoutFlex>
   );
 }

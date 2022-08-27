@@ -56,5 +56,4 @@ UserComment.propTypes = {
   isDefault: propTypes.bool.isRequired,
 }
 
-
 export default React.memo(UserComment);

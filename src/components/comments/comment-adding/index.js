@@ -12,7 +12,7 @@ function CommentAdding(props){
 
   // Задержка для вызова props.handleChange
   const setMessageThrottle = useCallback(
-    debounce(value => props.handleChange(value), 600),
+    debounce(value => props.handleChange(value), 300),
     [props.handleChange]
   );
 

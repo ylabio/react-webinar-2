@@ -1,0 +1,33 @@
+.CommentItem {
+  margin-bottom: 30px;
+}
+
+.CommentItem-username {
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 8px;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.CommentItem-date {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 12px;
+}
+
+.CommentItem-main {
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.CommentItem-answer {
+  padding: 0;
+  color: #0087E9;
+  text-decoration: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 14px;
+}

@@ -5,7 +5,7 @@ export default {
       dispatch({type: 'comments/load'})
 
       try {
-        const json = await services.api.request({url: `/api/v1/comments?limit=*&fields=*,author(username)&search[parent]=${_id}`});
+        const json = await services.api.request({url: `/api/v1/comments?limit=*&fields=*,author(profile)&search[parent]=${_id}`});
         // Комментарий загружен успешно
         dispatch({type: 'comments/load-success', payload: {data: json.result}});
 
@@ -21,14 +21,14 @@ export default {
       dispatch({type: 'comments/send'})
       
       try {
-        await services.api.request({
+        const json = await services.api.request({
           method: 'POST',
           url: `/api/v1/comments`,
           ContentType: 'application/json',
           body: JSON.stringify(data)
         });
         // Комментарий отправлен успешно
-        dispatch({type: 'comments/send-success'});
+        dispatch({type: 'comments/send-success', payload: {data: json.result}});
 
       } catch (e){
         // Ошибка при отправке

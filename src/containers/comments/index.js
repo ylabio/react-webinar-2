@@ -3,6 +3,7 @@ import useSelector from "../../hooks/use-selector";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux} from 'react-redux';
 import actionsComments from "../../store-redux/comments/actions";
 import CommentsLayout from "../../components/comments/comments-layout";
+import CommentsList from "../../components/comments/comments-list";
 import CommentAdding from "../../components/comments/comment-adding";
 
 function CommentsContainer() {
@@ -13,7 +14,7 @@ function CommentsContainer() {
   }));
 
   const reduxSelect = useSelectorRedux(state => ({
-    comments: state.comments,
+    comments: state.comments.data.items,
     articleId: state.article.data._id,
     waiting: state.comments.waiting,
   }));
@@ -25,14 +26,17 @@ function CommentsContainer() {
       setMessage(value);
     }, []),
   
-    onSubmit: useCallback((evt) => {
+    onSubmit: useCallback(async (evt) => {
       evt.preventDefault();
-      storeRedux.dispatch(actionsComments.send({text: message, parent: {_id: reduxSelect.articleId, _type: "article"}}));
+      const data = {text: message, parent: {_id: reduxSelect.articleId, _type: "article"}}
+      await storeRedux.dispatch(actionsComments.send(data));
+      storeRedux.dispatch(actionsComments.load(reduxSelect.articleId));
     }, [message, reduxSelect.articleId])
   };
 
   return (
-    <CommentsLayout title={'Комментарии'} amount={0}>
+    <CommentsLayout title={'Комментарии'} amount={reduxSelect.comments?.length}>
+      <CommentsList items={reduxSelect.comments}/>
       <CommentAdding isAuth={select.exists} message={message}
         handleSubmit={callbacks.onSubmit} handleChange={callbacks.onChange} />
     </CommentsLayout>

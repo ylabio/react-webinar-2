@@ -1,9 +1,9 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import './style.css';
-import dateFormat from '../../../utils/date-format';
+import dateFormat from '../../utils/date-format';
 import CommentForm from '../comment-form';
+import './style.css';
 
 function CommentItem({
 	comment,

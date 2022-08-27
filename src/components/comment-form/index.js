@@ -4,7 +4,7 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import NewForm from './new-form';
 import ReplyForm from './reply-form';
-import ProtectedComment from '../../../containers/protected-comment';
+import ProtectedComment from '../../containers/protected-comment';
 
 function CommentForm({
 	createComment,

@@ -1,9 +1,9 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import CommentItem from './comment-item';
+import CommentItem from '../comment-item';
+import CommentForm from '../comment-form';
 import './style.css';
-import CommentForm from './comment-form';
 
 function CommentsList({
 	comments,

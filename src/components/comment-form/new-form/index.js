@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import '../style.css';
-import Textarea from '../../../textarea';
+import Textarea from '../../../components/textarea';
 
 function NewForm({ onChange, value }) {
 	const cn = bem('CommentForm');

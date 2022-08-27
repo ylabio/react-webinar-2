@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 function CommentMainForm(props) {
   const cn = bem('CommentMainForm');
 
-  const [form, setForm] = useState({text: '', err: ''});
+  const [form, setForm] = useState({text: '', err: false});
 
   const cb = {
     addComment: useCallback((e) => {
@@ -22,7 +22,7 @@ function CommentMainForm(props) {
       }
 
       if (form.text.trim() === '') {
-        setForm({...form, err: props.t('form.err')})
+        setForm({...form, err: true})
       } else {
         props.addComment(props.token, body);
       }
@@ -35,9 +35,9 @@ function CommentMainForm(props) {
         props.exists
           ? <form className={cn('form')} onSubmit={cb.addComment}>
               <label>{props.t('comment.new-comment')}</label>
-              <textarea onChange={(e) => setForm({text: e.target.value, err: ''})}
+              <textarea onChange={(e) => setForm({text: e.target.value, err: false})}
                         value={form.text}/>
-              <div className={cn('err')}>{form.err}</div>
+              {form.err && <div className={cn('err')}>{props.t('form.err')}</div>}
               <div className={cn('buttons')}>
                 <button>{props.t('comment.send')}</button>
               </div>

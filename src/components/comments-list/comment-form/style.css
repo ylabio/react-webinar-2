@@ -1,0 +1,16 @@
+.CommentForm-title {
+	font-weight: 700;
+	font-size: 12px;
+	line-height: 14px;
+	margin: 0 0 10px;
+}
+.CommentForm textarea {
+	margin-bottom: 10px;
+}
+.CommentForm button {
+	cursor: pointer;
+}
+.CommentForm-actions {
+	display: flex;
+	gap: 10px;
+}

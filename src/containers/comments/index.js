@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
 	useStore as useStoreRedux,
 	useSelector as useSelectorRedux,
@@ -19,22 +19,50 @@ function CommentsContainer() {
 
 	useInit(async () => {
 		storeRedux.dispatch(actionsComments.load(params.id));
+		storeRedux.dispatch(actionsComments.openForm(params.id));
 	}, [params.id]);
 
 	const select = useSelectorRedux(
 		(state) => ({
 			comments: state.comments.data.items,
+			count: state.comments.data.count,
 			waiting: state.comments.waiting,
-			count: state.comments.count,
+			formId: state.comments.formId,
 		}),
 		shallowEqual,
 	);
 
-	const comments = select.comments && treeToList(listToTree(select.comments));
+	const callbacks = {
+		createComment: useCallback(
+			(text, parentId, parentType, articleId) =>
+				storeRedux.dispatch(
+					actionsComments.createComment(text, parentId, parentType, articleId),
+				),
+			[],
+		),
+		deleteComment: useCallback(
+			(_id) => storeRedux.dispatch(actionsComments.deleteComment(_id)),
+			[],
+		),
+	};
+
+	const options = {
+		comments: useMemo(
+			() => select.comments && treeToList(listToTree(select.comments)),
+			[select.comments],
+		),
+	};
 
 	return (
 		<Spinner active={select.waiting}>
-			<CommentsList comments={comments} count={select.count} />
+			<CommentsList
+				comments={options.comments}
+				count={select.count}
+				deleteComment={callbacks.deleteComment}
+				articleId={params.id}
+				formId={select.formId}
+				createComment={callbacks.createComment}
+			/>
 		</Spinner>
 	);
 }

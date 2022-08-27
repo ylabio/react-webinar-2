@@ -57,7 +57,7 @@ function Article() {
           t={t}
         />
       </Spinner>
-      <CommentsContainer />
+      <CommentsContainer id={params.id} />
     </Layout>
   );
 }

@@ -1,0 +1,38 @@
+.Comment {
+  font-size: 12px;
+}
+
+.Comment div {
+  margin-bottom: 10px;
+}
+
+.Comment-wrap {
+  margin-bottom: 30px;
+}
+
+.Comment-user-name {
+  font-weight: 700;
+  margin-right: 10px;
+}
+
+.Comment-date {
+  color: #666666;
+}
+
+.Comment-text {
+  font-size: 14px;
+}
+
+.Comment-text p {
+  margin: 0;
+}
+
+.Comment-button {
+  color: #0087E9;
+  font-size: 12px;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  outline: 0;
+  cursor: pointer;
+}

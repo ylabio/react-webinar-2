@@ -1,0 +1,27 @@
+.NewComment {
+  margin: 30px 0;
+}
+
+.NewComment-title {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.NewComment-text {
+  width: 100%;
+  height: 80px;
+  font-size: 14px;
+  margin-top: 10px;
+  resize: none;
+}
+
+.NewComment-btns-container {
+  display: flex;
+  margin-top: 10px;
+}
+
+.NewComment-btns-container button {
+  font-size: 13px;
+  margin-right: 10px;
+  cursor: pointer;
+}

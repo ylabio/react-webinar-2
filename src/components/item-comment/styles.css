@@ -1,0 +1,31 @@
+/* Пункт списка */
+.ItemComment {
+    padding: 0px 40px 0px;
+}
+
+.ItemComment-name {    
+    padding-right: 10px;
+    font-weight: bold;    
+    color: #000;
+}
+
+
+.ItemComment-right {
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+.ItemComment-date {
+    color: #666666;
+
+}
+.ItemComment-text {
+    padding-bottom: 10px;
+}
+
+.ItemComment-replies {
+  margin-top: 30px;
+}

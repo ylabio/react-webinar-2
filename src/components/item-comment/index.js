@@ -1,11 +1,26 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import { Link } from "react-router-dom";
+import CommentsList from "../comments-list";
+import CommentForm from "../../components/comment-form";
 import "./styles.css";
 
-function ItemComment({ item, replies, getReplies }) {
+function ItemComment({
+  item,
+  replies,
+  getReplies,
+  isAuth,
+  submit,
+  submitLabel,
+  canselLabel,
+  activeComment,
+  setActiveComment,
+  parentId,
+}) {
   const cn = bem("ItemComment");
+
+  const isReplying = activeComment && activeComment === item._id;
 
   const formatDate = (date) => {
     let res =
@@ -33,13 +48,41 @@ function ItemComment({ item, replies, getReplies }) {
       </div>
 
       <div className={cn("text")}>{item.text}</div>
-      <button>Ответить</button>
+      <button
+        onClick={() => setActiveComment(item._id)}
+        className={cn("button")}
+      >
+        Ответить
+      </button>
       {replies && (
         <div className={cn("replies")}>
-          {replies.map((reply) => (
-            <ItemComment item={reply} key={reply._id} replies={[]} />
-          ))}
+          <CommentsList
+            comments={replies}
+            getReplies={getReplies}
+            isAuth={isAuth}
+            submit={submit}
+            submitLabel={submitLabel}
+            canselLabel={canselLabel}
+            activeComment={activeComment}
+            setActiveComment={setActiveComment}
+            parentId={parentId}
+          />
         </div>
+      )}
+      {isReplying && (
+        <CommentForm
+          id={item._id}
+          type={item._type}
+          isAuth={isAuth}
+          submit={submit}
+          submitLabel={submitLabel}
+          canselLabel={canselLabel}
+          hasCancelButton
+          handleCancel={() => {
+            setActiveComment(null);
+          }}
+          parentId={parentId}
+        />
       )}
     </div>
   );

@@ -1,11 +1,12 @@
 /* Пункт списка */
 .ItemComment {
     padding: 0px 40px 0px;
+    font-size: 12px;
 }
 
 .ItemComment-name {    
-    padding-right: 10px;
-    font-weight: bold;    
+    padding-right: 10px;    
+    font-weight: 700;    
     color: #000;
 }
 
@@ -24,8 +25,19 @@
 }
 .ItemComment-text {
     padding-bottom: 10px;
+    font-size: 14px;
 }
 
 .ItemComment-replies {
-  margin-top: 30px;
+    margin-top: 30px;
+}
+
+.ItemComment-button {
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    border: none;
+    color: #0087E9;
+    background-color: transparent; 
+    cursor: pointer;
 }

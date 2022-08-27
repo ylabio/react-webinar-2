@@ -1,54 +1,66 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./styles.css";
-import throttle from "lodash.throttle";
 
-function CommentForm(props) {
+function CommentForm({
+  submit,
+  submitLabel,
+  canselLabel,
+  hasCancelButton = false,
+  handleCancel,
+  id,
+  type,
+  parentId,
+  isAuth,
+}) {
   const cn = bem("CommentForm");
-  const [value, change] = useState(props.value);
+  const [value, change] = useState(value);
 
-  //   const changeThrottle = useCallback(
-  //     throttle((value) => props.onChange(value), 1000),
-  //     [props.onChange]
-  //   );
-
-  //   const onChange = useCallback(
-  //     (event) => {
-  //       change(event.target.value);
-  //       changeThrottle(event.target.value);
-  //     },
-  //     [change, changeThrottle]
-  //   );
+  const onChange = useCallback(
+    (event) => {
+      change(event.target.value);
+    },
+    [change]
+  );
 
   useEffect(() => {
-    change(props.value);
-  }, [props.value]);
+    change(value);
+  }, [value]);
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if (value) {
+      submit(id, value, type);
+      hasCancelButton && handleCancel();
+    }
+  };
 
   return (
-    <div>
-      <h2>Новый комментарий</h2>
-      <textarea
-        className={cn()}
-        value={value}
-        placeholder="Напишите комментарий"
-        onChange={onChange}
-      />
-      <button>Отправить</button>
-    </div>
+    <form className={cn()} onSubmit={onSubmit}>
+      {isAuth ? (
+        <>
+          <div className={cn("title")}>Новый комментарий</div>
+          <textarea className={cn("text")} value={value} onChange={onChange} />
+          <button type="submit" className={cn("submit")}>
+            {submitLabel}
+          </button>
+        </>
+      ) : (
+        <span className={cn("link")}>
+          <Link to="/login">Войдите</Link> ,чтобы иметь возможность
+          комментировать
+        </span>
+      )}
+
+      {hasCancelButton && (
+        <button type="button" className={cn("cancel")} onClick={handleCancel}>
+          {canselLabel}
+        </button>
+      )}
+    </form>
   );
 }
-
-// CommentForm.propTypes = {
-//   value: propTypes.string,
-//   placeholder: propTypes.string,
-//   onChange: propTypes.func,
-// };
-
-// CommentForm.defaultProps = {
-//   onChange: () => {},
-//   type: "text",
-
-// };
 
 export default React.memo(CommentForm);

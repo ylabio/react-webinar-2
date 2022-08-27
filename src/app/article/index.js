@@ -12,6 +12,7 @@ import TopContainer from "../../containers/top";
 import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import actionsArticle from '../../store-redux/article/actions';
+import actionsComments from '../../store-redux/comments/actions';
 
 function Article(){
   const store = useStore();
@@ -23,6 +24,7 @@ function Article(){
   useInit(async () => {
     //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsArticle.load(params.id));
+		storeRedux.dispatch(actionsComments.load(params.id));
   }, [params.id]);
 
   const select = useSelectorRedux(state => ({

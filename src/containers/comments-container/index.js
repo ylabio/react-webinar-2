@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import { useSelector as useSelectorR, useStore } from 'react-redux';
 import Comments from '../../components/comments';
@@ -40,6 +40,7 @@ function CommentsContainer({ productId }) {
 }
 
 CommentsContainer.propTypes = {
+  productId: propTypes.string.isRequired,
 };
 
 CommentsContainer.defaultProps = {

@@ -57,9 +57,16 @@ function Comments({
 }
 
 Comments.propTypes = {
+  items: propTypes.array, 
+  total: propTypes.number.isRequired, 
+  exists: propTypes.bool.isRequired, 
+  link: propTypes.string.isRequired, 
+  createResponse: propTypes.func.isRequired,
+  productId: propTypes.string.isRequired,
 };
 
 Comments.defaultProps = {
+  items: [],
 };
 
 export default Comments;

@@ -65,11 +65,14 @@ CommentForm.propTypes = {
   type: propTypes.string.isRequired,
   closeCB: propTypes.func,
   productId: propTypes.string,
+  comment: propTypes.object.isRequired,
+  createResponse: propTypes.func.isRequired,
 };
 
 CommentForm.defaultProps = {
   closeCB: () => {},
   productId: '',
+  comment: {},
 };
 
 export default CommentForm;

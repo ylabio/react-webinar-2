@@ -2,6 +2,7 @@ import React from "react";
 import './style.css';
 import { cn as bem } from '@bem-react/classname';
 import { Link } from "react-router-dom";
+import propTypes from 'prop-types';
 
 function AuthWarning({ type, link, closeCB }) {
   const cn = bem('AuthWarning');
@@ -30,5 +31,15 @@ function AuthWarning({ type, link, closeCB }) {
     </div>
   );
 }
+
+AuthWarning.propTypes = {
+  type: propTypes.string.isRequired,
+  link: propTypes.string.isRequired,
+  closeCB: propTypes.func,
+};
+
+AuthWarning.defaultProps = {
+  closeCB: () => {},
+};
 
 export default AuthWarning;

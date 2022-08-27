@@ -79,8 +79,19 @@ function Comment({
   );
 }
 
-Comment.propTypes = {};
+Comment.propTypes = {
+  data: propTypes.object.isRequired,
+  lvl: propTypes.number.isRequired,
+  exists: propTypes.bool.isRequired,
+  link: propTypes.string.isRequired,
+  setShowCommentForm: propTypes.func.isRequired,
+  lastCommentId: propTypes.string,
+  setLastCommentId: propTypes.func.isRequired,
+  createResponse: propTypes.func.isRequired,  
+};
 
-Comment.defaultProps = {};
+Comment.defaultProps = {
+  lastCommentId: '',
+};
 
 export default Comment;

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Comment from "../comment";
+import propTypes from 'prop-types';
 import './style.css';
 import { cn as bem } from '@bem-react/classname';
 
@@ -32,5 +33,19 @@ function CommentsBranch({
     </div>
   );
 }
+
+CommentsBranch.propTypes = {
+  branch: propTypes.array.isRequired, 
+  exists: propTypes.bool.isRequired, 
+  link: propTypes.string.isRequired,
+  setShowCommentForm: propTypes.func.isRequired,
+  lastCommentId: propTypes.string,
+  setLastCommentId: propTypes.func.isRequired,
+  createResponse: propTypes.func.isRequired,
+};
+
+CommentsBranch.defaultProps = {
+  lastCommentId: '',
+};
 
 export default CommentsBranch;

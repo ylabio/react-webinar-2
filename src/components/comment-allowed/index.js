@@ -7,13 +7,13 @@ const CommentAllowed = ({
   loginTitle,
   cancelTitle,
   loginText,
-  onLogin,
+  onlogin,
   onCancel,
 }) => {
   const cn = bem("CommentAllowed");
   return (
     <div className={cn()}>
-      <span className={cn("link")} onClick={onLogin}>
+      <span className={cn("link")} onClick={onlogin}>
         {loginTitle},
       </span>
       <span> {loginText}</span>
@@ -29,7 +29,7 @@ CommentAllowed.propTypes = {
   loginText: propTypes.string,
   cancelTitle: propTypes.string,
   indentLevel: propTypes.number,
-  onLogin: propTypes.func,
+  onlogin: propTypes.func,
   onCancel: propTypes.func,
 };
 

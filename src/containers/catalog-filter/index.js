@@ -30,7 +30,7 @@ function CatalogFilter() {
     // Сброс
     onReset: useCallback(() => store.get('catalog').resetParams(), []),
     // Фильтр по категории
-    onCategory: useCallback(category => store.get('catalog').setParams({category}), []),
+    onCategory: useCallback(category => store.get('catalog').setParams({category, page: 1}), []),
   };
 
   // Опции для полей

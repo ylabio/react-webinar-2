@@ -1,4 +1,6 @@
+import { commentsToTree } from "../../utils/comments-to-tree";
 import { getCommentsByFiltering } from "../../utils/get-comments-by-filtering";
+import { treeToComments } from "../../utils/tree-to-comments";
 
 export default {
   create: ({ text, parent }) => {
@@ -35,8 +37,11 @@ export default {
         });
 
         const filtred = getCommentsByFiltering(json.result.items, productId);
-        
-        dispatch({type: 'comments/getAll-success', payload: {data: {items: filtred}}});
+
+        const tree = commentsToTree(filtred);
+        const comments = treeToComments(tree);
+
+        dispatch({type: 'comments/getAll-success', payload: {data: {items: comments}, total: filtred.length}});
 
       } catch (e){
         dispatch({type: 'comments/getAll-error'});

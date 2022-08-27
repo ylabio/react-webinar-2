@@ -13,7 +13,6 @@ import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import actionsArticle from '../../store-redux/article/actions';
 import CommentsContainer from "../../containers/comments-container";
-import Comments from "../../components/comments";
 import commentsActions from '../../store-redux/comments/actions';
 
 function Article(){
@@ -51,9 +50,7 @@ function Article(){
       <ToolsContainer/>
       <Spinner active={select.waiting || !items}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
-        <CommentsContainer>
-          <Comments items={items} />
-        </CommentsContainer>
+        <CommentsContainer items={items} />
       </Spinner>
     </Layout>
   )

@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
 
-function CommentForm({ type = 'comment'}) {
+function CommentForm({ type = 'comment' }) {
   const cn = bem('CommentForm');
 
   return (
@@ -12,9 +12,8 @@ function CommentForm({ type = 'comment'}) {
         <span className={cn('text')}>
           {type === 'comment' ? 'Новый комментарий' : 'Новый ответ'}
         </span>
-        <textarea className={cn('textarea')}>
-          Текст
-        </textarea>
+        <textarea className={cn('textarea')} defaultValue={'Text'} />
+      
       </label>
 
       <div className={cn('submitWrapper')}>
@@ -26,5 +25,13 @@ function CommentForm({ type = 'comment'}) {
     </form>
   );
 }
+
+CommentForm.propTypes = {
+ 
+};
+
+CommentForm.defaultProps = {
+
+};
 
 export default CommentForm;

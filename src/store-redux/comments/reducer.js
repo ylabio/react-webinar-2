@@ -2,6 +2,7 @@
 const initialState = {
   data: {},
   waiting: false,
+  total: 0,
 };
 
 // Обработчик действий в redux
@@ -20,7 +21,12 @@ export default function(state = initialState, action){
       return { ...state, waiting: true, data: {}};
 
     case "comments/getAll-success":
-      return { ...state, waiting: false, data: action.payload.data};
+      return { 
+        ...state, 
+        waiting: false, 
+        data: action.payload.data, 
+        total: action.payload.total
+      };
 
     case "comments/getAll-error":
       return { ...state, waiting: false, data: {}}; 

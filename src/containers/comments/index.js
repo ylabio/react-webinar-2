@@ -8,7 +8,9 @@ import CommentAdding from "../../components/comments/comment-adding";
 
 function CommentsContainer() {
   const storeRedux = useStoreRedux();
-
+  const [message, setMessage] = useState('');
+  const [target, setTarget] = useState('article');
+  
   const select = useSelector(state => ({
     exists: state.session.exists,
   }));
@@ -19,9 +21,11 @@ function CommentsContainer() {
     waiting: state.comments.waiting,
   }));
 
-  const [message, setMessage] = useState('');
-
   const callbacks = {
+    onTargetChange: useCallback((value) => {
+      setTarget(value);
+    }, []),
+
     onChange: useCallback((value) => {
       setMessage(value);
     }, []),
@@ -36,9 +40,13 @@ function CommentsContainer() {
 
   return (
     <CommentsLayout title={'Комментарии'} amount={reduxSelect.comments?.length}>
-      <CommentsList items={reduxSelect.comments}/>
-      <CommentAdding isAuth={select.exists} message={message}
-        handleSubmit={callbacks.onSubmit} handleChange={callbacks.onChange} />
+      <CommentsList items={reduxSelect.comments} target={target} isAuth={select.exists}
+        handleTarget={callbacks.onTargetChange} handleSubmit={callbacks.onSubmit}
+        handleChange={callbacks.onChange} handleCancel={callbacks.onTargetChange} />
+      {target === 'article' &&
+      <CommentAdding isAuth={select.exists} message={message} target={target}
+        handleSubmit={callbacks.onSubmit} handleChange={callbacks.onChange}/>
+      }
     </CommentsLayout>
   );
 }

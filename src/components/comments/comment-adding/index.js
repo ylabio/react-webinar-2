@@ -22,6 +22,10 @@ function CommentAdding(props){
     setMessageThrottle(evt.target.value);
   }, [setMessage, setMessageThrottle]);
 
+  const handleCancelCommentLogin = useCallback(() => {
+    props.handleCancel('article')
+  }, [props.handleCancel]);
+
   // Обновление стейта, если передан новый message
   useEffect(() => {
     setMessage(message);
@@ -31,21 +35,28 @@ function CommentAdding(props){
   if (!props.isAuth) {
     return (
       <div className={cn()}>
-        <Link to={'/login'} className={cn('link')}>Войдите</Link>, чтобы иметь возможность комментировать
+        <Link to={'/login'} className={cn('link')}>Войдите</Link>
+          , чтобы иметь возможность {props.target === 'article' ? 'комментировать' : 'ответить'}.
+        {props.target === 'comment' &&
+          <button className={cn('cancel')} onClick={handleCancelCommentLogin}>Отмена</button>
+        }
       </div>
     )
   }
   return (
     <div className={cn()}>
-      <h3 className={cn('title')}>Новый комментарий</h3>
+      <h3 className={cn('title')}>{props.target === 'comment' ? 'Новый ответ' : 'Новый комментарий'}</h3>
       <form onSubmit={props.handleSubmit}>
         <textarea
           className={cn('textarea')}
-          placeholder="Текст"
+          placeholder={props.target === 'comment' ? `Мой ответ для ${props.author.name}` : "Текст"}
           rows="5"
           onChange={handleChange}
         />
-        <button type="submit">Отправить</button>
+        <button type="submit" className={cn('button')}>Отправить</button>
+        {props.target === 'comment' &&
+          <button type="button" className={cn('button')} onClick={props.handleCloseCommentAnswer}>Отмена</button>
+        }
       </form>
     </div>
   )
@@ -54,12 +65,16 @@ function CommentAdding(props){
 CommentAdding.propTypes = {
   isAuth: propTypes.bool.isRequired,
   message: propTypes.string,
-  handleSubmit: () => {},
-  handleChange: () => {},
+  target: propTypes.oneOf(['article', 'comment']).isRequired,
+  author: propTypes.object,
+  handleSubmit: propTypes.func,
+  handleChange: propTypes.func,
+  handleCloseCommentAnswer: propTypes.func,
 }
 
 CommentAdding.defaultProps = {
   message: '',
+  title: 'Новый комментарий',
 }
 
 export default React.memo(CommentAdding);

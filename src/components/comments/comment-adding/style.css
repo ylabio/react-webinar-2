@@ -1,3 +1,7 @@
+.CommentAdding {
+  margin-bottom: 30px;
+}
+
 .CommentAdding-link {
   color: #0087E9;
 }
@@ -5,9 +9,27 @@
 .CommentAdding-textarea {
   box-sizing: border-box;
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .CommentAdding-title {
   font-size: 12px;
   line-height: 14px;
+}
+
+.CommentAdding-button {
+  margin-right: 10px;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.CommentAdding-cancel {
+  margin-left: 8px;
+  text-decoration: underline;
+  padding: 0;
+  color: #666666;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
 }

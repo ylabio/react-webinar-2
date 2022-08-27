@@ -8,7 +8,7 @@ function CommentList(props) {
 
   return (
     <div className={cn()}>
-      <div className={cn('title')}>Комментарии ({props.count})</div>
+      <div className={cn('title')}>{props.t('comment.title')} ({props.count})</div>
       <div className={cn('list')}>
         {props.comments && props.comments.map(item =>
           <div key={item._id}>
@@ -24,12 +24,14 @@ CommentList.propTypes = {
   comments: propTypes.any,
   count: propTypes.number,
   renderComment: propTypes.func,
+  t: propTypes.func,
 }
 
 CommentList.defaultProps = {
   comments: {},
   count: 0,
   renderComment: () => {},
+  t: text => text,
 }
 
 export default React.memo(CommentList);

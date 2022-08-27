@@ -1,4 +1,5 @@
 {
+  "lang": "ru",
   "title": "Магазин",
   "menu.main": "Главная",
   "basket.title": "Корзина",
@@ -16,11 +17,21 @@
   "basket.unit": "шт",
   "basket.delete": "Удалть",
   "article.add": "Добавить",
+  "article.country": "Страна производитель:",
+  "article.price": "Цена:",
+  "article.year": "Год выпуска:",
+  "article.category": "Категория:",
   "filter.reset": "Сбросить",
   "auth.title": "Вход",
   "auth.login": "Логин",
   "auth.password": "Пароль",
   "auth.signIn": "Войти",
   "session.signIn": "Вход",
-  "session.signOut": "Выход"
+  "session.signOut": "Выход",
+  "comment.title": "Комментарии",
+  "comment.new-comment": "Новый комментарий",
+  "comment.send": "Отправить",
+  "comment.answer": "Ответить",
+  "comment.cancel": "Отмена",
+  "comment.text": ", чтобы иметь возможность комментировать. "
 }

@@ -1,5 +1,6 @@
 // Начальное состояние комментариев
-import {commentToTree, treeToComment} from "../../utils/refactor-comments";
+import listToTree from "../../utils/list-to-tree";
+import treeToList from "../../utils/tree-to-list";
 
 const initialState = {
   data: [],
@@ -18,8 +19,8 @@ export default function reducer(state = initialState, action){
       return {
         ...state,
         data: [
-          ...treeToComment(
-            commentToTree(action.payload.data),
+          ...treeToList(
+            listToTree(action.payload.data),
             (item, level) => ({...item, active: false, level: level, main: false, hide: level < 3})
           ),
           {_id: '0', active: true, level: 0, main: true}
@@ -38,8 +39,8 @@ export default function reducer(state = initialState, action){
         ...state,
         waiting: false,
         data: [
-        ...treeToComment(
-          commentToTree([...state.data.filter(item => item._id !== '0'),
+        ...treeToList(
+          listToTree([...state.data.filter(item => item._id !== '0'),
             {...action.payload, hide: true}]),
           (item, level) => ({...item, level: level, active: false, main: false,})
         ),

@@ -50,8 +50,9 @@ function Comments(){
         idParent={_id}
         typeParent={type}
         token={select.token}
+        t={t}
       />
-    ), [select.exists, selectRedux.comments]),
+    ), [select.exists, selectRedux.comments, t]),
   }
 
   const renders = {
@@ -64,8 +65,9 @@ function Comments(){
         answerComment={callbacks.answerComment}
         removeComment={callbacks.removeComment}
         onHide={callbacks.onHide}
+        t={t}
       />
-    ), [selectRedux.comments, select.exists]),
+    ), [selectRedux.comments, select.exists, t]),
   }
 
   return (
@@ -73,6 +75,7 @@ function Comments(){
       <CommentList comments={selectRedux.comments}
                    count={selectRedux.count}
                    renderComment={renders.itemComment}
+                   t={t}
       />
     </Spinner>
   )

@@ -19,14 +19,23 @@ function Comment(props) {
   };
 
   const date = new Date(props.comment?.dateCreate);
-  const newDate = date.toLocaleString('ru',
-    {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric'
-    }).replace('г.,', 'в');
+  const newDate = props.t('lang') === 'ru'
+    ? date.toLocaleString('ru',
+      {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric'
+      }).replace('г.,', 'в')
+    : date.toLocaleString('en',
+      {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric'
+      });
 
   const checkUser = props.comment.author?._id === props.user._id;
 
@@ -45,7 +54,7 @@ function Comment(props) {
                       <div className={cn('text')}>
                         {props.comment.text}
                       </div>
-                      <div className={cn('link')} onClick={callbacks.answerComment}>Ответить</div>
+                      <div className={cn('link')} onClick={callbacks.answerComment}>{props.t('comment.answer')}</div>
                     </>
                   : <div className={cn('hide')} onClick={callbacks.onHide}>. . .</div>
               }
@@ -70,6 +79,7 @@ Comment.propTypes = {
   rendersForm: propTypes.func,
   answerComment: propTypes.func,
   onHide: propTypes.func,
+  t: propTypes.func,
 }
 
 Comment.defaultProps = {
@@ -78,6 +88,7 @@ Comment.defaultProps = {
   rendersForm: () => {},
   answerComment: () => {},
   onHide: () => {},
+  t: (text) => text,
 }
 
 export default React.memo(Comment);

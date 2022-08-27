@@ -1,4 +1,5 @@
 {
+  "lang": "en",
   "title": "Shop",
   "menu.main": "Main",
   "basket.title": "Cart",
@@ -14,11 +15,21 @@
   "basket.unit": "pcs",
   "basket.delete": "Delete",
   "article.add": "Add",
+  "article.country": "Producing country:",
+  "article.price": "Price:",
+  "article.year": "Year of issue:",
+  "article.category": "Category:",
   "filter.reset": "Reset",
   "auth.title": "Sign In",
   "auth.login": "Login",
   "auth.password": "Password",
   "auth.signIn": "Sign in",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "comment.title": "Comments",
+  "comment.new-comment": "New comment",
+  "comment.send": "Send",
+  "comment.answer": "Reply",
+  "comment.cancel": "Cancel",
+  "comment.text": " to be able to comment. "
 }

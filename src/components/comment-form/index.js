@@ -36,22 +36,22 @@ function CommentForm(props) {
       {
         props.exists
           ? <form className={cn()} onSubmit={cb.addComment}>
-              <label>Новый комментарий</label>
+              <label>{props.t('comment.new-comment')}</label>
               <textarea onChange={(e) => setText(e.target.value)}
                         value={text}/>
               <div className={cn('buttons')}>
-                <button>Отправить</button>
-                {props.typeParent === 'comment' && <button onClick={cb.closeComment}>Отмена</button>}
+                <button>{props.t('comment.send')}</button>
+                {props.typeParent === 'comment' && <button onClick={cb.closeComment}>{props.t('comment.cancel')}</button>}
               </div>
             </form>
           : <div className={cn('not-auth')}>
               <Link to="/login">
-                Войдите
+                {props.t('auth.signIn')}
               </Link>
-              , чтобы иметь возможность комментировать.&nbsp;
+            {props.t('comment.text')}
               {
                 props.typeParent === 'comment' &&
-                <span className={cn('cancel')} onClick={cb.closeComment}>Отмена</span>
+                <span className={cn('cancel')} onClick={cb.closeComment}>{props.t('comment.cancel')}</span>
               }
             </div>
       }
@@ -67,6 +67,7 @@ CommentForm.propTypes = {
   idParent: propTypes.string,
   typeParent: propTypes.string,
   token: propTypes.string,
+  t: propTypes.func,
 }
 
 CommentForm.defaultProps = {
@@ -77,6 +78,7 @@ CommentForm.defaultProps = {
   idParent: '',
   typeParent: '',
   token: '',
+  t: (text) => text,
 }
 
 export default React.memo(CommentForm);

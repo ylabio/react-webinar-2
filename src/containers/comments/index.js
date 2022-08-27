@@ -10,11 +10,11 @@ function CommentsContainer() {
   const storeRedux = useStoreRedux();
   const [message, setMessage] = useState('');
   const [target, setTarget] = useState('article');
-  
+  const [activeCommentId, setActiveCommentId] = useState(null);
   const select = useSelector(state => ({
     exists: state.session.exists,
   }));
-
+  
   const reduxSelect = useSelectorRedux(state => ({
     comments: state.comments.data.items,
     articleId: state.article.data._id,
@@ -22,6 +22,10 @@ function CommentsContainer() {
   }));
 
   const callbacks = {
+    onSetActive: useCallback((id) => {
+      setActiveCommentId(id);
+    }, []),
+
     onTargetChange: useCallback((value) => {
       setTarget(value);
     }, []),
@@ -32,7 +36,7 @@ function CommentsContainer() {
   
     onSubmit: useCallback(async (evt) => {
       evt.preventDefault();
-      const data = {text: message, parent: {_id: reduxSelect.articleId, _type: "article"}}
+      const data = {text: message, parent: {_id: activeCommentId || reduxSelect.articleId, _type: target}}
       await storeRedux.dispatch(actionsComments.send(data));
       storeRedux.dispatch(actionsComments.load(reduxSelect.articleId));
     }, [message, reduxSelect.articleId])
@@ -41,11 +45,14 @@ function CommentsContainer() {
   return (
     <CommentsLayout title={'Комментарии'} amount={reduxSelect.comments?.length}>
       <CommentsList items={reduxSelect.comments} target={target} isAuth={select.exists}
-        handleTarget={callbacks.onTargetChange} handleSubmit={callbacks.onSubmit}
-        handleChange={callbacks.onChange} handleCancel={callbacks.onTargetChange} />
+        activeCommentId={activeCommentId} handleTarget={callbacks.onTargetChange}
+        handleSubmit={callbacks.onSubmit} handleChange={callbacks.onChange}
+        handleCancel={callbacks.onTargetChange} handleActive={callbacks.onSetActive}
+      />
       {target === 'article' &&
       <CommentAdding isAuth={select.exists} message={message} target={target}
-        handleSubmit={callbacks.onSubmit} handleChange={callbacks.onChange}/>
+        handleSubmit={callbacks.onSubmit} handleChange={callbacks.onChange}
+      />
       }
     </CommentsLayout>
   );

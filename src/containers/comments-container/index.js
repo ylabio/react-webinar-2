@@ -46,4 +46,4 @@ CommentsContainer.propTypes = {
 CommentsContainer.defaultProps = {
 };
 
-export default CommentsContainer;
+export default React.memo(CommentsContainer);

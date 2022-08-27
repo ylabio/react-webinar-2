@@ -48,4 +48,4 @@ CommentsBranch.defaultProps = {
   lastCommentId: '',
 };
 
-export default CommentsBranch;
+export default React.memo(CommentsBranch);

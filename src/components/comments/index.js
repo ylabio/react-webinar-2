@@ -69,4 +69,4 @@ Comments.defaultProps = {
   items: [],
 };
 
-export default Comments;
+export default React.memo(Comments);

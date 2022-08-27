@@ -42,4 +42,4 @@ AuthWarning.defaultProps = {
   closeCB: () => {},
 };
 
-export default AuthWarning;
+export default React.memo(AuthWarning);

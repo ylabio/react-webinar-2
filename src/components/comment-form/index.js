@@ -75,4 +75,4 @@ CommentForm.defaultProps = {
   comment: {},
 };
 
-export default CommentForm;
+export default React.memo(CommentForm);

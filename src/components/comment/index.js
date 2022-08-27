@@ -54,22 +54,22 @@ function Comment({
         >Ответить</span>
       </div>
 
-      <div>
-        {exists && showAnswerForm && (
-          <div  className={cn('form')}>
-            <CommentForm 
-              type='answer' 
-              closeCB={cancelFormHandler}
-              comment={data}
-              createResponse={createResponse} 
-            /> 
-          </div>    
-        )}
+      {exists && showAnswerForm && (
+        <div className={cn('bottom')}>
+         <CommentForm 
+           type='answer' 
+           closeCB={cancelFormHandler}
+           comment={data}
+           createResponse={createResponse} 
+         /> 
+        </div>             
+      )}
         
-        {!exists && (
+      {!exists && showAnswerForm && (
+        <div className={cn('bottom')}>
           <AuthWarning type='answer' link={link} />
-        )}
-      </div>
+        </div>
+      )}                
       
     </div>
   );

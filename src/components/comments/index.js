@@ -46,7 +46,7 @@ function Comments({
           />
         )}
 
-        {!exists && (
+        {!exists && showCommentForm && (
           <AuthWarning type='comment' link={link} />
         )}
       </div>

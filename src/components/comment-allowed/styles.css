@@ -1,0 +1,20 @@
+.CommentAllowed {
+    font-size: 16px;
+}
+
+.CommentAllowed-link {
+    color: #0087E9;
+    text-decoration: underline;
+}
+
+.CommentAllowed-link:hover {
+    cursor: pointer;
+}
+
+.CommentAllowed-cancel {
+    color: #666666;
+}
+
+.CommentAllowed-cancel:hover {
+    cursor: pointer;
+}

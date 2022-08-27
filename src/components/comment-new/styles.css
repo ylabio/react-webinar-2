@@ -1,0 +1,28 @@
+.CommentNew {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 14px;
+    padding-top: 30px;
+}
+
+.CommentNew-title {
+    font-weight: 700;
+    font-weight: 700;
+    line-height: 14px;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.CommentNew-text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000000;
+    min-height: 76px;
+}
+
+.CommentNew-buttons {
+    display: flex;
+    gap: 10px;
+}

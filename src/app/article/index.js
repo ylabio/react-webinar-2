@@ -13,6 +13,7 @@ import TopContainer from "../../containers/top";
 import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import actionsArticle from '../../store-redux/article/actions';
+import actionsComment from '../../store-redux/comment/actions';
 
 function Article(){
   const store = useStore();
@@ -23,20 +24,20 @@ function Article(){
 
   const selectnNotRedux = useSelector(state => ({
     exists: state.session.exists,
-    countAddComment: state.comment.countAddComment,
   }))
-
-  useInit(async () => {
-    //await store.get('article').load(params.id);
-    storeRedux.dispatch(actionsArticle.load(params.id));
-  }, [params.id, selectnNotRedux.countAddComment]);
 
   const select = useSelectorRedux(state => ({
     article: state.article.data,
     comments: state.article.comments,
     count: state.article.count,
-    waiting: state.article.waiting
+    waiting: state.article.waiting,
+    countAddComment: state.comment.countAddComment
   }), shallowEqual);
+
+  useInit(async () => {
+    //await store.get('article').load(params.id);
+    storeRedux.dispatch(actionsArticle.load(params.id));
+  }, [params.id, select.countAddComment]);
 
   const {t} = useTranslate();
 
@@ -44,7 +45,7 @@ function Article(){
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
     // Добавление комментарии
-    addComment: useCallback(data => store.get('comment').addComment(data), []),
+    addComment: useCallback(data => storeRedux.dispatch(actionsComment.increaseСount(data)), []),
   };
 
   return (

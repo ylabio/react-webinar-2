@@ -5,10 +5,12 @@ import {
   shallowEqual,
 } from "react-redux";
 import actionsComments from "../../store-redux/comments/actions";
+import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
 import CommentList from "../../components/comment-list";
 import CommentItem from "../../components/comment-item";
 import TextArea from "../../components/textarea";
+import CommentLogin from "../../components/comment-login";
 import { sortComments } from "../../utils/sort";
 
 function CommentsContainer({ id }) {
@@ -21,6 +23,8 @@ function CommentsContainer({ id }) {
     }),
     shallowEqual
   );
+
+  const session = useSelector((state) => state.session.exists);
 
   useInit(async () => {
     storeRedux.dispatch(actionsComments.load(id));
@@ -58,24 +62,26 @@ function CommentsContainer({ id }) {
               >
                 <CommentItem item={item} setArea={() => setArea(index + 1)} />
                 {area === index + 1 && (
-                  <TextArea
-                    head={"Ответить"}
-                    setArea={() => setArea(0)}
-                    parent={item}
-                    newComment={() =>
-                      callbacks.newComment("12345", item._id, "comment")
-                    }
-                  />
+                  <CommentLogin log={session}>
+                    <TextArea
+                      head={"Ответить"}
+                      setArea={() => setArea(0)}
+                      parent={item._id}
+                      newComment={callbacks.newComment}
+                    />
+                  </CommentLogin>
                 )}
               </div>
             );
           })}
           {area === 0 && (
-            <TextArea
-              head={"Новый комментарий"}
-              parent={id}
-              newComment={() => callbacks.newComment("12345", id, "article")}
-            />
+            <CommentLogin log={session}>
+              <TextArea
+                head={"Новый комментарий"}
+                parent={id}
+                newComment={callbacks.newComment}
+              />
+            </CommentLogin>
           )}
         </CommentList>
       )}

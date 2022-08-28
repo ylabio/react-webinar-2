@@ -52,7 +52,9 @@ function CommentsContainer({ id }) {
                 }}
               >
                 <CommentItem item={item} setArea={() => setArea(index + 1)} />
-                {area === index + 1 && <TextArea head={"Ответить"} />}
+                {area === index + 1 && (
+                  <TextArea head={"Ответить"} setArea={() => setArea(0)} />
+                )}
               </div>
             );
           })}

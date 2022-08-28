@@ -6,10 +6,13 @@ function CommentForm({text, onSubmit, level, isAnswer, onCancel, onEdit, comment
   const cn = bem('CommentForm');
 
   const callbacks = {
-    onSubmit: useCallback(e => {
-      e.preventDefault();
-      onSubmit(commentText);
-    }, [commentText]),
+    onSubmit: useCallback(
+      e => {
+        e.preventDefault();
+        onSubmit(commentText);
+      },
+      [commentText]
+    ),
 
     onEdit: useCallback(e => {
       onEdit(e.target.value);

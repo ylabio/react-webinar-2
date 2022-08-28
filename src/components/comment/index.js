@@ -17,7 +17,9 @@ function Comment({data, level, onAnswer, text}) {
         <div className={cn('createdAt')}>{data.date}</div>
       </div>
       <div className={cn('body')}>{data.text}</div>
-      <button className={cn('answer')} onClick={callbacks.onAnswer}>{text.reply}</button>
+      <button className={cn('answer')} onClick={callbacks.onAnswer}>
+        {text.reply}
+      </button>
     </div>
   );
 }

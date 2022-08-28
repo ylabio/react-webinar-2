@@ -3,8 +3,8 @@ import {useSelector as useSelectorRedux, useStore as useStoreRedux} from 'react-
 import CommentForm from '../../components/comment-form';
 import SignInToComment from '../../components/sign-in-to-comment';
 import {useSession} from '../../hooks/use-session';
+import useTranslate from '../../hooks/use-translate';
 import actionsComments from '../../services/store-redux/comments/actions';
-import useTranslate from "../../hooks/use-translate";
 
 function ProtectedCommentForm({level, isAnswer}) {
   const {isDenied, isChecking} = useSession();
@@ -34,16 +34,25 @@ function ProtectedCommentForm({level, isAnswer}) {
   return (
     <>
       {isDenied || isChecking ? (
-        <SignInToComment level={level} backId={select.articleId} isAnswer={isAnswer} onCancel={callbacks.onCancel}
-                         text={{signIn: t('comments.sign-in'), toCanReply: t('comments.to-can-reply'), cancel: t('comments.cancel')}} />
+        <SignInToComment
+          level={level}
+          backId={select.articleId}
+          isAnswer={isAnswer}
+          onCancel={callbacks.onCancel}
+          text={{
+            signIn: t('comments.sign-in'),
+            toCanReply: t('comments.to-can-reply'),
+            cancel: t('comments.cancel')
+          }}
+        />
       ) : (
         <CommentForm
           level={level}
-          text = {{
+          text={{
             head: isAnswer ? t('comments.new-reply') : t('comments.new-comment'),
             send: t('comments.send'),
             cancel: t('comments.cancel')
-            }}
+          }}
           commentText={select.commentText}
           isAnswer={isAnswer}
           onSubmit={callbacks.onSubmit}

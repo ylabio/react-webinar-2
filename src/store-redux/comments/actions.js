@@ -1,5 +1,4 @@
-import { commentsToTree } from "../../utils/comments-to-tree";
-import { treeToComments } from "../../utils/tree-to-comments";
+import { createCommentList } from "../../utils/create-comment-list";
 import actions from './actions';
 
 export default {
@@ -16,9 +15,11 @@ export default {
             parent,
           })
         });
+
+        console.log({json})
         
         dispatch({type: 'comments/create-success'});
-        
+
         const productId = getState().comments.productId;
         dispatch(actions.getAll(productId));
 
@@ -37,10 +38,13 @@ export default {
           url: `/api/v1/comments?fields=*,author(_id,profile(name))&limit=*&search[parent]=${productId}`,
         });
 
-        const tree = commentsToTree(json.result.items);
-        const comments = treeToComments(tree);
+        console.log({getall: json.result.items})
+
+        const comments = createCommentList(json.result.items);
         const length = json.result.items.length;
 
+        console.log('LEN: ', comments.flat().length)
+        
         dispatch({type: 'comments/getAll-success', payload: {data: {items: comments}, total: length}});
 
       } catch (e){

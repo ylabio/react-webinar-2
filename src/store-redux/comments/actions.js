@@ -18,4 +18,32 @@ export default {
       }
     };
   },
+  newComment: (text, parent_id, parentType) => {
+    return async (dispatch, getState, services) => {
+      dispatch({ type: "comments/new" });
+
+      try {
+        const json = await services.api.request({
+          url: `api/v1/comments/?fields=*,author(profile(name))`,
+          method: "POST",
+          body: JSON.stringify({
+            text: text,
+            parent: {
+              _id: parent_id,
+              _type: parentType,
+            },
+          }),
+        });
+
+        console.log("newjson", json);
+
+        dispatch({
+          type: "comments/new-success",
+          payload: { data: json.result },
+        });
+      } catch (e) {
+        dispatch({ type: "comments/new-error" });
+      }
+    };
+  },
 };

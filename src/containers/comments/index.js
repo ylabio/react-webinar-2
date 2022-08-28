@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   useStore as useStoreRedux,
   useSelector as useSelectorRedux,
@@ -33,9 +33,14 @@ function CommentsContainer({ id }) {
     select.comments && setState(sortComments(select.comments));
   }, [select.comments]);
 
-  // useEffect(() => {
-  //   state && setArea(state.length);
-  // }, [state]);
+  const callbacks = {
+    // Открытие корзины
+    newComment: useCallback((text, parent_id, parentType) => {
+      storeRedux.dispatch(
+        actionsComments.newComment(text, parent_id, parentType)
+      );
+    }, []),
+  };
 
   console.log("comments", state);
 
@@ -53,12 +58,25 @@ function CommentsContainer({ id }) {
               >
                 <CommentItem item={item} setArea={() => setArea(index + 1)} />
                 {area === index + 1 && (
-                  <TextArea head={"Ответить"} setArea={() => setArea(0)} />
+                  <TextArea
+                    head={"Ответить"}
+                    setArea={() => setArea(0)}
+                    parent={item}
+                    newComment={() =>
+                      callbacks.newComment("12345", item._id, "comment")
+                    }
+                  />
                 )}
               </div>
             );
           })}
-          {area === 0 && <TextArea head={"Новый комментарий"} />}
+          {area === 0 && (
+            <TextArea
+              head={"Новый комментарий"}
+              parent={id}
+              newComment={() => callbacks.newComment("12345", id, "article")}
+            />
+          )}
         </CommentList>
       )}
     </div>

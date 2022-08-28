@@ -5,19 +5,22 @@ import useTranslate from "../../hooks/use-translate";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import Tools from "../../containers/tools";
-import LayoutFlex from "../../components/layout-flex";
-import Layout from "../../components/layout";
+import LayoutFlex from "../../components/layouts/layout-flex";
+import Layout from "../../components/layouts/layout";
 import LocaleSelect from "../../containers/locale-select";
 
 function Main() {
   const store = useStore();
-
+  
   useInit(async () => {
-    await store.get('catalog').initParams();
+    await Promise.all([
+      await store.get('catalog').initParams(),
+      await store.get('categories').getCategories()
+    ])
   }, [], {backForward: true});
-
+  
   const {t} = useTranslate();
-
+  
   return (
     <Layout head={
       <LayoutFlex flex="between">

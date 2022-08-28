@@ -1,4 +1,5 @@
 import StateModule from "../module";
+import api from "../../api";
 
 /**
  * Состояние корзины
@@ -40,8 +41,8 @@ class BasketState extends StateModule{
     // Если товар не был найден в корзине, то добавляем его из каталога
     if (!exists) {
       // Поиск товара в каталоге, чтобы его в корзину добавить
-      const response = await fetch(`/api/v1/articles/${_id}`);
-      const json = await response.json();
+      const json = await this.services.api.request({url:`/api/v1/articles/${_id}`
+    });
       const item = json.result;
 
       items.push({...item, amount: 1});

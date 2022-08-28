@@ -1,0 +1,23 @@
+/* header всего проекта */
+.Header {
+    display: flex;
+    justify-content: flex-end;
+    background: #fff;
+    max-width: 1024px;
+    margin: 0 auto;
+    height: 42px;
+}
+
+.Header-container {
+    margin: 10px 20px;
+}
+
+.Header-toLoginButton {
+    display: inline-block;
+}
+
+.Header-userName {
+    margin-right: 20px;
+    display: inline-block;
+    text-decoration: underline;
+}

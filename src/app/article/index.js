@@ -5,10 +5,10 @@ import {useParams} from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import ArticleCard from "../../components/article-card";
-import Spinner from "../../components/spinner";
+import Spinner from "../../components/catalog-spinner";
 import Tools from "../../containers/tools";
-import Layout from "../../components/layout";
-import LayoutFlex from "../../components/layout-flex";
+import Layout from "../../components/layouts/layout";
+import LayoutFlex from "../../components/layouts/layout-flex";
 import LocaleSelect from "../../containers/locale-select";
 
 function Article(){

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import Stack from "../../../components/stack";
+import Stack from "../stack";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 import propTypes from "prop-types";
@@ -92,6 +92,7 @@ Comments.propTypes = {
 
 Comments.defaultProps = {
   addComment: () => {},
+  isPermit: false,
 }
 
 export default React.memo(Comments);

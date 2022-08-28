@@ -16,10 +16,10 @@ import TopContainer from "../../containers/top";
 import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import actionsArticle from "../../store-redux/article/actions";
-import Comments from "./comments";
+import Comments from "../../components/comments";
 import A from "../../components/a";
 import CommentForm from "../../components/comment-form";
-import Comment from "./comments/comment";
+import Comment from "../../components/comment";
 
 function Article() {
   const store = useStore();
@@ -83,7 +83,7 @@ function Article() {
         <Comments
           data={select.comments}
           addComment={callbacks.addComment}
-          isPermit={user.status}
+          isPermit={!!user.status}
           renderLink={
             <>
               <A href={"/login"} onClick={callbacks.onSignIn}>

@@ -12,7 +12,6 @@ const services = new Services(config);
 
 // Корень React приложения
 const root = createRoot(document.getElementById('root'));
-
 root.render(
   <Provider store={services.storeRedux}>
     <ServicesProvider services={services}>

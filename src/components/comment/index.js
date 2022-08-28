@@ -1,9 +1,9 @@
 import React from "react";
-import Stack from "../../../../components/stack";
+import Stack from "../stack";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import propTypes from "prop-types";
-import A from "../../../../components/a";
+import A from "../a";
 
 const Comment = ({ data, onComment }) => {
   const cn = bem('Comment');

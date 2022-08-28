@@ -15,3 +15,6 @@
 	cursor: pointer;
 	color: #0087E9;
 }
+.CommentsBlock-link:hover{
+	text-decoration: underline;
+}

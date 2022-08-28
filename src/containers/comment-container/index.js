@@ -1,17 +1,15 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import {
   useStore as useStoreRedux,
   useSelector as useSelectorRedux,
 } from 'react-redux';
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import listToTree from '../../utils/list-to-tree'
-import useTranslate from '../../hooks/use-translate';
 import useSelector from "../../hooks/use-selector";
 import CommentsBlock from '../../components/comments/comments-block';
 import actionsComments from '../../store-redux/comments/actions';
 
 function CommentContainer(props) {
-  const [comment, setComment] = useState('');
 
   const storeRedux = useStoreRedux();
   const navigate = useNavigate();
@@ -23,13 +21,11 @@ function CommentContainer(props) {
     article: state.article.data,
     answerState: state.comments.answeringComment,
   }));
-  console.log(props);
+
   const select = useSelector((state) => ({
     exists: state.session.exists,
   }));
   const formedList = listToTree(selectRedux.comments)
-
-  const {t} = useTranslate();
 
   const callbacks = {
     openAnswerBlock: useCallback((id)=>{
@@ -50,7 +46,6 @@ function CommentContainer(props) {
       exists={select.exists} 
       items={formedList} 
       count={selectRedux.commentsCount} 
-      onChange={setComment} 
       addComment={callbacks.addComment}
       openAnswerBlock={callbacks.openAnswerBlock}
       answerState={selectRedux.answerState}

@@ -27,7 +27,7 @@ export default function reducer(state = initialState, action){
       return { ...state, answeringComment: null, waiting: false};
 
     case "comments/add-error":
-      return { ...state, data: [], waiting: false}; //@todo текст ошибки сохранить?
+      return { ...state, data: [], waiting: false};
 
     default:
       // Нет изменений

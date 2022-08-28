@@ -11,7 +11,6 @@ function Comment({
   setAnswerState,
   answerState,
   className,
-  onChange,
   addComment
 }) {
   // CSS классы по БЭМ
@@ -45,7 +44,6 @@ function Comment({
         {answerState === item._id && (
           <CommentAnswerBlock
             cancel={() => setAnswerState(null)}
-            onChange={onChange}
             send={addComment}
             parent={item}
           />
@@ -61,7 +59,6 @@ Comment.propTypes = {
   answerState: propTypes.func,
   setAnswerState: propTypes.func,
   answerState: propTypes.string,
-  onChange: propTypes.func,
 };
 
 Comment.defaultProps = {

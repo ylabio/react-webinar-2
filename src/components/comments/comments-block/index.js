@@ -3,7 +3,6 @@ import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import Comment from '../comment';
-import {Link} from 'react-router-dom';
 import NewCommentBlock from '../new-comment';
 
 function CommentsBlock({
@@ -13,7 +12,6 @@ function CommentsBlock({
   addComment,
   openAnswerBlock,
   answerState,
-  onChange,
   signIn
 }) {
   // CSS классы по БЭМ
@@ -21,29 +19,21 @@ function CommentsBlock({
 
   return (
     <div className={cn()}>
-      <div className={cn('header')}>{`Комментарии (${
-        exists ? count : 0
-      })`}</div>
-      {exists ? (
-        <>
-          {items.map((item) => {
-            return (
-              <Comment
-                key={item._id}
-                item={item}
-                answerState={answerState}
-                setAnswerState={openAnswerBlock}
-                addComment={addComment}
-                onChange={onChange}
+      <div className={cn('header')}>{`Комментарии (${count})`}</div>
+        {items.map((item) => {
+          return (
+            <Comment
+              key={item._id}
+              item={item}
+              answerState={exists && answerState}
+              setAnswerState={openAnswerBlock}
+              addComment={addComment}
               />
-            );
-          })}
-          {!answerState 
-          && <NewCommentBlock 
-          onChange={onChange}
-          addComment={addComment} />}
-        </>
-      ) : (
+          );
+        })}
+        {exists && !answerState 
+        ? <NewCommentBlock addComment={addComment} /> 
+        : (
         <span>
           <span className={cn('link')} onClick={signIn}>Войдите,</span> чтобы иметь возможность
           комментировать
@@ -60,7 +50,6 @@ CommentsBlock.propTypes = {
   openAnswerBlock: propTypes.func,
   answerState: propTypes.string,
   addComment: propTypes.func,
-  onChange: propTypes.func,
   signIn: propTypes.func,
 };
 

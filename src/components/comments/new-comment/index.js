@@ -3,14 +3,17 @@ import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
 
-function NewCommentBlock({addComment, onChange}) {
-	  // CSS классы по БЭМ
-		const cn = bem('NewCommentBlock');
-    const [message, setMessage] = useState('');
-    const sendMsg = () => {
-      addComment(message)
-      setMessage('')
-    }
+function NewCommentBlock({addComment}) {
+  // CSS классы по БЭМ
+  const cn = bem('NewCommentBlock');
+
+  const [message, setMessage] = useState('');
+
+  const sendMsg = () => {
+    addComment(message)
+    setMessage('')
+  }
+
   return (
     <section className={cn()}>
       <span className={cn('title')}>Новый комментарий</span>
@@ -22,7 +25,6 @@ function NewCommentBlock({addComment, onChange}) {
 
 NewCommentBlock.propTypes = {
   onAnswer: propTypes.func,
-  onChange: propTypes.func,
 };
 
 NewCommentBlock.defaultProps = {

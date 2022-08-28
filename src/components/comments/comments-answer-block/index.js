@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function CommentAnswerBlock({send, cancel, onChange, parent}) {
+function CommentAnswerBlock({send, cancel, parent}) {
   const [message, setMessage] = useState('');
   // CSS классы по БЭМ
   const cn = bem('NewCommentBlock');
@@ -32,7 +32,6 @@ function CommentAnswerBlock({send, cancel, onChange, parent}) {
 CommentAnswerBlock.propTypes = {
   send: propTypes.func,
   cancel: propTypes.func,
-  onChange: propTypes.func,
 };
 
 CommentAnswerBlock.defaultProps = {};

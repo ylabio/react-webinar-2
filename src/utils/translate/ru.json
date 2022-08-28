@@ -22,5 +22,16 @@
   "auth.password": "Пароль",
   "auth.signIn": "Войти",
   "session.signIn": "Вход",
-  "session.signOut": "Выход"
+  "session.signOut": "Выход",
+  "comment.reply": "Ответить",
+  "comments.loading": "Данные загружаются...",
+  "comments.title": "Комментарии",
+  "comment.send": "Отправить",
+  "comment.title": "Новый комментарий",
+  "comment.subtitle": "Новый ответ",
+  "comment.cancel": "Отмена",
+  "redirect.linkText": "Войдите",
+  "redirect.mainText": ", чтобы иметь возможность комментировать",
+  "redirect.mainTextReply": ", чтобы иметь возможность ответить",
+  "comment.error": "Что-то пошло не так..."
 }

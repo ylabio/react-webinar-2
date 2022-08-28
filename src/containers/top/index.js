@@ -1,9 +1,11 @@
 import React, {useCallback} from "react";
 import useTranslate from "../../hooks/use-translate";
 import LayoutFlex from "../../components/layout-flex";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
+import Button from "../../components/button";
+import CustomLink from "../../components/custom-link";
 
 
 function TopContainer() {
@@ -33,10 +35,10 @@ function TopContainer() {
 
   return (
     <LayoutFlex flex="end" indent="small">
-      {select.exists && <Link to="/profile">{select.user.profile.name}</Link>}
+      {select.exists && <CustomLink link={"/profile"} text={select.user.profile.name}/>}
       {select.exists
-        ? <button onClick={callbacks.onSignOut}>{t('session.signOut')}</button>
-        : <button onClick={callbacks.onSignIn}>{t('session.signIn')}</button>
+        ? <Button onClick={callbacks.onSignOut} text={t('session.signOut')} type={'profileSimple'}/>
+        : <Button onClick={callbacks.onSignIn} text={t('session.signIn')} type={'profileSimple'}/>
       }
     </LayoutFlex>
   );

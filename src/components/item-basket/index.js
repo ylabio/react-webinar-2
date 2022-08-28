@@ -21,7 +21,7 @@ function ItemBasket({item, link, onRemove, onLink, labelDelete, labelUnit, label
         <div className={cn('cell')}>{numberFormat(item.price)} {labelCurr}</div>
         <div className={cn('cell')}>{numberFormat(item.amount || 0)} {labelUnit}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>{labelDelete}</button>
+          <button className={cn('button')} onClick={callbacks.onRemove}>{labelDelete}</button>
         </div>
       </div>
     </div>

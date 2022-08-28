@@ -1,0 +1,25 @@
+.CommentRedirect {
+  padding: 30px 0 0 0;
+}
+
+.CommentRedirect_padding {
+  padding: 5px 35px 30px 35px;
+}
+
+.CommentRedirect-link {
+  color: #0087E9;
+}
+
+.CommentRedirect-link:hover,
+.CommentRedirect-button:hover {
+  opacity: 0.8;
+}
+
+.CommentRedirect-button {
+  border: none;
+  background-color: transparent;
+  text-decoration: underline;
+  color: #666666;
+  cursor: pointer;
+  font-size: 16px;
+}

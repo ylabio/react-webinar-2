@@ -1,0 +1,26 @@
+.Comment-username {
+  font-size: 12px;
+  font-weight: 700;
+  margin-right: 10px;
+}
+
+.Comment-date {
+  font-size: 12px;
+  color: #666666;
+}
+
+.Comment-text {
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.Comment-reply {
+  background: none;
+  border: none;
+  color: #0087e9;
+  padding: 0;
+}
+
+.Comment-reply:hover {
+  cursor: pointer;
+}

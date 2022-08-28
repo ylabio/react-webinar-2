@@ -17,6 +17,7 @@ import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import actionsArticle from "../../store-redux/article/actions";
 import actionsComments from "../../store-redux/comments/actions";
+import CommentSection from "../../components/comment-section";
 
 function Article() {
   const store = useStore();
@@ -26,8 +27,10 @@ function Article() {
   const storeRedux = useStoreRedux();
 
   useInit(async () => {
-    storeRedux.dispatch(actionsArticle.load(params.id));
-    storeRedux.dispatch(actionsComments.load(params.id));
+    await Promise.all([
+      storeRedux.dispatch(actionsArticle.load(params.id)),
+      storeRedux.dispatch(actionsComments.load(params.id)),
+    ]);
   }, [params.id]);
 
   const select = useSelectorRedux(
@@ -42,11 +45,12 @@ function Article() {
     (state) => ({
       list: state.comments.data,
       count: state.comments.count,
+      waiting: state.comments.waiting,
     }),
     shallowEqual
   );
 
-  console.log(commentsSlice.list);
+  // console.log(commentsSlice.list);
 
   const testCreateComment = () => {
     storeRedux.dispatch(
@@ -75,7 +79,12 @@ function Article() {
           onAdd={callbacks.addToBasket}
           t={t}
         />
-        <button onClick={testCreateComment}>Create comment</button>
+        {!commentsSlice.waiting && (
+          <CommentSection
+            list={commentsSlice.list}
+            count={commentsSlice.count}
+          />
+        )}
       </Spinner>
     </Layout>
   );

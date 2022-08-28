@@ -1,0 +1,26 @@
+.CommentCreate,
+.ReplyCreate {
+  margin-top: 30px;
+}
+
+.CommentCreate-label,
+.ReplyCreate-label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.CommentCreate-field,
+.ReplyCreate-field {
+  display: block;
+  width: 100%;
+  min-height: 76px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  resize: none;
+}
+
+.ReplyCreate button[type="button"] {
+  margin-left: 10px;
+}

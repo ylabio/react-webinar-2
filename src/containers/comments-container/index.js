@@ -6,7 +6,7 @@ import commentsActions from '../../store-redux/comments/actions';
 import useSelector from '../../hooks/use-selector';
 
 function CommentsContainer({ productId }) {
-  const { dispatch, getState } = useStore();
+  const { dispatch } = useStore();
   const { total, items, branchesState } = useSelectorR(state => ({
     total: state.comments.total,
     items: state.comments.data.items,

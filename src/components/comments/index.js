@@ -71,6 +71,11 @@ Comments.propTypes = {
   link: propTypes.string.isRequired, 
   createResponse: propTypes.func.isRequired,
   productId: propTypes.string.isRequired,
+  updateBranchState: propTypes.func.isRequired,
+  branchState: propTypes.oneOfType([
+    propTypes.object.isRequired, 
+    propTypes.bool.isRequired
+  ]),
 };
 
 Comments.defaultProps = {

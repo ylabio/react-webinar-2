@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback } from "react";
 import Comment from "../comment";
 import propTypes from 'prop-types';
 import './style.css';
 import { cn as bem } from '@bem-react/classname';
+import useBranchState from "./use-branch-state";
 
 function CommentsBranch({ 
   branch, 
@@ -16,15 +17,7 @@ function CommentsBranch({
   branchState,
 }) {
   const cn = bem('CommentsBranch');
-  const [isHidden, setIsHidden] = useState(typeof branchState === 'object' ? false : branchState);
-
-  useEffect(() => {
-    if (typeof branchState === 'object') {
-      updateBranchState(branchState);
-    } else {
-      setIsHidden(branchState);
-    }
-  }, [branchState])
+  const isHidden = useBranchState(branchState, updateBranchState);
 
   const callbacks = {
     changeBranchState: useCallback((flag) => {
@@ -89,6 +82,11 @@ CommentsBranch.propTypes = {
   lastCommentId: propTypes.string,
   setLastCommentId: propTypes.func.isRequired,
   createResponse: propTypes.func.isRequired,
+  updateBranchState: propTypes.func.isRequired,
+  branchState: propTypes.oneOfType([
+    propTypes.object.isRequired, 
+    propTypes.bool.isRequired
+  ]),
 };
 
 CommentsBranch.defaultProps = {

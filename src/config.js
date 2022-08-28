@@ -1,9 +1,9 @@
 /**
  * Настройки сервисов
  */
-const config ={
+const config = {
   store: {
-    log: false,
+    log: true,
 
     modules: {
       session: {

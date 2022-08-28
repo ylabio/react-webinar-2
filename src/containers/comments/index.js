@@ -46,7 +46,6 @@ function Comments(){
       storeRedux.dispatch(actionsComments.closeComment(_id));
       setForm(true);
     }, []),
-    onHide: useCallback(_id => storeRedux.dispatch(actionsComments.onHide(_id)), []),
   };
 
   const rendersForm = {
@@ -69,7 +68,6 @@ function Comments(){
         userId={select.user._id}
         rendersForm={rendersForm.commentForm}
         answerComment={callbacks.answerComment}
-        onHide={callbacks.onHide}
         t={t}
       />
     ), [selectRedux.comments, t]),

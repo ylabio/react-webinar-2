@@ -50,20 +50,14 @@ export default {
   },
 
   answerComment: (id) => {
-    return (dispatch, getState, services) => {
+    return (dispatch) => {
       dispatch({type: 'comments/answer', payload: id});
     }
   },
 
   closeComment: (id) => {
-    return (dispatch, getState, services) => {
+    return (dispatch) => {
       dispatch({type: 'comments/close', payload: id});
     }
   },
-
-  onHide: (id) => {
-    return (dispatch, getState, services) => {
-      dispatch({type: 'comments/hide', payload: id});
-    }
-  }
 }

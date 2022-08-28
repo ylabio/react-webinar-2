@@ -21,7 +21,7 @@ export default function reducer(state = initialState, action){
         data: [
           ...treeToList(
             listToTree(action.payload.data),
-            (item, level) => ({...item, active: false, level: level, main: false, hide: level < 3})
+            (item, level) => ({...item, active: false, level: level, main: false})
           ),
         ],
         count: action.payload.count,
@@ -39,8 +39,7 @@ export default function reducer(state = initialState, action){
         waiting: false,
         data: [
         ...treeToList(
-          listToTree([...state.data,
-            {...action.payload, hide: true}]),
+          listToTree([...state.data, action.payload]),
           (item, level) => ({...item, level: level, active: false, main: false,})
         ),
     ],
@@ -63,17 +62,6 @@ export default function reducer(state = initialState, action){
         ...state,
         data: state.data.map(item => {
           item.active = item._id === '0';
-          return item;
-        })};
-
-    case "comments/hide":
-      return {
-        ...state,
-        data: state.data.map(item => {
-          if (item._id === action.payload) {
-            item.hide = true;
-          }
-
           return item;
         })};
 

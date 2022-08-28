@@ -32,5 +32,6 @@
   "comment.cancel": "Отмена",
   "redirect.linkText": "Войдите",
   "redirect.mainText": ", чтобы иметь возможность комментировать",
+  "redirect.mainTextReply": ", чтобы иметь возможность ответить",
   "comment.error": "Что-то пошло не так..."
 }

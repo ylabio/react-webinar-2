@@ -46,7 +46,7 @@ function UserComment({parentId, parentType}){
                        onSendClick={callbacks.onSendClick}
                        error={selectRedux.error}
                        resetError={callbacks.resetError}/>
-        : <CommentRedirect mainText={t('redirect.mainText')}
+        : <CommentRedirect mainText={selectRedux.replyOpenStatus ? t('redirect.mainTextReply') : t('redirect.mainText')}
                            linkText={t('redirect.linkText')}
                            link={"/login"}
                            isDefault={!!selectRedux.replyOpenStatus}

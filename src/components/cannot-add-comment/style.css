@@ -1,10 +1,11 @@
 .CannotAddComment {
     display: flex;
     align-items: center;
+    margin: 30px 0;
 }
 
 .CannotAddComment-signIn {
-    margin: 30px 3px 30px 0;
+    margin: 0;
 }
 
 .CannotAddComment-link {

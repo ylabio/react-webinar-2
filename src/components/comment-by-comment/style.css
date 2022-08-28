@@ -1,0 +1,24 @@
+.CommentsByCommentForm {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
+.CommentsByCommentForm-button {
+    color:  #0087E9;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.CommentsByCommentForm p strong {
+    font-size: 12px;
+}
+
+.CommentsByCommentForm-buttons {
+    display: flex;
+    margin-top: 20px;
+}
+.CommentsByCommentForm-buttons button:last-child {
+    margin-left: 10px;
+}

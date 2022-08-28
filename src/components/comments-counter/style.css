@@ -1,0 +1,11 @@
+.CommentsCounter {
+    margin-left: 30px;
+}
+
+.CommentsCounter p {
+    font-size: 20px;
+}
+
+.CommentsCounter-login {
+    font-size: 14px !important;
+}

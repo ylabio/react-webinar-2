@@ -1,0 +1,40 @@
+.Comment{
+    margin: 25px 40px 30px 40px;
+}
+
+.Comment-head{
+    margin: 10px 0px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.Comment-name{
+    padding-right: 10px;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.Comment-date{
+    color: #666666;
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.Comment-content{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000000;
+    white-space: pre-line;
+    
+
+}
+
+.Comment-answer{
+    margin: 10px 0;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #0087E9;
+    cursor: pointer;
+}

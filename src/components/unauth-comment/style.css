@@ -1,0 +1,16 @@
+.Content{
+    background-color: #ffffff;
+    font-weight: 400;
+    font-size: 16px;
+    margin-left: 40px;
+    padding-bottom: 30px;
+    display: flex;
+    justify-content: flex-start;
+    
+}
+
+.Container-auth{
+    color: #0087E9;
+    cursor: pointer;
+    text-decoration: underline;
+}

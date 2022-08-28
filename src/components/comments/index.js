@@ -38,20 +38,20 @@ function Comments({
       </div>
       
       {exists && showCommentForm && (
-          <div className={cn('bottomForm')}>
-            <CommentForm 
-              type='comment'
-              createResponse={createResponse}
-              productId={productId}
-            />
-          </div>
-        )}
+        <div className={cn('bottomForm')}>
+          <CommentForm 
+            type='comment'
+            createResponse={createResponse}
+            productId={productId}
+          />
+        </div>          
+      )}
 
-        {!exists && showCommentForm && (
-          <div className={cn('bottomWarning')}>
-            <AuthWarning type='comment' link={link} />
-          </div>
-        )}
+      {!exists && showCommentForm && (
+        <div className={cn('bottomWarning')}>
+          <AuthWarning type='comment' link={link} />
+        </div>
+      )}
     </div>
   );
 }

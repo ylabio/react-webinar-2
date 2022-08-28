@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import './style.css';
 import { cn as bem } from '@bem-react/classname';
 import { Link } from "react-router-dom";
@@ -7,9 +7,9 @@ import propTypes from 'prop-types';
 function AuthWarning({ type, link, closeCB }) {
   const cn = bem('AuthWarning');
 
-  function canclelHandler() {
-    closeCB();
-  }
+  const callbacks = {
+    cancelHandler: useCallback(() => closeCB(), [])
+  };
 
   return (
     <div className={cn()}>
@@ -22,7 +22,7 @@ function AuthWarning({ type, link, closeCB }) {
           <span>, чтобы иметь возможность ответить. </span>  
           <span 
             className={cn('cancel')}
-            onClick={canclelHandler}
+            onClick={callbacks.cancelHandler}
           >
             Отмена
           </span>

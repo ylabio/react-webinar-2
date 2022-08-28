@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
 import { useSelector as useSelectorR, useStore } from 'react-redux';
 import Comments from '../../components/comments';
@@ -15,15 +15,17 @@ function CommentsContainer({ productId }) {
     exists: state.session.exists,
   }));
 
-  function createResponse(text, id, type) {
-    dispatch(commentsActions.create({
-      text: text,
-      parent: {
-        _id: id,
-        _type: type,
-      },
-    }));
-  }
+  const callbacks = {
+    createResponse: useCallback((text, id, type) => {
+      dispatch(commentsActions.create({
+        text: text,
+        parent: {
+          _id: id,
+          _type: type,
+        },
+      }));
+    }, [])
+  };
 
   return (
     <>
@@ -32,7 +34,7 @@ function CommentsContainer({ productId }) {
         total={total} 
         exists={exists} 
         link={'/login'}
-        createResponse={createResponse}
+        createResponse={callbacks.createResponse}
         productId={productId}
       />
     </>

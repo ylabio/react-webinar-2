@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
@@ -19,16 +19,18 @@ function Comment({
   const cn = bem('Comment');
   const [showAnswerForm, setShowAnswerForm] = useState(false);
 
-  function showFormHandler() {
-    setLastCommentId(data._id);
-    setShowAnswerForm(true);
-    setShowCommentForm(false);
-  }
-
-  function cancelFormHandler() {
-    setShowAnswerForm(false);
-    setShowCommentForm(true);
-  }
+  const callbacks = {
+    showFormHandler: useCallback(() => {
+      setLastCommentId(data._id);
+      setShowAnswerForm(true);
+      setShowCommentForm(false);
+    }, [data._id]),
+    
+    cancelFormHandler: useCallback(() => {
+      setShowAnswerForm(false);
+      setShowCommentForm(true);
+    }, []),
+  };
 
   useEffect(() => {
     if (lastCommentId !== data._id) {
@@ -50,7 +52,7 @@ function Comment({
 
         <span 
           className={cn('answer')}
-          onClick={showFormHandler}
+          onClick={callbacks.showFormHandler}
         >Ответить</span>
       </div>
 
@@ -58,7 +60,7 @@ function Comment({
         <div className={cn('bottom')}>
          <CommentForm 
            type='answer' 
-           closeCB={cancelFormHandler}
+           closeCB={callbacks.cancelFormHandler}
            comment={data}
            createResponse={createResponse} 
          /> 

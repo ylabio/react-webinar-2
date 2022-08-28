@@ -56,6 +56,8 @@ function CommentsBranch({
         <div className={cn('hide', {color: isHidden})}>
           {isHidden ? 'Показать ветку' : 'Скрыть ветку'}
         </div>
+
+        <div className={cn('divider')}/>
       </div>
     </div>
   );

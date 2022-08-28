@@ -30,3 +30,9 @@
 .CommentsBranch-hide_color {
   color: blueviolet;
 }
+
+.CommentsBranch-divider {
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 28px;
+}

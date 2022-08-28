@@ -77,7 +77,7 @@ function Comment({
           <AuthWarning 
             type='answer' 
             link={link}
-            closeCB={cancelFormHandler} 
+            closeCB={callbacks.cancelFormHandler} 
           />
         </div>
       )}                

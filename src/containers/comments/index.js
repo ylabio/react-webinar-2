@@ -6,10 +6,10 @@ import useTranslate from "../../hooks/use-translate";
 import actionsComments from '../../store-redux/comments/actions';
 import Spinner from "../../components/spinner";
 import {useLocation, useNavigate} from "react-router-dom";
-import LayoutComments from "../../components/layout-comments";
-import ListComments from "../../components/list-comments";
-import LeaveComment from "../../components/leave-comment";
-import PermissionComment from "../../components/permission-comment";
+import LayoutComments from "../../components/comments-folder/layout-comments";
+import ListComments from "../../components/comments-folder/list-comments";
+import LeaveComment from "../../components/comments-folder/leave-comment";
+import PermissionComment from "../../components/comments-folder/permission-comment";
 import listToTree from "../../utils/list-to-tree";
 import treeToList from "../../utils/tree-to-list";
 

@@ -20,5 +20,15 @@
   "auth.password": "Password",
   "auth.signIn": "Sign in",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "comments.reply": "Reply",
+  "comments.comments": "Comments",
+  "comments.in": "at",
+  "comments.newComment": "New comment",
+  "comments.text": "Text",
+  "comments.send": "Send",
+  "comments.signInRedirect": "Login",
+  "comments.opportunityToComment": "to be able to comment",
+  "comments.month": ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+
 }

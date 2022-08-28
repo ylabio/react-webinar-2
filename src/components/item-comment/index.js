@@ -12,7 +12,7 @@ function ItemComment(props) {
   
   const date = new Date(props.date)
   
-  const commentDate = `${date.getDate()} ${month[date.getMonth()]} ${date.getFullYear()} в ${date.getHours()}:${date.getMinutes()}`
+  const commentDate = `${date.getDate()} ${props.t('comments.month')[date.getMonth()]} ${date.getFullYear()} ${props.t('comments.in')} ${date.getHours()}:${date.getMinutes()}`
 
   return (
     <div className={cn()} style={{"paddingLeft": (props.nestingLevel - 1) * 30}}>
@@ -20,9 +20,10 @@ function ItemComment(props) {
         <span className={cn('title')}>{props.title}</span><span className={cn('date')}>{commentDate}</span>
       </div>
       <div className={cn('text')}>{props.text}</div>
-      <span className={cn('answerLink')} onClick={() => props.changeCurrentForm(props.id)}>Ответить</span>
+      <span className={cn('answerLink')} onClick={() => props.changeCurrentForm(props.id)}>{props.t('comments.reply')}</span>
       {props.currentAnswer === props.id &&
         <CommentForm
+          t={props.t}
           currentAnswer={props.currentAnswer}
           resetCurrentForm={props.resetCurrentForm}
           postNewComment={props.postNewComment}

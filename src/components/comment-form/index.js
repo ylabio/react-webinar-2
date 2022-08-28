@@ -17,12 +17,12 @@ function CommentForm(props) {
       {props.sessionExists ?
         <div className={cn()}>
           <div className={cn('header')}>
-            <div className={cn('title')}>Новый комментарий</div>
+            <div className={cn('title')}>{props.t('comments.newComment')}</div>
             {params.id !== props.currentAnswer &&
               <div className={cn('cross')} onClick={props.resetCurrentForm}>&#9746;</div>}
           </div>
           <textarea rows="5"
-                    placeholder='Текст'
+                    placeholder={props.t('comments.text')}
                     className={cn('textarea')}
                     onChange={(e) => setTextarea(e.target.value)}
                     value={textarea}
@@ -31,12 +31,11 @@ function CommentForm(props) {
                   onClick={() => {
                     props.postNewComment(textarea)
                     setTextarea('')
-                  }}>Отправить
+                  }}>{props.t('comments.send')}
           </button>
         </div> :
         <div className={cn('sessionExists')}>
-          <span className={cn('redirectButton')} onClick={props.redirect}>Войдите</span>, чтобы иметь возможность
-          комментировать
+          <span className={cn('redirectButton')} onClick={props.redirect}>{props.t('comments.signInRedirect')}</span>{props.t('comments.opportunityToComment')}
         </div>
       }
     </>

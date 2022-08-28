@@ -1,14 +1,14 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import {cn as bem} from '@bem-react/classname'
-import './style.css';
 import ItemComment from "../../components/item-comment";
-import CommentForm from "../../components/comment-form";
 import treeToList from "../../utils/tree-to-list";
 import listToTree from "../../utils/list-to-tree";
 import {shallowEqual, useSelector as useSelectorRedux, useStore as useStoreRedux} from "react-redux";
 import useSelector from "../../hooks/use-selector";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import actionsComments from "../../store-redux/comments/actions";
+import CommentsList from "../../components/comments-list";
+import useTranslate from "../../hooks/use-translate";
 
 function Comments() {
   const storeRedux = useStoreRedux();
@@ -16,10 +16,14 @@ function Comments() {
   const navigate = useNavigate()
   
   const location = useLocation();
+  
+  const {t} = useTranslate();
+  
   // CSS классы по БЭМ
   const cn = bem('Comments');
   
   const params = useParams()
+  
   // Место, куда будет добавлен новый комментарий (для товара или вложен в другой комментарий)
   const [currentAnswer, setCurrentAnswer] = useState(params.id);
   const [currentAnswerType, setCurrentAnswerType] = useState('article');
@@ -31,7 +35,8 @@ function Comments() {
   
   const stateSelect = useSelector(state => ({
     sessionExists: state.session.exists,
-    token: state.session.token
+    token: state.session.token,
+    language: state.locale.lang
   }))
   
   const options = {
@@ -61,8 +66,7 @@ function Comments() {
     
     // Отправка нового комментария на бекенд
     postNewComment: useCallback(async (text) => {
-      await storeRedux.dispatch(actionsComments.post(text, currentAnswer, currentAnswerType, stateSelect.token))
-      await storeRedux.dispatch(actionsComments.load(params.id));
+      await storeRedux.dispatch(actionsComments.post(text, currentAnswer, currentAnswerType, stateSelect.token, params.id))
     }, [currentAnswer, currentAnswerType, stateSelect.token, params.id]),
     redirect: useCallback(() => {
       navigate('/login', {state: {back: location.pathname}});
@@ -72,6 +76,7 @@ function Comments() {
   const renders = {
     itemComment: useCallback((item, index) => (
       <ItemComment
+        t={t}
         key={item.id + index}
         currentAnswer={currentAnswer}
         changeCurrentForm={callbacks.changeCurrentForm}
@@ -85,27 +90,20 @@ function Comments() {
         redirect={callbacks.redirect}
         sessionExists={stateSelect.sessionExists}
       />
-    ), [currentAnswer, callbacks.postNewComment, callbacks.resetCurrentForm, stateSelect.sessionExists]),
+    ), [currentAnswer, callbacks.postNewComment, callbacks.resetCurrentForm, stateSelect.sessionExists, stateSelect.language]),
   }
   
   return (
-    <div className={cn()}>
-      <div className={cn('title')}>Комментарии ({select.commentsCount})</div>
-      <div className={cn('list')}>
-        {options.comments.map((item, index) =>
-          renders.itemComment(item, index)
-        )}
-      </div>
-      {/* Отображение формы для добавления комментария отображается по умолчанию, и, если выбрано комментирование товара(а не другого комментария) */}
-      {currentAnswer === params.id &&
-        <CommentForm
-          currentAnswer={currentAnswer}
-          resetCurrentForm={callbacks.resetCurrentForm}
-          postNewComment={callbacks.postNewComment}
-          redirect={callbacks.redirect}
-          sessionExists={stateSelect.sessionExists}
-        />}
-    </div>
+    <CommentsList
+      t={t}
+      commentsCount={select.commentsCount}
+      comments={options.comments}
+      itemComment={renders.itemComment}
+      currentAnswer={currentAnswer}
+      resetCurrentForm={callbacks.resetCurrentForm}
+      postNewComment={callbacks.postNewComment}
+      redirect={callbacks.redirect}
+      sessionExists={stateSelect.sessionExists}/>
   )
 }
 

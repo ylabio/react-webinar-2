@@ -15,7 +15,7 @@ export default function reducer(state = initialState, action) {
       return {...state, items: action.payload.items, waiting: false, count: action.payload.count};
     
     case "comments/load-error":
-      return {...state, items: [], waiting: false}; //@todo текст ошибки сохранить?
+      return {...state, items: [], waiting: false};
     
     case "comments/add-comment":
       return {...state, waiting: true}

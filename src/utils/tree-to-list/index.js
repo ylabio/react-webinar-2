@@ -17,7 +17,7 @@ export default function treeToList(tree, callback, level = 0, result = []) {
   }
   return result;
 }
-
+//TODO: что если сделать многомерный массив, и уже его передать в render?
 export function treeToListWithUlHtmlMarkup(tree, callback) {
   return (
     <ul>

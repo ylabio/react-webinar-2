@@ -1,6 +1,4 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {listToTreeWithParentId} from '../../utils/list-to-tree';
-import treeToList from '../../utils/tree-to-list';
 
 export const fetchComments = createAsyncThunk(
   'comments/fetchAll',
@@ -14,6 +12,27 @@ export const fetchComments = createAsyncThunk(
     });
 
     return response.result.items;
+  }
+);
+
+export const createComment = createAsyncThunk(
+  'comments/create',
+  async ({parentId, text}, {extra: services}) => {
+    const body = {
+      _id: 'string',
+      text,
+      parent: {
+        id: parentId
+      }
+    };
+
+    const response = await services.api.request({
+      url: 'api/v1/comments',
+      method: 'POST',
+      body: JSON.stringify(body)
+    });
+    console.log(response);
+    return response.result;
   }
 );
 

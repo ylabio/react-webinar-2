@@ -23,7 +23,7 @@ function CommentCardContainer(props) {
       <CommentCard
         content={props.comment.text}
         author={author}
-        date={props.dateCreate}
+        date={props.comment.dateCreate}
         onReply={() => {}}
       />
     </Spinner>

@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { cn as bem } from '@bem-react/classname';
 import propTypes from 'prop-types';
-import date from "../../utils/date";
 import AddComment from "../add-comment";
 import CannotAddComment from "../cannot-add-comment";
+import ItemComment from "../item-comment";
 import './style.css';
 
 function Comments({ comments, count, exists, paramsId, onAdd, t }) {
@@ -42,34 +42,20 @@ function Comments({ comments, count, exists, paramsId, onAdd, t }) {
     <div className={cn()}>
       <p className={cn('title')}>{`${t('comments.comment')} (${count})`}</p>
       <ul className={cn('list')}>
-        {sortComments.map((comment, i) => {
-          const countAnswers = (comment.parent._tree.length > 1) ? 
-            (comment.parent._tree.length - 1) * 30 : 0;
-
-          return (
-            <li style={{paddingLeft: `${countAnswers}px`}} className={cn('item')} key={comment._id}>
-              <div className={cn('data')}>
-                <p className={cn('name')}>{comment.author.profile.name}</p>
-                <p className={cn('date')}>{date(comment.dateCreate)}</p>
-              </div>
-              <p className={cn('text')}>{comment.text}</p>
-              <button className={cn('btn')} type='button' onClick={() => callbacks.onAnswerClick(i)}>{t('comments.toAnswer')}</button>
-              {isAnswer && numComment === i && (exists ? 
-                <AddComment 
-                  t={t}
-                  isAnswer={isAnswer}
-                  onAdd={callbacks.onAddCommentClick}
-                  onCancel={callbacks.onCancelClick}
-                /> : 
-                <CannotAddComment 
-                  t={t}
-                  isAnswer={isAnswer}
-                  onCancel={callbacks.onCancelClick}
-                />
-              )}
-            </li>
-          )
-        })}
+        {sortComments.map((comment, i) => (
+          <ItemComment
+            key={comment._id}
+            comment={comment}
+            i={i}
+            numComment={numComment}
+            isAnswer={isAnswer}
+            exists={exists}
+            t={t}
+            onCancel={callbacks.onCancelClick}
+            onAnswer={callbacks.onAnswerClick}
+            onAdd={callbacks.onAddCommentClick}
+          />
+        ))}
       </ul>
       {!isAnswer && (exists ? 
         <AddComment

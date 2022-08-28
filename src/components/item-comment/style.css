@@ -1,0 +1,39 @@
+.ItemComment {
+    margin-bottom: 30px;
+}
+
+.ItemComment-data {
+    display: flex;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.ItemComment-name {
+    margin: 0;
+    font-weight: 700;
+}
+
+.ItemComment-date {
+    margin: 0 10px;
+    color: #666666;
+}
+
+.ItemComment-text {
+    margin: 10px 0;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.ItemComment-btn {
+    padding: 0;
+    color: #0087E9;
+    font-size: 12px;
+    line-height: 14px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.ItemComment-btn:first-letter {
+    text-transform: uppercase;
+}

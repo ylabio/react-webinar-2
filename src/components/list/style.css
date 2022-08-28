@@ -2,10 +2,10 @@
 .List{
 
 }
-.List-item{
+.List-item-catalog{
     border-bottom: 1px dashed #ccc;
 }
 
-.List-item:first-child{
+.List-item-catalog:first-child{
     border-top: 1px dashed #ccc;
 }

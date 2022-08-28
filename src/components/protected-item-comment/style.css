@@ -1,0 +1,13 @@
+.ProtectedItemComment {
+  padding-top: 30px;
+}
+
+.ProtectedItemComment-link {
+  color: #0087e9;
+}
+
+.ProtectedItemComment-cancel {
+  text-decoration: underline;
+  color: #666666;
+  cursor: pointer;
+}

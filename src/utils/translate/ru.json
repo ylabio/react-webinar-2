@@ -22,5 +22,10 @@
   "auth.password": "Пароль",
   "auth.signIn": "Войти",
   "session.signIn": "Вход",
-  "session.signOut": "Выход"
+  "session.signOut": "Выход",
+  "comment.reply": "Ответить",
+  "comment.newComment": "Новый комментарий",
+  "comment.newReply": "Новый ответ",
+  "comment.send": "Отправить",
+  "comment.cancel": "Отмена"
 }

@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useRef, useCallback} from "react";
 import propTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import "./styles.css";
@@ -8,13 +8,20 @@ function CommentsListFooter(props) {
 
   const cn = bem('CommentsListFooter');
 
+  const callbacks = {
+    onSend: useCallback(() => {
+      props.postComment(ref.current.value);
+      ref.current.value = "Текст";
+    }, [props.postComment])
+  };
+
   return (
     <div className={props.show ? cn() : cn('hide')}>
       {props.session 
         ? <div>
             <div className={cn('form-header')}>Новый комментарий</div>
             <textarea ref={ref} defaultValue="Текст"/>
-            <button onClick={() => props.postComment(ref.current.value)}>Отправить</button>
+            <button onClick={callbacks.onSend}>Отправить</button>
           </div> 
         : <div>
             {props.renderLink()}, чтобы иметь возможность комментировать

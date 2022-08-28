@@ -1,14 +1,16 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './styles.css';
 
 function CommentItem(props) {
   const cn = bem('CommentItem');
-console.log("item")
-  const onClick = () => {
-    props.setItemFooter(props.comment._id);
-    props.setListFooter(false);
+  
+  const callbacks = {
+    onClick: useCallback(() => {
+      props.setItemFooter(props.comment._id);
+      props.setListFooter(false);
+    }, [props.setItemFooter, props.setListFooter])
   };
 
   return (
@@ -25,7 +27,7 @@ console.log("item")
       <div className={cn('text')}>
         <pre>{props.comment.text}</pre>  
       </div>
-      <span className={cn('response')} onClick={onClick}>
+      <span className={cn('response')} onClick={callbacks.onClick}>
         Ответить
       </span>
       {props.children}

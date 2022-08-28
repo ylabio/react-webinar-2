@@ -1,0 +1,31 @@
+.CommentNew {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+.CommentNew-text {
+    resize: none;
+    min-height: 76px;
+}
+.CommentNew-text::placeholder {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 5px;
+    color: #000000;
+}
+.CommentNew span{
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.CommentNew-buttons{
+    padding: 10px 0;
+    display: flex;
+} 
+
+.CommentNew-buttons button {
+   margin-right: 10px;
+}

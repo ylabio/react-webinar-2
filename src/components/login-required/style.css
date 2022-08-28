@@ -1,0 +1,16 @@
+.LoginRequired {
+    padding-top: 30px;
+    font-size: 16px;
+}
+
+.LoginRequired-login{
+    text-decoration: underline;
+    color: #0087E9;
+    cursor: pointer;
+}
+
+.LoginRequired-cancel{
+    text-decoration: underline;
+    opacity: 0.5;
+    cursor: pointer;
+}

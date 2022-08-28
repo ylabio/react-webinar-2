@@ -1,0 +1,13 @@
+.LayoutComments{
+    max-width: 1024px;
+    min-height: 100vh;
+    margin: 0 40px;
+    background: #fff;
+    box-sizing: border-box;
+    padding-bottom: 120px;
+}
+
+.LayoutComments-head{
+    font-weight: 400;
+    padding-bottom: 25px;
+}

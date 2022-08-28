@@ -25,9 +25,10 @@ function Comment({data, level, onAnswer, text}) {
 }
 
 Comment.propTypes = {
-  data: propTypes.object,
-  level: propTypes.number,
-  onAnswer: propTypes.func
+  data: propTypes.object.isRequired,
+  level: propTypes.number.isRequired,
+  onAnswer: propTypes.func.isRequired,
+  text: propTypes.objectOf(propTypes.string)
 };
 
 export default React.memo(Comment);

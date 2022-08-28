@@ -1,4 +1,5 @@
 import {cn as bem} from '@bem-react/classname';
+import propTypes from 'prop-types';
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './style.css';
@@ -19,5 +20,13 @@ function SignInToComment({backId, level, text, onCancel, isAnswer}) {
     </div>
   );
 }
+
+SignInToComment.propTypes = {
+  backId: propTypes.string.isRequired,
+  level: propTypes.number.isRequired,
+  text: propTypes.objectOf(propTypes.string).isRequired,
+  isAnswer: propTypes.bool.isRequired,
+  onCancel: propTypes.func
+};
 
 export default React.memo(SignInToComment);

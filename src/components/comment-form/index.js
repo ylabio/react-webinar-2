@@ -1,4 +1,5 @@
 import {cn as bem} from '@bem-react/classname';
+import propTypes from 'prop-types';
 import React, {useCallback} from 'react';
 import './style.css';
 
@@ -31,5 +32,15 @@ function CommentForm({text, onSubmit, level, isAnswer, onCancel, onEdit, comment
     </div>
   );
 }
+
+CommentForm.propTypes = {
+  text: propTypes.objectOf(propTypes.string),
+  level: propTypes.number,
+  isAnswer: propTypes.bool,
+  commentText: propTypes.string,
+  onCancel: propTypes.func,
+  onEdit: propTypes.func,
+  onSubmit: propTypes.func
+};
 
 export default React.memo(CommentForm);

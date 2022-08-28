@@ -1,4 +1,5 @@
 import {cn as bem} from '@bem-react/classname';
+import propTypes from 'prop-types';
 import React from 'react';
 import './style.css';
 
@@ -13,5 +14,11 @@ function LayoutComments({total, text, children}) {
     </div>
   );
 }
+
+LayoutComments.propTypes = {
+  total: propTypes.number.isRequired,
+  text: propTypes.objectOf(propTypes.string).isRequired,
+  children: propTypes.node
+};
 
 export default React.memo(LayoutComments);

@@ -1,3 +1,4 @@
+import propTypes from 'prop-types';
 import React, {useCallback} from 'react';
 import {useSelector as useSelectorRedux, useStore as useStoreRedux} from 'react-redux';
 import CommentForm from '../../components/comment-form';
@@ -63,5 +64,10 @@ function ProtectedCommentForm({level, isAnswer}) {
     </>
   );
 }
+
+ProtectedCommentForm.propTypes = {
+  isAnswer: propTypes.bool.isRequired,
+  level: propTypes.number.isRequired
+};
 
 export default React.memo(ProtectedCommentForm);

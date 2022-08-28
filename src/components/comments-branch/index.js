@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Comment from "../comment";
 import propTypes from 'prop-types';
 import './style.css';
@@ -12,9 +12,25 @@ function CommentsBranch({
   lastCommentId,
   setLastCommentId,
   createResponse,
+  updateBranchState,
+  branchState,
 }) {
   const cn = bem('CommentsBranch');
-  const [isHidden, setIsHidden] = useState(false);
+  const [isHidden, setIsHidden] = useState(typeof branchState === 'object' ? false : branchState);
+
+  useEffect(() => {
+    if (typeof branchState === 'object') {
+      updateBranchState(branchState);
+    } else {
+      setIsHidden(branchState);
+    }
+  }, [branchState])
+
+  const callbacks = {
+    changeBranchState: useCallback((flag) => {
+      updateBranchState({[branch[0].comment._id]: flag});
+    }, [branch[0].comment._id]),
+  };
 
   return (
     <div className={cn()}>
@@ -36,7 +52,7 @@ function CommentsBranch({
 
       <div 
         className={cn('hiddenBlock')}
-        onClick={() => setIsHidden(!isHidden)}
+        onClick={() => callbacks.changeBranchState(!isHidden)}
       >
         {isHidden && (
           <Comment 

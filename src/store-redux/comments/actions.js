@@ -54,5 +54,12 @@ export default {
       type: 'comments/setProductId',
       payload: productId,
     };
-  } 
+  },
+  
+  setBranches(branchData) {
+    return {
+      type: 'comments/setBranches',
+      payload: branchData,
+    };
+  }
 }

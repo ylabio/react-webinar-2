@@ -13,6 +13,8 @@ function Comments({
   link, 
   createResponse,
   productId,
+  updateBranchState,
+  branchesState,
  }) {
   const cn = bem('Comments');
   const [showCommentForm, setShowCommentForm] = useState(true);
@@ -33,6 +35,12 @@ function Comments({
             lastCommentId={lastCommentId}
             setLastCommentId={setLastCommentId}
             createResponse={createResponse}
+            updateBranchState={updateBranchState}
+            branchState={
+              branch[0].comment._id in branchesState
+                ? branchesState[branch[0].comment._id]
+                : {[branch[0].comment._id]: false}
+            }
           />
         ))}   
       </div>

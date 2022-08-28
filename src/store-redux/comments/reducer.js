@@ -4,11 +4,15 @@ const initialState = {
   waiting: false,
   total: 0,
   productId: null,
+  branchesState: {},
 };
 
 // Обработчик действий в redux
 export default function(state = initialState, action){
   switch (action.type) {
+    case "comments/setBranches":
+      return {...state, branchesState: {...state.branchesState, ...action.payload}};
+
     case "comments/setProductId":
       return { ...state, productId: action.payload};
 

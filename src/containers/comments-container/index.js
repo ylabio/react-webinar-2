@@ -6,10 +6,11 @@ import commentsActions from '../../store-redux/comments/actions';
 import useSelector from '../../hooks/use-selector';
 
 function CommentsContainer({ productId }) {
-  const { dispatch } = useStore();
-  const { total, items } = useSelectorR(state => ({
+  const { dispatch, getState } = useStore();
+  const { total, items, branchesState } = useSelectorR(state => ({
     total: state.comments.total,
     items: state.comments.data.items,
+    branchesState: state.comments.branchesState,
   }));
   const { exists } = useSelector(state => ({
     exists: state.session.exists,
@@ -24,7 +25,11 @@ function CommentsContainer({ productId }) {
           _type: type,
         },
       }));
-    }, [])
+    }, []),
+
+    updateBranchState: useCallback((branchData) => {
+      dispatch(commentsActions.setBranches(branchData));
+    }, []),
   };
 
   return (
@@ -36,6 +41,8 @@ function CommentsContainer({ productId }) {
         link={'/login'}
         createResponse={callbacks.createResponse}
         productId={productId}
+        updateBranchState={callbacks.updateBranchState}
+        branchesState={branchesState}
       />
     </>
   );

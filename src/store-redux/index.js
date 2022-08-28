@@ -1,5 +1,5 @@
 import {createStore, applyMiddleware} from 'redux';
-import {configureStore, combineReducers} from '@reduxjs/toolkit';
+import {configureStore} from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import * as reducers from './exports';
 
@@ -10,7 +10,7 @@ export default function createStoreRedux(services, config) {
   //     applyMiddleware(thunk.withExtraArgument(services))
   //   );
   return configureStore({
-    reducer: combineReducers(reducers),
+    reducer: reducers,
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware({
         thunk: {

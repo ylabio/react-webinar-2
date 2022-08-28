@@ -1,5 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import listToTree from '../../utils/list-to-tree';
+import {listToTreeWithParentId} from '../../utils/list-to-tree';
+import treeToList from '../../utils/tree-to-list';
 
 export const fetchComments = createAsyncThunk(
   'comments/fetchAll',
@@ -32,7 +33,6 @@ const commentsSlice = createSlice({
         state.waiting = true;
       })
       .addCase(fetchComments.fulfilled, (state, action) => {
-        console.log(listToTree(action.payload));
         console.log(action.payload);
         state.waiting = false;
         state.data = action.payload;

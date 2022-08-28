@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import propTypes from "prop-types";
+import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
-import debounce from "lodash.debounce";
+import debounce from 'lodash.debounce';
 import './style.css';
 
 function Input(props) {
@@ -17,10 +17,13 @@ function Input(props) {
   );
 
   // Обработчик изменений в поле
-  const onChange = useCallback(event => {
-    change(event.target.value);
-    changeThrottle(event.target.value);
-  }, [change, changeThrottle]);
+  const onChange = useCallback(
+    event => {
+      change(event.target.value);
+      changeThrottle(event.target.value);
+    },
+    [change, changeThrottle]
+  );
 
   // Обновление стейта, если передан новый value
   useEffect(() => {
@@ -36,7 +39,7 @@ function Input(props) {
       placeholder={props.placeholder}
       onChange={onChange}
     />
-  )
+  );
 }
 
 Input.propTypes = {
@@ -45,13 +48,15 @@ Input.propTypes = {
   name: propTypes.string,
   placeholder: propTypes.string,
   onChange: propTypes.func,
-  theme: propTypes.string,
-}
+  theme: propTypes.string
+};
 
 Input.defaultProps = {
   onChange: () => {},
   type: 'text',
   theme: ''
-}
+};
 
 export default React.memo(Input);
+
+//TODO: узнать про input, его поведение при overflow

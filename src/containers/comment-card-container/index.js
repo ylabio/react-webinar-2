@@ -1,16 +1,33 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import propTypes from 'prop-types';
-import {useDispatch, useSelector} from 'react-redux';
-import {
-  fetchComments,
-  selectAllComments,
-  selectCommentsTotal
-} from '../../store-redux/comments-slice';
-import List from '../../components/list';
 import CommentCard from '../../components/comment-card';
+import useInit from '../../hooks/use-init';
+import useServices from '../../hooks/use-services';
+import Spinner from '../../components/spinner';
 
 function CommentCardContainer(props) {
-  return <CommentCard text={props.comment.text} />;
+  const services = useServices();
+  const [author, setAuthor] = useState('');
+  const authorId = props.comment.author._id;
+
+  useInit(async () => {
+    const response = await services.api.request({
+      url: `/api/v1/users/${authorId}`
+    });
+    const authorName = response?.result?.username;
+    setAuthor(authorName);
+  }, [props.comment.author._id]);
+
+  return (
+    <Spinner active={!author}>
+      <CommentCard
+        content={props.comment.text}
+        author={author}
+        date={props.dateCreate}
+        onReply={() => {}}
+      />
+    </Spinner>
+  );
 }
 
 CommentCardContainer.propTypes = {

@@ -13,10 +13,16 @@ function NewComment() {
       <form onSubmit={() => {}}>
         <h5>Новый комментарий</h5>
         <Field label={''} error={''} spacing={'small'}>
-          <Input name="comment" type="text" onChange={() => {}} value={''} />
+          <Input
+            theme={'wide'}
+            name="comment"
+            type="text"
+            onChange={() => {}}
+            value={''}
+          />
         </Field>
         <Field spacing={'small'}>
-          <button disabled={''} type="submit">
+          <button disabled={true} type="submit">
             Отправить
           </button>
         </Field>
@@ -26,3 +32,5 @@ function NewComment() {
 }
 
 export default React.memo(NewComment);
+
+// TODO: заменить input на textarea {resize: none}

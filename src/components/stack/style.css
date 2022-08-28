@@ -1,4 +1,5 @@
 .Stack {
+  padding: 10px 35px;
 }
 
 .Stack_spacing_big > div > * + * {

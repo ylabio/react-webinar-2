@@ -8,16 +8,10 @@ function CommentCard(props) {
   return (
     <div className={cn()}>
       <div className={cn('info')}>
-        <div className={cn('user')}>User #1</div>
-        <div className={cn('date')}>25 августа 2022 в 14:00</div>
+        <div className={cn('author')}>{props.author}</div>
+        <div className={cn('date')}>{props.date}</div>
       </div>
-      <div className={cn('content')}>
-        Текст комментрия о том какой товар. Комментатор может оставить большой
-        комментрий и он весь показывается. Текст комментрия о том какой товар.
-        Комментатор может оставить большой комментрий и он весь показывается.
-        Текст комментрия о том какой товар. Комментатор может оставить большой
-        комментрий и он весь показывается.{' '}
-      </div>
+      <div className={cn('content')}>{props.content}</div>
       <div className={cn('cta')}>
         <button>Ответить</button>
       </div>
@@ -25,7 +19,12 @@ function CommentCard(props) {
   );
 }
 
-CommentCard.propTypes = {};
+CommentCard.propTypes = {
+  auhtor: propTypes.string,
+  date: propTypes.string,
+  content: propTypes.string,
+  onReply: propTypes.func
+};
 
 CommentCard.defaultProps = {};
 

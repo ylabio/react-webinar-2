@@ -1,8 +1,15 @@
-.Input{
-    font-size: 16px;
-    padding: 2px;
+.Input {
+  font-size: 16px;
+  padding: 2px;
 }
 
-.Input_theme_big{
-    width: 300px;
+.Input_theme_big {
+  width: 300px;
+}
+
+.Input_theme_wide {
+  display: block;
+  width: 900px;
+  padding-bottom: 75px;
+  overflow: auto;
 }

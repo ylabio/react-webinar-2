@@ -5,7 +5,6 @@
  * @returns {Array} Корневые узлы
  */
 export default function listToTree(list, key = '_id') {
-  console.log(list);
   let trees = {};
   let roots = {};
   for (const item of list) {
@@ -21,7 +20,7 @@ export default function listToTree(list, key = '_id') {
     }
 
     // Если элемент имеет родителя, то добавляем его в подчиенные родителя
-    if (item.parent?._id) {
+    if (item.parent?._id && item.parent?._type !== 'article') {
       // Если родителя ещё нет в индексе, то индек созадётся, ведь _id родителя известен
       if (!trees[item.parent._id]) trees[item.parent._id] = { children: [] };
       // Добавления в подчиенные родителя
@@ -30,6 +29,5 @@ export default function listToTree(list, key = '_id') {
       if (roots[item[key]]) delete roots[item[key]];
     }
   }
-  console.log(Object.values(roots));
   return Object.values(roots);
 }

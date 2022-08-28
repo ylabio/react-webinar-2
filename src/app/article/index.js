@@ -15,8 +15,8 @@ import TopContainer from '../../containers/top';
 import useInit from '../../hooks/use-init';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
-import actionsArticle from '../../store-redux/article/actions';
-import actionsComments from '../../store-redux/comments/actions';
+import actionsArticle from '../../services/store-redux/article/actions';
+import actionsComments from '../../services/store-redux/comments/actions';
 
 function Article() {
   const store = useStore();

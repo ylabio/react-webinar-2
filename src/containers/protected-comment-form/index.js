@@ -3,7 +3,7 @@ import {useSelector as useSelectorRedux, useStore as useStoreRedux} from 'react-
 import CommentForm from '../../components/comment-form';
 import SignInToComment from '../../components/sign-in-to-comment';
 import {useSession} from '../../hooks/use-session';
-import actionsComments from '../../store-redux/comments/actions';
+import actionsComments from '../../services/store-redux/comments/actions';
 
 function ProtectedCommentForm({head, level, isAnswer, parentId, parentType}) {
   const {isDenied} = useSession();

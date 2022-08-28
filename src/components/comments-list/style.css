@@ -1,0 +1,13 @@
+.CommentsList{
+  padding: 20px 40px 120px 40px;
+}
+.CommentsList-header{
+  font-size: 24px;
+  font-weight: normal;
+}
+.CommentsList-content{
+  margin-bottom: 120px;
+}
+.CommentsList-item{
+  margin: 30px 0;
+}

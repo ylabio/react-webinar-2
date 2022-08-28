@@ -88,7 +88,7 @@ class CatalogState extends StateModule {
     }, {skip: 0, search: {query: '', category: ''}});
 
     // ?search[query]=text&search[category]=id
-    const json = await this.services.api.request({url: `/api/v1/articles${qs.stringify(apiParams)}`});
+    const json = await this.services.api.request({url: `/api/v1/articles${qs.stringify(apiParams)}&lang=ru`});
 
     // Установка полученных данных и сброс признака загрузки
     this.setState({

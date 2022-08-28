@@ -23,5 +23,28 @@ export default {
         dispatch({type: 'comments/load-error'});
       }
 		}
-	}
+	},
+	newComment: (_id, text, _type, lvl, author, itemIndex) => {
+		return async (dispatch, getState, services) => {
+			dispatch({type: 'comments/post-new-comment'});
+			
+			try {
+        const newComment = {
+          text,
+          parent: {
+              _id,
+              _type
+          }
+        };
+        
+        const json = await services.api.request({url: '/api/v1/comments', method: 'POST', body: JSON.stringify(newComment)});
+				
+				dispatch({type: 'comments/add-new-comment', payload: {...json.result, lvl, author, itemIndex}});
+
+      } catch (e){
+        // dispatch({type: 'comments/load-error'});
+      }
+		}
+	},
+	setActiveKey: (key) => ({type: 'comments/set-active-form', payload: key})
 }

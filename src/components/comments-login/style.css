@@ -2,12 +2,19 @@
 	margin-top: 30px;
 }
 
-.CommentsLogin-button{
+.CommentsLogin-button, .CommentsLogin-cancel{
 	background: none;
 	outline: none;
 	border: none;
 	padding: 0;
 	font-size: 16px;
 	text-decoration: underline;
+}
+
+.CommentsLogin-button{
 	color: #551A8B;
+}
+
+.CommentsLogin-cancel{
+	color: #666;
 }

@@ -59,3 +59,7 @@
 .LayoutFlex_marginItems_0 .LayoutFlex-item{
 	margin: 0;
 }
+
+.LayoutFlex_widthItems_100 .LayoutFlex-item{
+	width: 100%;
+}

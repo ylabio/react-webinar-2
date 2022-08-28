@@ -3,24 +3,30 @@ import {cn as bem} from '@bem-react/classname';
 import propTypes from 'prop-types';
 import 'style.css';
 
-function CommentsLogin({title, exists, onSignIn}) {
+function CommentsLogin({title, onSignIn, activeKey, setActiveKey}) {
 	const cn = bem('CommentsLogin');
 
 	return (
-		<>
-			{/* {!exists && <div><Link to="/login">Войдите</Link>, {title}</div>} */}
-			{!exists && <div className={cn()}><button className={cn('button')} onClick={onSignIn}>Войдите</button>, {title}</div>}
-		</>
+		<div className={cn()}>
+			<button className={cn('button')} onClick={onSignIn}>Войдите</button>, {title}
+			{activeKey !== 'main' && 
+				<button className={cn('cancel')} onClick={() => setActiveKey('main')}>Отмена</button>}
+		</div>
 	)
 }
 
 CommentsLogin.propTypes = {
 	title: propTypes.string,
-	exists: propTypes.bool.isRequired
+	onSignIn: propTypes.func,
+	activeKey: propTypes.string,
+	setActiveKey: propTypes.func
 }
 
 CommentsLogin.defaultProps = {
-	title: ''
+	title: '',
+	onSignIn: () => {},
+	activeKey: '',
+	setActiveKey: (key) => key
 }
 
 export default React.memo(CommentsLogin);

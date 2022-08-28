@@ -67,6 +67,11 @@ function Article() {
     }, [location.pathname]),
   };
 
+  const renders = {
+    renderForm: useCallback((props) => <CommentForm {...props} />,[]),
+    renderComment: useCallback((props) => <Comment {...props} />,[]),
+  }
+
   return (
     <Layout>
       <TopContainer />
@@ -92,8 +97,8 @@ function Article() {
               , чтобы иметь возможность комментировать
             </>
           }
-          renderForm={(props) => <CommentForm {...props} />}
-          renderComment={(props) => <Comment {...props} />}
+          renderForm={renders.renderForm}
+          renderComment={renders.renderComment}
         />
       </Spinner>
     </Layout>

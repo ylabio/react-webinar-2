@@ -16,6 +16,7 @@ export function createCommentList(list) {
       } 
 
       if (parentType === 'comment') {
+        if (!trees[parentId]) trees[parentId] = { children: [] };
         trees[parentId].children.push(trees[currentId]); 
       }
     } 

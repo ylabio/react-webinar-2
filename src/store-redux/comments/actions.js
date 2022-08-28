@@ -38,13 +38,9 @@ export default {
           url: `/api/v1/comments?fields=*,author(_id,profile(name))&limit=*&search[parent]=${productId}`,
         });
 
-        console.log({getall: json.result.items})
-
         const comments = createCommentList(json.result.items);
         const length = json.result.items.length;
 
-        console.log('LEN: ', comments.flat().length)
-        
         dispatch({type: 'comments/getAll-success', payload: {data: {items: comments}, total: length}});
 
       } catch (e){

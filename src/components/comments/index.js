@@ -26,7 +26,7 @@ function Comments({
         {items && items.map((branch, idx) => (
           <CommentsBranch 
             branch={branch} 
-            key={idx} 
+            key={branch[0].comment._id} 
             exists={exists}
             link={link}
             setShowCommentForm={setShowCommentForm}

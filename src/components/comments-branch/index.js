@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Comment from "../comment";
 import propTypes from 'prop-types';
 import './style.css';
@@ -79,4 +79,6 @@ CommentsBranch.defaultProps = {
   lastCommentId: '',
 };
 
-export default React.memo(CommentsBranch);
+export default React.memo(CommentsBranch, (prev, next) => {
+  return prev.branch.length === next.branch.length;
+});

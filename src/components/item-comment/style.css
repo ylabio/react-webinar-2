@@ -1,0 +1,42 @@
+/* Комментарий*/
+.ItemComment {
+    margin-bottom: 30px;
+}
+
+.ItemComment-head {
+    margin-bottom: 10px;
+}
+
+.ItemComment-user {
+    margin-right: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 14px;
+}
+
+.ItemComment-user.myself {
+    color: #666666;
+}
+
+.ItemComment-date {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #666666;
+}
+
+.ItemComment-text {
+    margin-bottom: 10px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000000;
+}
+
+.ItemComment-buttons {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #0087E9;
+    cursor: pointer;
+}

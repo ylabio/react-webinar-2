@@ -1,25 +1,26 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   useStore as useStoreRedux,
   useSelector as useSelectorRedux,
   shallowEqual,
 } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import propTypes from "prop-types";
 import useSelector from "../../hooks/use-selector";
-import useStore from "../../hooks/use-store";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
-import treeToList from "../../utils/tree-to-list";
-import listToTree from "../../utils/list-to-tree";
 import actionsComments from "../../store-redux/comments/actions";
 import Spinner from "../../components/spinner";
 import CommentsList from "../../components/comments-list";
-import ItemComment from "../../components/item-comment";
 import CommentForm from "../../components/comment-form";
+import CommentHead from "../../components/comment-head";
 
 function Comments({ parentId }) {
   const storeRedux = useStoreRedux();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { t } = useTranslate();
+
   const [activeComment, setActiveComment] = useState(null);
 
   useInit(async () => {
@@ -53,13 +54,14 @@ function Comments({ parentId }) {
     onSubmit: useCallback((text, parentId, parentType) =>
       storeRedux.dispatch(actionsComments.post(text, parentId, parentType))
     ),
+    onSignIn: useCallback(() => {
+      navigate("/login", { state: { back: location.pathname } });
+    }, [location.pathname]),
   };
 
   return (
     <Spinner active={select.waiting}>
-      <h2>
-        {t("comments.title")}({select.count})
-      </h2>
+      <CommentHead title={t("comments.title")} count={select.count} />
       <CommentsList
         comments={options.comments}
         getReplies={getReplies}
@@ -70,6 +72,7 @@ function Comments({ parentId }) {
         activeComment={activeComment}
         setActiveComment={setActiveComment}
         parentId={parentId}
+        onSignIn={callbacks.onSignIn}
       />
       {!activeComment && (
         <CommentForm
@@ -79,6 +82,7 @@ function Comments({ parentId }) {
           submitLabel={t("commentForm.submit")}
           parentId={parentId}
           isAuth={selectStore.isAuth}
+          onSignIn={callbacks.onSignIn}
         />
       )}
     </Spinner>

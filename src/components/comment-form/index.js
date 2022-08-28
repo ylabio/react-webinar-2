@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate, Navigate } from "react-router-dom";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
+import Protected from "../../containers/protected";
 import "./styles.css";
 
 function CommentForm({
@@ -14,8 +15,11 @@ function CommentForm({
   type,
   parentId,
   isAuth,
+  onSignIn,
 }) {
   const cn = bem("CommentForm");
+  const navigate = useNavigate();
+  const location = useLocation();
   const [value, change] = useState(value);
 
   const onChange = useCallback(
@@ -48,10 +52,14 @@ function CommentForm({
           </button>
         </>
       ) : (
-        <span className={cn("link")}>
-          <Link to="/login">Войдите</Link> ,чтобы иметь возможность
-          комментировать
-        </span>
+        <>
+          <button className={cn("signIn")} onClick={onSignIn}>
+            Войдите
+          </button>
+          <span className={cn("message")}>
+            ,чтобы иметь возможность комментировать
+          </span>
+        </>
       )}
 
       {hasCancelButton && (

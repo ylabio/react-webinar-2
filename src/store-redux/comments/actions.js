@@ -7,7 +7,7 @@ export default {
         const json = await services.api.request({
           url: `/api/v1/comments?search%5Bparent%5D=${_id}&limit=*&skip=0&fields=items(_id,text,_type,dateCreate,author(profile(name)),parent(_id,_type,_tree)),count`,
         });
-
+        console.log(json.result.count);
         // Товар загружен успешно
         dispatch({
           type: "comments/load-success",

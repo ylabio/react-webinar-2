@@ -17,6 +17,7 @@ function ItemComment({
   activeComment,
   setActiveComment,
   parentId,
+  onSignIn,
 }) {
   const cn = bem("ItemComment");
 
@@ -66,6 +67,7 @@ function ItemComment({
             activeComment={activeComment}
             setActiveComment={setActiveComment}
             parentId={parentId}
+            onSignIn={onSignIn}
           />
         </div>
       )}
@@ -82,6 +84,7 @@ function ItemComment({
             setActiveComment(null);
           }}
           parentId={parentId}
+          onSignIn={onSignIn}
         />
       )}
     </div>

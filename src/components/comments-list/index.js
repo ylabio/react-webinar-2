@@ -6,7 +6,6 @@ import "./styles.css";
 
 function CommentsList(props) {
   const cn = bem("CommentsList");
-  console.log(props.isAuth);
 
   return (
     <div className={cn()}>
@@ -23,6 +22,7 @@ function CommentsList(props) {
           setActiveComment={props.setActiveComment}
           parentId={props.parentId}
           canselLabel={props.canselLabel}
+          onSignIn={props.onSignIn}
         />
       ))}
     </div>

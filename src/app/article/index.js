@@ -25,11 +25,13 @@ function Article() {
 
   const storeRedux = useStoreRedux();
 
+  const {lang, t} = useTranslate();
+
   useInit(async () => {
     //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsArticle.load(params.id));
     storeRedux.dispatch(actionsComments.load(params.id));
-  }, [params.id]);
+  }, [params.id, lang]);
 
   const select = useSelectorRedux(
     state => ({
@@ -42,12 +44,11 @@ function Article() {
         items: state.comments.items,
         total: state.comments.total,
         form: state.comments.form
-      }
+      },
     }),
     shallowEqual
   );
 
-  const {t} = useTranslate();
 
   const callbacks = {
     // Добавление в корзину

@@ -1,4 +1,5 @@
 import APIService from './api';
+import {DateService} from './date';
 import Store from './store';
 import createStoreRedux from './store-redux';
 import {translateService} from './translate';
@@ -45,6 +46,13 @@ class Services {
       this._translate = new translateService(this, this.config.translateService);
     }
     return this._translate;
+  }
+
+  get date() {
+    if (!this._date) {
+      this._date = new DateService(this, this.config.date);
+    }
+    return this._date;
   }
 }
 

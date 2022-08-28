@@ -1,4 +1,3 @@
-import dateFormat from '../../../utils/dateFormatter';
 import listToTree from '../../../utils/list-to-tree';
 import treeToList from '../../../utils/tree-to-list';
 
@@ -16,7 +15,7 @@ export default {
             comments: treeToList(listToTree(json.result.items, '_id', _id), (item, level) => ({
               data: {
                 author: item.author.profile.name,
-                date: dateFormat(item.dateCreate, 'd mmmm yyyy в H:MM'),
+                date: services.date.format(item.dateCreate, 'd mmmm yyyy в H:MM'),
                 text: item.text,
                 _id: item._id
               },
@@ -56,7 +55,7 @@ export default {
           _id: json.result._id,
           text: json.result.text,
           author: json.result.author.profile.name,
-          date: dateFormat(json.result.dateCreate, 'd mmmm yyyy в H:MM')
+          date: services.date.format(json.result.dateCreate, 'd mmmm yyyy в H:MM')
         };
 
         dispatch({

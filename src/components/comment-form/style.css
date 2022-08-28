@@ -1,0 +1,28 @@
+.CommentForm {
+    font-family: 'Arial';
+    display: flex;
+    flex-direction: column;
+    margin: 30px 0 0 0;
+}
+
+.CommentForm-title {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.CommentForm-comment {
+    min-height: 76px;
+    margin: 10px 0 10px 0;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    resize: none;
+}
+
+.CommentForm-btn {
+    margin: 0 10px 0 0;
+}

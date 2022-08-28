@@ -1,9 +1,0 @@
-.Profile-title {
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 28px;
-}
-
-.Profile-info:not(:first-child) {
-    margin: 20px 0 0 0;
-}

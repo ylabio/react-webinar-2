@@ -9,19 +9,14 @@
 
 .Pagination-item{
     display: block;
-    /* padding: 2px 4px 2px 2px; */
+    padding: 2px 4px 2px 2px;
     margin: 0;
     cursor: pointer;
     height: 20px;
     min-width: 20px;
     box-sizing: border-box;
-    /* text-align: center; */
+    text-align: center;
     line-height: 18px;
-    text-decoration: none;
-    color: #000000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .Pagination-item:hover{
@@ -39,5 +34,4 @@
     background: transparent;
     cursor: default;
     color: #CCCCCC;
-    pointer-events: none;
 }

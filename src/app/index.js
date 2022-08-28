@@ -1,14 +1,15 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import useSelector from "../hooks/use-selector";
 import {Routes, Route} from "react-router-dom";
+import useInit from "../hooks/use-init";
+import useStore from "../hooks/use-store";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
-import Login from './login';
-import Profile from './profile';
-import PrivateRoute from '../hoc/private-route';
-import ClosedRoute from '../hoc/closed-route';
-import useStore from "../hooks/use-store";
+import Login from "./login";
+import Profile from "./profile";
+import Protected from "../containers/protected";
+import {useSelector as useSelectorRedux} from 'react-redux'
 
 /**
  * Приложение
@@ -16,39 +17,24 @@ import useStore from "../hooks/use-store";
  */
 function App() {
 
-  const modal = useSelector(state => state.modals.name);
-  const token = useSelector(state => state.authentication.token);
-  const select = useSelector(state => ({
-    modal: state.modals.name,
-    token: state.authentication.token,
-    errorMessage: state.authentication.errorMessage,
-    isAuth: state.authentication.isAuth
-  }))
   const store = useStore();
 
-  useEffect(() => {
-    if(select.token) {
-      store.get('authentication').logInByToken();
-    }
-  }, []);
+  useInit(async ()=>{
+    await store.get('session').remind();
+  })
+
+  //const modal = useSelector(state => state.modals.name);
+  const modal = useSelectorRedux(state => state.modals.name);
 
   return (
     <>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
-        <Route path={"/login"} element={
-          <ClosedRoute>
-            <Login/>
-          </ClosedRoute>
-        }/>
-        <Route path={"/profile"} element={
-          <PrivateRoute to='/login'>
-            <Profile/>
-          </PrivateRoute>
-        }/>
+        <Route path={"/login"} element={<Login/>}/>
+        <Route path={"/profile"} element={<Protected redirect={'/login'}><Profile/></Protected>}/>
       </Routes>
-      {select.modal === 'basket' && <Basket/>}
+      {modal === 'basket' && <Basket/>}
     </>
   );
 }

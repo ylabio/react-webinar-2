@@ -3,13 +3,13 @@ import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
 
-function LayoutFlex({children, flex, padding, paddingMin}){
+function LayoutFlex({children, flex, indent}){
   const cn = bem('LayoutFlex');
 
   return (
-    <div className={cn({flex, padding, paddingMin})}>
+    <div className={cn({flex, indent})}>
       {React.Children.map(children, (child) => (
-        <div key={child.key} className={cn('item')}>{child}</div>
+        child && <div key={child.key} className={cn('item')}>{child}</div>
       ))}
     </div>
   )
@@ -18,14 +18,11 @@ function LayoutFlex({children, flex, padding, paddingMin}){
 LayoutFlex.propTypes = {
   children: propTypes.node,
   flex: propTypes.oneOf(['start', 'end', 'between']),
-  padding: propTypes.bool,
-  paddingMin: propTypes.bool
+  indent: propTypes.oneOf(['small', 'big']),
 }
 
 LayoutFlex.defaultProps = {
   flex: 'start',
-  padding: true,
-  paddingMin: false
 }
 
 export default React.memo(LayoutFlex);

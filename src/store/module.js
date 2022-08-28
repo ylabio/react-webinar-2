@@ -1,8 +1,17 @@
 class StateModule {
 
-  constructor(store, name) {
+  /**
+   * @param store {Store}
+   * @param config {Object}
+   */
+  constructor(store, config) {
     this.store = store;
-    this.name = name;
+    this.config = config;
+    this.services = store.services;
+  }
+
+  defaultConfig(){
+    return {};
   }
 
   /**
@@ -14,13 +23,13 @@ class StateModule {
   }
 
   getState() {
-    return this.store.getState()[this.name];
+    return this.store.getState()[this.config.name];
   }
 
   setState(newState, description = 'setState'){
     this.store.setState({
       ...this.store.getState(),
-      [this.name]: newState
+      [this.config.name]: newState
     }, description)
   }
 

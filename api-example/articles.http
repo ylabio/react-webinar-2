@@ -1,7 +1,7 @@
 ###
 # Список товаров
 
-GET {{baseUrl}}/articles
+GET {{baseUrl}}/articles?limit=*
 
 ###
 # Список с пагинацией
@@ -14,6 +14,11 @@ GET {{baseUrl}}/articles?limit=10&skip=20
 GET {{baseUrl}}/articles?limit=20&skip=10&fields=items(*),count
 
 ###
+# Список с фильтрами по категории
+
+GET {{baseUrl}}/articles?search[query]=Авт&search[category]=62fde67bfa639a32847b3d6d
+
+###
 # Товар по id
 
 GET {{baseUrl}}/articles/62fde67bfa639a32847b3d78
@@ -23,5 +28,4 @@ GET {{baseUrl}}/articles/62fde67bfa639a32847b3d78
 
 GET {{baseUrl}}/62fde67bfa639a32847b3d78?fields=*,maidIn(title,code),category(title)
 
-
-GET http://example.front.ylab.io/api/v1/categories?fields=title,parent(title)
+http://example.front.ylab.io/api/v1/comments?search[parent]=6304a836deec4c4f8927d088&fields=items(*,author(profile(name))),count&sort=order&limit=*&skip=0

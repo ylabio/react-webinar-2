@@ -1,10 +1,9 @@
-import {StoreContext} from "../store/context";
-import {useContext} from "react";
+import useServices from "./use-services";
 
 /**
  * Хук для доступа к объекту хранилища
  * @return {Store|{}}
  */
 export default function useStore(){
-  return useContext(StoreContext);
+  return useServices().store;
 }

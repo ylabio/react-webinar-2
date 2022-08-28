@@ -1,7 +1,7 @@
 import StateModule from "../module";
 
 /**
- * Состояние товара
+ * Состояние профиля
  */
 class ProfileState extends StateModule{
 
@@ -11,42 +11,34 @@ class ProfileState extends StateModule{
    */
   initState() {
     return {
-      user: {},
-      waiting: true
+      data: {},
+      waiting: false
     };
   }
 
-  async loadUser(token) {
+  /**
+   * Загрузка профиля
+   */
+  async load(){
+    // Сброс текущего товара и установка признака ожидания загрузки
     this.setState({
-      ...this.getState(),
-      waiting: true
-    });
+      waiting: true,
+      data: {}
+    }, 'Ожидание загрузки профиля');
+
     try {
-      const res = await fetch('/api/v1/users/self', {
-        method: 'GET',
-        body: null,
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Token': token
-        }
-      })
-
-      if(!res.ok) {
-        throw new Error(`Неверный токен`);
-      }
-
-      const data = await res.json();
-
+      const json = await this.services.api.request({url: '/api/v1/users/self'});
+      // Товар загружен успешно
       this.setState({
-        user: data.result,
-        waiting: false,
-      });
-    } catch(e) {
-      this.setState({
-        ...this.getState(),
+        data: json.result,
         waiting: false
-      });
-      localStorage.removeItem('token');
+      }, 'Профиль загружен');
+    } catch (e){
+      // Ошибка при загрузке
+      this.setState({
+        data: {},
+        waiting: false
+      }, 'Ошибка загрузки профиля');
     }
   }
 }

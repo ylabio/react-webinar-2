@@ -1,61 +1,37 @@
-import React, { useEffect } from "react";
-import {useNavigate} from "react-router-dom"
-import useTranslate from "../../hooks/use-translate";
-import Tools from "../../containers/tools";
-import Layout from "../../components/layout";
-import LayoutFlex from "../../components/layout-flex";
-import LocaleSelect from "../../containers/locale-select";
-import AuthControl from "../../containers/auth-control";
-import useSelector from "../../hooks/use-selector";
-import SpinnerCircle from "../../components/spinner-circle";
+import React from "react";
 import useStore from "../../hooks/use-store";
-import LayoutProfile from "../../components/layout-profile";
+import useSelector from "../../hooks/use-selector";
+import useInit from "../../hooks/use-init";
+import Spinner from "../../components/spinner";
+import Layout from "../../components/layout";
+import TopContainer from "../../containers/top";
+import HeadContainer from "../../containers/head";
+import ToolsContainer from "../../containers/tools";
+import ProfileCard from "../../components/profile-card";
 
-function Profile() {
-  const {t} = useTranslate();
+function Profile(){
   const store = useStore();
 
-  // const select = useSelector(state => ({
-  //   user: state.authentication.user,
-  //   waiting: state.authentication.waiting
-  // }))
-  // console.log(select.waiting," Ожидание")
   const select = useSelector(state => ({
-    user: state.profile.user,
+    profile: state.profile.data,
     waiting: state.profile.waiting,
-    token: state.authentication.token
-  }))
+    exists: state.session.exists
+  }));
 
-  useEffect(() => {
-    store.get('profile').loadUser(select.token);
+  useInit(async () => {
+    await store.get('profile').load();
   }, []);
 
-  return(
-    <Layout
-      top={
-        <LayoutFlex flex="end" paddingMin={true}>
-          <AuthControl/>
-        </LayoutFlex>
-      }
-      head={
-        <LayoutFlex flex="between">
-          <h1>{t('title')}</h1>
-          <LocaleSelect/>
-        </LayoutFlex>
-      }>
-      <Tools/>
-      {
-        select.waiting 
-        ? 
-          <SpinnerCircle/> 
-        :
-          <LayoutFlex flex="start">
-            <LayoutProfile user={select.user} t={t}/>
-          </LayoutFlex>
-      }
+  return (
+    <Layout>
+      <TopContainer/>
+      <HeadContainer/>
+      <ToolsContainer/>
+      <Spinner active={select.waiting}>
+        <ProfileCard data={select.profile}/>
+      </Spinner>
     </Layout>
   )
 }
 
-export default React.memo(Profile)
-
+export default React.memo(Profile);

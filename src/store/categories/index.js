@@ -1,5 +1,5 @@
-import { forEach } from "lodash";
 import StateModule from "../module";
+import qs from "../../utils/search-params";
 
 /**
  * Состояние товара
@@ -13,36 +13,24 @@ class CategoriesState extends StateModule{
   initState() {
     return {
       items: [],
-      waiting: true,
+      waiting: false
     };
   }
 
-  calculationLocationOfCategories(arr, parentCategory = null, depth = 0) {
-    let newArr = arr.filter(i => parentCategory ? i.parent?._id === parentCategory : !i.parent)
-                    .map(category => {
-                      category.title = "- ".repeat(depth) + category.title;
-                      return category;
-                    })
-                    .reduce((accumulator, currentValue) => {
-                      const children = this.calculationLocationOfCategories(arr, currentValue._id, depth + 1)
-                      accumulator.push(currentValue, ...children);
-                      return accumulator;
-                    }, []);
-    return(newArr)
-  }
+  /**
+   * Загрузка списка товаров
+   */
+  async load(){
+    this.setState({ waiting: true, items: []}, 'Ожидание загрузки категорий');
 
-  async load() {
-    this.setState({
-      items: [],
-      waiting: true,
-    });
+    const params = {fields:'_id,title,parent(_id)', limit:'*'};
+    const json = await this.services.api.request({url: `/api/v1/categories/${qs.stringify(params)}`});
 
-    const response = await fetch(`/api/v1/categories?limit=*&fields=title,parent(title)`);
-    const json = await response.json();
+    // Товар загружен успешно
     this.setState({
-      items: this.calculationLocationOfCategories(json.result.items),
+      items: json.result.items,
       waiting: false
-    })
+    }, 'Катеории загружены');
   }
 }
 

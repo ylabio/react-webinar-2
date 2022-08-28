@@ -1,0 +1,11 @@
+/*Список*/
+.ListComments{
+
+}
+.ListComments-item{
+    padding-top: 30px;   
+}
+
+.ListComments-item:first-child{
+   padding-top: 25px;
+}

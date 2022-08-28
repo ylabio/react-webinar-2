@@ -1,0 +1,79 @@
+.ItemComment{
+  border-top: none;
+}
+
+.ItemComment-name{
+    font-size: 12px;
+    float: left;
+    padding-right: 10px;
+}
+
+.ItemComment-date{
+    font-size: 12px;
+    color: #666666;
+}
+
+.ItemComment-text{
+    padding: 10px 0 10px 0;
+}
+
+.ItemComment-button{
+    border: none;
+    background: white;
+    color: #0087E9;
+    font-size: 12px;
+    padding-left: 0;
+ }
+
+.ItemComment-new-res{
+    font-size: 12px;
+    padding: 30px 0 10px 0;
+}
+
+.ItemComment textarea{
+    width: 914px;
+    min-height: 80px;  
+    font-size: 14px;
+    font-family: arial;
+    margin-bottom: 10px;
+    border: 2px solid black;
+    outline: none;
+    resize: none;
+    padding-left: 5px;
+    padding-top: 4px;
+}
+
+.ItemComment-comment button{
+    margin-bottom: 10px;  
+}
+
+.ItemComment-btn1{
+   margin-right: 10px;
+   width: 90px;
+   height: 21px;
+   float: left;
+}
+
+.ItemComment-btn2{
+    width: 67px;
+    height: 21px;
+}
+
+.ItemComment-btn3{
+    border: none;
+    background: white;
+    color: #666666;
+    font-size: 16px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.ItemComment-ent{
+    font-size: 16px;
+    padding-top: 30px;
+    display: inline-block;
+}
+
+.ItemComment-ent a{
+    color: #0087E9;
+}

@@ -21,6 +21,7 @@ class CatalogState extends StateModule {
         sort: 'order',
         query: '',
         category: ''
+    
       },
       waiting: false
     };
@@ -33,7 +34,7 @@ class CatalogState extends StateModule {
    * @return {Promise<void>}
    */
   async initParams(params = {}) {
-    // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
+    // Параметры из URl. Их нужно валидирвать, приводить типы и брать только нужные
     const urlParams = qs.parse(window.location.search);
     let validParams = {};
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
@@ -41,6 +42,7 @@ class CatalogState extends StateModule {
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
     if (urlParams.category) validParams.category = urlParams.category;
+
 
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = {...this.initState().params, ...validParams, ...params};
@@ -61,7 +63,7 @@ class CatalogState extends StateModule {
   }
 
   /**
-   * Устанвока параметров и загрузка списка товаров
+   * Установка параметров и загрузка списка товаров
    * @param params
    * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
    * @returns {Promise<void>}
@@ -83,11 +85,13 @@ class CatalogState extends StateModule {
       sort: newParams.sort,
       search: {
         query: newParams.query, // search[query]=text
-        category: newParams.category  // -> search[category]=id
+        category: newParams.category,  // -> search[category]=id
+      
+      
       }
-    }, {skip: 0, search: {query: '', category: ''}});
+    }, {skip: 0, search: {query: '', category: '', comments: ''}});
 
-    // ?search[query]=text&search[category]=id
+    // ?search[query]=text&search[category]=id&search[comment]=id
     const json = await this.services.api.request({url: `/api/v1/articles${qs.stringify(apiParams)}`});
 
     // Установка полученных данных и сброс признака загрузки

@@ -1,0 +1,16 @@
+.CommentFormDenied {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.CommentFormDenied-link {
+  text-decoration-line: underline;
+  color: #0087e9;
+}
+
+.CommentFormDenied-cancel {
+  text-decoration-line: underline;
+  color: #666666;
+  cursor: pointer;
+}

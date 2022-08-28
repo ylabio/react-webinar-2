@@ -1,0 +1,21 @@
+.CommentsItem {
+  margin-bottom: 30px;
+}
+.CommentsItem-info {
+  display: flex;
+}
+.CommentsItem-userName {
+  font-weight: 700;
+  font-size: 12px;
+  margin-right: 10px;
+  line-height: 14px;
+}
+.CommentsItem-date {
+  font-size: 12px;
+  color: #666666;
+}
+.CommentsItem-text {
+  font-size: 14px;
+  line-height: 16px;
+  margin-bottom: 10px;
+}

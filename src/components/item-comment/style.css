@@ -1,0 +1,27 @@
+/* Пункт комментария */
+
+.ItemComment {
+    padding: 15px 0;
+}
+
+.ItemComment-title {
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.ItemComment-date {
+    font-size: 12px;
+    color: #666666;
+    margin-left: 10px;
+}
+
+.ItemComment-text {
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.ItemComment-answerLink {
+    color: #0087E9;
+    cursor: pointer;
+    font-size: 14px;
+}

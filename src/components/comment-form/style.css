@@ -1,0 +1,48 @@
+/*Форма для набора текста комментария*/
+
+.CommentForm {
+    padding: 15px 0 15px 0;
+}
+
+.CommentForm-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+
+}
+
+.CommentForm-cross {
+    cursor: pointer;
+    position: absolute;
+    top: -4px;
+    right: -10px;
+}
+
+.CommentForm-title {
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.CommentForm-textarea {
+    margin: 10px 0;
+    display: block;
+    resize: none;
+    padding: 4px;
+    width: 100%;
+    font-size: 14px;
+}
+
+.CommentForm-submitButton {
+    display: block;
+}
+
+.CommentForm-redirectButton{
+    color: #0087E9;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.CommentForm-sessionExists {
+    padding: 15px 0 30px 0;
+}

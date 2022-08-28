@@ -1,0 +1,10 @@
+/* Умный компонент, нужно убрать верстку */
+
+.Comments {
+    margin: 50px 40px 0 40px;
+}
+
+.Comments-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}

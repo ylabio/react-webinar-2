@@ -1,0 +1,15 @@
+.CommentsLoginText {
+  font-size: 16px;
+  line-height: 19px;
+  margin-bottom: 30px;
+}
+.CommentsLoginText-blue {
+  color: #0087e9;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.CommentsLoginText-gray {
+  color: #666666;
+  text-decoration: underline;
+  cursor: pointer;
+}

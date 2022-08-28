@@ -1,70 +1,90 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
   useStore as useStoreRedux,
   useSelector as useSelectorRedux,
   shallowEqual,
 } from 'react-redux';
-import useStore from '../../hooks/use-store';
+import { useParams } from 'react-router-dom';
 import useTranslate from '../../hooks/use-translate';
 import Spinner from '../../components/spinner';
-import Item from '../../components/item';
-import Comments from '../../components/comments';
-import CommentsItem from '../../components/comments/item';
-import CommentsResponse from '../../components/comments/response';
+import Comments from '../../components/comments/layout';
+import CommentsLoginText from '../../components/comments/login-text';
 import dateFormat from '../../utils/date';
 import useSelector from '../../hooks/use-selector';
+import Comment from '../comment';
+import CommentsForm from '../../components/comments/form';
+import listToTree from '../../utils/list-to-tree';
+import treeToList from '../../utils/tree-to-list';
+import actionsComments from '../../store-redux/comments/actions';
+import useInit from '../../hooks/use-init';
 
 function CommentsList() {
-  const store = useStore();
   const storeRedux = useStoreRedux();
   const { t, lang } = useTranslate();
-
-  const [openForm, setOpenForm] = useState(false);
+  const params = useParams();
 
   const select = useSelector((state) => ({
     exists: state.session.exists,
+    userId: state.session.user._id,
   }));
   const selectRedux = useSelectorRedux(
     (state) => ({
       comments: state.comments.data,
       count: state.comments.count,
       waiting: state.comments.waiting,
+      currentOpenForm: state.comments.currentOpenForm,
     }),
     shallowEqual
   );
 
-  console.log(selectRedux);
-  console.log(select);
+  useInit(async () => {
+    storeRedux.dispatch(actionsComments.load(params.id));
+  }, [params.id]);
 
   const callbacks = {
-    addComment: useCallback((_id) => storeRedux.dispatch({ type: 'comments/add-comment' }), []),
-    // Пагианция
-    onPaginate: useCallback((page) => store.get('catalog').setParams({ page }), []),
+    addComment: useCallback((text) => {
+      storeRedux.dispatch(actionsComments.addComment(params.id, select.userId, text, 'article'));
+    }, []),
+  };
+
+  const options = {
+    commentsWithChildren: useMemo(() => {
+      return treeToList(listToTree(selectRedux.comments), (item, level) => ({ ...item, level }));
+    }, [selectRedux.comments]),
   };
 
   const renders = {
-    form: useCallback(
-      (item) => (
-        <CommentsResponse
-          openForm={}
-        />
+    renderForm: useCallback(
+      () => (
+        <>
+          {!selectRedux.currentOpenForm &&
+            (!select.exists ? (
+              <CommentsLoginText t={t} articleComment={true} />
+            ) : (
+              <CommentsForm articleComment={true} addComment={callbacks.addComment} />
+            ))}
+        </>
       ),
-      [t]
+      [select.exists, selectRedux.currentOpenForm]
     ),
   };
 
   return (
     <Spinner active={selectRedux.waiting}>
       <Comments count={selectRedux.count} t={t}>
-        {selectRedux.comments.map((comment) => (
-          <CommentsItem
+        {options.commentsWithChildren.map((comment) => (
+          <Comment
             key={comment._id}
+            parentId={comment.parent._id}
             userName={comment.author.profile.name}
             date={dateFormat(lang, comment.dateCreate)}
             text={comment.text}
-            renderForm={renders.form}
+            exists={select.exists}
+            level={comment.level}
+            commentId={comment._id}
           />
         ))}
+        {renders.renderForm()}
       </Comments>
     </Spinner>
   );

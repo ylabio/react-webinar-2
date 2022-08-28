@@ -29,7 +29,6 @@ function Article() {
   useInit(async () => {
     //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsArticle.load(params.id));
-    storeRedux.dispatch(actionsComments.load(params.id));
   }, [params.id]);
 
   const select = useSelectorRedux(
@@ -57,7 +56,7 @@ function Article() {
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
       </Spinner>
-      <CommentsList />
+      <CommentsList articleId={params.id} />
     </Layout>
   );
 }

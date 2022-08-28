@@ -19,5 +19,35 @@ export default {
     };
   },
 
-  addComment: () => {},
+  addComment: (_parentId, _userId, text, parentType) => {
+    return async (dispatch, getState, services) => {
+      dispatch({ type: 'comments/load' });
+
+      try {
+        const json = await services.api.request({
+          url: `/api/v1/comments?fields=*,author(profile(name)),count`,
+          method: 'POST',
+          headers: { 'X-Token': localStorage.getItem('token') },
+          body: JSON.stringify({
+            author: {
+              _id: _userId,
+            },
+            text,
+            parent: {
+              _id: _parentId,
+              _type: parentType,
+            },
+          }),
+        });
+
+        dispatch({
+          type: 'comments/load-success',
+          payload: { data: [...getState().comments.data, json.result], count: json.result.count },
+        });
+      } catch (e) {
+        // Ошибка при загрузке
+        dispatch({ type: 'comments/load-error' });
+      }
+    };
+  },
 };

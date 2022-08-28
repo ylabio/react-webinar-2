@@ -38,18 +38,20 @@ function CommentsBranch({
         className={cn('hiddenBlock')}
         onClick={() => setIsHidden(!isHidden)}
       >
-        <Comment 
-          data={branch[0].comment} 
-          key={branch[0].comment._id} 
-          lvl={branch[0].lvl} 
-          exists={exists}
-          link={link}
-          setShowCommentForm={setShowCommentForm}
-          lastCommentId={lastCommentId}
-          setLastCommentId={setLastCommentId}
-          createResponse={createResponse}
-          showResponse={false}
-        />
+        {isHidden && (
+          <Comment 
+            data={branch[0].comment} 
+            key={branch[0].comment._id} 
+            lvl={branch[0].lvl} 
+            exists={exists}
+            link={link}
+            setShowCommentForm={setShowCommentForm}
+            lastCommentId={lastCommentId}
+            setLastCommentId={setLastCommentId}
+            createResponse={createResponse}
+            showResponse={false}
+          />
+        )}
 
         <div className={cn('hide', {color: isHidden})}>
           {isHidden ? 'Показать ветку' : 'Скрыть ветку'}

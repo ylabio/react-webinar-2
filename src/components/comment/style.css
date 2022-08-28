@@ -1,0 +1,27 @@
+.Comment{
+  padding: 0 35px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #000000;
+}
+.Comment__active{
+  padding-left: 70px;
+}
+.Comment-info {
+  margin: 0;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  color: #000000;
+  margin-bottom: 10px;
+  
+}
+.Comment-info span {
+  margin-left: 10px;
+  font-weight: 400;
+  color: #666666;
+}
+.Comment-text {
+  margin-bottom: 10px;
+}

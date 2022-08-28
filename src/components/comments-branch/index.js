@@ -16,8 +16,6 @@ function CommentsBranch({
   const cn = bem('CommentsBranch');
   const [isHidden, setIsHidden] = useState(false);
 
-  console.log({branch})
-
   return (
     <div className={cn()}>
       <div className={cn('wrapper', {hidden: isHidden})}>

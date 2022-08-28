@@ -10,13 +10,14 @@ import Login from "./login";
 import Profile from "./profile";
 import Protected from "../containers/protected";
 import {useSelector as useSelectorRedux} from 'react-redux'
+import Spinner from '../components/spinner';
 
 /**
  * Приложение
  * @return {React.ReactElement} Виртуальные элементы React
  */
 function App() {
-
+  const {waiting} = useSelector(state => state.session);
   const store = useStore();
 
   useInit(async ()=>{
@@ -27,7 +28,7 @@ function App() {
   const modal = useSelectorRedux(state => state.modals.name);
 
   return (
-    <>
+    <Spinner active={waiting}>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
@@ -35,7 +36,7 @@ function App() {
         <Route path={"/profile"} element={<Protected redirect={'/login'}><Profile/></Protected>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}
-    </>
+    </Spinner>
   );
 }
 

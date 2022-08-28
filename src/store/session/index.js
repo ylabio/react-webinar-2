@@ -82,6 +82,11 @@ class SessionState extends StateModule {
   async remind() {
     const token = localStorage.getItem('token');
     if (token) {
+      this.setState({
+        ...this.getState(),
+        waiting: true,
+      });
+
       // Устанавливаем токен в АПИ
       this.services.api.setHeader(this.config.tokenHeader, token);
       const json = await this.services.api.request({url: '/api/v1/users/self'});

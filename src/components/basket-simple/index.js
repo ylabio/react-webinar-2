@@ -2,11 +2,14 @@ import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
-import './styles.css';
+import './style.css';
 
 
 function BasketSimple({sum, amount, onOpen, t}) {
+
+  // CSS классы по БЭМ
   const cn = bem('BasketSimple');
+
   return (
     <div className={cn()}>
       <span className={cn('label')}>{t('basket.inBasket')}:</span>
@@ -22,7 +25,7 @@ function BasketSimple({sum, amount, onOpen, t}) {
 }
 
 BasketSimple.propTypes = {
-  onOpen: propTypes.func.isRequired,
+  onOpen: propTypes.func,
   sum: propTypes.number,
   amount: propTypes.number,
   t: propTypes.func

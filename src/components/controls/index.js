@@ -10,8 +10,9 @@ function Controls({onAdd}){
   )
 }
 
+// Комментарии, как наглядный пример, но надо либо удалять isRequired, либо удалять соответствующее поле из defaultProps
 Controls.propTypes = {
-  onAdd: propTypes.func.isRequired // Обяхательное свойство - функция
+  onAdd: propTypes.func.isRequired // Обязательное свойство - функция
 }
 
 Controls.defaultProps = {

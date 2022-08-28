@@ -5,6 +5,8 @@ import {Link} from "react-router-dom";
 import './style.css';
 
 function Menu(props) {
+
+  // CSS классы по БЭМ
   const cn = bem('Menu');
 
   return (

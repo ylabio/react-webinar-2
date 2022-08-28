@@ -4,6 +4,8 @@ import propTypes from "prop-types";
 import './style.css';
 
 function Field({label, error, children}){
+
+  // CSS классы по БЭМ
   const cn = bem('Field');
 
   return (
@@ -22,10 +24,13 @@ function Field({label, error, children}){
 Field.propTypes = {
   label: propTypes.node,
   error: propTypes.node,
-  children: propTypes.node,
+  children: propTypes.node
 }
 
 Field.defaultProps = {
+  label: '',
+  error: '',
+  children: ''
 }
 
 export default React.memo(Field);

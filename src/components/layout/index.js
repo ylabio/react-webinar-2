@@ -4,6 +4,8 @@ import propTypes from "prop-types";
 import './style.css';
 
 function Layout({head, top, children}){
+
+  // CSS классы по БЭМ
   const cn = bem('Layout');
 
   return (
@@ -21,10 +23,14 @@ function Layout({head, top, children}){
 
 Layout.propTypes = {
   head: propTypes.node,
-  children: propTypes.node,
+  top: propTypes.node,
+  children: propTypes.node
 }
 
 Layout.defaultProps = {
+  head: '',
+  top: '',
+  children: ''
 }
 
 export default React.memo(Layout);

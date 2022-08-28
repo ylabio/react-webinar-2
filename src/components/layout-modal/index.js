@@ -4,6 +4,8 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
 function LayoutModal(props) {
+
+  // CSS классы по БЭМ
   const cn = bem('LayoutModal');
 
   const frame = useRef();
@@ -47,6 +49,7 @@ LayoutModal.propTypes = {
 LayoutModal.defaultProps = {
   title: 'Модалка',
   labelClose: 'Закрыть',
+  children: '',
   onClose: () => {}
 };
 

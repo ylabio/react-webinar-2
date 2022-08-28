@@ -4,7 +4,10 @@ import './style.css';
 import {cn as bem} from "@bem-react/classname";
 
 function LayoutHead({title, children}){
+
+  // CSS классы по БЭМ
   const cn = bem('LayoutHead');
+
   return (
     <div className={cn()}>
       <h1 className={cn('title')}>{title}</h1>

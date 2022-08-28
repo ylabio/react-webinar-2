@@ -3,12 +3,15 @@ import propTypes from 'prop-types';
 import numberFormat from "../../utils/number-format";
 import {cn as bem} from "@bem-react/classname";
 import {Link} from "react-router-dom";
-import './styles.css';
+import './style.css';
 
 function ItemBasket({item, link, onRemove, onLink, labelDelete, labelUnit, labelCurr}) {
+
+  // CSS классы по БЭМ
   const cn = bem('ItemBasket');
 
   const callbacks = {
+    // Удаление всего количества одного наименования товара из корзины
     onRemove: useCallback((e) => onRemove(item._id), [onRemove, item])
   };
 
@@ -39,6 +42,8 @@ ItemBasket.propTypes = {
 }
 
 ItemBasket.defaultProps = {
+  onRemove: () => {},
+  link: '',
   onLink: () => {},
   labelCurr: '₽',
   labelUnit: 'шт',

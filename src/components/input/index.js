@@ -5,6 +5,8 @@ import debounce from "lodash.debounce";
 import './style.css';
 
 function Input(props) {
+
+  // CSS классы по БЭМ
   const cn = bem('Input');
 
   // Внутренний стейт по умолчанию с переданным value
@@ -45,12 +47,15 @@ Input.propTypes = {
   name: propTypes.string,
   placeholder: propTypes.string,
   onChange: propTypes.func,
-  theme: propTypes.string,
+  theme: propTypes.string
 }
 
 Input.defaultProps = {
-  onChange: () => {},
+  value: '',
   type: 'text',
+  name: '',
+  placeholder: '',
+  onChange: () => {},
   theme: ''
 }
 

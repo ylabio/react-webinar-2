@@ -4,6 +4,8 @@ import propTypes from "prop-types";
 import './style.css';
 
 function LayoutFlex({children, flex, indent}){
+
+  // CSS классы по БЭМ
   const cn = bem('LayoutFlex');
 
   return (
@@ -22,7 +24,9 @@ LayoutFlex.propTypes = {
 }
 
 LayoutFlex.defaultProps = {
+  children: '',
   flex: 'start',
+  indent: 'small'
 }
 
 export default React.memo(LayoutFlex);

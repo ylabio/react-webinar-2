@@ -34,7 +34,7 @@ function ArticleCard({article, onAdd, t}) {
 }
 
 ArticleCard.propTypes = {
-  article: propTypes.object.isRequired,
+  article: propTypes.object,
   onAdd: propTypes.func,
   t: propTypes.func
 }

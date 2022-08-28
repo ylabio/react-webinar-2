@@ -7,6 +7,7 @@ function ItemComment({author, date, text, nestingLevel, replyForm, setReply, mys
 
   // CSS классы по БЭМ
   const cn = bem('ItemComment');
+  // Класс для выделения текущего пользователя
   const myselfClass = myself ? ' myself' : '';
 
   return (

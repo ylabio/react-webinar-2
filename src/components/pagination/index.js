@@ -4,6 +4,8 @@ import {cn as bem} from '@bem-react/classname'
 import './style.css';
 
 function Pagination(props) {
+
+  // CSS классы по БЭМ
   const cn = bem('Pagination');
   // Количество страниц
   const length = Math.ceil(props.count / Math.max(props.limit, 1));
@@ -47,7 +49,7 @@ function Pagination(props) {
 }
 
 Pagination.propTypes = {
-  page: propTypes.number.isRequired,
+  page: propTypes.number,
   limit: propTypes.number,
   count: propTypes.number,
   onChange: propTypes.func,
@@ -60,7 +62,7 @@ Pagination.defaultProps = {
   count: 1000,
   indent: 1,
   onChange: () => {
-  },
+  }
 }
 
 export default React.memo(Pagination);

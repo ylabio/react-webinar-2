@@ -1,3 +1,4 @@
+/*Шаблон флекс контейнера*/
 .LayoutFlex{
     display: flex;
     flex-wrap: nowrap;

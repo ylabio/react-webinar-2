@@ -1,0 +1,80 @@
+.Comment {
+  margin-bottom: 30px;
+}
+
+.Comment-title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.Comment-username {
+  margin: 0;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.Comment-time {
+  font-size: 12px;
+  line-height: 14px;
+  margin: 0;
+  color: #666666;
+}
+
+.Comment-text {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.Comment-button {
+  padding: 0;
+  color: #0087e9;
+  font-size: 12px;
+  line-height: 14px;
+  background: none;
+  border: none;
+}
+
+.Comment-button:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.Comment-no-login {
+  display: flex;
+  padding: 30px 0 0;
+  margin: 0;
+}
+
+.Comment-no-login-button {
+  padding: 0;
+  background: none;
+  border: none;
+  font-size: 16px;
+  line-height: 18px;
+  color: #0087e9;
+}
+
+.Comment-no-login-button:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.Comment-no-login-text {
+  margin: 0;
+  line-height: 18px;
+  font-size: 16px;
+  margin-top: 2px;
+}
+
+.Comment-button-close {
+  background: none;
+  border: none;
+  font-size: 16px;
+  line-height: 18px;
+  text-decoration-line: underline;
+  color: #666666;
+  cursor: pointer;
+}

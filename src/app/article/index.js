@@ -30,6 +30,7 @@ function Article(){
   const select = useSelectorRedux(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
+    commentsWaiting: state.comments.waiting
   }), shallowEqual);
   
   const {t} = useTranslate();
@@ -47,7 +48,7 @@ function Article(){
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
-      <Spinner active={false}>
+      <Spinner active={select.commentsWaiting}>
         <Comments />
       </Spinner>
     </Layout>

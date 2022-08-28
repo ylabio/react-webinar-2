@@ -8,8 +8,6 @@ function ItemComment(props) {
   const cn = bem('ItemComment');
   
   // Приведение к нужному формату даты для отоборажения в комментариях
-  const month = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
-  
   const date = new Date(props.date)
   
   const commentDate = `${date.getDate()} ${props.t('comments.month')[date.getMonth()]} ${date.getFullYear()} ${props.t('comments.in')} ${date.getHours()}:${date.getMinutes()}`

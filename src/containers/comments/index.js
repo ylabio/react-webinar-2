@@ -66,8 +66,8 @@ function Comments() {
     }, [params.id]),
     
     // Отправка нового комментария на бекенд
-    postNewComment: useCallback(async (text) => {
-      await storeRedux.dispatch(actionsComments.post(text, currentAnswer, currentAnswerType, stateSelect.token, params.id))
+    postNewComment: useCallback((text) => {
+      storeRedux.dispatch(actionsComments.post(text, currentAnswer, currentAnswerType, stateSelect.token, params.id))
     }, [currentAnswer, currentAnswerType, stateSelect.token, params.id]),
     redirect: useCallback(() => {
       navigate('/login', {state: {back: location.pathname}});

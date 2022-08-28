@@ -1,8 +1,7 @@
 .Comment {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 .Comment-title {
-    font-size: 18px;
     font-weight: bold;
 }
 .Comment-date {

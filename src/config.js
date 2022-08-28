@@ -3,7 +3,7 @@
  */
 const config ={
   store: {
-    log: false,
+    log: true,
 
     modules: {
       session: {

@@ -5,6 +5,7 @@ import useSelector from '../../hooks/use-selector';
 import LayoutFlex from '../../components/layout-flex';
 import CommentsTitle from '../../components/comments-title';
 import CommentsLogin from '../../components/comments-login';
+import CommentsList from '../../components/comments-list';
 
 function CommentsContainer() {
 	const select = useSelectorRedux(state => ({
@@ -36,6 +37,7 @@ function CommentsContainer() {
 		<LayoutFlex flex="start" indent="very-big" flexDirection="column" alignItems="start" marginItems="0">
       <CommentsTitle commentsCount={select.commentsCount} /*exists={selectStore.exists}*//>
 			{/* {select.commentsItems.map(item => <div>{item.text}</div>)} */}
+			<CommentsList commentsItems={select.commentsItems}/>
 			<CommentsLogin title="чтобы иметь возможность комментировать" exists={selectStore.exists} onSignIn={callbacks.onSignIn}/>
 			{/* {!selectStore.exists && <div>Войдите, чтобы иметь возможность комментировать</div>} */}
 			{selectStore.exists && <div>Main form</div>}

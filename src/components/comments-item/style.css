@@ -1,0 +1,41 @@
+.CommentsItem{
+	margin-bottom: 30px;
+}
+
+.CommentsItem:last-child{
+	margin-bottom: 0;
+}
+
+.CommentsItem-header{
+	margin-bottom: 10px;
+}
+
+.CommentsItem-author, .CommentsItem-date{
+	font-size: 12px;
+	line-height: 1;
+}
+
+.CommentsItem-author{
+	font-weight: 700;
+	margin-right: 10px;
+}
+
+.CommentsItem-date{
+	color: #666666;
+}
+
+.CommentsItem-text{
+	font-size: 14px;
+	line-height: 1;
+	margin-bottom: 10px;
+}
+
+.CommentsItem-button{
+	background: none;
+	outline: none;
+	border: none;
+	padding: 0;
+	color: #551A8B;
+	font-size: 12px;
+	line-height: 1;
+}

@@ -12,7 +12,7 @@ export default {
 				const transformComments = ([
 					...treeToList(
 						listToTree(json.result.items),
-						(item, level) => ({_id: item._id, text: '- '.repeat(level) + item.text, dateCreate: item.dateCreate, author: item.author})
+						(item, level) => ({_id: item._id, text: item.text, dateCreate: item.dateCreate, author: item.author, lvl: level})
 					)
 				]);
 				

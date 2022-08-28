@@ -3,12 +3,12 @@ import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
 
-function Title({ count }) {
+function Title({ count, t }) {
 
   // CSS классы по БЭМ
   const cn = bem('Comments');
 
-  return <div className={cn('title')}>Комментарии ({count})</div>
+  return <div className={cn('title')}>{t('comments.title')} ({count})</div>
 }
 
 Title.propTypes = {

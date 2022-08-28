@@ -1,6 +1,7 @@
 import React, {useCallback, useState} from "react";
 import NotAuth from "../../components/article-comments/notAuth";
 import Send from "../../components/article-comments/send";
+import useTranslate from "../../hooks/use-translate";
 
 function SendContainer({ 
   sendComment, 
@@ -10,8 +11,10 @@ function SendContainer({
   cancel, 
   isAuth, 
   onSignIn, 
-  title 
+  title,
 }) {
+
+  const {t} = useTranslate();
 
   const [text, setText] = useState('');
 
@@ -20,16 +23,17 @@ function SendContainer({
     changeText: useCallback((e) => setText(e.currentTarget.value), []),
   };
 
-  if (!isAuth && sendId === parentId) return <NotAuth action={onSignIn} />
+  if (!isAuth && sendId === parentId) return <NotAuth action={onSignIn} t={t} />
 
   if (sendId !== parentId) return
 
-  return <Send title={title}
-          action={callbacks.sendComment}
-          value={text}
-          onChange={callbacks.changeText}
-          cancel={cancel}
-          isCancelBtn={parentType === 'comment'}/>
+  return <Send  title={title}
+                action={callbacks.sendComment}
+                value={text}
+                onChange={callbacks.changeText}
+                cancel={cancel}
+                isCancelBtn={parentType === 'comment'}
+                t={t}/>
 }
 
 export default React.memo(SendContainer);

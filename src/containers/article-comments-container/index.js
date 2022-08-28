@@ -13,7 +13,7 @@ function ArticleCommentsContainer({ articleId, type }) {
   const storeRedux = useStoreRedux();
   const navigate = useNavigate();
   const location = useLocation();
-  const {t} = useTranslate();
+  const {t, lang} = useTranslate();
 
   const selectRedux = useSelectorRedux(state => ({
     comments: state.article.comments,
@@ -46,7 +46,10 @@ function ArticleCommentsContainer({ articleId, type }) {
                       sendId={sendId}
                       setSendId={setSendId}
                       cancel={callbacks.cancel}
-                      articleType={type}/>
+                      articleType={type}
+                      t={t}
+                      lang={lang} />
+    
   );
 }
 

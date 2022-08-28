@@ -16,12 +16,14 @@ function ArticleComments({
   setSendId,
   cancel,
   articleType,
+  t,
+  lang,
 }) {
 
   return (
     <Layout>
 
-      <Title count={comments.length} />
+      <Title count={comments.length} t={t} />
 
       { comments.map((comment) => (
           <Comment
@@ -30,6 +32,8 @@ function ArticleComments({
             setSendId={setSendId}
             onChange={changeText}
             value={text}
+            lang={lang}
+            t={t}
             sendContainer={
               <SendContainer  sendComment={sendComment}
                               sendId={sendId}
@@ -38,7 +42,7 @@ function ArticleComments({
                               cancel={cancel}
                               isAuth={isAuth}
                               onSignIn={onSignIn}
-                              title="Новый ответ" />
+                              title={t('send.new-reply')} />
             }
           />
         ))
@@ -51,7 +55,7 @@ function ArticleComments({
                       cancel={cancel}
                       isAuth={isAuth}
                       onSignIn={onSignIn}
-                      title="Новый комментарий" />
+                      title={t('send.new-comment')} />
 
     </Layout>
   );

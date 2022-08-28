@@ -3,15 +3,15 @@ import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
 
-function NotAuth({ action }) {
+function NotAuth({ action, t }) {
 
   // CSS классы по БЭМ
   const cn = bem('Comments');
 
   return (
   <div className={cn('alert')}>
-    <button className={cn('signIn')} onClick={action}>Войдите</button>
-    <span>, чтобы иметь возможность комментировать</span>
+    <button className={cn('signIn')} onClick={action}>{t('send.login')}</button>
+    <span>, {t('send.login-text')}</span>
   </div>
   );
 }

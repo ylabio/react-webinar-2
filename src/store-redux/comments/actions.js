@@ -25,6 +25,12 @@ export default {
             total: json.result.count
           }
         });
+        dispatch({
+          type: 'comments/set-form',
+          payload: {
+            form: {_id, _type: 'article'}
+          }
+        });
       } catch (e) {
         dispatch({type: 'comments/load-error'});
       }

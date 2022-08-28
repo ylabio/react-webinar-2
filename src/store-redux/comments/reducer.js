@@ -16,8 +16,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         items: [],
         total: 0,
-        waiting: true,
-        form: {_id: action.payload._id, _type: 'article'}
+        waiting: true
       };
 
     case 'comments/load-success':

@@ -1,0 +1,10 @@
+.CommentsCard {
+    width: 100%;
+    padding: 35px;
+    box-sizing: border-box;
+}
+.CommentsCard-title {
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: lighter;
+}

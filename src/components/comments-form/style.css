@@ -1,0 +1,22 @@
+.CommentsForm {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.CommentsForm-buttons {
+    margin-top: 10px;
+}
+.CommentsForm-buttons input {
+    margin-right: 10px;
+}
+.CommentsForm-title {
+    font-weight: bold;
+}
+.CommentsForm textarea {
+    resize: none;
+    width: 100%;
+    min-height: 80px;
+}
+.CommentsForm label {
+    width: 100%;
+}

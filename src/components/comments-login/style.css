@@ -1,0 +1,13 @@
+.CommentLogin {
+    margin-top: 20px;
+}
+.CommentLogin-login {
+    color: #0087e9;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.CommentLogin-hide {
+    color: #666;
+    cursor: pointer;
+    text-decoration: underline;
+}

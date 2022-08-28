@@ -1,0 +1,23 @@
+.Comment {
+    margin-bottom: 20px;
+}
+.Comment-title {
+    font-weight: bold;
+}
+.Comment-date {
+    font-size: 12px;
+    color: #666;
+    margin-left: 10px;
+    font-weight: lighter;
+}
+.Comment-text {
+    font-size: 14px;
+    word-wrap: break-word;
+}
+.Comment-button {
+    color: #0087e9;
+    cursor: pointer;
+}
+.Comment-button:hover {
+    text-decoration: underline;
+}

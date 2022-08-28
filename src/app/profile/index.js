@@ -1,48 +1,37 @@
-import React, { useEffect } from "react";
+import React from "react";
+import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import { useNavigate} from "react-router-dom";
-import useTranslate from "../../hooks/use-translate";
+import useInit from "../../hooks/use-init";
 import Spinner from "../../components/spinner";
-import Tools from "../../containers/tools";
-import Layout from "../../components/layouts/layout";
-import LayoutFlex from "../../components/layouts/layout-flex";
-import LocaleSelect from "../../containers/locale-select";
-import User from "../../containers/user";
+import Layout from "../../components/layout";
+import TopContainer from "../../containers/top";
+import HeadContainer from "../../containers/head";
+import ToolsContainer from "../../containers/tools";
 import ProfileCard from "../../components/profile-card";
-import useAuth from "../../hooks/use-auth";
 
-function Profile() {
+function Profile(){
+  const store = useStore();
 
-  const { t } = useTranslate();
-
-  const select = useSelector((state) => ({
-    token: state.user.token,
-    waiting: state.user.waiting,
-    user: state.user.data,
+  const select = useSelector(state => ({
+    profile: state.profile.data,
+    waiting: state.profile.waiting,
+    exists: state.session.exists
   }));
 
-  useAuth(select.token, "/login", "/");
+  useInit(async () => {
+    await store.get('profile').load();
+  }, []);
 
   return (
-    <Layout
-      before={
-        <LayoutFlex flex="end" padding={false}>
-          <User />
-        </LayoutFlex>
-      }
-      head={
-        <LayoutFlex flex="between">
-          <h1>{t("title")}</h1>
-          <LocaleSelect />
-        </LayoutFlex>
-      }
-    >
-      <Tools />
+    <Layout>
+      <TopContainer/>
+      <HeadContainer/>
+      <ToolsContainer/>
       <Spinner active={select.waiting}>
-        <ProfileCard user={select.user} t={t} />
+        <ProfileCard data={select.profile}/>
       </Spinner>
     </Layout>
-  );
+  )
 }
 
 export default React.memo(Profile);

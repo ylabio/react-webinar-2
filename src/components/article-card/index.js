@@ -3,8 +3,9 @@ import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname'
 import numberFormat from "../../utils/number-format";
 import './style.css';
+import Button from "../button";
 
-function ArticleCard({article, onAdd}) {
+function ArticleCard({article, onAdd, t}) {
 
   // CSS классы по БЭМ
   const cn = bem('ArticleCard');
@@ -28,7 +29,7 @@ function ArticleCard({article, onAdd}) {
         <div className={cn('label')}>Цена:</div>
         <div className={cn('value')}>{numberFormat(article.price)} ₽</div>
       </div>
-      <button onClick={() => onAdd(article._id)}>Добавить</button>
+      <Button onClick={() => onAdd(article._id)} text={t('article.add')} type={'button'}/>
     </div>
   )
 }

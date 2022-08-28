@@ -1,36 +1,40 @@
-import React from "react";
-import { cn as bem } from "@bem-react/classname";
-import propTypes from "prop-types";
-import "./style.css";
+import React from 'react';
+import propTypes from 'prop-types';
+import {cn as bem} from '@bem-react/classname';
+import './style.css';
 
-function ProfileCard({ user, t }) {
-  const cn = bem("ProfileCard");
+function ProfileCard({data}) {
+
+  // CSS классы по БЭМ
+  const cn = bem('ProfileCard');
+
   return (
     <div className={cn()}>
-      <h2>{t("profile")}</h2>
-      <div className={cn("prop")}>
-        <div className={cn("label")}>{t("profile.name")}:</div>
-        <div className={cn("value")}>{user.profile?.name}</div>
+      <h3 className={cn('title')}>Профиль</h3>
+      <div className={cn('prop')}>
+        <div className={cn('label')}>Имя:</div>
+        <div className={cn('value')}>{data?.profile?.name}</div>
       </div>
-      <div className={cn("prop")}>
-        <div className={cn("label")}>{t("profile.phone")}:</div>
-        <div className={cn("value")}>{user.profile?.phone}</div>
+      <div className={cn('prop')}>
+        <div className={cn('label')}>Телефон:</div>
+        <div className={cn('value')}>{data?.profile?.phone}</div>
       </div>
-      <div className={cn("prop")}>
-        <div className={cn("label")}>email:</div>
-        <div className={cn("value")}>{user.email}</div>
+      <div className={cn('prop')}>
+        <div className={cn('label')}>email:</div>
+        <div className={cn('value')}>{data?.email}</div>
       </div>
     </div>
-  );
+  )
 }
 
 ProfileCard.propTypes = {
-  user: propTypes.object.isRequired,
-  t: propTypes.func,
-};
+  data: propTypes.object.isRequired,
+  onAdd: propTypes.func
+}
 
 ProfileCard.defaultProps = {
-  t: (text) => text,
-};
+  data: {},
+  onAdd: () => {}
+}
 
 export default React.memo(ProfileCard);

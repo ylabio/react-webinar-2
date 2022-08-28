@@ -1,4 +1,4 @@
-import {useEffect, useState, useMemo} from "react";
+import {useEffect, useMemo, useState} from "react";
 import shallowequal from 'shallowequal';
 import useStore from "./use-store";
 
@@ -6,12 +6,13 @@ import useStore from "./use-store";
  * Хук для доступа к объекту хранилища
  * @return {Store|{}}
  */
-export default function useSelector(selector){
+export default function useSelector(selector) {
 
   const store = useStore();
 
   const [state, setState] = useState(() => selector(store.getState()));
 
+  // Подписка в useMemo чтобы сразу подписаться и только при первом рендере
   const unsubscribe = useMemo(() => {
     return store.subscribe(() => {
       // Новая выборка
@@ -24,6 +25,7 @@ export default function useSelector(selector){
     });
   }, []);
 
+  // Отписка от store при демонтировании
   useEffect(() => unsubscribe, [unsubscribe]);
 
   return state;

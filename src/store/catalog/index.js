@@ -1,23 +1,11 @@
 import StateModule from "../module";
-import qs from 'qs';
-import categoriesToLabel from "../../utils/category-formatting";
-
-const QS_OPTIONS = {
-  stringify: {
-    addQueryPrefix: true,
-    arrayFormat: 'comma',
-    encode: false
-  },
-  parse: {
-    ignoreQueryPrefix: true,
-    comma: true
-  }
-}
+import qs from '../../utils/search-params';
+import diff from "../../utils/diff";
 
 /**
  * Состояние каталога
  */
-class CatalogState extends StateModule{
+class CatalogState extends StateModule {
 
   /**
    * Начальное состояние
@@ -26,7 +14,6 @@ class CatalogState extends StateModule{
   initState() {
     return {
       items: [],
-      categories: [],
       count: 0,
       params: {
         page: 1,
@@ -45,9 +32,9 @@ class CatalogState extends StateModule{
    * @param params
    * @return {Promise<void>}
    */
-  async initParams(params = {}){
+  async initParams(params = {}) {
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
-    const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
+    const urlParams = qs.parse(window.location.search);
     let validParams = {};
     if (urlParams.page) validParams.page = Number(urlParams.page) || 1;
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
@@ -66,7 +53,7 @@ class CatalogState extends StateModule{
    * @param params
    * @return {Promise<void>}
    */
-  async resetParams(params = {}){
+  async resetParams(params = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = {...this.initState().params, ...params};
     // Установк параметров и подгрузка данных
@@ -79,7 +66,7 @@ class CatalogState extends StateModule{
    * @param historyReplace {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
    * @returns {Promise<void>}
    */
-  async setParams(params = {}, historyReplace = false){
+  async setParams(params = {}, historyReplace = false) {
     const newParams = {...this.getState().params, ...params};
 
     // Установка новых параметров и признака загрузки
@@ -87,12 +74,21 @@ class CatalogState extends StateModule{
       ...this.getState(),
       params: newParams,
       waiting: true
-    });
-    
-    const category = newParams.category ? `&search[category]=${newParams.category}` : ''
-    const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}&${category}`);
-    const json = await response.json();
+    }, 'Смена параметров каталога');
+
+    const apiParams = diff({
+      limit: newParams.limit,
+      skip: (newParams.page - 1) * newParams.limit,
+      fields: 'items(*),count',
+      sort: newParams.sort,
+      search: {
+        query: newParams.query, // search[query]=text
+        category: newParams.category  // -> search[category]=id
+      }
+    }, {skip: 0, search: {query: '', category: ''}});
+
+    // ?search[query]=text&search[category]=id
+    const json = await this.services.api.request({url: `/api/v1/articles${qs.stringify(apiParams)}`});
 
     // Установка полученных данных и сброс признака загрузки
     this.setState({
@@ -100,29 +96,16 @@ class CatalogState extends StateModule{
       items: json.result.items,
       count: json.result.count,
       waiting: false
-    });
+    }, 'Обновление списка товара');
 
-    // Запоминаем параметры в URL
-    let queryString = qs.stringify(newParams, QS_OPTIONS.stringify);
+    // Запоминаем параметры в URL, которые отличаются от начальных
+    let queryString = qs.stringify(diff(newParams, this.initState().params));
     const url = window.location.pathname + queryString + window.location.hash;
     if (historyReplace) {
       window.history.replaceState({}, '', url);
     } else {
       window.history.pushState({}, '', url);
     }
-  }
-
-  // Инициализация категорий
-  async initCategories() {
-    // Загрузка категорий
-    const response = await fetch(`/api/v1/categories`);
-    const json = await response.json();
-    // Преобразование в массив с префиксами дочерних элементов
-    const categories = [{value: '', title: 'Все'}, ...categoriesToLabel(json.result.items)]
-    this.setState({
-      ...this.getState(),
-      categories
-    });
   }
 }
 

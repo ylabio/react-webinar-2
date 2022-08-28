@@ -1,7 +1,7 @@
 ###
 # Список товаров
 
-GET {{baseUrl}}/articles
+GET {{baseUrl}}/articles?limit=*
 
 ###
 # Список с пагинацией
@@ -12,6 +12,11 @@ GET {{baseUrl}}/articles?limit=10&skip=20
 # Список с пагинацией и возвратом общего количества
 
 GET {{baseUrl}}/articles?limit=20&skip=10&fields=items(*),count
+
+###
+# Список с фильтрами по категории
+
+GET {{baseUrl}}/articles?search[query]=Авт&search[category]=62fde67bfa639a32847b3d6d
 
 ###
 # Товар по id

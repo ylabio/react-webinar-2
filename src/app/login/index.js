@@ -1,57 +1,76 @@
-import React, { useEffect, useCallback } from "react";
+import React, {useCallback, useState} from "react";
+import useTranslate from "../../hooks/use-translate";
+import Layout from "../../components/layout";
+import LayoutFlex from "../../components/layout-flex";
+import Input from "../../components/input";
+import Field from "../../components/field";
+import ToolsContainer from "../../containers/tools";
+import TopContainer from "../../containers/top";
+import HeadContainer from "../../containers/head";
+import {useLocation, useNavigate} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import { useNavigate} from "react-router-dom";
-import useTranslate from "../../hooks/use-translate";
-import Spinner from "../../components/spinner";
-import Tools from "../../containers/tools";
-import Layout from "../../components/layouts/layout";
-import LayoutFlex from "../../components/layouts/layout-flex";
-import LocaleSelect from "../../containers/locale-select";
-import LoginForm from "../../components/login-form";
-import User from "../../containers/user";
-import useAuth from "../../hooks/use-auth";
+import Button from "../../components/button";
 
 function Login() {
-  const { t } = useTranslate();
+  const {t} = useTranslate();
   const store = useStore();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const select = useSelector((state) => ({
-    token: state.user.token,
-    waiting: state.user.waiting,
-    error: state.user.error,
-  }));
+  const select = useSelector(state => ({
+    waiting: state.session.waiting,
+    errors: state.session.errors
+  }))
 
-  useAuth(select.token, "/login", "/");
+  const [data, setData] = useState({
+    login: '',
+    password: ''
+  });
 
   const callbacks = {
-    // Функция авторизации
-    onLogin: useCallback(
-      (login, password) => store.get("user").onLogin(login, password),
-      []
-    ),
+    onChange: useCallback((value, name) => {
+      setData(prevData => ({...prevData, [name]: value}));
+    }, []),
+
+    onSubmit: useCallback((e) => {
+      e.preventDefault();
+      store.get('session').signIn(data, () => {
+        // Возврат на страницу, с которой пришли
+        const back = location.state?.back && location.state?.back !== location.pathname
+          ? location.state?.back
+          : '/';
+        navigate(back);
+      });
+    }, [data, location.state])
   };
 
   return (
-    <Layout
-      before={
-        <LayoutFlex flex="end" padding={false}>
-          <User />
-        </LayoutFlex>
-      }
-      head={
-        <LayoutFlex flex="between">
-          <h1>{t("title")}</h1>
-          <LocaleSelect />
-        </LayoutFlex>
-      }
-    >
-      <Tools />
-      <Spinner active={select.waiting}>
-        <LoginForm onLogin={callbacks.onLogin} error={select.error} t={t} />
-      </Spinner>
+    <Layout>
+      <TopContainer/>
+      <HeadContainer/>
+      <ToolsContainer/>
+
+      <LayoutFlex>
+        <form onSubmit={callbacks.onSubmit}>
+          <h2>{t('auth.title')}</h2>
+          <Field label={t('auth.login')} error={select.errors?.login}>
+            <Input name="login" onChange={callbacks.onChange}
+                   value={data.login}/>
+          </Field>
+          <Field label={t('auth.password')} error={select.errors?.password}>
+            <Input name="password" type="password" onChange={callbacks.onChange}
+                   value={data.password}/>
+          </Field>
+          <Field error={select.errors?.other}/>
+          <Field>
+            <Button disabled={select.waiting} text={t('auth.signIn')} type={'reset'}/>
+          </Field>
+        </form>
+      </LayoutFlex>
+
     </Layout>
-  );
+  )
 }
 
 export default React.memo(Login);

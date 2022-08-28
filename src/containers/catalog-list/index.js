@@ -5,8 +5,7 @@ import useTranslate from "../../hooks/use-translate";
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
 import Spinner from "../../components/spinner";
-import Item from "../../components/items/item";
-import objectToSearch from "../../utils/object-to-search"
+import Item from "../../components/item";
 
 function CatalogList() {
 
@@ -18,7 +17,6 @@ function CatalogList() {
     limit: state.catalog.params.limit,
     count: state.catalog.count,
     waiting: state.catalog.waiting,
-    params: state.catalog.params
   }));
 
   const {t} = useTranslate();
@@ -39,7 +37,7 @@ function CatalogList() {
   return (
     <Spinner active={select.waiting}>
       <List items={select.items} renderItem={renders.item}/>
-      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate} params={select.params} objectToSearch={objectToSearch}/>
+      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
     </Spinner>
   );
 }

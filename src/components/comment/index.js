@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import React from 'react';
 import './style.css';
 
-function Comment({data, level, onAnswer}) {
+function Comment({data, level, onAnswer, text}) {
   const cn = bem('Comment');
 
   const callbacks = {
@@ -17,9 +17,7 @@ function Comment({data, level, onAnswer}) {
         <div className={cn('createdAt')}>{data.date}</div>
       </div>
       <div className={cn('body')}>{data.text}</div>
-      <button className={cn('answer')} onClick={callbacks.onAnswer}>
-        Ответить
-      </button>
+      <button className={cn('answer')} onClick={callbacks.onAnswer}>{text.reply}</button>
     </div>
   );
 }
@@ -27,7 +25,7 @@ function Comment({data, level, onAnswer}) {
 Comment.propTypes = {
   data: propTypes.object,
   level: propTypes.number,
-  hasForm: propTypes.bool
+  onAnswer: propTypes.func
 };
 
 export default React.memo(Comment);

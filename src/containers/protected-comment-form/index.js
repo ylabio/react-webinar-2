@@ -4,17 +4,20 @@ import CommentForm from '../../components/comment-form';
 import SignInToComment from '../../components/sign-in-to-comment';
 import {useSession} from '../../hooks/use-session';
 import actionsComments from '../../services/store-redux/comments/actions';
+import useTranslate from "../../hooks/use-translate";
 
-function ProtectedCommentForm({head, level, isAnswer, parentId, parentType}) {
-  const {isDenied} = useSession();
+function ProtectedCommentForm({level, isAnswer}) {
+  const {isDenied, isChecking} = useSession();
   const store = useStoreRedux();
   const select = useSelectorRedux(state => ({
     articleId: state.article.data._id,
     commentText: state.comments.comment
   }));
 
+  const {t} = useTranslate();
+
   const callbacks = {
-    onSubmit: useCallback(text => {
+    onSubmit: useCallback(() => {
       store.dispatch(actionsComments.post());
       callbacks.onCancel();
     }, []),
@@ -30,17 +33,22 @@ function ProtectedCommentForm({head, level, isAnswer, parentId, parentType}) {
 
   return (
     <>
-      {isDenied ? (
-        <SignInToComment level={level} backId={select.articleId} />
+      {isDenied || isChecking ? (
+        <SignInToComment level={level} backId={select.articleId} isAnswer={isAnswer} onCancel={callbacks.onCancel}
+                         text={{signIn: t('comments.sign-in'), toCanReply: t('comments.to-can-reply'), cancel: t('comments.cancel')}} />
       ) : (
         <CommentForm
           level={level}
-          head={head}
+          text = {{
+            head: isAnswer ? t('comments.new-reply') : t('comments.new-comment'),
+            send: t('comments.send'),
+            cancel: t('comments.cancel')
+            }}
+          commentText={select.commentText}
           isAnswer={isAnswer}
           onSubmit={callbacks.onSubmit}
           onCancel={callbacks.onCancel}
           onEdit={callbacks.onEdit}
-          commentText={select.commentText}
         />
       )}
     </>

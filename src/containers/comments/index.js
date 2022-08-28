@@ -21,19 +21,10 @@ function Comments() {
 
   const selectStore = useSelector(state => ({
     session: state.session,
-    name: state.session.user.profile
   }))
 
   const commentsItem = useMemo(() => {
-    return treeToList(listToTree(select.comments.items),
-      (item, level) => ({
-        id: item._id,
-        name: item.author.profile?.name ? item.author.profile.name : selectStore.session.user.profile.name,
-        dateCreate: item.dateCreate,
-        text: item.text,
-        level: level
-      })
-    )
+    return listToTree(select.comments.items)
   }, [select.comments.items])
 
   useEffect(() => {
@@ -64,6 +55,7 @@ function Comments() {
         newComment={callbacks.newComment}
         answerComment={callbacks.answerComment}
         onSignIn={callbacks.onSignIn}
+        name={selectStore.session.user.profile?.name}
       />
     </Spinner>
   )

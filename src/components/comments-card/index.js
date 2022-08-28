@@ -20,8 +20,11 @@ function CommentsCart(props) {
         idArticle={props.idArticle}
         answerComment={props.answerComment}
         onSignIn={props.onSignIn}
+        childrenComments={comment.children}
+        renderItem={renders.comment}
+        name={props.name}
       />
-    ), [props.visibleTextArea]),
+    ), [props.visibleTextArea, props.name]),
   }
 
   return (
@@ -49,6 +52,7 @@ CommentsCart.propTypes = {
   newComment: propTypes.func,
   answerComment: propTypes.func,
   onSignIn: propTypes.func,
+  name: propTypes.string
 }
 
 CommentsCart.defaultProps = {
@@ -57,6 +61,7 @@ CommentsCart.defaultProps = {
   exists: false,
   idArticle: '',
   visibleTextArea: '',
+  name: '',
   newComment: () => { },
   answerComment: () => { },
   onSignIn: () => { },

@@ -9,20 +9,25 @@ function Comment({ comment, level, ...props }) {
   const cn = bem('Comment');
 
   return (
-    <div style={{ paddingLeft: level * 25 }} className={cn()}>
+    <div style={{ paddingLeft: level ? 25 : 0 }} className={cn()}>
       <div className={cn('head')}>
-        <div className={cn('name')}>{comment.name}</div>
+        <div className={cn('name')}>{comment.author.profile?.name ? comment.author.profile.name : props.name}</div>
         <div className={cn('time')}>{dateFormating(comment.dateCreate)}</div>
       </div>
       <div className={cn('body')}>{comment.text}</div>
-      <a className={cn('link')} onClick={() => props.setVisibleTextArea(comment.id)}>Ответить</a>
-      {comment.id === props.visibleTextArea
+      <a className={cn('link')} onClick={() => props.setVisibleTextArea(comment._id)}>Ответить</a>
+      {props.childrenComments.map(item =>
+        <div key={item._id} className={cn('child')}>
+          {props.renderItem(item, level + 1)}
+        </div>
+      )}
+      {comment._id === props.visibleTextArea
         ? <AnswerComment
           exists={props.exists}
-          parentId={comment.id}
+          parentId={comment._id}
           setVisibleTextArea={props.setVisibleTextArea}
           idArticle={props.idArticle}
-          name={comment.name}
+          name={comment.author.profile.name}
           onSignIn={props.onSignIn}
           answerComment={props.answerComment}
         />
@@ -38,12 +43,14 @@ Comment.propTypes = {
   exists: propTypes.bool.isRequired,
   setVisibleTextArea: propTypes.func.isRequired,
   visibleTextArea: propTypes.string.isRequired,
+  name: propTypes.string,
   idArticle: propTypes.string.isRequired,
   answerComment: propTypes.func,
   onSignIn: propTypes.func,
 }
 
 Comment.defaultProps = {
+  name: '',
   answerComment: () => { },
   onSignIn: () => { },
 }

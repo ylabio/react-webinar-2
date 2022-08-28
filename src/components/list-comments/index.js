@@ -9,8 +9,8 @@ function ListComments(props) {
   return (
     <div className={cn()}>
       {props.items.map(item =>
-        <div key={item.id} className={cn('item')}>
-          {props.renderItem(item, item.level)}
+        <div key={item._id} className={cn('item')}>
+          {props.renderItem(item, 0)}
         </div>
       )}
     </div>
@@ -19,13 +19,11 @@ function ListComments(props) {
 
 ListComments.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  count: propTypes.number,
   renderItem: propTypes.func
 }
 
 ListComments.defaultProps = {
   items: [],
-  count: 0,
   renderItem: (item, level) => {
     return item.toString()
   }

@@ -1,5 +1,4 @@
 export default function positions(item, array, id) {
-  console.log("array", item);
   let position = 1;
 
   if (item.parent._type === "comment") {

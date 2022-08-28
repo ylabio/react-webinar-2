@@ -7,7 +7,7 @@ import {
 import actionsComments from "../../store-redux/comments/actions";
 import useInit from "../../hooks/use-init";
 import CommentList from "../../components/comment-list";
-import positions from "../../utils/positions";
+import sortComments from "../../utils/sort";
 
 function CommentsContainer({ id }) {
   const storeRedux = useStoreRedux();
@@ -27,13 +27,7 @@ function CommentsContainer({ id }) {
   const [state, setState] = useState([]);
 
   useEffect(() => {
-    let pos =
-      select.comments &&
-      select.comments.map((item, index, array) => {
-        return { ...item, position: positions(item, array, id) };
-      });
-
-    setState(pos);
+    select.comments && setState(sortComments(select.comments));
   }, [select.comments]);
 
   return <div>{state && <CommentList comments={state} />}</div>;

@@ -8,7 +8,7 @@ export const fetchComments = createAsyncThunk(
     const services = thunkApi.extra;
 
     const response = await services.api.request({
-      url: `/api/v1/comments?search[parent]=${articleId}&limit=0&skip=0&fields=*`
+      url: `/api/v1/comments?search[parent]=${articleId}&limit=*&skip=0&fields=*`
     });
 
     return response.result.items;
@@ -17,12 +17,15 @@ export const fetchComments = createAsyncThunk(
 
 export const createComment = createAsyncThunk(
   'comments/create',
-  async ({parentId, text}, {extra: services}) => {
+  async (
+    {parentId, text, parentType = 'article'},
+    {extra: services, dispatch}
+  ) => {
     const body = {
-      _id: 'string',
       text,
       parent: {
-        id: parentId
+        _id: parentId,
+        _type: parentType
       }
     };
 
@@ -31,7 +34,24 @@ export const createComment = createAsyncThunk(
       method: 'POST',
       body: JSON.stringify(body)
     });
+
     console.log(response);
+    // обновляем список комментариев
+    // id article для запроса
+    let id;
+
+    if (parentType === 'article') {
+      id = response?.result?.parent?._id;
+    } else if (parentType === 'comment') {
+      // получаем id article
+      let treeArr = response?.result?.parent?._tree;
+      id = response?.result?.parent?._tree[treeArr.length - 1]['_id'];
+    }
+
+    if (id) {
+      dispatch(fetchComments(id));
+    }
+
     return response.result;
   }
 );

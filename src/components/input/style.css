@@ -9,7 +9,7 @@
 
 .Input_theme_wide {
   display: block;
-  width: 900px;
+  min-width: 600px;
   padding-bottom: 75px;
   overflow: auto;
 }

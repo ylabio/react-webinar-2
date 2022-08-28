@@ -4,6 +4,7 @@ import CommentCard from '../../components/comment-card';
 import useInit from '../../hooks/use-init';
 import useServices from '../../hooks/use-services';
 import Spinner from '../../components/spinner';
+import ReplyComment from '../reply-comment';
 
 function CommentCardContainer(props) {
   const services = useServices();
@@ -26,6 +27,7 @@ function CommentCardContainer(props) {
         date={props.comment.dateCreate}
         onReply={() => {}}
       />
+      <ReplyComment parentId={props.comment._id} />
     </Spinner>
   );
 }

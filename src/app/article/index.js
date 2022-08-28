@@ -17,7 +17,7 @@ import HeadContainer from '../../containers/head';
 import ToolsContainer from '../../containers/tools';
 import actionsArticle from '../../store-redux/article/actions';
 import Comments from '../../containers/comments';
-import NewComment from '../../containers/new-comment';
+import NewComment from '../../components/newCommentForm';
 
 function Article() {
   const store = useStore();
@@ -59,7 +59,7 @@ function Article() {
         />
       </Spinner>
       <Comments articleId={params.id} />
-      <NewComment />
+      <NewComment parentId={params.id} />
     </Layout>
   );
 }

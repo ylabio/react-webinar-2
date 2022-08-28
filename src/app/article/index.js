@@ -41,7 +41,7 @@ function Article() {
         waiting: state.comments.waiting,
         items: state.comments.items,
         total: state.comments.total,
-        formPlacement: state.comments.formPlacement
+        form: state.comments.form
       }
     }),
     shallowEqual
@@ -52,8 +52,8 @@ function Article() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
-    onCommentAnswer: useCallback(_id => {
-      storeRedux.dispatch(actionsComments.setFormPlacement(_id));
+    onAnswer: useCallback(_id => {
+      storeRedux.dispatch(actionsComments.setForm({_id, _type: 'comment'}));
     }, [])
   };
   return (
@@ -69,9 +69,9 @@ function Article() {
           <LayoutComments
             comments={select.comments.items}
             total={select.comments.total}
-            formPlacement={select.comments.formPlacement}
+            formPlacement={select.comments.form._id}
             articleId={select.article.data._id}
-            onAnswerClick={callbacks.onCommentAnswer}
+            onAnswer={callbacks.onAnswer}
           />
         }
       </Spinner>

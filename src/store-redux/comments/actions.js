@@ -31,28 +31,43 @@ export default {
     };
   },
 
-  post: (_parentId, _parentType, text) => {
-    return async (dispatch, services) => {
+  post: () => {
+    return async (dispatch, getState, services) => {
       dispatch({type: 'comments/post'});
 
       try {
         const json = await services.api.request({
-          url: `/api/v1/comments?lang=ru&fields=*`,
+          url: `/api/v1/comments?lang=ru&fields=*,author(profile(name))`,
           method: 'POST',
           body: JSON.stringify({
-            text,
+            text: getState().comments.comment,
             parent: {
-              _id: _parentId,
-              _type: _parentType
+              ...getState().comments.form
             }
           })
+        });
+        const comment = {
+          _id: json.result._id,
+          text: json.result.text,
+          author: json.result.author.profile.name,
+          date: dateFormat(json.result.dateCreate, 'd mmmm yyyy в H:MM')
+        };
+
+        dispatch({
+          type: 'comments/post-success',
+          payload: {newItem: comment, parentId: json.result.parent._id}
         });
       } catch (e) {}
     };
   },
 
-  setFormPlacement: formPlacement => ({
-    type: 'comments/set-form-placement',
-    payload: {formPlacement}
+  setForm: form => ({
+    type: 'comments/set-form',
+    payload: {form}
+  }),
+
+  edit: updated => ({
+    type: 'comments/edit',
+    payload: {updated}
   })
 };

@@ -5,29 +5,26 @@ import SignInToComment from '../../components/sign-in-to-comment';
 import {useSession} from '../../hooks/use-session';
 import actionsComments from '../../store-redux/comments/actions';
 
-function ProtectedCommentForm({head, level, isAnswer, parentId}) {
+function ProtectedCommentForm({head, level, isAnswer, parentId, parentType}) {
   const {isDenied} = useSession();
   const store = useStoreRedux();
   const select = useSelectorRedux(state => ({
-    articleId: state.article.data._id
+    articleId: state.article.data._id,
+    commentText: state.comments.comment
   }));
 
   const callbacks = {
     onSubmit: useCallback(text => {
-      store.dispatch({
-        type: 'comments/set-form-placement',
-        payload: {formPlacement: select.articleId}
-      });
-
-      store.dispatch(
-        actionsComments.post(select.articleId, isAnswer ? 'comment' : 'article', text)
-      );
+      store.dispatch(actionsComments.post());
+      callbacks.onCancel();
     }, []),
+
     onCancel: useCallback(() => {
-      store.dispatch({
-        type: 'comments/set-form-placement',
-        payload: {formPlacement: select.articleId}
-      });
+      store.dispatch(actionsComments.setForm({_id: select.articleId, _type: 'article'}));
+    }, [select.articleId]),
+
+    onEdit: useCallback(updated => {
+      store.dispatch(actionsComments.edit(updated));
     }, [])
   };
 
@@ -42,6 +39,8 @@ function ProtectedCommentForm({head, level, isAnswer, parentId}) {
           isAnswer={isAnswer}
           onSubmit={callbacks.onSubmit}
           onCancel={callbacks.onCancel}
+          onEdit={callbacks.onEdit}
+          commentText={select.commentText}
         />
       )}
     </>

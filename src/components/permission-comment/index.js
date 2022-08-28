@@ -10,7 +10,7 @@ function PermissionComment(props) {
   return (
     <div className={cn()}>
       <span className={cn('signIn')} onClick={props.onSignIn}>Войдите</span>, чтобы иметь возможность {props.reply === 'reply' ? 'ответить ' : 'комментировать. '}
-      <span className={cn('cancel')} onClick={props.onCancelReply}>Отмена</span>
+      {props.reply === 'reply' && <span className={cn('cancel')} onClick={props.onCancelReply}>Отмена</span>}
     </div>
   )
 }

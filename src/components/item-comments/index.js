@@ -14,14 +14,14 @@ function ItemComments(props) {
 
   const callbacks = {
     onReply: useCallback(() => {
-      setIsReply(true);
+      props.onReply(props.item._id);
     }, []),
     onCancelReply: useCallback(() => {
       setIsReply(false);
     }, []),
   };
 
-  console.log('isAuth', props.isAuthorized)
+  console.log('item', props.isReply)
 
   return (
     <div className={cn()}>
@@ -31,8 +31,8 @@ function ItemComments(props) {
       </div>
       <div className={cn('text')}>{props.item.text}</div>
       <button className={cn('button')} onClick={callbacks.onReply}>Ответить</button>
-      {!props.isAuthorized && isReply && <PermissionComment onSignIn={props.onSignIn} reply={'reply'}/>}
-      {props.isAuthorized && <LeaveComment reply={'reply'}/>}
+      {(!props.isAuthorized && props.isReply === props.item._id) && <PermissionComment onSignIn={props.onSignIn} reply={'reply'} onCancelReply={props.onCancelReply}/>}
+      {(props.isAuthorized && props.isReply === props.item._id) && <LeaveComment reply={'reply'} onCancelReply={props.onCancelReply}/>}
     </div>
   )
 }

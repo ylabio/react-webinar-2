@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
 import useSelector from "../../hooks/use-selector";
 import {useParams} from "react-router-dom";
@@ -13,6 +13,8 @@ import LeaveComment from "../../components/leave-comment";
 import PermissionComment from "../../components/permission-comment";
 
 function Comments() {
+
+  const {t} = useTranslate();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,7 +36,8 @@ function Comments() {
 
   }), shallowEqual);
 
-  const {t} = useTranslate();
+
+  const [isReply, setIsReply] = useState('')
 
   const callbacks = {
     // addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
@@ -42,14 +45,25 @@ function Comments() {
     onSignIn: useCallback(() => {
       navigate('/login', {state: {back: location.pathname}});
     }, [location.pathname]),
+    onReply: useCallback((_id) => {
+      setIsReply(_id)
+    }),
+    onCancelReply: useCallback(() => {
+      console.log('test')
+      setIsReply('')
+    })
   };
+
+ 
 
   console.log('comments', select.comments)
 
   return (
     <LayoutComments title={`Комментарии (${select.count})`}>
-      <ListComments items={select.comments} isAuthorized={selectAuth.isAuthorized} onSignIn={callbacks.onSignIn}/>
-     {selectAuth.isAuthorized ? <LeaveComment reply={'comment'}/> : <PermissionComment onSignIn={callbacks.onSignIn}/>} 
+      <ListComments items={select.comments} isAuthorized={selectAuth.isAuthorized} onSignIn={callbacks.onSignIn} isReply={isReply} onReply={callbacks.onReply} onCancelReply={callbacks.onCancelReply}/>
+     {(selectAuth.isAuthorized && !isReply) && <LeaveComment reply={'comment'}/>}
+     {(!selectAuth.isAuthorized && !isReply) && <PermissionComment onSignIn={callbacks.onSignIn}/>}
+     
     </LayoutComments>
   );
 }

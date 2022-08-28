@@ -14,7 +14,7 @@ function LeaveComment(props) {
         <textarea type="text" value="Мой ответ для User №1"/>
         <div className={cn('buttons')}>
           <button className={cn('button-send')}>Отправить</button>
-          {props.reply === 'reply' && <button className={cn('button-cancel')}>Отмена</button>}
+          {props.reply === 'reply' && <button className={cn('button-cancel')} onClick={props.onCancelReply}>Отмена</button>}
         </div>
       </div>
   )

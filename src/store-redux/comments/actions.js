@@ -1,3 +1,4 @@
+import { cleanSpoiledData } from "../../utils/clean-spoiled-data";
 import { createCommentList } from "../../utils/create-comment-list";
 import actions from './actions';
 
@@ -15,8 +16,6 @@ export default {
             parent,
           })
         });
-
-        console.log({json})
         
         dispatch({type: 'comments/create-success'});
 
@@ -38,8 +37,9 @@ export default {
           url: `/api/v1/comments?fields=*,author(_id,profile(name))&limit=*&search[parent]=${productId}`,
         });
 
-        const comments = createCommentList(json.result.items);
-        const length = json.result.items.length;
+        const cleaned = cleanSpoiledData(json.result.items);
+        const comments = createCommentList(cleaned);
+        const length = cleaned.length;
 
         dispatch({type: 'comments/getAll-success', payload: {data: {items: comments}, total: length}});
 

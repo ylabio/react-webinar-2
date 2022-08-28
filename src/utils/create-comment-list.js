@@ -3,34 +3,32 @@ export function createCommentList(list) {
   let roots = {};
 
   for (const comment of list) {
-    const commentId = comment._id;
+    const currentId = comment._id;
     const parentId = comment.parent._id;
     const parentType = comment.parent._type;
   
-    if (!trees[commentId]) {
-      trees[commentId] = comment;
-      trees[commentId].children = [];
-      roots[commentId] = trees[commentId];
-    } else {
-      trees[commentId] = {...trees[commentId], ...comment};
-    }
+    if (!trees[currentId]) {
+      trees[currentId] = comment;
+      trees[currentId].children = [];
+      
+      if (parentType === 'article') {
+        roots[currentId] = trees[currentId];
+      } 
 
-    if (parentId && parentType === "comment") {
-      if (!trees[parentId]) {
-        trees[parentId] = { children: [] };
-      };
-
-      trees[parentId].children.push(trees[commentId]);
-
-      if (roots[commentId]) {
-        delete roots[commentId];
-      };
-    }
+      if (parentType === 'comment') {
+        if (!trees[parentId]) {
+          trees[parentId] = { children: [] };
+        };
+  
+        trees[parentId].children.push(trees[currentId]); 
+      }
+    } 
   }
 
-  return treeToComments(roots);
-}
+  const comments = treeToComments(roots);
 
+  return comments;
+}
 
 function treeToComments(tree) {
   const comments = [];

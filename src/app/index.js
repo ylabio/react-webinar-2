@@ -1,14 +1,15 @@
 import React from 'react';
 import useSelector from "../hooks/use-selector";
 import {Routes, Route} from "react-router-dom";
+import useInit from "../hooks/use-init";
+import useStore from "../hooks/use-store";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
-import LoginPage from './login-page';
-import ProfilePage from './profile-page';
-import AuthContainer from '../containers/auth-container';
-import useStore from './../hooks/use-store';
-import useInit from './../hooks/use-init';
+import Login from "./login";
+import Profile from "./profile";
+import Protected from "../containers/protected";
+import {useSelector as useSelectorRedux} from 'react-redux'
 
 /**
  * Приложение
@@ -16,25 +17,22 @@ import useInit from './../hooks/use-init';
  */
 function App() {
 
-  const modal = useSelector(state => state.modals.name);
   const store = useStore();
-  const token = localStorage.getItem('token')
 
-  useInit(async () => {
-    await store.get('user').loadProfile(token);
-  }, [token]);
+  useInit(async ()=>{
+    await store.get('session').remind();
+  })
 
-  useInit(async () => {
-    await store.get('catalogCategory').setCategoryList();
-  }, []);
+  //const modal = useSelector(state => state.modals.name);
+  const modal = useSelectorRedux(state => state.modals.name);
 
   return (
     <>
       <Routes>
         <Route path={''} element={<Main/>}/>
-        <Route path={'/login'} element={<LoginPage/>}/>
-        <Route path={'/profile'} element={<AuthContainer><ProfilePage/></AuthContainer>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
+        <Route path={"/login"} element={<Login/>}/>
+        <Route path={"/profile"} element={<Protected redirect={'/login'}><Profile/></Protected>}/>
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

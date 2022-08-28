@@ -3,6 +3,7 @@ import propTypes from "prop-types";
 import './style.css';
 
 function Select(props){
+
   const onSelect = useCallback((e) => {
     props.onChange(e.target.value);
   }, [props.onChange])
@@ -10,7 +11,7 @@ function Select(props){
   return (
     <select className="Select" onChange={onSelect} value={props.value}>
       {props.options.map(item => (
-        <option key={item._id} value={item._id}>{item.title} </option>
+        <option key={item.value} value={item.value}>{item.title}</option>
       ))}
     </select>
   )

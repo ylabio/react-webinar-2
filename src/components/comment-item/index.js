@@ -14,7 +14,7 @@ function CommentItem({ item }) {
       className={cn()}
     >
       <div className={cn("name")}>
-        <h5>User1</h5>{" "}
+        <h5>{item.author.profile.name}</h5>{" "}
         <span>
           {dayjs(item.dateCreate).locale("ru").format("D MMMM YYYY в h:mm")}
         </span>

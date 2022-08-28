@@ -7,7 +7,7 @@ import {
 import actionsComments from "../../store-redux/comments/actions";
 import useInit from "../../hooks/use-init";
 import CommentList from "../../components/comment-list";
-import sortComments from "../../utils/sort";
+import { sortComments } from "../../utils/sort";
 
 function CommentsContainer({ id }) {
   const storeRedux = useStoreRedux();

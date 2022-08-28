@@ -1,4 +1,4 @@
-export default function sortComments(array) {
+export function sortComments(array) {
   return array
     .map((item) => {
       return {

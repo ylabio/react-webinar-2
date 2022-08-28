@@ -27,7 +27,7 @@ class ArticleState extends StateModule{
     }, 'Ожидание загрузки товара');
 
     try {
-      const json = await this.services.api.request({url: `/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`});
+      const json = await this.services.api.request({url: `/api/v1/articles/${id}?lang=ru&fields=*,maidIn(title,code),category(title)`});
       // Товар загружен успешно
       this.setState({
         data: json.result,

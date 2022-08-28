@@ -4,7 +4,7 @@
   "description": "Example project for webinar",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve",
+    "start": "webpack serve --open",
     "build": "cross-env NODE_ENV=production webpack",
     "test": "jest"
   },
@@ -35,7 +35,7 @@
     "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^7.2.6",
+    "react-redux": "^7.2.8",
     "react-router-dom": "^6.3.0",
     "redux": "4.1.2",
     "redux-thunk": "^2.4.1",

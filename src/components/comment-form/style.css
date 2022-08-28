@@ -1,0 +1,44 @@
+.CommentForm_padding {
+  padding: 0 35px 30px 35px;
+  margin-top: -10px;
+}
+
+.CommentForm-textarea {
+  box-sizing: border-box;
+  min-width: 300px;
+  width: 100%;
+  height: 80px;
+  padding: 5px;
+  border: 1px solid #666666;
+  font-size: 14px;
+  color: #000000;
+  resize: none;
+}
+
+.CommentForm-title {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.CommentForm-send,
+.CommentForm-cancel {
+  border: 1px solid #767676;
+  border-radius: 2px;
+  background-color: #EFEFEF;
+  cursor: pointer;
+  font-size: 13px;
+  color: #000000;
+  padding: 3px 8px;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+.CommentForm-send:hover,
+.CommentForm-cancel:hover {
+  opacity: 0.8;
+}
+
+.CommentForm-error {
+  color: red;
+  font-size: 14px;
+}

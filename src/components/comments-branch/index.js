@@ -79,6 +79,4 @@ CommentsBranch.defaultProps = {
   lastCommentId: '',
 };
 
-export default React.memo(CommentsBranch, (prev, next) => {
-  return prev.branch.length === next.branch.length;
-});
+export default React.memo(CommentsBranch);

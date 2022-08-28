@@ -103,6 +103,5 @@ Comment.defaultProps = {
   showResponse: true,
 };
 
-export default React.memo(Comment, (prev, next) => {
-  return prev.data.children.length === next.data.children.length;
-});
+export default React.memo(Comment);
+

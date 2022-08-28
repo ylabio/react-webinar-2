@@ -1,0 +1,43 @@
+.AnswerComment {
+  display: flex;
+  flex-direction: column;
+}
+
+.AnswerComment>*:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.AnswerComment-title {
+  font-size: 12px;
+}
+
+.AnswerComment-button {
+  font-size: 13px;
+  padding: 1px 8px;
+}
+
+.AnswerComment-button:not(:last-child) {
+  margin-right: 10px;
+}
+
+.AnswerComment textarea {
+  font-size: 14px;
+  height: 76px;
+  resize: none;
+}
+
+.AnswerComment textarea::placeholder {
+  color: #000;
+}
+
+.AnswerComment-link {
+  cursor: pointer;
+  color: #0087E9;
+  text-decoration: underline;
+}
+
+.AnswerComment-auth span {
+  cursor: pointer;
+  color: #666666;
+  text-decoration: underline;
+}

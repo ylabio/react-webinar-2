@@ -1,0 +1,13 @@
+.CommentsCart {
+  padding: 0 35px;
+  margin-top: 28px;
+  padding-bottom: 30px;
+}
+
+.CommentsCart>*:not(:last-child) {
+  margin-bottom: 28px;
+}
+
+.CommentsCart-title {
+  font-weight: 400;
+}

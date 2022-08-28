@@ -4,7 +4,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import ArticleComments from "../../components/article-comments";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
-import actionsArticle from '../../store-redux/article/actions';
+import actionsComments from '../../store-redux/comments/actions';
 import { createTree } from "../../utils/createTree"
 import { treeToList } from "../../utils/treeToList"
 
@@ -16,7 +16,7 @@ function ArticleCommentsContainer({ articleId, type }) {
   const {t, lang} = useTranslate();
 
   const selectRedux = useSelectorRedux(state => ({
-    comments: state.article.comments,
+    comments: state.comments.data,
     waiting: state.article.waiting,
   }), shallowEqual);
 
@@ -24,6 +24,7 @@ function ArticleCommentsContainer({ articleId, type }) {
     exists: state.session.exists
   }))
 
+  // id родителя для кого показывать форму ответа
   const [sendId, setSendId] = useState(articleId);
 
   const callbacks = {
@@ -32,7 +33,7 @@ function ArticleCommentsContainer({ articleId, type }) {
       navigate('/login', {state: {back: location.pathname}});
     }, [location.pathname]),
     // Отправка запроса на добавление комментария
-    sendComment: useCallback((text, parentId, parentType) => storeRedux.dispatch(actionsArticle.addComment(parentId, parentType, text)), []),
+    sendComment: useCallback((text, parentId, parentType) => storeRedux.dispatch(actionsComments.addComment(parentId, parentType, text)), []),
     // Отмена офрмы ответа на комментарий
     cancel: useCallback(() => setSendId(articleId), []),
   };

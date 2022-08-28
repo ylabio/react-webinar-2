@@ -33,11 +33,11 @@ function ArticleComments() {
   }), shallowEqual);
 
   const callbacks = {
-    load: useCallback(() => storeRedux.dispatch(actionsComments.load(params.id)), []),
+    load: useCallback(async () => storeRedux.dispatch(actionsComments.load(params.id)), []),
 
-    onSend: useCallback((data) => {
-      storeRedux.dispatch(actionsComments.send(data, params.id, 'article'));
-      callbacks.load();
+    onSend: useCallback(async (data) => {
+      await storeRedux.dispatch(actionsComments.send(data, params.id, 'article'));
+      await callbacks.load();
     }, []),
 
     redirect: useCallback(() => {
@@ -70,10 +70,6 @@ function ArticleComments() {
       </div>
     </Spinner>
   )
-}
-
-ArticleComments.propTypes = {
-
 }
 
 export default React.memo(ArticleComments);

@@ -11,7 +11,6 @@ function NewComment(props) {
   const callbacks = {
     onSubmit: useCallback((e) => {
       e.preventDefault();
-
       const data = ref.current.elements.comment.value;
       props.send(data);
     }, []),

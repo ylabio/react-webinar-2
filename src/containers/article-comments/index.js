@@ -18,7 +18,7 @@ import CommentBlock from "../../components/comment-block";
 import formatDate from "../../utils/formatDate";
 
 function ArticleComments({ id }) {
-  const [reply, setReply] = useState(id);
+  const [newCommentId, setNewCommentId] = useState(id);
 
   const storeRedux = useStoreRedux();
   useInit(async () => {
@@ -54,14 +54,14 @@ function ArticleComments({ id }) {
           date={formatDate(comment.dateCreate)}
           me={userId && comment.author._id === userId}
           level={comment.parent._tree?.length ?? 1}
-          onReply={() => setReply(comment._id)}
+          onReply={() => setNewCommentId(comment._id)}
           replyComponent={
-            reply === comment._id && (
+            newCommentId === comment._id && (
               <NewCommentContainer
                 isNewComment={false}
-                onSubmit={() => setReply(id)}
+                onSubmit={() => setNewCommentId(id)}
                 parent={comment._id}
-                onCancel={() => setReply(id)}
+                onCancel={() => setNewCommentId(id)}
               />
             )
           }
@@ -72,13 +72,13 @@ function ArticleComments({ id }) {
     <Spinner active={selectRedux.waiting}>
       <CommentsTitle title="Комментарии" count={selectRedux.count} />
       {comments}
-      {reply === id && (
+      {newCommentId === id && (
         <CommentBlock
           comment={
             <NewCommentContainer
               isNewComment={true}
               parent={id}
-              onSubmit={() => setReply(id)}
+              onSubmit={() => setNewCommentId(id)}
             />
           }
         />

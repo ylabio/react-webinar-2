@@ -6,3 +6,10 @@
   width: 100%;
   height: 60px;
 }
+.Textarea-submit {
+  margin-right: 10px;
+}
+
+.Textarea input {
+  margin-top: 5px;
+}

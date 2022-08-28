@@ -46,6 +46,10 @@ function CommentsContainer({ id }) {
     }, []),
   };
 
+  const btnNewComment = (
+    <input type="button" value="Отмена" onClick={() => setArea(0)} />
+  );
+
   console.log("comments", state);
 
   return (
@@ -62,10 +66,10 @@ function CommentsContainer({ id }) {
               >
                 <CommentItem item={item} setArea={() => setArea(index + 1)} />
                 {area === index + 1 && (
-                  <CommentLogin log={session}>
+                  <CommentLogin log={session} btnNewComment={btnNewComment}>
                     <TextArea
                       head={"Ответить"}
-                      setArea={() => setArea(0)}
+                      btnNewComment={btnNewComment}
                       parent={item._id}
                       newComment={callbacks.newComment}
                     />

@@ -9,16 +9,11 @@ function CommentItem({
 	comment,
 	formId,
 	child,
-	deleteComment,
 	articleId,
 	openForm,
 	createComment,
 }) {
 	const cn = bem('CommentItem');
-
-	function handleDelete(_id) {
-		deleteComment(comment._id);
-	}
 
 	return (
 		<>
@@ -29,7 +24,6 @@ function CommentItem({
 						<div className={cn('headDate')}>
 							{dateFormat(comment.dateCreate)}
 						</div>
-						<button onClick={handleDelete}>Удалить</button>
 					</div>
 					<div className={cn('text')}>{comment.text}</div>
 					<button className={cn('reply')} onClick={() => openForm(comment._id)}>
@@ -55,14 +49,12 @@ CommentItem.propTypes = {
 	comment: propTypes.object.isRequired,
 	formId: propTypes.string.isRequired,
 	child: propTypes.number.isRequired,
-	deleteComment: propTypes.func.isRequired,
 	articleId: propTypes.string.isRequired,
 	openForm: propTypes.func.isRequired,
 	createComment: propTypes.func.isRequired,
 };
 
 CommentItem.defaultProps = {
-	deleteComment: () => {},
 	openForm: () => {},
 	createComment: () => {},
 };

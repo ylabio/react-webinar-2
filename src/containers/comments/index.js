@@ -44,10 +44,6 @@ function CommentsContainer() {
 			(id) => storeRedux.dispatch(actionsComments.openForm(id)),
 			[],
 		),
-		deleteComment: useCallback(
-			(_id) => storeRedux.dispatch(actionsComments.deleteComment(_id)),
-			[],
-		),
 	};
 
 	const options = {
@@ -64,7 +60,6 @@ function CommentsContainer() {
 				count={select.count}
 				createComment={callbacks.createComment}
 				openForm={callbacks.openForm}
-				deleteComment={callbacks.deleteComment}
 				articleId={params.id}
 				formId={select.formId}
 			/>

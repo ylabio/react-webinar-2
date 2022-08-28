@@ -10,7 +10,6 @@ function CommentsList({
 	count,
 	createComment,
 	openForm,
-	deleteComment,
 	articleId,
 	formId,
 }) {
@@ -29,7 +28,6 @@ function CommentsList({
 							child={comment.parent._tree.length}
 							createComment={createComment}
 							openForm={openForm}
-							deleteComment={deleteComment}
 							articleId={articleId}
 						/>
 					))}
@@ -53,7 +51,6 @@ CommentsList.propTypes = {
 	count: propTypes.number.isRequired,
 	createComment: propTypes.func.isRequired,
 	openForm: propTypes.func.isRequired,
-	deleteComment: propTypes.func.isRequired,
 	articleId: propTypes.string.isRequired,
 	formId: propTypes.string.isRequired,
 };
@@ -63,7 +60,6 @@ CommentsList.defaultProps = {
 	count: 0,
 	createComment: () => {},
 	openForm: () => {},
-	deleteComment: () => {},
 };
 
 export default React.memo(CommentsList);

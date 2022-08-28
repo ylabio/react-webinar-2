@@ -50,25 +50,4 @@ export default {
 			}
 		};
 	},
-
-	deleteComment: (_id) => {
-		return async (dispatch, getState, services) => {
-			try {
-				await services.api.request({
-					method: 'DELETE',
-					url: `/api/v1/comments/${_id}`,
-				});
-
-				const json = await services.api.request({
-					url: `/api/v1/comments?search[parent]=6304a836deec4c4f8927d0ba&fields=items(*,author(profile(name))),count&limit=*`,
-				});
-				dispatch({
-					type: 'comments/load-success',
-					payload: { data: json.result },
-				});
-			} catch (e) {
-				console.log(error);
-			}
-		};
-	},
 };

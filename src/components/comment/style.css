@@ -1,0 +1,25 @@
+.Comment {
+    padding: 20px 35px;
+}
+
+.Comment-description {
+    margin: 20px 0;
+}
+
+.Comment-prop {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.Comment-prop_size_big{
+    font-size: 24px;
+}
+
+.Comment-label{
+    padding-right: 10px;
+}
+
+.Comment-value{
+    font-weight: bold;
+}

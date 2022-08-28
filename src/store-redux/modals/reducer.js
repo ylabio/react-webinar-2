@@ -10,6 +10,8 @@ export default function(state = initialState, action){
       return { ...state, name: action.payload.name};
     case "modal/close":
       return { ...state, name: null };
+    case "modal/comment":
+      return {...state, name : comment};
     default:
       // Нет изменений
       return state;

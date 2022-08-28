@@ -5,23 +5,18 @@ import useTranslate from "../../hooks/use-translate";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import LayoutFlex from "../../components/layout-flex";
-import {categories} from "../../store/exports";
 import listToTree from "../../utils/list-to-tree";
 import treeToList from "../../utils/tree-to-list";
 
 function CatalogFilter() {
-
   const store = useStore();
-
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
     categories: state.categories.items,
   }));
-
   const {t} = useTranslate();
-
   const callbacks = {
     // Сортировка
     onSort: useCallback(sort => store.get('catalog').setParams({sort}), []),
@@ -30,7 +25,7 @@ function CatalogFilter() {
     // Сброс
     onReset: useCallback(() => store.get('catalog').resetParams(), []),
     // Фильтр по категории
-    onCategory: useCallback(category => store.get('catalog').setParams({category}), []),
+    onCategory: useCallback(category => store.get('catalog').setParams({category, page: 1}), []),
   };
 
   // Опции для полей
@@ -41,7 +36,6 @@ function CatalogFilter() {
       {value: '-price', title: 'Сначала дорогие'},
       {value: 'edition', title: 'Древние'},
     ]), []),
-
     categories: useMemo(() => [
       {value: '', title: 'Все'},
       ...treeToList(
@@ -50,7 +44,6 @@ function CatalogFilter() {
       )
     ], [select.categories]),
   }
-
   return (
     <LayoutFlex flex="start" indent="big">
       <Select onChange={callbacks.onCategory} value={select.category} options={options.categories}/>
@@ -60,5 +53,4 @@ function CatalogFilter() {
     </LayoutFlex>
   );
 }
-
 export default React.memo(CatalogFilter);

@@ -30,6 +30,7 @@ function ArticleCard({article, onAdd}) {
       </div>
       <button onClick={() => onAdd(article._id)}>Добавить</button>
     </div>
+   
   )
 }
 

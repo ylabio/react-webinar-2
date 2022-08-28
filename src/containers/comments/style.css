@@ -1,0 +1,33 @@
+.comments h2,
+.comments p {
+  margin: 0;
+}
+
+.comments ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.comments a {
+  color: dodgerblue;
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 35px 140px;
+  row-gap: 25px;
+}
+
+.comments__list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+}
+
+.comments__list-item > form,
+.comments__list-item > p {
+  margin-top: 10px;
+}

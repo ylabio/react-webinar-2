@@ -1,4 +1,4 @@
-import { cleanSpoiledData } from "../../utils/clean-spoiled-data";
+import { cleanFromSpoiledData } from "../../utils/clean-from-spoiled-data";
 import { createCommentList } from "../../utils/create-comment-list";
 import actions from './actions';
 
@@ -37,7 +37,7 @@ export default {
           url: `/api/v1/comments?fields=*,author(_id,profile(name))&limit=*&search[parent]=${productId}`,
         });
 
-        const cleaned = cleanSpoiledData(json.result.items);
+        const cleaned = cleanFromSpoiledData(json.result.items);
         const comments = createCommentList(cleaned);
         const length = cleaned.length;
 

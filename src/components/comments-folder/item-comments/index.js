@@ -4,6 +4,8 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import LeaveComment from '../leave-comment';
 import PermissionComment from '../permission-comment'
+import dateFormat from '../../../utils/dateFormat';
+
 
 function ItemComments(props) {
   const cn = bem('ItemComments');
@@ -18,7 +20,7 @@ function ItemComments(props) {
     <div className={cn()} style={{paddingLeft: `${(props.item.level > 10) ? 10 * 30 : props.item.level * 30}px`}}>
       <div className={cn('title')}>
         <span className={cn('author')}>{props.item?.author?.profile?.name}</span>
-        <span className={cn('date')}>{props.item.dateCreate}</span>
+        <span className={cn('date')}>{dateFormat(props.item.dateCreate)}</span>
       </div>
       <div className={cn('text')}>{props.item.text}</div>
       <button className={cn('button')} onClick={callbacks.onReply}>Ответить</button>

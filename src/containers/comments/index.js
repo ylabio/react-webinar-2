@@ -69,8 +69,13 @@ function Comments() {
   return (
     <Spinner active={selectReduxStore.waiting}>
       <LayoutComments title={`Комментарии (${selectReduxStore.count})`}>
-        <ListComments items={commentaries} isAuthorized={selectStore.isAuthorized} onSignIn={callbacks.onSignIn} 
-        isReply={isReply} onReply={callbacks.onReply} onCancelReply={callbacks.onCancelReply} 
+        <ListComments 
+        items={commentaries} 
+        isAuthorized={selectStore.isAuthorized} 
+        onSignIn={callbacks.onSignIn} 
+        isReply={isReply} 
+        onReply={callbacks.onReply} 
+        onCancelReply={callbacks.onCancelReply} 
         onAddComment={callbacks.onAddComment}/>
 
       {(selectStore.isAuthorized && !isReply) && <LeaveComment id={selectReduxStore.articleId} onAddComment={callbacks.onAddComment}/>}

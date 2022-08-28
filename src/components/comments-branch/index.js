@@ -16,6 +16,8 @@ function CommentsBranch({
   const cn = bem('CommentsBranch');
   const [isHidden, setIsHidden] = useState(false);
 
+  console.log({branch})
+
   return (
     <div className={cn()}>
       <div className={cn('wrapper', {hidden: isHidden})}>
@@ -53,9 +55,11 @@ function CommentsBranch({
           />
         )}
 
-        <div className={cn('hide', {color: isHidden})}>
-          {isHidden ? 'Показать ветку' : 'Скрыть ветку'}
-        </div>
+        {branch.length > 1 && (
+          <div className={cn('hide', {color: isHidden})}>
+            {isHidden ? 'Показать ветку' : 'Скрыть ветку'}
+          </div>
+        )}
 
         <div className={cn('divider')}/>
       </div>

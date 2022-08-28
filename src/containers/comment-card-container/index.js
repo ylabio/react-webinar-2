@@ -5,6 +5,7 @@ import useInit from '../../hooks/use-init';
 import useServices from '../../hooks/use-services';
 import Spinner from '../../components/spinner';
 import ReplyComment from '../reply-comment';
+import OutsideAlerter from '../../hooks/use-outside-alterter';
 
 function CommentCardContainer(props) {
   const services = useServices();
@@ -30,20 +31,22 @@ function CommentCardContainer(props) {
   };
 
   return (
-    <Spinner active={!author}>
-      <CommentCard
-        content={props.comment.text}
-        author={author}
-        date={props.comment.dateCreate}
-        onReply={callbacks.onFormToggle}
-      />
-      {isVisible ? (
-        <ReplyComment
-          parentId={props.comment._id}
-          onCancel={callbacks.onFormToggle}
+    <OutsideAlerter callback={() => callbacks.onFormToggle(false)}>
+      <Spinner active={!author}>
+        <CommentCard
+          content={props.comment.text}
+          author={author}
+          date={props.comment.dateCreate}
+          onReply={callbacks.onFormToggle}
         />
-      ) : null}
-    </Spinner>
+        {isVisible ? (
+          <ReplyComment
+            parentId={props.comment._id}
+            onCancel={callbacks.onFormToggle}
+          />
+        ) : null}
+      </Spinner>
+    </OutsideAlerter>
   );
 }
 

@@ -1,4 +1,3 @@
-/* Пункт списка */
 .BasketTotal {
     display: flex;
     justify-content: flex-end;
@@ -13,4 +12,3 @@
     padding-left: 10px;
     white-space: nowrap;
 }
-

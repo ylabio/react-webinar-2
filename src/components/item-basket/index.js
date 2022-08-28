@@ -1,11 +1,11 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
 import numberFormat from "../../utils/number-format";
-import {cn as bem} from "@bem-react/classname";
-import {Link} from "react-router-dom";
+import { cn as bem } from "@bem-react/classname";
+import { Link } from "react-router-dom";
 import './styles.css';
 
-function ItemBasket({item, link, onRemove, onLink, labelDelete, labelUnit, labelCurr}) {
+function ItemBasket({ item, link, onRemove, onLink, labelDelete, labelUnit, labelCurr }) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
@@ -39,7 +39,7 @@ ItemBasket.propTypes = {
 }
 
 ItemBasket.defaultProps = {
-  onLink: () => {},
+  onLink: () => { },
   labelCurr: '₽',
   labelUnit: 'шт',
   labelDelete: 'Удалить',

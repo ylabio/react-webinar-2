@@ -1,6 +1,6 @@
 import React from 'react';
 import useSelector from "../hooks/use-selector";
-import {Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import useInit from "../hooks/use-init";
 import useStore from "../hooks/use-store";
 import Main from "./main";
@@ -9,7 +9,7 @@ import Article from "./article";
 import Login from "./login";
 import Profile from "./profile";
 import Protected from "../containers/protected";
-import {useSelector as useSelectorRedux} from 'react-redux'
+import { useSelector as useSelectorRedux } from 'react-redux'
 
 /**
  * Приложение
@@ -19,7 +19,7 @@ function App() {
 
   const store = useStore();
 
-  useInit(async ()=>{
+  useInit(async () => {
     await store.get('session').remind();
   })
 
@@ -29,12 +29,12 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path={''} element={<Main/>}/>
-        <Route path={"/articles/:id"} element={<Article/>}/>
-        <Route path={"/login"} element={<Login/>}/>
-        <Route path={"/profile"} element={<Protected redirect={'/login'}><Profile/></Protected>}/>
+        <Route path={''} element={<Main />} />
+        <Route path={"/articles/:id"} element={<Article />} />
+        <Route path={"/login"} element={<Login />} />
+        <Route path={"/profile"} element={<Protected redirect={'/login'}><Profile /></Protected>} />
       </Routes>
-      {modal === 'basket' && <Basket/>}
+      {modal === 'basket' && <Basket />}
     </>
   );
 }

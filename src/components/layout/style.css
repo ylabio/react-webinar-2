@@ -1,12 +1,14 @@
-body{
+body {
     margin: 0;
     padding: 0;
     background: #535353;
     font-family: sans-serif;
     position: relative;
 }
+
 /* Страница*/
-.Layout{
+
+.Layout {
     max-width: 1024px;
     min-height: 100vh;
     margin: 0 auto;

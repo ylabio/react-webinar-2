@@ -1,9 +1,9 @@
 import React from 'react';
-import {cn as bem} from "@bem-react/classname";
+import { cn as bem } from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
 
-function Field({label, error, children}){
+function Field({ label, error, children }) {
   const cn = bem('Field');
 
   return (

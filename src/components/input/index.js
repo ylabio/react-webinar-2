@@ -1,6 +1,6 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import propTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname';
+import { cn as bem } from '@bem-react/classname';
 import debounce from "lodash.debounce";
 import './style.css';
 
@@ -29,7 +29,7 @@ function Input(props) {
 
   return (
     <input
-      className={cn({theme: props.theme})}
+      className={cn({ theme: props.theme })}
       name={props.name}
       value={value}
       type={props.type}
@@ -49,7 +49,7 @@ Input.propTypes = {
 }
 
 Input.defaultProps = {
-  onChange: () => {},
+  onChange: () => { },
   type: 'text',
   theme: ''
 }

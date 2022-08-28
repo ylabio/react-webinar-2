@@ -1,20 +1,20 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
+import { cn as bem } from "@bem-react/classname";
 import numberFormat from "../../utils/number-format";
 import './styles.css';
 
 
-function BasketSimple({sum, amount, onOpen, t}) {
+function BasketSimple({ sum, amount, onOpen, t }) {
   const cn = bem('BasketSimple');
   return (
     <div className={cn()}>
       <span className={cn('label')}>{t('basket.inBasket')}:</span>
       <span className={cn('total')}>
-      {amount
-        ? `${amount} ${t('basket.articles', amount)} / ${numberFormat(sum)} ₽`
-        : t('basket.empty')
-      }
+        {amount
+          ? `${amount} ${t('basket.articles', amount)} / ${numberFormat(sum)} ₽`
+          : t('basket.empty')
+        }
       </span>
       <button className='BasketSimple__button' onClick={onOpen}>{t('basket.open')}</button>
     </div>
@@ -29,7 +29,7 @@ BasketSimple.propTypes = {
 }
 
 BasketSimple.defaultProps = {
-  onOpen: () => {},
+  onOpen: () => { },
   sum: 0,
   amount: 0,
   t: (text) => text

@@ -16,15 +16,15 @@ function Main() {
       store.get('catalog').initParams(),
       store.get('categories').load()
     ]);
-  }, [], {backForward: true});
+  }, [], { backForward: true });
 
   return (
     <Layout>
-      <TopContainer/>
-      <HeadContainer/>
-      <ToolsContainer/>
-      <CatalogFilter/>
-      <CatalogList/>
+      <TopContainer />
+      <HeadContainer />
+      <ToolsContainer />
+      <CatalogFilter />
+      <CatalogList />
     </Layout>
   )
 }

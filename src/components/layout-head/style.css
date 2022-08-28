@@ -1,4 +1,4 @@
-.LayoutHead{
+.LayoutHead {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
@@ -11,10 +11,9 @@
     border-top: 1px solid #ccc;
 }
 
-.LayoutHead-title{
+.LayoutHead-title {
     margin: 0;
 }
 
-.LayoutHead-side{
-
+.LayoutHead-side {
 }

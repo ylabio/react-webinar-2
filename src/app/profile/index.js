@@ -9,7 +9,7 @@ import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import ProfileCard from "../../components/profile-card";
 
-function Profile(){
+function Profile() {
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -24,11 +24,11 @@ function Profile(){
 
   return (
     <Layout>
-      <TopContainer/>
-      <HeadContainer/>
-      <ToolsContainer/>
+      <TopContainer />
+      <HeadContainer />
+      <ToolsContainer />
       <Spinner active={select.waiting}>
-        <ProfileCard data={select.profile}/>
+        <ProfileCard data={select.profile} />
       </Spinner>
     </Layout>
   )

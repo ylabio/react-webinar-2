@@ -14,7 +14,8 @@ function Comment({
   setShowCommentForm,
   lastCommentId,
   setLastCommentId,
-  createResponse,  
+  createResponse,
+  showResponse,  
 }) {
   const cn = bem('Comment');
   const [showAnswerForm, setShowAnswerForm] = useState(false);
@@ -50,10 +51,14 @@ function Comment({
           {data.text}
         </p>
 
-        <span 
-          className={cn('answer')}
-          onClick={callbacks.showFormHandler}
-        >Ответить</span>
+        {showResponse && (
+          <span 
+            className={cn('answer')}
+            onClick={callbacks.showFormHandler}
+          >
+            Ответить
+          </span>
+        )}
       </div>
 
       {exists && showAnswerForm && (
@@ -89,11 +94,13 @@ Comment.propTypes = {
   setShowCommentForm: propTypes.func.isRequired,
   lastCommentId: propTypes.string,
   setLastCommentId: propTypes.func.isRequired,
-  createResponse: propTypes.func.isRequired,  
+  createResponse: propTypes.func.isRequired,
+  showResponse: propTypes.bool,  
 };
 
 Comment.defaultProps = {
   lastCommentId: '',
+  showResponse: true,
 };
 
 export default React.memo(Comment);

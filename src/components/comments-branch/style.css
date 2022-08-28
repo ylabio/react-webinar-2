@@ -1,5 +1,32 @@
 .CommentsBranch {
+  position: relative;
+}
+
+.CommentsBranch-wrapper {
   display: flex;
   flex-direction: column;
   gap: 30px;
+}
+
+.CommentsBranch-wrapper_hidden {
+  display: none;
+}
+
+.CommentsBranch-hiddenBlock {
+  
+}
+
+.CommentsBranch-hide {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+  color: red;
+}
+
+.CommentsBranch-hide_color {
+  color: blueviolet;
 }

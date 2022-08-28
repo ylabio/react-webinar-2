@@ -1,0 +1,31 @@
+.Comment {
+    padding-bottom: 30px;
+    padding-right: 40px;
+}
+.Comment-author {
+    padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 14px;
+}
+.Comment-author span {
+    padding-left: 10px;
+    color: #666666
+}
+
+.Comment-text {
+    padding-bottom: 10px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.Comment-btn {
+    color: #0087E9;
+    text-decoration: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    line-height: 14px;
+    padding: 0;
+}

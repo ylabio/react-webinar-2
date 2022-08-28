@@ -13,7 +13,7 @@ function CommentCard(props) {
       </div>
       <div className={cn('content')}>{props.content}</div>
       <div className={cn('cta')}>
-        <button>Ответить</button>
+        <button onClick={() => props.onReply(true)}>Ответить</button>
       </div>
     </div>
   );

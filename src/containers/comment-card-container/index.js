@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import propTypes from 'prop-types';
 import CommentCard from '../../components/comment-card';
 import useInit from '../../hooks/use-init';
@@ -8,6 +8,7 @@ import ReplyComment from '../reply-comment';
 
 function CommentCardContainer(props) {
   const services = useServices();
+  const [isVisible, setIsVisible] = useState(false);
   const [author, setAuthor] = useState('');
   const authorId = props.comment.author._id;
 
@@ -19,15 +20,29 @@ function CommentCardContainer(props) {
     setAuthor(authorName);
   }, [props.comment.author._id]);
 
+  const callbacks = {
+    onFormToggle: useCallback(
+      bool => {
+        setIsVisible(bool);
+      },
+      [setIsVisible]
+    )
+  };
+
   return (
     <Spinner active={!author}>
       <CommentCard
         content={props.comment.text}
         author={author}
         date={props.comment.dateCreate}
-        onReply={() => {}}
+        onReply={callbacks.onFormToggle}
       />
-      <ReplyComment parentId={props.comment._id} />
+      {isVisible ? (
+        <ReplyComment
+          parentId={props.comment._id}
+          onCancel={callbacks.onFormToggle}
+        />
+      ) : null}
     </Spinner>
   );
 }

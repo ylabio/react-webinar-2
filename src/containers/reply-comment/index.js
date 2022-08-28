@@ -7,7 +7,7 @@ import Field from '../../components/field';
 import {createComment} from '../../store-redux/comments-slice';
 import {useDispatch} from 'react-redux';
 
-function ReplyComment({parentId}) {
+function ReplyComment({parentId, onCancel}) {
   const dispatch = useDispatch();
   const [data, setData] = useState({
     comment: ''
@@ -27,10 +27,15 @@ function ReplyComment({parentId}) {
         ).unwrap();
 
         // сброс поля ввода если коммент создан удачно
-        setData({comment: ''});
+        setData(prev => ({...prev, comment: ''}));
       },
       [data]
-    )
+    ),
+
+    onCancel: useCallback(() => {
+      onCancel(false);
+      setData(prev => ({...prev, comment: ''}));
+    })
   };
 
   return (
@@ -50,7 +55,7 @@ function ReplyComment({parentId}) {
           <button disabled={false} type="submit">
             Отправить
           </button>
-          <button disabled={false} type="button">
+          <button disabled={false} type="button" onClick={callbacks.onCancel}>
             Отмена
           </button>
         </Field>

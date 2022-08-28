@@ -1,0 +1,15 @@
+.CommentStub p {
+  margin: 0;
+}
+
+.CommentStub-link {
+  color: #0087E9;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.CommentStub-cancel {
+  color: #666666;
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -1,0 +1,32 @@
+.Comment {
+  padding-bottom: 30px;
+}
+
+.Comment-title {
+  display: flex;
+  font-size: 12px;
+  gap: 10px;
+  padding-bottom: 10px;
+}
+
+.Comment-userName {
+  font-weight: 700;
+}
+
+.Comment-date {
+  color: #666666
+}
+
+.Comment-text {
+  padding-bottom: 10px;
+}
+
+.Comment-reply {
+  color: #0087E9;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.Comment-reply-form {
+  padding-top: 30px;
+}

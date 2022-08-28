@@ -1,0 +1,28 @@
+.CommentForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.CommentForm-title {
+  font-weight: 700;
+}
+
+.CommentForm-section {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.CommentForm-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.CommentForm-textarea {
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+}

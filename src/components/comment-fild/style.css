@@ -1,0 +1,35 @@
+.CommentFild-Sign{
+    padding:0px;
+    color: #0087E9;
+    text-decoration: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    border-bottom: 1px solid;
+}
+.CommentFild-cancelLogout{
+    padding:0px;
+    color: rgba(102, 102, 102, 1);
+    text-decoration: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    border-bottom: 1px solid;
+}
+.CommentFild {
+    padding: 20px 5px;
+    font-size: 14px;
+}
+.CommentFild-head {
+    padding: 0px 0px 10px 0px;
+    font-size: 12px;
+    font-weight: 700;
+}
+.CommentFild ::placeholder {
+    color: #000000;
+    font-size: 14px;
+    font-family: 'Arial';
+}
+.CommentFild-cancelLogIn {
+    margin: 0px 0px 0px 10px;
+}

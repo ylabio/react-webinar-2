@@ -1,0 +1,45 @@
+.Comment-indent{
+    width: 20px;
+    min-height: 10px
+}
+.Comment{
+    display: flex;
+    justify-content: flex-start;
+}
+.Comment-Otstup {
+    min-height: 10px;
+    display: flex;
+}
+.Comment-body{
+    padding:10px 0px 10px 0px;
+    width: 100%;
+}
+.Comment-head{
+    padding: 5px;
+    font-size: 12px;
+}
+.Comment-user{
+    font-weight:bold;
+    font-size: 14px;
+    padding: 0 10px 0 0;
+}
+.Comment-data{
+    color:rgba(102, 102, 102, 1);
+    font-size: 14px;
+}
+.Comment-text{
+    padding: 5px;
+    font-size: 14px
+}
+.Comment-response{
+    padding: 5px;
+    font-size: 14px
+}
+.Comment-answer {
+    color: #0087E9;
+    text-decoration: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 12px;
+  }

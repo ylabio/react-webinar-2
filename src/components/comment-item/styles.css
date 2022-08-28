@@ -1,5 +1,7 @@
 .Comment {
   padding-top: 30px;
+  font-size: 12px;
+  line-height: 14px;
 }
 
 .Comment-name h5 {
@@ -11,4 +13,11 @@
 
 .Comment-text {
   padding-top: 10px;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.Comment-answer {
+  padding-top: 10px;
+  color: #0087e9;
 }

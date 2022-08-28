@@ -4,6 +4,8 @@ import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
 function List(props) {
+
+  // CSS классы по БЭМ
   const cn = bem('List');
 
   return (
@@ -22,7 +24,6 @@ List.propTypes = {
 }
 
 List.defaultProps = {
-  items: [],
   renderItem: (item) => {
     return item.toString()
   }

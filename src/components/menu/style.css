@@ -1,3 +1,4 @@
+/* Меню навигации */
 .Menu {
     display: flex;
     list-style: none;
@@ -21,4 +22,8 @@
 .Menu-item:last-child {
     margin-right: 0;
     padding-right: 0;
+}
+
+.Menu a {
+    color: #0087E9;
 }

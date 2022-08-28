@@ -5,13 +5,19 @@ import throttle from "lodash.throttle";
 import './style.css';
 
 function Input(props) {
+
+  // CSS классы по БЭМ
   const cn = bem('Input');
 
   // Внутренний стейт по умолчанию с переданным value
   const [value, change] = useState(props.value);
 
   // Задержка для вызова props.onChange
-  const changeThrottle = useCallback(throttle(value => props.onChange(value), 1000), [props.onChange]);
+  const changeThrottle = useCallback(
+    props.withoutThrottle
+    ? value => props.onChange(value)
+    : throttle(value => props.onChange(value), 1000),
+    [props.onChange]);
 
   // Обработчик изменений в поле
   const onChange = useCallback(event => {
@@ -31,6 +37,7 @@ function Input(props) {
       type={props.type}
       placeholder={props.placeholder}
       onChange={onChange}
+      onFocus={props.onFocus}
     />
   )
 }
@@ -41,12 +48,18 @@ Input.propTypes = {
   placeholder: propTypes.string,
   onChange: propTypes.func,
   theme: propTypes.string,
+  withoutThrottle: propTypes.bool,
+  onFocus: propTypes.func
 }
 
 Input.defaultProps = {
+  value: '',
+  placeholder: '',
   onChange: () => {},
   type: 'text',
-  theme: ''
+  theme: '',
+  withoutThrottle: false,
+  onFocus: () => {}
 }
 
 export default React.memo(Input);

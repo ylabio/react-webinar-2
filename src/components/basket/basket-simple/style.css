@@ -1,0 +1,16 @@
+/* Контрол корзины с ее упрощенным содержимым */
+.BasketSimple{
+    display: flex;
+    justify-content: flex-end;
+    padding: 0;
+    font-size: 18px;
+}
+
+.BasketSimple-label{
+
+}
+
+.BasketSimple-total{
+    font-weight: bold;
+    margin: 0 15px;
+}

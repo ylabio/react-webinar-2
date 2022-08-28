@@ -1,0 +1,18 @@
+/* Шаблон для формы*/
+.LayoutForm{
+    margin-top: 40px;
+    padding: 0 20px;
+}
+
+.LayoutForm-title{
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.LayoutForm-form > *{
+    margin-top: 20px;
+}
+
+.LayoutForm-form button{
+    margin-top: 20px;
+}

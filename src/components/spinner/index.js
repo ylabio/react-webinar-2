@@ -21,4 +21,8 @@ Spinner.propTypes = {
   children: PropTypes.node,
 }
 
+Spinner.defaultProps = {
+  children: '',
+}
+
 export default React.memo(Spinner);

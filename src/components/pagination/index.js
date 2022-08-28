@@ -2,8 +2,11 @@ import React from 'react';
 import propTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
+import {Link} from "react-router-dom";
 
 function Pagination(props) {
+
+  // CSS классы по БЭМ
   const cn = bem('Pagination');
   // Количество страниц
   const length = Math.ceil(props.count / Math.max(props.limit, 1));
@@ -27,22 +30,19 @@ function Pagination(props) {
   // Последнаяя страница
   if (right < length) items.push(length);
 
-  // Возвращает функцию с замыканием на номер страницы
-  const onClickHandler = page => {
-    return () => props.onChange(page);
-  };
-
   return (
-    <ul className={cn()}>
+    <div className={cn()}>
       {items.map((number, index) => (
-        <li key={index}
-            className={cn('item', {active: number === props.page, split: !number})}
-            onClick={onClickHandler(number)}
-        >
-          {number || '...'}
-        </li>
+        number
+          ? <Link to={props.link(number)}
+                  key={index}
+                  className={cn('item', {active: number === props.page})}
+          >
+            {number}
+          </Link>
+          : <div key={index} className={cn('item', {split: true})}>...</div>
       ))}
-    </ul>
+    </div>
   )
 }
 

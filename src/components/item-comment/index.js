@@ -15,7 +15,7 @@ function ItemComment(props) {
   const commentDate = `${date.getDate()} ${props.t('comments.month')[date.getMonth()]} ${date.getFullYear()} ${props.t('comments.in')} ${date.getHours()}:${date.getMinutes()}`
 
   return (
-    <div className={cn()} style={{"paddingLeft": (props.nestingLevel - 1) * 30}}>
+    <div className={cn()} style={{"paddingLeft": (props.nestingLevel) * 30}}>
       <div className={cn('header')}>
         <span className={cn('title')}>{props.title}</span><span className={cn('date')}>{commentDate}</span>
       </div>

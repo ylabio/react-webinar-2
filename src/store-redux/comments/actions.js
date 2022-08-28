@@ -30,6 +30,7 @@ export default {
             _type: parentType
           }
         }
+        
         // Отправляем новый комменатрий на бек
         const postJson = await services.api.request({
           url: `/api/v1/comments?fields=items(*,author(profile(name))),count&sort=order&limit=*`,
@@ -39,6 +40,7 @@ export default {
           },
           body: JSON.stringify(body)
         });
+        
         dispatch({type: 'comments/add-comment-success'});
         
         // Подгружаем новый список комментариев с новым добавленным комментарием
@@ -53,6 +55,7 @@ export default {
           // Ошибка при загрузке
           dispatch({type: 'comments/load-error'});
         }
+        
       } catch (e) {
         // Ошибка при загрузке
         dispatch({type: 'comments/add-comment-error'});

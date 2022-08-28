@@ -41,13 +41,14 @@ function Comments() {
   
   const options = {
     comments: useMemo(() => {
-      return treeToList(listToTree(select.comments)).map((item) => ({
+      return treeToList(listToTree(select.comments), ((item, level) => ({
+        level,
         id: item._id,
         text: item.text,
         author: item.author.profile.name,
-        nestingLevel: item.parent._tree?.length ?? 1,
+        nestingLevel: level,
         date: item.dateCreate,
-      }))
+      })))
     }, [select.comments]),
   }
   

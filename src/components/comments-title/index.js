@@ -16,7 +16,7 @@ CommentsTitle.propTypes = {
 }
 
 CommentsTitle.defaultProps = {
-  title: "Comments",
+  title: "Комментарии",
   count: 0
 }
 

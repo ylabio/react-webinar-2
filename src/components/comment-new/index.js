@@ -33,16 +33,18 @@ const CommentNew = ({
 CommentNew.propTypes = {
   title: propTypes.string,
   value: propTypes.string,
-  setValueCallback: propTypes.func,
+  onChangeValue: propTypes.func,
   submitTitle: propTypes.string,
   cancelTitle: propTypes.string,
-  submitCallback: propTypes.func,
-  cancelCallback: propTypes.func,
+  onSubmit: propTypes.func,
+  onCancel: propTypes.func,
 };
 
 CommentNew.defaultProps = {
-  newCommentTitle: "New comment",
-  submitTitle: "Submit",
+  title: "Новый комментарий",
+  submitTitle: "Отправить",
+  onSubmit: () => {},
+  onCancel: () => {},
 };
 
 export default React.memo(CommentNew);

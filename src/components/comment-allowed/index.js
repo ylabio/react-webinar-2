@@ -28,7 +28,6 @@ CommentAllowed.propTypes = {
   loginTitle: propTypes.node.isRequired,
   loginText: propTypes.string,
   cancelTitle: propTypes.string,
-  indentLevel: propTypes.number,
   onlogin: propTypes.func,
   onCancel: propTypes.func,
 };
@@ -36,7 +35,8 @@ CommentAllowed.propTypes = {
 CommentAllowed.defaultProps = {
   loginText: "",
   cancelTitle: "",
-  indentLevel: 0,
+  onlogin: () => {},
+  onCancel: () => {},
 };
 
 export default React.memo(CommentAllowed);

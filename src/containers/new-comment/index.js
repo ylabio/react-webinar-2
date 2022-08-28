@@ -1,10 +1,10 @@
-import React, {useCallback, useState} from "react";
-import {useStore as useStoreRedux} from "react-redux";
-import actionsComments from '../../store-redux/article-comments/actions'
-import {useLocation, useNavigate} from "react-router-dom";
+import React, { useCallback, useState } from "react";
+import { useStore as useStoreRedux } from "react-redux";
+import actionsComments from "../../store-redux/article-comments/actions";
+import { useLocation, useNavigate } from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
-import CommentNew from '../../components/comment-new';
-import propTypes from 'prop-types';
+import CommentNew from "../../components/comment-new";
+import propTypes from "prop-types";
 import CommentAllowed from "../../components/comment-allowed";
 
 function NewCommentContainer({ parent, isNewComment, onCancel, onSubmit }) {
@@ -71,6 +71,7 @@ NewCommentContainer.defaultProps = {
   parent: "",
   isNewComment: true,
   onCancel: () => {},
+  onSubmit: () => {},
 };
 
 export default React.memo(NewCommentContainer);

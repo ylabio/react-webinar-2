@@ -2,13 +2,14 @@ import React from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import './style.css';
+import LoginHeadContainer from '../../containers/login-head-container';
 
-function Layout({head, top, children}){
+function Layout({head, children}){
   const cn = bem('Layout');
 
   return (
     <div className={cn()}>
-      {top ? <div className={cn('top')}>{top}</div> : null}
+        <LoginHeadContainer/>
       <div className={cn('head')}>
         {head}
       </div>

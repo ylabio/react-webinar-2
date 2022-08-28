@@ -15,10 +15,6 @@
   "basket.delete": "Delete",
   "article.add": "Add",
   "filter.reset": "Reset",
-  "auth.title": "Sign In",
-  "auth.login": "Login",
-  "auth.password": "Password",
-  "auth.signIn": "Sign in",
-  "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "signin": "Sign",
+  "signout": "SignOut"
 }

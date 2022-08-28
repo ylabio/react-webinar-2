@@ -8,8 +8,8 @@ function LocaleSelect() {
 
   const options = {
     lang: useMemo(() => ([
-      {value: 'ru', title: 'Русский'},
-      {value: 'en', title: 'English'},
+      {_id: 'ru', title: 'Русский'},
+      {_id: 'en', title: 'English'},
     ]), [])
   };
 

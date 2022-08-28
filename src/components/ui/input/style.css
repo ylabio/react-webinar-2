@@ -1,0 +1,9 @@
+/* Поле ввода */
+.Input{
+    font-size: 16px;
+    padding: 2px;
+}
+
+.Input_theme_big{
+    width: 300px;
+}

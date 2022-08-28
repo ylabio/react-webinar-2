@@ -1,13 +1,13 @@
 import React, {useCallback, useMemo, useState} from "react";
 import useSelector from "../../hooks/use-selector";
-import NewComment from "../../components/new-comment";
-import ItemComment from "../../components/item-comment";
-import Spinner from "../../components/spinner";
+import NewComment from "../../components/comments/new-comment";
+import ItemComment from "../../components/comments/item-comment";
+import Spinner from "../../components/common/spinner";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
 import treeToList from "../../utils/tree-to-list";
 import listToTree from "../../utils/list-to-tree"
 import useTranslate from "../../hooks/use-translate";
-import LayoutComments from "../../components/layout-comments";
+import LayoutComments from "../../components/layouts/layout-comments";
 import actionsComments from '../../store-redux/comments/actions';
 import useInit from "../../hooks/use-init";
 import {useNavigate} from "react-router-dom";

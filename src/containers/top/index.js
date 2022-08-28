@@ -1,6 +1,6 @@
 import React, {useCallback} from "react";
 import useTranslate from "../../hooks/use-translate";
-import LayoutFlex from "../../components/layout-flex";
+import LayoutFlex from "../../components/layouts/layout-flex";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";

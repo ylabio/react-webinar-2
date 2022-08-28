@@ -16,11 +16,14 @@ function PermissionComment(props) {
 }
 
 PermissionComment.propTypes = {
-
+  onSignIn: propTypes.func.isRequired,
+  onCancelReply: propTypes.func.isRequired,
+  reply: propTypes.string,
 }
 
 PermissionComment.defaultProps = {
-
+  onSignIn: () => {},
+  onCancelReply: () => {},
 }
 
 export default React.memo(PermissionComment);

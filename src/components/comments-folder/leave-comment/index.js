@@ -33,11 +33,15 @@ function LeaveComment(props) {
 }
 
 LeaveComment.propTypes = {
-
+  onCancelReply: propTypes.func.isRequired,
+  onAddComment: propTypes.func.isRequired,
+  id: propTypes.string.isRequired,
+  reply: propTypes.string.isRequired,
 }
 
 LeaveComment.defaultProps = {
-
+  onCancelReply: () => {},
+  onAddComment: () => {},
 }
 
 export default React.memo(LeaveComment);

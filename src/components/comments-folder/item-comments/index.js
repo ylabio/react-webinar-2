@@ -24,21 +24,28 @@ function ItemComments(props) {
       </div>
       <div className={cn('text')}>{props.item.text}</div>
       <button className={cn('button')} onClick={callbacks.onReply}>Ответить</button>
-      {(!props.isAuthorized && props.isReply === props.item._id) && 
+      {(!props.isAuthorized && props.idReply === props.item._id) && 
       <PermissionComment onSignIn={props.onSignIn} reply={'reply'} onCancelReply={props.onCancelReply}/>}
 
-      {(props.isAuthorized && props.isReply === props.item._id) && 
+      {(props.isAuthorized && props.idReply === props.item._id) && 
       <LeaveComment reply={'reply'} onCancelReply={props.onCancelReply} id={props.item._id} onAddComment={props.onAddComment}/>}
     </div>
   )
 }
 
 ItemComments.propTypes = {
-
+  onReply: propTypes.func.isRequired,
+  onCancelReply: propTypes.func.isRequired,
+  onAddComment: propTypes.func.isRequired,
+  item: propTypes.object.isRequired,
+  isAuthorized: propTypes.bool.isRequired,
+  idReply: propTypes.string.isRequired,
 }
 
 ItemComments.defaultProps = {
-
+  onReply: () => {},
+  onCancelReply: () => {},
+  onAddComment: () => {},
 }
 
 export default React.memo(ItemComments);

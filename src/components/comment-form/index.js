@@ -25,7 +25,6 @@ function CommentForm(props) {
         setForm({...form, err: true})
       } else {
         props.addComment(props.token, body);
-        props.closeComment(props.commentId);
       }
     }, [form.text]),
 

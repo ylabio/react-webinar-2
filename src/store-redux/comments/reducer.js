@@ -40,7 +40,7 @@ export default function reducer(state = initialState, action){
         data: [
         ...treeToList(
           listToTree([...state.data, action.payload]),
-          (item, level) => ({...item, level: level, active: false, main: false,})
+          (item, level) => ({...item, level: level, active: false})
         ),
     ],
         count: state.count + 1,

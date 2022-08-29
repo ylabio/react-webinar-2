@@ -1,9 +1,22 @@
+.Textarea-fix {
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+  width: 900px;
+  height: 120px;
+  padding-bottom: 55px;
+
+  /* max-height: 70px; */
+  /* width: 80vw; */
+}
+
 .Textarea-comment {
   border: 1px solid #666666;
   box-shadow: inset 0px 1px 4px rgba(102, 102, 102, 0.1);
   resize: none;
-  max-width: 900px;
-  width: 100%;
+  /* max-width: 900px;
+  width: 100%; */
+  width: 900px;
   height: 60px;
 }
 .Textarea-submit {

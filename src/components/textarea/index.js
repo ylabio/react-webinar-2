@@ -9,23 +9,25 @@ function TextArea({ head, btnNewComment, parent, newComment }) {
   const [text, setText] = useState("");
 
   return (
-    <div className={cn()}>
+    <div className={btnNewComment ? cn() : cn("fix")}>
       <p>
         <b>{head}</b>
       </p>
 
       <textarea
         className={cn("comment")}
+        value={text}
         onChange={(e) => setText(e.target.value)}
-      ></textarea>
+      />
 
       <input
         className={cn("submit")}
         type="submit"
-        onClick={() =>
+        onClick={() => {
           text &&
-          newComment(text, parent, btnNewComment ? "comment" : "article")
-        }
+            newComment(text, parent, btnNewComment ? "comment" : "article");
+          setText("");
+        }}
       />
       {btnNewComment && btnNewComment}
     </div>

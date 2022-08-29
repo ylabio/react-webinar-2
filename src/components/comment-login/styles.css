@@ -1,0 +1,7 @@
+.CommentLogin-fix {
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+  height: 70px;
+  width: 100vw;
+}

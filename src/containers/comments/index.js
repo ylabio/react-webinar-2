@@ -16,6 +16,10 @@ import { sortComments } from "../../utils/sort";
 function CommentsContainer({ id }) {
   const storeRedux = useStoreRedux();
 
+  useInit(async () => {
+    storeRedux.dispatch(actionsComments.load(id));
+  }, [id]);
+
   const select = useSelectorRedux(
     (state) => ({
       comments: state.comments.data.items,
@@ -24,11 +28,9 @@ function CommentsContainer({ id }) {
     shallowEqual
   );
 
-  const session = useSelector((state) => state.session.exists);
+  console.log("comments", select.comments);
 
-  useInit(async () => {
-    storeRedux.dispatch(actionsComments.load(id));
-  }, [id]);
+  const session = useSelector((state) => state.session.exists);
 
   const [state, setState] = useState([]);
   const [area, setArea] = useState(0);
@@ -38,7 +40,6 @@ function CommentsContainer({ id }) {
   }, [select.comments]);
 
   const callbacks = {
-    // Открытие корзины
     newComment: useCallback((text, parent_id, parentType) => {
       storeRedux.dispatch(
         actionsComments.newComment(text, parent_id, parentType)
@@ -50,7 +51,7 @@ function CommentsContainer({ id }) {
     <input type="button" value="Отмена" onClick={() => setArea(0)} />
   );
 
-  console.log("comments", state);
+  console.log("state", state);
 
   return (
     <div>

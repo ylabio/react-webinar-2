@@ -1,7 +1,8 @@
 import React from "react";
 import { cn as bem } from "@bem-react/classname";
-// import propTypes from "prop-types";
-// import './style.css';
+import propTypes from "prop-types";
+import { Link } from "react-router-dom";
+import "./styles.css";
 
 function CommentLogin({ log, children, btnNewComment }) {
   const cn = bem("CommentLogin");
@@ -12,13 +13,17 @@ function CommentLogin({ log, children, btnNewComment }) {
     if (btnNewComment) {
       return (
         <div className={cn()}>
-          Войдите чтоб иметь возможность ответить {btnNewComment}
+          <Link to="/login">Войдите</Link>, чтоб иметь возможность ответить{" "}
+          {btnNewComment}
         </div>
       );
     } else {
       return (
-        <div className={cn()}>
-          Войдите чтоб иметь возможность комментировать
+        <div className={cn("fix")}>
+          <p>
+            <Link to="/login">Войдите</Link>, чтоб иметь возможность
+            комментировать
+          </p>
         </div>
       );
     }

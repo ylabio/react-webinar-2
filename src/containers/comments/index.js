@@ -55,7 +55,7 @@ function CommentsContainer({ id }) {
   return (
     <div>
       {state && (
-        <CommentList all={state.length} log={session}>
+        <CommentList all={state.length} log={session} waiting={select.waiting}>
           {state.map((item, index) => {
             let pl =
               (item.parent._tree.length - 1) * 25 > 150

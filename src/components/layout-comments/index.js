@@ -21,7 +21,7 @@ function LayoutComments(props) {
 }
 
 LayoutComments.propTypes = {
-  head: PropTypes.string,
+  head: PropTypes.node,
   children: PropTypes.node
 };
 

@@ -32,7 +32,7 @@ function CommentsContainer() {
 
   const callbacks = {
     sendComment: useCallback(async() => {
-      await storeRedux.dispatch(actionsCommentForm.send({text: text, parent: {_id: parentId, _type: place}}));
+      storeRedux.dispatch(actionsCommentForm.send({text: text, parent: {_id: parentId, _type: place}}));
       storeRedux.dispatch(actionsComments.load(params.id));
       setText(''); setPlace('article'), [selectRudux.comments]
     }),

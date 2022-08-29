@@ -15,9 +15,9 @@ function Comment(props) {
     }, [props.item._id])
   };
 
-
+  
 function Otstup(){
-  let level= props.item.level;
+  let level= props.item.level<35?props.item.level:35;
   let indent=[];
   for(let i=0;i<level;i++) {indent.push(<div key={i} className={cn('indent')}></div>)};
   return indent

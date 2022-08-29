@@ -70,10 +70,10 @@ function CommentsContainer({ id }) {
               >
                 <CommentItem item={item} setArea={() => setArea(index + 1)} />
                 {area === index + 1 && (
-                  <CommentLogin log={session} btnNewComment={btnNewComment}>
+                  <CommentLogin log={session} setArea={setArea}>
                     <TextArea
                       head={"Ответить"}
-                      btnNewComment={btnNewComment}
+                      setArea={setArea}
                       parent={item._id}
                       newComment={callbacks.newComment}
                     />

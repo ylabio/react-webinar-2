@@ -4,17 +4,17 @@ import propTypes from "prop-types";
 import { Link } from "react-router-dom";
 import "./styles.css";
 
-function CommentLogin({ log, children, btnNewComment }) {
+function CommentLogin({ log, children, setArea }) {
   const cn = bem("CommentLogin");
 
   if (log) {
     return children;
   } else {
-    if (btnNewComment) {
+    if (setArea) {
       return (
         <div className={cn()}>
           <Link to="/login">Войдите</Link>, чтоб иметь возможность ответить{" "}
-          {btnNewComment}
+          <i onClick={() => setArea(0)}>Отмена</i>
         </div>
       );
     } else {

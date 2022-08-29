@@ -3,13 +3,13 @@ import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./styles.css";
 
-function TextArea({ head, btnNewComment, parent, newComment }) {
+function TextArea({ head, setArea, parent, newComment }) {
   const cn = bem("Textarea");
 
   const [text, setText] = useState("");
 
   return (
-    <div className={btnNewComment ? cn() : cn("fix")}>
+    <div className={setArea ? cn() : cn("fix")}>
       <p>
         <b>{head}</b>
       </p>
@@ -24,12 +24,14 @@ function TextArea({ head, btnNewComment, parent, newComment }) {
         className={cn("submit")}
         type="submit"
         onClick={() => {
-          text &&
-            newComment(text, parent, btnNewComment ? "comment" : "article");
+          text && newComment(text, parent, setArea ? "comment" : "article");
           setText("");
+          setArea(0);
         }}
       />
-      {btnNewComment && btnNewComment}
+      {setArea && (
+        <input type="button" value="Отмена" onClick={() => setArea(0)} />
+      )}
     </div>
   );
 }

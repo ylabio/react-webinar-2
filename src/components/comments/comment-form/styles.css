@@ -1,5 +1,9 @@
 .CommentForm {  
-    padding: 0 40px 30px;  
+    padding:0px 0px 30px 30px;    
+}
+
+.CommentForm-main {  
+    padding:0px 40px 30px;    
 }
 
 .CommentForm-text {
@@ -30,19 +34,4 @@
 .CommentForm-title {
     font-size: 12px;
     font-weight: 700;
-}
-.CommentForm-signIn {
-    padding: 0;
-    margin: 0;
-    font-size: 16px;
-    border: none;
-    color: #0087E9;
-    background-color: transparent; 
-    text-decoration-line:underline;
-    cursor: pointer;
-}
-
-.CommentForm-message {
-    font-size: 16px;
-  }
-    
+}    

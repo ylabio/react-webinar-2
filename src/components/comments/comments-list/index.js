@@ -18,9 +18,9 @@ function CommentsList(props) {
           isAuth={props.isAuth}
           submit={props.submit}
           submitLabel={props.submitLabel}
+          title={props.title}
           activeComment={props.activeComment}
           setActiveComment={props.setActiveComment}
-          parentId={props.parentId}
           canselLabel={props.canselLabel}
           onSignIn={props.onSignIn}
         />

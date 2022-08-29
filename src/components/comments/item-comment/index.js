@@ -1,9 +1,7 @@
 import React, { useCallback, useState } from "react";
 import propTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
-import { Link } from "react-router-dom";
-import CommentsList from "../comments-list";
-import CommentForm from "../../components/comment-form";
+import CommentForm from "../comment-form";
 import "./styles.css";
 
 function ItemComment({
@@ -13,10 +11,10 @@ function ItemComment({
   isAuth,
   submit,
   submitLabel,
+  title,
   canselLabel,
   activeComment,
   setActiveComment,
-  parentId,
   onSignIn,
 }) {
   const cn = bem("ItemComment");
@@ -55,22 +53,23 @@ function ItemComment({
       >
         Ответить
       </button>
-      {replies && (
-        <div className={cn("replies")}>
-          <CommentsList
-            comments={replies}
+      {replies &&
+        replies.map((item) => (
+          <ItemComment
+            item={item}
+            key={item._id}
+            replies={getReplies(item._id)}
             getReplies={getReplies}
             isAuth={isAuth}
             submit={submit}
             submitLabel={submitLabel}
-            canselLabel={canselLabel}
+            title={title}
             activeComment={activeComment}
             setActiveComment={setActiveComment}
-            parentId={parentId}
+            canselLabel={canselLabel}
             onSignIn={onSignIn}
           />
-        </div>
-      )}
+        ))}
       {isReplying && (
         <CommentForm
           id={item._id}
@@ -78,12 +77,12 @@ function ItemComment({
           isAuth={isAuth}
           submit={submit}
           submitLabel={submitLabel}
+          title={title}
           canselLabel={canselLabel}
           hasCancelButton
           handleCancel={() => {
             setActiveComment(null);
           }}
-          parentId={parentId}
           onSignIn={onSignIn}
         />
       )}

@@ -5,7 +5,6 @@ import {
   shallowEqual,
 } from "react-redux";
 import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
 import { useParams } from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";

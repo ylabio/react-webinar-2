@@ -23,5 +23,7 @@
   "session.signOut": "Sign Out",
   "comments.title":"Comments",
   "commentForm.submit":"Send",
-  "commentForm.cansel":"Cansel"
+  "commentForm.answer":"New answer",
+  "commentForm.cansel":"Cansel",
+  "commentForm.comment":"New comment"
 }

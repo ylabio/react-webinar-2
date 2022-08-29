@@ -11,9 +11,9 @@ import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import actionsComments from "../../store-redux/comments/actions";
 import Spinner from "../../components/spinner";
-import CommentsList from "../../components/comments-list";
-import CommentForm from "../../components/comment-form";
-import CommentHead from "../../components/comment-head";
+import CommentsList from "../../components/comments/comments-list";
+import CommentForm from "../../components/comments/comment-form";
+import CommentHead from "../../components/comments/comment-head";
 
 function Comments({ parentId }) {
   const storeRedux = useStoreRedux();
@@ -68,10 +68,10 @@ function Comments({ parentId }) {
         isAuth={selectStore.isAuth}
         submit={callbacks.onSubmit}
         submitLabel={t("commentForm.submit")}
+        title={t("commentForm.answer")}
         canselLabel={t("commentForm.cansel")}
         activeComment={activeComment}
         setActiveComment={setActiveComment}
-        parentId={parentId}
         onSignIn={callbacks.onSignIn}
       />
       {!activeComment && (
@@ -80,7 +80,7 @@ function Comments({ parentId }) {
           type={"article"}
           submit={callbacks.onSubmit}
           submitLabel={t("commentForm.submit")}
-          parentId={parentId}
+          title={t("commentForm.comment")}
           isAuth={selectStore.isAuth}
           onSignIn={callbacks.onSignIn}
         />

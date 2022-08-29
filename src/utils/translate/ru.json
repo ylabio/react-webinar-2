@@ -24,6 +24,8 @@
   "session.signIn": "Вход",
   "session.signOut": "Выход",
   "comments.title":"Комментарии",
-   "commentForm.submit":"Отправить",
-   "commentForm.cansel":"Отмена"
+  "commentForm.submit":"Отправить",
+  "commentForm.cansel":"Отмена",
+  "commentForm.answer":"Новый ответ",
+  "commentForm.comment":"Новый комментарий"
 }

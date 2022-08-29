@@ -12,7 +12,7 @@ function CommentItem({ id, user, mine, date, text, onReply, shift, t }) {
   const cn = bem('CommentItem');
 
   return (
-    <div className={cn()} style={{ paddingLeft: 30 * shift > 300 ? '300px' : (30 * shift) + 'px' }}>
+    <div className={cn()} style={{ paddingLeft: 30 * shift + 'px' }}>
       <div className={cn('title')}>
         <div className={mine ? cn('mine') : cn('user')}>{user.name}</div>
         <div className={cn('date')}>{formatDate(date, t)}</div>

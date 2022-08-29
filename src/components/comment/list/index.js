@@ -12,7 +12,7 @@ function CommentList({ list, comment, writter, t }) {
 
   return (
     <div className={cn()}>
-      <div className={cn('title')}>{t('comments.title')} ({list?.length})</div>
+      <div className={cn('title')}>{t('comments.title')} ({list?.length - 1})</div>
       {list?.length ? list.map(item => item._type == 'writter' ? writter(item) : comment(item)) : null}
     </div>
   );

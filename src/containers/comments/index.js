@@ -66,7 +66,7 @@ function Comments({ id, comments, onSend }) {
         date={comment.dateCreate}
         text={comment.text}
         onReply={callbacks.onReply}
-        shift={comment.shift}
+        shift={comment.shift <= 10 ? comment.shift : 10}
         t={t}
       />
     ), [t, user, newComment]),
@@ -82,7 +82,7 @@ function Comments({ id, comments, onSend }) {
         onSubmit={callbacks.onSubmit}
         onCancel={callbacks.onCancel}
         onSignin={callbacks.onSignin}
-        shift={writter.shift}
+        shift={writter.shift <= 10 ? writter.shift : 10}
         t={t}
       />
     ), [t, user, newComment])

@@ -11,7 +11,8 @@ function CommentWritter({ isAuth, isReply, text, onChange, onSubmit, onCancel, o
   const cn = bem('CommentEditor');
 
   return (
-    <div className={cn()} style={{ paddingLeft: 30 * shift > 300 ? '300px' : (30 * shift) + 'px' }}>{isAuth ?
+    <div className={cn()} style={{ paddingLeft: 30 * shift + 'px' }}>{
+      isAuth ?
       <>
         <div className={cn('title')}>{isReply ? t("comments.newReplay") : t("comments.newComment")}</div>
         <textarea className={cn('textarea')} onChange={e => onChange(e.target.value)} value={text} />

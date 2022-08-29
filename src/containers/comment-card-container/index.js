@@ -31,9 +31,20 @@ function CommentCardContainer(props) {
       },
       [setIsVisible]
     ),
-    onOutsideAlerter: useCallback(() => {
-      setIsVisible(false);
-    }, [dispatch]),
+    onOutsideAlerter: useCallback(
+      target => {
+        if (target.name === 'reply') {
+          // если нажата кнопка 'ответить' другого комментария-ответа, то форма нового комментария должна быть закрыта
+          dispatch(formHide());
+        } else {
+          // если нажатие просто снаружи комментариев-ответов, то форма нового комментария открывается
+          dispatch(formShow());
+        }
+        // закрываем форму текущего комментария
+        setIsVisible(false);
+      },
+      [dispatch]
+    ),
 
     onReply: useCallback(() => {
       setIsVisible(true);

@@ -20,7 +20,7 @@ export default function reducer(state = initialState, action){
       return { ...state, waiting: true};
 
     case "comments/send-success":
-      return { ...state, data: [...state.data, action.payload], waiting: false};
+      return { ...state, waiting: false};
 
     case "comments/send-error":
       return { ...state, waiting: false}; //@todo текст ошибки сохранить?

@@ -33,7 +33,10 @@ function CommentsContainer() {
   function sendAndLoadComments(data, id) {
     return function(dispatch) {
       dispatch(actionsComments.send(data));
-      dispatch(actionsComments.load(id));
+      // Без таймаута комменты не всегда успевают обновиться
+      setTimeout(function() {
+        dispatch(actionsComments.load(id));
+      }, 500);
     }
   }
 

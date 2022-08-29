@@ -19,6 +19,7 @@
 .CommentItem-main {
   margin-bottom: 6px;
   font-size: 14px;
+  overflow: auto;
 }
 
 .CommentItem-answer {

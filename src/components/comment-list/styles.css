@@ -1,0 +1,12 @@
+.Comments {
+  padding: 20px 35px 180px;
+}
+
+.Comments-nosession {
+  padding: 20px 35px 80px;
+}
+
+.Comments-all {
+  font-size: 24px;
+  line-height: 28px;
+}

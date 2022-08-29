@@ -1,0 +1,19 @@
+.CommentLogin {
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.CommentLogin-fix {
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+  height: 70px;
+  width: 950px;
+}
+
+.CommentLogin i {
+  font-style: normal;
+  text-decoration: underline;
+  color: #666666;
+  cursor: pointer;
+}

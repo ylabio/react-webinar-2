@@ -1,0 +1,31 @@
+.Comment {
+  padding-top: 30px;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.Comment-name h5 {
+  display: inline;
+}
+.Comment-name span {
+  padding-left: 10px;
+  color: #666666;
+}
+
+.Comment-text {
+  padding-top: 10px;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.Comment-text p {
+  max-width: 800px;
+  width: 100%;
+  word-break: break-all;
+}
+
+.Comment-answer {
+  padding-top: 10px;
+  color: #0087e9;
+  cursor: pointer;
+}

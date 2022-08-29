@@ -1,0 +1,17 @@
+.LoginComments {
+    margin: 30px 0;
+}
+
+.LoginComments-button {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    text-decoration-line: underline;
+    cursor: pointer;
+    color: #0087E9;
+}
+
+.LoginComments-button_color_green {
+    color: #666666;
+}

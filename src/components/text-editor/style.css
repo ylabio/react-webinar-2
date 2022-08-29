@@ -1,0 +1,31 @@
+.TextEditor {
+    margin: 30px 0;
+}
+
+.TextEditor-name {
+    margin: 0 0 10px 0;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    color: #000000;
+}
+
+.TextEditor-textArea {
+    margin: 10px 0;
+    width: 100%;
+    height: 80px;
+    resize: none;
+}
+
+.TextEditor-button {
+    padding: 3px 8px;
+    margin: 0 10px 0 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+
+    color: #000000;
+}

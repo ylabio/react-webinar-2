@@ -1,0 +1,25 @@
+.ProtectedComment {
+  padding-top: 30px;
+}
+
+.ProtectedComment_padding {
+  padding: 0px 35px 30px;
+}
+
+.ProtectedComment-link {
+  color: #0087e9;
+}
+
+.ProtectedComment-button {
+  background-color: transparent;
+  text-decoration: underline;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #666666;
+}
+
+.ProtectedComment-link:hover,
+.ProtectedComment-button:hover {
+  opacity: 0.8;
+}

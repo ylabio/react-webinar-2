@@ -8,6 +8,8 @@ import ReplyComment from '../reply-comment';
 import OutsideAlerter from '../../hooks/use-outside-alterter';
 import {useDispatch} from 'react-redux';
 import {formHide, formShow} from '../../store-redux/comments-slice';
+import ProtectedCommentForm from '../protected-comment-form';
+import useSelector from '../../hooks/use-selector';
 
 function CommentCardContainer(props) {
   const services = useServices();
@@ -23,6 +25,10 @@ function CommentCardContainer(props) {
     const authorName = response?.result?.username;
     setAuthor(authorName);
   }, [props.comment.author._id]);
+
+  const selectStore = useSelector(state => ({
+    exists: state.session.exists
+  }));
 
   const callbacks = {
     onFormToggle: useCallback(
@@ -62,11 +68,16 @@ function CommentCardContainer(props) {
           date={props.comment.dateCreate}
           onReply={callbacks.onReply}
         />
+
         {isVisible ? (
-          <ReplyComment
-            parentId={props.comment._id}
-            onCancel={() => callbacks.onFormToggle(false)}
-          />
+          <ProtectedCommentForm
+            callbackGuardCondition={() => selectStore.exists}
+          >
+            <ReplyComment
+              parentId={props.comment._id}
+              onCancel={() => callbacks.onFormToggle(false)}
+            />
+          </ProtectedCommentForm>
         ) : null}
       </Spinner>
     </OutsideAlerter>

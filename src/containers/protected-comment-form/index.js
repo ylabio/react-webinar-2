@@ -3,13 +3,14 @@ import propTypes from 'prop-types';
 import useSelector from '../../hooks/use-selector';
 import InfoBadge from '../../components/info-badge';
 
-function ProtectedCommentForm({children}) {
-  const select = useSelector(state => ({
-    exists: state.session.exists,
-    waiting: state.session.waiting
-  }));
+function ProtectedCommentForm({children, callbackGuardCondition}) {
+  if (callbackGuardCondition()) {
+    return children;
+  } else {
+    return <InfoBadge />;
+  }
 
-  return !select.exists || select.waiting ? <InfoBadge /> : children;
+  //   return !select.exists || select.waiting ? <InfoBadge /> : children;
 }
 
 ProtectedCommentForm.propTypes = {

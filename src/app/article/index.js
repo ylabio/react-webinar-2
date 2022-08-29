@@ -30,13 +30,17 @@ function Article() {
   const params = useParams();
 
   const storeRedux = useStoreRedux();
-  const isVisible = useSelectorRedux(isFormVisible);
   const commentsTotal = useSelectorRedux(selectCommentsTotal);
 
   useInit(async () => {
     //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsArticle.load(params.id));
   }, [params.id]);
+
+  const selectStore = useSelector(state => ({
+    exists: state.session.exists,
+    waiting: state.session.waiting
+  }));
 
   const select = useSelectorRedux(
     state => ({
@@ -66,10 +70,7 @@ function Article() {
         />
       </Spinner>
       <h2>Комментарии ({commentsTotal})</h2>
-      <ProtectedCommentForm>
-        <Comments articleId={params.id} />
-        {isVisible ? <NewComment parentId={params.id} /> : null}
-      </ProtectedCommentForm>
+      <Comments articleId={params.id} />
     </Layout>
   );
 }

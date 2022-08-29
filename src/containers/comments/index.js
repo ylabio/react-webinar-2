@@ -15,7 +15,7 @@ import CommentsList from '../../components/comments-list';
 
 function Comments(props) {
   const dispatch = useDispatch();
-  const commentsTotal = useSelector(selectCommentsTotal);
+
   const comments = useSelector(selectAllComments);
   const commentsTree = listToTreeWithParentId(comments, props.articleId);
   const content = treeToListWithUlHtmlMarkup(commentsTree, elem => (
@@ -28,7 +28,6 @@ function Comments(props) {
 
   return (
     <Stack spacing={'big'}>
-      <h2>Комментарии ({commentsTotal})</h2>
       <CommentsList>{content}</CommentsList>
     </Stack>
   );

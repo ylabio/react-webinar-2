@@ -19,6 +19,7 @@
 	margin: 10px 0;
 	font-size: 14px;
 	line-height: 16px;
+	word-break: break-word;
 }
 
 .Comment-button {

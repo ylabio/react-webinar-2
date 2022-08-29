@@ -23,5 +23,10 @@
   "session.signOut": "Sign Out",
   "comments.signIn": "Sign in",
   "comments.toComment": "to comment",
-  "comments.cancel": "Cancel"
+  "comments.cancel": "Cancel",
+  "comment.reply": "Reply",
+  "comments.count": "Comments",
+  "comments.form.newAnswer": "New reply",
+  "comments.form.newComment": "New comment",
+  "comments.form.send": "Send"
 }

@@ -18,6 +18,8 @@ import CommentItem from "../../components/comments/comment-item";
 import CommentsCounter from "../../components/comments/comments-counter";
 import CommentForm from "../../components/comments/comment-form";
 import CommentsList from "../../components/comments/comments-list";
+import nestLimiter from "../../utils/nest-limiter";
+import dateFormatter from "../../utils/date-formatter";
 
 function ArticleComments({ articleId }) {
   const store = useStore();
@@ -40,6 +42,8 @@ function ArticleComments({ articleId }) {
   );
 
   const authId = useSelector((state) => state.session.token);
+  const lang = useSelector((state) => state.locale.lang);
+
   const { t } = useTranslate();
 
   const options = {
@@ -96,20 +100,22 @@ function ArticleComments({ articleId }) {
         <CommentItem
           key={item._id}
           item={item}
-          level={item.parent._tree?.length ?? 1}
+          date={dateFormatter(item.dateCreate, lang)}
+          level={nestLimiter(item.parent._tree?.length) ?? 1}
           onReply={callbacks.setReplyingComment}
           renderReply={renderCommentForm.commentForm}
           replyIsOpen={replyIsOpen}
+          t={t}
         />
       ),
-      [options.comments]
+      [options.comments, lang]
     ),
   };
 
   return (
     <div>
       <Spinner active={select.waiting}>
-        <CommentsCounter count={select.count} />
+        <CommentsCounter count={select.count} t={t} />
         <CommentsList
           comments={options.comments}
           renderComment={renderComment.comment}

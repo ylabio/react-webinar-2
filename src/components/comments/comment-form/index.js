@@ -35,23 +35,26 @@ function CommentForm({
       {authId ? (
         <>
           <div className={cn("head")}>
-            {parentType == "comment" ? "Новый ответ" : "Новый комментарий"}
+            {parentType == "comment"
+              ? t("comments.form.newAnswer")
+              : t("comments.form.newComment")}
           </div>
           <textarea
             className={cn("input")}
+            // сервер позволяет писать комментарий любого размера, при количестве выше
             onChange={(e) => setCommentText(e.target.value)}
             value={commentText}
           />
           <div className={cn("actions")}>
             <button className={cn("buttons")} onClick={callbacks.onSendComment}>
-              Отправить
+              {t("comments.form.send")}
             </button>
             {parentType == "comment" && (
               <button
                 className={cn("buttons")}
                 onClick={callbacks.onCloseReply}
               >
-                Отмена
+                {t("comments.cancel")}
               </button>
             )}
           </div>

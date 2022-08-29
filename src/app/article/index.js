@@ -26,7 +26,9 @@ function Article() {
 
   const storeRedux = useStoreRedux();
 
-  const stateLink = location.state;
+
+
+
 
 
   const select = useSelectorRedux(state => ({
@@ -43,7 +45,6 @@ function Article() {
   useInit(() => {
     //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsArticle.load(params.id));
-    location.state = '';
   }, [params.id, select.lastCommented]);
 
 
@@ -61,8 +62,8 @@ function Article() {
   };
 
   const renders = {
-    comment: useCallback((callbacks, comment, links) => (
-      <CommentItem callbacks={callbacks} comment={comment} links={links} />
+    comment: useCallback((callbacks, comment, locationAndToken) => (
+      <CommentItem callbacks={callbacks} comment={comment} locationAndToken={locationAndToken} />
     ), [select.comments])
   }
 
@@ -74,7 +75,7 @@ function Article() {
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
         <CommentsList callbacks={callbacks.sendMessage} comments={select.comments} render={renders.comment}
-          other={{ stateLink: stateLink, token: selectDefault.token, parentId: select.article }} />
+          other={{ location: location, token: selectDefault.token, parentId: select.article }} />
       </Spinner>
     </Layout>
   )

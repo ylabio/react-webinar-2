@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import genDate from "../../utils/genDate";
 import "./style.css";
 
-function CommentItem({ comment, callbacks, links }) {
-    const { token, stateLink } = links;
+function CommentItem({ comment, callbacks, locationAndToken }) {
+
+    const { token, location } = locationAndToken;
     const sendMessage = callbacks;
     const parentId = comment;
     const nesting = comment.nesting.length - 1;
@@ -18,7 +19,7 @@ function CommentItem({ comment, callbacks, links }) {
         <p className="Comment-text">{comment.text}</p>
         <Link className="Comment-link" state={comment._id} to="">Ответить</Link>
         <div className="Comment-sending">
-            {stateLink === comment._id ? (token ? <SendingMessage className="Send-message" sendMessage={sendMessage} parentId={parentId} /> :
+            {location.state === comment._id ? (token ? <SendingMessage className="Send-message" location={location} sendMessage={sendMessage} parentId={parentId} /> :
                 <p className="Comment-login">
                     <Link className="Comment-in" state={{ back: window.location.pathname }} to="/login">Войдите</Link>, чтобы иметь возможность комментировать <Link className="Comment-cancel" state="" to=''>Отмена</Link></p>) :
                 ""}

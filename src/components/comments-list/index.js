@@ -6,8 +6,8 @@ import { Fragment } from 'react';
 
 function CommentsList({ callbacks, render, comments, other }) {
 
-    const { token, parentId, stateLink } = other;
-    const links = { stateLink, token };
+    const { token, parentId, location } = other;
+    const locationAndToken = { location, token };
 
     return (<div className="Comments">
         <h2 className="Comments-title">Коментарии ({comments.length})</h2>
@@ -15,10 +15,10 @@ function CommentsList({ callbacks, render, comments, other }) {
 
             {comments.map((comment, index) => {
                 return (<Fragment key={index}>
-                    {render(callbacks, comment, links)}
+                    {render(callbacks, comment, locationAndToken)}
                 </Fragment>)
             })}
-            {stateLink ? "" : (token ? <SendingMessage parentId={parentId} sendMessage={callbacks} />
+            {location.state ? "" : (token ? <SendingMessage parentId={parentId} sendMessage={callbacks} />
                 : <p className="Comments-link"><Link className="Comments-login" state={{ back: window.location.pathname }} to="/login">Войдите</Link>, чтобы иметь возможность комментировать</p>)}
         </div>
     </div>)

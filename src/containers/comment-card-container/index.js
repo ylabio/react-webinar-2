@@ -31,6 +31,7 @@ function CommentCardContainer(props) {
       },
       [setIsVisible]
     ),
+    // действия для оповещения при клике вне текущего коммента
     onOutsideAlerter: useCallback(
       target => {
         if (target.name === 'reply') {

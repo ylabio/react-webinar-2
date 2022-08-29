@@ -4,11 +4,7 @@ import propTypes from 'prop-types';
 import LayoutFlex from '../../components/layout-flex';
 import Input from '../../components/input';
 import Field from '../../components/field';
-import {
-  createComment,
-  formHide,
-  formShow
-} from '../../store-redux/comments-slice';
+import {createComment, formShow} from '../../store-redux/comments-slice';
 import {useDispatch} from 'react-redux';
 
 function ReplyComment({parentId, onCancel}) {
@@ -30,8 +26,8 @@ function ReplyComment({parentId, onCancel}) {
           createComment({parentId, text: data.comment, parentType: 'comment'})
         ).unwrap();
 
-        // сброс поля ввода если коммент создан удачно
-        setData(prev => ({...prev, comment: ''}));
+        // сброс поля ввода, закрытие формы, открытие формы создания нового комментария, если коммент создан удачно
+        onCancel(false);
       },
       [data]
     ),

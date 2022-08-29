@@ -3,8 +3,7 @@ import './style.css'
 import propTypes from 'prop-types';
 function FormComment({ additComponents, submitComment, type, id, close }) {
   const [text, setText] = useState('');
-  console.log(id)
-  console.log(type)
+
   const playoad = {
 
     text,
@@ -15,8 +14,7 @@ function FormComment({ additComponents, submitComment, type, id, close }) {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    submitComment(playoad)
-    console.log(playoad)
+    submitComment(playoad,id)
     close()
     setText('')
   }

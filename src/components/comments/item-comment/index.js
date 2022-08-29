@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import propTypes from "prop-types";
+import moment from "moment";
 import { cn as bem } from "@bem-react/classname";
 import CommentForm from "../comment-form";
 import "./styles.css";
@@ -18,25 +19,12 @@ function ItemComment({
   onSignIn,
 }) {
   const cn = bem("ItemComment");
+  moment.locale("ru");
 
   const isReplying = activeComment && activeComment === item._id;
 
   const formatDate = (date) => {
-    let res =
-      new Date(date)
-        .toLocaleString("ru", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })
-        .replace(/г\./, " ") +
-      " в " +
-      new Date(date).toLocaleString("ru", {
-        hour: "numeric",
-        minute: "numeric",
-      });
-
-    return res;
+    return moment(date).format("LLL").replace(/г\.,/, "в");
   };
 
   return (

@@ -50,10 +50,6 @@ function CommentsContainer({ id }) {
     }, []),
   };
 
-  const btnNewComment = (
-    <input type="button" value="Отмена" onClick={() => setArea(0)} />
-  );
-
   console.log("state", state);
 
   return (
@@ -61,11 +57,16 @@ function CommentsContainer({ id }) {
       {state && (
         <CommentList all={state.length} log={session}>
           {state.map((item, index) => {
+            let pl =
+              (item.parent._tree.length - 1) * 25 > 150
+                ? 150
+                : (item.parent._tree.length - 1) * 25;
+
             return (
               <div
                 key={index + 1}
                 style={{
-                  paddingLeft: `${(item.parent._tree.length - 1) * 20}px`,
+                  paddingLeft: `${pl}px`,
                 }}
               >
                 <CommentItem item={item} setArea={() => setArea(index + 1)} />

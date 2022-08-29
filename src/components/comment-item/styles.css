@@ -18,7 +18,14 @@
   line-height: 16px;
 }
 
+.Comment-text p {
+  max-width: 800px;
+  width: 100%;
+  word-break: break-all;
+}
+
 .Comment-answer {
   padding-top: 10px;
   color: #0087e9;
+  cursor: pointer;
 }

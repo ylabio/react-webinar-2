@@ -16,7 +16,9 @@ function CommentItem({ item, setArea }) {
           {dayjs(item.dateCreate).locale("ru").format("D MMMM YYYY в h:mm")}
         </span>
       </div>
-      <div className={cn("text")}>{item.text}</div>
+      <div className={cn("text")}>
+        <p>{item.text}</p>
+      </div>
       <div className={cn("answer")} onClick={setArea}>
         <p>Ответить</p>
       </div>

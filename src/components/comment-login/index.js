@@ -13,7 +13,7 @@ function CommentLogin({ log, children, setArea }) {
     if (setArea) {
       return (
         <div className={cn()}>
-          <Link to="/login">Войдите</Link>, чтоб иметь возможность ответить{" "}
+          <Link to="/login">Войдите</Link>, чтоб иметь возможность ответить.{" "}
           <i onClick={() => setArea(0)}>Отмена</i>
         </div>
       );

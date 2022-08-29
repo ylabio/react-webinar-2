@@ -15,7 +15,7 @@ export default {
         }
       }
     },
-   submitComment:(data,arcticle_id)=>{
+   submitComment:(data,cb)=>{
       return async(dispatch,getState,services)=>{
         dispatch({type: 'comments/start',});
         try {
@@ -25,7 +25,7 @@ export default {
             body: JSON.stringify(data),
           });
           
-       
+          cb()
         }catch(error){
           dispatch({type:"comments/error"})
         }

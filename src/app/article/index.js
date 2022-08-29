@@ -44,8 +44,8 @@ function Article() {
   const callbacksRedux = {
 
     submitComment: useCallback(async (data) => {
-       storeRedux.dispatch(actionsComments.submitComment(data));
-       storeRedux.dispatch(actionsComments.loadComments(params.id))
+       storeRedux.dispatch(actionsComments.submitComment(data,storeRedux.dispatch(actionsComments.loadComments(params.id))));
+    
     }, []),
   }
 
@@ -60,15 +60,11 @@ function Article() {
             author: item.author.profile?.name,
             marginLeft: 30 * level,
             date: item.dateCreate,
-
           }
-
           )
         )
       )
     }
-
-
       , [select.сomments]),
   }
 

@@ -8,7 +8,7 @@ function CommentList({ all, children, log }) {
 
   return (
     <div className={log ? cn() : cn("nosession")}>
-      <div>Комментарии {all}</div>
+      <div>Комментарии ({all})</div>
       <div>{children}</div>
     </div>
   );

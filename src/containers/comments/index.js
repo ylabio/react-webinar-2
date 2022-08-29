@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
 import actionsArticleComments from "../../store-redux/article-comments/actions";
 import useInit from "../../hooks/use-init";
@@ -12,6 +12,7 @@ function Comments({id}) {
   const storeRedux = useStoreRedux();
 
   const [idUnder, setIdUnder] = useState(id);
+  const itemRefs = useRef([]);
 
   useInit(async () => {
     storeRedux.dispatch(actionsArticleComments.load(id));
@@ -20,6 +21,7 @@ function Comments({id}) {
   const select = useSelectorRedux(state => ({
     comments: state.articleComments.data,
     count: state.articleComments.count,
+    lastId: state.articleComments.lastId,
     waiting: state.articleComments.waiting
   }), shallowEqual);
 
@@ -28,7 +30,7 @@ function Comments({id}) {
   const options = {
     comments: useMemo(() => [
       ...treeToList(
-        listToTree(select.comments),
+        listToTree(select.comments, "_id", "article"),
         (item, level) => ({
           id: item._id,
           name: item.author.profile.name,
@@ -39,9 +41,16 @@ function Comments({id}) {
       )
     ], [select.comments]),
   }
+  // console.log(itemRefs)
+
+  useEffect(() => {
+    if (Object.keys( itemRefs.current ).length > 0 && select.lastId) {
+      itemRefs.current[select.lastId].scrollIntoView({ behavior: "smooth" });
+    }
+  }, [options.comments])
 
   const submitComment = (text, type) => {
-    if(text) {
+    if(text.trim() !== '') {
       storeRedux.dispatch(actionsArticleComments.submitComment(idUnder, type, text));
     }
   }
@@ -56,6 +65,7 @@ function Comments({id}) {
         setIdUnder={setIdUnder}
         submitComment={submitComment}
         exists={exists}
+        itemRefs={itemRefs}
         />
     </Spinner>
   );

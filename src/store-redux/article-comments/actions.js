@@ -32,6 +32,7 @@ export default {
             }
           })
         });
+        console.log(json.result._id)
 
         dispatch({type: "article-comments/push-complited", payload: {data: json.result}});
 

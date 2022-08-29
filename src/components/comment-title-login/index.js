@@ -9,7 +9,7 @@ function CommentTitleLogin({idArticle, setIdUnder}) {
   const cn = bem('CommentTitleLogin')
   return(
     <p className={cn()}>
-      <Link to="/login" className={cn('link')}>Войдите</Link>, чтобы иметь возможность комментировать.
+      <Link to="/login" state={{ back: location.pathname }} className={cn('link')}>Войдите</Link>, чтобы иметь возможность комментировать.
       {
         idArticle ? 
         <button className={cn('btn')} onClick={() => setIdUnder(idArticle)}>Отмена</button> : 

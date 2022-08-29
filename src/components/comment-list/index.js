@@ -6,12 +6,12 @@ import CommentNew from "../comment-new";
 
 import "./style.css";
 
-function CommentList({comments, count, setIdUnder, idArticle, idUnder, submitComment, exists}) {
+function CommentList({comments, count, setIdUnder, idArticle, idUnder, submitComment, exists, itemRefs}) {
   const cn = bem('CommentList')
   return(
     <div className={cn()}>
       <h3 className={cn('title')}>Комментарии ({count})</h3>
-      {comments.map(item => (
+      {comments.map((item, i) => (
         <Comment 
           key={item.id} 
           id={item.id} 
@@ -20,6 +20,7 @@ function CommentList({comments, count, setIdUnder, idArticle, idUnder, submitCom
           dateCreate={item.dateCreate} 
           level={item.level} 
           setIdUnder={setIdUnder}
+          itemRefs={itemRefs}
           commentForm={
             idUnder === item.id ?
             <CommentNew idArticle={idArticle} setIdUnder={setIdUnder} submitComment={submitComment} type={'comment'} exists={exists}/> : 

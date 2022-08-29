@@ -6,10 +6,13 @@ import "moment/locale/ru";
 
 import "./style.css";
 
-function Comment({name, text, dateCreate, level, setIdUnder, id, commentForm}) {
+function Comment({name, text, dateCreate, level, setIdUnder, id, commentForm, itemRefs}) {
   const cn = bem('Comment')
   return(
-    <div className={cn()} style={{marginLeft: `${(level < 15 ? level : 15) * 30}px`}}>
+    <div 
+      className={cn()} 
+      style={{marginLeft: `${(level < 15 ? level : 15) * 30}px`}} 
+      ref={el => itemRefs.current[id] = el}>
       <div className={cn('info')}>
         <span className={cn('title')}>{name}</span>
         <span className={cn('date')}>{moment(dateCreate, moment.ISO_8601).locale('ru').format("DD MMMM YYYY [в] HH:mm")}</span>

@@ -2,6 +2,7 @@
 const initialState = {
   data: [],
   count: 0,
+  lastId: '',
   waiting: false
 }
 
@@ -21,10 +22,10 @@ export default function reducer(state = initialState, action){
       return { ...state, waiting: true};
 
     case "article-comments/push-complited":
-      return { ...state, data: [...state.data, action.payload.data], count: state.count + 1, waiting: false};
+      return { ...state, data: [...state.data, action.payload.data], lastId: action.payload.data._id, count: state.count + 1, waiting: false};
 
     case "article-comments/push-error":
-      return { ...state, data: [], waiting: false, count: 0};
+      return { ...state, data: [], waiting: false, count: 0, lastId: ''};
 
     default:
       // Нет изменений

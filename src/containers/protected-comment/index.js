@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useSelector from '../../hooks/use-selector';
+import LoginRequest from '../../components/login-request';
 
-function Protected({ children, redirect }) {
+function ProtectedComment({ children, cancel }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -12,22 +13,20 @@ function Protected({ children, redirect }) {
     waiting: state.session.waiting,
   }));
 
-  useEffect(() => {
-    if (!select.exists && !select.waiting) {
-      navigate(redirect, { state: { back: location.pathname } });
-    }
-  }, [select.exists, select.waiting]);
+  const onLoginClick = () => {
+    navigate('/login', { state: { back: location.pathname } });
+  };
 
   return !select.exists || select.waiting ? (
-    <div>Проверка доступа...</div>
+    <LoginRequest onLoginClick={onLoginClick} cancel={cancel} />
   ) : (
     children
   );
 }
 
-Protected.propTypes = {
-  redirect: propTypes.node,
+ProtectedComment.propTypes = {
+  cancel: propTypes.node,
   children: propTypes.node,
 };
 
-export default React.memo(Protected);
+export default React.memo(ProtectedComment);

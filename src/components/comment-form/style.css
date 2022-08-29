@@ -1,0 +1,42 @@
+.CommentForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+}
+.CommentForm-buttons {
+  display: flex;
+  margin-top: 10px;
+}
+.CommentForm-buttons input {
+  margin-right: 10px;
+}
+.CommentForm-hide {
+  display: none;
+}
+.CommentForm-show {
+  display: flex;
+}
+.CommentForm-title {
+  font-weight: 700;
+}
+
+.CommentForm textarea {
+  width: 100%;
+  resize: none;
+  min-height: 80px;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 14px;
+  padding: 5px;
+}
+.CommentForm label {
+  width: 100%;
+}
+.CommentForm label p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.CommentForm > input {
+  margin-top: 15px;
+}

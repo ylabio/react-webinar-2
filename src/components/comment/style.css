@@ -1,3 +1,7 @@
+.Comment {
+  margin: 30px 0 0 30px;
+}
+
 .Comment-username {
   font-size: 12px;
   font-weight: 700;
@@ -12,6 +16,8 @@
 .Comment-text {
   font-size: 14px;
   margin: 10px 0;
+  word-break: break-all;
+  white-space: normal;
 }
 
 .Comment-reply {
@@ -22,5 +28,17 @@
 }
 
 .Comment-reply:hover {
+  cursor: pointer;
+}
+
+.Comment-cancelReply {
+  border: none;
+  background: none;
+  color: #666666;
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+.Comment-cancelReply:hover {
   cursor: pointer;
 }

@@ -33,6 +33,8 @@ function Article() {
     ]);
   }, [params.id]);
 
+  const isLoggedIn = useSelector((state) => state.session.exists);
+
   const select = useSelectorRedux(
     (state) => ({
       article: state.article.data,
@@ -50,22 +52,19 @@ function Article() {
     shallowEqual
   );
 
-  // console.log(commentsSlice.list);
-
-  const testCreateComment = () => {
-    storeRedux.dispatch(
-      actionsComments.create({
-        text: "This is a test answer creation",
-        parent: { _id: "630a467d702e221d999b3b70", _type: "comment" },
-      })
-    );
-  };
-
   const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback((_id) => store.get("basket").addToBasket(_id), []),
+    createComment: ({ text, parent_id, parent_type }) => {
+      storeRedux.dispatch(
+        actionsComments.create({
+          text,
+          parent: { _id: parent_id, _type: parent_type },
+        })
+      );
+    },
   };
 
   return (
@@ -83,6 +82,9 @@ function Article() {
           <CommentSection
             list={commentsSlice.list}
             count={commentsSlice.count}
+            isLoggedIn={isLoggedIn}
+            createComment={callbacks.createComment}
+            articleId={params.id}
           />
         )}
       </Spinner>

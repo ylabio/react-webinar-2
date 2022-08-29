@@ -3,16 +3,32 @@ import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 import Comment from "../comment";
 import CommentCreate from "../comment-create";
-import ReplyCreate from "../reply-create";
+import { Link } from "react-router-dom";
 
-function CommentSection({ list, count }) {
+function CommentSection({ list, count, isLoggedIn, createComment, articleId }) {
   const cn = bem("CommentSection");
+
+  const comments = list.map((item) => (
+    <Comment
+      item={item}
+      key={item._id}
+      isLoggedIn={isLoggedIn}
+      onReply={createComment}
+    />
+  ));
+  const create_comment_form = isLoggedIn ? (
+    <CommentCreate onCreate={createComment} articleId={articleId} />
+  ) : (
+    <div style={{ marginTop: "30px" }}>
+      <Link to="/login">Войдите</Link>, чтобы иметь возможность комментировать
+    </div>
+  );
+
   return (
     <div className={cn()}>
       <h2 className={cn("header")}>Комментарии ({count})</h2>
-      {list.length && <Comment item={list[0]} />}
-      <CommentCreate />
-      <ReplyCreate />
+      {!!list.length && comments}
+      {create_comment_form}
     </div>
   );
 }

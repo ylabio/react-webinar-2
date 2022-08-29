@@ -3,6 +3,10 @@
   margin-top: 30px;
 }
 
+.CommentCreate {
+  margin-left: 30px;
+}
+
 .CommentCreate-label,
 .ReplyCreate-label {
   display: block;
@@ -14,7 +18,7 @@
 .CommentCreate-field,
 .ReplyCreate-field {
   display: block;
-  width: 100%;
+  width: 99.5%;
   min-height: 76px;
   margin-bottom: 10px;
   font-size: 14px;

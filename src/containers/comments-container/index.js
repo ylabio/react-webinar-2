@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import {useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import Spinner from "../../components/spinner";
@@ -19,6 +19,9 @@ function CommentsContainer(){
   const store = useStore();
   // Параметры из пути /articles/:id
   const params = useParams();
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const storeRedux = useStoreRedux();
 
@@ -53,6 +56,10 @@ function CommentsContainer(){
     attemptAddNewComment: useCallback((text, parentId, parentType) => {
       storeRedux.dispatch(actionsComments.attemptAddNewComment(text, parentId, parentType));
     }, []),
+    // Переход к авторизации
+    onSignIn: useCallback(() => {
+      navigate('/login', {state: {back: location.pathname}});
+    }, [location.pathname]),
   };
 
   const commentData = {
@@ -77,8 +84,6 @@ function CommentsContainer(){
   const [id, changeId] = useState('');
   const [textPlaceholder, changeTextPlaceholder] = useState('');
   const findItem = commentData.comments.find(i => i._id === id);
-
-  const link = '/login';
  
   useEffect(() => {
     if (id) {
@@ -94,9 +99,9 @@ function CommentsContainer(){
                    id={id}
                    t={t}
                    lang={select1.lang}
-                   link={link}
                    textPlaceholder={textPlaceholder}
                    changeId={changeId}
+                   onSignIn={callbacks.onSignIn} 
       />
     )),
   }
@@ -111,7 +116,7 @@ function CommentsContainer(){
             select1.exists ?
               <FormAddComment id={params.id} attemptAddNewComment={callbacks.attemptAddNewComment} t={t} lang={select1.lang}/>
             :
-              <CommentsEntry link={link} t={t}/>
+              <CommentsEntry t={t} onSignIn={callbacks.onSignIn}/>
           )
       } 
       </Spinner>

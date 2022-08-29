@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
-import {Link} from "react-router-dom";
 import './style.css';
 
-function ItemComment({exists, attemptAddNewComment, item, id, changeId, t, lang, link, textPlaceholder}) {
+function ItemComment({exists, attemptAddNewComment, item, id, changeId, t, lang, textPlaceholder, onSignIn}) {
   const cn = bem('ItemComment');
 
   const [textComment, changeTextComment] = useState('');
@@ -43,7 +42,7 @@ function ItemComment({exists, attemptAddNewComment, item, id, changeId, t, lang,
      
       { id === item._id && 
         (exists ?
-          <div>
+          <>
             <form onSubmit={formSubmit}>
               <div className={cn('comment')}>
                 <div className={cn('new-res')}>
@@ -54,10 +53,10 @@ function ItemComment({exists, attemptAddNewComment, item, id, changeId, t, lang,
               </div>
            </form>
            <button className={cn('btn2')} onClick={()=>{changeId('')}}>{t('comments.cancelButtonName')}</button>
-          </div>
+          </>
         :
-          <div className={cn('ent1')}>
-            <div className={cn('ent')}><Link to={link}>{t('comments.signIn')}</Link>{t('comments.toBeAnleToAnswer')}.</div>
+          <div>
+            <div className={cn('ent')}><span onClick={()=>onSignIn()}>{t('comments.signIn')}</span>{t('comments.toBeAnleToAnswer')}.</div>
             <button className={cn('btn3')} onClick={()=>{changeId('')}}>{t('comments.cancelButtonName')}</button>
           </div>
         )
@@ -74,14 +73,13 @@ ItemComment.propTypes = {
   changeId: propTypes.func.isRequired,
   t: propTypes.func,
   lang: propTypes.string,
-  link: propTypes.string,
-  textPlaceholder: propTypes.string
+  textPlaceholder: propTypes.string,
+  onSignIn: propTypes.func.isRequired
 }
 
 ItemComment.defaultProps = {
   t: (text) => text,
   lang: 'ru',
-  link: '',
   textPlaceholder: ''
 }
 

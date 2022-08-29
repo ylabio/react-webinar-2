@@ -1,0 +1,42 @@
+.CommentCreate,
+.ReplyCreate {
+  margin-top: 30px;
+}
+
+.CommentCreate {
+  margin-left: 30px;
+}
+
+.CommentCreate-label,
+.ReplyCreate-label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.CommentCreate-field,
+.ReplyCreate-field {
+  display: block;
+  width: 99.5%;
+  min-height: 76px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  resize: none;
+}
+
+.ReplyCreate button[type="button"] {
+  margin-left: 10px;
+}
+
+.ReplyCreate-cancelReply {
+  border: none;
+  background: none;
+  color: #666666;
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+.ReplyCreate-cancelReply:hover {
+  cursor: pointer;
+}

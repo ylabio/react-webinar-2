@@ -1,0 +1,13 @@
+.comment-form {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.comment-text {
+    width: 100%;
+    resize: none;
+}

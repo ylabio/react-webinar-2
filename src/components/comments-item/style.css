@@ -1,0 +1,20 @@
+.comment-item {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.comment-date {
+    color: grey;
+}
+
+.comment-reply {
+    cursor: pointer;
+    background: transparent;
+    outline: none;
+    border: none;
+    color: dodgerblue;
+    font: inherit;
+    padding: 0;
+}

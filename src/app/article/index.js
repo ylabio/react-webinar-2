@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -28,16 +28,22 @@ function Article(){
 
   const select = useSelectorRedux(state => ({
     article: state.article.data,
-    comments: state.article.comments,
-    count: state.article.count,
     waiting: state.article.waiting,
-    countAddComment: state.comment.countAddComment
+    comments: state.comment.comments,
+    count: state.comment.count,
+    countAddComment: state.comment.countAddComment,
+    waitingComment: state.comment.waiting
   }), shallowEqual);
 
   useInit(async () => {
     //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsArticle.load(params.id));
-  }, [params.id, select.countAddComment]);
+  }, [params.id]);
+
+  useEffect(() => {
+    const load = async () => storeRedux.dispatch(actionsComment.load(params.id));
+    load();
+  }, [select.countAddComment]);
 
   const {t} = useTranslate();
 
@@ -55,6 +61,8 @@ function Article(){
       <ToolsContainer/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+      </Spinner>
+      <Spinner active={select.waitingComment}>
         <Comments 
           comments={select.comments} 
           count={select.count} 

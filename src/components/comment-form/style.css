@@ -33,6 +33,9 @@
     display: flex;
     gap: 10px;
 }
+.CommentForm-submitButton{
+    margin-right: 10px;
+}
 .CommentForm-sessionExists {
     margin-top: 20px;
 }

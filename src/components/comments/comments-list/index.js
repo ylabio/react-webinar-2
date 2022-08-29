@@ -16,10 +16,8 @@ function CommentsList(props) {
           isActive={props.activeCommentId === item._id}
           isAuth={props.isAuth}
           message={props.message}
-          target={props.target}
           handleSubmit={props.handleSubmit}
           handleChange={props.handleChange}
-          handleTarget={props.handleTarget}
           handleEnter={props.handleEnter}
           handleIsActive={props.handleActive}
         />
@@ -30,11 +28,8 @@ function CommentsList(props) {
 
 CommentsList.propTypes = {
   items: propTypes.array,
-  target: propTypes.oneOf(['article', 'comment']).isRequired,
   activeCommentId: propTypes.string,
-  handleTarget: propTypes.func,
   handleChange: propTypes.func,
-  handleTarget: propTypes.func,
   handleCancel: propTypes.func,
   handleEnter: propTypes.func,
   handleIsActive: propTypes.func,

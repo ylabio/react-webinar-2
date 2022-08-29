@@ -43,8 +43,8 @@ function CommentAdding(props){
     return (
       <div className={cn()}>
         <Link to={'/login'} className={cn('link')} onClick={handleEnter}>Войдите</Link>
-          , чтобы иметь возможность {props.target === 'article' ? 'комментировать' : 'ответить'}.
-        {props.target === 'comment' &&
+          , чтобы иметь возможность {props.formType === 'article' ? 'комментировать' : 'ответить'}.
+        {props.formType === 'comment' &&
           <button className={cn('cancel')} onClick={handleCancel}>Отмена</button>
         }
       </div>
@@ -53,16 +53,16 @@ function CommentAdding(props){
 
   return (
     <div className={cn()}>
-      <h3 className={cn('title')}>{props.target === 'comment' ? 'Новый ответ' : 'Новый комментарий'}</h3>
+      <h3 className={cn('title')}>{props.formType === 'comment' ? 'Новый ответ' : 'Новый комментарий'}</h3>
       <form onSubmit={props.handleSubmit}>
         <textarea
           className={cn('textarea')}
-          placeholder={props.target === 'comment' ? `Мой ответ для ${props.author.name}` : "Текст"}
+          placeholder={props.formType === 'comment' ? `Мой ответ для ${props.author.name}` : "Текст"}
           rows="5"
           onChange={handleChange}
         />
         <button type="submit" className={cn('button')}>Отправить</button>
-        {props.target === 'comment' &&
+        {props.formType === 'comment' &&
           <button type="button" className={cn('button')} onClick={handleCancel}>Отмена</button>
         }
       </form>
@@ -73,7 +73,7 @@ function CommentAdding(props){
 CommentAdding.propTypes = {
   isAuth: propTypes.bool.isRequired,
   message: propTypes.string,
-  target: propTypes.oneOf(['article', 'comment']).isRequired,
+  formType: propTypes.oneOf(['article', 'comment']).isRequired,
   author: propTypes.object,
   handleSubmit: propTypes.func,
   handleChange: propTypes.func,

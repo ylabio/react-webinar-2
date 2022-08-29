@@ -9,14 +9,12 @@ function CommentItem(props) {
   const cn = bem('CommentItem');
 
   const handleAnswerClick = useCallback(() => {
-    props.handleTarget('comment');
     props.handleIsActive(props.item._id);
-  }, [props.handleTarget]);
+  }, [props.handleIsActive]);
 
   const handleCancel = useCallback(() => {
-    props.handleTarget('article');
     props.handleIsActive(null);
-  }, [props.handleTarget]);
+  }, [props.handleIsActive]);
 
   return (
     <div className={cn()} style={{marginLeft: `${props.item.level * 30}px`}}>
@@ -30,11 +28,11 @@ function CommentItem(props) {
         </div>
         <button className={cn('answer')} onClick={handleAnswerClick}>Ответить</button>
       </div>
-      {(props.target === 'comment' && props.isActive) &&
+      {props.isActive &&
         <CommentAdding
           isAuth={props.isAuth}
           message={props.message}
-          target={props.target}
+          formType={'comment'}
           author={props.item.author.profile}
           handleSubmit={props.handleSubmit}
           handleChange={props.handleChange}
@@ -51,10 +49,8 @@ CommentItem.propTypes = {
   isActive: propTypes.bool,
   isAuth: propTypes.bool,
   message: propTypes.string,
-  target: propTypes.oneOf(['article', 'comment']).isRequired,
   handleSubmit: propTypes.func,
   handleChange: propTypes.func,
-  handleTarget: propTypes.func,
   handleEnter: propTypes.func,
   handleIsActive: propTypes.func
 }

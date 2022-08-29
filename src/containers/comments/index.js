@@ -15,8 +15,9 @@ function CommentsContainer() {
   const location = useLocation();
   
   const [message, setMessage] = useState('');
-  const [target, setTarget] = useState('article');
   const [activeCommentId, setActiveCommentId] = useState(null);
+
+  const formType = activeCommentId ? 'comment' : 'article';
   
   const select = useSelector(state => ({
     exists: state.session.exists,
@@ -28,13 +29,17 @@ function CommentsContainer() {
     waiting: state.comments.waiting,
   }));
 
+  // Отправляет новый комментарий и выполняет загрузку всех комментариев
+  function sendAndLoadComments(data, id) {
+    return function(dispatch) {
+      dispatch(actionsComments.send(data));
+      dispatch(actionsComments.load(id));
+    }
+  }
+
   const callbacks = {
     onSetActive: useCallback((id) => {
       setActiveCommentId(id);
-    }, []),
-
-    onTargetChange: useCallback((value) => {
-      setTarget(value);
     }, []),
 
     onMessageChange: useCallback((value) => {
@@ -47,9 +52,8 @@ function CommentsContainer() {
   
     onSubmit: useCallback(async (evt) => {
       evt.preventDefault();
-      const data = {text: message, parent: {_id: activeCommentId || reduxSelect.articleId, _type: target}}
-      await storeRedux.dispatch(actionsComments.send(data));
-      storeRedux.dispatch(actionsComments.load(reduxSelect.articleId));
+      const data = {text: message, parent: {_id: activeCommentId || reduxSelect.articleId, _type: formType}}
+      storeRedux.dispatch(sendAndLoadComments(data, reduxSelect.articleId));
     }, [message, reduxSelect.articleId])
   };
 
@@ -62,14 +66,12 @@ function CommentsContainer() {
 
   return (
     <CommentsLayout title={'Комментарии'} amount={reduxSelect.comments?.length}>
-      <CommentsList items={newItems} target={target} isAuth={select.exists}
-        activeCommentId={activeCommentId} handleTarget={callbacks.onTargetChange}
+      <CommentsList items={newItems} isAuth={select.exists} activeCommentId={activeCommentId}
         handleSubmit={callbacks.onSubmit} handleChange={callbacks.onMessageChange}
-        handleCancel={callbacks.onTargetChange} handleActive={callbacks.onSetActive}
-        handleEnter={callbacks.onCommentsEnter}
+        handleActive={callbacks.onSetActive} handleEnter={callbacks.onCommentsEnter}
       />
-      {target === 'article' &&
-        <CommentAdding isAuth={select.exists} message={message} target={target} handleSubmit={callbacks.onSubmit}
+      {formType === 'article' &&
+        <CommentAdding isAuth={select.exists} message={message} formType={'article'} handleSubmit={callbacks.onSubmit}
           handleChange={callbacks.onMessageChange} handleEnter={callbacks.onCommentsEnter}
         />
       }

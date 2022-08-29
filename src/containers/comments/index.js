@@ -16,17 +16,20 @@ import { sortComments } from "../../utils/sort";
 function CommentsContainer({ id }) {
   const storeRedux = useStoreRedux();
 
-  useInit(async () => {
-    storeRedux.dispatch(actionsComments.load(id));
-  }, [id]);
-
   const select = useSelectorRedux(
     (state) => ({
       comments: state.comments.data.items,
       waiting: state.comments.waiting,
+      waitingNew: state.comments.waitingNew,
     }),
     shallowEqual
   );
+
+  useInit(async () => {
+    if (!select.waitingNew) {
+      storeRedux.dispatch(actionsComments.load(id));
+    }
+  }, [id, select.waitingNew]);
 
   console.log("comments", select.comments);
 

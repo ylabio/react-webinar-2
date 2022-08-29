@@ -2,6 +2,7 @@
 const initialState = {
   data: {},
   waiting: false,
+  waitingNew: false,
 };
 
 export default function reducer(state = initialState, action) {
@@ -16,17 +17,17 @@ export default function reducer(state = initialState, action) {
       return { ...state, data: {}, waiting: false }; //@todo текст ошибки сохранить?
 
     case "comments/new":
-      return { ...state, waiting: true };
+      return { ...state, waitingNew: true };
 
     case "comments/new-success":
       return {
         ...state,
         data: [...state.items, action.payload.data],
-        waiting: false,
+        waitingNew: false,
       };
 
     case "comments/new-error":
-      return { ...state, waiting: false };
+      return { ...state, waitingNew: false };
 
     default:
       // Нет изменений

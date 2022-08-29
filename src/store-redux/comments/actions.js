@@ -5,7 +5,7 @@ export default {
 
       try {
         const json = await services.api.request({
-          url: `api/v1/comments?search%5Bparent%5D=${_id}&limit=30&skip=0&fields=%2A,author(profile(name))`,
+          url: `api/v1/comments?search%5Bparent%5D=${_id}&limit=50&skip=0&fields=%2A,author(profile(name))`,
         });
         // Товар загружен успешно
         dispatch({

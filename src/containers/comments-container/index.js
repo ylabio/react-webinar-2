@@ -14,6 +14,7 @@ import treeToList from "../../utils/tree-to-list";
 import listToTree from "../../utils/list-to-tree";
 import CommentsTotal from "../../components/comments-total";
 import ListComments from "../../components/list-comments";
+import LayoutComments from "../../components/layout-comments";
 
 function CommentsContainer(){
   const store = useStore();
@@ -107,9 +108,9 @@ function CommentsContainer(){
   }
 
   return (
-    <Spinner active={select.waiting}>
-      <CommentsTotal numberOfComments={select.numberOfComments} t={t}/>
-      <ListComments items={commentData.comments} renderItem={renders.itemComment} style={{'paddingBottom': '92px'}} id={id}/>
+    <LayoutComments head={<CommentsTotal numberOfComments={select.numberOfComments} t={t}/>}>
+      <Spinner active={select.waiting}>
+        <ListComments items={commentData.comments} renderItem={renders.itemComment} style={{'paddingBottom': '92px'}} id={id}/>
       {
         !id &&
           (
@@ -120,6 +121,7 @@ function CommentsContainer(){
           )
       } 
       </Spinner>
+      </LayoutComments>
 
   )
 }

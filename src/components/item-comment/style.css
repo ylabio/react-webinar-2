@@ -1,6 +1,7 @@
 .ItemComment{
     border-top: none;
     padding-right: 40px;
+    max-width: 944px;
 }
 
 .ItemComment-name{

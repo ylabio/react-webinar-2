@@ -1,0 +1,38 @@
+.CommentItem {
+  padding-left: 40px;
+  font-size: 12px;
+}
+
+.CommentItem-title {
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+}
+
+.CommentItem-user {
+  font-weight: bold;
+  color: black;
+}
+
+.CommentItem-mine {
+  font-weight: bold;
+  color: #666666;
+}
+
+.CommentItem-date {
+  color: #666666;
+  margin-left: 10px;
+}
+
+.CommentItem-text {
+  padding-top: 10px;
+  width: calc(100% - 40px);
+  /* min-height: 14px; */
+}
+
+.CommentItem-reply {
+  color: #0087E9;
+  cursor: pointer;
+  margin-top: 10px;
+  padding-bottom: 30px;
+}

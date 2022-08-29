@@ -1,0 +1,58 @@
+.CommentEditor {
+  padding-top: 0px;
+}
+
+.CommentEditor-title {
+  font-size: 12px;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+.CommentEditor-textarea {
+  box-sizing: border-box;
+  /* width: calc(100% - 40px); */
+  width: 100%;
+  min-height: 76px;
+  font-size: 14px;
+  background: #FFFFFF;
+  border: 1px solid #666666;
+  box-shadow: inset 0px 1px 4px rgba(102, 102, 102, 0.1);
+  resize: none;
+}
+
+.CommentEditor-actions {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+.CommentEditor-button {
+  min-width: 90px;
+  height: 21px;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.CommentEditor-loglink {
+  font-size: 16px;
+  color: #0087E9;
+  text-decoration-line: underline;
+  cursor: pointer;
+}
+
+.CommentEditor-logmessage {
+  font-size: 16px;
+  color: black;
+  margin-right: 5px;
+}
+
+.CommentEditor-logcancel {
+  font-size: 16px;
+  color: #666666;
+  text-decoration-line: underline;
+  cursor: pointer;
+}

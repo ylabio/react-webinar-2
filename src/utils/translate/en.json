@@ -20,5 +20,18 @@
   "auth.password": "Password",
   "auth.signIn": "Sign in",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "article.country": "Country",
+  "article.category": "Category",
+  "article.year": "Year",
+  "article.price": "Price",
+  "comments.title": "Comments",
+  "comments.signin": "Login",
+  "comments.forComment": " to be able to comment",
+  "comments.forReply": " to be able to reply",
+  "comments.newComment": "New comment",
+  "comments.newReplay": "New replay",
+  "comments.reply": "Reply",
+  "comments.submit": "Submit",
+  "comments.cancel": "Cancel"
 }

@@ -20,6 +20,7 @@
 }
 
 .ItemComment-button{
+    cursor: pointer;
     border: none;
     background: white;
     color: #0087E9;
@@ -60,6 +61,7 @@
 }
 
 .ItemComment-btn1{
+   cursor: pointer;
    margin-right: 10px;
    width: 90px;
    height: 21px;
@@ -67,6 +69,7 @@
 }
 
 .ItemComment-btn2{
+    cursor: pointer;
     width: 67px;
     height: 21px;
 }
@@ -87,12 +90,9 @@
 }
 
 .ItemComment-ent span{
-    
         cursor: pointer;
         color: #0087E9;
         border-bottom: 2px solid #0087E9;
         font-size: 16px;
-        line-height: 18.4px;
-    
-    
+        line-height: 18.4px; 
 }

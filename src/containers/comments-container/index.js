@@ -75,14 +75,14 @@ function CommentsContainer(){
   }, [select.isAttemptAddNewComment])
 
   const [id, changeId] = useState('');
-  const [textComment, changeTextComment] = useState('');
+  const [textPlaceholder, changeTextPlaceholder] = useState('');
   const findItem = commentData.comments.find(i => i._id === id);
 
   const link = '/login';
  
   useEffect(() => {
     if (id) {
-      changeTextComment(`${t('comments.myAnswerFor')} ${findItem.author.profile.name}`)
+      changeTextPlaceholder(`${t('comments.myAnswerFor')} ${findItem.author.profile.name}`);
     } 
   }, [id])
   
@@ -92,12 +92,11 @@ function CommentsContainer(){
                    exists={select1.exists}
                    attemptAddNewComment={callbacks.attemptAddNewComment}
                    id={id}
-                   changeId={changeId}
-                   textComment={textComment}
-                   changeTextComment={changeTextComment}
                    t={t}
                    lang={select1.lang}
                    link={link}
+                   textPlaceholder={textPlaceholder}
+                   changeId={changeId}
       />
     )),
   }

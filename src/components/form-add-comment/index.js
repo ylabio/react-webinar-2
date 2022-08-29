@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
@@ -6,7 +6,7 @@ import './style.css';
 function FormAddComment({id, attemptAddNewComment, t}) {
   const cn = bem('FormAddComment');
 
-  const [textComment, changeTextComment] = useState(t('comments.text'));
+  const [textComment, changeTextComment] = useState('');
 
   const formSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ function FormAddComment({id, attemptAddNewComment, t}) {
         <strong>{t('comments.newComment')}</strong>
       </div>
       <form>
-        <textarea id='comment' value={textComment} onChange={(e)=>changeTextComment(e.target.value)}/>
+        <textarea id='comment' value={textComment} onChange={(e)=>changeTextComment(e.target.value)} placeholder={t('comments.text')}/>
         <button type='submit'>{t('comments.sendButtonName')}</button>
       </form>
     </div>

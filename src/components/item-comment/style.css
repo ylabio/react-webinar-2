@@ -46,6 +46,15 @@
     padding: 4px 5px;
 }
 
+.ItemComment textarea::placeholder{
+   color: black;
+   font-size: 14px;
+}
+
+.ItemComment textarea:focus::placeholder{
+    color: transparent;
+ }
+
 .ItemComment-comment button{
     margin-bottom: 10px;  
 }

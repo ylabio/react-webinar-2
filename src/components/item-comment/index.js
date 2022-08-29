@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import {Link} from "react-router-dom";
 import './style.css';
 
-function ItemComment({changeTextComment, exists, attemptAddNewComment, item, textComment, id, changeId, t, lang, link}) {
+function ItemComment({exists, attemptAddNewComment, item, id, changeId, t, lang, link, textPlaceholder}) {
   const cn = bem('ItemComment');
+
+  const [textComment, changeTextComment] = useState('');
   
   const dateFunc = (date, lang) => {
     const newDate = new Date(date).toLocaleString(lang, {year: 'numeric', month: 'long', day: 'numeric'});
     if (lang === 'en') {
-      return newDate
+      return newDate;
     } else {
-        const newDateWithoutYear = newDate.slice(0, newDate.length - 3);
-        return newDateWithoutYear;
+      const newDateWithoutYear = newDate.slice(0, newDate.length - 3);
+      return newDateWithoutYear;
     }  
   }
  
@@ -47,9 +49,7 @@ function ItemComment({changeTextComment, exists, attemptAddNewComment, item, tex
                 <div className={cn('new-res')}>
                   <strong>{t('comments.newAnswer')}</strong>
                 </div>
-                
-                  <textarea id='comment' value={textComment} onChange={(e)=>changeTextComment(e.target.value)}/>
-               
+                <textarea id='comment' value={textComment} onChange={(e)=>changeTextComment(e.target.value)} placeholder={textPlaceholder}/>
                 <button className={cn('btn1')} type='submit'>{t('comments.sendButtonName')}</button>
               </div>
            </form>
@@ -67,22 +67,22 @@ function ItemComment({changeTextComment, exists, attemptAddNewComment, item, tex
 }
 
 ItemComment.propTypes = {
-  changeTextComment: propTypes.func.isRequired,
   exists: propTypes.bool.isRequired,
   attemptAddNewComment: propTypes.func.isRequired,
   item: propTypes.object.isRequired,
-  textComment: propTypes.string.isRequired,
   id: propTypes.string.isRequired,
   changeId: propTypes.func.isRequired,
   t: propTypes.func,
   lang: propTypes.string,
-  link: propTypes.string
+  link: propTypes.string,
+  textPlaceholder: propTypes.string
 }
 
 ItemComment.defaultProps = {
   t: (text) => text,
   lang: 'ru',
-  link: ''
+  link: '',
+  textPlaceholder: ''
 }
 
 export default React.memo(ItemComment);

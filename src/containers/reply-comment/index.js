@@ -4,7 +4,11 @@ import propTypes from 'prop-types';
 import LayoutFlex from '../../components/layout-flex';
 import Input from '../../components/input';
 import Field from '../../components/field';
-import {createComment} from '../../store-redux/comments-slice';
+import {
+  createComment,
+  formHide,
+  formShow
+} from '../../store-redux/comments-slice';
 import {useDispatch} from 'react-redux';
 
 function ReplyComment({parentId, onCancel}) {
@@ -33,7 +37,10 @@ function ReplyComment({parentId, onCancel}) {
     ),
 
     onCancel: useCallback(() => {
+      // прячем текущую форму
       onCancel(false);
+      // показываем главную форму добавления комментария
+      dispatch(formShow());
       setData(prev => ({...prev, comment: ''}));
     })
   };
@@ -52,7 +59,7 @@ function ReplyComment({parentId, onCancel}) {
           />
         </Field>
         <Field spacing={'small'}>
-          <button disabled={false} type="submit">
+          <button disabled={!data.comment} type="submit">
             Отправить
           </button>
           <button disabled={false} type="button" onClick={callbacks.onCancel}>
@@ -65,7 +72,8 @@ function ReplyComment({parentId, onCancel}) {
 }
 
 ReplyComment.propTypes = {
-  parentId: propTypes.string
+  parentId: propTypes.string,
+  onCancel: propTypes.func
 };
 
 export default React.memo(ReplyComment);

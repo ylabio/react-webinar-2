@@ -6,9 +6,12 @@ import useServices from '../../hooks/use-services';
 import Spinner from '../../components/spinner';
 import ReplyComment from '../reply-comment';
 import OutsideAlerter from '../../hooks/use-outside-alterter';
+import {useDispatch} from 'react-redux';
+import {formHide, formShow} from '../../store-redux/comments-slice';
 
 function CommentCardContainer(props) {
   const services = useServices();
+  const dispatch = useDispatch();
   const [isVisible, setIsVisible] = useState(false);
   const [author, setAuthor] = useState('');
   const authorId = props.comment.author._id;
@@ -27,22 +30,30 @@ function CommentCardContainer(props) {
         setIsVisible(bool);
       },
       [setIsVisible]
-    )
+    ),
+    onOutsideAlerter: useCallback(() => {
+      setIsVisible(false);
+    }, [dispatch]),
+
+    onReply: useCallback(() => {
+      setIsVisible(true);
+      dispatch(formHide());
+    }, [dispatch])
   };
 
   return (
-    <OutsideAlerter callback={() => callbacks.onFormToggle(false)}>
+    <OutsideAlerter callback={callbacks.onOutsideAlerter}>
       <Spinner active={!author}>
         <CommentCard
           content={props.comment.text}
           author={author}
           date={props.comment.dateCreate}
-          onReply={callbacks.onFormToggle}
+          onReply={callbacks.onReply}
         />
         {isVisible ? (
           <ReplyComment
             parentId={props.comment._id}
-            onCancel={callbacks.onFormToggle}
+            onCancel={() => callbacks.onFormToggle(false)}
           />
         ) : null}
       </Spinner>

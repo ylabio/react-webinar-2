@@ -31,6 +31,7 @@
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "mini-css-extract-plugin": "^2.6.1",
+    "moment": "^2.29.4",
     "plural-ru": "^2.0.2",
     "prop-types": "^15.8.1",
     "qs": "^6.11.0",

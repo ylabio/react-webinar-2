@@ -1,5 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 
+// thunk для запроса всех комментов
 export const fetchComments = createAsyncThunk(
   'comments/fetchAll',
   async (articleId, thunkApi) => {
@@ -15,11 +16,12 @@ export const fetchComments = createAsyncThunk(
   }
 );
 
+// thunk для создания коммента по id родителя
 export const createComment = createAsyncThunk(
   'comments/create',
   async (
     {parentId, text, parentType = 'article'},
-    {extra: services, dispatch}
+    {extra: services, dispatch} // деструктуризация объетка thunkApi {extra, dispatch, ...rest}
   ) => {
     const body = {
       text,
@@ -35,7 +37,6 @@ export const createComment = createAsyncThunk(
       body: JSON.stringify(body)
     });
 
-    console.log(response);
     // обновляем список комментариев
     // id article для запроса
     let id;
@@ -56,23 +57,32 @@ export const createComment = createAsyncThunk(
   }
 );
 
+// Начальное состояние среза comments
 const initialState = {
   data: [],
   waiting: false,
-  error: {}
+  error: {},
+  isNewCommentFormVisible: true
 };
 
+// Срез comments
 const commentsSlice = createSlice({
   name: 'comments',
   initialState,
-  reducers: {},
+  reducers: {
+    formShow(state) {
+      state.isNewCommentFormVisible = true;
+    },
+    formHide(state) {
+      state.isNewCommentFormVisible = false;
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchComments.pending, (state, action) => {
         state.waiting = true;
       })
       .addCase(fetchComments.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.waiting = false;
         state.data = action.payload;
       })
@@ -83,7 +93,11 @@ const commentsSlice = createSlice({
   }
 });
 
+// Cелекторы состояния из среза comments
+export const isFormVisible = state => state.comments.isNewCommentFormVisible;
 export const selectAllComments = state => state.comments.data;
 export const selectCommentsTotal = state => state.comments.data.length;
 
+// Action creator-ы переключения видимости формы создания нового комментария
+export const {formHide, formShow} = commentsSlice.actions;
 export default commentsSlice.reducer;

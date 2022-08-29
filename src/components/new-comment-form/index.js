@@ -22,7 +22,11 @@ function NewComment({parentId}) {
       async e => {
         e.preventDefault();
         // вызов асинхронного thunk
-        await dispatch(createComment({parentId, text: data.comment}));
+        if (data) {
+          await dispatch(
+            createComment({parentId, text: data.comment})
+          ).unwrap();
+        }
 
         setData({comment: ''});
       },
@@ -44,7 +48,7 @@ function NewComment({parentId}) {
           />
         </Field>
         <Field spacing={'small'}>
-          <button disabled={false} type="submit">
+          <button disabled={!data.comment} type="submit">
             Отправить
           </button>
         </Field>

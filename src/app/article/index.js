@@ -17,7 +17,8 @@ import HeadContainer from '../../containers/head';
 import ToolsContainer from '../../containers/tools';
 import actionsArticle from '../../store-redux/article/actions';
 import Comments from '../../containers/comments';
-import NewComment from '../../components/newCommentForm';
+import NewComment from '../../components/new-comment-form';
+import {isFormVisible} from '../../store-redux/comments-slice';
 
 function Article() {
   const store = useStore();
@@ -25,6 +26,7 @@ function Article() {
   const params = useParams();
 
   const storeRedux = useStoreRedux();
+  const isVisible = useSelectorRedux(isFormVisible);
 
   useInit(async () => {
     //await store.get('article').load(params.id);
@@ -59,7 +61,7 @@ function Article() {
         />
       </Spinner>
       <Comments articleId={params.id} />
-      <NewComment parentId={params.id} />
+      {isVisible ? <NewComment parentId={params.id} /> : null}
     </Layout>
   );
 }

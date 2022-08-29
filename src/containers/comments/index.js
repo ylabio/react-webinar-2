@@ -38,3 +38,5 @@ Comments.propTypes = {
 };
 
 export default React.memo(Comments);
+
+//TODO: <ul> <li> - уходят отсупами за экран при привышении определенного количества элементов

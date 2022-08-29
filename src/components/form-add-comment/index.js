@@ -22,7 +22,7 @@ function FormAddComment({id, attemptAddNewComment, t}) {
       </div>
       <form>
         <textarea id='comment' value={textComment} onChange={(e)=>changeTextComment(e.target.value)} placeholder={t('comments.text')}/>
-        <button type='submit'>{t('comments.sendButtonName')}</button>
+        <div><button type='submit'>{t('comments.sendButtonName')}</button></div>
       </form>
     </div>
   )

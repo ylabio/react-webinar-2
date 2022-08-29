@@ -20,6 +20,15 @@ export default function reducer(state = initialState, action) {
     case 'comments/load-error':
       return { ...state, data: [], waiting: false };
 
+    case 'comments/post':
+      return { ...state, waiting: true };
+
+    case 'comments/post-success':
+      return { ...state, waiting: false };
+
+    case 'comments/post-error':
+      return { ...state, waiting: false };
+
     default:
       return state;
   }

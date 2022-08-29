@@ -1,36 +1,42 @@
-.NewCommentForm {
+.AnswerCommentForm {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
 }
 
-.NewCommentForm-label {
+.AnswerCommentForm-label {
   display: flex;
   flex-direction: column;
 }
 
-.NewCommentForm-label span {
+.AnswerCommentForm-label span {
   margin-bottom: 10px;
   font-size: 12px;
   font-weight: bold;
 }
 
-.NewCommentForm-textarea {
+.AnswerCommentForm-textarea {
   width: 900px;
   min-height: 80px;
   resize: none;
 }
 
-.NewCommentForm-actions {
+.AnswerCommentForm-actions {
   margin-top: 10px;
 }
 
-.NewCommentForm-signing {
+.AnswerCommentForm-signing {
   display: flex;
 }
 
-.NewCommentForm-link {
+.AnswerCommentForm-link {
   color: #0087e9;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.AnswerCommentForm-cancel {
+  color: #666666;
   text-decoration: underline;
   cursor: pointer;
 }

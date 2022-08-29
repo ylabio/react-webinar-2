@@ -18,4 +18,23 @@ export default {
       }
     };
   },
+
+  post: (body) => {
+    return async (dispatch, getState, services) => {
+      dispatch({ type: 'comments/post' });
+      try {
+        const json = await services.api.request({
+          url: `/api/v1/comments?fields=_id,text,dateCreate,author(profile(name)),parent(_id,_type)&lang=ru`,
+          method: 'POST',
+          body: JSON.stringify(body),
+        });
+        dispatch({
+          type: 'comments/post-success',
+          payload: { data: json.result },
+        });
+      } catch (e) {
+        dispatch({ type: 'comments/post-error' });
+      }
+    };
+  },
 };

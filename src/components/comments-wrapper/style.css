@@ -1,56 +1,43 @@
-.Comments {
-    /*padding: 30px 40px;*/
-    /*margin: 0;*/
+.Comments-wrapper {
+    padding: 30px 40px;
+    margin: 0;
 }
 
-.Comments-header {
+.Comments-wrapper-header {
     font-size: 24px;
     margin: 0 0 30px 0;
 }
 
-.Comments-link {
+.Comments-wrapper-link {
     color: #0087E9;
     border: none;
     background: none;
     text-decoration: underline;
 }
 
-.Comments-text {
+.Comments-wrapper-text {
     font-size: 16px;
 }
 
-.Comments-user-name {
-    font-weight: 700;
-    font-size: 12px;
-}
-
-.Comments-user-comment {
-    font-size: 14px;
-}
-
-.Comments-list {
-    list-style: none;
-}
-
-.Comments-form {
+.Comments-wrapper-form {
     display: flex;
     flex-direction: column;
     padding: 30px 40px 30px 0;
 }
 
-.Comments-form-header {
+.Comments-wrapper-form-header {
     font-size: 12px;
     font-weight: 700;
 }
 
-.Comments-form-area {
+.Comments-wrapper-form-area {
     width: 100%;
     min-height: 76px;
     box-sizing: border-box;
     margin: 0 0 10px 0;
 }
 
-.Comments-form-button {
+.Comments-wrapper-form-button {
     width: 90px;
     height: 21px;
     box-sizing: border-box;
@@ -68,4 +55,3 @@
     clip: rect(0 0 0 0);
     overflow: hidden;
 }
-

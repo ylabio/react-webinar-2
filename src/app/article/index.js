@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, { useCallback, useMemo } from 'react'
 import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
 import useStore from "../../hooks/use-store";
 import {useParams} from "react-router-dom";
@@ -13,7 +13,9 @@ import ToolsContainer from "../../containers/tools";
 import actionsArticle from '../../store-redux/article/actions';
 import Comments from "../../components/comments";
 import useSelector from "../../hooks/use-selector";
-import postComments from "../../store-redux/article/actions";
+import listToTree from '../../utils/list-to-tree';
+import treeToList from '../../utils/tree-to-list';
+import CommentsWrapper from '../../components/comments-wrapper';
 
 function Article(){
   const store = useStore();
@@ -27,9 +29,9 @@ function Article(){
     storeRedux.dispatch(actionsArticle.load(params.id));
   }, [params.id]);
 
-    useInit(async () => {
-        storeRedux.dispatch(actionsArticle.loadComments(params.id));
-    }, [params.id]);
+  useInit(async () => {
+      storeRedux.dispatch(actionsArticle.loadComments(params.id));
+  }, [params.id]);
 
   const select = useSelectorRedux(state => ({
     article: state.article.data,
@@ -37,58 +39,13 @@ function Article(){
     comments: state.article.comments
   }), shallowEqual);
 
-    const selectIsAuth = useSelector(state => ({
-        exists: state.session.exists,
-    }));
+  const selectIsAuth = useSelector(state => ({
+      exists: state.session.exists,
+  }));
 
-const commentsArray = select.comments.comments;
-
-    // console.log(commentsArray)
-    //
-    // const addPrefixChild = (comments) => {
-    //     const childes = comments.filter(item => item.parent._id);
-    //     return childes.reduce((comments, child) => {
-    //         return [
-    //             ...comments,
-    //             {text: '--' + child.text},
-    //         ]
-    //     }, [])
-    // }
-    //
-    // addPrefixChild(commentsArray)
-
-
-    // const CATEGORY_PREFIX = '-';
-    // const appendChildComments = (comments, rootComment, categoryPrefix = CATEGORY_PREFIX) => {
-    //     const childes = comments?.filter(item => item.parent._id === rootComment._id); //ok
-    //     console.log(childes)
-    //     if (childes.length === 0) {
-    //         return [];
-    //     }
-    //
-    //     return childes.reduce((comments, child) => {
-    //         return [
-    //             ...comments,
-    //             {value: child._id, text: categoryPrefix + ' ' + child.text},
-    //             ...appendChildComments(comments, child, categoryPrefix + CATEGORY_PREFIX),
-    //         ]
-    //     }, [])
-    // }
-    //
-    // const createOptionsComments = (comments) => {
-    //     console.log('тест ' + comments)
-    //     const optionsComment = comments?.filter(item => !item.parent)
-    //     return optionsComment?.reduce((comments, rootComment) => {
-    //         return [
-    //             ...comments,
-    //             {value: rootComment._id, text: rootComment.text},
-    //             ...appendChildComments(comments, rootComment),
-    //         ]
-    //     }, []);
-    // }
-    // //
-    // console.log(createOptionsComments(commentsArray))
-
+  const commentsArray = select.comments.comments;
+// const parentName = commentsArray.filter(comment => comment?.parent?._id)
+    console.log(commentsArray)
 
   const {t} = useTranslate();
 
@@ -100,7 +57,7 @@ const commentsArray = select.comments.comments;
         const authMessages = document.querySelectorAll('.auth-message');
         console.log(authMessages)
         const itemsForms = document.querySelectorAll('.Comments-item-form');
-        const mainCommentsForm = document.querySelector('.Comments-form');
+        const mainCommentsForm = document.querySelector('.Comments-wrapper-form');
         const parentActiveForm = evt.target.parentNode;
         const activeForm = parentActiveForm.querySelector('.Comments-item-form');
         const activeMessage = evt.target.parentNode.querySelector('.auth-message');
@@ -130,18 +87,25 @@ const commentsArray = select.comments.comments;
 
     }, [selectIsAuth.exists]),
     closeCommentForm: useCallback((evt)=> {
-        const mainCommentsForm = document.querySelector('.Comments-form');
+        const mainCommentsForm = document.querySelector('.Comments-wrapper-form');
         evt.target.parentNode.parentNode.classList.add('visually-hidden');
         mainCommentsForm.classList.remove('visually-hidden');
     }, []),
     resetMessage: useCallback((evt) => {
           evt.target.parentNode.classList.add('visually-hidden');
       }, []),
-    // postComment: useCallback(() => {
-    //     console.log('a сейчас работаешь?')
-    //     postComments()
-    // }, [])
+    postComment: useCallback((comment) => {
+        return storeRedux.dispatch(
+          actionsArticle.postComments({_id: params.id, ...comment})
+        );
+    }, [params.id])
   };
+
+  const allComments = useMemo(() => {
+      return treeToList(listToTree([{_id: select.article._id, parent: {}}, ...(commentsArray ?? [])]).find(({_id}) => {
+          return _id === select.article._id
+      }).children);
+  }, [commentsArray])
 
   return (
     <Layout>
@@ -151,14 +115,22 @@ const commentsArray = select.comments.comments;
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
-      <Comments
-          comments={commentsArray}
+        <CommentsWrapper
+          id={select.article._id}
           isAuthorized={selectIsAuth.exists}
-          openCommentForm={callbacks.openCommentForm}
-          closeCommentForm={callbacks.closeCommentForm}
-          resetMessage={callbacks.resetMessage}
-          // onSubmit={callbacks.postComment}
-      />
+          commentsCount={allComments.length}
+          onSubmit={callbacks.postComment}
+        >
+          <Comments
+            parentId={select.article._id}
+            comments={commentsArray}
+            isAuthorized={selectIsAuth.exists}
+            openCommentForm={callbacks.openCommentForm}
+            closeCommentForm={callbacks.closeCommentForm}
+            resetMessage={callbacks.resetMessage}
+            onSubmit={callbacks.postComment}
+          />
+        </CommentsWrapper>
     </Layout>
   )
 }

@@ -16,7 +16,6 @@ import TopContainer from "../../containers/top";
 import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import actionsArticle from "../../store-redux/article/actions";
-import actionsComments from "../../store-redux/comments/actions";
 import CommentSection from "../../components/comment-section";
 
 function Article() {
@@ -27,10 +26,7 @@ function Article() {
   const storeRedux = useStoreRedux();
 
   useInit(async () => {
-    await Promise.all([
-      storeRedux.dispatch(actionsArticle.load(params.id)),
-      storeRedux.dispatch(actionsComments.load(params.id)),
-    ]);
+    storeRedux.dispatch(actionsArticle.load(params.id));
   }, [params.id]);
 
   const isLoggedIn = useSelector((state) => state.session.exists);
@@ -43,28 +39,11 @@ function Article() {
     shallowEqual
   );
 
-  const commentsSlice = useSelectorRedux(
-    (state) => ({
-      list: state.comments.data,
-      count: state.comments.count,
-      waiting: state.comments.waiting,
-    }),
-    shallowEqual
-  );
-
   const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback((_id) => store.get("basket").addToBasket(_id), []),
-    createComment: ({ text, parent_id, parent_type }) => {
-      storeRedux.dispatch(
-        actionsComments.create({
-          text,
-          parent: { _id: parent_id, _type: parent_type },
-        })
-      );
-    },
   };
 
   return (
@@ -78,15 +57,7 @@ function Article() {
           onAdd={callbacks.addToBasket}
           t={t}
         />
-        {!commentsSlice.waiting && (
-          <CommentSection
-            list={commentsSlice.list}
-            count={commentsSlice.count}
-            isLoggedIn={isLoggedIn}
-            createComment={callbacks.createComment}
-            articleId={params.id}
-          />
-        )}
+        <CommentSection isLoggedIn={isLoggedIn} articleId={params.id} />
       </Spinner>
     </Layout>
   );

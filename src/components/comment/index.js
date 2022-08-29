@@ -11,7 +11,12 @@ function Comment({ item, isLoggedIn, onReply }) {
   const dateCreate = parseDate(new Date(item.dateCreate));
 
   const replies = item.children.map((item) => (
-    <Comment item={item} key={item._id} isLoggedIn={isLoggedIn} />
+    <Comment
+      item={item}
+      key={item._id}
+      isLoggedIn={isLoggedIn}
+      onReply={onReply}
+    />
   ));
 
   const replyCommentForm = isLoggedIn ? (

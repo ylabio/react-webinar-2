@@ -13,7 +13,7 @@ function CommentForm(props) {
   const isArticleComment = props.commentType === 'article'
 
   // применяем отступ, если это не комментарий к товару
-  const style = !isArticleComment ? {marginLeft: `${props.indent}px`} : null
+  const style = !isArticleComment ? {marginLeft: `${props.indent < props.MAX_INDENT ? props.indent : props.MAX_INDENT}px`} : null
 
   const callbacks = {
     // Добавление комментария

@@ -11,7 +11,7 @@ function CommentsList(props) {
       <h2 className={cn('header')}>{props.t('comments.title')}: ({props.count})</h2>
       {props.comments.map((comment) => 
         <React.Fragment key={comment._id}>
-          <div className={cn('item')} style={{marginLeft: `${comment.indent < 600 ? comment.indent : 600}px`}}>
+          <div className={cn('item')} style={{marginLeft: `${comment.indent < props.MAX_INDENT ? comment.indent : props.MAX_INDENT}px`}}>
             {/* рендер комментария */}
             {props.renderComment(comment)}
           </div>

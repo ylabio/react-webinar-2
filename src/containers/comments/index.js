@@ -13,7 +13,7 @@ import PrivateComponent from "../private-component";
 
 function Comments() {
   const storeRedux = useStoreRedux();
-
+  const MAX_INDENT = 600;
   const select = useSelectorRedux(state => ({
     comments: state.comments.data,
     count: state.comments.count,
@@ -56,6 +56,7 @@ function Comments() {
         <CommentForm  parentId={parentId}
                       commentType={type} 
                       indent={indent} 
+                      MAX_INDENT={MAX_INDENT}
                       onCancel={callbacks.onCancel} 
                       onAdd={callbacks.onAdd} 
                       t={t}
@@ -72,6 +73,7 @@ function Comments() {
                     renderComment={renders.item} 
                     renderForm={renders.form} 
                     replyId={replyId}
+                    MAX_INDENT={MAX_INDENT}
                     t={t}
       />
     </Spinner>

@@ -21,9 +21,15 @@ export default function reducer(state = initialState, action) {
       return { ...state, waiting: false };
 
     case "comments/create":
-      return { ...state, waiting: true };
+      return { ...state, waiting: false };
 
     case "comments/create-success":
+      return {
+        ...state,
+        data: action.payload.data,
+        count: state.count + 1,
+        waiting: false,
+      };
 
     case "comments/create-error":
       return { ...state, waiting: false };

@@ -1,10 +1,11 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { cn as bem } from "@bem-react/classname";
 import {
   useStore as useStoreRedux,
   useSelector as useSelectorRedux,
   shallowEqual,
 } from "react-redux";
+import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
 import "./style.css";
 import Comment from "../comment";
@@ -13,12 +14,12 @@ import { Link } from "react-router-dom";
 import actionsComments from "../../store-redux/comments/actions";
 
 function CommentSection({ isLoggedIn, articleId }) {
-  const [rerenderSwitch, setRerenderSwitch] = useState(false);
   const storeRedux = useStoreRedux();
+  const current_user = useSelector((state) => state.session.user);
 
   useInit(async () => {
     storeRedux.dispatch(actionsComments.load(articleId));
-  }, [articleId, rerenderSwitch]);
+  }, [articleId]);
 
   const commentsSlice = useSelectorRedux(
     (state) => ({
@@ -32,14 +33,17 @@ function CommentSection({ isLoggedIn, articleId }) {
   const createComment = useCallback(
     async ({ text, parent_id, parent_type }) => {
       storeRedux.dispatch(
-        actionsComments.create({
-          text,
-          parent: { _id: parent_id, _type: parent_type },
-        })
+        actionsComments.create(
+          {
+            text,
+            parent: { _id: parent_id, _type: parent_type },
+          },
+          articleId,
+          current_user.profile.name
+        )
       );
-      setRerenderSwitch((state) => !state);
     },
-    []
+    [current_user, articleId]
   );
 
   const cn = bem("CommentSection");

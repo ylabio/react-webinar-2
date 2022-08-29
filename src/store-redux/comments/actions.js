@@ -1,4 +1,5 @@
 import listToTree from "../../utils/list-to-tree";
+import treeToList from "../../utils/tree-to-list";
 
 export default {
   load: (_id) => {
@@ -19,10 +20,11 @@ export default {
         });
       } catch (e) {
         dispatch({ type: "comments/load-error" });
+        console.log(e.message);
       }
     };
   },
-  create(item) {
+  create(item, _id, current_user) {
     return async (dispatch, getState, services) => {
       dispatch({ type: "comments/create" });
 
@@ -35,8 +37,15 @@ export default {
             parent: item.parent,
           }),
         });
+        let new_comment = json.result;
+        new_comment.author = { profile: { name: current_user } };
+        const old_list = treeToList(getState().comments.data);
+        const new_list = listToTree(old_list.concat(new_comment), "_id", _id);
 
-        dispatch({ type: "comments/create-success" });
+        dispatch({
+          type: "comments/create-success",
+          payload: { data: new_list },
+        });
       } catch (e) {
         dispatch({ type: "comments/create-error" });
         console.log(e.message);

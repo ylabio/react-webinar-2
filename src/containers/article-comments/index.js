@@ -60,16 +60,13 @@ const ArticleComments = ({ parentId }) => {
     }, [location.pathname]),
 
     onPost: useCallback((text, parentId, parentType) => {
-      storeRedux
-        .dispatch(
-          actionsComments.post({
-            author: { _id: selectStore._id },
-            text,
-            parent: { _id: parentId, _type: parentType },
-          })
-        )
-        // исправить
-        .then(setParentCommsId(parentId));
+      storeRedux.dispatch(
+        actionsComments.post({
+          author: { _id: selectStore._id },
+          text,
+          parent: { _id: parentId, _type: parentType },
+        })
+      );
     }, []),
 
     onCancel: useCallback(() => {

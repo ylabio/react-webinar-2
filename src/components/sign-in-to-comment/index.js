@@ -7,7 +7,7 @@ import './style.css';
 function SignInToComment({backId, level, text, onCancel, isAnswer}) {
   const cn = bem('SignInToComment');
   return (
-    <div style={{paddingLeft: `${level * 30}px`}} className={cn()}>
+    <div className={`${cn()} comment-inset_${level > 10 ? 10 : level}`}>
       <Link to={'/login'} state={{back: `/articles/${backId}`}}>
         {text.signIn}
       </Link>

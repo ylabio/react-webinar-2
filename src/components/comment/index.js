@@ -11,7 +11,7 @@ function Comment({data, level, onAnswer, text}) {
   };
 
   return (
-    <div style={{paddingLeft: `${level * 30}px`}} className={cn()}>
+    <div className={`${cn()} comment-inset_${level > 10 ? 10 : level}`}>
       <div className={cn('head')}>
         <div className={cn('author')}>{data.author}</div>
         <div className={cn('createdAt')}>{data.date}</div>

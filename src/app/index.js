@@ -2,6 +2,7 @@ import React from 'react';
 import {useSelector as useSelectorRedux} from 'react-redux';
 import {Route, Routes} from 'react-router-dom';
 import Protected from '../containers/protected';
+import '../global.css';
 import useInit from '../hooks/use-init';
 import useStore from '../hooks/use-store';
 import Article from './article';

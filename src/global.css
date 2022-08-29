@@ -1,0 +1,37 @@
+:root {
+  --inset: 30px;
+}
+
+.comment-inset_0 {
+  padding-left: calc(var(--inset) * 0);
+}
+.comment-inset_1 {
+  padding-left: calc(var(--inset) * 1);
+}
+.comment-inset_2 {
+  padding-left: calc(var(--inset) * 2);
+}
+.comment-inset_3 {
+  padding-left: calc(var(--inset) * 3);
+}
+.comment-inset_4 {
+  padding-left: calc(var(--inset) * 4);
+}
+.comment-inset_5 {
+  padding-left: calc(var(--inset) * 5);
+}
+.comment-inset_6 {
+  padding-left: calc(var(--inset) * 6);
+}
+.comment-inset_7 {
+  padding-left: calc(var(--inset) * 7);
+}
+.comment-inset_8 {
+  padding-left: calc(var(--inset) * 8);
+}
+.comment-inset_9 {
+  padding-left: calc(var(--inset) * 9);
+}
+.comment-inset_10 {
+  padding-left: calc(var(--inset) * 10);
+}

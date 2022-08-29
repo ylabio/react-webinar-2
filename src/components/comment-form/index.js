@@ -20,7 +20,7 @@ function CommentForm({text, onSubmit, level, isAnswer, onCancel, onEdit, comment
     }, [])
   };
   return (
-    <div style={{paddingLeft: `${level * 30}px`}} className={cn()}>
+    <div className={`${cn()} comment-inset_${level > 10 ? 10 : level}`}>
       <form onSubmit={callbacks.onSubmit}>
         <div className={cn('label')}>{text.head}</div>
         <textarea value={commentText} onChange={callbacks.onEdit} id='comment' rows='4'></textarea>
@@ -34,13 +34,13 @@ function CommentForm({text, onSubmit, level, isAnswer, onCancel, onEdit, comment
 }
 
 CommentForm.propTypes = {
-  text: propTypes.objectOf(propTypes.string),
-  level: propTypes.number,
-  isAnswer: propTypes.bool,
-  commentText: propTypes.string,
-  onCancel: propTypes.func,
-  onEdit: propTypes.func,
-  onSubmit: propTypes.func
+  text: propTypes.objectOf(propTypes.string).isRequired,
+  level: propTypes.number.isRequired,
+  isAnswer: propTypes.bool.isRequired,
+  commentText: propTypes.string.isRequired,
+  onCancel: propTypes.func.isRequired,
+  onEdit: propTypes.func.isRequired,
+  onSubmit: propTypes.func.isRequired
 };
 
 export default React.memo(CommentForm);

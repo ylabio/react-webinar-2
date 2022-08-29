@@ -6,10 +6,6 @@
   margin-top: 10px;
 }
 
-ul {
-  list-style-type: none;
-}
-/* TODO: отдельный элемент - лист для комментариев, чтобы сбросить стили списка только там */
 .CommentCard-info {
   display: flex;
 }

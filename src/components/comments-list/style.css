@@ -1,0 +1,13 @@
+.CommentsList {
+  /* если лесенка комментов выйдет за границу элемента */
+  overflow-x: auto;
+}
+
+.CommentsList ul {
+  list-style-type: none;
+}
+
+/* выравнить комментарии с заголовком по левому краю */
+.CommentsList > ul {
+  padding-left: 0;
+}

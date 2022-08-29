@@ -11,6 +11,7 @@ import CommentCardContainer from '../comment-card-container';
 import Stack from '../../components/stack';
 import {listToTreeWithParentId} from '../../utils/list-to-tree';
 import treeToList, {treeToListWithUlHtmlMarkup} from '../../utils/tree-to-list';
+import CommentsList from '../../components/comments-list';
 
 function Comments(props) {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function Comments(props) {
   return (
     <Stack spacing={'big'}>
       <h2>Комментарии ({commentsTotal})</h2>
-      {content}
+      <CommentsList>{content}</CommentsList>
     </Stack>
   );
 }

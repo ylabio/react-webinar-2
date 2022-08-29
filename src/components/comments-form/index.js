@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from "prop-types";
 import { useDispatch } from 'react-redux';
@@ -16,8 +16,15 @@ function CommentsForm({_id, activeKey, setActiveKey, _type, lvl, author, itemInd
 		if(commentText && commentText.trim() != '' && commentText !== initial) {
 			dispatch(actionsComments.newComment(_id, commentText, _type, lvl, author, itemIndex));
 			dispatch(actionsComments.setActiveKey('main'));
-			setCommentText('Текст');
+			setCommentText(initial);
 		}
+	};
+
+	const callbacks = {
+		setActiveKey: useCallback((e) => {
+			e.preventDefault();
+			setActiveKey('main');
+		}, [setActiveKey])
 	};
 
 	return (
@@ -25,10 +32,7 @@ function CommentsForm({_id, activeKey, setActiveKey, _type, lvl, author, itemInd
 			<div className={cn('title')}>Новый {activeKey === 'main' ? 'комментарий' : 'ответ'}</div>
 			<textarea value={commentText} className={cn('textarea')} onChange={(e) => setCommentText(e.target.value)} onFocus={() => setCommentText('')}></textarea>
 			<button className={cn('button')} onClick={sendComment}>Отправить</button>
-			{activeKey !== 'main' && <button className={cn('cancel')} onClick={(e) => {
-				e.preventDefault();
-				setActiveKey('main');
-			}}>Отмена</button>}
+			{activeKey !== 'main' && <button className={cn('cancel')} onClick={callbacks.setActiveKey}>Отмена</button>}
 		</form>
 	)
 }

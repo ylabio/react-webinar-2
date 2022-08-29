@@ -25,19 +25,16 @@ export default function(state = initialState, action) {
 		if(action.payload.itemIndex) {
 			let newArr = [...state.items.slice(action.payload.itemIndex + 1, state.items.length + 1)];
 			
-			let k = newArr.reduce((acc, currValue) => {
-				if(currValue.lvl === action.payload.lvl) {
-					acc = acc + 1;
+			let k = 0;
+			newArr.forEach((item, index) => {
+				if(newArr[index].lvl >= action.payload.lvl) {
+					k = k + 1;
 				}
-				return acc;
-			}, 0);
+			});
 
-			items = [...state.items.slice(0, action.payload.itemIndex + k + 1), action.payload, ...state.items.slice(action.payload.itemIndex + k + 1)]; 
-			console.log(items);
-			
+			items = [...state.items.slice(0, action.payload.itemIndex + k + 1), action.payload, ...state.items.slice(action.payload.itemIndex + k + 1)];
 		} else {
 			items = [...state.items, action.payload];
-			console.log(items);
 		}
 		
 		return {...state, items: items, itemsCount: state.itemsCount + 1};

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {cn as bem} from "@bem-react/classname";
 import propTypes from 'prop-types';
 import transformData from './../../utils/transformDate';
@@ -8,6 +8,10 @@ import CommentsLogin from '../comments-login';
 
 function CommentsItem({item, activeKey, setActiveKey, exists, onSignIn, itemIndex}) {
 	const cn = bem('CommentsItem');
+
+	const callbacks = {
+		setActiveKey: useCallback(() => setActiveKey(item._id), [setActiveKey, item])
+	};
 	
 	return (
 		<div className={cn()} style={{marginLeft: `${item.lvl * 30}px`}}>
@@ -16,7 +20,7 @@ function CommentsItem({item, activeKey, setActiveKey, exists, onSignIn, itemInde
 				<span className={cn('date')}>{transformData(item.dateCreate)}</span>
 			</div>
 			<div className={cn('text')}>{item.text}</div>
-			<button className={cn('button')} onClick={() => setActiveKey(item._id)}>Ответить</button>
+			<button className={cn('button')} onClick={callbacks.setActiveKey}>Ответить</button>
 
 			{activeKey === item._id && exists && 
 				<CommentsForm _id={item._id} activeKey={activeKey} setActiveKey={setActiveKey} _type="comment" lvl={item.lvl + 1} author={item.author} itemIndex={itemIndex}/>}

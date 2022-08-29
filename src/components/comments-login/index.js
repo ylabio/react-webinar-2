@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {cn as bem} from '@bem-react/classname';
 import propTypes from 'prop-types';
 import 'style.css';
@@ -6,11 +6,15 @@ import 'style.css';
 function CommentsLogin({title, onSignIn, activeKey, setActiveKey}) {
 	const cn = bem('CommentsLogin');
 
+	const callbacks = {
+		setActiveKey: useCallback(() => setActiveKey('main'), [setActiveKey])
+	};
+
 	return (
 		<div className={cn()}>
 			<button className={cn('button')} onClick={onSignIn}>Войдите</button>, {title}
 			{activeKey !== 'main' && 
-				<button className={cn('cancel')} onClick={() => setActiveKey('main')}>Отмена</button>}
+				<button className={cn('cancel')} onClick={callbacks.setActiveKey}>Отмена</button>}
 		</div>
 	)
 }

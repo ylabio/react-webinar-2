@@ -35,6 +35,8 @@
   "comments.newComment": "Новый комментарий",
   "comments.signIn": "Войдите",
   "comments.toBeAnleToComment": ", чтобы иметь возможность комментировать",
+  "comments.toBeAnleToAnswer": ", чтобы иметь возможность ответить",
   "comments.myAnswerFor": "Мой ответ для",
-  "comments.text": "Текст"
+  "comments.text": "Текст",
+  "comments.at": "в"
 }

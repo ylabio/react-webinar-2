@@ -33,6 +33,8 @@
   "comments.newComment": "New comment",
   "comments.signIn": "Sign in",
   "comments.toBeAnleToComment": " to be able to comment",
+  "comments.toBeAnleToAnswer": " to be able to answer",
   "comments.myAnswerFor": "My answer for",
-  "comments.text": "Text"
+  "comments.text": "Text",
+  "comments.at": "at"
 }

@@ -4,15 +4,18 @@ import {cn as bem} from "@bem-react/classname";
 import {Link} from "react-router-dom";
 import './style.css';
 
-function ItemComment({changeTextComment, exists, attemptAddNewComment, item, textComment, id, changeId, t}) {
+function ItemComment({changeTextComment, exists, attemptAddNewComment, item, textComment, id, changeId, t, lang, link}) {
   const cn = bem('ItemComment');
   
-  const dateFunc = (date) => {
-    const newDate = new Date(date).toLocaleString('ru', {year: 'numeric', month: 'long', day: 'numeric'});
-    const newDateWithoutYear = newDate.slice(0, newDate.length - 3);
-
-    return newDateWithoutYear;
- }
+  const dateFunc = (date, lang) => {
+    const newDate = new Date(date).toLocaleString(lang, {year: 'numeric', month: 'long', day: 'numeric'});
+    if (lang === 'en') {
+      return newDate
+    } else {
+        const newDateWithoutYear = newDate.slice(0, newDate.length - 3);
+        return newDateWithoutYear;
+    }  
+  }
  
   const timeFunc = (date) => {
     const hourMinutes = date.split('T')[1].split(':');
@@ -32,7 +35,7 @@ function ItemComment({changeTextComment, exists, attemptAddNewComment, item, tex
   return (
     <div className={cn()} style={{paddingLeft: 40 + item.padding}} key={item._id}>
       <div className={cn('name')}><strong>{item.author.profile.name}</strong></div>
-      <div className={cn('date')}>{dateFunc(item.dateCreate)} в {timeFunc(item.dateCreate)}</div>
+      <div className={cn('date')}>{dateFunc(item.dateCreate, lang)} {t('comments.at')} {timeFunc(item.dateCreate)}</div>
       <div className={cn('text')}>{item.text}</div>
       <button className={cn('button')} onClick={()=>changeId(item._id)}>{t('comments.answerButtonName')}</button>
      
@@ -54,8 +57,8 @@ function ItemComment({changeTextComment, exists, attemptAddNewComment, item, tex
           </div>
         :
           <div className={cn('ent1')}>
-            <div className={cn('ent')}><Link to='/login'>{t('comments.signIn')}</Link>, чтобы иметь возможность ответить.</div>
-            <button className={cn('btn3')} onClick={()=>{changeId('')}}>Отмена</button>
+            <div className={cn('ent')}><Link to={link}>{t('comments.signIn')}</Link>{t('comments.toBeAnleToAnswer')}.</div>
+            <button className={cn('btn3')} onClick={()=>{changeId('')}}>{t('comments.cancelButtonName')}</button>
           </div>
         )
       }     
@@ -71,11 +74,15 @@ ItemComment.propTypes = {
   textComment: propTypes.string.isRequired,
   id: propTypes.string.isRequired,
   changeId: propTypes.func.isRequired,
-  t: propTypes.func
+  t: propTypes.func,
+  lang: propTypes.string,
+  link: propTypes.string
 }
 
 ItemComment.defaultProps = {
-  t: (text) => text
+  t: (text) => text,
+  lang: 'ru',
+  link: ''
 }
 
 export default React.memo(ItemComment);

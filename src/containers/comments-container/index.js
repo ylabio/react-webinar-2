@@ -96,6 +96,8 @@ function CommentsContainer(){
                    textComment={textComment}
                    changeTextComment={changeTextComment}
                    t={t}
+                   lang={select1.lang}
+                   link={link}
       />
     )),
   }

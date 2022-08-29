@@ -6,7 +6,7 @@ export default {
 
     loadComments: (_id, article) => {
         return async (dispatch, getState, services) => {
-            dispatch({ type: 'article/load-comments', })
+            dispatch({ type: 'comments/load-comments', })
 
             try {
                 const jsonCom = await services.api.request({ url: `/api/v1/comments?search[parent]=${_id}&limit=*` });
@@ -19,7 +19,6 @@ export default {
                     if (comments.length) {
                         const { result } = await services.api.request({ url: `api/v1/users?search[query]=${[...new Set(comments.map(user => user.author._id))].join('|')}` });
                         const { items } = result;
-                        console.log(items);
                         comments.forEach(comment => {
                             comment.author = items.find(user => user._id === comment.author._id)?.profile.name;
 
@@ -28,13 +27,13 @@ export default {
                     }
                 }
 
-                dispatch({ type: 'article/load-comments-success', comLoad: { data: comments } });
+                dispatch({ type: 'comments/load-comments-success', comLoad: { data: comments } });
 
             } catch (e) {
                 console.log(e);
 
                 // Ошибка при загрузке
-                dispatch({ type: 'article/load-comments-error' });
+                dispatch({ type: 'comments/load-comments-error' });
             }
         }
     },
@@ -42,16 +41,16 @@ export default {
     sendComment: (text, parent) => {
         return async (dispatch, getState, services) => {
             if (!text) return;
-            dispatch({ type: 'article/send' })
+            dispatch({ type: 'comments/send' })
             const _id = generateIDs();
             try {
                 const message = await services.api.request({ url: `/api/v1/comments`, method: "POST", body: JSON.stringify({ _id, text, parent }) });
 
-                dispatch({ type: 'article/send-success', lastCommented: message.result.dateCreate })
+                dispatch({ type: 'comments/send-success', lastCommented: message.result.dateCreate })
             }
             catch (e) {
 
-                dispatch({ type: 'article/send-error' })
+                dispatch({ type: 'comments/send-error' })
             }
         }
     }

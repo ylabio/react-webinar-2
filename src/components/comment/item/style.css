@@ -27,6 +27,7 @@
 .CommentItem-text {
   padding-top: 10px;
   width: 100%;
+  word-wrap: break-word;
   /* width: calc(100% - 40px); */
   /* min-height: 14px; */
 }

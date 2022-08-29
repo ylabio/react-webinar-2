@@ -8,7 +8,7 @@ export default {
 
       try {
         const json = await services.api.request({
-          url: `/api/v1/comments?search[parent]=${id}&limit=*&fields=items(*,author(profile(name))),count`
+          url: `/api/v1/comments?search[parent]=${id}&limit=*&fields=items(*,author(profile(name)))`
         });
 
         if (json.error) {

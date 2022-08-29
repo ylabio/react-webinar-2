@@ -1,16 +1,16 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import propTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import Comment from "../../components/comment";
 import AddNewComment from "../../components/add-new-comment";
-import { cn as bem } from "@bem-react/classname";
-import "./styles.css";
+import CommentDescription from "../../components/comment-description";
+import CommentsList from "../../components/comments-list";
 
 const Comments = ({ comments, session, submitComment, parent }) => {
-  let cn = bem("Comments");
   let navigate = useNavigate();
   let [toggleCreateComment, setToggleCreateComment] = useState(true);
   let [internalComments, setInternalComments] = useState(comments);
+
   const changeShowForm = useCallback(
     (_id, value = true) => {
       setInternalComments((val) => {
@@ -24,19 +24,19 @@ const Comments = ({ comments, session, submitComment, parent }) => {
     },
     [internalComments]
   );
+
   const redirect = useCallback(() => {
     navigate("/login", { state: { back: location.pathname } });
   }, []);
 
   useEffect(() => setInternalComments(comments), [comments]);
 
-  return (
-    <div className={cn()}>
-      <div className={cn("title")}>Комментарии ({internalComments.length})</div>
-      {internalComments.map((comment) => {
+  const renderComments = useMemo(
+    () =>
+      internalComments.map((comment) => {
         return (
+          <div key={comment._id}>
           <Comment
-            key={comment._id}
             comment={comment}
             toggleMainComment={setToggleCreateComment}
             changeShowForm={changeShowForm}
@@ -47,27 +47,24 @@ const Comments = ({ comments, session, submitComment, parent }) => {
             }}
             token={session.token}
             description={
-              <div className={cn("comment-alert")}>
-                <div>
-                  <span onClick={redirect} className={cn("alert-redirect")}>
-                    Войдите
-                  </span>
-                  , чтобы иметь возможность ответить.
-                  <span
-                    className={cn("alert-cancel")}
-                    onClick={() => {
-                      setToggleCreateComment(true);
-                      changeShowForm(comment._id, false);
-                    }}
-                  >
-                    Отмена
-                  </span>
-                </div>
-              </div>
+              <CommentDescription
+                redirect={redirect}
+                text={"ответить."}
+                cancelButton={true}
+                comment={comment}
+                setToggleCreateComment={setToggleCreateComment}
+                changeShowForm={changeShowForm}
+              />
             }
           />
+          </div>
         );
-      })}
+      }),
+    [internalComments]
+  );
+  return (
+    <CommentsList internalComments={internalComments}>
+      {renderComments}
       <AddNewComment
         header={"Новый комментарий"}
         createCommentOpen={toggleCreateComment}
@@ -76,18 +73,13 @@ const Comments = ({ comments, session, submitComment, parent }) => {
         token={session.token}
         description={
           toggleCreateComment ? (
-            <div className={cn("comment-alert")}>
-              <span onClick={redirect} className={cn("alert-redirect")}>
-                Войдите
-              </span>
-              , чтобы иметь возможность комментировать
-            </div>
+            <CommentDescription redirect={redirect} text={"комментировать"} />
           ) : (
             <></>
           )
         }
       />
-    </div>
+    </CommentsList>
   );
 };
 

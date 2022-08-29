@@ -76,7 +76,6 @@ const Comment = (props) => {
 };
 
 Comment.propTypes = {
-key: propTypes.string,
 comment: propTypes.object,
 toggleMainComment: propTypes.func,
 changeShowForm: propTypes.func,

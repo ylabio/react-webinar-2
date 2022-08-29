@@ -40,11 +40,13 @@ function Article() {
     storeRedux.dispatch(actionsComments.loadComments(params.id))
 
   }, [params.id]);
-
+  async function reduxCallback(){
+    storeRedux.dispatch(actionsComments.loadComments(params.id))
+  }
   const callbacksRedux = {
 
     submitComment: useCallback(async (data) => {
-       storeRedux.dispatch(actionsComments.submitComment(data,storeRedux.dispatch(actionsComments.loadComments(params.id))));
+       storeRedux.dispatch(actionsComments.submitComment(data,reduxCallback));
     
     }, []),
   }

@@ -17,6 +17,11 @@
 a{
     text-align: center;
 }
+.Menu-wrapper{
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
 
 .Menu-item:first-child {
     margin-left: 0;

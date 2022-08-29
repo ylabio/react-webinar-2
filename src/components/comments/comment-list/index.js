@@ -4,6 +4,7 @@ import propTypes from 'prop-types';
 import { useState } from 'react';
 import FormComment from '../input-comments';
 import NoAcces from '../../no-access';
+import defineDate from '../../../utils/data';
 function CommentItem({ comment, setMainForm,submitComment }) {
     
     const [formModal, setFormModal] = useState(false)
@@ -15,7 +16,7 @@ function CommentItem({ comment, setMainForm,submitComment }) {
         <div className='Comment-wrapper' style={{ marginLeft: comment.marginLeft >= 390 ? 390 : comment.marginLeft }}>
             <div className='Comment-name-data'>
                 <p className='Comment-profile-name'>{comment.author}</p>
-                <p className='Comment-date'>{comment.date}</p>
+                <p className='Comment-date'>{defineDate(comment.date)}</p>
             </div>
             <div className='Comment-text'>
 

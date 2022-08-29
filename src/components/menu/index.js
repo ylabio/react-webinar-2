@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname'
-import {Link} from "react-router-dom";
+import { cn as bem } from '@bem-react/classname'
+import { Link } from "react-router-dom";
 import './style.css';
 
 function Menu(props) {
@@ -10,9 +10,12 @@ function Menu(props) {
   return (
     <ul className={cn()}>
       {props.items.map(item => (
+
         <li key={item.key} className={cn('item')}>
           <Link to={item.link}>{item.title}</Link>
         </li>
+
+
       ))}
     </ul>
   )

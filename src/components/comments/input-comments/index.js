@@ -14,7 +14,7 @@ function FormComment({ additComponents, submitComment, type, id, close }) {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    submitComment(playoad,id)
+    submitComment(playoad)
     close()
     setText('')
   }

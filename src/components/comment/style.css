@@ -32,6 +32,20 @@
     line-height: 16px;
 }
 
+.Comment-text pre {
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.Comment-text pre span {
+    cursor: pointer;
+    color: #0087E9;
+}
+
+.Comment-text pre span:hover {
+    text-decoration: underline;
+}
+
 .Comment-links {
     margin-bottom: 30px;
     font-weight: 400;
@@ -43,6 +57,7 @@
 
 .Comment-link {
     margin-bottom: 30px;
+    display: inline-block;
     font-weight: 400;
     font-size: 12px;
     line-height: 14px;

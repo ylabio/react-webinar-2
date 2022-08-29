@@ -9,6 +9,14 @@ function Comment(props) {
   // CSS классы по БЭМ
   const cn = bem('Comment');
 
+  const [message, setMessage] = useState( true);
+
+  useEffect(() => {
+    if (props.comment.text.length > 1200) {
+      setMessage(false);
+    }
+  }, [])
+
   const callbacks = {
     answerComment: useCallback(() => props.answerComment(props.comment._id), [props.comment.active]),
   };
@@ -17,13 +25,20 @@ function Comment(props) {
 
   return (
     // Отступ по вложенности
-    <div className={cn()} style={{marginLeft: 30 * props.comment.level + 'px'}}>
+    <div className={cn()} style={{marginLeft: 30 * (props.comment.level <= 20 ? props.comment.level : 20) + 'px'}}>
       <div className={cn('head')}>
         <div className={cn('user-name', {'current': checkUser})}>{props.comment.author?.profile.name}</div>
         <div className={cn('date')}>{formatDate(props.comment?.dateCreate, props.t('lang'))}</div>
       </div>
       <div className={cn('text')}>
-        <pre>{props.comment.text}</pre>
+        {
+          message
+            ? <pre>{props.comment.text}</pre>
+            : <pre>
+                {props.comment.text.slice(0, 1200)}
+                <span onClick={() => setMessage(true)}>. . .</span>
+              </pre>
+          }
       </div>
       <div className={cn('link')} onClick={callbacks.answerComment}>{props.t('comment.answer')}</div>
       {

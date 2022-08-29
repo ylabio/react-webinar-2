@@ -19,28 +19,16 @@ export default function listToTree(list, key = '_id', parentId = null) {
       trees[item[key]] = Object.assign(trees[item[key]], item);
     }
 
-    if (parentId) {
-      // Если элемент имеет родителя, то добавляем его в подчиенные родителя
-      if (item.parent?._id !== parentId) {
-        // Если родителя ещё нет в индексе, то индек созадётся, ведь _id родителя известен
-        if (!trees[item.parent._id]) trees[item.parent._id] = { children: [] };
-        // Добавления в подчиенные родителя
-        trees[item.parent._id].children.push(trees[item[key]]);
-        // Так как элемент добавлен к родителю, то он уже не является корневым
-        if (roots[item[key]]) delete roots[item[key]];
-      }
+    if (item.parent?._id && item.parent?._id !== parentId) {
+      // Если родителя ещё нет в индексе, то индек созадётся, ведь _id родителя известен
+      if (!trees[item.parent._id]) trees[item.parent._id] = { children: [] };
+      // Добавления в подчиенные родителя
+      trees[item.parent._id].children.push(trees[item[key]]);
+      // Так как элемент добавлен к родителю, то он уже не является корневым
+      if (roots[item[key]]) delete roots[item[key]];
     }
-    if (!parentId) {
-      // Если элемент имеет родителя, то добавляем его в подчиенные родителя
-      if (item.parent?._id) {
-        // Если родителя ещё нет в индексе, то индек созадётся, ведь _id родителя известен
-        if (!trees[item.parent._id]) trees[item.parent._id] = { children: [] };
-        // Добавления в подчиенные родителя
-        trees[item.parent._id].children.push(trees[item[key]]);
-        // Так как элемент добавлен к родителю, то он уже не является корневым
-        if (roots[item[key]]) delete roots[item[key]];
-      }
-    }
+
+    console.log({ trees, roots });
   }
   return Object.values(roots);
 }

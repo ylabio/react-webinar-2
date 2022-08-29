@@ -18,13 +18,13 @@ export default function reducer(state = initialState, action) {
     case 'comments/load-error':
       return { ...state, waiting: false, error: action.payload.error };
 
-    case 'comments/upload':
+    case 'comments/post':
       return { ...state, waiting: true, error: '' };
 
-    case 'comments/upload-success':
+    case 'comments/post-success':
       return { ...state, data: [...state.data, action.payload.data], count: ++state.count, waiting: false };
 
-    case 'comments/upload-error':
+    case 'comments/post-error':
       return { ...state, waiting: false, error: action.payload.error };
 
     default:

@@ -54,13 +54,13 @@ function Article() {
       const parent = commentId
         ? { _id: commentId, _type: 'comment' }
         : { _id: selectRedux.article._id, _type: 'article' };
-      storeRedux.dispatch(actionsComments.upload(text, parent));
+      storeRedux.dispatch(actionsComments.post(text, parent));
     }, [selectRedux.article])
   };
 
   const comments = useMemo(() => [
     ...treeToList(
-      listToTree(selectRedux.comments),
+      listToTree(selectRedux.comments, '_id', 'comment'),
       (item, level) => ({ item, level })
     )
   ], [selectRedux.comments]);

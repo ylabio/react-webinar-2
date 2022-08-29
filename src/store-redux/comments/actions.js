@@ -4,7 +4,7 @@ export default {
 
   load: (_id) => {
     return async (dispatch, getState, services) => {
-      dispatch({ type: 'comments/load', });
+      dispatch({ type: 'comments/load' });
 
       try {
         const json = await services.api.request({
@@ -26,9 +26,9 @@ export default {
     };
   },
 
-  upload: (text, parent) => {
+  post: (text, parent) => {
     return async (dispatch, getState, services) => {
-      dispatch({ type: 'comments/upload', });
+      dispatch({ type: 'comments/post' });
 
       try {
         const json = await services.api.request({
@@ -42,15 +42,15 @@ export default {
 
         if (json.error) {
           // Ошибка при загрузке
-          dispatch({ type: 'comments/upload-error', payload: { error: simplifyErrors(json.error.data.issues) } });
+          dispatch({ type: 'comments/post-error', payload: { error: simplifyErrors(json.error.data.issues) } });
         } else {
           // Комментарий успешно загружен
-          dispatch({ type: 'comments/upload-success', payload: { data: json.result } });
+          dispatch({ type: 'comments/post-success', payload: { data: json.result } });
         }
 
       } catch (e) {
         // Ошибка при загрузке
-        dispatch({ type: 'comments/upload-error', payload: { error: e.message } });
+        dispatch({ type: 'comments/post-error', payload: { error: e.message } });
       }
     };
   },

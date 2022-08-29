@@ -1,4 +1,6 @@
 .Comment {
+  /* min-width: 100px; */
+  /* padding-right: 20px; */
   margin-bottom: 30px;
 }
 /* .Comment-hide {
@@ -15,6 +17,7 @@
 }
 .Comment-text {
   font-size: 14px;
+  word-wrap: break-word;
 }
 .Comment-answer-button {
   color: #0087e9;

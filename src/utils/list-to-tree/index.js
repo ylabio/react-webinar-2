@@ -18,6 +18,7 @@ export default function listToTree(list, key = '_id', parentId = null) {
     } else {
       trees[item[key]] = Object.assign(trees[item[key]], item);
     }
+    console.log({ trees, roots });
 
     if (item.parent?._id && item.parent?._id !== parentId) {
       // Если родителя ещё нет в индексе, то индек созадётся, ведь _id родителя известен
@@ -27,8 +28,6 @@ export default function listToTree(list, key = '_id', parentId = null) {
       // Так как элемент добавлен к родителю, то он уже не является корневым
       if (roots[item[key]]) delete roots[item[key]];
     }
-
-    console.log({ trees, roots });
   }
   return Object.values(roots);
 }

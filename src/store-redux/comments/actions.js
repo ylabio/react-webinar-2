@@ -6,6 +6,8 @@ export default {
         const json = await services.api.request({
           url: `/api/v1/comments?search[parent]=${_id}&fields=_id,text,dateCreate,parent,author(profile(name))&limit=*`,
         });
+
+        console.log(json.result.items);
         dispatch({
           type: 'comments/load-success',
           payload: {

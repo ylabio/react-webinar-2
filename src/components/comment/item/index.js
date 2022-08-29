@@ -21,7 +21,7 @@ function CommentItem({ id, user, mine, date, text, onReply, shift, t }) {
         </div>
       </div>
       <div className={cn('text')}>{text}</div>
-      <div className={cn('reply')} onClick={() => onReply(id)}>{t('comments.reply')}</div>
+      <div className={cn('reply')} onClick={() => onReply(id, user.name)}>{t('comments.reply')}</div>
     </div>
   );
 }

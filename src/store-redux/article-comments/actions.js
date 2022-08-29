@@ -4,7 +4,7 @@ export default {
 
   load: (id) => {
     return async (dispatch, getState, services) => {
-      dispatch({ type: 'comments/load', });
+      dispatch({ type: 'comments/load' });
 
       try {
         const json = await services.api.request({
@@ -27,9 +27,11 @@ export default {
   },
 
   send: (comment) => {
-    console.log('to send:', comment)
+    //console.log('to send:', comment)
     return async (dispatch, getState, services) => {
       try {
+        dispatch({ type: 'comments/send' });
+
         const body_ = {
           text: comment.text,
           parent: {
@@ -44,11 +46,11 @@ export default {
           body: JSON.stringify(body_)
         });
 
-        dispatch({ type: 'comments/post-success', payload: { data: json.result } });
+        dispatch({ type: 'comments/send-success', payload: { data: json.result } });
 
       } catch (e) {
         // Ошибка при загрузке
-        dispatch({ type: 'comments/post-error' });
+        dispatch({ type: 'comments/send-error' });
       }
     }
   },

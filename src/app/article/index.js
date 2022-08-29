@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import { shallowEqual, useSelector as useSelectorRedux, useStore as useStoreRedux } from "react-redux";
+import React, { useCallback, useEffect } from "react";
+import { shallowEqual, useDispatch, useSelector as useSelectorRedux, useStore as useStoreRedux } from "react-redux";
 import { useParams } from "react-router-dom";
 import ArticleCard from "../../components/article-card";
 import Layout from "../../components/layout";
@@ -9,7 +9,6 @@ import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import TopContainer from "../../containers/top";
 import useInit from "../../hooks/use-init";
-import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import actionsComments from '../../store-redux/article-comments/actions';
@@ -25,9 +24,12 @@ function Article() {
   useInit(async () => {
     //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsArticle.load(params.id));
-    // подргужаем комменты для итема
-    storeRedux.dispatch(actionsComments.load(params.id));
   }, [params.id]);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    storeRedux.dispatch(actionsComments.load(params.id));
+  }, [params.id, dispatch]);
 
   const select = useSelectorRedux(state => ({
     article: state.article.data,

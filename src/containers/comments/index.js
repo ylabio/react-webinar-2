@@ -1,13 +1,12 @@
 import propTypes from 'prop-types';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import React, { useCallback, useMemo, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import CommentItem from '../../components/comment/item';
 import CommentList from '../../components/comment/list';
 import CommentWritter from '../../components/comment/writter';
 import Spinner from "../../components/spinner";
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
-import useUser from '../../hooks/use-user';
 import listToTree from '../../utils/list-to-tree';
 import treeToList from '../../utils/tree-to-list';
 
@@ -21,19 +20,13 @@ function Comments({ id, comments, onSend, waiting }) {
 
   const navigate = useNavigate();
   const location = useLocation();
-  //const { exists, user } = useSelector(state => state.session);
-  const { exists, user } = useUser({ orRedirectTo: null });
+  const { exists, user } = useSelector(state => state.session);
   const { t } = useTranslate();
 
-  //console.log(id, comments, user);
   //console.log('comments:', comments);
 
-  const prefab = { id, parentId: null, text: '' };
+  const prefab = { id, parentId: null, text: 'Текст' };
   const [newComment, setNewComment] = useState({ ...prefab });
-
-  // 654
-  // 122
-
   const list = useMemo(() => treeToList(listToTree([
     ...comments,
     {
@@ -46,13 +39,9 @@ function Comments({ id, comments, onSend, waiting }) {
 
   //console.log('list:', list);
 
-
-  console.log('newComment.parentId:', newComment.parentId);
-
-  //
   const callbacks = {
     onReply: useCallback(
-      parentId => setNewComment(() => ({ ...prefab, parentId })), []),
+      (parentId, name) => setNewComment(() => ({ ...prefab, parentId, text: 'Мой ответ для ' + name })), []),
     onCancel: useCallback(
       () => setNewComment({ ...prefab })
       , [setNewComment, prefab]),

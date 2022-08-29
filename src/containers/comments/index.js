@@ -63,7 +63,7 @@ function Comments() {
             id: item._id,
             text: item.text,
             author: item.author.profile.name,
-            padding: 30 * level,
+            padding: level <= 20 ? 30 * level : 600,
             date: item.dateCreate,
             active: item.active,
           })

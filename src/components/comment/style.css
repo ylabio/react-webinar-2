@@ -30,15 +30,3 @@
 .Comment-reply:hover {
   cursor: pointer;
 }
-
-.Comment-cancelReply {
-  border: none;
-  background: none;
-  color: #666666;
-  font-size: 16px;
-  text-decoration: underline;
-}
-
-.Comment-cancelReply:hover {
-  cursor: pointer;
-}

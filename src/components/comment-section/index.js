@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { cn as bem } from "@bem-react/classname";
 import {
   useStore as useStoreRedux,
@@ -10,13 +10,13 @@ import useInit from "../../hooks/use-init";
 import "./style.css";
 import Comment from "../comment";
 import CommentCreate from "../comment-create";
-import { Link } from "react-router-dom";
 import actionsComments from "../../store-redux/comments/actions";
 
 function CommentSection({ isLoggedIn, articleId }) {
+  const [currentTargetId, setCurrentTargetId] = useState(articleId);
+  console.log(currentTargetId);
   const storeRedux = useStoreRedux();
   const current_user = useSelector((state) => state.session.user);
-
   useInit(async () => {
     storeRedux.dispatch(actionsComments.load(articleId));
   }, [articleId]);
@@ -30,21 +30,32 @@ function CommentSection({ isLoggedIn, articleId }) {
     shallowEqual
   );
 
-  const createComment = useCallback(
-    async ({ text, parent_id, parent_type }) => {
-      storeRedux.dispatch(
-        actionsComments.create(
-          {
-            text,
-            parent: { _id: parent_id, _type: parent_type },
-          },
-          articleId,
-          current_user.profile.name
-        )
-      );
-    },
-    [current_user, articleId]
-  );
+  const callbacks = {
+    createComment: useCallback(
+      async ({ text, parent_id, parent_type }) => {
+        storeRedux.dispatch(
+          actionsComments.create(
+            {
+              text,
+              parent: { _id: parent_id, _type: parent_type },
+            },
+            articleId,
+            current_user.profile.name,
+            () => {
+              setCurrentTargetId(articleId);
+            }
+          )
+        );
+      },
+      [current_user, articleId]
+    ),
+    currentTargetIsComment: useCallback(() => {
+      setCurrentTargetId(articleId);
+    }, []),
+    currentTargetIsReply: useCallback((reply_id) => {
+      setCurrentTargetId(reply_id);
+    }, []),
+  };
 
   const cn = bem("CommentSection");
 
@@ -53,22 +64,24 @@ function CommentSection({ isLoggedIn, articleId }) {
       item={item}
       key={item._id}
       isLoggedIn={isLoggedIn}
-      onReply={createComment}
+      onReply={callbacks.createComment}
+      level={1}
+      currentTargetId={currentTargetId}
+      currentTargetIsComment={callbacks.currentTargetIsComment}
+      currentTargetIsReply={callbacks.currentTargetIsReply}
     />
   ));
-  const create_comment_form = isLoggedIn ? (
-    <CommentCreate onCreate={createComment} articleId={articleId} />
-  ) : (
-    <div style={{ marginTop: "30px" }}>
-      <Link to="/login">Войдите</Link>, чтобы иметь возможность комментировать
-    </div>
-  );
 
   return !commentsSlice.waiting ? (
     <div className={cn()}>
       <h2 className={cn("header")}>Комментарии ({commentsSlice.count})</h2>
       {!!commentsSlice.list.length && comments}
-      {create_comment_form}
+      <CommentCreate
+        onCreate={callbacks.createComment}
+        articleId={articleId}
+        isLoggedIn={isLoggedIn}
+        currentTargetId={currentTargetId}
+      />
     </div>
   ) : (
     <></>

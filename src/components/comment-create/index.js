@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
 import { cn as bem } from "@bem-react/classname";
 import "../comments-forms.css";
+import { Link } from "react-router-dom";
 
-function CommentCreate({ onCreate, articleId }) {
+function CommentCreate({ onCreate, articleId, isLoggedIn, currentTargetId }) {
   const comment_text = useRef();
   const cn = bem("CommentCreate");
 
@@ -15,7 +16,9 @@ function CommentCreate({ onCreate, articleId }) {
     });
   };
 
-  return (
+  if (currentTargetId !== articleId) return <></>;
+
+  return isLoggedIn ? (
     <form className={cn()} onSubmit={submit}>
       <label className={cn("label")} htmlFor="comment-create-ta">
         Новый комментарий
@@ -27,6 +30,10 @@ function CommentCreate({ onCreate, articleId }) {
       />
       <button type="submit">Отправить</button>
     </form>
+  ) : (
+    <div style={{ marginTop: "30px", marginLeft: "30px" }}>
+      <Link to="/login">Войдите</Link>, чтобы иметь возможность комментировать
+    </div>
   );
 }
 

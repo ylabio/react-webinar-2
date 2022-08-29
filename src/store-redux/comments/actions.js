@@ -24,7 +24,7 @@ export default {
       }
     };
   },
-  create(item, _id, current_user) {
+  create(item, _id, current_user, callback = () => {}) {
     return async (dispatch, getState, services) => {
       dispatch({ type: "comments/create" });
 
@@ -42,6 +42,7 @@ export default {
         const old_list = treeToList(getState().comments.data);
         const new_list = listToTree(old_list.concat(new_comment), "_id", _id);
 
+        callback();
         dispatch({
           type: "comments/create-success",
           payload: { data: new_list },

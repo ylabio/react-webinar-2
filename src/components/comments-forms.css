@@ -28,3 +28,15 @@
 .ReplyCreate button[type="button"] {
   margin-left: 10px;
 }
+
+.ReplyCreate-cancelReply {
+  border: none;
+  background: none;
+  color: #666666;
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+.ReplyCreate-cancelReply:hover {
+  cursor: pointer;
+}

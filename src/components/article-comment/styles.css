@@ -22,6 +22,7 @@
 .ArticleComment-text {
   padding: 5px;
   font-size: 14px;
+  overflow-wrap: break-word;
 }
 .ArticleComment-reply {
   padding: 5px;

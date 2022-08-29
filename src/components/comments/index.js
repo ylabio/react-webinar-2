@@ -1,29 +1,26 @@
-import Comment from "./coment";
-import ProtectedComments from "containers/protected-comments";
 import React from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
 
-function Comments({comments, articleId}) {
+function Comments({comments, children, renderComment}) {
 
   const cn = bem('Comments');
 
   return (
     <div className={cn()}>
       <p className={cn('title')}>Комментарии ({comments.length})</p>
-      {comments.map(comment => {
-        return <Comment comment={comment} key={comment.id}/>;
-      })}
+      {comments.map(comment => <div key={comment.id}>{renderComment(comment)}</div>)}
 
-      <ProtectedComments id={articleId} redirect={'/login'}/>
+      {children}
     </div>
   )
 }
 
 Comments.propTypes = {
-  comments: propTypes.array.isRequired,
-  articleId: propTypes.string,
+  renderComment: propTypes.func,
+  comments: propTypes.arrayOf(propTypes.object).isRequired,
+  children: propTypes.node,
 }
 
 Comments.defaultProps = {

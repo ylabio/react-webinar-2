@@ -1,6 +1,12 @@
 import Comments from "components/comments";
+import Comment from "components/comments/coment";
+import ProtectedComments from "containers/protected-comments";
 import React, {useCallback} from "react";
-import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
+import {
+  useStore as useStoreRedux,
+  useSelector as useSelectorRedux,
+  shallowEqual
+} from "react-redux";
 import useStore from "../../hooks/use-store";
 import {useParams} from "react-router-dom";
 import useInit from "../../hooks/use-init";
@@ -14,7 +20,7 @@ import ToolsContainer from "../../containers/tools";
 import actionsArticle from '../../store-redux/article/actions';
 import actionsComments from '../../store-redux/comments/actions';
 
-function Article(){
+function Article() {
   const store = useStore();
 
   const params = useParams();
@@ -44,6 +50,16 @@ function Article(){
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    setEditor: useCallback(id => storeRedux.dispatch(actionsComments.setEditor(id)), []),
+  };
+
+  const renders = {
+    comment: useCallback(item => (
+      <Comment textEditor={select.textEditor} setEditor={callbacks.setEditor}
+               comment={item} key={item.id}>
+        <ProtectedComments id={item.id} redirect={'/login'}/>
+      </Comment>
+    ), [select.textEditor]),
   };
 
   return (
@@ -51,11 +67,15 @@ function Article(){
       <TopContainer/>
       <HeadContainer title={select.article.title || ''}/>
       <ToolsContainer/>
+
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
+
       <Spinner active={select.waitingComments}>
-        <Comments articleId={params.id} comments={select.comments}/>
+        <Comments comments={select.comments} renderComment={renders.comment}>
+          <ProtectedComments id={params.id} redirect={'/login'}/>
+        </Comments>
       </Spinner>
     </Layout>
   )

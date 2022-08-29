@@ -1,10 +1,9 @@
-import ProtectedComments from "containers/protected-comments";
-import React from 'react';
+import React, {useCallback} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
 
-function Comment({comment}) {
+function Comment({comment, children, setEditor, textEditor}) {
   const {dateCreate, level, author, text, id} = comment;
   const cn = bem('Comment');
 
@@ -20,6 +19,10 @@ function Comment({comment}) {
     minute: '2-digit'
   });
 
+  const callbacks = {
+    setEditor: useCallback(() => setEditor(comment.id), [])
+  };
+
   return (
     <div className={cn()} style={{paddingLeft: `${String(level * 30)}px`}}>
       <div className={cn('container')}>
@@ -29,15 +32,19 @@ function Comment({comment}) {
 
       </div>
       <p className={cn('text')}>{text}</p>
-      <ProtectedComments id={id} redirect={'/login'}>
-        <div className={cn('answer')}>Ответить</div>
-      </ProtectedComments>
+
+      {children}
+      {id === textEditor ? null :
+        <div onClick={callbacks.setEditor} className={cn('answer')}>Ответить</div>}
     </div>
   );
 }
 
 Comment.propTypes = {
   comment: propTypes.object.isRequired,
+  children: propTypes.node.isRequired,
+  setEditor: propTypes.func.isRequired,
+  textEditor: propTypes.string.isRequired,
 }
 
 Comment.defaultProps = {

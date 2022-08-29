@@ -15,7 +15,7 @@ export default {
 
       try {
         const json = await services.api.request({url: `/api/v1/comments?search[parent]=${_id}&fields=_id,text,dateCreate,parent(_type,_id),author(profile(name))&limit=*`});
-        console.log(json)
+
         const comments = [...treeToList(
           listToTreeComments(json.result.items, _id),
           (item, level) => ({

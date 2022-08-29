@@ -21,14 +21,14 @@ function TextEditor({onBack, onChange, placeholder, value = ''}) {
       <p className={cn('name')}>{onBack ? 'Новый ответ' : 'Новый комментарий'}</p>
 
       <textarea
-        autoFocus={onBack ? true : false}
+        autoFocus={!!onBack}
         className={cn('textArea')}
         value={textValue}
         placeholder={placeholder}
         onChange={onChangeText}
       />
 
-      <button className={cn('button')} onClick={onChangeClick}>Отправить</button>
+      <button disabled={textValue.trim().length===0} className={cn('button')} onClick={onChangeClick}>Отправить</button>
       {onBack ? <button className={cn('button')} onClick={onBack}>Отмена</button> : null}
     </div>
   )

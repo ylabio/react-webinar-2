@@ -11,7 +11,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import actionsComments from "store-redux/comments/actions";
 import useSelector from "../../hooks/use-selector";
 
-function ProtectedComments({redirect, id, children}) {
+function ProtectedComments({redirect, id}) {
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,17 +34,16 @@ function ProtectedComments({redirect, id, children}) {
       navigate(redirect, {state: {back: location.pathname}});
     }, []),
     onBack: useCallback(() => storeRedux.dispatch(actionsComments.setEditor(selectRedux.article._id)), []),
-    setEditor: useCallback(() => storeRedux.dispatch(actionsComments.setEditor(id)), []),
     setText: useCallback((text) => storeRedux.dispatch(actionsComments.addComment(id, text, _type)), []),
   };
 
-  if (!select.exists && !select.waiting) {
-    if (selectRedux.article._id === selectRedux.textEditor && id === selectRedux.article._id) {
+  if (!select.exists && !select.waiting && selectRedux.textEditor === id) {
+    if (_type === 'article') {
       return <LoginComments text={' чтобы иметь возможность комментировать'}
                             onNavigate={callbacks.onNavigate}/>;
     }
 
-    if (selectRedux.textEditor === id && id !== selectRedux.article._id) {
+    if (_type === 'comment') {
       return <LoginComments text={' чтобы иметь возможность ответить. '}
                             onNavigate={callbacks.onNavigate} onBack={callbacks.onBack}/>;
     }
@@ -58,17 +57,12 @@ function ProtectedComments({redirect, id, children}) {
     return <TextEditor onChange={callbacks.setText} onBack={callbacks.onBack}/>;
   }
 
-  if (id === selectRedux.article._id) {
-    return null;
-  }
-
-  return <div onClick={callbacks.setEditor}>{children}</div>;
+  return null;
 }
 
 ProtectedComments.propTypes = {
   redirect: propTypes.string,
   id: propTypes.string,
-  children: propTypes.node
 };
 
 export default React.memo(ProtectedComments);

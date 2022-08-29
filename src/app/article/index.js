@@ -1,7 +1,6 @@
-import React, {useCallback, useEffect, useMemo} from "react";
+import React, {useCallback} from "react";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
 import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
 import {useParams} from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
@@ -12,13 +11,6 @@ import TopContainer from "../../containers/top";
 import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import actionsArticle from '../../store-redux/article/actions';
-import actionsComments from '../../store-redux/comments/actions';
-import Comments from "../../containers/comments-container";
-import ItemComment from "../../components/item-comment";
-import FormAddComment from "../../components/form-add-comment";
-import CommentsEntry from "../../components/comments-entry";
-import treeToList from "../../utils/tree-to-list";
-import listToTree from "../../utils/list-to-tree";
 import CommentsContainer from "../../containers/comments-container";
 
 function Article(){
@@ -28,21 +20,15 @@ function Article(){
 
   const storeRedux = useStoreRedux();
 
-  const select1 = useSelector(state => ({
-    exists: state.session.exists
-    
-   }));
-
   const select = useSelectorRedux(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
     comments: state.comments.data,
     numberOfComments: state.comments.numberOfComments,
   }), shallowEqual);
+
   useInit(async () => {
-    //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsArticle.load(params.id));
-    
   }, [params.id]);
 
   const {t} = useTranslate();

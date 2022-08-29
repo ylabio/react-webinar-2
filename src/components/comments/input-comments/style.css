@@ -1,0 +1,18 @@
+.NewComment{
+    color :#000000;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+textarea{
+    width: 100%; /* Ширина */
+    height: 76px; /* Высота */
+    font-size: 14px; /* Размер шрифта */
+    resize: none
+}
+button{
+    margin-top: 10px;
+}
+.FormComment-button button:first-child{
+margin-right: 10px;
+}

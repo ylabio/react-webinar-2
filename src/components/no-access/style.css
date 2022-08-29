@@ -1,0 +1,11 @@
+.NoAcces-title a{
+    color: #0087E9;
+    text-decoration: none;
+
+}
+.NoAcces-title span{
+    text-decoration:underline;
+    cursor: pointer;
+    color:#666666
+    
+}

@@ -50,7 +50,7 @@ function CatalogFilter() {
       )
     ], [select.categories]),
   }
-
+  console.log(select.categories);
   return (
     <LayoutFlex flex="start" indent="big">
       <Select onChange={callbacks.onCategory} value={select.category} options={options.categories}/>

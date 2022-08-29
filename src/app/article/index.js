@@ -1,8 +1,8 @@
-import React, {useCallback} from "react";
-import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
+import React, { useCallback, useMemo } from "react";
+import { useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual } from "react-redux";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import ArticleCard from "../../components/article-card";
@@ -12,25 +12,68 @@ import TopContainer from "../../containers/top";
 import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import actionsArticle from '../../store-redux/article/actions';
-
-function Article(){
+import actionsComments from '../../store-redux/comments/action'
+import Comments from "../../components/comments";
+import treeToList from "../../utils/tree-to-list";
+import listToTree from "../../utils/list-to-tree";
+function Article() {
   const store = useStore();
   // Параметры из пути /articles/:id
   const params = useParams();
 
   const storeRedux = useStoreRedux();
 
-  useInit(async () => {
-    //await store.get('article').load(params.id);
-    storeRedux.dispatch(actionsArticle.load(params.id));
-  }, [params.id]);
+  
 
   const select = useSelectorRedux(state => ({
     article: state.article.data,
-    waiting: state.article.waiting
+    waiting: state.article.waiting,
+    
+    сount: state.сomments.data,
+    сomments: state.сomments.data.items || [],
+    
   }), shallowEqual);
+  useInit(async () => {
+    //await store.get('article').load(params.id);
+    storeRedux.dispatch(actionsArticle.load(params.id));
+    storeRedux.dispatch(actionsComments.loadComments(params.id))
 
-  const {t} = useTranslate();
+  }, [params.id]);
+
+console.log(select.сount.count);
+  const callbacksRedux = {
+    activeComments: useCallback((arr, id) => {
+      storeRedux.dispatch(actionsComments.activeComments(arr, id));
+    }, []),
+    submitComment: useCallback((data) => {
+      storeRedux.dispatch(actionsComments.submitComment(data));
+    }, []),
+  }
+  console.log(select.сomments)
+  const options = {
+    сomments: useMemo(() => {
+      return (
+        treeToList(
+          listToTree(select.сomments, undefined, select.article._id),
+          (item, level) => ({
+            id: item._id,
+            text: item.text,
+            author: item.author.profile?.name,
+            marginLeft: 30 * level,
+            date: item.dateCreate,
+           
+          }
+
+          )
+        )
+      )
+    }
+
+
+      , [select.сomments]),
+  }
+  console.log(options.сomments);
+  const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
@@ -39,11 +82,21 @@ function Article(){
 
   return (
     <Layout>
-      <TopContainer/>
-      <HeadContainer title={select.article.title || ''}/>
-      <ToolsContainer/>
+      <TopContainer />
+      <HeadContainer title={select.article.title || ''} />
+      <ToolsContainer />
       <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
+    
+      </Spinner>
+      <Spinner active={select.сomments.length===0}>
+      <Comments
+          id={select.article._id}
+          comments={options.сomments}
+          count={select.сomments.length}
+          activeComments={callbacksRedux.activeComments}
+          submitComment={callbacksRedux.submitComment}
+        />
       </Spinner>
     </Layout>
   )

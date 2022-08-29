@@ -16,7 +16,10 @@ function BasketSimple({sum, amount, onOpen, t}) {
         : t('basket.empty')
       }
       </span>
-      <button className='BasketSimple__button' onClick={onOpen}>{t('basket.open')}</button>
+      <div className='BasketSimple__button'>
+      <button  onClick={onOpen}>{t('basket.open')}</button>
+
+      </div>
     </div>
   )
 }

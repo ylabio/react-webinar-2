@@ -2,6 +2,7 @@
 .BasketSimple{
     display: flex;
     justify-content: flex-end;
+    align-items: flex-end;
     padding: 0;
     font-size: 18px;
 }
@@ -13,4 +14,8 @@
 .BasketSimple-total{
     font-weight: bold;
     margin: 0 15px;
+}
+.BasketSimple__button{
+    display: flex;
+    align-items: flex-end;
 }

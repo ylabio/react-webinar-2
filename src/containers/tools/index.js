@@ -44,4 +44,4 @@ function ToolsContainer() {
   );
 }
 
-export default React.memo(ToolsContainer);
+ export default ToolsContainer

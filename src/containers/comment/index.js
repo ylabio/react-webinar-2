@@ -4,6 +4,7 @@ import {
   useSelector as useSelectorRedux,
   shallowEqual,
 } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import propTypes from 'prop-types';
 import useTranslate from '../../hooks/use-translate';
 import CommentsInfo from '../../components/comments/info';
@@ -12,9 +13,11 @@ import CommentsForm from '../../components/comments/form';
 import actionsComments from '../../store-redux/comments/actions';
 import useSelector from '../../hooks/use-selector';
 
-function Comment({ parentId, userName, date, text, level, commentId }) {
+function Comment({ userName, date, text, level, commentId }) {
   const storeRedux = useStoreRedux();
   const { t } = useTranslate();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const select = useSelector((state) => ({
     exists: state.session.exists,
@@ -31,24 +34,23 @@ function Comment({ parentId, userName, date, text, level, commentId }) {
 
   const callbacks = {
     addComment: useCallback(
-      (text) => storeRedux.dispatch(actionsComments.addComment(parentId, userId, text, 'comment')),
-      [parentId, select.userId]
+      (text) =>
+        storeRedux.dispatch(actionsComments.addComment(commentId, select.userId, text, 'comment')),
+      [commentId, select.userId]
     ),
     changeCurrentOpenForm: useCallback(
-      (flag = true) =>
-        storeRedux.dispatch({
-          type: 'comments/change-current-open-form',
-          payload: { currentOpenForm: flag ? commentId : '' },
-        }),
+      (flag = true) => storeRedux.dispatch(actionsComments.changeCurrentOpenForm(flag, commentId)),
       [commentId]
     ),
+    onSignIn: useCallback(() => {
+      navigate('/login', { state: { back: location.pathname } });
+    }),
   };
 
   const options = {
     marginLeft: level * 30 > 330 ? 330 : level * 30,
   };
 
-  console.log(selectRedux.currentOpenForm);
   const renders = {
     renderForm: useCallback(
       () => (
@@ -56,13 +58,20 @@ function Comment({ parentId, userName, date, text, level, commentId }) {
           {openForm &&
             selectRedux.currentOpenForm === commentId &&
             (!select.exists ? (
-              <CommentsLoginText closeForm={() => setOpenForm(false)} t={t} />
+              <CommentsLoginText
+                closeForm={() => setOpenForm(false)}
+                t={t}
+                changeCurrentOpenForm={() => callbacks.changeCurrentOpenForm(false)}
+                onSignIn={callbacks.onSignIn}
+              />
             ) : (
               <CommentsForm
-                title={'новый коммент'}
+                title={t('comment.newAnswer')}
                 closeForm={() => setOpenForm(false)}
                 addComment={callbacks.addComment}
                 changeCurrentOpenForm={() => callbacks.changeCurrentOpenForm(false)}
+                autoFocus={true}
+                t={t}
               />
             ))}
         </>
@@ -80,12 +89,12 @@ function Comment({ parentId, userName, date, text, level, commentId }) {
       marginLeft={options.marginLeft}
       renderForm={renders.renderForm}
       changeCurrentOpenForm={callbacks.changeCurrentOpenForm}
+      t={t}
     />
   );
 }
 
 CommentsInfo.propTypes = {
-  parentId: propTypes.string,
   userName: propTypes.string.isRequired,
   date: propTypes.string.isRequired,
   text: propTypes.string.isRequired,

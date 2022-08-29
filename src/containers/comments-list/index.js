@@ -4,7 +4,7 @@ import {
   useSelector as useSelectorRedux,
   shallowEqual,
 } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import useTranslate from '../../hooks/use-translate';
 import Spinner from '../../components/spinner';
 import Comments from '../../components/comments/layout';
@@ -22,6 +22,8 @@ function CommentsList() {
   const storeRedux = useStoreRedux();
   const { t, lang } = useTranslate();
   const params = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const select = useSelector((state) => ({
     exists: state.session.exists,
@@ -45,6 +47,9 @@ function CommentsList() {
     addComment: useCallback((text) => {
       storeRedux.dispatch(actionsComments.addComment(params.id, select.userId, text, 'article'));
     }, []),
+    onSignIn: useCallback(() => {
+      navigate('/login', { state: { back: location.pathname } });
+    }, [location.pathname]),
   };
 
   const options = {
@@ -59,13 +64,18 @@ function CommentsList() {
         <>
           {!selectRedux.currentOpenForm &&
             (!select.exists ? (
-              <CommentsLoginText t={t} articleComment={true} />
+              <CommentsLoginText t={t} articleComment={true} onSignIn={callbacks.onSignIn} />
             ) : (
-              <CommentsForm articleComment={true} addComment={callbacks.addComment} />
+              <CommentsForm
+                title={t('comment.newComment')}
+                articleComment={true}
+                addComment={callbacks.addComment}
+                t={t}
+              />
             ))}
         </>
       ),
-      [select.exists, selectRedux.currentOpenForm]
+      [select.exists, selectRedux.currentOpenForm, lang]
     ),
   };
 
@@ -75,7 +85,6 @@ function CommentsList() {
         {options.commentsWithChildren.map((comment) => (
           <Comment
             key={comment._id}
-            parentId={comment.parent._id}
             userName={comment.author.profile.name}
             date={dateFormat(lang, comment.dateCreate)}
             text={comment.text}

@@ -6,8 +6,18 @@ import './styles.css';
 // минимальная высота textarea
 const MIN_TEXTAREA_HEIGHT = 80;
 
-function CommentsForm({ title, closeForm, articleComment, addComment, changeCurrentOpenForm }) {
+function CommentsForm({
+  title,
+  closeForm,
+  articleComment,
+  addComment,
+  changeCurrentOpenForm,
+  autoFocus,
+  t,
+}) {
   const cn = bem('CommentsForm');
+
+  console.log(title);
 
   const textareaRef = React.useRef(null);
   const [formValue, setFormValue] = useState('');
@@ -28,6 +38,7 @@ function CommentsForm({ title, closeForm, articleComment, addComment, changeCurr
       e.preventDefault();
       addComment(formValue);
       setFormValue('');
+      changeCurrentOpenForm();
     },
     onCloseForm: (e) => {
       e.preventDefault();
@@ -44,10 +55,11 @@ function CommentsForm({ title, closeForm, articleComment, addComment, changeCurr
         className={cn('textarea')}
         value={formValue}
         onChange={(e) => setFormValue(e.currentTarget.value)}
+        autoFocus={autoFocus}
       />
       <div className={cn('buttons')}>
-        <button type="submit">Отправить</button>
-        {!articleComment && <button onClick={callbacks.onCloseForm}>Отмена</button>}
+        <button type="submit">{t('comment.send')}</button>
+        {!articleComment && <button onClick={callbacks.onCloseForm}>{t('comment.cancel')}</button>}
       </div>
     </form>
   );
@@ -59,6 +71,8 @@ CommentsForm.propTypes = {
   articleComment: propTypes.bool,
   addComment: propTypes.func,
   changeCurrentOpenForm: propTypes.func,
+  autoFocus: propTypes.bool,
+  t: propTypes.func,
 };
 
 CommentsForm.defaultProps = {
@@ -67,6 +81,8 @@ CommentsForm.defaultProps = {
   articleComment: false,
   addComment: () => {},
   changeCurrentOpenForm: () => {},
+  autoFocus: false,
+  t: (text) => text,
 };
 
 export default React.memo(CommentsForm);

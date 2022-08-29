@@ -27,8 +27,6 @@ class CategoriesState extends StateModule {
       url: `/api/v1/categories/${qs.stringify(params)}`,
     });
 
-    console.log(json.result.items);
-
     // Товар загружен успешно
     this.setState(
       {

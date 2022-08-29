@@ -50,4 +50,9 @@ export default {
       }
     };
   },
+
+  changeCurrentOpenForm: (flag, commentId = null) => ({
+    type: 'comments/change-current-open-form',
+    payload: { currentOpenForm: flag ? commentId : '' },
+  }),
 };

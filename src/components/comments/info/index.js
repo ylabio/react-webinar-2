@@ -11,6 +11,7 @@ function CommentsInfo({
   marginLeft,
   renderForm,
   changeCurrentOpenForm,
+  t,
 }) {
   const cn = bem('CommentsInfo');
 
@@ -27,7 +28,7 @@ function CommentsInfo({
       </div>
       <p className={cn('text')}>{text}</p>
       <span className={cn('response')} onClick={onOpenForm}>
-        Ответить
+        {t('comment.reply')}
       </span>
       {renderForm()}
     </div>
@@ -42,11 +43,13 @@ CommentsInfo.propTypes = {
   marginLeft: propTypes.number,
   renderForm: propTypes.func,
   changeCurrentOpenForm: propTypes.func,
+  t: propTypes.func,
 };
 
 CommentsInfo.defaultProps = {
   marginLeft: 0,
   renderForm: () => {},
+  t: (text) => text,
 };
 
 export default React.memo(CommentsInfo);

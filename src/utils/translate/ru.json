@@ -24,5 +24,12 @@
   "session.signIn": "Вход",
   "session.signOut": "Выход",
   "comments.comments": "Комментарии",
-  "formatDate.at": "в"
+  "formatDate.at": "в",
+  "comment.send": "Отправить",
+  "comment.reply": "Ответить",
+  "comment.newComment": "Новый комментарий",
+  "comment.newAnswer": "Новый ответ",
+  "comment.cancel": "Отмена",
+  "comment.login": "Войдите",
+  "comment.loginText": ", чтобы иметь возможность ответить."
 }

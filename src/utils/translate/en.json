@@ -22,5 +22,12 @@
   "session.signIn": "Sign In",
   "session.signOut": "Sign Out",
   "comments.comments": "Comments",
-  "formatDate.at": "at"
+  "formatDate.at": "at",
+  "comment.send": "Send",
+  "comment.reply": "Reply",
+  "comment.newComment": "New comment",
+  "comment.newAnswer": "New answer",
+  "comment.cancel": "Cancel",
+  "comment.login": "Log in",
+  "comment.loginText": " to be able to respond."
 }

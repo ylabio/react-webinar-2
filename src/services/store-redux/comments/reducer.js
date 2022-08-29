@@ -45,10 +45,16 @@ export default function reducer(state = initialState, action) {
       if (parentIndex === -1) {
         newArr = [...state.items, {data: action.payload.newItem, level: 0}];
       } else {
+        let placeIndex = state.items.findIndex(
+          (item, index) => index > parentIndex && item.level === state.items[parentIndex].level
+        );
+
+        placeIndex === -1 ? (placeIndex = state.items.length) : (placeIndex -= 1);
+
         newArr = state.items
-          .slice(0, parentIndex + 1)
+          .slice(0, placeIndex + 1)
           .concat({data: action.payload.newItem, level: state.items[parentIndex].level + 1})
-          .concat(state.items.slice(parentIndex + 1));
+          .concat(state.items.slice(placeIndex + 1));
       }
 
       return {...state, waiting: false, items: newArr, total: newArr.length};

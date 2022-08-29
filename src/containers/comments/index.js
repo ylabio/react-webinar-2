@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual } from "react-redux";
 import useSelector from "../../hooks/use-selector";
 import listToTree from '../../utils/list-to-tree';
-import treeToList from '../../utils/tree-to-list';
 import Spinner from '../../components/spinner';
 import CommentsCard from '../../components/comments-card';
 import actionsComments from '../../store-redux/comments/actions';

@@ -8,31 +8,23 @@ import AnswerComment from '../comment-form/answer';
 function Comment({ comment, level, ...props }) {
   const cn = bem('Comment');
 
+  const paddingLeft = (level > 0 && level < 10) ? 30 : 0;
+  const name = comment.author.profile?.name ? comment.author.profile.name : props.name;
+
   return (
-    <div style={{ paddingLeft: level ? 30 : 0 }} className={cn()}>
+    <div style={{ paddingLeft: paddingLeft }} className={cn()}>
       <div className={cn('head')}>
-        <div className={cn('name')}>{comment.author.profile?.name ? comment.author.profile.name : props.name}</div>
+        <div className={cn('name')}>{name}</div>
         <div className={cn('time')}>{dateFormating(comment.dateCreate)}</div>
       </div>
       <div className={cn('body')}>{comment.text}</div>
       <a className={cn('link')} onClick={() => props.setVisibleTextArea(comment._id)}>Ответить</a>
-      {props.childrenComments.map(item =>
+      {comment.children.map(item =>
         <div key={item._id} className={cn('child')}>
           {props.renderItem(item, level + 1)}
         </div>
       )}
-      {comment._id === props.visibleTextArea
-        ? <AnswerComment
-          exists={props.exists}
-          parentId={comment._id}
-          setVisibleTextArea={props.setVisibleTextArea}
-          idArticle={props.idArticle}
-          name={comment.author.profile.name}
-          onSignIn={props.onSignIn}
-          answerComment={props.answerComment}
-        />
-        : null
-      }
+      {comment._id === props.visibleTextArea && props.renderForm(comment._id, name)}
     </div>
   )
 }
@@ -40,19 +32,19 @@ function Comment({ comment, level, ...props }) {
 Comment.propTypes = {
   comment: propTypes.object.isRequired,
   level: propTypes.number.isRequired,
-  exists: propTypes.bool.isRequired,
   setVisibleTextArea: propTypes.func.isRequired,
   visibleTextArea: propTypes.string.isRequired,
   name: propTypes.string,
-  idArticle: propTypes.string.isRequired,
-  answerComment: propTypes.func,
-  onSignIn: propTypes.func,
+  renderItem: propTypes.func,
+  renderForm: propTypes.func,
 }
 
 Comment.defaultProps = {
   name: '',
-  answerComment: () => { },
-  onSignIn: () => { },
+  renderItem: (item, level) => {
+    return item.toString()
+  },
+  renderForm: (id, name) => { },
 }
 
 export default React.memo(Comment)

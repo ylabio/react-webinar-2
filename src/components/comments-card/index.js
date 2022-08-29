@@ -4,6 +4,7 @@ import NewComment from '../comment-form/new-comment';
 import propTypes from 'prop-types';
 import { cn as bem } from "@bem-react/classname";
 import Comment from '../comment';
+import AnswerComment from '../comment-form/answer';
 import './style.css'
 
 function CommentsCart(props) {
@@ -14,17 +15,24 @@ function CommentsCart(props) {
       <Comment
         comment={comment}
         level={level}
-        exists={props.exists}
         setVisibleTextArea={props.setVisibleTextArea}
         visibleTextArea={props.visibleTextArea}
-        idArticle={props.idArticle}
-        answerComment={props.answerComment}
-        onSignIn={props.onSignIn}
-        childrenComments={comment.children}
         renderItem={renders.comment}
+        renderForm={renders.answerForm}
         name={props.name}
       />
     ), [props.visibleTextArea, props.name]),
+    answerForm: useCallback((parentId, name) => (
+      <AnswerComment
+        exists={props.exists}
+        parentId={parentId}
+        setVisibleTextArea={props.setVisibleTextArea}
+        idArticle={props.idArticle}
+        name={name}
+        onSignIn={props.onSignIn}
+        answerComment={props.answerComment}
+      />
+    ), [])
   }
 
   return (

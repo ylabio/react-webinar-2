@@ -23,6 +23,7 @@
   "auth.signIn": "Войти",
   "session.signIn": "Вход",
   "session.signOut": "Выход",
+  "comment.error": "Нельзя отправлять пустой комментарий!",
   "comment.formLabel": "Новый комментарий",
   "comment.warning": "<1>Войдите</1>, чтобы иметь возможность комментировать",
   "comments.title": "Комментарии",

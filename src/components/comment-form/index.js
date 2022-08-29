@@ -20,10 +20,10 @@ function CommentForm(props) {
     onAdd: useCallback((e) => {
       e.preventDefault();
 
-      if (!text) return setError('Нельзя отправлять пустой комментарий!')
+      if (!text) return setError(props.t('comment.error'))
       
       props.onAdd(text, props.commentType, props.parentId)
-    }, [props.onAdd, props.parentId, props.commentType, text]),
+    }, [props.onAdd, props.parentId, props.commentType, text, setError]),
 
     onChange: useCallback((e) => {
       setError('')

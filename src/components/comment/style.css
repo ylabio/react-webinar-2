@@ -16,6 +16,7 @@
 .Comment-label {
     font-size: 14px;
     margin: 10px 0;
+    word-break: break-word;
 }
 
 .Comment-answerLink {

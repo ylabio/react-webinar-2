@@ -59,7 +59,7 @@ function CommentsContainer({ id }) {
   return (
     <div>
       {state && (
-        <CommentList all={state.length}>
+        <CommentList all={state.length} log={session}>
           {state.map((item, index) => {
             return (
               <div

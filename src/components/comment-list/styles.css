@@ -1,3 +1,7 @@
 .Comments {
-  padding: 20px 35px 60px;
+  padding: 20px 35px 180px;
+}
+
+.Comments-nosession {
+  padding: 20px 35px 80px;
 }

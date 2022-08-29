@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useEffect } from "react";
 import { useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual } from "react-redux";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -23,16 +23,17 @@ function Article() {
 
   const storeRedux = useStoreRedux();
 
-  
+
 
   const select = useSelectorRedux(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
-    
+
     сount: state.сomments.data,
     сomments: state.сomments.data.items || [],
-    
+
   }), shallowEqual);
+
   useInit(async () => {
     //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsArticle.load(params.id));
@@ -40,16 +41,14 @@ function Article() {
 
   }, [params.id]);
 
-console.log(select.сount.count);
   const callbacksRedux = {
-    activeComments: useCallback((arr, id) => {
-      storeRedux.dispatch(actionsComments.activeComments(arr, id));
-    }, []),
-    submitComment: useCallback((data) => {
-      storeRedux.dispatch(actionsComments.submitComment(data));
+
+    submitComment: useCallback(async (data) => {
+       storeRedux.dispatch(actionsComments.submitComment(data));
+       storeRedux.dispatch(actionsComments.loadComments(params.id))
     }, []),
   }
-  console.log(select.сomments)
+
   const options = {
     сomments: useMemo(() => {
       return (
@@ -61,7 +60,7 @@ console.log(select.сount.count);
             author: item.author.profile?.name,
             marginLeft: 30 * level,
             date: item.dateCreate,
-           
+
           }
 
           )
@@ -72,7 +71,7 @@ console.log(select.сount.count);
 
       , [select.сomments]),
   }
-  console.log(options.сomments);
+
   const { t } = useTranslate();
 
   const callbacks = {
@@ -87,10 +86,10 @@ console.log(select.сount.count);
       <ToolsContainer />
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
-    
+
       </Spinner>
-      <Spinner active={select.сomments.length===0}>
-      <Comments
+      <Spinner active={select.сomments.length === 0}>
+        <Comments
           id={select.article._id}
           comments={options.сomments}
           count={select.сomments.length}

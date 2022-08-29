@@ -55,7 +55,9 @@ function Article() {
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
       </Spinner>
-      <Comments id={params.id} comments={select.comments} onSend={callbacks.sendComment} waiting={select.waitingComments}/>
+      <Spinner active={select.waitingComments}>
+        <Comments id={params.id} comments={select.comments} onSend={callbacks.sendComment} />
+      </Spinner>
     </Layout>
   )
 }

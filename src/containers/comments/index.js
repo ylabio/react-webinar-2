@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import CommentItem from '../../components/comment/item';
 import CommentList from '../../components/comment/list';
 import CommentWritter from '../../components/comment/writter';
-import Spinner from "../../components/spinner";
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
 import listToTree from '../../utils/list-to-tree';
@@ -12,11 +11,12 @@ import treeToList from '../../utils/tree-to-list';
 
 /**
  * Компонент для комментариев
+ * @prop id - ид итема, к которому привязываемся
  * @prop comments - пачка комментов откудато извне
  * @prop onSend - послать новый коммент/ответ
  */
 
-function Comments({ id, comments, onSend, waiting }) {
+function Comments({ id, comments, onSend }) {
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,7 +31,7 @@ function Comments({ id, comments, onSend, waiting }) {
     ...comments,
     {
       _type: 'writter',
-      _id: '-1',
+      _id: null,
       text: newComment.text,
       parent: { _id: newComment.parentId || newComment.id }
     }
@@ -43,34 +43,35 @@ function Comments({ id, comments, onSend, waiting }) {
     onReply: useCallback(
       (parentId, name) => setNewComment(() => ({ ...prefab, parentId, text: 'Мой ответ для ' + name })), []),
     onCancel: useCallback(
-      () => setNewComment({ ...prefab })
-      , [setNewComment, prefab]),
+      () => setNewComment(prefab), [prefab]),
     onSubmit: useCallback(() => {
-      onSend({ ...newComment });
+      onSend(newComment);
       setNewComment(comment => ({ ...comment, text: '' }));
-    }, [newComment, setNewComment]),
+    }, [newComment]),
     onChange: useCallback(
-      text => setNewComment(comment => ({ ...comment, text })), [setNewComment]
+      text => setNewComment(comment => ({ ...comment, text })), []
     ),
     onSignin: useCallback(() => navigate('/login', { state: { back: location.pathname } }), [navigate])
   };
 
-
-
   const renders = {
+
+    // коммент
     comment: useCallback(comment => (
       <CommentItem
         key={comment._id}
-        shift={comment.shift}
         id={comment._id}
-        text={comment.text}
-        date={comment.dateCreate}
         user={{ name: comment.author?.profile?.name, _id: comment.author?._id }}
+        mine={user?._id == comment.author?._id} // узнать свои комменты
+        date={comment.dateCreate}
+        text={comment.text}
         onReply={callbacks.onReply}
-        mine={user?._id === comment.author?._id} // узнать свои комменты
+        shift={comment.shift}
         t={t}
       />
     ), [t, user, newComment]),
+
+    // форма для ввода
     writter: useCallback(writter => (
       <CommentWritter
         key={writter._id}
@@ -88,22 +89,18 @@ function Comments({ id, comments, onSend, waiting }) {
   };
 
   return (
-    <Spinner active={waiting}>
-      <CommentList list={list} comment={renders.comment} writter={renders.writter} t={t} />
-    </Spinner>
+    <CommentList list={list} comment={renders.comment} writter={renders.writter} t={t} />
   );
 }
 
 Comments.propTypes = {
   id: propTypes.string.isRequired,
   comments: propTypes.array.isRequired,
-  onSend: propTypes.func,
-  waiting: propTypes.bool
+  onSend: propTypes.func
 }
 
 Comments.defaultProps = {
-  onSend: () => { },
-  waiting: false
+  onSend: () => { }
 }
 
 export default React.memo(Comments);

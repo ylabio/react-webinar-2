@@ -1,7 +1,6 @@
 import { cn as bem } from '@bem-react/classname';
-import { debounce } from 'lodash';
 import propTypes from 'prop-types';
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import './style.css';
 
 /**
@@ -10,16 +9,6 @@ import './style.css';
 
 function CommentWritter({ isAuth, isReply, text, onChange, onSubmit, onCancel, onSignin, shift, t }) {
   const cn = bem('CommentEditor');
-
-  /* const [value, change] = useState('');
-
-  const onChange = useCallback(event => {
-    change(event.target.value);
-  }, [change]);
-
-  useEffect(() => {
-    change(value);
-  }, [value]); */
 
   return (
     <div className={cn()} style={{ paddingLeft: 30 * shift > 300 ? '300px' : (30 * shift) + 'px' }}>{isAuth ?

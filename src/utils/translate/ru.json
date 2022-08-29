@@ -35,5 +35,6 @@
   "comments.newReplay": "Новый ответ",
   "comments.reply": "Ответить",
   "comments.submit": "Отправить",
-  "comments.cancel": "Отмена"
+  "comments.cancel": "Отмена",
+  "date.loc": "ru-RU"
 }

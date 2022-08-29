@@ -26,7 +26,8 @@
 
 .CommentItem-text {
   padding-top: 10px;
-  width: calc(100% - 40px);
+  width: 100%;
+  /* width: calc(100% - 40px); */
   /* min-height: 14px; */
 }
 

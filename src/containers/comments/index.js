@@ -31,12 +31,9 @@ function CommentsContainer() {
 
   // Отправляет новый комментарий и выполняет загрузку всех комментариев
   function sendAndLoadComments(data, id) {
-    return function(dispatch) {
-      dispatch(actionsComments.send(data));
-      // Без таймаута комменты не всегда успевают обновиться
-      setTimeout(function() {
-        dispatch(actionsComments.load(id));
-      }, 500);
+    return async function(dispatch) {
+      await dispatch(actionsComments.send(data));
+      dispatch(actionsComments.load(id));
     }
   }
 

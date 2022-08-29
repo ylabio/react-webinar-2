@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import formatDate from '../../utils/format-date';
 
 const Comment = ({
   text,
@@ -15,13 +16,15 @@ const Comment = ({
   const cn = bem('Comment');
 
   const nesting = () =>
-    30 * nestedLevel < 600 && { paddingLeft: 30 * nestedLevel };
+    30 * nestedLevel < 600
+      ? { paddingLeft: 30 * nestedLevel }
+      : { paddingLeft: '50%' };
 
   return (
     <div className={cn()} style={nesting()}>
       <div className={cn('row')}>
         <div className={cn('author')}>{author}</div>
-        <div className={cn('created')}>{created}</div>
+        <div className={cn('created')}>{formatDate(created)}</div>
       </div>
       <div className={cn('row')}>
         <div className={cn('content')}>{text}</div>

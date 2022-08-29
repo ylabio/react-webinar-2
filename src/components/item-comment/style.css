@@ -14,6 +14,7 @@
 }
 
 .ItemComment-text{
+    word-wrap: break-word;
     padding: 10px 0 10px 0;
 }
 

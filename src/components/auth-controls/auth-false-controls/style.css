@@ -1,0 +1,9 @@
+/* Контроль сессии когда пользователь не авторизован */
+.AuthFalseControls-in {
+    width: 47px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+    color: #000000;
+}

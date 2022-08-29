@@ -14,6 +14,14 @@
     margin: 0 2px;
 }
 
+.Menu-item a{
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    text-decoration-line: underline;
+    color: #0087E9;
+}
+
 .Menu-item:first-child {
     margin-left: 0;
     padding-left: 0;

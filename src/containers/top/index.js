@@ -1,9 +1,10 @@
 import React, {useCallback} from "react";
 import useTranslate from "../../hooks/use-translate";
-import LayoutFlex from "../../components/layouts/layout-flex";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
+import AuthTrueControls from "../../components/auth-controls/auth-true-controls";
+import AuthFalseControls from "../../components/auth-controls/auth-false-controls";
 
 
 function TopContainer() {
@@ -32,13 +33,9 @@ function TopContainer() {
   };
 
   return (
-    <LayoutFlex flex="end" indent="small">
-      {select.exists && <Link to="/profile">{select.user.profile.name}</Link>}
-      {select.exists
-        ? <button onClick={callbacks.onSignOut}>{t('session.signOut')}</button>
-        : <button onClick={callbacks.onSignIn}>{t('session.signIn')}</button>
-      }
-    </LayoutFlex>
+    select.exists
+      ? <AuthTrueControls onSignOut={callbacks.onSignOut} t={t} userName={select.user.profile.name} link={"/profile"}/>
+      : <AuthFalseControls onSignIn={callbacks.onSignIn} t={t}/>
   );
 }
 

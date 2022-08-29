@@ -21,7 +21,7 @@ function AnswerComment(props) {
   const placeholder = `Мой ответ для ${props.name}`
 
   return (
-    <div style={{ paddingLeft: 25 }} className={cn()}>
+    <div style={{ paddingLeft: 30 }} className={cn()}>
       {props.exists
         ? <>
           <div className={cn('title')}>Новый ответ</div>

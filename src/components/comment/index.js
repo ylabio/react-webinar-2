@@ -9,7 +9,7 @@ function Comment({ comment, level, ...props }) {
   const cn = bem('Comment');
 
   return (
-    <div style={{ paddingLeft: level ? 25 : 0 }} className={cn()}>
+    <div style={{ paddingLeft: level ? 30 : 0 }} className={cn()}>
       <div className={cn('head')}>
         <div className={cn('name')}>{comment.author.profile?.name ? comment.author.profile.name : props.name}</div>
         <div className={cn('time')}>{dateFormating(comment.dateCreate)}</div>

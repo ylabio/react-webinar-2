@@ -89,14 +89,13 @@ function CommentsContainer(){
   const renders = {
     itemComment: useCallback(item => (
       <ItemComment item={item}
-                  ids={params.id}
-                  exists={select1.exists}
-                  attemptAddNewComment={callbacks.attemptAddNewComment}
-                  id={id}
-                  changeId={changeId}
-                  textComment={textComment}
-                  changeTextComment={changeTextComment}
-                  t={t}
+                   exists={select1.exists}
+                   attemptAddNewComment={callbacks.attemptAddNewComment}
+                   id={id}
+                   changeId={changeId}
+                   textComment={textComment}
+                   changeTextComment={changeTextComment}
+                   t={t}
       />
     )),
   }
@@ -104,7 +103,7 @@ function CommentsContainer(){
   return (
     <Spinner active={select.waiting}>
       <CommentsTotal numberOfComments={select.numberOfComments} t={t}/>
-      <ListComments items={commentData.comments} renderItem={renders.itemComment}/>
+      <ListComments items={commentData.comments} renderItem={renders.itemComment} style={{'paddingBottom': '92px'}} id={id}/>
       {
         !id &&
           (

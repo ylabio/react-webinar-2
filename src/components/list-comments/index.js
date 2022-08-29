@@ -7,7 +7,7 @@ function ListComments(props) {
   const cn = bem('ListComments');
 
   return (
-    <div className={cn()}>{props.items.map(item =>
+    <div style={props.id?props.style:null} className={cn()}>{props.items.map(item =>
       <div key={item._id} className={cn('item')}>
         {props.renderItem(item)}
       </div>

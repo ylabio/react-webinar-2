@@ -1,5 +1,5 @@
 .ItemComment{
-  border-top: none;
+    border-top: none;
 }
 
 .ItemComment-name{
@@ -31,16 +31,19 @@
 }
 
 .ItemComment textarea{
+    box-sizing: border-box;
     width: 914px;
+    max-width: 100%;
     min-height: 80px;  
     font-size: 14px;
     font-family: arial;
     margin-bottom: 10px;
-    border: 2px solid black;
+    border: 1px solid black;
     outline: none;
     resize: none;
     padding-left: 5px;
     padding-top: 4px;
+    padding-right: 152px;
 }
 
 .ItemComment-comment button{

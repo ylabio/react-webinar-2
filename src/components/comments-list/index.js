@@ -9,51 +9,51 @@ function CommentsList({
   comments,
   lang,
   t,
-  commentId,
   users,
   profile,
   onSubmit,
   setShowForm,
   showForm,
   location,
-  parent,
+  nested,
 }) {
   const cn = bem('Comments');
 
   return (
-    <div className={cn('List')} style={commentId ? {} : { paddingLeft: '0px', borderLeft: 'none' }}>
+    <div className={cn('List')} style={nested ? {} : { paddingLeft: '0px', borderLeft: 'none' }}>
       {comments.map((comment) => {
         const user = users.find((u) => u._id === comment.author._id);
         return (
           <div key={comment._id}>
             <Comment lang={lang} t={t} comment={comment} user={user} setShowForm={setShowForm} />
+
+            {showForm === comment._id &&
+              (profile?._id ? (
+                <CommentForm
+                  commentId={comment._id}
+                  t={t}
+                  onSubmit={onSubmit}
+                  profile={profile}
+                  parent={comment}
+                />
+              ) : (
+                <CommentRedirect t={t} location={location} />
+              ))}
+
             <CommentsList
               comments={comment.children}
               lang={lang}
               t={t}
-              commentId={comment._id}
               users={users}
               setShowForm={setShowForm}
               showForm={showForm}
               profile={profile}
               onSubmit={onSubmit}
-              parent={comment}
+              nested={true}
             />
           </div>
         );
       })}
-      {showForm === commentId &&
-        (profile?._id
-          ? commentId && (
-              <CommentForm
-                commentId={commentId}
-                t={t}
-                onSubmit={onSubmit}
-                profile={profile}
-                parent={parent}
-              />
-            )
-          : commentId && <CommentRedirect t={t} location={location} />)}
     </div>
   );
 }
@@ -65,10 +65,11 @@ CommentsList.propTypes = {
   articleId: propTypes.string,
   lang: propTypes.string.isRequired,
   users: propTypes.array.isRequired,
+  nested: propTypes.bool,
 };
 
 CommentsList.defaultProps = {
-  userId: '',
+  nested: false,
   showForm: false,
 };
 

@@ -36,7 +36,6 @@ function Article() {
   const select = useSelectorRedux(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
-    complite: state.article.complite,
     waitingCom: state.comments.waiting,
     comments: state.comments.comData,
     lastCommented: state.comments.lastCommented
@@ -58,7 +57,6 @@ function Article() {
     storeRedux.dispatch(actionsComments.loadComments(params.id, select.article))
   }, [select.article, select.lastCommented]);
 
-  console.log(params);
 
 
 

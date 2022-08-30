@@ -1,18 +1,17 @@
 // Начальное состояние товара
 const initialState = {
   data: {},
-  waiting: false,
-  complite: true
+  waiting: false
 }
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
 
     case "article/load":
-      return { ...state, data: {}, waiting: true, complite: false };
+      return { ...state, data: {}, waiting: true };
 
     case "article/load-success":
-      return { ...state, data: action.payload.data, waiting: false, complite: true };
+      return { ...state, data: action.payload.data, waiting: false };
 
 
     case "article/load-error":

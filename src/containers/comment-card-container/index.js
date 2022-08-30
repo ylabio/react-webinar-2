@@ -9,22 +9,20 @@ import {useDispatch} from 'react-redux';
 import {formHide, formShow} from '../../store-redux/comments-slice';
 import ProtectedCommentForm from '../protected-comment-form';
 import useSelector from '../../hooks/use-selector';
+import useServices from '../../hooks/use-services';
 
 function CommentCardContainer(props) {
   const dispatch = useDispatch();
+  const services = useServices();
   const [isVisible, setIsVisible] = useState(false);
   const [author, setAuthor] = useState('');
 
   useInit(async () => {
-    /* раньше делал запрос для каждого компонента комментария на получение имени автора,
-        теперь получаю из слайса уже промисы в поле автора, и ожидаю их исполнения здесь.
-    */
-    // const response = await services.api.request({
-    //   url: `/api/v1/users/${authorId}?fields=profile`
-    // });
-    // const authorName = response?.result?.profile.name;
+    const response = await services.api.request({
+      url: `/api/v1/users/${props.comment.author._id}?fields=profile`
+    });
 
-    const response = await props.comment.authorName;
+    // const response = await props.comment.authorName;
     const authorName = response?.result?.profile.name;
 
     setAuthor(authorName);

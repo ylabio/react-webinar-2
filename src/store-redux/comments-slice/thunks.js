@@ -13,16 +13,16 @@ export const fetchComments = createAsyncThunk(
     });
 
     // трасформирую массив для получения промисов в имени автора комментария
-    const responseWithUserNames = response.result.items.map(item => {
-      return {
-        ...item,
-        authorName: services.api.request({
-          url: `/api/v1/users/${item.author._id}?fields=profile`
-        })
-      };
-    });
+    // const responseWithUserNames = response.result.items.map(item => {
+    //   return {
+    //     ...item,
+    //     authorName: services.api.request({
+    //       url: `/api/v1/users/${item.author._id}?fields=profile`
+    //     })
+    //   };
+    // });
 
-    return responseWithUserNames;
+    return response.result.items;
   }
 );
 

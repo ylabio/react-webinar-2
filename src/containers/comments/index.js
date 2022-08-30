@@ -46,12 +46,14 @@ function Comments({id}) {
   useEffect(() => {
     if (Object.keys( itemRefs.current ).length > 0 && select.lastId) {
       itemRefs.current[select.lastId].scrollIntoView({ behavior: "smooth" });
+      storeRedux.dispatch(actionsArticleComments.clearLastId());
     }
-  }, [options.comments])
+  }, [select.comments])
 
   const submitComment = (text, type) => {
     if(text.trim() !== '') {
       storeRedux.dispatch(actionsArticleComments.submitComment(idUnder, type, text));
+      setIdUnder(id);
     }
   }
 

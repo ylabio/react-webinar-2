@@ -40,6 +40,12 @@ export default {
         dispatch({type: "article-comments/push-error"});
       }
     }
+  },
+
+  clearLastId: () => {
+    return (dispatch, getState, services) => {
+      dispatch({type: "article-comments/clear-last-id",})
+    }
   }
 }
   

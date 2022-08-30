@@ -27,6 +27,9 @@ export default function reducer(state = initialState, action){
     case "article-comments/push-error":
       return { ...state, data: [], waiting: false, count: 0, lastId: ''};
 
+    case "article-comments/clear-last-id":
+      return { ...state, lastId: ''};
+
     default:
       // Нет изменений
       return state;

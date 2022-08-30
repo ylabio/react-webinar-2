@@ -10,6 +10,7 @@ import {
 import actionsComments from '../../store-redux/comments/actions';
 import propTypes from 'prop-types';
 import CommentRedirect from '../../components/comment-redirect';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function CheckAuthComment({ parentId, parentType }) {
   const { t } = useTranslate();
@@ -26,6 +27,8 @@ function CheckAuthComment({ parentId, parentType }) {
     }),
     shallowEqual
   );
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const callbacks = {
     onCancelClick: useCallback(() => {
@@ -34,20 +37,17 @@ function CheckAuthComment({ parentId, parentType }) {
     onSendClick: useCallback(text => {
       storeRedux.dispatch(actionsComments.post(text, parentId, parentType));
     }, []),
-    resetError: useCallback(() => {
-      storeRedux.dispatch(actionsComments.resetError());
-    }, []),
+    onSignIn: useCallback(() => {
+      navigate('/login', { state: { back: location.pathname } });
+    }, [location.pathname]),
   };
-
 
   return (
     <>
       {select.exists ? (
         <CommentForm
           title={
-            selectRedux.replyStatus
-              ? t('comment.subtitle')
-              : t('comment.title')
+            selectRedux.replyStatus ? t('comment.subtitle') : t('comment.title')
           }
           sendText={t('comment.send')}
           cancelText={t('comment.cancel')}
@@ -57,12 +57,16 @@ function CheckAuthComment({ parentId, parentType }) {
         />
       ) : (
         <CommentRedirect
-          mainText={t('redirect.mainText')}
+          mainText={
+            selectRedux.replyStatus
+              ? t('redirect.articleReply')
+              : t('redirect.commentReply')
+          }
           linkText={t('redirect.linkText')}
-          link={'/login'}
           isDefault={!!selectRedux.replyStatus}
           cancelText={t('comment.cancel')}
           onCancel={callbacks.onCancelClick}
+          onSignIn={callbacks.onSignIn}
         />
       )}
     </>

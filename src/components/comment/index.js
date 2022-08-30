@@ -14,7 +14,7 @@ function Comment(props) {
 
 
   return (
-    <div className={cn()} style={{"paddingLeft": (props.item.nestingLevel) * 30}}>
+    <div className={cn()} style={{"paddingLeft": (props.item.nestingLevel) * 30 + 'px'}}>
       <div className={cn('header')}>
         <span className={cn('title')}>{props.item.author}</span>
         <span className={cn('date')}>

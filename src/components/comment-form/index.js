@@ -26,15 +26,17 @@ function CommentForm(props) {
                     value={value}
           />
           <div>
-            <button className={cn('submitButton')}
-                       onClick={() => {
-                         props.createComment(value)
-                         setValue('')
-                       }}>Отправить
-          </button>
+            {value === ''
+              ? <button className={cn('submitButton')} disabled={true}>Отправить</button>
+              : <button className={cn('submitButton')}
+                        onClick={() => {
+                          props.createComment(value)
+                          setValue('')
+                        }}>Отправить
+                </button>}
             {params.id !== props.current ? <button className={cn('submitButton')} onClick={props.resetPlace}>Отмена</button> : null}</div>
 
-        </div> :
+          </div> :
         <div className={cn('sessionExists')}>
           <span className={cn('redirectButton')} onClick={props.redirect}>Войдите</span>, чтобы иметь возможность комментировать
         </div>

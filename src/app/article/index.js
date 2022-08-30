@@ -29,6 +29,7 @@ function Article(){
     article: state.article.data,
     waiting: state.article.waiting,
     waitingComments: state.comments.waiting,
+    lastCreatedId: state.comments.lastCreatedId,
   }), shallowEqual);
 
   const {t} = useTranslate();
@@ -41,6 +42,7 @@ function Article(){
   useEffect(() => {
     storeRedux.dispatch(commentsActions.getAll(params.id))
     storeRedux.dispatch(commentsActions.setProductId(params.id))
+    storeRedux.dispatch(commentsActions.setLastCreatedId(null));
   }, []);
 
   return (

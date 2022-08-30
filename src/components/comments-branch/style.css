@@ -1,11 +1,12 @@
 .CommentsBranch {
   position: relative;
+  transform: translateX(-14px);
 }
 
 .CommentsBranch-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 12px;
 }
 
 .CommentsBranch-wrapper_hidden {

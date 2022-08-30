@@ -34,14 +34,13 @@ function CommentsContainer({ productId }) {
     }, []),
 
     addCommentPosition: useCallback((id, fromTop) => {
-      dispatch(commentsActions.addCommentPosition(id, fromTop));
+      dispatch(commentsActions.addCommentPosition(id, fromTop - 104));
     }, []),
   };
 
   useEffect(() => {
     if (lastCreatedId !== null) {
-      console.log({last: commentPositions[lastCreatedId], id: lastCreatedId});
-      window.scrollTo({top: commentPositions[lastCreatedId] - 104});
+      window.scrollTo({top: commentPositions[lastCreatedId]});
     } 
   }, [lastCreatedId, commentPositions])
 
@@ -57,6 +56,7 @@ function CommentsContainer({ productId }) {
         updateBranchState={callbacks.updateBranchState}
         branchesState={branchesState}
         addCommentPosition={callbacks.addCommentPosition}
+        lastCreatedId={lastCreatedId}
       />
     </>
   );

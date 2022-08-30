@@ -5,7 +5,6 @@ const initialState = {
   total: 0,
   productId: null,
   branchesState: {},
-  scroll: null,
   lastCreatedId: null,
   commentPositions: {},
 };
@@ -24,9 +23,6 @@ export default function(state = initialState, action){
 
     case "comments/setLastCreatedId": 
       return {...state, lastCreatedId: action.payload};
-
-    case "comments/scroll":
-      return {...state, scroll: action.payload};
 
     case "comments/setBranches":
       return {...state, branchesState: {...state.branchesState, ...action.payload}};

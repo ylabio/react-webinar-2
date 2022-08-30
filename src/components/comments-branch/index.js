@@ -16,10 +16,10 @@ function CommentsBranch({
   updateBranchState,
   branchState,
   addCommentPosition,
+  lastCreatedId,
 }) {
   const cn = bem('CommentsBranch');
   const isHidden = useBranchState(branchState, updateBranchState);
-  const branchRef = useRef(null);
 
   const callbacks = {
     changeBranchState: useCallback((flag) => {
@@ -28,7 +28,7 @@ function CommentsBranch({
   };
 
   return (
-    <div className={cn()} ref={branchRef}>
+    <div className={cn()}>
       <div className={cn('wrapper', {hidden: isHidden})}>
       {branch.map(obj => (
         <Comment 
@@ -42,6 +42,7 @@ function CommentsBranch({
           setLastCommentId={setLastCommentId}
           createResponse={createResponse}
           addCommentPosition={addCommentPosition}
+          lastCreatedId={lastCreatedId}
         />
       ))}
       </div>
@@ -90,6 +91,7 @@ CommentsBranch.propTypes = {
     propTypes.object.isRequired, 
     propTypes.bool.isRequired
   ]),
+  addCommentPosition: propTypes.func.isRequired,
 };
 
 CommentsBranch.defaultProps = {

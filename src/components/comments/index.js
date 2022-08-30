@@ -16,6 +16,7 @@ function Comments({
   updateBranchState,
   branchesState,
   addCommentPosition,
+  lastCreatedId,
  }) {
   const cn = bem('Comments');
   const [showCommentForm, setShowCommentForm] = useState(true);
@@ -26,7 +27,7 @@ function Comments({
       <h2 className={cn('header')}>Комментарии ({total})</h2>
 
       <div className={cn('content')}>
-        {items && items.map((branch, idx) => (
+        {items && items.map((branch) => (
           <CommentsBranch 
             branch={branch} 
             key={branch[0].comment._id} 
@@ -43,6 +44,7 @@ function Comments({
                 : {[branch[0].comment._id]: false}
             }
             addCommentPosition={addCommentPosition}
+            lastCreatedId={lastCreatedId}
           />
         ))}   
       </div>
@@ -78,6 +80,7 @@ Comments.propTypes = {
     propTypes.object.isRequired, 
     propTypes.bool.isRequired
   ]),
+  addCommentPosition: propTypes.func.isRequired,
 };
 
 Comments.defaultProps = {

@@ -66,13 +66,6 @@ export default {
     };
   },
 
-  setScroll(y) {
-    return {
-      type: 'comments/scroll',
-      payload: y,
-    };
-  },
-
   setLastCreatedId(id) {
     return {
       type: 'comments/setLastCreatedId',

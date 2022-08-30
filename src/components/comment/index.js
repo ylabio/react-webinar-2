@@ -17,6 +17,7 @@ function Comment({
   createResponse,
   showResponse,
   addCommentPosition,
+  lastCreatedId,
 }) {
   const cn = bem('Comment');
   const [showAnswerForm, setShowAnswerForm] = useState(false);
@@ -45,6 +46,20 @@ function Comment({
     const fromTop = commentRef.current.getBoundingClientRect().top;
     addCommentPosition(data._id, fromTop);
   }, [])
+
+  useEffect(() => {
+    let id;
+
+    if (lastCreatedId === data._id) {
+      commentRef.current.style.backgroundColor = 'rgba(0, 255, 0, 0.25)';
+
+      id = setTimeout(() => {
+        commentRef.current.style.backgroundColor = 'white';
+      }, 2000)
+    }
+
+    return () => clearTimeout(id);
+  }, [lastCreatedId])
 
   return (
     <div 
@@ -107,11 +122,13 @@ Comment.propTypes = {
   setLastCommentId: propTypes.func.isRequired,
   createResponse: propTypes.func.isRequired,
   showResponse: propTypes.bool,
+  addCommentPosition: propTypes.func,
 };
 
 Comment.defaultProps = {
   lastCommentId: '',
   showResponse: true,
+  addCommentPosition: () => {},
 };
 
 export default React.memo(Comment);

@@ -13,6 +13,7 @@ function CommentForm({hasCancelButton, handleSubmit, handleCancel, titleLabel}) 
     e.preventDefault();
     handleSubmit(text);
     setText("");
+    handleCancel();
   };
 
   return (
@@ -22,7 +23,7 @@ function CommentForm({hasCancelButton, handleSubmit, handleCancel, titleLabel}) 
       <div className={cn("controls")}>
         <button disabled={isTextareaDisabled}>Отправить</button>
         {hasCancelButton && <button type="button" onClick={handleCancel}>Отмена</button>}
-      </div> 
+      </div>
     </form>
   )
 }

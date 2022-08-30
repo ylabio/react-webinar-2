@@ -1,5 +1,5 @@
 import propTypes from 'prop-types';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import CommentItem from '../../components/comment/item';
 import CommentList from '../../components/comment/list';
@@ -53,6 +53,14 @@ function Comments({ id, comments, onSend }) {
     ),
     onSignin: useCallback(() => navigate('/login', { state: { back: location.pathname } }), [navigate])
   };
+
+  useEffect(() => {
+    if (!newComment.parentId) // не скроллим за "новым комментом"
+      return;
+    const nodeOffset = parseInt(document.getElementsByClassName('CommentEditor')[0]?.offsetTop);
+    const innerHeight = window.innerHeight;
+    window.scrollTo({ top: nodeOffset - innerHeight / 2, behavior: "smooth" });
+  }, [newComment]);
 
   const renders = {
 

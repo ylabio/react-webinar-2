@@ -3,8 +3,6 @@ import './style.css';
 import {cn as bem} from "@bem-react/classname";
 import CommentsItem from "../comments-item";
 
-
-
 function Comments({parentId, comments = [], isAuthorized, openCommentForm, closeCommentForm, resetMessage, onSubmit}){
 
     const currentComments = comments.filter((comment) => {

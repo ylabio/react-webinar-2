@@ -25,7 +25,6 @@ function Article(){
   const storeRedux = useStoreRedux();
 
   useInit(async () => {
-    //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsArticle.load(params.id));
   }, [params.id]);
 
@@ -44,8 +43,6 @@ function Article(){
   }));
 
   const commentsArray = select.comments.comments;
-// const parentName = commentsArray.filter(comment => comment?.parent?._id)
-    console.log(commentsArray)
 
   const {t} = useTranslate();
 
@@ -55,7 +52,6 @@ function Article(){
     openCommentForm: useCallback((evt) => {
         evt.preventDefault();
         const authMessages = document.querySelectorAll('.auth-message');
-        console.log(authMessages)
         const itemsForms = document.querySelectorAll('.Comments-item-form');
         const mainCommentsForm = document.querySelector('.Comments-wrapper-form');
         const parentActiveForm = evt.target.parentNode;
@@ -70,7 +66,6 @@ function Article(){
                     itemsForms[i].classList.add('visually-hidden');
                 }
                 activeMessage.classList.remove('visually-hidden')
-                console.log(activeMessage)
             }
         }
         if (selectIsAuth.exists) {

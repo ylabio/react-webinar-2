@@ -17,8 +17,6 @@ function CommentsForm({
 }) {
   const cn = bem('CommentsForm');
 
-  console.log(title);
-
   const textareaRef = React.useRef(null);
   const [formValue, setFormValue] = useState('');
 
@@ -36,9 +34,11 @@ function CommentsForm({
   const callbacks = {
     onSubmit: (e) => {
       e.preventDefault();
-      addComment(formValue);
-      setFormValue('');
-      changeCurrentOpenForm();
+      if (!(formValue.trim() === '')) {
+        addComment(formValue);
+        setFormValue('');
+        changeCurrentOpenForm();
+      }
     },
     onCloseForm: (e) => {
       e.preventDefault();
@@ -58,7 +58,9 @@ function CommentsForm({
         autoFocus={autoFocus}
       />
       <div className={cn('buttons')}>
-        <button type="submit">{t('comment.send')}</button>
+        <button type="submit" disabled={formValue.trim() === ''}>
+          {t('comment.send')}
+        </button>
         {!articleComment && <button onClick={callbacks.onCloseForm}>{t('comment.cancel')}</button>}
       </div>
     </form>

@@ -8,12 +8,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import actionsComments from "../../store-redux/comments/actions";
-import { createTree } from "../../utils/createTree";
-import { treeToList } from "../../utils/treeToList";
 import Layout from "../../components/article-comments/layout";
 import Title from "../../components/article-comments/title";
 import Comment from "../../components/article-comments/comment";
 import SendContainer from "../send-container";
+
+
+import { createTree } from "../../utils/createTree";
+import { treeToList } from "../../utils/treeToList";
+// import listToTree from "../../utils/list-to-tree";
+// import treeToList from "../../utils/tree-to-list";
 
 function ArticleCommentsContainer({ articleId, type }) {
   const storeRedux = useStoreRedux();
@@ -56,6 +60,8 @@ function ArticleCommentsContainer({ articleId, type }) {
     <Layout>
       <Title count={selectRedux.comments.length} t={t} />
 
+      {/* Вариант переиспользования ваших функций listToTree и treeToList  */}
+      {/* { treeToList(listToTree(selectRedux.comments, articleId)).map((comment) => ( */}
       { treeToList(createTree(selectRedux.comments)).map((comment) => (
         <Comment
           key={comment._id}

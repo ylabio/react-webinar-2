@@ -24,7 +24,7 @@ function LayoutFlex({children, flex, indent}) {
 LayoutFlex.propTypes = {
   children: propTypes.node,
   flex: propTypes.oneOf(['start', 'end', 'between']),
-  indent: propTypes.oneOf(['small', 'big'])
+  indent: propTypes.oneOf(['small', 'big', 'none'])
 };
 
 LayoutFlex.defaultProps = {

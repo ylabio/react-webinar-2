@@ -42,7 +42,7 @@ function ReplyComment({parentId, onCancel}) {
   };
 
   return (
-    <LayoutFlex indent={'small'} grow>
+    <LayoutFlex indent={'none'}>
       <form onSubmit={callbacks.onSubmit}>
         <h5>Новый ответ</h5>
         <Field label={''} error={''} spacing={'small'}>
@@ -54,14 +54,15 @@ function ReplyComment({parentId, onCancel}) {
             value={data.comment}
           />
         </Field>
-        <Field spacing={'small'}>
+
+        <LayoutFlex indent={'none'}>
           <button disabled={!data.comment} type="submit">
             Отправить
           </button>
           <button disabled={false} type="button" onClick={callbacks.onCancel}>
             Отмена
           </button>
-        </Field>
+        </LayoutFlex>
       </form>
     </LayoutFlex>
   );

@@ -19,12 +19,20 @@ function CommentCardContainer(props) {
   const authorId = props.comment.author._id;
 
   useInit(async () => {
-    const response = await services.api.request({
-      url: `/api/v1/users/${authorId}`
-    });
-    const authorName = response?.result?.username;
+    /* раньше делал запрос для каждого компонента комментария на получение имени автора,
+        теперь получаю из слайса уже промисы в поле автора, и ожидаю их исполнения здесь.
+    */
+
+    // const response = await services.api.request({
+    //   url: `/api/v1/users/${authorId}?fields=profile`
+    // });
+    // const authorName = response?.result?.profile.name;
+
+    const response = await props.comment.authorName;
+    const authorName = response?.result?.profile.name;
+
     setAuthor(authorName);
-  }, [props.comment.author._id]);
+  });
 
   const selectStore = useSelector(state => ({
     exists: state.session.exists

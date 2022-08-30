@@ -35,7 +35,7 @@ function NewComment({parentId}) {
   };
 
   return (
-    <LayoutFlex indent={'small'}>
+    <LayoutFlex indent={'none'}>
       <form onSubmit={callbacks.onSubmit}>
         <h5>Новый комментарий</h5>
         <Field label={''} error={''} spacing={'small'}>

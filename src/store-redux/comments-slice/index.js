@@ -12,7 +12,17 @@ export const fetchComments = createAsyncThunk(
       url: `/api/v1/comments?search[parent]=${articleId}&limit=*&skip=0&fields=*`
     });
 
-    return response.result.items;
+    // трасформирую массив для получения промисов в имени автора комментария
+    const responseWithUserNames = response.result.items.map(item => {
+      return {
+        ...item,
+        authorName: services.api.request({
+          url: `/api/v1/users/${item.author._id}?fields=profile`
+        })
+      };
+    });
+
+    return responseWithUserNames;
   }
 );
 

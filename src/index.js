@@ -1,25 +1,24 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './app.js';
-import Store from "./store.js";
-import {counter} from './utils.js';
+import {createRoot} from 'react-dom/client';
+import {BrowserRouter} from 'react-router-dom';
+import App from './app';
+import Services from './services';
+import ServicesProvider from "./provider";
+import config from "./config";
+import {Provider} from 'react-redux';
 
-const store = new Store({
-  items: [
-    {code: counter(), title: 'Название элемента'},
-    {code: counter(), title: 'Некий объект'},
-    {code: counter(), title: 'Заголовок'},
-    {code: counter(), title: 'Короткое название'},
-    {code: counter(), title: 'Запись'},
-    {code: counter(), title: 'Пример выделенной записи', selected: true},
-    {code: counter(), title: 'Седьмой'},
-  ]
-});
+// Менеджер сервисов
+const services = new Services(config);
 
-// Реакция на изменение store - повторный рендер приложения
-store.subscribe(() => {
-  ReactDOM.render(<App store={store}/>, document.body);
-});
+// Корень React приложения
+const root = createRoot(document.getElementById('root'));
 
-// Первый рендер (один раз)
-ReactDOM.render(<App store={store}/>, document.body);
+root.render(
+  <Provider store={services.storeRedux}>
+    <ServicesProvider services={services}>
+      <BrowserRouter>
+        <App/>
+      </BrowserRouter>
+    </ServicesProvider>
+  </Provider>
+);

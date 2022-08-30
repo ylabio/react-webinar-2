@@ -1,0 +1,29 @@
+###
+# Список товаров
+
+GET {{baseUrl}}/articles?limit=*
+
+###
+# Список с пагинацией
+
+GET {{baseUrl}}/articles?limit=10&skip=20
+
+###
+# Список с пагинацией и возвратом общего количества
+
+GET {{baseUrl}}/articles?limit=20&skip=10&fields=items(*),count
+
+###
+# Список с фильтрами по категории
+
+GET {{baseUrl}}/articles?search[query]=Авт&search[category]=62fde67bfa639a32847b3d6d
+
+###
+# Товар по id
+
+GET {{baseUrl}}/articles/62fde67bfa639a32847b3d78
+
+###
+# Товар по id с кучей свойств
+
+GET {{baseUrl}}/62fde67bfa639a32847b3d78?fields=*,maidIn(title,code),category(title)

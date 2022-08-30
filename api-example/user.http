@@ -1,0 +1,24 @@
+###
+# Авторизация
+
+POST {{baseUrl}}/users/sign
+Content-Type: application/json
+
+{
+  "login": "test_1",
+  "password": "123456"
+}
+
+###
+# Выход - отмена авториазции для удаления токена
+
+DELETE {{baseUrl}}/users/sign
+X-Token: {{token}}
+Content-Type: application/json
+
+###
+# Свой профиль
+
+GET {{baseUrl}}/users/self
+X-Token: {{token}}
+Content-Type: application/json

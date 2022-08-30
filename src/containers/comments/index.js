@@ -1,4 +1,5 @@
 import React, {useCallback, useMemo, useState} from "react";
+import {useLocation} from "react-router-dom";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
 import useTranslate from "../../hooks/use-translate";
 import Spinner from "../../components/spinner";
@@ -12,8 +13,9 @@ import LoginWarning from "../../components/login-warning";
 import PrivateComponent from "../private-component";
 
 function Comments() {
-  const storeRedux = useStoreRedux();
-  const MAX_INDENT = 600;
+  const storeRedux = useStoreRedux()
+  const location = useLocation()
+  const MAX_INDENT = 600
   const select = useSelectorRedux(state => ({
     comments: state.comments.data,
     count: state.comments.count,
@@ -52,7 +54,7 @@ function Comments() {
     item: useCallback((item) => (<Comment item={item} onReply={callbacks.onReply}/>), []),
     // рендер формы для комментария/ответа
     form: useCallback((t, type, parentId, indent=null) => (
-      <PrivateComponent warning={<LoginWarning type={type} indent={indent} onCancel={callbacks.onCancel} t={t}/>}>
+      <PrivateComponent warning={<LoginWarning type={type} indent={indent} onCancel={callbacks.onCancel} location={location} t={t}/>}>
         <CommentForm  parentId={parentId}
                       commentType={type} 
                       indent={indent} 

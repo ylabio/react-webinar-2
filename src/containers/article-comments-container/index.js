@@ -77,7 +77,7 @@ function ArticleCommentsContainer({ articleId, type }) {
           sendContainer={
             <SendContainer
               sendComment={callbacks.sendComment}
-              isParent={sendId === comment._id}
+              isView={sendId === comment._id}
               parentId={comment._id}
               parentType={"comment"}
               cancel={callbacks.cancel}
@@ -91,7 +91,7 @@ function ArticleCommentsContainer({ articleId, type }) {
 
       <SendContainer
         sendComment={callbacks.sendComment}
-        isParent={sendId === articleId}
+        isView={sendId === articleId}
         parentId={articleId}
         parentType={type}
         cancel={callbacks.cancel}

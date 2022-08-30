@@ -5,7 +5,7 @@ import useTranslate from "../../hooks/use-translate";
 
 function SendContainer({ 
   sendComment, 
-  isParent, 
+  isView, 
   parentId, 
   parentType, 
   cancel, 
@@ -23,9 +23,9 @@ function SendContainer({
     changeText: useCallback((e) => setText(e.currentTarget.value), []),
   };
 
-  if (!isAuth && isParent) return <NotAuth action={onSignIn} t={t} />
+  if (!isAuth && isView) return <NotAuth action={onSignIn} t={t} />
 
-  if (!isParent) return
+  if (!isView) return
 
   return <Send  title={title}
                 action={callbacks.sendComment}

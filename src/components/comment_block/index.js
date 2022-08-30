@@ -12,13 +12,13 @@ function CommentBlock(props) {
   return (
             <div 
             className={cn()}
-            style={{marginLeft: `${props.margin*2}0px`}}
+            style={{marginLeft: `${30 * props.margin}px`}}
             >
               <div>
                 <p><strong>{props?.author}</strong></p>
                 <p className={cn('date')}>{timeFixion(`${props?.date}`)}</p>
               </div>
-              <p>{props?.text}</p>
+              <p className={cn('text')}>{props?.text}</p>
               <CommentsByCommentForm
                 toggleFunc={setToggle}
                 id={props.commentId}

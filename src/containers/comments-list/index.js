@@ -11,6 +11,9 @@ import CommentsForm from "../../components/comments-form";
 import CommentBlockWrapper from "../../components/comment_block-wrapper";
 import actionsComments from '../../store-redux/comments/actions';
 import {sortComments} from '../../utils/counter'
+import {cortComments} from "../../utils/list-to-tree";
+import treeToList from "../../utils/tree-to-list";
+
 
 
 function CommentsList(props) {
@@ -33,7 +36,7 @@ function CommentsList(props) {
   }));
 
   useEffect(() => {
-    setComments(sortComments(selectRedux.comments))
+    setComments(cortComments(selectRedux?.comments))
   }, [selectRedux.comments])
 
 
@@ -43,13 +46,11 @@ function CommentsList(props) {
 
 
   const select = useSelector(state => ({
-
     token: state.session.token,
   }));
 
 
   const {t} = useTranslate();
-
 
   return (
     <Spinner active={selectRedux.waiting}>

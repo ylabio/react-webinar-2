@@ -56,28 +56,61 @@ export const toggle = (item, setList, list, setFormToggle, formToggle) => {
   ) 
 }
 
+function recursFunction(arr, item) {
+  //   if(item?.parent?.tree?.length > 1) {
+  //   item?.parent?.tree.map(elem => {
+  //     if(elem?._type === 'comment') {
+  //       arr.push({...elem, order: item.order})
+  //       if(elem?.parent.tree.length > 1) {
+  //         return recursFunction(arr, {...elem, order: item.order})
+  //       }
+  //     }
+  //   })
+  // }
 
+  
+}
 
 
 export const sortComments = (arr) => {
   const sortedArr = []
+  let parentArr = []
   let childrenArr = []
+
   arr.map((item, i) => {
     if(item.parent._tree.length <= 1) {
-      sortedArr.push({...item, order: i}) 
+      parentArr.push({...item, order: i}) 
     } else {
-      childrenArr.push(item)
+      childrenArr.push({...item})
     }
   })
 
+  // childrenArr.map(item => {
+  //   return recursFunction(sortedArr, item)
+  // })
+
   for(let i = 0; i < arr.length; i++) {
-     const child = childrenArr.find(item => sortedArr[i]?._id === item?.parent?._id)
-     if(child) {
-      sortedArr.push({...child, order: sortedArr[i].order})
-     }
-     
+    childrenArr.map(item => {
+      if(parentArr[i]?._id === item.parent?._id ) {
+        parentArr.push({...item, order: parentArr[i].order + .3})
+        // console.log(item)
+      }
+    })
+    
   }
 
-  return sortedArr.sort((a,b) => a.order - b.order)
- 
+  
+
+  // while(sortedArr.length < arr.length) {
+  //   for(let i = 0; i < arr.length; i++) {
+  //     const child = childrenArr.find(item => sortedArr[i]?._id === item?.parent?._id)
+  //     if(child) {
+  //       sortedArr.push({...child, order: sortedArr[i].order})
+  //     }
+  //   }
+  // }
+    // console.log([...sortedArr, ...childrenArr].sort((a,b) => a.order - b.order))
+    // console.log(parentArr.sort((a,b) => a.order - b.order))
+    // console.log(childrenArr)
+    return [...parentArr].sort((a,b) => a.order - b.order)
   }

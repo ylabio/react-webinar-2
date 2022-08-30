@@ -1,3 +1,6 @@
 .CommentBlockWrapper {
     margin: 30px;
 }
+.CommentBlockWrapper textarea {
+    min-height: 76px;
+}

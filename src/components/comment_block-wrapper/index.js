@@ -17,7 +17,7 @@ function CommentBlockWrapper(props) {
     <div className={cn()}>
         {
           list && list.map((item, i) => {
-             let margin = item?.parent?._tree?.length;
+             let margin = item?.parent?._tree?.length - 1;
              return   <CommentBlock
                         key={i}
                         commentId={item?._id}

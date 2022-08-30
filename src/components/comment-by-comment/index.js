@@ -26,9 +26,7 @@ function CommentsByCommentForm(props) {
     event.preventDefault() 
     props.setFormToggle(true)
     storeRedux.dispatch(actionsInputComments.createComments({_id: props.id, _type: 'comment'}, token));
-   
     setText('')
-
   }, [props._type, props._id]);
 
   return (

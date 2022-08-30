@@ -1,0 +1,27 @@
+.CannotAddComment {
+    display: flex;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.CannotAddComment-signIn {
+    margin: 0;
+}
+
+.CannotAddComment-link {
+    padding: 0;
+    font-size: 16px;
+    line-height: 18px;
+    background: transparent;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.CannotAddComment-link_color_blue {
+    color: #0087E9;
+}
+
+.CannotAddComment-link_color_gray {
+    color: #666666;
+}

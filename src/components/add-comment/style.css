@@ -1,0 +1,31 @@
+.AddComment {
+    margin: 30px 0;
+}
+
+.AddComment-title {
+    margin: 0;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.AddComment-text  {
+    width: 100%;
+    min-height: 68px;
+    margin: 10px 0 6px;
+    padding: 3px;
+    color: #000000;
+    font-size: 14px;
+    line-height: 16px;
+    resize: none;
+}
+
+.AddComment-text::placeholder {
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.AddComment-btn {
+    margin-right: 10px;
+    padding: 1px 10px;
+}

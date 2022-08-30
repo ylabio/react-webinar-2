@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -6,12 +6,14 @@ import {useParams} from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import ArticleCard from "../../components/article-card";
+import Comments from "../../components/comments";
 import Spinner from "../../components/spinner";
 import Layout from "../../components/layout";
 import TopContainer from "../../containers/top";
 import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import actionsArticle from '../../store-redux/article/actions';
+import actionsComment from '../../store-redux/comment/actions';
 
 function Article(){
   const store = useStore();
@@ -20,21 +22,36 @@ function Article(){
 
   const storeRedux = useStoreRedux();
 
+  const selectnNotRedux = useSelector(state => ({
+    exists: state.session.exists,
+  }))
+
+  const select = useSelectorRedux(state => ({
+    article: state.article.data,
+    waiting: state.article.waiting,
+    comments: state.comment.comments,
+    count: state.comment.count,
+    countAddComment: state.comment.countAddComment,
+    waitingComment: state.comment.waiting
+  }), shallowEqual);
+
   useInit(async () => {
     //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsArticle.load(params.id));
   }, [params.id]);
 
-  const select = useSelectorRedux(state => ({
-    article: state.article.data,
-    waiting: state.article.waiting
-  }), shallowEqual);
+  useEffect(() => {
+    const load = async () => storeRedux.dispatch(actionsComment.load(params.id));
+    load();
+  }, [select.countAddComment]);
 
   const {t} = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), []),
+    // Добавление комментарии
+    addComment: useCallback(data => storeRedux.dispatch(actionsComment.increaseСount(data)), []),
   };
 
   return (
@@ -44,6 +61,16 @@ function Article(){
       <ToolsContainer/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+      </Spinner>
+      <Spinner active={select.waitingComment}>
+        <Comments 
+          comments={select.comments} 
+          count={select.count} 
+          exists={selectnNotRedux.exists} 
+          paramsId={params.id} 
+          onAdd={callbacks.addComment} 
+          t={t}
+        />
       </Spinner>
     </Layout>
   )

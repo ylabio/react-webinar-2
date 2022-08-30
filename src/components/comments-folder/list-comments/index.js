@@ -22,7 +22,7 @@ ListComments.propTypes = {
   onAddComment: propTypes.func.isRequired,
   isAuthorized: propTypes.bool.isRequired,
   items: propTypes.array.isRequired,
-  isIdReply: propTypes.string.isRequired,
+  isIdReply: propTypes.string
 }
 
 ListComments.defaultProps = {

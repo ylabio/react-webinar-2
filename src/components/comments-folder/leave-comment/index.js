@@ -35,7 +35,7 @@ function LeaveComment(props) {
 LeaveComment.propTypes = {
   onCancelReply: propTypes.func.isRequired,
   onAddComment: propTypes.func.isRequired,
-  id: propTypes.string.isRequired,
+  id: propTypes.string,
   isIdReply: propTypes.string
 }
 

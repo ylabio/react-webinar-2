@@ -39,7 +39,7 @@ ItemComments.propTypes = {
   onAddComment: propTypes.func.isRequired,
   item: propTypes.object.isRequired,
   isAuthorized: propTypes.bool.isRequired,
-  isIdReply: propTypes.string.isRequired,
+  isIdReply: propTypes.string
 }
 
 ItemComments.defaultProps = {

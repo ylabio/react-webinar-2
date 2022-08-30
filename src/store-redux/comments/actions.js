@@ -1,4 +1,5 @@
 export default { 
+  
   load(id) {
     return async(dispatch, getState, services) => {
        // Загрузка комментариев

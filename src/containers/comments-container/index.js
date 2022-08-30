@@ -20,7 +20,6 @@ import FormAnswer from "../../components/form-answer";
 import FormEntry from "../../components/form-entry";
 
 function CommentsContainer(){
-  const store = useStore();
   // Параметры из пути /articles/:id
   const params = useParams();
 
@@ -46,13 +45,14 @@ function CommentsContainer(){
   }));
 
   useInit(async () => {
+    // Загрузка комментариев
     storeRedux.dispatch(actionsComments.load(params.id)); 
   }, [params.id]);
 
   const {t} = useTranslate();
 
   const callbacks = {
-    //Добавление нового комментария
+    // Добавление нового комментария
     addComment: useCallback((text, parentId, parentType) => {
       storeRedux.dispatch(actionsComments.addComment(text, parentId, parentType));
     }, []),

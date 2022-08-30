@@ -12,6 +12,7 @@ import TopContainer from "../../containers/top";
 import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import actionsArticle from '../../store-redux/article/actions';
+import CommentsContainer from "../../containers/comments";
 
 function Article(){
   const store = useStore();
@@ -45,6 +46,7 @@ function Article(){
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
+      <CommentsContainer id={params.id}/>
     </Layout>
   )
 }

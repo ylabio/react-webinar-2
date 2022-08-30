@@ -1,0 +1,20 @@
+.CommentsLogin{
+	margin-top: 30px;
+}
+
+.CommentsLogin-button, .CommentsLogin-cancel{
+	background: none;
+	outline: none;
+	border: none;
+	padding: 0;
+	font-size: 16px;
+	text-decoration: underline;
+}
+
+.CommentsLogin-button{
+	color: #0087E9;
+}
+
+.CommentsLogin-cancel{
+	color: #666;
+}

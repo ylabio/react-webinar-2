@@ -30,6 +30,18 @@
     padding: 20px;
 }
 
+.LayoutFlex_indent_very-big{
+	padding: 30px 35px;
+}
+
+.LayoutFlex_alignItems_start{
+	align-items: start
+}
+
+.LayoutFlex_flexDirection_column{
+	flex-direction: column;
+}
+
 .LayoutFlex_indent_big h1{
     margin: 0;
 }
@@ -42,4 +54,12 @@
 }
 .LayoutFlex-item:last-child{
     margin-right: 0;
+}
+
+.LayoutFlex_marginItems_0 .LayoutFlex-item{
+	margin: 0;
+}
+
+.LayoutFlex_widthItems_100 .LayoutFlex-item{
+	width: 100%;
 }

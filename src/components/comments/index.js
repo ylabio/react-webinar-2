@@ -3,7 +3,7 @@ import { cn as bem } from '@bem-react/classname';
 import propTypes from 'prop-types';
 import AddComment from "../add-comment";
 import CannotAddComment from "../cannot-add-comment";
-import ItemComment from "../item-comment";
+import ListComment from "../list-comment";
 import './style.css';
 
 function Comments({ comments, count, exists, paramsId, onAdd, t }) {
@@ -41,22 +41,16 @@ function Comments({ comments, count, exists, paramsId, onAdd, t }) {
   return (
     <div className={cn()}>
       <p className={cn('title')}>{`${t('comments.comment')} (${count})`}</p>
-      <ul className={cn('list')}>
-        {sortComments.map((comment, i) => (
-          <ItemComment
-            key={comment._id}
-            comment={comment}
-            i={i}
-            numComment={numComment}
-            isAnswer={isAnswer}
-            exists={exists}
-            t={t}
-            onCancel={callbacks.onCancelClick}
-            onAnswer={callbacks.onAnswerClick}
-            onAdd={callbacks.onAddCommentClick}
-          />
-        ))}
-      </ul>
+        <ListComment
+          sortComments={sortComments}
+          numComment={numComment}
+          isAnswer={isAnswer}
+          exists={exists}
+          t={t}
+          onCancel={callbacks.onCancelClick}
+          onAnswer={callbacks.onAnswerClick}
+          onAdd={callbacks.onAddCommentClick}
+        />
       {!isAnswer && (exists ? 
         <AddComment
           t={t}

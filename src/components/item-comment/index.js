@@ -14,8 +14,7 @@ function ItemComment({ isAnswer, numComment, exists, onAdd, i, comment, onAnswer
     onAnswerClick: useCallback(() => onAnswer(i), []),
   };
 
-  const countAnswers = (comment.parent._tree.length > 1) ? 
-    (comment.parent._tree.length - 1) * 30 : 0;
+  const countAnswers = (comment.parent._tree.length - 1) * 30;
 
   return (
     <li style={{paddingLeft: `${countAnswers}px`}} className={cn()}>

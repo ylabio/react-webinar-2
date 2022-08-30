@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
@@ -16,20 +16,17 @@ function Comment({
   setLastCommentId,
   createResponse,
   showResponse,
-  setScroll,  
+  addCommentPosition,
 }) {
   const cn = bem('Comment');
   const [showAnswerForm, setShowAnswerForm] = useState(false);
+  const commentRef = useRef(null);
 
   const callbacks = {
     showFormHandler: useCallback((e) => {
       setLastCommentId(data._id);
       setShowAnswerForm(true);
       setShowCommentForm(false);
-
-      const y = window.scrollY; 
-      setScroll(y);
-
     }, [data._id]),
     
     cancelFormHandler: useCallback(() => {
@@ -44,8 +41,17 @@ function Comment({
     }
   }, [lastCommentId])
 
+  useEffect(() => {
+    const fromTop = commentRef.current.getBoundingClientRect().top;
+    addCommentPosition(data._id, fromTop);
+  }, [])
+
   return (
-    <div className={cn()} style={{marginLeft: String(30 * lvl) + 'px'}}>
+    <div 
+      className={cn()} 
+      style={{marginLeft: String(30 * lvl) + 'px'}} 
+      ref={commentRef}
+    >
       <div className={cn('body')}>
         <div className={cn('header')}>
           <span className={cn('username')}>{data.author.profile.name}</span>
@@ -85,7 +91,7 @@ function Comment({
             closeCB={callbacks.cancelFormHandler} 
           />
         </div>
-      )}                
+      )}           
       
     </div>
   );
@@ -101,13 +107,11 @@ Comment.propTypes = {
   setLastCommentId: propTypes.func.isRequired,
   createResponse: propTypes.func.isRequired,
   showResponse: propTypes.bool,
-  setScroll: propTypes.func,  
 };
 
 Comment.defaultProps = {
   lastCommentId: '',
   showResponse: true,
-  setScroll: () => {},
 };
 
 export default React.memo(Comment);

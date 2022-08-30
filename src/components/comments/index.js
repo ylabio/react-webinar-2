@@ -15,7 +15,7 @@ function Comments({
   productId,
   updateBranchState,
   branchesState,
-  setScroll,
+  addCommentPosition,
  }) {
   const cn = bem('Comments');
   const [showCommentForm, setShowCommentForm] = useState(true);
@@ -42,7 +42,7 @@ function Comments({
                 ? branchesState[branch[0].comment._id]
                 : {[branch[0].comment._id]: false}
             }
-            setScroll={setScroll}
+            addCommentPosition={addCommentPosition}
           />
         ))}   
       </div>
@@ -53,7 +53,6 @@ function Comments({
             type='comment'
             createResponse={createResponse}
             productId={productId}
-            setScroll={setScroll}
           />
         </div>          
       )}
@@ -79,7 +78,6 @@ Comments.propTypes = {
     propTypes.object.isRequired, 
     propTypes.bool.isRequired
   ]),
-  setScroll: propTypes.func.isRequired,
 };
 
 Comments.defaultProps = {

@@ -16,6 +16,9 @@ export default {
             parent,
           })
         });
+
+        const id = json.result._id;
+        dispatch({type: 'comments/setLastCreatedId', payload: id});
         
         dispatch({type: 'comments/create-success'});
 
@@ -67,6 +70,20 @@ export default {
     return {
       type: 'comments/scroll',
       payload: y,
+    };
+  },
+
+  setLastCreatedId(id) {
+    return {
+      type: 'comments/setLastCreatedId',
+      payload: id,
+    };
+  },
+
+  addCommentPosition(id, fromTop) {
+    return {
+      type: 'comments/addCommentPosition',
+      payload: {id, fromTop},
     };
   },
 }

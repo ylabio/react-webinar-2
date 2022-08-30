@@ -7,11 +7,12 @@ import useSelector from '../../hooks/use-selector';
 
 function CommentsContainer({ productId }) {
   const { dispatch } = useStore();
-  const { total, items, branchesState, scroll } = useSelectorR(state => ({
+  const { total, items, branchesState, commentPositions, lastCreatedId } = useSelectorR(state => ({
     total: state.comments.total,
     items: state.comments.data.items,
     branchesState: state.comments.branchesState,
-    scroll: state.comments.scroll,
+    commentPositions: state.comments.commentPositions,
+    lastCreatedId: state.comments.lastCreatedId,
   }));
   const { exists } = useSelector(state => ({
     exists: state.session.exists,
@@ -32,17 +33,17 @@ function CommentsContainer({ productId }) {
       dispatch(commentsActions.setBranches(branchData));
     }, []),
 
-    setScroll: useCallback((y) => {
-      dispatch(commentsActions.setScroll(y));  
+    addCommentPosition: useCallback((id, fromTop) => {
+      dispatch(commentsActions.addCommentPosition(id, fromTop));
     }, []),
   };
 
   useEffect(() => {
-    if (scroll !== null) {
-      window.scrollTo({top: scroll});
-      dispatch(commentsActions.setScroll(null));
-    }
-  }, [])
+    if (lastCreatedId !== null) {
+      console.log({last: commentPositions[lastCreatedId], id: lastCreatedId});
+      window.scrollTo({top: commentPositions[lastCreatedId] - 104});
+    } 
+  }, [lastCreatedId, commentPositions])
 
   return (
     <>
@@ -55,7 +56,7 @@ function CommentsContainer({ productId }) {
         productId={productId}
         updateBranchState={callbacks.updateBranchState}
         branchesState={branchesState}
-        setScroll={callbacks.setScroll}
+        addCommentPosition={callbacks.addCommentPosition}
       />
     </>
   );

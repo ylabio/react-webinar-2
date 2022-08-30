@@ -6,11 +6,25 @@ const initialState = {
   productId: null,
   branchesState: {},
   scroll: null,
+  lastCreatedId: null,
+  commentPositions: {},
 };
 
 // Обработчик действий в redux
 export default function(state = initialState, action){
   switch (action.type) {
+    case "comments/addCommentPosition":
+      return {
+        ...state, 
+        commentPositions: {
+          ...state.commentPositions, 
+          [action.payload.id]: action.payload.fromTop
+        }
+      };
+
+    case "comments/setLastCreatedId": 
+      return {...state, lastCreatedId: action.payload};
+
     case "comments/scroll":
       return {...state, scroll: action.payload};
 

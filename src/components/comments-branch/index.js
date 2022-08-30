@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Comment from "../comment";
 import propTypes from 'prop-types';
 import './style.css';
@@ -15,10 +15,11 @@ function CommentsBranch({
   createResponse,
   updateBranchState,
   branchState,
-  setScroll,
+  addCommentPosition,
 }) {
   const cn = bem('CommentsBranch');
   const isHidden = useBranchState(branchState, updateBranchState);
+  const branchRef = useRef(null);
 
   const callbacks = {
     changeBranchState: useCallback((flag) => {
@@ -27,7 +28,7 @@ function CommentsBranch({
   };
 
   return (
-    <div className={cn()}>
+    <div className={cn()} ref={branchRef}>
       <div className={cn('wrapper', {hidden: isHidden})}>
       {branch.map(obj => (
         <Comment 
@@ -40,7 +41,7 @@ function CommentsBranch({
           lastCommentId={lastCommentId}
           setLastCommentId={setLastCommentId}
           createResponse={createResponse}
-          setScroll={setScroll}
+          addCommentPosition={addCommentPosition}
         />
       ))}
       </div>
@@ -89,7 +90,6 @@ CommentsBranch.propTypes = {
     propTypes.object.isRequired, 
     propTypes.bool.isRequired
   ]),
-  setScroll: propTypes.func.isRequired,
 };
 
 CommentsBranch.defaultProps = {

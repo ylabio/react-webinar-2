@@ -8,6 +8,12 @@ import treeToList from '../../utils/tree-to-list';
 function Comment({ comment, level, ...props }) {
   const cn = bem('Comment');
 
+  const parentId = level <= 10 ? comment._id : props.parentId;
+
+  console.log('Comment ID: ' + comment._id);
+  console.log('Parent ID: ' + props.parentId);
+  console.log('Current ID: ' + parentId);
+
   const paddingLeft = (level > 0 && level < 10) ? 30 : 0;
   const name = comment.author.profile?.name ? comment.author.profile.name : props.name;
   const childrenOfMaxNesting = level === 10
@@ -26,7 +32,7 @@ function Comment({ comment, level, ...props }) {
         <div className={cn('time')}>{dateFormating(comment.dateCreate)}</div>
       </div>
       <div className={cn('body')}>{comment.text}</div>
-      <a className={cn('link')} onClick={() => props.setVisibleTextArea(comment._id)}>Ответить</a>
+      <a className={cn('link')} onClick={() => props.setVisibleTextArea(parentId)}>Ответить</a>
       {level < 10
         ? comment.children.map(item =>
           <div key={item._id} className={cn('child')}>
@@ -35,10 +41,14 @@ function Comment({ comment, level, ...props }) {
         )
         : childrenOfMaxNesting.map(item =>
           <div key={item._id} className={cn('child')}>
-            {props.renderItem(item, level + 1, item._id)}
+            {props.renderItem(item, level + 1, parentId)}
           </div>)
       }
-      {comment._id === props.visibleTextArea && props.renderForm(comment._id, name)}
+      {(comment._id === props.visibleTextArea) &&
+        <div className={cn('form')}>
+          {props.renderForm((comment._id || props.parentId), name)}
+        </div>
+      }
     </div>
   )
 }

@@ -11,8 +11,9 @@ function CommentsCart(props) {
   const cn = bem('CommentsCart');
 
   const renders = {
-    comment: useCallback((comment, level) => (
+    comment: useCallback((comment, level, parentId = null) => (
       <Comment
+        parentId={parentId}
         comment={comment}
         level={level}
         setVisibleTextArea={props.setVisibleTextArea}

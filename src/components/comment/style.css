@@ -3,7 +3,7 @@
   flex-direction: column;
 }
 
-.Comment>*:not(:last-child) {
+.Comment>*:not(:last-child, .Comment-link, .Comment-child) {
   margin-bottom: 10px;
 }
 
@@ -31,4 +31,16 @@
   font-size: 12px;
   color: #0087E9;
   cursor: pointer;
+}
+
+.Comment-child {
+  margin-top: 30px;
+}
+
+.Comment-child:not(:last-child) {
+  margin-bottom: 30px 0;
+}
+
+.Comment-form {
+  margin-top: 30px;
 }

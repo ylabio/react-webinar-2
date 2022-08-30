@@ -1,6 +1,7 @@
 import StateModule from "../module";
 import qs from '../../utils/search-params';
 import diff from "../../utils/diff";
+import { ru } from "../../utils/translate/locales";
 
 /**
  * Состояние каталога
@@ -80,7 +81,7 @@ class CatalogState extends StateModule {
       limit: newParams.limit,
       skip: (newParams.page - 1) * newParams.limit,
       fields: 'items(*),count',
-      sort: newParams.sort,
+      sort: newParams.sort, 
       search: {
         query: newParams.query, // search[query]=text
         category: newParams.category  // -> search[category]=id
@@ -88,7 +89,7 @@ class CatalogState extends StateModule {
     }, {skip: 0, search: {query: '', category: ''}});
 
     // ?search[query]=text&search[category]=id
-    const json = await this.services.api.request({url: `/api/v1/articles${qs.stringify(apiParams)}`});
+    const json = await this.services.api.request({url: `/api/v1/articles?lang=ru&${qs.stringify(apiParams)}`});
 
     // Установка полученных данных и сброс признака загрузки
     this.setState({

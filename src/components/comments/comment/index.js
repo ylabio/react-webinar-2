@@ -11,7 +11,9 @@ function Comment({
   setAnswerState,
   answerState,
   className,
-  addComment
+  addComment,
+  redirect,
+  isAuth
 }) {
   // CSS классы по БЭМ
   const cn = bem('Comment');
@@ -24,6 +26,8 @@ function Comment({
         answerState={answerState}
         setAnswerState={setAnswerState}
         addComment={addComment}
+        redirect={redirect}
+        isAuth={isAuth}
       />
     );
   });
@@ -41,13 +45,15 @@ function Comment({
         <TextButton onClick={() => setAnswerState(item._id)}>
           Ответить
         </TextButton>
-        {answerState === item._id && (
-          <CommentAnswerBlock
+        {answerState === item._id 
+        ? !isAuth 
+        ? <>{redirect}</>
+        : <CommentAnswerBlock
             cancel={() => setAnswerState(null)}
             send={addComment}
             parent={item}
           />
-        )}
+        : null}
       </section>
       <section className={cn('answer')}>{nestedComments}</section>
     </>

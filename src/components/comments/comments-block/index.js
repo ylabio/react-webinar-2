@@ -17,6 +17,12 @@ function CommentsBlock({
   // CSS классы по БЭМ
   const cn = bem('CommentsBlock');
 
+  const redirect = (
+  <span>
+    <span className={cn('link')} onClick={signIn}>Войдите,</span> чтобы иметь возможность
+    ответить
+  </span>)
+
   return (
     <div className={cn()}>
       <div className={cn('header')}>{`Комментарии (${count})`}</div>
@@ -25,19 +31,21 @@ function CommentsBlock({
             <Comment
               key={item._id}
               item={item}
-              answerState={exists && answerState}
+              answerState={answerState}
               setAnswerState={openAnswerBlock}
               addComment={addComment}
-              />
+              redirect={redirect}
+              isAuth={exists}
+            />
           );
         })}
         {exists && !answerState 
         ? <NewCommentBlock addComment={addComment} /> 
         : (
         <span>
-          <span className={cn('link')} onClick={signIn}>Войдите,</span> чтобы иметь возможность
-          комментировать
-        </span>
+            <span className={cn('link')} onClick={signIn}>Войдите,</span> чтобы иметь возможность
+            комментировать
+          </span>
       )}
     </div>
   );

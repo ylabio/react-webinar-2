@@ -17,7 +17,7 @@ function LayoutFlex({children, flex, indent, flexDirection, alignItems, marginIt
 
 LayoutFlex.propTypes = {
   children: propTypes.node,
-  flex: propTypes.oneOf(['start', 'end',' between']),
+  flex: propTypes.oneOf(['start', 'end','between']),
   indent: propTypes.oneOf(['small', 'big', 'very-big']),
 	flexDirection: propTypes.oneOf(['column']),
 	alignItems: propTypes.oneOf(['start']),

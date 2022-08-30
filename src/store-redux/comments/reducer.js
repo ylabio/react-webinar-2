@@ -26,9 +26,13 @@ export default function(state = initialState, action) {
 			let newArr = [...state.items.slice(action.payload.itemIndex + 1, state.items.length + 1)];
 			
 			let k = 0;
-			newArr.forEach((item, index) => {
+			
+			const ev = newArr.every((item, index) => {
 				if(newArr[index].lvl >= action.payload.lvl) {
 					k = k + 1;
+					return true;
+				} else {
+					return false;
 				}
 			});
 

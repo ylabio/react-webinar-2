@@ -58,7 +58,7 @@ export default function transformDate(stringDate){
 	const date = new Date(stringDate);
 	const numberOfMonth = date.getUTCDate();
 	const month = date.getUTCMonth() + 1;
-	const hour = date.getUTCHours();
+	const hour = date.getHours();
 	const minutes = date.getUTCMinutes();
 
 	return `${numberOfMonth} ${transformMonth(month)} ${date.getFullYear()} в ${addZeroToNumber(hour)}:${addZeroToNumber(minutes)}`;

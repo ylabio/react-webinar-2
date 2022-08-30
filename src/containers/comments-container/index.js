@@ -112,20 +112,22 @@ function CommentsContainer(){
                   }
         form = { 
                 id === item._id && 
-                  (select1.exists ? 
-                    <FormAnswer id={id}
-                                t={t} 
-                                changeId={changeId}
-                                textPlaceholder={textPlaceholder}
-                                padding={item.padding}
-                                attemptAddNewComment={callbacks.attemptAddNewComment}
-                    />
-                  :
-                    <FormEntry changeId={changeId}
-                               onSignIn={callbacks.onSignIn}
-                               t={t}
-                               padding={item.padding}
-                    />)
+                  (
+                    select1.exists ? 
+                      <FormAnswer id={id}
+                                  t={t} 
+                                  changeId={changeId}
+                                  textPlaceholder={textPlaceholder}
+                                  padding={item.padding}
+                                  attemptAddNewComment={callbacks.attemptAddNewComment}
+                      />
+                    :
+                      <FormEntry changeId={changeId}
+                                 onSignIn={callbacks.onSignIn}
+                                 t={t}
+                                 padding={item.padding}
+                      />
+                  )
                }
       />
     )),

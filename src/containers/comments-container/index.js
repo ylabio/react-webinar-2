@@ -68,7 +68,7 @@ function CommentsContainer(){
       ...treeToList(
         listToTree(select.comments, params.id),
         (item, level) => (
-          (level <= 10) ?
+          (level <= 11) ?
             {...item, padding: level * 30}
           :
             {...item,  padding: 300}

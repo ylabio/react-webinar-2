@@ -3,6 +3,7 @@ import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual
 import useStore from "../../hooks/use-store";
 import {useParams} from "react-router-dom";
 import useInit from "../../hooks/use-init";
+import {useDispatch} from "react-redux";
 import useTranslate from "../../hooks/use-translate";
 import ArticleCard from "../../components/article-card";
 import Spinner from "../../components/spinner";
@@ -12,8 +13,10 @@ import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import actionsArticle from '../../store-redux/article/actions';
 import CommentsArea from "../../containers/comments_area";
+import {sliceReset} from "../../store-redux/article-comments/action";
 
 function Article(){
+    const dispatch = useDispatch()
   const store = useStore();
   // Параметры из пути /articles/:id
   const params = useParams();
@@ -23,6 +26,7 @@ function Article(){
   useInit(async () => {
     //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsArticle.load(params.id));
+    dispatch(sliceReset())
   }, [params.id]);
 
   const select = useSelectorRedux(state => ({

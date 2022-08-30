@@ -2,6 +2,8 @@ export const COMMENTS_LOAD = "comments/load";
 export const COMMENTS_LOAD_SUCCESS = "comments/load-success";
 export const COMMENTS_PUSH = "comments/push";
 export const COMMENT_ERROR = "comments/load-error"
+export const SLICE_COMMENT= 'comments/slice'
+export const SLICE_RESET = 'comments/slice-reset'
 
 
 export const load = (_id) => {
@@ -51,3 +53,13 @@ export const load = (_id) => {
     }
 }
 
+export const slice = () => ({
+    type: SLICE_COMMENT,
+        payload: ''
+})
+
+
+export const sliceReset = () => ({
+    type: SLICE_RESET,
+    payload: ''
+})

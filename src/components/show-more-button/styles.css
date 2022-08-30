@@ -1,0 +1,5 @@
+.show-more-button {
+    display: flex;
+    justify-content: center;
+    padding: 25px 0 25px 0;
+}

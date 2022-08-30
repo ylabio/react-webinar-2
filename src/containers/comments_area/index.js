@@ -1,6 +1,6 @@
 import React, {useMemo, useState} from 'react';
 import {useDispatch} from "react-redux";
-import {load} from "../../store-redux/article-comments/action";
+import {load, slice} from "../../store-redux/article-comments/action";
 import useInit from "../../hooks/use-init";
 import {useSelector as useSelectorRedux} from 'react-redux'
 import useSelector from "../../hooks/use-selector";
@@ -11,6 +11,7 @@ import Comment from "../../components/comment";
 import NewComment from "../new-comment";
 import Spinner from "../../components/spinner";
 import CommentsCount from "../../components/comments-count";
+import ShowMoreButton from "../../components/show-more-button";
 
 const CommentsArea = ({articleId}) => {
     const dispatch = useDispatch()
@@ -20,6 +21,7 @@ const CommentsArea = ({articleId}) => {
         comments: state.articleComments.items,
         count: state.articleComments.count,
         waiting: state.articleComments.waiting,
+        slice: state.articleComments.sliceComment
     }));
     const [replyingOn, setReplyingOn] = useState(articleId)
 
@@ -27,6 +29,10 @@ const CommentsArea = ({articleId}) => {
 
     const {t} = useTranslate();
 
+
+    const showMore = () => {
+        dispatch(slice())
+    }
 
     const loadAll =  () => {
        dispatch(load(articleId))
@@ -48,7 +54,7 @@ const CommentsArea = ({articleId}) => {
     }
 
     const comments =
-        options.comments && options.comments.map((comment) => {
+        options.comments && options.comments.slice(0, selectRedux.slice).map((comment) => {
             return <Comment key={comment._id}
                             text={comment.text}
                             replyTitle={t('comments.reply')}
@@ -72,6 +78,7 @@ const CommentsArea = ({articleId}) => {
             {comments}
             {replyingOn === articleId ?<NewComment isToArticle={true} onSubmit={()=> setReplyingOn(articleId)} parent={articleId} cancelCallback={() => setReplyingOn(articleId)}/> : null }
             </Spinner>
+            <ShowMoreButton showMore={showMore}/>
         </div>
     );
 };

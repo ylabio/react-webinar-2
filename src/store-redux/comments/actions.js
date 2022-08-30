@@ -10,7 +10,7 @@ export default {
 
         dispatch({
           type: 'comments/load-success',
-          payload: { data: json.result.items, count: json.result.count },
+          payload: { data: json.result.items, count: json.result.count, newCommentId: null },
         });
       } catch (e) {
         // Ошибка при загрузке
@@ -46,6 +46,7 @@ export default {
           payload: {
             data: [...commentsState.data, json.result],
             count: commentsState.count + 1,
+            newCommentId: json.result._id,
           },
         });
       } catch (e) {

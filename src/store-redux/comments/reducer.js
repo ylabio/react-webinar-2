@@ -4,6 +4,7 @@ const initialState = {
   count: 0,
   waiting: false,
   currentOpenForm: '',
+  newCommentId: null,
 };
 
 // Обработчик действий в redux
@@ -17,6 +18,7 @@ export default function (state = initialState, action) {
         ...state,
         data: action.payload.data,
         count: action.payload.count,
+        newCommentId: action.payload.newCommentId,
         waiting: false,
       };
 

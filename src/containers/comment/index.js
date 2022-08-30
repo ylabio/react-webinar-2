@@ -13,7 +13,7 @@ import CommentsForm from '../../components/comments/form';
 import actionsComments from '../../store-redux/comments/actions';
 import useSelector from '../../hooks/use-selector';
 
-function Comment({ userName, date, text, level, commentId }) {
+const Comment = React.forwardRef(({ userName, date, text, level, commentId }, ref) => {
   const storeRedux = useStoreRedux();
   const { t } = useTranslate();
   const navigate = useNavigate();
@@ -90,9 +90,10 @@ function Comment({ userName, date, text, level, commentId }) {
       renderForm={renders.renderForm}
       changeCurrentOpenForm={callbacks.changeCurrentOpenForm}
       t={t}
+      ref={ref}
     />
   );
-}
+});
 
 CommentsInfo.propTypes = {
   userName: propTypes.string.isRequired,

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import {
   useStore as useStoreRedux,
   useSelector as useSelectorRedux,
@@ -19,11 +19,13 @@ import actionsComments from '../../store-redux/comments/actions';
 import useInit from '../../hooks/use-init';
 
 function CommentsList() {
+  console.log('render CommentsList');
   const storeRedux = useStoreRedux();
   const { t, lang } = useTranslate();
   const params = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const newCommentRef = useRef(null);
 
   const select = useSelector((state) => ({
     exists: state.session.exists,
@@ -35,13 +37,20 @@ function CommentsList() {
       count: state.comments.count,
       waiting: state.comments.waiting,
       currentOpenForm: state.comments.currentOpenForm,
+      newCommentId: state.comments.newCommentId,
     }),
     shallowEqual
   );
 
   useInit(async () => {
     storeRedux.dispatch(actionsComments.load(params.id));
+    newCommentRef.current = null;
   }, [params.id]);
+
+  useEffect(() => {
+    if (!newCommentRef.current) return;
+    newCommentRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, [selectRedux.newCommentId]);
 
   const callbacks = {
     addComment: useCallback((text) => {
@@ -59,7 +68,7 @@ function CommentsList() {
   };
 
   const renders = {
-    renderForm: useCallback(
+    renderFormToArticle: useCallback(
       () => (
         <>
           {!selectRedux.currentOpenForm &&
@@ -91,9 +100,10 @@ function CommentsList() {
             exists={select.exists}
             level={comment.level}
             commentId={comment._id}
+            ref={comment._id === selectRedux.newCommentId ? newCommentRef : null}
           />
         ))}
-        {renders.renderForm()}
+        {renders.renderFormToArticle()}
       </Comments>
     </Spinner>
   );

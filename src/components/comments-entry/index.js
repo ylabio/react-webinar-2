@@ -12,7 +12,6 @@ function CommentsEntry({onSignIn, t}) {
 }
 
 CommentsEntry.propTypes = {
-  link: propTypes.string,
   t: propTypes.func,
   onSignIn: propTypes.func.isRequired
 }

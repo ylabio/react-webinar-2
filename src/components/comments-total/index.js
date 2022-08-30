@@ -14,13 +14,13 @@ function CommentsTotal({numberOfComments, t}) {
 }
 
 CommentsTotal.propTypes = {
-  link: propTypes.string,
+  numberOfComments: propTypes.number,
   t: propTypes.func
 }
 
 CommentsTotal.defaultProps = {
-  t: (text) => text,
-  link: ''
+  numberOfComments: 0,
+  t: (text) => text 
 }
 
 export default React.memo(CommentsTotal);

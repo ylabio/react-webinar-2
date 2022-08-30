@@ -139,7 +139,7 @@ function CommentsContainer(){
           !id &&
             (
               select1.exists ?
-                <FormAddComment id={params.id} attemptAddNewComment={callbacks.attemptAddNewComment} t={t} lang={select1.lang}/>
+                <FormAddComment id={params.id} attemptAddNewComment={callbacks.attemptAddNewComment} t={t}/>
               :
                 <CommentsEntry t={t} onSignIn={callbacks.onSignIn}/>
             )

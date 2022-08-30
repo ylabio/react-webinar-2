@@ -37,7 +37,6 @@ function ArticleComments() {
 
     onSend: useCallback(async (data) => {
       await storeRedux.dispatch(actionsComments.send(data, params.id, 'article'));
-      await callbacks.load();
     }, []),
 
     redirect: useCallback(() => {

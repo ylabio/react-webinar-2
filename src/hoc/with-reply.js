@@ -28,7 +28,6 @@ export const withReply = (Component) => (props) => {
     onSend: useCallback(async (data) => {
       callbacks.closeText();
       await storeRedux.dispatch(actionsComments.send(data, props.comment._id, 'comment'));
-      await storeRedux.dispatch(actionsComments.load(params.id));
     }, []),
 
     redirect: useCallback(() => {

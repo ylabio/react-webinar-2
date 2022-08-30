@@ -24,22 +24,22 @@ export default {
       dispatch({type: 'comments/send'});
 
     try {
-      await services.api.request({
-        url: `/api/v1/comments`,
-        method: 'POST',
-        body: JSON.stringify({
-          text: data,
-          parent: {
-            _id: id,
-            _type: type,
-          },
-        }),
-      });
-      
-      dispatch({type: 'comments/send-success'});
-    } catch (error) {
-      dispatch({type: 'comments/send-error'});
-    }
+      const json = await services.api.request({
+          url: `/api/v1/comments?lang=ru&fields=*,_id,text,dateCreate,author(profile(name)),parent(_id)`,
+          method: 'POST',
+          body: JSON.stringify({
+            text: data,
+            parent: {
+              _id: id,
+              _type: type,
+            },
+          }),
+        });
+
+        dispatch({type: 'comments/send-success', payload: {data: json.result}});
+      } catch (error) {
+        dispatch({type: 'comments/send-error'});
+      }
     }
   }
 }

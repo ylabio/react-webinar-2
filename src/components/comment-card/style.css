@@ -1,13 +1,15 @@
 .CommentCard {
-  margin-top: 30px;
 }
-/* TODO: разметить отступ в контейнере, а не в компоненте */
-.CommentCard > * + * {
+
+.CommentCard-info,
+.CommentCard-content,
+.CommentCard-cta {
   margin-top: 10px;
 }
 
 .CommentCard-info {
   display: flex;
+  align-items: center;
 }
 .CommentCard-author {
   margin-right: 10px;
@@ -20,10 +22,7 @@
   font-size: 12px;
   line-height: 14px;
 }
-.CommentCard-content {
-}
-.CommentCard-cta {
-}
+
 .CommentCard-cta > button {
   background-color: transparent;
   border-width: 0;

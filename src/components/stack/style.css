@@ -1,7 +1,10 @@
 .Stack {
-  padding: 10px 35px;
+  padding: 0px 35px;
 }
 
-.Stack_spacing_big > div > * + * {
+.Stack > h2 {
+  /* margin: 0; */
   margin-top: 30px;
+  margin-bottom: 0px;
+  font-weight: 400;
 }

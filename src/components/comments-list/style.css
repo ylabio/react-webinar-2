@@ -7,6 +7,9 @@
   list-style-type: none;
 }
 
+.CommentsList {
+}
+
 /* выравнить комментарии с заголовком по левому краю */
 .CommentsList > ul {
   padding-left: 0;

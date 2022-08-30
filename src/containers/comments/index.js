@@ -15,6 +15,7 @@ import ProtectedCommentForm from '../protected-comment-form';
 import useSelector from '../../hooks/use-selector';
 import NewCommentForm from '../../components/new-comment-form';
 import useInit from '../../hooks/use-init';
+import ListItem from '../../components/list-item';
 
 function Comments(props) {
   const dispatch = useDispatch();
@@ -26,7 +27,9 @@ function Comments(props) {
   const commentsTree = listToTreeWithParentId(comments, props.articleId);
   // поулчаем из дерева структуру списка комментариев с разметкой (отступы при вложенности) и компонентом комментария
   const content = treeToListWithUlHtmlMarkup(commentsTree, elem => (
-    <CommentCardContainer comment={elem} />
+    <ListItem>
+      <CommentCardContainer comment={elem} />
+    </ListItem>
   ));
 
   const selectStore = useSelector(state => ({
@@ -40,14 +43,14 @@ function Comments(props) {
   });
 
   return (
-    <Stack spacing={'big'}>
+    <>
       <CommentsList>{content}</CommentsList>
       {isVisible ? (
         <ProtectedCommentForm callbackGuardCondition={() => selectStore.exists}>
           <NewCommentForm parentId={props.articleId} />
         </ProtectedCommentForm>
       ) : null}
-    </Stack>
+    </>
   );
 }
 
@@ -56,5 +59,3 @@ Comments.propTypes = {
 };
 
 export default React.memo(Comments);
-
-//TODO: <ul> <li> - уходят отсупами за экран при привышении определенного количества элементов

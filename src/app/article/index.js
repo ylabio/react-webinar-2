@@ -18,6 +18,7 @@ import ToolsContainer from '../../containers/tools';
 import actionsArticle from '../../store-redux/article/actions';
 import Comments from '../../containers/comments';
 import {selectCommentsTotal} from '../../store-redux/comments-slice';
+import Stack from '../../components/stack';
 
 function Article() {
   const store = useStore();
@@ -51,7 +52,6 @@ function Article() {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.get('basket').addToBasket(_id), [])
   };
-
   return (
     <Layout>
       <TopContainer />
@@ -64,8 +64,10 @@ function Article() {
           t={t}
         />
       </Spinner>
-      <h2>Комментарии ({commentsTotal})</h2>
-      <Comments articleId={params.id} />
+      <Stack>
+        <h2>Комментарии ({commentsTotal})</h2>
+        <Comments articleId={params.id} />
+      </Stack>
     </Layout>
   );
 }

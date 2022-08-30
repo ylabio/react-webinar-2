@@ -19,7 +19,6 @@ function CommentCardContainer(props) {
     /* раньше делал запрос для каждого компонента комментария на получение имени автора,
         теперь получаю из слайса уже промисы в поле автора, и ожидаю их исполнения здесь.
     */
-
     // const response = await services.api.request({
     //   url: `/api/v1/users/${authorId}?fields=profile`
     // });
@@ -36,6 +35,7 @@ function CommentCardContainer(props) {
   }));
 
   const callbacks = {
+    // открытие-закрытие формы {true - открыта, false - закрыта}
     onFormToggle: useCallback(
       bool => {
         setIsVisible(bool);
@@ -83,7 +83,7 @@ function CommentCardContainer(props) {
               >
                 <ReplyComment
                   parentId={props.comment._id}
-                  onCancel={() => callbacks.onFormToggle(false)}
+                  onCancel={() => setIsVisible(false)}
                 />
               </ProtectedCommentForm>
             ) : null}

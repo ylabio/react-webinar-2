@@ -1,6 +1,5 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import useSelector from '../../hooks/use-selector';
 import InfoBadge from '../../components/info-badge';
 
 function ProtectedCommentForm({children, callbackGuardCondition}) {
@@ -14,7 +13,8 @@ function ProtectedCommentForm({children, callbackGuardCondition}) {
 }
 
 ProtectedCommentForm.propTypes = {
-  children: propTypes.node
+  children: propTypes.node,
+  callbackGuardCondition: propTypes.func
 };
 
 export default React.memo(ProtectedCommentForm);

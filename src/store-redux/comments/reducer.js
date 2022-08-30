@@ -1,7 +1,9 @@
 const initialState = {
   items: [],
   loading: false,
-  parentId: '', // _id комментария / товара к которому пишется ответ
+  error: false,
+  parentId: '', // _id комментария/товара к которому пишется ответ
+  sending: false, // отправка комментария
 };
 
 function reducer(state = initialState, action) {
@@ -12,15 +14,17 @@ function reducer(state = initialState, action) {
         ...state,
         items: [],
         loading: true,
+        error: false,
       };
 
+    // parentId === article id, комментарий пишется к товару
     case 'comments/load-success':
       return {
         ...state,
         items: action.payload.items,
         loading: false,
+        error: false,
         parentId: action.payload.parentId,
-        // тут parentId === article id, форма открыта под всеми комментами
       };
 
     case 'comments/load-error':
@@ -28,22 +32,43 @@ function reducer(state = initialState, action) {
         ...state,
         items: [],
         loading: false,
+        error: true,
       };
 
-    case 'comments/setParentId':
+    // переключение формы на другой коммент/товар
+    // action.payload == "parentId"
+    case 'comments/parentId-set':
       return {
         ...state,
         parentId: action.payload,
-        // переключение формы на другой коммент
       };
 
+    case 'comments/parentId-clear':
+      return {
+        ...state,
+        parentId: '',
+      };
+
+    case 'comments/comment-sending':
+      return {
+        ...state,
+        sending: true,
+      };
+
+    // action.payload == уже обработанный items с новым комментом
+    // закрывает форму после отправки
     case 'comments/comment-added':
       return {
         ...state,
         items: action.payload,
-        // передаётся уже обработанный массив
         parentId: '',
-        // закрытие формы после отправки
+        sending: false,
+      };
+
+    case 'comment/send-error':
+      return {
+        ...state,
+        sending: false,
       };
 
     default:

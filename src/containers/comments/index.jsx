@@ -11,8 +11,11 @@ import './style.css';
 const Comments = ({ items, articleId }) => {
   const storeRedux = useStoreRedux();
 
-  const parentId = useSelectorRedux(state => state.comments.parentId);
-  // _id комментария / товара к которому пишется ответ
+  const reduxSelect = useSelectorRedux(state => ({
+    loadError: state.comments.error,
+    parentId: state.comments.parentId, // _id комментария / товара к которому пишется ответ
+    commentSending: state.comments.sending, // отправка комментария
+  }));
 
   const select = useSelector(state => ({
     logged: state.session.exists,
@@ -21,43 +24,47 @@ const Comments = ({ items, articleId }) => {
 
   const callbacks = {
     openForm: useCallback(_id => {
-      storeRedux.dispatch({ type: 'comments/setParentId', payload: _id });
+      // при вызове с кнопки передаётся event
+      if (typeof _id !== 'string') _id = articleId;
+      storeRedux.dispatch({ type: 'comments/parentId-set', payload: _id });
     }, []),
     closeForm: useCallback(() => {
-      storeRedux.dispatch({ type: 'comments/setParentId', payload: '' });
+      storeRedux.dispatch({ type: 'comments/parentId-clear', });
     }, []),
     sendComment: useCallback(text => {
-      storeRedux.dispatch(actionsComments.send(text, select.userId, parentId, articleId));
-    }, [parentId]),
+      storeRedux.dispatch(actionsComments.send(text, select.userId, reduxSelect.parentId, articleId));
+    }, [reduxSelect.parentId]),
   };
 
-  const warn = (<p><Link to='/login'>Войдите</Link>, чтобы иметь возможность комментирования</p>);
+  const unloggedUser = (<div><Link to='/login'>Войдите</Link>, чтобы иметь возможность комментирования</div>);
 
-  return (
+  return !reduxSelect.loadError ? (
     <div className='comments'>
-      <h2>{`Комментарии (${items.length})`}</h2>
+      <h2>{items.length ? `Комментарии (${items.length})` : 'Комментарии'}</h2>
 
       <ul className='comments__list'>
         {items.map(item =>
-          <li key={item._id} className='comments__list-item' style={
-            { 'marginLeft': `${item.depth * 30}px`, }
-          }>
+          <li key={item._id} style={item.depth ? { 'marginLeft': `${item.depth * 30}px` } : null}>
             <CommentItem data={item} onReply={callbacks.openForm} />
 
-            {item._id === parentId && (select.logged
-              ? <CommentForm onSubmit={callbacks.sendComment} onClose={callbacks.closeForm} />
-              : warn
+            {item._id === reduxSelect.parentId && (select.logged
+              ? <CommentForm onSubmit={callbacks.sendComment} onClose={callbacks.closeForm} sending={reduxSelect.commentSending} />
+              : unloggedUser
             )}
           </li>
         )}
       </ul>
 
-      {articleId === parentId && (select.logged
-        ? <CommentForm onSubmit={callbacks.sendComment} onClose={callbacks.closeForm} />
-        : warn
+      {articleId === reduxSelect.parentId && (select.logged
+        ? <CommentForm onSubmit={callbacks.sendComment} onClose={callbacks.closeForm} sending={reduxSelect.commentSending} />
+        : unloggedUser
       )}
 
-      <button onClick={() => callbacks.openForm(articleId)}>Комментировать</button>
+      {articleId !== reduxSelect.parentId && <button onClick={callbacks.openForm}>Комментировать</button>}
+    </div>
+  ) : (
+    <div className='comments'>
+      <h2>Ошибка при загрузке комментариев</h2>
     </div>
   )
 }

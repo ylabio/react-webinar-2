@@ -9,7 +9,7 @@ export default {
     return async (dispatch) => {
       dispatch({ type: 'comments/load', });
 
-      await fetch(`/api/v1/comments?search[parent]=${_id}&fields=${fields}&limit=50`)
+      await fetch(`/api/v1/comments?search[parent]=${_id}&fields=${fields}&limit=*`)
         .then(res => {
           if (res.ok) return res.json();
           throw new Error(res.status + ' ' + res.statusText);
@@ -24,15 +24,15 @@ export default {
           });
         })
         .catch(err => {
-          console.error('store-redux/comments/actions.load -', err.message);
+          console.error('store-redux/comments/actions.load() -', err.message);
           dispatch({ type: 'comments/load-error', });
-          // тут наверное надо вывести ошибку на странице
         })
     };
   },
 
   send: (text, userId, parentId, articleId) => {
     return async (dispatch, getState, services) => {
+      dispatch({ type: 'comments/comment-sending', });
 
       const json = await services.api.request({
         url: `/api/v1/comments?fields=${fields}`,
@@ -41,7 +41,7 @@ export default {
           author: {
             _id: userId,
           },
-          text: text !== '' ? text : '--no-text--',
+          text: text || '--no-text--',
           parent: {
             _id: parentId,
             _type: parentId === articleId ? 'article' : 'comment',
@@ -56,8 +56,9 @@ export default {
         })
       }
       else {
-        console.error('store-redux/comments/actions.send');
+        console.error('store-redux/comments/actions.send()');
         console.error(json.error);
+        dispatch({ type: 'comments/send-error', });
       }
     };
   },

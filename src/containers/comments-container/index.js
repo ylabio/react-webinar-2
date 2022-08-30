@@ -31,6 +31,10 @@ function CommentsContainer({ productId }) {
     updateBranchState: useCallback((branchData) => {
       dispatch(commentsActions.setBranches(branchData));
     }, []),
+
+    setScroll: useCallback((y) => {
+      dispatch(commentsActions.setScroll(y));  
+    }, []),
   };
 
   useEffect(() => {
@@ -39,10 +43,6 @@ function CommentsContainer({ productId }) {
       dispatch(commentsActions.setScroll(null));
     }
   }, [])
-
-  function setScroll(y) {
-    dispatch(commentsActions.setScroll(y));  
-  }
 
   return (
     <>
@@ -55,7 +55,7 @@ function CommentsContainer({ productId }) {
         productId={productId}
         updateBranchState={callbacks.updateBranchState}
         branchesState={branchesState}
-        setScroll={setScroll}
+        setScroll={callbacks.setScroll}
       />
     </>
   );

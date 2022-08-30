@@ -100,12 +100,14 @@ Comment.propTypes = {
   lastCommentId: propTypes.string,
   setLastCommentId: propTypes.func.isRequired,
   createResponse: propTypes.func.isRequired,
-  showResponse: propTypes.bool,  
+  showResponse: propTypes.bool,
+  setScroll: propTypes.func,  
 };
 
 Comment.defaultProps = {
   lastCommentId: '',
   showResponse: true,
+  setScroll: () => {},
 };
 
 export default React.memo(Comment);

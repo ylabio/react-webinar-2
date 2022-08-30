@@ -71,12 +71,14 @@ CommentForm.propTypes = {
   productId: propTypes.string,
   comment: propTypes.object.isRequired,
   createResponse: propTypes.func.isRequired,
+  setScroll: propTypes.func,
 };
 
 CommentForm.defaultProps = {
   closeCB: () => {},
   productId: '',
   comment: {},
+  setScroll: () => {},
 };
 
 export default React.memo(CommentForm);

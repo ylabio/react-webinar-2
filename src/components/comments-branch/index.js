@@ -89,6 +89,7 @@ CommentsBranch.propTypes = {
     propTypes.object.isRequired, 
     propTypes.bool.isRequired
   ]),
+  setScroll: propTypes.func.isRequired,
 };
 
 CommentsBranch.defaultProps = {

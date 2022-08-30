@@ -10,7 +10,7 @@ function ListComments(props) {
 
   return (
     <div className={cn()}>{props.items?.map(item =>
-        <ItemComments key={item._id} item={item} isAuthorized={props.isAuthorized} onSignIn={props.onSignIn} onReply={props.onReply} idReply={props.idReply} onCancelReply={props.onCancelReply} onAddComment={props.onAddComment}/>
+        <ItemComments key={item._id} item={item} isAuthorized={props.isAuthorized} onSignIn={props.onSignIn} onReply={props.onReply} isIdReply={props.isIdReply} onCancelReply={props.onCancelReply} onAddComment={props.onAddComment}/>
       )}
     </div>
   )
@@ -22,6 +22,7 @@ ListComments.propTypes = {
   onAddComment: propTypes.func.isRequired,
   isAuthorized: propTypes.bool.isRequired,
   items: propTypes.array.isRequired,
+  isIdReply: propTypes.string.isRequired,
 }
 
 ListComments.defaultProps = {

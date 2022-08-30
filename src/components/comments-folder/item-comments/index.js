@@ -24,11 +24,11 @@ function ItemComments(props) {
       </div>
       <div className={cn('text')}>{props.item.text}</div>
       <button className={cn('button')} onClick={callbacks.onReply}>Ответить</button>
-      {(!props.isAuthorized && props.idReply === props.item._id) && 
-      <PermissionComment onSignIn={props.onSignIn} reply={'reply'} onCancelReply={props.onCancelReply}/>}
+      {(!props.isAuthorized && props.isIdReply === props.item._id) && 
+      <PermissionComment onSignIn={props.onSignIn} isIdReply={props.isIdReply} onCancelReply={props.onCancelReply}/>}
 
-      {(props.isAuthorized && props.idReply === props.item._id) && 
-      <LeaveComment reply={'reply'} onCancelReply={props.onCancelReply} id={props.item._id} onAddComment={props.onAddComment}/>}
+      {(props.isAuthorized && props.isIdReply === props.item._id) && 
+      <LeaveComment onCancelReply={props.onCancelReply} id={props.item._id} isIdReply={props.isIdReply} onAddComment={props.onAddComment}/>}
     </div>
   )
 }
@@ -39,7 +39,7 @@ ItemComments.propTypes = {
   onAddComment: propTypes.func.isRequired,
   item: propTypes.object.isRequired,
   isAuthorized: propTypes.bool.isRequired,
-  idReply: propTypes.string.isRequired,
+  isIdReply: propTypes.string.isRequired,
 }
 
 ItemComments.defaultProps = {

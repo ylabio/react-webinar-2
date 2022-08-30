@@ -12,7 +12,7 @@ function LeaveComment(props) {
   const callbacks = {
     onAddComment: useCallback((e) => {
       e.preventDefault();
-      props.onAddComment(comment, props.id, props.reply === 'reply' ? 'comment' : 'article')
+      props.onAddComment(comment, props.id, props.isIdReply ? 'comment' : 'article')
     }, [props.onAddComment, comment])
   };
 
@@ -22,11 +22,11 @@ function LeaveComment(props) {
 
   return (
       <form className={cn()} onSubmit={callbacks.onAddComment}>
-        <div className={cn('title')} >Новый {props.reply === 'reply' ? 'ответ' : 'комментарий'}</div>
-        <textarea type="text" value={comment} onChange={handleComment}/>
+        <div className={cn('title')} >Новый {props.isIdReply ? 'ответ' : 'комментарий'}</div>
+        <textarea type='text' value={comment} onChange={handleComment}/>
         <div className={cn('buttons')}>
-          <button type="submit" className={cn('button-send')}>Отправить</button>
-          {props.reply === 'reply' && <button className={cn('button-cancel')} onClick={props.onCancelReply}>Отмена</button>}
+          <button type='submit' className={cn('button-send')}>Отправить</button>
+          {props.isIdReply && <button type='button' className={cn('button-cancel')} onClick={props.onCancelReply}>Отмена</button>}
         </div>
       </form>
   )
@@ -36,7 +36,7 @@ LeaveComment.propTypes = {
   onCancelReply: propTypes.func.isRequired,
   onAddComment: propTypes.func.isRequired,
   id: propTypes.string.isRequired,
-  reply: propTypes.string.isRequired,
+  isIdReply: propTypes.string
 }
 
 LeaveComment.defaultProps = {

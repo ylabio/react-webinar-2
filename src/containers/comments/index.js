@@ -44,7 +44,8 @@ function Comments() {
     storeRedux.dispatch(actionsComments.load(selectReduxStore.articleId));
   }, [selectReduxStore.articleId]);
 
-  const [idReply, setIdReply] = useState('')
+  // состояние для ответа на коментарии, сюда помещается id конретного коментария
+  const [isIdReply, setIsIdReply] = useState('')
 
   const callbacks = {
     // Переход к авторизации
@@ -53,16 +54,16 @@ function Comments() {
     }, [location.pathname]),
     // По id товара проверяется у какого конкретно коментария открыть форму при нажатии на кнопку "ответить"
     onReply: useCallback((_id) => {
-      setIdReply(_id)
+      setIsIdReply(_id)
     }),
     // При нажатии кнопки "отменить" сбрасывает состояние
     onCancelReply: useCallback(() => {
-      setIdReply('')
+      setIsIdReply('')
     }),
     // Добавление коментариев
     onAddComment: useCallback(async (text, id, type) => {
       await storeRedux.dispatch(actionsComments.addComment(text, id, type));
-      setIdReply('')
+      setIsIdReply('')
     }, [])
   };
 
@@ -73,13 +74,13 @@ function Comments() {
         items={commentaries} 
         isAuthorized={selectStore.isAuthorized} 
         onSignIn={callbacks.onSignIn} 
-        idReply={idReply} 
+        isIdReply={isIdReply} 
         onReply={callbacks.onReply} 
         onCancelReply={callbacks.onCancelReply} 
         onAddComment={callbacks.onAddComment}/>
 
-      {(selectStore.isAuthorized && !idReply) && <LeaveComment id={selectReduxStore.articleId} onAddComment={callbacks.onAddComment}/>}
-      {(!selectStore.isAuthorized && !idReply) && <PermissionComment onSignIn={callbacks.onSignIn}/>}
+      {(selectStore.isAuthorized && !isIdReply) && <LeaveComment id={selectReduxStore.articleId} onAddComment={callbacks.onAddComment}/>}
+      {(!selectStore.isAuthorized && !isIdReply) && <PermissionComment onSignIn={callbacks.onSignIn}/>}
       </LayoutComments>
     </Spinner>
   );

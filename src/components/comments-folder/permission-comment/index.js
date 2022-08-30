@@ -9,8 +9,8 @@ function PermissionComment(props) {
 
   return (
     <div className={cn()}>
-      <span className={cn('signIn')} onClick={props.onSignIn}>Войдите</span>, чтобы иметь возможность {props.reply === 'reply' ? 'ответить ' : 'комментировать. '}
-      {props.reply === 'reply' && <span className={cn('cancel')} onClick={props.onCancelReply}>Отмена</span>}
+      <span className={cn('signIn')} onClick={props.onSignIn}>Войдите</span>, чтобы иметь возможность {props.isIdReply ? 'ответить ' : 'комментировать. '}
+      {props.isIdReply && <span className={cn('cancel')} onClick={props.onCancelReply}>Отмена</span>}
     </div>
   )
 }
@@ -18,7 +18,7 @@ function PermissionComment(props) {
 PermissionComment.propTypes = {
   onSignIn: propTypes.func.isRequired,
   onCancelReply: propTypes.func.isRequired,
-  reply: propTypes.string,
+  isIdReply: propTypes.string
 }
 
 PermissionComment.defaultProps = {

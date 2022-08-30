@@ -63,7 +63,7 @@ function Login() {
           </Field>
           <Field error={select.errors?.other}/>
           <Field>
-            <button disabled={select.waiting} type="submit">{t('auth.signIn')}</button>
+            <button disabled={!(data.login && data.password)} type="submit">{t('auth.signIn')}</button>
           </Field>
         </form>
       </LayoutFlex>

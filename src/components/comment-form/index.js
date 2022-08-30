@@ -16,10 +16,10 @@ function CommentForm(props) {
     };
 
     const handleSubmit = (e) => {
-      e.preventDefault()
+        e.preventDefault()
         props.onSubmit(payload)
         setText('')
-        props.onClose()
+        props.onHide()
     }
 
     return (
@@ -28,7 +28,7 @@ function CommentForm(props) {
             <textarea name="textarea" rows={5} value={text} onChange={(e) => setText(e.target.value)}/>
             <div className={cn('btn-block')}>
                 <button type="submit" disabled={!text}>Отправить</button>
-                {props.label === 'Новый ответ' && <button type="button" onClick={props.onClose}>Отменить</button>}
+                {props.label === 'Новый ответ' && <button type="button" onClick={props.onHide}>Отменить</button>}
             </div>
         </form>
     )
@@ -36,8 +36,10 @@ function CommentForm(props) {
 
 CommentForm.propTypes = {
     label: PropTypes.oneOf(['Новый комментарий', 'Новый ответ']),
-    onClose: PropTypes.func,
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    onHide: PropTypes.func,
+    id: PropTypes.string,
+    type: PropTypes.string
 }
 
 export default React.memo(CommentForm)

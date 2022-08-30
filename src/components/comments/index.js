@@ -22,18 +22,24 @@ function Comments() {
     const location = useLocation();
 
     const [visibleForm, setVisibleForm] = React.useState(true);
+    const [subFormId, setSubFormId] = React.useState('');
 
-    const select = useSelectorRedux(state => ({
+    const selectRedux = useSelectorRedux(state => ({
         article: state.article.data,
         comments: state.comments.data,
         error: state.comments.error
     }))
+
+    const selectStore = useSelector(state => ({
+        session: state.session
+    }))
+
     const userName = useSelector(state => ({...state.session.user.profile}.name))
 
     const options = {
         comments: React.useMemo(() => {
-            return select.comments.length &&
-                treeToList(listToTree(select.comments, undefined, select.article._id),
+            return selectRedux.comments.length &&
+                treeToList(listToTree(selectRedux.comments, undefined, selectRedux.article._id),
                     (item, level) => ({
                         id: item._id,
                         text: item.text,
@@ -43,11 +49,18 @@ function Comments() {
                         active: item.active,
                     })
                 )
-        }, [select.comments])
+        }, [selectRedux.comments])
     }
 
     const callbacks = {
-        onShow: React.useCallback(() => setVisibleForm(!visibleForm), [visibleForm]),
+        onShow: React.useCallback((commentId) => {
+            setVisibleForm(false)
+            setSubFormId(commentId)
+        }, [visibleForm, subFormId]),
+        onHide: React.useCallback(() => {
+            setVisibleForm(true)
+            setSubFormId('')
+        }, [visibleForm, subFormId]),
         onSubmit: React.useCallback((data) => {
             storeRedux.dispatch(actionsComment.createComment(data));
         }, []),
@@ -64,7 +77,7 @@ function Comments() {
     return (
         <>
             <div className={cn()}>
-                <h2 className={cn('title')}>Комментарии ({select.comments.length || 0})</h2>
+                <h2 className={cn('title')}>Комментарии ({selectRedux.comments.length || 0})</h2>
                 {options.comments?.length
                     ? (
                         options.comments.map(comment => (
@@ -72,30 +85,38 @@ function Comments() {
                                 key={comment.id}
                                 comment={comment}
                                 onShow={callbacks.onShow}
+                                onHide={callbacks.onHide}
                                 onSubmit={callbacks.onSubmit}
-                                userName={userName}
-                            />))
+                                userName={comment.author ?? userName}
+                                isLogged={selectStore.session.exists}
+                                onLink={callbacks.onLink}
+                                subFormId={subFormId}
+                            />
+                        ))
                     )
                     : ''
                 }
             </div>
-            {(visibleForm && userName)
+            {(visibleForm && userName && !subFormId)
                 ? (<Protected redirect="/login">
                     <LayoutForm>
                         <CommentForm
-                            id={select.article._id}
+                            id={selectRedux.article._id}
                             type="article"
                             label="Новый комментарий"
                             onSubmit={callbacks.onSubmit}
+                            onHide={callbacks.onHide}
                         />
                     </LayoutForm>
                 </Protected>)
-                : (<LayoutForm>
-                    <footer className={cn('footer')}>
-                        <span className={cn('link')} onClick={callbacks.onLink}>Войдите</span>
-                        <span>, чтобы иметь возможноть комментировать</span>
-                    </footer>
-                </LayoutForm>)
+                : ((!selectStore.session.exists && !subFormId) && (
+                        <LayoutForm>
+                            <footer className={cn('footer')}>
+                                <span className={cn('link')} onClick={callbacks.onLink}>Войдите</span>
+                                <span>, чтобы иметь возможноть комментировать</span>
+                            </footer>
+                        </LayoutForm>)
+                )
             }
         </>
     )

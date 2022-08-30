@@ -34,3 +34,22 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
+.Comment-footer{
+    margin-top: 30px;
+}
+
+.Comment-entrance {
+    color: #0087E9;
+    font-weight: 400;
+    line-height: 14px;
+    font-size: 16px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.Comment-exit{
+    color: #666666;
+    text-decoration: underline;
+    cursor: pointer;
+}

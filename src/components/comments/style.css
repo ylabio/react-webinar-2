@@ -1,5 +1,5 @@
 .Comments {
-    padding: 30px 35px 0;
+    padding: 30px 35px;
 }
 
 .Comments-title {
@@ -7,14 +7,12 @@
 }
 
 .Comments-footer {
-    padding: 30px 0
+    padding: 0 0 30px 0;
+    margin-top: -30px;
 }
 
 .Comments-link {
     color: #0087E9;
-}
-
-.Comments-link:hover{
     cursor: pointer;
     text-decoration: underline;
 }

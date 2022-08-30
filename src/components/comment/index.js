@@ -1,11 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { cn as bem } from '@bem-react/classname';
+import {cn as bem} from '@bem-react/classname';
 import "./style.css";
 import CommentForm from "../comment-form";
 
-function Comment({comment, onShow, onSubmit, userName}){
-    const [visibleForm, setVisibleForm] = React.useState(false);
+function Comment({comment, onShow, onHide, onSubmit, userName, isLogged, onLink, subFormId}) {
 
     const cn = bem('Comment');
 
@@ -19,28 +18,32 @@ function Comment({comment, onShow, onSubmit, userName}){
         minute: 'numeric',
     });
 
-    const handleClick = () => {
-        onShow()
-        setVisibleForm(!visibleForm)
-    }
-
-    return(
+    return (
         <div className={cn()} style={{marginLeft: comment.marginLeft}}>
             <div className={cn('title')}>
                 <h4>{userName}</h4>
                 <span>{`${day} в ${time}`}</span>
             </div>
             <p className={cn('body')}>{comment.text}</p>
-            {userName && <span className={cn('link')} onClick={handleClick}>Ответить</span>}
-            {visibleForm && (
-                <CommentForm
-                    id={comment.id}
-                    type="comment"
-                    onClose={handleClick}
-                    label="Новый ответ"
-                    onSubmit={onSubmit}
-                />
-            )}
+            <span className={cn('link')} onClick={() => onShow(comment.id)}>Ответить</span>
+            {(isLogged && (comment.id === subFormId))
+                ? (
+                    <CommentForm
+                        id={comment.id}
+                        type="comment"
+                        label="Новый ответ"
+                        onSubmit={onSubmit}
+                        onHide={onHide}
+                    />
+                )
+                : (!isLogged && (comment.id === subFormId) &&
+                    (<footer className={cn('footer')}>
+                        <span className={cn('entrance')} onClick={onLink}>Войдите</span>
+                        <span>, чтобы иметь возможноть комментировать.</span>
+                        &nbsp;
+                        <span className={cn('exit')} onClick={onHide}>Отмена</span>
+                    </footer>)
+                )}
         </div>
     )
 }
@@ -48,8 +51,12 @@ function Comment({comment, onShow, onSubmit, userName}){
 Comment.propTypes = {
     comment: PropTypes.object,
     onShow: PropTypes.func,
+    onHide: PropTypes.func,
     onSubmit: PropTypes.func,
-    userName: PropTypes.string
+    userName: PropTypes.string,
+    isLogged: PropTypes.bool,
+    onLink: PropTypes.func,
+    subFormId: PropTypes.string
 }
 
 export default React.memo(Comment)

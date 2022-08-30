@@ -61,5 +61,12 @@ export default {
       type: 'comments/setBranches',
       payload: branchData,
     };
-  }
+  },
+
+  setScroll(y) {
+    return {
+      type: 'comments/scroll',
+      payload: y,
+    };
+  },
 }

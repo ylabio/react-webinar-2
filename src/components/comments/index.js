@@ -15,6 +15,7 @@ function Comments({
   productId,
   updateBranchState,
   branchesState,
+  setScroll,
  }) {
   const cn = bem('Comments');
   const [showCommentForm, setShowCommentForm] = useState(true);
@@ -41,6 +42,7 @@ function Comments({
                 ? branchesState[branch[0].comment._id]
                 : {[branch[0].comment._id]: false}
             }
+            setScroll={setScroll}
           />
         ))}   
       </div>
@@ -51,6 +53,7 @@ function Comments({
             type='comment'
             createResponse={createResponse}
             productId={productId}
+            setScroll={setScroll}
           />
         </div>          
       )}

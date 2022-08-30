@@ -15,16 +15,21 @@ function Comment({
   lastCommentId,
   setLastCommentId,
   createResponse,
-  showResponse,  
+  showResponse,
+  setScroll,  
 }) {
   const cn = bem('Comment');
   const [showAnswerForm, setShowAnswerForm] = useState(false);
 
   const callbacks = {
-    showFormHandler: useCallback(() => {
+    showFormHandler: useCallback((e) => {
       setLastCommentId(data._id);
       setShowAnswerForm(true);
       setShowCommentForm(false);
+
+      const y = window.scrollY; 
+      setScroll(y);
+
     }, [data._id]),
     
     cancelFormHandler: useCallback(() => {

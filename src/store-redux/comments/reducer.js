@@ -5,11 +5,15 @@ const initialState = {
   total: 0,
   productId: null,
   branchesState: {},
+  scroll: null,
 };
 
 // Обработчик действий в redux
 export default function(state = initialState, action){
   switch (action.type) {
+    case "comments/scroll":
+      return {...state, scroll: action.payload};
+
     case "comments/setBranches":
       return {...state, branchesState: {...state.branchesState, ...action.payload}};
 

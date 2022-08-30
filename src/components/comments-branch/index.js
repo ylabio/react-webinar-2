@@ -15,6 +15,7 @@ function CommentsBranch({
   createResponse,
   updateBranchState,
   branchState,
+  setScroll,
 }) {
   const cn = bem('CommentsBranch');
   const isHidden = useBranchState(branchState, updateBranchState);
@@ -39,6 +40,7 @@ function CommentsBranch({
           lastCommentId={lastCommentId}
           setLastCommentId={setLastCommentId}
           createResponse={createResponse}
+          setScroll={setScroll}
         />
       ))}
       </div>

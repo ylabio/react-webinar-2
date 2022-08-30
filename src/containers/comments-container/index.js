@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import propTypes from 'prop-types';
 import { useSelector as useSelectorR, useStore } from 'react-redux';
 import Comments from '../../components/comments';
@@ -7,10 +7,11 @@ import useSelector from '../../hooks/use-selector';
 
 function CommentsContainer({ productId }) {
   const { dispatch } = useStore();
-  const { total, items, branchesState } = useSelectorR(state => ({
+  const { total, items, branchesState, scroll } = useSelectorR(state => ({
     total: state.comments.total,
     items: state.comments.data.items,
     branchesState: state.comments.branchesState,
+    scroll: state.comments.scroll,
   }));
   const { exists } = useSelector(state => ({
     exists: state.session.exists,
@@ -32,6 +33,17 @@ function CommentsContainer({ productId }) {
     }, []),
   };
 
+  useEffect(() => {
+    if (scroll !== null) {
+      window.scrollTo({top: scroll});
+      dispatch(commentsActions.setScroll(null));
+    }
+  }, [])
+
+  function setScroll(y) {
+    dispatch(commentsActions.setScroll(y));  
+  }
+
   return (
     <>
       <Comments 
@@ -43,6 +55,7 @@ function CommentsContainer({ productId }) {
         productId={productId}
         updateBranchState={callbacks.updateBranchState}
         branchesState={branchesState}
+        setScroll={setScroll}
       />
     </>
   );

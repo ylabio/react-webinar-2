@@ -9,6 +9,7 @@ function CommentForm({
   comment, 
   createResponse,
   productId,
+  setScroll,
  }) {
   const cn = bem('CommentForm');
   const [textarea, setTextarea] = useState('Текст');
@@ -23,6 +24,7 @@ function CommentForm({
       }
   
       if (type === 'comment') {
+        setScroll(document.body.scrollHeight);
         createResponse(textarea, productId, 'article');  
       }
     }, [textarea, comment._id, comment._type, productId])

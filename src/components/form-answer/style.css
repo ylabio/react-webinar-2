@@ -1,3 +1,7 @@
+.FormAnswer{
+    padding-right: 40px; 
+}
+
 .FormAnswer-comment button{
     margin-bottom: 10px;  
 }

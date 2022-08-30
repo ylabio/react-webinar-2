@@ -41,6 +41,9 @@ function CommentsContainer({ productId }) {
   useEffect(() => {
     if (lastCreatedId !== null) {
       window.scrollTo({top: commentPositions[lastCreatedId]});
+      setTimeout(() => {
+        dispatch(commentsActions.setLastCreatedId(null));
+      }, 1000);
     } 
   }, [lastCreatedId, commentPositions])
 

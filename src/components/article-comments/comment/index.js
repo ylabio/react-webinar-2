@@ -18,8 +18,13 @@ function Comment({ comment, setSendId, sendContainer, lang, t }) {
     minute: "numeric"
   });
 
+  // Вариант реализации смещения согласно иерархии вложенности где - 10 level max
+  // console.log("level: ", comment.level,
+  //             "padding: ", comment.level % 10 !== comment.level ? 10 : comment.level);
+
+  // В текущей реализации скрыл кнопку ответа на комментарий если уровень вложенности превышает 10
   return (
-    <div style={{ paddingLeft: `${comment.level * 40}px` }} >
+    <div style={{ paddingLeft: `${ (comment.level % 10 !== comment.level ? 10 : comment.level) * 40 }px` }} >
       <div className={cn()}>
         <div className={cn("header")}>
           <span className={cn("userName")}>
@@ -30,9 +35,9 @@ function Comment({ comment, setSendId, sendContainer, lang, t }) {
 
         <div className={cn("text")}>{comment.text}</div>
 
-        <button className={cn("btn")} onClick={() => setSendId(comment._id)}>
+        { comment.level % 10 === comment.level && <button className={cn("btn")} onClick={() => setSendId(comment._id)}>
           {t('comment.reply')}
-        </button>
+        </button> }
       </div>
 
       {sendContainer}

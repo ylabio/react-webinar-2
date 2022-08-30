@@ -1,28 +1,37 @@
-import React, {useCallback, useState} from "react";
-import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
-import {useLocation, useNavigate} from "react-router-dom";
-import ArticleComments from "../../components/article-comments";
+import React, { useCallback, useState } from "react";
+import {
+  useStore as useStoreRedux,
+  useSelector as useSelectorRedux,
+  shallowEqual,
+} from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
-import actionsComments from '../../store-redux/comments/actions';
-import { createTree } from "../../utils/createTree"
-import { treeToList } from "../../utils/treeToList"
+import actionsComments from "../../store-redux/comments/actions";
+import { createTree } from "../../utils/createTree";
+import { treeToList } from "../../utils/treeToList";
+import Layout from "../../components/article-comments/layout";
+import Title from "../../components/article-comments/title";
+import Comment from "../../components/article-comments/comment";
+import SendContainer from "../send-container";
 
 function ArticleCommentsContainer({ articleId, type }) {
-
   const storeRedux = useStoreRedux();
   const navigate = useNavigate();
   const location = useLocation();
-  const {t, lang} = useTranslate();
+  const { t, lang } = useTranslate();
 
-  const selectRedux = useSelectorRedux(state => ({
-    comments: state.comments.data,
-    waiting: state.article.waiting,
-  }), shallowEqual);
+  const selectRedux = useSelectorRedux(
+    (state) => ({
+      comments: state.comments.data,
+      waiting: state.article.waiting,
+    }),
+    shallowEqual
+  );
 
-  const select = useSelector(state => ({
-    exists: state.session.exists
-  }))
+  const select = useSelector((state) => ({
+    exists: state.session.exists,
+  }));
 
   // id родителя для кого показывать форму ответа
   const [sendId, setSendId] = useState(articleId);
@@ -30,27 +39,56 @@ function ArticleCommentsContainer({ articleId, type }) {
   const callbacks = {
     // Вход
     onSignIn: useCallback(() => {
-      navigate('/login', {state: {back: location.pathname}});
+      navigate("/login", { state: { back: location.pathname } });
     }, [location.pathname]),
     // Отправка запроса на добавление комментария
-    sendComment: useCallback((text, parentId, parentType) => storeRedux.dispatch(actionsComments.addComment(parentId, parentType, text)), []),
+    sendComment: useCallback(
+      (text, parentId, parentType) =>
+        storeRedux.dispatch(
+          actionsComments.addComment(parentId, parentType, text)
+        ), []),
     // Отмена офрмы ответа на комментарий
     cancel: useCallback(() => setSendId(articleId), []),
+    setId: useCallback((id) => setSendId(id), []),
   };
 
   return (
-    <ArticleComments  comments={treeToList(createTree(selectRedux.comments))}
-                      sendComment={callbacks.sendComment}
-                      onSignIn={callbacks.onSignIn}
-                      articleId={articleId}
-                      isAuth={select.exists}
-                      sendId={sendId}
-                      setSendId={setSendId}
-                      cancel={callbacks.cancel}
-                      articleType={type}
-                      t={t}
-                      lang={lang} />
-    
+    <Layout>
+      <Title count={selectRedux.comments.length} t={t} />
+
+      { treeToList(createTree(selectRedux.comments)).map((comment) => (
+        <Comment
+          key={comment._id}
+          comment={comment}
+          setSendId={callbacks.setId}
+          lang={lang}
+          t={t}
+          sendContainer={
+            <SendContainer
+              sendComment={callbacks.sendComment}
+              sendId={sendId}
+              parentId={comment._id}
+              parentType={"comment"}
+              cancel={callbacks.cancel}
+              isAuth={select.exists}
+              onSignIn={callbacks.onSignIn}
+              title={t("send.new-reply")}
+            />
+          }
+        />
+      )) }
+
+      <SendContainer
+        sendComment={callbacks.sendComment}
+        sendId={sendId}
+        parentId={articleId}
+        parentType={type}
+        cancel={callbacks.cancel}
+        isAuth={select.exists}
+        onSignIn={callbacks.onSignIn}
+        title={t("send.new-comment")}
+      />
+    </Layout>
   );
 }
 

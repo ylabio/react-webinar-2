@@ -49,6 +49,7 @@ export default {
                 dispatch({ type: 'comments/send-success', lastCommented: message.result.dateCreate })
             }
             catch (e) {
+                console.log(e);
 
                 dispatch({ type: 'comments/send-error' })
             }

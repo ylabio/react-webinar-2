@@ -1,30 +1,29 @@
 const initialState = {
     comData: [],
-    lastCommented: '',
-    waiting: false
+    lastCommented: ''
 }
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
 
         case "comments/load-comments":
-            return { ...state, comData: [], waiting: true };
+            return { ...state, comData: [] };
 
         case "comments/load-comments-success":
-            return { ...state, comData: action.comLoad.data, waiting: false };
+            return { ...state, comData: action.comLoad.data };
 
 
         case "comments/load-comments-error":
-            return { ...state, comData: [], waiting: false };
+            return { ...state, comData: [] };
 
         case "comments/send":
-            return { ...state, waiting: true };
+            return { ...state };
 
         case "comments/send-success":
-            return { ...state, lastCommented: action.lastCommented, waiting: false };
+            return { ...state, lastCommented: action.lastCommented };
 
         case "comments/send-error":
-            return { ...state, waiting: false };
+            return { ...state };
 
         default:
             // Нет изменений

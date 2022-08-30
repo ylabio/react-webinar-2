@@ -14,6 +14,7 @@ function SendingMessage({ location, sendMessage, parentId }) {
             e.preventDefault()
             if (location) location.state = "";
             sendMessage(e.target[0].value, parentId)
+            e.target[0].value = "";
         }}>
             <textarea className="Message-input" placeholder={parentId._type === 'comment' ? `Мой ответ для ${parentId.author}` : "Текст"} type='text' />
             <button className="Message-button" type="submit">Отправить</button>

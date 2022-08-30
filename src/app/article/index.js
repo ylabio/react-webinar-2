@@ -25,6 +25,7 @@ function Article() {
 
   const location = useLocation();
 
+
   const storeRedux = useStoreRedux();
 
 
@@ -35,10 +36,13 @@ function Article() {
   const select = useSelectorRedux(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
+    complite: state.article.complite,
     waitingCom: state.comments.waiting,
     comments: state.comments.comData,
     lastCommented: state.comments.lastCommented
   }), shallowEqual);
+
+
 
   const selectDefault = useSelector(state => ({
     token: state.session.token
@@ -54,6 +58,7 @@ function Article() {
     storeRedux.dispatch(actionsComments.loadComments(params.id, select.article))
   }, [select.article, select.lastCommented]);
 
+  console.log(params);
 
 
 
@@ -81,12 +86,8 @@ function Article() {
       <ToolsContainer />
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t} />
-        <Fragment>
-          <Spinner active={select.waitingCom}>
-            <CommentsList callbacks={callbacks.sendMessage} comments={select.comments} render={renders.comment}
-              other={{ location: location, token: selectDefault.token, parentId: select.article }} />
-          </Spinner>
-        </Fragment>
+        <CommentsList callbacks={callbacks.sendMessage} comments={select.comments} render={renders.comment}
+          other={{ location: location, token: selectDefault.token, parentId: select.article }} />
       </Spinner>
     </Layout>
   )

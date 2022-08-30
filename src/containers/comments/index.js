@@ -80,6 +80,7 @@ function Comments() {
       >
         {answerId === item.id ? <CommentForm
           item={true}
+          userName={item.author}
           current={answerId}
           resetPlace={callbacks.resetPlace}
           createComment={callbacks.createComment}
@@ -98,6 +99,7 @@ function Comments() {
     >
       {params.id === answerId ? <CommentForm
         item={false}
+        userName={''}
         current={answerId}
         resetPlace={callbacks.resetPlace}
         createComment={callbacks.createComment}

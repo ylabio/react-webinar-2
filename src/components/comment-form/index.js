@@ -21,7 +21,7 @@ function CommentForm(props) {
           <div className={cn('header')}>
             <div className={cn('title')}>{props.item ? 'Новый ответ' : 'Новый комментарий'}</div>
           </div>
-          <textarea placeholder={'Текст'}
+          <textarea placeholder={props.item ? `Мой ответ для ${props.userName}` : 'Текст'}
                     onChange={(e) => setValue(e.target.value)}
                     value={value}
           />
@@ -48,7 +48,9 @@ CommentForm.propTypes = {
   createComment: propTypes.func,
   resetPlace: propTypes.func,
   redirect: propTypes.func,
-  exists: propTypes.bool
+  exists: propTypes.bool,
+  userName: propTypes.string,
+  item: propTypes.bool,
 }
 
 CommentForm.defaultProps = {

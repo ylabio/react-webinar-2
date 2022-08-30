@@ -13,7 +13,8 @@ function CommentsByCommentForm(props) {
   const [item, setItem] = useState(props.list[props.i])
   const dispatch = useDispatch()
   
-  const token = localStorage.getItem('token')
+  // const token = localStorage.getItem('token')
+  const token = props.token
   const storeRedux = useStoreRedux();
 
   const onChange = useCallback(event => {

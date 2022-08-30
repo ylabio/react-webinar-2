@@ -21,6 +21,7 @@ function CommentBlock(props) {
               <p className={cn('text')}>{props?.text}</p>
               <CommentsByCommentForm
                 toggleFunc={setToggle}
+                token={props.token}
                 id={props.commentId}
                 _type={props._type}
                 list={props.list}

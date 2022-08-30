@@ -59,6 +59,7 @@ function CommentsList(props) {
         data={comments}
         message={selectRedux.inputComments}
         _id={id}
+        token={select.token}
         formToggle={formToggle}
         setFormToggle={setFormToggle}
        />

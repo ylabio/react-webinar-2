@@ -20,6 +20,7 @@ function CommentBlockWrapper(props) {
              let margin = item?.parent?._tree?.length - 1;
              return   <CommentBlock
                         key={i}
+                        token={props.token}
                         commentId={item?._id}
                         text={item?.text}
                         author={item?.author?.profile?.name}

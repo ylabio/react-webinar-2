@@ -123,12 +123,14 @@ Comment.propTypes = {
   createResponse: propTypes.func.isRequired,
   showResponse: propTypes.bool,
   addCommentPosition: propTypes.func,
+  lastCreatedId: propTypes.string,
 };
 
 Comment.defaultProps = {
   lastCommentId: '',
   showResponse: true,
   addCommentPosition: () => {},
+  lastCommentId: null,
 };
 
 export default React.memo(Comment);

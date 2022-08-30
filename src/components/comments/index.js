@@ -81,10 +81,12 @@ Comments.propTypes = {
     propTypes.bool.isRequired
   ]),
   addCommentPosition: propTypes.func.isRequired,
+  lastCreatedId: propTypes.string,
 };
 
 Comments.defaultProps = {
   items: [],
+  lastCreatedId: null,
 };
 
 export default React.memo(Comments);

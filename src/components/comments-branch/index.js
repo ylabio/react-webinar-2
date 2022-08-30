@@ -92,10 +92,12 @@ CommentsBranch.propTypes = {
     propTypes.bool.isRequired
   ]),
   addCommentPosition: propTypes.func.isRequired,
+  lastCreatedId: propTypes.string,
 };
 
 CommentsBranch.defaultProps = {
   lastCommentId: '',
+  lastCreatedId: null,
 };
 
 export default React.memo(CommentsBranch);

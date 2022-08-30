@@ -5,6 +5,8 @@ import "./style.css";
 
 function Comment({ comment, setSendId, sendContainer, lang, t }) {
 
+  console.log("Render Comment");
+
   // CSS классы по БЭМ
   const cn = bem("Comment");
 

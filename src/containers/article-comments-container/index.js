@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   useStore as useStoreRedux,
   useSelector as useSelectorRedux,
@@ -13,9 +13,10 @@ import Title from "../../components/article-comments/title";
 import Comment from "../../components/article-comments/comment";
 import SendContainer from "../send-container";
 
-
+// Мои функции утилиты
 import { createTree } from "../../utils/createTree";
 import { treeToList } from "../../utils/treeToList";
+// Ваши функции утилиты
 // import listToTree from "../../utils/list-to-tree";
 // import treeToList from "../../utils/tree-to-list";
 
@@ -56,13 +57,17 @@ function ArticleCommentsContainer({ articleId, type }) {
     setId: useCallback((id) => setSendId(id), []),
   };
 
+  const options = {
+    // Вариант переиспользования ваших функций listToTree и treeToList
+    // comments: useMemo(() => treeToList(listToTree(selectRedux.comments, articleId)), [selectRedux.comments, articleId]),
+    comments: useMemo(() => treeToList(createTree(selectRedux.comments)), [selectRedux.comments]),
+  }
+
   return (
     <Layout>
       <Title count={selectRedux.comments.length} t={t} />
 
-      {/* Вариант переиспользования ваших функций listToTree и treeToList  */}
-      {/* { treeToList(listToTree(selectRedux.comments, articleId)).map((comment) => ( */}
-      { treeToList(createTree(selectRedux.comments)).map((comment) => (
+      { options.comments.map((comment) => (
         <Comment
           key={comment._id}
           comment={comment}
@@ -72,7 +77,7 @@ function ArticleCommentsContainer({ articleId, type }) {
           sendContainer={
             <SendContainer
               sendComment={callbacks.sendComment}
-              sendId={sendId}
+              isParent={sendId === comment._id}
               parentId={comment._id}
               parentType={"comment"}
               cancel={callbacks.cancel}
@@ -86,7 +91,7 @@ function ArticleCommentsContainer({ articleId, type }) {
 
       <SendContainer
         sendComment={callbacks.sendComment}
-        sendId={sendId}
+        isParent={sendId === articleId}
         parentId={articleId}
         parentType={type}
         cancel={callbacks.cancel}

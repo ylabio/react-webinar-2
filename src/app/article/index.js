@@ -45,7 +45,7 @@ function Article(){
       <ToolsContainer/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
-      <CommentsContainer/>
+        <CommentsContainer/>
       </Spinner>
     </Layout>
   )

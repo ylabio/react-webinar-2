@@ -1,0 +1,46 @@
+.CommentBlock {
+    margin: 30px 0;
+    
+    min-height: 64px ;
+    
+}
+.CommentBlock:last-child {
+    padding-bottom: 20px;
+}
+.CommentBlock div{
+    display: flex;
+}
+
+.CommentBlock-text {
+    font-size: 14px !important; 
+}
+
+.CommentBlock strong {
+    font-size: 14px;
+    margin-right: 10px;
+}
+.CommentBlock p {
+    font-size: 12px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+}
+
+.CommentBlock p:first-child {
+    padding-bottom: 0;
+}
+
+.CommentBlock-date {
+    color: #666666;
+    font-size: 12px;
+}
+
+.CommentBlock-button {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
+    color:#0087E9;
+    font-size: 14px;
+}

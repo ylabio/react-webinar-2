@@ -71,7 +71,7 @@ function CommentsContainer(){
           (level <= 11) ?
             {...item, padding: level * 30}
           :
-            {...item,  padding: 300}
+            {...item,  padding: 330}
         )
       )
     ], [select.comments])

@@ -66,8 +66,13 @@ function CommentsContainer(){
   const commentData = {
     comments: useMemo(() => [
       ...treeToList(
-           listToTree(select.comments, params.id),
-           (item, level) => ({...item, padding: level * 30})
+        listToTree(select.comments, params.id),
+        (item, level) => (
+          (level <= 10) ?
+            {...item, padding: level * 30}
+          :
+            {...item,  padding: 300}
+        )
       )
     ], [select.comments])
   }

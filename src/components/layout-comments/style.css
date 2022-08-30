@@ -1,11 +1,7 @@
 .LayoutComments {
-    overflow-y: hidden;
-    overflow-x: auto;
-    width: 1024px;
-    background: #ffffff;
+    max-width: 1024px;
     min-height: 100vh;
-}
-
-.LayoutComments-frame {
-    width: max-content;
+    margin: 0 auto;
+    background: #fff;
+    box-sizing: border-box;
 }

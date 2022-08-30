@@ -32,7 +32,7 @@ function CommentsCart(props) {
         onSignIn={props.onSignIn}
         answerComment={props.answerComment}
       />
-    ), [])
+    ), [props.exists])
   }
 
   return (

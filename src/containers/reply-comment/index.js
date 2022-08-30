@@ -43,29 +43,27 @@ function ReplyComment({parentId, onCancel}) {
   };
 
   return (
-    <LayoutFlex indent={'none'}>
-      <form onSubmit={callbacks.onSubmit}>
-        <h5>Новый ответ</h5>
-        <Field label={''} error={''} spacing={'small'}>
-          <Input
-            theme={'wide'}
-            name="comment"
-            type="text"
-            onChange={callbacks.onChange}
-            value={data.comment}
-          />
-        </Field>
+    <form onSubmit={callbacks.onSubmit}>
+      <h5>Новый ответ</h5>
+      <Field label={''} error={''} spacing={'small'}>
+        <Input
+          theme={'wide'}
+          name="comment"
+          type="text"
+          onChange={callbacks.onChange}
+          value={data.comment}
+        />
+      </Field>
 
-        <LayoutFlex indent={'none'}>
-          <button disabled={!data.comment} type="submit">
-            Отправить
-          </button>
-          <button disabled={false} type="button" onClick={callbacks.onCancel}>
-            Отмена
-          </button>
-        </LayoutFlex>
-      </form>
-    </LayoutFlex>
+      <LayoutFlex indent={'none'}>
+        <button disabled={!data.comment} type="submit">
+          Отправить
+        </button>
+        <button disabled={false} type="button" onClick={callbacks.onCancel}>
+          Отмена
+        </button>
+      </LayoutFlex>
+    </form>
   );
 }
 

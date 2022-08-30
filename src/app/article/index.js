@@ -17,8 +17,6 @@ import HeadContainer from '../../containers/head';
 import ToolsContainer from '../../containers/tools';
 import actionsArticle from '../../store-redux/article/actions';
 import Comments from '../../containers/comments';
-import {selectCommentsTotal} from '../../store-redux/comments-slice';
-import Stack from '../../components/stack';
 
 function Article() {
   const store = useStore();
@@ -26,7 +24,6 @@ function Article() {
   const params = useParams();
 
   const storeRedux = useStoreRedux();
-  const commentsTotal = useSelectorRedux(selectCommentsTotal);
 
   useInit(async () => {
     //await store.get('article').load(params.id);
@@ -64,10 +61,8 @@ function Article() {
           t={t}
         />
       </Spinner>
-      <Stack>
-        <h2>Комментарии ({commentsTotal})</h2>
-        <Comments articleId={params.id} />
-      </Stack>
+
+      <Comments articleId={params.id} />
     </Layout>
   );
 }

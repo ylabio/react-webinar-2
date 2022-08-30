@@ -1,6 +1,7 @@
 .Input {
   font-size: 16px;
   padding: 2px;
+  box-sizing: border-box;
 }
 
 .Input_theme_big {
@@ -9,7 +10,8 @@
 
 .Input_theme_wide {
   display: block;
-  min-width: 600px;
+  /* min-width: 600px; */
+  width: 100%;
   padding-bottom: 75px;
   overflow: auto;
 }

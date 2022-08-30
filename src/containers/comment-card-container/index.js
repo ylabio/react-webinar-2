@@ -35,13 +35,6 @@ function CommentCardContainer(props) {
   }));
 
   const callbacks = {
-    // открытие-закрытие формы {true - открыта, false - закрыта}
-    onFormToggle: useCallback(
-      bool => {
-        setIsVisible(bool);
-      },
-      [setIsVisible]
-    ),
     // действия для оповещения при клике вне текущего коммента
     onOutsideAlerter: useCallback(
       target => {

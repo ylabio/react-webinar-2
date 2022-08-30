@@ -35,25 +35,23 @@ function NewComment({parentId}) {
   };
 
   return (
-    <LayoutFlex indent={'none'}>
-      <form onSubmit={callbacks.onSubmit}>
-        <h5>Новый комментарий</h5>
-        <Field label={''} error={''} spacing={'small'}>
-          <Input
-            theme={'wide'}
-            name="comment"
-            type="text"
-            onChange={callbacks.onChange}
-            value={data.comment}
-          />
-        </Field>
-        <Field spacing={'small'}>
-          <button disabled={!data.comment} type="submit">
-            Отправить
-          </button>
-        </Field>
-      </form>
-    </LayoutFlex>
+    <form onSubmit={callbacks.onSubmit}>
+      <h5>Новый комментарий</h5>
+      <Field label={''} error={''} spacing={'small'}>
+        <Input
+          theme={'wide'}
+          name="comment"
+          type="text"
+          onChange={callbacks.onChange}
+          value={data.comment}
+        />
+      </Field>
+      <Field spacing={'small'}>
+        <button disabled={!data.comment} type="submit">
+          Отправить
+        </button>
+      </Field>
+    </form>
   );
 }
 

@@ -40,9 +40,13 @@ export default {
           }),
         });
 
+        const commentsState = getState().comments;
         dispatch({
           type: 'comments/load-success',
-          payload: { data: [...getState().comments.data, json.result], count: json.result.count },
+          payload: {
+            data: [...commentsState.data, json.result],
+            count: commentsState.count + 1,
+          },
         });
       } catch (e) {
         // Ошибка при загрузке

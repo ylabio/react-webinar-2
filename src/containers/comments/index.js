@@ -10,7 +10,7 @@ import treeToList from "../../utils/tree-to-list";
 import CommentsList from "../../components/comments-list";
 import CommentsListFooter from "../../components/comments-list-footer";
 import CommentContainer from "../comment";
-import countChildren from "../../utils/count-children";
+import insertToTree from "../../utils/insertToTree";
 
 function CommentsContainer(props) {
   // Состояние отображения формы добавления комментария
@@ -71,21 +71,8 @@ function CommentsContainer(props) {
         ];
         return ref.current;
       } else {
-        // Если добавили новый элемент и обновили store, ищем индекс родителя нового элемента
-        // в хранимом массиве отображаемых элементов в ref
-        const parentIndex = ref.current.findIndex(item => item._id === selectRedux.items.at(-1).parent._id);
-        // Формируем новый элемент для добавления в массив отображаемых
-        // Если не нашли индекс родителя, значит родитель article 
-        const newComment = {
-          level: parentIndex === -1 ? 0 : ref.current[parentIndex].level + 1,
-          children: [], 
-          ...selectRedux.items.at(-1)
-        };
-        // Вставляем новый элемент в конец всей иерархии чилдренов его родителя, если он ответ
-        // или после последнего комментария, если комментарий
-        ref.current.splice(parentIndex === -1 ? ref.current.length : parentIndex + countChildren(ref.current[parentIndex], ref.current) + 1, 0, newComment);
-        // Если новый элемент - ответ, то добавляем его в список чилдренов его родителя
-        if (parentIndex !== -1) ref.current[parentIndex].children.push(selectRedux.items.at(-1));
+        // Вставляем новый комментарий или ответ в иерархический список
+        insertToTree(ref.current, selectRedux.items.at(-1));
         return ref.current;
       }
     }, [selectRedux.items]),

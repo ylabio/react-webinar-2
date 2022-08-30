@@ -89,6 +89,10 @@ class SessionState extends StateModule {
         // Удаляем плохой токен
         window.localStorage.removeItem('token');
         this.services.api.setHeader(this.config.tokenHeader, null);
+        this.setState({
+          ...this.getState(),
+          waiting: false
+        }, 'Удалили плохой токен');
       } else {
         this.setState({
           ...this.getState(),

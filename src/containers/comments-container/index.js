@@ -15,6 +15,9 @@ import listToTree from "../../utils/list-to-tree";
 import CommentsTotal from "../../components/comments-total";
 import ListComments from "../../components/list-comments";
 import LayoutComments from "../../components/layout-comments";
+import LayuotItemComment from "../../components/layuot-item-comment";
+import FormAnswer from "../../components/form-answer";
+import FormEntry from "../../components/form-entry";
 
 function CommentsContainer(){
   const store = useStore();
@@ -99,35 +102,50 @@ function CommentsContainer(){
   
   const renders = {
     itemComment: useCallback(item => (
-      <ItemComment item={item}
-                   exists={select1.exists}
-                   attemptAddNewComment={callbacks.attemptAddNewComment}
-                   id={id}
-                   t={t}
-                   lang={select1.lang}
-                   textPlaceholder={textPlaceholder}
-                   changeId={changeId}
-                   onSignIn={callbacks.onSignIn} 
+      <LayuotItemComment 
+        content = {
+                    <ItemComment item={item}
+                                 t={t}
+                                 lang={select1.lang}
+                                 changeId={changeId}
+                    />
+                  }
+        form = { 
+                id === item._id && 
+                  (select1.exists ? 
+                    <FormAnswer id={id}
+                                t={t} 
+                                changeId={changeId}
+                                textPlaceholder={textPlaceholder}
+                                padding={item.padding}
+                                attemptAddNewComment={callbacks.attemptAddNewComment}
+                    />
+                  :
+                    <FormEntry changeId={changeId}
+                               onSignIn={callbacks.onSignIn}
+                               t={t}
+                               padding={item.padding}
+                    />)
+               }
       />
     )),
   }
 
   return (
-    <LayoutComments head={<CommentsTotal numberOfComments={select.numberOfComments} t={t}/>}>
-      <Spinner active={select.waiting}>
+    <Spinner active={select.waiting}>
+      <LayoutComments head={<CommentsTotal numberOfComments={select.numberOfComments} t={t}/>}>
         <ListComments items={commentData.comments} renderItem={renders.itemComment} style={{'paddingBottom': '92px'}} id={id}/>
-      {
-        !id &&
-          (
-            select1.exists ?
-              <FormAddComment id={params.id} attemptAddNewComment={callbacks.attemptAddNewComment} t={t} lang={select1.lang}/>
-            :
-              <CommentsEntry t={t} onSignIn={callbacks.onSignIn}/>
-          )
-      } 
-      </Spinner>
+        {
+          !id &&
+            (
+              select1.exists ?
+                <FormAddComment id={params.id} attemptAddNewComment={callbacks.attemptAddNewComment} t={t} lang={select1.lang}/>
+              :
+                <CommentsEntry t={t} onSignIn={callbacks.onSignIn}/>
+            )
+        } 
       </LayoutComments>
-
+    </Spinner> 
   )
 }
 

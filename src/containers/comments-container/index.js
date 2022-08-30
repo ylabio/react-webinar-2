@@ -91,12 +91,12 @@ function CommentsContainer(){
   }, [select.isAttemptAddNewComment])
 
   const [id, changeId] = useState('');
-  const [textPlaceholder, changeTextPlaceholder] = useState('');
+  const [textComment, changeTextComment] = useState('');
   const findItem = commentData.comments.find(i => i._id === id);
  
   useEffect(() => {
     if (id) {
-      changeTextPlaceholder(`${t('comments.myAnswerFor')} ${findItem.author.profile.name}`);
+      changeTextComment(`${t('comments.myAnswerFor')} ${findItem.author.profile.name}`);
     } 
   }, [id])
   
@@ -117,9 +117,10 @@ function CommentsContainer(){
                       <FormAnswer id={id}
                                   t={t} 
                                   changeId={changeId}
-                                  textPlaceholder={textPlaceholder}
+                                  textComment={textComment}
                                   padding={item.padding}
                                   attemptAddNewComment={callbacks.attemptAddNewComment}
+                                  changeTextComment={changeTextComment}
                       />
                     :
                       <FormEntry changeId={changeId}

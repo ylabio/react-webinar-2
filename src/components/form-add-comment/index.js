@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
@@ -6,8 +6,8 @@ import './style.css';
 function FormAddComment({id, attemptAddNewComment, t}) {
   const cn = bem('FormAddComment');
 
-  const [textComment, changeTextComment] = useState('');
-
+  const [textComment, changeTextComment] = useState(t('comments.text'));
+  
   const formSubmit = (e) => {
     e.preventDefault();
     const form = e.target.elements;
@@ -21,8 +21,8 @@ function FormAddComment({id, attemptAddNewComment, t}) {
         <strong>{t('comments.newComment')}</strong>
       </div>
       <form>
-        <textarea id='comment' value={textComment} onChange={(e)=>changeTextComment(e.target.value)} placeholder={t('comments.text')}/>
-        <div><button type='submit'>{t('comments.sendButtonName')}</button></div>
+        <textarea id='comment' value={textComment} onChange={(e)=>changeTextComment(e.target.value)}/>
+        <div><button type='submit' disabled={textComment.trim()===''}>{t('comments.sendButtonName')}</button></div>
       </form>
     </div>
   )
@@ -35,7 +35,7 @@ FormAddComment.propTypes = {
 }
 
 FormAddComment.defaultProps = {
-  t: (text) => text
+  t: (text) => text,
 }
 
 export default React.memo(FormAddComment);

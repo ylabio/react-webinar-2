@@ -3,10 +3,8 @@ import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function FormAnswer({id, changeId, t, textPlaceholder, padding, attemptAddNewComment}) {
+function FormAnswer({id, changeId, t, textComment, padding, attemptAddNewComment, changeTextComment}) {
   const cn = bem('FormAnswer');
-
-  const [textComment, changeTextComment] = useState('');
  
   const formSubmit = (e) => {
     e.preventDefault();
@@ -23,8 +21,8 @@ function FormAnswer({id, changeId, t, textPlaceholder, padding, attemptAddNewCom
           <div className={cn('new-res')}>
             <strong>{t('comments.newAnswer')}</strong>
           </div>
-          <textarea id='comment' value={textComment} onChange={(e)=>changeTextComment(e.target.value)} placeholder={textPlaceholder}/>
-          <button className={cn('btn1')} type='submit'>{t('comments.sendButtonName')}</button>
+          <textarea id='comment' value={textComment} onChange={(e)=>changeTextComment(e.target.value)}/>
+          <button className={cn('btn1')} type='submit' disabled={textComment.trim()===''}>{t('comments.sendButtonName')}</button>
         </div>
      </form>
      <button className={cn('btn2')} onClick={()=>{changeId('')}}>{t('comments.cancelButtonName')}</button>
@@ -36,13 +34,15 @@ FormAnswer.propTypes = {
   id: propTypes.string.isRequired,
   changeId: propTypes.func.isRequired,
   t: propTypes.func,
-  textPlaceholder: propTypes.string,
+  textComment: propTypes.string,
+  changeTextComment: propTypes.func.isRequired,
+  changeId: propTypes.func.isRequired,
   padding: propTypes.number
 }
 
 FormAnswer.defaultProps = {
   t: (text) => text,
-  textPlaceholder: '',
+  textComment: '',
   padding: 0
 }
 

@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 import LayoutFlex from '../layout-flex';
 import Input from '../input';
 import Field from '../field';
-import {createComment} from '../../store-redux/comments-slice';
+import {createComment} from '../../store-redux/comments-slice/thunks';
 import {useDispatch} from 'react-redux';
 
 function NewComment({parentId}) {

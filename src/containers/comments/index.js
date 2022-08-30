@@ -2,11 +2,10 @@ import React, {useEffect} from 'react';
 import propTypes from 'prop-types';
 import {useDispatch, useSelector as useSelectorRedux} from 'react-redux';
 import {
-  fetchComments,
   isFormVisible,
-  selectAllComments,
-  selectCommentsTotal
+  selectAllComments
 } from '../../store-redux/comments-slice';
+import {fetchComments} from '../../store-redux/comments-slice/thunks';
 import List from '../../components/list';
 import CommentCardContainer from '../comment-card-container';
 import Stack from '../../components/stack';

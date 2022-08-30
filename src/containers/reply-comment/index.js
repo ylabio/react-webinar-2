@@ -4,7 +4,8 @@ import propTypes from 'prop-types';
 import LayoutFlex from '../../components/layout-flex';
 import Input from '../../components/input';
 import Field from '../../components/field';
-import {createComment, formShow} from '../../store-redux/comments-slice';
+import {formShow} from '../../store-redux/comments-slice';
+import {createComment} from '../../store-redux/comments-slice/thunks';
 import {useDispatch} from 'react-redux';
 
 function ReplyComment({parentId, onCancel}) {

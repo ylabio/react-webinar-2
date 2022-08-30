@@ -17,12 +17,7 @@ import HeadContainer from '../../containers/head';
 import ToolsContainer from '../../containers/tools';
 import actionsArticle from '../../store-redux/article/actions';
 import Comments from '../../containers/comments';
-import NewComment from '../../components/new-comment-form';
-import {
-  isFormVisible,
-  selectCommentsTotal
-} from '../../store-redux/comments-slice';
-import ProtectedCommentForm from '../../containers/protected-comment-form';
+import {selectCommentsTotal} from '../../store-redux/comments-slice';
 
 function Article() {
   const store = useStore();

@@ -75,7 +75,6 @@ class SessionState extends StateModule {
     try {
       await this.services.api.request({ method: 'DELETE', url: '/api/v1/users/sign' });
       this.services.api.setHeader(this.config.tokenHeader, null);
-      this.services.storeRedux.dispatch(actionsComments.changeCurrentOpenForm(false));
     } catch (error) {
       console.error(error);
     }

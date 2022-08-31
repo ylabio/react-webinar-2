@@ -30,10 +30,10 @@ function Article() {
     storeRedux.dispatch(actionsArticle.load(params.id));
   }, [params.id]);
 
-  const selectStore = useSelector(state => ({
-    exists: state.session.exists,
-    waiting: state.session.waiting
-  }));
+  //   const selectStore = useSelector(state => ({
+  //     exists: state.session.exists,
+  //     waiting: state.session.waiting
+  //   }));
 
   const select = useSelectorRedux(
     state => ({

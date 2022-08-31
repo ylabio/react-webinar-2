@@ -5,7 +5,6 @@ export const fetchComments = createAsyncThunk(
   'comments/fetchAll',
   async (articleId, thunkApi) => {
     // thunkApi = {extra: services, ...} получаем Сервисы
-
     const services = thunkApi.extra;
 
     const response = await services.api.request({

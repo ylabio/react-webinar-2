@@ -19,6 +19,9 @@ const commentsSlice = createSlice({
     },
     formHide(state) {
       state.isNewCommentFormVisible = false;
+    },
+    clearComments(state) {
+      state.data = [];
     }
   },
   extraReducers(builder) {
@@ -43,6 +46,6 @@ export const selectAllComments = state => state.comments.data;
 export const selectCommentsTotal = state => state.comments.data.length;
 
 // Action creator-ы переключения видимости формы создания нового комментария
-export const {formHide, formShow} = commentsSlice.actions;
+export const {formHide, formShow, clearComments} = commentsSlice.actions;
 
 export default commentsSlice.reducer;

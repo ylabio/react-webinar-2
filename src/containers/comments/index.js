@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import propTypes from 'prop-types';
 import {useDispatch, useSelector as useSelectorRedux} from 'react-redux';
 import {
+  clearComments,
   isFormVisible,
   selectAllComments
 } from '../../store-redux/comments-slice';
@@ -14,12 +15,12 @@ import CommentsList from '../../components/comments-list';
 import ProtectedCommentForm from '../protected-comment-form';
 import useSelector from '../../hooks/use-selector';
 import NewCommentForm from '../../components/new-comment-form';
-import useInit from '../../hooks/use-init';
 import ListItem from '../../components/list-item';
 import {selectCommentsTotal} from '../../store-redux/comments-slice';
 import {fetchAllUsers} from '../../store-redux/users-slice';
 
 function Comments(props) {
+  console.log('comments');
   const dispatch = useDispatch();
 
   const comments = useSelectorRedux(selectAllComments);
@@ -41,14 +42,14 @@ function Comments(props) {
     exists: state.session.exists
   }));
 
-  useInit(() => {
+  useEffect(() => {
     if (selectStore.exists) {
-      Promise.all([
-        dispatch(fetchComments(props.articleId)).unwrap(),
-        dispatch(fetchAllUsers()).unwrap()
-      ]);
+      dispatch(fetchComments(props.articleId));
+      dispatch(fetchAllUsers());
     }
-  });
+
+    return () => dispatch(clearComments());
+  }, [selectStore.exists]);
 
   return (
     <Stack>

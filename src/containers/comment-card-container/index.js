@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import propTypes from 'prop-types';
+import {useSelector as useSelectorRedux} from 'react-redux';
 import CommentCard from '../../components/comment-card';
-import useInit from '../../hooks/use-init';
 import Spinner from '../../components/spinner';
 import ReplyComment from '../reply-comment';
 import OutsideAlerter from '../../hooks/use-outside-alterter';
@@ -9,24 +9,15 @@ import {useDispatch} from 'react-redux';
 import {formHide, formShow} from '../../store-redux/comments-slice';
 import ProtectedCommentForm from '../protected-comment-form';
 import useSelector from '../../hooks/use-selector';
-import useServices from '../../hooks/use-services';
+import {selectUserById} from '../../store-redux/users-slice';
 
 function CommentCardContainer(props) {
   const dispatch = useDispatch();
-  const services = useServices();
+  const author = useSelectorRedux(state =>
+    selectUserById(state, props.comment.author._id)
+  );
+
   const [isVisible, setIsVisible] = useState(false);
-  const [author, setAuthor] = useState('');
-
-  useInit(async () => {
-    const response = await services.api.request({
-      url: `/api/v1/users/${props.comment.author._id}?fields=profile`
-    });
-
-    // const response = await props.comment.authorName;
-    const authorName = response?.result?.profile.name;
-
-    setAuthor(authorName);
-  });
 
   const selectStore = useSelector(state => ({
     exists: state.session.exists
@@ -57,31 +48,27 @@ function CommentCardContainer(props) {
 
   // показывать комментарий, только при загрузке автора
   return (
-    <>
-      {author && (
-        <OutsideAlerter callback={callbacks.onOutsideAlerter}>
-          <Spinner active={!author}>
-            <CommentCard
-              content={props.comment.text}
-              author={author}
-              date={props.comment.dateCreate}
-              onReply={callbacks.onReply}
-            />
+    <OutsideAlerter callback={callbacks.onOutsideAlerter}>
+      <Spinner active={!author}>
+        <CommentCard
+          content={props.comment.text}
+          author={author.name}
+          date={props.comment.dateCreate}
+          onReply={callbacks.onReply}
+        />
 
-            {isVisible ? (
-              <ProtectedCommentForm
-                callbackGuardCondition={() => selectStore.exists}
-              >
-                <ReplyComment
-                  parentId={props.comment._id}
-                  onCancel={() => setIsVisible(false)}
-                />
-              </ProtectedCommentForm>
-            ) : null}
-          </Spinner>
-        </OutsideAlerter>
-      )}
-    </>
+        {isVisible ? (
+          <ProtectedCommentForm
+            callbackGuardCondition={() => selectStore.exists}
+          >
+            <ReplyComment
+              parentId={props.comment._id}
+              onCancel={() => setIsVisible(false)}
+            />
+          </ProtectedCommentForm>
+        ) : null}
+      </Spinner>
+    </OutsideAlerter>
   );
 }
 

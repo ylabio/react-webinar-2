@@ -17,6 +17,7 @@ import NewCommentForm from '../../components/new-comment-form';
 import useInit from '../../hooks/use-init';
 import ListItem from '../../components/list-item';
 import {selectCommentsTotal} from '../../store-redux/comments-slice';
+import {fetchAllUsers} from '../../store-redux/users-slice';
 
 function Comments(props) {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function Comments(props) {
   const comments = useSelectorRedux(selectAllComments);
   const isVisible = useSelectorRedux(isFormVisible);
   const commentsTotal = useSelectorRedux(selectCommentsTotal);
+
   // получаем дерево из массива комментариев
   const commentsTree = listToTreeWithParentId(comments, props.articleId);
   // поулчаем из дерева структуру списка комментариев с разметкой (отступы при вложенности) и компонентом комментария
@@ -40,6 +42,7 @@ function Comments(props) {
   useInit(() => {
     if (selectStore.exists) {
       dispatch(fetchComments(props.articleId));
+      dispatch(fetchAllUsers());
     }
   });
 

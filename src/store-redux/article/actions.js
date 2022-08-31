@@ -1,7 +1,3 @@
-import convertToRuDate from "../../utils/convert-to-ru-date";
-import listToTree2 from "../../utils/list-to-tree2.js";
-import treeToList from "../../utils/tree-to-list";
-
 const actions = {
   load: (_id) => {
     return async (dispatch, getState, services) => {
@@ -22,66 +18,66 @@ const actions = {
     };
   },
 
-  loadComments: (_id) => {
-    return async (dispatch, getState, services) => {
-      dispatch({ type: "article/load-comments" });
-      try {
-        const target = _id || getState().article.data._id;
-        const json = await services.api.request({
-          url: `/api/v1/comments/?search[parent]=${target}&limit=*&fields=_id,_type,text,parent,dateCreate,author(profile(name))`,
-        });
-
-        const commentsSrc = json.result.items;
-        commentsSrc.sort(
-          (a, b) => new Date(a.dateCreate) - new Date(b.dateCreate)
-        );
-        const tree = listToTree2(commentsSrc, undefined, { exclude: target });
-
-        const cb = (comment, lvl) => ({
-          _id: comment._id,
-          text: comment.text,
-          author: comment.author.profile.name,
-          date: convertToRuDate(comment.dateCreate),
-          lvl,
-          _type: comment._type,
-        });
-
-        const comments = treeToList(tree, cb);
-
-        dispatch({
-          type: "article/load-comments-success",
-          payload: { data: comments },
-        });
-
-      } catch (e) {
-        console.log(e)
-        dispatch({ type: "article/load-comments-error" });
-      }
-    };
-  },
-
-  sendComment: (data) => {
-    return async (dispatch, getState, services) => {
-      const body = JSON.stringify({
-        text: data.message,
-        parent: { _id: data._id, _type: data._type },
-      });
-      dispatch({ type: "article/send-comment" });
-      try {
-        await services.api.request({
-          url: `/api/v1/comments/`,
-          method: "POST",
-          body,
-        });
-
-        dispatch({ type: "article/send-comment-success" });
-
-        dispatch(actions.loadComments());
-      } catch (e) {
-        dispatch({ type: "article/send-comment-error" });
-      }
-    };
-  },
+  // loadComments: (_id) => {
+  //   return async (dispatch, getState, services) => {
+  //     dispatch({ type: "article/load-comments" });
+  //     try {
+  //       const target = _id || getState().article.data._id;
+  //       const json = await services.api.request({
+  //         url: `/api/v1/comments/?search[parent]=${target}&limit=*&fields=_id,_type,text,parent,dateCreate,author(profile(name))`,
+  //       });
+  //
+  //       const commentsSrc = json.result.items;
+  //       commentsSrc.sort(
+  //         (a, b) => new Date(a.dateCreate) - new Date(b.dateCreate)
+  //       );
+  //       const tree = listToTree(commentsSrc, undefined, { exclude: target });
+  //
+  //       const cb = (comment, lvl) => ({
+  //         _id: comment._id,
+  //         text: comment.text,
+  //         author: comment.author.profile.name,
+  //         date: convertToRuDate(comment.dateCreate),
+  //         lvl,
+  //         _type: comment._type,
+  //       });
+  //
+  //       const comments = treeToList(tree, cb);
+  //
+  //       dispatch({
+  //         type: "article/load-comments-success",
+  //         payload: { data: comments },
+  //       });
+  //
+  //     } catch (e) {
+  //       console.log(e)
+  //       dispatch({ type: "article/load-comments-error" });
+  //     }
+  //   };
+  // },
+  //
+  // sendComment: (data) => {
+  //   return async (dispatch, getState, services) => {
+  //     const body = JSON.stringify({
+  //       text: data.message,
+  //       parent: { _id: data._id, _type: data._type },
+  //     });
+  //     dispatch({ type: "article/send-comment" });
+  //     try {
+  //       await services.api.request({
+  //         url: `/api/v1/comments/`,
+  //         method: "POST",
+  //         body,
+  //       });
+  //
+  //       dispatch({ type: "article/send-comment-success" });
+  //
+  //       dispatch(actions.loadComments());
+  //     } catch (e) {
+  //       dispatch({ type: "article/send-comment-error" });
+  //     }
+  //   };
+  // },
 };
 
 export default actions;

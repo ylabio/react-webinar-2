@@ -4,22 +4,23 @@ import {
   useSelector as useSelectorRedux,
   useStore as useStoreRedux,
 } from "react-redux";
-import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import useInit from "../../hooks/use-init";
-import useTranslate from "../../hooks/use-translate";
+import A from "../../components/a";
 import ArticleCard from "../../components/article-card";
-import Spinner from "../../components/spinner";
+import Comment from "../../components/comment";
+import CommentForm from "../../components/comment-form";
+import Comments from "../../components/comments";
 import Layout from "../../components/layout";
-import TopContainer from "../../containers/top";
+import Spinner from "../../components/spinner";
 import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
+import TopContainer from "../../containers/top";
+import useInit from "../../hooks/use-init";
+import useSelector from "../../hooks/use-selector";
+import useStore from "../../hooks/use-store";
+import useTranslate from "../../hooks/use-translate";
 import actionsArticle from "../../store-redux/article/actions";
-import Comments from "../../components/comments";
-import A from "../../components/a";
-import CommentForm from "../../components/comment-form";
-import Comment from "../../components/comment";
+import actionsComments from "../../store-redux/comments/actions";
 
 function Article() {
   const store = useStore();
@@ -31,18 +32,17 @@ function Article() {
   const { user } = useSelector((s) => s.session);
 
   useInit(async () => {
-    //await store.get('article').load(params.id);
     storeRedux.dispatch(actionsArticle.load(params.id));
-    storeRedux.dispatch(actionsArticle.loadComments(params.id));
+    storeRedux.dispatch(actionsComments.load(params.id));
   }, [params.id]);
 
   const select = useSelectorRedux(
     (state) => ({
       article: state.article.data,
-      comments: state.article.comments,
+      comments: state.comments.data,
       waiting: state.article.waiting,
-      waitComments: state.article.waitingComments,
-      waitingSending: state.article.waitingSending,
+      waitComments: state.comments.waiting,
+      waitingSending: state.comments.waitingSending,
     }),
     shallowEqual
   );
@@ -54,7 +54,7 @@ function Article() {
     addComment: useCallback(
       (data) =>
         storeRedux.dispatch(
-          actionsArticle.sendComment({
+          actionsComments.sendComment({
             _type: select.article._type,
             _id: select.article._id,
             ...data,
@@ -68,9 +68,9 @@ function Article() {
   };
 
   const renders = {
-    renderForm: useCallback((props) => <CommentForm {...props} />,[]),
-    renderComment: useCallback((props) => <Comment {...props} />,[]),
-  }
+    renderForm: useCallback((props) => <CommentForm {...props} />, []),
+    renderComment: useCallback((props) => <Comment {...props} />, []),
+  };
 
   return (
     <Layout>

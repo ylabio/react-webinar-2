@@ -43,6 +43,7 @@ const Comments = ({data, addComment, isPermit, renderLink, renderForm, renderCom
         _id: comment._id,
         _type: comment._type,
         lvl: comment.lvl,
+        idxAfter: i + 1,
       }),
     })
   ), [data]);

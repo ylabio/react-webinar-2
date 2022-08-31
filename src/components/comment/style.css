@@ -1,5 +1,6 @@
 .Comment {
   font-size: 12px;
+  word-break: break-word;
 }
 
 .Comment-text {

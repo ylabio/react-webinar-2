@@ -45,6 +45,8 @@ function Login() {
     }, [data, location.state])
   };
 
+  console.log(location.state)
+
   return (
     <Layout>
       <TopContainer/>

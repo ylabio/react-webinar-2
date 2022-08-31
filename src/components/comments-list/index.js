@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from "@bem-react/classname";
 import './style.css';
+import Checker from './checker';
 
 function CommentsList(props) {
     const cn = bem('CommentsList');
@@ -21,7 +22,7 @@ function CommentsList(props) {
     }
 
     const calcPadding = (level) => {
-        const padding = 30*level;
+        const padding = 30 * level;
         return padding < 500 ? `${padding}px` : "50%"
     }
 
@@ -33,25 +34,27 @@ function CommentsList(props) {
 
     return (
         <div className={cn("wrapper")}>
-        <div className={cn("title")}>{`Комментарии (${props.items.length})`}</div>
-        <div className={cn()}>
-            {props.items.map(item =>
-            <div key={item._id} className={cn('item')} style={{ "paddingLeft": calcPadding(item.level) }} >
-                <div className={cn("column")}>
-                    <div className={cn("item-username")}>{item.author.profile.name}</div>
-                    <div className={cn("item-date")}>{createDate(item.dateCreate)}</div>
-                </div>
-                <div className={cn("column")}>
-                    <div className={cn("item-text")}>{item.text}</div>
-                </div>
-                <div className={cn("column")} onClick={() => callbacks.onClick(item._id)}>
-                    <div className={cn("reply")}>Ответить</div>
-                </div>
-                {item._id === props.newComParent && props.commentsAdd(item.author.profile.name)}
+            <div className={cn("title")}>{`Комментарии (${props.items.length})`}</div>
+            <div className={cn()}>
+                {props.items.map(item =>
+                    <Checker  key={item._id} new={item.new || false}>
+                        <div className={cn('item')} style={{ "paddingLeft": calcPadding(item.level) }} >
+                            <div className={cn("column")}>
+                                <div className={cn("item-username")}>{item.author.profile.name}</div>
+                                <div className={cn("item-date")}>{createDate(item.dateCreate)}</div>
+                            </div>
+                            <div className={cn("column")}>
+                                <div className={cn("item-text")}>{item.text}</div>
+                            </div>
+                            <div className={cn("column")} onClick={() => callbacks.onClick(item._id)}>
+                                <div className={cn("reply")}>Ответить</div>
+                            </div>
+                            {item._id === props.newComParent && props.commentsAdd(item.author.profile.name)}
+                        </div>
+                    </Checker>
+                )}
+                {props.newComParent === "" && props.commentsAdd()}
             </div>
-        )}
-        {props.newComParent === "" && props.commentsAdd()}
-        </div>
         </div>
     )
 }
@@ -65,7 +68,7 @@ CommentsList.propTypes = {
 
 CommentsList.defaultProps = {
     items: [],
-    onClick: () => {},
+    onClick: () => { },
     newComParent: "",
 }
 

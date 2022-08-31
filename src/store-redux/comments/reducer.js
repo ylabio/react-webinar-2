@@ -29,7 +29,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
-          items: [...state.data.items, action.payload.data]
+          items: [...state.data.items, {...action.payload.data, new: true}]
         },
         newComment: { ...state.newComment, waiting: false }
       };

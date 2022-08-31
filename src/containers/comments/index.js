@@ -47,9 +47,9 @@ function Comments() {
 
         //отправка комментария
         onSubmit: useCallback(async () => {
-            if (text) {
+            if (text.split(/\s/).join("")) {
                 if (select.newComParent) {
-                    //"await" не влияет на тип этого выражения. не верьте на самом деле влияет (с ним форма комментария пропадет только после ответа от сервера)
+                    //"await" не влияет на тип этого выражения. не верьте, на самом деле влияет (с ним форма комментария пропадет только после ответа от сервера)
                     await storeRedux.dispatch(actionsComments.addComment(text, select.newComParent, "comment"));
                     storeRedux.dispatch(actionsComments.changeNewComParent(""));
                 } else {

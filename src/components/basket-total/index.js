@@ -1,26 +1,24 @@
 import React from 'react';
-import propTypes from 'prop-types';
-import numberFormat from "../../utils/number-format";
-import './styles.css';
+import propTypes from "prop-types";
+import PropTypes from "prop-types";
+import './style.css';
 
-function BasketTotal(props) {
-  return (
-    <div className="BasketTotal">
-      <span className="BasketTotal-cell">{props.t('basket.total')}</span>
-      <span className="BasketTotal-cell"> {numberFormat(props.sum)} ₽</span>
-      <span className="BasketTotal-cell"></span>
-    </div>
-  )
+function Spinner(props) {
+
+  if (props.active) {
+    return (
+      <div className="Spinner">
+        {props.children}
+      </div>
+    )
+  } else {
+    return props.children;
+  }
 }
 
-BasketTotal.propTypes = {
-  sum: propTypes.number,
-  t: propTypes.func
+Spinner.propTypes = {
+  active: propTypes.bool.isRequired,
+  children: PropTypes.node,
 }
 
-BasketTotal.defaultProps = {
-  sum: 0,
-  t: (text) => text
-}
-
-export default React.memo(BasketTotal);
+export default React.memo(Spinner);

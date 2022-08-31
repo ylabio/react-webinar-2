@@ -1,3 +1,4 @@
+// Начальное состояние товара
 const initialState = {
   data: {},
   waiting: false

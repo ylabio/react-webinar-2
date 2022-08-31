@@ -5,7 +5,7 @@ import './style.css';
 
 function Spinner(props) {
 
-  if (props.active){
+  if (props.active) {
     return (
       <div className="Spinner">
         {props.children}

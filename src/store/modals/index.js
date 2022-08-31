@@ -1,38 +1,34 @@
-class StateModule {
+import StateModule from "../module";
 
-  /**
-   * @param store {Store}
-   * @param config {Object}
-   */
-  constructor(store, config) {
-    this.store = store;
-    this.config = config;
-    this.services = store.services;
-  }
+/**
+ * Управление модальными окнами
+ */
+class ModalsState extends StateModule {
 
-  defaultConfig() {
-    return {};
-  }
-
-  /**
-   * Начальное состояние
-   * @return {Object}
-   */
   initState() {
-    return {};
+    return {
+      name: null
+    };
   }
 
-  getState() {
-    return this.store.getState()[this.config.name];
+  /**
+   * Открытие модального окна по названию
+   * @param name {String} Название модалки
+   */
+  open(name) {
+    this.setState({
+      name
+    }, `Открытие модалки ${name}`);
   }
 
-  setState(newState, description = 'setState') {
-    this.store.setState({
-      ...this.store.getState(),
-      [this.config.name]: newState
-    }, description)
+  /**
+   * Закрытие модального окна
+   */
+  close() {
+    this.setState({
+      name: false
+    }, `Закрытие модалки`);
   }
-
 }
 
-export default StateModule;
+export default ModalsState;

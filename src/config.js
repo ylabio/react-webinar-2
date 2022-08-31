@@ -1,3 +1,6 @@
+/**
+ * Настройки сервисов
+ */
 const config = {
   store: {
     log: false,

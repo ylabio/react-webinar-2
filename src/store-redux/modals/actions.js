@@ -1,10 +1,10 @@
 export default {
 
   open: (name) => {
-    return {type: 'modal/open', payload: {name}};
+    return { type: 'modal/open', payload: { name } };
   },
 
   close: () => {
-    return {type: 'modal/close'}
+    return { type: 'modal/close' }
   }
 }

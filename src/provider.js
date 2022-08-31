@@ -10,7 +10,7 @@ export const ServicesContext = React.createContext({});
 /**
  * Провайдер Services.
  */
-function ServicesProvider({services, children}) {
+function ServicesProvider({ services, children }) {
   return (
     <ServicesContext.Provider value={services}>
       {children}

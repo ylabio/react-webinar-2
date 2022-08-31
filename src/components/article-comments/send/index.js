@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
 
-function Send({ action, title, cancel, isCancelBtn, t, value, ...restProps }) {
+function Send({ action, title, cancel, isReply, t, value, ...restProps }) {
  
   // CSS классы по БЭМ
   const cn = bem('Send');
@@ -12,7 +12,7 @@ function Send({ action, title, cancel, isCancelBtn, t, value, ...restProps }) {
     <div className={cn()}>
       <span className={cn('title')}>{title}</span>
       <textarea className={cn('field')}
-                autoFocus
+                autoFocus={isReply}
                 value={value}
                 {...restProps}/>
       <div>
@@ -21,7 +21,7 @@ function Send({ action, title, cancel, isCancelBtn, t, value, ...restProps }) {
                 disabled={!value}>
           {t('send.post')}
         </button>
-        { isCancelBtn && <button className={cn("action")} onClick={cancel}>{t('send.cancel')}</button> }
+        { isReply && <button className={cn("action")} onClick={cancel}>{t('send.cancel')}</button> }
       </div>
     </div>
   )
@@ -32,7 +32,7 @@ Send.propTypes = {
   action: propTypes.func,
   title: propTypes.string,
   cancel: propTypes.func,
-  isCancelBtn: propTypes.bool.isRequired,
+  isReply: propTypes.bool.isRequired,
   t: propTypes.func,
   value: propTypes.string,
 }

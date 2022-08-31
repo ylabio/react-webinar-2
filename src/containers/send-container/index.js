@@ -27,7 +27,7 @@ function SendContainer({
 
   const callbacks = {
     sendComment: useCallback(() => sendComment(trimSpace(text), parentId, parentType), [text, parentId, parentType]),
-    changeText: useCallback((e) => setText(e.currentTarget.value), []),
+    changeText: useCallback((e) => setText((e.currentTarget.value).trim()), []),
     cancel: useCallback(() => {
       // При отмене возвращаем состояние формы к инициализационным значениям
       setText(parentName ? `${t('send.placeholder')} ${parentName}\n` : '')
@@ -47,7 +47,7 @@ function SendContainer({
                 value={text}
                 onChange={callbacks.changeText}
                 cancel={callbacks.cancel}
-                isCancelBtn={parentType === 'comment'}
+                isReply={parentType === 'comment'}
                 t={t}/>
 }
 

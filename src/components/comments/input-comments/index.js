@@ -12,9 +12,12 @@ function FormComment({ additComponents, submitComment, type, id, close }) {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    submitComment(playoad)
-    close()
-    setText('')
+    if(/\S/.test(text)){
+      submitComment(playoad)
+      close()
+      setText('')
+    }
+  
   }
   return (
     <form onSubmit={handleSubmit}>

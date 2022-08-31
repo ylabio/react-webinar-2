@@ -4,7 +4,7 @@
  * @param key {String} Свойство с первичным ключём
  * @returns {Array} Корневые узлы
  */
-export default function listToTree(list, key = '_id') {
+export default function listToTree(type='', list, key = '_id') {
   let trees = {};
   let roots = {};
   for (const item of list) {
@@ -18,16 +18,34 @@ export default function listToTree(list, key = '_id') {
     } else {
       trees[item[key]] = Object.assign(trees[item[key]], item);
     }
+    
+    switch (type) {
+			case 'categories':
+				if (item.parent?._id) {
+					// Если родителя ещё нет в индексе, то индек созадётся, ведь _id родителя известен
+					if (!trees[item.parent._id])
+						trees[item.parent._id] = { children: [] };
+					// Добавления в подчиенные родителя
+					trees[item.parent._id].children.push(trees[item[key]]);
+					// Так как элемент добавлен к родителю, то он уже не является корневым
+					if (roots[item[key]]) delete roots[item[key]];
+				}
+				break;
+			case 'comments':
+				if (item.parent?._id && item.parent?._type === 'comment') {
+					// Если родителя ещё нет в индексе, то индек созадётся, ведь _id родителя известен
+					if (!trees[item.parent._id])
+						trees[item.parent._id] = { children: [] };
+					// Добавления в подчиенные родителя
+					trees[item.parent._id].children.push(trees[item[key]]);
+					// Так как элемент добавлен к родителю, то он уже не является корневым
+					if (roots[item[key]]) delete roots[item[key]];
+				}
+				break;
 
-    // Если элемент имеет родителя, то добавляем его в подчиенные родителя
-    if (item.parent?._id) {
-      // Если родителя ещё нет в индексе, то индек созадётся, ведь _id родителя известен
-      if (!trees[item.parent._id]) trees[item.parent._id] = { children: [] };
-      // Добавления в подчиенные родителя
-      trees[item.parent._id].children.push(trees[item[key]]);
-      // Так как элемент добавлен к родителю, то он уже не является корневым
-      if (roots[item[key]]) delete roots[item[key]];
-    }
+			default:
+				break;
+		}
   }
   return Object.values(roots);
 }

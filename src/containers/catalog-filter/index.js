@@ -45,7 +45,7 @@ function CatalogFilter() {
     categories: useMemo(() => [
       {value: '', title: 'Все'},
       ...treeToList(
-        listToTree(select.categories),
+        listToTree('categories', select.categories),
         (item, level) => ({value: item._id, title: '- '.repeat(level) + item.title})
       )
     ], [select.categories]),

@@ -1,0 +1,38 @@
+.CommentItem-body {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.CommentItem-head {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+.CommentItem-headUser {
+	font-weight: 700;
+	font-size: 12px;
+	line-height: 14px;
+}
+.CommentItem-headDate {
+	font-size: 12px;
+	line-height: 14px;
+	color: #666666;
+}
+.CommentItem-text {
+	font-size: 14px;
+	line-height: 16px;
+	word-break: break-all;
+}
+.CommentItem-reply {
+	background: transparent;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	font-size: 12px;
+	line-height: 14px;
+	color: #0087e9;
+	align-self: flex-start;
+}
+.CommentItem-reply:hover {
+	text-decoration: underline;
+}

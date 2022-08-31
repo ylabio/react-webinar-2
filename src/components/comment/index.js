@@ -7,7 +7,7 @@ const Comment = (props) => {
   const cn = bem("Comment")
   const userBem = props.owner ? ' owner' : ''
   return (
-    <div className={cn()} style={{paddingLeft: props.indentLevel*35}}>
+    <div className={cn()} style={{paddingLeft: props.indentLevel > 15 ? 15*35 : props.indentLevel*35}}>
       <div className={cn('title')}>
         <p className={cn('user' + userBem)}>{props.author}</p>
         <p className={cn('date')}>{props.dateTime}</p>

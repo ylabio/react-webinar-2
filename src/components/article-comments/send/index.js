@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
 
-function Send({ action, title, cancel, isCancelBtn, t, value, parentName, ...restProps }) {
+function Send({ action, title, cancel, isCancelBtn, t, value, ...restProps }) {
  
   // CSS классы по БЭМ
   const cn = bem('Send');
@@ -11,8 +11,7 @@ function Send({ action, title, cancel, isCancelBtn, t, value, parentName, ...res
   return (
     <div className={cn()}>
       <span className={cn('title')}>{title}</span>
-      <textarea className={cn('field')} 
-                placeholder={parentName ? `Мой ответ для ${parentName}` : t('send.placeholder')}
+      <textarea className={cn('field')}
                 value={value}
                 {...restProps}/>
       <div>

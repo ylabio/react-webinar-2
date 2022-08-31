@@ -55,6 +55,7 @@ p {
     appearance: none;
     border: none;
     padding: 0;
+    cursor: pointer;
 }
 
 .Comment .CommentAllowed {

@@ -37,7 +37,7 @@ CommentNew.propTypes = {
   submitTitle: propTypes.string,
   cancelTitle: propTypes.string,
   onSubmit: propTypes.func,
-  onCancel: propTypes.func,
+  onCancel: propTypes.oneOfType([propTypes.bool, propTypes.func]),
 };
 
 CommentNew.defaultProps = {

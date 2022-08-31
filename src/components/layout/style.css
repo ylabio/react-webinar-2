@@ -14,3 +14,6 @@ body{
     box-sizing: border-box;
     box-shadow: 0 0 15px 5px #0000003b;
 }
+.Layout-content {
+    padding-bottom: 30px;
+}

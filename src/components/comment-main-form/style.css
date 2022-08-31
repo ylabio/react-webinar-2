@@ -1,0 +1,56 @@
+.CommentMainForm {
+  padding: 0 40px;
+}
+
+.CommentMainForm-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.CommentMainForm label {
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.CommentMainForm textarea {
+  margin-bottom: 10px;
+  align-self: stretch;
+  resize: vertical;
+  min-height: 76px;
+}
+
+.CommentMainForm-not-auth {
+  margin-left: 40px;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.CommentMainForm-link {
+  text-decoration-line: underline;
+  color: #0087E9;
+  cursor: pointer;
+}
+
+.CommentMainForm-buttons {
+  display: flex;
+}
+
+.CommentMainForm-buttons button:first-child {
+  margin-right: 10px;
+}
+
+.CommentMainForm-cancel {
+  font-size: 16px;
+  line-height: 18px;
+  text-decoration-line: underline;
+  color: #666666;
+  cursor: pointer;
+}
+
+.CommentMainForm-err {
+  margin-bottom: 10px;
+  color: red;
+}

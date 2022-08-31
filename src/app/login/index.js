@@ -40,7 +40,7 @@ function Login() {
         const back = location.state?.back && location.state?.back !== location.pathname
           ? location.state?.back
           : '/';
-        navigate(back, {replace: true}); // чтоб не могли залогиненные опять попасть на страницу логина через ←
+        navigate(back);
       });
     }, [data, location.state])
   };

@@ -56,7 +56,6 @@ function Comments({ id, comments, onSend }) {
   };
 
   useEffect(() => {
-    //console.log(ref);
     if (!newComment.parentId) // не скроллим за "новым комментом"
       return;
     //const nodeOffset = parseInt(document.getElementsByClassName('CommentEditor')[0]?.offsetTop);

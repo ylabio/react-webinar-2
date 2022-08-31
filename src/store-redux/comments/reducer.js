@@ -21,10 +21,19 @@ export default function reducer(state = initialState, action){
     case "comments/answer":
       return { ...state, answeringComment: action.id};
     case "comments/add":
-      return { ...state, data: [], waiting: true};
+      return { ...state, waiting: true};
 
     case "comments/add-success":
-      return { ...state, answeringComment: null, waiting: false};
+      return { ...state, 
+        data: [
+        ...state.data, 
+          action.payload
+        // state.data.find(item=>{
+        // item._id === action.payload.parent._id 
+        // ? item.children.push(action.payload) : item
+        // })
+        ],answeringComment: null, waiting: false
+      };
 
     case "comments/add-error":
       return { ...state, data: [], waiting: false};

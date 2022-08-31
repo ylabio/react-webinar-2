@@ -3,15 +3,17 @@ import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function CommentAnswerBlock({send, cancel, parent}) {
+function CommentAnswerBlock({send, cancel, parent, userName}) {
   const [message, setMessage] = useState('');
   // CSS классы по БЭМ
   const cn = bem('NewCommentBlock');
 
   const sendMsg = (e) => {
-    e.preventDefault();
-    send(message, parent);
-    setMessage('');
+    if(message.trim().length){
+      e.preventDefault();
+      send(message, parent, userName);
+      setMessage('');
+    }
   }
   return (
     <section className={cn()}>

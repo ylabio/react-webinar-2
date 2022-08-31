@@ -13,7 +13,8 @@ function Comment({
   className,
   addComment,
   redirect,
-  isAuth
+  isAuth,
+  userName
 }) {
   // CSS классы по БЭМ
   const cn = bem('Comment');
@@ -28,6 +29,7 @@ function Comment({
         addComment={addComment}
         redirect={redirect}
         isAuth={isAuth}
+        userName={userName}
       />
     );
   });
@@ -36,7 +38,8 @@ function Comment({
     <>
       <section className={`${cn()} ${className}`}>
         <div className={cn('infoBlock')}>
-          <span className={cn('userInfo')}>{item.author.profile.name}</span>
+          {/* //TODO прописать в новом комменте автора */}
+          <span className={cn('userInfo')}>{item.author.profile.name || userName}</span>
           <span className={cn('date')}>
             {formatDate(item.dateCreate)}
           </span>
@@ -52,6 +55,7 @@ function Comment({
             cancel={() => setAnswerState(null)}
             send={addComment}
             parent={item}
+            userName={userName}
           />
         : null}
       </section>

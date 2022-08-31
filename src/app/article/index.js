@@ -30,7 +30,7 @@ function Article(){
   const select = useSelectorRedux(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
-    comments: state.comments.data
+    // comments: state.comments.data
   }), shallowEqual);
 
   const {t} = useTranslate();

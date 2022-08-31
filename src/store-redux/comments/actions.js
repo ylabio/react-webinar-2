@@ -2,7 +2,7 @@ const actions = {
 
   load: (_id) => {
     return async(dispatch, getState, services) => {
-      dispatch({type: 'comments/load',})
+      dispatch({type: 'comments/load'})
       try {
         const json = await services.api.request({url: `/api/v1/comments/?search[parent]=${_id}&limit=*&skip=0&fields=items(_id,_type,text,dateCreate,author(profile(name)),parent(_id,_type)),count`});
         // Комментарии загружен успешно
@@ -30,12 +30,13 @@ const actions = {
             _type: data.parent._type
           } 
         }
-        await services.api.request({url: `/api/v1/comments`, method: "POST", 
+        const response = await services.api.request({url: `/api/v1/comments`, method: "POST", 
         body: JSON.stringify(comment)});
         // Успешно отправлен
-        dispatch({type: 'comments/add-success'})
+        const post = {...response.result, author: {profile:{name: data.userName}}}
+        dispatch({type: 'comments/add-success', payload: post})
         // Загружаем комментарии для обновления статуса
-        dispatch(actions.load(data.parentArticleId));
+        // dispatch(actions.load(data.parentArticleId));
       } catch (e){
         // Ошибка при загрузке
         dispatch({type: 'comments/add-error'});

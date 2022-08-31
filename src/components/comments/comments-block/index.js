@@ -12,7 +12,8 @@ function CommentsBlock({
   addComment,
   openAnswerBlock,
   answerState,
-  signIn
+  signIn,
+  userName
 }) {
   // CSS классы по БЭМ
   const cn = bem('CommentsBlock');
@@ -36,11 +37,12 @@ function CommentsBlock({
               addComment={addComment}
               redirect={redirect}
               isAuth={exists}
+              userName={userName}
             />
           );
         })}
         {exists && !answerState 
-        ? <NewCommentBlock addComment={addComment} /> 
+        ? <NewCommentBlock addComment={addComment} userName={userName}/> 
         : (
         <span>
             <span className={cn('link')} onClick={signIn}>Войдите,</span> чтобы иметь возможность

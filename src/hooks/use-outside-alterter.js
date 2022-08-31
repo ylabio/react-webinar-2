@@ -8,7 +8,7 @@ function useOutsideAlerter(ref, callback) {
     function handleClickOutside(event) {
       // если элемент который необходимо закрыть монтирован и событие произошло вне его.
       if (ref.current && !ref.current.contains(event.target)) {
-        callback(event.target);
+        callback(true, event.target);
       }
     }
 

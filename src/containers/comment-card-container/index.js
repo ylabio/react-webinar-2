@@ -6,7 +6,11 @@ import Spinner from '../../components/spinner';
 import ReplyComment from '../reply-comment';
 import OutsideAlerter from '../../hooks/use-outside-alterter';
 import {useDispatch} from 'react-redux';
-import {formHide, formShow} from '../../store-redux/comments-slice';
+import {
+  formHide,
+  formShow,
+  isFormVisible
+} from '../../store-redux/comments-slice';
 import ProtectedCommentForm from '../protected-comment-form';
 import useSelector from '../../hooks/use-selector';
 import {selectUserById} from '../../store-redux/users-slice';
@@ -16,6 +20,7 @@ function CommentCardContainer(props) {
   const author = useSelectorRedux(state =>
     selectUserById(state, props.comment.author._id)
   );
+  const isMainFormVisible = useSelectorRedux(isFormVisible);
 
   const [isVisible, setIsVisible] = useState(false);
 
@@ -26,16 +31,13 @@ function CommentCardContainer(props) {
   const callbacks = {
     // действия для оповещения при клике вне текущего коммента
     onOutsideAlerter: useCallback(
-      target => {
-        if (target.name === 'reply') {
-          // если нажата кнопка 'ответить' другого комментария-ответа, то форма нового комментария должна быть закрыта
-          dispatch(formHide());
-        } else {
-          // если нажатие просто снаружи комментариев-ответов, то форма нового комментария открывается
-          dispatch(formShow());
+      (isOutside, target) => {
+        if (isOutside) {
+          // закрываем форму текущего комментария
+          if (target.name === 'reply') {
+            setIsVisible(false);
+          }
         }
-        // закрываем форму текущего комментария
-        setIsVisible(false);
       },
       [dispatch]
     ),
@@ -63,7 +65,9 @@ function CommentCardContainer(props) {
           >
             <ReplyComment
               parentId={props.comment._id}
-              onCancel={() => setIsVisible(false)}
+              onCancel={() => {
+                setIsVisible(false), dispatch(formShow());
+              }}
             />
           </ProtectedCommentForm>
         ) : null}

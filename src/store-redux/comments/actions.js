@@ -14,7 +14,7 @@ export default {
     }
   },
 
-  post: function(text, parent_id, parentType) {
+  post: (text, parent_id, parentType) => {
     return async(dispatch, getState, services) => {
       dispatch({type: 'comments/push',})
 

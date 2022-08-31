@@ -19,6 +19,7 @@
 
 .Comment-text {
   padding-bottom: 10px;
+  word-break: break-all;
 }
 
 .Comment-reply {

@@ -7,7 +7,7 @@ import "./style.css";
 function CommentForm({hasCancelButton, handleSubmit, handleCancel, titleLabel}) {
   const cn = bem("CommentForm");
   const [text, setText] = useState("");
-  const isTextareaDisabled = text.length === 0;
+  const isTextareaDisabled = text.replace(/^\s+|\s+$/g,'').length === 0;
 
   const onSubmit = (e) => {
     e.preventDefault();

@@ -27,13 +27,7 @@ function CommentsContainer(){
 
   const storeRedux = useStoreRedux();
 
-  useInit(async () => {
-    // Загрузка комментариев
-    storeRedux.dispatch(actionsComments.load(params.id)); 
-  }, []);
-
   const {t} = useTranslate();
-
 
   const select = useSelectorRedux(state => ({
     waiting: state.comments.waiting,
@@ -53,7 +47,6 @@ function CommentsContainer(){
     lang: state.locale.lang
   }));
 
-
   const callbacks = {
     // Добавление нового комментария
     addComment: useCallback((text, parentId, parentType) => {
@@ -69,6 +62,11 @@ function CommentsContainer(){
       storeRedux.dispatch(actionsComments.load(params.id)); 
     }, [location.pathname]),
   };
+
+  useInit(async () => {
+    // Загрузка комментариев
+    storeRedux.dispatch(actionsComments.load(params.id)); 
+  }, [params.id, select1.exists]);
 
   const commentData = {
     comments: useMemo(() => [

@@ -3,11 +3,11 @@ import './style.css';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-function NoAcces({ path, setFormModal }) {
+function NoAcces({ path,children}) {
   return (
     <div className='NoAcces'>
       <p className='NoAcces-title'>
-        <Link to={path}>Войдите</Link>, чтобы иметь возможность ответить. <span onClick={()=>setFormModal(false)}>Отмена</span>
+        <Link to={path}>Войдите</Link>, чтобы иметь возможность ответить. {children}
       </p>
 
     </div>
@@ -15,9 +15,10 @@ function NoAcces({ path, setFormModal }) {
 }
 NoAcces.propTypes = {
   path: propTypes.string.isRequired,
-  setFormModal: propTypes.func
+  closeNoAcces: propTypes.func,
+  children:propTypes.node
 }
-NoAcces.defaulProps = {
-  setFormModal: () => { }
+NoAcces.defaultProps = {
+  closeNoAcces: () => { }
 }
 export default NoAcces

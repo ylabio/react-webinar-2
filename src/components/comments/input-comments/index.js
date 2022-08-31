@@ -3,9 +3,7 @@ import './style.css'
 import propTypes from 'prop-types';
 function FormComment({ additComponents, submitComment, type, id, close }) {
   const [text, setText] = useState('');
-
   const playoad = {
-
     text,
     parent: {
       _id: id,

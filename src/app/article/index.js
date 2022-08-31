@@ -18,7 +18,6 @@ function Article(){
   const store = useStore();
   // Параметры из пути /articles/:id
   const params = useParams();
-
   const storeRedux = useStoreRedux();
 
   useInit(async () => {

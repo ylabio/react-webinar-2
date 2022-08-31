@@ -18,6 +18,7 @@
 .ItemComment-text {
     font-size: 14px;
     margin: 10px 0;
+    word-break: break-all;
 }
 
 .ItemComment-answerLink {

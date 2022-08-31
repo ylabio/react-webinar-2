@@ -21,7 +21,7 @@ export default function reducer(state = initialState, action) {
       return {...state, waiting: true}
     
     case "comments/add-comment-success":
-      return {...state, waiting: false}
+      return {...state, items: [...state.items, action.payload.newItem], waiting: false, count: state.count + 1}
     
     case "comments/add-comment-error":
       return {...state, waiting: false}

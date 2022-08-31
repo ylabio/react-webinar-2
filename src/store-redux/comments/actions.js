@@ -32,8 +32,8 @@ export default {
         }
         
         // Отправляем новый комменатрий на бек
-        const postJson = await services.api.request({
-          url: `/api/v1/comments?fields=items(*,author(profile(name))),count&sort=order&limit=*`,
+        const json = await services.api.request({
+          url: `/api/v1/comments?fields=*,author(profile(name))`,
           method: 'POST',
           headers: {
             'X-Token': `${token}`,
@@ -41,20 +41,8 @@ export default {
           body: JSON.stringify(body)
         });
         
-        dispatch({type: 'comments/add-comment-success'});
-        
-        // Подгружаем новый список комментариев с новым добавленным комментарием
-        try {
-          const json = await services.api.request({url:
-              `/api/v1/comments?search[parent]=${_id}&fields=items(*,author(profile(name))),count&sort=order&limit=*`});
-    
-          // Комментарий загружен успешно
-          dispatch({type: 'comments/load-success', payload: {items: json.result.items, count: json.result.count}});
-    
-        } catch (e) {
-          // Ошибка при загрузке
-          dispatch({type: 'comments/load-error'});
-        }
+        // Добавляем новый коментарий на фронт
+        dispatch({type: 'comments/add-comment-success', payload: {newItem: json.result}});
         
       } catch (e) {
         // Ошибка при загрузке

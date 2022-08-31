@@ -67,7 +67,10 @@ function Comments() {
     
     // Отправка нового комментария на бекенд
     postNewComment: useCallback((text) => {
-      storeRedux.dispatch(actionsComments.post(text, currentAnswer, currentAnswerType, stateSelect.token, params.id))
+      let checkText = text.split(' ').join('')
+      if (checkText) {
+        storeRedux.dispatch(actionsComments.post(text, currentAnswer, currentAnswerType, stateSelect.token, params.id))
+      }
     }, [currentAnswer, currentAnswerType, stateSelect.token, params.id]),
     redirect: useCallback(() => {
       navigate('/login', {state: {back: location.pathname}});
@@ -104,7 +107,8 @@ function Comments() {
       resetCurrentForm={callbacks.resetCurrentForm}
       postNewComment={callbacks.postNewComment}
       redirect={callbacks.redirect}
-      sessionExists={stateSelect.sessionExists}/>
+      sessionExists={stateSelect.sessionExists}
+    />
   )
 }
 

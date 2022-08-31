@@ -1,0 +1,44 @@
+.Send {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;    
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 30px;
+}
+.Send-title {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+}
+.Send-field {
+    width: 100%;
+    min-height: 76px;
+    resize: none;
+    background-color: #FFFFFF;
+    border: 1px solid #666666;
+    box-shadow: inset 0px 1px 4px rgba(102, 102, 102, 0.1);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000000;
+    letter-spacing: 1;
+}
+.Send-field::placeholder {
+    color: #000000;
+}
+.Send-action {
+    font-size: 13px;
+    line-height: 15px;
+    background-color: #EFEFEF;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    box-sizing: border-box;
+    min-height: 21px;
+    min-width: 90px;
+}
+.Send-action:not(:last-child) {
+    margin-right: 10px;
+}

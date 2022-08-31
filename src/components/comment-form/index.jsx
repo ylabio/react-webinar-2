@@ -7,6 +7,8 @@ const CommentForm = ({ onSubmit, onClose }) => {
 
   const handleText = (e) => setText(e.target.value);
 
+  const trimText = () => setText(text.trim()); // срабатывает и перед отправкой
+
   const callbacks = {
     submit: useCallback(event => {
       event.preventDefault();
@@ -17,8 +19,8 @@ const CommentForm = ({ onSubmit, onClose }) => {
   return (
     <form className='comment-form' onSubmit={callbacks.submit}>
       <b>Новый ответ</b>
-      <textarea name="text" rows="5" onChange={handleText} value={text} />
-      <input type="submit" disabled={!text.length} />
+      <textarea name="text" rows="5" onChange={handleText} value={text} onBlur={trimText} />
+      <input type="submit" disabled={!text.trim().length} />
       <input type="reset" value="Отмена" onClick={onClose} />
     </form>
   )    

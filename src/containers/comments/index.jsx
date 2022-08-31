@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { useStore as useStoreRedux, useSelector as useSelectorRedux } from "react-redux";
+import { useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual } from "react-redux";
 import useSelector from "../../hooks/use-selector";
 import actionsComments from '../../store-redux/comments/actions';
 
@@ -18,7 +18,7 @@ const Comments = ({ items, articleId }) => {
     loadError: state.comments.error,
     parentId: state.comments.parentId, // _id комментария / товара к которому пишется ответ
     commentSending: state.comments.sending, // отправка комментария
-  }));
+  }), shallowEqual);
 
   const select = useSelector(state => ({
     logged: state.session.exists,
@@ -62,8 +62,8 @@ const Comments = ({ items, articleId }) => {
         ? <button onClick={callbacks.openForm}>Комментировать</button>
         : select.logged
           ? <Spinner active={reduxSelect.commentSending}>
-            <CommentForm onSubmit={callbacks.sendComment} onClose={callbacks.closeForm} />
-          </Spinner>
+              <CommentForm onSubmit={callbacks.sendComment} onClose={callbacks.closeForm} />
+            </Spinner>
           : <UnloggedUser />}
     </CommentsLayout>
   )

@@ -34,7 +34,7 @@ function CommentsWrapper ({id, commentsCount, children, isAuthorized, onSubmit})
                     </form>
 
 
-                : <p className={cn('text')}><a className={cn('link')} href={'/login'}>Войдите</a>, чтобы иметь возможность комментировать</p>
+                : <p className={cn('main-text')}><a className={cn('main-link')} href={'/login'}>Войдите</a>, чтобы иметь возможность комментировать</p>
             }
 
         </div>

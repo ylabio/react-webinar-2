@@ -8,14 +8,14 @@
     margin: 0 0 30px 0;
 }
 
-.Comments-wrapper-link {
+.Comments-wrapper-main-link {
     color: #0087E9;
     border: none;
     background: none;
     text-decoration: underline;
 }
 
-.Comments-wrapper-text {
+.Comments-wrapper-main-text {
     font-size: 16px;
 }
 

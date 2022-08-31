@@ -23,6 +23,7 @@
 
 .Comments-item-user-comment {
     font-size: 14px;
+    word-wrap: break-word;
 }
 
 .Comments-item-date {

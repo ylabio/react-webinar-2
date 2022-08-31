@@ -1,7 +1,7 @@
 // Начальное состояние товара
 const initialState = {
   data: {},
-  waiting: false
+  waiting: false,
 }
 
 export default function reducer(state = initialState, action){

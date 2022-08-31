@@ -29,8 +29,11 @@ function Comments() {
     comments: state.comments.data.items,
     count: state.comments.data.count,
     waiting: state.comments.waiting,
+    lastCommentId: state.comments.lastCommentId,
     articleId: state.article.data._id,
   }), shallowEqual);
+
+  console.log('id', selectReduxStore.lastCommentId)
 
   // форматируем коментарии для добавление level
   // за счет этого управлять отступом ответом на коментарии
@@ -63,8 +66,13 @@ function Comments() {
     // Добавление коментариев
     onAddComment: useCallback(async (text, id, type) => {
       await storeRedux.dispatch(actionsComments.addComment(text, id, type));
+ 
       setIsIdReply('')
-    }, [])
+    }, []),
+
+    resetCommentId: useCallback(() => {
+      storeRedux.dispatch(actionsComments.resetCommentId());
+    }, []),
   };
 
   return (
@@ -77,9 +85,10 @@ function Comments() {
         isIdReply={isIdReply} 
         onReply={callbacks.onReply} 
         onCancelReply={callbacks.onCancelReply} 
-        onAddComment={callbacks.onAddComment}/>
+        onAddComment={callbacks.onAddComment}
+        resetCommentId={callbacks.resetCommentId}/>
 
-      {(selectStore.isAuthorized && !isIdReply) && <LeaveComment id={selectReduxStore.articleId} onAddComment={callbacks.onAddComment}/>}
+      {(selectStore.isAuthorized && !isIdReply) && <LeaveComment id={selectReduxStore.articleId} onAddComment={callbacks.onAddComment} lastCommentId={selectReduxStore.lastCommentId} resetCommentId={callbacks.resetCommentId}/>}
       {(!selectStore.isAuthorized && !isIdReply) && <PermissionComment onSignIn={callbacks.onSignIn}/>}
       </LayoutComments>
     </Spinner>

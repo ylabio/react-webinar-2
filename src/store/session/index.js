@@ -53,7 +53,7 @@ class SessionState extends StateModule {
         window.localStorage.setItem('token', json.result.token);
         // Устанавливаем токен в АПИ
         this.services.api.setHeader(this.config.tokenHeader, json.result.token);
-        console.log('проверка')
+     
         if (onSuccess) onSuccess();
       }
     } catch (error) {

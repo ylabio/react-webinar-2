@@ -1,7 +1,8 @@
 // Начальное состояние товара
 const initialState = {
   data: {},
-  waiting: false
+  waiting: false,
+  lastCommentId: ''
 }
 
 export default function reducer(state = initialState, action){
@@ -21,11 +22,17 @@ export default function reducer(state = initialState, action){
 
     case "comments/addComment-success":
       return { ...state, data: {...state.data, items: [...state.data.items, action.payload.data] }, 
-        waiting: false
+        waiting: false,
+        lastCommentId: action.payload.data._id
       };
-      
+
     case "comments/addComment-error":
       return { ...state, waiting: false};
+
+    case "comments/resetCommentId":
+      return { ...state, 
+        lastCommentId: ''
+      };
 
     default:
       // Нет изменений

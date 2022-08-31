@@ -28,9 +28,6 @@ function Login() {
     password: ''
   });
 
-  console.log(data.login)
-  console.log(data.password)
-
   const callbacks = {
     onChange: useCallback((value, name) => {
       setData(prevData => ({...prevData, [name]: value}));

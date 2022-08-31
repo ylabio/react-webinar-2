@@ -40,6 +40,11 @@ export default {
       }
     }
   },
+
+  resetCommentId: () => {
+    console.log('тест')
+    return {type: 'comments/resetCommentId'}
+  }
 }
 
 

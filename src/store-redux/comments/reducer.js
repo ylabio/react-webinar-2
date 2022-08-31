@@ -28,7 +28,6 @@ const initialState = {
         return { ...state, data: [], waiting: false}; //@todo текст ошибки сохранить?
 
       case "comments/add":
-
         return { ...state, waiting: true};
 
       case "comments/add-success":

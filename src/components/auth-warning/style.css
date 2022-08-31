@@ -1,0 +1,16 @@
+.AuthWarning {
+  display: flex;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.AuthWarning-link {
+  color: #0087E9;
+
+}
+
+.AuthWarning-cancel {
+  color: #666666;
+  text-decoration: underline;
+  cursor: pointer;
+}

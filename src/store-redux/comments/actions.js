@@ -45,19 +45,21 @@ export default {
             },
           }),
         });
-        const ArtId = await getState().article.data._id;
 
-        console.log("=== ", articleId === ArtId);
+        const newArtId = await getState().article.data._id;
+        // Если произойдет сетевая задержка и текщий товар в стейте будет изменен => не добавляем новый комментарий в стейт
+        if (articleId !== newArtId) {
+          dispatch({
+            type: "comments/loadComments-success",
+            payload: { waiting: false },
+          });
+        } else {
+          dispatch({
+            type: "comments/loadComments-success",
+            payload: { data: [...getState().comments.data, json.result], newCommentId: json.result._id, waiting: false },
+          });
+        }
 
-
-        // const json = await services.api.request({
-        //   url: `/api/v1/comments?search%5Bparent%5D=${articleId}&limit=*&skip=0&fields=_id,text,dateCreate,author(profile(name)),parent(_id)`,
-        // });
-
-        dispatch({
-          type: "comments/loadComments-success",
-          payload: { data: [...getState().comments.data, json.result], waiting: false },
-        });
       } catch (e) {
         // Ошибка при загрузке
         dispatch({

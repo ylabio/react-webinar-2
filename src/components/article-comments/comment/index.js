@@ -26,7 +26,7 @@ function Comment({ comment, setSendId, sendContainer, lang, t }) {
 
   // В текущей реализации скрыл кнопку ответа на комментарий если уровень вложенности превышает 10
   return (
-    <div style={{ paddingLeft: `${ (comment.level % 10 !== comment.level ? 10 : comment.level) * 40 }px` }} >
+    <div id={comment._id} style={{ paddingLeft: `${ (comment.level % 10 !== comment.level ? 10 : comment.level) * 40 }px` }} >
       <div className={cn()}>
         <div className={cn("header")}>
           <span className={cn("userName")}>

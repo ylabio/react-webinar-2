@@ -2,6 +2,7 @@
 const initialState = {
   waiting: false,
   data: [],
+  newCommentId: null,
 };
 
 export default function reducer(state = initialState, action) {

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   useStore as useStoreRedux,
   useSelector as useSelectorRedux,
@@ -29,6 +29,7 @@ function ArticleCommentsContainer({ articleId, type }) {
   const selectRedux = useSelectorRedux(
     (state) => ({
       comments: state.comments.data,
+      newCommentId: state.comments.newCommentId,
       waiting: state.article.waiting,
     }),
     shallowEqual
@@ -62,6 +63,14 @@ function ArticleCommentsContainer({ articleId, type }) {
     // comments: useMemo(() => treeToList(listToTree(selectRedux.comments, articleId)), [selectRedux.comments, articleId]),
     comments: useMemo(() => treeToList(createTree(selectRedux.comments)), [selectRedux.comments]),
   }
+
+  useEffect(() => {
+    if (selectRedux.newCommentId) {
+      const comment = document.getElementById(selectRedux.newCommentId)
+
+      comment.scrollIntoView({block: "center", inline: "nearest", behavior: "smooth"});
+    }
+  }, [selectRedux.newCommentId])
 
   return (
     <Layout>

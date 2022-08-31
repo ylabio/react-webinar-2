@@ -7,13 +7,21 @@ import useSelector from '../../hooks/use-selector';
 
 function CommentsContainer({ productId }) {
   const { dispatch } = useStore();
-  const { total, items, branchesState, commentPositions, lastCreatedId } = useSelectorR(state => ({
+  
+  const { 
+    total, 
+    items, 
+    branchesState, 
+    commentPositions,
+    lastCreatedId 
+  } = useSelectorR(state => ({
     total: state.comments.total,
     items: state.comments.data.items,
     branchesState: state.comments.branchesState,
     commentPositions: state.comments.commentPositions,
     lastCreatedId: state.comments.lastCreatedId,
   }));
+
   const { exists } = useSelector(state => ({
     exists: state.session.exists,
   }));
@@ -27,14 +35,6 @@ function CommentsContainer({ productId }) {
           _type: type,
         },
       }));
-    }, []),
-
-    updateBranchState: useCallback((branchData) => {
-      dispatch(commentsActions.setBranches(branchData));
-    }, []),
-
-    addCommentPosition: useCallback((id, fromTop) => {
-      dispatch(commentsActions.addCommentPosition(id, fromTop - 104));
     }, []),
   };
 
@@ -53,10 +53,7 @@ function CommentsContainer({ productId }) {
         link={'/login'}
         createResponse={callbacks.createResponse}
         productId={productId}
-        updateBranchState={callbacks.updateBranchState}
         branchesState={branchesState}
-        addCommentPosition={callbacks.addCommentPosition}
-        lastCreatedId={lastCreatedId}
       />
     </>
   );

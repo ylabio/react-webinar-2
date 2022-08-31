@@ -4,6 +4,7 @@ import propTypes from 'prop-types';
 import './style.css';
 import { cn as bem } from '@bem-react/classname';
 import useBranchState from "./use-branch-state";
+import CommentContainer from "../../containers/comment-container";
 
 function CommentsBranch({ 
   branch, 
@@ -15,7 +16,6 @@ function CommentsBranch({
   createResponse,
   updateBranchState,
   branchState,
-  addCommentPosition,
   lastCreatedId,
 }) {
   const cn = bem('CommentsBranch');
@@ -31,7 +31,7 @@ function CommentsBranch({
     <div className={cn()}>
       <div className={cn('wrapper', {hidden: isHidden})}>
       {branch.map(obj => (
-        <Comment 
+        <CommentContainer 
           data={obj.comment} 
           key={obj.comment._id} 
           lvl={obj.lvl} 
@@ -41,7 +41,6 @@ function CommentsBranch({
           lastCommentId={lastCommentId}
           setLastCommentId={setLastCommentId}
           createResponse={createResponse}
-          addCommentPosition={addCommentPosition}
           lastCreatedId={lastCreatedId}
         />
       ))}
@@ -91,7 +90,6 @@ CommentsBranch.propTypes = {
     propTypes.object.isRequired, 
     propTypes.bool.isRequired
   ]),
-  addCommentPosition: propTypes.func.isRequired,
   lastCreatedId: propTypes.string,
 };
 

@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
-import { formatTime } from '../../utils/format-time';
 import CommentForm from '../comment-form';
 import AuthWarning from '../auth-warning';
+import CommentBody from './comment-body';
+import useHelper from './use-helper';
 
 function Comment({ 
   data,
@@ -20,8 +21,16 @@ function Comment({
   lastCreatedId,
 }) {
   const cn = bem('Comment');
-  const [showAnswerForm, setShowAnswerForm] = useState(false);
-  const commentRef = useRef(null);
+  const [
+    showAnswerForm, 
+    setShowAnswerForm, 
+    commentRef
+  ] = useHelper({ 
+      lastCommentId, 
+      addCommentPosition, 
+      lastCreatedId, 
+      data
+  });
 
   const callbacks = {
     showFormHandler: useCallback((e) => {
@@ -36,56 +45,17 @@ function Comment({
     }, []),
   };
 
-  useEffect(() => {
-    if (lastCommentId !== data._id) {
-      setShowAnswerForm(false);
-    }
-  }, [lastCommentId])
-
-  useEffect(() => {
-    const fromTop = commentRef.current.getBoundingClientRect().top;
-    addCommentPosition(data._id, fromTop);
-  }, [])
-
-  useEffect(() => {
-    let id;
-
-    if (lastCreatedId === data._id) {
-      commentRef.current.style.backgroundColor = 'rgba(0, 255, 0, 0.25)';
-
-      id = setTimeout(() => {
-        commentRef.current.style.backgroundColor = 'white';
-      }, 2000)
-    }
-
-    return () => clearTimeout(id);
-  }, [lastCreatedId])
-
   return (
     <div 
       className={cn()} 
       style={{marginLeft: String(30 * lvl) + 'px'}} 
       ref={commentRef}
     >
-      <div className={cn('body')}>
-        <div className={cn('header')}>
-          <span className={cn('username')}>{data.author.profile.name}</span>
-          <span className={cn('time')}>{formatTime(data.dateUpdate)}</span>
-        </div>
-
-        <p className={cn('text')}>
-          {data.text}
-        </p>
-
-        {showResponse && (
-          <span 
-            className={cn('answer')}
-            onClick={callbacks.showFormHandler}
-          >
-            Ответить
-          </span>
-        )}
-      </div>
+      <CommentBody 
+        data={data}
+        showResponse={showResponse}
+        showFormHandler={callbacks.showFormHandler}
+      />
 
       {exists && showAnswerForm && (
         <div className={cn('bottom')}>

@@ -21,7 +21,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         data: [
           ...treeToList(
-            listToTree(action.payload.data),
+            listToTree(action.payload.data, "article"),
             (item, level) => ({ ...item, active: false, level: level, main: false })
           ),
         ],
@@ -43,7 +43,7 @@ export default function reducer(state = initialState, action) {
         comment: action.payload._id,
         data: [
           ...treeToList(
-            listToTree([...state.data, action.payload]),
+            listToTree([...state.data, action.payload], "article"),
             (item, level) => ({ ...item, level: level, active: false })
           ),
         ],

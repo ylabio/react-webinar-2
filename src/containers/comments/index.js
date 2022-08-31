@@ -79,7 +79,7 @@ function Comments() {
         answerComment={callbacks.answerComment}
         t={t}
       />
-    ), [selectRedux.comments, t]),
+    ), [selectRedux.comments, select.exists, t]),
   }
 
   return (

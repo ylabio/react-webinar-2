@@ -1,13 +1,14 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
+import { cn as bem } from "@bem-react/classname";
 import './style.css';
-import {Link} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function CommentForm(props) {
   const cn = bem('CommentForm');
+  const navigate = useNavigate();
 
-  const [form, setForm] = useState({text: '', err: false});
+  const [form, setForm] = useState({ text: '', err: false });
 
   const cb = {
     addComment: useCallback((e) => {
@@ -22,7 +23,7 @@ function CommentForm(props) {
       }
 
       if (form.text.trim() === '') {
-        setForm({...form, err: true})
+        setForm({ ...form, err: true })
       } else {
         props.addComment(props.token, body);
       }
@@ -32,6 +33,12 @@ function CommentForm(props) {
       e.preventDefault();
       props.closeComment(props.commentId);
     }, []),
+
+    onSignIn: useCallback(() => {
+      console.log(1);
+
+      navigate('/login', { state: { back: location.pathname } });
+    }, [location.pathname]),
   };
 
   return (
@@ -39,22 +46,22 @@ function CommentForm(props) {
       {
         props.exists
           ? <form className={cn('form')} onSubmit={cb.addComment}>
-              <label>{props.t('comment.new-comment')}</label>
-              <textarea onChange={(e) => setForm({text: e.target.value, err: false})}
-                        value={form.text}/>
+            <label>{props.t('comment.new-comment')}</label>
+            <textarea onChange={(e) => setForm({ text: e.target.value, err: false })}
+              value={form.text} />
             {form.err && <div className={cn('err')}>{props.t('form.err')}</div>}
-              <div className={cn('buttons')}>
-                <button>{props.t('comment.send')}</button>
-                <button onClick={cb.closeComment}>{props.t('comment.cancel')}</button>
-              </div>
-            </form>
-          : <div className={cn('not-auth')}>
-              <Link to="/login">
-                {props.t('auth.signIn')}
-              </Link>
-              {props.t('comment.text')}
-              <span className={cn('cancel')} onClick={cb.closeComment}>{props.t('comment.cancel')}</span>
+            <div className={cn('buttons')}>
+              <button>{props.t('comment.send')}</button>
+              <button onClick={cb.closeComment}>{props.t('comment.cancel')}</button>
             </div>
+          </form>
+          : <div className={cn('not-auth')}>
+            <span className={cn('link')} onClick={cb.onSignIn}>
+              {props.t('auth.signIn')}
+            </span>
+            {props.t('comment.text')}
+            <span className={cn('cancel')} onClick={cb.closeComment}>{props.t('comment.cancel')}</span>
+          </div>
       }
     </div>
   )
@@ -71,8 +78,8 @@ CommentForm.propTypes = {
 
 CommentForm.defaultProps = {
   commentId: '',
-  addComment: () => {},
-  closeComment: () => {},
+  addComment: () => { },
+  closeComment: () => { },
   exists: false,
   token: '',
   t: (text) => text,

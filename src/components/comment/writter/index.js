@@ -7,11 +7,11 @@ import './style.css';
  * Component description
  */
 
-function CommentWritter({ isAuth, isReply, text, onChange, onSubmit, onCancel, onSignin, shift, t }) {
+function CommentWritter({ isAuth, isReply, text, onChange, onSubmit, onCancel, onSignin, shift, r, t }) {
   const cn = bem('CommentEditor');
 
   return (
-    <div className={cn()} style={{ paddingLeft: 30 * shift + 'px' }}>{
+    <div className={cn()} style={{ paddingLeft: 30 * shift + 'px' }} ref={r}>{
       isAuth ?
       <>
         <div className={cn('title')}>{isReply ? t("comments.newReplay") : t("comments.newComment")}</div>
@@ -40,6 +40,7 @@ CommentWritter.propTypes = {
   onCancel: propTypes.func,
   onSignin: propTypes.func,
   shift: propTypes.number,
+  r: propTypes.object,
   t: propTypes.func
 }
 
@@ -52,6 +53,7 @@ CommentWritter.defaultProps = {
   onCancel: () => { },
   onSignin: () => { },
   shift: 0,
+  r: { },
   t: () => { }
 }
 

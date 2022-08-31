@@ -1,5 +1,5 @@
 import propTypes from 'prop-types';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import CommentItem from '../../components/comment/item';
 import CommentList from '../../components/comment/list';
@@ -22,6 +22,7 @@ function Comments({ id, comments, onSend }) {
   const location = useLocation();
   const { exists, user } = useSelector(state => state.session);
   const { t } = useTranslate();
+  const ref = useRef(null);
 
   //console.log('comments:', comments);
 
@@ -55,9 +56,11 @@ function Comments({ id, comments, onSend }) {
   };
 
   useEffect(() => {
+    //console.log(ref);
     if (!newComment.parentId) // не скроллим за "новым комментом"
       return;
-    const nodeOffset = parseInt(document.getElementsByClassName('CommentEditor')[0]?.offsetTop);
+    //const nodeOffset = parseInt(document.getElementsByClassName('CommentEditor')[0]?.offsetTop);
+    const nodeOffset = ref.current?.offsetTop;
     const innerHeight = window.innerHeight;
     window.scrollTo({ top: nodeOffset - innerHeight / 2, behavior: "smooth" });
   }, [newComment]);
@@ -91,6 +94,7 @@ function Comments({ id, comments, onSend }) {
         onCancel={callbacks.onCancel}
         onSignin={callbacks.onSignin}
         shift={writter.shift <= 10 ? writter.shift : 10}
+        r={ref}
         t={t}
       />
     ), [t, user, newComment])

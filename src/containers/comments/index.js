@@ -68,7 +68,7 @@ function CommentsContainer() {
           author={item.author.profile.name}
           date={dateFormat(item.dateCreate)}
           text={item.text}
-          lvl={item.parent._tree?.length - 1 || 0}
+          lvl={(item.parent._tree?.length > 5 ? 5 : item.parent._tree?.length) - 1 || 0}
           labelReply={t("comment.reply")}
           selectReplyId={() => callbacks.selectReplyId(item._id)}
           replyComponent={

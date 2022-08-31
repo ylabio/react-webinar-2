@@ -19,6 +19,7 @@
 .ItemComment-body {
   font-size: 14px;
   padding-bottom: 10px;
+  word-break: break-word;
 }
 
 .ItemComment-actions button {

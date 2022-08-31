@@ -28,6 +28,15 @@ export default function reducer(state = initialState, action) {
     case "comments/reset-reply":
       return { ...state, replyId: null };
 
+    case "comments/new":
+      return {
+        ...state,
+        items: [...state.items, action.payload.item],
+        count: state.items.length + 1,
+        replyId: null,
+        waiting: false,
+      };
+
     default:
       // Нет изменений
       return state;

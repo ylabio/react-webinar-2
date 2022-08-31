@@ -32,11 +32,11 @@ export const resetReplyId = () => {
 };
 export const post = (pageId, parentId, type, text) => {
   return async (dispatch, getState, services) => {
-    if (text.length === 0) return;
+    if (text.trim().length === 0) return;
     dispatch({ type: "comments/load" });
     try {
       const json = await services.api.request({
-        url: `/api/v1/comments`,
+        url: `/api/v1/comments?fields=*,author(profile(name))`,
         method: "POST",
         body: JSON.stringify({
           text,
@@ -48,7 +48,11 @@ export const post = (pageId, parentId, type, text) => {
       });
       // @todo обработать ошибку
       // обновляем комментарии т.к. могли появиться новые
-      dispatch(load(pageId));
+      // dispatch(load(pageId));
+      dispatch({
+        type: "comments/new",
+        payload: { item: json.result },
+      });
     } catch (e) {
       dispatch({ type: "comments/load-error" });
     }

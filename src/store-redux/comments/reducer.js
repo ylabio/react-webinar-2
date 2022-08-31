@@ -20,7 +20,7 @@ export default function reducer(state = initialState, action) {
             return { ...state };
 
         case "comments/send-success":
-            return { ...state, lastCommented: action.lastCommented };
+            return { ...state, lastCommented: action.newComments, comData: [...action.newComments] };
 
         case "comments/send-error":
             return { ...state };

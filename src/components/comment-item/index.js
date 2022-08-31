@@ -9,8 +9,10 @@ function CommentItem({ comment, callbacks, locationAndToken }) {
     const { token, location } = locationAndToken;
     const sendMessage = callbacks;
     const parentId = comment;
-    const nesting = comment.nesting.length - 1;
+    const nesting = (comment.nesting.length >= 5) ? 5 : comment.nesting.length - 1;
     const data = genDate(new Date(comment.dateCreate)).replace("г.,", " в");
+
+
     return (<div style={{ width: `${944 - nesting * 30}px` }}>
         <div className="Comment-title">
             <h5 className="Comment-author">{comment.author}</h5>

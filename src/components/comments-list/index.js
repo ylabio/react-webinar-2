@@ -9,10 +9,11 @@ function CommentsList({ callbacks, render, comments, other }) {
     const { token, parentId, location } = other;
     const locationAndToken = { location, token };
 
+
+
     return (<div className="Comments">
         <h2 className="Comments-title">Коментарии ({comments.length})</h2>
         <div className="Comments-container">
-
             {comments.map((comment, index) => {
                 return (<Fragment key={index}>
                     {render(callbacks, comment, locationAndToken)}

@@ -38,7 +38,7 @@ function Article() {
     waiting: state.article.waiting,
     waitingCom: state.comments.waiting,
     comments: state.comments.comData,
-    lastCommented: state.comments.lastCommented
+    newComments: state.comments.newComments
   }), shallowEqual);
 
 
@@ -55,7 +55,8 @@ function Article() {
 
   useInit(() => {
     storeRedux.dispatch(actionsComments.loadComments(params.id, select.article))
-  }, [select.article, select.lastCommented]);
+  }, [select.article]);
+
 
 
 

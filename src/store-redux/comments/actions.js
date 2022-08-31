@@ -1,6 +1,7 @@
 import treeToList from "../../utils/tree-to-list";
 import listToTree from "../../utils/list-to-tree";
 import generateIDs from "../../utils/genIDs";
+import commentItem from "../../components/comment-item";
 
 export default {
 
@@ -40,13 +41,33 @@ export default {
 
     sendComment: (text, parent) => {
         return async (dispatch, getState, services) => {
-            if (!text) return;
+            if (!text.trim()) return;
             dispatch({ type: 'comments/send' })
             const _id = generateIDs();
             try {
                 const message = await services.api.request({ url: `/api/v1/comments`, method: "POST", body: JSON.stringify({ _id, text, parent }) });
 
-                dispatch({ type: 'comments/send-success', lastCommented: message.result.dateCreate })
+                const comments = [...getState().comments.comData];
+
+                let indexComment;
+                indexComment = comments.findLastIndex(comment => comment.parent._id === parent._id);
+
+                if (indexComment === -1) indexComment = comments.findIndex(comment => comment._id === parent._id);
+
+
+                message.result.author = services._store.state.session.user.profile.name;
+                message.result.nesting = parent.nesting + 1 || "+"
+                message.result.nesting.replace("1", "+");
+
+
+                if (indexComment === -1) comments.push(message.result);
+                else comments.splice((indexComment + 1), 0, message.result);
+
+
+                console.log(parent._id);
+                console.log(comments);
+
+                dispatch({ type: 'comments/send-success', newComments: comments })
             }
             catch (e) {
                 console.log(e);

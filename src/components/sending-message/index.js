@@ -8,6 +8,7 @@ function SendingMessage({ location, sendMessage, parentId }) {
 
 
 
+
     return (<div className="Message-container">
         <h5 className="Message-title">{parentId._type === 'comment' ? "Новый ответ" : "Новый комментарий"}</h5>
         <form onSubmit={(e) => {
@@ -22,6 +23,7 @@ function SendingMessage({ location, sendMessage, parentId }) {
 
         </form>
     </div>)
+
 }
 
 export default React.memo(SendingMessage);

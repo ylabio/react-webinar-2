@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {
   shallowEqual,
   useSelector as useSelectorRedux,
@@ -28,7 +28,8 @@ function Comments() {
       waiting: state.comments.waiting,
       comments: state.comments.items,
       total: state.comments.total,
-      form: state.comments.form
+      form: state.comments.form,
+      postedId: state.comments.postedId
     }),
     shallowEqual
   );
@@ -39,6 +40,15 @@ function Comments() {
       []
     )
   };
+  const scrollRef = useRef();
+  console.log(select.postedId);
+  useEffect(() => {
+    if (scrollRef.current) {
+      const height = window.innerHeight;
+      scrollRef.current.scrollIntoView({behavior: 'smooth', top: -height / 2});
+      console.log(height);
+    }
+  }, [select.postedId]);
 
   return (
     <Spinner active={select.waiting}>
@@ -54,6 +64,7 @@ function Comments() {
               data={comment.data}
               level={comment.level}
               onAnswer={callbacks.onAnswer}
+              scrollRef={select.postedId === comment.data._id ? scrollRef : null}
             />
             {select.form._id === comment.data._id && (
               <ProtectedCommentForm level={comment.level} isAnswer={true} />

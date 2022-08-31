@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import propTypes from 'prop-types'
+import depthPadding from '../../utils/depthPadding'
 import './styles.css'
 
 function NewComment({
@@ -11,19 +12,23 @@ function NewComment({
   depth,
   toLogin
 }) {
+  const valid = useMemo(() => {
+    return text.trim()
+  }, [text])
+
   return (
     <>
     {
       isLogged 
-      ? <div className='NewComment' style={{paddingLeft: depth * 30 > 150 ? 150 : depth * 30}}>
+      ? <div className='NewComment' style={depthPadding(depth)}>
           <div className='NewComment-head'>{unreply ? 'Новый ответ' : 'Новый комментарий'}</div>
           <textarea onChange={(e) => edit(e.target.value)} value={text} className="NewComment-area"/>
           <div className='NewComment-actions'>
-            <button onClick={send} disabled={!text}>Отправить</button>
+            <button onClick={valid && send} disabled={!valid}>Отправить</button>
             { unreply && <button onClick={unreply}>Отмена</button> }
           </div>
         </div>
-      : <div className='NewCommentDefault' style={{paddingLeft: depth * 30 > 150 ? 150 : depth * 30}}>
+      : <div className='NewCommentDefault' style={depthPadding(depth)}>
           <span className='NewCommentDefault-link' onClick={toLogin}>Войдите</span>, чтобы иметь возможность {unreply ? 'ответить' : 'комментировать'}. 
           {unreply && <span className='NewCommentDefault-unreply' onClick={unreply}>Отмена</span>}
         </div> 

@@ -9,7 +9,7 @@ export default function reducer(state = initialState, action){
   switch (action.type) {
 
     case "comments/load":
-      return { ...state, data: [], waiting: true};
+      return { ...state, data: [], newCommentId: null, waiting: true};
 
     case "comments/load-success":
       return { ...state, data: action.payload.data.items, waiting: false};

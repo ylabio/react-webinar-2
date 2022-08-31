@@ -9,19 +9,24 @@ function CommentsList(props) {
   
   return (
     <ul className={cn()}>
-      {props.items?.map((item) =>
-        <CommentItem
-          key={item._id}
-          item={item}
-          isActive={props.activeCommentId === item._id}
-          isNew={props.newCommentId === item._id}
-          isAuth={props.isAuth}
-          message={props.message}
-          handleSubmit={props.handleSubmit}
-          handleChange={props.handleChange}
-          handleEnter={props.handleEnter}
-          handleIsActive={props.handleActive}
-        />
+      {props.items?.map((item) => {
+        const newCommentItem = props.newCommentId === item._id ? props.newCommentItem : null;
+
+        return (
+          <CommentItem
+            key={item._id}
+            item={item}
+            isActive={props.activeCommentId === item._id}
+            isNew={props.newCommentId === item._id}
+            isAuth={props.isAuth}
+            newCommentItem={newCommentItem}
+            message={props.message}
+            handleSubmit={props.handleSubmit}
+            handleChange={props.handleChange}
+            handleEnter={props.handleEnter}
+            handleIsActive={props.handleActive}
+          />
+        )}
       )}
     </ul>
   )

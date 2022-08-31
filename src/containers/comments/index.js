@@ -12,6 +12,7 @@ import CommentAdding from "../../components/comments/comment-adding";
 function CommentsContainer() {
   const [message, setMessage] = useState('');
   const [activeCommentId, setActiveCommentId] = useState(null);
+  const newCommentItem = useRef(null);
   
   const storeRedux = useStoreRedux();
   const navigate = useNavigate();
@@ -21,7 +22,8 @@ function CommentsContainer() {
   const formType = activeCommentId ? 'comment' : 'article';
   
   useEffect(() => {
-    newComment = document.querySelector('.CommentItem_new');
+    // скролл к новому комменту
+    newComment = newCommentItem.current;
     offsetY = newComment?.getBoundingClientRect().y + window.pageYOffset;
     if (offsetY) {
       window.scrollTo({top: offsetY - window.innerHeight / 2, behavior: "smooth"});
@@ -68,7 +70,7 @@ function CommentsContainer() {
 
   return (
     <CommentsLayout title={'Комментарии'} amount={reduxSelect.comments?.length}>
-      <CommentsList items={newItems} isAuth={select.exists}
+      <CommentsList items={newItems} isAuth={select.exists} newCommentItem={newCommentItem}
         activeCommentId={activeCommentId} newCommentId={reduxSelect.newCommentId}
         handleSubmit={callbacks.onSubmit} handleChange={callbacks.onMessageChange}
         handleActive={callbacks.onSetActive} handleEnter={callbacks.onCommentsEnter}

@@ -20,10 +20,7 @@ function CommentItem(props) {
   }, [props.handleIsActive]);
 
   return (
-    <div
-      className={cn('',{'new': props.isNew})}
-      style={{marginLeft: `${level * 30}px`}}
-    >
+    <div ref={props.newCommentItem} style={{marginLeft: `${level * 30}px`}}>
       <div className={cn('comment')}>
         <div className={cn('header')}>
           <span className={cn('username')}>{props.item.author.profile.name}</span>

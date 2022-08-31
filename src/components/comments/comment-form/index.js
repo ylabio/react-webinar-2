@@ -10,24 +10,28 @@ function CommentForm({
   parentId,
   parentType,
   onSendNewComment,
+  onSignIn,
   onCloseReply,
   t,
 }) {
   const cn = bem("CommentForm");
   const [commentText, setCommentText] = useState("");
+  const [textErr, setTextErr] = useState("");
 
   const callbacks = {
     onSendComment: useCallback(
       (e) => {
         e.preventDefault();
-        if (commentText) {
+        if (/\S/.test(commentText)) {
           onSendNewComment(authId, commentText, parentId, parentType);
         } else {
+          setTextErr("Комментарий не может быть пустым");
         }
       },
       [commentText]
     ),
     onCloseReply: useCallback((e) => onCloseReply(), [onCloseReply]),
+    onSignIn: useCallback(() => onSignIn(), [onSignIn]),
   };
 
   return (
@@ -41,10 +45,13 @@ function CommentForm({
           </div>
           <textarea
             className={cn("input")}
-            // сервер позволяет писать комментарий любого размера, при количестве выше
-            onChange={(e) => setCommentText(e.target.value)}
+            onChange={(e) => {
+              setCommentText(e.target.value);
+              setTextErr("");
+            }}
             value={commentText}
           />
+          <span className={cn("error")}>{textErr}</span>
           <div className={cn("actions")}>
             <button className={cn("buttons")} onClick={callbacks.onSendComment}>
               {t("comments.form.send")}
@@ -63,6 +70,7 @@ function CommentForm({
         <CommentFormDenied
           condition={parentType == "comment"}
           onCloseReply={callbacks.onCloseReply}
+          onSignIn={callbacks.onSignIn}
           t={t}
         />
       )}
@@ -71,16 +79,18 @@ function CommentForm({
 }
 
 CommentForm.propTypes = {
+  authId: propTypes.string,
   parentId: propTypes.string,
-  onCloseReply: propTypes.func,
-  onSendComment: propTypes.func,
-  t: propTypes.func,
+  parentType: propTypes.string.isRequired,
+  onCloseReply: propTypes.func.isRequired,
+  onSendNewComment: propTypes.func.isRequired,
+  onSignIn: propTypes.func.isRequired,
+  t: propTypes.func.isRequired,
 };
 
 CommentForm.defaultProps = {
-  //   onAdd: () => {},
-  //   labelCurr: "₽",
-  //   labelAdd: "Добавить",
+  authId: "",
+  parentId: "",
 };
 
 export default React.memo(CommentForm);

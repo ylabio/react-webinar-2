@@ -23,6 +23,9 @@ function CommentsList({
 CommentsList.propTypes = {
   comments: propTypes.arrayOf(propTypes.object).isRequired,
   renderComment: propTypes.func,
+  renderForm: propTypes.func,
+  replyIsOpen: propTypes.bool,
+  articleId: propTypes.string.isRequired,
 };
 
 CommentsList.defaultProps = {
@@ -30,6 +33,10 @@ CommentsList.defaultProps = {
   renderComment: (item) => {
     return item.toString();
   },
+  renderForm: (item) => {
+    return item.toString();
+  },
+  replyIsOpen: false,
 };
 
 export default React.memo(CommentsList);

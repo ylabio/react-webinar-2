@@ -21,6 +21,10 @@
   resize: none;
 }
 
+.CommentForm-error {
+  color: red;
+}
+
 .CommentForm-actions {
   margin: 10px 0;
   display: flex;

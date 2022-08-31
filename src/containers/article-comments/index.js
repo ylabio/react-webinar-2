@@ -7,7 +7,7 @@ import {
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import propTypes from "prop-types";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import Spinner from "../../components/spinner";
@@ -25,6 +25,8 @@ function ArticleComments({ articleId }) {
   const store = useStore();
   const params = useParams();
   const storeRedux = useStoreRedux();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const [replyIsOpen, setReplyIsOpen] = useState(false);
 
@@ -48,7 +50,7 @@ function ArticleComments({ articleId }) {
 
   const options = {
     comments: useMemo(
-      () => treeToList(listToTree(select.items)),
+      () => treeToList(listToTree(select.items, "article")),
       [select.items]
     ),
   };
@@ -76,6 +78,9 @@ function ArticleComments({ articleId }) {
       storeRedux.dispatch(actionsComments.stopReply());
       setReplyIsOpen(false);
     }, [replyIsOpen]),
+    onSignIn: useCallback(() => {
+      navigate("/login", { state: { back: location.pathname } });
+    }, [location.pathname]),
   };
 
   const renderCommentForm = {
@@ -87,10 +92,11 @@ function ArticleComments({ articleId }) {
           parentId={parentId}
           parentType={parentType}
           onCloseReply={callbacks.stopReplyingComment}
+          onSignIn={callbacks.onSignIn}
           t={t}
         />
       ),
-      [authId, options.comments]
+      [authId, options.comments, lang]
     ),
   };
 

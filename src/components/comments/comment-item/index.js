@@ -40,18 +40,19 @@ function CommentItem({
 
 CommentItem.propTypes = {
   item: propTypes.object.isRequired,
-  onReply: propTypes.func.isRequired,
   date: propTypes.string.isRequired,
   level: propTypes.number.isRequired,
-  renderReply: propTypes.any,
+  onReply: propTypes.func.isRequired,
+  renderReply: propTypes.func,
   replyIsOpen: propTypes.bool,
-  t: propTypes.func,
+  t: propTypes.func.isRequired,
 };
 
 CommentItem.defaultProps = {
-  //   onAdd: () => {},
-  //   labelCurr: "₽",
-  //   labelAdd: "Добавить",
+  renderReply: (item) => {
+    return item.toString();
+  },
+  replyIsOpen: false,
 };
 
 export default React.memo(CommentItem);

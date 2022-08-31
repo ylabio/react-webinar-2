@@ -4,18 +4,19 @@ import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 import { Link } from "react-router-dom";
 
-function CommentFormDenied({ condition, onCloseReply, t }) {
+function CommentFormDenied({ condition, onCloseReply, onSignIn, t }) {
   const cn = bem("CommentFormDenied");
 
   const callbacks = {
-    onCloseReply: useCallback((e) => onCloseReply(), [onCloseReply]),
+    onCloseReply: useCallback(() => onCloseReply(), [onCloseReply]),
+    onSignIn: useCallback(() => onSignIn(), [onSignIn]),
   };
 
   return (
     <div className={cn("")}>
-      <Link className={cn("link")} to="/login">
+      <span className={cn("link")} onClick={callbacks.onSignIn}>
         {t("comments.signIn")}
-      </Link>
+      </span>
       {", "}
       <span>{t("comments.toComment")}</span>
       {condition && (
@@ -31,15 +32,12 @@ function CommentFormDenied({ condition, onCloseReply, t }) {
 }
 
 CommentFormDenied.propTypes = {
-  parentId: propTypes.string,
-  onCloseReply: propTypes.func,
-  onSendComment: propTypes.func,
+  condition: propTypes.bool.isRequired,
+  onCloseReply: propTypes.func.isRequired,
+  onSignIn: propTypes.func.isRequired,
+  t: propTypes.func.isRequired,
 };
 
-CommentFormDenied.defaultProps = {
-  //   onAdd: () => {},
-  //   labelCurr: "₽",
-  //   labelAdd: "Добавить",
-};
+CommentFormDenied.defaultProps = {};
 
 export default React.memo(CommentFormDenied);

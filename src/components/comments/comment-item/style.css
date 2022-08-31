@@ -24,6 +24,8 @@
   color: #666666;
 }
 .CommentItem-text {
+  max-height: 200px;
+  overflow: scroll;
 }
 
 .CommentItem-actions {

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import {useParams, useNavigate} from 'react-router-dom'
+import {useParams, useNavigate, useLocation} from 'react-router-dom'
 import {useStore as useReduxStore, useSelector as useReduxSelector} from 'react-redux'
 import commentActions from '../../store-redux/comments/actions'
 import ArticleComment from '../../components/article-comment'
@@ -16,7 +16,8 @@ const ActicleComments = () => {
   const storeRedux = useReduxStore()
   const { exists, user } = useSelector(state => state.session)
   const { data, waiting } = useReduxSelector((state) => state.comments)
-  console.log(user)
+  const location = useLocation()
+
   useEffect(() => {
     storeRedux.dispatch(commentActions.load(id))
   }, [])
@@ -26,8 +27,6 @@ const ActicleComments = () => {
     parentCommentId: null,
     text: ''
   }), [id])
-
-  console.log(data?.items)
 
   const [ newComment, setNewComment ] = useState({...initialComment})
 
@@ -66,8 +65,12 @@ const ActicleComments = () => {
       }, [setNewComment]
     ),
     toLogin: useCallback(
-      () => nav('/login')
-    , [nav])
+      () => nav('/login', {
+        state: {
+          back: location.pathname
+        }
+      })
+    , [nav, location.pathname])
   }
 
   const render = 

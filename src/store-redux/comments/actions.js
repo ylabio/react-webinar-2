@@ -19,19 +19,19 @@ export default {
       dispatch({type: 'comments/add-comment',});
 
       try {
-        await services.api.request({
-          url: `/api/v1/comments?fields=items(*,author(profile(name))),count&sort=order&limit=*`,
+        const response = await services.api.request({
+          url: `/api/v1/comments?fields=*,author(profile(name))`,//`/api/v1/comments?fields=items(*,author(profile(name))),count&sort=order&limit=*`,
           method: 'POST',
           headers: {
             'X-Token': `${token}`,
           },
           body: JSON.stringify({text, parent: {_id: id, _type: type}})
         });
+        const json = await response;
+        dispatch({type: 'comments/add-comment-success', payload: { item: json.result }});
 
-        dispatch({type: 'comments/add-comment-success'});
-
-        const json = await services.api.request({url:`/api/v1/comments?search[parent]=${_id}&fields=items(*,author(profile(name))),count&sort=order&limit=*`});
-        dispatch({type: 'comments/load-success', payload: {items: json.result.items, count: json.result.count}});
+        // const json = await services.api.request({url:`/api/v1/comments?search[parent]=${_id}&fields=items(*,author(profile(name))),count&sort=order&limit=*`});
+        // dispatch({type: 'comments/load-success', payload: {items: json.result.items, count: json.result.count}});
 
 
       } catch (e) {

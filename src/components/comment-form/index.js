@@ -17,7 +17,7 @@ function CommentForm(props) {
   return (
     <>
       {props.sessionExists ?
-        <div className={cn()}>
+        <div className={cn()} style={{paddingLeft: props.item * 30}}>
           <div className={cn('header')}>
             <div className={cn('title')}>{props.item ? 'Новый ответ' : 'Новый комментарий'}</div>
           </div>

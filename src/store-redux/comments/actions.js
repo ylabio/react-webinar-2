@@ -47,21 +47,19 @@ export default {
             try {
                 const message = await services.api.request({ url: `/api/v1/comments`, method: "POST", body: JSON.stringify({ _id, text, parent }) });
 
-                const comments = [...getState().comments.comData];
 
-                let indexComment;
-                indexComment = comments.findLastIndex(comment => comment.parent._id === parent._id);
-
-                if (indexComment === -1) indexComment = comments.findIndex(comment => comment._id === parent._id);
+                let comments = [...getState().comments.comData];
 
 
                 message.result.author = services._store.state.session.user.profile.name;
-                message.result.nesting = parent.nesting + 1 || "+"
-                message.result.nesting.replace("1", "+");
+                message.result.id = _id;
+                comments.push(message.result);
+
+                comments = treeToList(listToTree([getState().article.data, ...comments]),
+                    (item, level) => ({ ...item, dateCreate: item.dateCreate, text: item.text, author: item.author, nesting: '+'.repeat(level) }));
+                comments.shift();
 
 
-                if (getState().article.data._id === parent._id) comments.push(message.result);
-                else comments.splice((indexComment + 1), 0, message.result);
 
 
 

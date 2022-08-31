@@ -35,7 +35,7 @@ function Comments(){
       listToTree(select.comments),
       (item, level) => ({
         ...item,
-        padding: 30 * level,
+        padding: 30 * level > 600 ? 600 : 30 * level,
         dateCreate: createDate(item.dateCreate, lang)
       }))
     ], [select.comments, lang]),

@@ -30,5 +30,6 @@
   "comment.cancel": "Cancel",
   "redirect.linkText": "Login",
   "redirect.mainText": " to get access to comments",
+  "redirect.mainTextReply": " to get access to reply",
   "comment.error": "Something has gone wrong..."
 }

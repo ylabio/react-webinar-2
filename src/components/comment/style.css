@@ -29,6 +29,7 @@
   font-size: 14px;
   color: #000000;
   margin-bottom: 10px;
+  word-wrap: break-word;
 }
 
 .Comment-button {

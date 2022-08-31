@@ -1,32 +1,32 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import Spinner from '../spinner';
 import './style.css';
 
-const CommentForm = ({ onSubmit, onClose, sending }) => {
+const CommentForm = ({ onSubmit, onClose }) => {
+  const [text, setText] = useState('');
+
+  const handleText = (e) => setText(e.target.value);
+
   const callbacks = {
     submit: useCallback(event => {
       event.preventDefault();
-      onSubmit(event.currentTarget.text.value);
-    }, []),
+      onSubmit(text);
+    }, [text]),
   };
 
   return (
-    <Spinner active={sending}>
-      <form className='comment-form' onSubmit={callbacks.submit}>
-        <b>Новый ответ</b>
-        <textarea name="text" rows="5" />
-        <input type="submit" />
-        <input type="reset" value="Отмена" onClick={onClose} />
-      </form>
-    </Spinner>
+    <form className='comment-form' onSubmit={callbacks.submit}>
+      <b>Новый ответ</b>
+      <textarea name="text" rows="5" onChange={handleText} value={text} />
+      <input type="submit" disabled={!text.length} />
+      <input type="reset" value="Отмена" onClick={onClose} />
+    </form>
   )    
 }
 
 CommentForm.PropTypes = {
   onSubmit: PropTypes.func,
   onClose: PropTypes.func,
-  sending: PropTypes.bool,
 };
 
 export default React.memo(CommentForm);

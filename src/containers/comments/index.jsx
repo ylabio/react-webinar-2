@@ -1,12 +1,15 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { useStore as useStoreRedux, useSelector as useSelectorRedux } from "react-redux";
 import useSelector from "../../hooks/use-selector";
 import actionsComments from '../../store-redux/comments/actions';
+
+import CommentsLayout from '../../components/comments-layout';
+import Spinner from '../../components/spinner';
+import CommentsList from '../../components/comments-list';
 import CommentItem from '../../components/comment-item';
+import UnloggedUser from '../../components/unlogged-user';
 import CommentForm from '../../components/comment-form';
-import './style.css';
 
 const Comments = ({ items, articleId }) => {
   const storeRedux = useStoreRedux();
@@ -36,36 +39,33 @@ const Comments = ({ items, articleId }) => {
     }, [reduxSelect.parentId]),
   };
 
-  const unloggedUser = (<div><Link to='/login'>Войдите</Link>, чтобы иметь возможность комментирования</div>);
+  const renders = {
+    comment: useCallback(item => (<>
+      <CommentItem data={item} onReply={callbacks.openForm} />
 
-  return !reduxSelect.loadError ? (
-    <div className='comments'>
-      <h2>{items.length ? `Комментарии (${items.length})` : 'Комментарии'}</h2>
-
-      <ul className='comments__list'>
-        {items.map(item =>
-          <li key={item._id} style={item.depth ? { 'marginLeft': `${item.depth * 30}px` } : null}>
-            <CommentItem data={item} onReply={callbacks.openForm} />
-
-            {item._id === reduxSelect.parentId && (select.logged
-              ? <CommentForm onSubmit={callbacks.sendComment} onClose={callbacks.closeForm} sending={reduxSelect.commentSending} />
-              : unloggedUser
-            )}
-          </li>
-        )}
-      </ul>
-
-      {articleId === reduxSelect.parentId && (select.logged
-        ? <CommentForm onSubmit={callbacks.sendComment} onClose={callbacks.closeForm} sending={reduxSelect.commentSending} />
-        : unloggedUser
+      {item._id === reduxSelect.parentId && (select.logged
+        ? <Spinner active={reduxSelect.commentSending}>
+            <CommentForm onSubmit={callbacks.sendComment} onClose={callbacks.closeForm} />
+          </Spinner>
+        : <UnloggedUser />
       )}
+    </>), [reduxSelect.parentId, select.logged, reduxSelect.commentSending]),
+  };
 
-      {articleId !== reduxSelect.parentId && <button onClick={callbacks.openForm}>Комментировать</button>}
-    </div>
-  ) : (
-    <div className='comments'>
-      <h2>Ошибка при загрузке комментариев</h2>
-    </div>
+  return (
+    <CommentsLayout error={reduxSelect.loadError} title={
+      items.length ? `Комментарии (${items.length})` : 'Комментарии'
+    }>
+      <CommentsList items={items} render={renders.comment} />
+
+      {articleId !== reduxSelect.parentId
+        ? <button onClick={callbacks.openForm}>Комментировать</button>
+        : select.logged
+          ? <Spinner active={reduxSelect.commentSending}>
+            <CommentForm onSubmit={callbacks.sendComment} onClose={callbacks.closeForm} />
+          </Spinner>
+          : <UnloggedUser />}
+    </CommentsLayout>
   )
 }
 

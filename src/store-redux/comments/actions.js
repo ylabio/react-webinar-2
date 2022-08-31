@@ -41,7 +41,7 @@ export default {
           author: {
             _id: userId,
           },
-          text: text || '--no-text--',
+          text,
           parent: {
             _id: parentId,
             _type: parentId === articleId ? 'article' : 'comment',

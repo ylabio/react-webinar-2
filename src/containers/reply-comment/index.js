@@ -7,6 +7,7 @@ import Field from '../../components/field';
 import {formShow} from '../../store-redux/comments-slice';
 import {createComment} from '../../store-redux/comments-slice/thunks';
 import {useDispatch} from 'react-redux';
+import TextArea from '../../components/text-area';
 
 function ReplyComment({parentId, onCancel}) {
   const dispatch = useDispatch();
@@ -46,10 +47,9 @@ function ReplyComment({parentId, onCancel}) {
     <form onSubmit={callbacks.onSubmit}>
       <h5>Новый ответ</h5>
       <Field label={''} error={''} spacing={'small'}>
-        <Input
+        <TextArea
           theme={'wide'}
           name="comment"
-          type="text"
           onChange={callbacks.onChange}
           value={data.comment}
         />

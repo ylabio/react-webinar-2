@@ -1,13 +1,13 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
+import { cn as bem } from "@bem-react/classname";
 import './style.css';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function CommentMainForm(props) {
   const cn = bem('CommentMainForm');
 
-  const [form, setForm] = useState({text: '', err: false});
+  const [form, setForm] = useState({ text: '', err: false });
 
   const cb = {
     addComment: useCallback((e) => {
@@ -22,11 +22,15 @@ function CommentMainForm(props) {
       }
 
       if (form.text.trim() === '') {
-        setForm({...form, err: true})
+        setForm({ ...form, err: true })
       } else {
         props.addComment(props.token, body);
       }
     }, [form.text]),
+
+    onSignIn: useCallback(() => {
+      navigate('/login', { state: { back: location.pathname } });
+    }, [location.pathname]),
   };
 
   return (
@@ -34,20 +38,20 @@ function CommentMainForm(props) {
       {
         props.exists
           ? <form className={cn('form')} onSubmit={cb.addComment}>
-              <label>{props.t('comment.new-comment')}</label>
-              <textarea onChange={(e) => setForm({text: e.target.value, err: false})}
-                        value={form.text}/>
-              {form.err && <div className={cn('err')}>{props.t('form.err')}</div>}
-              <div className={cn('buttons')}>
-                <button>{props.t('comment.send')}</button>
-              </div>
-            </form>
-          : <div className={cn('not-auth')}>
-              <Link to="/login">
-                {props.t('auth.signIn')}
-              </Link>
-              {props.t('comment.text')}
+            <label>{props.t('comment.new-comment')}</label>
+            <textarea onChange={(e) => setForm({ text: e.target.value, err: false })}
+              value={form.text} />
+            {form.err && <div className={cn('err')}>{props.t('form.err')}</div>}
+            <div className={cn('buttons')}>
+              <button>{props.t('comment.send')}</button>
             </div>
+          </form>
+          : <div className={cn('not-auth')}>
+            <span className={cn('link')} onClick={cb.onSignIn}>
+              {props.t('auth.signIn')}
+            </span>
+            {props.t('comment.text')}
+          </div>
       }
     </div>
   )
@@ -62,7 +66,7 @@ CommentMainForm.propTypes = {
 }
 
 CommentMainForm.defaultProps = {
-  addComment: () => {},
+  addComment: () => { },
   exists: false,
   articleId: '',
   token: '',

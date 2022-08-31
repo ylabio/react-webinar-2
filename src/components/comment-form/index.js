@@ -35,8 +35,6 @@ function CommentForm(props) {
     }, []),
 
     onSignIn: useCallback(() => {
-      console.log(1);
-
       navigate('/login', { state: { back: location.pathname } });
     }, [location.pathname]),
   };

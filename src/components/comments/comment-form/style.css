@@ -1,0 +1,32 @@
+.CommentForm {
+  width: 100%;
+  /* width: -webkit-fill-available; */
+}
+.CommentForm-head {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  margin-bottom: 10px;
+}
+
+.CommentForm-input {
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  min-height: 80px;
+  width: 100%;
+  display: inline-block;
+  resize: none;
+}
+
+.CommentForm-error {
+  color: red;
+}
+
+.CommentForm-actions {
+  margin: 10px 0;
+  display: flex;
+  gap: 10px;
+}

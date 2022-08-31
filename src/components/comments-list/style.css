@@ -5,6 +5,7 @@
 
 .CommentsList ul {
   list-style-type: none;
+  overflow-x: auto;
 }
 
 .CommentsList {

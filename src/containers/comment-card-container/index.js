@@ -52,7 +52,7 @@ function CommentCardContainer(props) {
       <Spinner active={!author}>
         <CommentCard
           content={props.comment.text}
-          author={author.name}
+          author={author?.name}
           date={props.comment.dateCreate}
           onReply={callbacks.onReply}
         />

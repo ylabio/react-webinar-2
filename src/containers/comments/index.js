@@ -41,8 +41,10 @@ function Comments(props) {
 
   useInit(() => {
     if (selectStore.exists) {
-      dispatch(fetchComments(props.articleId));
-      dispatch(fetchAllUsers());
+      Promise.all([
+        dispatch(fetchComments(props.articleId)).unwrap(),
+        dispatch(fetchAllUsers()).unwrap()
+      ]);
     }
   });
 

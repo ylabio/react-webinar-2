@@ -8,7 +8,7 @@ export const fetchAllUsers = createAsyncThunk(
     const services = thunkApi.extra;
 
     const response = await services.api.request({
-      url: `/api/v1/users?fields=profile`
+      url: `/api/v1/users?fields=profile&limit=*`
     });
 
     const usersMappedToId = arrayToMap(response?.result?.items);

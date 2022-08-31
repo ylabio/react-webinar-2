@@ -1,15 +1,15 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from '@bem-react/classname'
+import { cn as bem } from '@bem-react/classname'
 import './style.css';
-import {formatDate} from "../../utils/format-date";
+import { formatDate } from "../../utils/format-date";
 
 function Comment(props) {
 
   // CSS классы по БЭМ
   const cn = bem('Comment');
 
-  const [message, setMessage] = useState( true);
+  const [message, setMessage] = useState(true);
 
   useEffect(() => {
     if (props.comment.text.length > 1200) {
@@ -25,9 +25,9 @@ function Comment(props) {
 
   return (
     // Отступ по вложенности
-    <div className={cn()} style={{marginLeft: 30 * (props.comment.level <= 20 ? props.comment.level : 20) + 'px'}}>
+    <div className={cn()} id={props.comment._id} style={{ marginLeft: 30 * (props.comment.level <= 20 ? props.comment.level : 20) + 'px' }}>
       <div className={cn('head')}>
-        <div className={cn('user-name', {'current': checkUser})}>{props.comment.author?.profile.name}</div>
+        <div className={cn('user-name', { 'current': checkUser })}>{props.comment.author?.profile.name}</div>
         <div className={cn('date')}>{formatDate(props.comment?.dateCreate, props.t('lang'))}</div>
       </div>
       <div className={cn('text')}>
@@ -35,10 +35,10 @@ function Comment(props) {
           message
             ? <pre>{props.comment.text}</pre>
             : <pre>
-                {props.comment.text.slice(0, 1200)}
-                <span onClick={() => setMessage(true)}>. . .</span>
-              </pre>
-          }
+              {props.comment.text.slice(0, 1200)}
+              <span onClick={() => setMessage(true)}>. . .</span>
+            </pre>
+        }
       </div>
       <div className={cn('link')} onClick={callbacks.answerComment}>{props.t('comment.answer')}</div>
       {
@@ -58,8 +58,8 @@ Comment.propTypes = {
 
 Comment.defaultProps = {
   userId: '',
-  rendersForm: () => {},
-  answerComment: () => {},
+  rendersForm: () => { },
+  answerComment: () => { },
   t: (text) => text,
 }
 

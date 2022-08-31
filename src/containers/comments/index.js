@@ -1,7 +1,7 @@
-import React, {useCallback, useState} from "react";
-import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
+import React, { useCallback, useState, useEffect } from "react";
+import { useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual } from "react-redux";
 import useSelector from "../../hooks/use-selector";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useTranslate from "../../hooks/use-translate";
 import actionsComments from '../../store-redux/comments/actions';
 import CommentList from "../../components/comment-list";
@@ -10,12 +10,12 @@ import CommentForm from "../../components/comment-form";
 import Spinner from "../../components/spinner";
 import CommentMainForm from "../../components/comment-main-form";
 
-function Comments(){
+function Comments() {
   // Параметры из пути /articles/:id
   const params = useParams();
   const storeRedux = useStoreRedux();
 
-  const [form, setForm] = useState( true);
+  const [form, setForm] = useState(true);
 
   const select = useSelector(state => ({
     user: state.session.user,
@@ -26,17 +26,26 @@ function Comments(){
   const selectRedux = useSelectorRedux(state => ({
     count: state.comments.count,
     comments: state.comments.data,
-    waiting: state.comments.waiting
+    waiting: state.comments.waiting,
+    comment: state.comments.comment,
   }), shallowEqual);
 
-  const {t} = useTranslate();
+  useEffect(() => {
+    const item = document.getElementById(selectRedux.comment);
+
+    if (item && (window.innerHeight + window.scrollY) < item.offsetTop) {
+      item.scrollIntoView({ block: "center", behavior: "smooth" });
+    }
+  }, [selectRedux.comment]);
+
+  const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
     addComment: useCallback(async (token, body) => {
-      storeRedux.dispatch(actionsComments.addComment(token, body));
+      await storeRedux.dispatch(actionsComments.addComment(token, body));
       setForm(true);
-    }, [selectRedux.comments]),
+    }, [selectRedux.comments, selectRedux.comment]),
 
     answerComment: useCallback(_id => {
       storeRedux.dispatch(actionsComments.answerComment(_id));
@@ -73,20 +82,18 @@ function Comments(){
     ), [selectRedux.comments, t]),
   }
 
-  console.log(selectRedux.comments)
-
   return (
     <Spinner active={selectRedux.waiting}>
       <CommentList comments={selectRedux.comments}
-                   count={selectRedux.count}
-                   renderComment={renders.itemComment}
-                   t={t}
+        count={selectRedux.count}
+        renderComment={renders.itemComment}
+        t={t}
       />
       {form && <CommentMainForm addComment={callbacks.addComment}
-                        exists={select.exists}
-                        articleId={params.id}
-                        token={select.token}
-                        t={t}/>}
+        exists={select.exists}
+        articleId={params.id}
+        token={select.token}
+        t={t} />}
     </Spinner>
   )
 }

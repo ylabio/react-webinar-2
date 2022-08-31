@@ -37,7 +37,8 @@ const ActicleComments = () => {
         _id: '-1',
         text: newComment.text,
         parent: {
-          _id: newComment.parentCommentId || newComment.postId
+          _id: newComment.parentCommentId || newComment.postId,
+          _type: newComment.parentCommentId ? 'comment' : 'article'
         }
       }], id), (item, level) => ({...item, depth: level}))
     } catch(e) {
@@ -84,6 +85,7 @@ const ActicleComments = () => {
                     unreply={newComment.parentCommentId && callbacks.unreply} 
                     isLogged={exists}
                     toLogin={callbacks.toLogin}
+                    parent={item.parent}
         />
       : <ArticleComment key={item._id} 
                         depth={item.depth} 

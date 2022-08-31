@@ -29,4 +29,17 @@ function CommentsList(props) {
   );
 }
 
+CommentsList.propTypes = {
+  comments: propTypes.arrayOf(propTypes.object).isRequired,
+  getReplies: propTypes.func,
+  submit: propTypes.func,
+  submitLabel: propTypes.string,
+  title: propTypes.string,
+  canselLabel: propTypes.string,
+  isAuth: propTypes.bool.isRequired,
+  activeComment: propTypes.string,
+  setActiveComment: propTypes.func,
+  onSignIn: propTypes.func,
+};
+
 export default React.memo(CommentsList);

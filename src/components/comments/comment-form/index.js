@@ -65,4 +65,21 @@ function CommentForm({
   );
 }
 
+CommentForm.propTypes = {
+  submit: propTypes.func,
+  submitLabel: propTypes.string,
+  title: propTypes.string,
+  id: propTypes.string,
+  type: propTypes.string,
+  canselLabel: propTypes.string,
+  hasCancel: propTypes.func,
+  isAuth: propTypes.bool.isRequired,
+  onSignIn: propTypes.func,
+  hasCancelButton: propTypes.bool,
+};
+
+CommentForm.defaultProps = {
+  hasCancelButton: false,
+};
+
 export default React.memo(CommentForm);

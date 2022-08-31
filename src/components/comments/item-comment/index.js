@@ -78,4 +78,20 @@ function ItemComment({
   );
 }
 
+ItemComment.propTypes = {
+  item: propTypes.object.isRequired,
+  replies: propTypes.arrayOf(propTypes.object),
+  getReplies: propTypes.func,
+  submit: propTypes.func,
+  submitLabel: propTypes.string,
+  title: propTypes.string,
+  id: propTypes.string,
+  type: propTypes.string,
+  canselLabel: propTypes.string,
+  activeComment: propTypes.string,
+  isAuth: propTypes.bool.isRequired,
+  onSignIn: propTypes.func,
+  setActiveComment: propTypes.func,
+};
+
 export default React.memo(ItemComment);

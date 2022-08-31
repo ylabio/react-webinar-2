@@ -27,4 +27,15 @@ function CommentNotice({
   );
 }
 
+CommentNotice.propTypes = {
+  canselLabel: propTypes.string,
+  hasCancel: propTypes.func,
+  onSignIn: propTypes.func,
+  hasCancelButton: propTypes.bool,
+};
+
+CommentNotice.defaultProps = {
+  hasCancelButton: false,
+};
+
 export default React.memo(CommentNotice);

@@ -63,6 +63,8 @@ function ArticleCommentsContainer({ articleId, type }) {
     comments: useMemo(() => treeToList(createTree(selectRedux.comments)), [selectRedux.comments]),
   }
 
+  console.log("comments: ", options.comments);
+
   return (
     <Layout>
       <Title count={selectRedux.comments.length} t={t} />
@@ -79,6 +81,7 @@ function ArticleCommentsContainer({ articleId, type }) {
               sendComment={callbacks.sendComment}
               isView={sendId === comment._id}
               parentId={comment._id}
+              parentName={comment.author.profile.name}
               parentType={"comment"}
               cancel={callbacks.cancel}
               isAuth={select.exists}

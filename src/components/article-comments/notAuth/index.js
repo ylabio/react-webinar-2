@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
 
-function NotAuth({ action, t }) {
+function NotAuth({ parentType, cancel, action, t }) {
 
   // CSS классы по БЭМ
   const cn = bem('Comments');
@@ -11,7 +11,8 @@ function NotAuth({ action, t }) {
   return (
   <div className={cn('alert')}>
     <button className={cn('signIn')} onClick={action}>{t('send.login')}</button>
-    <span>, {t('send.login-text')}</span>
+    <span>, {t('send.login-text')}. </span>
+    { parentType === "comment" && <button className={cn('cancel')} onClick={cancel}>Отмена</button>}
   </div>
   );
 }

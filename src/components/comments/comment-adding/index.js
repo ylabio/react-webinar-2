@@ -61,7 +61,13 @@ function CommentAdding(props){
           rows="5"
           onChange={handleChange}
         />
-        <button type="submit" className={cn('button')}>Отправить</button>
+        <button
+          type="submit"
+          className={cn('button')}
+          disabled={!validateString(message)}
+        >
+          Отправить
+        </button>
         {props.formType === 'comment' &&
           <button type="button" className={cn('button')} onClick={handleCancel}>Отмена</button>
         }

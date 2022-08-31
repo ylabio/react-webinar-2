@@ -1,6 +1,5 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useCallback, useEffect, useLayoutEffect, useMemo, useState} from "react";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
-import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import useInit from "../../hooks/use-init";
@@ -28,8 +27,15 @@ function CommentsContainer(){
 
   const storeRedux = useStoreRedux();
 
+  useInit(async () => {
+    // Загрузка комментариев
+    storeRedux.dispatch(actionsComments.load(params.id)); 
+  }, []);
+
+  const {t} = useTranslate();
+
+
   const select = useSelectorRedux(state => ({
-    article: state.article.data,
     waiting: state.comments.waiting,
     comments: state.comments.data,
     numberOfComments: state.comments.numberOfComments,
@@ -37,19 +43,16 @@ function CommentsContainer(){
     parentIdNewComment: state.comments.parentIdNewComment,
     parentTypeNewComment: state.comments.parentTypeNewComment,
     isAttemptAddNewComment: state.comments.isAttemptAddNewComment,
+    scrollCommentId: state.comments.scrollCommentId
+
   }), shallowEqual);
 
   const select1 = useSelector(state => ({
     exists: state.session.exists,
+    ownName: state.session.user.profile?.name,
     lang: state.locale.lang
   }));
 
-  useInit(async () => {
-    // Загрузка комментариев
-    storeRedux.dispatch(actionsComments.load(params.id)); 
-  }, [params.id]);
-
-  const {t} = useTranslate();
 
   const callbacks = {
     // Добавление нового комментария
@@ -63,6 +66,7 @@ function CommentsContainer(){
     // Переход к авторизации
     onSignIn: useCallback(() => {
       navigate('/login', {state: {back: location.pathname}});
+      storeRedux.dispatch(actionsComments.load(params.id)); 
     }, [location.pathname]),
   };
 
@@ -86,20 +90,16 @@ function CommentsContainer(){
     }
   }, [select.isAttemptAddNewComment])
 
-  useEffect(() => {
-    storeRedux.dispatch(actionsComments.load(params.id)); 
-  }, [select.isAttemptAddNewComment])
-
   const [id, changeId] = useState('');
   const [textComment, changeTextComment] = useState('');
   const findItem = commentData.comments.find(i => i._id === id);
  
   useEffect(() => {
     if (id) {
-      changeTextComment(`${t('comments.myAnswerFor')} ${findItem.author.profile.name}`);
+      changeTextComment(`${t('comments.myAnswerFor')} ${findItem.author.profile?.name || select1.ownName}`);
     } 
   }, [id])
-  
+
   const renders = {
     itemComment: useCallback(item => (
       <LayuotItemComment 
@@ -108,6 +108,8 @@ function CommentsContainer(){
                                  t={t}
                                  lang={select1.lang}
                                  changeId={changeId}
+                                 scrollCommentId={select.scrollCommentId}
+                                 ownName={select1.ownName}
                     />
                   }
         form = { 

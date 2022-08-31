@@ -23,7 +23,6 @@ function Article(){
   const select = useSelectorRedux(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
-    comments: state.comments.data,
     numberOfComments: state.comments.numberOfComments,
   }), shallowEqual);
 

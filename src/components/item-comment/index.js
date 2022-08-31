@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function ItemComment({item, changeId, t, lang}) {
+function ItemComment({item, changeId, t, lang, scrollCommentId, ownName}) {
   const cn = bem('ItemComment');
+
+  const ref = useRef(null);
+
+  useLayoutEffect(() => {
+    if (ref.current) {
+      ref.current.scrollIntoView();
+    } 
+  }, [])
 
   const dateFunc = (date, lang) => {
     const newDate = new Date(date).toLocaleString(lang, {year: 'numeric', month: 'long', day: 'numeric'});
@@ -24,10 +32,10 @@ function ItemComment({item, changeId, t, lang}) {
  }
 
   return (
-    <div className={cn()} style={{paddingLeft: 40 + item.padding}} key={item._id}>
+    <div className={cn()} style={{paddingLeft: 40 + item.padding}} key={item._id} ref={scrollCommentId===item._id?ref:null}>
       <div className={cn('name')}>
         <strong>
-          {item.author.profile.name}
+          {item.author.profile?.name || ownName}
         </strong>
       </div>
       <div className={cn('date')}>
@@ -47,12 +55,16 @@ ItemComment.propTypes = {
   item: propTypes.object.isRequired,
   changeId: propTypes.func.isRequired,
   t: propTypes.func,
-  lang: propTypes.string
+  lang: propTypes.string,
+  scrollCommentId: propTypes.string,
+  ownName: propTypes.string
 }
 
 ItemComment.defaultProps = {
   t: (text) => text,
   lang: 'ru',
+  scrollCommentId: '',
+  ownName: ''
 }
 
 export default React.memo(ItemComment);

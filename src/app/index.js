@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useSelector from "../hooks/use-selector";
 import {Routes, Route} from "react-router-dom";
 import useInit from "../hooks/use-init";

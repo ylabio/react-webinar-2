@@ -1,0 +1,49 @@
+.FormAnswer{
+    padding-right: 40px; 
+}
+
+.FormAnswer-comment button{
+    margin-bottom: 10px;  
+}
+
+.FormAnswer-btn1{
+   cursor: pointer;
+   margin-right: 10px;
+   width: 90px;
+   height: 21px;
+   float: left;
+}
+
+.FormAnswer-btn2{
+    cursor: pointer;
+    width: 67px;
+    height: 21px;
+}
+
+.FormAnswer-new-res{
+    font-size: 12px;
+    padding: 30px 0 10px 0;
+}
+
+.FormAnswer textarea{
+    box-sizing: border-box;
+    width: 944px;
+    max-width: 100%;
+    min-height: 80px;  
+    font-size: 14px;
+    font-family: arial;
+    margin-bottom: 10px;
+    border: 1px solid black;
+    outline: none;
+    resize: none;
+    padding: 4px 5px;
+}
+
+.FormAnswer textarea::placeholder{
+   color: black;
+   font-size: 14px;
+}
+
+.FormAnswer textarea:focus::placeholder{
+    color: transparent;
+ }

@@ -1,0 +1,30 @@
+.ItemComment{
+    border-top: none;
+    max-width: 944px;
+    padding-right: 40px;
+}
+
+.ItemComment-name{
+    font-size: 12px;
+    float: left;
+    padding-right: 10px;
+}
+
+.ItemComment-date{
+    font-size: 12px;
+    color: #666666;
+}
+
+.ItemComment-text{
+    word-wrap: break-word;
+    padding: 10px 0 10px 0;
+}
+
+.ItemComment-button{
+    cursor: pointer;
+    border: none;
+    background: white;
+    color: #0087E9;
+    font-size: 12px;
+    padding-left: 0;
+ }

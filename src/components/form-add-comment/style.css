@@ -1,0 +1,35 @@
+.FormAddComment{
+    padding: 30px 40px 121px 40px;
+}
+
+.FormAddComment textarea{
+    box-sizing: border-box;
+    width: 944px;
+    max-width: 100%;
+    min-height: 76px;
+    font-size: 14px;
+    font-family: arial;
+    display: inline-block; 
+    border: 1px solid black;
+    outline: none;
+    resize: none;
+}
+
+.FormAddComment textarea::placeholder{
+   color: black;
+   font-size: 14px;
+}
+
+.FormAddComment textarea:focus::placeholder{
+    color: transparent;
+ }
+
+.FormAddComment-new-comment{
+    font-size: 12px;
+    padding-bottom: 10px;
+}
+
+.FormAddComment button{
+    margin-top: 10px;
+    cursor: pointer;
+}

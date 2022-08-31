@@ -1,0 +1,12 @@
+.CommentsEntry{
+    padding: 30px 40px 92px 40px;
+    line-height: 18.4px;
+}
+
+.CommentsEntry-signIn{
+    cursor: pointer;
+    color: #0087E9;
+    border-bottom: 2px solid #0087E9;
+    font-size: 16px;
+    line-height: 18.4px;
+}

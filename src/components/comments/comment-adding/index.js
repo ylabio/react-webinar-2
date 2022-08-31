@@ -4,6 +4,7 @@ import debounce from "lodash.debounce";
 import propTypes from "prop-types";
 import './style.css';
 import {cn as bem} from "@bem-react/classname";
+import {validateString} from "../../../utils/validate-string";
 
 
 function CommentAdding(props){

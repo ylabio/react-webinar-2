@@ -12,7 +12,7 @@ import TopContainer from "../../containers/top";
 import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import actionsArticle from '../../store-redux/article/actions';
-import CommentsList from "../comments-list/commnets-list";
+import CommentsList from '../../containers/comments'
 
 function Article(){
   const store = useStore();

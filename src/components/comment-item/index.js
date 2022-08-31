@@ -1,7 +1,7 @@
 import React from "react";
 import './style.css';
 import {cn as bem} from '@bem-react/classname'
-import NewComment from "../../app/new-comment";
+import NewComment from "../../containers/new-comment";
 import UnauthComment from "../unauth-comment";
 
 
@@ -11,7 +11,7 @@ function CommentItem({date, content, exists, keyId, level, name, onClikcHandler,
     const cn = bem('Comment');
 
     return(
-        <div key={keyId} style = {{paddingLeft: `${(level + 1 )* 20}px`}} className={cn()}>
+        <div key={keyId} style = {{paddingLeft: `${(level + 1 )* 30}px`}} className={cn()}>
             <div className={cn('head')}>
                 <div className={cn('name')}>{name}</div>
                 <div className={cn('date')}>{date}</div>

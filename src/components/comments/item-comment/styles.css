@@ -1,0 +1,42 @@
+/* Пункт списка */
+.ItemComment {
+    padding-left: 30px;
+    font-size: 12px; 
+}
+
+.ItemComment-name {    
+    padding-right: 10px;    
+    font-weight: 700;    
+    color: #000;
+}
+
+.ItemComment-right {
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.ItemComment-date {
+    color: #666666;
+}
+
+.ItemComment-text {
+    padding-bottom: 10px;
+    font-size: 14px;
+    word-break: break-word;
+}
+
+.ItemComment-replies {
+    margin-top: 30px;
+}
+
+.ItemComment-button {
+    margin-bottom: 30px;
+    padding: 0;
+    font-size: 12px;
+    border: none;
+    color: #0087E9;
+    background-color: transparent; 
+    cursor: pointer;
+}

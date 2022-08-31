@@ -14,7 +14,7 @@
   },
   "basket.total": "Итого",
   "basket.unit": "шт",
-  "basket.delete": "Удалть",
+  "basket.delete": "Удалить",
   "article.add": "Добавить",
   "filter.reset": "Сбросить",
   "auth.title": "Вход",
@@ -22,5 +22,10 @@
   "auth.password": "Пароль",
   "auth.signIn": "Войти",
   "session.signIn": "Вход",
-  "session.signOut": "Выход"
+  "session.signOut": "Выход",
+  "comments.title":"Комментарии",
+  "commentForm.submit":"Отправить",
+  "commentForm.cansel":"Отмена",
+  "commentForm.answer":"Новый ответ",
+  "commentForm.comment":"Новый комментарий"
 }

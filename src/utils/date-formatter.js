@@ -15,11 +15,3 @@ export default function dateFormatter(date, lang = "ru") {
   let result = `${dateFormat} ${timeFormat}`;
   return result;
 }
-
-// export default function dateFormatter(date) {
-//   let newDate = new Date(date);
-//
-//
-
-//   return result;
-// }

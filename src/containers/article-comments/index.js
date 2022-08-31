@@ -108,7 +108,7 @@ function ArticleComments({ articleId }) {
           t={t}
         />
       ),
-      [options.comments, lang]
+      [options.comments, lang, authId]
     ),
   };
 

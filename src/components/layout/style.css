@@ -1,16 +1,22 @@
-body{
-    margin: 0;
-    padding: 0;
-    background: #535353;
-    font-family: sans-serif;
-    position: relative;
+body {
+  margin: 0;
+  padding: 0;
+  background: #535353;
+  font-family: sans-serif;
+  position: relative;
+  max-height: 100vh;
 }
 /* Страница*/
-.Layout{
-    max-width: 1024px;
-    min-height: 100vh;
-    margin: 0 auto;
-    background: #fff;
-    box-sizing: border-box;
-    box-shadow: 0 0 15px 5px #0000003b;
+.Layout {
+  max-width: 1024px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #fff;
+  box-sizing: border-box;
+  box-shadow: 0 0 15px 5px #0000003b;
+}
+.Layout-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }

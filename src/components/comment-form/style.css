@@ -1,0 +1,24 @@
+.Comment-Form {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.Comment-Form-Label {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  color: #000000;
+}
+
+.Comment-Form-Input {
+  margin-top: 10px;
+  width: 100%;
+  min-height: 75px;
+  resize: none;
+}
+
+.Comment-Form > button {
+  margin-top: 10px;
+}

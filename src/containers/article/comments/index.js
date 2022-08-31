@@ -44,9 +44,7 @@ function Comments() {
   console.log(select.postedId);
   useEffect(() => {
     if (scrollRef.current) {
-      const height = window.innerHeight;
-      scrollRef.current.scrollIntoView({behavior: 'smooth', top: -height / 2});
-      console.log(height);
+      scrollRef.current.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});
     }
   }, [select.postedId]);
 

@@ -13,8 +13,7 @@ function CommentsList({ callbacks, render, comments, other }) {
 
     useEffect(() => {
         if (scrollEl) {
-            document.getElementById(`${scrollEl.id}`).scrollIntoView();
-            console.log('yes');
+            document.getElementById(`${scrollEl.id}`).scrollIntoView({ behavior: 'smooth', block: "center" });
         }
     }, [scrollEl]);
 

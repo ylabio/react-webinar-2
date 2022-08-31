@@ -7,7 +7,7 @@ import './style.css';
 
 function CommentItem(props) {
   const cn = bem('CommentItem');
-
+  
   const handleAnswerClick = useCallback(() => {
     props.handleIsActive(props.item._id);
   }, [props.handleIsActive]);
@@ -17,7 +17,7 @@ function CommentItem(props) {
   }, [props.handleIsActive]);
 
   return (
-    <div className={cn()} style={{marginLeft: `${props.item.level * 30}px`}}>
+    <div className={cn('',{'new': props.isNew})} style={{marginLeft: `${props.item.level * 30}px`}}>
       <div className={cn('comment')}>
         <div className={cn('header')}>
           <span className={cn('username')}>{props.item.author.profile.name}</span>
@@ -47,6 +47,7 @@ function CommentItem(props) {
 CommentItem.propTypes = {
   item: propTypes.object,
   isActive: propTypes.bool,
+  isNew: propTypes.bool,
   isAuth: propTypes.bool,
   message: propTypes.string,
   handleSubmit: propTypes.func,

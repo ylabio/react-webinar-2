@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from "react";
+import React, {useState, useCallback, useEffect, useRef} from "react";
 import useSelector from "../../hooks/use-selector";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux} from 'react-redux';
 import {useLocation, useNavigate} from "react-router-dom";
@@ -10,14 +10,23 @@ import CommentsList from "../../components/comments/comments-list";
 import CommentAdding from "../../components/comments/comment-adding";
 
 function CommentsContainer() {
+  const [message, setMessage] = useState('');
+  const [activeCommentId, setActiveCommentId] = useState(null);
+  
   const storeRedux = useStoreRedux();
   const navigate = useNavigate();
   const location = useLocation();
-  
-  const [message, setMessage] = useState('');
-  const [activeCommentId, setActiveCommentId] = useState(null);
-
+  let newComment = document.querySelector('.CommentItem_new');
+  let offsetY = 0;
   const formType = activeCommentId ? 'comment' : 'article';
+  
+  useEffect(() => {
+    newComment = document.querySelector('.CommentItem_new');
+    offsetY = newComment?.getBoundingClientRect().y + window.pageYOffset;
+    if (offsetY) {
+      window.scrollTo({top: offsetY - window.innerHeight / 2, behavior: "smooth"});
+    }
+  }, [])
   
   const select = useSelector(state => ({
     exists: state.session.exists,
@@ -27,6 +36,7 @@ function CommentsContainer() {
     comments: state.comments.data.items,
     articleId: state.article.data._id,
     waiting: state.comments.waiting,
+    newCommentId: state.comments.newCommentId,
   }));
 
   // Отправляет новый комментарий и выполняет загрузку всех комментариев
@@ -66,7 +76,8 @@ function CommentsContainer() {
 
   return (
     <CommentsLayout title={'Комментарии'} amount={reduxSelect.comments?.length}>
-      <CommentsList items={newItems} isAuth={select.exists} activeCommentId={activeCommentId}
+      <CommentsList items={newItems} isAuth={select.exists}
+        activeCommentId={activeCommentId} newCommentId={reduxSelect.newCommentId}
         handleSubmit={callbacks.onSubmit} handleChange={callbacks.onMessageChange}
         handleActive={callbacks.onSetActive} handleEnter={callbacks.onCommentsEnter}
       />

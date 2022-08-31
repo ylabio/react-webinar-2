@@ -6,7 +6,7 @@ import './style.css';
 
 function CommentsList(props) {
   const cn = bem('CommentsList');
-
+  
   return (
     <ul className={cn()}>
       {props.items?.map((item) =>
@@ -14,6 +14,7 @@ function CommentsList(props) {
           key={item._id}
           item={item}
           isActive={props.activeCommentId === item._id}
+          isNew={props.newCommentId === item._id}
           isAuth={props.isAuth}
           message={props.message}
           handleSubmit={props.handleSubmit}
@@ -29,6 +30,7 @@ function CommentsList(props) {
 CommentsList.propTypes = {
   items: propTypes.array,
   activeCommentId: propTypes.string,
+  newCommentId: propTypes.string,
   handleChange: propTypes.func,
   handleCancel: propTypes.func,
   handleEnter: propTypes.func,

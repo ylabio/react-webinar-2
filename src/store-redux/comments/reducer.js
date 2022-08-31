@@ -12,7 +12,7 @@ export default function reducer(state = initialState, action){
       return { ...state, data: [], waiting: true};
 
     case "comments/load-success":
-      return { ...state, data: action.payload.data, waiting: false};
+      return { ...state, data: action.payload.data.items, waiting: false};
 
     case "comments/load-error":
       return { ...state, data: [], waiting: false}; //@todo текст ошибки сохранить?
@@ -21,7 +21,7 @@ export default function reducer(state = initialState, action){
       return { ...state, waiting: true};
 
     case "comments/send-success":
-      return { ...state, newCommentId: action.payload.data._id, waiting: false};
+      return { ...state, data: [...state.data, action.payload.data], newCommentId: action.payload.data._id, waiting: false};
 
     case "comments/send-error":
       return { ...state, waiting: false}; //@todo текст ошибки сохранить?

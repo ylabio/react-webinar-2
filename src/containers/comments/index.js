@@ -33,19 +33,11 @@ function CommentsContainer() {
   }));
   
   const reduxSelect = useSelectorRedux(state => ({
-    comments: state.comments.data.items,
+    comments: state.comments.data,
     articleId: state.article.data._id,
     waiting: state.comments.waiting,
     newCommentId: state.comments.newCommentId,
   }));
-
-  // Отправляет новый комментарий и выполняет загрузку всех комментариев
-  function sendAndLoadComments(data, id) {
-    return async function(dispatch) {
-      await dispatch(actionsComments.send(data));
-      dispatch(actionsComments.load(id));
-    }
-  }
 
   const callbacks = {
     onSetActive: useCallback((id) => {
@@ -63,7 +55,7 @@ function CommentsContainer() {
     onSubmit: useCallback(async (evt) => {
       evt.preventDefault();
       const data = {text: message, parent: {_id: activeCommentId || reduxSelect.articleId, _type: formType}}
-      storeRedux.dispatch(sendAndLoadComments(data, reduxSelect.articleId));
+      storeRedux.dispatch(actionsComments.send(data));
     }, [message, reduxSelect.articleId])
   };
 

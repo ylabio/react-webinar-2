@@ -23,7 +23,7 @@ export default {
       try {
         const json = await services.api.request({
           method: 'POST',
-          url: `/api/v1/comments`,
+          url: `/api/v1/comments?fields=*,author(profile)`,
           ContentType: 'application/json',
           body: JSON.stringify(data)
         });

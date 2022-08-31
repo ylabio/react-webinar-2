@@ -63,8 +63,6 @@ function ArticleCommentsContainer({ articleId, type }) {
     comments: useMemo(() => treeToList(createTree(selectRedux.comments)), [selectRedux.comments]),
   }
 
-  console.log("comments: ", options.comments);
-
   return (
     <Layout>
       <Title count={selectRedux.comments.length} t={t} />

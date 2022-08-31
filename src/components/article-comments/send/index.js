@@ -12,6 +12,7 @@ function Send({ action, title, cancel, isCancelBtn, t, value, ...restProps }) {
     <div className={cn()}>
       <span className={cn('title')}>{title}</span>
       <textarea className={cn('field')}
+                autoFocus
                 value={value}
                 {...restProps}/>
       <div>
@@ -32,12 +33,16 @@ Send.propTypes = {
   title: propTypes.string,
   cancel: propTypes.func,
   isCancelBtn: propTypes.bool.isRequired,
+  t: propTypes.func,
+  value: propTypes.string,
 }
 
 Send.defaultProps = {
   action: () => {},
   title: '',
   cancel: () => {},
+  t: () => {},
+  value: '',
 }
 
 export default React.memo(Send);

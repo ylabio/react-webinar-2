@@ -21,6 +21,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 16px;
+    white-space: pre-wrap;
 }
 .Comment-btn {
     padding: 0;

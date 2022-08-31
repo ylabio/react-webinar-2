@@ -21,6 +21,7 @@
 .CommentItem-text {
 	font-size: 14px;
 	line-height: 16px;
+	word-break: break-all;
 }
 .CommentItem-reply {
 	background: transparent;

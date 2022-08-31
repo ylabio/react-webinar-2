@@ -17,7 +17,10 @@ function CommentItem({
 
 	return (
 		<>
-			<div className={cn()} style={{ marginLeft: child > 1 && child * 30 }}>
+			<div
+				className={cn()}
+				style={{ marginLeft: child >= 1 && child < 6 ? child * 30 : 150 }}
+			>
 				<div className={cn('body')}>
 					<div className={cn('head')}>
 						<div className={cn('headUser')}>{comment.author.profile.name}</div>

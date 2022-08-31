@@ -61,12 +61,20 @@ function CommentsContainer(){
       navigate('/login', {state: {back: location.pathname}});
       storeRedux.dispatch(actionsComments.load(params.id)); 
     }, [location.pathname]),
+    // Обнуление параметров нового комментария в state
+    changeParamsState: useCallback(() => {
+      storeRedux.dispatch(actionsComments.changeParamsState());
+    }, []),
   };
 
   useInit(async () => {
     // Загрузка комментариев
     storeRedux.dispatch(actionsComments.load(params.id)); 
-  }, [params.id, select1.exists]);
+  }, []);
+
+  useEffect(() => {
+    callbacks.changeParamsState();
+  }, [select1.exists])
 
   const commentData = {
     comments: useMemo(() => [

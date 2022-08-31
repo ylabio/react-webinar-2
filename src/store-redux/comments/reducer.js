@@ -49,6 +49,15 @@ const initialState = {
       case 'comments/attemptAddNewComment':
         return { ...state, ...action.payload, isAttemptAddNewComment: true}; 
 
+      case 'comments/changeParamsState':
+        return { ...state, 
+                 isAttemptAddNewComment: false,
+                 newCommentText: '',
+                 parentIdNewComment: '',
+                 parentTypeNewComment: '',
+                 scrollCommentId: ''
+               }; 
+
       default:
         // Нет изменений
         return state;

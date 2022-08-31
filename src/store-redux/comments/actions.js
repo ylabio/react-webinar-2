@@ -48,6 +48,12 @@ export default {
     return async(dispatch) => {
       dispatch({type: 'comments/attemptAddNewComment', payload: {newCommentText,  parentIdNewComment, parentTypeNewComment}});
     }
+  },
+
+  changeParamsState() {
+    return async(dispatch) => {
+      dispatch({type: 'comments/changeParamsState'});
+    }
   }
 
 }

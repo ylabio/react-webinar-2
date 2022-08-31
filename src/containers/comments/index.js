@@ -48,7 +48,8 @@ function CommentsContainer() {
 
 	const options = {
 		comments: useMemo(
-			() => select.comments && treeToList(listToTree(select.comments)),
+			() =>
+				select.comments && treeToList(listToTree('comments', select.comments)),
 			[select.comments],
 		),
 	};

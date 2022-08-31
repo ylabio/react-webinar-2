@@ -11,7 +11,7 @@ function Comments() {
   const storeRedux = useStoreRedux();
   const navigate = useNavigate();
 
-  const [visibleTextArea, setVisibleTextArea] = useState('')
+  const [visibleTextArea, setVisibleTextArea] = useState({ parentId: '', name: '' })
 
   const select = useSelectorRedux(state => ({
     comments: state.comments,
@@ -27,7 +27,7 @@ function Comments() {
   }, [select.comments.items])
 
   useEffect(() => {
-    setVisibleTextArea(select.article._id)
+    setVisibleTextArea({ ...visibleTextArea, parentId: select.article._id })
   }, [select.article._id])
 
   const callbacks = {

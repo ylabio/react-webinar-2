@@ -18,7 +18,7 @@ function AnswerComment(props) {
     }, [text])
   }
 
-  const placeholder = `Мой ответ для ${props.name}`
+  const placeholder = `Мой ответ для ${props.visibleTextArea.name}`
 
   return (
     <div style={{ paddingLeft: 30 }} className={cn()}>
@@ -28,12 +28,12 @@ function AnswerComment(props) {
           <textarea onChange={(e) => callbacks.changeText(e.target.value)} value={text} className={cn('text')} placeholder={placeholder} />
           <div className={'btns'}>
             <button className={cn('button')} onClick={() => callbacks.answerComment()}>Отправить</button>
-            <button className={cn('button')} onClick={() => props.setVisibleTextArea(props.idArticle)}>Отмена</button>
+            <button className={cn('button')} onClick={() => props.setVisibleTextArea({ name: '', parentId: props.idArticle })}>Отмена</button>
           </div>
         </>
         : <div className={cn('auth')}>
           <a className={cn('link')} onClick={() => props.onSignIn()}>Войдите</a>, чтобы иметь возможность отвечать.{' '}
-          <span onClick={() => props.setVisibleTextArea(props.idArticle)}>Отмена</span>
+          <span onClick={() => props.setVisibleTextArea({ name: '', parentId: props.idArticle })}>Отмена</span>
         </div>}
     </div>
   )
@@ -43,7 +43,7 @@ AnswerComment.propTypes = {
   parentId: propTypes.string.isRequired,
   exists: propTypes.bool,
   setVisibleTextArea: propTypes.func.isRequired,
-  name: propTypes.string.isRequired,
+  visibleTextArea: propTypes.object.isRequired,
   idArticle: propTypes.string.isRequired,
   answerComment: propTypes.func,
   onSignIn: propTypes.func,

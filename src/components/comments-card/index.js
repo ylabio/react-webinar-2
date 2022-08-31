@@ -11,7 +11,7 @@ function CommentsCart(props) {
   const cn = bem('CommentsCart');
 
   const renders = {
-    comment: useCallback((comment, level, parentId = null) => (
+    comment: useCallback((comment, level, parentId) => (
       <Comment
         parentId={parentId}
         comment={comment}
@@ -23,17 +23,17 @@ function CommentsCart(props) {
         name={props.name}
       />
     ), [props.visibleTextArea, props.name]),
-    answerForm: useCallback((parentId, name) => (
+    answerForm: useCallback((parentId) => (
       <AnswerComment
         exists={props.exists}
         parentId={parentId}
         setVisibleTextArea={props.setVisibleTextArea}
+        visibleTextArea={props.visibleTextArea}
         idArticle={props.idArticle}
-        name={name}
         onSignIn={props.onSignIn}
         answerComment={props.answerComment}
       />
-    ), [props.exists])
+    ), [props.exists, props.visibleTextArea])
   }
 
   return (
@@ -43,9 +43,8 @@ function CommentsCart(props) {
         items={props.items}
         renderItem={renders.comment}
         count={props.count} />
-      {props.idArticle === props.visibleTextArea
-        ? <NewComment exists={props.exists} newComment={props.newComment} onSignIn={props.onSignIn} />
-        : null
+      {props.idArticle === props.visibleTextArea.parentId &&
+        <NewComment exists={props.exists} newComment={props.newComment} onSignIn={props.onSignIn} />
       }
     </div>
   )
@@ -53,7 +52,7 @@ function CommentsCart(props) {
 
 CommentsCart.propTypes = {
   setVisibleTextArea: propTypes.func.isRequired,
-  visibleTextArea: propTypes.string,
+  visibleTextArea: propTypes.object,
   idArticle: propTypes.string,
   items: propTypes.arrayOf(propTypes.object),
   count: propTypes.number,

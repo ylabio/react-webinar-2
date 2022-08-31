@@ -8,15 +8,11 @@ import treeToList from '../../utils/tree-to-list';
 function Comment({ comment, level, ...props }) {
   const cn = bem('Comment');
 
-  const parentId = level <= 10 ? comment._id : props.parentId;
-
-  console.log('Comment ID: ' + comment._id);
-  console.log('Parent ID: ' + props.parentId);
-  console.log('Current ID: ' + parentId);
+  const parentId = !props.parentId ? comment._id : props.parentId;
 
   const paddingLeft = (level > 0 && level < 10) ? 30 : 0;
   const name = comment.author.profile?.name ? comment.author.profile.name : props.name;
-  const childrenOfMaxNesting = level === 10
+  const childrenOfMaxNesting = level === 8
     ? treeToList(comment.children, (item) => ({
       _id: item._id,
       dateCreate: item.dateCreate,
@@ -32,8 +28,8 @@ function Comment({ comment, level, ...props }) {
         <div className={cn('time')}>{dateFormating(comment.dateCreate)}</div>
       </div>
       <div className={cn('body')}>{comment.text}</div>
-      <a className={cn('link')} onClick={() => props.setVisibleTextArea(parentId)}>Ответить</a>
-      {level < 10
+      <a className={cn('link')} onClick={() => props.setVisibleTextArea({ parentId: parentId, name: name })}>Ответить</a>
+      {level < 8
         ? comment.children.map(item =>
           <div key={item._id} className={cn('child')}>
             {props.renderItem(item, level + 1)}
@@ -41,12 +37,12 @@ function Comment({ comment, level, ...props }) {
         )
         : childrenOfMaxNesting.map(item =>
           <div key={item._id} className={cn('child')}>
-            {props.renderItem(item, level + 1, parentId)}
+            {props.renderItem(item, level + 1, comment._id)}
           </div>)
       }
-      {(comment._id === props.visibleTextArea) &&
+      {(comment._id === props.visibleTextArea.parentId) &&
         <div className={cn('form')}>
-          {props.renderForm((comment._id || props.parentId), name)}
+          {props.renderForm(parentId)}
         </div>
       }
     </div>
@@ -57,7 +53,7 @@ Comment.propTypes = {
   comment: propTypes.object.isRequired,
   level: propTypes.number.isRequired,
   setVisibleTextArea: propTypes.func.isRequired,
-  visibleTextArea: propTypes.string.isRequired,
+  visibleTextArea: propTypes.object.isRequired,
   name: propTypes.string,
   renderItem: propTypes.func,
   renderForm: propTypes.func,
@@ -68,7 +64,7 @@ Comment.defaultProps = {
   renderItem: (item, level) => {
     return item.toString()
   },
-  renderForm: (id, name) => { },
+  renderForm: (id) => { },
 }
 
 export default React.memo(Comment)

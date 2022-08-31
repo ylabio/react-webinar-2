@@ -9,6 +9,7 @@ export default {
         const json = await services.api.request({ url: `/api/v1/comments?search[parent]=${_id}&fields=items(*,author(profile(name))),count&limit=*` });
         // Комментрии загружены успешно
         dispatch({ type: 'comments/load-success', payload: { data: json.result } });
+        console.log(json.result)
 
       } catch (e) {
         // Ошибка при загрузке

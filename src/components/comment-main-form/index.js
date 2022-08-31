@@ -2,10 +2,11 @@ import React, { useCallback, useState } from 'react';
 import propTypes from 'prop-types';
 import { cn as bem } from "@bem-react/classname";
 import './style.css';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function CommentMainForm(props) {
   const cn = bem('CommentMainForm');
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({ text: '', err: false });
 

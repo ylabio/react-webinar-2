@@ -43,12 +43,16 @@ Comments.propTypes = {
     submitComment: propTypes.func,
     id: propTypes.string,
     exists: propTypes.bool,
+    mainForm: propTypes.bool,
+    setMainForm:propTypes.func
 }
 Comments.defaultProps = {
     comments: [],
     count: 0,
     exists: false,
     id: '',
+    mainForm: false,
+    setMainForm: () => { },
     submitComment: () => { },
 }
 export default Comments

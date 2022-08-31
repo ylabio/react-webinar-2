@@ -1,0 +1,17 @@
+.CommentForm {
+  font-size: 12px;
+}
+
+.CommentForm-title {
+  font-weight: 700;
+}
+
+.CommentForm-content {
+  min-height: 76px;
+  font-size: 12px;
+  padding: 5px;
+}
+
+.CommentForm-cancel-btn {
+  margin-left: 10px;
+}

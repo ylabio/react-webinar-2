@@ -45,8 +45,12 @@ function Comments({id}) {
 
   useEffect(() => {
     if (Object.keys( itemRefs.current ).length > 0 && select.lastId) {
-      itemRefs.current[select.lastId].scrollIntoView({ behavior: "smooth" });
-      storeRedux.dispatch(actionsArticleComments.clearLastId());
+      try {
+        itemRefs.current[select.lastId].scrollIntoView({ behavior: "smooth" });
+        storeRedux.dispatch(actionsArticleComments.clearLastId());
+      } catch (e) {
+        console.log("Резкий переход");
+      }
     }
   }, [select.comments])
 

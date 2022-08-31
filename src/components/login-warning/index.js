@@ -13,13 +13,13 @@ function LoginWarning(props) {
       {props.type === 'article' ? 
         <div>
           <Translate tkey={"comment.warning"} count={1} t={props.t}>
-            <span><Link to='/login' state={{back: props.location?.pathname}} className={cn('link')}>Войдите</Link>, чтобы иметь возможность комментировать</span>
+            <span><Link to='/login' state={{back: props.pathname}} className={cn('link')}>Войдите</Link>, чтобы иметь возможность комментировать</span>
           </Translate>
         </div>
       :
-        <div style={{marginLeft: `${props.indent}px`}}>
+        <div>
           <Translate tkey={"reply.warning"} count={2} t={props.t}>
-            <span><Link to='/login' state={{back: props.location?.pathname}} className={cn('link')}>Войдите</Link>, чтобы иметь возможность ответить. </span>
+            <span><Link to='/login' state={{back: props.pathname}} className={cn('link')}>Войдите</Link>, чтобы иметь возможность ответить. </span>
           </Translate>
           {" "}<span className={cn('cancel')} onClick={props.onCancel}>{props.t('reply.cancel')}</span>
         </div> 
@@ -31,8 +31,9 @@ function LoginWarning(props) {
 export default React.memo(LoginWarning)
 
 LoginWarning.propTypes = {
-  indent: propTypes.number,
   onCancel: propTypes.func,
+  type: propTypes.string,
+  pathname: propTypes.string,
   t: propTypes.func
 }
 

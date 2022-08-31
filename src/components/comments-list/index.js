@@ -14,9 +14,9 @@ function CommentsList(props) {
           <div className={cn('item')} style={{marginLeft: `${comment.indent < props.MAX_INDENT ? comment.indent : props.MAX_INDENT}px`}}>
             {/* рендер комментария */}
             {props.renderComment(comment)}
+            {/* рендер формы ответа к комментарию */}
+            {comment._id === props.replyId && props.renderForm(props.t, 'comment', comment._id)}
           </div>
-          {/* рендер формы ответа к комментарию */}
-          {comment._id === props.replyId && props.renderForm(props.t, 'comment', comment._id, comment.indent)}
         </React.Fragment>
       )}
       {/* рендер формы ответа к товару, показываем когда не активна форма ответа к комментарию */}

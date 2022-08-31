@@ -21,6 +21,7 @@ function Comments() {
     count: state.comments.count,
     waiting: state.comments.waiting,
     articleId: state.article.data._id,
+    articleType: state.article.data._type,
   }), shallowEqual);
 
   const {t} = useTranslate()
@@ -44,7 +45,7 @@ function Comments() {
   // Форматированный список комментариев с добавлением поля indent для указания размера отступов согласно иерархии
   const comments = useMemo(() => (
     treeToList(
-      listToTree(select.comments),
+      listToTree(select.comments, select.articleType),
       (item, level) => ({_id: item._id, author: item.author.profile.name, dateCreate: item.dateCreate, text: item.text, indent: level*30})
     )
   ), [select.comments])
@@ -53,12 +54,10 @@ function Comments() {
     // рендер комментария
     item: useCallback((item) => (<Comment item={item} onReply={callbacks.onReply}/>), []),
     // рендер формы для комментария/ответа
-    form: useCallback((t, type, parentId, indent=null) => (
-      <PrivateComponent warning={<LoginWarning type={type} indent={indent} onCancel={callbacks.onCancel} location={location} t={t}/>}>
+    form: useCallback((t, type, parentId) => (
+      <PrivateComponent warning={<LoginWarning type={type} onCancel={callbacks.onCancel} pathname={location.pathname} t={t}/>}>
         <CommentForm  parentId={parentId}
-                      commentType={type} 
-                      indent={indent} 
-                      MAX_INDENT={MAX_INDENT}
+                      commentType={type}
                       onCancel={callbacks.onCancel} 
                       onAdd={callbacks.onAdd} 
                       t={t}

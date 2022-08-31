@@ -1,4 +1,5 @@
 .Comment{
+  margin: 30px 0;
 }
 .Comment-header{
   font-size: 12px;
@@ -13,6 +14,7 @@
 .Comment-content{
   padding: 10px 0;
   font-size: 14px;
+  word-break: break-all;
 }
 .Comment-replyBtn{
   font-size: 12px;

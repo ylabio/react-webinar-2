@@ -29,11 +29,13 @@ function Comments(props) {
   // получаем дерево из массива комментариев
   const commentsTree = listToTreeWithParentId(comments, props.articleId);
   // поулчаем из дерева структуру списка комментариев с разметкой (отступы при вложенности) и компонентом комментария
-  const content = treeToListWithUlHtmlMarkup(commentsTree, elem => (
-    <ListItem>
-      <CommentCardContainer comment={elem} />
-    </ListItem>
-  ));
+  const content = treeToListWithUlHtmlMarkup(commentsTree, (elem, level) => {
+    return (
+      <ListItem>
+        <CommentCardContainer comment={elem} />
+      </ListItem>
+    );
+  });
 
   const selectStore = useSelector(state => ({
     exists: state.session.exists

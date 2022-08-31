@@ -1,5 +1,5 @@
-import CommentCardContainer from '../../containers/comment-card-container';
 import React from 'react';
+import ListResetIndents from '../../components/list-reset-indents';
 
 /**
  * Преобразование списка в иерархию.
@@ -17,18 +17,28 @@ export default function treeToList(tree, callback, level = 0, result = []) {
   }
   return result;
 }
-//TODO: что если сделать многомерный массив, и уже его передать в render?
-export function treeToListWithUlHtmlMarkup(tree, callback) {
+export function treeToListWithUlHtmlMarkup(
+  tree,
+  callback,
+  level = 0,
+  maxNesting = 15
+) {
+  const elems = tree.map(elem => (
+    <li key={elem._id}>
+      {callback(elem)}
+      {elem?.children.length
+        ? treeToListWithUlHtmlMarkup(elem.children, callback, level + 1)
+        : null}
+    </li>
+  ));
+
   return (
-    <ul>
-      {tree.map(elem => (
-        <li key={elem._id}>
-          {callback(elem)}
-          {elem?.children.length
-            ? treeToListWithUlHtmlMarkup(elem.children, callback)
-            : null}
-        </li>
-      ))}
-    </ul>
+    <>
+      {level < maxNesting ? (
+        <ul>{elems}</ul>
+      ) : (
+        <ListResetIndents>{elems}</ListResetIndents> // если уровень вложенности больше nesting, прекращаем оступы
+      )}
+    </>
   );
 }

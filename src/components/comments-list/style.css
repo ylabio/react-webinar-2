@@ -6,6 +6,7 @@
 .CommentsList ul {
   list-style-type: none;
   overflow-x: auto;
+  /* max-width: 80%; */
 }
 
 .CommentsList {

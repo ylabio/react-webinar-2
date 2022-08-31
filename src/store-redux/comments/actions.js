@@ -60,12 +60,10 @@ export default {
                 message.result.nesting.replace("1", "+");
 
 
-                if (indexComment === -1) comments.push(message.result);
+                if (getState().article.data._id === parent._id) comments.push(message.result);
                 else comments.splice((indexComment + 1), 0, message.result);
 
 
-                console.log(parent._id);
-                console.log(comments);
 
                 dispatch({ type: 'comments/send-success', newComments: comments })
             }

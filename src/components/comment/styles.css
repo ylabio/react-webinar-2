@@ -1,0 +1,63 @@
+p {
+    margin: 0;
+}
+
+.Comment {
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-bottom: 30px;
+}
+
+.Comment-title {
+    display: flex;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.Comment-user {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    color: #000000;
+}
+
+.Comment-user-me {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    color: #666666;
+}
+
+.Comment-date {
+    color: #666666
+}
+
+.Comment-text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000000;
+}
+
+.Comment-wrap {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 14px;
+}
+
+.Comment-reply {
+    background: transparent;
+    color: #0087E9;
+    font-size: 12px;
+    appearance: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.Comment .CommentAllowed {
+    padding-top: 30px;
+}

@@ -1,0 +1,9 @@
+.CommentBlock {
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-bottom: 121px;
+}
+
+.CommentBlock .CommentNew {
+    padding-top: 0;
+}

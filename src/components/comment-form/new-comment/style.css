@@ -1,0 +1,33 @@
+.NewComment {
+  display: flex;
+  flex-direction: column;
+}
+
+.NewComment>*:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.NewComment-title {
+  font-size: 12px;
+}
+
+.NewComment-button {
+  font-size: 13px;
+  width: 90px;
+}
+
+.NewComment textarea {
+  font-size: 14px;
+  height: 76px;
+  resize: none;
+}
+
+.NewComment textarea::placeholder {
+  color: #000;
+}
+
+.NewComment-link {
+  cursor: pointer;
+  color: #0087E9;
+  text-decoration: underline;
+}

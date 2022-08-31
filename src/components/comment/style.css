@@ -1,0 +1,46 @@
+.Comment {
+  display: flex;
+  flex-direction: column;
+}
+
+.Comment>*:not(:last-child, .Comment-link, .Comment-child) {
+  margin-bottom: 10px;
+}
+
+.Comment-head {
+  display: flex;
+}
+
+.Comment-name {
+  font-weight: 700;
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+.Comment-time {
+  font-size: 12px;
+  color: #666666;
+}
+
+.Comment-body {
+  word-wrap: break-word;
+  font-size: 14px;
+}
+
+.Comment-link {
+  font-size: 12px;
+  color: #0087E9;
+  cursor: pointer;
+}
+
+.Comment-child {
+  margin-top: 30px;
+}
+
+.Comment-child:not(:last-child) {
+  margin-bottom: 30px 0;
+}
+
+.Comment-form {
+  margin-top: 30px;
+}

@@ -5,8 +5,11 @@ import formatDate from '../../../utils/format-date';
 import CommentAdding from '../comment-adding';
 import './style.css';
 
+const MAX_NESTING_LEVEL = 5;
+
 function CommentItem(props) {
   const cn = bem('CommentItem');
+  const level = props.item.level < MAX_NESTING_LEVEL ? props.item.level : 5;
   
   const handleAnswerClick = useCallback(() => {
     props.handleIsActive(props.item._id);
@@ -17,7 +20,10 @@ function CommentItem(props) {
   }, [props.handleIsActive]);
 
   return (
-    <div className={cn('',{'new': props.isNew})} style={{marginLeft: `${props.item.level * 30}px`}}>
+    <div
+      className={cn('',{'new': props.isNew})}
+      style={{marginLeft: `${level * 30}px`}}
+    >
       <div className={cn('comment')}>
         <div className={cn('header')}>
           <span className={cn('username')}>{props.item.author.profile.name}</span>

@@ -5,7 +5,6 @@ import useTranslate from '../../hooks/use-translate';
 import Select from '../../components/select';
 import Input from '../../components/input';
 import LayoutFlex from '../../components/layout-flex';
-import { categories } from '../../store/exports';
 import listToTree from '../../utils/list-to-tree';
 import treeToList from '../../utils/tree-to-list';
 

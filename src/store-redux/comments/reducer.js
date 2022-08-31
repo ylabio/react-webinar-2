@@ -1,6 +1,7 @@
 // Начальное состояние комментариев
 const initialState = {
   data: [],
+  newCommentId: '',
   count: 0,
   waiting: false,
   error: ''
@@ -19,10 +20,16 @@ export default function reducer(state = initialState, action) {
       return { ...state, waiting: false, error: action.payload.error };
 
     case 'comments/post':
-      return { ...state, waiting: true, error: '' };
+      return { ...state, waiting: true, newCommentId: '', error: '' };
 
     case 'comments/post-success':
-      return { ...state, data: [...state.data, action.payload.data], count: ++state.count, waiting: false };
+      return {
+        ...state,
+        data: [...state.data, action.payload.data],
+        newCommentId: action.payload.data._id,
+        count: ++state.count,
+        waiting: false
+      };
 
     case 'comments/post-error':
       return { ...state, waiting: false, error: action.payload.error };

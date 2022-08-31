@@ -26,10 +26,6 @@
 	outline: none;
 }
 
-.NewComment textarea::placeholder {
-	color: #000000;
-}
-
 .NewComment-buttons {
 	align-self: flex-start;
 }

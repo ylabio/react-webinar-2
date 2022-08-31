@@ -14,7 +14,7 @@ function NewComment(props) {
     // Отправка ответа
     onSubmit: useCallback(e => {
       e.preventDefault();
-      if (text) {
+      if (text.trim()) {
         props.onSubmit(text);
         setText('');
       }
@@ -25,7 +25,7 @@ function NewComment(props) {
     <div className={cn()}>
       <form onSubmit={callbacks.onSubmit}>
         <label className={cn('title')} htmlFor="text">{props.title}</label>
-        <textarea id="text" placeholder={props.placeholder} value={text} onChange={callbacks.onChange} />
+        <textarea id="text" value={text} onChange={callbacks.onChange} />
         <div className={cn('buttons')}>
           <button type="submit">{props.send}</button>
           {props.children}

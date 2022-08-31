@@ -10,6 +10,10 @@
 .CommentForm textarea {
 	margin-bottom: 10px;
 }
+.CommentForm-error {
+	color: #f00;
+	margin-bottom: 10px;
+}
 .CommentForm button {
 	cursor: pointer;
 }

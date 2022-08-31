@@ -17,6 +17,7 @@ function CommentForm({
 	const cn = bem('CommentForm');
 
 	const [text, setText] = useState('');
+	const [error, setError] = useState(false);
 
 	const callbacks = {
 		onChange: useCallback((value) => {
@@ -26,8 +27,14 @@ function CommentForm({
 		onSubmit: useCallback(
 			(e) => {
 				e.preventDefault();
-				createComment(text, parentId, parentType, articleId);
-				setText('');
+				if (text.trim().length > 0) {
+					createComment(text, parentId, parentType, articleId);
+					setText('');
+					setError(false)
+				} else {
+					setText('');
+					setError(true)
+				}
 			},
 			[text],
 		),
@@ -41,7 +48,7 @@ function CommentForm({
 		>
 			<form className={cn()} onSubmit={callbacks.onSubmit}>
 				{formType === 'new' && (
-					<NewForm onChange={callbacks.onChange} value={text} />
+					<NewForm onChange={callbacks.onChange} value={text} error={error} />
 				)}
 				{formType === 'reply' && (
 					<ReplyForm
@@ -49,6 +56,7 @@ function CommentForm({
 						value={text}
 						openForm={openForm}
 						articleId={articleId}
+						error={error}
 					/>
 				)}
 			</form>

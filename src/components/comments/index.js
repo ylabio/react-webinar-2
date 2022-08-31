@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import Stack from "../stack";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
@@ -35,7 +35,7 @@ const Comments = ({data, addComment, isPermit, renderLink, renderForm, renderCom
     }, [state]),
   };
 
-  const CommentsEl = data.map((comment, i) =>
+  const CommentsEl = useMemo(() => data.map((comment, i) =>
     renderComment({
       data: comment,
       key: comment._id,
@@ -45,9 +45,11 @@ const Comments = ({data, addComment, isPermit, renderLink, renderForm, renderCom
         lvl: comment.lvl,
       }),
     })
-  );
+  ), [data]);
 
-  CommentsEl.splice(
+  const resultComments = [ ...CommentsEl];
+
+  resultComments.splice(
     state.idx || CommentsEl.length,
     0,
     isPermit ? (
@@ -76,7 +78,7 @@ const Comments = ({data, addComment, isPermit, renderLink, renderForm, renderCom
   return (
     <Stack px={"large"} py={"normal"} spacing={"large"} className={cn()}>
       <h3>Коментарии ({data?.length || 0})</h3>
-      {CommentsEl}
+      {resultComments}
     </Stack>
   );
 };

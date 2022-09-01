@@ -1,0 +1,74 @@
+* {
+  box-sizing: border-box;
+}
+.Comment-title {
+  display: flex;
+  text-align: center;
+  gap: 10px;
+}
+
+.Comment-author {
+  margin: 0;
+  font-family: "Arial";
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 14px;
+}
+
+.Comment-data {
+  margin: 0;
+  font-family: "Arial";
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+  color: #666666;
+}
+
+.Comment-text {
+  margin: 0;
+  padding: 10px 0;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  word-break: break-all;
+
+  color: #000000;
+}
+
+.Comment-link {
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: #0087e9;
+  text-decoration: none;
+}
+.Comment-login {
+  margin: 0;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.Comment-in {
+  color: #0087e9;
+  text-decoration: none;
+  border-bottom: 1px solid;
+}
+
+.Comment-cancel {
+  color: #666666;
+  text-decoration: none;
+  border-bottom: 1px solid;
+}
+
+.Comment-sending div {
+  margin-top: 30px;
+}

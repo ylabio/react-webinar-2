@@ -1,0 +1,34 @@
+.Message-container {
+  width: 100%;
+}
+
+.Message-title {
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  margin: 0;
+}
+
+.Message-input {
+  margin-top: 5px;
+  width: 100%;
+  height: 76px;
+  resize: none;
+  border: 1px solid #666666;
+  box-shadow: inset 0px 1px 4px rgba(102, 102, 102, 0.1);
+}
+
+.Message-button {
+  margin-top: 10px;
+  color: #000000;
+}
+
+.Message-link {
+  text-decoration: none;
+}
+
+/* *:focus {
+  outline: none;
+} */

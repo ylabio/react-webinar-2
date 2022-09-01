@@ -9,13 +9,6 @@ function CommentsList({ callbacks, render, comments, other }) {
     const { token, parentId, location } = other;
     const locationAndToken = { location, token };
 
-    // const scrollEl = comments.find(el => el.id);
-
-    // useEffect(() => {
-    //     if (scrollEl) {
-    //         document.getElementById(`${scrollEl.id}`).scrollIntoView({ behavior: 'smooth', block: "center" });
-    //     }
-    // }, [scrollEl]);
 
 
     return (<div className="Comments">

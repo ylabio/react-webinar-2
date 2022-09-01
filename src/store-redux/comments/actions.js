@@ -14,9 +14,10 @@ export default {
                 const items = jsonCom.result.items;
                 let comments;
                 if (items) {
-                    comments = treeToList(listToTree([article, ...items]),
+                    comments = treeToList(listToTree([{ ...article }, ...items]),
                         (item, level) => ({ ...item, dateCreate: item.dateCreate, text: item.text, author: item.author, nesting: '+'.repeat(level) }));
                     comments.shift();
+
                     if (comments.length) {
                         const { result } = await services.api.request({ url: `api/v1/users?search[query]=${[...new Set(comments.map(user => user.author._id))].join('|')}` });
                         const { items } = result;
@@ -42,24 +43,23 @@ export default {
     sendComment: (text, parent) => {
         return async (dispatch, getState, services) => {
             if (!text.trim()) return;
-            dispatch({ type: 'comments/send' })
+            console.log(parent);
+            dispatch({ type: 'comments/send' });
             const _id = generateIDs();
             try {
-                const message = await services.api.request({ url: `/api/v1/comments`, method: "POST", body: JSON.stringify({ _id, text, parent }) });
+                const message = await services.api.request({ url: `/api/v1/comments`, method: "POST", body: JSON.stringify({ _id, text, parent: { _id: parent._id, _type: parent._type } }) });
+
 
 
                 let comments = [...getState().comments.comData];
 
 
                 message.result.author = services._store.state.session.user.profile.name;
-                message.result.id = _id;
                 comments.push(message.result);
 
-                comments = treeToList(listToTree([getState().article.data, ...comments]),
+                comments = treeToList(listToTree([{ ...getState().article.data }, ...comments]),
                     (item, level) => ({ ...item, dateCreate: item.dateCreate, text: item.text, author: item.author, nesting: '+'.repeat(level) }));
                 comments.shift();
-
-
 
 
 

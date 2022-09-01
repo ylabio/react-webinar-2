@@ -13,7 +13,7 @@ function CommentItem({ comment, callbacks, locationAndToken }) {
     const data = genDate(new Date(comment.dateCreate)).replace("г.,", " в");
 
 
-    return (<div id={comment.id ? comment.id : ""} style={{ width: `${944 - nesting * 30}px` }}>
+    return (<div style={{ width: `${944 - nesting * 30}px` }}>
         <div className="Comment-title">
             <h5 className="Comment-author">{comment.author}</h5>
             <p className="Comment-data">{data}</p>

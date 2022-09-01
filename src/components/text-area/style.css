@@ -1,14 +1,15 @@
-.Input {
+.TextArea {
   font-size: 16px;
   padding: 2px;
   box-sizing: border-box;
+  resize: none;
 }
 
-.Input_theme_big {
+.TextArea_theme_big {
   width: 300px;
 }
 
-.Input_theme_wide {
+.TextArea_theme_wide {
   display: block;
   /* min-width: 600px; */
   width: 100%;

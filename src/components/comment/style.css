@@ -1,0 +1,26 @@
+.Comment {
+    padding: 15px 0;
+}
+
+.Comment-title {
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.Comment-date {
+    font-size: 12px;
+    color: #666666;
+    margin-left: 10px;
+}
+
+.Comment-label {
+    font-size: 14px;
+    margin: 10px 0;
+    word-break: break-word;
+}
+
+.Comment-answerLink {
+    color: #0087E9;
+    cursor: pointer;
+    font-size: 14px;
+}

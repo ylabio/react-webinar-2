@@ -1,0 +1,16 @@
+.SignInToComment {
+
+}
+
+.SignInToComment-cancel {
+    outline: none;
+    border: none;
+    background: none;
+
+    text-decoration: underline;
+    color: #666666;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}

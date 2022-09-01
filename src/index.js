@@ -1,11 +1,11 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
+import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
 import App from './app';
-import Services from './services';
-import ServicesProvider from "./provider";
-import config from "./config";
-import {Provider} from 'react-redux';
+import config from './services/config';
+import ServicesProvider from './services/provider';
+import Services from './services/services';
 
 // Менеджер сервисов
 const services = new Services(config);
@@ -17,7 +17,7 @@ root.render(
   <Provider store={services.storeRedux}>
     <ServicesProvider services={services}>
       <BrowserRouter>
-        <App/>
+        <App />
       </BrowserRouter>
     </ServicesProvider>
   </Provider>

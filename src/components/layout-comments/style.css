@@ -1,0 +1,14 @@
+.LayoutComments {
+  padding: 30px 40px;
+}
+
+.LayoutComments-head {
+  margin: 0;
+  margin-bottom: 25px;
+}
+
+.LayoutComments-body {
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+}

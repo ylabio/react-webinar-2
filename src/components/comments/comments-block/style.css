@@ -1,0 +1,20 @@
+.CommentsBlock{
+	padding: 20px 35px;
+}
+
+.CommentsBlock-header{
+	font-size: 24px;
+	padding-bottom: 30px;
+}
+
+.CommentsBlock-stacked{
+	padding-left: 30px;
+}
+
+.CommentsBlock-link{
+	cursor: pointer;
+	color: #0087E9;
+}
+.CommentsBlock-link:hover{
+	text-decoration: underline;
+}

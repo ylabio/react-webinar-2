@@ -1,0 +1,11 @@
+.NewCommentBlock{
+	width: 100%;
+	padding-top: 20px;
+}
+
+.NewCommentBlock-buttonBlock{
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+}
+

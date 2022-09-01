@@ -1,0 +1,24 @@
+.Comment{
+	margin-bottom: 30px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+}
+.Comment-userInfo{
+font-size: 12px;
+font-weight: 700;
+padding-right: 10px;
+}
+.Comment-date{
+	font-size: 12px;
+	font-weight: 400;
+	color: #666666;
+}
+.Comment-text{
+	font-size: 14px;
+}
+
+.Comment-answer{
+	margin-left: 30px;
+}

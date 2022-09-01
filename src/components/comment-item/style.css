@@ -1,0 +1,25 @@
+.comment-item {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.comment-item__date {
+  color: grey;
+}
+
+.comment-item__text {
+  width: 100%;
+  word-wrap: break-word;
+}
+
+.comment-item__button {
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  border: none;
+  color: dodgerblue;
+  font: inherit;
+  padding: 0;
+}

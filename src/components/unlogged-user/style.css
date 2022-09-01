@@ -1,0 +1,19 @@
+.unlogged-user {
+  display: flex;
+  align-items: center;
+}
+
+.unlogged-user__link {
+  cursor: pointer;
+  background: transparent;
+  color: dodgerblue;
+  outline: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  text-decoration: underline;
+}
+
+.unlogged-user__message {
+  margin: 0;
+}

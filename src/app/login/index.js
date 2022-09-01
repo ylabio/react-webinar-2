@@ -1,16 +1,16 @@
 import React, {useCallback, useState} from "react";
 import useTranslate from "../../hooks/use-translate";
-import Layout from "../../components/layout";
-import LayoutFlex from "../../components/layout-flex";
-import Input from "../../components/input";
-import Field from "../../components/field";
+import Layout from "../../components/layouts/layout";
+import LayoutFlex from "../../components/layouts/layout-flex";
+import Input from "../../components/ui/input";
+import Field from "../../components/ui/field";
 import ToolsContainer from "../../containers/tools";
 import TopContainer from "../../containers/top";
 import HeadContainer from "../../containers/head";
 import {useLocation, useNavigate} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import Spinner from "../../components/spinner";
+import Spinner from "../../components/common/spinner";
 
 function Login() {
   const {t} = useTranslate();

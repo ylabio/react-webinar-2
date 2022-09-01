@@ -1,0 +1,19 @@
+/* Контроль сессии когда пользователь авторизован */
+.AuthTrueControls-out {
+    margin-left: 15px;
+    min-width: 59px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+    color: #000000;
+}
+
+.AuthTrueControls-user {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+    text-decoration-line: underline;
+    color: #0087E9;
+}

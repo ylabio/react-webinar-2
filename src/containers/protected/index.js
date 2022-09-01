@@ -24,7 +24,12 @@ function Protected({children, redirect}) {
 
 Protected.propTypes = {
   redirect: propTypes.node,
-  children: propTypes.node,
+  children: propTypes.node
+}
+
+Protected.defaultProps = {
+  redirect: '',
+  children: ''
 }
 
 export default React.memo(Protected);

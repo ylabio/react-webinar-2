@@ -1,5 +1,6 @@
+/* Карточка товара */
 .ArticleCard {
-    padding: 20px 35px;
+    padding: 20px 40px;
 }
 
 .ArticleCard-description {
@@ -22,4 +23,8 @@
 
 .ArticleCard-value{
     font-weight: bold;
+}
+
+.ArticleCard-add {
+    width: 76px;
 }

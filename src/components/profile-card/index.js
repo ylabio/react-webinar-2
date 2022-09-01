@@ -28,13 +28,11 @@ function ProfileCard({data}) {
 }
 
 ProfileCard.propTypes = {
-  data: propTypes.object.isRequired,
-  onAdd: propTypes.func
+  data: propTypes.object,
 }
 
 ProfileCard.defaultProps = {
   data: {},
-  onAdd: () => {}
 }
 
 export default React.memo(ProfileCard);

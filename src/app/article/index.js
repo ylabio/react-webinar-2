@@ -1,17 +1,17 @@
 import React, {useCallback} from "react";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
 import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
 import {useParams} from "react-router-dom";
 import useInit from "../../hooks/use-init";
 import useTranslate from "../../hooks/use-translate";
 import ArticleCard from "../../components/article-card";
-import Spinner from "../../components/spinner";
-import Layout from "../../components/layout";
+import Spinner from "../../components/common/spinner";
+import Layout from "../../components/layouts/layout";
 import TopContainer from "../../containers/top";
 import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import actionsArticle from '../../store-redux/article/actions';
+import Comments from "../../containers/comments";
 
 function Article(){
   const store = useStore();
@@ -45,6 +45,7 @@ function Article(){
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
+      <Comments articleId={params.id}/>
     </Layout>
   )
 }

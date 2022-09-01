@@ -1,16 +1,14 @@
 import React, {useCallback, useMemo} from "react";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux} from 'react-redux';
 import useSelector from "../../hooks/use-selector";
-import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import Menu from "../../components/menu";
-import BasketSimple from "../../components/basket-simple";
-import LayoutFlex from "../../components/layout-flex";
+import BasketSimple from "../../components/basket/basket-simple";
+import LayoutFlex from "../../components/layouts/layout-flex";
 import actionsModals from '../../store-redux/modals/actions';
 
 function ToolsContainer() {
 
-  //const store = useStore();
   const storeRedux = useStoreRedux();
 
   const select = useSelector(state => ({

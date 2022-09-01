@@ -32,7 +32,12 @@ export default {
             method: 'POST',
             body: JSON.stringify({text: text, parent: {_id: parentId, _type: parentType}})});
 
-        dispatch(this.load(json.result.parent._tree.find((p) => p._type === "article")._id));
+        dispatch({
+          type: 'comments/send-success',
+          payload: {
+            item: json.result
+          }
+        });
 
       } catch (e) {
         // Ошибка при отправке

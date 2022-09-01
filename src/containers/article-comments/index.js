@@ -14,6 +14,7 @@ import Spinner from '../../components/spinner';
 import useSelector from '../../hooks/use-selector';
 import UnloginText from '../../components/unlogin-text';
 import { useNavigate, useLocation } from "react-router-dom";
+import CommentInput from '../comment-input';
 
 function ArticleComments() {
   const cn = bem('ArticleComments');
@@ -37,6 +38,7 @@ function ArticleComments() {
     load: useCallback(async () => storeRedux.dispatch(actionsComments.load(params.id)), []),
 
     onSend: useCallback(async (data) => {
+      storeRedux.dispatch(actionsComments.setNewCommentId(''));
       await storeRedux.dispatch(actionsComments.send(data, params.id, 'article'));
     }, []),
 
@@ -61,6 +63,7 @@ function ArticleComments() {
             </div>
           )
         }
+
         {
           exists ? 
             !select.commentId && <NewComment title={'Новый комментарий'} send={callbacks.onSend} />

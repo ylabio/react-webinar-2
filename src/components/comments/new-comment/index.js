@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 import propTypes from "prop-types";
@@ -20,6 +20,10 @@ function NewComment({isAuth, sendComment, parentId, isNewComment, cancelReply, s
     }, [commentText])
   }
 
+  const validation = useMemo(() => {
+    return commentText.trim()
+  }, [commentText])
+
   return (
     <div className={cn('content')}>
       {!isAuth
@@ -36,7 +40,7 @@ function NewComment({isAuth, sendComment, parentId, isNewComment, cancelReply, s
                     value={commentText}
                     onChange={(e) => setCommentText(e.target.value)}/>
           <div className={cn('buttons')}>
-            <button className={cn('send')} onClick={callbacks.sendComment}>{t('comment.send')}</button>
+            <button className={cn('send')} disabled={!validation} onClick={validation && callbacks.sendComment}>{t('comment.send')}</button>
             {!isNewComment && <button className={cn('cancel')} onClick={cancelReply}>{t('comment.cancel')}</button>}
           </div>
         </div>

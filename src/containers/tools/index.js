@@ -1,5 +1,5 @@
-import React, {useCallback, useMemo} from "react";
-import {useStore as useStoreRedux, useSelector as useSelectorRedux} from 'react-redux';
+import React, { useCallback, useMemo } from "react";
+import { useStore as useStoreRedux, useSelector as useSelectorRedux } from 'react-redux';
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
@@ -19,7 +19,7 @@ function ToolsContainer() {
     lang: state.locale.lang
   }));
 
-  const {t} = useTranslate();
+  const { t } = useTranslate();
 
   const callbacks = {
     // Открытие корзины
@@ -31,15 +31,15 @@ function ToolsContainer() {
 
   const options = {
     menu: useMemo(() => ([
-      {key: 1, title: t('menu.main'), link: '/'},
+      { key: 1, title: t('menu.main'), link: '/' },
     ]), [t]),
   }
 
   return (
     <LayoutFlex flex="between" indent="big">
-      <Menu items={options.menu}/>
+      <Menu items={options.menu} />
       <BasketSimple onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}
-                    t={t}/>
+        t={t} />
     </LayoutFlex>
   );
 }

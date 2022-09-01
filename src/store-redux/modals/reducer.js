@@ -4,10 +4,10 @@ const initialState = {
 }
 
 // Обработчик действий в redux
-export default function(state = initialState, action){
+export default function (state = initialState, action) {
   switch (action.type) {
     case "modal/open":
-      return { ...state, name: action.payload.name};
+      return { ...state, name: action.payload.name };
     case "modal/close":
       return { ...state, name: null };
     default:

@@ -1,6 +1,6 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
+import { cn as bem } from "@bem-react/classname";
 import './style.css';
 
 function LayoutModal(props) {
@@ -47,7 +47,7 @@ LayoutModal.propTypes = {
 LayoutModal.defaultProps = {
   title: 'Модалка',
   labelClose: 'Закрыть',
-  onClose: () => {}
+  onClose: () => { }
 };
 
 export default React.memo(LayoutModal);

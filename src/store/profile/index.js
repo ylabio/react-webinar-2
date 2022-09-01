@@ -3,7 +3,7 @@ import StateModule from "../module";
 /**
  * Состояние профиля
  */
-class ProfileState extends StateModule{
+class ProfileState extends StateModule {
 
   /**
    * Начальное состояние
@@ -19,7 +19,7 @@ class ProfileState extends StateModule{
   /**
    * Загрузка профиля
    */
-  async load(){
+  async load() {
     // Сброс текущего товара и установка признака ожидания загрузки
     this.setState({
       waiting: true,
@@ -27,13 +27,13 @@ class ProfileState extends StateModule{
     }, 'Ожидание загрузки профиля');
 
     try {
-      const json = await this.services.api.request({url: '/api/v1/users/self'});
+      const json = await this.services.api.request({ url: '/api/v1/users/self' });
       // Товар загружен успешно
       this.setState({
         data: json.result,
         waiting: false
       }, 'Профиль загружен');
-    } catch (e){
+    } catch (e) {
       // Ошибка при загрузке
       this.setState({
         data: {},

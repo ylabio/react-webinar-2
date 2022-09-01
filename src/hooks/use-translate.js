@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import { useCallback } from 'react';
 import useSelector from "./use-selector";
 import translate from "../utils/translate";
 import useStore from "./use-store";
@@ -22,5 +22,5 @@ export default function useTranslate() {
   }, [lang]);
 
 
-  return {lang, setLang, t};
+  return { lang, setLang, t };
 }

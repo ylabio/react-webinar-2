@@ -12,14 +12,14 @@
     justify-content: flex-start;
 }
 
-.ProfileCard-prop_size_big{
+.ProfileCard-prop_size_big {
     font-size: 24px;
 }
 
-.ProfileCard-label{
+.ProfileCard-label {
     padding-right: 5px;
 }
 
-.ProfileCard-value{
+.ProfileCard-value {
     font-weight: bold;
 }

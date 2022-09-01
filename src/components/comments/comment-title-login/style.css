@@ -1,0 +1,28 @@
+.CommentTitleLogin {
+    font-family: "Arial";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.CommentTitleLogin-link {
+    color: #0087e9;
+    text-decoration: none;
+    border-bottom: 1px solid #0087e9;
+}
+
+.CommentTitleLogin-btn {
+    color: #666666;
+    background: transparent;
+    padding: 0;
+    margin: 0 0 0 4px;
+    border: 0;
+    border-bottom: 1px solid #666666;
+    font-family: "Arial";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    cursor: pointer;
+}

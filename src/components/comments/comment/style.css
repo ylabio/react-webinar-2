@@ -1,0 +1,39 @@
+.Comment {
+    margin-bottom: 30px;
+    word-break: break-word;
+}
+
+.Comment-info {
+    font-family: "Arial";
+    font-style: normal;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.Comment-title {
+    font-weight: 700;
+    color: #000000;
+}
+
+.Comment-date {
+    margin: 0 0 0 10px;
+    font-weight: 400;
+    color: #666666;
+}
+
+.Comment-text {
+    font-family: "Arial";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.Comment-btn {
+    color: #0087e9;
+    background: transparent;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}

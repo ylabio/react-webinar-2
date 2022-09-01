@@ -10,7 +10,7 @@ class StateModule {
     this.services = store.services;
   }
 
-  defaultConfig(){
+  defaultConfig() {
     return {};
   }
 
@@ -26,7 +26,7 @@ class StateModule {
     return this.store.getState()[this.config.name];
   }
 
-  setState(newState, description = 'setState'){
+  setState(newState, description = 'setState') {
     this.store.setState({
       ...this.store.getState(),
       [this.config.name]: newState

@@ -1,7 +1,7 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
-import {cn as bem} from "@bem-react/classname";
-import {Link} from "react-router-dom";
+import { cn as bem } from "@bem-react/classname";
+import { Link } from "react-router-dom";
 import numberFormat from "../../utils/number-format";
 import './style.css';
 
@@ -34,7 +34,7 @@ Item.propTypes = {
 }
 
 Item.defaultProps = {
-  onAdd: () => {},
+  onAdd: () => { },
   labelCurr: '₽',
   labelAdd: 'Добавить'
 }

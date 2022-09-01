@@ -3,7 +3,7 @@ import StateModule from "../module";
 /**
  * Состояние корзины
  */
-class BasketState extends StateModule{
+class BasketState extends StateModule {
 
   /**
    * Начальное состояние
@@ -12,8 +12,8 @@ class BasketState extends StateModule{
   initState() {
     return {
       items: [],
-        sum: 0,
-        amount: 0
+      sum: 0,
+      amount: 0
     };
   }
 
@@ -30,7 +30,7 @@ class BasketState extends StateModule{
       // Искомый товар для увеличения его количества
       if (item._id === _id) {
         exists = true;
-        result = {...item, amount: item.amount + 1};
+        result = { ...item, amount: item.amount + 1 };
       }
       // Добавляея в общую сумму
       sum += result.price * result.amount;
@@ -40,10 +40,10 @@ class BasketState extends StateModule{
     // Если товар не был найден в корзине, то добавляем его из каталога
     if (!exists) {
       // Поиск товара в каталоге, чтобы его в корзину добавить
-      const json = await this.services.api.request({url: `/api/v1/articles/${_id}`});
+      const json = await this.services.api.request({ url: `/api/v1/articles/${_id}` });
 
       const item = json.result;
-      items.push({...item, amount: 1});
+      items.push({ ...item, amount: 1 });
       // Досчитываем сумму
       sum += item.price;
     }

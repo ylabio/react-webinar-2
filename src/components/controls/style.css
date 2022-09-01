@@ -1,5 +1,4 @@
-/* Контрол с общими действиями */
-.Controls{
+.Controls {
     display: flex;
     justify-content: flex-end;
     padding: 20px;

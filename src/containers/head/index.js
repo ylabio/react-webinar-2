@@ -6,11 +6,11 @@ import LocaleSelect from "../locale-select";
 
 function HeadContainer(props) {
 
-  const {t} = useTranslate();
+  const { t } = useTranslate();
 
   return (
     <LayoutHead title={t(props.title)}>
-      <LocaleSelect/>
+      <LocaleSelect />
     </LayoutHead>
   );
 }

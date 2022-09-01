@@ -1,4 +1,3 @@
-/* Пункт списка */
 .Item {
     display: flex;
     justify-content: flex-start;
@@ -16,16 +15,15 @@
     color: #000;
 }
 
-.Item-title a{
+.Item-title a {
     color: #000;
     text-decoration: none;
 }
 
-.Item-title a:hover{
+.Item-title a:hover {
     color: #000;
     text-decoration: underline;
 }
-
 
 .Item-right {
     padding: 20px 20px 20px 10px;

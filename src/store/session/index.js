@@ -67,12 +67,12 @@ class SessionState extends StateModule {
    */
   async signOut() {
     try {
-      await this.services.api.request({method: 'DELETE', url: '/api/v1/users/sign'});
+      await this.services.api.request({ method: 'DELETE', url: '/api/v1/users/sign' });
       this.services.api.setHeader(this.config.tokenHeader, null);
     } catch (error) {
       console.error(error);
     }
-    this.setState({...this.initState(), waiting: false});
+    this.setState({ ...this.initState(), waiting: false });
   }
 
   /**
@@ -84,7 +84,7 @@ class SessionState extends StateModule {
     if (token) {
       // Устанавливаем токен в АПИ
       this.services.api.setHeader(this.config.tokenHeader, token);
-      const json = await this.services.api.request({url: '/api/v1/users/self'});
+      const json = await this.services.api.request({ url: '/api/v1/users/self' });
       if (json.error) {
         // Удаляем плохой токен
         window.localStorage.removeItem('token');

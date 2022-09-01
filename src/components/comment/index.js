@@ -1,26 +1,35 @@
-import React from 'react';
+import React, { forwardRef, useEffect } from 'react';
 import propTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname'
 import './style.css';
 import { transformDate } from '../../utils/transform-date';
 import { withReply } from '../../hoc/with-reply';
 
-function Comment({ comment }) {
+const Comment = forwardRef((props, ref) => {
 
   const cn = bem('Comment');
 
+  useEffect(() =>{
+    if(props.newCommentId === props.comment._id) {
+      ref.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, []);
+
   return (
-    <div className={cn()}>
+    <div className={cn()} ref={ref}>
       <div className={cn('head')}>
-        <span className={cn('user-name')}>{comment.author.profile.name}</span>
-        <span className={cn('date')}>{transformDate(comment.dateCreate, 'ru')}</span>
+        <span className={cn('user-name')}>{props.comment.author.profile.name}</span>
+        <span className={cn('date')}>{transformDate(props.comment.dateCreate, 'ru')}</span>
       </div>
       <div className={cn('text')}>
-        <p>{comment.text}</p>
+        <p>{props.comment.text}</p>
       </div>
     </div>
   )
-}
+})
 
 Comment.propTypes = {
   comment: propTypes.object,

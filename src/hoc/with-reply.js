@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useRef } from "react";
 import {useStore as useStoreRedux, useSelector as useSelectorRedux, shallowEqual} from "react-redux";
 import actionsComments from '../store-redux/comments/actions';
 import {useParams} from "react-router-dom";
@@ -9,6 +9,8 @@ export const withReply = (Component) => (props) => {
   const params = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const commentRef = useRef();
 
   const storeRedux = useStoreRedux();
 
@@ -37,7 +39,7 @@ export const withReply = (Component) => (props) => {
 
   return (
     <div className='Comment-wrap'>
-      <Component {...props} />
+      <Component ref={commentRef} {...props} />
       <button className='Comment-button' onClick={callbacks.openText}>Ответить</button>
       <CommentInput
         commentId={select.commentId}

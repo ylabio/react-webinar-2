@@ -29,6 +29,7 @@ function ArticleComments() {
   const select = useSelectorRedux(state => ({
     comments: state.comments.data,
     commentId: state.comments.commentId,
+    newCommentId: state.comments.newCommentId,
     waiting: state.comments.waiting,
   }), shallowEqual);
 
@@ -55,8 +56,8 @@ function ArticleComments() {
         {
           listToTree(select.comments, params.id).map((comment) =>
             <div className='Comment-container' key={comment._id}>
-              <Comment comment={comment} articleId={'qwerty'} />
-              <CommentContainer comments={comment.children} margin={30}/>
+              <Comment comment={comment} />
+              <CommentContainer comments={comment.children} newCommentId={select.newCommentId} margin={30}/>
             </div>
           )
         }

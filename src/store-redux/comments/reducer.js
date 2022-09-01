@@ -3,6 +3,7 @@ const initialState = {
   data: [],
   waiting: false,
   commentId: '',
+  newCommentId: '',
 }
 
 export default function reducer(state = initialState, action){
@@ -19,6 +20,9 @@ export default function reducer(state = initialState, action){
 
     case "comments/set-id":
       return { ...state, commentId: action.payload.id};
+
+    case "comments/set-new-id":
+      return { ...state, newCommentId: action.payload.id};
     
     case "comments/send":
       return { ...state, waiting: true};

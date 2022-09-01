@@ -19,6 +19,10 @@ export default {
     return {type: 'comments/set-id', payload: {id}};
   },
 
+  setNewCommentId: (id) => {
+    return {type: 'comments/set-new-id', payload: {id}};
+  },
+
   send: (data, id, type) => {
     return async (dispatch, getState, services) => {
       dispatch({type: 'comments/send'});
@@ -36,6 +40,7 @@ export default {
           }),
         });
 
+        dispatch({type: 'comments/set-new-id', payload: {id: json.result._id}});
         dispatch({type: 'comments/send-success', payload: {data: json.result}});
       } catch (error) {
         dispatch({type: 'comments/send-error'});

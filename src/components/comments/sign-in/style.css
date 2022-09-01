@@ -1,0 +1,26 @@
+.SignIn {
+	display: flex;
+	flex-wrap: nowrap;
+	margin: 30px 0;
+}
+
+.SignIn p {
+	margin: 0;
+}
+
+.SignIn a {
+	text-underline-offset: 3px;
+	color: #0087E9;
+}
+
+.SignIn button {
+	padding: 0;
+	font-size: 16px;
+	line-height: 18px;
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	border: none;
+	background: none;
+	color: #666666;
+	cursor: pointer;
+}

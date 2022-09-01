@@ -1,0 +1,76 @@
+.Comment {
+	margin-top: 30px;
+}
+
+.Comment-user {
+	margin-right: 10px;
+	font-weight: bold;
+	font-size: 12px;
+	line-height: 14px;
+}
+
+.Comment-date {
+	font-size: 12px;
+	line-height: 14px;
+	color: #666666;
+}
+
+.Comment-text {
+	margin: 10px 0;
+	font-size: 14px;
+	line-height: 16px;
+	word-break: break-word;
+}
+
+.Comment-button {
+	padding: 0;
+	font-size: 12px;
+	line-height: 14px;
+	color: #0087E9;
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
+.Comment_indent_1 {
+	padding-left: 30px;
+}
+
+.Comment_indent_2 {
+	padding-left: 60px;
+}
+
+.Comment_indent_3 {
+	padding-left: 90px;
+}
+
+.Comment_indent_4 {
+	padding-left: 120px;
+}
+
+.Comment_indent_5 {
+	padding-left: 150px;
+}
+
+.Comment_indent_6 {
+	padding-left: 180px;
+}
+
+.Comment_indent_7 {
+	padding-left: 210px;
+}
+
+.Comment_indent_8 {
+	padding-left: 240px;
+}
+
+.Comment_indent_9 {
+	padding-left: 270px;
+}
+
+.Comment_indent_10 {
+	padding-left: 300px;
+}
+
+
+

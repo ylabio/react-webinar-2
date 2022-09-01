@@ -43,7 +43,6 @@ export default {
     sendComment: (text, parent) => {
         return async (dispatch, getState, services) => {
             if (!text.trim()) return;
-            console.log(parent);
             dispatch({ type: 'comments/send' });
             const _id = generateIDs();
             try {

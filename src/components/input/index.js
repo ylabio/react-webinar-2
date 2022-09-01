@@ -7,12 +7,14 @@ import './style.css';
 function Input(props) {
   const cn = bem('Input');
 
+
+
   // Внутренний стейт по умолчанию с переданным value
   const [value, change] = useState(props.value);
 
   // Задержка для вызова props.onChange
   const changeThrottle = useCallback(
-    debounce(value => props.onChange(value, props.name), 600),
+    debounce(value => props.onChange(value, props.name), props.delay, {immediate: true}),
     [props.onChange, props.name]
   );
 

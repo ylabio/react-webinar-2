@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useState, useRef} from "react";
 import useTranslate from "../../hooks/use-translate";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
@@ -56,11 +56,11 @@ function Login() {
           <h2>{t('auth.title')}</h2>
           <Field label={t('auth.login')} error={select.errors?.login}>
             <Input name="login" onChange={callbacks.onChange}
-                   value={data.login}/>
+                   value={data.login} delay={0}/>
           </Field>
           <Field label={t('auth.password')} error={select.errors?.password}>
             <Input name="password" type="password" onChange={callbacks.onChange}
-                   value={data.password}/>
+                   value={data.password} delay={0}/>
           </Field>
           <Field error={select.errors?.other}/>
           <Field>

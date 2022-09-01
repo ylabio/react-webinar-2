@@ -29,7 +29,7 @@ function Input(props) {
 
   return (
     <input
-      className={cn({theme: props.theme})}
+      className={cn(props.unique, {theme: props.theme})}
       name={props.name}
       value={value}
       type={props.type}
@@ -46,12 +46,14 @@ Input.propTypes = {
   placeholder: propTypes.string,
   onChange: propTypes.func,
   theme: propTypes.string,
+  unique: propTypes.string
 }
 
 Input.defaultProps = {
   onChange: () => {},
   type: 'text',
-  theme: ''
+  theme: '',
+  unique: ""
 }
 
 export default React.memo(Input);

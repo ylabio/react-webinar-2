@@ -1,0 +1,51 @@
+.CommentsList-wrapper {
+    padding: 50px 40px;
+}
+
+.CommentsList-title {
+    font-weight: 400;
+    font-size: 24px;
+    padding-bottom: 25px;
+}
+
+.CommentsList {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.CommentsList-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.CommentsList-column {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.CommentsList-item-username {
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.CommentsList-item-date {
+    font-weight: 400;
+    font-size: 12px;
+    color: #666666;
+}
+
+.CommentsList-item-text {
+    font-weight: 400;
+    font-size: 14px;
+    overflow: auto;
+}
+
+.CommentsList-reply {
+    font-weight: 400;
+    font-size: 12px;
+    color: #0087E9;
+    cursor: pointer;
+}

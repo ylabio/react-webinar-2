@@ -1,0 +1,28 @@
+.CommentsAdd {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.CommentsAdd-title {
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.CommentsAdd-unlog {
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.CommentsAdd-textarea {
+    font-family: 'Arial';
+    font-size: 14px;
+
+    min-height: 76px;
+    resize: none;
+}
+
+.CommentsAdd-buttons {
+    display: flex;
+    gap: 10px;
+}

@@ -1,0 +1,79 @@
+{
+	"result": {
+		"items": [
+			{
+				"_id": "6304a836deec4c4f8927d07d",
+				"title": "Электроника",
+				"parent": null
+			},
+			{
+				"_id": "6304a836deec4c4f8927d07e",
+				"title": "Телефоны",
+				"parent": {
+					"_id": "6304a836deec4c4f8927d07d"
+				}
+			},
+			{
+				"_id": "6304a836deec4c4f8927d07f",
+				"title": "Ноутбуки",
+				"parent": {
+					"_id": "6304a836deec4c4f8927d07d"
+				}
+			},
+			{
+				"_id": "6304a836deec4c4f8927d080",
+				"title": "Телевизоры",
+				"parent": {
+					"_id": "6304a836deec4c4f8927d07d"
+				}
+			},
+			{
+				"_id": "6304a836deec4c4f8927d081",
+				"title": "Книги",
+				"parent": null
+			},
+			{
+				"_id": "6304a836deec4c4f8927d082",
+				"title": "Учебники",
+				"parent": {
+					"_id": "6304a836deec4c4f8927d081"
+				}
+			},
+			{
+				"_id": "6304a836deec4c4f8927d083",
+				"title": "Художественная",
+				"parent": {
+					"_id": "6304a836deec4c4f8927d081"
+				}
+			},
+			{
+				"_id": "6304a836deec4c4f8927d084",
+				"title": "Комиксы",
+				"parent": {
+					"_id": "6304a836deec4c4f8927d081"
+				}
+			},
+			{
+				"_id": "6304a836deec4c4f8927d085",
+				"title": "Смартфоны",
+				"parent": {
+					"_id": "6304a836deec4c4f8927d07e"
+				}
+			},
+			{
+				"_id": "6304a836deec4c4f8927d086",
+				"title": "Аксессуары",
+				"parent": {
+					"_id": "6304a836deec4c4f8927d085"
+				}
+			},
+			{
+				"_id": "6304a836deec4c4f8927d087",
+				"title": "Сюрприз :)",
+				"parent": {
+					"_id": "6304a836deec4c4f8927d084"
+				}
+			}
+		]
+	}
+}

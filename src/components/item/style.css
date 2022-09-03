@@ -4,14 +4,21 @@
     justify-content: flex-start;
     transition: background-color 1s;
     padding-left: 10px;
+    transition: all ease .5s;
 }
-
+.Item:hover{
+    background-color: #ccc;
+    transition: all ease .5s;
+}
 .Item-id {
     padding: 20px 10px 20px 20px;
 }
 
 .Item-title {
     width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
     padding: 20px 10px;
     color: #000;
 }
@@ -19,6 +26,7 @@
 .Item-title a{
     color: #000;
     text-decoration: none;
+    align-items: flex-end;
 }
 
 .Item-title a:hover{
@@ -31,10 +39,22 @@
     padding: 20px 20px 20px 10px;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    align-items:flex-end;
 }
 
 .Item-price {
     padding: 0 10px;
     white-space: nowrap;
+}
+
+.Item-right  button{
+    background-color: #939393;
+    padding: 3px;
+    border: 1px solid transparent;
+    transition: all ease .5s;
+}
+.Item-right  button:hover{
+    transition: all ease .5s;
+    border: 1px solid #555555;
+    background-color: #727272;
 }

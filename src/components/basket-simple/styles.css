@@ -7,10 +7,12 @@
     font-size: 18px;
 }
 
-.BasketSimple-label{
-
+.BasketSimple button{
+    transition: all ease .5s;
 }
-
+.BasketSimple button:hover{
+    transition: all ease .5s;
+}
 .BasketSimple-total{
     font-weight: bold;
     margin: 0 15px;

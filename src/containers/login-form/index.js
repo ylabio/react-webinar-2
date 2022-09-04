@@ -2,11 +2,13 @@ import React, {useEffect, useCallback} from "react";
 import LoginLayout from "../../components/login-layout";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 
 function LoginForm(){
   const store = useStore();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || '/cabinet';
 
   const select = useSelector(state=>({
     loginError: state.user.loginError,
@@ -22,7 +24,7 @@ function LoginForm(){
   }
 
   useEffect(()=>{
-    if (select.token) navigate('/');
+    if (select.token) navigate(from, {replace: true});
   });
 
   return (

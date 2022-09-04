@@ -1,6 +1,6 @@
 import React, {useCallback} from "react";
 import useSelector from "../../hooks/use-selector";
-import { Link } from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import CabinetSimple from "../../components/cabinet-simple";
 import LayoutFlex from "../../components/layout-flex";
 import useAuth from "../../hooks/use-auth";
@@ -9,6 +9,7 @@ import useStore from "../../hooks/use-store";
 function Auth(){
   const store = useStore();
   const {isAuth} = useAuth();
+  const location = useLocation();
 
   const select = useSelector(state => ({
     profile: state.user.profile,
@@ -20,7 +21,7 @@ function Auth(){
   
     return (
       !isAuth && <LayoutFlex flex='end' padding={false}>
-        <Link to='/login'><button>Вход</button></Link>
+        <Link to='/login' state={{from: location}}><button>Вход</button></Link>
       </LayoutFlex>
       || <CabinetSimple profile={select.profile} onLogout={callbacks.onLogout}/>
     )

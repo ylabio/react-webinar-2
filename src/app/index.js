@@ -6,6 +6,7 @@ import Basket from "./basket";
 import Article from "./article";
 import Login from './login/';
 import Cabinet from './cabinet';
+import RequireAuth from '../hoc/require-auth';
 
 /**
  * Приложение
@@ -20,7 +21,11 @@ function App() {
         <Route path={''} element={<Main/>}/>
         <Route path={"/articles/:id"} element={<Article/>}/>
         <Route path={"/login"} element={<Login/>}/>
-        <Route path={"/cabinet"} element={<Cabinet/>}/>
+        <Route path={"/cabinet"} element={
+          <RequireAuth>
+            <Cabinet/>
+          </RequireAuth>
+        }/>
       </Routes>
       {modal === 'basket' && <Basket/>}
     </>

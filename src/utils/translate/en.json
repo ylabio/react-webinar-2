@@ -20,5 +20,13 @@
   "auth.password": "Password",
   "auth.signIn": "Sign in",
   "session.signIn": "Sign In",
-  "session.signOut": "Sign Out"
+  "session.signOut": "Sign Out",
+  "comment.error": "Posting an empty comment is a big no-no!",
+  "comment.formLabel": "New Comment",
+  "comment.warning": "<1>Login</1> to comment",
+  "comments.title": "Comments",
+  "reply.warning": "<1>Login</1>, to reply.",
+  "reply.cancel": "Cancel",
+  "reply.send": "Send",
+  "reply.formLabel": "New Reply"
 }

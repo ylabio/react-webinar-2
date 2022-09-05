@@ -1,0 +1,26 @@
+.Comment{
+  margin: 30px 0;
+}
+.Comment-header{
+  font-size: 12px;
+}
+.Comment-author {
+  font-weight: bold;
+  padding-right: 10px;
+}
+.Comment-date {
+  color: #666666;
+}
+.Comment-content{
+  padding: 10px 0;
+  font-size: 14px;
+  word-break: break-all;
+}
+.Comment-replyBtn{
+  font-size: 12px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: #0087E9;
+  cursor: pointer;
+}

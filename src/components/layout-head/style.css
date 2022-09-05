@@ -1,0 +1,20 @@
+.LayoutHead{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 10px 20px;
+    align-items: center;
+    overflow: hidden;
+    min-height: 80px;
+    background: #f5f5f5;
+    box-sizing: border-box;
+    border-top: 1px solid #ccc;
+}
+
+.LayoutHead-title{
+    margin: 0;
+}
+
+.LayoutHead-side{
+
+}

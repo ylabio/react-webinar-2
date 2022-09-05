@@ -1,0 +1,51 @@
+.Comment {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 35px 30px 35px;
+  margin-top: 0;
+}
+
+.Comments-spacing {
+  min-width: 300px;
+}
+
+.Comment-info {
+  margin-bottom: 10px;
+}
+
+.Comment-user {
+  font-size: 12px;
+  font-weight: bold;
+  padding-right: 10px;
+  color: #000000;
+}
+
+.Comment-date {
+  font-size: 12px;
+  color: #666666;
+}
+
+.Comment-text {
+  font-size: 14px;
+  color: #000000;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+}
+
+.Comment-button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  color: #0087E9;
+  cursor: pointer;
+}
+
+.Comment-button:hover {
+  opacity: 0.8;
+}
+
+.Comment-button:active {
+  opacity: 0.6;
+}

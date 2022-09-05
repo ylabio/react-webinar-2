@@ -1,0 +1,56 @@
+/* Пункт списка */
+.Item {
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 1s;
+    padding-left: 10px;
+}
+
+.Item-id {
+    padding: 20px 10px 20px 20px;
+}
+
+.Item-title {
+    width: 100%;
+    padding: 20px 10px;
+    color: #000;
+}
+
+.Item-title a{
+    color: #000;
+    text-decoration: none;
+}
+
+.Item-title a:hover{
+    color: #000;
+    text-decoration: underline;
+}
+
+
+.Item-right {
+    padding: 20px 20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.Item-price {
+    padding: 0 10px;
+    white-space: nowrap;
+}
+
+.Item-button{
+    width: 76px;
+    height: 21px;
+    padding: 0;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: #EFEFEF;
+    border: 1px solid #404040;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.Item-button:hover{
+    opacity: 0.8;
+}

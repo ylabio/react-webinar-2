@@ -1,0 +1,25 @@
+.Reply {
+  padding-top: 30px;
+}
+
+.Reply-header {
+  font-size: 12px;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+.Reply textarea {
+  width: 100%;
+  height: 80px;
+  font-size: 14px;
+  resize: none;
+}
+
+.Reply-actions {
+  padding-top: 10px;
+}
+
+.Reply-actions button {
+  margin-right: 10px;
+  font-size: 13px;
+}

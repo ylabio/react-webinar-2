@@ -8,7 +8,7 @@ function List(props) {
 
   return (
     <div className={cn()}>{props.items.map(item =>
-      <div key={item._id} className={cn('item')}>
+      <div key={item._id} className={cn('item-'+props.mode)}>
         {props.renderItem(item)}
       </div>
     )}
@@ -18,14 +18,16 @@ function List(props) {
 
 List.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  renderItem: propTypes.func
+  renderItem: propTypes.func,
+  mode: propTypes.oneOf(['catalog', 'comments'])
 }
 
 List.defaultProps = {
   items: [],
   renderItem: (item) => {
     return item.toString()
-  }
+  },
+  mode: 'catalog'
 }
 
 export default React.memo(List);

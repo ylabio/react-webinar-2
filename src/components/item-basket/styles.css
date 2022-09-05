@@ -38,3 +38,12 @@
     font-size: 18px;
     white-space: nowrap;
 }
+.ItemBasket-right button{
+    transition: all ease .5s;
+    background-color: rgb(212, 212, 212);
+    border: 1px solid transparent;
+}
+.ItemBasket-right button:hover{
+    transition: all ease .5s;
+    background-color:rgb(97, 97, 97);
+}

@@ -37,6 +37,7 @@ function Login() {
       e.preventDefault();
       store.get('session').signIn(data, () => {
         // Возврат на страницу, с которой пришли
+      
         const back = location.state?.back && location.state?.back !== location.pathname
           ? location.state?.back
           : '/';

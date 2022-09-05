@@ -1,0 +1,15 @@
+.NoAcces{
+    margin-top: 30px;
+    padding-bottom: 30px;
+}
+.NoAcces-title a{
+    color: #0087E9;
+    text-decoration: none;
+    
+}
+.NoAcces-title span{
+    text-decoration:underline;
+    cursor: pointer;
+    color:#666666
+    
+}

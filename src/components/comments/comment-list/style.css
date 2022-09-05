@@ -1,0 +1,28 @@
+.Comment-name-data{
+    display: flex;
+    align-items: center;
+}
+.Comment-profile-name{
+font-size: 12px;
+font-weight: 400;
+color: #000000;
+margin-right: 10px;
+}
+.Comment-date{
+    font-size: 12px;
+    font-weight: 400;
+    color: #666666;
+}
+.Comment-text p{
+margin: 0;
+}
+.Comment-text{
+    word-break: break-all;
+
+}
+.Comment-answer{
+    color: #0087E9;
+    font-size: 12px;
+    cursor: pointer;
+    padding-bottom: 5px;
+}

@@ -68,6 +68,8 @@ class SessionState extends StateModule {
   async signOut() {
     try {
       await this.services.api.request({method: 'DELETE', url: '/api/v1/users/sign'});
+      window.localStorage.removeItem('token');
+
       this.services.api.setHeader(this.config.tokenHeader, null);
     } catch (error) {
       console.error(error);

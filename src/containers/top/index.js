@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback ,useState} from "react";
 import useTranslate from "../../hooks/use-translate";
 import LayoutFlex from "../../components/layout-flex";
 import {Link, useLocation, useNavigate} from "react-router-dom";
@@ -9,7 +9,7 @@ import useStore from "../../hooks/use-store";
 function TopContainer() {
 
   const {t} = useTranslate();
-
+  const [url, setUrl] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
   const store = useStore();
@@ -22,9 +22,10 @@ function TopContainer() {
   const callbacks = {
     // Переход к авторизации
     onSignIn: useCallback(() => {
+  
+    
       navigate('/login', {state: {back: location.pathname}});
     }, [location.pathname]),
-
     // Отмена авторизации
     onSignOut: useCallback(() => {
       store.get('session').signOut();

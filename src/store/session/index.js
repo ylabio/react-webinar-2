@@ -1,11 +1,11 @@
-import StateModule from "../module";
-import simplifyErrors from "../../utils/simplify-errors";
+import StateModule from '../module';
+import simplifyErrors from '../../utils/simplify-errors';
+import actionsComments from '../../store-redux/comments/actions';
 
 /**
  * Сессия
  */
 class SessionState extends StateModule {
-
   /**
    * Начальное состояние
    * @return {Object}
@@ -16,7 +16,7 @@ class SessionState extends StateModule {
       token: null,
       errors: null,
       exists: false,
-      waiting: true
+      waiting: true,
     };
   }
 
@@ -32,22 +32,28 @@ class SessionState extends StateModule {
       const json = await this.services.api.request({
         method: 'POST',
         url: '/api/v1/users/sign',
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       });
       if (json.error) {
-        this.setState({
-          ...this.getState(),
-          errors: simplifyErrors(json.error.data.issues),
-          waiting: false
-        }, 'Ошибка авторизации');
+        this.setState(
+          {
+            ...this.getState(),
+            errors: simplifyErrors(json.error.data.issues),
+            waiting: false,
+          },
+          'Ошибка авторизации'
+        );
       } else {
-        this.setState({
-          ...this.getState(),
-          token: json.result.token,
-          user: json.result.user,
-          exists: true,
-          waiting: false
-        }, 'Успешная авторизация');
+        this.setState(
+          {
+            ...this.getState(),
+            token: json.result.token,
+            user: json.result.user,
+            exists: true,
+            waiting: false,
+          },
+          'Успешная авторизация'
+        );
 
         // Запоминаем токен, чтобы потом автоматически аутентифицировать юзера
         window.localStorage.setItem('token', json.result.token);
@@ -67,12 +73,12 @@ class SessionState extends StateModule {
    */
   async signOut() {
     try {
-      await this.services.api.request({method: 'DELETE', url: '/api/v1/users/sign'});
+      await this.services.api.request({ method: 'DELETE', url: '/api/v1/users/sign' });
       this.services.api.setHeader(this.config.tokenHeader, null);
     } catch (error) {
       console.error(error);
     }
-    this.setState({...this.initState(), waiting: false});
+    this.setState({ ...this.initState(), waiting: false });
   }
 
   /**
@@ -84,26 +90,32 @@ class SessionState extends StateModule {
     if (token) {
       // Устанавливаем токен в АПИ
       this.services.api.setHeader(this.config.tokenHeader, token);
-      const json = await this.services.api.request({url: '/api/v1/users/self'});
+      const json = await this.services.api.request({ url: '/api/v1/users/self' });
       if (json.error) {
         // Удаляем плохой токен
         window.localStorage.removeItem('token');
         this.services.api.setHeader(this.config.tokenHeader, null);
       } else {
-        this.setState({
-          ...this.getState(),
-          token: token,
-          user: json.result,
-          exists: true,
-          waiting: false
-        }, 'Успешно вспомнили сессию');
+        this.setState(
+          {
+            ...this.getState(),
+            token: token,
+            user: json.result,
+            exists: true,
+            waiting: false,
+          },
+          'Успешно вспомнили сессию'
+        );
       }
     } else {
-      this.setState({
-        ...this.getState(),
-        exists: false,
-        waiting: false
-      }, 'Сессии нет');
+      this.setState(
+        {
+          ...this.getState(),
+          exists: false,
+          waiting: false,
+        },
+        'Сессии нет'
+      );
     }
   }
 }

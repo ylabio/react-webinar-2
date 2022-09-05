@@ -1,0 +1,25 @@
+.CommentsForm {
+  margin-bottom: 30px;
+}
+.CommentsForm-title {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  margin-bottom: 10px;
+}
+.CommentsForm-textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 80px;
+  line-height: 16px;
+  margin-bottom: 10px;
+  resize: none;
+  padding: 4px 5px;
+}
+.CommentsForm-buttons {
+  display: flex;
+  gap: 10px;
+}
+.CommentsForm-buttons button {
+  cursor: pointer;
+}

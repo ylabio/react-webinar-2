@@ -1,0 +1,31 @@
+.CommentsInfo {
+  margin-bottom: 30px;
+}
+.CommentsInfo-data {
+  display: flex;
+  margin-bottom: 10px;
+}
+.CommentsInfo-userName {
+  font-weight: 700;
+  font-size: 12px;
+  margin-right: 10px;
+  line-height: 14px;
+}
+.CommentsInfo-date {
+  font-size: 12px;
+  color: #666666;
+}
+.CommentsInfo-text {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  line-height: 16px;
+}
+.CommentsInfo-response {
+  display: block;
+  margin-bottom: 30px;
+  color: #0087e9;
+  font-size: 12px;
+  line-height: 14px;
+  cursor: pointer;
+  margin-bottom: 30px;
+}

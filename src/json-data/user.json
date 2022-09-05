@@ -1,0 +1,34 @@
+{
+	"result": {
+		"_id": "6304a823deec4c4f8927c48c",
+		"_key": "test-1",
+		"username": "test_1",
+		"email": "test_1@example.com",
+		"roles": [
+			{
+				"_id": "6304a823deec4c4f8927c483",
+				"_type": "role"
+			}
+		],
+		"profile": {
+			"name": "User №1",
+			"surname": "UserSurname1",
+			"phone": "+70000000001",
+			"middlename": "",
+			"avatar": {},
+			"birthday": "",
+			"position": "",
+			"country": {},
+			"city": {},
+			"street": ""
+		},
+		"status": "new",
+		"isNew": false,
+		"order": 3,
+		"proto": {},
+		"_type": "user",
+		"dateCreate": "2022-08-23T10:12:51.400Z",
+		"dateUpdate": "2022-08-23T10:12:51.400Z",
+		"isDeleted": false
+	}
+}

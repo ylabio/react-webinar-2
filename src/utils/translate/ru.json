@@ -22,5 +22,19 @@
   "auth.password": "Пароль",
   "auth.signIn": "Войти",
   "session.signIn": "Вход",
-  "session.signOut": "Выход"
+  "session.signOut": "Выход",
+  "article.country": "Страна производитель",
+  "article.category": "Категория",
+  "article.year": "Год выпуска",
+  "article.price": "Цена",
+  "comments.title": "Комментарии",
+  "comments.signin": "Войдите",
+  "comments.forComment": ", чтобы иметь возможность комментировать",
+  "comments.forReply": ", чтобы иметь возможность ответить",
+  "comments.newComment": "Новый комментарий",
+  "comments.newReplay": "Новый ответ",
+  "comments.reply": "Ответить",
+  "comments.submit": "Отправить",
+  "comments.cancel": "Отмена",
+  "date.loc": "ru-RU"
 }

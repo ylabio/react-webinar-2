@@ -1,11 +1,10 @@
-import React, {useCallback, useMemo} from "react";
+import React, { useCallback, useMemo } from "react";
+import Input from "../../components/input";
+import LayoutFlex from "../../components/layout-flex";
+import Select from "../../components/select";
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
-import Select from "../../components/select";
-import Input from "../../components/input";
-import LayoutFlex from "../../components/layout-flex";
-import {categories} from "../../store/exports";
 import listToTree from "../../utils/list-to-tree";
 import treeToList from "../../utils/tree-to-list";
 
@@ -30,7 +29,7 @@ function CatalogFilter() {
     // Сброс
     onReset: useCallback(() => store.get('catalog').resetParams(), []),
     // Фильтр по категории
-    onCategory: useCallback(category => store.get('catalog').setParams({category}), []),
+    onCategory: useCallback(category => store.get('catalog').setParams({category, page: 1}), []),
   };
 
   // Опции для полей

@@ -1,16 +1,16 @@
-import React, {useCallback, useState} from "react";
-import useTranslate from "../../hooks/use-translate";
+import React, { useCallback, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import Field from "../../components/field";
+import Input from "../../components/input";
 import Layout from "../../components/layout";
 import LayoutFlex from "../../components/layout-flex";
-import Input from "../../components/input";
-import Field from "../../components/field";
+import Spinner from "../../components/spinner";
+import HeadContainer from "../../containers/head";
 import ToolsContainer from "../../containers/tools";
 import TopContainer from "../../containers/top";
-import HeadContainer from "../../containers/head";
-import {useLocation, useNavigate} from "react-router-dom";
-import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
-import Spinner from "../../components/spinner";
+import useStore from "../../hooks/use-store";
+import useTranslate from "../../hooks/use-translate";
 
 function Login() {
   const {t} = useTranslate();
@@ -21,7 +21,7 @@ function Login() {
   const select = useSelector(state => ({
     waiting: state.session.waiting,
     errors: state.session.errors
-  }))
+  }));
 
   const [data, setData] = useState({
     login: '',

@@ -94,9 +94,7 @@ class CatalogState extends StateModule {
 
     // ?search[query]=text&search[category]=id
     const json = await this.services.api.request({
-      url: `http://example.front.ylab.io/api/v1/articles${qs.stringify(
-        apiParams
-      )}`,
+      url: `/api/v1/articles${qs.stringify(apiParams)}`,
     });
 
     // Установка полученных данных и сброс признака загрузки

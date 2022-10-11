@@ -1,0 +1,36 @@
+.NewCommentForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.NewCommentForm-label {
+  display: flex;
+  flex-direction: column;
+}
+
+.NewCommentForm-label span {
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.NewCommentForm-textarea {
+  width: 900px;
+  min-height: 80px;
+  resize: none;
+}
+
+.NewCommentForm-actions {
+  margin-top: 10px;
+}
+
+.NewCommentForm-signing {
+  display: flex;
+}
+
+.NewCommentForm-link {
+  color: #0087e9;
+  text-decoration: underline;
+  cursor: pointer;
+}

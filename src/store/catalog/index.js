@@ -1,12 +1,11 @@
-import StateModule from "../module";
+import StateModule from '../module';
 import qs from '../../utils/search-params';
-import diff from "../../utils/diff";
+import diff from '../../utils/diff';
 
 /**
  * Состояние каталога
  */
 class CatalogState extends StateModule {
-
   /**
    * Начальное состояние
    * @return {Object}
@@ -20,9 +19,9 @@ class CatalogState extends StateModule {
         limit: 10,
         sort: 'order',
         query: '',
-        category: ''
+        category: '',
       },
-      waiting: false
+      waiting: false,
     };
   }
 
@@ -43,7 +42,7 @@ class CatalogState extends StateModule {
     if (urlParams.category) validParams.category = urlParams.category;
 
     // Итоговые параметры из начальных, из URL и из переданных явно
-    const newParams = {...this.initState().params, ...validParams, ...params};
+    const newParams = { ...this.initState().params, ...validParams, ...params };
     // Установка параметров и подгрузка данных
     await this.setParams(newParams, true);
   }
@@ -55,7 +54,7 @@ class CatalogState extends StateModule {
    */
   async resetParams(params = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
-    const newParams = {...this.initState().params, ...params};
+    const newParams = { ...this.initState().params, ...params };
     // Установк параметров и подгрузка данных
     await this.setParams(newParams);
   }
@@ -67,36 +66,47 @@ class CatalogState extends StateModule {
    * @returns {Promise<void>}
    */
   async setParams(params = {}, historyReplace = false) {
-    const newParams = {...this.getState().params, ...params};
+    const newParams = { ...this.getState().params, ...params };
 
     // Установка новых параметров и признака загрузки
-    this.setState({
-      ...this.getState(),
-      params: newParams,
-      waiting: true
-    }, 'Смена параметров каталога');
+    this.setState(
+      {
+        ...this.getState(),
+        params: newParams,
+        waiting: true,
+      },
+      'Смена параметров каталога'
+    );
 
-    const apiParams = diff({
-      limit: newParams.limit,
-      skip: (newParams.page - 1) * newParams.limit,
-      fields: 'items(*),count',
-      sort: newParams.sort,
-      search: {
-        query: newParams.query, // search[query]=text
-        category: newParams.category  // -> search[category]=id
-      }
-    }, {skip: 0, search: {query: '', category: ''}});
+    const apiParams = diff(
+      {
+        limit: newParams.limit,
+        skip: (newParams.page - 1) * newParams.limit,
+        fields: 'items(*),count',
+        sort: newParams.sort,
+        search: {
+          query: newParams.query, // search[query]=text
+          category: newParams.category, // -> search[category]=id
+        },
+      },
+      { skip: 0, search: { query: '', category: '' } }
+    );
 
     // ?search[query]=text&search[category]=id
-    const json = await this.services.api.request({url: `/api/v1/articles${qs.stringify(apiParams)}`});
+    const json = await this.services.api.request({
+      url: `/api/v1/articles${qs.stringify(apiParams)}`,
+    });
 
     // Установка полученных данных и сброс признака загрузки
-    this.setState({
-      ...this.getState(),
-      items: json.result.items,
-      count: json.result.count,
-      waiting: false
-    }, 'Обновление списка товара');
+    this.setState(
+      {
+        ...this.getState(),
+        items: json.result.items,
+        count: json.result.count,
+        waiting: false,
+      },
+      'Обновление списка товара'
+    );
 
     // Запоминаем параметры в URL, которые отличаются от начальных
     let queryString = qs.stringify(diff(newParams, this.initState().params));

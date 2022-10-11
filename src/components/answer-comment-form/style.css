@@ -1,0 +1,42 @@
+.AnswerCommentForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.AnswerCommentForm-label {
+  display: flex;
+  flex-direction: column;
+}
+
+.AnswerCommentForm-label span {
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.AnswerCommentForm-textarea {
+  width: 900px;
+  min-height: 80px;
+  resize: none;
+}
+
+.AnswerCommentForm-actions {
+  margin-top: 10px;
+}
+
+.AnswerCommentForm-signing {
+  display: flex;
+}
+
+.AnswerCommentForm-link {
+  color: #0087e9;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.AnswerCommentForm-cancel {
+  color: #666666;
+  text-decoration: underline;
+  cursor: pointer;
+}

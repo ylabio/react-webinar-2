@@ -1,6 +1,14 @@
-/* Контрол с общими действиями */
-.Controls{
+.Controls {
     display: flex;
     justify-content: flex-end;
     padding: 20px;
+}
+.Controls-totals {
+    margin-right: 20px;
+}
+.Controls-info {
+    font-weight: 700;
+}
+.Controls-button-modal-on {
+    width: 75px;
 }

@@ -1,36 +1,47 @@
-import React, {useCallback} from 'react';
+import React, { useState, useCallback } from "react";
 import Controls from "./components/controls";
 import List from "./components/list";
 import Layout from "./components/layout";
-import {counter} from "./utils";
+import Modal from "./components/modal";
+import Totals from "./components/totals";
 
 /**
  * Приложение
  * @param store {Store} Состояние приложения
  * @return {React.ReactElement} Виртуальные элементы React
  */
-function App({store}) {
+function App({ store }) {
+  const [modalOpen, setModalOpen] = useState(false);
 
   const callbacks = {
-    onAdd: useCallback(() => {
-      const code = counter();
-      store.createItem({code, title: `Новая запись ${code}`});
+    onAddItemToCart: useCallback((code) => {
+      store.addItemToCart(code);
     }, []),
-    onSelectItems: useCallback((code) => {
-      store.selectItem(code);
+    onRemoveItemFromCart: useCallback((code) => {
+      store.removeItemFromCart(code);
     }, []),
-    onDeleteItems: useCallback((code) => {
-      store.deleteItem(code);
-    }, []),
-  }
+    onModalOpen: useCallback(() => {
+      setModalOpen(!modalOpen);
+    }, [modalOpen]),
+  };
 
   return (
-    <Layout head={<h1>Приложение на чистом JS</h1>}>
-      <Controls onAdd={callbacks.onAdd}/>
-      <List items={store.getState().items}
-            onItemSelect={callbacks.onSelectItems}
-            onItemDelete={callbacks.onDeleteItems}
+    <Layout head={<h1>Магазин</h1>}>
+      <Controls
+        cartTotals={store.getState().cartTotals}
+        onClickToggle={callbacks.onModalOpen}
       />
+      <List items={store.getState().items} onCart={callbacks.onAddItemToCart} />
+      {modalOpen ? (
+        <Modal head={<h1>Корзина</h1>} onClickToggle={callbacks.onModalOpen}>
+          <List
+            items={store.getState().cart}
+            buttonAssign="Удалить"
+            onCart={callbacks.onRemoveItemFromCart}
+          />
+          <Totals totalPrice={store.getState().cartTotals.totalPrice} />
+        </Modal>
+      ) : null}
     </Layout>
   );
 }

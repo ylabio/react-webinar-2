@@ -1,5 +1,6 @@
-class Store {
+import { cartQtyUpdate } from "./utils";
 
+class Store {
   constructor(initState) {
     // Состояние приложения (данные)
     this.state = initState;
@@ -36,48 +37,56 @@ class Store {
     this.listeners.push(callback);
     // Возвращаем функцию для удаления слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== callback);
-    }
+      this.listeners = this.listeners.filter((item) => item !== callback);
+    };
   }
 
   /**
-   * Создание записи
+   * Удаление товара из корзины
+   * @param item {{code: number, title: string, price: number, qty: number}} объект товара из корзины
    */
-  createItem({code, title = 'Новый товар', price = 999, selected = false}) {
+  removeItemFromCart(item) {
+    const totals = this.state.cartTotals;
     this.setState({
       ...this.state,
-      items: this.state.items.concat({code, title, price, selected})
+      cart:
+        // Удаляем запись о товаре из корзины целиком
+        this.state.cart.filter((cartItem) => cartItem.code !== item.code),
+      cartTotals: {
+        ...totals,
+        qty: --totals.qty,
+        totalPrice: totals.totalPrice - item.qty * item.price,
+      },
     });
   }
 
   /**
-   * Удаление записи по её коду
-   * @param code
+   * Добавление товара в корзину
+   * @param item {{code: number, title: string, price: number}} объект товара из каталога
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      items: this.state.items.filter(item => item.code !== code)
-    });
-  }
+  addItemToCart(item) {
+    const totals = this.state.cartTotals;
+    const qty = this.state.cartTotals.qty;
+    const price = this.state.cartTotals.totalPrice;
+    const cartItem = this.state.cart.find(
+      (cartItem) => cartItem.code === item.code
+    );
 
-  /**
-   * Выделение записи по её коду
-   * @param code
-   */
-  selectItem(code) {
     this.setState({
       ...this.state,
-      items: this.state.items.map(item => {
-        if (item.code === code){
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1
-          }
-        }
-        return item.selected ? {...item, selected: false} : item;
-      })
+      cart:
+        // Проверяем наличие товара в корзине
+        this.state.cart.find((cartItem) => cartItem.code === item.code)
+          ? // Если товар есть в корзине - увеличиваем количество товара на 1 шт.
+            cartQtyUpdate(item, this.state.cart, true)
+          : // Если товара нет в корзине - добавляем новый товар в корзину
+            [...this.state.cart, { ...item, qty: 1 }],
+      cartTotals: {
+        ...totals,
+        // Проверяем наличие товара в корзине
+        qty: cartItem?.qty ? qty : qty + 1,
+        totalPrice: price + item.price,
+      },
     });
   }
 }

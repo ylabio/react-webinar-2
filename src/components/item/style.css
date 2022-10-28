@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Пункт списка */
 .Item {
     display: flex;
@@ -14,6 +15,74 @@
     width: 100%;
     padding: 20px 10px;
 }
+
+.Item-info{
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    font-size: 18px;
+}
+
+.Item-info-item{
+    white-space: nowrap
+}
+
+.Item-info-item:last-child{
+    margin-left: 55px;
+}
+
+
+.Item-right {
+    padding: 20px 20px 20px 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+.Item-price {
+    padding: 0 10px;
+    white-space: nowrap;
+    font-size: 18px;
+}
+
+.Item a{
+    text-decoration: none;
+    color: black;
+}
+
+.Item a:hover{
+    text-decoration: underline;
+}
+=======
+/* Пункт списка */
+.Item {
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 1s;
+    padding-left: 10px;
+}
+
+.Item-id {
+    padding: 20px 10px 20px 20px;
+}
+
+.Item-title {
+    width: 100%;
+    padding: 20px 10px;
+    color: #000;
+}
+
+.Item-title a{
+    color: #000;
+    text-decoration: none;
+}
+
+.Item-title a:hover{
+    color: #000;
+    text-decoration: underline;
+}
+
 
 .Item-right {
     padding: 20px 20px 20px 10px;

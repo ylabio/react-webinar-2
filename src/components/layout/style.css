@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body{
     margin: 0;
     padding: 0;
@@ -17,8 +18,34 @@ body{
 .Layout-head{
     height: 80px;
     background: #f5f5f5;
+    padding: 0;
 }
 .Layout-head h1{
     margin: 0;
-    padding: 20px 20px 10px;
 }
+=======
+body{
+    margin: 0;
+    padding: 0;
+    background: #535353;
+    font-family: sans-serif;
+    position: relative;
+}
+/* Страница*/
+.Layout{
+    max-width: 1024px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: #fff;
+    box-sizing: border-box;
+    box-shadow: 0 0 15px 5px #0000003b;
+}
+.Layout-head{
+    height: 80px;
+    background: #f5f5f5;
+    padding: 0;
+}
+.Layout-head h1{
+    margin: 0;
+}
+>>>>>>> 165986927b5752d444b66a1dbd69b731321bd413
